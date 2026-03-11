@@ -1,0 +1,14 @@
+# Dev & CI
+.github/
+.claude/
+.pre-commit-config.yaml
+docs/brand_kit.md
+src/**/*.test.ts
+
+# Assets not needed at runtime
+assets/
+first-screenshot.png
+*.png
+
+# Config
+tsconfig.json
