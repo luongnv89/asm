@@ -1,5 +1,9 @@
 <p align="center">
-  <img src="assets/logo/logo-full.svg" alt="skill-manager" width="480" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo/logo-full.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="assets/logo/logo-black.svg" />
+    <img src="assets/logo/logo-full.svg" alt="skill-manager" width="480" />
+  </picture>
 </p>
 
 <p align="center">
