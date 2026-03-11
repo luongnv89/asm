@@ -18,6 +18,13 @@ bun install
 bun run start        # Launch the TUI
 ```
 
+### Running
+
+```bash
+bun run start        # Launch the interactive TUI
+bun run bin/agent-skill-manager.ts list   # Test CLI commands
+```
+
 ### Running Tests
 
 ```bash
@@ -78,7 +85,7 @@ Open a [feature request](https://github.com/luongnv89/agent-skill-manager/issues
 
 - Tests live alongside source files (`*.test.ts`)
 - Use the Bun test runner (`bun test`)
-- Add tests for new logic, especially in `scanner.ts`, `config.ts`, and `uninstaller.ts`
+- Add tests for new logic, especially in `scanner.ts`, `config.ts`, `uninstaller.ts`, `auditor.ts`, and `cli.ts`
 
 ## Pull Request Process
 

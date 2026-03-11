@@ -8,8 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ### Added
 
+- Non-interactive CLI mode with full command suite: `list`, `search`, `inspect`, `uninstall`, `audit`, `config`
+- `asm` shorthand command alias
+- Duplicate skill audit — detect and remove duplicates across providers and scopes (`asm audit`)
+- TUI audit overlay with two-phase workflow (groups → instance picker, key: `a`)
+- JSON output support (`--json`) for CLI commands
+- Output formatter module for consistent table, detail, and JSON output
 - One-command install script (`curl | bash`) with automatic Bun installation
-- Non-interactive CLI mode with `asm` shorthand command
 - .npmignore to exclude unnecessary files from npm package
 - TUI screenshot in README
 
