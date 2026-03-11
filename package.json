@@ -4,7 +4,8 @@
   "description": "Interactive TUI for managing installed skills for AI coding agents (Claude Code, Codex, OpenClaw, and more)",
   "type": "module",
   "bin": {
-    "agent-skill-manager": "bin/skill-manager.ts"
+    "agent-skill-manager": "bin/skill-manager.ts",
+    "asm": "bin/skill-manager.ts"
   },
   "scripts": {
     "start": "bun run src/index.ts",
