@@ -2,7 +2,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/logo/logo-full.svg" />
     <source media="(prefers-color-scheme: light)" srcset="assets/logo/logo-black.svg" />
-    <img src="assets/logo/logo-full.svg" alt="agent-skill-manager" width="480" />
+    <img src="assets/logo/logo-full.svg" alt="agent-skill-manager" width="560" />
   </picture>
 </p>
 
@@ -26,6 +26,10 @@
 ---
 
 **agent-skill-manager** is an interactive terminal UI for managing installed skills across AI coding agents — [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [Codex](https://github.com/openai/codex), [OpenClaw](https://github.com/openclaw), and more. Built with [OpenTUI](https://github.com/nicholasgasior/opentui) and [Bun](https://bun.sh).
+
+<p align="center">
+  <img src="assets/screenshots/agent-skill-manager.png" alt="agent-skill-manager TUI dashboard" width="800" />
+</p>
 
 ## Features
 
