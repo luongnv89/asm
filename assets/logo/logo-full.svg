@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 120" fill="none">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&amp;display=swap');
+    .wordmark { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 700; font-size: 52px; }
+    .accent { font-weight: 600; }
+  </style>
+
+  <!-- Mark scaled to fit -->
+  <g transform="translate(6, 6) scale(0.211)">
+    <!-- Outer orbital ring -->
+    <path d="M96 256 C96 148, 148 80, 256 80 C364 80, 432 160, 432 256" stroke="#00ff41" stroke-width="28" stroke-linecap="round" fill="none"/>
+    <!-- Middle orbital path -->
+    <path d="M432 256 C432 348, 372 432, 256 432 C140 432, 80 348, 80 256" stroke="#00ff41" stroke-width="28" stroke-linecap="round" fill="none" opacity="0.6"/>
+    <!-- Inner flowing path -->
+    <path d="M192 160 C224 128, 288 128, 320 160 C360 200, 360 312, 320 352 C288 384, 224 384, 192 352 C152 312, 152 200, 192 160" stroke="#00ff41" stroke-width="20" stroke-linecap="round" fill="none" opacity="0.35"/>
+    <!-- Central hub -->
+    <circle cx="256" cy="256" r="32" fill="#00ff41"/>
+    <!-- Orbital nodes -->
+    <circle cx="96" cy="256" r="18" fill="#00ff41" opacity="0.8"/>
+    <circle cx="432" cy="256" r="18" fill="#00ff41" opacity="0.8"/>
+    <circle cx="256" cy="80" r="14" fill="#00cc33"/>
+    <circle cx="256" cy="432" r="14" fill="#00cc33"/>
+    <!-- Satellite micro-nodes -->
+    <circle cx="148" cy="120" r="8" fill="#00ff41" opacity="0.4"/>
+    <circle cx="376" cy="392" r="8" fill="#00ff41" opacity="0.4"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="140" y="82" class="wordmark"><tspan fill="#fafafa">skill</tspan><tspan fill="#00ff41">manager</tspan></text>
+</svg>

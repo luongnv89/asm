@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <!-- Simplified orbital mark for 16x16 -->
+  <!-- Upper arc -->
+  <path d="M3 8 C3 4.7, 4.7 2.5, 8 2.5 C11.3 2.5, 13.5 5, 13.5 8" stroke="#00ff41" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  <!-- Lower arc -->
+  <path d="M13.5 8 C13.5 11.3, 11.3 13.5, 8 13.5 C4.7 13.5, 3 11, 3 8" stroke="#00ff41" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <!-- Central hub -->
+  <circle cx="8" cy="8" r="2.2" fill="#00ff41"/>
+  <!-- Side nodes -->
+  <circle cx="3" cy="8" r="1.1" fill="#00ff41" opacity="0.8"/>
+  <circle cx="13.5" cy="8" r="1.1" fill="#00ff41" opacity="0.8"/>
+</svg>

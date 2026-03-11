@@ -1,6 +1,10 @@
-# skill-manager
+<p align="center">
+  <img src="assets/logo/logo-full.svg" alt="skill-manager" width="480" />
+</p>
 
-Interactive TUI for managing installed skills for AI coding agents — [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [Codex](https://github.com/openai/codex), [OpenClaw](https://github.com/openclaw), and more.
+<p align="center">
+  Interactive TUI for managing installed skills for AI coding agents — <a href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a>, <a href="https://github.com/openai/codex">Codex</a>, <a href="https://github.com/openclaw">OpenClaw</a>, and more.
+</p>
 
 Built with [OpenTUI](https://github.com/nicholasgasior/opentui) and [Bun](https://bun.sh).
 
