@@ -9,6 +9,7 @@
   "scripts": {
     "start": "bun run src/index.ts",
     "typecheck": "bun run --bun tsc --noEmit",
+    "test": "bun test",
     "dev": "bun run src/index.ts"
   },
   "dependencies": {
