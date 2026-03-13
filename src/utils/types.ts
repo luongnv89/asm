@@ -1,5 +1,10 @@
 // ─── Skill Types ────────────────────────────────────────────────────────────
 
+export interface SkillWarning {
+  category: string;
+  message: string;
+}
+
 export interface SkillInfo {
   name: string;
   version: string;
@@ -15,6 +20,38 @@ export interface SkillInfo {
   symlinkTarget: string | null;
   realPath: string;
   fileCount?: number;
+  warnings?: SkillWarning[];
+}
+
+// ─── Export Types ───────────────────────────────────────────────────────────
+
+export interface ExportedSkill {
+  name: string;
+  version: string;
+  dirName: string;
+  provider: string;
+  scope: "global" | "project";
+  path: string;
+  isSymlink: boolean;
+  symlinkTarget: string | null;
+}
+
+export interface ExportManifest {
+  version: 1;
+  exportedAt: string;
+  skills: ExportedSkill[];
+}
+
+// ─── Stats Types ────────────────────────────────────────────────────────────
+
+export interface StatsReport {
+  totalSkills: number;
+  byProvider: Record<string, number>;
+  byScope: { global: number; project: number };
+  totalDiskBytes: number;
+  perSkillDiskBytes: Record<string, number>;
+  duplicateGroups: number;
+  duplicateInstances: number;
 }
 
 export interface RemovalPlan {

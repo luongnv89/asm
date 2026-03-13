@@ -31,7 +31,12 @@ import {
   buildInstallPlan,
   checkConflict,
 } from "./installer";
-import type { InstallResult } from "./utils/types";
+import type { InstallResult, SkillInfo } from "./utils/types";
+import { checkHealth } from "./health";
+import { buildManifest } from "./exporter";
+import { scaffoldSkill, directoryExists } from "./initializer";
+import { computeStats, formatStatsReport } from "./stats";
+import { validateLinkSource, createLink } from "./linker";
 import {
   detectDuplicates,
   sortInstancesForKeep,
@@ -182,6 +187,10 @@ ${ansi.bold("Commands:")}
   uninstall <skill-name> Remove a skill (with confirmation)
   install <source>       Install a skill from GitHub
   audit                  Detect duplicate skills across providers
+  export                 Export skill inventory as JSON manifest
+  init <name>            Scaffold a new skill with SKILL.md template
+  stats                  Show aggregate skill metrics dashboard
+  link <path>            Symlink a local skill directory into an agent
   config show            Print current config
   config path            Print config file path
   config reset           Reset config to defaults
@@ -280,6 +289,12 @@ ${ansi.bold("Options:")}
 
 // ─── Command Handlers ───────────────────────────────────────────────────────
 
+async function enrichWithHealth(skills: SkillInfo[]): Promise<void> {
+  for (const skill of skills) {
+    skill.warnings = await checkHealth(skill);
+  }
+}
+
 async function cmdList(args: ParsedArgs) {
   if (args.flags.help) {
     printListHelp();
@@ -288,12 +303,20 @@ async function cmdList(args: ParsedArgs) {
 
   const config = await loadConfig();
   const allSkills = await scanAllSkills(config, args.flags.scope);
+  await enrichWithHealth(allSkills);
   const sorted = sortSkills(allSkills, args.flags.sort);
 
   if (args.flags.json) {
     console.log(formatJSON(sorted));
   } else {
-    console.log(formatSkillTable(sorted));
+    let output = formatSkillTable(sorted);
+    const withWarnings = sorted.filter(
+      (s) => s.warnings && s.warnings.length > 0,
+    );
+    if (withWarnings.length > 0) {
+      output += `\n${ansi.yellow(`⚠ ${withWarnings.length} skill${withWarnings.length === 1 ? "" : "s"} with warnings — use --json for details`)}`;
+    }
+    console.log(output);
   }
 }
 
@@ -343,6 +366,8 @@ async function cmdInspect(args: ParsedArgs) {
     error(`Skill "${skillName}" not found.`);
     process.exit(1);
   }
+
+  await enrichWithHealth(matches);
 
   if (args.flags.json) {
     console.log(formatJSON(matches.length === 1 ? matches[0] : matches));
@@ -913,6 +938,257 @@ async function cmdInstall(args: ParsedArgs) {
   }
 }
 
+// ─── Export ─────────────────────────────────────────────────────────────────
+
+function printExportHelp() {
+  console.log(`${ansi.bold("Usage:")} asm export [options]
+
+Export skill inventory as a portable JSON manifest.
+
+${ansi.bold("Options:")}
+  -s, --scope <s>    Filter: global, project, or both (default: both)
+  --no-color         Disable ANSI colors
+  -V, --verbose      Show debug output`);
+}
+
+async function cmdExport(args: ParsedArgs) {
+  if (args.flags.help) {
+    printExportHelp();
+    return;
+  }
+
+  const config = await loadConfig();
+  const allSkills = await scanAllSkills(config, args.flags.scope);
+  const manifest = buildManifest(allSkills);
+  console.log(JSON.stringify(manifest, null, 2));
+}
+
+// ─── Init ───────────────────────────────────────────────────────────────────
+
+function printInitHelp() {
+  console.log(`${ansi.bold("Usage:")} asm init <name> [options]
+
+Scaffold a new skill directory with a SKILL.md template.
+
+${ansi.bold("Options:")}
+  -p, --provider <name>  Target provider (claude, codex, openclaw, agents)
+  --path <dir>           Scaffold in specified directory instead of provider path
+  -f, --force            Overwrite if skill already exists
+  --no-color             Disable ANSI colors
+  -V, --verbose          Show debug output`);
+}
+
+async function cmdInit(args: ParsedArgs) {
+  if (args.flags.help) {
+    printInitHelp();
+    return;
+  }
+
+  const name = args.subcommand;
+  if (!name) {
+    error("Missing required argument: <name>");
+    console.error(`Run "asm init --help" for usage.`);
+    process.exit(2);
+  }
+
+  // Validate name
+  const safeName = sanitizeName(name);
+
+  let targetDir: string;
+
+  if (args.flags.path) {
+    // --path flag: scaffold in specified directory
+    const { resolve: resolvePath } = await import("path");
+    targetDir = resolvePath(args.flags.path);
+  } else {
+    // Resolve provider and scaffold in provider's skill directory
+    const config = await loadConfig();
+    const provider = await resolveProvider(
+      config,
+      args.flags.provider,
+      !!process.stdin.isTTY,
+    );
+    const { join: joinPath } = await import("path");
+    const { resolveProviderPath } = await import("./config");
+    const providerDir = resolveProviderPath(
+      config.providers.find((p) => p.name === provider.name)!.global,
+    );
+    targetDir = joinPath(providerDir, safeName);
+  }
+
+  // Check conflict
+  if (await directoryExists(targetDir)) {
+    if (!args.flags.force) {
+      if (!process.stdin.isTTY) {
+        error(
+          `Directory already exists: ${targetDir}. Use --force to overwrite.`,
+        );
+        process.exit(2);
+      }
+      process.stderr.write(
+        `${ansi.yellow(`Directory already exists: ${targetDir}`)}\n${ansi.bold("Overwrite?")} [y/N] `,
+      );
+      const answer = await readLine();
+      if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
+        console.error("Aborted.");
+        process.exit(0);
+      }
+    }
+  }
+
+  await scaffoldSkill(safeName, targetDir);
+  console.error(ansi.green(`✓ Created skill "${safeName}" at ${targetDir}`));
+}
+
+// ─── Stats ──────────────────────────────────────────────────────────────────
+
+function printStatsHelp() {
+  console.log(`${ansi.bold("Usage:")} asm stats [options]
+
+Show aggregate skill metrics dashboard.
+
+${ansi.bold("Options:")}
+  --json             Output as JSON
+  -s, --scope <s>    Filter: global, project, or both (default: both)
+  --no-color         Disable ANSI colors
+  -V, --verbose      Show debug output`);
+}
+
+async function cmdStats(args: ParsedArgs) {
+  if (args.flags.help) {
+    printStatsHelp();
+    return;
+  }
+
+  const config = await loadConfig();
+  const allSkills = await scanAllSkills(config, args.flags.scope);
+
+  if (allSkills.length === 0) {
+    console.log("No skills found.");
+    return;
+  }
+
+  const duplicates = detectDuplicates(allSkills);
+  const report = await computeStats(allSkills, duplicates);
+
+  if (args.flags.json) {
+    console.log(formatJSON(report));
+  } else {
+    console.log(formatStatsReport(report));
+  }
+}
+
+// ─── Link ───────────────────────────────────────────────────────────────────
+
+function printLinkHelp() {
+  console.log(`${ansi.bold("Usage:")} asm link <path> [options]
+
+Symlink a local skill directory into an agent's skill folder.
+
+${ansi.bold("Options:")}
+  -p, --provider <name>  Target provider (claude, codex, openclaw, agents)
+  --name <name>          Override symlink name (default: directory basename)
+  -f, --force            Overwrite if target already exists
+  --json                 Output as JSON
+  --no-color             Disable ANSI colors
+  -V, --verbose          Show debug output`);
+}
+
+async function cmdLink(args: ParsedArgs) {
+  if (args.flags.help) {
+    printLinkHelp();
+    return;
+  }
+
+  const sourcePath = args.subcommand;
+  if (!sourcePath) {
+    error("Missing required argument: <path>");
+    console.error(`Run "asm link --help" for usage.`);
+    process.exit(2);
+  }
+
+  const { resolve: resolvePath, basename } = await import("path");
+  const absSourcePath = resolvePath(sourcePath);
+
+  // Validate source
+  const sourceInfo = await validateLinkSource(absSourcePath);
+
+  // Determine link name
+  const linkName = args.flags.name
+    ? sanitizeName(args.flags.name)
+    : basename(absSourcePath);
+
+  // Resolve provider
+  const config = await loadConfig();
+  const provider = await resolveProvider(
+    config,
+    args.flags.provider,
+    !!process.stdin.isTTY,
+  );
+
+  const { resolveProviderPath } = await import("./config");
+  const providerDir = resolveProviderPath(
+    config.providers.find((p) => p.name === provider.name)!.global,
+  );
+
+  const { join: joinPath } = await import("path");
+  const targetPath = joinPath(providerDir, linkName);
+
+  // Check conflict (without force)
+  if (!args.flags.force) {
+    let exists = false;
+    try {
+      const { access: fsAccess } = await import("fs/promises");
+      await fsAccess(targetPath);
+      exists = true;
+    } catch {
+      // doesn't exist
+    }
+
+    if (exists) {
+      if (!process.stdin.isTTY) {
+        error(
+          `Target already exists: ${targetPath}. Use --force to overwrite.`,
+        );
+        process.exit(2);
+      }
+      process.stderr.write(
+        `${ansi.yellow(`Target already exists: ${targetPath}`)}\n${ansi.bold("Overwrite?")} [y/N] `,
+      );
+      const answer = await readLine();
+      if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
+        console.error("Aborted.");
+        process.exit(0);
+      }
+      // User confirmed — pass force=true to createLink
+      await createLink(absSourcePath, providerDir, linkName, true);
+    } else {
+      await createLink(absSourcePath, providerDir, linkName, false);
+    }
+  } else {
+    await createLink(absSourcePath, providerDir, linkName, true);
+  }
+
+  if (args.flags.json) {
+    console.log(
+      formatJSON({
+        success: true,
+        name: linkName,
+        symlinkPath: targetPath,
+        targetPath: absSourcePath,
+      }),
+    );
+  } else {
+    console.error(ansi.green(`✓ Linked "${linkName}" → ${absSourcePath}`));
+    console.error(`  Symlink: ${targetPath}`);
+    console.error(
+      ansi.dim(
+        `  If you move or delete the source, run "asm uninstall ${linkName}" to clean up.`,
+      ),
+    );
+  }
+}
+
 // ─── Main CLI dispatcher ────────────────────────────────────────────────────
 
 export async function runCLI(argv: string[]): Promise<void> {
@@ -967,6 +1243,18 @@ export async function runCLI(argv: string[]): Promise<void> {
     case "config":
       await cmdConfig(args);
       break;
+    case "export":
+      await cmdExport(args);
+      break;
+    case "init":
+      await cmdInit(args);
+      break;
+    case "stats":
+      await cmdStats(args);
+      break;
+    case "link":
+      await cmdLink(args);
+      break;
     default:
       error(`Unknown command: "${args.command}"`);
       console.error(`Run "asm --help" for usage.`);
@@ -989,6 +1277,10 @@ export function isCLIMode(argv: string[]): boolean {
     "audit",
     "config",
     "install",
+    "export",
+    "init",
+    "stats",
+    "link",
   ];
   const first = args[0];
 

@@ -84,6 +84,16 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
     lines.push(label("Description", skill.description));
   }
 
+  if (skill.warnings && skill.warnings.length > 0) {
+    lines.push("");
+    lines.push(useColor() ? ansi.bold("Warnings:") : "Warnings:");
+    for (const w of skill.warnings) {
+      lines.push(
+        `  ${useColor() ? ansi.yellow("⚠") : "!"} [${w.category}] ${w.message}`,
+      );
+    }
+  }
+
   return lines.join("\n");
 }
 
