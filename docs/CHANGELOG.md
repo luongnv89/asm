@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.4.1] - 2026-03-13
+
+### Added
+
+- `asm install` now accepts plain HTTPS GitHub URLs (e.g., `https://github.com/owner/repo`) in addition to the `github:owner/repo` format (#5)
+- Support for `.git` suffix, `/tree/branch` paths, and trailing slashes in HTTPS URLs
+
+### Fixed
+
+- Add type annotations to fix implicit `any` typecheck errors in tests
+
 ## [1.4.0] - 2026-03-13
 
 ### Added
