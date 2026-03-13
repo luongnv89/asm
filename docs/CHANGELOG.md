@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.5.1] - 2026-03-13
+
+### Fixed
+
+- Compact batch install output: shared settings shown once, one line per skill with progress counter and warning summary
+- Replace Unicode characters (checkmarks, arrows, box-drawing, em-dashes) with ASCII-safe equivalents to prevent garbled terminal output
+- Fix process hang after interactive provider selection by pausing stdin after read
+
 ## [1.5.0] - 2026-03-13
 
 ### Added
