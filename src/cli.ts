@@ -591,8 +591,9 @@ function printInstallHelp() {
 Install a skill from a GitHub repository.
 
 ${ansi.bold("Source Format:")}
-  github:owner/repo          Install from default branch
-  github:owner/repo#ref      Install from specific branch or tag
+  github:owner/repo              Install from default branch
+  github:owner/repo#ref          Install from specific branch or tag
+  https://github.com/owner/repo  Install via HTTPS URL
 
 ${ansi.bold("Options:")}
   -p, --provider <name>  Target provider (claude, codex, openclaw, agents)
@@ -608,10 +609,12 @@ ${ansi.bold("Options:")}
 ${ansi.bold("Single-skill repo:")}
   asm install github:user/my-skill
   asm install github:user/my-skill#v1.0.0 -p claude
+  asm install https://github.com/user/my-skill
 
 ${ansi.bold("Multi-skill repo:")}
   asm install github:user/skills --path skills/code-review
   asm install github:user/skills --all -p claude -y
+  asm install https://github.com/user/skills --all
   asm install github:user/skills              ${ansi.dim("(interactive picker)")}`);
 }
 

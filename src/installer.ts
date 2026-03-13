@@ -32,11 +32,21 @@ const OWNER_RE = /^[a-zA-Z0-9_-]+$/;
 const REPO_RE = /^[a-zA-Z0-9._-]+$/;
 const NAME_RE = /^[a-zA-Z0-9][a-zA-Z0-9._-]*$/;
 const MAX_NAME_LENGTH = 128;
+const GITHUB_URL_RE =
+  /^https?:\/\/github\.com\/([^/]+)\/([^/]+?)(?:\/tree\/(.+))?\/?$/;
 
 export function parseSource(input: string): ParsedSource {
+  // Normalize HTTPS GitHub URLs to github:owner/repo[#ref] format
+  const urlMatch = GITHUB_URL_RE.exec(input);
+  if (urlMatch) {
+    const [, urlOwner, urlRepo, urlRef] = urlMatch;
+    const cleanRepo = urlRepo.endsWith(".git") ? urlRepo.slice(0, -4) : urlRepo;
+    input = `github:${urlOwner}/${cleanRepo}${urlRef ? `#${urlRef}` : ""}`;
+  }
+
   if (!input.startsWith("github:")) {
     throw new Error(
-      `Invalid source: must start with "github:". Got: "${input}"\nFormat: github:owner/repo[#ref]`,
+      `Invalid source format. Got: "${input}"\nSupported formats:\n  github:owner/repo[#ref]\n  https://github.com/owner/repo`,
     );
   }
 

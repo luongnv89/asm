@@ -62,10 +62,60 @@ describe("parseSource", () => {
     expect(result.repo).toBe("my.skill.repo");
   });
 
+  // HTTPS URL normalization tests
+  test("accepts https://github.com/owner/repo", () => {
+    const result = parseSource("https://github.com/owner/repo");
+    expect(result.owner).toBe("owner");
+    expect(result.repo).toBe("repo");
+    expect(result.ref).toBeNull();
+    expect(result.cloneUrl).toBe("https://github.com/owner/repo.git");
+  });
+
+  test("accepts https://github.com/owner/repo.git", () => {
+    const result = parseSource("https://github.com/owner/repo.git");
+    expect(result.owner).toBe("owner");
+    expect(result.repo).toBe("repo");
+    expect(result.ref).toBeNull();
+    expect(result.cloneUrl).toBe("https://github.com/owner/repo.git");
+  });
+
+  test("accepts https://github.com/owner/repo/tree/branch-name", () => {
+    const result = parseSource(
+      "https://github.com/owner/repo/tree/branch-name",
+    );
+    expect(result.owner).toBe("owner");
+    expect(result.repo).toBe("repo");
+    expect(result.ref).toBe("branch-name");
+    expect(result.cloneUrl).toBe("https://github.com/owner/repo.git");
+  });
+
+  test("accepts http://github.com/owner/repo", () => {
+    const result = parseSource("http://github.com/owner/repo");
+    expect(result.owner).toBe("owner");
+    expect(result.repo).toBe("repo");
+    expect(result.ref).toBeNull();
+  });
+
+  test("accepts https URL with nested branch path in /tree/", () => {
+    const result = parseSource(
+      "https://github.com/owner/repo/tree/feature/new-thing",
+    );
+    expect(result.owner).toBe("owner");
+    expect(result.repo).toBe("repo");
+    expect(result.ref).toBe("feature/new-thing");
+  });
+
+  test("accepts https URL with trailing slash", () => {
+    const result = parseSource("https://github.com/owner/repo/");
+    expect(result.owner).toBe("owner");
+    expect(result.repo).toBe("repo");
+    expect(result.ref).toBeNull();
+  });
+
   // Rejection tests
   test("rejects missing github prefix", () => {
     expect(() => parseSource("alice/my-skill")).toThrow(
-      'must start with "github:"',
+      "Invalid source format",
     );
   });
 

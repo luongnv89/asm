@@ -847,6 +847,7 @@ describe("CLI integration: install", () => {
     expect(exitCode).toBe(0);
     expect(stdout).toContain("asm install");
     expect(stdout).toContain("github:owner/repo");
+    expect(stdout).toContain("https://github.com/owner/repo");
     expect(stdout).toContain("--provider");
     expect(stdout).toContain("--name");
     expect(stdout).toContain("--path");
