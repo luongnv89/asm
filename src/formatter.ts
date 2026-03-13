@@ -48,7 +48,7 @@ export function formatSkillTable(skills: SkillInfo[]): string {
   const pad = (str: string, width: number) => str.padEnd(width);
 
   const headerLine = headers.map((h, i) => pad(h, widths[i])).join("  ");
-  const separator = widths.map((w) => "─".repeat(w)).join("──");
+  const separator = widths.map((w) => "-".repeat(w)).join("--");
   const dataLines = rows.map((row) =>
     row.map((cell, i) => pad(cell, widths[i])).join("  "),
   );
@@ -89,7 +89,7 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
     lines.push(useColor() ? ansi.bold("Warnings:") : "Warnings:");
     for (const w of skill.warnings) {
       lines.push(
-        `  ${useColor() ? ansi.yellow("⚠") : "!"} [${w.category}] ${w.message}`,
+        `  ${useColor() ? ansi.yellow("!") : "!"} [${w.category}] ${w.message}`,
       );
     }
   }

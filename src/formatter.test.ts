@@ -72,7 +72,7 @@ describe("formatSkillTable", () => {
   test("includes separator line", () => {
     const output = formatSkillTable([makeSkill()]);
     const lines = output.split("\n");
-    expect(lines[1]).toMatch(/^─+/);
+    expect(lines[1]).toMatch(/^-+/);
   });
 
   test("shows all six columns", () => {

@@ -315,7 +315,7 @@ async function cmdList(args: ParsedArgs) {
       (s) => s.warnings && s.warnings.length > 0,
     );
     if (withWarnings.length > 0) {
-      output += `\n${ansi.yellow(`⚠ ${withWarnings.length} skill${withWarnings.length === 1 ? "" : "s"} with warnings — use --json for details`)}`;
+      output += `\n${ansi.yellow(`${withWarnings.length} skill${withWarnings.length === 1 ? "" : "s"} with warnings -- use --json for details`)}`;
     }
     console.log(output);
   }
@@ -374,7 +374,7 @@ async function cmdInspect(args: ParsedArgs) {
     console.log(formatJSON(matches.length === 1 ? matches[0] : matches));
   } else {
     for (let i = 0; i < matches.length; i++) {
-      if (i > 0) console.log("\n" + "─".repeat(40) + "\n");
+      if (i > 0) console.log("\n" + "-".repeat(40) + "\n");
       console.log(await formatSkillDetail(matches[i]));
     }
   }
@@ -440,6 +440,7 @@ export function readLine(): Promise<string> {
     function cleanup() {
       process.stdin.removeListener("data", onData);
       process.stdin.removeListener("end", onEnd);
+      process.stdin.pause();
       clearTimeout(timer);
     }
 
@@ -632,10 +633,11 @@ async function installSingleSkill(
   config: Awaited<ReturnType<typeof loadConfig>>,
   provider: ProviderConfig,
   allProviders: ProviderConfig[] | null,
+  batchContext?: { index: number; total: number },
 ): Promise<InstallResult> {
   // Validate
   const metadata = await validateSkill(skillDir);
-  console.error(`Found skill: ${metadata.name} v${metadata.version}`);
+  const isBatch = batchContext !== undefined;
 
   // Scan for warnings
   const warnings = await scanForWarnings(skillDir);
@@ -658,69 +660,88 @@ async function installSingleSkill(
   // Check conflict
   await checkConflict(plan.targetDir, plan.force);
 
-  // Preview
-  console.error(`\n${ansi.bold("Install preview:")}`);
-  console.error(`  Name:        ${metadata.name}`);
-  console.error(`  Version:     ${metadata.version}`);
-  console.error(`  Description: ${metadata.description || "(none)"}`);
-  console.error(`  Source:      ${sourceStr}`);
-  if (allProviders) {
+  if (isBatch) {
+    // Compact output for batch mode: one-line progress + warnings summary
+    const progress = `[${batchContext.index}/${batchContext.total}]`;
+    const warnTag =
+      warnings.length > 0
+        ? ` ${ansi.yellow(`(${warnings.length} warning${warnings.length > 1 ? "s" : ""})`)}`
+        : "";
     console.error(
-      `  Provider:    All (${allProviders.map((p) => p.label).join(", ")})`,
-    );
-    console.error(`  Primary:     ${provider.label} (${provider.name})`);
-    console.error(
-      `  Symlinks:    ${allProviders
-        .filter((p) => p.name !== provider.name)
-        .map((p) => p.label)
-        .join(", ")}`,
+      `${ansi.dim(progress)} ${ansi.bold(metadata.name)} v${metadata.version}${warnTag}`,
     );
   } else {
-    console.error(`  Provider:    ${provider.label} (${provider.name})`);
-  }
-  console.error(`  Target:      ${plan.targetDir}`);
-
-  if (warnings.length > 0) {
-    console.error(`\n${ansi.yellow(ansi.bold("Security warnings:"))}`);
-    const grouped = new Map<string, typeof warnings>();
-    for (const w of warnings) {
-      const list = grouped.get(w.category) || [];
-      list.push(w);
-      grouped.set(w.category, list);
+    // Full preview for single-skill install
+    console.error(`Found skill: ${metadata.name} v${metadata.version}`);
+    console.error(`\n${ansi.bold("Install preview:")}`);
+    console.error(`  Name:        ${metadata.name}`);
+    console.error(`  Version:     ${metadata.version}`);
+    if (metadata.description) {
+      console.error(`  Description: ${metadata.description}`);
     }
-    for (const [category, items] of grouped) {
+    console.error(`  Source:      ${sourceStr}`);
+    if (allProviders) {
       console.error(
-        `\n  ${ansi.yellow(`[${category}]`)} (${items.length} match${items.length > 1 ? "es" : ""})`,
+        `  Provider:    All (${allProviders.map((p) => p.label).join(", ")})`,
       );
-      for (const item of items.slice(0, 5)) {
-        console.error(
-          `    ${ansi.dim(item.file)}:${item.line} — ${item.match}`,
-        );
-      }
-      if (items.length > 5) {
-        console.error(`    ... and ${items.length - 5} more`);
-      }
+      console.error(`  Primary:     ${provider.label} (${provider.name})`);
+      console.error(
+        `  Symlinks:    ${allProviders
+          .filter((p) => p.name !== provider.name)
+          .map((p) => p.label)
+          .join(", ")}`,
+      );
+    } else {
+      console.error(`  Provider:    ${provider.label} (${provider.name})`);
     }
-  }
+    console.error(`  Target:      ${plan.targetDir}`);
 
-  // Confirmation (only when not in batch/--all mode — caller handles --all confirmation)
-  if (!args.flags.yes && !args.flags.all) {
-    if (!process.stdin.isTTY) {
-      error(
-        "Cannot prompt for confirmation in non-interactive mode. Use --yes to skip.",
-      );
-      process.exit(2);
+    if (warnings.length > 0) {
+      console.error(`\n${ansi.yellow(ansi.bold("Security warnings:"))}`);
+      const grouped = new Map<string, typeof warnings>();
+      for (const w of warnings) {
+        const list = grouped.get(w.category) || [];
+        list.push(w);
+        grouped.set(w.category, list);
+      }
+      for (const [category, items] of grouped) {
+        console.error(
+          `\n  ${ansi.yellow(`[${category}]`)} (${items.length} match${items.length > 1 ? "es" : ""})`,
+        );
+        for (const item of items.slice(0, 5)) {
+          console.error(
+            `    ${ansi.dim(item.file)}:${item.line} -- ${item.match}`,
+          );
+        }
+        if (items.length > 5) {
+          console.error(`    ... and ${items.length - 5} more`);
+        }
+      }
     }
-    process.stderr.write(`\n${ansi.bold("Proceed with installation?")} [y/N] `);
-    const answer = await readLine();
-    if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
-      console.error("Aborted.");
-      process.exit(0);
+
+    // Confirmation (only when not in batch/--all mode -- caller handles --all confirmation)
+    if (!args.flags.yes && !args.flags.all) {
+      if (!process.stdin.isTTY) {
+        error(
+          "Cannot prompt for confirmation in non-interactive mode. Use --yes to skip.",
+        );
+        process.exit(2);
+      }
+      process.stderr.write(
+        `\n${ansi.bold("Proceed with installation?")} [y/N] `,
+      );
+      const answer = await readLine();
+      if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
+        console.error("Aborted.");
+        process.exit(0);
+      }
     }
   }
 
   // Execute install
-  console.error(`\nInstalling to ${plan.targetDir}...`);
+  if (!isBatch) {
+    console.error(`\nInstalling to ${plan.targetDir}...`);
+  }
   if (allProviders) {
     return await executeInstallAllProviders(plan, allProviders);
   }
@@ -896,9 +917,35 @@ async function cmdInstall(args: ParsedArgs) {
           process.exit(2);
         }
 
-        for (const relPath of selectedPaths) {
+        // Show batch header with shared context
+        if (selectedPaths.length > 1) {
+          console.error(`\n${ansi.bold("Install settings:")}`);
+          console.error(`  Source:      ${sourceStr}`);
+          if (allProviders) {
+            console.error(
+              `  Provider:    All (${allProviders.map((p) => p.label).join(", ")})`,
+            );
+            console.error(
+              `  Primary:     ${provider.label} (${provider.name})`,
+            );
+            console.error(
+              `  Symlinks:    ${allProviders
+                .filter((p) => p.name !== provider.name)
+                .map((p) => p.label)
+                .join(", ")}`,
+            );
+          } else {
+            console.error(
+              `  Provider:    ${provider.label} (${provider.name})`,
+            );
+          }
+          console.error("");
+        }
+
+        const failures: string[] = [];
+        for (let si = 0; si < selectedPaths.length; si++) {
+          const relPath = selectedPaths[si];
           const skillDir = joinPath(tempDir, relPath);
-          console.error(`\n${"─".repeat(40)}`);
           try {
             const result = await installSingleSkill(
               args,
@@ -911,18 +958,27 @@ async function cmdInstall(args: ParsedArgs) {
               config,
               provider,
               allProviders,
+              selectedPaths.length > 1
+                ? { index: si + 1, total: selectedPaths.length }
+                : undefined,
             );
             results.push(result);
-            console.error(
-              ansi.green(`✓ Installed "${result.name}" to ${result.path}`),
-            );
           } catch (skillErr: any) {
+            failures.push(relPath);
             console.error(
-              ansi.red(
-                `✗ Failed to install from ${relPath}: ${skillErr.message}`,
-              ),
+              ansi.red(`  x Failed: ${relPath} -- ${skillErr.message}`),
             );
             if (selectedPaths.length === 1) throw skillErr;
+          }
+        }
+
+        // Batch summary
+        if (selectedPaths.length > 1 && failures.length > 0) {
+          console.error(
+            `\n${ansi.yellow(`${failures.length} skill(s) failed to install:`)}`,
+          );
+          for (const f of failures) {
+            console.error(`  - ${f}`);
           }
         }
       }
@@ -938,11 +994,13 @@ async function cmdInstall(args: ParsedArgs) {
       );
     } else if (results.length === 1) {
       console.error(
-        ansi.green(`\n✓ Installed "${results[0].name}" to ${results[0].path}`),
+        ansi.green(
+          `\nDone! Installed "${results[0].name}" to ${results[0].path}`,
+        ),
       );
     } else {
       console.error(
-        `\n${ansi.green(`✓ Installed ${results.length} skill(s) successfully.`)}`,
+        `\n${ansi.green(`Done! Installed ${results.length} skill(s) successfully.`)}`,
       );
     }
   } catch (err: any) {
@@ -1064,7 +1122,9 @@ async function cmdInit(args: ParsedArgs) {
   }
 
   await scaffoldSkill(safeName, targetDir);
-  console.error(ansi.green(`✓ Created skill "${safeName}" at ${targetDir}`));
+  console.error(
+    ansi.green(`Done! Created skill "${safeName}" at ${targetDir}`),
+  );
 }
 
 // ─── Stats ──────────────────────────────────────────────────────────────────
@@ -1206,7 +1266,7 @@ async function cmdLink(args: ParsedArgs) {
       }),
     );
   } else {
-    console.error(ansi.green(`✓ Linked "${linkName}" → ${absSourcePath}`));
+    console.error(ansi.green(`Done! Linked "${linkName}" -> ${absSourcePath}`));
     console.error(`  Symlink: ${targetPath}`);
     console.error(
       ansi.dim(

@@ -102,7 +102,7 @@ export function parseSource(input: string): ParsedSource {
     ref,
     cloneUrl: `https://github.com/${owner}/${repo}.git`,
   };
-  debug(`install: parsed source → owner=${owner} repo=${repo} ref=${ref}`);
+  debug(`install: parsed source -> owner=${owner} repo=${repo} ref=${ref}`);
   return result;
 }
 
@@ -476,7 +476,7 @@ export async function executeInstallAllProviders(
     // Create relative symlink pointing to the primary install location
     const relTarget = relative(providerDir, plan.targetDir);
     await symlink(relTarget, targetPath, "dir");
-    debug(`install: symlinked ${targetPath} → ${relTarget}`);
+    debug(`install: symlinked ${targetPath} -> ${relTarget}`);
   }
 
   // Update result to indicate all-providers install
@@ -562,6 +562,7 @@ export async function resolveProvider(
       data += chunk;
       if (data.includes("\n")) {
         process.stdin.removeAllListeners("data");
+        process.stdin.pause();
         resolve(data.trim());
       }
     });
