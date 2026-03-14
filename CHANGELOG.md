@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.8.1 — 2026-03-14
+
+### Bug Fixes
+
+- Fix duplicate skill removal to create symlinks to the kept instance instead of just deleting the folder, so skills remain accessible from all provider locations
+
+**Full Changelog**: https://github.com/luongnv89/agent-skill-manager/compare/v1.8.0...v1.8.1
+
 ## v1.8.0 — 2026-03-14
 
 ### Features
