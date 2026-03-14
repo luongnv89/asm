@@ -722,29 +722,29 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
 
   lines.push("");
   lines.push(
-    color.dim("  ┌─ ") +
+    color.dim("  +-- ") +
       color.bold("Security Audit") +
-      color.dim(" " + "─".repeat(BOX_WIDTH - 19) + "┐"),
+      color.dim(" " + "-".repeat(BOX_WIDTH - 19) + "+"),
   );
   lines.push(
-    color.dim("  │") + namePart + " ".repeat(gap) + badgeText + color.dim("│"),
+    color.dim("  |") + namePart + " ".repeat(gap) + badgeText + color.dim("|"),
   );
   lines.push(
-    color.dim("  │") +
+    color.dim("  |") +
       color.dim(
-        `  ${formatNumber(report.totalFiles)} files · ${formatNumber(report.totalLines)} lines`,
+        `  ${formatNumber(report.totalFiles)} files | ${formatNumber(report.totalLines)} lines`,
       ) +
       " ".repeat(
         Math.max(
           1,
           innerWidth -
-            `  ${formatNumber(report.totalFiles)} files · ${formatNumber(report.totalLines)} lines`
+            `  ${formatNumber(report.totalFiles)} files | ${formatNumber(report.totalLines)} lines`
               .length,
         ),
       ) +
-      color.dim("│"),
+      color.dim("|"),
   );
-  lines.push(color.dim("  └" + "─".repeat(BOX_WIDTH - 2) + "┘"));
+  lines.push(color.dim("  +" + "-".repeat(BOX_WIDTH - 2) + "+"));
 
   // ── Source line (compact) ──
   if (report.source) {
@@ -771,7 +771,7 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
       if (src.accountAge) {
         parts.push(src.accountAge);
       }
-      lines.push(`  ${color.dim("Author:")} ${parts.join(color.dim(" · "))}`);
+      lines.push(`  ${color.dim("Author:")} ${parts.join(color.dim(" | "))}`);
     }
   }
 
@@ -780,7 +780,7 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
   // ── Zone B: Threat Summary ──
   if (report.codeScans.length === 0) {
     lines.push(
-      `  ${color.green("✓")} ${color.green("No suspicious patterns detected.")}`,
+      `  ${color.green("*")} ${color.green("No suspicious patterns detected.")}`,
     );
   } else {
     // Verdict reason line
@@ -814,7 +814,7 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
     const permLabel =
       permTypes.length > 0 ? color.dim(`Perms: ${permTypes.join(", ")}`) : "";
 
-    lines.push(`     ${countParts.join(color.dim(" · "))}    ${permLabel}`);
+    lines.push(`     ${countParts.join(color.dim(" | "))}    ${permLabel}`);
   }
 
   lines.push("");
@@ -822,7 +822,7 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
   // ── Zone C: Findings ──
   if (report.codeScans.length > 0) {
     lines.push(`  ${color.bold("Findings")}`);
-    lines.push(color.dim("  " + "━".repeat(BOX_WIDTH - 2)));
+    lines.push(color.dim("  " + "=".repeat(BOX_WIDTH - 2)));
 
     for (const category of report.codeScans) {
       const dedupedMatches = deduplicateMatches(category.matches);
@@ -931,7 +931,7 @@ export function formatSecurityReport(report: SecurityAuditReport): string {
   }
 
   // ── Zone D: Footer ──
-  lines.push(color.dim("  " + "━".repeat(BOX_WIDTH - 2)));
+  lines.push(color.dim("  " + "=".repeat(BOX_WIDTH - 2)));
   const date = new Date(report.scannedAt);
   const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")} ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
   const sourceUrl =
