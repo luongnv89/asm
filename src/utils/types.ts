@@ -111,6 +111,7 @@ export interface ParsedSource {
   owner: string;
   repo: string;
   ref: string | null;
+  subpath: string | null;
   cloneUrl: string;
   sshCloneUrl: string;
 }

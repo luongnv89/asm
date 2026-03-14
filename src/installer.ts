@@ -51,7 +51,7 @@ export function parseSource(input: string): ParsedSource {
 
   if (!input.startsWith("github:")) {
     throw new Error(
-      `Invalid source format. Got: "${input}"\nSupported formats:\n  github:owner/repo[#ref]\n  https://github.com/owner/repo`,
+      `Invalid source format. Got: "${input}"\nSupported formats:\n  github:owner/repo[#ref]\n  github:owner/repo#ref:path\n  https://github.com/owner/repo\n  https://github.com/owner/repo/tree/branch/path/to/skill`,
     );
   }
 
@@ -60,12 +60,25 @@ export function parseSource(input: string): ParsedSource {
 
   let ownerRepo: string;
   let ref: string | null = null;
+  let subpath: string | null = null;
 
   if (hashIdx !== -1) {
     ownerRepo = rest.slice(0, hashIdx);
-    ref = rest.slice(hashIdx + 1);
-    if (!ref) {
+    const refAndPath = rest.slice(hashIdx + 1);
+    if (!refAndPath) {
       throw new Error("Invalid source: ref cannot be empty after #");
+    }
+    // Support github:owner/repo#ref:subpath syntax
+    // Colon is not valid in git ref names, so this is unambiguous
+    const colonIdx = refAndPath.indexOf(":");
+    if (colonIdx !== -1) {
+      ref = refAndPath.slice(0, colonIdx);
+      if (!ref) {
+        throw new Error("Invalid source: ref cannot be empty before :");
+      }
+      subpath = refAndPath.slice(colonIdx + 1) || null;
+    } else {
+      ref = refAndPath;
     }
   } else {
     ownerRepo = rest;
@@ -102,11 +115,61 @@ export function parseSource(input: string): ParsedSource {
     owner,
     repo,
     ref,
+    subpath,
     cloneUrl: `https://github.com/${owner}/${repo}.git`,
     sshCloneUrl: `git@github.com:${owner}/${repo}.git`,
   };
-  debug(`install: parsed source -> owner=${owner} repo=${repo} ref=${ref}`);
+  debug(
+    `install: parsed source -> owner=${owner} repo=${repo} ref=${ref} subpath=${subpath}`,
+  );
   return result;
+}
+
+/**
+ * Resolve ref/subpath ambiguity for URLs like /tree/main/skills/agent-config.
+ * Uses git ls-remote to discover valid refs and split the path accordingly.
+ */
+export async function resolveSubpath(
+  source: ParsedSource,
+): Promise<ParsedSource> {
+  // Already resolved (from github: shorthand with :subpath) or nothing to resolve
+  if (source.subpath !== null || !source.ref || !source.ref.includes("/")) {
+    return source;
+  }
+
+  try {
+    const { stdout } = await execFileAsync(
+      "git",
+      ["ls-remote", "--heads", "--tags", source.cloneUrl],
+      { timeout: 15_000 },
+    );
+
+    const refs = new Set<string>();
+    for (const line of stdout.split("\n")) {
+      const match = line.match(/\trefs\/(?:heads|tags)\/(.+)$/);
+      if (match) refs.add(match[1]);
+    }
+
+    // Try progressively shorter prefixes as the ref (shortest first = most common case)
+    const segments = source.ref.split("/");
+    for (let i = 1; i < segments.length; i++) {
+      const candidateRef = segments.slice(0, i).join("/");
+      if (refs.has(candidateRef)) {
+        const subpath = segments.slice(i).join("/");
+        debug(`install: resolved ref="${candidateRef}" subpath="${subpath}"`);
+        return {
+          ...source,
+          ref: candidateRef,
+          subpath: subpath || null,
+        };
+      }
+    }
+  } catch (err) {
+    debug(`install: ls-remote failed, treating entire ref as branch: ${err}`);
+  }
+
+  // Fallback: treat entire ref as the branch (backward compatible)
+  return source;
 }
 
 export function sanitizeName(name: string): string {
@@ -365,7 +428,7 @@ export async function scanForWarnings(
 export async function executeInstall(
   plan: InstallPlan,
 ): Promise<InstallResult> {
-  const sourceStr = `github:${plan.source.owner}/${plan.source.repo}${plan.source.ref ? `#${plan.source.ref}` : ""}`;
+  const sourceStr = `github:${plan.source.owner}/${plan.source.repo}${plan.source.ref ? `#${plan.source.ref}` : ""}${plan.source.subpath ? `:${plan.source.subpath}` : ""}`;
 
   // Handle force removal of existing
   if (plan.force) {

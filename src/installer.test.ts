@@ -20,6 +20,7 @@ import { join, relative } from "path";
 import { tmpdir } from "os";
 import {
   parseSource,
+  resolveSubpath,
   sanitizeName,
   checkGitAvailable,
   validateSkill,
@@ -167,6 +168,105 @@ describe("parseSource", () => {
     expect(() => parseSource("github:alice/my-skill#")).toThrow(
       "ref cannot be empty",
     );
+  });
+
+  // Subpath tests (github: shorthand with #ref:subpath)
+  test("parses github shorthand with ref:subpath", () => {
+    const result = parseSource("github:user/skills#main:skills/agent-config");
+    expect(result.owner).toBe("user");
+    expect(result.repo).toBe("skills");
+    expect(result.ref).toBe("main");
+    expect(result.subpath).toBe("skills/agent-config");
+  });
+
+  test("parses github shorthand with ref:subpath single segment", () => {
+    const result = parseSource("github:user/skills#main:my-skill");
+    expect(result.ref).toBe("main");
+    expect(result.subpath).toBe("my-skill");
+  });
+
+  test("parses github shorthand with ref but no subpath", () => {
+    const result = parseSource("github:user/skills#main");
+    expect(result.ref).toBe("main");
+    expect(result.subpath).toBeNull();
+  });
+
+  test("rejects empty ref before colon in shorthand", () => {
+    expect(() => parseSource("github:user/repo#:subpath")).toThrow(
+      "ref cannot be empty",
+    );
+  });
+
+  test("subpath is null for trailing colon with no path", () => {
+    const result = parseSource("github:user/repo#main:");
+    expect(result.ref).toBe("main");
+    expect(result.subpath).toBeNull();
+  });
+
+  test("subpath is null when not specified", () => {
+    const result = parseSource("github:alice/my-skill");
+    expect(result.subpath).toBeNull();
+  });
+
+  test("HTTPS URL with tree path stores full path as ref (needs async resolution)", () => {
+    const result = parseSource(
+      "https://github.com/user/skills/tree/main/skills/agent-config",
+    );
+    // Before resolveSubpath(), the entire tree path is stored as ref
+    expect(result.ref).toBe("main/skills/agent-config");
+    expect(result.subpath).toBeNull();
+  });
+
+  test("existing github shorthand with slashed ref still works", () => {
+    const result = parseSource("github:alice/repo#feature/new-thing");
+    expect(result.ref).toBe("feature/new-thing");
+    expect(result.subpath).toBeNull();
+  });
+});
+
+// ─── resolveSubpath tests ─────────────────────────────────────────────────
+
+describe("resolveSubpath", () => {
+  test("returns source unchanged when subpath already set", async () => {
+    const source = {
+      owner: "user",
+      repo: "skills",
+      ref: "main",
+      subpath: "already/set",
+      cloneUrl: "https://github.com/user/skills.git",
+      sshCloneUrl: "git@github.com:user/skills.git",
+    };
+    const result = await resolveSubpath(source);
+    expect(result.subpath).toBe("already/set");
+    expect(result.ref).toBe("main");
+  });
+
+  test("returns source unchanged when ref has no slash", async () => {
+    const source = {
+      owner: "user",
+      repo: "skills",
+      ref: "main",
+      subpath: null,
+      cloneUrl: "https://github.com/user/skills.git",
+      sshCloneUrl: "git@github.com:user/skills.git",
+    };
+    const result = await resolveSubpath(source);
+    expect(result.ref).toBe("main");
+    expect(result.subpath).toBeNull();
+  });
+
+  test("returns source unchanged when ref is null", async () => {
+    const source = {
+      owner: "user",
+      repo: "skills",
+      ref: null,
+      subpath: null,
+      cloneUrl: "https://github.com/user/skills.git",
+      sshCloneUrl: "git@github.com:user/skills.git",
+    };
+    const result = await resolveSubpath(source);
+    expect(result.ref).toBeNull();
+    expect(result.subpath).toBeNull();
   });
 });
 
@@ -683,6 +783,7 @@ describe("executeInstallAllProviders", () => {
         owner: "user",
         repo: "my-skill",
         ref: null,
+        subpath: null,
         cloneUrl: "https://github.com/user/my-skill.git",
         sshCloneUrl: "git@github.com:user/my-skill.git",
       },

@@ -33,6 +33,7 @@ import {
   executeInstallAllProviders,
   cleanupTemp,
   resolveProvider,
+  resolveSubpath,
   buildInstallPlan,
   checkConflict,
 } from "./installer";
@@ -340,7 +341,9 @@ ${ansi.bold("Examples:")}
   asm audit security code-review               ${ansi.dim("Audit an installed skill")}
   asm audit security github:user/repo          ${ansi.dim("Audit a remote skill before installing")}
   asm audit security --all                     ${ansi.dim("Audit all installed skills")}
-  asm audit security code-review --json        ${ansi.dim("Output audit as JSON")}`);
+  asm audit security code-review --json        ${ansi.dim("Output audit as JSON")}
+  asm audit security https://github.com/user/skills/tree/main/skills/agent-config
+                                               ${ansi.dim("Audit a skill from a subfolder URL")}`);
 }
 
 function printConfigHelp() {
@@ -691,15 +694,25 @@ async function cmdAuditSecurityAll(args: ParsedArgs) {
 async function cmdAuditSecuritySource(args: ParsedArgs, target: string) {
   let tempDir: string | null = null;
   try {
-    const source = parseSource(target);
-    console.error(`Cloning ${target} for audit...`);
+    let source = parseSource(target);
 
     await checkGitAvailable();
+
+    // Resolve ref/subpath for subfolder URLs
+    source = await resolveSubpath(source);
+    console.error(`Cloning ${target} for audit...`);
+
     tempDir = await cloneToTemp(source, args.flags.transport);
 
-    const { name } = await validateSkill(tempDir);
+    // Use subpath if available (from URL like /tree/main/skills/agent-config)
+    const { join: joinPath } = await import("path");
+    const auditDir = source.subpath
+      ? joinPath(tempDir, source.subpath)
+      : tempDir;
+
+    const { name } = await validateSkill(auditDir);
     const report = await auditSkillSecurity(
-      tempDir,
+      auditDir,
       name,
       source.owner,
       source.repo,
@@ -823,7 +836,10 @@ Install a skill from a GitHub repository.
 ${ansi.bold("Source Format:")}
   github:owner/repo              Install from default branch
   github:owner/repo#ref          Install from specific branch or tag
+  github:owner/repo#ref:path     Install from a subfolder on a specific branch
   https://github.com/owner/repo  Install via HTTPS URL
+  https://github.com/owner/repo/tree/branch/path/to/skill
+                                 Install from a subfolder URL (auto-detects branch)
 
 ${ansi.bold("Options:")}
   -p, --provider <name>  Target provider (claude, codex, openclaw, agents, all)
@@ -851,7 +867,11 @@ ${ansi.bold("Multi-skill repo:")}
   asm install github:user/skills --all -p claude -y
   asm install github:user/skills --all -p all -y  ${ansi.dim("(all skills, all providers)")}
   asm install https://github.com/user/skills --all
-  asm install github:user/skills              ${ansi.dim("(interactive picker)")}`);
+  asm install github:user/skills              ${ansi.dim("(interactive picker)")}
+
+${ansi.bold("Subfolder URL:")}
+  asm install https://github.com/user/skills/tree/main/skills/agent-config
+  asm install github:user/skills#main:skills/agent-config`);
 }
 
 async function installSingleSkill(
@@ -1006,12 +1026,15 @@ async function cmdInstall(args: ParsedArgs) {
   process.on("SIGTERM", cleanup);
 
   try {
-    // Parse source
-    const source = parseSource(sourceStr);
-    console.error(`Parsing source: ${sourceStr}`);
+    // Parse source and resolve subfolder URLs
+    let source = parseSource(sourceStr);
 
     // Check git
     await checkGitAvailable();
+
+    // Resolve ref/subpath for URLs like /tree/main/skills/agent-config
+    source = await resolveSubpath(source);
+    console.error(`Parsing source: ${sourceStr}`);
 
     // Clone
     const transport = args.flags.transport;
@@ -1022,7 +1045,7 @@ async function cmdInstall(args: ParsedArgs) {
           ? source.cloneUrl
           : `${source.cloneUrl} (auto)`;
     console.error(
-      `Cloning ${displayUrl}${source.ref ? ` (ref: ${source.ref})` : ""}...`,
+      `Cloning ${displayUrl}${source.ref ? ` (ref: ${source.ref})` : ""}${source.subpath ? ` (path: ${source.subpath})` : ""}...`,
     );
     tempDir = await cloneToTemp(source, transport);
 
@@ -1038,14 +1061,17 @@ async function cmdInstall(args: ParsedArgs) {
     const { join: joinPath } = await import("path");
     let results: InstallResult[] = [];
 
-    // Case 1: --path flag — install specific subdirectory
-    if (args.flags.path) {
-      const skillDir = joinPath(tempDir, args.flags.path);
+    // Effective path: explicit --path flag takes precedence over URL-derived subpath
+    const effectivePath = args.flags.path || source.subpath;
+
+    // Case 1: path specified (via --path flag or URL subpath) — install specific subdirectory
+    if (effectivePath) {
+      const skillDir = joinPath(tempDir, effectivePath);
       try {
         await validateSkill(skillDir);
       } catch {
         throw new Error(
-          `No SKILL.md found at path "${args.flags.path}" in the repository.`,
+          `No SKILL.md found at path "${effectivePath}" in the repository.`,
         );
       }
       const result = await installSingleSkill(
