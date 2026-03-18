@@ -55,6 +55,11 @@ import {
   formatSecurityReport,
   formatSecurityReportJSON,
 } from "./security-auditor";
+import { ingestRepo, listIndexedRepos, removeRepoIndex } from "./ingester";
+import {
+  searchSkills as searchIndexSkills,
+  getTotalSkillCount,
+} from "./skill-index";
 import { VERSION_STRING } from "./utils/version";
 import { setVerbose } from "./logger";
 import type { Scope, SortBy, TransportMode } from "./utils/types";
@@ -219,6 +224,7 @@ ${ansi.bold("Commands:")}
   init <name>            Scaffold a new skill with SKILL.md template
   stats                  Show aggregate skill metrics dashboard
   link <path>            Symlink a local skill directory into an agent
+  index                  Manage skill index (ingest, search, list)
   config show            Print current config
   config path            Print config file path
   config reset           Reset config to defaults
@@ -1598,6 +1604,206 @@ async function cmdLink(args: ParsedArgs) {
   }
 }
 
+function printIndexHelp() {
+  console.log(`${ansi.bold("Usage:")} asm index <subcommand> [options]
+
+Manage the skill index for searching available skills from indexed repos.
+
+${ansi.bold("Subcommands:")}
+  ingest <repo>     Ingest a skill repository into the index
+  search <query>   Search indexed skills by name or description
+  list             List all indexed repositories
+  remove <owner/repo>  Remove a repo from the index
+
+${ansi.bold("Options:")}
+  --json           Output as JSON
+  -y, --yes        Skip confirmation prompts
+  --no-color       Disable ANSI colors
+  -V, --verbose    Show debug output
+
+${ansi.bold("Examples:")}
+  asm index ingest github:obra/superpowers          ${ansi.dim("Index superpowers repo")}
+  asm index search code review                       ${ansi.dim("Search for skills")}
+  asm index list                                    ${ansi.dim("List indexed repos")}
+  asm index remove obra/superpowers                 ${ansi.dim("Remove from index")}`);
+}
+
+async function cmdIndex(args: ParsedArgs) {
+  if (args.flags.help) {
+    printIndexHelp();
+    return;
+  }
+
+  const subcommand = args.subcommand;
+
+  if (!subcommand) {
+    error("Missing subcommand. Use: ingest, search, list, or remove");
+    console.error(`Run "asm index --help" for usage.`);
+    process.exit(2);
+  }
+
+  switch (subcommand) {
+    case "ingest": {
+      const repo = args.positional[0];
+      if (!repo) {
+        error("Missing required argument: <repo>");
+        console.error(`Run "asm index --help" for usage.`);
+        process.exit(2);
+      }
+
+      console.error(ansi.blueBold(`Ingesting ${repo}...`));
+      const result = await ingestRepo(repo);
+
+      if (!result.success) {
+        error(`Failed to ingest: ${result.error}`);
+        process.exit(1);
+      }
+
+      if (result.repoIndex) {
+        if (args.flags.json) {
+          console.log(
+            formatJSON({
+              success: true,
+              owner: result.repoIndex.owner,
+              repo: result.repoIndex.repo,
+              skillCount: result.repoIndex.skillCount,
+              updatedAt: result.repoIndex.updatedAt,
+            }),
+          );
+        } else {
+          console.error(
+            ansi.green(
+              `Successfully indexed ${result.repoIndex.owner}/${result.repoIndex.repo}`,
+            ),
+          );
+          console.error(`  Skills found: ${result.repoIndex.skillCount}`);
+        }
+      }
+      break;
+    }
+
+    case "search": {
+      const query = args.positional.join(" ");
+      if (!query) {
+        error("Missing required argument: <query>");
+        console.error(`Run "asm index --help" for usage.`);
+        process.exit(2);
+      }
+
+      const results = await searchIndexSkills(query);
+
+      if (results.length === 0) {
+        if (args.flags.json) {
+          console.log(formatJSON([]));
+        } else {
+          console.error(ansi.yellow("No skills found matching your query."));
+          console.error(
+            ansi.dim("Try ingesting more repos with: asm index ingest <repo>"),
+          );
+        }
+        return;
+      }
+
+      if (args.flags.json) {
+        console.log(
+          formatJSON(
+            results.map((r) => ({
+              name: r.skill.name,
+              description: r.skill.description,
+              version: r.skill.version,
+              installUrl: r.skill.installUrl,
+              repo: `${r.repo.owner}/${r.repo.repo}`,
+            })),
+          ),
+        );
+      } else {
+        console.error(ansi.bold(`Found ${results.length} skills:\n`));
+        for (const result of results) {
+          console.error(
+            `${ansi.cyan(result.skill.name)} ${ansi.dim(`v${result.skill.version}`)} ${ansi.dim(`[${result.repo.owner}/${result.repo.repo}]`)}`,
+          );
+          console.error(
+            `  ${result.skill.description.slice(0, 80)}${result.skill.description.length > 80 ? "..." : ""}`,
+          );
+          console.error(`  ${ansi.green(result.skill.installUrl)}\n`);
+        }
+      }
+      break;
+    }
+
+    case "list": {
+      const repos = await listIndexedRepos();
+
+      if (repos.length === 0) {
+        if (args.flags.json) {
+          console.log(formatJSON([]));
+        } else {
+          console.error(ansi.yellow("No repositories indexed."));
+          console.error(ansi.dim("Add repos with: asm index ingest <repo>"));
+        }
+        return;
+      }
+
+      const totalSkills = await getTotalSkillCount();
+
+      if (args.flags.json) {
+        console.log(formatJSON(repos));
+      } else {
+        console.error(
+          ansi.bold(`Indexed Repositories (${totalSkills} total skills):\n`),
+        );
+        for (const repo of repos) {
+          console.error(
+            `${ansi.cyan(`${repo.owner}/${repo.repo}`)} - ${repo.skillCount} skills ${ansi.dim(`(${new Date(repo.updatedAt).toLocaleDateString()})`)}`,
+          );
+        }
+      }
+      break;
+    }
+
+    case "remove": {
+      const ownerRepo = args.positional[0];
+      if (!ownerRepo) {
+        error("Missing required argument: <owner/repo>");
+        console.error(`Run "asm index --help" for usage.`);
+        process.exit(2);
+      }
+
+      const [owner, repo] = ownerRepo.split("/");
+      if (!owner || !repo) {
+        error("Invalid format. Use: <owner/repo>");
+        process.exit(2);
+      }
+
+      if (!args.flags.yes && process.stdin.isTTY) {
+        process.stderr.write(
+          `${ansi.bold("Remove")} ${ansi.cyan(`${owner}/${repo}`)} ${ansi.bold("from index?")} [y/N] `,
+        );
+        const answer = await readLine();
+        if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
+          console.error("Aborted.");
+          process.exit(0);
+        }
+      }
+
+      const removed = await removeRepoIndex(owner, repo);
+
+      if (removed) {
+        console.error(ansi.green(`Removed ${owner}/${repo} from index`));
+      } else {
+        error(`Repository not found in index: ${owner}/${repo}`);
+        process.exit(1);
+      }
+      break;
+    }
+
+    default:
+      error(`Unknown subcommand: "${subcommand}"`);
+      console.error(`Run "asm index --help" for usage.`);
+      process.exit(2);
+  }
+}
+
 // ─── Main CLI dispatcher ────────────────────────────────────────────────────
 
 export async function runCLI(argv: string[]): Promise<void> {
@@ -1664,6 +1870,9 @@ export async function runCLI(argv: string[]): Promise<void> {
     case "link":
       await cmdLink(args);
       break;
+    case "index":
+      await cmdIndex(args);
+      break;
     default:
       error(`Unknown command: "${args.command}"`);
       console.error(`Run "asm --help" for usage.`);
@@ -1690,6 +1899,7 @@ export function isCLIMode(argv: string[]): boolean {
     "init",
     "stats",
     "link",
+    "index",
   ];
   const first = args[0];
 

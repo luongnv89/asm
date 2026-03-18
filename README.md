@@ -32,7 +32,7 @@
 **agent-skill-manager** (`asm`) is an interactive TUI and CLI for managing installed skills across AI coding agents — [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [Codex](https://github.com/openai/codex), [OpenClaw](https://github.com/openclaw), and more. Built with [OpenTUI](https://github.com/nicholasgasior/opentui) and [Bun](https://bun.sh).
 
 <p align="center">
-  <img src="assets/screenshots/asm-list.png" alt="agent-skill-manager TUI dashboard" width="800" />
+  <img src="assets/screenshots/tui.png" alt="agent-skill-manager TUI dashboard" width="800" />
 </p>
 
 ## Features
@@ -114,6 +114,10 @@ asm                    # or: agent-skill-manager
 
 ### CLI Commands
 
+<p align="center">
+  <img src="assets/screenshots/asm-list.png" alt="agent-skill-manager CLI output" width="800" />
+</p>
+
 ```bash
 asm list                       # List all discovered skills
 asm search <query>             # Search by name/description/provider
@@ -122,6 +126,10 @@ asm install <source>           # Install a skill from GitHub
 asm uninstall <skill-name>     # Remove a skill (with confirmation)
 asm audit                      # Detect duplicate skills
 asm audit security <name>     # Run security audit on a skill
+asm index ingest <repo>        # Index a skill repo for searching
+asm index search <query>       # Search indexed skills
+asm index list                 # List indexed repositories
+asm index remove <owner/repo>  # Remove a repo from the index
 asm config show                # Print current config
 asm config path                # Print config file path
 asm config reset               # Reset config to defaults
@@ -210,6 +218,10 @@ asm audit security --all
 
 # Uninstall without confirmation
 asm uninstall old-skill --yes
+
+# Index a skill repo and search it
+asm index ingest github:anthropics/skills
+asm index search "frontend design" --json
 ```
 
 ## TUI Keyboard Shortcuts
@@ -365,19 +377,21 @@ agent-skill-manager/
 
 A curated list of open-source repositories that offer collections of skills for AI agents. Install any of them with `asm install github:<owner>/<repo>`.
 
-> **Last updated:** 2026-03-17 | **Previous update:** 2026-03-17
+> **Last updated:** 2026-03-18 | **Previous update:** 2026-03-17
 
-| Repository                                                                          | Description                                                                                                                                                                 | Maintainer                                               |  Stars | Trending |
-| ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | -----: | :------: |
-| [superpowers](https://github.com/obra/superpowers)                                  | An agentic skills framework & software development methodology that works.                                                                                                  | [@obra](https://github.com/obra)                         | 89,816 |    —     |
-| [everything-claude-code](https://github.com/affaan-m/everything-claude-code)        | The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond. | [@affaan-m](https://github.com/affaan-m)                 | 81,392 |    ↑     |
-| [ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)      | An AI skill that provides design intelligence for building professional UI/UX across multiple platforms.                                                                    | [@nextlevelbuilder](https://github.com/nextlevelbuilder) | 43,112 |    —     |
-| [antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills) | The Ultimate Collection of 1000+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents.                                   | [@sickn33](https://github.com/sickn33)                   | 25,047 |    ↑     |
-| [marketingskills](https://github.com/coreyhaines31/marketingskills)                 | Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.                                                                   | [@coreyhaines31](https://github.com/coreyhaines31)       | 14,099 |    —     |
-| [agentskills](https://github.com/agentskills/agentskills)                           | Specification and documentation for Agent Skills.                                                                                                                           | [@agentskills](https://github.com/agentskills)           | 13,342 |    —     |
-| [taste-skill](https://github.com/Leonxlnx/taste-skill)                              | Taste-Skill (High-Agency Frontend) — gives your AI good taste. Stops the AI from generating boring, generic, "slop".                                                        | [@Leonxlnx](https://github.com/Leonxlnx)                 |  3,389 |    ↑     |
-| [affiliate-skills](https://github.com/Affitor/affiliate-skills)                     | AI-powered Claude Skills for affiliate marketers. Full funnel: research → content → blog → landing → deploy.                                                                | [@Affitor](https://github.com/Affitor)                   |     99 |    —     |
-| [skills](https://github.com/luongnv89/skills)                                       | Supercharge your AI agents/bots with reusable skills.                                                                                                                       | [@luongnv89](https://github.com/luongnv89)               |      1 |    —     |
+| Repository                                                                          | Description                                                                                                                                                                 | Maintainer                                               |  Stars | Trending | Skills |
+| ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | -----: | :------: | -----: |
+| [anthropic-skills](https://github.com/anthropics/skills)                            | Public repository for Agent Skills.                                                                                                                                         | [@anthropics](https://github.com/anthropics)             | 95,957 |    —     |     18 |
+| [superpowers](https://github.com/obra/superpowers)                                  | An agentic skills framework & software development methodology that works.                                                                                                  | [@obra](https://github.com/obra)                         | 89,816 |    —     |     14 |
+| [everything-claude-code](https://github.com/affaan-m/everything-claude-code)        | The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond. | [@affaan-m](https://github.com/affaan-m)                 | 81,392 |    ↑     |    147 |
+| [agency-agents](https://github.com/msitarzewski/agency-agents)                      | A complete AI agency at your fingertips — specialized expert agents with personality, processes, and proven deliverables.                                                   | [@msitarzewski](https://github.com/msitarzewski)         | 50,749 |    —     |      0 |
+| [ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)      | An AI skill that provides design intelligence for building professional UI/UX across multiple platforms.                                                                    | [@nextlevelbuilder](https://github.com/nextlevelbuilder) | 43,112 |    —     |      7 |
+| [antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills) | The Ultimate Collection of 1000+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents.                                   | [@sickn33](https://github.com/sickn33)                   | 25,047 |    ↑     |   1258 |
+| [marketingskills](https://github.com/coreyhaines31/marketingskills)                 | Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.                                                                   | [@coreyhaines31](https://github.com/coreyhaines31)       | 14,099 |    —     |     33 |
+| [agentskills](https://github.com/agentskills/agentskills)                           | Specification and documentation for Agent Skills.                                                                                                                           | [@agentskills](https://github.com/agentskills)           | 13,342 |    —     |      0 |
+| [taste-skill](https://github.com/Leonxlnx/taste-skill)                              | Taste-Skill (High-Agency Frontend) — gives your AI good taste. Stops the AI from generating boring, generic, "slop".                                                        | [@Leonxlnx](https://github.com/Leonxlnx)                 |  3,389 |    ↑     |      5 |
+| [affiliate-skills](https://github.com/Affitor/affiliate-skills)                     | AI-powered Claude Skills for affiliate marketers. Full funnel: research → content → blog → landing → deploy.                                                                | [@Affitor](https://github.com/Affitor)                   |     99 |    —     |     47 |
+| [skills](https://github.com/luongnv89/skills)                                       | Supercharge your AI agents/bots with reusable skills.                                                                                                                       | [@luongnv89](https://github.com/luongnv89)               |      1 |    —     |     29 |
 
 > **Note:** The _Trending_ column compares star counts with the previous update. Arrows indicate growth (↑), decline (↓), or no prior data (—).
 

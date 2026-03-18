@@ -1,0 +1,135 @@
+{
+  "repoUrl": "https://github.com/anthropics/skills.git",
+  "owner": "anthropics",
+  "repo": "skills",
+  "updatedAt": "2026-03-17T23:45:52.677Z",
+  "skillCount": 18,
+  "skills": [
+    {
+      "name": "algorithmic-art",
+      "description": "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/algorithmic-art",
+      "relPath": "skills/algorithmic-art"
+    },
+    {
+      "name": "brand-guidelines",
+      "description": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/brand-guidelines",
+      "relPath": "skills/brand-guidelines"
+    },
+    {
+      "name": "canvas-design",
+      "description": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/canvas-design",
+      "relPath": "skills/canvas-design"
+    },
+    {
+      "name": "claude-api",
+      "description": "Build apps with the Claude API or Anthropic SDK. TRIGGER when: code imports `anthropic`/`@anthropic-ai/sdk`/`claude_agent_sdk`, or user asks to use Claude API, Anthropic SDKs, or Agent SDK. DO NOT TRIGGER when: code imports `openai`/other AI SDK, general programming, or ML/data-science tasks.",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/claude-api",
+      "relPath": "skills/claude-api"
+    },
+    {
+      "name": "doc-coauthoring",
+      "description": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/doc-coauthoring",
+      "relPath": "skills/doc-coauthoring"
+    },
+    {
+      "name": "docx",
+      "description": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a 'report', 'memo', 'letter', 'template', or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation.",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/docx",
+      "relPath": "skills/docx"
+    },
+    {
+      "name": "frontend-design",
+      "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/frontend-design",
+      "relPath": "skills/frontend-design"
+    },
+    {
+      "name": "internal-comms",
+      "description": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership updates, 3P updates, company newsletters, FAQs, incident reports, project updates, etc.).",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/internal-comms",
+      "relPath": "skills/internal-comms"
+    },
+    {
+      "name": "mcp-builder",
+      "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/mcp-builder",
+      "relPath": "skills/mcp-builder"
+    },
+    {
+      "name": "pdf",
+      "description": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/pdf",
+      "relPath": "skills/pdf"
+    },
+    {
+      "name": "pptx",
+      "description": "Use this skill any time a .pptx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates, layouts, speaker notes, or comments. Trigger whenever the user mentions \\\"deck,\\\" \\\"slides,\\\" \\\"presentation,\\\" or references a .pptx filename, regardless of what they plan to do with the content afterward. If a .pptx file needs to be opened, created, or touched, use this skill.",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/pptx",
+      "relPath": "skills/pptx"
+    },
+    {
+      "name": "skill-creator",
+      "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/skill-creator",
+      "relPath": "skills/skill-creator"
+    },
+    {
+      "name": "slack-gif-creator",
+      "description": "Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like \"make me a GIF of X doing Y for Slack.",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/slack-gif-creator",
+      "relPath": "skills/slack-gif-creator"
+    },
+    {
+      "name": "template-skill",
+      "description": "Replace with description of the skill and when Claude should use it.",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:template",
+      "relPath": "template"
+    },
+    {
+      "name": "theme-factory",
+      "description": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/theme-factory",
+      "relPath": "skills/theme-factory"
+    },
+    {
+      "name": "web-artifacts-builder",
+      "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/web-artifacts-builder",
+      "relPath": "skills/web-artifacts-builder"
+    },
+    {
+      "name": "webapp-testing",
+      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/webapp-testing",
+      "relPath": "skills/webapp-testing"
+    },
+    {
+      "name": "xlsx",
+      "description": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \\\"the xlsx in my downloads\\\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.",
+      "version": "0.0.0",
+      "installUrl": "github:anthropics/skills:skills/xlsx",
+      "relPath": "skills/xlsx"
+    }
+  ]
+}

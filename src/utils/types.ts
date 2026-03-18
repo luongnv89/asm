@@ -154,6 +154,25 @@ export interface DiscoveredSkill {
   description: string;
 }
 
+// ─── Skill Index Types ───────────────────────────────────────────────────────
+
+export interface IndexedSkill {
+  name: string;
+  description: string;
+  version: string;
+  installUrl: string;
+  relPath: string;
+}
+
+export interface RepoIndex {
+  repoUrl: string;
+  owner: string;
+  repo: string;
+  updatedAt: string;
+  skillCount: number;
+  skills: IndexedSkill[];
+}
+
 // ─── Security Audit Types ────────────────────────────────────────────────
 
 export interface SourceAnalysis {

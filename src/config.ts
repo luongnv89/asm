@@ -1,12 +1,17 @@
 import { readFile, writeFile, mkdir, copyFile } from "fs/promises";
 import { join, resolve, dirname } from "path";
+import { fileURLToPath } from "url";
 import { homedir } from "os";
 import { debug } from "./logger";
 import type { AppConfig, ProviderConfig } from "./utils/types";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const HOME = homedir();
 const CONFIG_DIR = join(HOME, ".config", "agent-skill-manager");
 const CONFIG_PATH = join(CONFIG_DIR, "config.json");
+const INDEX_DIR = join(CONFIG_DIR, "skill-index");
 
 const DEFAULT_PROVIDERS: ProviderConfig[] = [
   {
@@ -53,6 +58,16 @@ export function getDefaultConfig(): AppConfig {
 
 export function getConfigPath(): string {
   return CONFIG_PATH;
+}
+
+export function getIndexDir(): string {
+  return INDEX_DIR;
+}
+
+export function getBundledIndexDir(): string {
+  // In built dist/: __dirname is dist/, data/ is at ../data/
+  // In dev (src/): __dirname is src/, data/ is at ../data/
+  return resolve(__dirname, "..", "data", "skill-index");
 }
 
 export function resolveProviderPath(pathTemplate: string): string {

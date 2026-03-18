@@ -1,0 +1,212 @@
+{
+  "repoUrl": "https://github.com/luongnv89/skills.git",
+  "owner": "luongnv89",
+  "repo": "skills",
+  "updatedAt": "2026-03-17T23:46:03.480Z",
+  "skillCount": 29,
+  "skills": [
+    {
+      "name": "agent-config",
+      "description": "Create or update CLAUDE.md and AGENTS.md files following official best practices. Use when asked to create, update, audit, or improve project configuration files for AI agents, or when users mention \"CLAUDE.md\", \"AGENTS.md\", \"agent config\", or \"agent instructions\".",
+      "version": "1.1.0",
+      "installUrl": "github:luongnv89/skills:skills/agent-config",
+      "relPath": "skills/agent-config"
+    },
+    {
+      "name": "aso-marketing",
+      "description": "Comprehensive App Store Optimization (ASO) marketing skill for mobile applications. Analyzes your app's codebase, store listing, and competitive landscape, then builds and executes a full ASO plan covering keyword strategy, metadata optimization, visual asset guidance, localization, and conversion rate improvement — for both Apple App Store and Google Play. Includes built-in store policy compliance checking that validates all proposed metadata against Apple App Store Review Guidelines (2.3.7, 5.2.1) and Google Play metadata policies — catching prohibited keywords, trademark violations, competitor brand misuse, and listing policy issues before submission to prevent app rejection. Use when asked to \"optimize my app store listing\", \"ASO plan\", \"improve app visibility\", \"app store marketing\", \"increase app downloads\", \"keyword strategy for my app\", \"optimize for App Store\", \"optimize for Google Play\", \"app marketing plan\", \"store listing optimization\", \"improve app conversion rate\", \"ASO audit and fix\", \"check listing policy compliance\", \"avoid app store rejection\", or any request about making a mobile app more discoverable and downloadable in app stores. Also trigger when the user mentions app store rankings, keyword research for apps, screenshot optimization, app metadata, store policy compliance, or wants to increase organic installs — even if they don't say \"ASO\" explicitly.",
+      "version": "1.1.0",
+      "installUrl": "github:luongnv89/skills:skills/aso-marketing",
+      "relPath": "skills/aso-marketing"
+    },
+    {
+      "name": "auto-push",
+      "description": "Stage all changes, create commit, and push to remote. Use when asked to \"push everything\", \"commit and push all\", \"push all my changes\", or for bulk operations. Includes safety checks for secrets, API keys, and large files. Execute immediately after safety checks (no extra confirmation step). Use with caution.",
+      "version": "1.0.0",
+      "installUrl": "github:luongnv89/skills:skills/auto-push",
+      "relPath": "skills/auto-push"
+    },
+    {
+      "name": "cli-builder",
+      "description": "Guide users through building a CLI tool for any module or application. Use when users ask to \"build a CLI\", \"create a command-line tool\", \"add CLI interface\", \"make this scriptable\", \"wrap this in a CLI\", \"add a terminal interface\", or mention specific CLI frameworks like argparse, click, typer, commander, yargs, cobra, clap, picocli, or thor. Follows a strict 5-step approval-gated workflow: Analyze -> Design -> Plan -> Execute -> Summarize. Language-agnostic — auto-detects the project's language and recommends appropriate CLI libraries.",
+      "version": "1.0.0",
+      "installUrl": "github:luongnv89/skills:skills/cli-builder",
+      "relPath": "skills/cli-builder"
+    },
+    {
+      "name": "code-optimizer",
+      "description": "Analyze code for performance issues and suggest optimizations. Use when users ask to \"optimize this code\", \"find performance issues\", \"improve performance\", \"check for memory leaks\", \"review code efficiency\", or want to identify bottlenecks, algorithmic improvements, caching opportunities, or concurrency problems.",
+      "version": "1.2.0",
+      "installUrl": "github:luongnv89/skills:skills/code-optimizer",
+      "relPath": "skills/code-optimizer"
+    },
+    {
+      "name": "code-review",
+      "description": "Perform code reviews following best practices from Code Smells and The Pragmatic Programmer. Use when asked to \"review this code\", \"check for code smells\", \"review my PR\", \"audit the codebase\", or need quality feedback on code changes. Supports both full codebase audits and focused PR/diff reviews. Outputs structured markdown reports grouped by severity.",
+      "version": "1.0.1",
+      "installUrl": "github:luongnv89/skills:skills/code-review",
+      "relPath": "skills/code-review"
+    },
+    {
+      "name": "context-hub",
+      "description": "Use Context Hub (`chub`) to fetch up-to-date third-party API/SDK docs before writing or reviewing integration code. Trigger this skill whenever a task mentions external APIs, SDKs, webhooks, auth flows, or library-specific method usage (OpenAI, Stripe, Anthropic, Pinecone, etc.), even if the user does not explicitly ask for documentation.",
+      "version": "1.0.0",
+      "installUrl": "github:luongnv89/skills:skills/context-hub",
+      "relPath": "skills/context-hub"
+    },
+    {
+      "name": "devops-pipeline",
+      "description": "Implement pre-commit hooks and GitHub Actions for quality assurance. Use when asked to \"setup CI/CD\", \"add pre-commit hooks\", \"create GitHub Actions\", \"setup quality gates\", \"automate testing\", \"add linting to CI\", or any DevOps automation for code quality. Detects project type and configures appropriate tools.",
+      "version": "1.0.0",
+      "installUrl": "github:luongnv89/skills:skills/devops-pipeline",
+      "relPath": "skills/devops-pipeline"
+    },
+    {
+      "name": "docs-generator",
+      "description": "Restructure project documentation for clarity and accessibility. Use when users ask to \"organize docs\", \"generate documentation\", \"improve doc structure\", \"restructure README\", or need to reorganize scattered documentation into a coherent structure. Analyzes project type and creates appropriate documentation hierarchy.",
+      "version": "1.2.0",
+      "installUrl": "github:luongnv89/skills:skills/docs-generator",
+      "relPath": "skills/docs-generator"
+    },
+    {
+      "name": "excalidraw-generator",
+      "description": "Generate diagrams, schemas, charts, flowcharts, architecture diagrams, mind maps, ER diagrams, sequence diagrams, Gantt charts, org charts, wireframes, Venn diagrams, and any other visualization as Excalidraw JSON. Use this skill whenever the user asks to create, draw, diagram, visualize, sketch, or chart anything — including flowcharts, system architecture, database schemas, mind maps, org charts, process flows, network topology, class diagrams, state machines, timelines, roadmaps, Kanban boards, SWOT analysis, comparison matrices, bar charts, wireframes, user flows, sitemaps, dependency graphs, C4 models, swimlane diagrams, or any kind of visual representation. Also trigger when the user says \"excalidraw\", \"draw this\", \"make a diagram of\", \"visualize this\", \"sketch this out\", \"chart this\", or shares data/code/structure they want turned into a visual. Even if the user doesn't explicitly say \"diagram\", if they describe relationships, flows, hierarchies, or structures that would benefit from visualization, suggest this skill.",
+      "version": "0.0.0",
+      "installUrl": "github:luongnv89/skills:skills/excalidraw-generator",
+      "relPath": "skills/excalidraw-generator"
+    },
+    {
+      "name": "frontend-design",
+      "description": "Create distinctive, usability-focused, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include web apps, landing pages, dashboards, forms, portfolios). Generates creative, polished code that avoids generic AI aesthetics. Applies \"Don't Make Me Think\" usability principles and a default style guide (Black/White/Gray/Bright Green) when no style preference is provided.",
+      "version": "1.2.0",
+      "installUrl": "github:luongnv89/skills:skills/frontend-design",
+      "relPath": "skills/frontend-design"
+    },
+    {
+      "name": "idea-validator",
+      "description": "Critically evaluate and enhance app ideas, startup concepts, and product proposals. Use when users ask to \"evaluate my idea\", \"review this concept\", \"is this a good idea\", \"validate my startup idea\", or want honest feedback on technical feasibility and market viability. Creates/updates idea.md and validate.md and always reports GitHub links to changed files.",
+      "version": "1.2.2",
+      "installUrl": "github:luongnv89/skills:skills/idea-validator",
+      "relPath": "skills/idea-validator"
+    },
+    {
+      "name": "install-script-generator",
+      "description": "Generate cross-platform installation scripts for any software, library, or module. Use when users ask to \"create an installer\", \"generate installation script\", \"automate installation\", \"setup script for X\", \"install X on any OS\", or need automated deployment across Windows, Linux, and macOS. Generates a standalone install.sh (and optionally install.ps1) that can be run via a single curl/wget one-liner. Follows a four-phase approach — environment exploration, installation planning, script generation, and documentation.",
+      "version": "2.0.0",
+      "installUrl": "github:luongnv89/skills:skills/install-script-generator",
+      "relPath": "skills/install-script-generator"
+    },
+    {
+      "name": "logo-designer",
+      "description": "Design professional, modern logos with automatic project context detection. Use when users ask to \"create a logo\", \"design a logo\", \"generate brand identity\", \"make a favicon\", or need visual brand assets. Analyzes project files (README, package.json, etc.) to understand product name, purpose, and existing brand colors before generating logo concepts.",
+      "version": "1.1.0",
+      "installUrl": "github:luongnv89/skills:skills/logo-designer",
+      "relPath": "skills/logo-designer"
+    },
+    {
+      "name": "name-checker",
+      "description": "Check product/brand names for trademark, domain, and social media conflicts. Use when users ask to \"check this name\", \"validate a product name\", \"is this name available\", or need to assess naming risks. Provides risk assessment and alternative suggestions.",
+      "version": "1.0.1",
+      "installUrl": "github:luongnv89/skills:skills/name-checker",
+      "relPath": "skills/name-checker"
+    },
+    {
+      "name": "note-taker",
+      "description": "Capture chat notes (text, voice, image, video, file) into the git-backed notes repo, summarize and organize them, extract tasks into KANBAN.md, commit/push changes, and always report GitHub web links to new/updated notes. Use when user says they want to take a note, save a note, capture this, or manage their notes/backlog.",
+      "version": "1.4.1",
+      "installUrl": "github:luongnv89/skills:skills/note-taker",
+      "relPath": "skills/note-taker"
+    },
+    {
+      "name": "ollama-optimizer",
+      "description": "Optimize Ollama configuration for maximum performance on the current machine. Use when asked to \"optimize Ollama\", \"configure Ollama\", \"speed up Ollama\", \"tune LLM performance\", \"setup local LLM\", \"fix Ollama performance\", \"Ollama running slow\", or when users want to maximize inference speed, reduce memory usage, or select appropriate models for their hardware. Analyzes system hardware (GPU, RAM, CPU) and provides tailored recommendations.",
+      "version": "1.0.1",
+      "installUrl": "github:luongnv89/skills:skills/ollama-optimizer",
+      "relPath": "skills/ollama-optimizer"
+    },
+    {
+      "name": "openspec-task-loop",
+      "description": "Apply OpenSpec OPSX in a strict one-task-at-a-time loop. Use when the user asks to execute work as single-task changes, wants spec-first implementation per task, or says to use OpenSpec method for each task from a task list. Supports both native /opsx command environments and manual fallback by creating OpenSpec artifact files directly.",
+      "version": "1.0.0",
+      "installUrl": "github:luongnv89/skills:skills/openspec-task-loop",
+      "relPath": "skills/openspec-task-loop"
+    },
+    {
+      "name": "oss-ready",
+      "description": "Transform projects into professional open-source repositories with standard components. Use when users ask to \"make this open source\", \"add open source files\", \"setup OSS standards\", \"create contributing guide\", \"add license\", or want to prepare a project for public release with README, CONTRIBUTING, LICENSE, and GitHub templates.",
+      "version": "1.1.0",
+      "installUrl": "github:luongnv89/skills:skills/oss-ready",
+      "relPath": "skills/oss-ready"
+    },
+    {
+      "name": "prd-generator",
+      "description": "Generate comprehensive Product Requirements Documents (PRD) from idea validation files. Use when users ask to \"create a PRD\", \"generate product requirements\", \"write a PRD\", or want to turn validated ideas into actionable product specs. Works with idea.md and validate.md files and always reports GitHub links to changed files.",
+      "version": "1.2.2",
+      "installUrl": "github:luongnv89/skills:skills/prd-generator",
+      "relPath": "skills/prd-generator"
+    },
+    {
+      "name": "release-manager",
+      "description": "Complete release automation — version bumping, changelog generation, README updates, documentation sync, builds, git tags, GitHub releases, and publishing to PyPI/npm. Use this skill whenever the user says \"prepare a release\", \"bump the version\", \"cut a release\", \"do a release\", \"create a new version\", \"release v1.2.0\", \"tag a release\", \"publish a release\", \"publish to npm\", \"publish to pypi\", \"update the changelog\", \"generate release notes\", or anything related to shipping a new version. Also trigger when the user asks \"what changed since last release\" or \"what's ready to release\". Even if they only mention one part (like \"update changelog\" or \"bump version\"), use this skill because releases have interdependent steps that should be done together.",
+      "version": "2.2.0",
+      "installUrl": "github:luongnv89/skills:skills/release-manager",
+      "relPath": "skills/release-manager"
+    },
+    {
+      "name": "seo-ai-optimizer",
+      "description": "Audits and optimizes website codebases for SEO and AI bot scanning. Covers technical SEO (meta tags, sitemaps, robots.txt, canonical URLs, page speed hints, structured data), content SEO (heading structure, alt text, readability), and AI bot accessibility (llms.txt, GPTBot/ClaudeBot directives, ai-plugin.json, Schema.org/JSON-LD). Use when user asks to \"optimize for SEO\", \"audit SEO\", \"improve search rankings\", \"make site AI-friendly\", \"add structured data\", \"fix meta tags\", or \"optimize for AI bots\". Works with any web framework.",
+      "version": "1.0.1",
+      "installUrl": "github:luongnv89/skills:skills/seo-ai-optimizer",
+      "relPath": "skills/seo-ai-optimizer"
+    },
+    {
+      "name": "skill-creator",
+      "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
+      "version": "1.0.1",
+      "installUrl": "github:luongnv89/skills:skills/skill-creator",
+      "relPath": "skills/skill-creator"
+    },
+    {
+      "name": "skill-inventory-auditor",
+      "description": "Audit all installed agent skills across global and project scopes to find and remove duplicate skills. Use when asked to \"audit my skills\", \"check for duplicate skills\", \"clean up skills\", \"deduplicate skills\", \"find duplicate skills\", or when the user wants to find and remove duplicated skill installations.",
+      "version": "1.0.0",
+      "installUrl": "github:luongnv89/skills:skills/skill-inventory-auditor",
+      "relPath": "skills/skill-inventory-auditor"
+    },
+    {
+      "name": "system-design",
+      "description": "Generate Technical Architecture Documents (TAD) from PRD files. Use when users ask to \"design the architecture\", \"create a TAD\", \"system design\", or want to define how a product will be built. Creates/updates tad.md and always reports GitHub links to changed files.",
+      "version": "1.2.3",
+      "installUrl": "github:luongnv89/skills:skills/system-design",
+      "relPath": "skills/system-design"
+    },
+    {
+      "name": "tasks-generator",
+      "description": "Generate development tasks from a PRD file with sprint-based planning. Use when users ask to \"create tasks from PRD\", \"break down the PRD\", \"generate sprint tasks\", or want to convert product requirements into actionable development tasks. Creates/updates tasks.md and always reports GitHub links to changed files.",
+      "version": "1.2.2",
+      "installUrl": "github:luongnv89/skills:skills/tasks-generator",
+      "relPath": "skills/tasks-generator"
+    },
+    {
+      "name": "test-coverage",
+      "description": "Expand unit test coverage by targeting untested branches and edge cases. Use when users ask to \"increase test coverage\", \"add more tests\", \"expand unit tests\", \"cover edge cases\", \"improve test coverage\", or want to identify and fill gaps in existing test suites. Adapts to project's testing framework.",
+      "version": "1.2.0",
+      "installUrl": "github:luongnv89/skills:skills/test-coverage",
+      "relPath": "skills/test-coverage"
+    },
+    {
+      "name": "theme-transformer",
+      "description": "Transform an existing website/app design into a futuristic, space, cyberpunk, neon, digital-dark theme with user-adjustable colors. Use when users ask to reskin current UI, apply a new visual theme, or migrate a product to Neon Command Center style. Always creates a new git branch first, then follows a strict 4-step loop — style audit, design proposal, implementation plan, and incremental execution with user approval gates.",
+      "version": "1.0.0",
+      "installUrl": "github:luongnv89/skills:skills/theme-transformer",
+      "relPath": "skills/theme-transformer"
+    },
+    {
+      "name": "vscode-extension-publisher",
+      "description": "Publish VS Code extensions to the Visual Studio Marketplace. Use when asked to \"publish my extension\", \"setup VS Code marketplace publishing\", \"package vscode extension\", \"create a publisher\", \"setup PAT for vsce\", \"automate extension releases with GitHub Actions\", or need help with vsce commands.",
+      "version": "1.0.0",
+      "installUrl": "github:luongnv89/skills:skills/vscode-extension-publisher",
+      "relPath": "skills/vscode-extension-publisher"
+    }
+  ]
+}

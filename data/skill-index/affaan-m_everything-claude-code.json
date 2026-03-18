@@ -1,0 +1,1038 @@
+{
+  "repoUrl": "https://github.com/affaan-m/everything-claude-code.git",
+  "owner": "affaan-m",
+  "repo": "everything-claude-code",
+  "updatedAt": "2026-03-17T23:45:54.730Z",
+  "skillCount": 147,
+  "skills": [
+    {
+      "name": "agent-harness-construction",
+      "description": "Design and optimize AI agent action spaces, tool definitions, and observation formatting for higher completion rates.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/agent-harness-construction",
+      "relPath": "skills/agent-harness-construction"
+    },
+    {
+      "name": "agentic-engineering",
+      "description": "Operate as an agentic engineer using eval-first execution, decomposition, and cost-aware model routing.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/agentic-engineering",
+      "relPath": "skills/agentic-engineering"
+    },
+    {
+      "name": "ai-first-engineering",
+      "description": "Engineering operating model for teams where AI agents generate a large share of implementation output.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/ai-first-engineering",
+      "relPath": "skills/ai-first-engineering"
+    },
+    {
+      "name": "ai-regression-testing",
+      "description": "Regression testing strategies for AI-assisted development. Sandbox-mode API testing without database dependencies, automated bug-check workflows, and patterns to catch AI blind spots where the same model writes and reviews code.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/ai-regression-testing",
+      "relPath": "skills/ai-regression-testing"
+    },
+    {
+      "name": "android-clean-architecture",
+      "description": "Clean Architecture patterns for Android and Kotlin Multiplatform projects — module structure, dependency rules, UseCases, Repositories, and data layer patterns.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/android-clean-architecture",
+      "relPath": "skills/android-clean-architecture"
+    },
+    {
+      "name": "api-design",
+      "description": "REST API design patterns including resource naming, status codes, pagination, filtering, error responses, versioning, and rate limiting for production APIs.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/api-design",
+      "relPath": ".agents/skills/api-design"
+    },
+    {
+      "name": "api-design",
+      "description": "REST API design patterns including resource naming, status codes, pagination, filtering, error responses, versioning, and rate limiting for production APIs.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/api-design",
+      "relPath": "skills/api-design"
+    },
+    {
+      "name": "article-writing",
+      "description": "Write articles, guides, blog posts, tutorials, newsletter issues, and other long-form content in a distinctive voice derived from supplied examples or brand guidance. Use when the user wants polished written content longer than a paragraph, especially when voice consistency, structure, and credibility matter.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/article-writing",
+      "relPath": ".cursor/skills/article-writing"
+    },
+    {
+      "name": "article-writing",
+      "description": "Write articles, guides, blog posts, tutorials, newsletter issues, and other long-form content in a distinctive voice derived from supplied examples or brand guidance. Use when the user wants polished written content longer than a paragraph, especially when voice consistency, structure, and credibility matter.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/article-writing",
+      "relPath": ".agents/skills/article-writing"
+    },
+    {
+      "name": "article-writing",
+      "description": "Write articles, guides, blog posts, tutorials, newsletter issues, and other long-form content in a distinctive voice derived from supplied examples or brand guidance. Use when the user wants polished written content longer than a paragraph, especially when voice consistency, structure, and credibility matter.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/article-writing",
+      "relPath": "skills/article-writing"
+    },
+    {
+      "name": "autonomous-loops",
+      "description": "Patterns and architectures for autonomous Claude Code loops — from simple sequential pipelines to RFC-driven multi-agent DAG systems.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/autonomous-loops",
+      "relPath": "skills/autonomous-loops"
+    },
+    {
+      "name": "backend-patterns",
+      "description": "Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/backend-patterns",
+      "relPath": ".agents/skills/backend-patterns"
+    },
+    {
+      "name": "backend-patterns",
+      "description": "Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/backend-patterns",
+      "relPath": "skills/backend-patterns"
+    },
+    {
+      "name": "blueprint",
+      "description": "Turn a one-line objective into a step-by-step construction plan for multi-session, multi-agent engineering projects. Each step has a self-contained context brief so a fresh agent can execute it cold. Includes adversarial review gate, dependency graph, parallel step detection, anti-pattern catalog, and plan mutation protocol. TRIGGER when: user requests a plan, blueprint, or roadmap for a complex multi-PR task, or describes work that needs multiple sessions. DO NOT TRIGGER when: task is completable in a single PR or fewer than 3 tool calls, or user says \"just do it\".",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/blueprint",
+      "relPath": "skills/blueprint"
+    },
+    {
+      "name": "bun-runtime",
+      "description": "Bun as runtime, package manager, bundler, and test runner. When to choose Bun vs Node, migration notes, and Vercel support.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/bun-runtime",
+      "relPath": ".cursor/skills/bun-runtime"
+    },
+    {
+      "name": "bun-runtime",
+      "description": "Bun as runtime, package manager, bundler, and test runner. When to choose Bun vs Node, migration notes, and Vercel support.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/bun-runtime",
+      "relPath": ".agents/skills/bun-runtime"
+    },
+    {
+      "name": "bun-runtime",
+      "description": "Bun as runtime, package manager, bundler, and test runner. When to choose Bun vs Node, migration notes, and Vercel support.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/bun-runtime",
+      "relPath": "skills/bun-runtime"
+    },
+    {
+      "name": "carrier-relationship-management",
+      "description": "Codified expertise for managing carrier portfolios, negotiating freight rates, tracking carrier performance, allocating freight, and maintaining strategic carrier relationships. Informed by transportation managers with 15+ years experience. Includes scorecarding frameworks, RFP processes, market intelligence, and compliance vetting. Use when managing carriers, negotiating rates, evaluating carrier performance, or building freight strategies.",
+      "version": "1.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/carrier-relationship-management",
+      "relPath": "skills/carrier-relationship-management"
+    },
+    {
+      "name": "claude-api",
+      "description": "Anthropic Claude API patterns for Python and TypeScript. Covers Messages API, streaming, tool use, vision, extended thinking, batches, prompt caching, and Claude Agent SDK. Use when building applications with the Claude API or Anthropic SDKs.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/claude-api",
+      "relPath": ".agents/skills/claude-api"
+    },
+    {
+      "name": "claude-api",
+      "description": "Anthropic Claude API patterns for Python and TypeScript. Covers Messages API, streaming, tool use, vision, extended thinking, batches, prompt caching, and Claude Agent SDK. Use when building applications with the Claude API or Anthropic SDKs.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/claude-api",
+      "relPath": "skills/claude-api"
+    },
+    {
+      "name": "claude-devfleet",
+      "description": "Orchestrate multi-agent coding tasks via Claude DevFleet — plan projects, dispatch parallel agents in isolated worktrees, monitor progress, and read structured reports.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/claude-devfleet",
+      "relPath": "skills/claude-devfleet"
+    },
+    {
+      "name": "clickhouse-io",
+      "description": "ClickHouse database patterns, query optimization, analytics, and data engineering best practices for high-performance analytical workloads.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/clickhouse-io",
+      "relPath": "skills/clickhouse-io"
+    },
+    {
+      "name": "coding-standards",
+      "description": "Universal coding standards, best practices, and patterns for TypeScript, JavaScript, React, and Node.js development.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/coding-standards",
+      "relPath": ".agents/skills/coding-standards"
+    },
+    {
+      "name": "coding-standards",
+      "description": "Universal coding standards, best practices, and patterns for TypeScript, JavaScript, React, and Node.js development.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/coding-standards",
+      "relPath": "skills/coding-standards"
+    },
+    {
+      "name": "compose-multiplatform-patterns",
+      "description": "Compose Multiplatform and Jetpack Compose patterns for KMP projects — state management, navigation, theming, performance, and platform-specific UI.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/compose-multiplatform-patterns",
+      "relPath": "skills/compose-multiplatform-patterns"
+    },
+    {
+      "name": "configure-ecc",
+      "description": "Interactive installer for Everything Claude Code — guides users through selecting and installing skills and rules to user-level or project-level directories, verifies paths, and optionally optimizes installed files.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/configure-ecc",
+      "relPath": "skills/configure-ecc"
+    },
+    {
+      "name": "content-engine",
+      "description": "Create platform-native content systems for X, LinkedIn, TikTok, YouTube, newsletters, and repurposed multi-platform campaigns. Use when the user wants social posts, threads, scripts, content calendars, or one source asset adapted cleanly across platforms.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/content-engine",
+      "relPath": ".cursor/skills/content-engine"
+    },
+    {
+      "name": "content-engine",
+      "description": "Create platform-native content systems for X, LinkedIn, TikTok, YouTube, newsletters, and repurposed multi-platform campaigns. Use when the user wants social posts, threads, scripts, content calendars, or one source asset adapted cleanly across platforms.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/content-engine",
+      "relPath": ".agents/skills/content-engine"
+    },
+    {
+      "name": "content-engine",
+      "description": "Create platform-native content systems for X, LinkedIn, TikTok, YouTube, newsletters, and repurposed multi-platform campaigns. Use when the user wants social posts, threads, scripts, content calendars, or one source asset adapted cleanly across platforms.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/content-engine",
+      "relPath": "skills/content-engine"
+    },
+    {
+      "name": "content-hash-cache-pattern",
+      "description": "Cache expensive file processing results using SHA-256 content hashes — path-independent, auto-invalidating, with service layer separation.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/content-hash-cache-pattern",
+      "relPath": "skills/content-hash-cache-pattern"
+    },
+    {
+      "name": "continuous-agent-loop",
+      "description": "Patterns for continuous autonomous agent loops with quality gates, evals, and recovery controls.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/continuous-agent-loop",
+      "relPath": "skills/continuous-agent-loop"
+    },
+    {
+      "name": "continuous-learning",
+      "description": "Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/continuous-learning",
+      "relPath": "skills/continuous-learning"
+    },
+    {
+      "name": "continuous-learning-v2",
+      "description": "Instinct-based learning system that observes sessions via hooks, creates atomic instincts with confidence scoring, and evolves them into skills/commands/agents. v2.1 adds project-scoped instincts to prevent cross-project contamination.",
+      "version": "2.1.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/continuous-learning-v2",
+      "relPath": "skills/continuous-learning-v2"
+    },
+    {
+      "name": "cost-aware-llm-pipeline",
+      "description": "Cost optimization patterns for LLM API usage — model routing by task complexity, budget tracking, retry logic, and prompt caching.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/cost-aware-llm-pipeline",
+      "relPath": "skills/cost-aware-llm-pipeline"
+    },
+    {
+      "name": "cpp-coding-standards",
+      "description": "C++ coding standards based on the C++ Core Guidelines (isocpp.github.io). Use when writing, reviewing, or refactoring C++ code to enforce modern, safe, and idiomatic practices.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/cpp-coding-standards",
+      "relPath": "skills/cpp-coding-standards"
+    },
+    {
+      "name": "cpp-testing",
+      "description": "Use only when writing/updating/fixing C++ tests, configuring GoogleTest/CTest, diagnosing failing or flaky tests, or adding coverage/sanitizers.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/cpp-testing",
+      "relPath": "skills/cpp-testing"
+    },
+    {
+      "name": "crosspost",
+      "description": "Multi-platform content distribution across X, LinkedIn, Threads, and Bluesky. Adapts content per platform using content-engine patterns. Never posts identical content cross-platform. Use when the user wants to distribute content across social platforms.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/crosspost",
+      "relPath": ".agents/skills/crosspost"
+    },
+    {
+      "name": "crosspost",
+      "description": "Multi-platform content distribution across X, LinkedIn, Threads, and Bluesky. Adapts content per platform using content-engine patterns. Never posts identical content cross-platform. Use when the user wants to distribute content across social platforms.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/crosspost",
+      "relPath": "skills/crosspost"
+    },
+    {
+      "name": "customs-trade-compliance",
+      "description": "Codified expertise for customs documentation, tariff classification, duty optimization, restricted party screening, and regulatory compliance across multiple jurisdictions. Informed by trade compliance specialists with 15+ years experience. Includes HS classification logic, Incoterms application, FTA utilization, and penalty mitigation. Use when handling customs clearance, tariff classification, trade compliance, import/export documentation, or duty optimization.",
+      "version": "1.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/customs-trade-compliance",
+      "relPath": "skills/customs-trade-compliance"
+    },
+    {
+      "name": "data-scraper-agent",
+      "description": "Build a fully automated AI-powered data collection agent for any public source — job boards, prices, news, GitHub, sports, anything. Scrapes on a schedule, enriches data with a free LLM (Gemini Flash), stores results in Notion/Sheets/Supabase, and learns from user feedback. Runs 100% free on GitHub Actions. Use when the user wants to monitor, collect, or track any public data automatically.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/data-scraper-agent",
+      "relPath": "skills/data-scraper-agent"
+    },
+    {
+      "name": "database-migrations",
+      "description": "Database migration best practices for schema changes, data migrations, rollbacks, and zero-downtime deployments across PostgreSQL, MySQL, and common ORMs (Prisma, Drizzle, Django, TypeORM, golang-migrate).",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/database-migrations",
+      "relPath": "skills/database-migrations"
+    },
+    {
+      "name": "deep-research",
+      "description": "Multi-source deep research using firecrawl and exa MCPs. Searches the web, synthesizes findings, and delivers cited reports with source attribution. Use when the user wants thorough research on any topic with evidence and citations.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/deep-research",
+      "relPath": ".agents/skills/deep-research"
+    },
+    {
+      "name": "deep-research",
+      "description": "Multi-source deep research using firecrawl and exa MCPs. Searches the web, synthesizes findings, and delivers cited reports with source attribution. Use when the user wants thorough research on any topic with evidence and citations.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/deep-research",
+      "relPath": "skills/deep-research"
+    },
+    {
+      "name": "deployment-patterns",
+      "description": "Deployment workflows, CI/CD pipeline patterns, Docker containerization, health checks, rollback strategies, and production readiness checklists for web applications.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/deployment-patterns",
+      "relPath": "skills/deployment-patterns"
+    },
+    {
+      "name": "django-patterns",
+      "description": "Django architecture patterns, REST API design with DRF, ORM best practices, caching, signals, middleware, and production-grade Django apps.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/django-patterns",
+      "relPath": "skills/django-patterns"
+    },
+    {
+      "name": "django-security",
+      "description": "Django security best practices, authentication, authorization, CSRF protection, SQL injection prevention, XSS prevention, and secure deployment configurations.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/django-security",
+      "relPath": "skills/django-security"
+    },
+    {
+      "name": "django-tdd",
+      "description": "Django testing strategies with pytest-django, TDD methodology, factory_boy, mocking, coverage, and testing Django REST Framework APIs.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/django-tdd",
+      "relPath": "skills/django-tdd"
+    },
+    {
+      "name": "django-verification",
+      "description": "Verification loop for Django projects: migrations, linting, tests with coverage, security scans, and deployment readiness checks before release or PR.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/django-verification",
+      "relPath": "skills/django-verification"
+    },
+    {
+      "name": "dmux-workflows",
+      "description": "Multi-agent orchestration using dmux (tmux pane manager for AI agents). Patterns for parallel agent workflows across Claude Code, Codex, OpenCode, and other harnesses. Use when running multiple agent sessions in parallel or coordinating multi-agent development workflows.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/dmux-workflows",
+      "relPath": ".agents/skills/dmux-workflows"
+    },
+    {
+      "name": "dmux-workflows",
+      "description": "Multi-agent orchestration using dmux (tmux pane manager for AI agents). Patterns for parallel agent workflows across Claude Code, Codex, OpenCode, and other harnesses. Use when running multiple agent sessions in parallel or coordinating multi-agent development workflows.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/dmux-workflows",
+      "relPath": "skills/dmux-workflows"
+    },
+    {
+      "name": "docker-patterns",
+      "description": "Docker and Docker Compose patterns for local development, container security, networking, volume strategies, and multi-service orchestration.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/docker-patterns",
+      "relPath": "skills/docker-patterns"
+    },
+    {
+      "name": "documentation-lookup",
+      "description": "Use up-to-date library and framework docs via Context7 MCP instead of training data. Activates for setup questions, API references, code examples, or when the user names a framework (e.g. React, Next.js, Prisma).",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/documentation-lookup",
+      "relPath": ".cursor/skills/documentation-lookup"
+    },
+    {
+      "name": "documentation-lookup",
+      "description": "Use up-to-date library and framework docs via Context7 MCP instead of training data. Activates for setup questions, API references, code examples, or when the user names a framework (e.g. React, Next.js, Prisma).",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/documentation-lookup",
+      "relPath": ".agents/skills/documentation-lookup"
+    },
+    {
+      "name": "documentation-lookup",
+      "description": "Use up-to-date library and framework docs via Context7 MCP instead of training data. Activates for setup questions, API references, code examples, or when the user names a framework (e.g. React, Next.js, Prisma).",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/documentation-lookup",
+      "relPath": "skills/documentation-lookup"
+    },
+    {
+      "name": "e2e-testing",
+      "description": "Playwright E2E testing patterns, Page Object Model, configuration, CI/CD integration, artifact management, and flaky test strategies.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/e2e-testing",
+      "relPath": ".agents/skills/e2e-testing"
+    },
+    {
+      "name": "e2e-testing",
+      "description": "Playwright E2E testing patterns, Page Object Model, configuration, CI/CD integration, artifact management, and flaky test strategies.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/e2e-testing",
+      "relPath": "skills/e2e-testing"
+    },
+    {
+      "name": "energy-procurement",
+      "description": "Codified expertise for electricity and gas procurement, tariff optimization, demand charge management, renewable PPA evaluation, and multi-facility energy cost management. Informed by energy procurement managers with 15+ years experience at large commercial and industrial consumers. Includes market structure analysis, hedging strategies, load profiling, and sustainability reporting frameworks. Use when procuring energy, optimizing tariffs, managing demand charges, evaluating PPAs, or developing energy strategies.",
+      "version": "1.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/energy-procurement",
+      "relPath": "skills/energy-procurement"
+    },
+    {
+      "name": "enterprise-agent-ops",
+      "description": "Operate long-lived agent workloads with observability, security boundaries, and lifecycle management.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/enterprise-agent-ops",
+      "relPath": "skills/enterprise-agent-ops"
+    },
+    {
+      "name": "eval-harness",
+      "description": "Formal evaluation framework for Claude Code sessions implementing eval-driven development (EDD) principles",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/eval-harness",
+      "relPath": ".agents/skills/eval-harness"
+    },
+    {
+      "name": "eval-harness",
+      "description": "Formal evaluation framework for Claude Code sessions implementing eval-driven development (EDD) principles",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/eval-harness",
+      "relPath": "skills/eval-harness"
+    },
+    {
+      "name": "everything-claude-code",
+      "description": "",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.claude/skills/everything-claude-code",
+      "relPath": ".claude/skills/everything-claude-code"
+    },
+    {
+      "name": "exa-search",
+      "description": "Neural search via Exa MCP for web, code, and company research. Use when the user needs web search, code examples, company intel, people lookup, or AI-powered deep research with Exa's neural search engine.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/exa-search",
+      "relPath": ".agents/skills/exa-search"
+    },
+    {
+      "name": "exa-search",
+      "description": "Neural search via Exa MCP for web, code, and company research. Use when the user needs web search, code examples, company intel, people lookup, or AI-powered deep research with Exa's neural search engine.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/exa-search",
+      "relPath": "skills/exa-search"
+    },
+    {
+      "name": "fal-ai-media",
+      "description": "Unified media generation via fal.ai MCP — image, video, and audio. Covers text-to-image (Nano Banana), text/image-to-video (Seedance, Kling, Veo 3), text-to-speech (CSM-1B), and video-to-audio (ThinkSound). Use when the user wants to generate images, videos, or audio with AI.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/fal-ai-media",
+      "relPath": ".agents/skills/fal-ai-media"
+    },
+    {
+      "name": "fal-ai-media",
+      "description": "Unified media generation via fal.ai MCP — image, video, and audio. Covers text-to-image (Nano Banana), text/image-to-video (Seedance, Kling, Veo 3), text-to-speech (CSM-1B), and video-to-audio (ThinkSound). Use when the user wants to generate images, videos, or audio with AI.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/fal-ai-media",
+      "relPath": "skills/fal-ai-media"
+    },
+    {
+      "name": "foundation-models-on-device",
+      "description": "Apple FoundationModels framework for on-device LLM — text generation, guided generation with @Generable, tool calling, and snapshot streaming in iOS 26+.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/foundation-models-on-device",
+      "relPath": "skills/foundation-models-on-device"
+    },
+    {
+      "name": "frontend-patterns",
+      "description": "Frontend development patterns for React, Next.js, state management, performance optimization, and UI best practices.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/frontend-patterns",
+      "relPath": ".agents/skills/frontend-patterns"
+    },
+    {
+      "name": "frontend-patterns",
+      "description": "Frontend development patterns for React, Next.js, state management, performance optimization, and UI best practices.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/frontend-patterns",
+      "relPath": "skills/frontend-patterns"
+    },
+    {
+      "name": "frontend-slides",
+      "description": "Create stunning, animation-rich HTML presentations from scratch or by converting PowerPoint files. Use when the user wants to build a presentation, convert a PPT/PPTX to web, or create slides for a talk/pitch. Helps non-designers discover their aesthetic through visual exploration rather than abstract choices.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/frontend-slides",
+      "relPath": ".cursor/skills/frontend-slides"
+    },
+    {
+      "name": "frontend-slides",
+      "description": "Create stunning, animation-rich HTML presentations from scratch or by converting PowerPoint files. Use when the user wants to build a presentation, convert a PPT/PPTX to web, or create slides for a talk/pitch. Helps non-designers discover their aesthetic through visual exploration rather than abstract choices.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/frontend-slides",
+      "relPath": ".agents/skills/frontend-slides"
+    },
+    {
+      "name": "frontend-slides",
+      "description": "Create stunning, animation-rich HTML presentations from scratch or by converting PowerPoint files. Use when the user wants to build a presentation, convert a PPT/PPTX to web, or create slides for a talk/pitch. Helps non-designers discover their aesthetic through visual exploration rather than abstract choices.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/frontend-slides",
+      "relPath": "skills/frontend-slides"
+    },
+    {
+      "name": "golang-patterns",
+      "description": "Idiomatic Go patterns, best practices, and conventions for building robust, efficient, and maintainable Go applications.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/golang-patterns",
+      "relPath": "skills/golang-patterns"
+    },
+    {
+      "name": "golang-testing",
+      "description": "Go testing patterns including table-driven tests, subtests, benchmarks, fuzzing, and test coverage. Follows TDD methodology with idiomatic Go practices.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/golang-testing",
+      "relPath": "skills/golang-testing"
+    },
+    {
+      "name": "inventory-demand-planning",
+      "description": "Codified expertise for demand forecasting, safety stock optimization, replenishment planning, and promotional lift estimation at multi-location retailers. Informed by demand planners with 15+ years experience managing hundreds of SKUs. Includes forecasting method selection, ABC/XYZ analysis, seasonal transition management, and vendor negotiation frameworks. Use when forecasting demand, setting safety stock, planning replenishment, managing promotions, or optimizing inventory levels.",
+      "version": "1.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/inventory-demand-planning",
+      "relPath": "skills/inventory-demand-planning"
+    },
+    {
+      "name": "investor-materials",
+      "description": "Create and update pitch decks, one-pagers, investor memos, accelerator applications, financial models, and fundraising materials. Use when the user needs investor-facing documents, projections, use-of-funds tables, milestone plans, or materials that must stay internally consistent across multiple fundraising assets.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/investor-materials",
+      "relPath": ".cursor/skills/investor-materials"
+    },
+    {
+      "name": "investor-materials",
+      "description": "Create and update pitch decks, one-pagers, investor memos, accelerator applications, financial models, and fundraising materials. Use when the user needs investor-facing documents, projections, use-of-funds tables, milestone plans, or materials that must stay internally consistent across multiple fundraising assets.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/investor-materials",
+      "relPath": ".agents/skills/investor-materials"
+    },
+    {
+      "name": "investor-materials",
+      "description": "Create and update pitch decks, one-pagers, investor memos, accelerator applications, financial models, and fundraising materials. Use when the user needs investor-facing documents, projections, use-of-funds tables, milestone plans, or materials that must stay internally consistent across multiple fundraising assets.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/investor-materials",
+      "relPath": "skills/investor-materials"
+    },
+    {
+      "name": "investor-outreach",
+      "description": "Draft cold emails, warm intro blurbs, follow-ups, update emails, and investor communications for fundraising. Use when the user wants outreach to angels, VCs, strategic investors, or accelerators and needs concise, personalized, investor-facing messaging.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/investor-outreach",
+      "relPath": ".cursor/skills/investor-outreach"
+    },
+    {
+      "name": "investor-outreach",
+      "description": "Draft cold emails, warm intro blurbs, follow-ups, update emails, and investor communications for fundraising. Use when the user wants outreach to angels, VCs, strategic investors, or accelerators and needs concise, personalized, investor-facing messaging.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/investor-outreach",
+      "relPath": ".agents/skills/investor-outreach"
+    },
+    {
+      "name": "investor-outreach",
+      "description": "Draft cold emails, warm intro blurbs, follow-ups, update emails, and investor communications for fundraising. Use when the user wants outreach to angels, VCs, strategic investors, or accelerators and needs concise, personalized, investor-facing messaging.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/investor-outreach",
+      "relPath": "skills/investor-outreach"
+    },
+    {
+      "name": "iterative-retrieval",
+      "description": "Pattern for progressively refining context retrieval to solve the subagent context problem",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/iterative-retrieval",
+      "relPath": "skills/iterative-retrieval"
+    },
+    {
+      "name": "java-coding-standards",
+      "description": "Java coding standards for Spring Boot services: naming, immutability, Optional usage, streams, exceptions, generics, and project layout.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/java-coding-standards",
+      "relPath": "skills/java-coding-standards"
+    },
+    {
+      "name": "jpa-patterns",
+      "description": "JPA/Hibernate patterns for entity design, relationships, query optimization, transactions, auditing, indexing, pagination, and pooling in Spring Boot.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/jpa-patterns",
+      "relPath": "skills/jpa-patterns"
+    },
+    {
+      "name": "kotlin-coroutines-flows",
+      "description": "Kotlin Coroutines and Flow patterns for Android and KMP — structured concurrency, Flow operators, StateFlow, error handling, and testing.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/kotlin-coroutines-flows",
+      "relPath": "skills/kotlin-coroutines-flows"
+    },
+    {
+      "name": "kotlin-exposed-patterns",
+      "description": "JetBrains Exposed ORM patterns including DSL queries, DAO pattern, transactions, HikariCP connection pooling, Flyway migrations, and repository pattern.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/kotlin-exposed-patterns",
+      "relPath": "skills/kotlin-exposed-patterns"
+    },
+    {
+      "name": "kotlin-ktor-patterns",
+      "description": "Ktor server patterns including routing DSL, plugins, authentication, Koin DI, kotlinx.serialization, WebSockets, and testApplication testing.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/kotlin-ktor-patterns",
+      "relPath": "skills/kotlin-ktor-patterns"
+    },
+    {
+      "name": "kotlin-patterns",
+      "description": "Idiomatic Kotlin patterns, best practices, and conventions for building robust, efficient, and maintainable Kotlin applications with coroutines, null safety, and DSL builders.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/kotlin-patterns",
+      "relPath": "skills/kotlin-patterns"
+    },
+    {
+      "name": "kotlin-testing",
+      "description": "Kotlin testing patterns with Kotest, MockK, coroutine testing, property-based testing, and Kover coverage. Follows TDD methodology with idiomatic Kotlin practices.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/kotlin-testing",
+      "relPath": "skills/kotlin-testing"
+    },
+    {
+      "name": "laravel-patterns",
+      "description": "Laravel architecture patterns, routing/controllers, Eloquent ORM, service layers, queues, events, caching, and API resources for production apps.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/laravel-patterns",
+      "relPath": "skills/laravel-patterns"
+    },
+    {
+      "name": "laravel-security",
+      "description": "Laravel security best practices for authn/authz, validation, CSRF, mass assignment, file uploads, secrets, rate limiting, and secure deployment.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/laravel-security",
+      "relPath": "skills/laravel-security"
+    },
+    {
+      "name": "laravel-tdd",
+      "description": "Test-driven development for Laravel with PHPUnit and Pest, factories, database testing, fakes, and coverage targets.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/laravel-tdd",
+      "relPath": "skills/laravel-tdd"
+    },
+    {
+      "name": "laravel-verification",
+      "description": "Verification loop for Laravel projects: env checks, linting, static analysis, tests with coverage, security scans, and deployment readiness.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/laravel-verification",
+      "relPath": "skills/laravel-verification"
+    },
+    {
+      "name": "liquid-glass-design",
+      "description": "iOS 26 Liquid Glass design system — dynamic glass material with blur, reflection, and interactive morphing for SwiftUI, UIKit, and WidgetKit.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/liquid-glass-design",
+      "relPath": "skills/liquid-glass-design"
+    },
+    {
+      "name": "logistics-exception-management",
+      "description": "Codified expertise for handling freight exceptions, shipment delays, damages, losses, and carrier disputes. Informed by logistics professionals with 15+ years operational experience. Includes escalation protocols, carrier-specific behaviors, claims procedures, and judgment frameworks. Use when handling shipping exceptions, freight claims, delivery issues, or carrier disputes.",
+      "version": "1.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/logistics-exception-management",
+      "relPath": "skills/logistics-exception-management"
+    },
+    {
+      "name": "market-research",
+      "description": "Conduct market research, competitive analysis, investor due diligence, and industry intelligence with source attribution and decision-oriented summaries. Use when the user wants market sizing, competitor comparisons, fund research, technology scans, or research that informs business decisions.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/market-research",
+      "relPath": ".cursor/skills/market-research"
+    },
+    {
+      "name": "market-research",
+      "description": "Conduct market research, competitive analysis, investor due diligence, and industry intelligence with source attribution and decision-oriented summaries. Use when the user wants market sizing, competitor comparisons, fund research, technology scans, or research that informs business decisions.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/market-research",
+      "relPath": ".agents/skills/market-research"
+    },
+    {
+      "name": "market-research",
+      "description": "Conduct market research, competitive analysis, investor due diligence, and industry intelligence with source attribution and decision-oriented summaries. Use when the user wants market sizing, competitor comparisons, fund research, technology scans, or research that informs business decisions.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/market-research",
+      "relPath": "skills/market-research"
+    },
+    {
+      "name": "mcp-server-patterns",
+      "description": "Build MCP servers with Node/TypeScript SDK — tools, resources, prompts, Zod validation, stdio vs Streamable HTTP. Use Context7 or official MCP docs for latest API.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/mcp-server-patterns",
+      "relPath": ".cursor/skills/mcp-server-patterns"
+    },
+    {
+      "name": "mcp-server-patterns",
+      "description": "Build MCP servers with Node/TypeScript SDK — tools, resources, prompts, Zod validation, stdio vs Streamable HTTP. Use Context7 or official MCP docs for latest API.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/mcp-server-patterns",
+      "relPath": ".agents/skills/mcp-server-patterns"
+    },
+    {
+      "name": "mcp-server-patterns",
+      "description": "Build MCP servers with Node/TypeScript SDK — tools, resources, prompts, Zod validation, stdio vs Streamable HTTP. Use Context7 or official MCP docs for latest API.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/mcp-server-patterns",
+      "relPath": "skills/mcp-server-patterns"
+    },
+    {
+      "name": "nanoclaw-repl",
+      "description": "Operate and extend NanoClaw v2, ECC's zero-dependency session-aware REPL built on claude -p.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/nanoclaw-repl",
+      "relPath": "skills/nanoclaw-repl"
+    },
+    {
+      "name": "nextjs-turbopack",
+      "description": "Next.js 16+ and Turbopack — incremental bundling, FS caching, dev speed, and when to use Turbopack vs webpack.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/nextjs-turbopack",
+      "relPath": ".cursor/skills/nextjs-turbopack"
+    },
+    {
+      "name": "nextjs-turbopack",
+      "description": "Next.js 16+ and Turbopack — incremental bundling, FS caching, dev speed, and when to use Turbopack vs webpack.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/nextjs-turbopack",
+      "relPath": ".agents/skills/nextjs-turbopack"
+    },
+    {
+      "name": "nextjs-turbopack",
+      "description": "Next.js 16+ and Turbopack — incremental bundling, FS caching, dev speed, and when to use Turbopack vs webpack.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/nextjs-turbopack",
+      "relPath": "skills/nextjs-turbopack"
+    },
+    {
+      "name": "nutrient-document-processing",
+      "description": "Process, convert, OCR, extract, redact, sign, and fill documents using the Nutrient DWS API. Works with PDFs, DOCX, XLSX, PPTX, HTML, and images.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/nutrient-document-processing",
+      "relPath": "skills/nutrient-document-processing"
+    },
+    {
+      "name": "perl-patterns",
+      "description": "Modern Perl 5.36+ idioms, best practices, and conventions for building robust, maintainable Perl applications.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/perl-patterns",
+      "relPath": "skills/perl-patterns"
+    },
+    {
+      "name": "perl-security",
+      "description": "Comprehensive Perl security covering taint mode, input validation, safe process execution, DBI parameterized queries, web security (XSS/SQLi/CSRF), and perlcritic security policies.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/perl-security",
+      "relPath": "skills/perl-security"
+    },
+    {
+      "name": "perl-testing",
+      "description": "Perl testing patterns using Test2::V0, Test::More, prove runner, mocking, coverage with Devel::Cover, and TDD methodology.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/perl-testing",
+      "relPath": "skills/perl-testing"
+    },
+    {
+      "name": "plankton-code-quality",
+      "description": "Write-time code quality enforcement using Plankton — auto-formatting, linting, and Claude-powered fixes on every file edit via hooks.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/plankton-code-quality",
+      "relPath": "skills/plankton-code-quality"
+    },
+    {
+      "name": "postgres-patterns",
+      "description": "PostgreSQL database patterns for query optimization, schema design, indexing, and security. Based on Supabase best practices.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/postgres-patterns",
+      "relPath": "skills/postgres-patterns"
+    },
+    {
+      "name": "production-scheduling",
+      "description": "Codified expertise for production scheduling, job sequencing, line balancing, changeover optimization, and bottleneck resolution in discrete and batch manufacturing. Informed by production schedulers with 15+ years experience. Includes TOC/drum-buffer-rope, SMED, OEE analysis, disruption response frameworks, and ERP/MES interaction patterns. Use when scheduling production, resolving bottlenecks, optimizing changeovers, responding to disruptions, or balancing manufacturing lines.",
+      "version": "1.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/production-scheduling",
+      "relPath": "skills/production-scheduling"
+    },
+    {
+      "name": "project-guidelines-example",
+      "description": "Example project-specific skill template based on a real production application.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/project-guidelines-example",
+      "relPath": "skills/project-guidelines-example"
+    },
+    {
+      "name": "prompt-optimizer",
+      "description": "Analyze raw prompts, identify intent and gaps, match ECC components (skills/commands/agents/hooks), and output a ready-to-paste optimized prompt. Advisory role only — never executes the task itself. TRIGGER when: user says \"optimize prompt\", \"improve my prompt\", \"how to write a prompt for\", \"help me prompt\", \"rewrite this prompt\", or explicitly asks to enhance prompt quality. Also triggers on Chinese equivalents: \"优化prompt\", \"改进prompt\", \"怎么写prompt\", \"帮我优化这个指令\". DO NOT TRIGGER when: user wants the task executed directly, or says \"just do it\" / \"直接做\". DO NOT TRIGGER when user says \"优化代码\", \"优化性能\", \"optimize performance\", \"optimize this code\" — those are refactoring/performance tasks, not prompt optimization.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/prompt-optimizer",
+      "relPath": "skills/prompt-optimizer"
+    },
+    {
+      "name": "python-patterns",
+      "description": "Pythonic idioms, PEP 8 standards, type hints, and best practices for building robust, efficient, and maintainable Python applications.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/python-patterns",
+      "relPath": "skills/python-patterns"
+    },
+    {
+      "name": "python-testing",
+      "description": "Python testing strategies using pytest, TDD methodology, fixtures, mocking, parametrization, and coverage requirements.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/python-testing",
+      "relPath": "skills/python-testing"
+    },
+    {
+      "name": "quality-nonconformance",
+      "description": "Codified expertise for quality control, non-conformance investigation, root cause analysis, corrective action, and supplier quality management in regulated manufacturing. Informed by quality engineers with 15+ years experience across FDA, IATF 16949, and AS9100 environments. Includes NCR lifecycle management, CAPA systems, SPC interpretation, and audit methodology. Use when investigating non-conformances, performing root cause analysis, managing CAPAs, interpreting SPC data, or handling supplier quality issues.",
+      "version": "1.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/quality-nonconformance",
+      "relPath": "skills/quality-nonconformance"
+    },
+    {
+      "name": "ralphinho-rfc-pipeline",
+      "description": "RFC-driven multi-agent DAG execution pattern with quality gates, merge queues, and work unit orchestration.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/ralphinho-rfc-pipeline",
+      "relPath": "skills/ralphinho-rfc-pipeline"
+    },
+    {
+      "name": "regex-vs-llm-structured-text",
+      "description": "Decision framework for choosing between regex and LLM when parsing structured text — start with regex, add LLM only for low-confidence edge cases.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/regex-vs-llm-structured-text",
+      "relPath": "skills/regex-vs-llm-structured-text"
+    },
+    {
+      "name": "returns-reverse-logistics",
+      "description": "Codified expertise for returns authorization, receipt and inspection, disposition decisions, refund processing, fraud detection, and warranty claims management. Informed by returns operations managers with 15+ years experience. Includes grading frameworks, disposition economics, fraud pattern recognition, and vendor recovery processes. Use when handling product returns, reverse logistics, refund decisions, return fraud detection, or warranty claims.",
+      "version": "1.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/returns-reverse-logistics",
+      "relPath": "skills/returns-reverse-logistics"
+    },
+    {
+      "name": "rust-patterns",
+      "description": "Idiomatic Rust patterns, ownership, error handling, traits, concurrency, and best practices for building safe, performant applications.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/rust-patterns",
+      "relPath": "skills/rust-patterns"
+    },
+    {
+      "name": "rust-testing",
+      "description": "Rust testing patterns including unit tests, integration tests, async testing, property-based testing, mocking, and coverage. Follows TDD methodology.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/rust-testing",
+      "relPath": "skills/rust-testing"
+    },
+    {
+      "name": "search-first",
+      "description": "Research-before-coding workflow. Search for existing tools, libraries, and patterns before writing custom code. Invokes the researcher agent.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/search-first",
+      "relPath": "skills/search-first"
+    },
+    {
+      "name": "security-review",
+      "description": "Use this skill when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing payment/sensitive features. Provides comprehensive security checklist and patterns.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/security-review",
+      "relPath": ".agents/skills/security-review"
+    },
+    {
+      "name": "security-review",
+      "description": "Use this skill when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing payment/sensitive features. Provides comprehensive security checklist and patterns.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/security-review",
+      "relPath": "skills/security-review"
+    },
+    {
+      "name": "security-scan",
+      "description": "Scan your Claude Code configuration (.claude/ directory) for security vulnerabilities, misconfigurations, and injection risks using AgentShield. Checks CLAUDE.md, settings.json, MCP servers, hooks, and agent definitions.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/security-scan",
+      "relPath": "skills/security-scan"
+    },
+    {
+      "name": "skill-stocktake",
+      "description": "Use when auditing Claude skills and commands for quality. Supports Quick Scan (changed skills only) and Full Stocktake modes with sequential subagent batch evaluation.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/skill-stocktake",
+      "relPath": "skills/skill-stocktake"
+    },
+    {
+      "name": "springboot-patterns",
+      "description": "Spring Boot architecture patterns, REST API design, layered services, data access, caching, async processing, and logging. Use for Java Spring Boot backend work.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/springboot-patterns",
+      "relPath": "skills/springboot-patterns"
+    },
+    {
+      "name": "springboot-security",
+      "description": "Spring Security best practices for authn/authz, validation, CSRF, secrets, headers, rate limiting, and dependency security in Java Spring Boot services.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/springboot-security",
+      "relPath": "skills/springboot-security"
+    },
+    {
+      "name": "springboot-tdd",
+      "description": "Test-driven development for Spring Boot using JUnit 5, Mockito, MockMvc, Testcontainers, and JaCoCo. Use when adding features, fixing bugs, or refactoring.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/springboot-tdd",
+      "relPath": "skills/springboot-tdd"
+    },
+    {
+      "name": "springboot-verification",
+      "description": "Verification loop for Spring Boot projects: build, static analysis, tests with coverage, security scans, and diff review before release or PR.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/springboot-verification",
+      "relPath": "skills/springboot-verification"
+    },
+    {
+      "name": "strategic-compact",
+      "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/strategic-compact",
+      "relPath": ".agents/skills/strategic-compact"
+    },
+    {
+      "name": "strategic-compact",
+      "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/strategic-compact",
+      "relPath": "skills/strategic-compact"
+    },
+    {
+      "name": "swift-actor-persistence",
+      "description": "Thread-safe data persistence in Swift using actors — in-memory cache with file-backed storage, eliminating data races by design.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/swift-actor-persistence",
+      "relPath": "skills/swift-actor-persistence"
+    },
+    {
+      "name": "swift-concurrency-6-2",
+      "description": "Swift 6.2 Approachable Concurrency — single-threaded by default, @concurrent for explicit background offloading, isolated conformances for main actor types.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/swift-concurrency-6-2",
+      "relPath": "skills/swift-concurrency-6-2"
+    },
+    {
+      "name": "swift-protocol-di-testing",
+      "description": "Protocol-based dependency injection for testable Swift code — mock file system, network, and external APIs using focused protocols and Swift Testing.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/swift-protocol-di-testing",
+      "relPath": "skills/swift-protocol-di-testing"
+    },
+    {
+      "name": "swiftui-patterns",
+      "description": "SwiftUI architecture patterns, state management with @Observable, view composition, navigation, performance optimization, and modern iOS/macOS UI best practices.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/swiftui-patterns",
+      "relPath": "skills/swiftui-patterns"
+    },
+    {
+      "name": "tdd-workflow",
+      "description": "Use this skill when writing new features, fixing bugs, or refactoring code. Enforces test-driven development with 80%+ coverage including unit, integration, and E2E tests.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/tdd-workflow",
+      "relPath": ".agents/skills/tdd-workflow"
+    },
+    {
+      "name": "tdd-workflow",
+      "description": "Use this skill when writing new features, fixing bugs, or refactoring code. Enforces test-driven development with 80%+ coverage including unit, integration, and E2E tests.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/tdd-workflow",
+      "relPath": "skills/tdd-workflow"
+    },
+    {
+      "name": "team-builder",
+      "description": "Interactive agent picker for composing and dispatching parallel teams",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/team-builder",
+      "relPath": "skills/team-builder"
+    },
+    {
+      "name": "verification-loop",
+      "description": "A comprehensive verification system for Claude Code sessions.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/verification-loop",
+      "relPath": ".agents/skills/verification-loop"
+    },
+    {
+      "name": "verification-loop",
+      "description": "A comprehensive verification system for Claude Code sessions.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/verification-loop",
+      "relPath": "skills/verification-loop"
+    },
+    {
+      "name": "video-editing",
+      "description": "AI-assisted video editing workflows for cutting, structuring, and augmenting real footage. Covers the full pipeline from raw capture through FFmpeg, Remotion, ElevenLabs, fal.ai, and final polish in Descript or CapCut. Use when the user wants to edit video, cut footage, create vlogs, or build video content.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/video-editing",
+      "relPath": ".agents/skills/video-editing"
+    },
+    {
+      "name": "video-editing",
+      "description": "AI-assisted video editing workflows for cutting, structuring, and augmenting real footage. Covers the full pipeline from raw capture through FFmpeg, Remotion, ElevenLabs, fal.ai, and final polish in Descript or CapCut. Use when the user wants to edit video, cut footage, create vlogs, or build video content.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/video-editing",
+      "relPath": "skills/video-editing"
+    },
+    {
+      "name": "videodb",
+      "description": "See, Understand, Act on video and audio. See- ingest from local files, URLs, RTSP/live feeds, or live record desktop; return realtime context and playable stream links. Understand- extract frames, build visual/semantic/temporal indexes, and search moments with timestamps and auto-clips. Act- transcode and normalize (codec, fps, resolution, aspect ratio), perform timeline edits (subtitles, text/image overlays, branding, audio overlays, dubbing, translation), generate media assets (image, audio, video), and create real time alerts for events from live streams or desktop capture.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/videodb",
+      "relPath": "skills/videodb"
+    },
+    {
+      "name": "visa-doc-translate",
+      "description": "Translate visa application documents (images) to English and create a bilingual PDF with original and translation",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/visa-doc-translate",
+      "relPath": "skills/visa-doc-translate"
+    },
+    {
+      "name": "x-api",
+      "description": "X/Twitter API integration for posting tweets, threads, reading timelines, search, and analytics. Covers OAuth auth patterns, rate limits, and platform-native content posting. Use when the user wants to interact with X programmatically.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/x-api",
+      "relPath": ".agents/skills/x-api"
+    },
+    {
+      "name": "x-api",
+      "description": "X/Twitter API integration for posting tweets, threads, reading timelines, search, and analytics. Covers OAuth auth patterns, rate limits, and platform-native content posting. Use when the user wants to interact with X programmatically.",
+      "version": "0.0.0",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/x-api",
+      "relPath": "skills/x-api"
+    }
+  ]
+}

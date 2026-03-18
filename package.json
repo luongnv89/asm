@@ -13,10 +13,12 @@
     "test": "bun test",
     "dev": "bun run src/index.ts",
     "build": "bun run scripts/build.ts",
+    "preindex": "bun run scripts/preindex.ts",
     "prepublishOnly": "bun run build"
   },
   "files": [
     "dist/",
+    "data/",
     "README.md",
     "LICENSE"
   ],

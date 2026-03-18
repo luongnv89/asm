@@ -1,0 +1,44 @@
+{
+  "repoUrl": "https://github.com/Leonxlnx/taste-skill.git",
+  "owner": "Leonxlnx",
+  "repo": "taste-skill",
+  "updatedAt": "2026-03-17T23:46:01.961Z",
+  "skillCount": 5,
+  "skills": [
+    {
+      "name": "design-taste-frontend",
+      "description": "Senior UI/UX Engineer. Architect digital interfaces overriding default LLM biases. Enforces metric-based rules, strict component architecture, CSS hardware acceleration, and balanced design engineering.",
+      "version": "0.0.0",
+      "installUrl": "github:Leonxlnx/taste-skill:taste-skill",
+      "relPath": "taste-skill"
+    },
+    {
+      "name": "full-output-enforcement",
+      "description": "Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.",
+      "version": "0.0.0",
+      "installUrl": "github:Leonxlnx/taste-skill:output-skill",
+      "relPath": "output-skill"
+    },
+    {
+      "name": "high-end-visual-design",
+      "description": "Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.",
+      "version": "0.0.0",
+      "installUrl": "github:Leonxlnx/taste-skill:soft-skill",
+      "relPath": "soft-skill"
+    },
+    {
+      "name": "minimalist-ui",
+      "description": "Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.",
+      "version": "0.0.0",
+      "installUrl": "github:Leonxlnx/taste-skill:minimalist-skill",
+      "relPath": "minimalist-skill"
+    },
+    {
+      "name": "redesign-existing-projects",
+      "description": "Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.",
+      "version": "0.0.0",
+      "installUrl": "github:Leonxlnx/taste-skill:redesign-skill",
+      "relPath": "redesign-skill"
+    }
+  ]
+}

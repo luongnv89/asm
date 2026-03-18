@@ -1,0 +1,107 @@
+{
+  "repoUrl": "https://github.com/obra/superpowers.git",
+  "owner": "obra",
+  "repo": "superpowers",
+  "updatedAt": "2026-03-17T23:45:53.280Z",
+  "skillCount": 14,
+  "skills": [
+    {
+      "name": "brainstorming",
+      "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+      "version": "0.0.0",
+      "installUrl": "github:obra/superpowers:skills/brainstorming",
+      "relPath": "skills/brainstorming"
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "description": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+      "version": "0.0.0",
+      "installUrl": "github:obra/superpowers:skills/dispatching-parallel-agents",
+      "relPath": "skills/dispatching-parallel-agents"
+    },
+    {
+      "name": "executing-plans",
+      "description": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
+      "version": "0.0.0",
+      "installUrl": "github:obra/superpowers:skills/executing-plans",
+      "relPath": "skills/executing-plans"
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "description": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup",
+      "version": "0.0.0",
+      "installUrl": "github:obra/superpowers:skills/finishing-a-development-branch",
+      "relPath": "skills/finishing-a-development-branch"
+    },
+    {
+      "name": "receiving-code-review",
+      "description": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
+      "version": "0.0.0",
+      "installUrl": "github:obra/superpowers:skills/receiving-code-review",
+      "relPath": "skills/receiving-code-review"
+    },
+    {
+      "name": "requesting-code-review",
+      "description": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+      "version": "0.0.0",
+      "installUrl": "github:obra/superpowers:skills/requesting-code-review",
+      "relPath": "skills/requesting-code-review"
+    },
+    {
+      "name": "subagent-driven-development",
+      "description": "Use when executing implementation plans with independent tasks in the current session",
+      "version": "0.0.0",
+      "installUrl": "github:obra/superpowers:skills/subagent-driven-development",
+      "relPath": "skills/subagent-driven-development"
+    },
+    {
+      "name": "systematic-debugging",
+      "description": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+      "version": "0.0.0",
+      "installUrl": "github:obra/superpowers:skills/systematic-debugging",
+      "relPath": "skills/systematic-debugging"
+    },
+    {
+      "name": "test-driven-development",
+      "description": "Use when implementing any feature or bugfix, before writing implementation code",
+      "version": "0.0.0",
+      "installUrl": "github:obra/superpowers:skills/test-driven-development",
+      "relPath": "skills/test-driven-development"
+    },
+    {
+      "name": "using-git-worktrees",
+      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verification",
+      "version": "0.0.0",
+      "installUrl": "github:obra/superpowers:skills/using-git-worktrees",
+      "relPath": "skills/using-git-worktrees"
+    },
+    {
+      "name": "using-superpowers",
+      "description": "Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions",
+      "version": "0.0.0",
+      "installUrl": "github:obra/superpowers:skills/using-superpowers",
+      "relPath": "skills/using-superpowers"
+    },
+    {
+      "name": "verification-before-completion",
+      "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
+      "version": "0.0.0",
+      "installUrl": "github:obra/superpowers:skills/verification-before-completion",
+      "relPath": "skills/verification-before-completion"
+    },
+    {
+      "name": "writing-plans",
+      "description": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "version": "0.0.0",
+      "installUrl": "github:obra/superpowers:skills/writing-plans",
+      "relPath": "skills/writing-plans"
+    },
+    {
+      "name": "writing-skills",
+      "description": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+      "version": "0.0.0",
+      "installUrl": "github:obra/superpowers:skills/writing-skills",
+      "relPath": "skills/writing-skills"
+    }
+  ]
+}
