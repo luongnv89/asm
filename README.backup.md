@@ -7,191 +7,117 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/agent-skill-manager"><img src="https://img.shields.io/npm/v/agent-skill-manager.svg" alt="npm version" /></a>
-  <a href="https://www.npmjs.com/package/agent-skill-manager"><img src="https://img.shields.io/npm/dm/agent-skill-manager.svg" alt="npm downloads" /></a>
-  <a href="https://github.com/luongnv89/agent-skill-manager/stargazers"><img src="https://img.shields.io/github/stars/luongnv89/agent-skill-manager.svg?style=social" alt="GitHub stars" /></a>
+  <em>The universal skill manager for AI agents.</em>
+</p>
+
+<p align="center">
+  <a href="#features">Features</a> &middot;
+  <a href="#install">Install</a> &middot;
+  <a href="#usage">Usage</a> &middot;
+  <a href="#configuration">Configuration</a> &middot;
+  <a href="#skillmd-format">SKILL.md Format</a> &middot;
+  <a href="docs/">Docs</a> &middot;
+  <a href="CONTRIBUTING.md">Contributing</a> &middot;
+  <a href="LICENSE">License</a>
+</p>
+
+<p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="MIT License" /></a>
-  <a href="https://github.com/luongnv89/agent-skill-manager/actions"><img src="https://github.com/luongnv89/agent-skill-manager/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://www.npmjs.com/package/agent-skill-manager"><img src="https://img.shields.io/npm/v/agent-skill-manager.svg" alt="npm version" /></a>
   <a href="https://bun.sh"><img src="https://img.shields.io/badge/runtime-Bun%20%E2%89%A5%201.0-black.svg" alt="Bun" /></a>
-</p>
-
-<h1 align="center">One tool to manage every AI agent's skills</h1>
-
-<p align="center">
-  Stop juggling skill directories across Claude Code, Codex, OpenClaw, and other AI agents.<br/>
-  <strong>agent-skill-manager</strong> (<code>asm</code>) gives you a single TUI and CLI to install, search, audit, and organize all your agent skills — everywhere.
-</p>
-
-<p align="center">
-  <a href="#get-started-in-30-seconds"><strong>Get Started in 30 Seconds &rarr;</strong></a>
+  <a href="https://github.com/luongnv89/agent-skill-manager/actions"><img src="https://github.com/luongnv89/agent-skill-manager/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
 </p>
 
 ---
+
+**agent-skill-manager** (`asm`) is an interactive TUI and CLI for managing installed skills across AI coding agents — [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [Codex](https://github.com/openai/codex), [OpenClaw](https://github.com/openclaw), and more. Built with [OpenTUI](https://github.com/nicholasgasior/opentui) and [Bun](https://bun.sh).
 
 <p align="center">
   <img src="assets/screenshots/tui.png" alt="agent-skill-manager TUI dashboard" width="800" />
 </p>
 
----
+## Features
 
-## Your AI agent skills are a mess
+- **Dual interface** — Full interactive TUI and non-interactive CLI (`asm list`, `asm search`, etc.)
+- **Multi-agent support** — Manage skills for Claude Code, Codex, OpenClaw, and custom agent tools from a single tool
+- **Configurable providers** — Define which agent tool directories to scan via `~/.config/agent-skill-manager/config.json`
+- **Global & project scopes** — Filter skills by global (`~/.<tool>/skills/`) or project-level (`./<tool>/skills/`)
+- **Real-time search** — Filter skills by name, description, or provider
+- **Sort** — By name, version, or location
+- **Detailed skill view** — Metadata from SKILL.md frontmatter including provider, path, symlink info
+- **Duplicate audit** — Detect and remove duplicate skills across providers and scopes
+- **Install from GitHub** — Install skills from any public/private GitHub repo with `asm install github:user/repo`
+- **Security scanning** — Automatic pattern-based security warnings before installing skills
+- **Safe uninstall** — Confirmation dialog, removes skill directories, rule files, and AGENTS.md blocks
+- **In-TUI config editor** — Toggle providers on/off, or open config in `$EDITOR`
+- **JSON output** — Machine-readable output for scripting (`--json`)
 
-You use Claude Code at work, Codex for side projects, and OpenClaw for experiments. Each tool keeps skills in its own hidden directory with its own conventions. Here's what that looks like in practice:
-
-- **Skills scattered everywhere** — `~/.claude/skills/`, `~/.codex/skills/`, `~/.openclaw/skills/`, project-level `.claude/skills/`... you have the same skill installed three times and can't remember which version is where
-- **No visibility** — there's no quick way to see what's installed, what's duplicated, or what's outdated across all your agents
-- **Installing is manual and risky** — you clone repos, copy folders, hope the SKILL.md is valid, and pray you didn't just install something that exfiltrates your codebase
-
-The more AI agents you use, the worse this gets. Every new tool adds another skill directory to babysit.
-
-## `asm` brings order to the chaos
-
-**agent-skill-manager** is a single command that manages skills across every AI coding agent you use. One TUI. One CLI. Every agent.
-
-- **See everything at once** — List, search, and filter skills across all providers and scopes from one dashboard. No more `ls`-ing through hidden directories.
-- **Install from GitHub in one command** — `asm install github:user/repo` handles cloning, validation, and placement. Supports single-skill repos, multi-skill collections, subfolder URLs, and private repos via SSH.
-- **Catch problems before they bite** — Built-in security scanning flags dangerous patterns (shell execution, network access, credential exposure, obfuscation) before you install. Duplicate audit finds and cleans redundant skills across providers.
-- **Works with every major agent** — Claude Code, Codex, OpenClaw, and a generic Agents provider out of the box. Add custom providers in seconds via config.
-- **Two interfaces, one tool** — Full interactive TUI with keyboard navigation, search, and detail views. Or use the CLI with `--json` for scripting and automation.
-
-<p align="center">
-  <img src="assets/screenshots/asm-list.png" alt="agent-skill-manager CLI output" width="800" />
-</p>
-
-## How it works
-
-1. **Install `asm`** — one command via npm, Bun, or curl
-2. **Run `asm`** — it auto-discovers skills across all configured agent directories
-3. **Manage everything** — install, search, inspect, audit, and uninstall skills from the TUI or CLI
-4. **Stay safe** — security scan skills before installing, detect duplicates, and clean up with confidence
-
-<p align="center">
-  <a href="#get-started-in-30-seconds"><strong>Start Managing Your Skills &rarr;</strong></a>
-</p>
-
----
-
-## Get Started in 30 Seconds
+## Install
 
 ### npm (recommended)
 
+The npm package ships as a pre-built bundle — **no build step required** on install.
+
+**Prerequisites:** [Bun](https://bun.sh) >= 1.0.0 (used as the runtime)
+
 ```bash
+# Install globally via npm
 npm install -g agent-skill-manager
+
+# Or via Bun
+bun install -g agent-skill-manager
 ```
 
-> Requires [Bun](https://bun.sh) >= 1.0.0 as the runtime. Install Bun: `curl -fsSL https://bun.sh/install | bash`
+> **Note:** While the package is installed through npm, it requires the [Bun](https://bun.sh) runtime to execute. Install Bun with: `curl -fsSL https://bun.sh/install | bash`
 
-### One-liner install
+### Quick Install (one command)
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/luongnv89/agent-skill-manager/main/install.sh | bash
 ```
 
-This installs Bun (if needed) and `agent-skill-manager` globally. Then just run:
+Or with wget:
 
 ```bash
-asm
+wget -qO- https://raw.githubusercontent.com/luongnv89/agent-skill-manager/main/install.sh | bash
 ```
 
-<p align="center">
-  <a href="#cli-commands"><strong>See All Commands &rarr;</strong></a>
-</p>
+This will automatically install [Bun](https://bun.sh) (if not already installed) and then install `agent-skill-manager` globally.
 
----
-
-## Open-Source Skill Collections
-
-A curated list of skill repositories you can install with a single command. Over **1,500 skills** available across these collections:
-
-> **Last updated:** 2026-03-18
-
-| Repository                                                                          | Description                                                        |  Stars | Skills |
-| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------ | -----: | -----: |
-| [anthropic-skills](https://github.com/anthropics/skills)                            | Official Agent Skills from Anthropic                               | 95,957 |     18 |
-| [superpowers](https://github.com/obra/superpowers)                                  | Agentic skills framework & development methodology                 | 89,816 |     14 |
-| [everything-claude-code](https://github.com/affaan-m/everything-claude-code)        | Performance optimization system for Claude Code, Codex, and beyond | 81,392 |    147 |
-| [agency-agents](https://github.com/msitarzewski/agency-agents)                      | Specialized expert agents with personality and proven deliverables | 50,749 |      — |
-| [ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)      | Design intelligence for building professional UI/UX                | 43,112 |      7 |
-| [antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills) | 1,000+ battle-tested skills for Claude Code, Cursor, and more      | 25,047 |  1,258 |
-| [marketingskills](https://github.com/coreyhaines31/marketingskills)                 | Marketing skills — CRO, copywriting, SEO, analytics, growth        | 14,099 |     33 |
-| [agentskills](https://github.com/agentskills/agentskills)                           | Specification and documentation for Agent Skills                   | 13,342 |      — |
-| [taste-skill](https://github.com/Leonxlnx/taste-skill)                              | Gives your AI good taste — stops generic, boring output            |  3,389 |      5 |
-| [affiliate-skills](https://github.com/Affitor/affiliate-skills)                     | Full affiliate marketing funnel: research to deploy                |     99 |     47 |
-| [skills](https://github.com/luongnv89/skills)                                       | Reusable skills to supercharge your AI agents                      |      1 |     29 |
-
-Install any collection:
+### From Source
 
 ```bash
-asm install github:anthropics/skills          # interactive picker
-asm install github:anthropics/skills --all    # install everything
+git clone https://github.com/luongnv89/agent-skill-manager.git
+cd agent-skill-manager
+bun install
+bun run build    # bundle to dist/
+bun run start    # run from source (development)
 ```
 
----
-
-## Supported Agent Tools
-
-| Tool             | Global Path           | Project Path        |
-| ---------------- | --------------------- | ------------------- |
-| Claude Code      | `~/.claude/skills/`   | `.claude/skills/`   |
-| Codex            | `~/.codex/skills/`    | `.codex/skills/`    |
-| OpenClaw         | `~/.openclaw/skills/` | `.openclaw/skills/` |
-| Agents (generic) | `~/.agents/skills/`   | `.agents/skills/`   |
-
-Need another agent? Add it to your config in seconds:
+### Advanced Options
 
 ```bash
-asm config edit   # opens config in $EDITOR
+# Download and inspect the install script before running
+curl -sSL https://raw.githubusercontent.com/luongnv89/agent-skill-manager/main/install.sh -o install.sh
+less install.sh  # review the script
+bash install.sh
 ```
 
----
-
-## FAQ
-
-**Is it free?**
-Yes. `asm` is MIT licensed and free forever. No accounts, no telemetry, no paywalls.
-
-**Is it actively maintained?**
-v1.10.0 shipped on March 18, 2026. The project has had 10 releases in the past week. Check the [changelog](docs/CHANGELOG.md) for the full history.
-
-**Which AI agents does it support?**
-Claude Code, Codex, OpenClaw, and a generic Agents provider out of the box. You can add any agent that stores skills as directories with a `SKILL.md` file — just add a provider entry to the config.
-
-**How does it compare to managing skills manually?**
-Manual management means remembering where each agent stores skills, cloning repos by hand, checking for duplicates yourself, and having no security scanning. `asm` automates all of that with one command.
-
-**Can I use it with private repos?**
-Yes. Use `--transport ssh` or `--transport auto` to clone private repos via SSH.
-
-**Is it safe to install skills from GitHub?**
-`asm` includes built-in security scanning that flags dangerous patterns (shell execution, network access, credential exposure, obfuscation) before installation. Run `asm audit security github:user/repo` to scan any skill before installing.
-
-**What's the SKILL.md format?**
-Every skill is a directory containing a `SKILL.md` file with YAML frontmatter (name, description, version) followed by markdown instructions the AI agent loads at runtime. Run `asm init my-skill` to scaffold one.
-
----
-
-## Start Managing Your Skills Today
-
-You're already using AI agents. You're already installing skills. The only question is whether you keep doing it manually — or let `asm` handle it.
-
-MIT licensed. Free forever. One install command.
-
-<p align="center">
-  <a href="#get-started-in-30-seconds"><strong>Install agent-skill-manager &rarr;</strong></a>
-</p>
-
----
-
-<details>
-<summary><strong>CLI Commands</strong></summary>
+## Usage
 
 ### Interactive TUI
+
+Launch without arguments to open the interactive terminal UI:
 
 ```bash
 asm                    # or: agent-skill-manager
 ```
 
-### Commands
+### CLI Commands
+
+<p align="center">
+  <img src="assets/screenshots/asm-list.png" alt="agent-skill-manager CLI output" width="800" />
+</p>
 
 ```bash
 asm list                       # List all discovered skills
@@ -223,6 +149,53 @@ asm config edit                # Open config in $EDITOR
 --no-color             Disable ANSI colors
 ```
 
+### Installing Skills from GitHub
+
+Install skills directly from GitHub repositories — supports both single-skill repos and multi-skill collections:
+
+```bash
+# Single-skill repo (SKILL.md at root)
+asm install github:user/my-skill
+asm install github:user/my-skill#v1.0.0 -p claude
+
+# Multi-skill repo (skills in subdirectories)
+asm install github:user/skills --path skills/code-review
+asm install github:user/skills --all -p claude -y
+asm install github:user/skills              # interactive picker
+
+# Subfolder URL (auto-detects branch and path)
+asm install https://github.com/user/skills/tree/main/skills/agent-config
+asm install github:user/skills#main:skills/agent-config
+
+# Private repos (SSH transport)
+asm install github:user/private-skill --transport ssh
+asm install github:user/private-skill -t auto  # try HTTPS, fallback to SSH
+
+# Other options
+asm install github:user/my-skill --name custom-name
+asm install github:user/my-skill --force
+asm install github:user/my-skill -p claude --yes --json
+```
+
+**Source format:** `github:owner/repo[#branch-or-tag]` or `github:owner/repo#ref:path` for subfolder installs. HTTPS GitHub URLs with `/tree/` paths (e.g., `https://github.com/user/skills/tree/main/skills/agent-config`) are also supported — the branch and subfolder are auto-detected.
+
+**Install flags:**
+
+| Flag                     | Description                                            |
+| ------------------------ | ------------------------------------------------------ |
+| `-p, --provider <name>`  | Target provider (claude, codex, openclaw, agents)      |
+| `--name <name>`          | Override skill directory name                          |
+| `--path <subdir>`        | Install a specific skill from a subdirectory           |
+| `--all`                  | Install all skills found in the repo                   |
+| `-t, --transport <mode>` | Transport: `https`, `ssh`, or `auto` (default: `auto`) |
+| `-f, --force`            | Overwrite if skill already exists                      |
+| `-y, --yes`              | Skip confirmation prompt                               |
+| `--json`                 | Output result as JSON                                  |
+
+**Multi-skill repo support:** When a repo doesn't have `SKILL.md` at the root, `asm` automatically scans for skills in subdirectories (up to 3 levels deep). In interactive mode, it presents a numbered picker. Use `--path` to target a specific skill or `--all` to batch-install everything.
+
+The install command clones the repository, validates `SKILL.md` files, scans for security warnings, previews skill metadata, and installs to the selected provider's global skill directory. Requires `git` on PATH.
+
 ### Examples
 
 ```bash
@@ -252,60 +225,7 @@ asm index ingest github:anthropics/skills
 asm index search "frontend design" --json
 ```
 
-</details>
-
-<details>
-<summary><strong>Installing Skills from GitHub</strong></summary>
-
-Install skills directly from GitHub repositories — supports both single-skill repos and multi-skill collections:
-
-```bash
-# Single-skill repo (SKILL.md at root)
-asm install github:user/my-skill
-asm install github:user/my-skill#v1.0.0 -p claude
-
-# Multi-skill repo (skills in subdirectories)
-asm install github:user/skills --path skills/code-review
-asm install github:user/skills --all -p claude -y
-asm install github:user/skills              # interactive picker
-
-# Subfolder URL (auto-detects branch and path)
-asm install https://github.com/user/skills/tree/main/skills/agent-config
-asm install github:user/skills#main:skills/agent-config
-
-# Private repos (SSH transport)
-asm install github:user/private-skill --transport ssh
-asm install github:user/private-skill -t auto  # try HTTPS, fallback to SSH
-
-# Other options
-asm install github:user/my-skill --name custom-name
-asm install github:user/my-skill --force
-asm install github:user/my-skill -p claude --yes --json
-```
-
-**Source format:** `github:owner/repo[#branch-or-tag]` or `github:owner/repo#ref:path` for subfolder installs. HTTPS GitHub URLs with `/tree/` paths are also supported — the branch and subfolder are auto-detected.
-
-**Install flags:**
-
-| Flag                     | Description                                            |
-| ------------------------ | ------------------------------------------------------ |
-| `-p, --provider <name>`  | Target provider (claude, codex, openclaw, agents)      |
-| `--name <name>`          | Override skill directory name                          |
-| `--path <subdir>`        | Install a specific skill from a subdirectory           |
-| `--all`                  | Install all skills found in the repo                   |
-| `-t, --transport <mode>` | Transport: `https`, `ssh`, or `auto` (default: `auto`) |
-| `-f, --force`            | Overwrite if skill already exists                      |
-| `-y, --yes`              | Skip confirmation prompt                               |
-| `--json`                 | Output result as JSON                                  |
-
-**Multi-skill repo support:** When a repo doesn't have `SKILL.md` at the root, `asm` automatically scans for skills in subdirectories (up to 3 levels deep). In interactive mode, it presents a numbered picker. Use `--path` to target a specific skill or `--all` to batch-install everything.
-
-The install command clones the repository, validates `SKILL.md` files, scans for security warnings, previews skill metadata, and installs to the selected provider's global skill directory. Requires `git` on PATH.
-
-</details>
-
-<details>
-<summary><strong>TUI Keyboard Shortcuts</strong></summary>
+## TUI Keyboard Shortcuts
 
 | Key            | Action                                |
 | -------------- | ------------------------------------- |
@@ -322,10 +242,7 @@ The install command clones the repository, validates `SKILL.md` files, scans for
 | `q`            | Quit                                  |
 | `?`            | Toggle help overlay                   |
 
-</details>
-
-<details>
-<summary><strong>Configuration</strong></summary>
+## Configuration
 
 On first run, a config file is created at `~/.config/agent-skill-manager/config.json` with default providers:
 
@@ -375,12 +292,20 @@ On first run, a config file is created at `~/.config/agent-skill-manager/config.
 - **Disable providers** — Set `enabled: false` to skip scanning a provider
 - **Preferences** — Set default scope and sort order
 
-Manage config from the CLI (`asm config show|path|reset|edit`) or toggle providers in the TUI by pressing `c`.
+You can also manage config from the CLI (`asm config show|path|reset|edit`) or toggle providers in the TUI by pressing `c`.
 
-</details>
+## Supported Agent Tools
 
-<details>
-<summary><strong>SKILL.md Format</strong></summary>
+| Tool             | Global Path           | Project Path        |
+| ---------------- | --------------------- | ------------------- |
+| Claude Code      | `~/.claude/skills/`   | `.claude/skills/`   |
+| Codex            | `~/.codex/skills/`    | `.codex/skills/`    |
+| OpenClaw         | `~/.openclaw/skills/` | `.openclaw/skills/` |
+| Agents (generic) | `~/.agents/skills/`   | `.agents/skills/`   |
+
+Additional tools can be added via the config file.
+
+## SKILL.md Format
 
 Every skill is a directory containing a `SKILL.md` file. The file starts with a YAML frontmatter block followed by markdown instructions that the AI agent loads at runtime.
 
@@ -427,37 +352,14 @@ Describe what this skill does here.
 
 ### Scaffold a new skill
 
+Use `asm init` to generate a SKILL.md with the correct structure:
+
 ```bash
 asm init my-skill              # creates my-skill/SKILL.md in the default provider
 asm init my-skill -p claude    # creates in Claude Code's skill directory
 ```
 
-</details>
-
-<details>
-<summary><strong>From Source</strong></summary>
-
-```bash
-git clone https://github.com/luongnv89/agent-skill-manager.git
-cd agent-skill-manager
-bun install
-bun run build    # bundle to dist/
-bun run start    # run from source (development)
-```
-
-### Advanced Install
-
-```bash
-# Download and inspect the install script before running
-curl -sSL https://raw.githubusercontent.com/luongnv89/agent-skill-manager/main/install.sh -o install.sh
-less install.sh  # review the script
-bash install.sh
-```
-
-</details>
-
-<details>
-<summary><strong>Project Structure</strong></summary>
+## Project Structure
 
 ```text
 agent-skill-manager/
@@ -504,10 +406,7 @@ agent-skill-manager/
 └── README.md
 ```
 
-</details>
-
-<details>
-<summary><strong>Tech Stack</strong></summary>
+## Tech Stack
 
 - **Runtime:** [Bun](https://bun.sh) >= 1.0.0
 - **Language:** TypeScript (ESNext, strict mode)
@@ -516,10 +415,7 @@ agent-skill-manager/
 - **Testing:** Bun test runner
 - **CI:** GitHub Actions + pre-commit hooks
 
-</details>
-
-<details>
-<summary><strong>Documentation</strong></summary>
+## Documentation
 
 | Document                              | Description                              |
 | ------------------------------------- | ---------------------------------------- |
@@ -532,9 +428,27 @@ agent-skill-manager/
 | [Security](SECURITY.md)               | Vulnerability reporting                  |
 | [Code of Conduct](CODE_OF_CONDUCT.md) | Community guidelines                     |
 
-</details>
+## Open-Source Skill Collections
 
----
+A curated list of open-source repositories that offer collections of skills for AI agents. Install any of them with `asm install github:<owner>/<repo>`.
+
+> **Last updated:** 2026-03-18 | **Previous update:** 2026-03-17
+
+| Repository                                                                          | Description                                                                                                                                                                 | Maintainer                                               |  Stars | Trending | Skills |
+| ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | -----: | :------: | -----: |
+| [anthropic-skills](https://github.com/anthropics/skills)                            | Public repository for Agent Skills.                                                                                                                                         | [@anthropics](https://github.com/anthropics)             | 95,957 |    —     |     18 |
+| [superpowers](https://github.com/obra/superpowers)                                  | An agentic skills framework & software development methodology that works.                                                                                                  | [@obra](https://github.com/obra)                         | 89,816 |    —     |     14 |
+| [everything-claude-code](https://github.com/affaan-m/everything-claude-code)        | The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond. | [@affaan-m](https://github.com/affaan-m)                 | 81,392 |    ↑     |    147 |
+| [agency-agents](https://github.com/msitarzewski/agency-agents)                      | A complete AI agency at your fingertips — specialized expert agents with personality, processes, and proven deliverables.                                                   | [@msitarzewski](https://github.com/msitarzewski)         | 50,749 |    —     |      0 |
+| [ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)      | An AI skill that provides design intelligence for building professional UI/UX across multiple platforms.                                                                    | [@nextlevelbuilder](https://github.com/nextlevelbuilder) | 43,112 |    —     |      7 |
+| [antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills) | The Ultimate Collection of 1000+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents.                                   | [@sickn33](https://github.com/sickn33)                   | 25,047 |    ↑     |   1258 |
+| [marketingskills](https://github.com/coreyhaines31/marketingskills)                 | Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.                                                                   | [@coreyhaines31](https://github.com/coreyhaines31)       | 14,099 |    —     |     33 |
+| [agentskills](https://github.com/agentskills/agentskills)                           | Specification and documentation for Agent Skills.                                                                                                                           | [@agentskills](https://github.com/agentskills)           | 13,342 |    —     |      0 |
+| [taste-skill](https://github.com/Leonxlnx/taste-skill)                              | Taste-Skill (High-Agency Frontend) — gives your AI good taste. Stops the AI from generating boring, generic, "slop".                                                        | [@Leonxlnx](https://github.com/Leonxlnx)                 |  3,389 |    ↑     |      5 |
+| [affiliate-skills](https://github.com/Affitor/affiliate-skills)                     | AI-powered Claude Skills for affiliate marketers. Full funnel: research → content → blog → landing → deploy.                                                                | [@Affitor](https://github.com/Affitor)                   |     99 |    —     |     47 |
+| [skills](https://github.com/luongnv89/skills)                                       | Supercharge your AI agents/bots with reusable skills.                                                                                                                       | [@luongnv89](https://github.com/luongnv89)               |      1 |    —     |     29 |
+
+> **Note:** The _Trending_ column compares star counts with the previous update. Arrows indicate growth (↑), decline (↓), or no prior data (—).
 
 ## Contributing
 
@@ -542,4 +456,4 @@ Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines
 
 ## License
 
-[MIT](LICENSE) — free to use, modify, and distribute. See the [LICENSE](LICENSE) file for details.
+[MIT](LICENSE) — see the [LICENSE](LICENSE) file for details.
