@@ -1,5 +1,29 @@
 # Changelog
 
+## v1.10.0 — 2026-03-18
+
+### Features
+
+- Add `asm index` command with bundled pre-indexed skill data for fast offline skill discovery
+- Support nested metadata blocks in SKILL.md frontmatter — parser now handles one-level YAML nesting with dot notation (e.g., `metadata.version`, `metadata.creator`)
+- Add `resolveVersion()` helper that prefers `metadata.version` over top-level `version` for consistent version resolution across all commands
+- Update `asm init` scaffold template to use new metadata block format with `license` and `creator` fields
+
+### Bug Fixes
+
+- Fix duplicate install names in multi-skill installs
+- Fix valid JSON output for `asm audit security --all --json` when no skills are found
+- Upgrade `actions/checkout` to v5 to resolve Node.js 20 deprecation warning in CI
+- Format `installer.test.ts` to pass CI prettier check
+- Fix CLI integration test to use proper semver comparison instead of string comparison
+
+### Documentation
+
+- Add open-source skill collections section to README with 5 new collections
+- Add TUI dashboard screenshot
+
+**Full Changelog**: https://github.com/luongnv89/agent-skill-manager/compare/v1.9.0...v1.10.0
+
 ## v1.9.0 — 2026-03-14
 
 ### Features
