@@ -43,18 +43,9 @@ The problem worsens with every new AI agent adopted.
 
 ---
 
-## 3. Competitive Landscape
+## 3. Strategic Position
 
-| Tool                                  |  Stars | Agents | Language   | Key differentiator                             |
-| ------------------------------------- | -----: | -----: | ---------- | ---------------------------------------------- |
-| **skillshare** (runkids)              |    909 |     55 | Go         | Sync engine + web UI + deep security audit     |
-| **everything-claude-code** (affaan-m) | 81,392 |      1 | —          | Skill collection, not a manager                |
-| **efx-ai-skills** (electroheadfx)     |      3 |      9 | Go         | Polished TUI, early stage                      |
-| **agent-skill-manager** (ours)        |     18 |      4 | TypeScript | npm-native, security-first, pre-indexed search |
-
-### Our strategic position
-
-We are not trying to replicate skillshare's feature set. We are building the **npm analog** — the lightweight, npm-native package manager that becomes the standard through distribution and ecosystem, not through feature breadth.
+We are building the **npm analog for AI agent skills** — a lightweight, npm-native package manager that becomes the standard through distribution and ecosystem, not through feature breadth.
 
 **Key advantages we double down on:**
 
@@ -63,7 +54,7 @@ We are not trying to replicate skillshare's feature set. We are building the **n
 - Strict TypeScript, 42% test:code ratio
 - Built-in security scanning (26 pattern rules)
 - Pre-indexed offline skill search
-- Lower contribution barrier (TypeScript > Go)
+- Lower contribution barrier (TypeScript ecosystem)
 
 ---
 
@@ -605,7 +596,7 @@ Optional paid skills with license key validation. Revenue split with skill autho
 
 | Risk                                                   | Likelihood | Impact | Mitigation                                                                                              |
 | ------------------------------------------------------ | :--------: | :----: | ------------------------------------------------------------------------------------------------------- |
-| skillshare achieves standard-setting position first    |    High    |  High  | Move fast on Phase 1-2. Our npm distribution advantage is time-limited.                                 |
+| Another tool becomes the de facto standard first       |    High    |  High  | Move fast on Phase 1-2. Our npm distribution advantage is time-limited.                                 |
 | AI agents converge on built-in skill management        |   Medium   |  High  | Provide integration API (Phase 3.4) so agents use asm rather than building their own.                   |
 | Skill format fragmentation (SKILL.md vs. alternatives) |   Medium   | Medium | Support multiple formats via adapters. SKILL.md is the default, not the only format.                    |
 | Registry spam/quality problems                         |    Low     | Medium | Quality scoring + security scanning gate publishing. Manual review for initial wave.                    |
