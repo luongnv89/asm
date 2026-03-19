@@ -536,6 +536,10 @@ agent-skill-manager/
 
 ---
 
+## Roadmap
+
+Track our progress and upcoming features on the [project kanban board](https://github.com/users/luongnv89/projects/6). See [prd.md](prd.md) for the full product requirements and [tasks.md](tasks.md) for the sprint-based development plan.
+
 ## Contributing
 
 Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
