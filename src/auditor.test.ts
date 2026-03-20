@@ -1,5 +1,11 @@
-import { describe, expect, it } from "bun:test";
-import { detectDuplicates, sortInstancesForKeep } from "./auditor";
+import { describe, expect, it, beforeEach, afterEach } from "bun:test";
+import {
+  detectDuplicates,
+  sortInstancesForKeep,
+  reasonLabel,
+  formatAuditReport,
+  formatAuditReportJSON,
+} from "./auditor";
 import type { SkillInfo } from "./utils/types";
 
 function makeSkill(overrides: Partial<SkillInfo> = {}): SkillInfo {
@@ -367,5 +373,146 @@ describe("sortInstancesForKeep", () => {
     const originalFirst = instances[0];
     sortInstancesForKeep(instances);
     expect(instances[0]).toBe(originalFirst);
+  });
+});
+
+// ─── reasonLabel ──────────────────────────────────────────────────────────
+
+describe("reasonLabel", () => {
+  it("returns 'same dirName' for same-dirName", () => {
+    expect(reasonLabel("same-dirName")).toBe("same dirName");
+  });
+
+  it("returns 'same name' for same-frontmatterName", () => {
+    expect(reasonLabel("same-frontmatterName")).toBe("same name");
+  });
+});
+
+// ─── formatAuditReport ──────────────────────────────────────────────────────
+
+describe("formatAuditReport", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+
+  it("returns green message when no duplicates", () => {
+    const report = detectDuplicates([]);
+    const output = formatAuditReport(report);
+    expect(output).toContain("No duplicate skills found.");
+  });
+
+  it("shows duplicate group header with count", () => {
+    const skills = [
+      makeSkill({
+        dirName: "deploy",
+        path: "/claude/deploy",
+        location: "global-claude",
+      }),
+      makeSkill({
+        dirName: "deploy",
+        path: "/codex/deploy",
+        location: "global-codex",
+      }),
+    ];
+    const report = detectDuplicates(skills);
+    const output = formatAuditReport(report);
+    expect(output).toContain("1 duplicate group(s)");
+    expect(output).toContain("2 total instances");
+  });
+
+  it("shows group key and reason", () => {
+    const skills = [
+      makeSkill({
+        dirName: "deploy",
+        path: "/claude/deploy",
+        location: "global-claude",
+      }),
+      makeSkill({
+        dirName: "deploy",
+        path: "/codex/deploy",
+        location: "global-codex",
+      }),
+    ];
+    const report = detectDuplicates(skills);
+    const output = formatAuditReport(report);
+    expect(output).toContain('"deploy"');
+    expect(output).toContain("same dirName");
+  });
+
+  it("marks first sorted instance with [keep]", () => {
+    const skills = [
+      makeSkill({
+        dirName: "deploy",
+        path: "/codex/deploy",
+        location: "global-codex",
+        providerLabel: "Codex",
+        scope: "project",
+      }),
+      makeSkill({
+        dirName: "deploy",
+        path: "/claude/deploy",
+        location: "global-claude",
+        providerLabel: "Claude Code",
+        scope: "global",
+      }),
+    ];
+    const report = detectDuplicates(skills);
+    const output = formatAuditReport(report);
+    expect(output).toContain("[keep]");
+  });
+
+  it("shows asm audit instruction", () => {
+    const skills = [
+      makeSkill({
+        dirName: "deploy",
+        path: "/claude/deploy",
+        location: "global-claude",
+      }),
+      makeSkill({
+        dirName: "deploy",
+        path: "/codex/deploy",
+        location: "global-codex",
+      }),
+    ];
+    const report = detectDuplicates(skills);
+    const output = formatAuditReport(report);
+    expect(output).toContain("asm audit -y");
+  });
+});
+
+// ─── formatAuditReportJSON ──────────────────────────────────────────────────
+
+describe("formatAuditReportJSON", () => {
+  it("returns valid JSON", () => {
+    const report = detectDuplicates([]);
+    const output = formatAuditReportJSON(report);
+    const parsed = JSON.parse(output);
+    expect(parsed.totalSkills).toBe(0);
+    expect(parsed.duplicateGroups).toHaveLength(0);
+  });
+
+  it("includes all report fields", () => {
+    const skills = [
+      makeSkill({
+        dirName: "deploy",
+        path: "/claude/deploy",
+        location: "global-claude",
+      }),
+      makeSkill({
+        dirName: "deploy",
+        path: "/codex/deploy",
+        location: "global-codex",
+      }),
+    ];
+    const report = detectDuplicates(skills);
+    const output = formatAuditReportJSON(report);
+    const parsed = JSON.parse(output);
+    expect(parsed.scannedAt).toBeTruthy();
+    expect(parsed.totalSkills).toBe(2);
+    expect(parsed.duplicateGroups).toHaveLength(1);
+    expect(parsed.totalDuplicateInstances).toBe(2);
   });
 });

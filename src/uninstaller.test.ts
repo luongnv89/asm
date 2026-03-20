@@ -1,8 +1,9 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it, beforeEach, afterEach } from "bun:test";
 import {
   buildRemovalPlan,
   buildFullRemovalPlan,
   executeRemoval,
+  getExistingTargets,
 } from "./uninstaller";
 import type { SkillInfo, AppConfig, RemovalPlan } from "./utils/types";
 import { homedir, tmpdir } from "os";
@@ -370,6 +371,253 @@ describe("executeRemoval with symlinkTo", () => {
       } catch (err: any) {
         expect(err.code).toBe("ENOENT");
       }
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+});
+
+// ─── executeRemoval with rule files and AGENTS.md ────────────────────────────
+
+describe("executeRemoval with rule files", () => {
+  it("removes existing rule files", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-uninstall-rules-"));
+    try {
+      const ruleFile = join(base, "my-skill.mdc");
+      await writeFile(ruleFile, "rule content");
+
+      const plan: RemovalPlan = {
+        directories: [],
+        ruleFiles: [ruleFile],
+        agentsBlocks: [],
+      };
+
+      const log = await executeRemoval(plan);
+      expect(log.some((l) => l.includes("Removed rule file"))).toBe(true);
+
+      try {
+        await lstat(ruleFile);
+        throw new Error("should not exist");
+      } catch (err: any) {
+        expect(err.code).toBe("ENOENT");
+      }
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("skips non-existent rule files without error", async () => {
+    const plan: RemovalPlan = {
+      directories: [],
+      ruleFiles: ["/tmp/nonexistent-rule-xyz.mdc"],
+      agentsBlocks: [],
+    };
+
+    const log = await executeRemoval(plan);
+    // No "Removed rule file" entry since file doesn't exist
+    expect(log.every((l) => !l.includes("Removed rule file"))).toBe(true);
+  });
+});
+
+describe("executeRemoval with AGENTS.md blocks", () => {
+  it("removes a skill block from AGENTS.md", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-agents-md-"));
+    try {
+      const agentsMdPath = join(base, "AGENTS.md");
+      const content = [
+        "# Agents",
+        "",
+        "<!-- agent-skill-manager: my-skill -->",
+        "Some skill content here",
+        "<!-- /agent-skill-manager: my-skill -->",
+        "",
+        "Other content",
+      ].join("\n");
+      await writeFile(agentsMdPath, content, "utf-8");
+
+      const plan: RemovalPlan = {
+        directories: [],
+        ruleFiles: [],
+        agentsBlocks: [{ file: agentsMdPath, skillName: "my-skill" }],
+      };
+
+      await executeRemoval(plan);
+
+      const { readFile } = await import("fs/promises");
+      const updated = await readFile(agentsMdPath, "utf-8");
+      expect(updated).not.toContain("agent-skill-manager: my-skill");
+      expect(updated).toContain("Other content");
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("removes old marker format (pskills) blocks", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-agents-md-old-"));
+    try {
+      const agentsMdPath = join(base, "AGENTS.md");
+      const content = [
+        "# Agents",
+        "",
+        "<!-- pskills: old-skill -->",
+        "Old skill content",
+        "<!-- /pskills: old-skill -->",
+        "",
+        "Keep this",
+      ].join("\n");
+      await writeFile(agentsMdPath, content, "utf-8");
+
+      const plan: RemovalPlan = {
+        directories: [],
+        ruleFiles: [],
+        agentsBlocks: [{ file: agentsMdPath, skillName: "old-skill" }],
+      };
+
+      await executeRemoval(plan);
+
+      const { readFile } = await import("fs/promises");
+      const updated = await readFile(agentsMdPath, "utf-8");
+      expect(updated).not.toContain("pskills: old-skill");
+      expect(updated).toContain("Keep this");
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("handles non-existent AGENTS.md gracefully", async () => {
+    const plan: RemovalPlan = {
+      directories: [],
+      ruleFiles: [],
+      agentsBlocks: [
+        {
+          file: "/tmp/nonexistent-agents-md-xyz/AGENTS.md",
+          skillName: "test",
+        },
+      ],
+    };
+
+    const log = await executeRemoval(plan);
+    // Should not throw
+    expect(log.some((l) => l.includes("Cleaned AGENTS.md block"))).toBe(true);
+  });
+});
+
+// ─── getExistingTargets ─────────────────────────────────────────────────────
+
+describe("getExistingTargets", () => {
+  it("returns existing directories with type label", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-existing-"));
+    try {
+      const dir = join(base, "my-skill");
+      await mkdir(dir);
+
+      const plan: RemovalPlan = {
+        directories: [{ path: dir, isSymlink: false }],
+        ruleFiles: [],
+        agentsBlocks: [],
+      };
+
+      const targets = await getExistingTargets(plan);
+      expect(
+        targets.some((t) => t.includes(dir) && t.includes("directory")),
+      ).toBe(true);
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("identifies symlinks with type label", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-existing-sym-"));
+    try {
+      const realDir = join(base, "real");
+      const linkDir = join(base, "link");
+      await mkdir(realDir);
+      await symlink(realDir, linkDir, "dir");
+
+      const plan: RemovalPlan = {
+        directories: [{ path: linkDir, isSymlink: true }],
+        ruleFiles: [],
+        agentsBlocks: [],
+      };
+
+      const targets = await getExistingTargets(plan);
+      expect(
+        targets.some((t) => t.includes(linkDir) && t.includes("symlink")),
+      ).toBe(true);
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("returns existing rule files", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-existing-rules-"));
+    try {
+      const ruleFile = join(base, "skill.mdc");
+      await writeFile(ruleFile, "content");
+
+      const plan: RemovalPlan = {
+        directories: [],
+        ruleFiles: [ruleFile],
+        agentsBlocks: [],
+      };
+
+      const targets = await getExistingTargets(plan);
+      expect(targets).toContain(ruleFile);
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("skips non-existent directories and files", async () => {
+    const plan: RemovalPlan = {
+      directories: [{ path: "/tmp/nonexistent-dir-xyz", isSymlink: false }],
+      ruleFiles: ["/tmp/nonexistent-rule-xyz.mdc"],
+      agentsBlocks: [],
+    };
+
+    const targets = await getExistingTargets(plan);
+    expect(targets).toHaveLength(0);
+  });
+
+  it("detects AGENTS.md blocks with agent-skill-manager markers", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-targets-agents-"));
+    try {
+      const agentsMd = join(base, "AGENTS.md");
+      await writeFile(
+        agentsMd,
+        "# Agents\n<!-- agent-skill-manager: my-skill -->\nContent\n<!-- /agent-skill-manager: my-skill -->\n",
+      );
+
+      const plan: RemovalPlan = {
+        directories: [],
+        ruleFiles: [],
+        agentsBlocks: [{ file: agentsMd, skillName: "my-skill" }],
+      };
+
+      const targets = await getExistingTargets(plan);
+      expect(targets.some((t) => t.includes("AGENTS.md block"))).toBe(true);
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("detects AGENTS.md blocks with old pskills markers", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-targets-pskills-"));
+    try {
+      const agentsMd = join(base, "AGENTS.md");
+      await writeFile(
+        agentsMd,
+        "# Agents\n<!-- pskills: old-skill -->\nOld\n<!-- /pskills: old-skill -->\n",
+      );
+
+      const plan: RemovalPlan = {
+        directories: [],
+        ruleFiles: [],
+        agentsBlocks: [{ file: agentsMd, skillName: "old-skill" }],
+      };
+
+      const targets = await getExistingTargets(plan);
+      expect(targets.some((t) => t.includes("AGENTS.md block"))).toBe(true);
     } finally {
       await rm(base, { recursive: true, force: true });
     }

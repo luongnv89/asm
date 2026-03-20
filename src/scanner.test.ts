@@ -1,9 +1,13 @@
 import { describe, expect, it, beforeEach, afterEach, spyOn } from "bun:test";
+import { mkdtemp, writeFile, mkdir, rm, symlink } from "fs/promises";
+import { join } from "path";
+import { tmpdir } from "os";
 import {
   searchSkills,
   sortSkills,
   scanAllSkills,
   compareSemver,
+  countFiles,
 } from "./scanner";
 import { setVerbose } from "./logger";
 import { getDefaultConfig } from "./config";
@@ -216,5 +220,240 @@ describe("scanner verbose output", () => {
       .map((c: unknown[]) => c[0] as string)
       .join("\n");
     expect(output).not.toContain("[verbose]");
+  });
+});
+
+// ─── countFiles ─────────────────────────────────────────────────────────────
+
+describe("countFiles", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "scanner-count-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  it("counts files in a flat directory", async () => {
+    await writeFile(join(tempDir, "a.txt"), "a");
+    await writeFile(join(tempDir, "b.txt"), "b");
+    const count = await countFiles(tempDir);
+    expect(count).toBe(2);
+  });
+
+  it("counts files recursively", async () => {
+    await writeFile(join(tempDir, "a.txt"), "a");
+    await mkdir(join(tempDir, "sub"));
+    await writeFile(join(tempDir, "sub", "b.txt"), "b");
+    await writeFile(join(tempDir, "sub", "c.txt"), "c");
+    const count = await countFiles(tempDir);
+    // Recursive readdir includes subdirectory name + files
+    expect(count).toBeGreaterThanOrEqual(3);
+  });
+
+  it("returns 0 for non-existent directory", async () => {
+    const count = await countFiles("/tmp/nonexistent-scanner-dir-xyz");
+    expect(count).toBe(0);
+  });
+
+  it("returns 0 for empty directory", async () => {
+    const emptyDir = join(tempDir, "empty");
+    await mkdir(emptyDir);
+    const count = await countFiles(emptyDir);
+    expect(count).toBe(0);
+  });
+});
+
+// ─── scanAllSkills with custom paths ────────────────────────────────────────
+
+describe("scanAllSkills", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "scanner-scan-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  it("discovers skills with SKILL.md in provider directory", async () => {
+    // Create a fake skill directory
+    const skillDir = join(tempDir, "my-skill");
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      "---\nname: My Skill\nversion: 1.0.0\ndescription: A test\n---\nBody",
+    );
+
+    const config = {
+      ...getDefaultConfig(),
+      providers: [
+        {
+          name: "test",
+          label: "Test Provider",
+          global: tempDir,
+          project: "/tmp/nonexistent-project",
+          enabled: true,
+        },
+      ],
+      customPaths: [],
+    };
+
+    const skills = await scanAllSkills(config, "global");
+    const found = skills.find((s) => s.name === "My Skill");
+    expect(found).toBeDefined();
+    expect(found!.version).toBe("1.0.0");
+    expect(found!.scope).toBe("global");
+    expect(found!.provider).toBe("test");
+    expect(found!.isSymlink).toBe(false);
+  });
+
+  it("skips entries without SKILL.md", async () => {
+    const noSkillDir = join(tempDir, "not-a-skill");
+    await mkdir(noSkillDir);
+    await writeFile(join(noSkillDir, "README.md"), "Just a readme");
+
+    const config = {
+      ...getDefaultConfig(),
+      providers: [
+        {
+          name: "test",
+          label: "Test",
+          global: tempDir,
+          project: "/tmp/nonexistent-proj",
+          enabled: true,
+        },
+      ],
+      customPaths: [],
+    };
+
+    const skills = await scanAllSkills(config, "global");
+    expect(skills.find((s) => s.dirName === "not-a-skill")).toBeUndefined();
+  });
+
+  it("skips files (non-directories) in scan location", async () => {
+    await writeFile(join(tempDir, "just-a-file.txt"), "text");
+
+    const config = {
+      ...getDefaultConfig(),
+      providers: [
+        {
+          name: "test",
+          label: "Test",
+          global: tempDir,
+          project: "/tmp/nonexistent-proj",
+          enabled: true,
+        },
+      ],
+      customPaths: [],
+    };
+
+    const skills = await scanAllSkills(config, "global");
+    expect(skills.find((s) => s.dirName === "just-a-file.txt")).toBeUndefined();
+  });
+
+  it("handles non-existent provider directory gracefully", async () => {
+    const config = {
+      ...getDefaultConfig(),
+      providers: [
+        {
+          name: "test",
+          label: "Test",
+          global: "/tmp/nonexistent-scanner-global-xyz",
+          project: "/tmp/nonexistent-scanner-project-xyz",
+          enabled: true,
+        },
+      ],
+      customPaths: [],
+    };
+
+    const skills = await scanAllSkills(config, "global");
+    expect(Array.isArray(skills)).toBe(true);
+  });
+
+  it("skips disabled providers", async () => {
+    const skillDir = join(tempDir, "a-skill");
+    await mkdir(skillDir);
+    await writeFile(join(skillDir, "SKILL.md"), "---\nname: Disabled\n---\n");
+
+    const config = {
+      ...getDefaultConfig(),
+      providers: [
+        {
+          name: "disabled",
+          label: "Disabled",
+          global: tempDir,
+          project: "/tmp/nonexistent-proj",
+          enabled: false,
+        },
+      ],
+      customPaths: [],
+    };
+
+    const skills = await scanAllSkills(config, "global");
+    expect(skills.find((s) => s.provider === "disabled")).toBeUndefined();
+  });
+
+  it("detects symlink skills", async () => {
+    // Create real skill dir
+    const realDir = join(tempDir, "real-skill");
+    await mkdir(realDir);
+    await writeFile(
+      join(realDir, "SKILL.md"),
+      "---\nname: Linked Skill\nversion: 2.0.0\n---\n",
+    );
+
+    // Create a separate scan dir with symlink
+    const scanDir = join(tempDir, "scan");
+    await mkdir(scanDir);
+    await symlink(realDir, join(scanDir, "linked-skill"), "dir");
+
+    const config = {
+      ...getDefaultConfig(),
+      providers: [
+        {
+          name: "test",
+          label: "Test",
+          global: scanDir,
+          project: "/tmp/nonexistent-proj",
+          enabled: true,
+        },
+      ],
+      customPaths: [],
+    };
+
+    const skills = await scanAllSkills(config, "global");
+    const found = skills.find((s) => s.dirName === "linked-skill");
+    expect(found).toBeDefined();
+    expect(found!.isSymlink).toBe(true);
+    expect(found!.symlinkTarget).toBeTruthy();
+  });
+
+  it("scans custom paths", async () => {
+    const customDir = join(tempDir, "custom");
+    await mkdir(customDir);
+    const skillDir = join(customDir, "custom-skill");
+    await mkdir(skillDir);
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      "---\nname: Custom Skill\n---\n",
+    );
+
+    const config = {
+      ...getDefaultConfig(),
+      providers: [],
+      customPaths: [
+        { path: customDir, label: "My Custom", scope: "global" as const },
+      ],
+    };
+
+    const skills = await scanAllSkills(config, "global");
+    const found = skills.find((s) => s.name === "Custom Skill");
+    expect(found).toBeDefined();
+    expect(found!.provider).toBe("custom");
+    expect(found!.providerLabel).toBe("My Custom");
   });
 });
