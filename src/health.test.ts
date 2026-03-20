@@ -13,6 +13,7 @@ function makeSkill(overrides: Partial<SkillInfo> = {}): SkillInfo {
     name: "test-skill",
     version: "1.0.0",
     description: "A test skill",
+    creator: "",
     dirName: "test-skill",
     path,
     originalPath: path,

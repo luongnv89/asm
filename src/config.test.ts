@@ -21,20 +21,46 @@ describe("getDefaultConfig", () => {
     expect(config.version).toBe(1);
   });
 
-  it("returns 4 default providers", () => {
+  it("returns 15 default providers", () => {
     const config = getDefaultConfig();
-    expect(config.providers).toHaveLength(4);
+    expect(config.providers).toHaveLength(15);
   });
 
-  it("includes claude, codex, openclaw, and agents providers", () => {
+  it("includes all 15 default providers", () => {
     const config = getDefaultConfig();
     const names = config.providers.map((p) => p.name);
-    expect(names).toEqual(["claude", "codex", "openclaw", "agents"]);
+    expect(names).toContain("claude");
+    expect(names).toContain("codex");
+    expect(names).toContain("openclaw");
+    expect(names).toContain("agents");
+    expect(names).toContain("cursor");
+    expect(names).toContain("windsurf");
+    expect(names).toContain("cline");
+    expect(names).toContain("roocode");
+    expect(names).toContain("continue");
+    expect(names).toContain("copilot");
+    expect(names).toContain("aider");
+    expect(names).toContain("opencode");
+    expect(names).toContain("zed");
+    expect(names).toContain("augment");
+    expect(names).toContain("amp");
   });
 
-  it("all providers are enabled by default", () => {
+  it("original 4 providers are enabled by default", () => {
     const config = getDefaultConfig();
-    expect(config.providers.every((p) => p.enabled)).toBe(true);
+    const original = config.providers.filter((p) =>
+      ["claude", "codex", "openclaw", "agents"].includes(p.name),
+    );
+    expect(original.every((p) => p.enabled)).toBe(true);
+  });
+
+  it("new 11 providers are disabled by default", () => {
+    const config = getDefaultConfig();
+    const newProviders = config.providers.filter(
+      (p) => !["claude", "codex", "openclaw", "agents"].includes(p.name),
+    );
+    expect(newProviders.every((p) => !p.enabled)).toBe(true);
+    expect(newProviders).toHaveLength(11);
   });
 
   it("has empty customPaths", () => {
@@ -135,7 +161,7 @@ describe("config backup on corruption", () => {
 
     // Should return defaults
     expect(config.version).toBe(1);
-    expect(config.providers).toHaveLength(4);
+    expect(config.providers).toHaveLength(15);
 
     // Should have created backup
     const backup = await readFile(backupPath, "utf-8");

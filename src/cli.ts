@@ -61,6 +61,7 @@ import {
   getTotalSkillCount,
 } from "./skill-index";
 import { VERSION_STRING } from "./utils/version";
+import { parseEditorCommand } from "./utils/editor";
 import { setVerbose } from "./logger";
 import type { Scope, SortBy, TransportMode } from "./utils/types";
 
@@ -896,13 +897,14 @@ async function cmdConfig(args: ParsedArgs) {
       break;
     }
     case "edit": {
-      const editor = process.env.VISUAL || process.env.EDITOR || "vi";
+      const editorCmd = process.env.VISUAL || process.env.EDITOR || "vi";
+      const [editorBin, editorArgs] = parseEditorCommand(editorCmd);
       const configPath = getConfigPath();
       // Ensure config file exists
       await loadConfig();
       const { spawn: spawnProcess } = await import("child_process");
       await new Promise<void>((resolve, reject) => {
-        const proc = spawnProcess(editor, [configPath], {
+        const proc = spawnProcess(editorBin, [...editorArgs, configPath], {
           stdio: "inherit",
         });
         proc.on("close", () => resolve());

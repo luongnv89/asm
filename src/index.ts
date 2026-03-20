@@ -23,6 +23,7 @@ import { createConfirmView } from "./views/confirm";
 import { createHelpView } from "./views/help";
 import { createConfigView } from "./views/config";
 import { createDuplicatesOverlay } from "./views/duplicates";
+import { parseEditorCommand } from "./utils/editor";
 
 // ─── State ──────────────────────────────────────────────────────────────────
 let currentConfig: AppConfig;
@@ -273,13 +274,13 @@ async function main() {
     if (viewState === "config") {
       if (key.name === "e") {
         // Open config in $EDITOR
-        const editorCmd = process.env.EDITOR || process.env.VISUAL || "vi";
-        const parts = editorCmd.split(/\s+/);
+        const editorCmd = process.env.VISUAL || process.env.EDITOR || "vi";
+        const [editorBin, editorArgs] = parseEditorCommand(editorCmd);
         const configPath = getConfigPath();
         renderer.destroy();
         const { spawn: spawnProcess } = await import("child_process");
         await new Promise<void>((resolve, reject) => {
-          const proc = spawnProcess(parts[0], [...parts.slice(1), configPath], {
+          const proc = spawnProcess(editorBin, [...editorArgs, configPath], {
             stdio: "inherit",
           });
           proc.on("close", () => resolve());

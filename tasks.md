@@ -65,11 +65,11 @@ Wave 7 (future):
 
 **Acceptance Criteria:**
 
-- [ ] Default config includes 15+ provider entries with correct global/project paths
-- [ ] `asm list` discovers skills from all configured agents
-- [ ] `asm install -p cursor` installs to Cursor's skill directory
+- [x] Default config includes 15+ provider entries with correct global/project paths
+- [x] `asm list` discovers skills from all configured agents
+- [x] `asm install -p cursor` installs to Cursor's skill directory
 - [ ] README and docs updated with full provider table
-- [ ] Tests updated for new default provider count
+- [x] Tests updated for new default provider count
 
 **Dependencies:** None
 **PRD Reference:** Section 5.1
@@ -146,11 +146,11 @@ Wave 7 (future):
 
 **Acceptance Criteria:**
 
-- [ ] `$EDITOR` with spaces is parsed into command and arguments correctly
-- [ ] `EDITOR="emacsclient --tty -a \"\""` works
-- [ ] `EDITOR="code --wait"` works
-- [ ] Simple `EDITOR="vim"` still works
-- [ ] Test for space-containing editor commands
+- [x] `$EDITOR` with spaces is parsed into command and arguments correctly
+- [x] `EDITOR="emacsclient --tty -a \"\""` works
+- [x] `EDITOR="code --wait"` works
+- [x] Simple `EDITOR="vim"` still works
+- [x] Test for space-containing editor commands
 
 **Dependencies:** None
 **PRD Reference:** Section 4.7 (configuration)
@@ -164,12 +164,12 @@ Wave 7 (future):
 
 **Acceptance Criteria:**
 
-- [ ] CLI column headers show "Tool" instead of "Provider"
-- [ ] TUI dashboard and detail views show "Tool"
-- [ ] `-t, --tool` flag alias added alongside existing `-p, --provider`
-- [ ] `--provider` still works (backward compatible)
-- [ ] Help text updated
-- [ ] Tests updated for new labels
+- [x] CLI column headers show "Tool" instead of "Provider"
+- [x] TUI dashboard and detail views show "Tool"
+- [x] `-t, --tool` flag alias added alongside existing `-p, --provider`
+- [x] `--provider` still works (backward compatible)
+- [x] Help text updated
+- [x] Tests updated for new labels
 
 **Dependencies:** None
 **PRD Reference:** Section 4.1 (dual interface)
@@ -183,14 +183,14 @@ Wave 7 (future):
 
 **Acceptance Criteria:**
 
-- [ ] `SkillInfo` type includes `creator` field
-- [ ] `scanDirectory()` extracts `metadata.creator` from frontmatter
-- [ ] `asm list` shows Creator column
-- [ ] `asm search` shows Creator in results
-- [ ] TUI skill list displays creator
-- [ ] TUI detail view displays creator
-- [ ] `--json` output includes `creator` field
-- [ ] Tests for creator extraction and display
+- [x] `SkillInfo` type includes `creator` field
+- [x] `scanDirectory()` extracts `metadata.creator` from frontmatter
+- [x] `asm list` shows Creator column
+- [x] `asm search` shows Creator in results
+- [x] TUI skill list displays creator
+- [x] TUI detail view displays creator
+- [x] `--json` output includes `creator` field
+- [x] Tests for creator extraction and display
 
 **Dependencies:** None
 **PRD Reference:** Section 4.2 (skill discovery)

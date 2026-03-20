@@ -9,6 +9,7 @@ export interface SkillInfo {
   name: string;
   version: string;
   description: string;
+  creator: string;
   dirName: string;
   path: string;
   originalPath: string;

@@ -17,6 +17,7 @@ function makeSkill(overrides: Partial<SkillInfo> = {}): SkillInfo {
     name: "test-skill",
     version: "1.0.0",
     description: "A test skill",
+    creator: "",
     dirName: "test-skill",
     path: "/home/user/.claude/skills/test-skill",
     originalPath: "~/.claude/skills/test-skill",
@@ -80,11 +81,12 @@ describe("formatSkillTable", () => {
     expect(lines[1]).toMatch(/^-+/);
   });
 
-  test("shows all six columns", () => {
+  test("shows all seven columns", () => {
     const output = formatSkillTable([makeSkill()]);
     const headerLine = output.split("\n")[0];
     expect(headerLine).toContain("Name");
     expect(headerLine).toContain("Version");
+    expect(headerLine).toContain("Creator");
     expect(headerLine).toContain("Tool");
     expect(headerLine).toContain("Scope");
     expect(headerLine).toContain("Type");
@@ -533,6 +535,7 @@ describe("formatGroupedTable", () => {
     const output = formatGroupedTable([makeSkill()]);
     expect(output).toContain("Name");
     expect(output).toContain("Version");
+    expect(output).toContain("Creator");
     expect(output).toContain("Tools");
     expect(output).toContain("Scope");
     expect(output).toContain("Type");

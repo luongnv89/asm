@@ -67,6 +67,15 @@ export function createDetailView(
     detailRow(ctx, "version", "Version", skill.version, theme.green),
   );
   container.add(
+    detailRow(
+      ctx,
+      "creator",
+      "Creator",
+      skill.creator || "\u2014",
+      skill.creator ? theme.fg : theme.fgDim,
+    ),
+  );
+  container.add(
     detailRow(ctx, "provider", "Tool", skill.providerLabel, theme.accentAlt),
   );
   container.add(

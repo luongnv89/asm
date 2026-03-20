@@ -144,6 +144,7 @@ async function scanDirectory(loc: ScanLocation): Promise<SkillInfo[]> {
       name: fm.name || entry,
       version: resolveVersion(fm),
       description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
+      creator: fm["metadata.creator"] || "",
       dirName: entry,
       path: resolvedPath,
       originalPath: entryPath,
@@ -177,6 +178,7 @@ export function searchSkills(skills: SkillInfo[], query: string): SkillInfo[] {
     (s) =>
       s.name.toLowerCase().includes(q) ||
       s.description.toLowerCase().includes(q) ||
+      s.creator.toLowerCase().includes(q) ||
       s.location.toLowerCase().includes(q) ||
       s.providerLabel.toLowerCase().includes(q),
   );

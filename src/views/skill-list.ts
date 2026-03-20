@@ -23,6 +23,8 @@ function formatSkillRow(
   const name = prefix + rawName;
   const ver =
     skill.version.length > 7 ? skill.version.slice(0, 7) : skill.version;
+  const creatorRaw = skill.creator || "\u2014";
+  const creator = creatorRaw.length > 12 ? creatorRaw.slice(0, 12) : creatorRaw;
   const prov =
     skill.providerLabel.length > 11
       ? skill.providerLabel.slice(0, 11)
@@ -31,7 +33,7 @@ function formatSkillRow(
   const type = skill.isSymlink ? "\u2192link" : " dir ";
   const desc =
     descWidth > 0 ? " " + (skill.description || "").slice(0, descWidth) : "";
-  return `${idx} ${name.padEnd(24)} ${ver.padEnd(8)} ${prov.padEnd(12)} ${scope.padEnd(8)} ${type.padEnd(6)}${desc}`;
+  return `${idx} ${name.padEnd(24)} ${ver.padEnd(8)} ${creator.padEnd(13)} ${prov.padEnd(12)} ${scope.padEnd(8)} ${type.padEnd(6)}${desc}`;
 }
 
 function buildOptions(skills: SkillInfo[], descWidth: number) {
@@ -48,8 +50,8 @@ function buildOptions(skills: SkillInfo[], descWidth: number) {
 }
 
 function calcDescWidth(termWidth: number): number {
-  // 2(border) + 2(padding) + 4(#) + 24(name) + 8(ver) + 12(provider) + 8(scope) + 6(type) + 6(spaces) = 72
-  const fixed = 72;
+  // 2(border) + 2(padding) + 4(#) + 24(name) + 8(ver) + 13(creator) + 12(provider) + 8(scope) + 6(type) + 7(spaces) = 86
+  const fixed = 86;
   return Math.max(0, termWidth - fixed);
 }
 
@@ -82,7 +84,7 @@ export function createSkillList(
   const descHeader = descWidth > 0 ? " Description" : "";
   const headerRow = new TextRenderable(ctx, {
     id: "skill-list-header",
-    content: `${"#".padStart(3)} ${"Name".padEnd(26)} ${"Ver".padEnd(8)} ${"Tool".padEnd(12)} ${"Scope".padEnd(8)} ${"Type".padEnd(6)}${descHeader}`,
+    content: `${"#".padStart(3)} ${"Name".padEnd(26)} ${"Ver".padEnd(8)} ${"Creator".padEnd(13)} ${"Tool".padEnd(12)} ${"Scope".padEnd(8)} ${"Type".padEnd(6)}${descHeader}`,
     fg: theme.fgDim,
     height: 1,
   });

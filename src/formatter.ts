@@ -41,6 +41,17 @@ const PROVIDER_COLORS: Record<string, (s: string) => string> = {
   openclaw: ansi.yellow,
   agents: ansi.green,
   custom: ansi.magenta,
+  cursor: ansi.blue,
+  windsurf: ansi.cyan,
+  cline: ansi.green,
+  roocode: ansi.magenta,
+  continue: ansi.yellow,
+  copilot: ansi.white,
+  aider: ansi.red,
+  opencode: ansi.cyan,
+  zed: ansi.blue,
+  augment: ansi.green,
+  amp: ansi.yellow,
 };
 
 export function colorProvider(provider: string, label: string): string {
@@ -71,11 +82,20 @@ export function formatSkillTable(skills: SkillInfo[]): string {
     return "No skills found.";
   }
 
-  const headers = ["Name", "Version", "Tool", "Scope", "Type", "Path"];
+  const headers = [
+    "Name",
+    "Version",
+    "Creator",
+    "Tool",
+    "Scope",
+    "Type",
+    "Path",
+  ];
 
   const rows = skills.map((s) => [
     s.name,
     s.version,
+    s.creator || "\u2014",
     s.providerLabel,
     s.scope,
     s.isSymlink ? "symlink" : "directory",
@@ -107,6 +127,7 @@ export function formatSkillTable(skills: SkillInfo[]): string {
 interface GroupedSkill {
   name: string;
   version: string;
+  creator: string;
   providers: Array<{ provider: string; label: string }>;
   scope: "global" | "project" | "mixed";
   type: "symlink" | "directory" | "mixed";
@@ -135,6 +156,7 @@ function groupSkills(skills: SkillInfo[]): GroupedSkill[] {
     result.push({
       name: ref.name,
       version: ref.version,
+      creator: ref.creator || "",
       providers: members.map((m) => ({
         provider: m.provider,
         label: m.providerLabel,
@@ -163,6 +185,10 @@ export function formatGroupedTable(skills: SkillInfo[]): string {
   // Calculate column widths
   const nameW = Math.max(4, ...grouped.map((g) => g.name.length));
   const versionW = Math.max(7, ...grouped.map((g) => g.version.length));
+  const creatorW = Math.max(
+    7,
+    ...grouped.map((g) => Math.min((g.creator || "\u2014").length, 15)),
+  );
   const scopeW = 7; // "project" is longest
   const typeW = 9; // "directory" is longest
 
@@ -178,10 +204,10 @@ export function formatGroupedTable(skills: SkillInfo[]): string {
   const pad = (s: string, w: number) => s.padEnd(w);
 
   // Header
-  const header = `${pad("Name", nameW)}  ${pad("Version", versionW)}  ${pad("Tools", providerW)}  ${pad("Scope", scopeW)}  ${pad("Type", typeW)}`;
+  const header = `${pad("Name", nameW)}  ${pad("Version", versionW)}  ${pad("Creator", creatorW)}  ${pad("Tools", providerW)}  ${pad("Scope", scopeW)}  ${pad("Type", typeW)}`;
   lines.push(useColor() ? ansi.bold(header) : header);
   lines.push(
-    `${"-".repeat(nameW)}  ${"-".repeat(versionW)}  ${"-".repeat(providerW)}  ${"-".repeat(scopeW)}  ${"-".repeat(typeW)}`,
+    `${"-".repeat(nameW)}  ${"-".repeat(versionW)}  ${"-".repeat(creatorW)}  ${"-".repeat(providerW)}  ${"-".repeat(scopeW)}  ${"-".repeat(typeW)}`,
   );
 
   // Data rows
@@ -189,6 +215,8 @@ export function formatGroupedTable(skills: SkillInfo[]): string {
     const g = grouped[i];
     const name = pad(g.name, nameW);
     const version = pad(g.version, versionW);
+    const creatorDisplay = (g.creator || "\u2014").slice(0, 15);
+    const creator = pad(creatorDisplay, creatorW);
     // Provider badges have ANSI codes, so we pad based on plain text width
     const provPadding = providerW - providerPlain[i].length;
     const prov = providerStrs[i] + " ".repeat(Math.max(0, provPadding));
@@ -199,7 +227,9 @@ export function formatGroupedTable(skills: SkillInfo[]): string {
         ? ` ${ansi.yellow(`(${g.warningCount} warning${g.warningCount > 1 ? "s" : ""})`)}`
         : "";
 
-    lines.push(`${name}  ${version}  ${prov}  ${scope}  ${type}${warn}`);
+    lines.push(
+      `${name}  ${version}  ${creator}  ${prov}  ${scope}  ${type}${warn}`,
+    );
   }
 
   // Footer summary
@@ -249,6 +279,10 @@ export function formatSearchResults(
   // Calculate column widths
   const nameW = Math.max(4, ...grouped.map((g) => g.name.length));
   const versionW = Math.max(7, ...grouped.map((g) => g.version.length));
+  const creatorW = Math.max(
+    7,
+    ...grouped.map((g) => Math.min((g.creator || "\u2014").length, 15)),
+  );
 
   const providerStrs = grouped.map((g) =>
     g.providers.map((p) => providerBadge(p.provider, p.label)).join(" "),
@@ -264,10 +298,10 @@ export function formatSearchResults(
   const pad = (s: string, w: number) => s.padEnd(w);
 
   // Header
-  const header = `${pad("Name", nameW)}  ${pad("Version", versionW)}  ${pad("Tools", providerW)}  ${pad("Scope", scopeW)}  ${pad("Type", typeW)}`;
+  const header = `${pad("Name", nameW)}  ${pad("Version", versionW)}  ${pad("Creator", creatorW)}  ${pad("Tools", providerW)}  ${pad("Scope", scopeW)}  ${pad("Type", typeW)}`;
   lines.push(useColor() ? ansi.bold(header) : header);
   lines.push(
-    `${"-".repeat(nameW)}  ${"-".repeat(versionW)}  ${"-".repeat(providerW)}  ${"-".repeat(scopeW)}  ${"-".repeat(typeW)}`,
+    `${"-".repeat(nameW)}  ${"-".repeat(versionW)}  ${"-".repeat(creatorW)}  ${"-".repeat(providerW)}  ${"-".repeat(scopeW)}  ${"-".repeat(typeW)}`,
   );
 
   // Data rows with highlighting
@@ -278,12 +312,14 @@ export function formatSearchResults(
     const namePad = nameW - g.name.length;
     const name = nameHighlighted + " ".repeat(Math.max(0, namePad));
     const version = pad(g.version, versionW);
+    const creatorDisplay = (g.creator || "\u2014").slice(0, 15);
+    const creator = pad(creatorDisplay, creatorW);
     const provPadding = providerW - providerPlain[i].length;
     const prov = providerStrs[i] + " ".repeat(Math.max(0, provPadding));
     const scope = pad(g.scope, scopeW);
     const type = pad(g.type, typeW);
 
-    lines.push(`${name}  ${version}  ${prov}  ${scope}  ${type}`);
+    lines.push(`${name}  ${version}  ${creator}  ${prov}  ${scope}  ${type}`);
   }
 
   return lines.join("\n");
@@ -298,6 +334,7 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
 
   lines.push(label("Name", skill.name));
   lines.push(label("Version", skill.version));
+  lines.push(label("Creator", skill.creator || "\u2014"));
   lines.push(label("Tool", skill.providerLabel));
   lines.push(label("Scope", skill.scope));
   lines.push(label("Location", skill.location));
@@ -350,6 +387,7 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
 
   // ── Shared info ──
   lines.push(label("  Version", ref.version));
+  lines.push(label("  Creator", ref.creator || "\u2014"));
 
   const fileCount = ref.fileCount ?? (await countFiles(ref.path));
   lines.push(label("  File Count", String(fileCount)));
