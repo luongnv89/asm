@@ -4,6 +4,22 @@ import { theme } from "../utils/colors";
 import type { SkillInfo } from "../utils/types";
 import { countFiles } from "../scanner";
 
+function wordWrap(text: string, maxWidth: number): string[] {
+  const words = text.split(/\s+/);
+  const lines: string[] = [];
+  let current = "";
+  for (const word of words) {
+    if (current.length + word.length + 1 > maxWidth && current.length > 0) {
+      lines.push(current);
+      current = word;
+    } else {
+      current = current ? current + " " + word : word;
+    }
+  }
+  if (current) lines.push(current);
+  return lines;
+}
+
 function detailRow(
   ctx: RenderContext,
   id: string,
@@ -129,8 +145,20 @@ export function createDetailView(
   container.add(descLabel);
 
   const desc = skill.description || "(no description)";
+  const descMaxWidth = 56;
+  const descMaxLines = 4;
+  const wrappedLines = wordWrap(desc, descMaxWidth);
+  const truncated = wrappedLines.length > descMaxLines;
+  const visibleLines = wrappedLines.slice(0, descMaxLines);
+  if (truncated) {
+    const lastLine = visibleLines[descMaxLines - 1];
+    visibleLines[descMaxLines - 1] =
+      lastLine.length > descMaxWidth - 3
+        ? lastLine.slice(0, descMaxWidth - 3) + "..."
+        : lastLine + "...";
+  }
   const descText = new TextRenderable(ctx, {
-    content: `  ${desc}`,
+    content: visibleLines.map((l) => `  ${l}`).join("\n"),
     fg: theme.fg,
     width: 58,
   });
