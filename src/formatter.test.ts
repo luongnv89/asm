@@ -3,6 +3,10 @@ import {
   formatSkillTable,
   formatSkillDetail,
   formatSkillInspect,
+  formatGroupedTable,
+  formatSearchResults,
+  shortenPath,
+  colorProvider,
   formatJSON,
   ansi,
 } from "./formatter";
@@ -445,5 +449,233 @@ describe("ansi helpers (empty NO_COLOR)", () => {
   test("NO_COLOR='' still disables color", () => {
     // Per spec, NO_COLOR being defined (even empty) disables color
     expect(ansi.bold("test")).toBe("test");
+  });
+});
+
+// ─── shortenPath ──────────────────────────────────────────────────────────
+
+describe("shortenPath", () => {
+  test("shortens home directory to ~", () => {
+    const home = process.env.HOME || process.env.USERPROFILE || "";
+    expect(home).toBeTruthy();
+    const result = shortenPath(`${home}/projects/test`);
+    expect(result).toBe("~/projects/test");
+  });
+
+  test("returns path unchanged when not under home", () => {
+    const result = shortenPath("/opt/somewhere/else");
+    expect(result).toBe("/opt/somewhere/else");
+  });
+});
+
+// ─── colorProvider ────────────────────────────────────────────────────────
+
+describe("colorProvider", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+
+  test("returns label for known providers", () => {
+    expect(colorProvider("claude", "Claude Code")).toBe("Claude Code");
+    expect(colorProvider("codex", "Codex")).toBe("Codex");
+    expect(colorProvider("openclaw", "OpenClaw")).toBe("OpenClaw");
+    expect(colorProvider("agents", "Agents")).toBe("Agents");
+  });
+
+  test("returns label for unknown provider", () => {
+    expect(colorProvider("unknown", "Unknown")).toBe("Unknown");
+  });
+});
+
+// ─── formatGroupedTable ───────────────────────────────────────────────────
+
+describe("formatGroupedTable", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+
+  test("returns 'No skills found.' for empty array", () => {
+    expect(formatGroupedTable([])).toBe("No skills found.");
+  });
+
+  test("groups skills by dirName and scope", () => {
+    const skills = [
+      makeSkill({
+        dirName: "code-review",
+        name: "code-review",
+        provider: "claude",
+        providerLabel: "Claude Code",
+        scope: "global",
+      }),
+      makeSkill({
+        dirName: "code-review",
+        name: "code-review",
+        provider: "codex",
+        providerLabel: "Codex",
+        scope: "global",
+        path: "/home/user/.codex/skills/code-review",
+      }),
+    ];
+    const output = formatGroupedTable(skills);
+    expect(output).toContain("code-review");
+    expect(output).toContain("[Claude Code]");
+    expect(output).toContain("[Codex]");
+    expect(output).toContain("2 skills (1 unique)");
+  });
+
+  test("shows header with correct columns", () => {
+    const output = formatGroupedTable([makeSkill()]);
+    expect(output).toContain("Name");
+    expect(output).toContain("Version");
+    expect(output).toContain("Tools");
+    expect(output).toContain("Scope");
+    expect(output).toContain("Type");
+  });
+
+  test("shows footer with counts", () => {
+    const output = formatGroupedTable([
+      makeSkill({ name: "a", dirName: "a", scope: "global" }),
+      makeSkill({
+        name: "b",
+        dirName: "b",
+        scope: "project",
+        path: "/other/path",
+      }),
+    ]);
+    expect(output).toContain("2 skills (2 unique)");
+    expect(output).toContain("1 global, 1 project");
+  });
+
+  test("same dirName in different scopes creates separate rows", () => {
+    const skills = [
+      makeSkill({
+        dirName: "my-skill",
+        scope: "global",
+      }),
+      makeSkill({
+        dirName: "my-skill",
+        scope: "project",
+        path: "/other",
+      }),
+    ];
+    const output = formatGroupedTable(skills);
+    // groupSkills keys by dirName||scope, so different scopes = separate groups
+    expect(output).toContain("global");
+    expect(output).toContain("project");
+    expect(output).toContain("2 skills (2 unique)");
+  });
+
+  test("shows warning count when warnings exist", () => {
+    const skills = [
+      makeSkill({
+        warnings: [
+          { category: "test", message: "warn1" },
+          { category: "test", message: "warn2" },
+        ],
+      }),
+    ];
+    const output = formatGroupedTable(skills);
+    expect(output).toContain("2 warnings");
+  });
+
+  test("shows singular warning text for one warning", () => {
+    const skills = [
+      makeSkill({
+        warnings: [{ category: "test", message: "warn1" }],
+      }),
+    ];
+    const output = formatGroupedTable(skills);
+    expect(output).toContain("1 warning)");
+    expect(output).not.toContain("1 warnings)");
+  });
+});
+
+// ─── formatSearchResults ────────────────────────────────────────────────────
+
+describe("formatSearchResults", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+
+  test("returns no-match message for empty array", () => {
+    const output = formatSearchResults([], "test-query");
+    expect(output).toContain('No skills matching "test-query"');
+    expect(output).toContain("asm list");
+  });
+
+  test("shows summary header with count", () => {
+    const output = formatSearchResults(
+      [makeSkill({ name: "code-review" })],
+      "code",
+    );
+    expect(output).toContain('Found 1 result (1 unique) matching "code"');
+  });
+
+  test("shows plural results", () => {
+    const skills = [
+      makeSkill({ name: "code-review", dirName: "code-review" }),
+      makeSkill({
+        name: "code-lint",
+        dirName: "code-lint",
+        path: "/other",
+      }),
+    ];
+    const output = formatSearchResults(skills, "code");
+    expect(output).toContain("Found 2 results");
+  });
+
+  test("shows header and separator", () => {
+    const output = formatSearchResults([makeSkill()], "test");
+    expect(output).toContain("Name");
+    expect(output).toContain("Version");
+    expect(output).toContain("Tools");
+  });
+
+  test("contains skill data in results", () => {
+    const output = formatSearchResults(
+      [makeSkill({ name: "deploy-helper", version: "2.0.0" })],
+      "deploy",
+    );
+    expect(output).toContain("deploy-helper");
+    expect(output).toContain("2.0.0");
+  });
+});
+
+// ─── formatSkillDetail with warnings ────────────────────────────────────────
+
+describe("formatSkillDetail with warnings", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+
+  test("shows warnings section when warnings exist", async () => {
+    const output = await formatSkillDetail(
+      makeSkill({
+        warnings: [
+          { category: "shell-exec", message: "Uses exec()" },
+          { category: "network", message: "Uses curl" },
+        ],
+      }),
+    );
+    expect(output).toContain("Warnings:");
+    expect(output).toContain("[shell-exec] Uses exec()");
+    expect(output).toContain("[network] Uses curl");
+  });
+
+  test("omits warnings section when no warnings", async () => {
+    const output = await formatSkillDetail(makeSkill({ warnings: [] }));
+    expect(output).not.toContain("Warnings:");
   });
 });

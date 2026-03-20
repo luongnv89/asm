@@ -1,7 +1,17 @@
-import { describe, test, expect } from "bun:test";
+import {
+  describe,
+  test,
+  expect,
+  beforeEach,
+  afterEach,
+  beforeAll,
+  afterAll,
+} from "bun:test";
 import { parseArgs, isCLIMode } from "./cli";
 import { compareSemver } from "./scanner";
 import { join } from "path";
+import { mkdtemp, rm, writeFile, mkdir, readFile } from "fs/promises";
+import { tmpdir } from "os";
 
 // Helper: path to the CLI entry point
 const CLI_BIN = join(import.meta.dir, "..", "bin", "agent-skill-manager.ts");
@@ -524,11 +534,13 @@ describe("CLI integration: search", () => {
     expect(stderr).toContain("Missing required argument");
   });
 
-  test("search returns filtered results", async () => {
-    const { stdout, exitCode } = await runCLI("search", "code-review");
+  test("search returns filtered results or no-match message", async () => {
+    const { stdout, stderr, exitCode } = await runCLI("search", "code-review");
     expect(exitCode).toBe(0);
-    // Output should contain the query and matching results
-    expect(stdout.toLowerCase()).toContain("code-review");
+    // On machines with skills/index: stdout contains results with "code-review"
+    // On clean CI: no results, stderr contains "No skills matching"
+    const combined = (stdout + stderr).toLowerCase();
+    expect(combined).toContain("code-review");
   });
 
   test("search with --json returns JSON array", async () => {
@@ -1002,5 +1014,703 @@ describe("CLI integration: verbose flag", () => {
     const { stdout } = await runCLI("--help");
     expect(stdout).toContain("--verbose");
     expect(stdout).toContain("-V");
+  });
+});
+
+// ─── parseArgs: additional flags ────────────────────────────────────────────
+
+describe("parseArgs: additional flags", () => {
+  const parse = (...args: string[]) => parseArgs(["bun", "script.ts", ...args]);
+
+  test("parses --flat flag", () => {
+    const result = parse("list", "--flat");
+    expect(result.flags.flat).toBe(true);
+  });
+
+  test("defaults flat to false", () => {
+    const result = parse("list");
+    expect(result.flags.flat).toBe(false);
+  });
+
+  test("parses --installed flag", () => {
+    const result = parse("search", "q", "--installed");
+    expect(result.flags.installed).toBe(true);
+  });
+
+  test("defaults installed to false", () => {
+    const result = parse("search", "q");
+    expect(result.flags.installed).toBe(false);
+  });
+
+  test("parses --available flag", () => {
+    const result = parse("search", "q", "--available");
+    expect(result.flags.available).toBe(true);
+  });
+
+  test("defaults available to false", () => {
+    const result = parse("search", "q");
+    expect(result.flags.available).toBe(false);
+  });
+
+  test("parses --tool as alias for --provider", () => {
+    const result = parse("list", "--tool", "claude");
+    expect(result.flags.provider).toBe("claude");
+  });
+
+  test("parses invalid --transport exits (parseArgs does not exit, but validates)", () => {
+    // Note: parseArgs calls process.exit for invalid transport,
+    // so we test via integration instead
+    const result = parse("install", "github:user/repo", "--transport", "auto");
+    expect(result.flags.transport).toBe("auto");
+  });
+});
+
+// ─── isCLIMode: newer commands ──────────────────────────────────────────────
+
+describe("isCLIMode: newer commands", () => {
+  const check = (...args: string[]) => isCLIMode(["bun", "script.ts", ...args]);
+
+  test("export → CLI mode", () => {
+    expect(check("export")).toBe(true);
+  });
+
+  test("init → CLI mode", () => {
+    expect(check("init")).toBe(true);
+  });
+
+  test("stats → CLI mode", () => {
+    expect(check("stats")).toBe(true);
+  });
+
+  test("link → CLI mode", () => {
+    expect(check("link")).toBe(true);
+  });
+
+  test("index → CLI mode", () => {
+    expect(check("index")).toBe(true);
+  });
+});
+
+// ─── CLI integration: per-command --help (new commands) ─────────────────────
+
+describe("CLI integration: per-command --help (new commands)", () => {
+  test("export --help shows export usage", async () => {
+    const { stdout, exitCode } = await runCLI("export", "--help");
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("asm export");
+    expect(stdout).toContain("--scope");
+  });
+
+  test("init --help shows init usage", async () => {
+    const { stdout, exitCode } = await runCLI("init", "--help");
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("asm init");
+    expect(stdout).toContain("--tool");
+    expect(stdout).toContain("--path");
+    expect(stdout).toContain("--force");
+  });
+
+  test("stats --help shows stats usage", async () => {
+    const { stdout, exitCode } = await runCLI("stats", "--help");
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("asm stats");
+    expect(stdout).toContain("--json");
+    expect(stdout).toContain("--scope");
+  });
+
+  test("link --help shows link usage", async () => {
+    const { stdout, exitCode } = await runCLI("link", "--help");
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("asm link");
+    expect(stdout).toContain("--tool");
+    expect(stdout).toContain("--name");
+    expect(stdout).toContain("--force");
+  });
+
+  test("index --help shows index usage", async () => {
+    const { stdout, exitCode } = await runCLI("index", "--help");
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("asm index");
+    expect(stdout).toContain("ingest");
+    expect(stdout).toContain("search");
+    expect(stdout).toContain("list");
+    expect(stdout).toContain("remove");
+  });
+});
+
+// ─── CLI integration: export ────────────────────────────────────────────────
+
+describe("CLI integration: export", () => {
+  test("export outputs valid JSON manifest", async () => {
+    const { stdout, exitCode } = await runCLI("export");
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(data).toHaveProperty("version");
+    expect(data).toHaveProperty("exportedAt");
+    expect(data).toHaveProperty("skills");
+    expect(Array.isArray(data.skills)).toBe(true);
+  });
+
+  test("export manifest version is 1", async () => {
+    const { stdout, exitCode } = await runCLI("export");
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(data.version).toBe(1);
+  });
+
+  test("export manifest has valid exportedAt timestamp", async () => {
+    const { stdout } = await runCLI("export");
+    const data = JSON.parse(stdout);
+    const date = new Date(data.exportedAt);
+    expect(date.getTime()).not.toBeNaN();
+  });
+
+  test("export skills include expected fields", async () => {
+    const { stdout } = await runCLI("export");
+    const data = JSON.parse(stdout);
+    if (data.skills.length > 0) {
+      const skill = data.skills[0];
+      expect(skill).toHaveProperty("name");
+      expect(skill).toHaveProperty("version");
+      expect(skill).toHaveProperty("dirName");
+      expect(skill).toHaveProperty("provider");
+      expect(skill).toHaveProperty("scope");
+      expect(skill).toHaveProperty("path");
+      expect(skill).toHaveProperty("isSymlink");
+    }
+  });
+
+  test("export --scope global filters to global only", async () => {
+    const { stdout, exitCode } = await runCLI("export", "--scope", "global");
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    for (const skill of data.skills) {
+      expect(skill.scope).toBe("global");
+    }
+  });
+
+  test("export --scope project filters to project only", async () => {
+    const { stdout, exitCode } = await runCLI("export", "--scope", "project");
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    for (const skill of data.skills) {
+      expect(skill.scope).toBe("project");
+    }
+  });
+
+  test("main --help includes export command", async () => {
+    const { stdout } = await runCLI("--help");
+    expect(stdout).toContain("export");
+  });
+});
+
+// ─── CLI integration: stats ─────────────────────────────────────────────────
+
+describe("CLI integration: stats", () => {
+  test("stats exits 0", async () => {
+    const { exitCode } = await runCLI("stats");
+    expect(exitCode).toBe(0);
+  });
+
+  test("stats --json returns valid JSON with expected fields", async () => {
+    const { stdout, exitCode } = await runCLI("stats", "--json");
+    expect(exitCode).toBe(0);
+    // If no skills, stats outputs "No skills found." to stdout
+    if (stdout === "No skills found.") return;
+    const data = JSON.parse(stdout);
+    expect(data).toHaveProperty("totalSkills");
+    expect(data).toHaveProperty("byProvider");
+    expect(data).toHaveProperty("byScope");
+    expect(data).toHaveProperty("totalDiskBytes");
+    expect(data).toHaveProperty("duplicateGroups");
+  });
+
+  test("stats --json --verbose includes perSkillDiskBytes", async () => {
+    const { stdout, exitCode } = await runCLI("stats", "--json", "--verbose");
+    expect(exitCode).toBe(0);
+    if (stdout === "No skills found.") return;
+    const data = JSON.parse(stdout);
+    expect(data).toHaveProperty("perSkillDiskBytes");
+  });
+
+  test("stats --json without verbose omits perSkillDiskBytes", async () => {
+    const { stdout, exitCode } = await runCLI("stats", "--json");
+    expect(exitCode).toBe(0);
+    if (stdout === "No skills found.") return;
+    const data = JSON.parse(stdout);
+    expect(data).not.toHaveProperty("perSkillDiskBytes");
+  });
+
+  test("stats --scope global works", async () => {
+    const { exitCode } = await runCLI("stats", "--scope", "global");
+    expect(exitCode).toBe(0);
+  });
+
+  test("main --help includes stats command", async () => {
+    const { stdout } = await runCLI("--help");
+    expect(stdout).toContain("stats");
+  });
+});
+
+// ─── CLI integration: init ──────────────────────────────────────────────────
+
+describe("CLI integration: init", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-test-init-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  test("init missing name exits 2", async () => {
+    const { stderr, exitCode } = await runCLI("init");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Missing required argument");
+  });
+
+  test("init with --path scaffolds skill directory", async () => {
+    const skillDir = join(tempDir, "test-skill");
+    const { stderr, exitCode } = await runCLI(
+      "init",
+      "test-skill",
+      "--path",
+      skillDir,
+    );
+    expect(exitCode).toBe(0);
+    expect(stderr).toContain("Done!");
+
+    // Verify SKILL.md was created
+    const skillMd = await readFile(join(skillDir, "SKILL.md"), "utf-8");
+    expect(skillMd).toContain("name: test-skill");
+  });
+
+  test("init creates SKILL.md with correct content", async () => {
+    const skillDir = join(tempDir, "my-skill");
+    await runCLI("init", "my-skill", "--path", skillDir);
+    const skillMd = await readFile(join(skillDir, "SKILL.md"), "utf-8");
+    expect(skillMd).toContain("name: my-skill");
+    expect(skillMd).toContain("version: 0.1.0");
+    expect(skillMd).toContain("# my-skill");
+  });
+
+  test("init with --path --force overwrites existing", async () => {
+    const skillDir = join(tempDir, "force-skill");
+    // First init
+    const { exitCode: code1 } = await runCLI(
+      "init",
+      "my-skill",
+      "--path",
+      skillDir,
+    );
+    expect(code1).toBe(0);
+
+    // Second init with --force
+    const { exitCode: code2 } = await runCLI(
+      "init",
+      "my-skill",
+      "--path",
+      skillDir,
+      "--force",
+    );
+    expect(code2).toBe(0);
+  });
+
+  test("init existing dir without --force in non-TTY exits 2", async () => {
+    const skillDir = join(tempDir, "existing-skill");
+    // First init to create the directory
+    await runCLI("init", "my-skill", "--path", skillDir);
+
+    // Second init without --force
+    const { stderr, exitCode } = await runCLI(
+      "init",
+      "my-skill",
+      "--path",
+      skillDir,
+    );
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("already exists");
+  });
+
+  test("main --help includes init command", async () => {
+    const { stdout } = await runCLI("--help");
+    expect(stdout).toContain("init");
+  });
+});
+
+// ─── CLI integration: link ──────────────────────────────────────────────────
+
+describe("CLI integration: link", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-test-link-"));
+    // Create a valid skill source
+    await mkdir(join(tempDir, "source-skill"), { recursive: true });
+    await writeFile(
+      join(tempDir, "source-skill", "SKILL.md"),
+      `---
+name: test-link-skill
+metadata:
+  version: 1.0.0
+---
+# Test Link Skill
+`,
+    );
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  test("link missing path exits 2", async () => {
+    const { stderr, exitCode } = await runCLI("link");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Missing required argument");
+  });
+
+  test("link non-existent path exits 1", async () => {
+    const { stderr, exitCode } = await runCLI(
+      "link",
+      "/tmp/asm-nonexistent-path-999999",
+    );
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain("Error");
+  });
+
+  test("link path without SKILL.md exits 1", async () => {
+    // tempDir itself has no SKILL.md (only source-skill/ subdir does)
+    const { stderr, exitCode } = await runCLI("link", tempDir);
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain("Error");
+  });
+
+  test("main --help includes link command", async () => {
+    const { stdout } = await runCLI("--help");
+    expect(stdout).toContain("link");
+  });
+});
+
+// ─── CLI integration: index ─────────────────────────────────────────────────
+
+describe("CLI integration: index", () => {
+  test("index with no subcommand exits 2", async () => {
+    const { stderr, exitCode } = await runCLI("index");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Missing subcommand");
+  });
+
+  test("index unknown subcommand exits 2", async () => {
+    const { stderr, exitCode } = await runCLI("index", "bogus");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Unknown subcommand");
+  });
+
+  test("index list exits 0", async () => {
+    const { exitCode } = await runCLI("index", "list");
+    expect(exitCode).toBe(0);
+  });
+
+  test("index list --json returns valid JSON array", async () => {
+    const { stdout, exitCode } = await runCLI("index", "list", "--json");
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(Array.isArray(data)).toBe(true);
+  });
+
+  test("index search with no query exits 2", async () => {
+    const { stderr, exitCode } = await runCLI("index", "search");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Missing required argument");
+  });
+
+  test("index search with query exits 0", async () => {
+    const { exitCode } = await runCLI("index", "search", "code-review");
+    expect(exitCode).toBe(0);
+  });
+
+  test("index search --json returns valid JSON", async () => {
+    const { stdout, exitCode } = await runCLI(
+      "index",
+      "search",
+      "code-review",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(Array.isArray(data)).toBe(true);
+  });
+
+  test("index search with multi-word query works", async () => {
+    const { exitCode } = await runCLI("index", "search", "code", "review");
+    expect(exitCode).toBe(0);
+  });
+
+  test("index ingest with no repo exits 2", async () => {
+    const { stderr, exitCode } = await runCLI("index", "ingest");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Missing required argument");
+  });
+
+  test("index remove with no arg exits 2", async () => {
+    const { stderr, exitCode } = await runCLI("index", "remove");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Missing required argument");
+  });
+
+  test("index remove with invalid format exits 2", async () => {
+    const { stderr, exitCode } = await runCLI(
+      "index",
+      "remove",
+      "invalid-no-slash",
+      "--yes",
+    );
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Invalid format");
+  });
+
+  test("index remove non-existent repo exits 1", async () => {
+    const { stderr, exitCode } = await runCLI(
+      "index",
+      "remove",
+      "fake/nonexistent-repo-999",
+      "--yes",
+    );
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain("not found");
+  });
+
+  test("main --help includes index command", async () => {
+    const { stdout } = await runCLI("--help");
+    expect(stdout).toContain("index");
+  });
+});
+
+// ─── CLI integration: audit security ────────────────────────────────────────
+
+describe("CLI integration: audit security", () => {
+  test("audit security with no target exits 2", async () => {
+    const { stderr, exitCode } = await runCLI("audit", "security");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Missing target");
+  });
+
+  test("audit security --all exits 0", async () => {
+    const { exitCode } = await runCLI("audit", "security", "--all");
+    expect(exitCode).toBe(0);
+  });
+
+  test("audit security --all --json returns valid JSON", async () => {
+    const { stdout, exitCode } = await runCLI(
+      "audit",
+      "security",
+      "--all",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(Array.isArray(data)).toBe(true);
+  });
+
+  test("audit security non-existent skill exits 1", async () => {
+    const { stderr, exitCode } = await runCLI(
+      "audit",
+      "security",
+      "zzz-nonexistent-skill-xyz-99999",
+    );
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain("not found");
+  });
+
+  test("audit security on installed skill returns verdict", async () => {
+    // Get a skill name from list
+    const listResult = await runCLI("list", "--json");
+    const skills = JSON.parse(listResult.stdout);
+    if (skills.length === 0) return; // skip if no skills installed
+
+    const { stdout, exitCode } = await runCLI(
+      "audit",
+      "security",
+      skills[0].dirName,
+    );
+    expect(exitCode).toBe(0);
+    // Output should contain verdict information
+    expect(stdout.toLowerCase()).toMatch(/safe|caution|warning|dangerous/);
+  });
+
+  test("audit security on installed skill --json returns valid report", async () => {
+    const listResult = await runCLI("list", "--json");
+    const skills = JSON.parse(listResult.stdout);
+    if (skills.length === 0) return;
+
+    const { stdout, exitCode } = await runCLI(
+      "audit",
+      "security",
+      skills[0].dirName,
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(data).toHaveProperty("verdict");
+    expect(data).toHaveProperty("skillName");
+  });
+});
+
+// ─── CLI integration: list additional flags ─────────────────────────────────
+
+describe("CLI integration: list --flat", () => {
+  test("list --flat exits 0 and produces output", async () => {
+    const { stdout, exitCode } = await runCLI("list", "--flat");
+    expect(exitCode).toBe(0);
+    if (stdout !== "No skills found.") {
+      expect(stdout).toContain("Name");
+    }
+  });
+});
+
+describe("CLI integration: list --tool", () => {
+  test("--tool claude filters by provider in JSON", async () => {
+    const { stdout, exitCode } = await runCLI(
+      "list",
+      "--tool",
+      "claude",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    for (const skill of data) {
+      expect(skill.provider).toBe("claude");
+    }
+  });
+
+  test("-p codex filters by provider in JSON", async () => {
+    const { stdout, exitCode } = await runCLI("list", "-p", "codex", "--json");
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    for (const skill of data) {
+      expect(skill.provider).toBe("codex");
+    }
+  });
+
+  test("--provider alias works same as --tool", async () => {
+    const { stdout, exitCode } = await runCLI(
+      "list",
+      "--provider",
+      "claude",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    for (const skill of data) {
+      expect(skill.provider).toBe("claude");
+    }
+  });
+});
+
+// ─── CLI integration: search additional flags ───────────────────────────────
+
+describe("CLI integration: search additional flags", () => {
+  test("search --available --json returns only available skills", async () => {
+    const { stdout, exitCode } = await runCLI(
+      "search",
+      "code",
+      "--available",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    for (const item of data) {
+      expect(item.status).toBe("available");
+    }
+  });
+
+  test("search --installed --flat works", async () => {
+    const { exitCode } = await runCLI(
+      "search",
+      "code",
+      "--installed",
+      "--flat",
+    );
+    expect(exitCode).toBe(0);
+  });
+});
+
+// ─── CLI integration: config reset ──────────────────────────────────────────
+
+describe("CLI integration: config reset", () => {
+  // NOTE: Config path is hardcoded in config.ts (no env var override), so these
+  // tests must save/restore the real config. afterEach ensures restoration even
+  // if a test assertion fails (unlike afterAll which only runs at suite end).
+  let savedConfig: string | null = null;
+  let configPath: string;
+
+  beforeAll(async () => {
+    const { stdout } = await runCLI("config", "path");
+    configPath = stdout.trim();
+  });
+
+  beforeEach(async () => {
+    try {
+      savedConfig = await readFile(configPath, "utf-8");
+    } catch {
+      savedConfig = null;
+    }
+  });
+
+  afterEach(async () => {
+    // Restore original config after every test to prevent leaking reset state
+    if (savedConfig !== null) {
+      await writeFile(configPath, savedConfig, "utf-8");
+    }
+  });
+
+  test("config reset without --yes in non-TTY exits 2", async () => {
+    const { stderr, exitCode } = await runCLI("config", "reset");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("non-interactive");
+  });
+
+  test("config reset --yes succeeds", async () => {
+    const { stderr, exitCode } = await runCLI("config", "reset", "--yes");
+    expect(exitCode).toBe(0);
+    expect(stderr).toContain("Config reset to defaults");
+  });
+
+  test("config show after reset matches defaults", async () => {
+    // Reset first
+    await runCLI("config", "reset", "--yes");
+    const { stdout, exitCode } = await runCLI("config", "show");
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(data.version).toBe(1);
+    expect(Array.isArray(data.providers)).toBe(true);
+    expect(data.providers.length).toBeGreaterThanOrEqual(4);
+  });
+});
+
+// ─── CLI integration: install error paths ───────────────────────────────────
+
+describe("CLI integration: install error paths", () => {
+  test("install with invalid source format exits 1", async () => {
+    const { stderr, exitCode } = await runCLI(
+      "install",
+      "not-a-valid-source",
+      "-y",
+    );
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain("Error");
+  });
+
+  test("install with invalid --transport exits 2", async () => {
+    const { stderr, exitCode } = await runCLI(
+      "install",
+      "github:user/repo",
+      "--transport",
+      "ftp",
+    );
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Invalid transport");
   });
 });

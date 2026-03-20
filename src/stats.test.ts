@@ -1,6 +1,11 @@
 import { describe, expect, it, beforeEach, afterEach } from "bun:test";
-import { dirSize, computeStats, formatHumanSize } from "./stats";
-import type { SkillInfo, AuditReport } from "./utils/types";
+import {
+  dirSize,
+  computeStats,
+  formatHumanSize,
+  formatStatsReport,
+} from "./stats";
+import type { SkillInfo, AuditReport, StatsReport } from "./utils/types";
 import { mkdtemp, writeFile, mkdir, rm } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
@@ -125,5 +130,95 @@ describe("formatHumanSize", () => {
 
   it("formats gigabytes", () => {
     expect(formatHumanSize(1024 * 1024 * 1024)).toBe("1.0 GB");
+  });
+
+  it("formats 0 bytes", () => {
+    expect(formatHumanSize(0)).toBe("0 B");
+  });
+});
+
+// ─── formatStatsReport ──────────────────────────────────────────────────────
+
+describe("formatStatsReport", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+
+  function makeReport(overrides: Partial<StatsReport> = {}): StatsReport {
+    return {
+      totalSkills: 5,
+      byProvider: { claude: 3, codex: 2 },
+      byScope: { global: 3, project: 2 },
+      totalDiskBytes: 1024 * 1024 * 2,
+      perSkillDiskBytes: {},
+      duplicateGroups: 0,
+      duplicateInstances: 0,
+      ...overrides,
+    };
+  }
+
+  it("includes title and overview", () => {
+    const output = formatStatsReport(makeReport());
+    expect(output).toContain("Skill Statistics");
+    expect(output).toContain("Total:");
+    expect(output).toContain("5 skills");
+    expect(output).toContain("Disk:");
+    expect(output).toContain("2.0 MB");
+  });
+
+  it("shows provider breakdown", () => {
+    const output = formatStatsReport(makeReport());
+    expect(output).toContain("By Tool");
+    expect(output).toContain("Claude Code");
+    expect(output).toContain("Codex");
+  });
+
+  it("shows scope breakdown", () => {
+    const output = formatStatsReport(makeReport());
+    expect(output).toContain("By Scope");
+    expect(output).toContain("global");
+    expect(output).toContain("project");
+  });
+
+  it("shows 'None' when no duplicates", () => {
+    const output = formatStatsReport(makeReport());
+    expect(output).toContain("Duplicates");
+    expect(output).toContain("None");
+  });
+
+  it("shows duplicate info when present", () => {
+    const output = formatStatsReport(
+      makeReport({ duplicateGroups: 2, duplicateInstances: 5 }),
+    );
+    expect(output).toContain("2 group(s), 5 total instance(s)");
+    expect(output).toContain("asm audit");
+  });
+
+  it("handles single provider", () => {
+    const output = formatStatsReport(
+      makeReport({
+        byProvider: { claude: 10 },
+        totalSkills: 10,
+      }),
+    );
+    expect(output).toContain("Claude Code");
+    expect(output).toContain("10 skills");
+  });
+
+  it("handles zero skills", () => {
+    const output = formatStatsReport(
+      makeReport({
+        totalSkills: 0,
+        byProvider: {},
+        byScope: { global: 0, project: 0 },
+        totalDiskBytes: 0,
+      }),
+    );
+    expect(output).toContain("0 skills");
+    expect(output).toContain("0 B");
   });
 });
