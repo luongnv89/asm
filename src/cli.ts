@@ -73,12 +73,7 @@ import {
 import { VERSION_STRING } from "./utils/version";
 import { parseEditorCommand } from "./utils/editor";
 import { setVerbose } from "./logger";
-import type {
-  Scope,
-  SortBy,
-  TransportMode,
-  InstallMethod,
-} from "./utils/types";
+import type { Scope, SortBy, TransportMode } from "./utils/types";
 
 // ─── Arg Parser ─────────────────────────────────────────────────────────────
 

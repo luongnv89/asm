@@ -313,6 +313,10 @@ asm install github:user/skills#main:skills/agent-config
 asm install github:user/private-skill --transport ssh
 asm install github:user/private-skill -t auto  # try HTTPS, fallback to SSH
 
+# Vercel skills CLI (delegates to npx skills add, then registers in asm)
+asm install github:user/skills --method vercel --skill my-skill
+asm install https://github.com/user/skills -m vercel --skill my-skill -y
+
 # Other options
 asm install github:user/my-skill --name custom-name
 asm install github:user/my-skill --force
@@ -323,16 +327,18 @@ asm install github:user/my-skill -p claude --yes --json
 
 **Install flags:**
 
-| Flag                     | Description                                            |
-| ------------------------ | ------------------------------------------------------ |
-| `-p, --tool <name>`      | Target tool (claude, codex, cursor, windsurf, etc.)    |
-| `--name <name>`          | Override skill directory name                          |
-| `--path <subdir>`        | Install a specific skill from a subdirectory           |
-| `--all`                  | Install all skills found in the repo                   |
-| `-t, --transport <mode>` | Transport: `https`, `ssh`, or `auto` (default: `auto`) |
-| `-f, --force`            | Overwrite if skill already exists                      |
-| `-y, --yes`              | Skip confirmation prompt                               |
-| `--json`                 | Output result as JSON                                  |
+| Flag                     | Description                                                |
+| ------------------------ | ---------------------------------------------------------- |
+| `-p, --tool <name>`      | Target tool (claude, codex, cursor, windsurf, etc.)        |
+| `--name <name>`          | Override skill directory name                              |
+| `--path <subdir>`        | Install a specific skill from a subdirectory               |
+| `--all`                  | Install all skills found in the repo                       |
+| `-m, --method <method>`  | Install method: `default` or `vercel` (default: `default`) |
+| `--skill <name>`         | Alias for `--path` (Vercel skills CLI compatibility)       |
+| `-t, --transport <mode>` | Transport: `https`, `ssh`, or `auto` (default: `auto`)     |
+| `-f, --force`            | Overwrite if skill already exists                          |
+| `-y, --yes`              | Skip confirmation prompt                                   |
+| `--json`                 | Output result as JSON                                      |
 
 **Multi-skill repo support:** When a repo doesn't have `SKILL.md` at the root, `asm` automatically scans for skills in subdirectories (up to 3 levels deep). In interactive mode, it presents a numbered picker. Use `--path` to target a specific skill or `--all` to batch-install everything.
 
