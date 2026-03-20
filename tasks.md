@@ -68,7 +68,7 @@ Wave 7 (future):
 - [x] Default config includes 15+ provider entries with correct global/project paths
 - [x] `asm list` discovers skills from all configured agents
 - [x] `asm install -p cursor` installs to Cursor's skill directory
-- [ ] README and docs updated with full provider table
+- [x] README and docs updated with full provider table
 - [x] Tests updated for new default provider count
 
 **Dependencies:** None
