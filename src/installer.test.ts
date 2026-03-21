@@ -863,6 +863,28 @@ describe("resolveProvider", () => {
     expect((capturedItems[1] as { checked: boolean }).checked).toBe(true);
     expect((capturedItems[2] as { checked: boolean }).checked).toBe(false);
   });
+
+  test("interactive picker: all providers disabled shows picker with nothing pre-checked", async () => {
+    const allDisabled: ProviderConfig[] = [
+      { ...claude, enabled: false },
+      { ...codex, enabled: false },
+    ];
+    let capturedItems: unknown[] = [];
+    const pickerFn = mock((opts: { items: unknown[] }) => {
+      capturedItems = opts.items;
+      return Promise.resolve([0]); // user selects first
+    });
+    mock.module("./utils/checkbox-picker", () => ({
+      checkboxPicker: pickerFn,
+    }));
+
+    const config = makeConfig(allDisabled);
+    const result = await resolveProvider(config, null, true);
+    expect(result.provider.name).toBe("claude");
+    expect(capturedItems).toHaveLength(2);
+    expect((capturedItems[0] as { checked: boolean }).checked).toBe(false);
+    expect((capturedItems[1] as { checked: boolean }).checked).toBe(false);
+  });
 });
 
 // ─── executeInstallAllProviders tests ────────────────────────────────────────

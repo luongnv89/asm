@@ -352,10 +352,7 @@ export async function checkboxPicker(
           process.kill(process.pid, "SIGINT");
           return;
         }
-        // Arrow keys still work during search for navigation
-        if (key === "\x1b[A" || key === "k") {
-          // Only arrow keys navigate in search mode, not 'k'
-        }
+        // Arrow keys still work during search for navigation (not j/k)
         if (key === "\x1b[A") {
           state.moveUp();
           render();

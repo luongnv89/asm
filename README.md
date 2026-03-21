@@ -141,30 +141,30 @@ asm install github:anthropics/skills --all    # install everything
 
 ## Supported Agent Tools
 
-`asm` ships with **15 built-in providers**. The first 4 are enabled by default; the rest can be enabled via `asm config edit`.
+`asm` ships with **15 built-in providers**, all enabled by default. Disable any you don't need via `asm config edit`.
 
-| Tool             | Global Path                       | Project Path            | Default  |
-| ---------------- | --------------------------------- | ----------------------- | :------: |
-| Claude Code      | `~/.claude/skills/`               | `.claude/skills/`       | enabled  |
-| Codex            | `~/.codex/skills/`                | `.codex/skills/`        | enabled  |
-| OpenClaw         | `~/.openclaw/skills/`             | `.openclaw/skills/`     | enabled  |
-| Agents (generic) | `~/.agents/skills/`               | `.agents/skills/`       | enabled  |
-| Cursor           | `~/.cursor/rules/`                | `.cursor/rules/`        | disabled |
-| Windsurf         | `~/.windsurf/rules/`              | `.windsurf/rules/`      | disabled |
-| Cline            | `~/Documents/Cline/Rules/`        | `.clinerules/`          | disabled |
-| Roo Code         | `~/.roo/rules/`                   | `.roo/rules/`           | disabled |
-| Continue         | `~/.continue/rules/`              | `.continue/rules/`      | disabled |
-| GitHub Copilot   | `~/.github/instructions/`         | `.github/instructions/` | disabled |
-| Aider            | `~/.aider/skills/`                | `.aider/skills/`        | disabled |
-| OpenCode         | `~/.config/opencode/skills/`      | `.opencode/skills/`     | disabled |
-| Zed              | `~/.config/zed/prompt_overrides/` | `.zed/rules/`           | disabled |
-| Augment          | `~/.augment/rules/`               | `.augment/rules/`       | disabled |
-| Amp              | `~/.amp/skills/`                  | `.amp/skills/`          | disabled |
+| Tool             | Global Path                       | Project Path            | Default |
+| ---------------- | --------------------------------- | ----------------------- | :-----: |
+| Claude Code      | `~/.claude/skills/`               | `.claude/skills/`       | enabled |
+| Codex            | `~/.codex/skills/`                | `.codex/skills/`        | enabled |
+| OpenClaw         | `~/.openclaw/skills/`             | `.openclaw/skills/`     | enabled |
+| Agents (generic) | `~/.agents/skills/`               | `.agents/skills/`       | enabled |
+| Cursor           | `~/.cursor/rules/`                | `.cursor/rules/`        | enabled |
+| Windsurf         | `~/.windsurf/rules/`              | `.windsurf/rules/`      | enabled |
+| Cline            | `~/Documents/Cline/Rules/`        | `.clinerules/`          | enabled |
+| Roo Code         | `~/.roo/rules/`                   | `.roo/rules/`           | enabled |
+| Continue         | `~/.continue/rules/`              | `.continue/rules/`      | enabled |
+| GitHub Copilot   | `~/.github/instructions/`         | `.github/instructions/` | enabled |
+| Aider            | `~/.aider/skills/`                | `.aider/skills/`        | enabled |
+| OpenCode         | `~/.config/opencode/skills/`      | `.opencode/skills/`     | enabled |
+| Zed              | `~/.config/zed/prompt_overrides/` | `.zed/rules/`           | enabled |
+| Augment          | `~/.augment/rules/`               | `.augment/rules/`       | enabled |
+| Amp              | `~/.amp/skills/`                  | `.amp/skills/`          | enabled |
 
-Enable a provider:
+Disable a provider:
 
 ```bash
-asm config edit   # opens config in $EDITOR — set "enabled": true for any provider
+asm config edit   # opens config in $EDITOR — set "enabled": false for any provider
 ```
 
 Need a tool not listed? Add a custom provider entry to the config.
@@ -180,7 +180,7 @@ Yes. `asm` is MIT licensed and free forever. No accounts, no telemetry, no paywa
 v1.10.0 shipped on March 18, 2026. The project has had 10 releases in the past week. Check the [changelog](docs/CHANGELOG.md) for the full history.
 
 **Which AI agents does it support?**
-15 providers built-in: Claude Code, Codex, OpenClaw, Cursor, Windsurf, Cline, Roo Code, Continue, GitHub Copilot, Aider, OpenCode, Zed, Augment, Amp, and a generic Agents provider. The first 4 are enabled by default; enable the rest via `asm config edit`. You can also add any custom agent that stores skills as directories with a `SKILL.md` file.
+15 providers built-in: Claude Code, Codex, OpenClaw, Cursor, Windsurf, Cline, Roo Code, Continue, GitHub Copilot, Aider, OpenCode, Zed, Augment, Amp, and a generic Agents provider. All 15 are enabled by default; disable any you don't need via `asm config edit`. You can also add any custom agent that stores skills as directories with a `SKILL.md` file.
 
 **How does it compare to managing skills manually?**
 Manual management means remembering where each agent stores skills, cloning repos by hand, checking for duplicates yourself, and having no security scanning. `asm` automates all of that with one command.
@@ -369,7 +369,7 @@ The install command clones the repository, validates `SKILL.md` files, scans for
 <details>
 <summary><strong>Configuration</strong></summary>
 
-On first run, a config file is created at `~/.config/agent-skill-manager/config.json` with 15 default providers. The first 4 are enabled; the rest are disabled until you enable them:
+On first run, a config file is created at `~/.config/agent-skill-manager/config.json` with 15 default providers, all enabled:
 
 ```json
 {
