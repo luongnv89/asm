@@ -275,27 +275,23 @@ export async function checkboxPicker(
   let lastLineCount = 0;
 
   function render() {
-    // Move cursor up to overwrite previous render
-    if (lastLineCount > 0) {
-      output.write(`\x1b[${lastLineCount}A`);
-    }
-
     const lines = renderCheckboxLines(state, items, width);
 
-    for (const line of lines) {
-      output.write(`\x1b[2K${line}\n`);
+    // Move cursor up by exactly how many lines we previously wrote
+    if (lastLineCount > 0) {
+      output.write(`\x1b[${lastLineCount}F`);
     }
 
-    // Clear any leftover lines from previous render
-    if (lines.length < lastLineCount) {
-      for (let i = 0; i < lastLineCount - lines.length; i++) {
-        output.write("\x1b[2K\n");
-      }
-      // Move back up for the extra cleared lines
-      output.write(`\x1b[${lastLineCount - lines.length}A`);
+    // Write all lines in a single buffer to avoid flicker.
+    // Write max(current, previous) lines to clear stale content.
+    const writeCount = Math.max(lines.length, lastLineCount);
+    let buf = "";
+    for (let i = 0; i < writeCount; i++) {
+      buf += `\x1b[2K${i < lines.length ? lines[i] : ""}\n`;
     }
+    output.write(buf);
 
-    lastLineCount = lines.length;
+    lastLineCount = writeCount;
   }
 
   // Initial render
