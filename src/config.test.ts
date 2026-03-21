@@ -46,21 +46,10 @@ describe("getDefaultConfig", () => {
     expect(names).toContain("amp");
   });
 
-  it("original 4 providers are enabled by default", () => {
+  it("all 15 providers are enabled by default", () => {
     const config = getDefaultConfig();
-    const original = config.providers.filter((p) =>
-      ["claude", "codex", "openclaw", "agents"].includes(p.name),
-    );
-    expect(original.every((p) => p.enabled)).toBe(true);
-  });
-
-  it("new 11 providers are disabled by default", () => {
-    const config = getDefaultConfig();
-    const newProviders = config.providers.filter(
-      (p) => !["claude", "codex", "openclaw", "agents"].includes(p.name),
-    );
-    expect(newProviders.every((p) => !p.enabled)).toBe(true);
-    expect(newProviders).toHaveLength(11);
+    expect(config.providers).toHaveLength(15);
+    expect(config.providers.every((p) => p.enabled)).toBe(true);
   });
 
   it("has empty customPaths", () => {

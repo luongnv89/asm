@@ -790,6 +790,79 @@ describe("resolveProvider", () => {
     expect(result.provider.name).toBe("claude");
     expect(result.allProviders).toHaveLength(2);
   });
+
+  test("interactive picker: single selection returns single provider", async () => {
+    const { checkboxPicker } = await import("./utils/checkbox-picker");
+    const pickerMock = spyOn(
+      { checkboxPicker },
+      "checkboxPicker",
+    ).mockResolvedValue([1]);
+    // Re-mock the module so resolveProvider sees it
+    mock.module("./utils/checkbox-picker", () => ({
+      checkboxPicker: pickerMock,
+    }));
+
+    const config = makeConfig([claude, codex]);
+    const result = await resolveProvider(config, null, true);
+    expect(result.provider.name).toBe("codex");
+    expect(result.allProviders).toBeNull();
+
+    pickerMock.mockRestore();
+  });
+
+  test("interactive picker: multiple selections returns multi-provider mode", async () => {
+    const agents: ProviderConfig = {
+      name: "agents",
+      label: "Agents",
+      global: "~/.agents/skills",
+      project: ".agents/skills",
+      enabled: true,
+    };
+    const pickerFn = mock(() => Promise.resolve([0, 2]));
+    mock.module("./utils/checkbox-picker", () => ({
+      checkboxPicker: pickerFn,
+    }));
+
+    const config = makeConfig([claude, codex, agents]);
+    const result = await resolveProvider(config, null, true);
+    expect(result.provider.name).toBe("agents"); // agents is primary
+    expect(result.allProviders).toHaveLength(2);
+    expect(result.allProviders!.map((p) => p.name)).toEqual([
+      "claude",
+      "agents",
+    ]);
+  });
+
+  test("interactive picker: empty selection throws error", async () => {
+    const pickerFn = mock(() => Promise.resolve([]));
+    mock.module("./utils/checkbox-picker", () => ({
+      checkboxPicker: pickerFn,
+    }));
+
+    const config = makeConfig([claude, codex]);
+    await expect(resolveProvider(config, null, true)).rejects.toThrow(
+      "No tools selected",
+    );
+  });
+
+  test("interactive picker: items reflect provider enabled state", async () => {
+    let capturedItems: unknown[] = [];
+    const pickerFn = mock((opts: { items: unknown[] }) => {
+      capturedItems = opts.items;
+      return Promise.resolve([0]);
+    });
+    mock.module("./utils/checkbox-picker", () => ({
+      checkboxPicker: pickerFn,
+    }));
+
+    const config = makeConfig([claude, codex, disabledProvider]);
+    await resolveProvider(config, null, true);
+
+    expect(capturedItems).toHaveLength(3);
+    expect((capturedItems[0] as { checked: boolean }).checked).toBe(true);
+    expect((capturedItems[1] as { checked: boolean }).checked).toBe(true);
+    expect((capturedItems[2] as { checked: boolean }).checked).toBe(false);
+  });
 });
 
 // ─── executeInstallAllProviders tests ────────────────────────────────────────

@@ -20,6 +20,7 @@ import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import { readFilesRecursive } from "./utils/fs";
+import { checkboxPicker } from "./utils/checkbox-picker";
 import type {
   ParsedSource,
   InstallPlan,
@@ -674,14 +675,13 @@ export async function resolveProvider(
 }> {
   const enabled = config.providers.filter((p) => p.enabled);
 
-  if (enabled.length === 0) {
-    throw new Error(
-      "No providers are enabled. Enable a provider in your config.",
-    );
-  }
-
   // Handle "all" provider selection
   if (providerName === "all") {
+    if (enabled.length === 0) {
+      throw new Error(
+        "No providers are enabled. Enable a provider in your config.",
+      );
+    }
     // Use "agents" as primary provider, or first enabled if "agents" not available
     const primary = enabled.find((p) => p.name === "agents") || enabled[0];
     return { provider: primary, allProviders: enabled };
@@ -709,47 +709,40 @@ export async function resolveProvider(
   }
 
   if (!isTTY) {
+    if (enabled.length === 0) {
+      throw new Error(
+        "No providers are enabled. Enable a provider in your config.",
+      );
+    }
     const names = enabled.map((p) => p.name).join(", ");
     throw new Error(
       `--tool (or --provider) is required in non-interactive mode. Available: ${names}, all`,
     );
   }
 
-  // Interactive picker
-  console.info("\nSelect a tool:");
-  for (let i = 0; i < enabled.length; i++) {
-    console.info(`  ${i + 1}) ${enabled[i].label} (${enabled[i].name})`);
-  }
-  console.info(
-    `  ${enabled.length + 1}) All tools (shared .agents/skills/ + symlinks)`,
-  );
-  process.stderr.write("\nEnter number: ");
+  // Interactive picker — show ALL providers, pre-check enabled ones
+  const pickerItems = config.providers.map((p) => ({
+    label: `${p.label} (${p.name})`,
+    hint: p.global,
+    checked: p.enabled,
+  }));
 
-  const answer = await new Promise<string>((resolve) => {
-    let data = "";
-    process.stdin.setEncoding("utf-8");
-    process.stdin.on("data", (chunk: string) => {
-      data += chunk;
-      if (data.includes("\n")) {
-        process.stdin.removeAllListeners("data");
-        process.stdin.pause();
-        resolve(data.trim());
-      }
-    });
-    process.stdin.resume();
-  });
+  const selectedIndices = await checkboxPicker({ items: pickerItems });
 
-  const idx = parseInt(answer, 10) - 1;
-  if (idx === enabled.length) {
-    // "All providers" selected
-    const primary = enabled.find((p) => p.name === "agents") || enabled[0];
-    return { provider: primary, allProviders: enabled };
-  }
-  if (isNaN(idx) || idx < 0 || idx >= enabled.length) {
-    throw new Error("Invalid selection. Aborting.");
+  if (selectedIndices.length === 0) {
+    throw new Error("No tools selected. Aborting.");
   }
 
-  return { provider: enabled[idx], allProviders: null };
+  const selectedProviders = selectedIndices.map((i) => config.providers[i]);
+
+  if (selectedProviders.length === 1) {
+    return { provider: selectedProviders[0], allProviders: null };
+  }
+
+  // Multiple providers — use "agents" as primary if selected, else first
+  const primary =
+    selectedProviders.find((p) => p.name === "agents") || selectedProviders[0];
+  return { provider: primary, allProviders: selectedProviders };
 }
 
 export function buildInstallPlan(
