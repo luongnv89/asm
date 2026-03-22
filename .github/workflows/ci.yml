@@ -9,7 +9,6 @@ on:
 jobs:
   lint-and-typecheck:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v5
 
@@ -22,10 +21,158 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Check formatting
-        run: bun x prettier --check "src/**/*.ts" "bin/**/*.ts" "*.json"
+        run: bun x prettier --check "src/**/*.ts" "bin/**/*.ts" "tests/**/*.ts" "*.json"
 
       - name: Type check
         run: bun run typecheck
 
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
       - name: Run tests
         run: bun test
+
+  build:
+    needs: [lint-and-typecheck, unit-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build
+        run: bun run build
+
+      - name: Verify build output
+        run: |
+          test -f dist/agent-skill-manager.js
+          head -1 dist/agent-skill-manager.js | grep -q '#!/usr/bin/env node'
+
+      - name: Syntax check with Node.js
+        run: node --check dist/agent-skill-manager.js
+
+      - name: Create npm tarball
+        run: npm pack
+
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Upload npm tarball
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-tarball
+          path: "*.tgz"
+
+  e2e-node:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Download dist artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Make entry point executable
+        run: chmod +x dist/agent-skill-manager.js
+
+      - name: Run Node.js E2E tests
+        run: bun test tests/e2e/node-e2e.test.ts tests/e2e/build-verification.test.ts
+
+  e2e-bun:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Download dist artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Run Bun E2E tests
+        run: bun test tests/e2e/bun-e2e.test.ts
+
+  e2e-npm-install:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Download npm tarball
+        uses: actions/download-artifact@v4
+        with:
+          name: npm-tarball
+          path: ./
+
+      - name: Run npm install E2E tests
+        run: bun test tests/e2e/npm-install-e2e.test.ts
+        env:
+          ASM_TARBALL: agent-skill-manager-*.tgz
