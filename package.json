@@ -10,11 +10,11 @@
   "scripts": {
     "start": "bun run src/index.ts",
     "typecheck": "bun run --bun tsc --noEmit",
-    "test": "bun test",
+    "test": "bun test src/",
     "test:e2e": "bun test tests/e2e/",
     "test:e2e:node": "bun test tests/e2e/node-e2e.test.ts",
     "test:e2e:install": "bun test tests/e2e/npm-install-e2e.test.ts",
-    "test:all": "bun test && bun run build && bun test tests/e2e/",
+    "test:all": "bun test src/ && bun run build && bun test tests/e2e/",
     "dev": "bun run src/index.ts",
     "build": "bun run scripts/build.ts",
     "preindex": "bun run scripts/preindex.ts",
