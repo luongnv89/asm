@@ -30,6 +30,7 @@ function makeSkill(overrides: Partial<SkillInfo> = {}): SkillInfo {
     symlinkTarget: null,
     realPath: "/home/user/.claude/skills/test-skill",
     fileCount: 3,
+    effort: undefined,
     ...overrides,
   };
 }
@@ -101,6 +102,17 @@ describe("searchSkills", () => {
     const result = searchSkills(skills, "l"); // all three: review/deploy/heaper all contain "l" via labels or fields
     // "code-review" has "Claude Code" label, "test-runner" has "Codex", "deploy-helper" has "deploy" and "Helps"
     expect(result.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("filters by effort field", () => {
+    const skillsWithEffort = [
+      makeSkill({ name: "easy-task", effort: "low" }),
+      makeSkill({ name: "hard-task", effort: "high" }),
+      makeSkill({ name: "no-effort", effort: undefined }),
+    ];
+    const result = searchSkills(skillsWithEffort, "low");
+    expect(result).toHaveLength(1);
+    expect(result[0].name).toBe("easy-task");
   });
 });
 

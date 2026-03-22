@@ -7,6 +7,7 @@ import {
   formatSearchResults,
   shortenPath,
   colorProvider,
+  colorEffort,
   formatJSON,
   ansi,
 } from "./formatter";
@@ -29,6 +30,7 @@ function makeSkill(overrides: Partial<SkillInfo> = {}): SkillInfo {
     symlinkTarget: null,
     realPath: "/home/user/.claude/skills/test-skill",
     fileCount: 3,
+    effort: undefined,
     ...overrides,
   };
 }
@@ -81,12 +83,13 @@ describe("formatSkillTable", () => {
     expect(lines[1]).toMatch(/^-+/);
   });
 
-  test("shows all seven columns", () => {
+  test("shows all eight columns", () => {
     const output = formatSkillTable([makeSkill()]);
     const headerLine = output.split("\n")[0];
     expect(headerLine).toContain("Name");
     expect(headerLine).toContain("Version");
     expect(headerLine).toContain("Creator");
+    expect(headerLine).toContain("Effort");
     expect(headerLine).toContain("Tool");
     expect(headerLine).toContain("Scope");
     expect(headerLine).toContain("Type");
@@ -536,6 +539,7 @@ describe("formatGroupedTable", () => {
     expect(output).toContain("Name");
     expect(output).toContain("Version");
     expect(output).toContain("Creator");
+    expect(output).toContain("Effort");
     expect(output).toContain("Tools");
     expect(output).toContain("Scope");
     expect(output).toContain("Type");
@@ -680,5 +684,96 @@ describe("formatSkillDetail with warnings", () => {
   test("omits warnings section when no warnings", async () => {
     const output = await formatSkillDetail(makeSkill({ warnings: [] }));
     expect(output).not.toContain("Warnings:");
+  });
+});
+
+// ─── effort field display ────────────────────────────────────────────────────
+
+describe("effort field display", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+
+  test("colorEffort returns colored string for known values", () => {
+    expect(colorEffort("low")).toBe("low");
+    expect(colorEffort("medium")).toBe("medium");
+    expect(colorEffort("high")).toBe("high");
+    expect(colorEffort("max")).toBe("max");
+  });
+
+  test("colorEffort returns empty string for undefined", () => {
+    expect(colorEffort(undefined)).toBe("");
+  });
+
+  test("colorEffort is case-insensitive", () => {
+    expect(colorEffort("Low")).toBe("Low");
+    expect(colorEffort("HIGH")).toBe("HIGH");
+  });
+
+  test("formatSkillTable shows effort column", () => {
+    const output = formatSkillTable([makeSkill({ effort: "medium" })]);
+    expect(output).toContain("Effort");
+    expect(output).toContain("medium");
+  });
+
+  test("formatSkillTable shows dash for missing effort", () => {
+    const output = formatSkillTable([makeSkill({ effort: undefined })]);
+    expect(output).toContain("Effort");
+    expect(output).toContain("\u2014");
+  });
+
+  test("formatGroupedTable shows effort column", () => {
+    const output = formatGroupedTable([makeSkill({ effort: "high" })]);
+    expect(output).toContain("Effort");
+    expect(output).toContain("high");
+  });
+
+  test("formatSearchResults shows effort column", () => {
+    const output = formatSearchResults(
+      [makeSkill({ name: "test", effort: "low" })],
+      "test",
+    );
+    expect(output).toContain("Effort");
+    expect(output).toContain("low");
+  });
+
+  test("formatSkillDetail shows effort when present", async () => {
+    const output = await formatSkillDetail(makeSkill({ effort: "max" }));
+    expect(output).toContain("Effort: max");
+  });
+
+  test("formatSkillDetail omits effort when absent", async () => {
+    const output = await formatSkillDetail(makeSkill({ effort: undefined }));
+    expect(output).not.toContain("Effort:");
+  });
+
+  test("formatSkillInspect shows effort when present", async () => {
+    const skills = [
+      makeSkill({ effort: "high", providerLabel: "Claude Code" }),
+      makeSkill({
+        effort: "high",
+        providerLabel: "Codex",
+        provider: "codex",
+        path: "/other",
+      }),
+    ];
+    const output = await formatSkillInspect(skills);
+    expect(output).toContain("Effort: high");
+  });
+
+  test("formatSkillInspect omits effort when absent", async () => {
+    const skills = [
+      makeSkill({ providerLabel: "Claude Code" }),
+      makeSkill({
+        providerLabel: "Codex",
+        provider: "codex",
+        path: "/other",
+      }),
+    ];
+    const output = await formatSkillInspect(skills);
+    expect(output).not.toContain("Effort:");
   });
 });

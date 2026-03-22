@@ -63,6 +63,7 @@ function makeSkill(overrides: Partial<SkillInfo> = {}): SkillInfo {
     symlinkTarget: null,
     realPath: `${HOME}/.claude/skills/test-skill`,
     fileCount: 3,
+    effort: undefined,
     ...overrides,
   };
 }

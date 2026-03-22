@@ -5,6 +5,13 @@ import type { SkillInfo } from "../utils/types";
 import { countFiles } from "../scanner";
 import { wordWrap } from "../formatter";
 
+const EFFORT_COLORS: Record<string, string> = {
+  low: theme.green,
+  medium: theme.yellow,
+  high: theme.red,
+  max: theme.accentAlt, // magenta
+};
+
 function detailRow(
   ctx: RenderContext,
   id: string,
@@ -43,10 +50,11 @@ export function createDetailView(
   const descMaxWidth = 56;
   const desc = skill.description || "(no description)";
   const wrappedDescLines = wordWrap(desc, descMaxWidth);
-  // 9 detail rows + 2 (desc label with blank line) + desc lines + 2 (footer with blank line) + 2 (border) + 2 (padding)
+  // 9 detail rows + optional effort row + 2 (desc label with blank line) + desc lines + 2 (footer with blank line) + 2 (border) + 2 (padding)
+  const effortRows = skill.effort ? 1 : 0;
   const boxHeight = Math.min(
     ctx.height - 2,
-    9 + 2 + wrappedDescLines.length + 2 + 2 + 2,
+    9 + effortRows + 2 + wrappedDescLines.length + 2 + 2 + 2,
   );
   const top = Math.max(0, Math.floor((ctx.height - boxHeight) / 2));
   const left = Math.max(0, Math.floor((ctx.width - boxWidth) / 2));
@@ -83,6 +91,17 @@ export function createDetailView(
       skill.creator ? theme.fg : theme.fgDim,
     ),
   );
+  if (skill.effort) {
+    container.add(
+      detailRow(
+        ctx,
+        "effort",
+        "Effort",
+        skill.effort,
+        EFFORT_COLORS[skill.effort.toLowerCase()] || theme.fg,
+      ),
+    );
+  }
   container.add(
     detailRow(ctx, "provider", "Tool", skill.providerLabel, theme.accentAlt),
   );

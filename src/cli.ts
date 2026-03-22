@@ -19,6 +19,7 @@ import {
   formatSearchResults,
   formatJSON,
   ansi,
+  colorEffort,
   shortenPath,
   wordWrap,
 } from "./formatter";
@@ -1020,7 +1021,12 @@ ${ansi.bold("Vercel skills CLI:")}
 // ─── Install: inspect a single skill (returns metadata for review) ──────────
 
 interface SkillInspection {
-  metadata: { name: string; version: string; description: string };
+  metadata: {
+    name: string;
+    version: string;
+    description: string;
+    effort?: string;
+  };
   skillName: string;
   warnings: Awaited<ReturnType<typeof scanForWarnings>>;
   installStatus: string;
@@ -1136,6 +1142,11 @@ function displaySkillInspection(
     if (metadata.description) {
       console.info(
         `    ${ansi.bold("Description:")} ${ansi.dim(metadata.description)}`,
+      );
+    }
+    if (metadata.effort) {
+      console.info(
+        `    ${ansi.bold("Effort:")}      ${colorEffort(metadata.effort)}`,
       );
     }
     console.info(`    ${ansi.bold("Source:")}      ${sourceStr}`);

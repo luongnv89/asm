@@ -10,6 +10,7 @@ export function buildManifest(skills: SkillInfo[]): ExportManifest {
     path: s.path,
     isSymlink: s.isSymlink,
     symlinkTarget: s.symlinkTarget,
+    effort: s.effort,
   }));
 
   return {

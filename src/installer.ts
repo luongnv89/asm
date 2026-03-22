@@ -375,9 +375,12 @@ export async function cloneToTemp(
   }
 }
 
-export async function validateSkill(
-  tempDir: string,
-): Promise<{ name: string; version: string; description: string }> {
+export async function validateSkill(tempDir: string): Promise<{
+  name: string;
+  version: string;
+  description: string;
+  effort?: string;
+}> {
   const skillMdPath = join(tempDir, "SKILL.md");
 
   let content: string;
@@ -397,6 +400,7 @@ export async function validateSkill(
     name,
     version,
     description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
+    effort: fm.effort || fm["metadata.effort"] || undefined,
   };
 }
 
@@ -437,6 +441,7 @@ export async function discoverSkills(
           name: fm.name || entry,
           version: resolveVersion(fm),
           description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
+          effort: fm.effort || fm["metadata.effort"] || undefined,
         });
         // Don't recurse into directories that have SKILL.md
       } catch {

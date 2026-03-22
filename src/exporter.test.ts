@@ -20,6 +20,7 @@ function makeSkill(overrides: Partial<SkillInfo> = {}): SkillInfo {
     symlinkTarget: null,
     realPath: path,
     fileCount: 3,
+    effort: undefined,
     ...overrides,
   };
 }

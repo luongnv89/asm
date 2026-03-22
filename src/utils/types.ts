@@ -21,6 +21,7 @@ export interface SkillInfo {
   symlinkTarget: string | null;
   realPath: string;
   fileCount?: number;
+  effort?: string;
   warnings?: SkillWarning[];
 }
 
@@ -35,6 +36,7 @@ export interface ExportedSkill {
   path: string;
   isSymlink: boolean;
   symlinkTarget: string | null;
+  effort?: string;
 }
 
 export interface ExportManifest {
@@ -157,6 +159,7 @@ export interface DiscoveredSkill {
   name: string;
   version: string;
   description: string;
+  effort?: string;
 }
 
 // ─── Skill Index Types ───────────────────────────────────────────────────────
