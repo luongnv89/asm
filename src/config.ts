@@ -15,6 +15,7 @@ const __dirname = dirname(__filename);
 const HOME = homedir();
 const CONFIG_DIR = join(HOME, ".config", "agent-skill-manager");
 const CONFIG_PATH = join(CONFIG_DIR, "config.json");
+const LOCK_PATH = join(CONFIG_DIR, ".skill-lock.json");
 const INDEX_DIR = join(CONFIG_DIR, "skill-index");
 
 const DEFAULT_PROVIDERS: ProviderConfig[] = [
@@ -139,6 +140,10 @@ export function getDefaultConfig(): AppConfig {
 
 export function getConfigPath(): string {
   return CONFIG_PATH;
+}
+
+export function getLockPath(): string {
+  return LOCK_PATH;
 }
 
 export function getIndexDir(): string {

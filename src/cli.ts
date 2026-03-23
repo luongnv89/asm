@@ -67,6 +67,7 @@ import {
   formatSecurityReport,
   formatSecurityReportJSON,
 } from "./security-auditor";
+import { writeLockEntry, removeLockEntry, getCommitHash } from "./utils/lock";
 import { ingestRepo, listIndexedRepos, removeRepoIndex } from "./ingester";
 import {
   searchSkills as searchIndexSkills,
@@ -652,6 +653,14 @@ async function cmdUninstall(args: ParsedArgs) {
   for (const entry of log) {
     console.error(entry);
   }
+
+  // Remove lock entry for tracking
+  try {
+    await removeLockEntry(skillName);
+  } catch {
+    // Lock removal failure is non-fatal
+  }
+
   console.error(ansi.green("\nDone."));
 }
 
@@ -1652,6 +1661,9 @@ async function cmdInstall(args: ParsedArgs) {
       }
     }
 
+    // Get commit hash from cloned repo before installations (temp dir is cleaned up later)
+    const commitHash = tempDir ? await getCommitHash(tempDir) : null;
+
     // Execute installations
     const failures: Array<{ name: string; error: string }> = [];
     for (let i = 0; i < inspections.length; i++) {
@@ -1669,6 +1681,22 @@ async function cmdInstall(args: ParsedArgs) {
         console.info(
           `${progress}${ansi.green("✓")} ${inspection.metadata.name} installed to ${ansi.dim(inspection.plan.targetDir)}`,
         );
+
+        // Write lock entry for tracking
+        try {
+          const sourceStr = isLocal
+            ? `local:${source.localPath}`
+            : `github:${source.owner}/${source.repo}`;
+          await writeLockEntry(result.name, {
+            source: sourceStr,
+            commitHash: commitHash || "unknown",
+            ref: source.ref || "main",
+            installedAt: new Date().toISOString(),
+            provider: inspection.plan.providerName,
+          });
+        } catch {
+          // Lock write failure is non-fatal
+        }
       } catch (installErr: any) {
         failures.push({
           name: inspection.metadata.name,

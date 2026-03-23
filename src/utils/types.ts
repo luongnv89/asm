@@ -28,6 +28,21 @@ export interface SkillInfo {
   warnings?: SkillWarning[];
 }
 
+// ─── Lock File Types ──────────────────────────────────────────────────────
+
+export interface LockEntry {
+  source: string;
+  commitHash: string;
+  ref: string | null;
+  installedAt: string;
+  provider: string;
+}
+
+export interface LockFile {
+  version: 1;
+  skills: Record<string, LockEntry>;
+}
+
 // ─── Export Types ───────────────────────────────────────────────────────────
 
 export interface ExportedSkill {
