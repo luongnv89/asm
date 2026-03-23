@@ -2,7 +2,7 @@
 
 ## Logo
 
-The agent-skill-manager logo features **three orbital paths converging on a central hub node**. The orbits represent multiple AI agent skills flowing through a unified management layer. Smaller nodes along the paths represent individual agents (Claude Code, Codex, OpenClaw, etc.) while the central filled circle is the manager — the orchestration point. The design uses layered opacity for visual depth and a neon green palette that matches the [luongnv.com](https://luongnv.com) brand identity.
+The asm logo is **The Nexus** — a hollow hexagonal hub at the center with six radiating paths connecting to outer nodes of different shapes. The central hexagon represents asm as the orchestrator, with a solid dot at its core. The six outer nodes use distinct geometric shapes — diamonds, squares, circles, and rounded squares — representing the diverse AI agents that asm unifies (Claude Code, Codex, Cursor, Windsurf, OpenClaw, and more). Small particle dots along the paths represent skills flowing through the network. The design conveys **connection, orchestration, and unity**, consistent with the neon green palette from the [luongnv.com](https://luongnv.com) brand identity.
 
 ### Logo Files
 
@@ -87,7 +87,7 @@ These are for text elements only — never for backgrounds or primary UI.
 - **Primary font**: Inter (Bold for headings, Medium for body)
 - **Monospace**: JetBrains Mono, Fira Code (code blocks, terminal UI)
 - **Fallback stack**: `-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`
-- **Wordmark split**: "agent-skill-" in Off-White (`#fafafa`), "manager" in Neon Green (`#00ff41`) — no space, hyphens connect them
+- **Wordmark**: "asm" in Neon Green (`#00ff41`), bold, with 4px letter-spacing — compact and punchy
 
 ## Tone
 

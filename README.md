@@ -2,7 +2,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/logo/logo-full.svg" />
     <source media="(prefers-color-scheme: light)" srcset="assets/logo/logo-black.svg" />
-    <img src="assets/logo/logo-full.svg" alt="agent-skill-manager" width="560" />
+    <img src="assets/logo/logo-full.svg" alt="asm" width="340" />
   </picture>
 </p>
 

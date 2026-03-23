@@ -1,28 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 120" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 120" fill="none">
   <style>
-    .wordmark { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-weight: 700; font-size: 52px; }
+    .wordmark { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-weight: 700; font-size: 64px; letter-spacing: 4px; }
   </style>
 
-  <!-- Mark scaled to fit -->
-  <g transform="translate(6, 6) scale(0.211)">
-    <!-- Outer orbital ring -->
-    <path d="M96 256 C96 148, 148 80, 256 80 C364 80, 432 160, 432 256" stroke="#00ff41" stroke-width="28" stroke-linecap="round" fill="none"/>
-    <!-- Middle orbital path -->
-    <path d="M432 256 C432 348, 372 432, 256 432 C140 432, 80 348, 80 256" stroke="#00ff41" stroke-width="28" stroke-linecap="round" fill="none" opacity="0.6"/>
-    <!-- Inner flowing path -->
-    <path d="M192 160 C224 128, 288 128, 320 160 C360 200, 360 312, 320 352 C288 384, 224 384, 192 352 C152 312, 152 200, 192 160" stroke="#00ff41" stroke-width="20" stroke-linecap="round" fill="none" opacity="0.35"/>
-    <!-- Central hub -->
-    <circle cx="256" cy="256" r="32" fill="#00ff41"/>
-    <!-- Orbital nodes -->
-    <circle cx="96" cy="256" r="18" fill="#00ff41" opacity="0.8"/>
-    <circle cx="432" cy="256" r="18" fill="#00ff41" opacity="0.8"/>
-    <circle cx="256" cy="80" r="14" fill="#00cc33"/>
-    <circle cx="256" cy="432" r="14" fill="#00cc33"/>
-    <!-- Satellite micro-nodes -->
-    <circle cx="148" cy="120" r="8" fill="#00ff41" opacity="0.4"/>
-    <circle cx="376" cy="392" r="8" fill="#00ff41" opacity="0.4"/>
+  <!-- Scaled Nexus mark -->
+  <g transform="translate(4, 4) scale(0.218)">
+    <!-- Paths -->
+    <line x1="256" y1="216" x2="256" y2="88" stroke="#00ff41" stroke-width="10" stroke-linecap="square"/>
+    <line x1="291" y1="236" x2="401" y2="136" stroke="#00ff41" stroke-width="10" stroke-linecap="square"/>
+    <line x1="291" y1="276" x2="401" y2="376" stroke="#00ff41" stroke-width="10" stroke-linecap="square"/>
+    <line x1="256" y1="296" x2="256" y2="424" stroke="#00ff41" stroke-width="10" stroke-linecap="square"/>
+    <line x1="221" y1="276" x2="111" y2="376" stroke="#00ff41" stroke-width="10" stroke-linecap="square"/>
+    <line x1="221" y1="236" x2="111" y2="136" stroke="#00ff41" stroke-width="10" stroke-linecap="square"/>
+    <!-- Central hex -->
+    <polygon points="256,204 296,230 296,282 256,308 216,282 216,230" fill="#0a0a0a" stroke="#00ff41" stroke-width="12"/>
+    <circle cx="256" cy="256" r="10" fill="#00ff41"/>
+    <!-- Outer nodes -->
+    <polygon points="256,52 280,76 256,100 232,76" fill="#00ff41"/>
+    <rect x="394" y="108" width="44" height="44" fill="#00ff41" rx="3"/>
+    <circle cx="420" cy="392" r="24" fill="#00ff41"/>
+    <rect x="234" y="416" width="44" height="44" fill="#00ff41" rx="10"/>
+    <polygon points="96,376 120,352 144,376 120,400" fill="#00ff41"/>
+    <circle cx="96" cy="130" r="24" fill="#00ff41" opacity="0.7"/>
+    <!-- Particles -->
+    <circle cx="256" cy="156" r="5" fill="#00ff41" opacity="0.4"/>
+    <circle cx="340" cy="190" r="5" fill="#00ff41" opacity="0.4"/>
+    <circle cx="340" cy="322" r="5" fill="#00ff41" opacity="0.4"/>
+    <circle cx="256" cy="360" r="5" fill="#00ff41" opacity="0.4"/>
+    <circle cx="172" cy="322" r="5" fill="#00ff41" opacity="0.4"/>
+    <circle cx="172" cy="190" r="5" fill="#00ff41" opacity="0.4"/>
   </g>
 
-  <!-- Wordmark -->
-  <text x="140" y="82" class="wordmark"><tspan fill="#fafafa">agent-skill-</tspan><tspan fill="#00ff41">manager</tspan></text>
+  <text x="130" y="86" class="wordmark" fill="#00ff41">asm</text>
 </svg>
