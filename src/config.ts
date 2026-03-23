@@ -146,10 +146,6 @@ export function getLockPath(): string {
   return LOCK_PATH;
 }
 
-export function getConfigDir(): string {
-  return CONFIG_DIR;
-}
-
 export function getIndexDir(): string {
   return INDEX_DIR;
 }

@@ -27,7 +27,11 @@ export async function readLock(): Promise<LockFile> {
 
   try {
     const parsed = JSON.parse(raw);
-    if (parsed.version !== 1 || typeof parsed.skills !== "object") {
+    if (
+      parsed.version !== 1 ||
+      typeof parsed.skills !== "object" ||
+      parsed.skills === null
+    ) {
       throw new Error("invalid schema");
     }
     debug(`lock: loaded ${Object.keys(parsed.skills).length} entries`);

@@ -1,8 +1,21 @@
 import { describe, test, expect, beforeEach, afterEach, mock } from "bun:test";
-import { mkdtemp, writeFile, rm, readFile, mkdir } from "fs/promises";
+import {
+  mkdtemp,
+  writeFile,
+  rm,
+  readFile,
+  mkdir,
+  appendFile,
+} from "fs/promises";
+import { execSync } from "child_process";
 import { join } from "path";
 import { tmpdir } from "os";
-import { readLock, writeLockEntry, removeLockEntry } from "./lock";
+import {
+  readLock,
+  writeLockEntry,
+  removeLockEntry,
+  getCommitHash,
+} from "./lock";
 
 // Mock config to use a temp directory for the lock file
 let tempDir: string;
@@ -68,6 +81,17 @@ describe("readLock", () => {
     await writeFile(
       lockPath,
       JSON.stringify({ version: 1, skills: "bad" }),
+      "utf-8",
+    );
+    const lock = await readLock();
+    expect(lock.version).toBe(1);
+    expect(lock.skills).toEqual({});
+  });
+
+  test("handles invalid schema (skills is null) by returning empty lock", async () => {
+    await writeFile(
+      lockPath,
+      JSON.stringify({ version: 1, skills: null }),
       "utf-8",
     );
     const lock = await readLock();
@@ -233,5 +257,40 @@ describe("corruption recovery", () => {
 
     const lock = await readLock();
     expect(lock.skills["fresh-skill"].commitHash).toBe("fff");
+  });
+});
+
+// ─── getCommitHash tests ─────────────────────────────────────────────────────
+
+describe("getCommitHash", () => {
+  let gitDir: string;
+
+  beforeEach(async () => {
+    gitDir = await mkdtemp(join(tmpdir(), "git-hash-test-"));
+  });
+
+  afterEach(async () => {
+    await rm(gitDir, { recursive: true, force: true });
+  });
+
+  test("returns commit hash from a valid git repo", async () => {
+    execSync("git init && git commit --allow-empty -m 'init'", {
+      cwd: gitDir,
+      stdio: "pipe",
+    });
+    const hash = await getCommitHash(gitDir);
+    expect(hash).not.toBeNull();
+    expect(hash!.length).toBe(40);
+    expect(hash).toMatch(/^[0-9a-f]{40}$/);
+  });
+
+  test("returns null for a non-git directory", async () => {
+    const hash = await getCommitHash(gitDir);
+    expect(hash).toBeNull();
+  });
+
+  test("returns null for a nonexistent directory", async () => {
+    const hash = await getCommitHash(join(gitDir, "does-not-exist"));
+    expect(hash).toBeNull();
   });
 });
