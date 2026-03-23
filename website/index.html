@@ -185,6 +185,36 @@ a:hover { text-decoration: underline; }
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 .search-input::placeholder { color: var(--text-muted); }
+.search-clear {
+  position: absolute;
+  right: 38px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 2px 6px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.search-clear:hover { color: var(--text); }
+.search-clear.hidden { display: none; }
+.search-spinner {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border);
+  border-top-color: var(--brand);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+.search-spinner.hidden { display: none; }
+@keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
 .search-input:focus {
   border-color: var(--brand);
   box-shadow: 0 0 0 3px var(--brand-glow);
@@ -216,12 +246,34 @@ a:hover { text-decoration: underline; }
   white-space: nowrap;
 }
 .cat-btn:hover { border-color: var(--text-muted); color: var(--text); }
-.cat-btn.active { border-color: var(--brand); color: var(--brand); background: var(--brand-glow); }
+.cat-btn.active {
+  border-color: var(--brand);
+  color: var(--brand);
+  background: var(--brand-glow);
+  font-weight: 700;
+  box-shadow: 0 0 8px var(--brand-glow);
+  border-width: 2px;
+  padding: 4px 11px;
+}
 .cat-btn .count {
   font-size: 10px;
   opacity: 0.6;
   margin-left: 4px;
 }
+.category-tabs.collapsed .cat-btn.overflow { display: none; }
+.cat-toggle {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 5px 12px;
+  border: 1px dashed var(--text-muted);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.cat-toggle:hover { border-color: var(--brand); color: var(--brand); }
 
 .filter-row {
   display: flex;
@@ -276,6 +328,14 @@ a:hover { text-decoration: underline; }
   box-shadow: 0 0 20px var(--brand-glow);
   transform: translateY(-1px);
 }
+.skill-card.official {
+  border-left: 3px solid var(--brand);
+}
+.badge-official {
+  color: var(--brand);
+  background: var(--brand-glow);
+  font-weight: 600;
+}
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -327,7 +387,29 @@ a:hover { text-decoration: underline; }
   white-space: nowrap;
 }
 .badge-cat { color: var(--brand-dim); background: rgba(0, 255, 65, 0.06); }
-.badge-warn { color: var(--yellow); background: rgba(224, 175, 104, 0.1); }
+.badge-warn {
+  color: var(--yellow);
+  background: rgba(224, 175, 104, 0.1);
+  position: relative;
+  cursor: help;
+}
+.badge-warn:focus::after, .badge-warn:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 4px 8px;
+  font-size: 11px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  z-index: 10;
+  pointer-events: none;
+}
+.badge-warn:focus { outline: none; }
 .skill-version {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -617,11 +699,20 @@ a:hover { text-decoration: underline; }
 <header class="site-header">
   <div class="header-left">
     <svg class="logo-mark" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 8 C3 4.7, 4.7 2.5, 8 2.5 C11.3 2.5, 13.5 5, 13.5 8" stroke="#00ff41" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-      <path d="M13.5 8 C13.5 11.3, 11.3 13.5, 8 13.5 C4.7 13.5, 3 11, 3 8" stroke="#00ff41" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.6"/>
-      <circle cx="8" cy="8" r="2.2" fill="#00ff41"/>
-      <circle cx="3" cy="8" r="1.1" fill="#00ff41" opacity="0.8"/>
-      <circle cx="13.5" cy="8" r="1.1" fill="#00ff41" opacity="0.8"/>
+      <line x1="8" y1="6.2" x2="8" y2="2" stroke="#00ff41" stroke-width="1.2"/>
+      <line x1="9.5" y1="7" x2="13" y2="3.5" stroke="#00ff41" stroke-width="1.2"/>
+      <line x1="9.5" y1="9" x2="13" y2="12.5" stroke="#00ff41" stroke-width="1.2"/>
+      <line x1="8" y1="9.8" x2="8" y2="14" stroke="#00ff41" stroke-width="1.2"/>
+      <line x1="6.5" y1="9" x2="3" y2="12.5" stroke="#00ff41" stroke-width="1.2"/>
+      <line x1="6.5" y1="7" x2="3" y2="3.5" stroke="#00ff41" stroke-width="1.2"/>
+      <circle cx="8" cy="8" r="2.4" fill="#0a0a0a" stroke="#00ff41" stroke-width="1.2"/>
+      <circle cx="8" cy="8" r="0.8" fill="#00ff41"/>
+      <rect x="6.8" y="0.6" width="2.4" height="2.4" fill="#00ff41" rx="0.6"/>
+      <circle cx="13.4" cy="3.2" r="1.3" fill="#00ff41"/>
+      <circle cx="13.4" cy="12.8" r="1.3" fill="#00ff41"/>
+      <rect x="6.8" y="13" width="2.4" height="2.4" fill="#00ff41" rx="0.6"/>
+      <polygon points="3,12.8 4.3,11.5 5.6,12.8 4.3,14.1" fill="#00ff41"/>
+      <circle cx="2.6" cy="3.2" r="1.3" fill="#00ff41" opacity="0.7"/>
     </svg>
     <div class="site-title">asm <span>catalog</span></div>
   </div>
@@ -645,7 +736,9 @@ a:hover { text-decoration: underline; }
   </div>
   <div class="search-box">
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="5"/><path d="M10.5 10.5L15 15" stroke-linecap="round"/></svg>
-    <input type="search" class="search-input" id="search-input" placeholder="Search skills..." autocomplete="off" disabled>
+    <input type="search" class="search-input" id="search-input" placeholder="Loading catalog..." autocomplete="off" disabled>
+    <button class="search-clear hidden" id="search-clear" aria-label="Clear search">&times;</button>
+    <span class="search-spinner" id="search-spinner"></span>
   </div>
 </div>
 
@@ -683,6 +776,7 @@ a:hover { text-decoration: underline; }
   <p>
     <a href="https://github.com/luongnv89/agent-skill-manager">agent-skill-manager</a>
     — Install: <code style="color:var(--brand)">npm i -g agent-skill-manager</code>
+    <button class="copy-btn" data-cmd="npm i -g agent-skill-manager" onclick="copyCmd(this)" style="margin-left:4px;font-size:10px;padding:2px 6px;">copy</button>
     — Catalog generated <span id="generated-at"></span>
   </p>
 </footer>
@@ -696,6 +790,25 @@ let activeRepo = 'all';
 let currentPage = 1;
 const PAGE_SIZE = 48;
 let debounceTimer = null;
+
+// ─── URL State ──────────────────────────────────────────────────────────────
+function pushState() {
+  const params = new URLSearchParams();
+  if (searchQuery) params.set('q', searchQuery);
+  if (activeCategory !== 'all') params.set('cat', activeCategory);
+  if (activeRepo !== 'all') params.set('repo', activeRepo);
+  if (currentPage > 1) params.set('page', currentPage);
+  const qs = params.toString();
+  history.replaceState(null, '', qs ? '?' + qs : location.pathname);
+}
+
+function readState() {
+  const params = new URLSearchParams(location.search);
+  searchQuery = params.get('q') || '';
+  activeCategory = params.get('cat') || 'all';
+  activeRepo = params.get('repo') || 'all';
+  currentPage = parseInt(params.get('page'), 10) || 1;
+}
 
 // ─── XSS Helper ────────────────────────────────────────────────────────────
 const escEl = document.createElement('span');
@@ -765,18 +878,21 @@ function renderCard(s) {
   const cmd = 'asm install ' + s.installUrl;
   const cats = s.categories.map(c => '<span class="badge badge-cat">' + esc(c) + '</span>').join('');
   const warn = s.allowedTools && s.allowedTools.length > 0
-    ? '<span class="badge badge-warn" title="Uses: ' + esc(s.allowedTools.join(', ')) + '">elevated</span>'
+    ? '<span class="badge badge-warn" tabindex="0" title="Tool access: ' + esc(s.allowedTools.join(', ')) + '">&#x1F527; uses tools</span>'
     : '';
   const ver = s.version && s.version !== '0.0.0' ? '<span class="skill-version">v' + esc(s.version) + '</span>' : '';
+  const isOfficial = s.owner === 'anthropics';
+  const officialBadge = isOfficial ? '<span class="badge badge-official">official</span>' : '';
+  const cardClass = 'skill-card' + (isOfficial ? ' official' : '');
 
-  return '<article class="skill-card" data-id="' + esc(s.id) + '" tabindex="0" role="button">'
+  return '<article class="' + cardClass + '" data-id="' + esc(s.id) + '" tabindex="0" role="button">'
     + '<div class="card-header">'
     + '<span class="skill-name">' + esc(s.name) + '</span>'
     + '<span class="skill-repo">' + esc(s.owner) + '/' + esc(s.repo) + '</span>'
     + '</div>'
     + '<p class="skill-desc">' + esc(s.description) + '</p>'
     + '<div class="card-footer">'
-    + '<div class="badge-row">' + cats + warn + '</div>'
+    + '<div class="badge-row">' + officialBadge + cats + warn + '</div>'
     + ver
     + '</div>'
     + '<div class="install-bar">'
@@ -881,13 +997,35 @@ function openModal(skillId) {
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
   document.getElementById('modal-close').focus();
+  trapFocus(document.getElementById('modal'));
 }
 
 let lastFocusedCard = null;
+let _focusTrapHandler = null;
+
+function trapFocus(el) {
+  _focusTrapHandler = function(e) {
+    if (e.key !== 'Tab') return;
+    const focusable = el.querySelectorAll('button, a[href], input, [tabindex]:not([tabindex="-1"])');
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  };
+  document.addEventListener('keydown', _focusTrapHandler);
+}
 
 function closeModal() {
   document.getElementById('modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
+  if (_focusTrapHandler) {
+    document.removeEventListener('keydown', _focusTrapHandler);
+    _focusTrapHandler = null;
+  }
   if (lastFocusedCard) {
     lastFocusedCard.focus();
     lastFocusedCard = null;
@@ -934,11 +1072,21 @@ function initControls() {
     }
   }
 
-  let tabsHtml = '<button class="cat-btn active" data-cat="all">All <span class="count">' + catalog.totalSkills + '</span></button>';
-  for (const cat of catalog.categories) {
-    tabsHtml += '<button class="cat-btn" data-cat="' + esc(cat) + '">' + esc(cat) + ' <span class="count">' + (catCounts[cat] || 0) + '</span></button>';
+  const MAX_VISIBLE_CATS = 6;
+  let tabsHtml = '<button class="cat-btn' + (activeCategory === 'all' ? ' active' : '') + '" data-cat="all">All <span class="count">' + catalog.totalSkills + '</span></button>';
+  catalog.categories.forEach(function(cat, i) {
+    const overflow = i >= MAX_VISIBLE_CATS ? ' overflow' : '';
+    tabsHtml += '<button class="cat-btn' + overflow + (activeCategory === cat ? ' active' : '') + '" data-cat="' + esc(cat) + '">' + esc(cat) + ' <span class="count">' + (catCounts[cat] || 0) + '</span></button>';
+  });
+  if (catalog.categories.length > MAX_VISIBLE_CATS) {
+    tabsHtml += '<button class="cat-toggle" id="cat-toggle">+' + (catalog.categories.length - MAX_VISIBLE_CATS) + ' more</button>';
   }
   tabsEl.innerHTML = tabsHtml;
+  // Start collapsed unless the active category is in the overflow
+  var activeIdx = catalog.categories.indexOf(activeCategory);
+  if (activeIdx < MAX_VISIBLE_CATS) {
+    tabsEl.classList.add('collapsed');
+  }
 
   // Repo filter
   const repoEl = document.getElementById('repo-filter');
@@ -947,6 +1095,7 @@ function initControls() {
     repoHtml += '<option value="' + esc(r.owner + '/' + r.repo) + '">' + esc(r.owner + '/' + r.repo) + ' (' + r.skillCount + ')</option>';
   }
   repoEl.innerHTML = repoHtml;
+  repoEl.value = activeRepo;
 
   // Stats
   document.getElementById('total-skills').textContent = catalog.totalSkills.toLocaleString();
@@ -965,19 +1114,33 @@ function initControls() {
   const searchEl = document.getElementById('search-input');
   searchEl.disabled = false;
   searchEl.placeholder = 'Search ' + catalog.totalSkills.toLocaleString() + ' skills...';
+  document.getElementById('search-spinner').classList.add('hidden');
 }
 
 // ─── Event Listeners ───────────────────────────────────────────────────────
 function attachEvents() {
   // Search with debounce
-  document.getElementById('search-input').addEventListener('input', function(e) {
+  var searchInput = document.getElementById('search-input');
+  var clearBtn = document.getElementById('search-clear');
+  searchInput.addEventListener('input', function(e) {
     var value = e.target.value;
+    clearBtn.classList.toggle('hidden', !value);
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(function() {
       searchQuery = value;
       currentPage = 1;
       renderGrid();
+      pushState();
     }, 200);
+  });
+  clearBtn.addEventListener('click', function() {
+    searchInput.value = '';
+    searchInput.focus();
+    clearBtn.classList.add('hidden');
+    searchQuery = '';
+    currentPage = 1;
+    renderGrid();
+    pushState();
   });
 
   // Category tabs (event delegation)
@@ -990,13 +1153,25 @@ function attachEvents() {
     this.querySelectorAll('.cat-btn').forEach(function(b) { b.classList.remove('active'); });
     btn.classList.add('active');
     renderGrid();
+    pushState();
   });
+
+  // Category toggle
+  var toggleBtn = document.getElementById('cat-toggle');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', function() {
+      var tabs = document.getElementById('category-tabs');
+      tabs.classList.toggle('collapsed');
+      this.textContent = tabs.classList.contains('collapsed') ? '+' + (catalog.categories.length - 6) + ' more' : 'Show less';
+    });
+  }
 
   // Repo filter
   document.getElementById('repo-filter').addEventListener('change', function(e) {
     activeRepo = e.target.value;
     currentPage = 1;
     renderGrid();
+    pushState();
   });
 
   // Grid card clicks (event delegation)
@@ -1023,7 +1198,8 @@ function attachEvents() {
     if (!btn || btn.disabled) return;
     currentPage = parseInt(btn.getAttribute('data-page'), 10);
     renderGrid();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    pushState();
+    document.getElementById('skill-grid').scrollIntoView({ behavior: 'smooth' });
   });
 
   // Modal close
@@ -1049,9 +1225,13 @@ async function boot() {
     const res = await fetch('catalog.json');
     if (!res.ok) throw new Error('HTTP ' + res.status);
     catalog = await res.json();
+    readState();
     initControls();
     attachEvents();
     renderGrid();
+    // Restore search input from URL state
+    document.getElementById('search-input').value = searchQuery;
+    if (searchQuery) document.getElementById('search-clear').classList.remove('hidden');
   } catch (err) {
     document.getElementById('skill-grid').innerHTML =
       '<div class="empty-state"><div class="empty-icon">&#x26a0;</div><p>Failed to load catalog: ' + esc(err.message) + '</p></div>';
