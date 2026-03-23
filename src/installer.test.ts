@@ -1353,6 +1353,187 @@ describe("buildInstallPlan", () => {
   });
 });
 
+// ─── buildInstallPlan extended scope tests ───────────────────────────────────
+
+describe("buildInstallPlan scope - target directory resolution", () => {
+  const source = {
+    owner: "user",
+    repo: "my-skill",
+    ref: null,
+    subpath: null,
+    cloneUrl: "https://github.com/user/my-skill.git",
+    sshCloneUrl: "git@github.com:user/my-skill.git",
+  };
+
+  test("global scope resolves to absolute path from provider.global", () => {
+    const provider: ProviderConfig = {
+      name: "claude",
+      label: "Claude Code",
+      global: "~/.claude/skills",
+      project: ".claude/skills",
+      enabled: true,
+    };
+    const plan = buildInstallPlan(
+      source,
+      "/tmp/src",
+      "/tmp/src/skill",
+      "my-skill",
+      provider,
+      false,
+      "global",
+    );
+    // Global path should resolve ~ to homedir, resulting in an absolute path
+    expect(plan.targetDir.startsWith("/")).toBe(true);
+    expect(plan.targetDir).toContain("my-skill");
+  });
+
+  test("project scope resolves to path from provider.project", () => {
+    const provider: ProviderConfig = {
+      name: "claude",
+      label: "Claude Code",
+      global: "~/.claude/skills",
+      project: ".claude/skills",
+      enabled: true,
+    };
+    const plan = buildInstallPlan(
+      source,
+      "/tmp/src",
+      "/tmp/src/skill",
+      "my-skill",
+      provider,
+      false,
+      "project",
+    );
+    expect(plan.targetDir).toContain(".claude/skills/my-skill");
+  });
+
+  test("force flag is preserved in plan", () => {
+    const provider: ProviderConfig = {
+      name: "claude",
+      label: "Claude Code",
+      global: "~/.claude/skills",
+      project: ".claude/skills",
+      enabled: true,
+    };
+    const plan = buildInstallPlan(
+      source,
+      "/tmp/src",
+      "/tmp/src/skill",
+      "my-skill",
+      provider,
+      true,
+      "project",
+    );
+    expect(plan.force).toBe(true);
+    expect(plan.scope).toBe("project");
+  });
+
+  test("plan preserves all source fields", () => {
+    const sourceWithRef = {
+      ...source,
+      ref: "v2.0",
+      subpath: "skills/foo",
+    };
+    const provider: ProviderConfig = {
+      name: "agents",
+      label: "Agents",
+      global: "~/.agents/skills",
+      project: ".agents/skills",
+      enabled: true,
+    };
+    const plan = buildInstallPlan(
+      sourceWithRef,
+      "/tmp/src",
+      "/tmp/src/skill",
+      "foo",
+      provider,
+      false,
+      "global",
+    );
+    expect(plan.source.ref).toBe("v2.0");
+    expect(plan.source.subpath).toBe("skills/foo");
+    expect(plan.skillName).toBe("foo");
+    expect(plan.providerName).toBe("agents");
+    expect(plan.providerLabel).toBe("Agents");
+  });
+});
+
+// ─── executeInstallAllProviders scope tests ─────────────────────────────────
+
+describe("executeInstallAllProviders with project scope", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-scope-test-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  test("uses project paths for symlinks when scope is project", async () => {
+    // Create source skill
+    const sourceDir = join(tempDir, "source", "my-skill");
+    await mkdir(sourceDir, { recursive: true });
+    await writeFile(
+      join(sourceDir, "SKILL.md"),
+      "---\nname: my-skill\nversion: 1.0.0\ndescription: Test\n---\n# Skill\n",
+    );
+
+    // Primary install target using project path
+    const primaryDir = join(tempDir, "project-agents-skills");
+    const targetDir = join(primaryDir, "my-skill");
+    await mkdir(primaryDir, { recursive: true });
+
+    const plan: import("./utils/types").InstallPlan = {
+      source: {
+        owner: "user",
+        repo: "my-skill",
+        ref: null,
+        subpath: null,
+        cloneUrl: "https://github.com/user/my-skill.git",
+        sshCloneUrl: "git@github.com:user/my-skill.git",
+      },
+      tempDir: join(tempDir, "source"),
+      sourceDir,
+      targetDir,
+      skillName: "my-skill",
+      force: false,
+      providerName: "agents",
+      providerLabel: "Agents",
+      scope: "project",
+    };
+
+    const providers: ProviderConfig[] = [
+      {
+        name: "claude",
+        label: "Claude Code",
+        global: join(tempDir, "global-claude-skills"),
+        project: join(tempDir, "project-claude-skills"),
+        enabled: true,
+      },
+      {
+        name: "agents",
+        label: "Agents",
+        global: join(tempDir, "global-agents-skills"),
+        project: join(tempDir, "project-agents-skills"),
+        enabled: true,
+      },
+    ];
+
+    const result = await executeInstallAllProviders(plan, providers);
+    expect(result.success).toBe(true);
+
+    // Symlink should be in the PROJECT path of the claude provider, not global
+    const linkPath = join(tempDir, "project-claude-skills", "my-skill");
+    const stats = await lstat(linkPath);
+    expect(stats.isSymbolicLink()).toBe(true);
+
+    const target = await readlink(linkPath);
+    expect(target.startsWith("/")).toBe(false); // relative symlink
+  });
+});
+
 // ─── checkNpxAvailable tests ────────────────────────────────────────────────
 
 describe("checkNpxAvailable", () => {

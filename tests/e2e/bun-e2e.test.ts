@@ -198,6 +198,86 @@ describe("Bun dist E2E: init", () => {
   });
 });
 
+// ─── Scope flag E2E tests ───────────────────────────────────────────────────
+
+describe("Bun dist E2E: --scope flag", () => {
+  test("list --scope global exits 0", async () => {
+    const { exitCode } = await runBunDist("list", "--scope", "global");
+    expect(exitCode).toBe(0);
+  });
+
+  test("list --scope project exits 0", async () => {
+    const { exitCode } = await runBunDist("list", "--scope", "project");
+    expect(exitCode).toBe(0);
+  });
+
+  test("list --scope both exits 0", async () => {
+    const { exitCode } = await runBunDist("list", "--scope", "both");
+    expect(exitCode).toBe(0);
+  });
+
+  test("list -s global exits 0 (short flag)", async () => {
+    const { exitCode } = await runBunDist("list", "-s", "global");
+    expect(exitCode).toBe(0);
+  });
+
+  test("invalid --scope value exits 2", async () => {
+    const { exitCode, stderr } = await runBunDist("list", "--scope", "invalid");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Invalid scope");
+  });
+
+  test("list --scope global --json returns only global skills", async () => {
+    const { stdout, exitCode } = await runBunDist(
+      "list",
+      "--scope",
+      "global",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(Array.isArray(data)).toBe(true);
+    for (const skill of data) {
+      expect(skill.scope).toBe("global");
+    }
+  });
+
+  test("list --scope project --json returns only project skills", async () => {
+    const { stdout, exitCode } = await runBunDist(
+      "list",
+      "--scope",
+      "project",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(Array.isArray(data)).toBe(true);
+    for (const skill of data) {
+      expect(skill.scope).toBe("project");
+    }
+  });
+
+  test("install --scope both errors (invalid for install)", async () => {
+    const { exitCode, stderr } = await runBunDist(
+      "install",
+      "github:test/fake-repo",
+      "--scope",
+      "both",
+      "-y",
+      "--tool",
+      "agents",
+    );
+    // "both" is not valid for install — should fail
+    expect(exitCode).not.toBe(0);
+  });
+
+  test("install help mentions --scope flag", async () => {
+    const { stdout, exitCode } = await runBunDist("install", "--help");
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("--scope");
+  });
+});
+
 // ─── Error handling ─────────────────────────────────────────────────────────
 
 describe("Bun dist E2E: error handling", () => {
