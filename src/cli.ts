@@ -2090,6 +2090,8 @@ async function cmdIndex(args: ParsedArgs) {
               version: r.skill.version,
               license: r.skill.license || "",
               creator: r.skill.creator || "",
+              compatibility: r.skill.compatibility || "",
+              allowedTools: r.skill.allowedTools || [],
               installUrl: r.skill.installUrl,
               installCommand: `asm install ${r.skill.installUrl}`,
               repo: `${r.repo.owner}/${r.repo.repo}`,

@@ -76,6 +76,8 @@ async function loadIndicesFromDir(
       for (const skill of index.skills) {
         if (!("license" in skill)) (skill as any).license = "";
         if (!("creator" in skill)) (skill as any).creator = "";
+        if (!("compatibility" in skill)) (skill as any).compatibility = "";
+        if (!("allowedTools" in skill)) (skill as any).allowedTools = [];
       }
       indices.set(`${index.owner}/${index.repo}`, index);
     } catch {

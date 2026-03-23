@@ -3,7 +3,7 @@ import type { RenderContext } from "@opentui/core";
 import { theme } from "../utils/colors";
 import type { SkillInfo } from "../utils/types";
 import { countFiles } from "../scanner";
-import { wordWrap } from "../formatter";
+import { wordWrap, HIGH_RISK_TOOLS, MEDIUM_RISK_TOOLS } from "../formatter";
 
 const EFFORT_COLORS: Record<string, string> = {
   low: theme.green,
@@ -54,7 +54,15 @@ export function createDetailView(
   // + optional rows: effort, compatibility, allowed-tools (label + tools + optional warning)
   const effortRows = skill.effort ? 1 : 0;
   const compatRows = skill.compatibility ? 1 : 0;
-  const toolsRows = skill.allowedTools && skill.allowedTools.length > 0 ? 2 : 0;
+  const hasHighRiskTools = skill.allowedTools?.some((t) =>
+    HIGH_RISK_TOOLS.has(t),
+  );
+  const toolsRows =
+    skill.allowedTools && skill.allowedTools.length > 0
+      ? hasHighRiskTools
+        ? 3
+        : 2
+      : 0;
   const boxHeight = Math.min(
     ctx.height - 2,
     10 +
@@ -206,29 +214,49 @@ export function createDetailView(
   container.add(descText);
 
   if (skill.allowedTools && skill.allowedTools.length > 0) {
-    const HIGH_RISK = new Set(["Bash", "Write", "Edit", "NotebookEdit"]);
-    const MEDIUM_RISK = new Set(["WebFetch", "WebSearch"]);
     const toolsLabel = new TextRenderable(ctx, {
       content: "\nAllowed Tools:",
       fg: theme.fgDim,
       height: 2,
     });
     container.add(toolsLabel);
-    const toolsText = new TextRenderable(ctx, {
-      content:
-        "  " +
-        skill.allowedTools
-          .map((t) => {
-            if (HIGH_RISK.has(t)) return `[${t}]`;
-            if (MEDIUM_RISK.has(t)) return `[${t}]`;
-            return `[${t}]`;
-          })
-          .join(" "),
-      fg: skill.allowedTools.some((t) => HIGH_RISK.has(t))
-        ? theme.red
-        : theme.green,
+
+    // Render each tool with its risk-level color
+    const toolsRow = new BoxRenderable(ctx, {
+      id: "detail-row-tools",
+      flexDirection: "row",
+      width: "100%",
+      height: 1,
     });
-    container.add(toolsText);
+    toolsRow.add(new TextRenderable(ctx, { content: "  ", fg: theme.fg }));
+    for (let i = 0; i < skill.allowedTools.length; i++) {
+      const t = skill.allowedTools[i];
+      let color = theme.green;
+      if (HIGH_RISK_TOOLS.has(t)) color = theme.red;
+      else if (MEDIUM_RISK_TOOLS.has(t)) color = theme.yellow;
+      toolsRow.add(
+        new TextRenderable(ctx, {
+          content: i < skill.allowedTools.length - 1 ? `${t}  ` : t,
+          fg: color,
+        }),
+      );
+    }
+    container.add(toolsRow);
+
+    // Warning line for high-risk tools
+    const highRisk = skill.allowedTools.filter((t) => HIGH_RISK_TOOLS.has(t));
+    if (highRisk.length > 0) {
+      const actions: string[] = [];
+      if (highRisk.includes("Bash")) actions.push("execute shell commands");
+      if (highRisk.some((t) => ["Write", "Edit", "NotebookEdit"].includes(t)))
+        actions.push("modify files");
+      container.add(
+        new TextRenderable(ctx, {
+          content: `  ! This skill can ${actions.join(" and ")}`,
+          fg: theme.yellow,
+        }),
+      );
+    }
   }
 
   const footer = new TextRenderable(ctx, {

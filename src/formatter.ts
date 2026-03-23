@@ -367,8 +367,13 @@ export function formatSearchResults(
 
 // ─── Allowed-tools risk coloring ────────────────────────────────────────────
 
-const HIGH_RISK_TOOLS = new Set(["Bash", "Write", "Edit", "NotebookEdit"]);
-const MEDIUM_RISK_TOOLS = new Set(["WebFetch", "WebSearch"]);
+export const HIGH_RISK_TOOLS = new Set([
+  "Bash",
+  "Write",
+  "Edit",
+  "NotebookEdit",
+]);
+export const MEDIUM_RISK_TOOLS = new Set(["WebFetch", "WebSearch"]);
 
 export function colorTool(tool: string): string {
   if (HIGH_RISK_TOOLS.has(tool)) return ansi.red(tool);
