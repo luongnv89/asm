@@ -281,6 +281,7 @@ interface Catalog {
   generatedAt: string;
   totalSkills: number;
   totalRepos: number;
+  stars: number;
   categories: string[];
   repos: CatalogRepo[];
   skills: CatalogSkill[];
@@ -379,10 +380,25 @@ const categories = Array.from(categorySet).sort((a, b) => {
   return a.localeCompare(b);
 });
 
+// Fetch GitHub star count (best-effort, defaults to 0 on failure)
+let stars = 0;
+try {
+  const res = await fetch("https://api.github.com/repos/luongnv89/asm", {
+    headers: { Accept: "application/vnd.github.v3+json" },
+  });
+  if (res.ok) {
+    const data = (await res.json()) as { stargazers_count?: number };
+    stars = data.stargazers_count ?? 0;
+  }
+} catch {
+  // Non-critical — proceed with 0
+}
+
 const catalog: Catalog = {
   generatedAt: new Date().toISOString(),
   totalSkills: skills.length,
   totalRepos: repos.length,
+  stars,
   categories,
   repos: repos.sort((a, b) => b.skillCount - a.skillCount),
   skills,
