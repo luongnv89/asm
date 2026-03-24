@@ -70,8 +70,8 @@ For each valid repository, clone it to a temp directory and scan for SKILL.md fi
 TEMP_DIR=$(mktemp -d)
 git clone --depth 1 "https://github.com/{owner}/{repo}.git" "$TEMP_DIR/{repo}"
 
-# Find SKILL.md files (max 3 levels deep)
-find "$TEMP_DIR/{repo}" -maxdepth 4 -name "SKILL.md" -type f
+# Find SKILL.md files (max 3 levels deep, matching ASM's discoverSkills)
+find "$TEMP_DIR/{repo}" -maxdepth 3 -name "SKILL.md" -type f
 ```
 
 For each discovered SKILL.md, parse the YAML frontmatter to extract:
@@ -157,7 +157,7 @@ Also update the `updatedAt` timestamp at the top level to the current ISO date.
 For each repo (new and updated), generate the index JSON file. Use the project's built-in `preindex` script if possible:
 
 ```bash
-cd /Users/montimage/buildspace/luongnv89/asm
+cd "$(git rev-parse --show-toplevel)"
 bun run preindex
 ```
 
@@ -225,8 +225,10 @@ Ready to commit and create PR.
 
 Stage and commit with the conventional commit format:
 
+Note: `website/catalog.json` is gitignored and rebuilt by CI (`deploy-website.yml`) on merge. Do NOT stage it — only stage the data files.
+
 ```bash
-git add data/skill-index-resources.json data/skill-index/*.json website/catalog.json
+git add data/skill-index-resources.json data/skill-index/*.json
 git commit -m "feat(index): add {owner}/{repo} to curated skill index"
 ```
 
