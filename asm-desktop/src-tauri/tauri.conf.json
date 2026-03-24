@@ -1,0 +1,77 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "ASM Desktop",
+  "version": "0.1.0",
+  "identifier": "com.agent-skill-manager.desktop",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:5173",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "ASM Desktop",
+        "width": 1200,
+        "height": 800,
+        "minWidth": 800,
+        "minHeight": 600,
+        "resizable": true,
+        "fullscreen": false,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; script-src 'self'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "resources": {
+      "skills-index.json": "resources/skills-index.json"
+    },
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "category": "DeveloperTool",
+    "shortDescription": "Agent Skill Manager Desktop",
+    "longDescription": "A desktop GUI application for managing AI agent skills",
+    "windows": {
+      "wix": null
+    }
+  },
+  "plugins": {
+    "shell": {
+      "open": true,
+      "scope": [
+        {
+          "name": "asm-node",
+          "cmd": "node",
+          "args": [{ "validator": "\\S+" }]
+        },
+        {
+          "name": "asm-bun",
+          "cmd": "bun",
+          "args": [{ "validator": "\\S+" }]
+        }
+      ]
+    },
+    "fs": {
+      "scope": {
+        "allow": [
+          "$HOME/.claude/skills/**",
+          "$HOME/.config/agent-skill-manager/**",
+          "$HOME/.agents/skills/**",
+          "$HOME/.codex/skills/**",
+          "$HOME/.openclaw/skills/**"
+        ]
+      }
+    }
+  }
+}

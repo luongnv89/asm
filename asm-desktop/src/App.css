@@ -1,0 +1,374 @@
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: #1e1e2e;
+  color: #cdd6f4;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.sidebar-header {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #313244;
+  margin-bottom: 20px;
+}
+
+.sidebar-header h1 {
+  font-size: 24px;
+  margin: 0;
+  color: #89b4fa;
+}
+
+.sidebar-header .subtitle {
+  font-size: 12px;
+  color: #a6adc8;
+}
+
+.nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+.nav-links li {
+  margin-bottom: 8px;
+}
+
+.nav-links a {
+  display: block;
+  padding: 12px 16px;
+  color: #cdd6f4;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.nav-links a:hover {
+  background: #313244;
+}
+
+.nav-links a.active {
+  background: #45475a;
+  color: #89b4fa;
+}
+
+.sidebar-footer {
+  padding-top: 20px;
+  border-top: 1px solid #313244;
+  font-size: 12px;
+  color: #6c7086;
+}
+
+.main-content {
+  flex: 1;
+  padding: 24px 32px;
+  background: #11111b;
+  overflow-y: auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-header h2 {
+  font-size: 28px;
+  margin: 0;
+  color: #cdd6f4;
+}
+
+.search-bar {
+  display: flex;
+  gap: 8px;
+}
+
+.search-bar input {
+  padding: 10px 16px;
+  border: 1px solid #313244;
+  border-radius: 8px;
+  background: #1e1e2e;
+  color: #cdd6f4;
+  width: 300px;
+  font-size: 14px;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: #89b4fa;
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  background: #89b4fa;
+  color: #1e1e2e;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.search-bar button:hover {
+  background: #b4befe;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.skill-card {
+  background: #1e1e2e;
+  border: 1px solid #313244;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.skill-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.skill-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #cdd6f4;
+}
+
+.badge {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.badge.installed {
+  background: #a6e3a1;
+  color: #1e1e2e;
+}
+
+.skill-description {
+  color: #a6adc8;
+  font-size: 14px;
+  margin: 8px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.skill-source {
+  font-size: 12px;
+  color: #6c7086;
+}
+
+.skill-actions {
+  margin-top: 12px;
+}
+
+.btn-install,
+.btn-uninstall {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.btn-install {
+  background: #89b4fa;
+  color: #1e1e2e;
+}
+
+.btn-install:hover {
+  background: #b4befe;
+}
+
+.btn-uninstall {
+  background: #f38ba8;
+  color: #1e1e2e;
+}
+
+.btn-uninstall:hover {
+  background: #eba0ac;
+}
+
+.error-message {
+  background: #f38ba820;
+  border: 1px solid #f38ba8;
+  color: #f38ba8;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.loading,
+.empty-state {
+  color: #6c7086;
+  text-align: center;
+  padding: 40px;
+}
+
+.settings-section {
+  background: #1e1e2e;
+  border: 1px solid #313244;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.settings-section h3 {
+  margin: 0 0 16px;
+  color: #cdd6f4;
+  font-size: 18px;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #313244;
+}
+
+.setting-item:last-child {
+  border-bottom: none;
+}
+
+.setting-item label {
+  color: #a6adc8;
+}
+
+.setting-item span {
+  color: #cdd6f4;
+}
+
+.providers-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.providers-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #313244;
+}
+
+.providers-list li:last-child {
+  border-bottom: none;
+}
+
+.providers-list .provider-label {
+  color: #cdd6f4;
+  font-weight: 600;
+}
+
+.providers-list .provider-path {
+  color: #6c7086;
+  font-size: 12px;
+}
+
+.providers-list .provider-status {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.providers-list li.enabled .provider-status {
+  background: #a6e3a1;
+  color: #1e1e2e;
+}
+
+.providers-list li.disabled .provider-status {
+  background: #45475a;
+  color: #6c7086;
+}
+
+.back-button {
+  background: #313244;
+  color: #cdd6f4;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.back-button:hover {
+  background: #45475a;
+}
+
+.skill-detail {
+  background: #1e1e2e;
+  border: 1px solid #313244;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.skill-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.skill-detail-header h2 {
+  margin: 0;
+  color: #cdd6f4;
+}
+
+.skill-detail .skill-description {
+  font-size: 16px;
+  -webkit-line-clamp: unset;
+}
+
+.skill-meta {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.skill-meta .meta-label {
+  color: #6c7086;
+}
+
+.skill-meta .meta-value {
+  color: #cdd6f4;
+}
+
+.skill-detail .skill-actions {
+  margin-top: 24px;
+}
+
+.skill-detail .btn-install,
+.skill-detail .btn-uninstall {
+  padding: 12px 24px;
+  font-size: 16px;
+}
+
+.skill-detail button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

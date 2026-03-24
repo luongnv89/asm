@@ -1,0 +1,28 @@
+[package]
+name = "asm-desktop"
+version = "0.1.0"
+description = "ASM Desktop - Agent Skill Manager GUI"
+authors = ["ASM Team"]
+license = "MIT"
+repository = "https://github.com/luongnv89/agent-skill-manager"
+edition = "2021"
+rust-version = "1.77.2"
+
+[lib]
+name = "asm_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+log = "0.4"
+tauri = { version = "2", features = [] }
+tauri-plugin-log = "2"
+tauri-plugin-shell = "2"
+tauri-plugin-fs = "2"
+tauri-plugin-process = "2"
+tauri-plugin-os = "2"
+dirs = "5"
