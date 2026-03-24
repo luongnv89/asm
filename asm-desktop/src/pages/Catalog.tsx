@@ -1,32 +1,43 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { SearchBar } from "../components/SearchBar";
 import { SkillCard } from "../components/SkillCard";
+import { ConfirmDialog } from "../components/ConfirmDialog";
+import { Toast } from "../components/Toast";
 import {
-  searchSkills,
   installSkill,
   getSkillIndex,
   parseSkillsFromJson,
+  CATEGORIES,
   type Skill,
 } from "../lib/tauri-commands";
 
+type SortOption = "name" | "category" | "relevance";
+
 export function Catalog() {
-  const [skills, setSkills] = useState<Skill[]>([]);
+  const [allSkills, setAllSkills] = useState<Skill[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [category, setCategory] = useState("all");
+  const [sortBy, setSortBy] = useState<SortOption>("name");
+  const [installingSkill, setInstallingSkill] = useState<string | null>(null);
+  const [showSecurityWarning, setShowSecurityWarning] = useState(false);
+  const [pendingInstall, setPendingInstall] = useState<string | null>(null);
+  const [toast, setToast] = useState<{
+    message: string;
+    type: "success" | "error";
+  } | null>(null);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    loadSkillIndex();
-  }, []);
-
-  const loadSkillIndex = async () => {
+  const loadSkillIndex = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const result = await getSkillIndex();
       if (result.success) {
         const parsed = parseSkillsFromJson(result.stdout);
-        setSkills(parsed.map((s) => ({ ...s, installed: false })));
+        setAllSkills(parsed);
       } else {
         setError("Failed to load skill index: " + result.stderr);
       }
@@ -35,26 +46,53 @@ export function Catalog() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const handleSearch = async (query: string) => {
-    setSearchQuery(query);
-    if (!query.trim()) {
-      loadSkillIndex();
-      return;
+  useEffect(() => {
+    loadSkillIndex();
+    const handleFocus = () => loadSkillIndex();
+    window.addEventListener("focus", handleFocus);
+    return () => window.removeEventListener("focus", handleFocus);
+  }, [loadSkillIndex]);
+
+  const filteredAndSortedSkills = useMemo(() => {
+    let filtered = [...allSkills];
+
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (s) =>
+          s.name.toLowerCase().includes(query) ||
+          (s.description && s.description.toLowerCase().includes(query)),
+      );
     }
-    setLoading(true);
-    try {
-      const result = await searchSkills(query);
-      if (result.success) {
-        const parsed = parseSkillsFromJson(result.stdout);
-        setSkills(parsed.map((s) => ({ ...s, installed: false })));
+
+    if (category !== "all") {
+      filtered = filtered.filter((s) => s.category === category);
+    }
+
+    if (sortBy === "name") {
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortBy === "category") {
+      filtered.sort((a, b) =>
+        (a.category || "").localeCompare(b.category || ""),
+      );
+    } else if (sortBy === "relevance") {
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        filtered.sort((a, b) => {
+          const aExact = a.name.toLowerCase() === query ? 0 : 1;
+          const bExact = b.name.toLowerCase() === query ? 0 : 1;
+          return aExact - bExact;
+        });
       }
-    } catch (err) {
-      setError("Search failed: " + String(err));
-    } finally {
-      setLoading(false);
     }
+
+    return filtered;
+  }, [allSkills, searchQuery, category, sortBy]);
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
   };
 
   const handleInstall = async (name: string) => {
@@ -67,18 +105,57 @@ export function Catalog() {
       setError("Skill name contains invalid characters");
       return;
     }
+
+    setPendingInstall(sanitized);
+    setShowSecurityWarning(true);
+  };
+
+  const confirmInstall = async () => {
+    if (!pendingInstall) return;
+
+    setShowSecurityWarning(false);
+    setInstallingSkill(pendingInstall);
+    setError(null);
+
     try {
-      const result = await installSkill(sanitized);
+      const result = await installSkill(pendingInstall);
       if (result.success) {
-        setSkills((prev) =>
-          prev.map((s) => (s.name === name ? { ...s, installed: true } : s)),
+        setAllSkills((prev) =>
+          prev.map((s) =>
+            s.name === pendingInstall ? { ...s, installed: true } : s,
+          ),
         );
+        setToast({
+          message: `${pendingInstall} installed successfully!`,
+          type: "success",
+        });
       } else {
-        setError("Install failed: " + result.stderr);
+        const errorMsg = result.stderr || "Install failed";
+        if (errorMsg.includes("already installed")) {
+          setAllSkills((prev) =>
+            prev.map((s) =>
+              s.name === pendingInstall ? { ...s, installed: true } : s,
+            ),
+          );
+        } else {
+          setError("Install failed: " + errorMsg);
+        }
       }
     } catch (err) {
       setError("Install error: " + String(err));
+    } finally {
+      setInstallingSkill(null);
+      setPendingInstall(null);
     }
+  };
+
+  const cancelInstall = () => {
+    setShowSecurityWarning(false);
+    setPendingInstall(null);
+  };
+
+  const handleSelect = (skill: Skill) => {
+    navigate(`/skill/${encodeURIComponent(skill.name)}`);
   };
 
   return (
@@ -87,23 +164,74 @@ export function Catalog() {
         <h2>Skill Catalog</h2>
         <SearchBar onSearch={handleSearch} placeholder="Search skills..." />
       </div>
+
+      <div className="filters-bar">
+        <select
+          className="filter-select"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          {CATEGORIES.map((cat) => (
+            <option key={cat.value} value={cat.value}>
+              {cat.label}
+            </option>
+          ))}
+        </select>
+
+        <select
+          className="filter-select"
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value as SortOption)}
+        >
+          <option value="name">Sort by Name</option>
+          <option value="category">Sort by Category</option>
+          <option value="relevance">Sort by Relevance</option>
+        </select>
+
+        <span className="skills-count">
+          {filteredAndSortedSkills.length} skills
+        </span>
+      </div>
+
       {error && <div className="error-message">{error}</div>}
+
       {loading ? (
         <div className="loading">Loading skills...</div>
       ) : (
         <div className="skills-grid">
-          {skills.length === 0 ? (
+          {filteredAndSortedSkills.length === 0 ? (
             <p className="empty-state">No skills found</p>
           ) : (
-            skills.map((skill) => (
+            filteredAndSortedSkills.map((skill) => (
               <SkillCard
                 key={skill.name}
                 skill={skill}
                 onInstall={handleInstall}
+                onSelect={handleSelect}
+                isInstalling={installingSkill === skill.name}
               />
             ))
           )}
         </div>
+      )}
+
+      {showSecurityWarning && (
+        <ConfirmDialog
+          title="Security Warning"
+          message={`This skill "${pendingInstall}" will be installed to your system. The install process will clone the repository and copy files to ~/.claude/skills/. Do you want to proceed?`}
+          confirmLabel="Install"
+          cancelLabel="Cancel"
+          onConfirm={confirmInstall}
+          onCancel={cancelInstall}
+        />
+      )}
+
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
       )}
     </div>
   );

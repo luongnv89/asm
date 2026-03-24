@@ -70,7 +70,37 @@ export interface Skill {
   provider?: string;
   installed?: boolean;
   version?: string;
+  category?: string;
+  repository?: string;
+  author?: string;
+  license?: string;
+  tools?: string[];
 }
+
+export interface CategoryOption {
+  value: string;
+  label: string;
+}
+
+export const CATEGORIES: CategoryOption[] = [
+  { value: "all", label: "All Categories" },
+  { value: "ai-agents", label: "AI Agents" },
+  { value: "backend", label: "Backend" },
+  { value: "coding", label: "Coding" },
+  { value: "design", label: "Design" },
+  { value: "devops", label: "DevOps" },
+  { value: "finance", label: "Finance" },
+  { value: "frontend", label: "Frontend" },
+  { value: "git", label: "Git" },
+  { value: "marketing", label: "Marketing" },
+  { value: "mobile", label: "Mobile" },
+  { value: "productivity", label: "Productivity" },
+  { value: "research", label: "Research" },
+  { value: "security", label: "Security" },
+  { value: "testing", label: "Testing" },
+  { value: "writing", label: "Writing" },
+  { value: "general", label: "General" },
+];
 
 export function parseSkillsFromJson(json: string): Skill[] {
   try {

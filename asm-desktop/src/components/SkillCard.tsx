@@ -5,6 +5,8 @@ interface SkillCardProps {
   onInstall?: (name: string) => void;
   onUninstall?: (name: string) => void;
   onSelect?: (skill: Skill) => void;
+  isInstalling?: boolean;
+  isUninstalling?: boolean;
 }
 
 export function SkillCard({
@@ -12,6 +14,8 @@ export function SkillCard({
   onInstall,
   onUninstall,
   onSelect,
+  isInstalling = false,
+  isUninstalling = false,
 }: SkillCardProps) {
   return (
     <div className="skill-card" onClick={() => onSelect?.(skill)}>
@@ -22,7 +26,15 @@ export function SkillCard({
       <p className="skill-description">
         {skill.description || "No description"}
       </p>
-      {skill.source && <span className="skill-source">{skill.source}</span>}
+      <div className="skill-meta-row">
+        {skill.version && (
+          <span className="skill-version">v{skill.version}</span>
+        )}
+        {skill.source && <span className="skill-source">{skill.source}</span>}
+        {skill.category && (
+          <span className="skill-category">{skill.category}</span>
+        )}
+      </div>
       <div className="skill-actions">
         {skill.installed ? (
           <button
@@ -31,8 +43,9 @@ export function SkillCard({
               e.stopPropagation();
               onUninstall?.(skill.name);
             }}
+            disabled={isUninstalling}
           >
-            Uninstall
+            {isUninstalling ? "Removing..." : "Remove"}
           </button>
         ) : (
           <button
@@ -41,8 +54,9 @@ export function SkillCard({
               e.stopPropagation();
               onInstall?.(skill.name);
             }}
+            disabled={isInstalling}
           >
-            Install
+            {isInstalling ? "Installing..." : "Install"}
           </button>
         )}
       </div>

@@ -4,11 +4,18 @@ import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Catalog } from "./Catalog";
 
+vi.mock("react-router-dom", () => ({
+  useNavigate: () => vi.fn(),
+}));
+
 vi.mock("../lib/tauri-commands", () => ({
-  searchSkills: vi.fn(),
   installSkill: vi.fn(),
   getSkillIndex: vi.fn(),
   parseSkillsFromJson: vi.fn(),
+  CATEGORIES: [
+    { value: "all", label: "All Categories" },
+    { value: "coding", label: "Coding" },
+  ],
 }));
 
 vi.mock("../components/SearchBar", () => ({
@@ -36,14 +43,24 @@ vi.mock("../components/SkillCard", () => ({
   ),
 }));
 
+vi.mock("../components/ConfirmDialog", () => ({
+  ConfirmDialog: ({ onConfirm }: { onConfirm: () => void }) => (
+    <button data-testid="confirm-dialog" onClick={onConfirm}>
+      Confirm
+    </button>
+  ),
+}));
+
+vi.mock("../components/Toast", () => ({
+  Toast: vi.fn(() => null),
+}));
+
 import {
-  searchSkills,
   installSkill,
   getSkillIndex,
   parseSkillsFromJson,
 } from "../lib/tauri-commands";
 
-const mockedSearchSkills = searchSkills as ReturnType<typeof vi.fn>;
 const mockedGetSkillIndex = getSkillIndex as ReturnType<typeof vi.fn>;
 const mockedParseSkillsFromJson = parseSkillsFromJson as ReturnType<
   typeof vi.fn
@@ -95,20 +112,20 @@ describe("Catalog", () => {
     });
   });
 
-  it("handles search input", async () => {
+  it("filters skills locally on search input", async () => {
     mockedGetSkillIndex.mockResolvedValue({
       success: true,
-      stdout: JSON.stringify([]),
+      stdout: JSON.stringify([
+        { name: "react-skill", description: "React skill" },
+        { name: "vue-skill", description: "Vue skill" },
+      ]),
       stderr: "",
       code: 0,
     });
-    mockedParseSkillsFromJson.mockReturnValue([]);
-    mockedSearchSkills.mockResolvedValue({
-      success: true,
-      stdout: JSON.stringify([{ name: "found-skill" }]),
-      stderr: "",
-      code: 0,
-    });
+    mockedParseSkillsFromJson.mockReturnValue([
+      { name: "react-skill", description: "React skill" },
+      { name: "vue-skill", description: "Vue skill" },
+    ]);
 
     render(<Catalog />);
 
@@ -120,7 +137,8 @@ describe("Catalog", () => {
     await userEvent.type(searchInput, "react");
 
     await waitFor(() => {
-      expect(mockedSearchSkills).toHaveBeenCalledWith("react");
+      expect(screen.getByText("react-skill")).toBeInTheDocument();
+      expect(screen.queryByText("vue-skill")).not.toBeInTheDocument();
     });
   });
 
@@ -140,7 +158,7 @@ describe("Catalog", () => {
     });
   });
 
-  it("installs a skill successfully", async () => {
+  it("shows confirmation dialog on install click", async () => {
     const mockInstall = installSkill as ReturnType<typeof vi.fn>;
     mockedGetSkillIndex.mockResolvedValue({
       success: true,
@@ -166,6 +184,13 @@ describe("Catalog", () => {
 
     const installButton = screen.getByText("Install");
     await userEvent.click(installButton);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("confirm-dialog")).toBeInTheDocument();
+    });
+
+    const confirmButton = screen.getByTestId("confirm-dialog");
+    await userEvent.click(confirmButton);
 
     await waitFor(() => {
       expect(mockInstall).toHaveBeenCalledWith("test-skill");
