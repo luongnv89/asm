@@ -11,7 +11,9 @@ vi.mock("react-router-dom", () => ({
 vi.mock("../lib/tauri-commands", () => ({
   installSkill: vi.fn(),
   getSkillIndex: vi.fn(),
+  listInstalledSkills: vi.fn(),
   parseSkillsFromJson: vi.fn(),
+  securityAudit: vi.fn(),
   CATEGORIES: [
     { value: "all", label: "All Categories" },
     { value: "coding", label: "Coding" },
@@ -58,17 +60,35 @@ vi.mock("../components/Toast", () => ({
 import {
   installSkill,
   getSkillIndex,
+  listInstalledSkills,
   parseSkillsFromJson,
+  securityAudit,
 } from "../lib/tauri-commands";
 
 const mockedGetSkillIndex = getSkillIndex as ReturnType<typeof vi.fn>;
 const mockedParseSkillsFromJson = parseSkillsFromJson as ReturnType<
   typeof vi.fn
 >;
+const mockedListInstalledSkills = listInstalledSkills as ReturnType<
+  typeof vi.fn
+>;
+const mockedSecurityAudit = securityAudit as ReturnType<typeof vi.fn>;
 
 describe("Catalog", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mockedListInstalledSkills.mockResolvedValue({
+      success: true,
+      stdout: "[]",
+      stderr: "",
+      code: 0,
+    });
+    mockedSecurityAudit.mockResolvedValue({
+      success: true,
+      stdout: "",
+      stderr: "",
+      code: 0,
+    });
   });
 
   it("renders loading state initially", () => {

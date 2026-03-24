@@ -7,7 +7,9 @@ import { Toast } from "../components/Toast";
 import {
   installSkill,
   getSkillIndex,
+  listInstalledSkills,
   parseSkillsFromJson,
+  securityAudit,
   CATEGORIES,
   type Skill,
 } from "../lib/tauri-commands";
@@ -34,12 +36,26 @@ export function Catalog() {
     setLoading(true);
     setError(null);
     try {
-      const result = await getSkillIndex();
-      if (result.success) {
-        const parsed = parseSkillsFromJson(result.stdout);
-        setAllSkills(parsed);
+      const [indexResult, installedResult] = await Promise.all([
+        getSkillIndex(),
+        listInstalledSkills(),
+      ]);
+
+      let installedNames = new Set<string>();
+      if (installedResult.success) {
+        const installedSkills = parseSkillsFromJson(installedResult.stdout);
+        installedSkills.forEach((s) => installedNames.add(s.name));
+      }
+
+      if (indexResult.success) {
+        const parsed = parseSkillsFromJson(indexResult.stdout);
+        const skillsWithInstalledState = parsed.map((s) => ({
+          ...s,
+          installed: installedNames.has(s.name),
+        }));
+        setAllSkills(skillsWithInstalledState);
       } else {
-        setError("Failed to load skill index: " + result.stderr);
+        setError("Failed to load skill index: " + indexResult.stderr);
       }
     } catch (err) {
       setError("Error loading skill index: " + String(err));
@@ -118,6 +134,14 @@ export function Catalog() {
     setError(null);
 
     try {
+      const auditResult = await securityAudit(pendingInstall);
+      if (!auditResult.success) {
+        setError("Security audit failed: " + auditResult.stderr);
+        setInstallingSkill(null);
+        setPendingInstall(null);
+        return;
+      }
+
       const result = await installSkill(pendingInstall);
       if (result.success) {
         setAllSkills((prev) =>

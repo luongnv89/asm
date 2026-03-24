@@ -63,6 +63,10 @@ export async function getHomeDir(): Promise<string> {
   return invoke<string>("get_home_dir");
 }
 
+export async function securityAudit(name: string): Promise<CliResult> {
+  return invoke<CliResult>("security_audit", { name });
+}
+
 export interface Skill {
   name: string;
   description?: string;
@@ -75,6 +79,7 @@ export interface Skill {
   author?: string;
   license?: string;
   tools?: string[];
+  path?: string;
 }
 
 export interface CategoryOption {

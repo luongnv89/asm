@@ -57,6 +57,8 @@ export function Installed() {
     const sorted = [...skills];
     if (sortBy === "name") {
       sorted.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortBy === "date") {
+      sorted.sort((a, b) => (b.path || "").localeCompare(a.path || ""));
     }
     return sorted;
   }, [skills, sortBy]);

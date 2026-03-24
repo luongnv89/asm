@@ -113,10 +113,15 @@ async fn get_config() -> Result<CliResult, String> {
 }
 
 #[tauri::command]
-fn get_home_dir() -> Result<String, String> {
+async fn get_home_dir() -> Result<String, String> {
     dirs::home_dir()
         .map(|p| p.to_string_lossy().to_string())
         .ok_or_else(|| "Could not find home directory".to_string())
+}
+
+#[tauri::command]
+async fn security_audit(skillName: String) -> Result<CliResult, String> {
+    invoke_asm(vec!["audit".to_string(), "security".to_string(), skillName]).await
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -140,6 +145,7 @@ pub fn run() {
             get_skill_index,
             get_config,
             get_home_dir,
+            security_audit,
         ])
         .setup(|app| {
             log::info!("ASM Desktop starting up...");
