@@ -845,7 +845,7 @@ describe("resolveProvider", () => {
     );
   });
 
-  test("interactive picker: items reflect provider enabled state", async () => {
+  test("interactive picker: all items default to deselected", async () => {
     let capturedItems: unknown[] = [];
     const pickerFn = mock((opts: { items: unknown[] }) => {
       capturedItems = opts.items;
@@ -859,8 +859,8 @@ describe("resolveProvider", () => {
     await resolveProvider(config, null, true);
 
     expect(capturedItems).toHaveLength(3);
-    expect((capturedItems[0] as { checked: boolean }).checked).toBe(true);
-    expect((capturedItems[1] as { checked: boolean }).checked).toBe(true);
+    expect((capturedItems[0] as { checked: boolean }).checked).toBe(false);
+    expect((capturedItems[1] as { checked: boolean }).checked).toBe(false);
     expect((capturedItems[2] as { checked: boolean }).checked).toBe(false);
   });
 
