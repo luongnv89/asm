@@ -113,15 +113,48 @@ async fn get_config() -> Result<CliResult, String> {
 }
 
 #[tauri::command]
-async fn get_home_dir() -> Result<String, String> {
+fn get_home_dir() -> Result<String, String> {
     dirs::home_dir()
         .map(|p| p.to_string_lossy().to_string())
         .ok_or_else(|| "Could not find home directory".to_string())
 }
 
 #[tauri::command]
-async fn security_audit(skillName: String) -> Result<CliResult, String> {
-    invoke_asm(vec!["audit".to_string(), "security".to_string(), skillName]).await
+fn is_skill_symlink(skill_name: String) -> Result<bool, String> {
+    let sanitized: String = skill_name.trim()
+        .chars()
+        .filter(|c| c.is_alphanumeric() || *c == '-' || *c == '_')
+        .collect();
+    if sanitized.is_empty() {
+        return Err("Invalid skill name".to_string());
+    }
+
+    let home_dir = dirs::home_dir()
+        .ok_or_else(|| "Could not find home directory".to_string())?;
+    let skill_path = home_dir
+        .join(".claude")
+        .join("skills")
+        .join(&sanitized);
+
+    use std::fs;
+    Ok(fs::symlink_metadata(&skill_path)
+        .map(|m| m.file_type().is_symlink())
+        .unwrap_or(false))
+}
+
+#[tauri::command]
+async fn security_audit(skill_name: String) -> Result<CliResult, String> {
+    let sanitized: String = skill_name.trim()
+        .chars()
+        .filter(|c| c.is_alphanumeric() || *c == '-' || *c == '_')
+        .collect();
+    if sanitized.is_empty() {
+        return Err("Invalid skill name: name cannot be empty or contain only special characters".to_string());
+    }
+    if sanitized != skill_name {
+        return Err("Invalid skill name: contains disallowed characters".to_string());
+    }
+    invoke_asm(vec!["audit".to_string(), "security".to_string(), sanitized]).await
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -145,6 +178,7 @@ pub fn run() {
             get_skill_index,
             get_config,
             get_home_dir,
+            is_skill_symlink,
             security_audit,
         ])
         .setup(|app| {

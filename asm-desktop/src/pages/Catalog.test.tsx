@@ -17,6 +17,8 @@ vi.mock("../lib/tauri-commands", () => ({
   CATEGORIES: [
     { value: "all", label: "All Categories" },
     { value: "coding", label: "Coding" },
+    { value: "frontend", label: "Frontend" },
+    { value: "backend", label: "Backend" },
   ],
 }));
 
@@ -267,6 +269,119 @@ describe("Catalog", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Invalid skill name")).toBeInTheDocument();
+    });
+  });
+
+  it("filters skills by category", async () => {
+    mockedGetSkillIndex.mockResolvedValue({
+      success: true,
+      stdout: JSON.stringify([
+        {
+          name: "react-skill",
+          description: "React skill",
+          category: "frontend",
+        },
+        {
+          name: "backend-skill",
+          description: "Backend skill",
+          category: "backend",
+        },
+      ]),
+      stderr: "",
+      code: 0,
+    });
+    mockedParseSkillsFromJson.mockReturnValue([
+      { name: "react-skill", description: "React skill", category: "frontend" },
+      {
+        name: "backend-skill",
+        description: "Backend skill",
+        category: "backend",
+      },
+    ]);
+
+    render(<Catalog />);
+
+    await waitFor(() => {
+      expect(screen.queryByText("Loading skills...")).not.toBeInTheDocument();
+    });
+
+    const categorySelect = screen.getByDisplayValue("All Categories");
+    await userEvent.selectOptions(categorySelect, "frontend");
+
+    await waitFor(() => {
+      expect(screen.getByText("react-skill")).toBeInTheDocument();
+      expect(screen.queryByText("backend-skill")).not.toBeInTheDocument();
+    });
+  });
+
+  it("sorts skills by category", async () => {
+    mockedGetSkillIndex.mockResolvedValue({
+      success: true,
+      stdout: JSON.stringify([
+        {
+          name: "react-skill",
+          description: "React skill",
+          category: "frontend",
+        },
+        { name: "api-skill", description: "API skill", category: "backend" },
+      ]),
+      stderr: "",
+      code: 0,
+    });
+    mockedParseSkillsFromJson.mockReturnValue([
+      { name: "react-skill", description: "React skill", category: "frontend" },
+      { name: "api-skill", description: "API skill", category: "backend" },
+    ]);
+
+    render(<Catalog />);
+
+    await waitFor(() => {
+      expect(screen.queryByText("Loading skills...")).not.toBeInTheDocument();
+    });
+
+    const sortSelect = screen.getByDisplayValue("Sort by Name");
+    await userEvent.selectOptions(sortSelect, "category");
+
+    const skills = screen.getAllByTestId("skill-card");
+    expect(skills).toHaveLength(2);
+  });
+
+  it("shows toast notification on successful install", async () => {
+    const mockInstall = installSkill as ReturnType<typeof vi.fn>;
+    mockedGetSkillIndex.mockResolvedValue({
+      success: true,
+      stdout: JSON.stringify([{ name: "test-skill", description: "A test" }]),
+      stderr: "",
+      code: 0,
+    });
+    mockedParseSkillsFromJson.mockReturnValue([
+      { name: "test-skill", description: "A test" },
+    ]);
+    mockInstall.mockResolvedValue({
+      success: true,
+      stdout: "Installed",
+      stderr: "",
+      code: 0,
+    });
+
+    render(<Catalog />);
+
+    await waitFor(() => {
+      expect(screen.queryByText("Loading skills...")).not.toBeInTheDocument();
+    });
+
+    const installButton = screen.getByText("Install");
+    await userEvent.click(installButton);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("confirm-dialog")).toBeInTheDocument();
+    });
+
+    const confirmButton = screen.getByTestId("confirm-dialog");
+    await userEvent.click(confirmButton);
+
+    await waitFor(() => {
+      expect(mockInstall).toHaveBeenCalledWith("test-skill");
     });
   });
 });

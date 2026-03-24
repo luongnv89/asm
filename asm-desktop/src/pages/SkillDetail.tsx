@@ -5,8 +5,11 @@ import {
   installSkill,
   uninstallSkill,
   parseSkillsFromJson,
+  securityAudit,
   type Skill,
 } from "../lib/tauri-commands";
+import { ConfirmDialog } from "../components/ConfirmDialog";
+import { Toast } from "../components/Toast";
 
 export function SkillDetail() {
   const { name } = useParams<{ name: string }>();
@@ -15,6 +18,12 @@ export function SkillDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [actionLoading, setActionLoading] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [pendingInstall, setPendingInstall] = useState<string | null>(null);
+  const [toast, setToast] = useState<{
+    message: string;
+    type: "success" | "error";
+  } | null>(null);
 
   useEffect(() => {
     if (name) {
@@ -44,13 +53,34 @@ export function SkillDetail() {
     }
   };
 
-  const handleInstall = async () => {
+  const handleInstall = () => {
     if (!name) return;
+    setPendingInstall(name);
+    setShowConfirm(true);
+  };
+
+  const confirmInstall = async () => {
+    if (!pendingInstall) return;
+
+    setShowConfirm(false);
     setActionLoading(true);
+
     try {
-      const result = await installSkill(name);
+      const auditResult = await securityAudit(pendingInstall);
+      if (!auditResult.success) {
+        setError("Security audit failed: " + auditResult.stderr);
+        setActionLoading(false);
+        setPendingInstall(null);
+        return;
+      }
+
+      const result = await installSkill(pendingInstall);
       if (result.success) {
         setSkill((prev) => (prev ? { ...prev, installed: true } : null));
+        setToast({
+          message: `${pendingInstall} installed successfully!`,
+          type: "success",
+        });
       } else {
         setError("Install failed: " + result.stderr);
       }
@@ -58,7 +88,13 @@ export function SkillDetail() {
       setError("Install error: " + String(err));
     } finally {
       setActionLoading(false);
+      setPendingInstall(null);
     }
+  };
+
+  const cancelInstall = () => {
+    setShowConfirm(false);
+    setPendingInstall(null);
   };
 
   const handleUninstall = async () => {
@@ -142,6 +178,25 @@ export function SkillDetail() {
           )}
         </div>
       </div>
+
+      {showConfirm && (
+        <ConfirmDialog
+          title="Security Warning"
+          message={`This skill "${pendingInstall}" will be installed to your system. The install process will clone the repository and copy files to ~/.claude/skills/. Do you want to proceed?`}
+          confirmLabel="Install"
+          cancelLabel="Cancel"
+          onConfirm={confirmInstall}
+          onCancel={cancelInstall}
+        />
+      )}
+
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
     </div>
   );
 }

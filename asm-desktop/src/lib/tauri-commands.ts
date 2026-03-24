@@ -67,6 +67,10 @@ export async function securityAudit(name: string): Promise<CliResult> {
   return invoke<CliResult>("security_audit", { name });
 }
 
+export async function isSkillSymlink(name: string): Promise<boolean> {
+  return invoke<boolean>("is_skill_symlink", { skillName: name });
+}
+
 export interface Skill {
   name: string;
   description?: string;

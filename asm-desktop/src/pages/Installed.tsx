@@ -7,6 +7,7 @@ import {
   listInstalledSkills,
   uninstallSkill,
   parseSkillsFromJson,
+  isSkillSymlink,
   type Skill,
 } from "../lib/tauri-commands";
 
@@ -76,6 +77,16 @@ export function Installed() {
     setError(null);
 
     try {
+      const isSymlink = await isSkillSymlink(skillToRemove);
+      if (isSymlink) {
+        setError(
+          "Cannot uninstall: this is a symlink. Please remove it manually.",
+        );
+        setUninstallingSkill(null);
+        setSkillToRemove(null);
+        return;
+      }
+
       const result = await uninstallSkill(skillToRemove);
       if (result.success) {
         setSkills((prev) => prev.filter((s) => s.name !== skillToRemove));
