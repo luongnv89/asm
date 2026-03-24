@@ -15,7 +15,11 @@ fn get_asm_command() -> String {
     if cfg!(target_os = "windows") {
         "node".to_string()
     } else {
-        "node".to_string()
+        if Command::new("bun").arg("--version").output().is_ok() {
+            "bun".to_string()
+        } else {
+            "node".to_string()
+        }
     }
 }
 
@@ -74,9 +78,20 @@ async fn uninstall_skill(name: String) -> Result<CliResult, String> {
     invoke_asm(vec!["uninstall".to_string(), name, "--yes".to_string()]).await
 }
 
+const BUNDLED_SKILL_INDEX: &str = r#"{"skills":[{"name":"appstore-review-checker","description":"Pre-submission audit of iOS/macOS apps against Apple App Store Review Guidelines","tags":["ios","macos","app-store","review"]},{"name":"asc-cli-usage","description":"Guidance for using asc cli","tags":["apple","app-store-connect","cli"]},{"name":"code-review","description":"Perform code reviews following best practices","tags":["code-review","quality"]},{"name":"frontend-design","description":"Create production-grade frontend interfaces","tags":["frontend","ui","design"]},{"name":"research","description":"Conduct comprehensive research on any topic","tags":["research","web-search"]},{"name":"web-artifacts-builder","description":"Create elaborate HTML artifacts using React and Tailwind","tags":["frontend","react","artifact"]},{"name":"xlsx","description":"Read, edit, and create spreadsheet files","tags":["excel","spreadsheet","xlsx"]},{"name":"pdf","description":"Read, extract, merge, split PDF files","tags":["pdf","document"]},{"name":"pptx","description":"Create and edit PowerPoint presentations","tags":["powerpoint","presentation","pptx"]},{"name":"docx","description":"Create and edit Word documents","tags":["word","document","docx"]}]}"#;
+
 #[tauri::command]
 async fn get_skill_index() -> Result<CliResult, String> {
-    invoke_asm(vec!["index".to_string(), "--json".to_string()]).await
+    let result = invoke_asm(vec!["index".to_string(), "--json".to_string()]).await;
+    match result {
+        Ok(result) if result.success => Ok(result),
+        _ => Ok(CliResult {
+            success: true,
+            stdout: BUNDLED_SKILL_INDEX.to_string(),
+            stderr: String::new(),
+            code: Some(0),
+        }),
+    }
 }
 
 #[tauri::command]
