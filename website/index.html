@@ -93,6 +93,33 @@ a:hover { text-decoration: underline; }
   color: var(--text);
 }
 .site-title span { color: var(--brand); }
+.header-left a { text-decoration: none; }
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+}
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.15s, background 0.15s;
+}
+.nav-link:hover { color: var(--brand); background: var(--brand-glow); text-decoration: none; }
+.nav-link.active { color: var(--brand); background: var(--brand-glow); font-weight: 600; }
+.nav-sep { color: var(--border); font-size: 14px; }
+.header-version {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
 .header-right {
   display: flex;
   align-items: center;
@@ -627,6 +654,137 @@ a:hover { text-decoration: underline; }
 }
 .loading-state p { animation: pulse 1.5s ease-in-out infinite; }
 
+/* ─── Page Visibility ──────────────────────────────────────────────────── */
+#page-catalog.hidden { display: none; }
+
+/* ─── Page Content (Docs / Changelog) ──────────────────────────────────── */
+.page-content {
+  display: none;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+}
+.page-content.active { display: block; }
+.page-content h1 {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--brand);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.page-content h2 {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+.page-content h3 {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+.page-content p {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.page-content ul, .page-content ol {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-bottom: 12px;
+  padding-left: 24px;
+}
+.page-content li { margin-bottom: 4px; }
+.page-content code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--bg-surface);
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: var(--brand);
+}
+.page-content pre {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+}
+.page-content pre code {
+  background: none;
+  padding: 0;
+  font-size: 13px;
+  color: var(--text);
+}
+.page-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+.page-content th {
+  font-family: var(--font-mono);
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--border);
+  color: var(--text);
+  font-weight: 600;
+}
+.page-content td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+}
+.page-content td code { font-size: 12px; }
+.page-content .doc-section {
+  margin-bottom: 32px;
+}
+.page-content .back-link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--brand);
+  margin-bottom: 16px;
+}
+.page-content .back-link:hover { text-decoration: underline; }
+/* Changelog-specific */
+.changelog-version {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--brand);
+  margin-top: 32px;
+  margin-bottom: 4px;
+}
+.changelog-date {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.changelog-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+.changelog-tag.added { color: var(--brand); background: rgba(0,255,65,0.08); }
+.changelog-tag.changed { color: var(--yellow); background: rgba(224,175,104,0.08); }
+.changelog-tag.fixed { color: #7aa2f7; background: rgba(122,162,247,0.08); }
+
 /* ─── Responsive ────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .hero { padding: 32px 16px 24px; }
@@ -637,9 +795,13 @@ a:hover { text-decoration: underline; }
     grid-template-columns: 1fr;
     padding: 0 12px 24px;
   }
-  .site-header { padding: 12px 16px; }
+  .site-header { padding: 12px 16px; flex-wrap: wrap; }
   .controls { padding: 0 12px; }
   .site-title { font-size: 14px; }
+  .header-nav { margin-left: 4px; gap: 2px; }
+  .nav-link { font-size: 11px; padding: 3px 6px; }
+  .header-version { display: none; }
+  .page-content { padding: 24px 16px 32px; }
   .modal { margin: 12px; padding: 16px; }
 }
 
@@ -714,9 +876,15 @@ a:hover { text-decoration: underline; }
       <polygon points="3,12.8 4.3,11.5 5.6,12.8 4.3,14.1" fill="#00ff41"/>
       <circle cx="2.6" cy="3.2" r="1.3" fill="#00ff41" opacity="0.7"/>
     </svg>
-    <div class="site-title">asm <span>catalog</span></div>
+    <a href="#" class="site-title" onclick="navigateTo('catalog');return false;">asm <span>catalog</span></a>
+    <nav class="header-nav">
+      <a class="nav-link active" href="#" data-page="catalog" onclick="navigateTo('catalog');return false;">Skills</a>
+      <a class="nav-link" href="#docs" data-page="docs" onclick="navigateTo('docs');return false;">Docs</a>
+      <a class="nav-link" href="#changelog" data-page="changelog" onclick="navigateTo('changelog');return false;">Changelog</a>
+    </nav>
   </div>
   <div class="header-right">
+    <span class="header-version" id="header-version"></span>
     <a class="gh-link" href="https://github.com/luongnv89/agent-skill-manager" target="_blank" rel="noopener">
       <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
       <span id="gh-stars" class="gh-stars"></span>
@@ -724,6 +892,9 @@ a:hover { text-decoration: underline; }
     </a>
   </div>
 </header>
+
+<!-- ─── Catalog Page ────────────────────────────────────────────────────── -->
+<div id="page-catalog">
 
 <!-- ─── Hero ────────────────────────────────────────────────────────────── -->
 <div class="hero">
@@ -762,6 +933,15 @@ a:hover { text-decoration: underline; }
 
 <!-- ─── Pagination ──────────────────────────────────────────────────────── -->
 <div class="pagination" id="pagination"></div>
+
+
+</div><!-- /page-catalog -->
+
+<!-- ─── Docs Page ──────────────────────────────────────────────────────── -->
+<div id="page-docs" class="page-content"></div>
+
+<!-- ─── Changelog Page ─────────────────────────────────────────────────── -->
+<div id="page-changelog" class="page-content"></div>
 
 <!-- ─── Modal ───────────────────────────────────────────────────────────── -->
 <div class="modal-overlay" id="modal-overlay">
@@ -1219,6 +1399,302 @@ function attachEvents() {
   });
 }
 
+// ─── Page Navigation ────────────────────────────────────────────────────────
+let currentPageView = 'catalog';
+
+function navigateTo(page) {
+  currentPageView = page;
+  // Update nav active state
+  document.querySelectorAll('.nav-link').forEach(function(link) {
+    link.classList.toggle('active', link.getAttribute('data-page') === page);
+  });
+  // Show/hide pages
+  document.getElementById('page-catalog').classList.toggle('hidden', page !== 'catalog');
+  var docsEl = document.getElementById('page-docs');
+  var changelogEl = document.getElementById('page-changelog');
+  docsEl.classList.toggle('active', page === 'docs');
+  changelogEl.classList.toggle('active', page === 'changelog');
+  // Update hash
+  if (page === 'catalog') {
+    if (location.hash === '#docs' || location.hash === '#changelog') history.replaceState(null, '', location.pathname + location.search);
+  } else {
+    history.replaceState(null, '', '#' + page);
+  }
+  // Render page content on first visit
+  if (page === 'docs' && !docsEl.innerHTML) renderDocsPage();
+  if (page === 'changelog' && !changelogEl.innerHTML) renderChangelogPage();
+  window.scrollTo(0, 0);
+}
+
+function handleHashChange() {
+  var hash = location.hash.replace('#', '');
+  if (hash === 'docs' || hash === 'changelog') {
+    navigateTo(hash);
+  } else {
+    navigateTo('catalog');
+  }
+}
+
+window.addEventListener('hashchange', handleHashChange);
+
+// ─── Docs Page Content ──────────────────────────────────────────────────────
+function renderDocsPage() {
+  document.getElementById('page-docs').innerHTML =
+    '<h1>Documentation</h1>'
+
+    + '<div class="doc-section">'
+    + '<h2>Getting Started</h2>'
+    + '<h3>Install via npm (recommended)</h3>'
+    + '<pre><code>npm install -g agent-skill-manager</code></pre>'
+    + '<p>Requires <a href="https://bun.sh">Bun</a> &ge; 1.0.0 as the runtime. Install Bun:</p>'
+    + '<pre><code>curl -fsSL https://bun.sh/install | bash</code></pre>'
+    + '<h3>One-liner install</h3>'
+    + '<pre><code>curl -sSL https://raw.githubusercontent.com/luongnv89/agent-skill-manager/main/install.sh | bash</code></pre>'
+    + '<p>Then launch the interactive TUI:</p>'
+    + '<pre><code>asm</code></pre>'
+    + '</div>'
+
+    + '<div class="doc-section">'
+    + '<h2>CLI Command Reference</h2>'
+    + '<table>'
+    + '<thead><tr><th>Command</th><th>Description</th></tr></thead>'
+    + '<tbody>'
+    + '<tr><td><code>asm</code></td><td>Launch interactive TUI</td></tr>'
+    + '<tr><td><code>asm list</code></td><td>List all discovered skills</td></tr>'
+    + '<tr><td><code>asm search &lt;query&gt;</code></td><td>Search by name/description/provider</td></tr>'
+    + '<tr><td><code>asm inspect &lt;name&gt;</code></td><td>Show detailed info for a skill</td></tr>'
+    + '<tr><td><code>asm install &lt;source&gt;</code></td><td>Install a skill from GitHub</td></tr>'
+    + '<tr><td><code>asm uninstall &lt;name&gt;</code></td><td>Remove a skill (with confirmation)</td></tr>'
+    + '<tr><td><code>asm init &lt;name&gt;</code></td><td>Scaffold a new skill with SKILL.md template</td></tr>'
+    + '<tr><td><code>asm link &lt;path&gt;</code></td><td>Symlink a local skill for live development</td></tr>'
+    + '<tr><td><code>asm audit</code></td><td>Detect duplicate skills</td></tr>'
+    + '<tr><td><code>asm audit security &lt;name&gt;</code></td><td>Run security audit on a skill</td></tr>'
+    + '<tr><td><code>asm stats</code></td><td>Show aggregate skill metrics dashboard</td></tr>'
+    + '<tr><td><code>asm export</code></td><td>Export skill inventory as JSON manifest</td></tr>'
+    + '<tr><td><code>asm index ingest &lt;repo&gt;</code></td><td>Index a skill repo for searching</td></tr>'
+    + '<tr><td><code>asm index search &lt;query&gt;</code></td><td>Search indexed skills</td></tr>'
+    + '<tr><td><code>asm index list</code></td><td>List indexed repositories</td></tr>'
+    + '<tr><td><code>asm index remove &lt;repo&gt;</code></td><td>Remove a repo from the index</td></tr>'
+    + '<tr><td><code>asm config show</code></td><td>Print current config</td></tr>'
+    + '<tr><td><code>asm config edit</code></td><td>Open config in $EDITOR</td></tr>'
+    + '<tr><td><code>asm config reset</code></td><td>Reset config to defaults</td></tr>'
+    + '</tbody></table>'
+
+    + '<h3>Global Options</h3>'
+    + '<table>'
+    + '<thead><tr><th>Flag</th><th>Description</th></tr></thead>'
+    + '<tbody>'
+    + '<tr><td><code>-h, --help</code></td><td>Show help for any command</td></tr>'
+    + '<tr><td><code>-v, --version</code></td><td>Print version and exit</td></tr>'
+    + '<tr><td><code>--json</code></td><td>Output as JSON (list, search, inspect, audit)</td></tr>'
+    + '<tr><td><code>-s, --scope &lt;scope&gt;</code></td><td>Filter: global, project, or both</td></tr>'
+    + '<tr><td><code>--sort &lt;field&gt;</code></td><td>Sort by: name, version, or location</td></tr>'
+    + '<tr><td><code>-y, --yes</code></td><td>Skip confirmation prompts</td></tr>'
+    + '<tr><td><code>--no-color</code></td><td>Disable ANSI colors</td></tr>'
+    + '</tbody></table>'
+    + '</div>'
+
+    + '<div class="doc-section">'
+    + '<h2>Installing Skills from GitHub</h2>'
+    + '<p>Install skills directly from GitHub repositories:</p>'
+    + '<pre><code>asm install github:user/my-skill\n'
+    + 'asm install github:user/my-skill#v1.0.0 -p claude\n'
+    + 'asm install github:user/skills --path skills/code-review\n'
+    + 'asm install github:user/skills --all -p claude -y</code></pre>'
+
+    + '<h3>Install Flags</h3>'
+    + '<table>'
+    + '<thead><tr><th>Flag</th><th>Description</th></tr></thead>'
+    + '<tbody>'
+    + '<tr><td><code>-p, --tool &lt;name&gt;</code></td><td>Target tool (claude, codex, cursor, etc.)</td></tr>'
+    + '<tr><td><code>--name &lt;name&gt;</code></td><td>Override skill directory name</td></tr>'
+    + '<tr><td><code>--path &lt;subdir&gt;</code></td><td>Install a specific skill from a subdirectory</td></tr>'
+    + '<tr><td><code>--all</code></td><td>Install all skills found in the repo</td></tr>'
+    + '<tr><td><code>-t, --transport &lt;mode&gt;</code></td><td>Transport: https, ssh, or auto</td></tr>'
+    + '<tr><td><code>-f, --force</code></td><td>Overwrite if skill already exists</td></tr>'
+    + '</tbody></table>'
+    + '</div>'
+
+    + '<div class="doc-section">'
+    + '<h2>SKILL.md Specification</h2>'
+    + '<p>Every skill is a directory containing a <code>SKILL.md</code> file with YAML frontmatter:</p>'
+    + '<pre><code>---\n'
+    + 'name: my-skill\n'
+    + 'description: "A short description of what this skill does"\n'
+    + 'license: "MIT"\n'
+    + 'compatibility: "Claude Code, Codex"\n'
+    + 'allowed-tools: Bash Read Grep Glob WebFetch\n'
+    + 'effort: medium\n'
+    + 'metadata:\n'
+    + '  version: 1.0.0\n'
+    + '  creator: "Your Name"\n'
+    + '---</code></pre>'
+
+    + '<h3>Frontmatter Fields</h3>'
+    + '<table>'
+    + '<thead><tr><th>Field</th><th>Required</th><th>Description</th></tr></thead>'
+    + '<tbody>'
+    + '<tr><td><code>name</code></td><td>yes</td><td>Unique skill identifier</td></tr>'
+    + '<tr><td><code>description</code></td><td>yes</td><td>One-line summary shown in listings</td></tr>'
+    + '<tr><td><code>license</code></td><td>no</td><td>SPDX license identifier</td></tr>'
+    + '<tr><td><code>compatibility</code></td><td>no</td><td>Comma-separated compatible AI agents</td></tr>'
+    + '<tr><td><code>allowed-tools</code></td><td>no</td><td>Space-delimited tool names the skill uses</td></tr>'
+    + '<tr><td><code>effort</code></td><td>no</td><td>Effort level: low, medium, high, or max</td></tr>'
+    + '<tr><td><code>metadata.version</code></td><td>no</td><td>Semver version (defaults to 0.0.0)</td></tr>'
+    + '<tr><td><code>metadata.creator</code></td><td>no</td><td>Author name and optional email</td></tr>'
+    + '</tbody></table>'
+    + '</div>'
+
+    + '<div class="doc-section">'
+    + '<h2>Supported Agent Tools</h2>'
+    + '<p><code>asm</code> ships with 15 built-in providers, all enabled by default:</p>'
+    + '<table>'
+    + '<thead><tr><th>Tool</th><th>Global Path</th><th>Project Path</th></tr></thead>'
+    + '<tbody>'
+    + '<tr><td>Claude Code</td><td><code>~/.claude/skills/</code></td><td><code>.claude/skills/</code></td></tr>'
+    + '<tr><td>Codex</td><td><code>~/.codex/skills/</code></td><td><code>.codex/skills/</code></td></tr>'
+    + '<tr><td>OpenClaw</td><td><code>~/.openclaw/skills/</code></td><td><code>.openclaw/skills/</code></td></tr>'
+    + '<tr><td>Agents</td><td><code>~/.agents/skills/</code></td><td><code>.agents/skills/</code></td></tr>'
+    + '<tr><td>Cursor</td><td><code>~/.cursor/rules/</code></td><td><code>.cursor/rules/</code></td></tr>'
+    + '<tr><td>Windsurf</td><td><code>~/.windsurf/rules/</code></td><td><code>.windsurf/rules/</code></td></tr>'
+    + '<tr><td>Cline</td><td><code>~/Documents/Cline/Rules/</code></td><td><code>.clinerules/</code></td></tr>'
+    + '<tr><td>Roo Code</td><td><code>~/.roo/rules/</code></td><td><code>.roo/rules/</code></td></tr>'
+    + '<tr><td>Continue</td><td><code>~/.continue/rules/</code></td><td><code>.continue/rules/</code></td></tr>'
+    + '<tr><td>GitHub Copilot</td><td><code>~/.github/instructions/</code></td><td><code>.github/instructions/</code></td></tr>'
+    + '<tr><td>Aider</td><td><code>~/.aider/skills/</code></td><td><code>.aider/skills/</code></td></tr>'
+    + '<tr><td>OpenCode</td><td><code>~/.config/opencode/skills/</code></td><td><code>.opencode/skills/</code></td></tr>'
+    + '<tr><td>Zed</td><td><code>~/.config/zed/prompt_overrides/</code></td><td><code>.zed/rules/</code></td></tr>'
+    + '<tr><td>Augment</td><td><code>~/.augment/rules/</code></td><td><code>.augment/rules/</code></td></tr>'
+    + '<tr><td>Amp</td><td><code>~/.amp/skills/</code></td><td><code>.amp/skills/</code></td></tr>'
+    + '</tbody></table>'
+    + '</div>'
+
+    + '<div class="doc-section">'
+    + '<h2>Configuration</h2>'
+    + '<p>Config file is created at <code>~/.config/agent-skill-manager/config.json</code> on first run with 15 default providers.</p>'
+    + '<pre><code>asm config show     # Print current config\n'
+    + 'asm config edit     # Open in $EDITOR\n'
+    + 'asm config reset    # Reset to defaults</code></pre>'
+    + '<p>Disable a provider by setting <code>"enabled": false</code> in the config. Add custom skill directories via <code>customPaths</code>.</p>'
+    + '</div>'
+
+    + '<div class="doc-section">'
+    + '<h2>Creating Your Own Skills</h2>'
+    + '<h3>Typical workflow</h3>'
+    + '<ol>'
+    + '<li><strong>Scaffold</strong> &mdash; <code>asm init my-skill -p claude</code></li>'
+    + '<li>Edit your <code>SKILL.md</code></li>'
+    + '<li><strong>Link for live testing</strong> &mdash; <code>asm link ./my-skill -p claude</code></li>'
+    + '<li>Test with your AI agent</li>'
+    + '<li><strong>Security audit</strong> &mdash; <code>asm audit security my-skill</code></li>'
+    + '<li><strong>Verify metadata</strong> &mdash; <code>asm inspect my-skill</code></li>'
+    + '<li>Push to GitHub</li>'
+    + '<li><strong>Verify install flow</strong> &mdash; <code>asm install github:you/my-skill</code></li>'
+    + '</ol>'
+    + '</div>'
+
+    + '<div class="doc-section">'
+    + '<h2>TUI Keyboard Shortcuts</h2>'
+    + '<table>'
+    + '<thead><tr><th>Key</th><th>Action</th></tr></thead>'
+    + '<tbody>'
+    + '<tr><td><code>&uarr;/&darr;</code> or <code>j/k</code></td><td>Navigate skill list</td></tr>'
+    + '<tr><td><code>Enter</code></td><td>View skill details</td></tr>'
+    + '<tr><td><code>d</code></td><td>Uninstall selected skill</td></tr>'
+    + '<tr><td><code>/</code></td><td>Search / filter skills</td></tr>'
+    + '<tr><td><code>Esc</code></td><td>Back / clear filter / close dialog</td></tr>'
+    + '<tr><td><code>Tab</code></td><td>Cycle scope: Global → Project → Both</td></tr>'
+    + '<tr><td><code>s</code></td><td>Cycle sort: Name → Version → Location</td></tr>'
+    + '<tr><td><code>r</code></td><td>Refresh / rescan skills</td></tr>'
+    + '<tr><td><code>c</code></td><td>Open configuration</td></tr>'
+    + '<tr><td><code>a</code></td><td>Audit duplicates</td></tr>'
+    + '<tr><td><code>q</code></td><td>Quit</td></tr>'
+    + '</tbody></table>'
+    + '</div>';
+}
+
+// ─── Changelog Page Content ─────────────────────────────────────────────────
+function renderChangelogPage() {
+  document.getElementById('page-changelog').innerHTML =
+    '<h1>Changelog</h1>'
+    + '<p>All notable changes to <code>agent-skill-manager</code>. '
+    + 'Based on <a href="https://keepachangelog.com/">Keep a Changelog</a>, '
+    + 'adhering to <a href="https://semver.org/">Semantic Versioning</a>.</p>'
+    + '<p><a href="https://github.com/luongnv89/agent-skill-manager/blob/main/docs/CHANGELOG.md" target="_blank" rel="noopener">View full changelog on GitHub &rarr;</a></p>'
+
+    + renderChangelogEntry('1.14.0', '2026-03-24', [
+      { tag: 'added', items: ['Documentation page on ASM catalog website', 'Changelog page on ASM catalog website', 'Version display in website header'] }
+    ])
+    + renderChangelogEntry('1.6.0', '2026-03-13', [
+      { tag: 'added', items: [
+        'Default grouped list view with colored provider badges',
+        '<code>--flat</code> flag for list and search commands',
+        '<code>-p/--provider</code> filter on list and search',
+        'Stats dashboard with ASCII bar charts',
+        'Provider-specific colors throughout CLI output'
+      ]},
+      { tag: 'changed', items: [
+        'Paths shortened with <code>~</code> prefix throughout all CLI output',
+        'Inspect output uses lighter header style with provider badges'
+      ]}
+    ])
+    + renderChangelogEntry('1.5.1', '2026-03-13', [
+      { tag: 'fixed', items: [
+        'Compact batch install output with progress counter',
+        'Replace Unicode characters with ASCII-safe equivalents',
+        'Fix process hang after interactive provider selection'
+      ]}
+    ])
+    + renderChangelogEntry('1.5.0', '2026-03-13', [
+      { tag: 'added', items: [
+        '<code>asm install -p all</code> to install across all enabled providers',
+        'Primary provider receives files; others get relative symlinks',
+        'Interactive provider picker includes "All providers" option'
+      ]}
+    ])
+    + renderChangelogEntry('1.4.1', '2026-03-13', [
+      { tag: 'added', items: ['Accept plain HTTPS GitHub URLs for install'] },
+      { tag: 'fixed', items: ['Type annotations to fix implicit any errors'] }
+    ])
+    + renderChangelogEntry('1.4.0', '2026-03-13', [
+      { tag: 'added', items: [
+        '<code>asm install github:user/repo</code> command',
+        '<code>--verbose</code> flag for debug output',
+        'Node.js compatibility, config backup, semver sort',
+        '<code>export</code>, <code>init</code>, <code>stats</code>, <code>link</code> commands'
+      ]}
+    ])
+    + renderChangelogEntry('1.3.0', '2026-03-11', [
+      { tag: 'added', items: ['Symlink-aware duplicate detection'] },
+      { tag: 'changed', items: ['Audit deduplicates by resolved real path'] }
+    ])
+    + renderChangelogEntry('1.2.0', '2026-03-11', [
+      { tag: 'added', items: ['Build step for npm distribution', 'Build script with version injection'] },
+      { tag: 'changed', items: ['Bin entry points now reference bundled dist/'] }
+    ]);
+}
+
+var VALID_TAGS = { added: true, changed: true, fixed: true };
+
+function renderChangelogEntry(version, date, sections) {
+  var html = '<div class="changelog-version">v' + esc(version) + '</div>'
+    + '<div class="changelog-date">' + esc(date) + '</div>';
+  for (var i = 0; i < sections.length; i++) {
+    var s = sections[i];
+    // Only allow known tag values for CSS class safety
+    var tagClass = VALID_TAGS[s.tag] ? s.tag : 'added';
+    html += '<span class="changelog-tag ' + tagClass + '">' + esc(s.tag.charAt(0).toUpperCase() + s.tag.slice(1)) + '</span>';
+    html += '<ul>';
+    for (var j = 0; j < s.items.length; j++) {
+      // Items are trusted HTML from hardcoded changelog content only.
+      // Never pass external/user-supplied data as items.
+      html += '<li>' + s.items[j] + '</li>';
+    }
+    html += '</ul>';
+  }
+  return html;
+}
+
 // ─── Boot ──────────────────────────────────────────────────────────────────
 async function boot() {
   try {
@@ -1232,6 +1708,12 @@ async function boot() {
     // Restore search input from URL state
     document.getElementById('search-input').value = searchQuery;
     if (searchQuery) document.getElementById('search-clear').classList.remove('hidden');
+    // Set version from catalog
+    if (catalog.version) {
+      document.getElementById('header-version').textContent = 'v' + catalog.version;
+    }
+    // Handle initial hash navigation
+    handleHashChange();
   } catch (err) {
     document.getElementById('skill-grid').innerHTML =
       '<div class="empty-state"><div class="empty-icon">&#x26a0;</div><p>Failed to load catalog: ' + esc(err.message) + '</p></div>';

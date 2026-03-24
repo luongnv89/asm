@@ -279,6 +279,7 @@ interface CatalogRepo {
 
 interface Catalog {
   generatedAt: string;
+  version: string;
   totalSkills: number;
   totalRepos: number;
   stars: number;
@@ -394,8 +395,14 @@ try {
   // Non-critical — proceed with 0
 }
 
+// Read version from package.json
+const pkgJsonPath = join(root, "package.json");
+const pkgVersion =
+  JSON.parse(readFileSync(pkgJsonPath, "utf-8")).version || "0.0.0";
+
 const catalog: Catalog = {
   generatedAt: new Date().toISOString(),
+  version: pkgVersion,
   totalSkills: skills.length,
   totalRepos: repos.length,
   stars,
