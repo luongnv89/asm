@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach, afterEach } from "bun:test";
-import { mkdtemp, writeFile, rm } from "fs/promises";
+import { mkdtemp, writeFile, rm, readdir } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 import {
@@ -9,6 +9,7 @@ import {
   loadAllIndices,
   getMissingMetadataFields,
 } from "./skill-index";
+import { getSkillIndexResourcesPath, getBundledIndexDir } from "./config";
 import type { IndexedSkill } from "./utils/types";
 
 // These tests exercise loadAllIndices/searchSkills/etc. against the real
@@ -110,6 +111,13 @@ describe("getTotalSkillCount", () => {
     const actual = await getTotalSkillCount();
     expect(actual).toBe(expected);
   });
+
+  it("every index has skillCount matching skills.length", async () => {
+    const indices = await loadAllIndices();
+    for (const idx of indices) {
+      expect(idx.skillCount).toBe(idx.skills.length);
+    }
+  });
 });
 
 describe("getMissingMetadataFields", () => {
@@ -168,7 +176,7 @@ describe("getMissingMetadataFields", () => {
 
 describe("searchSkills with filters", () => {
   it("filter-only search with --missing returns results", async () => {
-    // All bundled skills currently have empty license/creator
+    // Many bundled skills have empty license/creator, others do not — this verifies the filter works
     const results = await searchSkills("", 100, { missing: ["license"] });
     expect(results.length).toBeGreaterThan(0);
     for (const r of results) {
@@ -187,5 +195,31 @@ describe("searchSkills with filters", () => {
     const allResults = await searchSkills("code", 100);
     const filtered = await searchSkills("code", 100, { missing: ["license"] });
     expect(filtered.length).toBeLessThanOrEqual(allResults.length);
+  });
+});
+
+describe("Index resource integrity", () => {
+  it("every enabled repo in resources has a corresponding index file", async () => {
+    const resourcesPath = getSkillIndexResourcesPath();
+    const resourcesJson = JSON.parse(
+      await (await import("fs/promises")).readFile(resourcesPath, "utf-8"),
+    );
+    const indexDir = getBundledIndexDir();
+    const indexFiles = await readdir(indexDir);
+    const indexFileSet = new Set(indexFiles);
+
+    for (const repo of resourcesJson.repos) {
+      if (repo.enabled) {
+        const expectedFilename = `${repo.owner}_${repo.repo}.json`;
+        expect(indexFileSet.has(expectedFilename)).toBe(true);
+      }
+    }
+  });
+
+  it("all index files have non-zero skillCount", async () => {
+    const indices = await loadAllIndices();
+    for (const idx of indices) {
+      expect(idx.skillCount).toBeGreaterThan(0);
+    }
   });
 });

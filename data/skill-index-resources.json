@@ -29,15 +29,6 @@
       "enabled": true
     },
     {
-      "source": "github:msitarzewski/agency-agents",
-      "url": "https://github.com/msitarzewski/agency-agents",
-      "owner": "msitarzewski",
-      "repo": "agency-agents",
-      "description": "Specialized expert agents with personality and proven deliverables",
-      "maintainer": "@msitarzewski",
-      "enabled": true
-    },
-    {
       "source": "github:nextlevelbuilder/ui-ux-pro-max-skill",
       "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
       "owner": "nextlevelbuilder",
@@ -62,15 +53,6 @@
       "repo": "marketingskills",
       "description": "Marketing skills — CRO, copywriting, SEO, analytics, growth",
       "maintainer": "@coreyhaines31",
-      "enabled": true
-    },
-    {
-      "source": "github:agentskills/agentskills",
-      "url": "https://github.com/agentskills/agentskills",
-      "owner": "agentskills",
-      "repo": "agentskills",
-      "description": "Specification and documentation for Agent Skills",
-      "maintainer": "@agentskills",
       "enabled": true
     },
     {
@@ -186,7 +168,7 @@
       "url": "https://github.com/bytedance/deer-flow",
       "owner": "bytedance",
       "repo": "deer-flow",
-      "description": "Multi-agent orchestration framework with skill generation and deployment",
+      "description": "Multi-agent orchestration framework with skill generation and deployment (integrates with DeerFlow platform API)",
       "maintainer": "@bytedance",
       "enabled": true
     },
