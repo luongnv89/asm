@@ -102,6 +102,7 @@ body {
   font-family: var(--font-sans);
   line-height: 1.5;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 a { color: var(--brand); text-decoration: none; }
@@ -390,7 +391,7 @@ a:hover { text-decoration: underline; }
   margin: 0 auto;
   padding: 0 24px 24px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
   gap: 12px;
 }
 
@@ -445,7 +446,10 @@ a:hover { text-decoration: underline; }
   font-size: 11px;
   color: var(--text-muted);
   white-space: nowrap;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 45%;
 }
 .skill-desc {
   font-size: 13px;
@@ -902,14 +906,15 @@ a:hover { text-decoration: underline; }
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
 }
 
-/* ─── Responsive ────────────────────────────────────────────────────────── */
+/* ─── Responsive: Tablet (768px) ───────────────────────────────────────── */
 @media (max-width: 768px) {
   .hero { padding: 32px 16px 24px; }
   .hero h1 { font-size: 22px; }
+  .hero p { font-size: 14px; }
   .stats-row { gap: 16px; }
   .stat strong { font-size: 16px; }
   .skill-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     padding: 0 12px 24px;
   }
   .site-header { padding: 12px 16px; flex-wrap: wrap; }
@@ -920,6 +925,191 @@ a:hover { text-decoration: underline; }
   .header-version { display: none; }
   .page-content { padding: 24px 16px 32px; }
   .modal { margin: 12px; padding: 16px; }
+  .site-footer p {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+  }
+}
+
+/* ─── Responsive: Large phones (480px) ─────────────────────────────────── */
+@media (max-width: 480px) {
+  .site-header {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+  .header-left {
+    flex: 1;
+    min-width: 0;
+    gap: 8px;
+  }
+  .logo-mark { width: 26px; height: 26px; flex-shrink: 0; }
+  .site-title { font-size: 13px; }
+  .header-nav { margin-left: 2px; gap: 1px; }
+  .nav-link { font-size: 10px; padding: 3px 5px; }
+  .header-right { gap: 8px; }
+  .gh-link { padding: 5px 8px; font-size: 12px; }
+  .gh-link span.gh-stars { display: none !important; }
+  .theme-toggle { width: 30px; height: 30px; }
+  .theme-toggle svg { width: 16px; height: 16px; }
+
+  .hero { padding: 24px 12px 20px; }
+  .hero h1 { font-size: 20px; }
+  .hero p { font-size: 13px; margin-bottom: 16px; }
+  .stats-row { gap: 12px; margin-bottom: 16px; }
+  .stat { font-size: 12px; }
+  .stat strong { font-size: 15px; }
+  .search-box { margin: 0 auto 8px; }
+  .search-input { font-size: 14px; padding: 10px 12px 10px 36px; }
+  .search-box svg { left: 12px; }
+
+  .controls { padding: 0 10px; }
+  .category-tabs { gap: 4px; margin-bottom: 10px; }
+  .cat-btn { font-size: 11px; padding: 4px 10px; }
+  .cat-btn.active { padding: 3px 9px; }
+  .cat-toggle { font-size: 11px; padding: 4px 10px; }
+
+  .filter-row {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .filter-select { font-size: 11px; padding: 5px 8px; max-width: 140px; }
+  .filter-check { font-size: 11px; }
+  .result-count { font-size: 11px; }
+
+  .skill-grid {
+    grid-template-columns: 1fr;
+    padding: 0 10px 20px;
+    gap: 10px;
+  }
+  .skill-card { padding: 14px; gap: 6px; }
+  .card-header { gap: 6px; }
+  .skill-name { font-size: 13px; }
+  .skill-repo { font-size: 10px; }
+  .skill-desc { font-size: 12px; }
+  .badge { font-size: 9px; padding: 2px 6px; }
+  .skill-version { font-size: 10px; }
+  .install-bar { padding: 3px 6px; gap: 4px; }
+  .install-cmd { font-size: 10px; }
+  .copy-btn { font-size: 10px; padding: 2px 6px; }
+
+  .modal-overlay { padding: 12px; }
+  .modal { margin: 0; padding: 16px; max-height: 90vh; }
+  .modal-name { font-size: 17px; padding-right: 28px; }
+  .modal-repo { font-size: 12px; }
+  .modal-desc { font-size: 13px; }
+  .modal-meta { gap: 4px 12px; font-size: 12px; }
+  .modal-install { padding: 10px 12px; gap: 8px; }
+  .modal-install code { font-size: 12px; }
+
+  .pagination { padding: 16px 10px; gap: 4px; }
+  .page-btn { font-size: 12px; padding: 5px 10px; }
+
+  .site-footer { padding: 16px 12px; font-size: 11px; }
+  .site-footer p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .site-footer code { font-size: 11px; }
+
+  .page-content { padding: 20px 12px 28px; }
+  .page-content h1 { font-size: 20px; }
+  .page-content h2 { font-size: 16px; }
+  .page-content pre { padding: 12px; }
+}
+
+/* ─── Responsive: Small phones (375px) ─────────────────────────────────── */
+@media (max-width: 375px) {
+  .site-header {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+  .logo-mark { width: 22px; height: 22px; }
+  .site-title { font-size: 12px; }
+  .nav-link { font-size: 10px; padding: 2px 4px; }
+  .gh-link { padding: 4px 6px; font-size: 11px; }
+  .gh-link svg { width: 14px; height: 14px; }
+  .gh-link span:not(.gh-stars) { display: none; }
+  .theme-toggle { width: 28px; height: 28px; }
+
+  .hero { padding: 20px 10px 16px; }
+  .hero h1 { font-size: 18px; }
+  .hero p { font-size: 12px; margin-bottom: 12px; }
+  .stats-row { gap: 10px; margin-bottom: 12px; }
+  .stat { font-size: 11px; }
+  .stat strong { font-size: 14px; }
+  .search-input { font-size: 13px; padding: 9px 10px 9px 34px; }
+
+  .controls { padding: 0 8px; }
+  .category-tabs { gap: 3px; }
+  .cat-btn { font-size: 10px; padding: 3px 8px; }
+  .cat-btn.active { padding: 2px 7px; }
+  .cat-toggle { font-size: 10px; padding: 3px 8px; }
+  .filter-row { gap: 6px; }
+  .filter-select { font-size: 10px; padding: 4px 6px; max-width: 120px; }
+  .filter-check { font-size: 10px; gap: 4px; }
+  .result-count { font-size: 10px; }
+
+  .skill-grid { padding: 0 8px 16px; gap: 8px; }
+  .skill-card { padding: 12px; }
+  .skill-name { font-size: 12px; }
+  .skill-desc { font-size: 11px; -webkit-line-clamp: 3; }
+  .card-footer { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .badge-row { gap: 3px; }
+  .install-cmd { font-size: 9px; }
+
+  .modal { padding: 14px; }
+  .modal-name { font-size: 15px; }
+  .modal-install { flex-direction: column; align-items: stretch; gap: 8px; }
+  .modal-install code { word-break: break-all; text-align: center; }
+  .modal-install .copy-btn { align-self: center; }
+
+  .pagination { padding: 12px 8px; }
+  .page-btn { font-size: 11px; padding: 4px 8px; }
+
+  .site-footer { padding: 12px 10px; font-size: 10px; }
+  .page-content { padding: 16px 10px 24px; }
+  .page-content h1 { font-size: 18px; }
+}
+
+/* ─── Responsive: Extra-small phones (320px) ───────────────────────────── */
+@media (max-width: 320px) {
+  .site-header { padding: 6px 8px; }
+  .header-left { gap: 4px; }
+  .logo-mark { width: 20px; height: 20px; }
+  .site-title { font-size: 11px; }
+  .header-nav { display: none; }
+  .header-right { gap: 6px; }
+  .gh-link { padding: 3px 5px; }
+  .theme-toggle { width: 26px; height: 26px; }
+
+  .hero { padding: 16px 8px 12px; }
+  .hero h1 { font-size: 16px; }
+  .hero p { font-size: 11px; }
+  .stats-row { gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .stat { font-size: 10px; }
+  .stat strong { font-size: 13px; }
+  .search-input { font-size: 12px; padding: 8px 8px 8px 30px; }
+  .search-box svg { left: 10px; width: 14px; height: 14px; }
+
+  .controls { padding: 0 6px; }
+  .category-tabs { gap: 2px; }
+  .cat-btn { font-size: 9px; padding: 2px 6px; }
+  .cat-btn.active { padding: 1px 5px; }
+  .filter-row { flex-direction: column; gap: 6px; }
+  .filter-select { max-width: 100%; width: 100%; }
+
+  .skill-grid { padding: 0 6px 12px; gap: 6px; }
+  .skill-card { padding: 10px; }
+
+  .modal { padding: 12px; }
+  .modal-name { font-size: 14px; }
+  .modal-meta { grid-template-columns: 1fr; gap: 4px; }
+
+  .page-content { padding: 12px 8px 20px; }
 }
 
 /* ─── Scrollbar ─────────────────────────────────────────────────────────── */
