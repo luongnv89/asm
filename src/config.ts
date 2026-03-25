@@ -19,25 +19,12 @@ const LOCK_PATH = join(CONFIG_DIR, ".skill-lock.json");
 const INDEX_DIR = join(CONFIG_DIR, "skill-index");
 
 const DEFAULT_PROVIDERS: ProviderConfig[] = [
+  // ── Priority providers (ordered by usage frequency) ──
   {
     name: "claude",
     label: "Claude Code",
     global: "~/.claude/skills",
     project: ".claude/skills",
-    enabled: true,
-  },
-  {
-    name: "codex",
-    label: "Codex",
-    global: "~/.codex/skills",
-    project: ".codex/skills",
-    enabled: true,
-  },
-  {
-    name: "openclaw",
-    label: "OpenClaw",
-    global: "~/.openclaw/skills",
-    project: ".openclaw/skills",
     enabled: true,
   },
   {
@@ -48,10 +35,38 @@ const DEFAULT_PROVIDERS: ProviderConfig[] = [
     enabled: true,
   },
   {
+    name: "codex",
+    label: "Codex",
+    global: "~/.codex/skills",
+    project: ".codex/skills",
+    enabled: true,
+  },
+  {
+    name: "opencode",
+    label: "OpenCode",
+    global: "~/.config/opencode/skills",
+    project: ".opencode/skills",
+    enabled: true,
+  },
+  {
+    name: "openclaw",
+    label: "OpenClaw",
+    global: "~/.openclaw/skills",
+    project: ".openclaw/skills",
+    enabled: true,
+  },
+  {
     name: "cursor",
     label: "Cursor",
     global: "~/.cursor/rules",
     project: ".cursor/rules",
+    enabled: true,
+  },
+  {
+    name: "copilot",
+    label: "GitHub Copilot",
+    global: "~/.github/instructions",
+    project: ".github/instructions",
     enabled: true,
   },
   {
@@ -61,6 +76,21 @@ const DEFAULT_PROVIDERS: ProviderConfig[] = [
     project: ".windsurf/rules",
     enabled: true,
   },
+  {
+    name: "antigravity",
+    label: "Google Antigravity",
+    global: "~/.antigravity/skills",
+    project: ".antigravity/skills",
+    enabled: true,
+  },
+  {
+    name: "gemini",
+    label: "Gemini CLI",
+    global: "~/.gemini/skills",
+    project: ".gemini/skills",
+    enabled: true,
+  },
+  // ── Remaining providers ──
   {
     name: "cline",
     label: "Cline",
@@ -83,24 +113,10 @@ const DEFAULT_PROVIDERS: ProviderConfig[] = [
     enabled: true,
   },
   {
-    name: "copilot",
-    label: "GitHub Copilot",
-    global: "~/.github/instructions",
-    project: ".github/instructions",
-    enabled: true,
-  },
-  {
     name: "aider",
     label: "Aider",
     global: "~/.aider/skills",
     project: ".aider/skills",
-    enabled: true,
-  },
-  {
-    name: "opencode",
-    label: "OpenCode",
-    global: "~/.config/opencode/skills",
-    project: ".opencode/skills",
     enabled: true,
   },
   {
@@ -122,20 +138,6 @@ const DEFAULT_PROVIDERS: ProviderConfig[] = [
     label: "Amp",
     global: "~/.amp/skills",
     project: ".amp/skills",
-    enabled: true,
-  },
-  {
-    name: "gemini",
-    label: "Gemini CLI",
-    global: "~/.gemini/skills",
-    project: ".gemini/skills",
-    enabled: true,
-  },
-  {
-    name: "antigravity",
-    label: "Google Antigravity",
-    global: "~/.antigravity/skills",
-    project: ".antigravity/skills",
     enabled: true,
   },
 ];

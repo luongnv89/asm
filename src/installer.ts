@@ -735,11 +735,11 @@ export async function resolveProvider(
     );
   }
 
-  // Interactive picker — show ALL providers, default to deselected
+  // Interactive picker — show ALL providers, "agents" checked by default
   const pickerItems = config.providers.map((p) => ({
     label: `${p.label} (${p.name})`,
     hint: p.global,
-    checked: false,
+    checked: p.name === "agents",
   }));
 
   const selectedIndices = await checkboxPicker({ items: pickerItems });

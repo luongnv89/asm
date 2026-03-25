@@ -26,26 +26,28 @@ describe("getDefaultConfig", () => {
     expect(config.providers).toHaveLength(17);
   });
 
-  it("includes all 17 default providers", () => {
+  it("includes all 17 default providers in priority order", () => {
     const config = getDefaultConfig();
     const names = config.providers.map((p) => p.name);
-    expect(names).toContain("claude");
-    expect(names).toContain("codex");
-    expect(names).toContain("openclaw");
-    expect(names).toContain("agents");
-    expect(names).toContain("cursor");
-    expect(names).toContain("windsurf");
-    expect(names).toContain("cline");
-    expect(names).toContain("roocode");
-    expect(names).toContain("continue");
-    expect(names).toContain("copilot");
-    expect(names).toContain("aider");
-    expect(names).toContain("opencode");
-    expect(names).toContain("zed");
-    expect(names).toContain("augment");
-    expect(names).toContain("amp");
-    expect(names).toContain("gemini");
-    expect(names).toContain("antigravity");
+    expect(names).toEqual([
+      "claude",
+      "agents",
+      "codex",
+      "opencode",
+      "openclaw",
+      "cursor",
+      "copilot",
+      "windsurf",
+      "antigravity",
+      "gemini",
+      "cline",
+      "roocode",
+      "continue",
+      "aider",
+      "zed",
+      "augment",
+      "amp",
+    ]);
   });
 
   it("all 17 providers are enabled by default", () => {

@@ -864,6 +864,32 @@ describe("resolveProvider", () => {
     expect((capturedItems[2] as { checked: boolean }).checked).toBe(false);
   });
 
+  test("interactive picker: agents provider is checked by default", async () => {
+    const agents: ProviderConfig = {
+      name: "agents",
+      label: "Agents",
+      global: "~/.agents/skills",
+      project: ".agents/skills",
+      enabled: true,
+    };
+    let capturedItems: unknown[] = [];
+    const pickerFn = mock((opts: { items: unknown[] }) => {
+      capturedItems = opts.items;
+      return Promise.resolve([1]); // select agents
+    });
+    mock.module("./utils/checkbox-picker", () => ({
+      checkboxPicker: pickerFn,
+    }));
+
+    const config = makeConfig([claude, agents, codex]);
+    await resolveProvider(config, null, true);
+
+    expect(capturedItems).toHaveLength(3);
+    expect((capturedItems[0] as { checked: boolean }).checked).toBe(false);
+    expect((capturedItems[1] as { checked: boolean }).checked).toBe(true);
+    expect((capturedItems[2] as { checked: boolean }).checked).toBe(false);
+  });
+
   test("interactive picker: all providers disabled shows picker with nothing pre-checked", async () => {
     const allDisabled: ProviderConfig[] = [
       { ...claude, enabled: false },
