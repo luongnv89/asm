@@ -21,12 +21,12 @@ describe("getDefaultConfig", () => {
     expect(config.version).toBe(1);
   });
 
-  it("returns 15 default providers", () => {
+  it("returns 17 default providers", () => {
     const config = getDefaultConfig();
-    expect(config.providers).toHaveLength(15);
+    expect(config.providers).toHaveLength(17);
   });
 
-  it("includes all 15 default providers", () => {
+  it("includes all 17 default providers", () => {
     const config = getDefaultConfig();
     const names = config.providers.map((p) => p.name);
     expect(names).toContain("claude");
@@ -44,11 +44,13 @@ describe("getDefaultConfig", () => {
     expect(names).toContain("zed");
     expect(names).toContain("augment");
     expect(names).toContain("amp");
+    expect(names).toContain("gemini");
+    expect(names).toContain("antigravity");
   });
 
-  it("all 15 providers are enabled by default", () => {
+  it("all 17 providers are enabled by default", () => {
     const config = getDefaultConfig();
-    expect(config.providers).toHaveLength(15);
+    expect(config.providers).toHaveLength(17);
     expect(config.providers.every((p) => p.enabled)).toBe(true);
   });
 
@@ -150,7 +152,7 @@ describe("config backup on corruption", () => {
 
     // Should return defaults
     expect(config.version).toBe(1);
-    expect(config.providers).toHaveLength(15);
+    expect(config.providers).toHaveLength(17);
 
     // Should have created backup
     const backup = await readFile(backupPath, "utf-8");

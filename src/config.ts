@@ -124,6 +124,20 @@ const DEFAULT_PROVIDERS: ProviderConfig[] = [
     project: ".amp/skills",
     enabled: true,
   },
+  {
+    name: "gemini",
+    label: "Gemini CLI",
+    global: "~/.gemini/skills",
+    project: ".gemini/skills",
+    enabled: true,
+  },
+  {
+    name: "antigravity",
+    label: "Google Antigravity",
+    global: "~/.antigravity/skills",
+    project: ".antigravity/skills",
+    enabled: true,
+  },
 ];
 
 export function getDefaultConfig(): AppConfig {
