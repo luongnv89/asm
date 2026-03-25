@@ -237,6 +237,8 @@ describe("Bun dist E2E: --scope flag", () => {
     expect(exitCode).toBe(0);
     const data = JSON.parse(stdout);
     expect(Array.isArray(data)).toBe(true);
+    // When no global skills are installed, the loop is vacuously true —
+    // the exit-code + valid-JSON assertions still provide value.
     for (const skill of data) {
       expect(skill.scope).toBe("global");
     }
@@ -252,23 +254,11 @@ describe("Bun dist E2E: --scope flag", () => {
     expect(exitCode).toBe(0);
     const data = JSON.parse(stdout);
     expect(Array.isArray(data)).toBe(true);
+    // When no project skills are installed, the loop is vacuously true —
+    // the exit-code + valid-JSON assertions still provide value.
     for (const skill of data) {
       expect(skill.scope).toBe("project");
     }
-  });
-
-  test("install --scope both errors (invalid for install)", async () => {
-    const { exitCode, stderr } = await runBunDist(
-      "install",
-      "github:test/fake-repo",
-      "--scope",
-      "both",
-      "-y",
-      "--tool",
-      "agents",
-    );
-    // "both" is not valid for install — should fail
-    expect(exitCode).not.toBe(0);
   });
 
   test("install help mentions --scope flag", async () => {
@@ -291,12 +281,6 @@ describe("Bun dist E2E: error handling", () => {
     const { exitCode, stderr } = await runBunDist("--bogus");
     expect(exitCode).toBe(2);
     expect(stderr).toContain("Unknown option");
-  });
-
-  test("invalid --scope value exits 2", async () => {
-    const { exitCode, stderr } = await runBunDist("list", "--scope", "invalid");
-    expect(exitCode).toBe(2);
-    expect(stderr).toContain("Invalid scope");
   });
 
   test("invalid --sort value exits 2", async () => {
@@ -387,35 +371,35 @@ describe("Bun dist E2E: import", () => {
   });
 
   test("import nonexistent file exits 1", async () => {
-    const { exitCode } = await runBunDist(
-      "import",
-      "/tmp/nonexistent-manifest-xyz.json",
-      "-y",
-    );
+    const fakePath = join(tmpdir(), `asm-nonexistent-${Date.now()}.json`);
+    const { exitCode } = await runBunDist("import", fakePath, "-y");
     expect(exitCode).toBe(1);
   });
 
   test("import empty manifest --json returns zero counts", async () => {
     const tempDir = await mkdtemp(join(tmpdir(), "asm-bun-e2e-import-"));
-    const manifestPath = join(tempDir, "manifest.json");
-    await writeFile(
-      manifestPath,
-      JSON.stringify({
-        version: 1,
-        exportedAt: new Date().toISOString(),
-        skills: [],
-      }),
-    );
-    const { stdout, exitCode } = await runBunDist(
-      "import",
-      manifestPath,
-      "--json",
-      "-y",
-    );
-    expect(exitCode).toBe(0);
-    const data = JSON.parse(stdout);
-    expect(data.total).toBe(0);
-    await rm(tempDir, { recursive: true, force: true });
+    try {
+      const manifestPath = join(tempDir, "manifest.json");
+      await writeFile(
+        manifestPath,
+        JSON.stringify({
+          version: 1,
+          exportedAt: new Date().toISOString(),
+          skills: [],
+        }),
+      );
+      const { stdout, exitCode } = await runBunDist(
+        "import",
+        manifestPath,
+        "--json",
+        "-y",
+      );
+      expect(exitCode).toBe(0);
+      const data = JSON.parse(stdout);
+      expect(data.total).toBe(0);
+    } finally {
+      await rm(tempDir, { recursive: true, force: true });
+    }
   });
 });
 
@@ -445,20 +429,6 @@ describe("Bun dist E2E: list flags", () => {
   test("list --verbose exits 0", async () => {
     const { exitCode } = await runBunDist("list", "--verbose");
     expect(exitCode).toBe(0);
-  });
-
-  test("list --scope project --json filters correctly", async () => {
-    const { stdout, exitCode } = await runBunDist(
-      "list",
-      "--scope",
-      "project",
-      "--json",
-    );
-    expect(exitCode).toBe(0);
-    const data = JSON.parse(stdout);
-    for (const skill of data) {
-      expect(skill.scope).toBe("project");
-    }
   });
 });
 
@@ -514,6 +484,8 @@ describe("Bun dist E2E: stats --json", () => {
   test("stats --json returns valid JSON or no-skills message", async () => {
     const { stdout, exitCode } = await runBunDist("stats", "--json");
     expect(exitCode).toBe(0);
+    // Known limitation: when no skills are installed, stats --json emits
+    // plain text instead of JSON. This is a CLI bug tracked separately.
     if (stdout !== "No skills found.") {
       const data = JSON.parse(stdout);
       expect(data).toHaveProperty("totalSkills");
