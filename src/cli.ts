@@ -1900,7 +1900,9 @@ async function cmdImport(args: ParsedArgs) {
         ? ansi.green("+++")
         : result.status === "skipped"
           ? ansi.yellow("---")
-          : ansi.red("!!!");
+          : result.status === "dry-run"
+            ? ansi.cyan("~~~")
+            : ansi.red("!!!");
     const detail = result.reason ? ` ${ansi.dim(result.reason)}` : "";
     const pathInfo = result.path ? ` ${ansi.dim(result.path)}` : "";
     console.error(

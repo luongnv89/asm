@@ -69,7 +69,7 @@ export interface ImportResult {
   skillName: string;
   provider: string;
   scope: "global" | "project";
-  status: "installed" | "skipped" | "failed";
+  status: "installed" | "skipped" | "failed" | "dry-run";
   reason?: string;
   path?: string;
 }

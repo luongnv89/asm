@@ -1,5 +1,5 @@
-import { readFile, access, mkdir, cp } from "fs/promises";
-import { join } from "path";
+import { readFile, access, mkdir, cp, rm } from "fs/promises";
+import { join, basename } from "path";
 import { resolveProviderPath, loadConfig } from "./config";
 import { scanAllSkills } from "./scanner";
 import { debug } from "./logger";
@@ -131,7 +131,13 @@ function resolveTargetDir(
 
   const pathTemplate = scope === "global" ? provider.global : provider.project;
   const baseDir = resolveProviderPath(pathTemplate);
-  return join(baseDir, dirName);
+
+  // Sanitize dirName to prevent path traversal (e.g., "../../.bashrc")
+  const safeDirName = basename(dirName);
+  if (!safeDirName || safeDirName === "." || safeDirName === "..") {
+    return null;
+  }
+  return join(baseDir, safeDirName);
 }
 
 /**
@@ -171,9 +177,15 @@ export async function importSkills(
     dryRun: boolean;
     scopeFilter: "global" | "project" | "both";
   },
+  /** @internal – dependency overrides for testing */
+  _deps?: {
+    config: AppConfig;
+    installedSkills: SkillInfo[];
+  },
 ): Promise<ImportSummary> {
-  const config = await loadConfig();
-  const installedSkills = await scanAllSkills(config, "both");
+  const config = _deps?.config ?? (await loadConfig());
+  const installedSkills =
+    _deps?.installedSkills ?? (await scanAllSkills(config, "both"));
   const results: ImportResult[] = [];
 
   for (const skill of manifest.skills) {
@@ -223,7 +235,7 @@ export async function importSkills(
         skillName: skill.name,
         provider: skill.provider,
         scope: skill.scope,
-        status: exists ? "installed" : "installed",
+        status: "dry-run",
         reason: exists ? "Would overwrite (--force)." : "Would install.",
         path: targetDir,
       });
@@ -249,7 +261,6 @@ export async function importSkills(
       await mkdir(join(targetDir, ".."), { recursive: true });
       if (exists) {
         // Force mode: remove existing and re-copy
-        const { rm } = await import("fs/promises");
         await rm(targetDir, { recursive: true, force: true });
       }
       await cp(source.realPath, targetDir, { recursive: true });
