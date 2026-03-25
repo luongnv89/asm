@@ -145,4 +145,22 @@ describe("validateManifest", () => {
     const result = validateManifest(manifest);
     expect(result.valid).toBe(true);
   });
+
+  it("rejects skill with missing dirName", () => {
+    const manifest = makeManifest({
+      skills: [makeExportedSkill({ dirName: "" })],
+    });
+    const result = validateManifest(manifest);
+    expect(result.valid).toBe(false);
+    expect(result.errors.some((e) => e.includes("dirName"))).toBe(true);
+  });
+
+  it("rejects skill with undefined dirName", () => {
+    const data = makeManifest({
+      skills: [{ ...makeExportedSkill(), dirName: undefined } as any],
+    });
+    const result = validateManifest(data);
+    expect(result.valid).toBe(false);
+    expect(result.errors.some((e) => e.includes("dirName"))).toBe(true);
+  });
 });

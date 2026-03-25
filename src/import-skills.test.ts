@@ -1,5 +1,13 @@
 import { describe, expect, it, beforeEach, afterEach } from "bun:test";
-import { mkdtemp, writeFile, mkdir, rm, readdir } from "fs/promises";
+import {
+  mkdtemp,
+  writeFile,
+  mkdir,
+  rm,
+  readdir,
+  readlink,
+  lstat,
+} from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 import { importSkills } from "./importer";
@@ -351,5 +359,97 @@ describe("importSkills", () => {
     expect(summary.skipped).toBe(1);
     expect(summary.installed).toBe(1);
     expect(summary.failed).toBe(1);
+  });
+
+  it("recreates symlink when importing a symlinked skill", async () => {
+    // Create the real skill directory that the symlink will point to
+    const realSkillDir = join(sourceSkillsDir, "real-skill");
+    await mkdir(realSkillDir, { recursive: true });
+    await writeFile(join(realSkillDir, "skill.md"), "# Symlinked Skill");
+
+    const deps = makeDeps({
+      installedSkills: [
+        makeSkillInfo({
+          name: "linked-skill",
+          dirName: "linked-skill",
+          realPath: realSkillDir,
+          isSymlink: true,
+          symlinkTarget: realSkillDir,
+        }),
+      ],
+    });
+
+    const manifest = makeManifest({
+      skills: [
+        makeExportedSkill({
+          name: "linked-skill",
+          dirName: "linked-skill",
+          isSymlink: true,
+          symlinkTarget: realSkillDir,
+        }),
+      ],
+    });
+
+    const summary = await importSkills(
+      manifest,
+      { force: false, dryRun: false, scopeFilter: "both" },
+      deps,
+    );
+
+    expect(summary.installed).toBe(1);
+    expect(summary.results[0].status).toBe("installed");
+
+    // Verify it was created as a symlink pointing to the correct target
+    const targetPath = join(globalSkillsDir, "linked-skill");
+    const stat = await lstat(targetPath);
+    expect(stat.isSymbolicLink()).toBe(true);
+    const linkTarget = await readlink(targetPath);
+    expect(linkTarget).toBe(realSkillDir);
+  });
+
+  it("falls back to copy when symlink target is unreachable", async () => {
+    const srcDir = join(sourceSkillsDir, "linked-skill");
+    await mkdir(srcDir, { recursive: true });
+    await writeFile(join(srcDir, "skill.md"), "# Fallback");
+
+    const deps = makeDeps({
+      installedSkills: [
+        makeSkillInfo({
+          name: "linked-skill",
+          dirName: "linked-skill",
+          realPath: srcDir,
+          isSymlink: true,
+          symlinkTarget: "/nonexistent/path/that/does/not/exist",
+        }),
+      ],
+    });
+
+    const manifest = makeManifest({
+      skills: [
+        makeExportedSkill({
+          name: "linked-skill",
+          dirName: "linked-skill",
+          isSymlink: true,
+          symlinkTarget: "/nonexistent/path/that/does/not/exist",
+        }),
+      ],
+    });
+
+    const summary = await importSkills(
+      manifest,
+      { force: false, dryRun: false, scopeFilter: "both" },
+      deps,
+    );
+
+    expect(summary.installed).toBe(1);
+    expect(summary.results[0].status).toBe("installed");
+
+    // Verify it was created as a regular directory (not a symlink)
+    const targetPath = join(globalSkillsDir, "linked-skill");
+    const stat = await lstat(targetPath);
+    expect(stat.isSymbolicLink()).toBe(false);
+    expect(stat.isDirectory()).toBe(true);
+    const files = await readdir(targetPath);
+    expect(files).toContain("skill.md");
   });
 });

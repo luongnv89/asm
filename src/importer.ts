@@ -1,4 +1,4 @@
-import { readFile, access, mkdir, cp, rm } from "fs/promises";
+import { readFile, access, mkdir, cp, rm, symlink } from "fs/promises";
 import { join, basename } from "path";
 import { resolveProviderPath, loadConfig } from "./config";
 import { scanAllSkills } from "./scanner";
@@ -52,6 +52,9 @@ export function validateManifest(data: unknown): ManifestValidation {
     const s = skill as Record<string, unknown>;
     if (typeof s.name !== "string" || !s.name) {
       errors.push(`skills[${i}]: missing or empty 'name'.`);
+    }
+    if (typeof s.dirName !== "string" || !s.dirName) {
+      errors.push(`skills[${i}]: missing or empty 'dirName'.`);
     }
     if (typeof s.provider !== "string" || !s.provider) {
       errors.push(`skills[${i}]: missing or empty 'provider'.`);
@@ -256,17 +259,35 @@ export async function importSkills(
       continue;
     }
 
-    // Copy skill to target
+    // Copy skill to target (or recreate symlink)
     try {
       await mkdir(join(targetDir, ".."), { recursive: true });
       if (exists) {
         // Force mode: remove existing and re-copy
         await rm(targetDir, { recursive: true, force: true });
       }
-      await cp(source.realPath, targetDir, { recursive: true });
-      debug(
-        `import: copied "${skill.name}" from ${source.realPath} to ${targetDir}`,
-      );
+
+      if (skill.isSymlink && skill.symlinkTarget) {
+        // Recreate the symlink; fall back to copy if the target doesn't exist
+        try {
+          await access(skill.symlinkTarget);
+          await symlink(skill.symlinkTarget, targetDir);
+          debug(
+            `import: symlinked "${skill.name}" -> ${skill.symlinkTarget} at ${targetDir}`,
+          );
+        } catch {
+          // Symlink target unreachable on this machine – fall back to copy
+          await cp(source.realPath, targetDir, { recursive: true });
+          debug(
+            `import: symlink target unreachable, copied "${skill.name}" from ${source.realPath} to ${targetDir}`,
+          );
+        }
+      } else {
+        await cp(source.realPath, targetDir, { recursive: true });
+        debug(
+          `import: copied "${skill.name}" from ${source.realPath} to ${targetDir}`,
+        );
+      }
 
       results.push({
         skillName: skill.name,
