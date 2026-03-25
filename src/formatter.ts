@@ -365,6 +365,54 @@ export function formatSearchResults(
   return lines.join("\n");
 }
 
+// ─── Available (index) search result formatter ──────────────────────────────
+
+export interface AvailableSkillResult {
+  name: string;
+  version: string;
+  description: string;
+  verified?: boolean;
+  repoLabel: string;
+  installUrl: string;
+}
+
+export function formatAvailableSearchResults(
+  results: AvailableSkillResult[],
+  query: string,
+): string {
+  if (results.length === 0) {
+    return "";
+  }
+
+  const lines: string[] = [];
+
+  // Summary header with total count
+  lines.push(
+    ansi.dim(
+      `Found ${results.length} available skill${results.length === 1 ? "" : "s"} matching "${query}"`,
+    ) + "\n",
+  );
+
+  for (const result of results) {
+    // Install command hint
+    lines.push(
+      `  ${ansi.dim("To install:")} ${ansi.green(`asm install ${result.installUrl}`)}`,
+    );
+    // Skill name + version + verified badge + repo
+    const verifiedTag = result.verified ? ansi.blue(" [verified]") : "";
+    lines.push(
+      `  ${ansi.cyan(result.name)} ${ansi.dim(`v${result.version}`)}${verifiedTag} ${ansi.dim(`[${result.repoLabel}]`)}`,
+    );
+    // Description
+    for (const dl of wordWrap(result.description, 76)) {
+      lines.push(`    ${dl}`);
+    }
+    lines.push("");
+  }
+
+  return lines.join("\n");
+}
+
 // ─── Allowed-tools risk coloring ────────────────────────────────────────────
 
 export const HIGH_RISK_TOOLS = new Set([

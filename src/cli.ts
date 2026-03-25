@@ -17,6 +17,7 @@ import {
   formatSkillDetail,
   formatSkillInspect,
   formatSearchResults,
+  formatAvailableSearchResults,
   formatJSON,
   ansi,
   colorEffort,
@@ -553,19 +554,18 @@ async function cmdSearch(args: ParsedArgs) {
 
   if (hasAvailable) {
     if (hasInstalled) console.error(""); // separator
-    console.error(ansi.bold(`Available skills matching "${query}":\n`));
-    for (const result of indexResults) {
-      const verifiedTag = result.skill.verified ? ansi.blue(" [verified]") : "";
-      console.error(
-        `${ansi.cyan(result.skill.name)} ${ansi.dim(`v${result.skill.version}`)}${verifiedTag} ${ansi.dim(`[${result.repo.owner}/${result.repo.repo}]`)}`,
-      );
-      for (const dl of wordWrap(result.skill.description, 80)) {
-        console.error(`  ${dl}`);
-      }
-      console.error(
-        `  ${ansi.green(`asm install ${result.skill.installUrl}`)}\n`,
-      );
-    }
+    const availableFormatted = formatAvailableSearchResults(
+      indexResults.map((r) => ({
+        name: r.skill.name,
+        version: r.skill.version,
+        description: r.skill.description,
+        verified: r.skill.verified,
+        repoLabel: `${r.repo.owner}/${r.repo.repo}`,
+        installUrl: r.skill.installUrl,
+      })),
+      query,
+    );
+    console.error(availableFormatted);
   }
 }
 

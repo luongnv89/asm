@@ -5,6 +5,7 @@ import {
   formatSkillInspect,
   formatGroupedTable,
   formatSearchResults,
+  formatAvailableSearchResults,
   shortenPath,
   colorProvider,
   colorEffort,
@@ -15,6 +16,7 @@ import {
   HIGH_RISK_TOOLS,
   MEDIUM_RISK_TOOLS,
 } from "./formatter";
+import type { AvailableSkillResult } from "./formatter";
 import type { SkillInfo } from "./utils/types";
 
 function makeSkill(overrides: Partial<SkillInfo> = {}): SkillInfo {
@@ -931,5 +933,137 @@ describe("formatSkillDetail with allowedTools", () => {
     const skill = makeSkill({ compatibility: "" });
     const output = await formatSkillDetail(skill);
     expect(output).not.toContain("Compatibility:");
+  });
+});
+
+// ─── formatAvailableSearchResults ──────────────────────────────────────────
+
+function makeAvailableResult(
+  overrides: Partial<AvailableSkillResult> = {},
+): AvailableSkillResult {
+  return {
+    name: "scientific-critical-thinking",
+    version: "1.0.0",
+    description: "A skill for scientific critical thinking",
+    verified: false,
+    repoLabel: "K-Dense-AI/claude-scientific-skills",
+    installUrl:
+      "github:K-Dense-AI/claude-scientific-skills:scientific-critical-thinking",
+    ...overrides,
+  };
+}
+
+describe("formatAvailableSearchResults", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+
+  test("returns empty string for empty array", () => {
+    expect(formatAvailableSearchResults([], "test")).toBe("");
+  });
+
+  test("shows total count header with singular form", () => {
+    const output = formatAvailableSearchResults(
+      [makeAvailableResult()],
+      "scientific",
+    );
+    expect(output).toContain('Found 1 available skill matching "scientific"');
+  });
+
+  test("shows total count header with plural form", () => {
+    const output = formatAvailableSearchResults(
+      [
+        makeAvailableResult({ name: "skill-a" }),
+        makeAvailableResult({ name: "skill-b" }),
+        makeAvailableResult({ name: "skill-c" }),
+      ],
+      "test",
+    );
+    expect(output).toContain('Found 3 available skills matching "test"');
+  });
+
+  test("shows install command hint before each skill", () => {
+    const output = formatAvailableSearchResults(
+      [makeAvailableResult()],
+      "scientific",
+    );
+    expect(output).toContain("To install:");
+    expect(output).toContain(
+      "asm install github:K-Dense-AI/claude-scientific-skills:scientific-critical-thinking",
+    );
+  });
+
+  test("install hint appears before skill name line", () => {
+    const output = formatAvailableSearchResults(
+      [makeAvailableResult()],
+      "scientific",
+    );
+    const lines = output.split("\n");
+    const installIdx = lines.findIndex((l) => l.includes("To install:"));
+    const nameIdx = lines.findIndex(
+      (l) =>
+        l.includes("scientific-critical-thinking") &&
+        !l.includes("To install:"),
+    );
+    expect(installIdx).toBeGreaterThan(-1);
+    expect(nameIdx).toBeGreaterThan(-1);
+    expect(installIdx).toBeLessThan(nameIdx);
+  });
+
+  test("shows skill name, version, and repo label", () => {
+    const output = formatAvailableSearchResults(
+      [makeAvailableResult()],
+      "scientific",
+    );
+    expect(output).toContain("scientific-critical-thinking");
+    expect(output).toContain("v1.0.0");
+    expect(output).toContain("[K-Dense-AI/claude-scientific-skills]");
+  });
+
+  test("shows verified tag when verified", () => {
+    const output = formatAvailableSearchResults(
+      [makeAvailableResult({ verified: true })],
+      "scientific",
+    );
+    expect(output).toContain("[verified]");
+  });
+
+  test("does not show verified tag when not verified", () => {
+    const output = formatAvailableSearchResults(
+      [makeAvailableResult({ verified: false })],
+      "scientific",
+    );
+    expect(output).not.toContain("[verified]");
+  });
+
+  test("shows description text", () => {
+    const output = formatAvailableSearchResults(
+      [makeAvailableResult({ description: "My custom description" })],
+      "scientific",
+    );
+    expect(output).toContain("My custom description");
+  });
+
+  test("shows install hint for each skill in multi-result", () => {
+    const results = [
+      makeAvailableResult({
+        name: "skill-alpha",
+        installUrl: "github:owner/repo:skill-alpha",
+      }),
+      makeAvailableResult({
+        name: "skill-beta",
+        installUrl: "github:owner/repo:skill-beta",
+      }),
+    ];
+    const output = formatAvailableSearchResults(results, "skill");
+    const installLines = output
+      .split("\n")
+      .filter((l) => l.includes("To install:"));
+    expect(installLines.length).toBe(2);
+    expect(output).toContain("asm install github:owner/repo:skill-alpha");
+    expect(output).toContain("asm install github:owner/repo:skill-beta");
   });
 });
