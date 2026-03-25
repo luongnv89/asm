@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.16.0 — 2026-03-25
+
+### Features
+
+- Add `asm import` command for restoring skills from exported JSON manifests with validation, `--force`, and `--scope` flags ([#98](https://github.com/luongnv89/agent-skill-manager/pull/98), closes [#59](https://github.com/luongnv89/agent-skill-manager/issues/59)) — @luongnv89
+- Add match count and install hints to `asm search` available skills output ([#97](https://github.com/luongnv89/agent-skill-manager/pull/97), closes [#93](https://github.com/luongnv89/agent-skill-manager/issues/93)) — @luongnv89
+
+### Bug Fixes
+
+- Handle `--json` flag on empty manifest import ([#98](https://github.com/luongnv89/agent-skill-manager/pull/98)) — @luongnv89
+
+### Other Changes
+
+- Reorder provider list by priority and default-check agents ([#96](https://github.com/luongnv89/agent-skill-manager/pull/96), closes [#95](https://github.com/luongnv89/agent-skill-manager/issues/95)) — @luongnv89
+
+**Full Changelog**: https://github.com/luongnv89/agent-skill-manager/compare/v1.15.1...v1.16.0
+
 ## v1.15.1 — 2026-03-25
 
 ### Features

@@ -360,7 +360,7 @@ Need a tool not listed? Add a custom provider entry to the config.
 Yes. `asm` is MIT licensed and free forever. No accounts, no telemetry, no paywalls.
 
 **Is it actively maintained?**
-v1.12.0 shipped on March 23, 2026. The project has had 12 releases in the past week. Check the [changelog](docs/CHANGELOG.md) for the full history.
+v1.16.0 shipped on March 25, 2026. The project has had 25 releases. Check the [changelog](docs/CHANGELOG.md) for the full history.
 
 **Which AI agents does it support?**
 17 providers built-in: Claude Code, Codex, OpenClaw, Cursor, Windsurf, Cline, Roo Code, Continue, GitHub Copilot, Aider, OpenCode, Zed, Augment, Amp, Gemini CLI, Google Antigravity, and a generic Agents provider. All 17 are enabled by default; disable any you don't need via `asm config edit`. You can also add any custom agent that stores skills as directories with a `SKILL.md` file.
