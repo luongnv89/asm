@@ -2471,36 +2471,26 @@ function renderChangelogEntry(version, date, sections) {
 }
 
 // ─── Acknowledgements Page Content ──────────────────────────────────────────
-// NOTE: The single source of truth for acknowledgements data is website/data/acknowledgements.json.
-// When updating contributors or dependencies, edit that JSON file first, then sync this section and README.md.
-function renderAcknowledgementsPage() {
-  var contributors = [
-    {
-      login: 'luongnv89',
-      avatar: 'https://avatars.githubusercontent.com/u/3288457?v=4&s=96',
-      prs: [1,2,3,4,5,20,26,27,28,29,31,32,37,44,45,46,47,48,63,64,65,66,67,73,74,78,79,81,82,87,88,89,90,94,96,97,98,99]
-    },
-    {
-      login: 'Mordris',
-      avatar: 'https://avatars.githubusercontent.com/u/118046112?v=4&s=96',
-      prs: [111]
-    }
-  ];
+// The single source of truth for acknowledgements data is website/data/acknowledgements.json.
+// This function fetches data from that JSON file at runtime — no hardcoded copies here.
+async function renderAcknowledgementsPage() {
+  var target = document.getElementById('page-acknowledgements');
+  // Set loading state immediately so the !innerHTML guard in navigateTo() prevents duplicate fetches.
+  target.innerHTML = '<h1>Acknowledgements</h1><p>Loading&hellip;</p>';
 
-  var deps = [
-    {
-      name: '@opentui/core',
-      version: '0.1.87',
-      url: 'https://github.com/anomalyco/opentui',
-      desc: 'TypeScript library on a native Zig core for building terminal user interfaces — powers the asm TUI'
-    },
-    {
-      name: 'yaml',
-      version: '^2.8.2',
-      url: 'https://github.com/eemeli/yaml',
-      desc: 'JavaScript parser and stringifier for YAML — used to parse SKILL.md frontmatter'
-    }
-  ];
+  try {
+    var res = await fetch('data/acknowledgements.json');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var data = await res.json();
+  } catch (err) {
+    target.innerHTML = '<h1>Acknowledgements</h1>'
+      + '<div class="empty-state"><div class="empty-icon">&#x26a0;</div>'
+      + '<p>Could not load acknowledgements data: ' + esc(err.message) + '</p></div>';
+    return;
+  }
+
+  var contributors = data.contributors || [];
+  var deps = data.dependencies || [];
 
   var html = '<h1>Acknowledgements</h1>'
     + '<p>ASM is built with the help of amazing contributors and open-source libraries. This page gives credit where credit is due.</p>';
@@ -2521,7 +2511,7 @@ function renderAcknowledgementsPage() {
       + '<img class="contributor-avatar" src="' + esc(c.avatar) + '" alt="' + esc(c.login) + '" loading="lazy" />'
       + '<div class="contributor-info">'
       + '<a class="contributor-handle" href="https://github.com/' + esc(c.login) + '" target="_blank" rel="noopener">@' + esc(c.login) + '</a>'
-      + '<div class="contributor-stats">' + c.prs.length + ' merged PR' + (c.prs.length !== 1 ? 's' : '') + '</div>'
+      + '<div class="contributor-stats">' + esc(String(c.prs.length)) + ' merged PR' + (c.prs.length !== 1 ? 's' : '') + '</div>'
       + '<div class="contributor-prs">' + prLinks + '</div>'
       + '</div>'
       + '</div>';
@@ -2545,7 +2535,7 @@ function renderAcknowledgementsPage() {
 
   html += '</div>';
 
-  document.getElementById('page-acknowledgements').innerHTML = html;
+  target.innerHTML = html;
 }
 
 // ─── Boot ──────────────────────────────────────────────────────────────────
