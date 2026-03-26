@@ -1,0 +1,33 @@
+{
+  "_comment": "Single source of truth for acknowledgements data. Update this file, then sync README.md and website/index.html.",
+  "contributors": [
+    {
+      "login": "luongnv89",
+      "avatar": "https://avatars.githubusercontent.com/u/3288457?v=4&s=96",
+      "prs": [
+        1, 2, 3, 4, 5, 20, 26, 27, 28, 29, 31, 32, 37, 44, 45, 46, 47, 48, 63,
+        64, 65, 66, 67, 73, 74, 78, 79, 81, 82, 87, 88, 89, 90, 94, 96, 97, 98,
+        99
+      ]
+    },
+    {
+      "login": "Mordris",
+      "avatar": "https://avatars.githubusercontent.com/u/118046112?v=4&s=96",
+      "prs": [111]
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "@opentui/core",
+      "version": "0.1.87",
+      "url": "https://github.com/anomalyco/opentui",
+      "desc": "TypeScript library on a native Zig core for building terminal user interfaces — powers the asm TUI"
+    },
+    {
+      "name": "yaml",
+      "version": "^2.8.2",
+      "url": "https://github.com/eemeli/yaml",
+      "desc": "JavaScript parser and stringifier for YAML — used to parse SKILL.md frontmatter"
+    }
+  ]
+}

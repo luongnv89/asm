@@ -974,7 +974,8 @@ agent-skill-manager/
 
 ---
 
-<!-- NOTE: Contributor and dependency data is also maintained in website/index.html (renderAcknowledgementsPage). Keep both in sync when updating. -->
+<!-- NOTE: The single source of truth for acknowledgements data is website/data/acknowledgements.json.
+     When updating contributors or dependencies, edit that JSON file first, then sync this section and website/index.html. -->
 
 ## Acknowledgements
 
@@ -982,7 +983,7 @@ agent-skill-manager/
 
 | Contributor                                | PRs                                                                                                              |
 | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
-| [@luongnv89](https://github.com/luongnv89) | [39 merged PRs](https://github.com/luongnv89/agent-skill-manager/pulls?q=is%3Apr+is%3Amerged+author%3Aluongnv89) |
+| [@luongnv89](https://github.com/luongnv89) | [38 merged PRs](https://github.com/luongnv89/agent-skill-manager/pulls?q=is%3Apr+is%3Amerged+author%3Aluongnv89) |
 | [@Mordris](https://github.com/Mordris)     | [#111](https://github.com/luongnv89/agent-skill-manager/pull/111)                                                |
 
 ### Dependencies

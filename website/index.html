@@ -2471,8 +2471,8 @@ function renderChangelogEntry(version, date, sections) {
 }
 
 // ─── Acknowledgements Page Content ──────────────────────────────────────────
-// NOTE: Contributor and dependency data is also maintained in README.md (Acknowledgements section).
-// Keep both in sync when updating.
+// NOTE: The single source of truth for acknowledgements data is website/data/acknowledgements.json.
+// When updating contributors or dependencies, edit that JSON file first, then sync this section and README.md.
 function renderAcknowledgementsPage() {
   var contributors = [
     {
