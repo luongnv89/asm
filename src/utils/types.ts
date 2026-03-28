@@ -291,6 +291,30 @@ export interface SecurityAuditReport {
   verdictReason: string;
 }
 
+// ─── Bundle Types ─────────────────────────────────────────────────────────
+
+export interface BundleSkillRef {
+  name: string;
+  installUrl: string;
+  description?: string;
+  version?: string;
+}
+
+export interface BundleManifest {
+  version: 1;
+  name: string;
+  description: string;
+  author: string;
+  createdAt: string;
+  skills: BundleSkillRef[];
+  tags?: string[];
+}
+
+export interface BundleValidation {
+  valid: boolean;
+  errors: string[];
+}
+
 // ─── UI Types ───────────────────────────────────────────────────────────────
 
 export type Scope = "global" | "project" | "both";

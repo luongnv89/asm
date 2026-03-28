@@ -63,6 +63,15 @@ import {
   discoverLinkableSkills,
 } from "./linker";
 import {
+  buildBundle,
+  skillInfoToRef,
+  saveBundle,
+  loadBundle,
+  listBundles,
+  removeBundle,
+} from "./bundler";
+import type { BundleSkillRef } from "./utils/types";
+import {
   detectDuplicates,
   sortInstancesForKeep,
   formatAuditReport,
@@ -84,6 +93,7 @@ import type { SearchFilters } from "./skill-index";
 import { VERSION_STRING } from "./utils/version";
 import { parseEditorCommand } from "./utils/editor";
 import { setVerbose } from "./logger";
+import { join as joinPath } from "path";
 import type { Scope, SortBy, TransportMode } from "./utils/types";
 
 // ─── Arg Parser ─────────────────────────────────────────────────────────────
@@ -280,6 +290,7 @@ ${ansi.bold("Commands:")}
   init <name>            Scaffold a new skill with SKILL.md template
   stats                  Show aggregate skill metrics dashboard
   link <path>            Symlink a local skill directory into an agent
+  bundle                 Manage skill bundles (create, install, list, show, remove)
   index                  Manage skill index (ingest, search, list)
   config show            Print current config
   config path            Print config file path
@@ -2590,6 +2601,465 @@ async function cmdIndex(args: ParsedArgs) {
   }
 }
 
+// ─── Bundle ────────────────────────────────────────────────────────────────
+
+function printBundleHelp() {
+  console.log(`${ansi.bold("Usage:")} asm bundle <subcommand> [options]
+
+Create, install, and manage curated skill bundles. A bundle is a reusable
+recipe of skills for a particular workflow, domain, or project setup.
+
+${ansi.bold("Subcommands:")}
+  create <name>          Create a new bundle from installed skills
+  install <name|file>    Install all skills from a bundle
+  list                   List all saved bundles
+  show <name|file>       Show bundle details
+  remove <name>          Remove a saved bundle
+
+${ansi.bold("Options:")}
+  -s, --scope <s>      Filter: global, project, or both (default: both)
+  -y, --yes            Skip confirmation prompts
+  --json               Output as JSON
+  --no-color           Disable ANSI colors
+  -V, --verbose        Show debug output
+
+${ansi.bold("Examples:")}
+  asm bundle create my-workflow                ${ansi.dim("Create from installed skills")}
+  asm bundle install my-workflow               ${ansi.dim("Install a saved bundle")}
+  asm bundle install ./bundle.json             ${ansi.dim("Install from file")}
+  asm bundle list                              ${ansi.dim("Show all saved bundles")}
+  asm bundle list --json                       ${ansi.dim("List bundles as JSON")}
+  asm bundle show my-workflow                  ${ansi.dim("Show bundle details")}
+  asm bundle remove my-workflow                ${ansi.dim("Remove a saved bundle")}`);
+}
+
+async function cmdBundle(args: ParsedArgs) {
+  if (args.flags.help) {
+    printBundleHelp();
+    return;
+  }
+
+  const subcommand = args.subcommand;
+
+  if (!subcommand) {
+    error("Missing subcommand. Use: create, install, list, show, or remove");
+    console.error(`Run "asm bundle --help" for usage.`);
+    process.exit(2);
+  }
+
+  switch (subcommand) {
+    case "create": {
+      const bundleName = args.positional[0];
+      if (!bundleName) {
+        error("Missing required argument: <name>");
+        console.error(`Usage: asm bundle create <name>`);
+        process.exit(2);
+      }
+
+      // Scan installed skills
+      const config = await loadConfig();
+      const allSkills = await scanAllSkills(config, args.flags.scope);
+
+      if (allSkills.length === 0) {
+        error("No skills found to include in the bundle.");
+        process.exit(1);
+      }
+
+      // Deduplicate by name (keep first occurrence)
+      const seen = new Set<string>();
+      const uniqueSkills = allSkills.filter((s) => {
+        const key = s.name.toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+
+      let selectedSkills = uniqueSkills;
+
+      // Interactive selection if TTY and not --yes
+      if (process.stdin.isTTY && !args.flags.yes) {
+        const items = uniqueSkills.map((s) => ({
+          label: `${s.name} v${s.version}`,
+          hint: s.description
+            ? s.description.slice(0, 60) +
+              (s.description.length > 60 ? "..." : "")
+            : `(${s.provider}/${s.scope})`,
+          checked: true,
+        }));
+
+        console.error(ansi.bold(`Select skills for bundle "${bundleName}":\n`));
+        const indices = await checkboxPicker({ items });
+
+        if (indices.length === 0) {
+          error("No skills selected. Bundle not created.");
+          process.exit(1);
+        }
+
+        selectedSkills = indices.map((i) => uniqueSkills[i]);
+      }
+
+      // Build skill refs (read lock once and pass to all calls)
+      const { readLock } = await import("./utils/lock");
+      const lockData = await readLock();
+      const skillRefs: BundleSkillRef[] = await Promise.all(
+        selectedSkills.map((s) => skillInfoToRef(s, lockData)),
+      );
+
+      // Prompt for description (or use default)
+      let description = `Bundle of ${skillRefs.length} skills`;
+      let author = "unknown";
+      try {
+        const { execSync } = await import("child_process");
+        const gitUser = execSync("git config user.name", {
+          encoding: "utf-8",
+        }).trim();
+        if (gitUser) author = gitUser;
+      } catch {
+        // git not available or user.name not set; keep "unknown"
+      }
+
+      if (process.stdin.isTTY && !args.flags.yes) {
+        process.stderr.write(
+          `\n${ansi.bold("Description")} (optional, press Enter to skip): `,
+        );
+        const descAnswer = await readLine();
+        if (descAnswer.trim()) {
+          description = descAnswer.trim();
+        }
+
+        process.stderr.write(
+          `${ansi.bold("Author")} (optional, press Enter to skip): `,
+        );
+        const authorAnswer = await readLine();
+        if (authorAnswer.trim()) {
+          author = authorAnswer.trim();
+        }
+      }
+
+      const bundle = buildBundle(bundleName, description, author, skillRefs);
+
+      const savedPath = await saveBundle(bundle);
+
+      if (args.flags.json) {
+        console.log(JSON.stringify(bundle, null, 2));
+      } else {
+        console.error(
+          ansi.green(
+            `Bundle "${bundleName}" created with ${skillRefs.length} skill(s).`,
+          ),
+        );
+        console.error(`  Saved to: ${ansi.dim(savedPath)}`);
+      }
+      break;
+    }
+
+    case "install": {
+      const nameOrPath = args.positional[0];
+      if (!nameOrPath) {
+        error("Missing required argument: <name|file>");
+        console.error(`Usage: asm bundle install <name|file>`);
+        process.exit(2);
+      }
+
+      let bundle;
+      try {
+        bundle = await loadBundle(nameOrPath);
+      } catch (err: any) {
+        error(err.message);
+        process.exit(1);
+      }
+
+      console.error(
+        `${ansi.bold("Bundle:")} ${bundle.name} (${bundle.skills.length} skills)`,
+      );
+      if (bundle.description) {
+        console.error(`  ${ansi.dim(bundle.description)}`);
+      }
+      console.error("");
+
+      // Show skills to install
+      for (const skill of bundle.skills) {
+        const versionTag = skill.version ? ` v${skill.version}` : "";
+        console.error(
+          `  ${ansi.cyan(skill.name)}${ansi.dim(versionTag)} ${ansi.dim(`-> ${skill.installUrl}`)}`,
+        );
+      }
+
+      // Confirm
+      if (!args.flags.yes && process.stdin.isTTY) {
+        process.stderr.write(
+          `\n${ansi.bold("Install all skills from this bundle?")} [y/N] `,
+        );
+        const answer = await readLine();
+        if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
+          console.error("Aborted.");
+          process.exit(0);
+        }
+      }
+
+      // Install each skill
+      const results: Array<{
+        name: string;
+        status: "installed" | "skipped" | "failed";
+        reason?: string;
+      }> = [];
+
+      const config = await loadConfig();
+      const { provider } = await resolveProvider(
+        config,
+        args.flags.provider,
+        false, // non-interactive for batch
+      );
+
+      const installScope: "global" | "project" =
+        args.flags.scope === "global" || args.flags.scope === "project"
+          ? args.flags.scope
+          : "global";
+
+      for (const skill of bundle.skills) {
+        console.error(`\n  Installing ${ansi.bold(skill.name)}...`);
+        try {
+          // Check if git is available for remote installs
+          const isRemote =
+            skill.installUrl.startsWith("github:") ||
+            skill.installUrl.startsWith("https://github.com/");
+
+          if (isRemote) {
+            await checkGitAvailable();
+          }
+
+          const source = parseSource(skill.installUrl);
+          const isLocal = !!source.isLocal;
+          let tempDir: string | null = null;
+
+          try {
+            let rootDir: string;
+            let skillDir: string;
+
+            if (!isLocal) {
+              tempDir = await cloneToTemp(source, args.flags.transport);
+              rootDir = tempDir;
+              skillDir = source.subpath
+                ? joinPath(tempDir, source.subpath)
+                : tempDir;
+            } else {
+              rootDir = source.localPath!;
+              skillDir = source.localPath!;
+            }
+
+            const metadata = await validateSkill(skillDir);
+            const skillName = sanitizeName(
+              skill.name || metadata.name || source.repo,
+            );
+
+            const plan = buildInstallPlan(
+              source,
+              rootDir,
+              skillDir,
+              skillName,
+              provider,
+              args.flags.force,
+              installScope,
+            );
+
+            // Check if skill already exists; skip unless --force
+            try {
+              await checkConflict(plan.targetDir, plan.force);
+            } catch (conflictErr: any) {
+              if (conflictErr.message?.includes("--force")) {
+                results.push({
+                  name: skill.name,
+                  status: "skipped",
+                  reason: "Already installed. Use --force to overwrite.",
+                });
+                console.error(
+                  `    ${ansi.dim("---")} ${skill.name} skipped (already installed)`,
+                );
+                continue;
+              }
+              throw conflictErr;
+            }
+
+            await executeInstall(plan);
+            results.push({ name: skill.name, status: "installed" });
+            console.error(`    ${ansi.green("+++")} ${skill.name} installed`);
+          } finally {
+            if (tempDir) {
+              await cleanupTemp(tempDir);
+            }
+          }
+        } catch (err: any) {
+          results.push({
+            name: skill.name,
+            status: "failed",
+            reason: err.message,
+          });
+          console.error(`    ${ansi.red("!!!")} ${skill.name}: ${err.message}`);
+        }
+      }
+
+      // Summary
+      const installed = results.filter((r) => r.status === "installed").length;
+      const skipped = results.filter((r) => r.status === "skipped").length;
+      const failed = results.filter((r) => r.status === "failed").length;
+
+      if (args.flags.json) {
+        console.log(
+          JSON.stringify(
+            {
+              bundleName: bundle.name,
+              total: results.length,
+              installed,
+              skipped,
+              failed,
+              results,
+            },
+            null,
+            2,
+          ),
+        );
+      } else {
+        console.error("");
+        console.error(
+          `${ansi.bold("Summary:")} ${results.length} total, ` +
+            `${ansi.green(String(installed))} installed, ` +
+            (skipped > 0 ? `${ansi.dim(String(skipped))} skipped, ` : "") +
+            `${ansi.red(String(failed))} failed`,
+        );
+      }
+
+      if (failed > 0) {
+        process.exitCode = 1;
+      }
+      break;
+    }
+
+    case "list": {
+      const bundles = await listBundles();
+
+      if (bundles.length === 0) {
+        if (args.flags.json) {
+          console.log("[]");
+        } else {
+          console.log("No bundles found.");
+          console.error(ansi.dim("Create one with: asm bundle create <name>"));
+        }
+        return;
+      }
+
+      if (args.flags.json) {
+        console.log(JSON.stringify(bundles, null, 2));
+      } else {
+        console.error(ansi.bold(`Saved Bundles (${bundles.length}):\n`));
+        for (const bundle of bundles) {
+          const tagsStr =
+            bundle.tags && bundle.tags.length > 0
+              ? ` ${ansi.dim(`[${bundle.tags.join(", ")}]`)}`
+              : "";
+          console.error(
+            `  ${ansi.cyan(bundle.name)} ${ansi.dim(`(${bundle.skills.length} skills)`)}${tagsStr}`,
+          );
+          if (bundle.description) {
+            console.error(`    ${ansi.dim(bundle.description)}`);
+          }
+          if (bundle.author) {
+            console.error(`    ${ansi.dim(`by ${bundle.author}`)}`);
+          }
+        }
+      }
+      break;
+    }
+
+    case "show": {
+      const nameOrPath = args.positional[0];
+      if (!nameOrPath) {
+        error("Missing required argument: <name|file>");
+        console.error(`Usage: asm bundle show <name|file>`);
+        process.exit(2);
+      }
+
+      let bundle;
+      try {
+        bundle = await loadBundle(nameOrPath);
+      } catch (err: any) {
+        error(err.message);
+        process.exit(1);
+      }
+
+      if (args.flags.json) {
+        console.log(JSON.stringify(bundle, null, 2));
+      } else {
+        console.error(ansi.bold(`Bundle: ${bundle.name}`));
+        if (bundle.description) {
+          console.error(`  ${bundle.description}`);
+        }
+        if (bundle.author) {
+          console.error(`  ${ansi.dim(`Author: ${bundle.author}`)}`);
+        }
+        console.error(
+          `  ${ansi.dim(`Created: ${new Date(bundle.createdAt).toLocaleString()}`)}`,
+        );
+        if (bundle.tags && bundle.tags.length > 0) {
+          console.error(`  ${ansi.dim(`Tags: ${bundle.tags.join(", ")}`)}`);
+        }
+        console.error(`\n  ${ansi.bold(`Skills (${bundle.skills.length})`)}:`);
+        for (const skill of bundle.skills) {
+          const versionTag = skill.version ? ` v${skill.version}` : "";
+          console.error(`    ${ansi.cyan(skill.name)}${ansi.dim(versionTag)}`);
+          if (skill.description) {
+            console.error(`      ${ansi.dim(skill.description)}`);
+          }
+          console.error(`      ${ansi.dim(`install: ${skill.installUrl}`)}`);
+        }
+      }
+      break;
+    }
+
+    case "remove": {
+      const bundleName = args.positional[0];
+      if (!bundleName) {
+        error("Missing required argument: <name>");
+        console.error(`Usage: asm bundle remove <name>`);
+        process.exit(2);
+      }
+
+      if (!args.flags.yes && process.stdin.isTTY) {
+        process.stderr.write(
+          `${ansi.bold("Remove bundle")} ${ansi.cyan(bundleName)}${ansi.bold("?")} [y/N] `,
+        );
+        const answer = await readLine();
+        if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
+          console.error("Aborted.");
+          process.exit(0);
+        }
+      }
+
+      let removed: boolean;
+      try {
+        removed = await removeBundle(bundleName);
+      } catch (err: any) {
+        error(err.message);
+        process.exit(1);
+      }
+
+      if (removed) {
+        console.error(ansi.green(`Bundle "${bundleName}" removed.`));
+      } else {
+        error(`Bundle "${bundleName}" not found.`);
+        process.exit(1);
+      }
+      break;
+    }
+
+    default:
+      error(
+        `Unknown subcommand: "${subcommand}". Use: create, install, list, show, or remove`,
+      );
+      console.error(`Run "asm bundle --help" for usage.`);
+      process.exit(2);
+  }
+}
+
 // ─── Main CLI dispatcher ────────────────────────────────────────────────────
 
 export async function runCLI(argv: string[]): Promise<void> {
@@ -2662,6 +3132,9 @@ export async function runCLI(argv: string[]): Promise<void> {
     case "index":
       await cmdIndex(args);
       break;
+    case "bundle":
+      await cmdBundle(args);
+      break;
     default:
       error(`Unknown command: "${args.command}"`);
       console.error(`Run "asm --help" for usage.`);
@@ -2690,6 +3163,7 @@ export function isCLIMode(argv: string[]): boolean {
     "stats",
     "link",
     "index",
+    "bundle",
   ];
   const first = args[0];
 

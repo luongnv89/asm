@@ -2100,3 +2100,384 @@ describe("CLI integration: install error paths", () => {
     expect(stderr).toContain("Invalid transport");
   });
 });
+
+// ─── isCLIMode: bundle ────────────────────────────────────────────────────
+
+describe("isCLIMode: bundle", () => {
+  const check = (...args: string[]) => isCLIMode(["bun", "script.ts", ...args]);
+
+  test("bundle -> CLI mode", () => {
+    expect(check("bundle")).toBe(true);
+  });
+
+  test("bundle create -> CLI mode", () => {
+    expect(check("bundle", "create")).toBe(true);
+  });
+
+  test("bundle install -> CLI mode", () => {
+    expect(check("bundle", "install")).toBe(true);
+  });
+
+  test("bundle list -> CLI mode", () => {
+    expect(check("bundle", "list")).toBe(true);
+  });
+});
+
+// ─── parseArgs: bundle ────────────────────────────────────────────────────
+
+describe("parseArgs: bundle", () => {
+  const parse = (...args: string[]) => parseArgs(["bun", "script.ts", ...args]);
+
+  test("bundle create my-bundle", () => {
+    const r = parse("bundle", "create", "my-bundle");
+    expect(r.command).toBe("bundle");
+    expect(r.subcommand).toBe("create");
+    expect(r.positional).toEqual(["my-bundle"]);
+  });
+
+  test("bundle install my-bundle --json", () => {
+    const r = parse("bundle", "install", "my-bundle", "--json");
+    expect(r.command).toBe("bundle");
+    expect(r.subcommand).toBe("install");
+    expect(r.positional).toEqual(["my-bundle"]);
+    expect(r.flags.json).toBe(true);
+  });
+
+  test("bundle list --json", () => {
+    const r = parse("bundle", "list", "--json");
+    expect(r.command).toBe("bundle");
+    expect(r.subcommand).toBe("list");
+    expect(r.flags.json).toBe(true);
+  });
+
+  test("bundle show my-bundle", () => {
+    const r = parse("bundle", "show", "my-bundle");
+    expect(r.command).toBe("bundle");
+    expect(r.subcommand).toBe("show");
+    expect(r.positional).toEqual(["my-bundle"]);
+  });
+
+  test("bundle remove my-bundle -y", () => {
+    const r = parse("bundle", "remove", "my-bundle", "-y");
+    expect(r.command).toBe("bundle");
+    expect(r.subcommand).toBe("remove");
+    expect(r.positional).toEqual(["my-bundle"]);
+    expect(r.flags.yes).toBe(true);
+  });
+});
+
+// ─── CLI integration: bundle ──────────────────────────────────────────────
+
+describe("CLI integration: bundle", () => {
+  test("bundle --help shows bundle usage", async () => {
+    const { stdout, exitCode } = await runCLI("bundle", "--help");
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("asm bundle");
+    expect(stdout).toContain("create");
+    expect(stdout).toContain("install");
+    expect(stdout).toContain("list");
+    expect(stdout).toContain("show");
+    expect(stdout).toContain("remove");
+  });
+
+  test("bundle without subcommand exits 2", async () => {
+    const { stderr, exitCode } = await runCLI("bundle");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Missing subcommand");
+  });
+
+  test("bundle unknown subcommand exits 2", async () => {
+    const { stderr, exitCode } = await runCLI("bundle", "unknown");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Unknown subcommand");
+  });
+
+  test("bundle create without name exits 2", async () => {
+    const { stderr, exitCode } = await runCLI("bundle", "create");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Missing required argument");
+  });
+
+  test("bundle install without name exits 2", async () => {
+    const { stderr, exitCode } = await runCLI("bundle", "install");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Missing required argument");
+  });
+
+  test("bundle show without name exits 2", async () => {
+    const { stderr, exitCode } = await runCLI("bundle", "show");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Missing required argument");
+  });
+
+  test("bundle remove without name exits 2", async () => {
+    const { stderr, exitCode } = await runCLI("bundle", "remove");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Missing required argument");
+  });
+
+  test("bundle list with no bundles shows empty", async () => {
+    const { stdout, exitCode } = await runCLI("bundle", "list", "--json");
+    expect(exitCode).toBe(0);
+    // Either an empty JSON array or an empty message
+    const parsed = JSON.parse(stdout);
+    expect(Array.isArray(parsed)).toBe(true);
+  });
+
+  test("bundle show with non-existent bundle exits 1", async () => {
+    const { stderr, exitCode } = await runCLI(
+      "bundle",
+      "show",
+      "non-existent-bundle-12345",
+    );
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain("Error");
+  });
+
+  test("bundle remove non-existent bundle exits 1", async () => {
+    const { stderr, exitCode } = await runCLI(
+      "bundle",
+      "remove",
+      "non-existent-bundle-12345",
+      "-y",
+    );
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain("not found");
+  });
+
+  test("bundle install from non-existent file exits 1", async () => {
+    const { stderr, exitCode } = await runCLI(
+      "bundle",
+      "install",
+      "/tmp/no-such-bundle-file.json",
+    );
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain("Error");
+  });
+
+  test("bundle show reads a valid bundle file", async () => {
+    const tmpDir = await mkdtemp(join(tmpdir(), "cli-bundle-test-"));
+    try {
+      const bundleData = {
+        version: 1,
+        name: "cli-test-bundle",
+        description: "Test bundle",
+        author: "tester",
+        createdAt: new Date().toISOString(),
+        skills: [
+          {
+            name: "skill-a",
+            installUrl: "github:user/skills#main:skills/skill-a",
+            description: "Skill A",
+            version: "1.0.0",
+          },
+        ],
+      };
+      const filePath = join(tmpDir, "test-bundle.json");
+      await writeFile(filePath, JSON.stringify(bundleData));
+
+      const { stdout, exitCode } = await runCLI(
+        "bundle",
+        "show",
+        filePath,
+        "--json",
+      );
+      expect(exitCode).toBe(0);
+      const parsed = JSON.parse(stdout);
+      expect(parsed.name).toBe("cli-test-bundle");
+      expect(parsed.skills).toHaveLength(1);
+      expect(parsed.skills[0].name).toBe("skill-a");
+    } finally {
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  test("bundle create --yes creates bundle with all skills (non-interactive)", async () => {
+    // Install a temporary local skill so scanAllSkills finds at least one
+    const tmpDir = await mkdtemp(join(tmpdir(), "cli-bundle-create-"));
+    try {
+      const skillDir = join(tmpDir, "bundle-test-skill");
+      await mkdir(skillDir, { recursive: true });
+      await writeFile(
+        join(skillDir, "SKILL.md"),
+        `---\nname: bundle-test-skill\nversion: 1.0.0\n---\n# Bundle Test Skill\nA test skill for bundle create.\n`,
+      );
+      // Install the local skill
+      const installResult = await runCLI(
+        "install",
+        skillDir,
+        "--force",
+        "--tool",
+        "claude",
+        "--yes",
+      );
+      expect(installResult.exitCode).toBe(0);
+
+      // Now create a bundle with --yes (non-interactive batch path)
+      const { stdout, exitCode } = await runCLI(
+        "bundle",
+        "create",
+        "create-yes-test-bundle",
+        "--yes",
+        "--json",
+      );
+      expect(exitCode).toBe(0);
+      const parsed = JSON.parse(stdout);
+      expect(parsed.name).toBe("create-yes-test-bundle");
+      expect(parsed.skills.length).toBeGreaterThanOrEqual(1);
+      // The test skill we installed should be in the bundle
+      const names = parsed.skills.map((s: any) => s.name);
+      expect(names).toContain("bundle-test-skill");
+
+      // Clean up: remove the bundle and uninstall the skill
+      await runCLI("bundle", "remove", "create-yes-test-bundle", "-y");
+      await runCLI("uninstall", "bundle-test-skill", "--yes");
+    } finally {
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  test("bundle install from valid bundle file succeeds", async () => {
+    const tmpDir = await mkdtemp(join(tmpdir(), "cli-bundle-install-"));
+    try {
+      // Create a valid local skill to reference in the bundle
+      const skillDir = join(tmpDir, "installable-skill");
+      await mkdir(skillDir, { recursive: true });
+      await writeFile(
+        join(skillDir, "SKILL.md"),
+        `---\nname: installable-skill\nversion: 1.0.0\n---\n# Installable Skill\nA test skill for bundle install.\n`,
+      );
+
+      // Create a bundle file that references the local skill
+      const bundleData = {
+        version: 1,
+        name: "install-test-bundle",
+        description: "Test bundle for install",
+        author: "tester",
+        createdAt: new Date().toISOString(),
+        skills: [
+          {
+            name: "installable-skill",
+            installUrl: skillDir,
+            description: "Installable Skill",
+            version: "1.0.0",
+          },
+        ],
+      };
+      const bundlePath = join(tmpDir, "install-test-bundle.json");
+      await writeFile(bundlePath, JSON.stringify(bundleData));
+
+      // Install the bundle
+      const { stdout, exitCode } = await runCLI(
+        "bundle",
+        "install",
+        bundlePath,
+        "--json",
+        "--force",
+        "--tool",
+        "claude",
+      );
+      expect(exitCode).toBe(0);
+      const parsed = JSON.parse(stdout);
+      expect(parsed.bundleName).toBe("install-test-bundle");
+      expect(parsed.installed).toBe(1);
+      expect(parsed.failed).toBe(0);
+      expect(parsed.results).toHaveLength(1);
+      expect(parsed.results[0].status).toBe("installed");
+
+      // Clean up: uninstall the skill
+      await runCLI("uninstall", "installable-skill", "--yes");
+    } finally {
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  test("bundle install skips already-installed skill without --force", async () => {
+    const tmpDir = await mkdtemp(join(tmpdir(), "cli-bundle-skip-"));
+    try {
+      // Create a valid local skill to reference in the bundle
+      const skillDir = join(tmpDir, "skip-test-skill");
+      await mkdir(skillDir, { recursive: true });
+      await writeFile(
+        join(skillDir, "SKILL.md"),
+        `---\nname: skip-test-skill\nversion: 1.0.0\n---\n# Skip Test Skill\nA test skill for bundle skip.\n`,
+      );
+
+      // Create a bundle file that references the local skill
+      const bundleData = {
+        version: 1,
+        name: "skip-test-bundle",
+        description: "Test bundle for skip behavior",
+        author: "tester",
+        createdAt: new Date().toISOString(),
+        skills: [
+          {
+            name: "skip-test-skill",
+            installUrl: skillDir,
+            description: "Skip Test Skill",
+            version: "1.0.0",
+          },
+        ],
+      };
+      const bundlePath = join(tmpDir, "skip-test-bundle.json");
+      await writeFile(bundlePath, JSON.stringify(bundleData));
+
+      // First install with --force
+      const first = await runCLI(
+        "bundle",
+        "install",
+        bundlePath,
+        "--json",
+        "--force",
+        "--tool",
+        "claude",
+      );
+      expect(first.exitCode).toBe(0);
+      const firstParsed = JSON.parse(first.stdout);
+      expect(firstParsed.installed).toBe(1);
+
+      // Second install WITHOUT --force should skip
+      const second = await runCLI(
+        "bundle",
+        "install",
+        bundlePath,
+        "--json",
+        "--tool",
+        "claude",
+      );
+      expect(second.exitCode).toBe(0);
+      const secondParsed = JSON.parse(second.stdout);
+      expect(secondParsed.installed).toBe(0);
+      expect(secondParsed.skipped).toBe(1);
+      expect(secondParsed.failed).toBe(0);
+      expect(secondParsed.results[0].status).toBe("skipped");
+
+      // Third install WITH --force should install again
+      const third = await runCLI(
+        "bundle",
+        "install",
+        bundlePath,
+        "--json",
+        "--force",
+        "--tool",
+        "claude",
+      );
+      expect(third.exitCode).toBe(0);
+      const thirdParsed = JSON.parse(third.stdout);
+      expect(thirdParsed.installed).toBe(1);
+      expect(thirdParsed.skipped).toBe(0);
+      expect(thirdParsed.failed).toBe(0);
+
+      // Clean up: uninstall the skill
+      await runCLI("uninstall", "skip-test-skill", "--yes");
+    } finally {
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  test("main --help includes bundle in command list", async () => {
+    const { stdout, exitCode } = await runCLI("--help");
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("bundle");
+  });
+});
