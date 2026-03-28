@@ -1592,11 +1592,39 @@ metadata:
     expect(stderr).toContain("Error");
   });
 
-  test("link path without SKILL.md exits 1", async () => {
-    // tempDir itself has no SKILL.md (only source-skill/ subdir does)
-    const { stderr, exitCode } = await runCLI("link", tempDir);
+  test("link path without any SKILL.md exits 1", async () => {
+    // Create a directory with no SKILL.md at root or in subdirectories
+    const emptyDir = join(tempDir, "empty-dir");
+    await mkdir(emptyDir, { recursive: true });
+    await mkdir(join(emptyDir, "subdir"), { recursive: true });
+    const { stderr, exitCode } = await runCLI("link", emptyDir);
     expect(exitCode).toBe(1);
     expect(stderr).toContain("Error");
+  });
+
+  test("link --name with multi-skill folder exits 2", async () => {
+    // Create a folder with multiple skill subdirectories
+    const multiDir = join(tempDir, "multi");
+    await mkdir(join(multiDir, "skill-a"), { recursive: true });
+    await mkdir(join(multiDir, "skill-b"), { recursive: true });
+    await writeFile(
+      join(multiDir, "skill-a", "SKILL.md"),
+      `---\nname: skill-a\nversion: 1.0.0\n---\n# Skill A\n`,
+    );
+    await writeFile(
+      join(multiDir, "skill-b", "SKILL.md"),
+      `---\nname: skill-b\nversion: 1.0.0\n---\n# Skill B\n`,
+    );
+    const { stderr, exitCode } = await runCLI(
+      "link",
+      multiDir,
+      "--name",
+      "custom",
+    );
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain(
+      "--name cannot be used when linking multiple skills",
+    );
   });
 
   test("main --help includes link command", async () => {
