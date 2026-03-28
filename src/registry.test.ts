@@ -271,9 +271,10 @@ describe("checkAuthorIdentity", () => {
     expect(checkAuthorIdentity(manifest, "otheruser")).toBe(false);
   });
 
-  it("is case-sensitive", () => {
+  it("is case-insensitive (GitHub usernames are case-insensitive)", () => {
     const manifest = validManifest({ author: "Luongnv89" });
-    expect(checkAuthorIdentity(manifest, "luongnv89")).toBe(false);
+    expect(checkAuthorIdentity(manifest, "luongnv89")).toBe(true);
+    expect(checkAuthorIdentity(manifest, "LUONGNV89")).toBe(true);
   });
 });
 

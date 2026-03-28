@@ -297,12 +297,13 @@ export function detectTyposquats(
 
 /**
  * Verify that a manifest's author field matches the expected GitHub username.
+ * Comparison is case-insensitive because GitHub usernames are case-insensitive.
  */
 export function checkAuthorIdentity(
   manifest: RegistryManifest,
   prAuthor: string,
 ): boolean {
-  return manifest.author === prAuthor;
+  return manifest.author.toLowerCase() === prAuthor.toLowerCase();
 }
 
 // ─── Duplicate Detection ────────────────────────────────────────────────────

@@ -155,6 +155,20 @@ jobs:
             commit=$(jq -r '.commit' "$file")
             name=$(jq -r '.name' "$file")
 
+            # Validate extracted values against strict patterns to prevent shell injection
+            if ! echo "$repo" | grep -qE '^https://github\.com/[a-zA-Z0-9_-]+/[a-zA-Z0-9._-]+$'; then
+              echo "::error::Invalid repository URL in manifest: $file"
+              exit 1
+            fi
+            if ! echo "$commit" | grep -qE '^[0-9a-f]{40}$'; then
+              echo "::error::Invalid commit SHA in manifest: $file"
+              exit 1
+            fi
+            if ! echo "$name" | grep -qE '^[a-z0-9][a-z0-9-]*$'; then
+              echo "::error::Invalid skill name in manifest: $file"
+              exit 1
+            fi
+
             echo "Cloning $repo at $commit for security scan..."
             clone_dir=$(mktemp -d)
             timeout 120 git clone --quiet --depth 1 "$repo" "$clone_dir"
@@ -172,36 +186,53 @@ jobs:
             verdict="pass"
 
             # Check for dangerous patterns in skill files
+            # Uses grep -E for extended regex; patterns use word boundaries where
+            # appropriate to avoid false positives on variable names like executablePath.
             dangerous_patterns=(
               'rm -rf /'
-              'curl.*| ?sh'
-              'wget.*| ?sh'
-              'eval('
-              'child_process'
-              'exec('
-              'execSync('
+              'curl.*\| ?sh'
+              'wget.*\| ?sh'
+              '\beval\('
+              '\bchild_process\b'
+              '\bexec\('
+              '\bexecSync\('
               'dangerouslyDisableSandbox'
             )
             for pattern in "${dangerous_patterns[@]}"; do
-              if grep -r -l "$pattern" "$clone_dir" --include='*.js' --include='*.ts' --include='*.sh' --include='*.md' 2>/dev/null | head -1 | grep -q .; then
+              if grep -r -E -l "$pattern" "$clone_dir" --include='*.js' --include='*.ts' --include='*.sh' --include='*.md' 2>/dev/null | head -1 | grep -q .; then
                 echo "::warning::Dangerous pattern '$pattern' found in $name"
                 verdict="dangerous"
               fi
             done
 
             # Check for data exfiltration patterns
-            exfil_patterns=(
-              'process\.env'
+            # Reading sensitive files is always flagged; process.env access is only
+            # flagged when the same file also contains network-sending calls (fetch,
+            # http.request, axios, XMLHttpRequest) to reduce false positives on
+            # legitimate env-var usage.
+            sensitive_read_patterns=(
               'fs\.readFile.*\.ssh'
               'fs\.readFile.*\.aws'
               'fs\.readFile.*\.env'
             )
-            for pattern in "${exfil_patterns[@]}"; do
+            for pattern in "${sensitive_read_patterns[@]}"; do
               if grep -r -E "$pattern" "$clone_dir" --include='*.js' --include='*.ts' 2>/dev/null | head -1 | grep -q .; then
                 echo "::warning::Potential data exfiltration pattern '$pattern' found in $name"
                 verdict="dangerous"
               fi
             done
+
+            # Flag files that both read process.env and send data over the network
+            env_files=$(grep -r -E -l 'process\.env' "$clone_dir" --include='*.js' --include='*.ts' 2>/dev/null || true)
+            if [ -n "$env_files" ]; then
+              network_pattern='\b(fetch|http\.request|https\.request|axios|XMLHttpRequest)\b'
+              for ef in $env_files; do
+                if grep -E -q "$network_pattern" "$ef" 2>/dev/null; then
+                  echo "::warning::File accesses process.env and performs network requests in $name: $ef"
+                  verdict="dangerous"
+                fi
+              done
+            fi
 
             rm -rf "$clone_dir"
 
