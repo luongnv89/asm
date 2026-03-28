@@ -134,6 +134,7 @@ export interface CustomPathConfig {
 export interface UserPreferences {
   defaultScope: Scope;
   defaultSort: SortBy;
+  selectedTools?: string[];
 }
 
 export interface AppConfig {

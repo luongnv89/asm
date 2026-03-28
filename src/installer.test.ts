@@ -801,6 +801,10 @@ describe("resolveProvider", () => {
     mock.module("./utils/checkbox-picker", () => ({
       checkboxPicker: pickerMock,
     }));
+    const saveMock = mock(() => Promise.resolve());
+    mock.module("./config", () => ({
+      saveSelectedTools: saveMock,
+    }));
 
     const config = makeConfig([claude, codex]);
     const result = await resolveProvider(config, null, true);
@@ -821,6 +825,10 @@ describe("resolveProvider", () => {
     const pickerFn = mock(() => Promise.resolve([0, 2]));
     mock.module("./utils/checkbox-picker", () => ({
       checkboxPicker: pickerFn,
+    }));
+    const saveMock = mock(() => Promise.resolve());
+    mock.module("./config", () => ({
+      saveSelectedTools: saveMock,
     }));
 
     const config = makeConfig([claude, codex, agents]);
@@ -845,26 +853,7 @@ describe("resolveProvider", () => {
     );
   });
 
-  test("interactive picker: all items default to deselected", async () => {
-    let capturedItems: unknown[] = [];
-    const pickerFn = mock((opts: { items: unknown[] }) => {
-      capturedItems = opts.items;
-      return Promise.resolve([0]);
-    });
-    mock.module("./utils/checkbox-picker", () => ({
-      checkboxPicker: pickerFn,
-    }));
-
-    const config = makeConfig([claude, codex, disabledProvider]);
-    await resolveProvider(config, null, true);
-
-    expect(capturedItems).toHaveLength(3);
-    expect((capturedItems[0] as { checked: boolean }).checked).toBe(false);
-    expect((capturedItems[1] as { checked: boolean }).checked).toBe(false);
-    expect((capturedItems[2] as { checked: boolean }).checked).toBe(false);
-  });
-
-  test("interactive picker: agents provider is checked by default", async () => {
+  test("interactive picker: no saved tools defaults agents to checked", async () => {
     const agents: ProviderConfig = {
       name: "agents",
       label: "Agents",
@@ -880,6 +869,10 @@ describe("resolveProvider", () => {
     mock.module("./utils/checkbox-picker", () => ({
       checkboxPicker: pickerFn,
     }));
+    const saveMock = mock(() => Promise.resolve());
+    mock.module("./config", () => ({
+      saveSelectedTools: saveMock,
+    }));
 
     const config = makeConfig([claude, agents, codex]);
     await resolveProvider(config, null, true);
@@ -887,6 +880,137 @@ describe("resolveProvider", () => {
     expect(capturedItems).toHaveLength(3);
     expect((capturedItems[0] as { checked: boolean }).checked).toBe(false);
     expect((capturedItems[1] as { checked: boolean }).checked).toBe(true);
+    expect((capturedItems[2] as { checked: boolean }).checked).toBe(false);
+  });
+
+  test("interactive picker: saved tools override default checked state", async () => {
+    let capturedItems: unknown[] = [];
+    const pickerFn = mock((opts: { items: unknown[] }) => {
+      capturedItems = opts.items;
+      return Promise.resolve([0, 1]); // select claude and codex
+    });
+    mock.module("./utils/checkbox-picker", () => ({
+      checkboxPicker: pickerFn,
+    }));
+    const saveMock = mock(() => Promise.resolve());
+    mock.module("./config", () => ({
+      saveSelectedTools: saveMock,
+    }));
+
+    const agents: ProviderConfig = {
+      name: "agents",
+      label: "Agents",
+      global: "~/.agents/skills",
+      project: ".agents/skills",
+      enabled: true,
+    };
+    const config: AppConfig = {
+      version: 1,
+      providers: [claude, codex, agents],
+      customPaths: [],
+      preferences: {
+        defaultScope: "both",
+        defaultSort: "name",
+        selectedTools: ["claude", "codex"],
+      },
+    };
+    await resolveProvider(config, null, true);
+
+    expect(capturedItems).toHaveLength(3);
+    // claude and codex pre-checked from saved selection, agents not
+    expect((capturedItems[0] as { checked: boolean }).checked).toBe(true);
+    expect((capturedItems[1] as { checked: boolean }).checked).toBe(true);
+    expect((capturedItems[2] as { checked: boolean }).checked).toBe(false);
+  });
+
+  test("interactive picker: persists selected tool names after selection", async () => {
+    let savedNames: string[] = [];
+    const pickerFn = mock(() => Promise.resolve([0, 2]));
+    mock.module("./utils/checkbox-picker", () => ({
+      checkboxPicker: pickerFn,
+    }));
+    const saveMock = mock((names: string[]) => {
+      savedNames = names;
+      return Promise.resolve();
+    });
+    mock.module("./config", () => ({
+      saveSelectedTools: saveMock,
+    }));
+
+    const agents: ProviderConfig = {
+      name: "agents",
+      label: "Agents",
+      global: "~/.agents/skills",
+      project: ".agents/skills",
+      enabled: true,
+    };
+    const config = makeConfig([claude, codex, agents]);
+    await resolveProvider(config, null, true);
+
+    expect(saveMock).toHaveBeenCalledTimes(1);
+    expect(savedNames).toEqual(["claude", "agents"]);
+  });
+
+  test("interactive picker: empty saved tools array falls back to agents default", async () => {
+    let capturedItems: unknown[] = [];
+    const agents: ProviderConfig = {
+      name: "agents",
+      label: "Agents",
+      global: "~/.agents/skills",
+      project: ".agents/skills",
+      enabled: true,
+    };
+    const pickerFn = mock((opts: { items: unknown[] }) => {
+      capturedItems = opts.items;
+      return Promise.resolve([1]); // select agents
+    });
+    mock.module("./utils/checkbox-picker", () => ({
+      checkboxPicker: pickerFn,
+    }));
+    const saveMock = mock(() => Promise.resolve());
+    mock.module("./config", () => ({
+      saveSelectedTools: saveMock,
+    }));
+
+    const config: AppConfig = {
+      version: 1,
+      providers: [claude, agents, codex],
+      customPaths: [],
+      preferences: {
+        defaultScope: "both",
+        defaultSort: "name",
+        selectedTools: [], // empty array — should fall back to agents default
+      },
+    };
+    await resolveProvider(config, null, true);
+
+    expect(capturedItems).toHaveLength(3);
+    // Falls back to agents default
+    expect((capturedItems[0] as { checked: boolean }).checked).toBe(false);
+    expect((capturedItems[1] as { checked: boolean }).checked).toBe(true);
+    expect((capturedItems[2] as { checked: boolean }).checked).toBe(false);
+  });
+
+  test("interactive picker: all items default to deselected when no agents and no saved", async () => {
+    let capturedItems: unknown[] = [];
+    const pickerFn = mock((opts: { items: unknown[] }) => {
+      capturedItems = opts.items;
+      return Promise.resolve([0]);
+    });
+    mock.module("./utils/checkbox-picker", () => ({
+      checkboxPicker: pickerFn,
+    }));
+    const saveMock = mock(() => Promise.resolve());
+    mock.module("./config", () => ({
+      saveSelectedTools: saveMock,
+    }));
+
+    const config = makeConfig([claude, codex, disabledProvider]);
+    await resolveProvider(config, null, true);
+
+    expect(capturedItems).toHaveLength(3);
+    expect((capturedItems[0] as { checked: boolean }).checked).toBe(false);
+    expect((capturedItems[1] as { checked: boolean }).checked).toBe(false);
     expect((capturedItems[2] as { checked: boolean }).checked).toBe(false);
   });
 
@@ -903,6 +1027,10 @@ describe("resolveProvider", () => {
     mock.module("./utils/checkbox-picker", () => ({
       checkboxPicker: pickerFn,
     }));
+    const saveMock = mock(() => Promise.resolve());
+    mock.module("./config", () => ({
+      saveSelectedTools: saveMock,
+    }));
 
     const config = makeConfig(allDisabled);
     const result = await resolveProvider(config, null, true);
@@ -910,6 +1038,23 @@ describe("resolveProvider", () => {
     expect(capturedItems).toHaveLength(2);
     expect((capturedItems[0] as { checked: boolean }).checked).toBe(false);
     expect((capturedItems[1] as { checked: boolean }).checked).toBe(false);
+  });
+
+  test("explicit --tool flag does not trigger save or use saved tools", async () => {
+    const config: AppConfig = {
+      version: 1,
+      providers: [claude, codex],
+      customPaths: [],
+      preferences: {
+        defaultScope: "both",
+        defaultSort: "name",
+        selectedTools: ["codex"],
+      },
+    };
+    // Explicit provider flag — should not touch saved tools, no picker shown
+    const result = await resolveProvider(config, "claude", false);
+    expect(result.provider.name).toBe("claude");
+    expect(result.allProviders).toBeNull();
   });
 });
 

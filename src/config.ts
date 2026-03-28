@@ -214,6 +214,7 @@ function mergeWithDefaults(config: Partial<AppConfig>): AppConfig {
         config.preferences?.defaultScope ?? defaults.preferences.defaultScope,
       defaultSort:
         config.preferences?.defaultSort ?? defaults.preferences.defaultSort,
+      selectedTools: config.preferences?.selectedTools,
     },
   };
 }
@@ -256,4 +257,10 @@ export async function loadConfig(): Promise<AppConfig> {
 export async function saveConfig(config: AppConfig): Promise<void> {
   await mkdir(CONFIG_DIR, { recursive: true });
   await writeFile(CONFIG_PATH, JSON.stringify(config, null, 2) + "\n", "utf-8");
+}
+
+export async function saveSelectedTools(toolNames: string[]): Promise<void> {
+  const config = await loadConfig();
+  config.preferences.selectedTools = toolNames;
+  await saveConfig(config);
 }

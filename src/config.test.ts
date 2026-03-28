@@ -5,6 +5,7 @@ import {
   getConfigPath,
   loadConfig,
   saveConfig,
+  saveSelectedTools,
 } from "./config";
 import { setVerbose } from "./logger";
 import { homedir } from "os";
@@ -255,5 +256,74 @@ describe("config verbose output", () => {
       .map((c: unknown[]) => c[0] as string)
       .join("\n");
     expect(output).not.toContain("[verbose]");
+  });
+});
+
+describe("selectedTools preference", () => {
+  const configPath = getConfigPath();
+  let originalContent: string | null = null;
+
+  beforeEach(async () => {
+    try {
+      originalContent = await readFile(configPath, "utf-8");
+    } catch {
+      originalContent = null;
+    }
+  });
+
+  afterEach(async () => {
+    if (originalContent !== null) {
+      await mkdir(dirname(configPath), { recursive: true });
+      await writeFile(configPath, originalContent, "utf-8");
+    } else {
+      try {
+        await rm(configPath);
+      } catch {}
+    }
+  });
+
+  it("default config has no selectedTools", () => {
+    const config = getDefaultConfig();
+    expect(config.preferences.selectedTools).toBeUndefined();
+  });
+
+  it("saveSelectedTools persists tool names to config", async () => {
+    await saveSelectedTools(["claude", "codex"]);
+    const config = await loadConfig();
+    expect(config.preferences.selectedTools).toEqual(["claude", "codex"]);
+  });
+
+  it("saveSelectedTools overwrites previous selection", async () => {
+    await saveSelectedTools(["claude", "codex"]);
+    await saveSelectedTools(["agents"]);
+    const config = await loadConfig();
+    expect(config.preferences.selectedTools).toEqual(["agents"]);
+  });
+
+  it("loadConfig preserves selectedTools from saved config", async () => {
+    const config = await loadConfig();
+    config.preferences.selectedTools = ["opencode", "cursor"];
+    await saveConfig(config);
+
+    const reloaded = await loadConfig();
+    expect(reloaded.preferences.selectedTools).toEqual(["opencode", "cursor"]);
+  });
+
+  it("mergeWithDefaults preserves selectedTools from saved config", async () => {
+    // Write a partial config with selectedTools
+    await mkdir(dirname(configPath), { recursive: true });
+    const partial = {
+      version: 1,
+      providers: [],
+      preferences: {
+        defaultScope: "both",
+        defaultSort: "name",
+        selectedTools: ["claude", "agents"],
+      },
+    };
+    await writeFile(configPath, JSON.stringify(partial), "utf-8");
+
+    const config = await loadConfig();
+    expect(config.preferences.selectedTools).toEqual(["claude", "agents"]);
   });
 });

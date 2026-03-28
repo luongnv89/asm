@@ -735,11 +735,15 @@ export async function resolveProvider(
     );
   }
 
-  // Interactive picker — show ALL providers, "agents" checked by default
+  // Interactive picker — show ALL providers, pre-check saved selections or "agents"
+  const savedTools = config.preferences.selectedTools;
+  const hasSavedTools = savedTools && savedTools.length > 0;
+  const savedSet = hasSavedTools ? new Set(savedTools) : null;
+
   const pickerItems = config.providers.map((p) => ({
     label: `${p.label} (${p.name})`,
     hint: p.global,
-    checked: p.name === "agents",
+    checked: savedSet ? savedSet.has(p.name) : p.name === "agents",
   }));
 
   const selectedIndices = await checkboxPicker({ items: pickerItems });
@@ -749,6 +753,11 @@ export async function resolveProvider(
   }
 
   const selectedProviders = selectedIndices.map((i) => config.providers[i]);
+
+  // Persist selected tool names for next time
+  const selectedNames = selectedProviders.map((p) => p.name);
+  const { saveSelectedTools } = await import("./config");
+  await saveSelectedTools(selectedNames);
 
   if (selectedProviders.length === 1) {
     return { provider: selectedProviders[0], allProviders: null };
