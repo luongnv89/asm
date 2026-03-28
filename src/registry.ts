@@ -146,10 +146,12 @@ export function validateManifest(manifest: unknown): ValidationError[] {
     });
   }
 
-  // published_at: validate ISO 8601
+  // published_at: validate ISO 8601 date-time strictly
+  // Date.parse() is too lenient (e.g. accepts "2026"), so use a regex instead.
   if (typeof m.published_at === "string" && m.published_at.length > 0) {
-    const ts = Date.parse(m.published_at);
-    if (isNaN(ts)) {
+    const ISO8601_DATETIME =
+      /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/;
+    if (!ISO8601_DATETIME.test(m.published_at)) {
       errors.push({
         field: "published_at",
         message: '"published_at" must be a valid ISO 8601 date-time',

@@ -40,7 +40,7 @@ jobs:
           while IFS= read -r file; do
             [ -z "$file" ] && continue
             echo "Validating $file..."
-            ajv validate -s schema/manifest.v1.json -d "$file" --spec=draft7
+            ajv validate -s schema/manifest.v1.json -d "$file" --spec=draft7 -c ajv-formats
           done <<< "$CHANGED_FILES"
 
       - name: Author identity check
@@ -90,8 +90,9 @@ jobs:
         env:
           CHANGED_FILES: ${{ steps.changed.outputs.files }}
         run: |
-          # Build list of existing skill names from index.json
-          existing=$(jq -r '.manifests[].name' index.json 2>/dev/null || echo "")
+          # Build list of existing skill names from index.json on main
+          # Uses origin/main to prevent a PR from modifying index.json to bypass detection
+          existing=$(git show origin/main:index.json 2>/dev/null | jq -r '.manifests[].name' 2>/dev/null || echo "")
           typosquat_found=false
 
           while IFS= read -r file; do
@@ -185,7 +186,9 @@ jobs:
               rm -rf "$clone_dir"
               exit 1
             fi
-            (cd "$clone_dir" && git fetch --quiet origin "$commit" && git checkout --quiet "$commit")
+            # Full clone already has all objects; skip fetch (SHA-based fetch is
+            # restricted by default on GitHub) and checkout the commit directly.
+            (cd "$clone_dir" && git checkout --quiet "$commit")
 
             # Run the SecurityAuditor skill against the cloned repo
             echo "Running security audit on $name..."
@@ -194,6 +197,9 @@ jobs:
             # Check for dangerous patterns in skill files
             # Uses grep -E for extended regex; patterns use word boundaries where
             # appropriate to avoid false positives on variable names like executablePath.
+            # NOTE: These patterns should be kept in sync with the SCAN_PATTERNS in
+            # the asm repo's src/security-auditor.ts. This CI runs in the asm-registry
+            # repo context and cannot import from asm directly.
             dangerous_patterns=(
               'rm -rf /'
               'curl.*\| ?sh'
