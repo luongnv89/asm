@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -127,6 +129,21 @@ jobs:
             exit 1
           fi
 
+      - name: Check manifest security verdict
+        if: steps.changed.outputs.files != ''
+        env:
+          CHANGED_FILES: ${{ steps.changed.outputs.files }}
+        run: |
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            verdict=$(jq -r '.security_verdict' "$file")
+            name=$(jq -r '.name' "$file")
+            if [ "$verdict" = "dangerous" ]; then
+              echo "::error::Manifest $name declares security_verdict=dangerous — submission rejected"
+              exit 1
+            fi
+          done <<< "$CHANGED_FILES"
+
       - name: Independent security scan
         if: steps.changed.outputs.files != ''
         env:
@@ -140,8 +157,15 @@ jobs:
 
             echo "Cloning $repo at $commit for security scan..."
             clone_dir=$(mktemp -d)
-            git clone --quiet "$repo" "$clone_dir"
-            (cd "$clone_dir" && git checkout --quiet "$commit")
+            timeout 120 git clone --quiet --depth 1 "$repo" "$clone_dir"
+            # Enforce a 200 MB size limit on cloned repos
+            clone_size=$(du -sm "$clone_dir" | cut -f1)
+            if [ "$clone_size" -gt 200 ]; then
+              echo "::error::Cloned repository for $name exceeds 200 MB size limit (${clone_size} MB)"
+              rm -rf "$clone_dir"
+              exit 1
+            fi
+            (cd "$clone_dir" && git fetch --quiet --depth 1 origin "$commit" && git checkout --quiet "$commit")
 
             # Run the SecurityAuditor skill against the cloned repo
             echo "Running security audit on $name..."

@@ -353,10 +353,15 @@ export async function buildIndex(manifestsDir: string): Promise<RegistryIndex> {
       const filePath = join(authorDir, file);
       try {
         const content = await readFile(filePath, "utf-8");
-        const manifest = JSON.parse(content) as RegistryManifest;
-        manifests.push(manifest);
+        const parsed: unknown = JSON.parse(content);
+        const errors = validateManifest(parsed);
+        if (errors.length > 0) {
+          // Skip manifests that fail validation
+          continue;
+        }
+        manifests.push(parsed as RegistryManifest);
       } catch {
-        // Skip invalid files
+        // Skip unparseable files
       }
     }
   }
