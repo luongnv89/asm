@@ -5,6 +5,9 @@ on:
     paths:
       - "manifests/**"
 
+permissions:
+  contents: read
+
 jobs:
   validate-manifest:
     runs-on: ubuntu-latest
@@ -49,13 +52,16 @@ jobs:
           while IFS= read -r file; do
             [ -z "$file" ] && continue
             dir_author=$(echo "$file" | sed 's|manifests/\([^/]*\)/.*|\1|')
-            if [ "$dir_author" != "$PR_AUTHOR" ]; then
+            dir_author_lower=$(echo "$dir_author" | tr '[:upper:]' '[:lower:]')
+            pr_author_lower=$(echo "$PR_AUTHOR" | tr '[:upper:]' '[:lower:]')
+            if [ "$dir_author_lower" != "$pr_author_lower" ]; then
               echo "::error::Author mismatch: manifest in manifests/$dir_author/ but PR opened by $PR_AUTHOR"
               exit 1
             fi
-            # Verify the JSON author field matches the directory name
+            # Verify the JSON author field matches the directory name (case-insensitive)
             json_author=$(jq -r '.author' "$file")
-            if [ "$json_author" != "$dir_author" ]; then
+            json_author_lower=$(echo "$json_author" | tr '[:upper:]' '[:lower:]')
+            if [ "$json_author_lower" != "$dir_author_lower" ]; then
               echo "::error::Author field mismatch: JSON author '$json_author' does not match directory '$dir_author'"
               exit 1
             fi
@@ -164,14 +170,14 @@ jobs:
               echo "::error::Invalid commit SHA in manifest: $file"
               exit 1
             fi
-            if ! echo "$name" | grep -qE '^[a-z0-9][a-z0-9-]*$'; then
+            if ! echo "$name" | grep -qE '^[a-z0-9]([a-z0-9-]*[a-z0-9])?$'; then
               echo "::error::Invalid skill name in manifest: $file"
               exit 1
             fi
 
             echo "Cloning $repo at $commit for security scan..."
             clone_dir=$(mktemp -d)
-            timeout 120 git clone --quiet --depth 1 "$repo" "$clone_dir"
+            timeout 120 git clone --quiet --no-checkout "$repo" "$clone_dir"
             # Enforce a 200 MB size limit on cloned repos
             clone_size=$(du -sm "$clone_dir" | cut -f1)
             if [ "$clone_size" -gt 200 ]; then
@@ -179,7 +185,7 @@ jobs:
               rm -rf "$clone_dir"
               exit 1
             fi
-            (cd "$clone_dir" && git fetch --quiet --depth 1 origin "$commit" && git checkout --quiet "$commit")
+            (cd "$clone_dir" && git fetch --quiet origin "$commit" && git checkout --quiet "$commit")
 
             # Run the SecurityAuditor skill against the cloned repo
             echo "Running security audit on $name..."

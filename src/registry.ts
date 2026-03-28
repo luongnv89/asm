@@ -38,7 +38,7 @@ export interface ValidationError {
 
 // ─── Validation Patterns ────────────────────────────────────────────────────
 
-const NAME_PATTERN = /^[a-z0-9][a-z0-9-]*$/;
+const NAME_PATTERN = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/;
 const AUTHOR_PATTERN = /^[a-zA-Z0-9_-]+$/;
 const REPO_URL_PATTERN =
   /^https:\/\/github\.com\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9._-]+$/;
