@@ -126,6 +126,17 @@ describe("parseArgs", () => {
     expect(result.flags.json).toBe(true);
   });
 
+  test("parses --machine flag", () => {
+    const result = parse("list", "--machine");
+    expect(result.command).toBe("list");
+    expect(result.flags.machine).toBe(true);
+  });
+
+  test("--machine defaults to false", () => {
+    const result = parse("list");
+    expect(result.flags.machine).toBe(false);
+  });
+
   test("parses --no-color flag", () => {
     const result = parse("list", "--no-color");
     expect(result.flags.noColor).toBe(true);
@@ -462,6 +473,51 @@ describe("CLI integration: invalid --sort", () => {
     const { stderr, exitCode } = await runCLI("list", "--sort", "invalid");
     expect(exitCode).toBe(2);
     expect(stderr).toContain("Invalid sort");
+  });
+});
+
+describe("CLI integration: --json and --machine mutual exclusion", () => {
+  test("exits 2 when both --json and --machine are used", async () => {
+    const { stderr, exitCode } = await runCLI("list", "--json", "--machine");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("mutually exclusive");
+  });
+});
+
+describe("CLI integration: --machine output", () => {
+  test("list --machine produces valid v1 envelope", async () => {
+    const { stdout, exitCode } = await runCLI("list", "--machine");
+    expect(exitCode).toBe(0);
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("list");
+    expect(parsed.status).toBe("ok");
+    expect(parsed.meta).toBeDefined();
+    expect(parsed.meta.timestamp).toBeDefined();
+    expect(parsed.meta.asm_version).toBeDefined();
+    expect(typeof parsed.meta.duration_ms).toBe("number");
+    expect(Array.isArray(parsed.data)).toBe(true);
+  });
+
+  test("doctor --machine produces valid v1 envelope", async () => {
+    const { stdout } = await runCLI("doctor", "--machine");
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("doctor");
+    expect(parsed.status).toBe("ok");
+    expect(parsed.meta).toBeDefined();
+    expect(parsed.data.checks).toBeDefined();
+    expect(Array.isArray(parsed.data.checks)).toBe(true);
+  });
+
+  test("outdated --machine produces valid v1 envelope", async () => {
+    const { stdout } = await runCLI("outdated", "--machine");
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("outdated");
+    expect(parsed.status).toBe("ok");
+    expect(parsed.meta).toBeDefined();
+    expect(Array.isArray(parsed.data)).toBe(true);
   });
 });
 
