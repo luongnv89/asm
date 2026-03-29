@@ -94,6 +94,15 @@ import {
   formatSecurityReportJSON,
 } from "./security-auditor";
 import { writeLockEntry, removeLockEntry, getCommitHash } from "./utils/lock";
+import {
+  checkOutdated,
+  updateSkills,
+  formatOutdatedTable,
+  formatOutdatedJSON,
+  formatOutdatedMachine,
+  formatUpdateJSON,
+  formatUpdateMachine,
+} from "./updater";
 import { ingestRepo, listIndexedRepos, removeRepoIndex } from "./ingester";
 import {
   searchSkills as searchIndexSkills,
@@ -313,6 +322,8 @@ ${ansi.bold("Commands:")}
   init <name>            Scaffold a new skill with SKILL.md template
   stats                  Show aggregate skill metrics dashboard
   link <path>            Symlink a local skill directory into an agent
+  outdated               Show which installed skills have newer versions
+  update [name...]       Update outdated skills with security re-audit
   publish [path]         Validate, audit, and submit a skill to the registry
   bundle                 Manage skill bundles (create, install, list, show, remove)
   index                  Manage skill index (ingest, search, list)
@@ -472,6 +483,45 @@ ${ansi.bold("Examples:")}
   asm publish --force               ${ansi.dim("Override warning-level security findings")}
   asm publish --json                ${ansi.dim("Output as JSON")}
   asm publish --machine             ${ansi.dim("Machine-readable v1 envelope output")}`);
+}
+
+function printOutdatedHelp() {
+  console.log(`${ansi.bold("Usage:")} asm outdated [options]
+
+Show which installed skills have newer versions available.
+
+${ansi.bold("Options:")}
+  --json               Output as JSON
+  --machine            Output in stable machine-readable format
+  --no-color           Disable ANSI colors
+  -V, --verbose        Show debug output
+
+${ansi.bold("Examples:")}
+  asm outdated                       ${ansi.dim("Show outdated skills")}
+  asm outdated --json                ${ansi.dim("Output as JSON")}
+  asm outdated --machine             ${ansi.dim("Machine-readable output")}`);
+}
+
+function printUpdateHelp() {
+  console.log(`${ansi.bold("Usage:")} asm update [name...] [options]
+
+Update outdated skills to their latest version with security re-audit.
+
+${ansi.bold("Arguments:")}
+  name          Specific skill(s) to update (default: all outdated)
+
+${ansi.bold("Options:")}
+  -y, --yes            Skip confirmation prompts
+  --json               Output as JSON
+  --machine            Output in stable machine-readable format
+  --no-color           Disable ANSI colors
+  -V, --verbose        Show debug output
+
+${ansi.bold("Examples:")}
+  asm update                         ${ansi.dim("Update all outdated skills")}
+  asm update code-review             ${ansi.dim("Update a specific skill")}
+  asm update --yes                   ${ansi.dim("Skip confirmation prompts")}
+  asm update --json                  ${ansi.dim("Output as JSON")}`);
 }
 
 function printConfigHelp() {
@@ -1861,12 +1911,21 @@ async function cmdInstall(args: ParsedArgs) {
           const sourceStr = isLocal
             ? `local:${source.localPath}`
             : `github:${source.owner}/${source.repo}`;
+          const sourceType = isLocal
+            ? ("local" as const)
+            : resolutionSource === "registry"
+              ? ("registry" as const)
+              : ("github" as const);
           await writeLockEntry(result.name, {
             source: sourceStr,
             commitHash: commitHash || "unknown",
             ref: source.ref || "main",
             installedAt: new Date().toISOString(),
             provider: inspection.plan.providerName,
+            sourceType,
+            ...(resolutionSource === "registry"
+              ? { registryName: result.name }
+              : {}),
           });
         } catch {
           // Lock write failure is non-fatal
@@ -3343,6 +3402,126 @@ async function cmdPublish(args: ParsedArgs) {
   }
 }
 
+// ─── Outdated & Update Commands ────────────────────────────────────────────
+
+async function cmdOutdated(args: ParsedArgs) {
+  if (args.flags.help) {
+    printOutdatedHelp();
+    return;
+  }
+
+  try {
+    const summary = await checkOutdated();
+
+    if (args.flags.machine) {
+      console.log(formatOutdatedMachine(summary));
+      return;
+    }
+
+    if (args.flags.json) {
+      console.log(formatOutdatedJSON(summary));
+      return;
+    }
+
+    // Human-readable table
+    const useColor = !args.flags.noColor && process.stdout.isTTY !== false;
+    console.log(formatOutdatedTable(summary, useColor));
+
+    if (summary.outdatedCount > 0) {
+      process.exitCode = 1;
+    }
+  } catch (err: any) {
+    error(err.message);
+    process.exit(1);
+  }
+}
+
+async function cmdUpdate(args: ParsedArgs) {
+  if (args.flags.help) {
+    printUpdateHelp();
+    return;
+  }
+
+  // Collect skill names from subcommand and positional args
+  const names: string[] = [];
+  if (args.subcommand) names.push(args.subcommand);
+  names.push(...args.positional);
+
+  try {
+    const summary = await updateSkills(
+      names.length > 0 ? names : null,
+      args.flags.yes,
+    );
+
+    if (args.flags.machine) {
+      console.log(formatUpdateMachine(summary));
+      return;
+    }
+
+    if (args.flags.json) {
+      console.log(formatUpdateJSON(summary));
+      return;
+    }
+
+    // Human-readable output
+    if (summary.results.length === 0) {
+      console.log("All skills are up to date.");
+      return;
+    }
+
+    const useColor = !args.flags.noColor && process.stdout.isTTY !== false;
+    const green = useColor
+      ? (s: string) => `\x1b[32m${s}\x1b[0m`
+      : (s: string) => s;
+    const red = useColor
+      ? (s: string) => `\x1b[31m${s}\x1b[0m`
+      : (s: string) => s;
+    const yellow = useColor
+      ? (s: string) => `\x1b[33m${s}\x1b[0m`
+      : (s: string) => s;
+    const dim = useColor
+      ? (s: string) => `\x1b[2m${s}\x1b[0m`
+      : (s: string) => s;
+
+    for (const result of summary.results) {
+      switch (result.status) {
+        case "updated":
+          console.log(
+            `${green("✓")} ${result.name} ${dim(result.oldCommit || "")} → ${result.newCommit || ""}`,
+          );
+          break;
+        case "skipped":
+          console.log(
+            `${yellow("○")} ${result.name} ${dim(result.reason || "skipped")}`,
+          );
+          break;
+        case "failed":
+          console.log(
+            `${red("✗")} ${result.name} ${dim(result.reason || "failed")}`,
+          );
+          break;
+      }
+    }
+
+    console.log("");
+    const parts: string[] = [];
+    if (summary.updatedCount > 0)
+      parts.push(green(`${summary.updatedCount} updated`));
+    if (summary.skippedCount > 0)
+      parts.push(yellow(`${summary.skippedCount} skipped`));
+    if (summary.failedCount > 0)
+      parts.push(red(`${summary.failedCount} failed`));
+    console.log(parts.join(", "));
+
+    if (summary.failedCount > 0) {
+      process.exitCode = 1;
+    }
+  } catch (err: any) {
+    error(err.message);
+    process.exit(1);
+  }
+}
+
 // ─── Main CLI dispatcher ────────────────────────────────────────────────────
 
 export async function runCLI(argv: string[]): Promise<void> {
@@ -3421,6 +3600,12 @@ export async function runCLI(argv: string[]): Promise<void> {
     case "publish":
       await cmdPublish(args);
       break;
+    case "outdated":
+      await cmdOutdated(args);
+      break;
+    case "update":
+      await cmdUpdate(args);
+      break;
     default:
       error(`Unknown command: "${args.command}"`);
       console.error(`Run "asm --help" for usage.`);
@@ -3451,6 +3636,8 @@ export function isCLIMode(argv: string[]): boolean {
     "index",
     "bundle",
     "publish",
+    "outdated",
+    "update",
   ];
   const first = args[0];
 

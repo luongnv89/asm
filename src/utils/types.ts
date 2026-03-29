@@ -36,6 +36,10 @@ export interface LockEntry {
   ref: string | null;
   installedAt: string;
   provider: string;
+  /** How the skill was resolved: registry, github, or local */
+  sourceType?: "registry" | "github" | "local";
+  /** Registry name for registry-installed skills (e.g. "code-review") */
+  registryName?: string;
 }
 
 export interface LockFile {
