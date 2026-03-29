@@ -53,6 +53,12 @@ import type {
 } from "./utils/types";
 import { checkboxPicker } from "./utils/checkbox-picker";
 import { checkHealth } from "./health";
+import {
+  isBareOrScopedName,
+  isScopedName,
+  resolveFromRegistry,
+} from "./registry";
+import type { RegistryManifest, ResolutionSource } from "./registry";
 import { buildManifest } from "./exporter";
 import { readManifestFile, importSkills } from "./importer";
 import { scaffoldSkill, directoryExists } from "./initializer";
@@ -130,6 +136,7 @@ interface ParsedArgs {
     missing: string[];
     dryRun: boolean;
     machine: boolean;
+    noCache: boolean;
   };
 }
 
@@ -163,6 +170,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       missing: [],
       dryRun: false,
       machine: false,
+      noCache: false,
     },
   };
 
@@ -246,6 +254,8 @@ export function parseArgs(argv: string[]): ParsedArgs {
       result.flags.dryRun = true;
     } else if (arg === "--machine") {
       result.flags.machine = true;
+    } else if (arg === "--no-cache") {
+      result.flags.noCache = true;
     } else if (arg === "--has") {
       i++;
       if (args[i]) result.flags.has.push(args[i]);
@@ -1037,9 +1047,11 @@ async function cmdConfig(args: ParsedArgs) {
 function printInstallHelp() {
   console.log(`${ansi.bold("Usage:")} asm install <source> [options]
 
-Install a skill from a GitHub repository or a local folder path.
+Install a skill from a GitHub repository, the curated registry, or a local path.
 
 ${ansi.bold("Source Format:")}
+  code-review                    Install by name from the curated registry
+  author/code-review             Install a scoped name (author/name) from registry
   github:owner/repo              Install from default branch
   github:owner/repo#ref          Install from specific branch or tag
   github:owner/repo#ref:path     Install from a subfolder on a specific branch
@@ -1064,11 +1076,18 @@ ${ansi.bold("Options:")}
                          vercel delegates to npx skills add for tracking
   -t, --transport <mode> Transport: https, ssh, or auto (default: auto)
                          auto tries HTTPS first, falls back to SSH on auth error
+  --no-cache             Force fresh registry fetch (bypass 1-hour TTL cache)
   -f, --force            Overwrite if skill already exists
   -y, --yes              Skip confirmation prompt
   --json                 Output result as JSON
+  --machine              Machine-readable output (includes resolution source)
   --no-color             Disable ANSI colors
   -V, --verbose          Show debug output
+
+${ansi.bold("Registry (bare name):")}
+  asm install code-review                  ${ansi.dim("(resolve from registry)")}
+  asm install luongnv89/code-review        ${ansi.dim("(scoped name, no ambiguity)")}
+  asm install code-review --no-cache       ${ansi.dim("(force fresh registry fetch)")}
 
 ${ansi.bold("Local folder:")}
   asm install ./my-skill                   ${ansi.dim("(relative path)")}
@@ -1311,7 +1330,7 @@ async function cmdInstall(args: ParsedArgs) {
     return;
   }
 
-  const sourceStr = args.subcommand;
+  let sourceStr = args.subcommand;
   if (!sourceStr) {
     error("Missing required argument: <source>");
     console.error(`Run "asm install --help" for usage.`);
@@ -1319,6 +1338,7 @@ async function cmdInstall(args: ParsedArgs) {
   }
 
   let tempDir: string | null = null;
+  let resolutionSource: ResolutionSource = "github";
   const totalSteps = 8;
   let currentStep = 0;
   const stepHeader = (label: string) => {
@@ -1338,6 +1358,101 @@ async function cmdInstall(args: ParsedArgs) {
   process.on("SIGTERM", cleanup);
 
   try {
+    // Step 0: Registry resolution for bare/scoped names
+    if (isBareOrScopedName(sourceStr)) {
+      console.info(
+        `\n${ansi.cyan("●")} Resolving "${ansi.bold(sourceStr)}" from registry...`,
+      );
+
+      const { resolved, multipleMatches, suggestions } =
+        await resolveFromRegistry(sourceStr, {
+          noCache: args.flags.noCache,
+        });
+
+      if (resolved) {
+        // Single match — use the resolved manifest
+        resolutionSource = "registry";
+        const m = resolved.manifest;
+        sourceStr = `github:${m.repository.replace("https://github.com/", "")}#${m.commit}`;
+        console.info(
+          `  ${ansi.green("✓")} Resolved: ${ansi.bold(`${m.author}/${m.name}`)} @ ${m.commit.slice(0, 7)}`,
+        );
+      } else if (multipleMatches.length > 0) {
+        // Multiple authors publish this name — disambiguate
+        console.info(
+          `\n  ${ansi.yellow("⚠")} Multiple skills found for "${ansi.bold(sourceStr)}":`,
+        );
+
+        const top = multipleMatches.slice(0, 5);
+        for (let idx = 0; idx < top.length; idx++) {
+          const m = top[idx];
+          console.info(
+            `    ${ansi.cyan(`${idx + 1}.`)} ${ansi.bold(`${m.author}/${m.name}`)} — ${m.description}`,
+          );
+        }
+
+        if (!process.stdin.isTTY) {
+          error(
+            `Ambiguous skill name "${sourceStr}". Use a scoped name: asm install author/name`,
+          );
+          process.exit(2);
+        }
+
+        const prompt = `\n  Select a skill [1-${top.length}]: `;
+        process.stderr.write(prompt);
+        const response = await new Promise<string>((resolve) => {
+          let data = "";
+          let done = false;
+          const timer = setTimeout(() => {
+            if (!done) {
+              done = true;
+              process.stdin.removeListener("data", onData);
+              resolve(data.trim());
+            }
+          }, 30_000);
+          function onData(chunk: string | Buffer) {
+            data = chunk.toString().trim();
+            if (!done) {
+              done = true;
+              clearTimeout(timer);
+              process.stdin.removeListener("data", onData);
+              resolve(data);
+            }
+          }
+          process.stdin.setEncoding("utf-8");
+          process.stdin.on("data", onData);
+        });
+
+        const choice = parseInt(response, 10);
+        if (isNaN(choice) || choice < 1 || choice > top.length) {
+          error("Invalid selection. Aborting.");
+          process.exit(2);
+        }
+
+        const selected = top[choice - 1];
+        resolutionSource = "registry";
+        sourceStr = `github:${selected.repository.replace("https://github.com/", "")}#${selected.commit}`;
+        console.info(
+          `  ${ansi.green("✓")} Selected: ${ansi.bold(`${selected.author}/${selected.name}`)} @ ${selected.commit.slice(0, 7)}`,
+        );
+      } else if (isScopedName(sourceStr)) {
+        // Scoped name not found in registry — error (no fallback)
+        error(`Skill "${sourceStr}" not found in the registry.`);
+        if (suggestions.length > 0) {
+          console.error(
+            `\n  Did you mean: ${suggestions.map((s) => ansi.cyan(s)).join(", ")}?`,
+          );
+        }
+        process.exit(1);
+      } else {
+        // Bare name not in registry — fall back to existing behavior
+        console.info(
+          `  ${ansi.dim("Not found in registry — trying existing sources...")}`,
+        );
+        resolutionSource = "pre-indexed";
+      }
+    }
+
     // Step 1: Parse source
     console.info(stepHeader("Parsing source"));
     let source = parseSource(sourceStr);
@@ -1781,9 +1896,13 @@ async function cmdInstall(args: ParsedArgs) {
       }
     }
 
-    if (args.flags.json) {
+    if (args.flags.json || args.flags.machine) {
+      const enriched = results.map((r) => ({
+        ...r,
+        resolutionSource: resolutionSource,
+      }));
       console.log(
-        JSON.stringify(results.length === 1 ? results[0] : results, null, 2),
+        JSON.stringify(enriched.length === 1 ? enriched[0] : enriched, null, 2),
       );
     } else if (results.length === 1) {
       console.error(

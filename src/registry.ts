@@ -9,6 +9,9 @@
 
 import { readdir, readFile, stat } from "fs/promises";
 import { join } from "path";
+import { homedir } from "os";
+import { fetchWithCache } from "./utils/http";
+import { debug } from "./logger";
 
 // ─── Manifest Types ─────────────────────────────────────────────────────────
 
@@ -375,4 +378,244 @@ export async function buildIndex(manifestsDir: string): Promise<RegistryIndex> {
     generated_at: new Date().toISOString(),
     manifests,
   };
+}
+
+// ─── Registry-Based Resolution ─────────────────────────────────────────────
+
+const REGISTRY_INDEX_URL =
+  "https://raw.githubusercontent.com/luongnv89/asm-registry/main/index.json";
+
+const REGISTRY_CACHE_PATH = join(
+  homedir(),
+  ".config",
+  "agent-skill-manager",
+  "registry-cache.json",
+);
+
+const REGISTRY_TTL_SECONDS = 3600; // 1 hour
+
+export type ResolutionSource = "registry" | "github" | "pre-indexed";
+
+export interface RegistryResolution {
+  /** The resolved manifest from the registry */
+  manifest: RegistryManifest;
+  /** How the name was resolved */
+  source: ResolutionSource;
+}
+
+/**
+ * Check if an input string looks like a bare name (no URL, no github: prefix,
+ * no local path indicators). A bare name contains only lowercase letters,
+ * numbers, and hyphens.
+ *
+ * Examples:
+ * - "code-review" -> true
+ * - "luongnv89/code-review" -> true (scoped name)
+ * - "github:user/repo" -> false
+ * - "https://github.com/user/repo" -> false
+ * - "./local/path" -> false
+ */
+export function isBareOrScopedName(input: string): boolean {
+  // Reject anything that looks like a URL, github: shorthand, or local path
+  if (
+    input.startsWith("github:") ||
+    input.startsWith("http://") ||
+    input.startsWith("https://") ||
+    input.startsWith("/") ||
+    input.startsWith("./") ||
+    input.startsWith("../") ||
+    input.startsWith("~/") ||
+    input === "~" ||
+    input === "." ||
+    input === ".."
+  ) {
+    return false;
+  }
+
+  // A scoped name has exactly one slash: "author/name"
+  const slashCount = (input.match(/\//g) || []).length;
+  if (slashCount > 1) return false;
+
+  // Validate format: bare name or author/name
+  if (slashCount === 1) {
+    const [author, name] = input.split("/");
+    return (
+      /^[a-zA-Z0-9_-]+$/.test(author) &&
+      /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(name)
+    );
+  }
+
+  // Bare name: lowercase alphanumeric with hyphens
+  return /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(input);
+}
+
+/**
+ * Check if the input is a scoped name (author/name format).
+ */
+export function isScopedName(input: string): boolean {
+  if (!isBareOrScopedName(input)) return false;
+  return input.includes("/");
+}
+
+/**
+ * Fetch the registry index from the remote URL (with cache).
+ */
+export async function fetchRegistryIndex(options?: {
+  noCache?: boolean;
+}): Promise<RegistryIndex | null> {
+  const data = await fetchWithCache<RegistryIndex>(
+    REGISTRY_INDEX_URL,
+    REGISTRY_CACHE_PATH,
+    {
+      ttl: REGISTRY_TTL_SECONDS,
+      noCache: options?.noCache,
+    },
+  );
+
+  if (!data) return null;
+
+  // Validate the structure of the fetched index
+  if (
+    typeof data !== "object" ||
+    !Array.isArray(data.manifests) ||
+    typeof data.generated_at !== "string"
+  ) {
+    debug("registry: fetched index has invalid structure — discarding");
+    return null;
+  }
+
+  // Validate each manifest entry against the schema and filter out invalid ones
+  const validManifests: RegistryManifest[] = [];
+  for (const entry of data.manifests) {
+    const errors = validateManifest(entry);
+    if (errors.length > 0) {
+      debug(
+        `registry: dropping invalid manifest entry (${(entry as Record<string, unknown>)?.name ?? "unknown"}): ${errors.map((e) => e.message).join(", ")}`,
+      );
+      continue;
+    }
+    // Additional check: repository URL must match the expected GitHub pattern
+    if (!REPO_URL_PATTERN.test((entry as RegistryManifest).repository)) {
+      debug(
+        `registry: dropping manifest with unexpected repository URL: ${(entry as RegistryManifest).repository}`,
+      );
+      continue;
+    }
+    validManifests.push(entry as RegistryManifest);
+  }
+
+  return { generated_at: data.generated_at, manifests: validManifests };
+}
+
+/**
+ * Resolve a bare skill name against the registry index.
+ * Returns matching manifests (may be more than one if multiple authors
+ * publish a skill with the same name).
+ */
+export function findByBareName(
+  name: string,
+  index: RegistryIndex,
+): RegistryManifest[] {
+  return index.manifests.filter(
+    (m) => m.name.toLowerCase() === name.toLowerCase(),
+  );
+}
+
+/**
+ * Resolve a scoped name (author/name) against the registry index.
+ * Returns at most one manifest since author+name is unique.
+ */
+export function findByScopedName(
+  author: string,
+  name: string,
+  index: RegistryIndex,
+): RegistryManifest | null {
+  return (
+    index.manifests.find(
+      (m) =>
+        m.author.toLowerCase() === author.toLowerCase() &&
+        m.name.toLowerCase() === name.toLowerCase(),
+    ) ?? null
+  );
+}
+
+/**
+ * Find similar skill names using Levenshtein distance for "did you mean?"
+ * suggestions when no exact match is found.
+ */
+export function findSimilarNames(
+  name: string,
+  index: RegistryIndex,
+  maxSuggestions: number = 5,
+): string[] {
+  const matches = detectTyposquats(
+    name,
+    index.manifests.map((m) => m.name),
+    3,
+  );
+  return matches.slice(0, maxSuggestions).map((m) => m.existingName);
+}
+
+/**
+ * Resolve a bare or scoped name from the registry.
+ *
+ * Resolution order:
+ * 1. Scoped name (author/name) -> exact lookup, error if not found
+ * 2. Bare name -> exact match on name field
+ *    - Single match -> return it
+ *    - Multiple matches -> return all (caller handles disambiguation)
+ *    - No match -> return null (caller falls back to existing behavior)
+ */
+export async function resolveFromRegistry(
+  input: string,
+  options?: { noCache?: boolean },
+): Promise<{
+  resolved: RegistryResolution | null;
+  multipleMatches: RegistryManifest[];
+  suggestions: string[];
+}> {
+  const index = await fetchRegistryIndex(options);
+
+  if (!index) {
+    debug("registry: failed to fetch index — skipping registry resolution");
+    return { resolved: null, multipleMatches: [], suggestions: [] };
+  }
+
+  if (isScopedName(input)) {
+    const [author, name] = input.split("/");
+    const manifest = findByScopedName(author, name, index);
+    if (manifest) {
+      return {
+        resolved: { manifest, source: "registry" },
+        multipleMatches: [],
+        suggestions: [],
+      };
+    }
+    // Scoped name not found — no fallback, return suggestions
+    const suggestions = findSimilarNames(name, index);
+    return { resolved: null, multipleMatches: [], suggestions };
+  }
+
+  // Bare name
+  const matches = findByBareName(input, index);
+
+  if (matches.length === 1) {
+    return {
+      resolved: { manifest: matches[0], source: "registry" },
+      multipleMatches: [],
+      suggestions: [],
+    };
+  }
+
+  if (matches.length > 1) {
+    return {
+      resolved: null,
+      multipleMatches: matches,
+      suggestions: [],
+    };
+  }
+
+  // No match — find similar names for suggestions
+  const suggestions = findSimilarNames(input, index);
+  return { resolved: null, multipleMatches: [], suggestions };
 }

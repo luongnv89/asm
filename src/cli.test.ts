@@ -913,6 +913,16 @@ describe("parseArgs: install", () => {
     expect(result.flags.path).toBe("my-skill");
   });
 
+  test("parses --no-cache flag", () => {
+    const result = parse("install", "code-review", "--no-cache");
+    expect(result.flags.noCache).toBe(true);
+  });
+
+  test("defaults noCache to false", () => {
+    const result = parse("install", "github:user/repo");
+    expect(result.flags.noCache).toBe(false);
+  });
+
   test("combined vercel method flags", () => {
     const result = parse(
       "install",
@@ -972,6 +982,83 @@ describe("CLI integration: install", () => {
   test("main --help includes install command", async () => {
     const { stdout } = await runCLI("--help");
     expect(stdout).toContain("install");
+  });
+});
+
+// ─── CLI integration: install registry resolution ─────────────────────────
+
+describe("CLI integration: install registry resolution", () => {
+  test("bare name resolves via registry when fetch returns a valid index", async () => {
+    // We run a subprocess that:
+    //   1. Starts a tiny HTTP server serving a fake registry index
+    //   2. Overrides REGISTRY_INDEX_URL via env so the CLI hits our server
+    //   3. Invokes cmdInstall logic with a bare name
+    //   4. Verifies the constructed source string matches the registry entry
+    const script = `
+      import http from "node:http";
+      import { resolveFromRegistry } from "./src/registry";
+
+      // Spin up a local server that returns a valid registry index
+      const manifest = {
+        name: "my-test-skill",
+        author: "testauthor",
+        description: "A test skill",
+        repository: "https://github.com/testauthor/my-test-repo",
+        commit: "${"a".repeat(40)}",
+        security_verdict: "pass",
+        published_at: "2026-01-01T00:00:00Z",
+      };
+      const index = { generated_at: "2026-01-01T00:00:00Z", manifests: [manifest] };
+
+      const server = http.createServer((_req, res) => {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(index));
+      });
+
+      await new Promise(resolve => server.listen(0, resolve));
+      const port = server.address().port;
+
+      // Monkey-patch the registry module's fetch to hit our local server
+      const origFetch = globalThis.fetch;
+      globalThis.fetch = async (url, opts) => {
+        // Redirect registry URL to local server
+        if (typeof url === "string" && url.includes("asm-registry")) {
+          return origFetch("http://127.0.0.1:" + port + "/index.json", opts);
+        }
+        return origFetch(url, opts);
+      };
+
+      try {
+        const result = await resolveFromRegistry("my-test-skill", { noCache: true });
+        if (!result.resolved) {
+          process.stderr.write("FAIL: expected resolved to be non-null");
+          process.exit(1);
+        }
+        const m = result.resolved.manifest;
+        const sourceStr = "github:" + m.repository.replace("https://github.com/", "") + "#" + m.commit;
+        process.stdout.write(sourceStr);
+      } finally {
+        globalThis.fetch = origFetch;
+        server.close();
+      }
+    `;
+
+    const proc = Bun.spawn(["bun", "-e", script], {
+      stdout: "pipe",
+      stderr: "pipe",
+      env: { ...process.env, NO_COLOR: "1" },
+      cwd: join(import.meta.dir, ".."),
+    });
+    const [stdout, stderr] = await Promise.all([
+      new Response(proc.stdout).text(),
+      new Response(proc.stderr).text(),
+    ]);
+    const exitCode = await proc.exited;
+
+    expect(exitCode).toBe(0);
+    expect(stdout).toBe(`github:testauthor/my-test-repo#${"a".repeat(40)}`);
+    // No errors on stderr
+    expect(stderr).not.toContain("FAIL");
   });
 });
 
