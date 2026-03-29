@@ -913,6 +913,16 @@ describe("parseArgs: install", () => {
     expect(result.flags.path).toBe("my-skill");
   });
 
+  test("parses --no-cache flag", () => {
+    const result = parse("install", "code-review", "--no-cache");
+    expect(result.flags.noCache).toBe(true);
+  });
+
+  test("defaults noCache to false", () => {
+    const result = parse("install", "github:user/repo");
+    expect(result.flags.noCache).toBe(false);
+  });
+
   test("combined vercel method flags", () => {
     const result = parse(
       "install",

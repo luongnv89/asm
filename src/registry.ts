@@ -471,7 +471,40 @@ export async function fetchRegistryIndex(options?: {
       noCache: options?.noCache,
     },
   );
-  return data;
+
+  if (!data) return null;
+
+  // Validate the structure of the fetched index
+  if (
+    typeof data !== "object" ||
+    !Array.isArray(data.manifests) ||
+    typeof data.generated_at !== "string"
+  ) {
+    debug("registry: fetched index has invalid structure — discarding");
+    return null;
+  }
+
+  // Validate each manifest entry against the schema and filter out invalid ones
+  const validManifests: RegistryManifest[] = [];
+  for (const entry of data.manifests) {
+    const errors = validateManifest(entry);
+    if (errors.length > 0) {
+      debug(
+        `registry: dropping invalid manifest entry (${(entry as Record<string, unknown>)?.name ?? "unknown"}): ${errors.map((e) => e.message).join(", ")}`,
+      );
+      continue;
+    }
+    // Additional check: repository URL must match the expected GitHub pattern
+    if (!REPO_URL_PATTERN.test((entry as RegistryManifest).repository)) {
+      debug(
+        `registry: dropping manifest with unexpected repository URL: ${(entry as RegistryManifest).repository}`,
+      );
+      continue;
+    }
+    validManifests.push(entry as RegistryManifest);
+  }
+
+  return { generated_at: data.generated_at, manifests: validManifests };
 }
 
 /**

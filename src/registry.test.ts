@@ -1,4 +1,12 @@
-import { describe, expect, it, beforeEach, afterEach } from "bun:test";
+import {
+  describe,
+  expect,
+  it,
+  beforeEach,
+  afterEach,
+  mock,
+  spyOn,
+} from "bun:test";
 import { mkdtemp, writeFile, mkdir, rm } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
@@ -14,6 +22,7 @@ import {
   findByBareName,
   findByScopedName,
   findSimilarNames,
+  resolveFromRegistry,
 } from "./registry";
 import type { RegistryManifest, RegistryIndex } from "./registry";
 
@@ -613,15 +622,14 @@ describe("findSimilarNames", () => {
   });
 });
 
-// ─── Resolution Logic (mirrors resolveFromRegistry behaviour) ─────────────
+// ─── Resolution Logic (calls the actual resolveFromRegistry function) ──────
 //
-// resolveFromRegistry() is a thin orchestrator: fetch index, then delegate to
-// isScopedName / findByScopedName / findByBareName / findSimilarNames.
-// We test the full resolution algorithm by replicating its branching logic
-// over the already-tested pure helpers, which avoids cross-file mock leakage
-// from mock.module.
+// resolveFromRegistry() is the real exported function: fetch index via HTTP,
+// then delegate to isScopedName / findByScopedName / findByBareName /
+// findSimilarNames. We mock global.fetch so the real resolveFromRegistry is
+// exercised end-to-end without network access or cross-file mock leakage.
 
-describe("resolution logic (resolveFromRegistry algorithm)", () => {
+describe("resolveFromRegistry", () => {
   const aliceManifest = validManifest({
     name: "code-review",
     author: "alice",
@@ -643,62 +651,37 @@ describe("resolution logic (resolveFromRegistry algorithm)", () => {
     commit: "c".repeat(40),
   });
 
-  /**
-   * Replicate the resolveFromRegistry algorithm using pure functions.
-   * This is the exact same branching logic from registry.ts lines 536-588.
-   */
-  function resolve(
-    input: string,
-    index: RegistryIndex | null,
-  ): {
-    resolved: { manifest: RegistryManifest; source: string } | null;
-    multipleMatches: RegistryManifest[];
-    suggestions: string[];
-  } {
-    if (!index) {
-      return { resolved: null, multipleMatches: [], suggestions: [] };
-    }
+  let fetchSpy: ReturnType<typeof spyOn>;
 
-    if (isScopedName(input)) {
-      const [author, name] = input.split("/");
-      const manifest = findByScopedName(author, name, index);
-      if (manifest) {
-        return {
-          resolved: { manifest, source: "registry" },
-          multipleMatches: [],
-          suggestions: [],
-        };
-      }
-      const suggestions = findSimilarNames(name, index);
-      return { resolved: null, multipleMatches: [], suggestions };
-    }
-
-    // Bare name
-    const matches = findByBareName(input, index);
-
-    if (matches.length === 1) {
-      return {
-        resolved: { manifest: matches[0], source: "registry" },
-        multipleMatches: [],
-        suggestions: [],
-      };
-    }
-
-    if (matches.length > 1) {
-      return { resolved: null, multipleMatches: matches, suggestions: [] };
-    }
-
-    const suggestions = findSimilarNames(input, index);
-    return { resolved: null, multipleMatches: [], suggestions };
-  }
+  afterEach(() => {
+    fetchSpy?.mockRestore();
+  });
 
   function makeIndex(manifests: RegistryManifest[]): RegistryIndex {
     return { generated_at: "2026-01-01T00:00:00Z", manifests };
   }
 
-  it("resolves a bare name with a single match", () => {
-    const index = makeIndex([uniqueManifest]);
-    const result = resolve("skill-auditor", index);
+  function mockFetch(data: RegistryIndex | null) {
+    if (data === null) {
+      // Simulate a network failure
+      fetchSpy = spyOn(globalThis, "fetch").mockRejectedValue(
+        new Error("network error"),
+      );
+    } else {
+      fetchSpy = spyOn(globalThis, "fetch").mockResolvedValue(
+        new Response(JSON.stringify(data), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+    }
+  }
+
+  it("resolves a bare name with a single match", async () => {
+    mockFetch(makeIndex([uniqueManifest]));
+    const result = await resolveFromRegistry("skill-auditor", {
+      noCache: true,
+    });
     expect(result.resolved).not.toBeNull();
     expect(result.resolved!.manifest.name).toBe("skill-auditor");
     expect(result.resolved!.manifest.author).toBe("alice");
@@ -706,58 +689,80 @@ describe("resolution logic (resolveFromRegistry algorithm)", () => {
     expect(result.multipleMatches).toHaveLength(0);
   });
 
-  it("returns multiple matches for an ambiguous bare name", () => {
-    const index = makeIndex([aliceManifest, bobManifest, uniqueManifest]);
-    const result = resolve("code-review", index);
+  it("returns multiple matches for an ambiguous bare name", async () => {
+    mockFetch(makeIndex([aliceManifest, bobManifest, uniqueManifest]));
+    const result = await resolveFromRegistry("code-review", { noCache: true });
     expect(result.resolved).toBeNull();
     expect(result.multipleMatches).toHaveLength(2);
     const authors = result.multipleMatches.map((m) => m.author).sort();
     expect(authors).toEqual(["alice", "bob"]);
   });
 
-  it("resolves a scoped name (author/name) to exact match", () => {
-    const index = makeIndex([aliceManifest, bobManifest]);
-    const result = resolve("alice/code-review", index);
+  it("resolves a scoped name (author/name) to exact match", async () => {
+    mockFetch(makeIndex([aliceManifest, bobManifest]));
+    const result = await resolveFromRegistry("alice/code-review", {
+      noCache: true,
+    });
     expect(result.resolved).not.toBeNull();
     expect(result.resolved!.manifest.author).toBe("alice");
     expect(result.resolved!.manifest.name).toBe("code-review");
     expect(result.multipleMatches).toHaveLength(0);
   });
 
-  it("returns suggestions when a scoped name is not found", () => {
-    const index = makeIndex([aliceManifest, uniqueManifest]);
-    const result = resolve("alice/code-revew", index);
+  it("returns suggestions when a scoped name is not found", async () => {
+    mockFetch(makeIndex([aliceManifest, uniqueManifest]));
+    const result = await resolveFromRegistry("alice/code-revew", {
+      noCache: true,
+    });
     expect(result.resolved).toBeNull();
     expect(result.multipleMatches).toHaveLength(0);
     expect(result.suggestions.length).toBeGreaterThan(0);
     expect(result.suggestions).toContain("code-review");
   });
 
-  it("returns empty result when bare name is not found", () => {
-    const index = makeIndex([aliceManifest, uniqueManifest]);
-    const result = resolve("nonexistent-skill", index);
+  it("returns empty result when bare name is not found", async () => {
+    mockFetch(makeIndex([aliceManifest, uniqueManifest]));
+    const result = await resolveFromRegistry("nonexistent-skill", {
+      noCache: true,
+    });
     expect(result.resolved).toBeNull();
     expect(result.multipleMatches).toHaveLength(0);
   });
 
-  it("returns empty result when index is null (fetch failure)", () => {
-    const result = resolve("code-review", null);
+  it("returns empty result when index is null (fetch failure)", async () => {
+    // Remove any stale cache so fetchWithCache cannot fall back to it
+    const cachePath = join(
+      require("os").homedir(),
+      ".config",
+      "agent-skill-manager",
+      "registry-cache.json",
+    );
+    await rm(cachePath, { force: true });
+
+    mockFetch(null);
+    const result = await resolveFromRegistry("code-review", { noCache: true });
     expect(result.resolved).toBeNull();
     expect(result.multipleMatches).toHaveLength(0);
     expect(result.suggestions).toHaveLength(0);
   });
 
-  it("scoped lookup disambiguates when multiple authors share a name", () => {
-    const index = makeIndex([aliceManifest, bobManifest]);
-    const resultAlice = resolve("alice/code-review", index);
-    const resultBob = resolve("bob/code-review", index);
+  it("scoped lookup disambiguates when multiple authors share a name", async () => {
+    mockFetch(makeIndex([aliceManifest, bobManifest]));
+    const resultAlice = await resolveFromRegistry("alice/code-review", {
+      noCache: true,
+    });
+    const resultBob = await resolveFromRegistry("bob/code-review", {
+      noCache: true,
+    });
     expect(resultAlice.resolved!.manifest.author).toBe("alice");
     expect(resultBob.resolved!.manifest.author).toBe("bob");
   });
 
-  it("scoped lookup for unknown author returns no match", () => {
-    const index = makeIndex([aliceManifest]);
-    const result = resolve("charlie/code-review", index);
+  it("scoped lookup for unknown author returns no match", async () => {
+    mockFetch(makeIndex([aliceManifest]));
+    const result = await resolveFromRegistry("charlie/code-review", {
+      noCache: true,
+    });
     expect(result.resolved).toBeNull();
     expect(result.multipleMatches).toHaveLength(0);
   });
