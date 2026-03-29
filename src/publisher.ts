@@ -36,6 +36,30 @@ export function stripControlChars(s: string): string {
   );
 }
 
+/**
+ * Escape markdown special characters in untrusted text so it renders
+ * as literal content rather than being interpreted as markdown syntax.
+ * Covers backticks, square brackets, angle brackets, and pipe characters.
+ */
+export function escapeMarkdown(s: string): string {
+  return s
+    .replace(/\\/g, "\\\\")
+    .replace(/`/g, "\\`")
+    .replace(/\[/g, "\\[")
+    .replace(/\]/g, "\\]")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\|/g, "\\|");
+}
+
+/**
+ * Sanitize an untrusted string for safe embedding in markdown.
+ * Strips control characters first, then escapes markdown syntax.
+ */
+export function sanitizeForMarkdown(s: string): string {
+  return escapeMarkdown(stripControlChars(s));
+}
+
 // ─── Constants ──────────────────────────────────────────────────────────────
 
 const REGISTRY_REPO = "luongnv89/asm-registry";
@@ -280,6 +304,12 @@ export interface PublishOptions {
     skillPath: string,
     skillName: string,
   ) => Promise<import("./utils/types").SecurityAuditReport>;
+  /** @internal Override the gh CLI check function (for testing). */
+  _checkGhCliFn?: () => Promise<{
+    available: boolean;
+    authenticated: boolean;
+    login: string | null;
+  }>;
 }
 
 /**
@@ -337,7 +367,8 @@ export async function publishSkill(
   const repository = await getRemoteOrigin(skillDir);
 
   // Step 6: Detect author via gh CLI
-  const ghStatus = await checkGhCli();
+  const checkGhCliFn = opts._checkGhCliFn ?? checkGhCli;
+  const ghStatus = await checkGhCliFn();
 
   if (!ghStatus.available) {
     // Fallback: generate manifest and print manual instructions
@@ -382,7 +413,12 @@ export async function publishSkill(
     };
   }
 
-  const author = ghStatus.login!;
+  if (!ghStatus.login) {
+    throw new Error(
+      "Could not determine GitHub username. The gh CLI is authenticated but the API call failed. Check your network connection and try again.",
+    );
+  }
+  const author = ghStatus.login;
 
   // Step 7: Generate manifest
   const manifest = generateManifest({
@@ -623,14 +659,17 @@ export async function publishSkill(
   }
 
   // Step 11: Open PR
+  const safeName = sanitizeForMarkdown(metadata.name);
+  const safeDescription = sanitizeForMarkdown(metadata.description);
+  const safeLicense = sanitizeForMarkdown(metadata.license);
   const prTitle = `Publish ${author}/${metadata.name}`;
   const prBody = [
-    `## Skill: ${metadata.name}`,
+    `## Skill: ${safeName}`,
     "",
     `**Author:** ${author}`,
     `**Version:** ${metadata.version}`,
-    `**Description:** ${metadata.description}`,
-    `**License:** ${metadata.license}`,
+    `**Description:** ${safeDescription}`,
+    `**License:** ${safeLicense}`,
     `**Repository:** ${repository}`,
     `**Commit:** \`${commit}\``,
     `**Security verdict:** ${registryVerdict}`,

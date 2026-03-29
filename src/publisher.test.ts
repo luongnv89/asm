@@ -13,6 +13,8 @@ import {
   getRemoteOrigin,
   checkGhCli,
   stripControlChars,
+  escapeMarkdown,
+  sanitizeForMarkdown,
 } from "./publisher";
 import type { GenerateManifestOptions } from "./publisher";
 import type { PublishResult } from "./utils/types";
@@ -722,5 +724,219 @@ describe("publishSkill", () => {
     expect(result.success).toBe(true);
     expect(result.manifest).not.toBeNull();
     expect(result.error).toBeNull();
+  });
+
+  test("validateManifest failure when name contains uppercase/special chars", async () => {
+    // Overwrite SKILL.md with a name that violates the registry NAME_PATTERN (^[a-z0-9]([a-z0-9-]*[a-z0-9])?$)
+    await writeFile(
+      join(gitDir, "SKILL.md"),
+      makeSkillMd({
+        name: "My_Skill!",
+        description: "A test skill with bad name",
+        version: "1.0.0",
+        license: "MIT",
+        creator: "testuser",
+      }),
+    );
+    Bun.spawnSync(["git", "add", "."], { cwd: gitDir });
+    Bun.spawnSync(["git", "commit", "-m", "bad name"], { cwd: gitDir });
+
+    const result = await publishSkill({
+      path: gitDir,
+      dryRun: true,
+      force: false,
+      yes: true,
+      _auditFn: fakeAudit({ verdict: "safe", verdictReason: "OK" }),
+    });
+
+    expect(result.success).toBe(false);
+    expect(result.error).toContain("Manifest validation failed");
+    expect(result.error).toContain("name");
+  });
+});
+
+// ─── checkGhCli authenticated:true but login:null ──────────────────────────
+
+describe("checkGhCli edge case: authenticated but login null", () => {
+  // Use the _checkGhCliFn override to simulate a transient API failure
+  // where authentication succeeds but the `gh api user` call fails.
+
+  let gitDirLocal: string;
+
+  beforeEach(async () => {
+    gitDirLocal = await mkdtemp(join(tmpdir(), "publish-loginull-"));
+    Bun.spawnSync(["git", "init"], { cwd: gitDirLocal });
+    Bun.spawnSync(["git", "config", "user.email", "test@test.com"], {
+      cwd: gitDirLocal,
+    });
+    Bun.spawnSync(["git", "config", "user.name", "Test"], {
+      cwd: gitDirLocal,
+    });
+    Bun.spawnSync(
+      [
+        "git",
+        "remote",
+        "add",
+        "origin",
+        "https://github.com/testuser/my-skill",
+      ],
+      { cwd: gitDirLocal },
+    );
+    await writeFile(
+      join(gitDirLocal, "SKILL.md"),
+      makeSkillMd({
+        name: "test-skill",
+        description: "A test skill",
+        version: "1.0.0",
+        license: "MIT",
+        creator: "testuser",
+      }),
+    );
+    Bun.spawnSync(["git", "add", "."], { cwd: gitDirLocal });
+    Bun.spawnSync(["git", "commit", "-m", "init"], { cwd: gitDirLocal });
+  });
+
+  afterEach(async () => {
+    await rm(gitDirLocal, { recursive: true, force: true });
+  });
+
+  test("publishSkill throws when gh is authenticated but login is null", async () => {
+    const { publishSkill: publishSkillFn } = require("./publisher");
+
+    await expect(
+      publishSkillFn({
+        path: gitDirLocal,
+        dryRun: true,
+        force: false,
+        yes: true,
+        _auditFn: async () => makeDummySecurityReport(),
+        _checkGhCliFn: async () => ({
+          available: true,
+          authenticated: true,
+          login: null,
+        }),
+      }),
+    ).rejects.toThrow("Could not determine GitHub username");
+  });
+});
+
+// ─── parseSkillMetadata with tags ──────────────────────────────────────────
+
+describe("parseSkillMetadata tags parsing", () => {
+  let tagsDir: string;
+
+  beforeEach(async () => {
+    tagsDir = await mkdtemp(join(tmpdir(), "publisher-tags-"));
+  });
+
+  afterEach(async () => {
+    await rm(tagsDir, { recursive: true, force: true });
+  });
+
+  test("parses comma-separated tags", async () => {
+    await writeFile(
+      join(tagsDir, "SKILL.md"),
+      makeSkillMd({
+        name: "tag-skill",
+        description: "skill with tags",
+        tags: "automation, testing, ci",
+      }),
+    );
+    const meta = await parseSkillMetadata(tagsDir);
+    expect(meta.tags).toEqual(["automation", "testing", "ci"]);
+  });
+
+  test("parses space-separated tags", async () => {
+    await writeFile(
+      join(tagsDir, "SKILL.md"),
+      makeSkillMd({
+        name: "tag-skill",
+        description: "skill with tags",
+        tags: "deploy monitor alert",
+      }),
+    );
+    const meta = await parseSkillMetadata(tagsDir);
+    expect(meta.tags).toEqual(["deploy", "monitor", "alert"]);
+  });
+
+  test("lowercases tags", async () => {
+    await writeFile(
+      join(tagsDir, "SKILL.md"),
+      makeSkillMd({
+        name: "tag-skill",
+        description: "skill with tags",
+        tags: "Deploy, MONITOR",
+      }),
+    );
+    const meta = await parseSkillMetadata(tagsDir);
+    expect(meta.tags).toEqual(["deploy", "monitor"]);
+  });
+
+  test("filters out empty tags from extra commas/spaces", async () => {
+    await writeFile(
+      join(tagsDir, "SKILL.md"),
+      makeSkillMd({
+        name: "tag-skill",
+        description: "skill with tags",
+        tags: "deploy,,  , monitor",
+      }),
+    );
+    const meta = await parseSkillMetadata(tagsDir);
+    expect(meta.tags).toEqual(["deploy", "monitor"]);
+  });
+
+  test("returns empty array when tags field is absent", async () => {
+    await writeFile(
+      join(tagsDir, "SKILL.md"),
+      makeSkillMd({
+        name: "tag-skill",
+        description: "skill with no tags",
+      }),
+    );
+    const meta = await parseSkillMetadata(tagsDir);
+    expect(meta.tags).toEqual([]);
+  });
+});
+
+// ─── escapeMarkdown / sanitizeForMarkdown ──────────────────────────────────
+
+describe("escapeMarkdown", () => {
+  test("escapes backticks", () => {
+    expect(escapeMarkdown("code `here`")).toBe("code \\`here\\`");
+  });
+
+  test("escapes square brackets", () => {
+    expect(escapeMarkdown("[link](url)")).toBe("\\[link\\](url)");
+  });
+
+  test("escapes angle brackets to HTML entities", () => {
+    expect(escapeMarkdown("<script>alert(1)</script>")).toBe(
+      "&lt;script&gt;alert(1)&lt;/script&gt;",
+    );
+  });
+
+  test("escapes pipe characters", () => {
+    expect(escapeMarkdown("col1 | col2")).toBe("col1 \\| col2");
+  });
+
+  test("escapes backslashes", () => {
+    expect(escapeMarkdown("path\\to\\file")).toBe("path\\\\to\\\\file");
+  });
+
+  test("leaves normal text unchanged", () => {
+    expect(escapeMarkdown("A useful skill for testing")).toBe(
+      "A useful skill for testing",
+    );
+  });
+});
+
+describe("sanitizeForMarkdown", () => {
+  test("strips control chars and escapes markdown", () => {
+    const input = "\x1b[31m<b>`injected`</b>\x1b[0m";
+    const result = sanitizeForMarkdown(input);
+    expect(result).not.toContain("\x1b");
+    expect(result).toContain("\\`");
+    expect(result).toContain("&lt;");
+    expect(result).toContain("&gt;");
   });
 });
