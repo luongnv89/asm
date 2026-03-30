@@ -250,11 +250,9 @@ export async function loadConfig(): Promise<AppConfig> {
     raw = await readFile(cp, "utf-8");
   } catch (err: any) {
     if (err?.code === "ENOENT") {
-      // Config doesn't exist — silently use defaults
+      // Config doesn't exist — silently use defaults (caller is responsible for saving)
       debug("config: using defaults (file not found)");
-      const config = getDefaultConfig();
-      await saveConfig(config);
-      return config;
+      return getDefaultConfig();
     }
     throw err;
   }
@@ -287,17 +285,23 @@ export async function saveConfig(config: AppConfig): Promise<void> {
 
 export async function saveSelectedTools(toolNames: string[]): Promise<void> {
   const cp = configPath();
-  console.error(`[DEBUG-SST] configPath inside saveSelectedTools: ${cp}`);
+  process.stderr.write(
+    `[DEBUG-SST] configPath inside saveSelectedTools: ${cp}\n`,
+  );
   const config = await loadConfig();
   config.preferences.selectedTools = toolNames;
-  console.error(`[DEBUG-SST] about to saveConfig with selectedTools=${JSON.stringify(config.preferences.selectedTools)}`);
+  process.stderr.write(
+    `[DEBUG-SST] about to saveConfig with selectedTools=${JSON.stringify(config.preferences.selectedTools)}\n`,
+  );
   await saveConfig(config);
   // Verify what was actually written
   try {
     const written = await readFile(cp, "utf-8");
     const parsed = JSON.parse(written);
-    console.error(`[DEBUG-SST] after save, file selectedTools=${JSON.stringify(parsed.preferences?.selectedTools)}`);
+    process.stderr.write(
+      `[DEBUG-SST] after save, file selectedTools=${JSON.stringify(parsed.preferences?.selectedTools)}\n`,
+    );
   } catch (e) {
-    console.error(`[DEBUG-SST] after save, failed to read file: ${e}`);
+    process.stderr.write(`[DEBUG-SST] after save, failed to read file: ${e}\n`);
   }
 }
