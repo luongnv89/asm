@@ -756,6 +756,9 @@ export async function publishSkill(
 
 /**
  * Format a publish result for machine-readable output (v1 envelope).
+ *
+ * @deprecated Superseded by the centralized machine envelope in utils/machine.ts.
+ * Retained for backward compatibility with external consumers. Use formatMachineOutput() instead.
  */
 export function formatPublishMachine(result: PublishResult): string {
   return JSON.stringify(

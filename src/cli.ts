@@ -76,11 +76,7 @@ import {
   listBundles,
   removeBundle,
 } from "./bundler";
-import {
-  publishSkill,
-  formatPublishMachine,
-  formatFallbackInstructions,
-} from "./publisher";
+import { publishSkill, formatFallbackInstructions } from "./publisher";
 import type { BundleSkillRef } from "./utils/types";
 import {
   detectDuplicates,
@@ -99,16 +95,15 @@ import {
   updateSkills,
   formatOutdatedTable,
   formatOutdatedJSON,
-  formatOutdatedMachine,
   formatUpdateJSON,
-  formatUpdateMachine,
 } from "./updater";
+import { runAllChecks, formatDoctorReport, formatDoctorJSON } from "./doctor";
 import {
-  runAllChecks,
-  formatDoctorReport,
-  formatDoctorJSON,
-  formatDoctorMachine,
-} from "./doctor";
+  formatMachineOutput,
+  formatMachineError,
+  ErrorCodes,
+  redirectConsoleToStderr,
+} from "./utils/machine";
 import { ingestRepo, listIndexedRepos, removeRepoIndex } from "./ingester";
 import {
   searchSkills as searchIndexSkills,
@@ -120,7 +115,56 @@ import { VERSION_STRING } from "./utils/version";
 import { parseEditorCommand } from "./utils/editor";
 import { setVerbose } from "./logger";
 import { join as joinPath } from "path";
-import type { Scope, SortBy, TransportMode } from "./utils/types";
+import type {
+  Scope,
+  SortBy,
+  TransportMode,
+  SecurityAuditReport,
+} from "./utils/types";
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+/**
+ * Map a security audit verdict string to a numeric risk score.
+ *   dangerous → 3, warning → 2, caution → 1, safe/other → 0
+ */
+function verdictToRiskScore(verdict: string): number {
+  switch (verdict) {
+    case "dangerous":
+      return 3;
+    case "warning":
+      return 2;
+    case "caution":
+      return 1;
+    default:
+      return 0;
+  }
+}
+
+/**
+ * Build the common machine-output data shape for security audit commands.
+ * Accepts one or more SecurityAuditReports and returns { verdict, findings, risk_score }.
+ */
+function formatAuditMachineData(reports: SecurityAuditReport[]) {
+  return {
+    verdict: reports.every((r) => r.verdict === "safe")
+      ? "safe"
+      : reports.some((r) => r.verdict === "dangerous")
+        ? "dangerous"
+        : "warning",
+    findings: reports.map((r) => ({
+      skill: r.skillName,
+      verdict: r.verdict,
+      verdict_reason: r.verdictReason,
+      total_files: r.totalFiles,
+      total_lines: r.totalLines,
+    })),
+    risk_score: reports.reduce(
+      (sum, r) => sum + verdictToRiskScore(r.verdict),
+      0,
+    ),
+  };
+}
 
 // ─── Arg Parser ─────────────────────────────────────────────────────────────
 
@@ -343,6 +387,7 @@ ${ansi.bold("Global Options:")}
   -h, --help             Show help for any command
   -v, --version          Print version and exit
   --json                 Output as JSON (list, search, inspect)
+  --machine              Stable machine-readable JSON envelope (v1)
   -s, --scope <scope>    Filter: global, project, or both (default: both)
   -p, --tool <name>      Filter by tool (list, search)
   --no-color             Disable ANSI colors
@@ -364,6 +409,7 @@ ${ansi.bold("Options:")}
   -p, --tool <p>       Filter by tool (claude, codex, openclaw, agents)
   --flat               Show one row per tool instance (ungrouped)
   --json               Output as JSON array
+  --machine            Output in stable machine-readable v1 envelope format
   --no-color           Disable ANSI colors
   -V, --verbose        Show debug output
 
@@ -373,7 +419,8 @@ ${ansi.bold("Examples:")}
   asm list -p claude                ${ansi.dim("Only Claude Code skills")}
   asm list -s project               ${ansi.dim("Only project-scoped skills")}
   asm list --sort version           ${ansi.dim("Sort by version")}
-  asm list --json                   ${ansi.dim("Output as JSON")}`);
+  asm list --json                   ${ansi.dim("Output as JSON")}
+  asm list --machine                ${ansi.dim("Machine-readable v1 envelope output")}`);
 }
 
 function printSearchHelp() {
@@ -390,6 +437,7 @@ ${ansi.bold("Options:")}
   --available          Show only available (not installed) skills
   --flat               Show one row per tool instance (ungrouped)
   --json               Output as JSON array
+  --machine            Output in stable machine-readable v1 envelope format
   --no-color           Disable ANSI colors
   -V, --verbose        Show debug output
 
@@ -398,7 +446,8 @@ ${ansi.bold("Examples:")}
   asm search review -p claude       ${ansi.dim("Search within Claude Code only")}
   asm search "test" --installed     ${ansi.dim("Search installed skills only")}
   asm search "test" --available     ${ansi.dim("Search available skills only")}
-  asm search openspec --json        ${ansi.dim("Output matches as JSON")}`);
+  asm search openspec --json        ${ansi.dim("Output matches as JSON")}
+  asm search openspec --machine     ${ansi.dim("Machine-readable v1 envelope output")}`);
 }
 
 function printInspectHelp() {
@@ -448,6 +497,7 @@ ${ansi.bold("Subcommands:")}
 
 ${ansi.bold("Options:")}
   --json             Output as JSON
+  --machine          Output in stable machine-readable v1 envelope format
   -y, --yes          Auto-remove duplicates, keeping one instance per group
   -s, --scope <s>    Filter: global, project, or both (default: both)
   --no-color         Disable ANSI colors
@@ -461,6 +511,7 @@ ${ansi.bold("Examples:")}
   asm audit security github:user/repo          ${ansi.dim("Audit a remote skill before installing")}
   asm audit security --all                     ${ansi.dim("Audit all installed skills")}
   asm audit security code-review --json        ${ansi.dim("Output audit as JSON")}
+  asm audit security code-review --machine     ${ansi.dim("Machine-readable v1 envelope output")}
   asm audit security https://github.com/user/skills/tree/main/skills/agent-config
                                                ${ansi.dim("Audit a skill from a subfolder URL")}`);
 }
@@ -565,6 +616,7 @@ async function cmdList(args: ParsedArgs) {
     return;
   }
 
+  const startTime = performance.now();
   const config = await loadConfig();
   let allSkills = await scanAllSkills(config, args.flags.scope);
 
@@ -575,6 +627,19 @@ async function cmdList(args: ParsedArgs) {
 
   await enrichWithHealth(allSkills);
   const sorted = sortSkills(allSkills, args.flags.sort);
+
+  if (args.flags.machine) {
+    const data = sorted.map((s) => ({
+      name: s.name,
+      version: s.version,
+      description: s.description,
+      scope: s.scope,
+      provider: s.provider,
+      path: s.path,
+    }));
+    console.log(formatMachineOutput("list", data, startTime));
+    return;
+  }
 
   if (args.flags.json) {
     console.log(formatJSON(sorted));
@@ -598,8 +663,25 @@ async function cmdSearch(args: ParsedArgs) {
     return;
   }
 
+  const restoreConsole = args.flags.machine
+    ? redirectConsoleToStderr()
+    : undefined;
+
+  const startTime = performance.now();
   const query = args.subcommand;
   if (!query) {
+    if (args.flags.machine) {
+      restoreConsole?.();
+      console.log(
+        formatMachineError(
+          "search",
+          ErrorCodes.INVALID_ARGUMENT,
+          "Missing required argument: <query>",
+          startTime,
+        ),
+      );
+      process.exit(2);
+    }
     error("Missing required argument: <query>");
     console.error(`Run "asm search --help" for usage.`);
     process.exit(2);
@@ -636,6 +718,28 @@ async function cmdSearch(args: ParsedArgs) {
   }
 
   // --- Output ---
+  if (args.flags.machine) {
+    restoreConsole?.();
+    const installed = installedResults.map((s) => ({
+      name: s.name,
+      description: s.description,
+      source: "installed" as const,
+      url: null,
+      match_count: 1,
+    }));
+    const available = indexResults.map((r) => ({
+      name: r.skill.name,
+      description: r.skill.description,
+      source: "index" as const,
+      url: r.skill.installUrl,
+      match_count: 1,
+    }));
+    console.log(
+      formatMachineOutput("search", [...installed, ...available], startTime),
+    );
+    return;
+  }
+
   if (args.flags.json) {
     const installed = installedResults.map((s) => ({
       name: s.name,
@@ -837,10 +941,11 @@ async function cmdAudit(args: ParsedArgs) {
     return;
   }
 
+  const startTime = performance.now();
   const sub = args.subcommand ?? "duplicates";
 
   if (sub === "security") {
-    await cmdAuditSecurity(args);
+    await cmdAuditSecurity(args, startTime);
     return;
   }
 
@@ -853,6 +958,23 @@ async function cmdAudit(args: ParsedArgs) {
   // Always scan all providers regardless of --scope
   const allSkills = await scanAllSkills(config, "both");
   const report = detectDuplicates(allSkills);
+
+  if (args.flags.machine) {
+    const data = {
+      duplicate_groups: report.duplicateGroups.map((g) => ({
+        name: g.name,
+        count: g.instances.length,
+        instances: g.instances.map((i) => ({
+          path: i.path,
+          scope: i.scope,
+          provider: i.provider,
+        })),
+      })),
+      total_duplicates: report.duplicateGroups.length,
+    };
+    console.log(formatMachineOutput("audit duplicates", data, startTime));
+    return;
+  }
 
   if (args.flags.json) {
     console.log(formatAuditReportJSON(report));
@@ -881,12 +1003,23 @@ async function cmdAudit(args: ParsedArgs) {
   }
 }
 
-async function cmdAuditSecurity(args: ParsedArgs) {
+async function cmdAuditSecurity(args: ParsedArgs, startTime: number) {
   const target = args.positional[0];
 
   if (args.flags.all) {
-    await cmdAuditSecurityAll(args);
+    await cmdAuditSecurityAll(args, startTime);
   } else if (!target) {
+    if (args.flags.machine) {
+      console.log(
+        formatMachineError(
+          "audit security",
+          ErrorCodes.INVALID_ARGUMENT,
+          "Missing target. Provide a skill name, GitHub source, or use --all.",
+          startTime,
+        ),
+      );
+      process.exit(2);
+    }
     error(
       "Missing target. Provide a skill name, GitHub source, or use --all.\nUsage: asm audit security <name|github:owner/repo> [--all]",
     );
@@ -895,18 +1028,20 @@ async function cmdAuditSecurity(args: ParsedArgs) {
     target.startsWith("github:") ||
     target.startsWith("https://github.com/")
   ) {
-    await cmdAuditSecuritySource(args, target);
+    await cmdAuditSecuritySource(args, target, startTime);
   } else {
-    await cmdAuditSecurityInstalled(args, target);
+    await cmdAuditSecurityInstalled(args, target, startTime);
   }
 }
 
-async function cmdAuditSecurityAll(args: ParsedArgs) {
+async function cmdAuditSecurityAll(args: ParsedArgs, startTime: number) {
   const config = await loadConfig();
   const allSkills = await scanAllSkills(config, args.flags.scope);
 
   if (allSkills.length === 0) {
-    if (args.flags.json) {
+    if (args.flags.machine) {
+      console.log(formatMachineOutput("audit security", [], startTime));
+    } else if (args.flags.json) {
       console.log("[]");
     } else {
       console.log("No skills found to audit.");
@@ -933,7 +1068,15 @@ async function cmdAuditSecurityAll(args: ParsedArgs) {
     reports.push(report);
   }
 
-  if (args.flags.json) {
+  if (args.flags.machine) {
+    console.log(
+      formatMachineOutput(
+        "audit security",
+        formatAuditMachineData(reports),
+        startTime,
+      ),
+    );
+  } else if (args.flags.json) {
     console.log(JSON.stringify(reports, null, 2));
   } else {
     for (const report of reports) {
@@ -957,7 +1100,11 @@ async function cmdAuditSecurityAll(args: ParsedArgs) {
   }
 }
 
-async function cmdAuditSecuritySource(args: ParsedArgs, target: string) {
+async function cmdAuditSecuritySource(
+  args: ParsedArgs,
+  target: string,
+  startTime: number,
+) {
   let tempDir: string | null = null;
   try {
     let source = parseSource(target);
@@ -990,12 +1137,31 @@ async function cmdAuditSecuritySource(args: ParsedArgs, target: string) {
       source.repo,
     );
 
-    if (args.flags.json) {
+    if (args.flags.machine) {
+      console.log(
+        formatMachineOutput(
+          "audit security",
+          formatAuditMachineData([report]),
+          startTime,
+        ),
+      );
+    } else if (args.flags.json) {
       console.log(formatSecurityReportJSON(report));
     } else {
       console.log(formatSecurityReport(report));
     }
   } catch (err: any) {
+    if (args.flags.machine) {
+      console.log(
+        formatMachineError(
+          "audit security",
+          ErrorCodes.AUDIT_FAILED,
+          err.message,
+          startTime,
+        ),
+      );
+      process.exit(1);
+    }
     error(err.message);
     process.exit(1);
   } finally {
@@ -1005,12 +1171,27 @@ async function cmdAuditSecuritySource(args: ParsedArgs, target: string) {
   }
 }
 
-async function cmdAuditSecurityInstalled(args: ParsedArgs, target: string) {
+async function cmdAuditSecurityInstalled(
+  args: ParsedArgs,
+  target: string,
+  startTime: number,
+) {
   const config = await loadConfig();
   const allSkills = await scanAllSkills(config, args.flags.scope);
   const matches = allSkills.filter((s) => s.dirName === target);
 
   if (matches.length === 0) {
+    if (args.flags.machine) {
+      console.log(
+        formatMachineError(
+          "audit security",
+          ErrorCodes.SKILL_NOT_FOUND,
+          `Skill "${target}" not found.`,
+          startTime,
+        ),
+      );
+      process.exit(1);
+    }
     error(
       `Skill "${target}" not found. Use "asm list" to see installed skills.`,
     );
@@ -1023,7 +1204,15 @@ async function cmdAuditSecurityInstalled(args: ParsedArgs, target: string) {
 
   const report = await auditSkillSecurity(skill.realPath, skill.name);
 
-  if (args.flags.json) {
+  if (args.flags.machine) {
+    console.log(
+      formatMachineOutput(
+        "audit security",
+        formatAuditMachineData([report]),
+        startTime,
+      ),
+    );
+  } else if (args.flags.json) {
     console.log(formatSecurityReportJSON(report));
   } else {
     console.log(formatSecurityReport(report));
@@ -1387,6 +1576,11 @@ async function cmdInstall(args: ParsedArgs) {
     return;
   }
 
+  const restoreConsole = args.flags.machine
+    ? redirectConsoleToStderr()
+    : undefined;
+
+  const startTime = performance.now();
   let sourceStr = args.subcommand;
   if (!sourceStr) {
     error("Missing required argument: <source>");
@@ -1962,7 +2156,24 @@ async function cmdInstall(args: ParsedArgs) {
       }
     }
 
-    if (args.flags.json || args.flags.machine) {
+    if (args.flags.machine) {
+      restoreConsole?.();
+      const enriched = results.map((r) => ({
+        name: r.name,
+        path: r.path,
+        version: r.version,
+        provider: r.provider,
+        source: r.source,
+        resolution_source: resolutionSource,
+      }));
+      console.log(
+        formatMachineOutput(
+          "install",
+          enriched.length === 1 ? enriched[0] : enriched,
+          startTime,
+        ),
+      );
+    } else if (args.flags.json) {
       const enriched = results.map((r) => ({
         ...r,
         resolutionSource: resolutionSource,
@@ -1986,7 +2197,18 @@ async function cmdInstall(args: ParsedArgs) {
     process.removeListener("SIGINT", cleanup);
     process.removeListener("SIGTERM", cleanup);
 
-    if (args.flags.json) {
+    if (args.flags.machine) {
+      restoreConsole?.();
+      console.log(
+        formatMachineError(
+          "install",
+          ErrorCodes.INSTALL_FAILED,
+          err.message,
+          startTime,
+          err?.duplicates ? { duplicates: err.duplicates } : undefined,
+        ),
+      );
+    } else if (args.flags.json) {
       const payload: Record<string, unknown> = {
         success: false,
         error: err.message,
@@ -2003,6 +2225,7 @@ async function cmdInstall(args: ParsedArgs) {
     if (tempDir) {
       await cleanupTemp(tempDir);
     }
+    restoreConsole?.();
   }
 }
 
@@ -2342,10 +2565,22 @@ async function cmdDoctor(args: ParsedArgs) {
     return;
   }
 
+  const startTime = performance.now();
   const report = await runAllChecks();
 
   if (args.flags.machine) {
-    console.log(formatDoctorMachine(report));
+    const data = {
+      checks: report.checks.map((c) => ({
+        name: c.name,
+        status: c.status,
+        message: c.message,
+        ...(c.fix ? { fix: c.fix } : {}),
+      })),
+      passed: report.passed,
+      warnings: report.warnings,
+      failures: report.failures,
+    };
+    console.log(formatMachineOutput("doctor", data, startTime));
   } else if (args.flags.json) {
     console.log(formatDoctorJSON(report));
   } else {
@@ -3336,6 +3571,11 @@ async function cmdPublish(args: ParsedArgs) {
     return;
   }
 
+  const restoreConsole = args.flags.machine
+    ? redirectConsoleToStderr()
+    : undefined;
+
+  const startTime = performance.now();
   const skillPath = args.subcommand || ".";
 
   try {
@@ -3348,8 +3588,34 @@ async function cmdPublish(args: ParsedArgs) {
 
     // Machine-readable output
     if (args.flags.machine) {
-      console.log(formatPublishMachine(result));
-      if (!result.success) process.exit(1);
+      restoreConsole?.();
+      if (!result.success) {
+        console.log(
+          formatMachineError(
+            "publish",
+            ErrorCodes.PUBLISH_FAILED,
+            result.error || "Publish failed",
+            startTime,
+            {
+              manifest: result.manifest,
+              security_verdict: result.securityVerdict,
+              fallback: result.fallback ?? false,
+            },
+          ),
+        );
+        process.exit(1);
+      }
+      console.log(
+        formatMachineOutput(
+          "publish",
+          {
+            manifest: result.manifest,
+            pr_url: result.prUrl,
+            status: result.securityVerdict,
+          },
+          startTime,
+        ),
+      );
       return;
     }
 
@@ -3427,7 +3693,15 @@ async function cmdPublish(args: ParsedArgs) {
       },
     };
     if (args.flags.machine) {
-      console.log(formatPublishMachine(errorResult));
+      restoreConsole?.();
+      console.log(
+        formatMachineError(
+          "publish",
+          ErrorCodes.PUBLISH_FAILED,
+          err.message,
+          startTime,
+        ),
+      );
       process.exit(1);
     }
     if (args.flags.json) {
@@ -3459,11 +3733,24 @@ async function cmdOutdated(args: ParsedArgs) {
     return;
   }
 
+  const restoreConsole = args.flags.machine
+    ? redirectConsoleToStderr()
+    : undefined;
+
+  const startTime = performance.now();
   try {
     const summary = await checkOutdated();
 
     if (args.flags.machine) {
-      console.log(formatOutdatedMachine(summary));
+      restoreConsole?.();
+      const data = summary.entries.map((e) => ({
+        name: e.name,
+        installed_commit: e.installedCommit,
+        latest_commit: e.latestCommit,
+        source: e.sourceType,
+        status: e.status,
+      }));
+      console.log(formatMachineOutput("outdated", data, startTime));
       return;
     }
 
@@ -3480,6 +3767,18 @@ async function cmdOutdated(args: ParsedArgs) {
       process.exitCode = 1;
     }
   } catch (err: any) {
+    if (args.flags.machine) {
+      restoreConsole?.();
+      console.log(
+        formatMachineError(
+          "outdated",
+          ErrorCodes.UNKNOWN_ERROR,
+          err.message,
+          startTime,
+        ),
+      );
+      process.exit(1);
+    }
     error(err.message);
     process.exit(1);
   }
@@ -3491,6 +3790,11 @@ async function cmdUpdate(args: ParsedArgs) {
     return;
   }
 
+  const restoreConsole = args.flags.machine
+    ? redirectConsoleToStderr()
+    : undefined;
+
+  const startTime = performance.now();
   // Collect skill names from subcommand and positional args
   const names: string[] = [];
   if (args.subcommand) names.push(args.subcommand);
@@ -3503,7 +3807,16 @@ async function cmdUpdate(args: ParsedArgs) {
     );
 
     if (args.flags.machine) {
-      console.log(formatUpdateMachine(summary));
+      restoreConsole?.();
+      const data = summary.results.map((r) => ({
+        name: r.name,
+        status: r.status,
+        reason: r.reason || null,
+        old_commit: r.oldCommit || null,
+        new_commit: r.newCommit || null,
+        security_verdict: r.securityVerdict || null,
+      }));
+      console.log(formatMachineOutput("update", data, startTime));
       return;
     }
 
@@ -3578,6 +3891,18 @@ async function cmdUpdate(args: ParsedArgs) {
       process.exitCode = 1;
     }
   } catch (err: any) {
+    if (args.flags.machine) {
+      restoreConsole?.();
+      console.log(
+        formatMachineError(
+          "update",
+          ErrorCodes.UNKNOWN_ERROR,
+          err.message,
+          startTime,
+        ),
+      );
+      process.exit(1);
+    }
     error(err.message);
     process.exit(1);
   }
@@ -3587,6 +3912,17 @@ async function cmdUpdate(args: ParsedArgs) {
 
 export async function runCLI(argv: string[]): Promise<void> {
   const args = parseArgs(argv);
+
+  // --json and --machine are mutually exclusive
+  if (args.flags.json && args.flags.machine) {
+    error("--json and --machine are mutually exclusive. Use one or the other.");
+    process.exit(2);
+  }
+
+  // --machine implies --yes so non-interactive agents don't get stuck on prompts
+  if (args.flags.machine) {
+    args.flags.yes = true;
+  }
 
   // Apply --no-color
   if (args.flags.noColor) {

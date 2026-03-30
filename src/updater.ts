@@ -727,6 +727,10 @@ export function formatOutdatedJSON(summary: OutdatedSummary): string {
   );
 }
 
+/**
+ * @deprecated Superseded by the centralized machine envelope in utils/machine.ts.
+ * Retained for backward compatibility with external consumers. Use formatMachineOutput() instead.
+ */
 export function formatOutdatedMachine(summary: OutdatedSummary): string {
   return JSON.stringify({
     v: 1,
@@ -768,6 +772,10 @@ export function formatUpdateJSON(summary: UpdateSummary): string {
   );
 }
 
+/**
+ * @deprecated Superseded by the centralized machine envelope in utils/machine.ts.
+ * Retained for backward compatibility with external consumers. Use formatMachineOutput() instead.
+ */
 export function formatUpdateMachine(summary: UpdateSummary): string {
   return JSON.stringify({
     v: 1,

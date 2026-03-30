@@ -126,6 +126,17 @@ describe("parseArgs", () => {
     expect(result.flags.json).toBe(true);
   });
 
+  test("parses --machine flag", () => {
+    const result = parse("list", "--machine");
+    expect(result.command).toBe("list");
+    expect(result.flags.machine).toBe(true);
+  });
+
+  test("--machine defaults to false", () => {
+    const result = parse("list");
+    expect(result.flags.machine).toBe(false);
+  });
+
   test("parses --no-color flag", () => {
     const result = parse("list", "--no-color");
     expect(result.flags.noColor).toBe(true);
@@ -462,6 +473,169 @@ describe("CLI integration: invalid --sort", () => {
     const { stderr, exitCode } = await runCLI("list", "--sort", "invalid");
     expect(exitCode).toBe(2);
     expect(stderr).toContain("Invalid sort");
+  });
+});
+
+describe("CLI integration: --json and --machine mutual exclusion", () => {
+  test("exits 2 when both --json and --machine are used", async () => {
+    const { stderr, exitCode } = await runCLI("list", "--json", "--machine");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("mutually exclusive");
+  });
+});
+
+describe("CLI integration: --machine output", () => {
+  test("list --machine produces valid v1 envelope", async () => {
+    const { stdout, exitCode } = await runCLI("list", "--machine");
+    expect(exitCode).toBe(0);
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("list");
+    expect(parsed.status).toBe("ok");
+    expect(parsed.meta).toBeDefined();
+    expect(parsed.meta.timestamp).toBeDefined();
+    expect(parsed.meta.asm_version).toBeDefined();
+    expect(typeof parsed.meta.duration_ms).toBe("number");
+    expect(Array.isArray(parsed.data)).toBe(true);
+  });
+
+  test("doctor --machine produces valid v1 envelope", async () => {
+    const { stdout } = await runCLI("doctor", "--machine");
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("doctor");
+    expect(parsed.status).toBe("ok");
+    expect(parsed.meta).toBeDefined();
+    expect(parsed.data.checks).toBeDefined();
+    expect(Array.isArray(parsed.data.checks)).toBe(true);
+  });
+
+  test("outdated --machine produces valid v1 envelope", async () => {
+    const { stdout } = await runCLI("outdated", "--machine");
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("outdated");
+    expect(parsed.status).toBe("ok");
+    expect(parsed.meta).toBeDefined();
+    expect(Array.isArray(parsed.data)).toBe(true);
+  });
+
+  test("search --machine produces valid v1 envelope", async () => {
+    const { stdout, exitCode } = await runCLI("search", "test", "--machine");
+    expect(exitCode).toBe(0);
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("search");
+    expect(parsed.status).toBe("ok");
+    expect(parsed.meta).toBeDefined();
+    expect(parsed.meta.timestamp).toBeDefined();
+    expect(parsed.meta.asm_version).toBeDefined();
+    expect(typeof parsed.meta.duration_ms).toBe("number");
+    expect(Array.isArray(parsed.data)).toBe(true);
+  });
+
+  test("audit duplicates --machine produces valid v1 envelope", async () => {
+    const { stdout, exitCode } = await runCLI(
+      "audit",
+      "duplicates",
+      "--machine",
+    );
+    expect(exitCode).toBe(0);
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("audit duplicates");
+    expect(parsed.status).toBe("ok");
+    expect(parsed.meta).toBeDefined();
+    expect(parsed.data).toBeDefined();
+    expect(typeof parsed.data.total_duplicates).toBe("number");
+    expect(Array.isArray(parsed.data.duplicate_groups)).toBe(true);
+  });
+
+  test("install --machine produces valid v1 envelope with snake_case fields", async () => {
+    // Install a known skill from the index to test machine output
+    const { stdout, exitCode } = await runCLI(
+      "install",
+      "code-review",
+      "--machine",
+    );
+    if (exitCode === 0) {
+      const parsed = JSON.parse(stdout);
+      expect(parsed.version).toBe(1);
+      expect(parsed.command).toBe("install");
+      expect(parsed.status).toBe("ok");
+      expect(parsed.meta).toBeDefined();
+      // Verify snake_case field names in data
+      const data = Array.isArray(parsed.data) ? parsed.data[0] : parsed.data;
+      if (data) {
+        expect(data).toHaveProperty("resolution_source");
+        expect(data).not.toHaveProperty("resolutionSource");
+      }
+    }
+  });
+
+  test("audit security --machine produces error envelope when no target", async () => {
+    const { stdout, exitCode } = await runCLI("audit", "security", "--machine");
+    expect(exitCode).toBe(2);
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("audit security");
+    expect(parsed.status).toBe("error");
+    expect(parsed.error).toBeDefined();
+    expect(parsed.error.code).toBeDefined();
+    expect(typeof parsed.error.message).toBe("string");
+    expect(parsed.meta).toBeDefined();
+  });
+
+  test("search --machine produces error envelope when no query", async () => {
+    const { stdout, exitCode } = await runCLI("search", "--machine");
+    expect(exitCode).toBe(2);
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("search");
+    expect(parsed.status).toBe("error");
+    expect(parsed.error).toBeDefined();
+    expect(parsed.error.code).toBeDefined();
+    expect(typeof parsed.error.message).toBe("string");
+    expect(parsed.meta).toBeDefined();
+  });
+
+  test("publish --machine produces error envelope for invalid path", async () => {
+    const { stdout, exitCode } = await runCLI(
+      "publish",
+      "/tmp/nonexistent-skill-path-12345",
+      "--machine",
+      "--yes",
+    );
+    expect(exitCode).not.toBe(0);
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("publish");
+    expect(parsed.status).toBe("error");
+    expect(parsed.error).toBeDefined();
+    expect(parsed.error.code).toBeDefined();
+    expect(typeof parsed.error.message).toBe("string");
+    expect(parsed.meta).toBeDefined();
+    expect(typeof parsed.meta.timestamp).toBe("string");
+    expect(typeof parsed.meta.asm_version).toBe("string");
+    expect(typeof parsed.meta.duration_ms).toBe("number");
+  });
+
+  test("update --machine produces valid v1 envelope", async () => {
+    const { stdout, exitCode } = await runCLI(
+      "update",
+      "nonexistent-skill-12345",
+      "--machine",
+      "--yes",
+    );
+    // May succeed (with empty results) or error — either way must be valid JSON envelope
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("update");
+    expect(["ok", "error"]).toContain(parsed.status);
+    expect(parsed.meta).toBeDefined();
+    expect(typeof parsed.meta.timestamp).toBe("string");
+    expect(typeof parsed.meta.asm_version).toBe("string");
+    expect(typeof parsed.meta.duration_ms).toBe("number");
   });
 });
 

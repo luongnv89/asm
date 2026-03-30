@@ -669,6 +669,10 @@ export function formatDoctorJSON(report: DoctorReport): string {
   );
 }
 
+/**
+ * @deprecated Superseded by the centralized machine envelope in utils/machine.ts.
+ * Retained for backward compatibility with external consumers. Use formatMachineOutput() instead.
+ */
 export function formatDoctorMachine(report: DoctorReport): string {
   return JSON.stringify({
     v: 1,
