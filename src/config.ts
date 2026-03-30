@@ -14,11 +14,18 @@ const __dirname = dirname(__filename);
 
 const HOME = homedir();
 
-// Allow override via env var so test workers can use isolated temp directories
-// without interfering with each other or the real user config.
+// Module-level HOME override for test isolation. Set via setConfigDirForTesting()
+// so that config.test.ts can redirect all I/O to a temp directory without
+// interfering with concurrent test workers that share the real user config.
+let _testHome: string | undefined;
+
+/** For testing only: treat `home` as the user home dir for all config paths. */
+export function setConfigDirForTesting(home: string | undefined): void {
+  _testHome = home;
+}
+
 function configDir(): string {
-  const base = process.env.ASM_CONFIG_HOME ?? HOME;
-  return join(base, ".config", "agent-skill-manager");
+  return join(_testHome ?? HOME, ".config", "agent-skill-manager");
 }
 
 function configPath(): string {
