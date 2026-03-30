@@ -1314,6 +1314,9 @@ describe("isLocalPath", () => {
   test("detects absolute paths", () => {
     expect(isLocalPath("/absolute/path/to/skill")).toBe(true);
     expect(isLocalPath("/home/user/skills/my-skill")).toBe(true);
+    expect(isLocalPath("C:\\Users\\foo\\skill")).toBe(true);
+    expect(isLocalPath("C:/Users/foo/skill")).toBe(true);
+    expect(isLocalPath("D:\\projects\\my-skill")).toBe(true);
   });
 
   test("detects relative paths with ./", () => {
