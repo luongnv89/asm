@@ -286,7 +286,18 @@ export async function saveConfig(config: AppConfig): Promise<void> {
 }
 
 export async function saveSelectedTools(toolNames: string[]): Promise<void> {
+  const cp = configPath();
+  console.error(`[DEBUG-SST] configPath inside saveSelectedTools: ${cp}`);
   const config = await loadConfig();
   config.preferences.selectedTools = toolNames;
+  console.error(`[DEBUG-SST] about to saveConfig with selectedTools=${JSON.stringify(config.preferences.selectedTools)}`);
   await saveConfig(config);
+  // Verify what was actually written
+  try {
+    const written = await readFile(cp, "utf-8");
+    const parsed = JSON.parse(written);
+    console.error(`[DEBUG-SST] after save, file selectedTools=${JSON.stringify(parsed.preferences?.selectedTools)}`);
+  } catch (e) {
+    console.error(`[DEBUG-SST] after save, failed to read file: ${e}`);
+  }
 }
