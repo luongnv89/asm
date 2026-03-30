@@ -22,6 +22,12 @@ import { writeFile, readFile, rm, mkdir } from "fs/promises";
 import { mkdtempSync } from "fs";
 import { tmpdir } from "os";
 
+// Redirect all config I/O to a per-worker temp directory.
+// This prevents concurrent test workers (e.g. cli.test.ts subprocesses that
+// invoke loadConfig/saveConfig) from racing against these tests and clobbering
+// state like selectedTools with freshly-written defaults.
+process.env.ASM_CONFIG_HOME = mkdtempSync(join(tmpdir(), "asm-config-test-"));
+
 const HOME = homedir();
 
 describe("getDefaultConfig", () => {

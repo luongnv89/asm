@@ -13,10 +13,25 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const HOME = homedir();
-const CONFIG_DIR = join(HOME, ".config", "agent-skill-manager");
-const CONFIG_PATH = join(CONFIG_DIR, "config.json");
-const LOCK_PATH = join(CONFIG_DIR, ".skill-lock.json");
-const INDEX_DIR = join(CONFIG_DIR, "skill-index");
+
+// Allow override via env var so test workers can use isolated temp directories
+// without interfering with each other or the real user config.
+function configDir(): string {
+  const base = process.env.ASM_CONFIG_HOME ?? HOME;
+  return join(base, ".config", "agent-skill-manager");
+}
+
+function configPath(): string {
+  return join(configDir(), "config.json");
+}
+
+function lockPath(): string {
+  return join(configDir(), ".skill-lock.json");
+}
+
+function indexDir(): string {
+  return join(configDir(), "skill-index");
+}
 
 const DEFAULT_PROVIDERS: ProviderConfig[] = [
   // ── Priority providers (ordered by usage frequency) ──
@@ -155,15 +170,15 @@ export function getDefaultConfig(): AppConfig {
 }
 
 export function getConfigPath(): string {
-  return CONFIG_PATH;
+  return configPath();
 }
 
 export function getLockPath(): string {
-  return LOCK_PATH;
+  return lockPath();
 }
 
 export function getIndexDir(): string {
-  return INDEX_DIR;
+  return indexDir();
 }
 
 export function getBundledIndexDir(): string {
@@ -220,11 +235,12 @@ function mergeWithDefaults(config: Partial<AppConfig>): AppConfig {
 }
 
 export async function loadConfig(): Promise<AppConfig> {
-  debug(`config: checking ${CONFIG_PATH}`);
+  const cp = configPath();
+  debug(`config: checking ${cp}`);
 
   let raw: string;
   try {
-    raw = await readFile(CONFIG_PATH, "utf-8");
+    raw = await readFile(cp, "utf-8");
   } catch (err: any) {
     if (err?.code === "ENOENT") {
       // Config doesn't exist — silently use defaults
@@ -238,13 +254,13 @@ export async function loadConfig(): Promise<AppConfig> {
 
   try {
     const parsed = JSON.parse(raw);
-    debug(`config: loaded from ${CONFIG_PATH}`);
+    debug(`config: loaded from ${cp}`);
     return mergeWithDefaults(parsed);
   } catch {
     // Parse error — backup corrupted file before resetting
-    const backupPath = CONFIG_PATH + ".bak";
+    const backupPath = cp + ".bak";
     debug(`config: parse error, backing up to ${backupPath}`);
-    await copyFile(CONFIG_PATH, backupPath);
+    await copyFile(cp, backupPath);
     console.error(
       `Warning: Config file was corrupted. Backup saved to ${backupPath}. Using defaults.`,
     );
@@ -255,10 +271,11 @@ export async function loadConfig(): Promise<AppConfig> {
 }
 
 export async function saveConfig(config: AppConfig): Promise<void> {
-  await mkdir(CONFIG_DIR, { recursive: true });
-  const tmp = CONFIG_PATH + ".tmp";
+  const cp = configPath();
+  await mkdir(configDir(), { recursive: true });
+  const tmp = cp + ".tmp";
   await writeFile(tmp, JSON.stringify(config, null, 2) + "\n", "utf-8");
-  await rename(tmp, CONFIG_PATH);
+  await rename(tmp, cp);
 }
 
 export async function saveSelectedTools(toolNames: string[]): Promise<void> {
