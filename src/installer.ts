@@ -66,7 +66,7 @@ export function parseLocalSource(input: string): ParsedSource {
   let absPath: string;
   if (input === "~") {
     absPath = homedir();
-  } else if (input.startsWith("~/")) {
+  } else if (input.startsWith("~/") || input.startsWith("~\\")) {
     absPath = resolve(homedir(), input.slice(2));
   } else {
     absPath = resolve(input);

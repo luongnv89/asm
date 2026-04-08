@@ -1396,6 +1396,13 @@ describe("parseLocalSource", () => {
     // Should NOT contain tilde in resolved path
     expect(result.localPath).not.toContain("~");
   });
+
+  test("parses tilde-backslash path", () => {
+    const result = parseLocalSource("~\\skills\\my-skill");
+    expect(result.isLocal).toBe(true);
+    // Should NOT contain tilde in resolved path
+    expect(result.localPath).not.toContain("~");
+  });
 });
 
 // ─── parseSource local path integration tests ──────────────────────────────
@@ -1432,6 +1439,12 @@ describe("parseSource with local paths", () => {
 
   test("detects and parses tilde path", () => {
     const result = parseSource("~/my-skill");
+    expect(result.isLocal).toBe(true);
+    expect(result.localPath).not.toContain("~");
+  });
+
+  test("detects and parses tilde-backslash path", () => {
+    const result = parseSource("~\\my-skill");
     expect(result.isLocal).toBe(true);
     expect(result.localPath).not.toContain("~");
   });
