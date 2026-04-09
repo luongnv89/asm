@@ -6,7 +6,7 @@
  */
 
 import { readFile, stat } from "fs/promises";
-import { join, resolve } from "path";
+import { join, resolve, relative } from "path";
 import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
 import { auditSkillSecurity } from "./security-auditor";
 import { validateManifest } from "./registry";
@@ -155,6 +155,22 @@ export async function getHeadCommit(dir: string): Promise<string> {
 }
 
 /**
+ * Get the root directory of the git repository containing dir.
+ */
+export async function getGitRoot(dir: string): Promise<string> {
+  const proc = Bun.spawn(
+    ["git", "rev-parse", "--show-toplevel"],
+    { cwd: dir, stdout: "pipe", stderr: "pipe" },
+  );
+  const stdout = await new Response(proc.stdout).text();
+  const exitCode = await proc.exited;
+  if (exitCode !== 0) {
+    throw new Error("Failed to determine git repository root.");
+  }
+  return stdout.trim();
+}
+
+/**
  * Get the remote origin URL.
  */
 export async function getRemoteOrigin(dir: string): Promise<string> {
@@ -253,6 +269,7 @@ export interface GenerateManifestOptions {
   author: string;
   commit: string;
   repository: string;
+  skillPath?: string;
   securityVerdict: "pass" | "warning" | "dangerous";
 }
 
@@ -272,6 +289,10 @@ export function generateManifest(
     security_verdict: opts.securityVerdict,
     published_at: new Date().toISOString(),
   };
+
+  if (opts.skillPath) {
+    manifest.skill_path = opts.skillPath;
+  }
 
   if (
     opts.metadata.version &&
@@ -413,6 +434,10 @@ export async function publishSkill(
   // Step 5: Get git info
   const commit = await getHeadCommit(skillDir);
   const repository = await getRemoteOrigin(skillDir);
+  const gitRoot = await getGitRoot(skillDir);
+  const relativeSkillPath = relative(gitRoot, skillDir);
+  // Only set skill_path when the skill is in a subdirectory (not the repo root)
+  const skillPath = relativeSkillPath && relativeSkillPath !== "." ? relativeSkillPath : undefined;
 
   // Step 6: Detect author via gh CLI
   const checkGhCliFn = opts._checkGhCliFn ?? checkGhCli;
@@ -445,6 +470,7 @@ export async function publishSkill(
     author,
     commit,
     repository,
+    skillPath,
     securityVerdict: registryVerdict,
   });
 

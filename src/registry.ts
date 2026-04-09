@@ -21,6 +21,7 @@ export interface RegistryManifest {
   description: string;
   repository: string;
   commit: string;
+  skill_path?: string;
   version?: string;
   license?: string;
   tags?: string[];
@@ -73,6 +74,7 @@ export function validateManifest(manifest: unknown): ValidationError[] {
     "description",
     "repository",
     "commit",
+    "skill_path",
     "version",
     "license",
     "tags",
@@ -231,6 +233,30 @@ export function validateManifest(manifest: unknown): ValidationError[] {
       errors.push({
         field: "checksum",
         message: '"checksum" must match pattern sha256:<64-hex-chars>',
+      });
+    }
+  }
+
+  if (m.skill_path !== undefined) {
+    if (typeof m.skill_path !== "string") {
+      errors.push({
+        field: "skill_path",
+        message: '"skill_path" must be a string',
+      });
+    } else if (m.skill_path.length === 0) {
+      errors.push({
+        field: "skill_path",
+        message: '"skill_path" must not be empty',
+      });
+    } else if (m.skill_path.length > 256) {
+      errors.push({
+        field: "skill_path",
+        message: '"skill_path" exceeds maximum length of 256',
+      });
+    } else if (/\.\.|^\//.test(m.skill_path)) {
+      errors.push({
+        field: "skill_path",
+        message: '"skill_path" must not contain ".." or start with "/"',
       });
     }
   }

@@ -1624,7 +1624,10 @@ async function cmdInstall(args: ParsedArgs) {
         // Single match — use the resolved manifest
         resolutionSource = "registry";
         const m = resolved.manifest;
-        sourceStr = `github:${m.repository.replace("https://github.com/", "")}#${m.commit}`;
+        const repoPath = m.repository.replace("https://github.com/", "");
+        sourceStr = m.skill_path
+          ? `github:${repoPath}#${m.commit}:${m.skill_path}`
+          : `github:${repoPath}#${m.commit}`;
         console.info(
           `  ${ansi.green("✓")} Resolved: ${ansi.bold(`${m.author}/${m.name}`)} @ ${m.commit.slice(0, 7)}`,
         );
@@ -1682,7 +1685,10 @@ async function cmdInstall(args: ParsedArgs) {
 
         const selected = top[choice - 1];
         resolutionSource = "registry";
-        sourceStr = `github:${selected.repository.replace("https://github.com/", "")}#${selected.commit}`;
+        const selectedRepoPath = selected.repository.replace("https://github.com/", "");
+        sourceStr = selected.skill_path
+          ? `github:${selectedRepoPath}#${selected.commit}:${selected.skill_path}`
+          : `github:${selectedRepoPath}#${selected.commit}`;
         console.info(
           `  ${ansi.green("✓")} Selected: ${ansi.bold(`${selected.author}/${selected.name}`)} @ ${selected.commit.slice(0, 7)}`,
         );
