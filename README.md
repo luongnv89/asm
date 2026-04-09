@@ -61,7 +61,7 @@ The more AI agents you use, the worse this gets. Every new tool adds another ski
 - **See everything at once** — List, search, and filter skills across all providers and scopes from one dashboard. No more `ls`-ing through hidden directories.
 - **Install from GitHub in one command** — `asm install github:user/repo` handles cloning, validation, and placement. Supports single-skill repos, multi-skill collections, subfolder URLs, and private repos via SSH.
 - **Catch problems before they bite** — Built-in security scanning flags dangerous patterns (shell execution, network access, credential exposure, obfuscation) before you install. Duplicate audit finds and cleans redundant skills across providers.
-- **Create and test skills locally** — Scaffold new skills with `asm init`, symlink them for live development with `asm link`, audit for security issues, and verify metadata — all before publishing. [See the full local dev workflow &darr;](#build-test-and-ship-your-own-skills)
+- **Create, test, and publish skills** — Scaffold new skills with `asm init`, symlink them for live development with `asm link`, audit for security issues, verify metadata, and publish to the [ASM Registry](https://github.com/luongnv89/asm-registry) with a single command. [See the full local dev workflow &darr;](#build-test-and-ship-your-own-skills)
 - **Works with every major agent** — 17 providers built-in: Claude Code, Codex, OpenClaw, Cursor, Windsurf, Cline, Roo Code, Continue, GitHub Copilot, Aider, OpenCode, Zed, Augment, Amp, Gemini CLI, Google Antigravity, and a generic Agents provider. Add custom providers in seconds via config.
 - **Two interfaces, one tool** — Full interactive TUI with keyboard navigation, search, and detail views. Or use the CLI with `--json` for scripting and automation.
 
@@ -232,6 +232,41 @@ asm install github:you/awesome-skill -p claude --yes --json
 
 This catches issues that local development misses — broken repo structure, missing files, invalid frontmatter in a clean install context.
 
+### 6. Publish to the ASM Registry
+
+Once your skill is ready and on GitHub, submit it to the [ASM Registry](https://github.com/luongnv89/asm-registry) so anyone can install it by name:
+
+```bash
+asm publish ./my-skill
+```
+
+This runs a security audit, generates a signed manifest, forks the registry, and opens a pull request automatically. Once merged, your skill is globally discoverable:
+
+```bash
+# Anyone can install it by name — no URL needed
+asm install my-skill
+```
+
+Preview what the manifest will look like before submitting:
+
+```bash
+asm publish --dry-run ./my-skill
+```
+
+Override security warnings (caution: review findings first):
+
+```bash
+asm publish --force ./my-skill
+```
+
+Skip confirmation in CI:
+
+```bash
+asm publish --yes ./my-skill
+```
+
+> **Requires:** [`gh` CLI](https://cli.github.com) authenticated with `gh auth login`. The publish command uses `gh` to fork the registry, create a branch, write the manifest, and open the PR — all without leaving your terminal.
+
 ### Typical local development workflow
 
 1. **Scaffold** — `asm init awesome-skill -p claude`
@@ -242,6 +277,7 @@ This catches issues that local development misses — broken repo structure, mis
 6. **Verify metadata** — `asm inspect awesome-skill`
 7. Push to GitHub
 8. **Verify install flow** — `asm install github:you/awesome-skill`
+9. **Publish to registry** — `asm publish ./awesome-skill`
 
 Whether you're building skills for yourself or publishing them for the community, `asm` gives you the full create → develop → audit → ship pipeline in one tool.
 
@@ -280,6 +316,60 @@ asm index search "your-skill" --json
 ```
 
 Each indexed skill in the output JSON includes `"verified": true` or `"verified": false`. If verification fails, the ingestion debug log (set `ASM_DEBUG=1`) prints the specific reasons.
+
+---
+
+## ASM Registry — Install and Publish Skills by Name
+
+The [ASM Registry](https://github.com/luongnv89/asm-registry) is the curated index of community-published skills. Once a skill is listed, anyone can install it by name — no GitHub URL needed.
+
+### Install from the registry
+
+```bash
+# Install by bare name (searches the registry)
+asm install code-review
+
+# Install by scoped name (author/skill — always unambiguous)
+asm install luongnv89/code-review
+
+# Force a fresh registry fetch (bypasses the 1-hour cache)
+asm install code-review --no-cache
+```
+
+`asm install` resolves the name against the registry index, downloads the manifest, clones the exact pinned commit, and installs the skill to your agent.
+
+### Publish your skill to the registry
+
+```bash
+asm publish ./my-skill
+```
+
+The publish pipeline:
+
+1. **Validates** your `SKILL.md` frontmatter (name, description, version)
+2. **Security audit** — blocks dangerous skills automatically; warns on risky patterns
+3. **Generates a manifest** with the current commit SHA and a `skill_path` for multi-skill repos
+4. **Opens a PR** against [luongnv89/asm-registry](https://github.com/luongnv89/asm-registry) via the `gh` CLI
+
+The registry CI validates schema, checks author identity, runs a duplicate check, typosquat detection, and an independent security scan before any maintainer reviews. Once merged, the index rebuilds automatically and your skill is live.
+
+| Flag          | Description                                         |
+| ------------- | --------------------------------------------------- |
+| `--dry-run`   | Preview the manifest without creating a PR          |
+| `--force`     | Override warning-level security findings            |
+| `--yes`       | Skip the confirmation prompt                        |
+| `--machine`   | Output as a machine-readable JSON envelope          |
+
+### How registry resolution works
+
+When you run `asm install code-review`:
+
+1. `asm` fetches the registry index (cached for 1 hour at `~/.config/agent-skill-manager/registry-cache.json`)
+2. Finds the manifest for `code-review` — including the pinned `commit` and `skill_path`
+3. Clones the repository at that exact commit and navigates to the skill subdirectory
+4. Installs as if you had run `asm install github:author/repo#commit:skill_path`
+
+If multiple authors publish a skill with the same name, `asm` shows a disambiguation prompt. Use a scoped name (`author/skill`) to skip it.
 
 ---
 
@@ -448,7 +538,8 @@ asm
 | `asm list`                      | List all discovered skills                  |
 | `asm search <query>`            | Search by name/description/provider         |
 | `asm inspect <skill-name>`      | Show detailed info for a skill              |
-| `asm install <source>`          | Install a skill from GitHub                 |
+| `asm install <source>`          | Install a skill from GitHub or the registry |
+| `asm publish [path]`            | Publish a skill to the ASM Registry         |
 | `asm uninstall <skill-name>`    | Remove a skill (with confirmation)          |
 | `asm init <name>`               | Scaffold a new skill with SKILL.md template |
 | `asm link <path> [<path2> ...]` | Symlink one or more local skills for live development |
