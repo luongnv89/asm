@@ -7,6 +7,8 @@ import {
   sortSkills,
   scanAllSkills,
   scanPluginMarketplaces,
+  scanCodexPluginCache,
+  readCodexMarketplaceFiles,
   compareSemver,
   countFiles,
 } from "./scanner";
@@ -837,5 +839,493 @@ describe("scanPluginMarketplaces", () => {
     expect(s.realPath).toBe(canonicalSkillDir);
     // path uses resolve() which normalises but does not follow OS-level symlinks
     expect(s.path).toBe(skillDir);
+  });
+});
+
+// ─── scanCodexPluginCache ───────────────────────────────────────────────────
+
+describe("scanCodexPluginCache", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "scanner-codex-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  async function makeCodexPlugin(
+    cacheDir: string,
+    marketplace: string,
+    pluginName: string,
+    version: string,
+    manifest: object,
+  ): Promise<string> {
+    const pluginDir = join(
+      cacheDir,
+      marketplace,
+      pluginName,
+      version,
+      ".codex-plugin",
+    );
+    await mkdir(pluginDir, { recursive: true });
+    await writeFile(
+      join(pluginDir, "plugin.json"),
+      JSON.stringify(manifest),
+      "utf-8",
+    );
+    return join(cacheDir, marketplace, pluginName, version);
+  }
+
+  it("returns empty array when cache dir does not exist", async () => {
+    const skills = await scanCodexPluginCache(
+      "/tmp/nonexistent-codex-cache-xyz",
+    );
+    expect(skills).toEqual([]);
+  });
+
+  it("discovers a basic Codex plugin from cache", async () => {
+    await makeCodexPlugin(tempDir, "official", "my-plugin", "1.0.0", {
+      name: "my-plugin",
+      version: "1.0.0",
+      description: "A test plugin",
+    });
+
+    const skills = await scanCodexPluginCache(tempDir);
+    expect(skills).toHaveLength(1);
+    const s = skills[0];
+    expect(s.name).toBe("my-plugin");
+    expect(s.version).toBe("1.0.0");
+    expect(s.description).toBe("A test plugin");
+    expect(s.provider).toBe("codex-plugin");
+    expect(s.providerLabel).toBe("Codex Plugin (official)");
+    expect(s.scope).toBe("global");
+    expect(s.marketplace).toBe("official");
+    expect(s.dirName).toBe("my-plugin");
+    expect(s.isSymlink).toBe(false);
+    expect(s.symlinkTarget).toBeNull();
+  });
+
+  it("uses displayName from interface when available", async () => {
+    await makeCodexPlugin(tempDir, "official", "my-plugin", "1.0.0", {
+      name: "my-plugin",
+      version: "1.0.0",
+      interface: { displayName: "My Pretty Plugin", category: "utilities" },
+    });
+
+    const skills = await scanCodexPluginCache(tempDir);
+    expect(skills).toHaveLength(1);
+    expect(skills[0].name).toBe("My Pretty Plugin");
+    expect(skills[0].codexPlugin?.category).toBe("utilities");
+  });
+
+  it("uses dirName as fallback when plugin.json has no name", async () => {
+    await makeCodexPlugin(tempDir, "official", "unnamed-plugin", "0.1.0", {});
+
+    const skills = await scanCodexPluginCache(tempDir);
+    expect(skills).toHaveLength(1);
+    expect(skills[0].name).toBe("unnamed-plugin");
+  });
+
+  it("picks the highest version when multiple versions are present", async () => {
+    await makeCodexPlugin(tempDir, "official", "versioned", "1.0.0", {
+      name: "versioned",
+      version: "1.0.0",
+      description: "old",
+    });
+    await makeCodexPlugin(tempDir, "official", "versioned", "2.0.0", {
+      name: "versioned",
+      version: "2.0.0",
+      description: "new",
+    });
+
+    const skills = await scanCodexPluginCache(tempDir);
+    expect(skills).toHaveLength(1);
+    expect(skills[0].version).toBe("2.0.0");
+    expect(skills[0].description).toBe("new");
+  });
+
+  it("picks highest version by semver (not lexicographic) when versions like 2.0.0 and 10.0.0 exist", async () => {
+    await makeCodexPlugin(tempDir, "official", "semver-plugin", "1.0.0", {
+      name: "semver-plugin",
+      version: "1.0.0",
+      description: "v1",
+    });
+    await makeCodexPlugin(tempDir, "official", "semver-plugin", "2.0.0", {
+      name: "semver-plugin",
+      version: "2.0.0",
+      description: "v2",
+    });
+    await makeCodexPlugin(tempDir, "official", "semver-plugin", "10.0.0", {
+      name: "semver-plugin",
+      version: "10.0.0",
+      description: "v10",
+    });
+
+    const skills = await scanCodexPluginCache(tempDir);
+    expect(skills).toHaveLength(1);
+    expect(skills[0].version).toBe("10.0.0");
+    expect(skills[0].description).toBe("v10");
+  });
+
+  it("discovers plugins from multiple marketplaces", async () => {
+    await makeCodexPlugin(tempDir, "official", "plugin-a", "1.0.0", {
+      name: "plugin-a",
+    });
+    await makeCodexPlugin(tempDir, "community", "plugin-b", "1.0.0", {
+      name: "plugin-b",
+    });
+
+    const skills = await scanCodexPluginCache(tempDir);
+    expect(skills).toHaveLength(2);
+    const names = skills.map((s) => s.name).sort();
+    expect(names).toEqual(["plugin-a", "plugin-b"]);
+    const marketplaces = skills.map((s) => s.marketplace).sort();
+    expect(marketplaces).toEqual(["community", "official"]);
+  });
+
+  it("skips plugin directories without .codex-plugin/plugin.json", async () => {
+    const pluginDir = join(tempDir, "official", "bad-plugin", "1.0.0");
+    await mkdir(pluginDir, { recursive: true });
+    await writeFile(join(pluginDir, "README.md"), "no manifest");
+
+    const skills = await scanCodexPluginCache(tempDir);
+    expect(skills).toHaveLength(0);
+  });
+
+  it("skips plugin directories with invalid JSON in plugin.json", async () => {
+    const manifestDir = join(
+      tempDir,
+      "official",
+      "broken-plugin",
+      "1.0.0",
+      ".codex-plugin",
+    );
+    await mkdir(manifestDir, { recursive: true });
+    await writeFile(join(manifestDir, "plugin.json"), "not valid json");
+
+    const skills = await scanCodexPluginCache(tempDir);
+    expect(skills).toHaveLength(0);
+  });
+
+  it("sets location to global-codex-plugin-{marketplace}", async () => {
+    await makeCodexPlugin(tempDir, "my-mkt", "p", "1.0.0", { name: "p" });
+    const skills = await scanCodexPluginCache(tempDir);
+    expect(skills[0].location).toBe("global-codex-plugin-my-mkt");
+  });
+
+  it("detects hasMcpConfig when mcp field is present", async () => {
+    await makeCodexPlugin(tempDir, "official", "mcp-plugin", "1.0.0", {
+      name: "mcp-plugin",
+      mcp: { servers: { myServer: { command: "npx", args: ["mcp-server"] } } },
+    });
+
+    const skills = await scanCodexPluginCache(tempDir);
+    expect(skills[0].codexPlugin?.hasMcpConfig).toBe(true);
+  });
+
+  it("sets hasMcpConfig=false when mcp field is absent", async () => {
+    await makeCodexPlugin(tempDir, "official", "no-mcp", "1.0.0", {
+      name: "no-mcp",
+    });
+
+    const skills = await scanCodexPluginCache(tempDir);
+    expect(skills[0].codexPlugin?.hasMcpConfig).toBe(false);
+  });
+
+  it("sets hasMcpConfig=false when mcp field is null", async () => {
+    await makeCodexPlugin(tempDir, "official", "null-mcp", "1.0.0", {
+      name: "null-mcp",
+      mcp: null,
+    });
+
+    const skills = await scanCodexPluginCache(tempDir);
+    expect(skills).toHaveLength(1);
+    expect(skills[0].codexPlugin?.hasMcpConfig).toBe(false);
+  });
+
+  it("reads enabled status from config.toml", async () => {
+    await makeCodexPlugin(tempDir, "official", "disabled-plugin", "1.0.0", {
+      name: "disabled-plugin",
+    });
+
+    const configPath = join(tempDir, "config.toml");
+    await writeFile(
+      configPath,
+      [
+        "[plugins.disabled-plugin]",
+        "enabled = false",
+        "",
+        "[plugins.other-plugin]",
+        "enabled = true",
+      ].join("\n"),
+    );
+
+    const skills = await scanCodexPluginCache(tempDir, configPath);
+    expect(skills[0].codexPlugin?.enabled).toBe(false);
+  });
+
+  it("reads enabled status from config.toml with quoted plugin names", async () => {
+    await makeCodexPlugin(tempDir, "official", "quoted-plugin", "1.0.0", {
+      name: "quoted-plugin",
+    });
+
+    const configPath = join(tempDir, "config.toml");
+    await writeFile(
+      configPath,
+      ['[plugins."quoted-plugin"]', "enabled = false"].join("\n"),
+    );
+
+    const skills = await scanCodexPluginCache(tempDir, configPath);
+    expect(skills[0].codexPlugin?.enabled).toBe(false);
+  });
+
+  it("reads enabled status from config.toml with single-quoted plugin names", async () => {
+    await makeCodexPlugin(tempDir, "official", "sq-plugin", "1.0.0", {
+      name: "sq-plugin",
+    });
+
+    const configPath = join(tempDir, "config.toml");
+    await writeFile(configPath, "[plugins.'sq-plugin']\nenabled = false\n");
+
+    const skills = await scanCodexPluginCache(tempDir, configPath);
+    expect(skills[0].codexPlugin?.enabled).toBe(false);
+  });
+
+  it("defaults to enabled=true when plugin not in config.toml", async () => {
+    await makeCodexPlugin(tempDir, "official", "unknown-plugin", "1.0.0", {
+      name: "unknown-plugin",
+    });
+
+    const configPath = join(tempDir, "config.toml");
+    await writeFile(configPath, "[plugins.other]\nenabled = true\n");
+
+    const skills = await scanCodexPluginCache(tempDir, configPath);
+    expect(skills[0].codexPlugin?.enabled).toBe(true);
+  });
+
+  it("defaults to enabled=true when config.toml does not exist", async () => {
+    await makeCodexPlugin(tempDir, "official", "some-plugin", "1.0.0", {
+      name: "some-plugin",
+    });
+
+    const skills = await scanCodexPluginCache(
+      tempDir,
+      "/tmp/nonexistent-codex-config.toml",
+    );
+    expect(skills[0].codexPlugin?.enabled).toBe(true);
+  });
+
+  it("scanAllSkills includes Codex plugin skills for global scope", async () => {
+    await makeCodexPlugin(tempDir, "official", "codex-p", "1.0.0", {
+      name: "codex-p",
+      version: "1.0.0",
+      description: "A Codex plugin",
+    });
+
+    const config = { ...getDefaultConfig(), providers: [], customPaths: [] };
+    const skills = await scanAllSkills(config, "global", undefined, tempDir);
+    const found = skills.find((s) => s.name === "codex-p");
+    expect(found).toBeDefined();
+    expect(found!.provider).toBe("codex-plugin");
+    expect(found!.scope).toBe("global");
+  });
+
+  it("scanAllSkills excludes Codex plugin skills for project-only scope", async () => {
+    await makeCodexPlugin(tempDir, "official", "codex-proj", "1.0.0", {
+      name: "codex-proj",
+    });
+
+    const config = { ...getDefaultConfig(), providers: [], customPaths: [] };
+    const skills = await scanAllSkills(config, "project", undefined, tempDir);
+    expect(skills.filter((s) => s.provider === "codex-plugin")).toHaveLength(0);
+  });
+
+  it("scanAllSkills deduplicates Codex plugin by name against provider skills", async () => {
+    // Provider skill with same name
+    const providerDir = join(tempDir, "provider");
+    const skillDir = join(providerDir, "my-codex-skill");
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      "---\nname: my-codex-skill\nversion: 1.0.0\n---\n",
+    );
+
+    // Codex plugin cache with same display name
+    const cacheDir = join(tempDir, "cache");
+    await makeCodexPlugin(cacheDir, "official", "my-codex-skill", "1.0.0", {
+      name: "my-codex-skill",
+      version: "1.0.0",
+    });
+
+    const config = {
+      ...getDefaultConfig(),
+      providers: [
+        {
+          name: "test",
+          label: "Test",
+          global: providerDir,
+          project: "/tmp/nonexistent-proj",
+          enabled: true,
+        },
+      ],
+      customPaths: [],
+    };
+
+    const skills = await scanAllSkills(config, "global", undefined, cacheDir);
+    const matches = skills.filter(
+      (s) => s.name.toLowerCase() === "my-codex-skill",
+    );
+    expect(matches).toHaveLength(1);
+    // Provider wins
+    expect(matches[0].provider).toBe("test");
+  });
+
+  it("scanAllSkills includes Codex plugins for both scope", async () => {
+    await makeCodexPlugin(tempDir, "official", "both-plugin", "1.0.0", {
+      name: "both-plugin",
+    });
+
+    const config = { ...getDefaultConfig(), providers: [], customPaths: [] };
+    const skills = await scanAllSkills(config, "both", undefined, tempDir);
+    expect(skills.find((s) => s.name === "both-plugin")).toBeDefined();
+  });
+});
+
+// ─── readCodexMarketplaceFiles ───────────────────────────────────────────────
+
+describe("readCodexMarketplaceFiles", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "scanner-codex-mkt-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  it("returns empty array when neither marketplace file exists", async () => {
+    const entries = await readCodexMarketplaceFiles(
+      "/tmp/nonexistent-user-mkt.json",
+      "/tmp/nonexistent-repo-mkt.json",
+    );
+    expect(entries).toEqual([]);
+  });
+
+  it("reads plugins from user-level marketplace.json", async () => {
+    const filePath = join(tempDir, "marketplace.json");
+    await writeFile(
+      filePath,
+      JSON.stringify({
+        plugins: [
+          {
+            name: "plugin-a",
+            source: "github:user/plugin-a",
+            version: "1.0.0",
+          },
+          { name: "plugin-b", description: "Another plugin" },
+        ],
+      }),
+    );
+
+    const entries = await readCodexMarketplaceFiles(
+      filePath,
+      "/tmp/nonexistent-repo.json",
+    );
+    expect(entries).toHaveLength(2);
+    expect(entries[0].name).toBe("plugin-a");
+    expect(entries[1].name).toBe("plugin-b");
+  });
+
+  it("reads skills array from marketplace.json", async () => {
+    const filePath = join(tempDir, "marketplace.json");
+    await writeFile(
+      filePath,
+      JSON.stringify({
+        skills: [{ name: "skill-a" }, { name: "skill-b" }],
+      }),
+    );
+
+    const entries = await readCodexMarketplaceFiles(
+      filePath,
+      "/tmp/nonexistent-repo.json",
+    );
+    expect(entries).toHaveLength(2);
+  });
+
+  it("merges plugins and skills arrays from same file", async () => {
+    const filePath = join(tempDir, "marketplace.json");
+    await writeFile(
+      filePath,
+      JSON.stringify({
+        plugins: [{ name: "plugin-x" }],
+        skills: [{ name: "skill-x" }],
+      }),
+    );
+
+    const entries = await readCodexMarketplaceFiles(
+      filePath,
+      "/tmp/nonexistent-repo.json",
+    );
+    expect(entries).toHaveLength(2);
+  });
+
+  it("deduplicates entries with same name across files", async () => {
+    const userPath = join(tempDir, "user-marketplace.json");
+    const repoPath = join(tempDir, "repo-marketplace.json");
+
+    await writeFile(
+      userPath,
+      JSON.stringify({
+        plugins: [{ name: "shared-plugin", version: "1.0.0" }],
+      }),
+    );
+    await writeFile(
+      repoPath,
+      JSON.stringify({
+        plugins: [
+          { name: "shared-plugin", version: "2.0.0" },
+          { name: "unique-plugin" },
+        ],
+      }),
+    );
+
+    const entries = await readCodexMarketplaceFiles(userPath, repoPath);
+    const names = entries.map((e) => e.name);
+    expect(names.filter((n) => n === "shared-plugin")).toHaveLength(1);
+    expect(names).toContain("unique-plugin");
+    expect(entries).toHaveLength(2);
+  });
+
+  it("skips files with invalid JSON", async () => {
+    const badPath = join(tempDir, "bad.json");
+    await writeFile(badPath, "not valid json");
+
+    const entries = await readCodexMarketplaceFiles(
+      badPath,
+      "/tmp/nonexistent-repo.json",
+    );
+    expect(entries).toEqual([]);
+  });
+
+  it("reads from both user and repo files", async () => {
+    const userPath = join(tempDir, "user.json");
+    const repoPath = join(tempDir, "repo.json");
+    await writeFile(
+      userPath,
+      JSON.stringify({ plugins: [{ name: "user-only" }] }),
+    );
+    await writeFile(
+      repoPath,
+      JSON.stringify({ plugins: [{ name: "repo-only" }] }),
+    );
+
+    const entries = await readCodexMarketplaceFiles(userPath, repoPath);
+    expect(entries.map((e) => e.name).sort()).toEqual([
+      "repo-only",
+      "user-only",
+    ]);
   });
 });

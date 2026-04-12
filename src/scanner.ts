@@ -15,13 +15,28 @@ import {
 } from "./utils/frontmatter";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
-import type { SkillInfo, Scope, SortBy, AppConfig } from "./utils/types";
+import type {
+  SkillInfo,
+  Scope,
+  SortBy,
+  AppConfig,
+  CodexPluginManifest,
+} from "./utils/types";
 
 const PLUGIN_MARKETPLACES_DIR = join(
   homedir(),
   ".claude",
   "plugins",
   "marketplaces",
+);
+
+const CODEX_PLUGIN_CACHE_DIR = join(homedir(), ".codex", "plugins", "cache");
+const CODEX_CONFIG_PATH = join(homedir(), ".codex", "config.toml");
+const AGENTS_PLUGINS_MARKETPLACE_PATH = join(
+  homedir(),
+  ".agents",
+  "plugins",
+  "marketplace.json",
 );
 
 interface ScanLocation {
@@ -313,26 +328,322 @@ export async function scanPluginMarketplaces(
   return skills;
 }
 
+/**
+ * Parse a subset of TOML key=value lines to extract plugin enabled/disabled state.
+ * Only handles simple `key = true/false` and `key = "string"` entries — this is
+ * intentionally minimal to avoid a TOML parser dependency.
+ */
+function parseTomlEnabledMap(toml: string): Map<string, boolean> {
+  const result = new Map<string, boolean>();
+  let currentPlugin: string | null = null;
+
+  for (const rawLine of toml.split("\n")) {
+    const line = rawLine.trim();
+
+    // Section header: [plugins.plugin-name] or [[plugins]]
+    const sectionMatch = line.match(/^\[plugins\.([^\]]+)\]$/);
+    if (sectionMatch) {
+      currentPlugin = sectionMatch[1].trim().replace(/^["']|["']$/g, "");
+      continue;
+    }
+    // Any other section header resets the current plugin context
+    if (line.startsWith("[")) {
+      currentPlugin = null;
+      continue;
+    }
+
+    if (currentPlugin && line.startsWith("enabled")) {
+      const valMatch = line.match(/^enabled\s*=\s*(true|false)/i);
+      if (valMatch) {
+        result.set(currentPlugin, valMatch[1].toLowerCase() === "true");
+      }
+    }
+  }
+
+  return result;
+}
+
+/**
+ * Load the Codex plugin enabled/disabled map from `~/.codex/config.toml`.
+ * Returns an empty map if the file doesn't exist or cannot be parsed.
+ */
+async function loadCodexEnabledMap(
+  configPath?: string,
+): Promise<Map<string, boolean>> {
+  const path = configPath ?? CODEX_CONFIG_PATH;
+  try {
+    const raw = await readFile(path, "utf-8");
+    return parseTomlEnabledMap(raw);
+  } catch {
+    debug(`codex: config.toml not found at ${path}, skipping enabled check`);
+    return new Map();
+  }
+}
+
+/**
+ * Scan the Codex plugin cache at `~/.codex/plugins/cache/` to discover
+ * installed Codex plugins.
+ *
+ * Cache layout:
+ *   {marketplace}/{plugin}/{version}/.codex-plugin/plugin.json
+ *
+ * Each versioned plugin directory containing `.codex-plugin/plugin.json`
+ * is registered as a SkillInfo entry. The highest version directory is
+ * used when multiple versions are present.
+ */
+export async function scanCodexPluginCache(
+  cacheBaseDir?: string,
+  configPath?: string,
+): Promise<SkillInfo[]> {
+  const cacheDir = cacheBaseDir ?? CODEX_PLUGIN_CACHE_DIR;
+  const skills: SkillInfo[] = [];
+
+  debug(`codex: checking plugin cache at ${cacheDir}`);
+
+  let marketplaces: string[];
+  try {
+    marketplaces = await readdir(cacheDir);
+  } catch {
+    debug(`codex: plugin cache dir not found, skipping`);
+    return skills;
+  }
+
+  const enabledMap = await loadCodexEnabledMap(configPath);
+
+  for (const marketplace of marketplaces) {
+    const marketplacePath = join(cacheDir, marketplace);
+
+    let mStat;
+    try {
+      mStat = await stat(marketplacePath);
+    } catch {
+      continue;
+    }
+    if (!mStat.isDirectory()) continue;
+
+    let plugins: string[];
+    try {
+      plugins = await readdir(marketplacePath);
+    } catch {
+      continue;
+    }
+
+    for (const pluginName of plugins) {
+      const pluginPath = join(marketplacePath, pluginName);
+
+      let pStat;
+      try {
+        pStat = await stat(pluginPath);
+      } catch {
+        continue;
+      }
+      if (!pStat.isDirectory()) continue;
+
+      // Find all version directories and pick the lexicographically last one
+      let versions: string[];
+      try {
+        versions = await readdir(pluginPath);
+      } catch {
+        continue;
+      }
+
+      const versionDirs = (
+        await Promise.all(
+          versions.map(async (v) => {
+            try {
+              const s = await stat(join(pluginPath, v));
+              return s.isDirectory() ? v : null;
+            } catch {
+              return null;
+            }
+          }),
+        )
+      ).filter((v): v is string => v !== null);
+
+      if (versionDirs.length === 0) continue;
+
+      // Use the highest semver version
+      const selectedVersion = versionDirs.sort(compareSemver).at(-1)!;
+      const versionDir = join(pluginPath, selectedVersion);
+
+      const manifestPath = join(versionDir, ".codex-plugin", "plugin.json");
+      let manifest: CodexPluginManifest;
+      try {
+        const raw = await readFile(manifestPath, "utf-8");
+        manifest = JSON.parse(raw) as CodexPluginManifest;
+      } catch {
+        debug(`codex: no valid plugin.json at ${manifestPath}, skipping`);
+        continue;
+      }
+
+      const resolvedPath = resolve(versionDir);
+      let resolvedRealPath: string;
+      try {
+        resolvedRealPath = await realpath(versionDir);
+      } catch {
+        resolvedRealPath = resolvedPath;
+      }
+
+      const skillName =
+        manifest.interface?.displayName || manifest.name || pluginName;
+      const version = manifest.version || selectedVersion;
+      const description = (manifest.description || "")
+        .replace(/\s*\n\s*/g, " ")
+        .trim();
+
+      const enabled = enabledMap.has(pluginName)
+        ? enabledMap.get(pluginName)!
+        : true; // default to enabled if not in config
+
+      skills.push({
+        name: skillName,
+        version,
+        description,
+        creator: "",
+        license: "",
+        compatibility: "",
+        allowedTools: [],
+        dirName: pluginName,
+        path: resolvedPath,
+        originalPath: versionDir,
+        location: `global-codex-plugin-${marketplace}`,
+        scope: "global",
+        provider: "codex-plugin",
+        providerLabel: `Codex Plugin (${marketplace})`,
+        isSymlink: false,
+        symlinkTarget: null,
+        realPath: resolvedRealPath,
+        marketplace,
+        codexPlugin: {
+          category: manifest.interface?.category,
+          hasMcpConfig:
+            manifest.mcp != null && Object.keys(manifest.mcp).length > 0,
+          pluginName,
+          pluginVersion: selectedVersion,
+          enabled,
+        },
+      });
+    }
+  }
+
+  debug(`codex: found ${skills.length} plugin(s) in cache`);
+  return skills;
+}
+
+/** Schema for a marketplace.json entry */
+interface CodexMarketplaceEntry {
+  name: string;
+  source?: string;
+  version?: string;
+  description?: string;
+}
+
+/** Schema for a marketplace.json file */
+interface CodexMarketplaceFile {
+  plugins?: CodexMarketplaceEntry[];
+  skills?: CodexMarketplaceEntry[];
+}
+
+/**
+ * Read Codex marketplace.json files from the user-level and repo-level
+ * `.agents/plugins/` paths. These files list available (not necessarily
+ * installed) plugins. This function returns the union of entries from all
+ * discovered files, deduplicating by name.
+ *
+ * Note: This is a catalog utility for commands like `asm search` or
+ * `asm install` — it is not wired into `scanAllSkills()` because
+ * marketplace entries lack filesystem paths required by `SkillInfo`.
+ *
+ * Paths checked:
+ *   - `~/.agents/plugins/marketplace.json`
+ *   - `$CWD/.agents/plugins/marketplace.json`
+ */
+export async function readCodexMarketplaceFiles(
+  userMarketplacePath?: string,
+  repoMarketplacePath?: string,
+): Promise<CodexMarketplaceEntry[]> {
+  const userPath = userMarketplacePath ?? AGENTS_PLUGINS_MARKETPLACE_PATH;
+  const repoPath =
+    repoMarketplacePath ??
+    join(process.cwd(), ".agents", "plugins", "marketplace.json");
+
+  const allEntries: CodexMarketplaceEntry[] = [];
+  const seenNames = new Set<string>();
+
+  for (const filePath of [userPath, repoPath]) {
+    let raw: string;
+    try {
+      raw = await readFile(filePath, "utf-8");
+    } catch {
+      debug(`codex: marketplace.json not found at ${filePath}, skipping`);
+      continue;
+    }
+
+    let data: CodexMarketplaceFile;
+    try {
+      data = JSON.parse(raw) as CodexMarketplaceFile;
+    } catch {
+      debug(`codex: invalid JSON in ${filePath}, skipping`);
+      continue;
+    }
+
+    const entries = [...(data.plugins ?? []), ...(data.skills ?? [])];
+    for (const entry of entries) {
+      if (entry.name && !seenNames.has(entry.name)) {
+        seenNames.add(entry.name);
+        allEntries.push(entry);
+      }
+    }
+  }
+
+  debug(`codex: read ${allEntries.length} marketplace entry(ies)`);
+  return allEntries;
+}
+
 export async function scanAllSkills(
   config: AppConfig,
   scope: Scope,
   pluginBaseDir?: string,
+  codexCacheDir?: string,
 ): Promise<SkillInfo[]> {
   const locations = buildScanLocations(config, scope);
-  const [providerResults, pluginSkills] = await Promise.all([
+  const isGlobal = scope === "global" || scope === "both";
+
+  const [providerResults, pluginSkills, codexPluginSkills] = await Promise.all([
     Promise.all(locations.map(scanDirectory)),
-    scope === "global" || scope === "both"
+    isGlobal
       ? scanPluginMarketplaces(pluginBaseDir)
+      : Promise.resolve([] as SkillInfo[]),
+    isGlobal
+      ? scanCodexPluginCache(codexCacheDir)
       : Promise.resolve([] as SkillInfo[]),
   ]);
   const skills = providerResults.flat();
 
-  // Deduplicate: skip plugin skills whose realPath already appears in provider results
+  // Deduplicate by realPath: provider results win, then Claude plugin results, then Codex plugin results
   const seenRealPaths = new Set(skills.map((s) => s.realPath));
+  const seenNames = new Set(skills.map((s) => s.name.toLowerCase()));
+
   for (const ps of pluginSkills) {
-    if (!seenRealPaths.has(ps.realPath)) {
+    if (
+      !seenRealPaths.has(ps.realPath) &&
+      !seenNames.has(ps.name.toLowerCase())
+    ) {
       skills.push(ps);
       seenRealPaths.add(ps.realPath);
+      seenNames.add(ps.name.toLowerCase());
+    }
+  }
+
+  for (const cp of codexPluginSkills) {
+    // Deduplicate by realPath first, then by name across providers
+    if (
+      !seenRealPaths.has(cp.realPath) &&
+      !seenNames.has(cp.name.toLowerCase())
+    ) {
+      skills.push(cp);
+      seenRealPaths.add(cp.realPath);
+      seenNames.add(cp.name.toLowerCase());
     }
   }
 

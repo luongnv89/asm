@@ -56,6 +56,7 @@ export function colorEffort(effort: string | undefined): string {
 const PROVIDER_COLORS: Record<string, (s: string) => string> = {
   claude: ansi.blueBold,
   codex: ansi.cyan,
+  "codex-plugin": ansi.cyan,
   openclaw: ansi.yellow,
   agents: ansi.green,
   custom: ansi.magenta,

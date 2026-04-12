@@ -28,6 +28,29 @@ export interface SkillInfo {
   warnings?: SkillWarning[];
   /** Marketplace name when skill was installed via Claude plugin marketplace */
   marketplace?: string;
+  /** Codex plugin metadata when skill was discovered via Codex plugin cache */
+  codexPlugin?: {
+    category?: string;
+    hasMcpConfig?: boolean;
+    pluginName?: string;
+    pluginVersion?: string;
+    enabled?: boolean;
+  };
+}
+
+/** Codex plugin manifest (`.codex-plugin/plugin.json`) */
+export interface CodexPluginManifest {
+  name: string;
+  version?: string;
+  description?: string;
+  skills?: string[];
+  mcp?: Record<string, unknown>;
+  interface?: {
+    displayName?: string;
+    category?: string;
+    capabilities?: string[];
+    branding?: Record<string, unknown>;
+  };
 }
 
 // ─── Lock File Types ──────────────────────────────────────────────────────
