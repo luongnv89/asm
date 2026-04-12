@@ -1,11 +1,12 @@
 import { describe, expect, it, beforeEach, afterEach, spyOn } from "bun:test";
-import { mkdtemp, writeFile, mkdir, rm, symlink } from "fs/promises";
+import { mkdtemp, writeFile, mkdir, rm, symlink, realpath } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 import {
   searchSkills,
   sortSkills,
   scanAllSkills,
+  scanPluginMarketplaces,
   compareSemver,
   countFiles,
 } from "./scanner";
@@ -472,5 +473,369 @@ describe("scanAllSkills", () => {
     expect(found).toBeDefined();
     expect(found!.provider).toBe("custom");
     expect(found!.providerLabel).toBe("My Custom");
+  });
+});
+
+// ─── scanPluginMarketplaces ──────────────────────────────────────────────────
+
+describe("scanPluginMarketplaces", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "scanner-plugins-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  it("returns empty array when marketplaces dir does not exist", async () => {
+    const skills = await scanPluginMarketplaces(
+      "/tmp/nonexistent-marketplaces-xyz",
+    );
+    expect(skills).toEqual([]);
+  });
+
+  it("discovers user-installed marketplace skills (flat skills/ layout)", async () => {
+    // ~/.claude/plugins/marketplaces/my-marketplace/skills/my-skill/SKILL.md
+    const skillDir = join(tempDir, "my-marketplace", "skills", "my-skill");
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      "---\nname: My Skill\nversion: 1.2.0\ndescription: A user-installed skill\n---\nBody",
+    );
+
+    const skills = await scanPluginMarketplaces(tempDir);
+    expect(skills).toHaveLength(1);
+    const skill = skills[0];
+    expect(skill.name).toBe("My Skill");
+    expect(skill.version).toBe("1.2.0");
+    expect(skill.marketplace).toBe("my-marketplace");
+    expect(skill.provider).toBe("plugin");
+    expect(skill.providerLabel).toBe("Plugin (my-marketplace)");
+    expect(skill.scope).toBe("global");
+    expect(skill.location).toBe("global-plugin-my-marketplace");
+    expect(skill.dirName).toBe("my-skill");
+  });
+
+  it("discovers official bundled plugin skills (plugins/.../skills/ layout)", async () => {
+    // ~/.claude/plugins/marketplaces/claude-plugins-official/plugins/my-plugin/skills/my-skill/SKILL.md
+    const skillDir = join(
+      tempDir,
+      "claude-plugins-official",
+      "plugins",
+      "my-plugin",
+      "skills",
+      "my-skill",
+    );
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      "---\nname: Bundled Skill\nversion: 2.0.0\ndescription: An official bundled skill\n---\nBody",
+    );
+
+    const skills = await scanPluginMarketplaces(tempDir);
+    expect(skills).toHaveLength(1);
+    const skill = skills[0];
+    expect(skill.name).toBe("Bundled Skill");
+    expect(skill.marketplace).toBe("claude-plugins-official");
+    expect(skill.provider).toBe("plugin");
+    expect(skill.dirName).toBe("my-skill");
+  });
+
+  it("discovers skills from multiple marketplaces", async () => {
+    // Marketplace A with flat layout
+    const skillA = join(tempDir, "marketplace-a", "skills", "skill-a");
+    await mkdir(skillA, { recursive: true });
+    await writeFile(join(skillA, "SKILL.md"), "---\nname: Skill A\n---\n");
+
+    // Marketplace B with nested plugin layout
+    const skillB = join(
+      tempDir,
+      "marketplace-b",
+      "plugins",
+      "plugin-b",
+      "skills",
+      "skill-b",
+    );
+    await mkdir(skillB, { recursive: true });
+    await writeFile(join(skillB, "SKILL.md"), "---\nname: Skill B\n---\n");
+
+    const skills = await scanPluginMarketplaces(tempDir);
+    expect(skills).toHaveLength(2);
+
+    const marketplaces = skills.map((s) => s.marketplace).sort();
+    expect(marketplaces).toEqual(["marketplace-a", "marketplace-b"]);
+
+    const names = skills.map((s) => s.name).sort();
+    expect(names).toEqual(["Skill A", "Skill B"]);
+  });
+
+  it("skips directories without SKILL.md", async () => {
+    // A directory that is not a skill (no SKILL.md at any depth)
+    const notASkill = join(tempDir, "some-marketplace", "just-a-dir");
+    await mkdir(notASkill, { recursive: true });
+    await writeFile(join(notASkill, "README.md"), "Not a skill");
+
+    const skills = await scanPluginMarketplaces(tempDir);
+    expect(skills).toHaveLength(0);
+  });
+
+  it("scanPluginMarketplaces returns correct metadata for a skill", async () => {
+    // Verify the function itself returns the right fields for a basic skill
+    const skillDir = join(
+      tempDir,
+      "test-marketplace",
+      "skills",
+      "plugin-skill",
+    );
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      "---\nname: Plugin Skill\nversion: 0.1.0\n---\n",
+    );
+
+    const skills = await scanPluginMarketplaces(tempDir);
+    const found = skills.find((s) => s.name === "Plugin Skill");
+    expect(found).toBeDefined();
+    expect(found!.marketplace).toBe("test-marketplace");
+    expect(found!.provider).toBe("plugin");
+  });
+
+  it("scanAllSkills includes plugin skills for global scope via pluginBaseDir", async () => {
+    // Verify the scanAllSkills integration path with an injected plugin base dir
+    const skillDir = join(
+      tempDir,
+      "injected-marketplace",
+      "skills",
+      "injected-skill",
+    );
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      "---\nname: Injected Skill\nversion: 1.0.0\n---\n",
+    );
+
+    const config = { ...getDefaultConfig(), providers: [], customPaths: [] };
+    const skills = await scanAllSkills(config, "global", tempDir);
+    const found = skills.find((s) => s.name === "Injected Skill");
+    expect(found).toBeDefined();
+    expect(found!.provider).toBe("plugin");
+    expect(found!.marketplace).toBe("injected-marketplace");
+    expect(found!.scope).toBe("global");
+  });
+
+  it("scanAllSkills excludes plugin skills for project-only scope", async () => {
+    // Plugin skills are always global; they should not appear in project-scope scans
+    const config = {
+      ...getDefaultConfig(),
+      providers: [],
+      customPaths: [],
+    };
+    // pluginBaseDir is passed but scope=project means plugin scan is skipped entirely
+    const skills = await scanAllSkills(config, "project", tempDir);
+    const pluginSkills = skills.filter((s) => s.provider === "plugin");
+    expect(pluginSkills).toHaveLength(0);
+  });
+
+  it("scanAllSkills deduplicates skills that appear in both provider and plugin paths", async () => {
+    // Layout: pluginDir/mkt/skills/shared-skill/SKILL.md
+    // - scanPluginMarketplaces(pluginDir) finds it as marketplace "mkt"
+    // - a customPath pointing at pluginDir/mkt/skills also scans into
+    //   shared-skill/ and resolves the same realPath
+    // Both should resolve to the same realPath, so scanAllSkills must emit only one entry.
+    const pluginDir = join(tempDir, "plugin-base");
+    const skillsParent = join(pluginDir, "mkt", "skills");
+    const sharedSkillDir = join(skillsParent, "shared-skill");
+    await mkdir(sharedSkillDir, { recursive: true });
+    await writeFile(
+      join(sharedSkillDir, "SKILL.md"),
+      "---\nname: Shared Skill\nversion: 1.0.0\n---\n",
+    );
+
+    // customPaths entry that scans skillsParent — scanDirectory finds shared-skill inside it
+    const config = {
+      ...getDefaultConfig(),
+      providers: [],
+      customPaths: [
+        {
+          path: skillsParent,
+          label: "Custom",
+          scope: "global" as const,
+        },
+      ],
+    };
+
+    const skills = await scanAllSkills(config, "global", pluginDir);
+
+    // Exactly one entry for the shared skill — no duplicates
+    const shared = skills.filter((s) => s.name === "Shared Skill");
+    expect(shared).toHaveLength(1);
+    // Provider (customPaths) entry wins — processed before plugin results
+    expect(shared[0].provider).not.toBe("plugin");
+  });
+
+  // ── findSkillDirs safety ─────────────────────────────────────────────────
+
+  it("skips symlinked directories inside a marketplace (cycle-safety fix)", async () => {
+    // A symlink inside the marketplace dir must not be followed, even if it
+    // points to a directory that contains a SKILL.md — this prevents infinite
+    // recursion from symlink cycles created by malformed plugin installers.
+    const realSkillDir = join(tempDir, "real-skill");
+    await mkdir(realSkillDir, { recursive: true });
+    await writeFile(
+      join(realSkillDir, "SKILL.md"),
+      "---\nname: Real Skill\n---\n",
+    );
+
+    const marketplaceDir = join(tempDir, "mkt");
+    await mkdir(marketplaceDir, { recursive: true });
+
+    // Symlink inside the marketplace pointing at the real skill dir
+    const symlinkPath = join(marketplaceDir, "linked-skill");
+    await symlink(realSkillDir, symlinkPath);
+
+    const skills = await scanPluginMarketplaces(tempDir);
+    // The symlinked entry is skipped — result must be empty
+    expect(skills).toHaveLength(0);
+  });
+
+  it("skips non-directory entries at the marketplace level", async () => {
+    // Files sitting directly in the marketplaces dir must not cause errors
+    const marketplacesDir = tempDir;
+    await writeFile(join(marketplacesDir, "not-a-dir.txt"), "stray file");
+
+    // Also add a real marketplace so we know the scan ran
+    const skillDir = join(marketplacesDir, "real-mkt", "skills", "skill-a");
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(join(skillDir, "SKILL.md"), "---\nname: Skill A\n---\n");
+
+    const skills = await scanPluginMarketplaces(tempDir);
+    expect(skills).toHaveLength(1);
+    expect(skills[0].marketplace).toBe("real-mkt");
+  });
+
+  it("discovers multiple skills in the same marketplace", async () => {
+    const mkt = join(tempDir, "my-mkt", "skills");
+    for (const name of ["alpha", "beta", "gamma"]) {
+      const d = join(mkt, name);
+      await mkdir(d, { recursive: true });
+      await writeFile(
+        join(d, "SKILL.md"),
+        `---\nname: ${name}\nversion: 0.1.0\n---\n`,
+      );
+    }
+
+    const skills = await scanPluginMarketplaces(tempDir);
+    expect(skills).toHaveLength(3);
+    expect(skills.every((s) => s.marketplace === "my-mkt")).toBe(true);
+    expect(skills.map((s) => s.name).sort()).toEqual([
+      "alpha",
+      "beta",
+      "gamma",
+    ]);
+  });
+
+  it("falls back to dirName when SKILL.md has no name field", async () => {
+    const skillDir = join(tempDir, "mkt", "skills", "my-unnamed-skill");
+    await mkdir(skillDir, { recursive: true });
+    // Frontmatter omits 'name' entirely
+    await writeFile(join(skillDir, "SKILL.md"), "---\nversion: 1.0.0\n---\n");
+
+    const skills = await scanPluginMarketplaces(tempDir);
+    expect(skills).toHaveLength(1);
+    expect(skills[0].name).toBe("my-unnamed-skill");
+    expect(skills[0].dirName).toBe("my-unnamed-skill");
+  });
+
+  it("parses rich frontmatter fields from SKILL.md", async () => {
+    const skillDir = join(tempDir, "mkt", "skills", "rich-skill");
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      [
+        "---",
+        "name: Rich Skill",
+        "version: 3.1.4",
+        "description: Does many things",
+        "metadata:",
+        "  creator: Test Author",
+        "license: MIT",
+        "compatibility: Claude 3+",
+        "effort: medium",
+        "allowed-tools: Bash, Read",
+        "---",
+        "Body content",
+      ].join("\n"),
+    );
+
+    const skills = await scanPluginMarketplaces(tempDir);
+    expect(skills).toHaveLength(1);
+    const s = skills[0];
+    expect(s.version).toBe("3.1.4");
+    expect(s.description).toBe("Does many things");
+    expect(s.creator).toBe("Test Author");
+    expect(s.license).toBe("MIT");
+    expect(s.compatibility).toBe("Claude 3+");
+    expect(s.effort).toBe("medium");
+    expect(s.allowedTools).toContain("Bash");
+    expect(s.allowedTools).toContain("Read");
+  });
+
+  it("sets isSymlink=false and symlinkTarget=null for all marketplace skills", async () => {
+    const skillDir = join(tempDir, "mkt", "skills", "plain-skill");
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      "---\nname: Plain Skill\n---\n",
+    );
+
+    const skills = await scanPluginMarketplaces(tempDir);
+    expect(skills).toHaveLength(1);
+    expect(skills[0].isSymlink).toBe(false);
+    expect(skills[0].symlinkTarget).toBeNull();
+  });
+
+  it("returns empty array for an empty marketplace directory", async () => {
+    // Marketplace dir exists but has no skill subdirectories at any depth
+    await mkdir(join(tempDir, "empty-mkt"), { recursive: true });
+
+    const skills = await scanPluginMarketplaces(tempDir);
+    expect(skills).toHaveLength(0);
+  });
+
+  it("scanAllSkills includes plugin skills for both scope", async () => {
+    const skillDir = join(tempDir, "mkt", "skills", "both-scope-skill");
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      "---\nname: Both Scope Skill\nversion: 1.0.0\n---\n",
+    );
+
+    const config = { ...getDefaultConfig(), providers: [], customPaths: [] };
+    const skills = await scanAllSkills(config, "both", tempDir);
+    const found = skills.find((s) => s.name === "Both Scope Skill");
+    expect(found).toBeDefined();
+    expect(found!.provider).toBe("plugin");
+    expect(found!.scope).toBe("global");
+  });
+
+  it("path and originalPath are set correctly for a marketplace skill", async () => {
+    const skillDir = join(tempDir, "mkt", "skills", "path-skill");
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(join(skillDir, "SKILL.md"), "---\nname: Path Skill\n---\n");
+
+    // On macOS /tmp is a symlink to /private/tmp — resolve via realpath
+    const canonicalSkillDir = await realpath(skillDir);
+
+    const skills = await scanPluginMarketplaces(tempDir);
+    expect(skills).toHaveLength(1);
+    const s = skills[0];
+    // originalPath is the raw path as walked (not resolved)
+    expect(s.originalPath).toBe(skillDir);
+    // realPath is the canonical filesystem path (resolves /tmp symlinks on macOS)
+    expect(s.realPath).toBe(canonicalSkillDir);
+    // path uses resolve() which normalises but does not follow OS-level symlinks
+    expect(s.path).toBe(skillDir);
   });
 });

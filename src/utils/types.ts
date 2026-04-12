@@ -26,6 +26,8 @@ export interface SkillInfo {
   fileCount?: number;
   effort?: string;
   warnings?: SkillWarning[];
+  /** Marketplace name when skill was installed via Claude plugin marketplace */
+  marketplace?: string;
 }
 
 // ─── Lock File Types ──────────────────────────────────────────────────────
