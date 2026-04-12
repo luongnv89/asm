@@ -490,7 +490,9 @@ describe("scanPluginMarketplaces", () => {
   });
 
   it("returns empty array when marketplaces dir does not exist", async () => {
-    const skills = await scanPluginMarketplaces("/tmp/nonexistent-marketplaces-xyz");
+    const skills = await scanPluginMarketplaces(
+      "/tmp/nonexistent-marketplaces-xyz",
+    );
     expect(skills).toEqual([]);
   });
 
@@ -548,7 +550,14 @@ describe("scanPluginMarketplaces", () => {
     await writeFile(join(skillA, "SKILL.md"), "---\nname: Skill A\n---\n");
 
     // Marketplace B with nested plugin layout
-    const skillB = join(tempDir, "marketplace-b", "plugins", "plugin-b", "skills", "skill-b");
+    const skillB = join(
+      tempDir,
+      "marketplace-b",
+      "plugins",
+      "plugin-b",
+      "skills",
+      "skill-b",
+    );
     await mkdir(skillB, { recursive: true });
     await writeFile(join(skillB, "SKILL.md"), "---\nname: Skill B\n---\n");
 
@@ -574,7 +583,12 @@ describe("scanPluginMarketplaces", () => {
 
   it("is included in scanAllSkills for global scope", async () => {
     // Create a fake marketplace structure in tempDir and point scanner at it
-    const skillDir = join(tempDir, "test-marketplace", "skills", "plugin-skill");
+    const skillDir = join(
+      tempDir,
+      "test-marketplace",
+      "skills",
+      "plugin-skill",
+    );
     await mkdir(skillDir, { recursive: true });
     await writeFile(
       join(skillDir, "SKILL.md"),
