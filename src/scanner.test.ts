@@ -729,7 +729,11 @@ describe("scanPluginMarketplaces", () => {
     const skills = await scanPluginMarketplaces(tempDir);
     expect(skills).toHaveLength(3);
     expect(skills.every((s) => s.marketplace === "my-mkt")).toBe(true);
-    expect(skills.map((s) => s.name).sort()).toEqual(["alpha", "beta", "gamma"]);
+    expect(skills.map((s) => s.name).sort()).toEqual([
+      "alpha",
+      "beta",
+      "gamma",
+    ]);
   });
 
   it("falls back to dirName when SKILL.md has no name field", async () => {
@@ -781,7 +785,10 @@ describe("scanPluginMarketplaces", () => {
   it("sets isSymlink=false and symlinkTarget=null for all marketplace skills", async () => {
     const skillDir = join(tempDir, "mkt", "skills", "plain-skill");
     await mkdir(skillDir, { recursive: true });
-    await writeFile(join(skillDir, "SKILL.md"), "---\nname: Plain Skill\n---\n");
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      "---\nname: Plain Skill\n---\n",
+    );
 
     const skills = await scanPluginMarketplaces(tempDir);
     expect(skills).toHaveLength(1);
@@ -798,12 +805,7 @@ describe("scanPluginMarketplaces", () => {
   });
 
   it("scanAllSkills includes plugin skills for both scope", async () => {
-    const skillDir = join(
-      tempDir,
-      "mkt",
-      "skills",
-      "both-scope-skill",
-    );
+    const skillDir = join(tempDir, "mkt", "skills", "both-scope-skill");
     await mkdir(skillDir, { recursive: true });
     await writeFile(
       join(skillDir, "SKILL.md"),
