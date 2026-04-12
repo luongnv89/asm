@@ -1034,6 +1034,17 @@ describe("scanCodexPluginCache", () => {
     expect(skills[0].codexPlugin?.hasMcpConfig).toBe(false);
   });
 
+  it("sets hasMcpConfig=false when mcp field is null", async () => {
+    await makeCodexPlugin(tempDir, "official", "null-mcp", "1.0.0", {
+      name: "null-mcp",
+      mcp: null,
+    });
+
+    const skills = await scanCodexPluginCache(tempDir);
+    expect(skills).toHaveLength(1);
+    expect(skills[0].codexPlugin?.hasMcpConfig).toBe(false);
+  });
+
   it("reads enabled status from config.toml", async () => {
     await makeCodexPlugin(tempDir, "official", "disabled-plugin", "1.0.0", {
       name: "disabled-plugin",

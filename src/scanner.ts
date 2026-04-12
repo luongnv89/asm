@@ -517,7 +517,7 @@ export async function scanCodexPluginCache(
         codexPlugin: {
           category: manifest.interface?.category,
           hasMcpConfig:
-            manifest.mcp !== undefined && Object.keys(manifest.mcp).length > 0,
+            manifest.mcp != null && Object.keys(manifest.mcp).length > 0,
           pluginName,
           pluginVersion: selectedVersion,
           enabled,
