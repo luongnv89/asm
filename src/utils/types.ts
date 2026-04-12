@@ -43,7 +43,7 @@ export interface CodexPluginManifest {
   name: string;
   version?: string;
   description?: string;
-  skills?: string;
+  skills?: string[];
   mcp?: Record<string, unknown>;
   interface?: {
     displayName?: string;

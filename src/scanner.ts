@@ -621,7 +621,10 @@ export async function scanAllSkills(
   const seenNames = new Set(skills.map((s) => s.name.toLowerCase()));
 
   for (const ps of pluginSkills) {
-    if (!seenRealPaths.has(ps.realPath)) {
+    if (
+      !seenRealPaths.has(ps.realPath) &&
+      !seenNames.has(ps.name.toLowerCase())
+    ) {
       skills.push(ps);
       seenRealPaths.add(ps.realPath);
       seenNames.add(ps.name.toLowerCase());
