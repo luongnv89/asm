@@ -343,9 +343,7 @@ function parseTomlEnabledMap(toml: string): Map<string, boolean> {
     // Section header: [plugins.plugin-name] or [[plugins]]
     const sectionMatch = line.match(/^\[plugins\.([^\]]+)\]$/);
     if (sectionMatch) {
-      currentPlugin = sectionMatch[1]
-        .trim()
-        .replace(/^["']|["']$/g, "");
+      currentPlugin = sectionMatch[1].trim().replace(/^["']|["']$/g, "");
       continue;
     }
     // Any other section header resets the current plugin context

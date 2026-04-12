@@ -1074,10 +1074,7 @@ describe("scanCodexPluginCache", () => {
     const configPath = join(tempDir, "config.toml");
     await writeFile(
       configPath,
-      [
-        '[plugins."quoted-plugin"]',
-        "enabled = false",
-      ].join("\n"),
+      ['[plugins."quoted-plugin"]', "enabled = false"].join("\n"),
     );
 
     const skills = await scanCodexPluginCache(tempDir, configPath);
@@ -1090,10 +1087,7 @@ describe("scanCodexPluginCache", () => {
     });
 
     const configPath = join(tempDir, "config.toml");
-    await writeFile(
-      configPath,
-      "[plugins.'sq-plugin']\nenabled = false\n",
-    );
+    await writeFile(configPath, "[plugins.'sq-plugin']\nenabled = false\n");
 
     const skills = await scanCodexPluginCache(tempDir, configPath);
     expect(skills[0].codexPlugin?.enabled).toBe(false);
