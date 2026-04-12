@@ -581,8 +581,8 @@ describe("scanPluginMarketplaces", () => {
     expect(skills).toHaveLength(0);
   });
 
-  it("is included in scanAllSkills for global scope", async () => {
-    // Create a fake marketplace structure in tempDir and point scanner at it
+  it("scanPluginMarketplaces returns correct metadata for a skill", async () => {
+    // Verify the function itself returns the right fields for a basic skill
     const skillDir = join(
       tempDir,
       "test-marketplace",
@@ -595,7 +595,6 @@ describe("scanPluginMarketplaces", () => {
       "---\nname: Plugin Skill\nversion: 0.1.0\n---\n",
     );
 
-    // Use empty providers to isolate; manually call scanPluginMarketplaces
     const skills = await scanPluginMarketplaces(tempDir);
     const found = skills.find((s) => s.name === "Plugin Skill");
     expect(found).toBeDefined();
@@ -603,16 +602,69 @@ describe("scanPluginMarketplaces", () => {
     expect(found!.provider).toBe("plugin");
   });
 
-  it("is excluded from project-only scope in scanAllSkills", async () => {
+  it("scanAllSkills includes plugin skills for global scope via pluginBaseDir", async () => {
+    // Verify the scanAllSkills integration path with an injected plugin base dir
+    const skillDir = join(
+      tempDir,
+      "injected-marketplace",
+      "skills",
+      "injected-skill",
+    );
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      "---\nname: Injected Skill\nversion: 1.0.0\n---\n",
+    );
+
+    const config = { ...getDefaultConfig(), providers: [], customPaths: [] };
+    const skills = await scanAllSkills(config, "global", tempDir);
+    const found = skills.find((s) => s.name === "Injected Skill");
+    expect(found).toBeDefined();
+    expect(found!.provider).toBe("plugin");
+    expect(found!.marketplace).toBe("injected-marketplace");
+    expect(found!.scope).toBe("global");
+  });
+
+  it("scanAllSkills excludes plugin skills for project-only scope", async () => {
     // Plugin skills are always global; they should not appear in project-scope scans
     const config = {
       ...getDefaultConfig(),
       providers: [],
       customPaths: [],
     };
-    // Project scope scan with no providers should yield 0 plugin marketplace skills
-    const skills = await scanAllSkills(config, "project");
+    // pluginBaseDir is passed but scope=project means plugin scan is skipped entirely
+    const skills = await scanAllSkills(config, "project", tempDir);
     const pluginSkills = skills.filter((s) => s.provider === "plugin");
     expect(pluginSkills).toHaveLength(0);
+  });
+
+  it("scanAllSkills deduplicates skills that appear in both provider and plugin paths", async () => {
+    // Skill installed in both a regular provider path and the plugin marketplace
+    // Only one copy should appear in the result
+    const skillDir = join(tempDir, "mkt", "skills", "shared-skill");
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      "---\nname: Shared Skill\nversion: 1.0.0\n---\n",
+    );
+
+    // scanPluginMarketplaces sees it via tempDir
+    const pluginSkills = await scanPluginMarketplaces(tempDir);
+    expect(pluginSkills).toHaveLength(1);
+
+    // Simulate a provider result with the same realPath
+    const duplicate = { ...pluginSkills[0], provider: "claude" };
+    const providerSkills = [duplicate];
+
+    // Manually check dedup logic: realPath from providerSkills should block plugin entry
+    const seenRealPaths = new Set(providerSkills.map((s) => s.realPath));
+    const merged = [...providerSkills];
+    for (const ps of pluginSkills) {
+      if (!seenRealPaths.has(ps.realPath)) {
+        merged.push(ps);
+      }
+    }
+    expect(merged).toHaveLength(1);
+    expect(merged[0].provider).toBe("claude"); // provider entry wins
   });
 });

@@ -323,15 +323,24 @@ export async function scanPluginMarketplaces(
 export async function scanAllSkills(
   config: AppConfig,
   scope: Scope,
+  pluginBaseDir?: string,
 ): Promise<SkillInfo[]> {
   const locations = buildScanLocations(config, scope);
-  const results = await Promise.all(locations.map(scanDirectory));
-  const skills = results.flat();
+  const [providerResults, pluginSkills] = await Promise.all([
+    Promise.all(locations.map(scanDirectory)),
+    scope === "global" || scope === "both"
+      ? scanPluginMarketplaces(pluginBaseDir)
+      : Promise.resolve([] as SkillInfo[]),
+  ]);
+  const skills = providerResults.flat();
 
-  // Include plugin marketplace skills for global and both scopes
-  if (scope === "global" || scope === "both") {
-    const pluginSkills = await scanPluginMarketplaces();
-    skills.push(...pluginSkills);
+  // Deduplicate: skip plugin skills whose realPath already appears in provider results
+  const seenRealPaths = new Set(skills.map((s) => s.realPath));
+  for (const ps of pluginSkills) {
+    if (!seenRealPaths.has(ps.realPath)) {
+      skills.push(ps);
+      seenRealPaths.add(ps.realPath);
+    }
   }
 
   return skills;
