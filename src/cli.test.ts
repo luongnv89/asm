@@ -2229,6 +2229,174 @@ describe("parseArgs — runtime flags", () => {
     expect(result.flags.runtime).toBe(true);
     expect(result.positional).toContain("init");
   });
+
+  test("--compare captures the comma-separated spec string verbatim", () => {
+    const result = parse(
+      "eval",
+      "./skill",
+      "--compare",
+      "quality@1.0.0,quality@1.0.0",
+    );
+    expect(result.flags.compare).toBe("quality@1.0.0,quality@1.0.0");
+  });
+
+  test("--compare defaults to null when not passed", () => {
+    const result = parse("eval", "./skill");
+    expect(result.flags.compare).toBeNull();
+  });
+});
+
+// ─── CLI integration: eval --compare ────────────────────────────────────────
+
+// `--compare` is the upgrade safety mechanism. It runs two pinned provider
+// versions on the same skill and renders a diff. The test story is the one
+// the issue's acceptance criteria calls out: "use fixture corpus and print
+// a readable diff". We use the built-in `quality@1.0.0` provider on both
+// sides so the test doesn't depend on a second concrete version existing
+// in the real registry — the happy-path zero-diff still exercises every
+// code path (resolve → run → compare render → exit).
+
+describe("CLI integration: eval --compare", () => {
+  async function makeQualitySkillDir(): Promise<{
+    dir: string;
+    cleanup: () => Promise<void>;
+  }> {
+    const dir = await mkdtemp(join(tmpdir(), "eval-compare-cli-"));
+    await writeFile(
+      join(dir, "SKILL.md"),
+      [
+        "---",
+        "name: compare-skill",
+        "description: Compare mode integration test skill when invoked.",
+        "---",
+        "",
+        "# compare-skill",
+        "",
+        "## Instructions",
+        "",
+        "1. Do the thing",
+      ].join("\n"),
+      "utf-8",
+    );
+    return { dir, cleanup: () => rm(dir, { recursive: true, force: true }) };
+  }
+
+  test("eval --compare quality@1.0.0,quality@1.0.0 prints a zero-diff readable report", async () => {
+    const { dir, cleanup } = await makeQualitySkillDir();
+    try {
+      const { stdout } = await runCLI(
+        "eval",
+        dir,
+        "--compare",
+        "quality@1.0.0,quality@1.0.0",
+      );
+      // Both sides produce the same result → zero diff. Exit code reflects
+      // the (shared) passed state of the newer side, which depends on the
+      // minimal SKILL.md's quality score — we assert on the rendered diff
+      // contents rather than the exit code so the test is stable against
+      // rubric tuning.
+      expect(stdout).toContain("Compare:");
+      expect(stdout).toContain("quality@1.0.0 → quality@1.0.0");
+      expect(stdout).toContain("No differences between versions.");
+    } finally {
+      await cleanup();
+    }
+  });
+
+  test("eval --compare --json emits { before, after } with populated providerId/Version", async () => {
+    const { dir, cleanup } = await makeQualitySkillDir();
+    try {
+      const { stdout } = await runCLI(
+        "eval",
+        dir,
+        "--compare",
+        "quality@1.0.0,quality@1.0.0",
+        "--json",
+      );
+      const parsed = JSON.parse(stdout);
+      expect(parsed).toHaveProperty("before");
+      expect(parsed).toHaveProperty("after");
+      expect(parsed.before.providerId).toBe("quality");
+      expect(parsed.before.providerVersion).toBe("1.0.0");
+      expect(parsed.after.providerId).toBe("quality");
+      expect(parsed.after.providerVersion).toBe("1.0.0");
+    } finally {
+      await cleanup();
+    }
+  });
+
+  test("eval --compare --machine wraps before/after in the v1 envelope", async () => {
+    const { dir, cleanup } = await makeQualitySkillDir();
+    try {
+      const { stdout } = await runCLI(
+        "eval",
+        dir,
+        "--compare",
+        "quality@1.0.0,quality@1.0.0",
+        "--machine",
+      );
+      const parsed = JSON.parse(stdout);
+      expect(parsed.status).toBe("ok");
+      expect(parsed.data.before.provider_id).toBe("quality");
+      expect(parsed.data.after.provider_id).toBe("quality");
+    } finally {
+      await cleanup();
+    }
+  });
+
+  test("eval --compare with a malformed spec exits with code 1 and an actionable error", async () => {
+    const { dir, cleanup } = await makeQualitySkillDir();
+    try {
+      const { stderr, exitCode } = await runCLI(
+        "eval",
+        dir,
+        "--compare",
+        "quality@1.0.0", // missing second spec
+      );
+      expect(exitCode).toBe(1);
+      expect(stderr).toMatch(/requires exactly two specs/);
+    } finally {
+      await cleanup();
+    }
+  });
+
+  test("eval --compare with an unknown provider id surfaces the registry error", async () => {
+    const { dir, cleanup } = await makeQualitySkillDir();
+    try {
+      const { stderr, exitCode } = await runCLI(
+        "eval",
+        dir,
+        "--compare",
+        "nonexistent@1.0.0,nonexistent@2.0.0",
+      );
+      expect(exitCode).toBe(1);
+      expect(stderr).toMatch(/"nonexistent"/);
+      expect(stderr).toMatch(/not registered/);
+    } finally {
+      await cleanup();
+    }
+  });
+
+  test("eval --compare with an aspirational 2.0.0-next emits a clean 'no version satisfies' error", async () => {
+    // This is the headline aspirational example from the plan —
+    // `skillgrade@1.0.0,skillgrade@2.0.0-next`. The CLI must not crash;
+    // the registry's "no version satisfies" message is the right
+    // user-facing surface until a v2 adapter actually lands.
+    const { dir, cleanup } = await makeQualitySkillDir();
+    try {
+      const { stderr, exitCode } = await runCLI(
+        "eval",
+        dir,
+        "--compare",
+        "quality@1.0.0,quality@2.0.0-next",
+      );
+      expect(exitCode).toBe(1);
+      expect(stderr).toMatch(/no version of "quality" satisfies/);
+      expect(stderr).toMatch(/2\.0\.0-next/);
+    } finally {
+      await cleanup();
+    }
+  });
 });
 
 // ─── CLI integration: eval-providers ────────────────────────────────────────

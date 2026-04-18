@@ -115,6 +115,7 @@ import {
 import { registerBuiltins } from "./eval/providers";
 import { loadEvalConfig } from "./eval/config";
 import { scaffoldEvalYaml } from "./eval/providers/skillgrade/v1/scaffold";
+import { compareResults, parseCompareArg } from "./eval/compare";
 import {
   formatMachineOutput,
   formatMachineError,
@@ -220,6 +221,12 @@ interface ParsedArgs {
     preset: string | null;
     /** `asm eval --threshold 0.8` — accepts `0..1` or `0..100`. */
     threshold: number | null;
+    /**
+     * `asm eval --compare <id>@<v1>,<id>@<v2>` — run two provider versions
+     * on the same skill and render the diff. Value is the raw comma-separated
+     * spec; parsing lives in `src/eval/compare.ts` so the CLI stays thin.
+     */
+    compare: string | null;
   };
 }
 
@@ -258,6 +265,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       runtime: false,
       preset: null,
       threshold: null,
+      compare: null,
     },
   };
 
@@ -371,6 +379,11 @@ export function parseArgs(argv: string[]): ParsedArgs {
         process.exit(2);
       }
       result.flags.threshold = n;
+    } else if (arg === "--compare") {
+      // Raw value passed through verbatim; parsing lives in the compare
+      // module so `parseArgs` stays dumb and does not depend on eval/.
+      i++;
+      result.flags.compare = args[i] || null;
     } else if (arg.startsWith("-")) {
       error(`Unknown option: ${arg}`);
       console.error(`Run "asm --help" for usage.`);
@@ -2677,6 +2690,8 @@ ${ansi.bold("Options:")}
   --preset <name>      Skillgrade preset: smoke | reliable | regression
   --threshold <n>      Pass threshold (0..1 fraction or 0..100 integer)
   --provider <name>    Skillgrade exec provider: docker | local
+  --compare <specs>    Diff two provider versions on the same skill
+                       (format: id@v1,id@v2 — see Examples below)
   --json               Output report as JSON
   --machine            Output in stable machine-readable v1 envelope format
   --no-color           Disable ANSI colors
@@ -2691,6 +2706,8 @@ ${ansi.bold("Examples:")}
   asm eval ./my-skill --runtime           ${ansi.dim("Run skillgrade runtime evals")}
   asm eval ./my-skill --runtime init      ${ansi.dim("Scaffold eval.yaml via skillgrade init")}
   asm eval ./my-skill --runtime --preset reliable --threshold 0.9
+  asm eval ./my-skill --compare quality@1.0.0,quality@1.0.0
+                                          ${ansi.dim("Diff two provider versions (upgrade safety)")}
   asm eval-providers list                 ${ansi.dim("List registered eval providers")}`);
 }
 
@@ -2759,6 +2776,109 @@ async function cmdEval(args: ParsedArgs) {
   }
 
   try {
+    // --compare: run two explicitly-pinned providers against the same
+    // skill and render a diff. Provider-agnostic on purpose — the CLI
+    // doesn't inject `--runtime` semantics here; the user pins the
+    // exact (id, version) pairs they want to compare.
+    if (args.flags.compare !== null) {
+      const [beforeSpec, afterSpec] = parseCompareArg(args.flags.compare);
+      ensureEvalBuiltins();
+      const { resolve: resolvePath } = await import("path");
+      const absSkillPath = resolvePath(skillPath);
+      const ctx = {
+        skillPath: absSkillPath,
+        skillMdPath: resolvePath(absSkillPath, "SKILL.md"),
+      };
+
+      // Exact-match resolution via the registry's "X.Y.Z" range shape —
+      // lets the aspirational `skillgrade@2.0.0-next` spec produce a
+      // clean "no version satisfies …" error instead of silently
+      // matching a nearby range.
+      const beforeProvider = resolveEvalProvider(
+        beforeSpec.id,
+        beforeSpec.version,
+      );
+      const afterProvider = resolveEvalProvider(
+        afterSpec.id,
+        afterSpec.version,
+      );
+
+      // Merge opts from the same channels as the single-provider path so
+      // `--compare` respects --preset/--provider/--threshold and the
+      // ~/.asm/config.yml defaults for the provider being compared.
+      // Kept intentionally simple: we pass the same opts to both sides.
+      const compareOpts: Record<string, unknown> = {};
+      try {
+        const evalConfig = await loadEvalConfig();
+        const defaultTimeout = evalConfig.defaults.timeoutMs;
+        if (typeof defaultTimeout === "number" && defaultTimeout > 0) {
+          compareOpts.timeoutMs = defaultTimeout;
+        }
+      } catch (err: any) {
+        throw new Error(
+          `failed to load ~/.asm/config.yml: ${err?.message ?? String(err)}`,
+        );
+      }
+      if (args.flags.preset) compareOpts.preset = args.flags.preset;
+      if (args.flags.provider) compareOpts.provider = args.flags.provider;
+      if (args.flags.threshold !== null) {
+        compareOpts.threshold = args.flags.threshold;
+      }
+
+      // Run sequentially — some providers (skillgrade) aren't safe to
+      // run in parallel against the same skill dir (shared eval.yaml
+      // state, Docker port contention). Two serial runs is the simpler
+      // safe default; providers can opt into parallelism later.
+      const beforeResult = await runProvider(beforeProvider, ctx, compareOpts);
+      const afterResult = await runProvider(afterProvider, ctx, compareOpts);
+
+      if (args.flags.machine) {
+        restoreConsole?.();
+        console.log(
+          formatMachineOutput(
+            "eval",
+            {
+              before: {
+                provider_id: beforeResult.providerId,
+                provider_version: beforeResult.providerVersion,
+                schema_version: beforeResult.schemaVersion,
+                score: beforeResult.score,
+                passed: beforeResult.passed,
+                categories: beforeResult.categories,
+                findings: beforeResult.findings,
+              },
+              after: {
+                provider_id: afterResult.providerId,
+                provider_version: afterResult.providerVersion,
+                schema_version: afterResult.schemaVersion,
+                score: afterResult.score,
+                passed: afterResult.passed,
+                categories: afterResult.categories,
+                findings: afterResult.findings,
+              },
+            },
+            startTime,
+          ),
+        );
+        // Exit code reflects the newer version's pass state — matches
+        // the single-provider path's semantics.
+        process.exit(afterResult.passed ? 0 : 1);
+      }
+
+      if (args.flags.json) {
+        console.log(
+          JSON.stringify({ before: beforeResult, after: afterResult }, null, 2),
+        );
+        process.exit(afterResult.passed ? 0 : 1);
+      }
+
+      const diff = compareResults(beforeResult, afterResult, {
+        useColor: !args.flags.noColor,
+      });
+      console.log(diff);
+      process.exit(afterResult.passed ? 0 : 1);
+    }
+
     if (args.flags.fix) {
       // --fix stays on applyFix() directly. Auto-fix is quality-provider
       // specific — we do not expose it via provider capability yet; wait

@@ -85,6 +85,50 @@ Each view is a factory function that creates OpenTUI components:
 | Auditor     | `auditor.ts`     | Detect duplicate skills, rank instances for keeping, format reports  |
 | Uninstaller | `uninstaller.ts` | Build removal plans and execute safe deletions                       |
 | Formatter   | `formatter.ts`   | ASCII table, detail view, and JSON output formatting                 |
+| Eval        | `eval/`          | Pluggable skill evaluation framework (see below)                     |
+
+## Evaluation Framework (`src/eval/`)
+
+`asm eval` evaluates a skill and produces a scored report. Internally it is a **provider framework** — individual evaluators plug into a common `EvalResult` shape through the `EvalProvider` contract, so static linters, runtime LLM-judge tools, and future domain-specific evaluators all flow through the same CLI surface.
+
+| File                            | Responsibility                                                           |
+| ------------------------------- | ------------------------------------------------------------------------ |
+| `eval/types.ts`                 | Contract types: `EvalProvider`, `EvalResult`, `SkillContext`, `EvalOpts` |
+| `eval/registry.ts`              | `register()`, `resolve(id, semverRange)`, `list()`; minimal semver impl  |
+| `eval/runner.ts`                | Timing, error normalization, timeout enforcement around `provider.run()` |
+| `eval/config.ts`                | Reads the `eval` section of `~/.asm/config.yml` with typed defaults      |
+| `eval/compare.ts`               | Renders a diff between two `EvalResult` values (the `--compare` flow)    |
+| `eval/providers/index.ts`       | Calls `register()` for every built-in provider                           |
+| `eval/providers/quality/v1/`    | Static SKILL.md linter — adapter over `src/evaluator.ts`                 |
+| `eval/providers/skillgrade/v1/` | Runtime provider wrapping the external `skillgrade` CLI                  |
+
+### Provider contract
+
+Every provider implements `EvalProvider` (see `eval/types.ts`):
+
+- `id` + `version` — resolved via `resolve("id", "^1.0.0")` with minimal semver-range support
+- `schemaVersion` — integer, bumps only when the `EvalResult` shape changes structurally
+- `applicable(ctx, opts)` — cheap feasibility check; returns `{ ok, reason }`
+- `run(ctx, opts)` — full evaluation; returns a normalized `EvalResult`
+
+The runner centralizes three cross-cutting concerns so providers stay narrow:
+
+1. **Timing** — stamps `startedAt` (ISO-8601) and `durationMs` on every result
+2. **Error normalization** — provider throws become error-shaped results with a single `severity: "error"` finding; callers never need try/catch
+3. **Timeout enforcement** — races the provider against `opts.timeoutMs` / `opts.signal`
+
+### `--compare` mode
+
+`eval/compare.ts` renders a provider-agnostic diff between two `EvalResult` values: score delta, verdict flips, category deltas, and added/removed findings (keyed by `code` with message fallback). Schema-version mismatches surface as a warning in the header — the structural diff still works.
+
+The CLI dispatches through `cmdEval` in `src/cli.ts`:
+
+1. Parse `--compare <id>@<v1>,<id>@<v2>` via `parseCompareArg()`
+2. Resolve each spec through the registry's exact-match range
+3. Run both through `runProvider()` sequentially (some providers aren't safe to parallelize)
+4. Render via `compareResults()` and exit with the newer side's pass state
+
+See [`docs/eval-providers.md`](./eval-providers.md) for the user-facing workflow and the 5-step checklist for adding a new provider.
 
 ## Utilities (`src/utils/`)
 

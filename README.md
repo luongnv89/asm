@@ -317,6 +317,10 @@ asm index search "your-skill" --json
 
 Each indexed skill in the output JSON includes `"verified": true` or `"verified": false`. If verification fails, the ingestion debug log (set `ASM_DEBUG=1`) prints the specific reasons.
 
+### Runtime Evaluation (`asm eval`)
+
+Beyond static verification, `asm eval` runs a scored quality rubric against a skill and — with `--runtime` — shells out to [skillgrade](https://github.com/mgechev/skillgrade) for LLM-judge runtime evals. Pluggable provider framework: `quality@1.0.0` ships by default for static linting, `skillgrade@1.0.0` runs deterministic + rubric graders with Docker isolation and CI-ready exit codes. Use `--compare <id>@<v1>,<id>@<v2>` to diff two provider versions on the same skill before promoting an upgrade, and `asm eval-providers list` to see what's registered. See [`docs/eval-providers.md`](./docs/eval-providers.md) and [`docs/skillgrade-integration.md`](./docs/skillgrade-integration.md) for details.
+
 ---
 
 ## ASM Registry — Install and Publish Skills by Name
