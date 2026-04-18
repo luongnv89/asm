@@ -1,0 +1,172 @@
+{
+  "providerId": "quality",
+  "providerVersion": "1.0.0",
+  "schemaVersion": 1,
+  "score": 91,
+  "passed": true,
+  "categories": [
+    {
+      "id": "structure",
+      "name": "Structure & completeness",
+      "score": 10,
+      "max": 10
+    },
+    {
+      "id": "description",
+      "name": "Description quality",
+      "score": 10,
+      "max": 10
+    },
+    {
+      "id": "prompt-engineering",
+      "name": "Prompt engineering",
+      "score": 10,
+      "max": 10
+    },
+    {
+      "id": "context-efficiency",
+      "name": "Context efficiency",
+      "score": 9,
+      "max": 10
+    },
+    {
+      "id": "safety",
+      "name": "Safety & guardrails",
+      "score": 10,
+      "max": 10
+    },
+    {
+      "id": "testability",
+      "name": "Testability",
+      "score": 5,
+      "max": 10
+    },
+    {
+      "id": "naming",
+      "name": "Naming & conventions",
+      "score": 10,
+      "max": 10
+    }
+  ],
+  "findings": [
+    {
+      "severity": "info",
+      "message": "Add an \"## Acceptance Criteria\" block listing verifiable outputs or checklist items."
+    },
+    {
+      "severity": "info",
+      "message": "Include an \"Expected output\" example so reviewers and the agent can verify correctness."
+    }
+  ],
+  "raw": {
+    "skillPath": "__FIXTURE__/well-formed",
+    "skillMdPath": "__FIXTURE__/well-formed/SKILL.md",
+    "categories": [
+      {
+        "id": "structure",
+        "name": "Structure & completeness",
+        "score": 10,
+        "max": 10,
+        "findings": [
+          "Has YAML frontmatter block.",
+          "Body has meaningful content.",
+          "Body uses markdown headings."
+        ],
+        "suggestions": []
+      },
+      {
+        "id": "description",
+        "name": "Description quality",
+        "score": 10,
+        "max": 10,
+        "findings": [
+          "Description is 14 words.",
+          "Starts with an action verb.",
+          "Mentions a trigger or use-case signal."
+        ],
+        "suggestions": []
+      },
+      {
+        "id": "prompt-engineering",
+        "name": "Prompt engineering",
+        "score": 10,
+        "max": 10,
+        "findings": [
+          "Progressive disclosure cues present: when to use, instructions.",
+          "Uses lists or numbered steps.",
+          "Includes example code block.",
+          "Uses imperative voice (5 cues).",
+          "Body length within healthy range (158 words)."
+        ],
+        "suggestions": []
+      },
+      {
+        "id": "context-efficiency",
+        "name": "Context efficiency",
+        "score": 9,
+        "max": 10,
+        "findings": [
+          "Body is 158 words.",
+          "References external files or links (reference, references, see).",
+          "No oversized code blocks."
+        ],
+        "suggestions": []
+      },
+      {
+        "id": "safety",
+        "name": "Safety & guardrails",
+        "score": 10,
+        "max": 10,
+        "findings": [
+          "Covers multiple safety cues (confirm, error, prerequisite, prerequisites).",
+          "Destructive actions paired with confirmation/dry-run.",
+          "Declares prerequisites or requirements."
+        ],
+        "suggestions": []
+      },
+      {
+        "id": "testability",
+        "name": "Testability",
+        "score": 5,
+        "max": 10,
+        "findings": [
+          "Some testability cues: acceptance criteria, edge case, edge cases.",
+          "Mentions edge cases or limitations."
+        ],
+        "suggestions": [
+          "Add an \"## Acceptance Criteria\" block listing verifiable outputs or checklist items.",
+          "Include an \"Expected output\" example so reviewers and the agent can verify correctness."
+        ]
+      },
+      {
+        "id": "naming",
+        "name": "Naming & conventions",
+        "score": 10,
+        "max": 10,
+        "findings": [
+          "name \"well-formed\" follows kebab-case convention.",
+          "Most headings use action/imperative labels.",
+          "Description looks clean (no TODO/FIXME/stray noise).",
+          "Directory name matches frontmatter `name`."
+        ],
+        "suggestions": []
+      }
+    ],
+    "overallScore": 91,
+    "grade": "A",
+    "topSuggestions": [
+      "Add an \"## Acceptance Criteria\" block listing verifiable outputs or checklist items.",
+      "Include an \"Expected output\" example so reviewers and the agent can verify correctness."
+    ],
+    "frontmatter": {
+      "name": "well-formed",
+      "description": "Review pull request diffs for code smells, style issues, and safety problems before merging.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "creator": "ASM Fixtures",
+      "compatibility": "Claude Code",
+      "allowed-tools": "Read Grep",
+      "effort": "medium"
+    }
+  }
+}

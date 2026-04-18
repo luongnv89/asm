@@ -1,0 +1,174 @@
+{
+  "providerId": "quality",
+  "providerVersion": "1.0.0",
+  "schemaVersion": 1,
+  "score": 21,
+  "passed": false,
+  "categories": [
+    {
+      "id": "structure",
+      "name": "Structure & completeness",
+      "score": 2,
+      "max": 10
+    },
+    {
+      "id": "description",
+      "name": "Description quality",
+      "score": 0,
+      "max": 10
+    },
+    {
+      "id": "prompt-engineering",
+      "name": "Prompt engineering",
+      "score": 0,
+      "max": 10
+    },
+    {
+      "id": "context-efficiency",
+      "name": "Context efficiency",
+      "score": 2,
+      "max": 10
+    },
+    {
+      "id": "safety",
+      "name": "Safety & guardrails",
+      "score": 3,
+      "max": 10
+    },
+    {
+      "id": "testability",
+      "name": "Testability",
+      "score": 3,
+      "max": 10
+    },
+    {
+      "id": "naming",
+      "name": "Naming & conventions",
+      "score": 5,
+      "max": 10
+    }
+  ],
+  "findings": [
+    {
+      "severity": "info",
+      "message": "Write a one-sentence description that says specifically what the skill does and when to use it."
+    },
+    {
+      "severity": "info",
+      "message": "Structure the body with \"## When to Use\" and \"## Instructions\" sections so the agent reads only what it needs."
+    },
+    {
+      "severity": "info",
+      "message": "Use bulleted or numbered steps to narrow the agent's degrees of freedom."
+    }
+  ],
+  "raw": {
+    "skillPath": "__FIXTURE__/missing-frontmatter",
+    "skillMdPath": "__FIXTURE__/missing-frontmatter/SKILL.md",
+    "categories": [
+      {
+        "id": "structure",
+        "name": "Structure & completeness",
+        "score": 2,
+        "max": 10,
+        "findings": [
+          "SKILL.md has no YAML frontmatter.",
+          "Missing required field: name.",
+          "Missing required field: description.",
+          "Missing or default version.",
+          "Missing `creator`.",
+          "Missing `license`.",
+          "Body has meaningful content.",
+          "Body uses markdown headings."
+        ],
+        "suggestions": [
+          "Add a YAML frontmatter block delimited by `---` with at least `name` and `description` fields.",
+          "Add `name:` to frontmatter (use the skill directory name).",
+          "Add a one-line `description:` to frontmatter.",
+          "Set `metadata.version` (or top-level `version`) using semver (e.g. 0.1.0).",
+          "Add a `creator` field so users know who authored and maintains the skill.",
+          "Add a `license` field (e.g. `license: MIT`)."
+        ]
+      },
+      {
+        "id": "description",
+        "name": "Description quality",
+        "score": 0,
+        "max": 10,
+        "findings": ["No description."],
+        "suggestions": [
+          "Write a one-sentence description that says specifically what the skill does and when to use it."
+        ]
+      },
+      {
+        "id": "prompt-engineering",
+        "name": "Prompt engineering",
+        "score": 0,
+        "max": 10,
+        "findings": [
+          "No lists or steps detected.",
+          "Body is very short (35 words)."
+        ],
+        "suggestions": [
+          "Structure the body with \"## When to Use\" and \"## Instructions\" sections so the agent reads only what it needs.",
+          "Use bulleted or numbered steps to narrow the agent's degrees of freedom.",
+          "Add an \"## Example\" section with a fenced code block showing the desired output.",
+          "Rewrite instructions in the imperative mood — e.g. \"Run `git status` first\" instead of \"you might want to run\".",
+          "Expand the instructions; an underspecified skill gives the agent too much freedom."
+        ]
+      },
+      {
+        "id": "context-efficiency",
+        "name": "Context efficiency",
+        "score": 2,
+        "max": 10,
+        "findings": ["Body is 35 words.", "No oversized code blocks."],
+        "suggestions": [
+          "Offload verbose content to referenced files and link to them (\"see `./templates/x.md`\")."
+        ]
+      },
+      {
+        "id": "safety",
+        "name": "Safety & guardrails",
+        "score": 3,
+        "max": 10,
+        "findings": ["No prerequisites / requirements section."],
+        "suggestions": [
+          "Expand the safety section — include prerequisites, validation steps, and what to do \"on error\".",
+          "Add a \"## Prerequisites\" block listing required tools, credentials, and environment state."
+        ]
+      },
+      {
+        "id": "testability",
+        "name": "Testability",
+        "score": 3,
+        "max": 10,
+        "findings": ["Some testability cues: test, tests."],
+        "suggestions": [
+          "Add an \"## Acceptance Criteria\" block listing verifiable outputs or checklist items.",
+          "Include an \"Expected output\" example so reviewers and the agent can verify correctness.",
+          "Add a short \"Edge cases\" list to describe inputs the skill should reject or handle carefully."
+        ]
+      },
+      {
+        "id": "naming",
+        "name": "Naming & conventions",
+        "score": 5,
+        "max": 10,
+        "findings": [
+          "Most headings use action/imperative labels.",
+          "Description looks clean (no TODO/FIXME/stray noise)."
+        ],
+        "suggestions": ["Add a kebab-case `name` (e.g. `my-skill`)."]
+      }
+    ],
+    "overallScore": 21,
+    "grade": "F",
+    "topSuggestions": [
+      "Write a one-sentence description that says specifically what the skill does and when to use it.",
+      "Structure the body with \"## When to Use\" and \"## Instructions\" sections so the agent reads only what it needs.",
+      "Use bulleted or numbered steps to narrow the agent's degrees of freedom."
+    ],
+    "frontmatter": {}
+  }
+}
