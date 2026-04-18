@@ -1674,6 +1674,563 @@ describe("CLI integration: eval", () => {
   });
 });
 
+// ─── CLI integration: eval --runtime (skillgrade) ──────────────────────────
+
+// The runtime provider shells out to the external `skillgrade` binary, which
+// is not installed in CI. The CLI's user-visible contract in that situation
+// is that applicable() produces an actionable reason — no crash, no stack
+// trace, exit 1. These tests lock in that contract without ever running
+// skillgrade for real. Deeper end-to-end exercising of run() lives in
+// src/eval/providers/skillgrade/v1/index.test.ts where the Spawner seam can
+// return recorded fixture JSON without any subprocess.
+
+describe("CLI integration: eval --runtime", () => {
+  async function makeSkillDir(
+    opts: { withEvalYaml?: boolean } = {},
+  ): Promise<{ dir: string; cleanup: () => Promise<void> }> {
+    const dir = await mkdtemp(join(tmpdir(), "eval-runtime-cli-"));
+    await writeFile(
+      join(dir, "SKILL.md"),
+      "---\nname: runtime-cli\ndescription: Runtime eval test skill when invoked.\n---\n\n# runtime-cli\n\n## Instructions\n\n1. Do the thing\n",
+      "utf-8",
+    );
+    if (opts.withEvalYaml) {
+      await writeFile(
+        join(dir, "eval.yaml"),
+        "name: runtime-cli\npreset: smoke\nthreshold: 0.8\n",
+        "utf-8",
+      );
+    }
+    return { dir, cleanup: () => rm(dir, { recursive: true, force: true }) };
+  }
+
+  // Force the skillgrade detection to fail by scrubbing PATH so any
+  // `skillgrade` binary is invisible to the subprocess. We still need
+  // bun itself on PATH to run the CLI, so we carefully keep the bun
+  // binary's directory (derived from `process.execPath`) but nothing
+  // else. If a developer has bun installed alongside skillgrade in the
+  // same directory, the PATH scrub won't hide it — but that's an
+  // extremely unusual layout and the test still validates the CLI
+  // correctly surfaces applicable() reasons for any failure shape.
+  async function runRuntimeCLI(
+    ...args: string[]
+  ): Promise<{ stdout: string; stderr: string; exitCode: number }> {
+    const { dirname } = await import("path");
+    const bunDir = dirname(process.execPath);
+    const emptyDir = await mkdtemp(join(tmpdir(), "empty-path-"));
+    try {
+      // PATH: empty-dir first (to shadow anything), then bun's dir.
+      // Standard locations like /usr/bin are intentionally excluded so
+      // a system `skillgrade` can't slip through.
+      const scrubbedPath = [emptyDir, bunDir].join(":");
+      const proc = Bun.spawn([process.execPath, CLI_BIN, ...args], {
+        stdout: "pipe",
+        stderr: "pipe",
+        env: { ...process.env, NO_COLOR: "1", PATH: scrubbedPath },
+      });
+      const [stdout, stderr] = await Promise.all([
+        new Response(proc.stdout).text(),
+        new Response(proc.stderr).text(),
+      ]);
+      const exitCode = await proc.exited;
+      return {
+        stdout: stdout.trim(),
+        stderr: stderr.trim(),
+        exitCode,
+      };
+    } finally {
+      await rm(emptyDir, { recursive: true, force: true });
+    }
+  }
+
+  test("eval --runtime exits 1 with install hint when skillgrade is missing", async () => {
+    const { dir, cleanup } = await makeSkillDir({ withEvalYaml: true });
+    try {
+      const { stderr, exitCode } = await runRuntimeCLI(
+        "eval",
+        dir,
+        "--runtime",
+      );
+      expect(exitCode).toBe(1);
+      expect(stderr).toMatch(/skillgrade not installed/);
+      expect(stderr).toMatch(/npm i -g skillgrade/);
+    } finally {
+      await cleanup();
+    }
+  });
+
+  test("eval --runtime --machine emits a structured error envelope", async () => {
+    const { dir, cleanup } = await makeSkillDir({ withEvalYaml: true });
+    try {
+      const { stdout, exitCode } = await runRuntimeCLI(
+        "eval",
+        dir,
+        "--runtime",
+        "--machine",
+      );
+      expect(exitCode).toBe(1);
+      const parsed = JSON.parse(stdout);
+      expect(parsed.status).toBe("error");
+      expect(parsed.error.message).toMatch(/skillgrade/);
+    } finally {
+      await cleanup();
+    }
+  });
+
+  test("eval --runtime init surfaces a scaffold error when skillgrade is missing", async () => {
+    const { dir, cleanup } = await makeSkillDir();
+    try {
+      const { stderr, exitCode } = await runRuntimeCLI(
+        "eval",
+        dir,
+        "--runtime",
+        "init",
+      );
+      expect(exitCode).toBe(1);
+      expect(stderr).toMatch(/skillgrade/);
+    } finally {
+      await cleanup();
+    }
+  });
+
+  test("eval --runtime rejects an invalid --provider value", async () => {
+    const { dir, cleanup } = await makeSkillDir({ withEvalYaml: true });
+    try {
+      const { stderr, exitCode } = await runRuntimeCLI(
+        "eval",
+        dir,
+        "--runtime",
+        "--provider",
+        "aws",
+      );
+      expect(exitCode).toBe(2);
+      expect(stderr).toMatch(/Invalid --provider/);
+    } finally {
+      await cleanup();
+    }
+  });
+
+  test("eval --runtime rejects an invalid --preset value", async () => {
+    const { dir, cleanup } = await makeSkillDir({ withEvalYaml: true });
+    try {
+      const { stderr, exitCode } = await runRuntimeCLI(
+        "eval",
+        dir,
+        "--runtime",
+        "--preset",
+        "nuclear",
+      );
+      expect(exitCode).toBe(2);
+      expect(stderr).toMatch(/Invalid --preset/);
+    } finally {
+      await cleanup();
+    }
+  });
+
+  test("eval --runtime rejects a non-numeric --threshold", async () => {
+    const { dir, cleanup } = await makeSkillDir({ withEvalYaml: true });
+    try {
+      const { stderr, exitCode } = await runRuntimeCLI(
+        "eval",
+        dir,
+        "--runtime",
+        "--threshold",
+        "abc",
+      );
+      expect(exitCode).toBe(2);
+      expect(stderr).toMatch(/Invalid --threshold/);
+    } finally {
+      await cleanup();
+    }
+  });
+
+  // Stub-binary end-to-end test. This proves the headline acceptance
+  // criterion — "asm eval ./fixture --runtime produces expected output
+  // against recorded skillgrade JSON" — at the real CLI layer, not just
+  // the provider unit layer. We write a tiny shell script that mimics
+  // `skillgrade --version` and `skillgrade run --json`, put it first on
+  // PATH, and let the CLI shell out to it. Zero live LLM calls.
+  test("eval --runtime with a stub skillgrade binary produces a passing report", async () => {
+    const { dir: skillDir, cleanup: cleanupSkill } = await makeSkillDir({
+      withEvalYaml: true,
+    });
+    const stubDir = await mkdtemp(join(tmpdir(), "stub-skillgrade-"));
+    try {
+      const fixture = JSON.stringify({
+        version: "0.1.4",
+        skill: "runtime-cli",
+        preset: "smoke",
+        threshold: 0.8,
+        passRate: 0.95,
+        passed: true,
+        tasks: [
+          {
+            id: "hello",
+            passed: true,
+            trials: 5,
+            passing: 5,
+            passRate: 1.0,
+            graders: [{ id: "contains", passed: true, message: "has hello" }],
+          },
+        ],
+      });
+      // Escape single quotes via ASCII char for safe shell embedding.
+      const escapedFixture = fixture.replace(/'/g, "'\\''");
+      const stubPath = join(stubDir, "skillgrade");
+      await writeFile(
+        stubPath,
+        [
+          "#!/bin/sh",
+          'if [ "$1" = "--version" ]; then',
+          '  echo "skillgrade 0.1.4"',
+          "  exit 0",
+          "fi",
+          'if [ "$1" = "run" ]; then',
+          `  printf '%s' '${escapedFixture}'`,
+          "  exit 0",
+          "fi",
+          "exit 127",
+        ].join("\n"),
+        "utf-8",
+      );
+      await (await import("fs/promises")).chmod(stubPath, 0o755);
+
+      // Keep bun itself + the stub on PATH; everything else scrubbed so
+      // a system skillgrade can't interfere.
+      const { dirname } = await import("path");
+      const bunDir = dirname(process.execPath);
+      const scrubbedPath = [stubDir, bunDir].join(":");
+
+      const proc = Bun.spawn(
+        [process.execPath, CLI_BIN, "eval", skillDir, "--runtime", "--json"],
+        {
+          stdout: "pipe",
+          stderr: "pipe",
+          env: { ...process.env, NO_COLOR: "1", PATH: scrubbedPath },
+        },
+      );
+      const [stdout, stderr] = await Promise.all([
+        new Response(proc.stdout).text(),
+        new Response(proc.stderr).text(),
+      ]);
+      const exitCode = await proc.exited;
+
+      expect(exitCode).toBe(0);
+      expect(stderr).not.toMatch(/not installed/);
+
+      const parsed = JSON.parse(stdout);
+      expect(parsed.providerId).toBe("skillgrade");
+      expect(parsed.providerVersion).toBe("1.0.0");
+      expect(parsed.score).toBe(95);
+      expect(parsed.passed).toBe(true);
+      expect(parsed.categories).toHaveLength(1);
+      expect(parsed.categories[0].id).toBe("hello");
+    } finally {
+      await cleanupSkill();
+      await rm(stubDir, { recursive: true, force: true });
+    }
+  });
+
+  test("eval --runtime reads preset/threshold/provider from ~/.asm/config.yml", async () => {
+    // HOME override → config.yml placed under a fake home so we don't
+    // touch the developer's real ~/.asm/config.yml.
+    const fakeHome = await mkdtemp(join(tmpdir(), "runtime-home-"));
+    const asmDir = join(fakeHome, ".asm");
+    await mkdir(asmDir, { recursive: true });
+    await writeFile(
+      join(asmDir, "config.yml"),
+      [
+        "eval:",
+        "  providers:",
+        "    skillgrade:",
+        "      preset: reliable",
+        "      threshold: 0.9",
+        "      provider: local",
+      ].join("\n"),
+      "utf-8",
+    );
+
+    const { dir: skillDir, cleanup: cleanupSkill } = await makeSkillDir({
+      withEvalYaml: true,
+    });
+    const stubDir = await mkdtemp(join(tmpdir(), "stub-cfg-"));
+    try {
+      // Stub records its argv to a side-channel file we assert on.
+      const argvLog = join(stubDir, "argv.txt");
+      const stubPath = join(stubDir, "skillgrade");
+      const fixture = JSON.stringify({
+        version: "0.1.4",
+        passRate: 1.0,
+        passed: true,
+        tasks: [],
+      });
+      const escapedFixture = fixture.replace(/'/g, "'\\''");
+      await writeFile(
+        stubPath,
+        [
+          "#!/bin/sh",
+          'if [ "$1" = "--version" ]; then',
+          '  echo "skillgrade 0.1.4"',
+          "  exit 0",
+          "fi",
+          'if [ "$1" = "run" ]; then',
+          `  printf '%s\\n' "$@" > '${argvLog}'`,
+          `  printf '%s' '${escapedFixture}'`,
+          "  exit 0",
+          "fi",
+          "exit 127",
+        ].join("\n"),
+        "utf-8",
+      );
+      await (await import("fs/promises")).chmod(stubPath, 0o755);
+
+      const { dirname } = await import("path");
+      const bunDir = dirname(process.execPath);
+      const scrubbedPath = [stubDir, bunDir].join(":");
+
+      const proc = Bun.spawn(
+        [process.execPath, CLI_BIN, "eval", skillDir, "--runtime", "--json"],
+        {
+          stdout: "pipe",
+          stderr: "pipe",
+          env: {
+            ...process.env,
+            NO_COLOR: "1",
+            PATH: scrubbedPath,
+            HOME: fakeHome,
+          },
+        },
+      );
+      const [stdout] = await Promise.all([
+        new Response(proc.stdout).text(),
+        new Response(proc.stderr).text(),
+      ]);
+      const exitCode = await proc.exited;
+
+      expect(exitCode).toBe(0);
+      expect(JSON.parse(stdout).passed).toBe(true);
+      const loggedArgv = await readFile(argvLog, "utf-8");
+      expect(loggedArgv).toContain("reliable");
+      expect(loggedArgv).toContain("0.9");
+      expect(loggedArgv).toContain("local");
+    } finally {
+      await cleanupSkill();
+      await rm(stubDir, { recursive: true, force: true });
+      await rm(fakeHome, { recursive: true, force: true });
+    }
+  });
+
+  test("eval --runtime CLI flags override config values", async () => {
+    const fakeHome = await mkdtemp(join(tmpdir(), "runtime-home-2-"));
+    const asmDir = join(fakeHome, ".asm");
+    await mkdir(asmDir, { recursive: true });
+    await writeFile(
+      join(asmDir, "config.yml"),
+      [
+        "eval:",
+        "  providers:",
+        "    skillgrade:",
+        "      preset: regression",
+        "      threshold: 0.99",
+        "      provider: docker",
+      ].join("\n"),
+      "utf-8",
+    );
+
+    const { dir: skillDir, cleanup: cleanupSkill } = await makeSkillDir({
+      withEvalYaml: true,
+    });
+    const stubDir = await mkdtemp(join(tmpdir(), "stub-cfg-override-"));
+    try {
+      const argvLog = join(stubDir, "argv.txt");
+      const stubPath = join(stubDir, "skillgrade");
+      const fixture = JSON.stringify({
+        version: "0.1.4",
+        passRate: 1.0,
+        passed: true,
+        tasks: [],
+      });
+      const escapedFixture = fixture.replace(/'/g, "'\\''");
+      await writeFile(
+        stubPath,
+        [
+          "#!/bin/sh",
+          'if [ "$1" = "--version" ]; then',
+          '  echo "skillgrade 0.1.4"',
+          "  exit 0",
+          "fi",
+          'if [ "$1" = "run" ]; then',
+          `  printf '%s\\n' "$@" > '${argvLog}'`,
+          `  printf '%s' '${escapedFixture}'`,
+          "  exit 0",
+          "fi",
+          "exit 127",
+        ].join("\n"),
+        "utf-8",
+      );
+      await (await import("fs/promises")).chmod(stubPath, 0o755);
+
+      const { dirname } = await import("path");
+      const bunDir = dirname(process.execPath);
+      const scrubbedPath = [stubDir, bunDir].join(":");
+
+      const proc = Bun.spawn(
+        [
+          process.execPath,
+          CLI_BIN,
+          "eval",
+          skillDir,
+          "--runtime",
+          "--preset",
+          "smoke",
+          "--threshold",
+          "0.7",
+          "--provider",
+          "local",
+          "--json",
+        ],
+        {
+          stdout: "pipe",
+          stderr: "pipe",
+          env: {
+            ...process.env,
+            NO_COLOR: "1",
+            PATH: scrubbedPath,
+            HOME: fakeHome,
+          },
+        },
+      );
+      await new Response(proc.stdout).text();
+      await new Response(proc.stderr).text();
+      const exitCode = await proc.exited;
+      expect(exitCode).toBe(0);
+
+      const loggedArgv = await readFile(argvLog, "utf-8");
+      // CLI values, not config values.
+      expect(loggedArgv).toContain("smoke");
+      expect(loggedArgv).toContain("0.7");
+      expect(loggedArgv).toContain("local");
+      expect(loggedArgv).not.toContain("regression");
+      expect(loggedArgv).not.toContain("0.99");
+    } finally {
+      await cleanupSkill();
+      await rm(stubDir, { recursive: true, force: true });
+      await rm(fakeHome, { recursive: true, force: true });
+    }
+  });
+
+  test("eval --runtime with a failing stub exits 1 and reports failure", async () => {
+    const { dir: skillDir, cleanup: cleanupSkill } = await makeSkillDir({
+      withEvalYaml: true,
+    });
+    const stubDir = await mkdtemp(join(tmpdir(), "stub-skillgrade-fail-"));
+    try {
+      const fixture = JSON.stringify({
+        version: "0.1.4",
+        skill: "runtime-cli",
+        passRate: 0.4,
+        passed: false,
+        tasks: [
+          {
+            id: "sad-path",
+            passed: false,
+            trials: 5,
+            passing: 2,
+            graders: [{ id: "contains", passed: false, message: "no hello" }],
+          },
+        ],
+      });
+      const escapedFixture = fixture.replace(/'/g, "'\\''");
+      const stubPath = join(stubDir, "skillgrade");
+      await writeFile(
+        stubPath,
+        [
+          "#!/bin/sh",
+          'if [ "$1" = "--version" ]; then',
+          '  echo "skillgrade 0.1.4"',
+          "  exit 0",
+          "fi",
+          'if [ "$1" = "run" ]; then',
+          `  printf '%s' '${escapedFixture}'`,
+          "  exit 0",
+          "fi",
+          "exit 127",
+        ].join("\n"),
+        "utf-8",
+      );
+      await (await import("fs/promises")).chmod(stubPath, 0o755);
+
+      const { dirname } = await import("path");
+      const bunDir = dirname(process.execPath);
+      const scrubbedPath = [stubDir, bunDir].join(":");
+
+      const proc = Bun.spawn(
+        [process.execPath, CLI_BIN, "eval", skillDir, "--runtime"],
+        {
+          stdout: "pipe",
+          stderr: "pipe",
+          env: { ...process.env, NO_COLOR: "1", PATH: scrubbedPath },
+        },
+      );
+      const [stdout] = await Promise.all([
+        new Response(proc.stdout).text(),
+        new Response(proc.stderr).text(),
+      ]);
+      const exitCode = await proc.exited;
+
+      expect(exitCode).toBe(1);
+      expect(stdout).toMatch(/FAIL/);
+      expect(stdout).toMatch(/score=40/);
+    } finally {
+      await cleanupSkill();
+      await rm(stubDir, { recursive: true, force: true });
+    }
+  });
+});
+
+// ─── parseArgs: runtime flags ───────────────────────────────────────────────
+
+describe("parseArgs — runtime flags", () => {
+  const parse = (...args: string[]) => parseArgs(["bun", "script.ts", ...args]);
+
+  test("--runtime sets flags.runtime", () => {
+    const result = parse("eval", "./skill", "--runtime");
+    expect(result.flags.runtime).toBe(true);
+  });
+
+  test("--runtime defaults to false", () => {
+    const result = parse("eval", "./skill");
+    expect(result.flags.runtime).toBe(false);
+  });
+
+  test("--preset captures the next token", () => {
+    const result = parse(
+      "eval",
+      "./skill",
+      "--runtime",
+      "--preset",
+      "reliable",
+    );
+    expect(result.flags.preset).toBe("reliable");
+  });
+
+  test("--threshold accepts fractional values", () => {
+    const result = parse("eval", "./skill", "--runtime", "--threshold", "0.9");
+    expect(result.flags.threshold).toBe(0.9);
+  });
+
+  test("--threshold accepts 0..100 integer values", () => {
+    const result = parse("eval", "./skill", "--runtime", "--threshold", "85");
+    expect(result.flags.threshold).toBe(85);
+  });
+
+  test("--runtime init carries `init` as a positional arg", () => {
+    const result = parse("eval", "./skill", "--runtime", "init");
+    expect(result.flags.runtime).toBe(true);
+    expect(result.positional).toContain("init");
+  });
+});
+
 // ─── CLI integration: eval-providers ────────────────────────────────────────
 
 describe("CLI integration: eval-providers", () => {

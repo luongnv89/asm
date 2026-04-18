@@ -1,0 +1,27 @@
+# Skillgrade eval spec for `runtime-broken`.
+#
+# Designed to fail the runtime threshold so the snapshot covers the
+# `passed: false` path in the adapter. The skill is "runtime-broken"
+# because the recorded skillgrade output shows it returning three-line
+# cards when two-line is required, dropping the pass rate below 0.8.
+name: runtime-broken
+preset: smoke
+threshold: 0.8
+
+tasks:
+  - id: weather-known-city
+    prompt: "Render the weather for Paris"
+    expect:
+      contains: "°"
+      lines: 2
+
+  - id: weather-unknown-city
+    prompt: "Render the weather for Xzyx"
+    expect:
+      contains: "unknown"
+      lines: 2
+
+graders:
+  - id: exactly-two-lines
+    kind: regex
+    pattern: '^[^\n]+\n[^\n]+$'

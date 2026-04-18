@@ -1,0 +1,53 @@
+{
+  "version": "0.1.4",
+  "skill": "runtime-broken",
+  "preset": "smoke",
+  "threshold": 0.8,
+  "passRate": 0.4,
+  "passed": false,
+  "tasks": [
+    {
+      "id": "weather-known-city",
+      "passed": false,
+      "trials": 5,
+      "passing": 2,
+      "passRate": 0.4,
+      "graders": [
+        {
+          "id": "exactly-two-lines",
+          "passed": false,
+          "message": "output had 3 lines, expected exactly 2"
+        },
+        {
+          "id": "contains",
+          "passed": true,
+          "message": "output contained \"°\""
+        }
+      ]
+    },
+    {
+      "id": "weather-unknown-city",
+      "passed": false,
+      "trials": 5,
+      "passing": 2,
+      "passRate": 0.4,
+      "graders": [
+        {
+          "id": "contains",
+          "passed": true,
+          "message": "output contained \"unknown\""
+        },
+        {
+          "id": "exactly-two-lines",
+          "passed": false,
+          "message": "output had 3 lines, expected exactly 2"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "totalTrials": 10,
+    "passingTrials": 4,
+    "durationMs": 6014
+  }
+}
