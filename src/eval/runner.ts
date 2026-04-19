@@ -89,8 +89,8 @@ function buildErrorResult(
  *
  * The runner trusts that the provider's own `applicable()` has already
  * been checked by the caller when appropriate; it does not call it here
- * because some callers (e.g. the `--compare` flow) intentionally want to
- * see a provider's error even when `applicable()` says no.
+ * because some callers intentionally want to see a provider's error even
+ * when `applicable()` says no.
  */
 export async function runProvider(
   provider: EvalProvider,

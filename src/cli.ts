@@ -113,10 +113,6 @@ import {
   list as listEvalProviders,
 } from "./eval/registry";
 import { registerBuiltins } from "./eval/providers";
-import { loadEvalConfig } from "./eval/config";
-import { scaffoldEvalYaml } from "./eval/providers/skillgrade/v1/scaffold";
-import { resolveProductionBinary as resolveSkillgradeBinary } from "./eval/providers/skillgrade/v1/index";
-import { compareResults, parseCompareArg } from "./eval/compare";
 import {
   formatMachineOutput,
   formatMachineError,
@@ -217,18 +213,6 @@ interface ParsedArgs {
     machine: boolean;
     noCache: boolean;
     fix: boolean;
-    /** `asm eval --runtime` toggles the skillgrade runtime provider. */
-    runtime: boolean;
-    /** `asm eval --preset smoke|reliable|regression` — skillgrade preset. */
-    preset: string | null;
-    /** `asm eval --threshold 0.8` — accepts `0..1` or `0..100`. */
-    threshold: number | null;
-    /**
-     * `asm eval --compare <id>@<v1>,<id>@<v2>` — run two provider versions
-     * on the same skill and render the diff. Value is the raw comma-separated
-     * spec; parsing lives in `src/eval/compare.ts` so the CLI stays thin.
-     */
-    compare: string | null;
   };
 }
 
@@ -264,10 +248,6 @@ export function parseArgs(argv: string[]): ParsedArgs {
       machine: false,
       noCache: false,
       fix: false,
-      runtime: false,
-      preset: null,
-      threshold: null,
-      compare: null,
     },
   };
 
@@ -361,31 +341,6 @@ export function parseArgs(argv: string[]): ParsedArgs {
     } else if (arg === "--missing") {
       i++;
       if (args[i]) result.flags.missing.push(args[i]);
-    } else if (arg === "--runtime") {
-      result.flags.runtime = true;
-    } else if (arg === "--preset") {
-      i++;
-      result.flags.preset = args[i] || null;
-    } else if (arg === "--threshold") {
-      i++;
-      const val = args[i];
-      if (val === undefined) {
-        error("--threshold requires a numeric value");
-        process.exit(2);
-      }
-      const n = Number(val);
-      if (!Number.isFinite(n)) {
-        error(
-          `Invalid --threshold: "${val}". Must be a number (e.g. 0.8 or 80).`,
-        );
-        process.exit(2);
-      }
-      result.flags.threshold = n;
-    } else if (arg === "--compare") {
-      // Raw value passed through verbatim; parsing lives in the compare
-      // module so `parseArgs` stays dumb and does not depend on eval/.
-      i++;
-      result.flags.compare = args[i] || null;
     } else if (arg.startsWith("-")) {
       error(`Unknown option: ${arg}`);
       console.error(`Run "asm --help" for usage.`);
@@ -2674,12 +2629,9 @@ function printEvalHelp() {
   console.log(`${ansi.bold("Usage:")} asm eval <skill-path> [options]
 
 Evaluate a skill's SKILL.md against best practices and produce a scored quality
-report. Categories: structure, description quality, prompt engineering, context
-efficiency, safety, testability, and naming conventions.
-
-The evaluation runs through the ${ansi.bold("eval provider framework")}; ${ansi.bold("asm eval")} uses the
-${ansi.bold("quality")} provider by default, or the ${ansi.bold("skillgrade")} runtime provider with
-${ansi.bold("--runtime")}. Use ${ansi.bold("asm eval-providers list")} to see available providers.
+report with recommendations. Zero configuration — just point it at a skill
+directory. Categories: structure, description quality, prompt engineering,
+context efficiency, safety, testability, and naming conventions.
 
 ${ansi.bold("Arguments:")}
   skill-path           Path to a skill directory (must contain SKILL.md)
@@ -2687,30 +2639,17 @@ ${ansi.bold("Arguments:")}
 ${ansi.bold("Options:")}
   --fix                Apply deterministic auto-fixes to SKILL.md (creates .bak)
   --dry-run            With --fix, preview the diff without writing
-  --runtime            Run the skillgrade runtime provider (LLM-judge evals)
-                       Auto-scaffolds eval.yaml if missing
-  --runtime init       Scaffold eval.yaml via \`skillgrade init\`
-  --preset <name>      Skillgrade preset: smoke | reliable | regression
-  --threshold <n>      Pass threshold (0..1 fraction or 0..100 integer)
-  --provider <name>    Skillgrade exec provider: docker | local
-  --compare <specs>    Diff two provider versions on the same skill
-                       (format: id@v1,id@v2 — see Examples below)
   --json               Output report as JSON
   --machine            Output in stable machine-readable v1 envelope format
   --no-color           Disable ANSI colors
   -V, --verbose        Show debug output
 
 ${ansi.bold("Examples:")}
-  asm eval ./my-skill                     ${ansi.dim("Static quality score")}
+  asm eval ./my-skill                     ${ansi.dim("Score and recommend improvements")}
   asm eval ./my-skill --json              ${ansi.dim("Output report as JSON")}
   asm eval ./my-skill --fix               ${ansi.dim("Auto-fix deterministic frontmatter issues")}
   asm eval ./my-skill --fix --dry-run     ${ansi.dim("Preview fixes as diff")}
   asm eval ./my-skill --machine           ${ansi.dim("Machine-readable v1 envelope output")}
-  asm eval ./my-skill --runtime           ${ansi.dim("Run skillgrade runtime evals")}
-  asm eval ./my-skill --runtime init      ${ansi.dim("Scaffold eval.yaml via skillgrade init")}
-  asm eval ./my-skill --runtime --preset reliable --threshold 0.9
-  asm eval ./my-skill --compare quality@1.0.0,quality@1.0.0
-                                          ${ansi.dim("Diff two provider versions (upgrade safety)")}
   asm eval-providers list                 ${ansi.dim("List registered eval providers")}`);
 }
 
@@ -2779,109 +2718,6 @@ async function cmdEval(args: ParsedArgs) {
   }
 
   try {
-    // --compare: run two explicitly-pinned providers against the same
-    // skill and render a diff. Provider-agnostic on purpose — the CLI
-    // doesn't inject `--runtime` semantics here; the user pins the
-    // exact (id, version) pairs they want to compare.
-    if (args.flags.compare !== null) {
-      const [beforeSpec, afterSpec] = parseCompareArg(args.flags.compare);
-      ensureEvalBuiltins();
-      const { resolve: resolvePath } = await import("path");
-      const absSkillPath = resolvePath(skillPath);
-      const ctx = {
-        skillPath: absSkillPath,
-        skillMdPath: resolvePath(absSkillPath, "SKILL.md"),
-      };
-
-      // Exact-match resolution via the registry's "X.Y.Z" range shape —
-      // lets the aspirational `skillgrade@2.0.0-next` spec produce a
-      // clean "no version satisfies …" error instead of silently
-      // matching a nearby range.
-      const beforeProvider = resolveEvalProvider(
-        beforeSpec.id,
-        beforeSpec.version,
-      );
-      const afterProvider = resolveEvalProvider(
-        afterSpec.id,
-        afterSpec.version,
-      );
-
-      // Merge opts from the same channels as the single-provider path so
-      // `--compare` respects --preset/--provider/--threshold and the
-      // ~/.asm/config.yml defaults for the provider being compared.
-      // Kept intentionally simple: we pass the same opts to both sides.
-      const compareOpts: Record<string, unknown> = {};
-      try {
-        const evalConfig = await loadEvalConfig();
-        const defaultTimeout = evalConfig.defaults.timeoutMs;
-        if (typeof defaultTimeout === "number" && defaultTimeout > 0) {
-          compareOpts.timeoutMs = defaultTimeout;
-        }
-      } catch (err: any) {
-        throw new Error(
-          `failed to load ~/.asm/config.yml: ${err?.message ?? String(err)}`,
-        );
-      }
-      if (args.flags.preset) compareOpts.preset = args.flags.preset;
-      if (args.flags.provider) compareOpts.provider = args.flags.provider;
-      if (args.flags.threshold !== null) {
-        compareOpts.threshold = args.flags.threshold;
-      }
-
-      // Run sequentially — some providers (skillgrade) aren't safe to
-      // run in parallel against the same skill dir (shared eval.yaml
-      // state, Docker port contention). Two serial runs is the simpler
-      // safe default; providers can opt into parallelism later.
-      const beforeResult = await runProvider(beforeProvider, ctx, compareOpts);
-      const afterResult = await runProvider(afterProvider, ctx, compareOpts);
-
-      if (args.flags.machine) {
-        restoreConsole?.();
-        console.log(
-          formatMachineOutput(
-            "eval",
-            {
-              before: {
-                provider_id: beforeResult.providerId,
-                provider_version: beforeResult.providerVersion,
-                schema_version: beforeResult.schemaVersion,
-                score: beforeResult.score,
-                passed: beforeResult.passed,
-                categories: beforeResult.categories,
-                findings: beforeResult.findings,
-              },
-              after: {
-                provider_id: afterResult.providerId,
-                provider_version: afterResult.providerVersion,
-                schema_version: afterResult.schemaVersion,
-                score: afterResult.score,
-                passed: afterResult.passed,
-                categories: afterResult.categories,
-                findings: afterResult.findings,
-              },
-            },
-            startTime,
-          ),
-        );
-        // Exit code reflects the newer version's pass state — matches
-        // the single-provider path's semantics.
-        process.exit(afterResult.passed ? 0 : 1);
-      }
-
-      if (args.flags.json) {
-        console.log(
-          JSON.stringify({ before: beforeResult, after: afterResult }, null, 2),
-        );
-        process.exit(afterResult.passed ? 0 : 1);
-      }
-
-      const diff = compareResults(beforeResult, afterResult, {
-        useColor: !args.flags.noColor,
-      });
-      console.log(diff);
-      process.exit(afterResult.passed ? 0 : 1);
-    }
-
     if (args.flags.fix) {
       // --fix stays on applyFix() directly. Auto-fix is quality-provider
       // specific — we do not expose it via provider capability yet; wait
@@ -2928,280 +2764,6 @@ async function cmdEval(args: ParsedArgs) {
       console.log("");
       console.log(formatFixPreview(fix));
       return;
-    }
-
-    // --runtime branch: skillgrade provider. A second positional arg `init`
-    // means scaffold-instead-of-run (no subcommand nesting; positional is
-    // the cheapest surface). `--provider` in this branch is validated to
-    // `docker|local` — other commands reuse the flag for install/audit
-    // providers so we can't validate globally in the parser.
-    if (args.flags.runtime) {
-      const { resolve: resolvePath } = await import("path");
-      const absSkillPath = resolvePath(skillPath);
-
-      // Positional "init" → scaffold eval.yaml then exit.
-      if (args.positional[0] === "init") {
-        const resolvedBinary = resolveSkillgradeBinary();
-        const scaffoldRes = await scaffoldEvalYaml({
-          skillPath: absSkillPath,
-          ...(resolvedBinary !== undefined ? { binary: resolvedBinary } : {}),
-        });
-        if (args.flags.machine) {
-          restoreConsole?.();
-          console.log(
-            formatMachineOutput(
-              "eval",
-              {
-                action: "scaffold",
-                ok: scaffoldRes.ok,
-                exit_code: scaffoldRes.exitCode,
-                message: scaffoldRes.message,
-              },
-              startTime,
-            ),
-          );
-          process.exit(scaffoldRes.ok ? 0 : 1);
-        }
-        if (args.flags.json) {
-          console.log(JSON.stringify(scaffoldRes, null, 2));
-          process.exit(scaffoldRes.ok ? 0 : 1);
-        }
-        if (scaffoldRes.ok) {
-          console.log(scaffoldRes.message);
-        } else {
-          error(scaffoldRes.message);
-        }
-        process.exit(scaffoldRes.ok ? 0 : 1);
-      }
-
-      // Validate --provider in runtime context (shared flag, different
-      // domain than install/audit providers).
-      if (
-        args.flags.provider !== null &&
-        args.flags.provider !== "docker" &&
-        args.flags.provider !== "local"
-      ) {
-        error(
-          `Invalid --provider for --runtime: "${args.flags.provider}". Must be docker or local.`,
-        );
-        process.exit(2);
-      }
-      // Validate --preset.
-      if (
-        args.flags.preset !== null &&
-        args.flags.preset !== "smoke" &&
-        args.flags.preset !== "reliable" &&
-        args.flags.preset !== "regression"
-      ) {
-        error(
-          `Invalid --preset: "${args.flags.preset}". Must be smoke, reliable, or regression.`,
-        );
-        process.exit(2);
-      }
-
-      ensureEvalBuiltins();
-      const runtimeProvider = resolveEvalProvider("skillgrade", "^1.0.0");
-      const ctx = {
-        skillPath: absSkillPath,
-        skillMdPath: resolvePath(absSkillPath, "SKILL.md"),
-      };
-
-      // Merge config → CLI flags (CLI wins). Keeps `~/.asm/config.yml
-      // eval.providers.skillgrade.{preset, threshold, provider}` live
-      // without forcing the user to repeat themselves on every invocation.
-      // Missing file / missing section → defaults (no-op).
-      const runtimeOpts: Record<string, unknown> = {};
-      try {
-        const evalConfig = await loadEvalConfig();
-        const sgConfig = evalConfig.providers.skillgrade;
-        if (sgConfig) {
-          if (typeof sgConfig.preset === "string") {
-            runtimeOpts.preset = sgConfig.preset;
-          }
-          if (typeof sgConfig.threshold === "number") {
-            runtimeOpts.threshold = sgConfig.threshold;
-          }
-          if (sgConfig.provider === "docker" || sgConfig.provider === "local") {
-            runtimeOpts.provider = sgConfig.provider;
-          }
-        }
-        const defaultTimeout = evalConfig.defaults.timeoutMs;
-        if (typeof defaultTimeout === "number" && defaultTimeout > 0) {
-          runtimeOpts.timeoutMs = defaultTimeout;
-        }
-      } catch (err: any) {
-        // Malformed YAML should be loud — don't swallow silently. Re-throw
-        // so the outer catch surfaces it as a normal eval error.
-        throw new Error(
-          `failed to load ~/.asm/config.yml: ${err?.message ?? String(err)}`,
-        );
-      }
-      // CLI flags take precedence over config values.
-      if (args.flags.preset) runtimeOpts.preset = args.flags.preset;
-      if (args.flags.provider) runtimeOpts.provider = args.flags.provider;
-      if (args.flags.threshold !== null) {
-        runtimeOpts.threshold = args.flags.threshold;
-      }
-
-      // Surface applicable() reasons verbatim — binary missing, version
-      // out of range, eval.yaml missing each have a distinct hint.
-      //
-      // Auto-init for missing eval.yaml (issue #170): if the only reason
-      // applicable() fails is that eval.yaml doesn't exist, scaffold it
-      // on the fly via `skillgrade init` and re-check. We detect "missing
-      // eval.yaml" by file existence rather than by string-matching the
-      // reason so the provider contract stays the source of truth.
-      //
-      // Ordering: we call applicable() first so the binary-missing /
-      // version-out-of-range paths keep their curated hints. Only when
-      // every other stage would pass (binary present, version in range)
-      // do we reach into scaffold — which itself needs the binary.
-      let ok = await runtimeProvider.applicable(ctx, runtimeOpts);
-      if (!ok.ok) {
-        const { stat: fsStat } = await import("fs/promises");
-        const yamlPath = resolvePath(absSkillPath, "eval.yaml");
-        let yamlMissing = false;
-        try {
-          const s = await fsStat(yamlPath);
-          yamlMissing = !s.isFile();
-        } catch {
-          yamlMissing = true;
-        }
-        if (yamlMissing) {
-          // Double-check: applicable() may have failed for some other
-          // reason (binary missing, version out of range) even though
-          // eval.yaml is also absent. We don't want to shell out to
-          // `skillgrade init` in that case because the error will be
-          // less informative than the original applicable() hint.
-          // The reason string is the cheapest signal here: the
-          // provider emits "no eval.yaml" only when stages 1+2 passed.
-          const reasonMentionsEvalYaml = (ok.reason ?? "").includes(
-            "no eval.yaml",
-          );
-          if (reasonMentionsEvalYaml) {
-            // Announce the auto-init on stdout before shelling out so
-            // users see a clear "this is what just happened" line even
-            // if skillgrade itself prints nothing. Suppressed under
-            // --json / --machine to keep the output envelope clean.
-            if (!args.flags.json && !args.flags.machine) {
-              console.log(
-                `No eval.yaml found at ${yamlPath} — initializing via skillgrade init...`,
-              );
-            }
-            const resolvedBinary = resolveSkillgradeBinary();
-            const scaffoldRes = await scaffoldEvalYaml({
-              skillPath: absSkillPath,
-              ...(resolvedBinary !== undefined
-                ? { binary: resolvedBinary }
-                : {}),
-            });
-            if (!scaffoldRes.ok) {
-              // Scaffold failed — surface the scaffold error (not the
-              // original applicable() reason) because it's the most
-              // specific cause at this point.
-              if (args.flags.machine) {
-                restoreConsole?.();
-                console.log(
-                  formatMachineError(
-                    "eval",
-                    ErrorCodes.INVALID_ARGUMENT,
-                    scaffoldRes.message,
-                    startTime,
-                  ),
-                );
-                process.exit(1);
-              }
-              error(scaffoldRes.message);
-              process.exit(1);
-            }
-            if (!args.flags.json && !args.flags.machine) {
-              console.log(scaffoldRes.message);
-            }
-            // Re-check applicability now that eval.yaml exists. This
-            // also catches the edge case where `skillgrade init`
-            // reports success but left behind a non-file placeholder.
-            ok = await runtimeProvider.applicable(ctx, runtimeOpts);
-          }
-        }
-      }
-      if (!ok.ok) {
-        if (args.flags.machine) {
-          restoreConsole?.();
-          console.log(
-            formatMachineError(
-              "eval",
-              ErrorCodes.INVALID_ARGUMENT,
-              ok.reason ?? "skillgrade provider not applicable",
-              startTime,
-            ),
-          );
-          process.exit(1);
-        }
-        error(ok.reason ?? "skillgrade provider not applicable");
-        process.exit(1);
-      }
-
-      const runtimeResult = await runProvider(
-        runtimeProvider,
-        ctx,
-        runtimeOpts,
-      );
-
-      if (args.flags.machine) {
-        restoreConsole?.();
-        console.log(
-          formatMachineOutput(
-            "eval",
-            {
-              provider_id: runtimeResult.providerId,
-              provider_version: runtimeResult.providerVersion,
-              schema_version: runtimeResult.schemaVersion,
-              score: runtimeResult.score,
-              passed: runtimeResult.passed,
-              categories: runtimeResult.categories,
-              findings: runtimeResult.findings,
-            },
-            startTime,
-          ),
-        );
-        process.exit(runtimeResult.passed ? 0 : 1);
-      }
-
-      if (args.flags.json) {
-        console.log(JSON.stringify(runtimeResult, null, 2));
-        process.exit(runtimeResult.passed ? 0 : 1);
-      }
-
-      // Default rendering — concise runtime summary. The quality provider's
-      // rich report formatter is specific to the static linter; runtime
-      // output is simpler.
-      const status = runtimeResult.passed
-        ? ansi.green("PASS")
-        : ansi.red("FAIL");
-      console.log(
-        `${ansi.bold("Skillgrade runtime:")} ${status} score=${runtimeResult.score}/100`,
-      );
-      if (runtimeResult.categories.length > 0) {
-        console.log("");
-        console.log(ansi.bold("Tasks:"));
-        for (const c of runtimeResult.categories) {
-          console.log(`  ${c.name}: ${c.score}/${c.max} (${c.id})`);
-        }
-      }
-      if (runtimeResult.findings.length > 0) {
-        console.log("");
-        console.log(ansi.bold("Findings:"));
-        for (const f of runtimeResult.findings) {
-          const sev =
-            f.severity === "error"
-              ? ansi.red(f.severity)
-              : f.severity === "warning"
-                ? ansi.yellow(f.severity)
-                : ansi.dim(f.severity);
-          console.log(`  [${sev}] ${f.message}`);
-        }
-      }
-      process.exit(runtimeResult.passed ? 0 : 1);
     }
 
     // Non-fix path: run through the eval framework.

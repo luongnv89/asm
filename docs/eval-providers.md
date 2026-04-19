@@ -1,13 +1,12 @@
 # Evaluation Providers
 
-`asm eval` evaluates a skill against a quality rubric and returns a score, verdict, and structured findings. Behind the command is a **provider framework** that plugs different evaluators into the same `EvalResult` shape — static linters, runtime LLM-judge evaluators, and (later) domain-specific tools all speak the same contract.
+`asm eval` evaluates a skill against a quality rubric and returns a score, verdict, and structured findings. Behind the command is a **provider framework** that plugs different evaluators into the same `EvalResult` shape — static linters today, domain-specific evaluators in the future, all speaking the same contract.
 
 This doc covers:
 
 - How providers work and why they're versioned on two axes
 - How to pin a provider version
-- The `--compare` upgrade safety workflow
-- A 5-step checklist for adding a new provider
+- A checklist for adding a new provider
 
 ## How providers work
 
@@ -15,7 +14,7 @@ Every provider implements the [`EvalProvider`](../src/eval/types.ts) contract:
 
 ```ts
 export interface EvalProvider {
-  id: string; // e.g. "quality", "skillgrade"
+  id: string; // e.g. "quality"
   version: string; // semver — bumps freely
   schemaVersion: number; // integer — only on structural breaks
   description: string;
@@ -36,7 +35,6 @@ Providers register into a shared registry (`src/eval/registry.ts`) keyed by `id`
 import { register, resolve } from "src/eval/registry";
 
 register(qualityProviderV1); // quality@1.0.0
-register(skillgradeProviderV1); // skillgrade@1.0.0
 
 // Semver-range resolution — picks the highest version in range.
 const p = resolve("quality", "^1.0.0");
@@ -70,7 +68,7 @@ Shows id, version, schemaVersion, description, and any `requires` tags. `--json`
 
 ## Pinning a provider version
 
-### Via `~/.asm/config.yml`
+Via `~/.asm/config.yml`:
 
 ```yaml
 eval:
@@ -78,51 +76,22 @@ eval:
     threshold: 70
     timeoutMs: 60000
   providers:
-    skillgrade:
+    quality:
       version: "^1.0.0" # pin the range
-      preset: reliable
-      threshold: 0.9
-      provider: docker
+      threshold: 80
 ```
 
 The `version` key is a semver range that future CLI upgrades honor. Today `asm eval` picks the highest version in range; explicit pinning is what keeps CI stable when a new provider version ships.
 
-### Via `--compare` (one-off)
-
-`--compare` is the **upgrade safety mechanism**: run two pinned provider versions against the same skill and diff the results before promoting a new version.
-
-```bash
-asm eval ./my-skill --compare quality@1.0.0,quality@1.0.0
-```
-
-The diff covers:
-
-- **Score** — delta, with a clear `+`/`-` sign
-- **Verdict** — pass→fail / fail→pass flips flagged as regressions
-- **Categories** — per-category score/max deltas, plus added/removed categories
-- **Findings** — keyed by `code` (or message as fallback); added shown with `+`, removed with `-`
-- **Schema** — a visible warning when `schemaVersion` differs between versions
-
-Both versions have to exist in the registry. If the second one doesn't, you get a clean error:
-
-```
-Error: resolve: no version of "skillgrade" satisfies "2.0.0-next"
-       (have: 1.0.0)
-```
-
-This matches the aspirational example in the Skillgrade integration plan (`skillgrade@1.0.0,skillgrade@2.0.0-next`): it will work the moment a v2 adapter lands, and fails readably until then.
-
 ### Output modes
 
-| Mode       | Flag        | Use case                              |
-| ---------- | ----------- | ------------------------------------- |
-| Human      | _(default)_ | Terminal reading; colors by default   |
-| JSON       | `--json`    | Ad-hoc scripting; `{ before, after }` |
-| Machine v1 | `--machine` | CI pipelines; stable envelope schema  |
+| Mode       | Flag        | Use case                             |
+| ---------- | ----------- | ------------------------------------ |
+| Human      | _(default)_ | Terminal reading; colors by default  |
+| JSON       | `--json`    | Ad-hoc scripting                     |
+| Machine v1 | `--machine` | CI pipelines; stable envelope schema |
 
-Exit code reflects the newer (`after`) version's `passed` field so CI can wire `--compare` into an upgrade gate without parsing output.
-
-## 5-step checklist: add a new provider
+## Checklist: add a new provider
 
 Follow these steps when wiring a new evaluator into the framework.
 
@@ -141,7 +110,7 @@ Export a constant named `<id>ProviderV<N>` implementing `EvalProvider`. Keep eve
 
 ### 2. Implement `applicable()` cheaply
 
-Return `{ ok: false, reason }` with an actionable message when the provider can't run (missing binary, missing `eval.yaml`, wrong version). `applicable()` runs synchronously-fast — no LLM calls, no long IO.
+Return `{ ok: false, reason }` with an actionable message when the provider can't run (missing binary, wrong version). `applicable()` runs synchronously-fast — no LLM calls, no long IO.
 
 ### 3. Implement `run()` against the contract
 
@@ -173,13 +142,10 @@ Providers register unconditionally. Environment checks (binary present, API key 
 - Unit tests co-located at `index.test.ts`.
 - An integration test in `src/cli.test.ts` (if the provider needs CLI plumbing).
 - A short paragraph in `docs/eval-providers.md` and an entry in `docs/ARCHITECTURE.md`.
-- If the provider wraps an external tool, add a page like `docs/skillgrade-integration.md` covering install / troubleshoot / CI usage.
 
 ## See also
 
 - [`src/eval/types.ts`](../src/eval/types.ts) — contract definitions
 - [`src/eval/registry.ts`](../src/eval/registry.ts) — semver range matching
 - [`src/eval/runner.ts`](../src/eval/runner.ts) — timing + error normalization
-- [`src/eval/compare.ts`](../src/eval/compare.ts) — `--compare` diff rendering
-- [`docs/skillgrade-integration.md`](./skillgrade-integration.md) — Skillgrade provider setup
 - [`docs/ARCHITECTURE.md`](./ARCHITECTURE.md) — `src/eval/` module overview

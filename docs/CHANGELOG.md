@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+### Removed (BREAKING)
+
+- Drop the `skillgrade` runtime provider and its bundled binary. `asm eval <skill>` is now zero-config — no external binary, API key, Docker, or `eval.yaml` needed; the built-in `quality` provider scores every skill out of the box (#180, #182)
+- Remove CLI flags: `--runtime`, `--runtime init`, `--preset`, `--provider`, `--compare`, `--threshold`. CI pipelines using these flags will fail on upgrade — drop the flags and rely on the default quality provider
+- Remove `ASM_SKILLGRADE_BIN` environment variable
+- Remove `docs/skillgrade-integration.md`
+
+### Changed
+
+- Cuts ~5–10 MB from the npm tarball by dropping `skillgrade` from `dependencies` and `bundledDependencies`
+
 ## [1.22.0] - 2026-04-19
 
 ### Added

@@ -11,14 +11,12 @@ describe("registerBuiltins", () => {
     expect(typeof registerBuiltins).toBe("function");
   });
 
-  it("registers the quality and skillgrade providers", () => {
+  it("registers the quality provider", () => {
     registerBuiltins();
-    // PR 2 (#156) added `quality@1.0.0`. PR 4 (#158) adds `skillgrade@1.0.0`.
-    // Bump this count when new built-ins land.
     const providers = list();
-    expect(providers).toHaveLength(2);
+    expect(providers).toHaveLength(1);
     const ids = providers.map((p) => p.id).sort();
-    expect(ids).toEqual(["quality", "skillgrade"]);
+    expect(ids).toEqual(["quality"]);
     for (const p of providers) {
       expect(p.version).toBe("1.0.0");
       expect(p.schemaVersion).toBe(1);
@@ -30,20 +28,6 @@ describe("registerBuiltins", () => {
     const provider = resolve("quality", "^1.0.0");
     expect(provider.id).toBe("quality");
     expect(provider.version).toBe("1.0.0");
-  });
-
-  it("makes skillgrade resolvable via semver range", () => {
-    registerBuiltins();
-    const provider = resolve("skillgrade", "^1.0.0");
-    expect(provider.id).toBe("skillgrade");
-    expect(provider.version).toBe("1.0.0");
-    // In production, the singleton prefers the bundled skillgrade.js path
-    // (from `npm install`'s nested node_modules). Tests running against
-    // a real install see the absolute path; detached installs see the
-    // literal "skillgrade" fallback. Either is valid — just assert the
-    // binary reference is set.
-    expect(provider.externalRequires?.binary).toBeTruthy();
-    expect(provider.externalRequires?.binary).toMatch(/skillgrade/);
   });
 
   it("does not throw when invoked", () => {

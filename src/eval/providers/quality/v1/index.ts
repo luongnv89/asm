@@ -6,8 +6,7 @@
  * modifying the evaluator itself. If this adapter needs ugly workarounds,
  * the contract — not the evaluator — is what has to change.
  *
- * Mapping (EvaluationReport → EvalResult), per the issue body and
- * docs/SKILLGRADE_INTEGRATION_PLAN.md §4 PR 2:
+ * Mapping (EvaluationReport → EvalResult):
  *
  *   - overallScore            → score
  *   - grade !== "F"           → passed

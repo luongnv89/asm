@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+### Breaking Changes
+
+- Drop the `skillgrade` runtime provider and its bundled binary — `asm eval <skill>` is now zero-config (no external binary, API key, Docker, or `eval.yaml`). The built-in `quality` provider scores every skill out of the box ([#180](https://github.com/luongnv89/agent-skill-manager/issues/180), [#182](https://github.com/luongnv89/agent-skill-manager/pull/182)) — @luongnv89
+- Remove CLI flags `--runtime`, `--runtime init`, `--preset`, `--provider`, `--compare`, `--threshold`, and the `ASM_SKILLGRADE_BIN` env var. CI pipelines using these flags will fail on upgrade — drop the flags and rely on the default quality provider — @luongnv89
+- Remove `docs/skillgrade-integration.md` — @luongnv89
+
+### Changed
+
+- Cut ~5–10 MB from the npm tarball by dropping `skillgrade` from `dependencies` and `bundledDependencies` — @luongnv89
+
 ## v1.22.0 — 2026-04-19
 
 ### Refactors

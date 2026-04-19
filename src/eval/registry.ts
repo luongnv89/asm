@@ -2,18 +2,16 @@
  * Provider registry for the `asm eval` framework.
  *
  * Providers are indexed by `id` with an array of versions per id so multiple
- * majors/minors can coexist (required for PR 5's `--compare` mode and for
- * gradual provider upgrades). Resolution is by semver range: `resolve("id",
- * "^1.0.0")` returns the highest-versioned provider whose `version` falls
- * inside the range.
+ * majors/minors can coexist (e.g. for gradual provider upgrades). Resolution
+ * is by semver range: `resolve("id", "^1.0.0")` returns the highest-versioned
+ * provider whose `version` falls inside the range.
  *
  * The repo intentionally avoids a dependency on the `semver` npm package
  * for this PR — the minimal matcher below covers the shapes the framework
  * actually uses: exact `X.Y.Z`, caret `^X.Y.Z`, tilde `~X.Y.Z`, and the
- * wildcards `*` / `x`. Pre-release suffixes (`1.0.0-next`) are parsed so
- * `--compare skillgrade@1.0.0,skillgrade@2.0.0-next` remains possible, but
- * the matcher treats any pre-release as strictly less than its base
- * release (standard semver ordering).
+ * wildcards `*` / `x`. Pre-release suffixes (`1.0.0-next`) are parsed and
+ * ordered correctly (pre-release sorts strictly less than its base release,
+ * per standard semver).
  */
 
 import type { EvalProvider } from "./types";
