@@ -11,8 +11,9 @@ import { mkdtemp, rm, readFile, access } from "fs/promises";
 import { existsSync, readdirSync } from "fs";
 import { tmpdir } from "os";
 
-// npm pack + install can take a while
-setDefaultTimeout(60_000);
+// npm pack + install can take a while, and the runtime eval smoke
+// test spawns skillgrade (also slow on the first run).
+setDefaultTimeout(120_000);
 
 const ROOT = resolve(import.meta.dir, "..", "..");
 
@@ -166,6 +167,73 @@ describe("npm install: package structure", () => {
     const jsons = readdirSync(dataDir).filter((f) => f.endsWith(".json"));
     expect(jsons.length).toBeGreaterThanOrEqual(1);
   });
+
+  // Regression: issue #172 — reinstall must restore bundled skillgrade so
+  // `asm eval --runtime` works without a separate install step. The package
+  // declares `bundledDependencies: ["skillgrade"]`, so the tarball ships the
+  // full skillgrade tree under node_modules/ and npm preserves it on install.
+  //
+  // Note: this only asserts post-install reachability. A regular
+  // `dependencies` entry would also satisfy this — the discriminating test
+  // for `bundledDependencies` is the offline-install assertion below.
+  test("skillgrade/ bin is reachable after install (issue #172)", () => {
+    if (setupError) throw new Error(setupError);
+    const skillgradeBin = join(
+      installDir,
+      "lib",
+      "node_modules",
+      "agent-skill-manager",
+      "node_modules",
+      "skillgrade",
+      "bin",
+      "skillgrade.js",
+    );
+    expect(existsSync(skillgradeBin)).toBe(true);
+  });
+
+  // Discriminating test for `bundledDependencies` (issue #172): the packed
+  // tarball itself must contain skillgrade's files, so the package can be
+  // installed offline / into an air-gapped CI runner / onto a failing
+  // registry mirror. Without `bundledDependencies`, npm pack would omit
+  // node_modules/ and this check would fail.
+  test("tarball embeds skillgrade via bundledDependencies (issue #172)", async () => {
+    if (setupError) throw new Error(setupError);
+
+    // Re-pack to a throwaway directory so we can inspect the tarball
+    // contents without coupling to the shared install tarball's lifecycle.
+    const inspectDir = await mkdtemp(join(tmpdir(), "asm-npm-e2e-pack-"));
+    try {
+      const packProc = Bun.spawn(
+        ["npm", "pack", "--pack-destination", inspectDir, ROOT],
+        {
+          stdout: "pipe",
+          stderr: "pipe",
+        },
+      );
+      const packExit = await packProc.exited;
+      expect(packExit).toBe(0);
+
+      const [packed] = readdirSync(inspectDir).filter((f) =>
+        f.match(/^agent-skill-manager-.*\.tgz$/),
+      );
+      expect(packed).toBeTruthy();
+
+      const listProc = Bun.spawn(["tar", "-tzf", join(inspectDir, packed)], {
+        stdout: "pipe",
+        stderr: "pipe",
+      });
+      const listing = await new Response(listProc.stdout).text();
+
+      // Both the entry point and package metadata must ship inside the
+      // tarball — simply having one could be a partial-match false positive.
+      expect(listing).toContain(
+        "package/node_modules/skillgrade/bin/skillgrade.js",
+      );
+      expect(listing).toContain("package/node_modules/skillgrade/package.json");
+    } finally {
+      await rm(inspectDir, { recursive: true, force: true });
+    }
+  });
 });
 
 // ─── Command tests via installed binary ─────────────────────────────────────
@@ -262,6 +330,60 @@ describe("npm install: asm init", () => {
     expect(exitCode).toBe(0);
     const content = await readFile(join(skillDir, "SKILL.md"), "utf-8");
     expect(content).toContain("name: test-skill");
+  });
+});
+
+// ─── Runtime eval flow (bundled skillgrade, issue #172) ─────────────────────
+//
+// Regression smoke test for issue #172 acceptance criterion 4: verifies that
+// a clean global install produces a working `asm eval --runtime` flow — no
+// separate skillgrade install required. `asm eval <skill> --runtime init`
+// is the cheapest exercise of the bundled binary: it scaffolds eval.yaml
+// without making LLM calls, so it's deterministic and CI-safe.
+
+describe("npm install: asm eval --runtime (bundled skillgrade)", () => {
+  let evalWorkspace: string;
+
+  beforeAll(async () => {
+    evalWorkspace = await mkdtemp(join(tmpdir(), "asm-npm-e2e-eval-"));
+  });
+
+  afterAll(async () => {
+    if (evalWorkspace) {
+      await rm(evalWorkspace, { recursive: true, force: true });
+    }
+  });
+
+  test("eval --runtime init scaffolds eval.yaml via bundled skillgrade", async () => {
+    if (setupError) throw new Error(setupError);
+
+    // Minimal SKILL.md fixture — skillgrade init reads this and drafts
+    // eval.yaml without invoking any LLM.
+    const skillDir = join(evalWorkspace, "bundled-skillgrade-skill");
+    const { exitCode: mkExit } = await runAsm(
+      "init",
+      "bundled-skillgrade-skill",
+      "--path",
+      skillDir,
+    );
+    expect(mkExit).toBe(0);
+
+    const { exitCode, stdout, stderr } = await runAsm(
+      "eval",
+      skillDir,
+      "--runtime",
+      "init",
+    );
+
+    // Assertion #1: the bundled skillgrade binary was reachable — the
+    // "skillgrade not installed" error path means bundling regressed.
+    const combined = `${stdout}\n${stderr}`;
+    expect(combined).not.toContain("skillgrade not installed");
+
+    // Assertion #2: scaffold succeeded.
+    expect(exitCode).toBe(0);
+    const evalYaml = join(skillDir, "eval.yaml");
+    expect(existsSync(evalYaml)).toBe(true);
   });
 });
 
