@@ -329,6 +329,9 @@ describe("scanAllSkills", () => {
     expect(found!.scope).toBe("global");
     expect(found!.provider).toBe("test");
     expect(found!.isSymlink).toBe(false);
+    // Issue #188: scanner populates tokenCount for installed skills.
+    expect(typeof found!.tokenCount).toBe("number");
+    expect(found!.tokenCount!).toBeGreaterThan(0);
   });
 
   it("skips entries without SKILL.md", async () => {

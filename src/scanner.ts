@@ -13,6 +13,7 @@ import {
   resolveVersion,
   resolveAllowedTools,
 } from "./utils/frontmatter";
+import { estimateTokenCount } from "./utils/token-count";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import type {
@@ -186,6 +187,7 @@ async function scanDirectory(loc: ScanLocation): Promise<SkillInfo[]> {
       isSymlink,
       symlinkTarget,
       realPath: resolvedRealPath,
+      tokenCount: estimateTokenCount(content),
     });
   }
 

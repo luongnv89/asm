@@ -21,6 +21,7 @@ import {
   resolveVersion,
   resolveAllowedTools,
 } from "./utils/frontmatter";
+import { estimateTokenCount } from "./utils/token-count";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import { readFilesRecursive } from "./utils/fs";
@@ -470,6 +471,7 @@ export async function discoverSkills(
           creator: (fm["metadata.creator"] || "").trim(),
           compatibility: (fm.compatibility || "").trim(),
           allowedTools: resolveAllowedTools(fm),
+          tokenCount: estimateTokenCount(content),
         });
         // Don't recurse into directories that have SKILL.md
       } catch {
