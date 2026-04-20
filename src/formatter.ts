@@ -203,6 +203,254 @@ function groupSkills(skills: SkillInfo[]): GroupedSkill[] {
   return result;
 }
 
+/**
+ * Threshold above which `asm list` automatically prepends a compact summary
+ * section before the full table. Chosen so that installations with "many"
+ * skills (issue #192) surface a scannable overview, while small inventories
+ * keep the existing output verbatim (regression safety for formatter tests).
+ */
+export const LARGE_LIST_THRESHOLD = 50;
+
+/**
+ * Build a compact, human-scannable summary of a skill list.
+ *
+ * Used in two places:
+ *   1. `asm list --summary` — prints the summary alone, no table.
+ *   2. `asm list` when the result set exceeds LARGE_LIST_THRESHOLD — the
+ *      summary is prepended above the full grouped table so users can see
+ *      the shape of their inventory at a glance.
+ *
+ * The summary includes total counts, top tools, top scopes, and top efforts
+ * (up to `topN` entries per category). A trailing hint suggests refining
+ * commands like `asm list -p <tool>` or `asm search <query>`.
+ */
+export function formatListSummary(
+  skills: SkillInfo[],
+  options: { topN?: number; showHint?: boolean } = {},
+): string {
+  const topN = options.topN ?? 5;
+  const showHint = options.showHint ?? true;
+
+  if (skills.length === 0) {
+    return "No skills found.";
+  }
+
+  const lines: string[] = [];
+  const grouped = groupSkills(skills);
+  const uniqueCount = grouped.length;
+  const totalCount = skills.length;
+  const providerSet = new Set(skills.map((s) => s.provider));
+  const globalCount = skills.filter((s) => s.scope === "global").length;
+  const projectCount = skills.filter((s) => s.scope === "project").length;
+
+  const header = `${totalCount} skills (${uniqueCount} unique) across ${providerSet.size} tools | ${globalCount} global, ${projectCount} project`;
+  lines.push(useColor() ? ansi.bold(header) : header);
+  lines.push("");
+
+  // Top tools (by skill install count)
+  const toolCounts = new Map<string, { label: string; count: number }>();
+  for (const s of skills) {
+    const entry = toolCounts.get(s.provider) ?? {
+      label: s.providerLabel,
+      count: 0,
+    };
+    entry.count += 1;
+    toolCounts.set(s.provider, entry);
+  }
+  const topTools = [...toolCounts.entries()]
+    .sort((a, b) => b[1].count - a[1].count)
+    .slice(0, topN);
+
+  lines.push(useColor() ? ansi.bold("Top tools:") : "Top tools:");
+  for (const [provider, { label, count }] of topTools) {
+    const badge = useColor()
+      ? colorProvider(provider, `[${label}]`)
+      : `[${label}]`;
+    lines.push(`  ${badge}  ${count} skill${count === 1 ? "" : "s"}`);
+  }
+
+  // Scope breakdown (always full — only 2 scopes)
+  lines.push("");
+  lines.push(useColor() ? ansi.bold("Scopes:") : "Scopes:");
+  lines.push(`  global   ${globalCount} skill${globalCount === 1 ? "" : "s"}`);
+  lines.push(
+    `  project  ${projectCount} skill${projectCount === 1 ? "" : "s"}`,
+  );
+
+  // Top efforts (only if at least one skill has an effort)
+  const effortCounts = new Map<string, number>();
+  for (const s of skills) {
+    if (s.effort) {
+      effortCounts.set(s.effort, (effortCounts.get(s.effort) ?? 0) + 1);
+    }
+  }
+  if (effortCounts.size > 0) {
+    const topEfforts = [...effortCounts.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, topN);
+    lines.push("");
+    lines.push(useColor() ? ansi.bold("Top efforts:") : "Top efforts:");
+    for (const [effort, count] of topEfforts) {
+      const coloredEffort = colorEffort(effort);
+      // Pad by visual width, not string length — `colorEffort` wraps the
+      // value in ANSI escape codes when colors are enabled, which inflates
+      // `.padEnd()` char count and breaks alignment in real terminals.
+      const effortPad = Math.max(0, 6 - effort.length);
+      lines.push(
+        `  ${coloredEffort}${" ".repeat(effortPad)}  ${count} skill${count === 1 ? "" : "s"}`,
+      );
+    }
+  }
+
+  if (showHint) {
+    lines.push("");
+    const hint =
+      "Tip: refine with `asm list -p <tool>`, `asm search <query>`, or `asm list --compact`";
+    lines.push(useColor() ? ansi.dim(hint) : hint);
+  }
+
+  return lines.join("\n");
+}
+
+/**
+ * One-line-per-skill compact table format.
+ *
+ * Designed for users with 100+ skills who want to scan their whole inventory
+ * without sacrificing readability. Each row is `name  version  [tools]  scope`
+ * with aligned columns and colorized provider badges.
+ */
+export function formatCompactTable(skills: SkillInfo[]): string {
+  if (skills.length === 0) {
+    return "No skills found.";
+  }
+
+  const grouped = groupSkills(skills);
+  const lines: string[] = [];
+
+  const nameW = Math.max(4, ...grouped.map((g) => g.name.length));
+  const versionW = Math.max(7, ...grouped.map((g) => g.version.length));
+
+  const providerStrs = grouped.map((g) =>
+    g.providers.map((p) => providerBadge(p.provider, p.label)).join(" "),
+  );
+  const providerPlain = grouped.map((g) =>
+    g.providers.map((p) => `[${p.label}]`).join(" "),
+  );
+  const providerW = Math.max(5, ...providerPlain.map((s) => s.length));
+  const scopeW = 7;
+
+  const pad = (s: string, w: number) => s.padEnd(w);
+
+  for (let i = 0; i < grouped.length; i++) {
+    const g = grouped[i];
+    const name = pad(g.name, nameW);
+    const version = ansi.dim(pad(g.version, versionW));
+    const provPadding = providerW - providerPlain[i].length;
+    const prov = providerStrs[i] + " ".repeat(Math.max(0, provPadding));
+    const scope = ansi.dim(pad(g.scope, scopeW));
+    lines.push(`${name}  ${version}  ${prov}  ${scope}`);
+  }
+
+  // Footer — short, just total/unique count
+  lines.push("");
+  const totalCount = skills.length;
+  const uniqueCount = grouped.length;
+  const footer = `${totalCount} skills (${uniqueCount} unique)`;
+  lines.push(ansi.dim(footer));
+
+  return lines.join("\n");
+}
+
+/** Supported group-by axes for `asm list --group-by <axis>`. */
+export type GroupByAxis = "tool" | "scope" | "effort";
+
+/**
+ * Group-by formatter: rows are collapsed under category headers. Each
+ * skill appears once per axis value (e.g., skills installed in multiple
+ * tools appear under each tool when grouping by `tool`). Uses the compact
+ * one-line-per-skill renderer under each header to keep output dense.
+ */
+export function formatGroupByTable(
+  skills: SkillInfo[],
+  axis: GroupByAxis,
+): string {
+  if (skills.length === 0) {
+    return "No skills found.";
+  }
+
+  const buckets = new Map<string, SkillInfo[]>();
+
+  const labelFor = (s: SkillInfo): string[] => {
+    switch (axis) {
+      case "tool":
+        return [s.providerLabel];
+      case "scope":
+        return [s.scope];
+      case "effort":
+        return [s.effort && s.effort.length > 0 ? s.effort : "(unset)"];
+    }
+  };
+
+  for (const s of skills) {
+    for (const label of labelFor(s)) {
+      const list = buckets.get(label) ?? [];
+      list.push(s);
+      buckets.set(label, list);
+    }
+  }
+
+  // Deterministic ordering: by count desc, then alpha
+  const ordered = [...buckets.entries()].sort((a, b) => {
+    if (b[1].length !== a[1].length) return b[1].length - a[1].length;
+    return a[0].localeCompare(b[0]);
+  });
+
+  const lines: string[] = [];
+  for (const [label, members] of ordered) {
+    const header = `${label} (${members.length})`;
+    lines.push(useColor() ? ansi.bold(header) : header);
+    // Reuse compact formatter for dense rows
+    const body = formatCompactTable(members);
+    // Drop the trailing footer from compact (we'll add one at the bottom)
+    const bodyLines = body.split("\n");
+    // Indent every non-empty body line and drop final footer (last two lines)
+    const indented = bodyLines
+      .slice(0, -2)
+      .filter((l) => l.length > 0)
+      .map((l) => `  ${l}`);
+    lines.push(...indented);
+    lines.push("");
+  }
+
+  // Footer
+  const totalCount = skills.length;
+  const uniqueCount = groupSkills(skills).length;
+  const footer = `${totalCount} skills (${uniqueCount} unique), grouped by ${axis}`;
+  lines.push(ansi.dim(footer));
+
+  return lines.join("\n");
+}
+
+/**
+ * Truncate a skill list to `limit` entries when `limit > 0`, returning the
+ * slice plus a hint line for the caller to append. When no truncation is
+ * needed, returns the original list and an empty hint.
+ */
+export function applyListLimit(
+  skills: SkillInfo[],
+  limit: number,
+): { skills: SkillInfo[]; hint: string } {
+  if (!Number.isFinite(limit) || limit <= 0 || skills.length <= limit) {
+    return { skills, hint: "" };
+  }
+  const truncated = skills.slice(0, limit);
+  const remaining = skills.length - limit;
+  const hint = ansi.dim(
+    `... ${remaining} more not shown. Re-run with --limit ${skills.length} (or 0) to see all, or refine with -p <tool>.`,
+  );
+  return { skills: truncated, hint };
+}
+
 export function formatGroupedTable(skills: SkillInfo[]): string {
   if (skills.length === 0) {
     return "No skills found.";

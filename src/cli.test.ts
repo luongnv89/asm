@@ -1381,6 +1381,67 @@ describe("parseArgs: additional flags", () => {
   });
 });
 
+// ─── parseArgs: large-list flags (issue #192) ───────────────────────────────
+
+describe("parseArgs: large-list flags (#192)", () => {
+  const parse = (...args: string[]) => parseArgs(["bun", "script.ts", ...args]);
+
+  test("parses --compact flag", () => {
+    const result = parse("list", "--compact");
+    expect(result.flags.compact).toBe(true);
+  });
+
+  test("defaults compact to false", () => {
+    const result = parse("list");
+    expect(result.flags.compact).toBe(false);
+  });
+
+  test("parses --summary flag", () => {
+    const result = parse("list", "--summary");
+    expect(result.flags.summary).toBe(true);
+  });
+
+  test("defaults summary to false", () => {
+    const result = parse("list");
+    expect(result.flags.summary).toBe(false);
+  });
+
+  test("parses --group-by tool", () => {
+    const result = parse("list", "--group-by", "tool");
+    expect(result.flags.groupBy).toBe("tool");
+  });
+
+  test("parses --group-by scope", () => {
+    const result = parse("list", "--group-by", "scope");
+    expect(result.flags.groupBy).toBe("scope");
+  });
+
+  test("parses --group-by effort", () => {
+    const result = parse("list", "--group-by", "effort");
+    expect(result.flags.groupBy).toBe("effort");
+  });
+
+  test("defaults groupBy to null", () => {
+    const result = parse("list");
+    expect(result.flags.groupBy).toBeNull();
+  });
+
+  test("parses --limit as non-negative integer", () => {
+    const result = parse("list", "--limit", "25");
+    expect(result.flags.limit).toBe(25);
+  });
+
+  test("defaults limit to 0", () => {
+    const result = parse("list");
+    expect(result.flags.limit).toBe(0);
+  });
+
+  test("parses --limit 0 as 'no limit'", () => {
+    const result = parse("list", "--limit", "0");
+    expect(result.flags.limit).toBe(0);
+  });
+});
+
 // ─── isCLIMode: newer commands ──────────────────────────────────────────────
 
 describe("isCLIMode: newer commands", () => {

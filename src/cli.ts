@@ -19,6 +19,11 @@ import {
   formatSearchResults,
   formatAvailableSearchResults,
   formatJSON,
+  formatListSummary,
+  formatCompactTable,
+  formatGroupByTable,
+  applyListLimit,
+  LARGE_LIST_THRESHOLD,
   ansi,
   colorEffort,
   shortenPath,
@@ -213,6 +218,21 @@ interface ParsedArgs {
     machine: boolean;
     noCache: boolean;
     fix: boolean;
+    /** `asm list --compact` — one-line-per-skill dense view (issue #192). */
+    compact: boolean;
+    /**
+     * `asm list --summary` — print only the compact summary (counts by
+     * tool/scope/effort), no full table (issue #192).
+     */
+    summary: boolean;
+    /** `asm list --group-by <tool|scope|effort>` axis (issue #192). */
+    groupBy: "tool" | "scope" | "effort" | null;
+    /**
+     * `asm list --limit <N>` — cap rendered rows; 0 or negative means no
+     * limit. When truncated, the formatter prints a "… N more not shown"
+     * hint (issue #192).
+     */
+    limit: number;
   };
 }
 
@@ -248,6 +268,10 @@ export function parseArgs(argv: string[]): ParsedArgs {
       machine: false,
       noCache: false,
       fix: false,
+      compact: false,
+      summary: false,
+      groupBy: null,
+      limit: 0,
     },
   };
 
@@ -301,6 +325,30 @@ export function parseArgs(argv: string[]): ParsedArgs {
       result.flags.verbose = true;
     } else if (arg === "--flat") {
       result.flags.flat = true;
+    } else if (arg === "--compact") {
+      result.flags.compact = true;
+    } else if (arg === "--summary") {
+      result.flags.summary = true;
+    } else if (arg === "--group-by") {
+      i++;
+      const val = args[i];
+      if (val === "tool" || val === "scope" || val === "effort") {
+        result.flags.groupBy = val;
+      } else {
+        error(`Invalid --group-by: "${val}". Must be tool, scope, or effort.`);
+        process.exit(2);
+      }
+    } else if (arg === "--limit") {
+      i++;
+      const val = args[i];
+      const n = Number(val);
+      if (!Number.isFinite(n) || n < 0 || !Number.isInteger(n)) {
+        error(
+          `Invalid --limit: "${val}". Must be a non-negative integer (0 means no limit).`,
+        );
+        process.exit(2);
+      }
+      result.flags.limit = n;
     } else if (arg === "--installed") {
       result.flags.installed = true;
     } else if (arg === "--available") {
@@ -423,13 +471,19 @@ function printListHelp() {
   console.log(`${ansi.bold("Usage:")} asm list [options]
 
 List all discovered skills. By default, skills installed across multiple
-tools are grouped into a single row with tool badges.
+tools are grouped into a single row with tool badges. When more than
+${LARGE_LIST_THRESHOLD} skills are present, a compact summary is
+automatically prepended above the table.
 
 ${ansi.bold("Options:")}
   --sort <field>       Sort by: name, version, or location (default: name)
   -s, --scope <s>      Filter: global, project, or both (default: both)
   -p, --tool <p>       Filter by tool (claude, codex, openclaw, agents)
   --flat               Show one row per tool instance (ungrouped)
+  --compact            One-line-per-skill dense view
+  --summary            Print only the summary (counts by tool/scope/effort)
+  --group-by <axis>    Group rows under headers (axis: tool | scope | effort)
+  --limit <N>          Limit rendered rows (0 = no limit)
   --json               Output as JSON array
   --machine            Output in stable machine-readable v1 envelope format
   --no-color           Disable ANSI colors
@@ -438,6 +492,12 @@ ${ansi.bold("Options:")}
 ${ansi.bold("Examples:")}
   asm list                          ${ansi.dim("List all skills (grouped)")}
   asm list --flat                   ${ansi.dim("One row per tool instance")}
+  asm list --compact                ${ansi.dim("One line per skill (dense)")}
+  asm list --summary                ${ansi.dim("Counts by tool/scope/effort only")}
+  asm list --group-by tool          ${ansi.dim("Group rows under tool headers")}
+  asm list --group-by scope         ${ansi.dim("Group rows under scope headers")}
+  asm list --group-by effort        ${ansi.dim("Group rows under effort headers")}
+  asm list --limit 20               ${ansi.dim("Show first 20 rows only")}
   asm list -p claude                ${ansi.dim("Only Claude Code skills")}
   asm list -s project               ${ansi.dim("Only project-scoped skills")}
   asm list --sort version           ${ansi.dim("Sort by version")}
@@ -674,8 +734,31 @@ async function cmdList(args: ParsedArgs) {
       output += `\n${ansi.yellow(`${withWarnings.length} skill${withWarnings.length === 1 ? "" : "s"} with warnings -- use --json for details`)}`;
     }
     console.log(output);
+  } else if (args.flags.summary) {
+    // `asm list --summary` — print just the compact summary, no table.
+    console.log(formatListSummary(sorted));
+  } else if (args.flags.groupBy) {
+    // `asm list --group-by <axis>` — rows grouped under category headers.
+    const { skills: limited, hint } = applyListLimit(sorted, args.flags.limit);
+    console.log(formatGroupByTable(limited, args.flags.groupBy));
+    if (hint) console.log(hint);
+  } else if (args.flags.compact) {
+    // `asm list --compact` — one-line-per-skill dense view.
+    const { skills: limited, hint } = applyListLimit(sorted, args.flags.limit);
+    console.log(formatCompactTable(limited));
+    if (hint) console.log(hint);
   } else {
-    console.log(formatGroupedTable(sorted));
+    // Default grouped table. When the inventory is large, prepend a compact
+    // summary section so users see inventory shape before the full table.
+    const lines: string[] = [];
+    if (sorted.length > LARGE_LIST_THRESHOLD) {
+      lines.push(formatListSummary(sorted, { showHint: false }));
+      lines.push("");
+    }
+    const { skills: limited, hint } = applyListLimit(sorted, args.flags.limit);
+    lines.push(formatGroupedTable(limited));
+    if (hint) lines.push(hint);
+    console.log(lines.join("\n"));
   }
 }
 

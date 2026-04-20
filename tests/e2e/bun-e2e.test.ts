@@ -56,6 +56,96 @@ describe("Bun dist E2E: list", () => {
     const data = JSON.parse(stdout);
     expect(Array.isArray(data)).toBe(true);
   });
+
+  // ─── Large-inventory UX flags (issue #192) ────────────────────────────
+
+  test("--compact exits 0 and does not crash", async () => {
+    const { exitCode } = await runBunDist("list", "--compact");
+    expect(exitCode).toBe(0);
+  });
+
+  test("--summary exits 0 and does not crash", async () => {
+    const { exitCode } = await runBunDist("list", "--summary");
+    expect(exitCode).toBe(0);
+  });
+
+  test("--group-by tool exits 0", async () => {
+    const { exitCode } = await runBunDist("list", "--group-by", "tool");
+    expect(exitCode).toBe(0);
+  });
+
+  test("--group-by scope exits 0", async () => {
+    const { exitCode } = await runBunDist("list", "--group-by", "scope");
+    expect(exitCode).toBe(0);
+  });
+
+  test("--group-by effort exits 0", async () => {
+    const { exitCode } = await runBunDist("list", "--group-by", "effort");
+    expect(exitCode).toBe(0);
+  });
+
+  test("--group-by invalid exits 2 with helpful error", async () => {
+    const { exitCode, stderr } = await runBunDist(
+      "list",
+      "--group-by",
+      "bogus",
+    );
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Invalid --group-by");
+  });
+
+  test("--limit 5 exits 0", async () => {
+    const { exitCode } = await runBunDist("list", "--limit", "5");
+    expect(exitCode).toBe(0);
+  });
+
+  test("--limit negative exits 2 with helpful error", async () => {
+    const { exitCode, stderr } = await runBunDist("list", "--limit", "-1");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Invalid --limit");
+  });
+
+  test("--limit non-integer exits 2 with helpful error", async () => {
+    const { exitCode, stderr } = await runBunDist("list", "--limit", "abc");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Invalid --limit");
+  });
+
+  test("--json is unaffected by --compact (scripting compat)", async () => {
+    // --json takes precedence — output must remain a plain JSON array.
+    const { stdout, exitCode } = await runBunDist(
+      "list",
+      "--json",
+      "--compact",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(Array.isArray(data)).toBe(true);
+  });
+
+  test("--machine is unaffected by --summary (scripting compat)", async () => {
+    // --machine takes precedence — envelope shape is unchanged.
+    const { stdout, exitCode } = await runBunDist(
+      "list",
+      "--machine",
+      "--summary",
+    );
+    expect(exitCode).toBe(0);
+    const envelope = JSON.parse(stdout);
+    expect(envelope.version).toBe(1);
+    expect(envelope.command).toBe("list");
+    expect(envelope.status).toBe("ok");
+    expect(Array.isArray(envelope.data)).toBe(true);
+  });
+
+  test("help mentions the new flags", async () => {
+    const { stdout, exitCode } = await runBunDist("list", "--help");
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("--compact");
+    expect(stdout).toContain("--summary");
+    expect(stdout).toContain("--group-by");
+    expect(stdout).toContain("--limit");
+  });
 });
 
 describe("Bun dist E2E: config", () => {

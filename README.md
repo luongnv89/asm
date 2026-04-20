@@ -622,6 +622,15 @@ List all global skills sorted by provider location:
 asm list --scope global --sort location
 ```
 
+When you have many skills installed, `asm list` offers condensed views:
+
+```bash
+asm list --summary            # counts by tool/scope/effort only
+asm list --compact            # one line per skill
+asm list --group-by tool      # group rows under tool headers
+asm list --limit 20           # show only the first 20 rows
+```
+
 Search for skills and output JSON:
 
 ```bash

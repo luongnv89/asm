@@ -15,6 +15,11 @@ import {
   formatAllowedTools,
   HIGH_RISK_TOOLS,
   MEDIUM_RISK_TOOLS,
+  formatListSummary,
+  formatCompactTable,
+  formatGroupByTable,
+  applyListLimit,
+  LARGE_LIST_THRESHOLD,
 } from "./formatter";
 import type { AvailableSkillResult } from "./formatter";
 import type { SkillInfo } from "./utils/types";
@@ -1138,5 +1143,411 @@ describe("formatGroupedTable token column", () => {
     const output = formatGroupedTable(skills);
     // "~42 tokens" should appear somewhere for the tiny skill row
     expect(output).toContain("~42 tokens");
+  });
+});
+
+// ─── Large-inventory UX (issue #192) ────────────────────────────────────────
+
+/** Build N distinct skills quickly for threshold/volume tests. */
+function makeManySkills(
+  n: number,
+  overrides: (i: number) => Partial<SkillInfo> = () => ({}),
+): SkillInfo[] {
+  return Array.from({ length: n }, (_, i) =>
+    makeSkill({
+      name: `skill-${i}`,
+      dirName: `skill-${i}`,
+      path: `/home/user/.claude/skills/skill-${i}`,
+      ...overrides(i),
+    }),
+  );
+}
+
+describe("LARGE_LIST_THRESHOLD", () => {
+  test("exports the documented threshold constant", () => {
+    expect(typeof LARGE_LIST_THRESHOLD).toBe("number");
+    expect(LARGE_LIST_THRESHOLD).toBeGreaterThan(0);
+    // Anchor the value so tuning requires an explicit test change.
+    expect(LARGE_LIST_THRESHOLD).toBe(50);
+  });
+});
+
+describe("formatListSummary", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+
+  test("returns 'No skills found.' for empty array", () => {
+    expect(formatListSummary([])).toBe("No skills found.");
+  });
+
+  test("shows total counts, tools, and scopes in header", () => {
+    const skills = [
+      makeSkill({ name: "a", dirName: "a", scope: "global" }),
+      makeSkill({
+        name: "b",
+        dirName: "b",
+        scope: "project",
+        path: "/other",
+      }),
+    ];
+    const output = formatListSummary(skills);
+    expect(output).toContain("2 skills");
+    expect(output).toContain("(2 unique)");
+    expect(output).toContain("1 global, 1 project");
+  });
+
+  test("lists top tools with install counts", () => {
+    const skills = [
+      ...makeManySkills(3, () => ({
+        provider: "claude",
+        providerLabel: "Claude Code",
+      })),
+      ...makeManySkills(2, (i) => ({
+        name: `codex-${i}`,
+        dirName: `codex-${i}`,
+        provider: "codex",
+        providerLabel: "Codex",
+        path: `/codex-${i}`,
+      })),
+    ];
+    const output = formatListSummary(skills);
+    expect(output).toContain("Top tools:");
+    // Claude has 3, Codex has 2 — both should appear with counts
+    expect(output).toContain("[Claude Code]");
+    expect(output).toContain("3 skills");
+    expect(output).toContain("[Codex]");
+    expect(output).toContain("2 skills");
+  });
+
+  test("shows scope breakdown with singular/plural", () => {
+    const skills = [
+      makeSkill({ name: "a", dirName: "a", scope: "global" }),
+      makeSkill({
+        name: "b",
+        dirName: "b",
+        scope: "project",
+        path: "/other",
+      }),
+    ];
+    const output = formatListSummary(skills);
+    expect(output).toContain("global   1 skill");
+    expect(output).toContain("project  1 skill");
+  });
+
+  test("shows top efforts when at least one skill has an effort", () => {
+    const skills = [
+      makeSkill({ name: "a", dirName: "a", effort: "low" }),
+      makeSkill({
+        name: "b",
+        dirName: "b",
+        effort: "low",
+        path: "/b",
+      }),
+      makeSkill({
+        name: "c",
+        dirName: "c",
+        effort: "high",
+        path: "/c",
+      }),
+    ];
+    const output = formatListSummary(skills);
+    expect(output).toContain("Top efforts:");
+    expect(output).toContain("low");
+    expect(output).toContain("high");
+    // "low" count should be 2 (highest)
+    expect(output).toMatch(/low\s+2 skills/);
+  });
+
+  test("omits Top efforts section when no skill has an effort", () => {
+    const skills = [makeSkill({ effort: undefined })];
+    const output = formatListSummary(skills);
+    expect(output).not.toContain("Top efforts:");
+  });
+
+  test("showHint:true appends refinement tip by default", () => {
+    const output = formatListSummary([makeSkill()]);
+    expect(output).toContain("Tip:");
+    expect(output).toContain("asm list -p");
+  });
+
+  test("showHint:false hides refinement tip", () => {
+    const output = formatListSummary([makeSkill()], { showHint: false });
+    expect(output).not.toContain("Tip:");
+  });
+
+  test("respects topN to cap the tools list", () => {
+    // Create 7 different providers to verify topN limits them
+    const skills = [
+      ...makeManySkills(5, () => ({
+        provider: "claude",
+        providerLabel: "Claude Code",
+      })),
+      ...makeManySkills(4, (i) => ({
+        name: `codex-${i}`,
+        dirName: `codex-${i}`,
+        provider: "codex",
+        providerLabel: "Codex",
+        path: `/codex-${i}`,
+      })),
+      ...makeManySkills(3, (i) => ({
+        name: `oc-${i}`,
+        dirName: `oc-${i}`,
+        provider: "openclaw",
+        providerLabel: "OpenClaw",
+        path: `/oc-${i}`,
+      })),
+      ...makeManySkills(2, (i) => ({
+        name: `ag-${i}`,
+        dirName: `ag-${i}`,
+        provider: "agents",
+        providerLabel: "Agents",
+        path: `/ag-${i}`,
+      })),
+      ...makeManySkills(1, (i) => ({
+        name: `cus-${i}`,
+        dirName: `cus-${i}`,
+        provider: "custom",
+        providerLabel: "Custom",
+        path: `/cus-${i}`,
+      })),
+    ];
+    const output = formatListSummary(skills, { topN: 2 });
+    const top = output.split("Top tools:")[1]?.split("Scopes:")[0] ?? "";
+    // With topN=2, only the two highest-count tools are listed
+    expect(top).toContain("[Claude Code]");
+    expect(top).toContain("[Codex]");
+    // Lower-count providers should NOT be listed in topN=2
+    expect(top).not.toContain("[Custom]");
+  });
+});
+
+describe("formatCompactTable", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+
+  test("returns 'No skills found.' for empty array", () => {
+    expect(formatCompactTable([])).toBe("No skills found.");
+  });
+
+  test("produces exactly one line per unique skill plus footer", () => {
+    const skills = makeManySkills(3);
+    const output = formatCompactTable(skills);
+    const lines = output.split("\n");
+    // 3 data rows + blank line + footer = 5
+    expect(lines.length).toBe(5);
+  });
+
+  test("shows skill name, version, tool, and scope", () => {
+    const output = formatCompactTable([
+      makeSkill({ name: "ship", version: "2.5.0" }),
+    ]);
+    expect(output).toContain("ship");
+    expect(output).toContain("2.5.0");
+    expect(output).toContain("[Claude Code]");
+    expect(output).toContain("global");
+  });
+
+  test("footer shows total and unique counts", () => {
+    const output = formatCompactTable(makeManySkills(3));
+    expect(output).toContain("3 skills (3 unique)");
+  });
+
+  test("groups skills that share dirName+scope like the full table", () => {
+    const skills = [
+      makeSkill({
+        dirName: "dup",
+        name: "dup",
+        provider: "claude",
+        providerLabel: "Claude Code",
+      }),
+      makeSkill({
+        dirName: "dup",
+        name: "dup",
+        provider: "codex",
+        providerLabel: "Codex",
+        path: "/other",
+      }),
+    ];
+    const output = formatCompactTable(skills);
+    expect(output).toContain("2 skills (1 unique)");
+    expect(output).toContain("[Claude Code]");
+    expect(output).toContain("[Codex]");
+  });
+});
+
+describe("formatGroupByTable", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+
+  test("returns 'No skills found.' for empty array", () => {
+    expect(formatGroupByTable([], "tool")).toBe("No skills found.");
+  });
+
+  test("groups by tool with count in header", () => {
+    const skills = [
+      ...makeManySkills(2, (i) => ({
+        name: `claude-${i}`,
+        dirName: `claude-${i}`,
+        provider: "claude",
+        providerLabel: "Claude Code",
+      })),
+      ...makeManySkills(3, (i) => ({
+        name: `codex-${i}`,
+        dirName: `codex-${i}`,
+        provider: "codex",
+        providerLabel: "Codex",
+        path: `/codex-${i}`,
+      })),
+    ];
+    const output = formatGroupByTable(skills, "tool");
+    // Headers
+    expect(output).toContain("Codex (3)");
+    expect(output).toContain("Claude Code (2)");
+    // Codex should come first (higher count)
+    const codexIdx = output.indexOf("Codex (3)");
+    const claudeIdx = output.indexOf("Claude Code (2)");
+    expect(codexIdx).toBeGreaterThanOrEqual(0);
+    expect(claudeIdx).toBeGreaterThan(codexIdx);
+  });
+
+  test("groups by scope", () => {
+    const skills = [
+      makeSkill({ name: "a", dirName: "a", scope: "global" }),
+      makeSkill({
+        name: "b",
+        dirName: "b",
+        scope: "project",
+        path: "/b",
+      }),
+      makeSkill({
+        name: "c",
+        dirName: "c",
+        scope: "project",
+        path: "/c",
+      }),
+    ];
+    const output = formatGroupByTable(skills, "scope");
+    expect(output).toContain("project (2)");
+    expect(output).toContain("global (1)");
+  });
+
+  test("groups by effort with (unset) bucket for missing values", () => {
+    const skills = [
+      makeSkill({ name: "a", dirName: "a", effort: "low" }),
+      makeSkill({
+        name: "b",
+        dirName: "b",
+        effort: undefined,
+        path: "/b",
+      }),
+    ];
+    const output = formatGroupByTable(skills, "effort");
+    expect(output).toContain("low (1)");
+    expect(output).toContain("(unset) (1)");
+  });
+
+  test("footer mentions the axis", () => {
+    const output = formatGroupByTable(makeManySkills(2), "tool");
+    expect(output).toContain("grouped by tool");
+  });
+
+  test("same skill counted under each of its installed tools", () => {
+    // A shared dirName installed in two tools — should appear under both
+    // when grouping by tool.
+    const skills = [
+      makeSkill({
+        dirName: "dup",
+        name: "dup",
+        provider: "claude",
+        providerLabel: "Claude Code",
+      }),
+      makeSkill({
+        dirName: "dup",
+        name: "dup",
+        provider: "codex",
+        providerLabel: "Codex",
+        path: "/other",
+      }),
+    ];
+    const output = formatGroupByTable(skills, "tool");
+    expect(output).toContain("Claude Code (1)");
+    expect(output).toContain("Codex (1)");
+  });
+});
+
+describe("applyListLimit", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+
+  test("returns list unchanged when limit is 0", () => {
+    const skills = makeManySkills(5);
+    const { skills: out, hint } = applyListLimit(skills, 0);
+    expect(out.length).toBe(5);
+    expect(hint).toBe("");
+  });
+
+  test("returns list unchanged when limit is negative", () => {
+    const skills = makeManySkills(5);
+    const { skills: out, hint } = applyListLimit(skills, -1);
+    expect(out.length).toBe(5);
+    expect(hint).toBe("");
+  });
+
+  test("returns list unchanged when length <= limit", () => {
+    const skills = makeManySkills(5);
+    const { skills: out, hint } = applyListLimit(skills, 10);
+    expect(out.length).toBe(5);
+    expect(hint).toBe("");
+  });
+
+  test("truncates when length > limit and returns hint", () => {
+    const skills = makeManySkills(10);
+    const { skills: out, hint } = applyListLimit(skills, 3);
+    expect(out.length).toBe(3);
+    expect(hint).toContain("7 more not shown");
+    expect(hint).toContain("--limit");
+  });
+});
+
+describe("formatGroupedTable large-list output", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+
+  test("output shape is the same for small and large inventories", () => {
+    // formatGroupedTable stays pure — "Top tools" and the refinement Tip are
+    // now provided by formatListSummary (prepended by cmdList when the set
+    // is large). This keeps the renderer easy to reason about and avoids
+    // duplicating the same info in both summary and footer.
+    const small = formatGroupedTable(makeManySkills(3));
+    const large = formatGroupedTable(makeManySkills(LARGE_LIST_THRESHOLD + 1));
+    expect(small).not.toContain("Top tools:");
+    expect(small).not.toContain("Tip:");
+    expect(large).not.toContain("Top tools:");
+    expect(large).not.toContain("Tip:");
+  });
+
+  test("footer summary still renders for any size", () => {
+    const output = formatGroupedTable(makeManySkills(3));
+    expect(output).toMatch(/3 skills \(3 unique\)/);
   });
 });
