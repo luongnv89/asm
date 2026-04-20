@@ -63,15 +63,15 @@ If ALL repos are invalid, stop and tell the user.
 
 ### Step 2: Discover Skills in Each Repository
 
-For each valid repository, clone it to a temp directory and scan for SKILL.md files (up to 3 levels deep). This is what the ASM tool does internally, and we replicate the logic here:
+For each valid repository, clone it to a temp directory and scan for SKILL.md files (up to 5 levels deep). This is what the ASM tool does internally, and we replicate the logic here:
 
 ```bash
 # Clone to temp
 TEMP_DIR=$(mktemp -d)
 git clone --depth 1 "https://github.com/{owner}/{repo}.git" "$TEMP_DIR/{repo}"
 
-# Find SKILL.md files (max 3 levels deep, matching ASM's discoverSkills)
-find "$TEMP_DIR/{repo}" -maxdepth 3 -name "SKILL.md" -type f
+# Find SKILL.md files (max 5 levels deep, matching ASM's discoverSkills)
+find "$TEMP_DIR/{repo}" -maxdepth 5 -name "SKILL.md" -type f
 ```
 
 For each discovered SKILL.md, parse the YAML frontmatter to extract:

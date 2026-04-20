@@ -5,7 +5,7 @@
 ## Highlights
 
 - Accepts one or many GitHub URLs in any format (full URL, shorthand, `github:` prefix)
-- Discovers SKILL.md files automatically (up to 3 levels deep)
+- Discovers SKILL.md files automatically (up to 5 levels deep)
 - Lightweight security audit on every discovered skill
 - Detects existing repos and shows what changed (new/removed/updated skills)
 - Rebuilds the website catalog and creates a ready-to-merge PR
