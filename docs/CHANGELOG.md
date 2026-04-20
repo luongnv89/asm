@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.1.0] - 2026-04-20
+
+### Added
+
+- `heygen-com/hyperframes` curated-index entry — 5 new skills (hyperframes, hyperframes-cli, hyperframes-registry, website-to-hyperframes, gsap) for HTML-based video composition (#184)
+- Re-indexed `mattpocock/skills` (18 → 21 skills) (#183)
+
+### Fixed
+
+- Skill discovery now scans 5 levels deep (was 3), catching skills nested under `plugins/<group>/skills/<skill>/SKILL.md`. All curated repos re-indexed — catalog grew from ~1,700 to 3,135 skills across 24 repos (#185)
+
 ## [2.0.0] - 2026-04-19
 
 ### Removed (BREAKING)

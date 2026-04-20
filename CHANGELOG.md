@@ -1,5 +1,18 @@
 # Changelog
 
+## v2.1.0 — 2026-04-20
+
+### Features
+
+- Add `heygen-com/hyperframes` to the curated skill index — 5 new skills for HTML-based video composition, CLI tooling, registry blocks, website-to-video capture, and GSAP animation reference ([#184](https://github.com/luongnv89/agent-skill-manager/pull/184)) — @luongnv89
+- Re-index `mattpocock/skills` (18 → 21 skills) ([#183](https://github.com/luongnv89/agent-skill-manager/pull/183)) — @luongnv89
+
+### Bug Fixes
+
+- Scan 5 levels deep when discovering skills — previously capped at 3, which missed skills nested under `plugins/<group>/skills/<skill>/SKILL.md`. Re-indexed all curated repos: catalog grew from ~1,700 to 3,135 skills across 24 repos ([#185](https://github.com/luongnv89/agent-skill-manager/pull/185)) — @luongnv89
+
+**Full Changelog**: https://github.com/luongnv89/agent-skill-manager/compare/v2.0.0...v2.1.0
+
 ## v2.0.0 — 2026-04-19
 
 ### Breaking Changes

@@ -2434,6 +2434,16 @@ function renderChangelogPage() {
     + 'adhering to <a href="https://semver.org/">Semantic Versioning</a>.</p>'
     + '<p><a href="https://github.com/luongnv89/agent-skill-manager/blob/main/docs/CHANGELOG.md" target="_blank" rel="noopener">View full changelog on GitHub &rarr;</a></p>'
 
+    + renderChangelogEntry('2.1.0', '2026-04-20', [
+      { tag: 'added', items: [
+        '<code>heygen-com/hyperframes</code> curated-index entry &mdash; 5 new skills (hyperframes, hyperframes-cli, hyperframes-registry, website-to-hyperframes, gsap) for HTML-based video composition (#184)',
+        'Re-indexed <code>mattpocock/skills</code> (18 &rarr; 21 skills) (#183)'
+      ]},
+      { tag: 'fixed', items: [
+        'Skill discovery now scans 5 levels deep (was 3), catching skills nested under <code>plugins/&lt;group&gt;/skills/&lt;skill&gt;/SKILL.md</code>. All curated repos re-indexed &mdash; catalog grew from ~1,700 to 3,135 skills across 24 repos (#185)'
+      ]}
+    ])
+
     + renderChangelogEntry('2.0.0', '2026-04-19', [
       { tag: 'breaking', items: [
         'Drop the <code>skillgrade</code> runtime provider and its bundled binary &mdash; <code>asm eval &lt;skill&gt;</code> is now zero-config (no external binary, API key, Docker, or <code>eval.yaml</code>). The built-in <code>quality</code> provider scores every skill out of the box (#180, #182)',
