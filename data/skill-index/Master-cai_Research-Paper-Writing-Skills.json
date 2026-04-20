@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/Master-cai/Research-Paper-Writing-Skills.git",
   "owner": "Master-cai",
   "repo": "Research-Paper-Writing-Skills",
-  "updatedAt": "2026-04-20T06:33:24.398Z",
+  "updatedAt": "2026-04-20T07:45:12.061Z",
   "skillCount": 1,
   "skills": [
     {
@@ -15,7 +15,58 @@
       "allowedTools": [],
       "installUrl": "github:Master-cai/Research-Paper-Writing-Skills:research-paper-writing",
       "relPath": "research-paper-writing",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1233,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:12.054Z",
+        "evaluatedVersion": "0.0.0"
+      }
     }
   ]
 }

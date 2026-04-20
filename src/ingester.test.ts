@@ -242,3 +242,108 @@ x`,
     expect(bad!.verified).toBe(false);
   });
 });
+
+describe("ingester enrichment (issue #188 + #187)", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-ingest-enrich-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  it("populates tokenCount on every DiscoveredSkill", async () => {
+    const skillDir = join(tempDir, "token-skill");
+    await mkdir(skillDir, { recursive: true });
+    const body = "Hello world. This is a test.";
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      `---
+name: token-skill
+description: A skill for token counting
+version: 0.1.0
+---
+
+# Token Skill
+
+${body}
+`,
+      "utf-8",
+    );
+
+    const discovered = await discoverSkills(tempDir);
+    expect(discovered.length).toBe(1);
+    expect(typeof discovered[0].tokenCount).toBe("number");
+    expect(discovered[0].tokenCount!).toBeGreaterThan(0);
+  });
+
+  it("ingester runs eval and produces a slim evalSummary", async () => {
+    // Use the inline path the ingester takes — read content + call
+    // evaluator + project the slim shape — to validate the contract
+    // without needing a real git clone.
+    const { evaluateSkillContent } = await import("./evaluator");
+    const skillDir = join(tempDir, "eval-skill");
+    await mkdir(skillDir, { recursive: true });
+    const skillMd = `---
+name: eval-skill
+description: A skill we will evaluate inline
+version: 0.2.0
+license: MIT
+creator: Tester
+---
+
+## Instructions
+
+Use this skill when you need an example.
+
+- Step 1
+- Step 2
+
+\`\`\`
+example
+\`\`\`
+`;
+    const skillMdPath = join(skillDir, "SKILL.md");
+    await writeFile(skillMdPath, skillMd, "utf-8");
+
+    const report = evaluateSkillContent({
+      content: skillMd,
+      skillPath: skillDir,
+      skillMdPath,
+    });
+
+    // Project the slim shape the ingester writes into IndexedSkill.
+    const slim = {
+      overallScore: report.overallScore,
+      grade: report.grade,
+      categories: report.categories.map((c) => ({
+        id: c.id,
+        name: c.name,
+        score: c.score,
+        max: c.max,
+      })),
+      evaluatedAt: report.evaluatedAt,
+      evaluatedVersion: "0.2.0",
+    };
+
+    expect(typeof slim.overallScore).toBe("number");
+    expect(slim.overallScore).toBeGreaterThanOrEqual(0);
+    expect(slim.overallScore).toBeLessThanOrEqual(100);
+    expect(["A", "B", "C", "D", "F"].includes(slim.grade)).toBe(true);
+    expect(Array.isArray(slim.categories)).toBe(true);
+    expect(slim.categories.length).toBeGreaterThan(0);
+    for (const c of slim.categories) {
+      expect(typeof c.id).toBe("string");
+      expect(typeof c.name).toBe("string");
+      expect(typeof c.score).toBe("number");
+      expect(typeof c.max).toBe("number");
+      // Findings/suggestions intentionally NOT in the slim shape.
+      expect((c as any).findings).toBeUndefined();
+      expect((c as any).suggestions).toBeUndefined();
+    }
+    expect(typeof slim.evaluatedAt).toBe("string");
+    expect(slim.evaluatedVersion).toBe("0.2.0");
+  });
+});

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/Galaxy-Dawn/claude-scholar.git",
   "owner": "Galaxy-Dawn",
   "repo": "claude-scholar",
-  "updatedAt": "2026-04-20T06:33:22.507Z",
+  "updatedAt": "2026-04-20T07:45:59.937Z",
   "skillCount": 48,
   "skills": [
     {
@@ -15,7 +15,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/agent-identifier",
       "relPath": "skills/agent-identifier",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2674,
+      "evalSummary": {
+        "overallScore": 86,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.860Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "architecture-design",
@@ -27,7 +78,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/architecture-design",
       "relPath": "skills/architecture-design",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2619,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.861Z",
+        "evaluatedVersion": "1.2.0"
+      }
     },
     {
       "name": "bug-detective",
@@ -39,7 +141,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/bug-detective",
       "relPath": "skills/bug-detective",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2506,
+      "evalSummary": {
+        "overallScore": 83,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.862Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "citation-verification",
@@ -51,7 +204,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/citation-verification",
       "relPath": "skills/citation-verification",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1891,
+      "evalSummary": {
+        "overallScore": 77,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.862Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "code-review-excellence",
@@ -63,7 +267,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/code-review-excellence",
       "relPath": "skills/code-review-excellence",
-      "verified": true
+      "verified": true,
+      "tokenCount": 4013,
+      "evalSummary": {
+        "overallScore": 83,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.863Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "command-development",
@@ -75,7 +330,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/command-development",
       "relPath": "skills/command-development",
-      "verified": true
+      "verified": true,
+      "tokenCount": 4421,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.865Z",
+        "evaluatedVersion": "0.2.0"
+      }
     },
     {
       "name": "daily-coding",
@@ -87,7 +393,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/daily-coding",
       "relPath": "skills/daily-coding",
-      "verified": true
+      "verified": true,
+      "tokenCount": 631,
+      "evalSummary": {
+        "overallScore": 70,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.865Z",
+        "evaluatedVersion": "1.0.0"
+      }
     },
     {
       "name": "daily-paper-generator",
@@ -99,7 +456,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/daily-paper-generator",
       "relPath": "skills/daily-paper-generator",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2225,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.866Z",
+        "evaluatedVersion": "0.4.0"
+      }
     },
     {
       "name": "defuddle",
@@ -111,7 +519,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/defuddle",
       "relPath": "skills/defuddle",
-      "verified": true
+      "verified": true,
+      "tokenCount": 307,
+      "evalSummary": {
+        "overallScore": 54,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.866Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "doc-coauthoring",
@@ -123,7 +582,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/doc-coauthoring",
       "relPath": "skills/doc-coauthoring",
-      "verified": true
+      "verified": true,
+      "tokenCount": 4843,
+      "evalSummary": {
+        "overallScore": 83,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.867Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "frontend-design",
@@ -135,7 +645,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/frontend-design",
       "relPath": "skills/frontend-design",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1139,
+      "evalSummary": {
+        "overallScore": 64,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.868Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "git-workflow",
@@ -147,7 +708,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/git-workflow",
       "relPath": "skills/git-workflow",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3171,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.869Z",
+        "evaluatedVersion": "1.2.0"
+      }
     },
     {
       "name": "hook-development",
@@ -159,7 +771,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/hook-development",
       "relPath": "skills/hook-development",
-      "verified": true
+      "verified": true,
+      "tokenCount": 4462,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.870Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "json-canvas",
@@ -171,7 +834,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/json-canvas",
       "relPath": "skills/json-canvas",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2344,
+      "evalSummary": {
+        "overallScore": 81,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.871Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "kaggle-learner",
@@ -183,7 +897,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/kaggle-learner",
       "relPath": "skills/kaggle-learner",
-      "verified": true
+      "verified": true,
+      "tokenCount": 932,
+      "evalSummary": {
+        "overallScore": 60,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.871Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "latex-conference-template-organizer",
@@ -195,7 +960,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/latex-conference-template-organizer",
       "relPath": "skills/latex-conference-template-organizer",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3380,
+      "evalSummary": {
+        "overallScore": 79,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.872Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "mcp-integration",
@@ -207,7 +1023,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/mcp-integration",
       "relPath": "skills/mcp-integration",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3149,
+      "evalSummary": {
+        "overallScore": 76,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.873Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "ml-paper-writing",
@@ -219,7 +1086,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/ml-paper-writing",
       "relPath": "skills/ml-paper-writing",
-      "verified": true
+      "verified": true,
+      "tokenCount": 11347,
+      "evalSummary": {
+        "overallScore": 86,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.876Z",
+        "evaluatedVersion": "1.0.0"
+      }
     },
     {
       "name": "obsidian-bases",
@@ -231,7 +1149,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-bases",
       "relPath": "skills/obsidian-bases",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3986,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.877Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "obsidian-cli",
@@ -243,7 +1212,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-cli",
       "relPath": "skills/obsidian-cli",
-      "verified": true
+      "verified": true,
+      "tokenCount": 848,
+      "evalSummary": {
+        "overallScore": 66,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.878Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "obsidian-experiment-log",
@@ -255,7 +1275,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-experiment-log",
       "relPath": "skills/obsidian-experiment-log",
-      "verified": true
+      "verified": true,
+      "tokenCount": 593,
+      "evalSummary": {
+        "overallScore": 59,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.878Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "obsidian-link-graph",
@@ -267,7 +1338,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-link-graph",
       "relPath": "skills/obsidian-link-graph",
-      "verified": true
+      "verified": true,
+      "tokenCount": 378,
+      "evalSummary": {
+        "overallScore": 59,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.878Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "obsidian-literature-workflow",
@@ -279,7 +1401,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-literature-workflow",
       "relPath": "skills/obsidian-literature-workflow",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1066,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.878Z",
+        "evaluatedVersion": "0.5.0"
+      }
     },
     {
       "name": "obsidian-markdown",
@@ -291,7 +1464,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-markdown",
       "relPath": "skills/obsidian-markdown",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1472,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.879Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "obsidian-project-bootstrap",
@@ -303,7 +1527,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-project-bootstrap",
       "relPath": "skills/obsidian-project-bootstrap",
-      "verified": true
+      "verified": true,
+      "tokenCount": 687,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.879Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "obsidian-project-lifecycle",
@@ -315,7 +1590,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-project-lifecycle",
       "relPath": "skills/obsidian-project-lifecycle",
-      "verified": true
+      "verified": true,
+      "tokenCount": 351,
+      "evalSummary": {
+        "overallScore": 57,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.879Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "obsidian-project-memory",
@@ -327,7 +1653,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-project-memory",
       "relPath": "skills/obsidian-project-memory",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2502,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.880Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "obsidian-research-log",
@@ -339,7 +1716,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-research-log",
       "relPath": "skills/obsidian-research-log",
-      "verified": true
+      "verified": true,
+      "tokenCount": 408,
+      "evalSummary": {
+        "overallScore": 56,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.881Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "obsidian-synthesis-map",
@@ -351,7 +1779,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-synthesis-map",
       "relPath": "skills/obsidian-synthesis-map",
-      "verified": true
+      "verified": true,
+      "tokenCount": 306,
+      "evalSummary": {
+        "overallScore": 59,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.881Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "paper-self-review",
@@ -363,7 +1842,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/paper-self-review",
       "relPath": "skills/paper-self-review",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1322,
+      "evalSummary": {
+        "overallScore": 83,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.882Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "planning-with-files",
@@ -375,7 +1905,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/planning-with-files",
       "relPath": "skills/planning-with-files",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1117,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.882Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "plugin-structure",
@@ -387,7 +1968,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/plugin-structure",
       "relPath": "skills/plugin-structure",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3344,
+      "evalSummary": {
+        "overallScore": 77,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.883Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "post-acceptance",
@@ -399,7 +2031,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/post-acceptance",
       "relPath": "skills/post-acceptance",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1295,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.884Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "publication-chart-skill",
@@ -411,7 +2094,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/publication-chart-skill",
       "relPath": "skills/publication-chart-skill",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3332,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.885Z",
+        "evaluatedVersion": "0.2.0"
+      }
     },
     {
       "name": "research-ideation",
@@ -423,7 +2157,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/research-ideation",
       "relPath": "skills/research-ideation",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2074,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.886Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "results-analysis",
@@ -435,7 +2220,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/results-analysis",
       "relPath": "skills/results-analysis",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1769,
+      "evalSummary": {
+        "overallScore": 77,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.886Z",
+        "evaluatedVersion": "0.2.0"
+      }
     },
     {
       "name": "results-report",
@@ -447,7 +2283,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/results-report",
       "relPath": "skills/results-report",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1387,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.887Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "review-response",
@@ -459,7 +2346,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/review-response",
       "relPath": "skills/review-response",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1231,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.887Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "skill-development",
@@ -471,7 +2409,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/skill-development",
       "relPath": "skills/skill-development",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1327,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.888Z",
+        "evaluatedVersion": "0.2.0"
+      }
     },
     {
       "name": "skill-improver",
@@ -483,7 +2472,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/skill-improver",
       "relPath": "skills/skill-improver",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1688,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.888Z",
+        "evaluatedVersion": "1.0.0"
+      }
     },
     {
       "name": "skill-quality-reviewer",
@@ -495,7 +2535,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/skill-quality-reviewer",
       "relPath": "skills/skill-quality-reviewer",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3165,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.889Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "ui-ux-pro-max",
@@ -507,7 +2598,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/ui-ux-pro-max",
       "relPath": "skills/ui-ux-pro-max",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1008,
+      "evalSummary": {
+        "overallScore": 61,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.890Z",
+        "evaluatedVersion": "0.2.0"
+      }
     },
     {
       "name": "uv-package-manager",
@@ -519,7 +2661,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/uv-package-manager",
       "relPath": "skills/uv-package-manager",
-      "verified": true
+      "verified": true,
+      "tokenCount": 4461,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.891Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "verification-loop",
@@ -531,7 +2724,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/verification-loop",
       "relPath": "skills/verification-loop",
-      "verified": true
+      "verified": true,
+      "tokenCount": 999,
+      "evalSummary": {
+        "overallScore": 80,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.892Z",
+        "evaluatedVersion": "1.0.0"
+      }
     },
     {
       "name": "web-design-reviewer",
@@ -543,7 +2787,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/web-design-reviewer",
       "relPath": "skills/web-design-reviewer",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3050,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.892Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "webapp-testing",
@@ -555,7 +2850,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/webapp-testing",
       "relPath": "skills/webapp-testing",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1106,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.893Z",
+        "evaluatedVersion": "0.1.0"
+      }
     },
     {
       "name": "writing-anti-ai",
@@ -567,7 +2913,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/writing-anti-ai",
       "relPath": "skills/writing-anti-ai",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2195,
+      "evalSummary": {
+        "overallScore": 63,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.894Z",
+        "evaluatedVersion": "1.0.0"
+      }
     },
     {
       "name": "zotero-obsidian-bridge",
@@ -579,7 +2976,58 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/zotero-obsidian-bridge",
       "relPath": "skills/zotero-obsidian-bridge",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1656,
+      "evalSummary": {
+        "overallScore": 76,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:59.894Z",
+        "evaluatedVersion": "0.2.0"
+      }
     }
   ]
 }

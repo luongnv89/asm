@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
   "owner": "nextlevelbuilder",
   "repo": "ui-ux-pro-max-skill",
-  "updatedAt": "2026-04-20T06:32:54.585Z",
+  "updatedAt": "2026-04-20T07:45:15.186Z",
   "skillCount": 7,
   "skills": [
     {
@@ -15,7 +15,58 @@
       "allowedTools": [],
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/banner-design",
       "relPath": ".claude/skills/banner-design",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2225,
+      "evalSummary": {
+        "overallScore": 63,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 5,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:15.156Z",
+        "evaluatedVersion": "1.0.0"
+      }
     },
     {
       "name": "ckm:brand",
@@ -27,7 +78,58 @@
       "allowedTools": [],
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/brand",
       "relPath": ".claude/skills/brand",
-      "verified": true
+      "verified": true,
+      "tokenCount": 614,
+      "evalSummary": {
+        "overallScore": 61,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 5,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:15.156Z",
+        "evaluatedVersion": "1.0.0"
+      }
     },
     {
       "name": "ckm:design",
@@ -39,7 +141,58 @@
       "allowedTools": [],
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design",
       "relPath": ".claude/skills/design",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2772,
+      "evalSummary": {
+        "overallScore": 57,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 5,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:15.157Z",
+        "evaluatedVersion": "2.1.0"
+      }
     },
     {
       "name": "ckm:design-system",
@@ -51,7 +204,58 @@
       "allowedTools": [],
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design-system",
       "relPath": ".claude/skills/design-system",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1648,
+      "evalSummary": {
+        "overallScore": 69,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 5,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:15.158Z",
+        "evaluatedVersion": "1.0.0"
+      }
     },
     {
       "name": "ckm:slides",
@@ -63,7 +267,58 @@
       "allowedTools": [],
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/slides",
       "relPath": ".claude/skills/slides",
-      "verified": true
+      "verified": true,
+      "tokenCount": 247,
+      "evalSummary": {
+        "overallScore": 47,
+        "grade": "F",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 5,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:15.158Z",
+        "evaluatedVersion": "1.0.0"
+      }
     },
     {
       "name": "ckm:ui-styling",
@@ -75,7 +330,58 @@
       "allowedTools": [],
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/ui-styling",
       "relPath": ".claude/skills/ui-styling",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2372,
+      "evalSummary": {
+        "overallScore": 69,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 5,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:15.159Z",
+        "evaluatedVersion": "1.0.0"
+      }
     },
     {
       "name": "ui-ux-pro-max",
@@ -87,7 +393,58 @@
       "allowedTools": [],
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/ui-ux-pro-max",
       "relPath": ".claude/skills/ui-ux-pro-max",
-      "verified": true
+      "verified": true,
+      "tokenCount": 12401,
+      "evalSummary": {
+        "overallScore": 69,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:45:15.162Z",
+        "evaluatedVersion": "0.0.0"
+      }
     }
   ]
 }

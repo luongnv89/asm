@@ -231,6 +231,14 @@ function categorizeSkill(name: string, description: string): string[] {
 
 // ─── Interfaces ──────────────────────────────────────────────────────────────
 
+interface SkillEvalSummary {
+  overallScore: number;
+  grade: "A" | "B" | "C" | "D" | "F";
+  categories: Array<{ id: string; name: string; score: number; max: number }>;
+  evaluatedAt: string;
+  evaluatedVersion?: string;
+}
+
 interface IndexedSkill {
   name: string;
   description: string;
@@ -242,6 +250,8 @@ interface IndexedSkill {
   installUrl: string;
   relPath: string;
   verified?: boolean;
+  tokenCount?: number;
+  evalSummary?: SkillEvalSummary;
 }
 
 interface RepoIndex {
@@ -268,6 +278,15 @@ interface CatalogSkill {
   repo: string;
   categories: string[];
   verified: boolean;
+  /**
+   * Estimated token count for SKILL.md content (`words + spaces`).
+   * Surfaced in the website card and modal so users can gauge context cost.
+   */
+  tokenCount?: number;
+  /**
+   * Slim eval summary captured at index time. Surfaced in the modal.
+   */
+  evalSummary?: SkillEvalSummary;
 }
 
 interface CatalogRepo {
@@ -368,6 +387,9 @@ for (const file of files) {
       repo: repoIndex.repo,
       categories,
       verified: skill.verified === true,
+      tokenCount:
+        typeof skill.tokenCount === "number" ? skill.tokenCount : undefined,
+      evalSummary: skill.evalSummary,
     });
   }
 }

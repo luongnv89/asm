@@ -1067,3 +1067,76 @@ describe("formatAvailableSearchResults", () => {
     expect(output).toContain("asm install github:owner/repo:skill-beta");
   });
 });
+
+// ─── Token count + eval display (issues #188 + #187) ────────────────────────
+
+describe("formatSkillDetail token count + eval", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+
+  test("renders Est. Tokens line when tokenCount is set", async () => {
+    const output = await formatSkillDetail(makeSkill({ tokenCount: 1234 }));
+    expect(output).toContain("Est. Tokens:");
+    expect(output).toContain("~1.2k tokens");
+  });
+
+  test("omits Est. Tokens line when tokenCount is undefined", async () => {
+    const output = await formatSkillDetail(makeSkill());
+    expect(output).not.toContain("Est. Tokens:");
+  });
+
+  test("renders empty-state for Eval Score when summary is missing", async () => {
+    const output = await formatSkillDetail(makeSkill());
+    expect(output).toContain("Eval Score:");
+    expect(output).toContain("Not available");
+    expect(output).toContain("asm eval");
+  });
+
+  test("renders Eval Score block with overall + grade + categories", async () => {
+    const output = await formatSkillDetail(
+      makeSkill({
+        evalSummary: {
+          overallScore: 87,
+          grade: "B",
+          categories: [
+            { id: "structure", name: "Structure", score: 9, max: 10 },
+            { id: "safety", name: "Safety", score: 7, max: 10 },
+          ],
+          evaluatedAt: "2026-04-20T10:00:00.000Z",
+          evaluatedVersion: "0.3.0",
+        },
+      }),
+    );
+    expect(output).toContain("Eval Score:");
+    expect(output).toContain("Overall: 87 / 100");
+    expect(output).toContain("(B)");
+    expect(output).toContain("version 0.3.0");
+    expect(output).toContain("Structure");
+    expect(output).toContain("9/10");
+    expect(output).toContain("Safety");
+    expect(output).toContain("7/10");
+  });
+});
+
+describe("formatGroupedTable token column", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+
+  test("renders token count when at least one skill has it", () => {
+    const skills = [
+      makeSkill({ name: "tiny", tokenCount: 42 }),
+      makeSkill({ name: "no-tokens", dirName: "no-tokens" }),
+    ];
+    const output = formatGroupedTable(skills);
+    // "~42 tokens" should appear somewhere for the tiny skill row
+    expect(output).toContain("~42 tokens");
+  });
+});

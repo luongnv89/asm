@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/obra/superpowers.git",
   "owner": "obra",
   "repo": "superpowers",
-  "updatedAt": "2026-04-20T06:32:42.596Z",
+  "updatedAt": "2026-04-20T07:44:45.119Z",
   "skillCount": 14,
   "skills": [
     {
@@ -15,7 +15,58 @@
       "allowedTools": [],
       "installUrl": "github:obra/superpowers:skills/brainstorming",
       "relPath": "skills/brainstorming",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3085,
+      "evalSummary": {
+        "overallScore": 69,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:45.097Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "dispatching-parallel-agents",
@@ -27,7 +78,58 @@
       "allowedTools": [],
       "installUrl": "github:obra/superpowers:skills/dispatching-parallel-agents",
       "relPath": "skills/dispatching-parallel-agents",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1770,
+      "evalSummary": {
+        "overallScore": 86,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:45.098Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "executing-plans",
@@ -39,7 +141,58 @@
       "allowedTools": [],
       "installUrl": "github:obra/superpowers:skills/executing-plans",
       "relPath": "skills/executing-plans",
-      "verified": true
+      "verified": true,
+      "tokenCount": 670,
+      "evalSummary": {
+        "overallScore": 69,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:45.098Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "finishing-a-development-branch",
@@ -51,7 +204,58 @@
       "allowedTools": [],
       "installUrl": "github:obra/superpowers:skills/finishing-a-development-branch",
       "relPath": "skills/finishing-a-development-branch",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1221,
+      "evalSummary": {
+        "overallScore": 79,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:45.098Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "receiving-code-review",
@@ -63,7 +267,58 @@
       "allowedTools": [],
       "installUrl": "github:obra/superpowers:skills/receiving-code-review",
       "relPath": "skills/receiving-code-review",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1748,
+      "evalSummary": {
+        "overallScore": 76,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:45.099Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "requesting-code-review",
@@ -75,7 +330,58 @@
       "allowedTools": [],
       "installUrl": "github:obra/superpowers:skills/requesting-code-review",
       "relPath": "skills/requesting-code-review",
-      "verified": true
+      "verified": true,
+      "tokenCount": 747,
+      "evalSummary": {
+        "overallScore": 70,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:45.099Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "subagent-driven-development",
@@ -87,7 +393,58 @@
       "allowedTools": [],
       "installUrl": "github:obra/superpowers:skills/subagent-driven-development",
       "relPath": "skills/subagent-driven-development",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3110,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:45.100Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "systematic-debugging",
@@ -99,7 +456,58 @@
       "allowedTools": [],
       "installUrl": "github:obra/superpowers:skills/systematic-debugging",
       "relPath": "skills/systematic-debugging",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3090,
+      "evalSummary": {
+        "overallScore": 81,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:45.101Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "test-driven-development",
@@ -111,7 +519,58 @@
       "allowedTools": [],
       "installUrl": "github:obra/superpowers:skills/test-driven-development",
       "relPath": "skills/test-driven-development",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2883,
+      "evalSummary": {
+        "overallScore": 86,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:45.102Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "using-git-worktrees",
@@ -123,7 +582,58 @@
       "allowedTools": [],
       "installUrl": "github:obra/superpowers:skills/using-git-worktrees",
       "relPath": "skills/using-git-worktrees",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1446,
+      "evalSummary": {
+        "overallScore": 79,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:45.103Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "using-superpowers",
@@ -135,7 +645,58 @@
       "allowedTools": [],
       "installUrl": "github:obra/superpowers:skills/using-superpowers",
       "relPath": "skills/using-superpowers",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1583,
+      "evalSummary": {
+        "overallScore": 63,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:45.103Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "verification-before-completion",
@@ -147,7 +708,58 @@
       "allowedTools": [],
       "installUrl": "github:obra/superpowers:skills/verification-before-completion",
       "relPath": "skills/verification-before-completion",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1236,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:45.104Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "writing-plans",
@@ -159,7 +771,58 @@
       "allowedTools": [],
       "installUrl": "github:obra/superpowers:skills/writing-plans",
       "relPath": "skills/writing-plans",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1741,
+      "evalSummary": {
+        "overallScore": 87,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:45.104Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "writing-skills",
@@ -171,7 +834,58 @@
       "allowedTools": [],
       "installUrl": "github:obra/superpowers:skills/writing-skills",
       "relPath": "skills/writing-skills",
-      "verified": true
+      "verified": true,
+      "tokenCount": 6070,
+      "evalSummary": {
+        "overallScore": 76,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:45.106Z",
+        "evaluatedVersion": "0.0.0"
+      }
     }
   ]
 }

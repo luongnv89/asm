@@ -4,6 +4,7 @@ import { theme } from "../utils/colors";
 import type { SkillInfo } from "../utils/types";
 import { countFiles } from "../scanner";
 import { wordWrap, HIGH_RISK_TOOLS, MEDIUM_RISK_TOOLS } from "../formatter";
+import { formatTokenCount } from "../utils/token-count";
 
 const EFFORT_COLORS: Record<string, string> = {
   low: theme.green,
@@ -51,9 +52,10 @@ export function createDetailView(
   const desc = skill.description || "(no description)";
   const wrappedDescLines = wordWrap(desc, descMaxWidth);
   // base detail rows (name, version, creator, license, tool, location, path, symlink, files, scope) = 10
-  // + optional rows: effort, compatibility, allowed-tools (label + tools + optional warning)
+  // + optional rows: effort, compatibility, tokens, allowed-tools (label + tools + optional warning)
   const effortRows = skill.effort ? 1 : 0;
   const compatRows = skill.compatibility ? 1 : 0;
+  const tokenRows = typeof skill.tokenCount === "number" ? 1 : 0;
   const hasHighRiskTools = skill.allowedTools?.some((t) =>
     HIGH_RISK_TOOLS.has(t),
   );
@@ -63,12 +65,19 @@ export function createDetailView(
         ? 3
         : 2
       : 0;
+  // Eval section: 2 lines for label + body in empty state, or
+  // 3 + categories (up to 7) in populated state.
+  const evalRows = skill.evalSummary
+    ? 3 + skill.evalSummary.categories.length
+    : 2;
   const boxHeight = Math.min(
     ctx.height - 2,
     10 +
       effortRows +
       compatRows +
+      tokenRows +
       toolsRows +
+      evalRows +
       2 +
       wrappedDescLines.length +
       2 +
@@ -186,6 +195,17 @@ export function createDetailView(
       })
       .catch(() => {});
   }
+  if (typeof skill.tokenCount === "number") {
+    container.add(
+      detailRow(
+        ctx,
+        "tokens",
+        "Est. Tokens",
+        formatTokenCount(skill.tokenCount),
+        theme.cyan,
+      ),
+    );
+  }
   container.add(detailRow(ctx, "scope", "Scope", skill.scope, theme.accentAlt));
 
   const descLabel = new TextRenderable(ctx, {
@@ -212,6 +232,61 @@ export function createDetailView(
     height: visibleLines.length,
   });
   container.add(descText);
+
+  // ── Eval Score ──────────────────────────────────────────────────────────
+  // Issue #187: surface `asm eval` overall + per-category scores so users
+  // can decide whether to install. Always render an explicit empty state
+  // for skills without an eval so the section never reads as "broken".
+  const evalLabel = new TextRenderable(ctx, {
+    content: "\nEval Score:",
+    fg: theme.fgDim,
+    height: 2,
+  });
+  container.add(evalLabel);
+
+  if (skill.evalSummary) {
+    const ev = skill.evalSummary;
+    const overallColor =
+      ev.overallScore >= 90
+        ? theme.green
+        : ev.overallScore >= 80
+          ? theme.cyan
+          : ev.overallScore >= 65
+            ? theme.yellow
+            : theme.red;
+    container.add(
+      new TextRenderable(ctx, {
+        content: `  Overall: ${ev.overallScore}/100  (${ev.grade})`,
+        fg: overallColor,
+        height: 1,
+      }),
+    );
+    const evVer = ev.evaluatedVersion ? ` — v${ev.evaluatedVersion}` : "";
+    container.add(
+      new TextRenderable(ctx, {
+        content: `  Evaluated: ${ev.evaluatedAt}${evVer}`,
+        fg: theme.fgDim,
+        height: 1,
+      }),
+    );
+    for (const c of ev.categories) {
+      container.add(
+        new TextRenderable(ctx, {
+          content: `    ${c.name.padEnd(28)} ${c.score}/${c.max}`,
+          fg: theme.fg,
+          height: 1,
+        }),
+      );
+    }
+  } else {
+    container.add(
+      new TextRenderable(ctx, {
+        content: "  Not available — run `asm eval` to generate one.",
+        fg: theme.fgDim,
+        height: 1,
+      }),
+    );
+  }
 
   if (skill.allowedTools && skill.allowedTools.length > 0) {
     const toolsLabel = new TextRenderable(ctx, {

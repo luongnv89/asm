@@ -26,6 +26,17 @@ export interface SkillInfo {
   fileCount?: number;
   effort?: string;
   warnings?: SkillWarning[];
+  /**
+   * Estimated token cost for the skill's SKILL.md content.
+   * Computed as `words + spaces` (issue #188 heuristic).
+   * Always render as `~N tokens` to signal it is an approximation.
+   */
+  tokenCount?: number;
+  /**
+   * Lazily-populated summary of the most recent `asm eval` run for this skill.
+   * Filled in by callers that opt to enrich (e.g., the TUI detail view).
+   */
+  evalSummary?: SkillEvalSummary;
   /** Marketplace name when skill was installed via Claude plugin marketplace */
   marketplace?: string;
   /** Codex plugin metadata when skill was discovered via Codex plugin cache */
@@ -36,6 +47,33 @@ export interface SkillInfo {
     pluginVersion?: string;
     enabled?: boolean;
   };
+}
+
+/**
+ * Slim, JSON-friendly snapshot of an `asm eval` report for the
+ * "before-install" decision surfaces (website cards/modal, TUI detail,
+ * CLI inspect).
+ *
+ * Findings/suggestions are intentionally omitted — they are an authoring
+ * aid, not a consumer-facing signal, and including them in catalog.json
+ * would bloat the payload by ~1MB+ for a few hundred skills.
+ */
+export interface SkillEvalSummary {
+  /** 0..100 normalized score across all categories. */
+  overallScore: number;
+  /** Letter grade for quick scanning. */
+  grade: "A" | "B" | "C" | "D" | "F";
+  /** Per-category breakdown (id, name, score, max). */
+  categories: Array<{
+    id: string;
+    name: string;
+    score: number;
+    max: number;
+  }>;
+  /** ISO-8601 timestamp of when the eval was produced. */
+  evaluatedAt: string;
+  /** Skill version that was evaluated (e.g. `0.2.0`). */
+  evaluatedVersion?: string;
 }
 
 /** Codex plugin manifest (`.codex-plugin/plugin.json`) */
@@ -232,6 +270,12 @@ export interface DiscoveredSkill {
   creator: string;
   compatibility: string;
   allowedTools: string[];
+  /**
+   * Estimated token count for the SKILL.md content. Populated by
+   * `discoverSkills` so downstream consumers (ingester) don't have to
+   * re-read the file.
+   */
+  tokenCount?: number;
 }
 
 // ─── Skill Index Types ───────────────────────────────────────────────────────
@@ -262,6 +306,16 @@ export interface IndexedSkill {
   installUrl: string;
   relPath: string;
   verified?: boolean;
+  /**
+   * Estimated token count for the SKILL.md content
+   * (`words + spaces` heuristic — see `src/utils/token-count.ts`).
+   */
+  tokenCount?: number;
+  /**
+   * Slim eval summary captured at index time for "before-install"
+   * surfaces (website + TUI + CLI inspect).
+   */
+  evalSummary?: SkillEvalSummary;
 }
 
 export interface RepoIndex {

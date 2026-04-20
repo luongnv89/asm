@@ -7,6 +7,13 @@ import {
 import type { RenderContext } from "@opentui/core";
 import { theme } from "../utils/colors";
 import type { SkillInfo } from "../utils/types";
+import { formatTokenCount } from "../utils/token-count";
+
+function compactTokens(tokenCount: number | undefined): string {
+  if (typeof tokenCount !== "number") return "\u2014";
+  // Compact form (no "tokens" suffix): "~3", "~1.2k", "~12k" — fits a 7-char column.
+  return formatTokenCount(tokenCount).replace(/ tokens$/, "");
+}
 
 function formatSkillRow(
   index: number,
@@ -27,6 +34,8 @@ function formatSkillRow(
   const creator = creatorRaw.length > 12 ? creatorRaw.slice(0, 12) : creatorRaw;
   const effortRaw = skill.effort || "\u2014";
   const effort = effortRaw.length > 6 ? effortRaw.slice(0, 6) : effortRaw;
+  const tokensRaw = compactTokens(skill.tokenCount);
+  const tokens = tokensRaw.length > 7 ? tokensRaw.slice(0, 7) : tokensRaw;
   const prov =
     skill.providerLabel.length > 11
       ? skill.providerLabel.slice(0, 11)
@@ -35,7 +44,7 @@ function formatSkillRow(
   const type = skill.isSymlink ? "\u2192link" : " dir ";
   const desc =
     descWidth > 0 ? " " + (skill.description || "").slice(0, descWidth) : "";
-  return `${idx} ${name.padEnd(24)} ${ver.padEnd(8)} ${creator.padEnd(13)} ${effort.padEnd(7)} ${prov.padEnd(12)} ${scope.padEnd(8)} ${type.padEnd(6)}${desc}`;
+  return `${idx} ${name.padEnd(24)} ${ver.padEnd(8)} ${creator.padEnd(13)} ${effort.padEnd(7)} ${tokens.padEnd(8)} ${prov.padEnd(12)} ${scope.padEnd(8)} ${type.padEnd(6)}${desc}`;
 }
 
 function buildOptions(skills: SkillInfo[], descWidth: number) {
@@ -52,8 +61,9 @@ function buildOptions(skills: SkillInfo[], descWidth: number) {
 }
 
 function calcDescWidth(termWidth: number): number {
-  // 2(border) + 2(padding) + 4(#) + 24(name) + 8(ver) + 13(creator) + 7(effort) + 12(provider) + 8(scope) + 6(type) + 8(spaces) = 94
-  const fixed = 94;
+  // 2(border) + 2(padding) + 4(#) + 24(name) + 8(ver) + 13(creator) + 7(effort)
+  // + 8(tokens) + 12(provider) + 8(scope) + 6(type) + 9(spaces) = 103
+  const fixed = 103;
   return Math.max(0, termWidth - fixed);
 }
 
@@ -86,7 +96,7 @@ export function createSkillList(
   const descHeader = descWidth > 0 ? " Description" : "";
   const headerRow = new TextRenderable(ctx, {
     id: "skill-list-header",
-    content: `${"#".padStart(3)} ${"Name".padEnd(26)} ${"Ver".padEnd(8)} ${"Creator".padEnd(13)} ${"Effort".padEnd(7)} ${"Tool".padEnd(12)} ${"Scope".padEnd(8)} ${"Type".padEnd(6)}${descHeader}`,
+    content: `${"#".padStart(3)} ${"Name".padEnd(26)} ${"Ver".padEnd(8)} ${"Creator".padEnd(13)} ${"Effort".padEnd(7)} ${"Tokens".padEnd(8)} ${"Tool".padEnd(12)} ${"Scope".padEnd(8)} ${"Type".padEnd(6)}${descHeader}`,
     fg: theme.fgDim,
     height: 1,
   });

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/luongnv89/skills.git",
   "owner": "luongnv89",
   "repo": "skills",
-  "updatedAt": "2026-04-20T06:33:12.504Z",
+  "updatedAt": "2026-04-20T07:44:43.988Z",
   "skillCount": 36,
   "skills": [
     {
@@ -15,7 +15,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/agent-config",
       "relPath": "skills/agent-config",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3157,
+      "evalSummary": {
+        "overallScore": 89,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.929Z",
+        "evaluatedVersion": "1.1.1"
+      }
     },
     {
       "name": "appstore-review-checker",
@@ -27,7 +78,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/appstore-review-checker",
       "relPath": "skills/appstore-review-checker",
-      "verified": true
+      "verified": true,
+      "tokenCount": 4956,
+      "evalSummary": {
+        "overallScore": 91,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.930Z",
+        "evaluatedVersion": "1.1.1"
+      }
     },
     {
       "name": "aso-marketing",
@@ -39,7 +141,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/aso-marketing",
       "relPath": "skills/aso-marketing",
-      "verified": true
+      "verified": true,
+      "tokenCount": 9263,
+      "evalSummary": {
+        "overallScore": 86,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.933Z",
+        "evaluatedVersion": "1.1.1"
+      }
     },
     {
       "name": "auto-push",
@@ -51,7 +204,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/auto-push",
       "relPath": "skills/auto-push",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1936,
+      "evalSummary": {
+        "overallScore": 89,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.934Z",
+        "evaluatedVersion": "1.0.1"
+      }
     },
     {
       "name": "cli-builder",
@@ -63,7 +267,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/cli-builder",
       "relPath": "skills/cli-builder",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3049,
+      "evalSummary": {
+        "overallScore": 97,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.934Z",
+        "evaluatedVersion": "1.0.2"
+      }
     },
     {
       "name": "code-optimizer",
@@ -75,7 +330,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/code-optimizer",
       "relPath": "skills/code-optimizer",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1691,
+      "evalSummary": {
+        "overallScore": 87,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.935Z",
+        "evaluatedVersion": "1.2.1"
+      }
     },
     {
       "name": "code-review",
@@ -87,7 +393,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/code-review",
       "relPath": "skills/code-review",
-      "verified": false
+      "verified": false,
+      "tokenCount": 3844,
+      "evalSummary": {
+        "overallScore": 91,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.936Z",
+        "evaluatedVersion": "1.1.2"
+      }
     },
     {
       "name": "context-hub",
@@ -99,7 +456,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/context-hub",
       "relPath": "skills/context-hub",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1660,
+      "evalSummary": {
+        "overallScore": 91,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.937Z",
+        "evaluatedVersion": "1.0.1"
+      }
     },
     {
       "name": "devops-pipeline",
@@ -111,7 +519,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/devops-pipeline",
       "relPath": "skills/devops-pipeline",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3175,
+      "evalSummary": {
+        "overallScore": 89,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.938Z",
+        "evaluatedVersion": "2.0.0"
+      }
     },
     {
       "name": "docs-generator",
@@ -123,7 +582,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/docs-generator",
       "relPath": "skills/docs-generator",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1684,
+      "evalSummary": {
+        "overallScore": 93,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.938Z",
+        "evaluatedVersion": "1.2.1"
+      }
     },
     {
       "name": "dont-make-me-think",
@@ -135,7 +645,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/dont-make-me-think",
       "relPath": "skills/dont-make-me-think",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3112,
+      "evalSummary": {
+        "overallScore": 87,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.939Z",
+        "evaluatedVersion": "1.1.1"
+      }
     },
     {
       "name": "drawio-generator",
@@ -147,7 +708,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/drawio-generator",
       "relPath": "skills/drawio-generator",
-      "verified": true
+      "verified": true,
+      "tokenCount": 4077,
+      "evalSummary": {
+        "overallScore": 91,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.940Z",
+        "evaluatedVersion": "1.1.1"
+      }
     },
     {
       "name": "excalidraw-generator",
@@ -159,7 +771,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/excalidraw-generator",
       "relPath": "skills/excalidraw-generator",
-      "verified": true
+      "verified": true,
+      "tokenCount": 5956,
+      "evalSummary": {
+        "overallScore": 91,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.942Z",
+        "evaluatedVersion": "1.2.0"
+      }
     },
     {
       "name": "frontend-design",
@@ -171,7 +834,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/frontend-design",
       "relPath": "skills/frontend-design",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3295,
+      "evalSummary": {
+        "overallScore": 90,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.943Z",
+        "evaluatedVersion": "1.2.1"
+      }
     },
     {
       "name": "github-issue-creator",
@@ -183,7 +897,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/github-issue-creator",
       "relPath": "skills/github-issue-creator",
-      "verified": true
+      "verified": true,
+      "tokenCount": 4284,
+      "evalSummary": {
+        "overallScore": 96,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.944Z",
+        "evaluatedVersion": "1.0.0"
+      }
     },
     {
       "name": "idea-validator",
@@ -195,7 +960,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/idea-validator",
       "relPath": "skills/idea-validator",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3921,
+      "evalSummary": {
+        "overallScore": 94,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.945Z",
+        "evaluatedVersion": "1.3.0"
+      }
     },
     {
       "name": "install-script-generator",
@@ -207,7 +1023,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/install-script-generator",
       "relPath": "skills/install-script-generator",
-      "verified": true
+      "verified": true,
+      "tokenCount": 4301,
+      "evalSummary": {
+        "overallScore": 91,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.946Z",
+        "evaluatedVersion": "2.0.1"
+      }
     },
     {
       "name": "logo-designer",
@@ -219,7 +1086,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/logo-designer",
       "relPath": "skills/logo-designer",
-      "verified": true
+      "verified": true,
+      "tokenCount": 6379,
+      "evalSummary": {
+        "overallScore": 87,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.948Z",
+        "evaluatedVersion": "1.2.0"
+      }
     },
     {
       "name": "name-checker",
@@ -231,7 +1149,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/name-checker",
       "relPath": "skills/name-checker",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3683,
+      "evalSummary": {
+        "overallScore": 91,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.949Z",
+        "evaluatedVersion": "1.1.1"
+      }
     },
     {
       "name": "note-taker",
@@ -243,7 +1212,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/note-taker",
       "relPath": "skills/note-taker",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2641,
+      "evalSummary": {
+        "overallScore": 86,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.950Z",
+        "evaluatedVersion": "1.4.2"
+      }
     },
     {
       "name": "ollama-optimizer",
@@ -255,7 +1275,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/ollama-optimizer",
       "relPath": "skills/ollama-optimizer",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2300,
+      "evalSummary": {
+        "overallScore": 86,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.951Z",
+        "evaluatedVersion": "1.0.2"
+      }
     },
     {
       "name": "opencode-runner",
@@ -267,7 +1338,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/opencode-runner",
       "relPath": "skills/opencode-runner",
-      "verified": true
+      "verified": true,
+      "tokenCount": 5409,
+      "evalSummary": {
+        "overallScore": 91,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.952Z",
+        "evaluatedVersion": "1.2.1"
+      }
     },
     {
       "name": "openspec-task-loop",
@@ -279,7 +1401,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/openspec-task-loop",
       "relPath": "skills/openspec-task-loop",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2646,
+      "evalSummary": {
+        "overallScore": 93,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.953Z",
+        "evaluatedVersion": "1.1.1"
+      }
     },
     {
       "name": "oss-ready",
@@ -291,7 +1464,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/oss-ready",
       "relPath": "skills/oss-ready",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1821,
+      "evalSummary": {
+        "overallScore": 86,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.953Z",
+        "evaluatedVersion": "1.1.1"
+      }
     },
     {
       "name": "prd-generator",
@@ -303,7 +1527,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/prd-generator",
       "relPath": "skills/prd-generator",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2136,
+      "evalSummary": {
+        "overallScore": 86,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.954Z",
+        "evaluatedVersion": "1.2.3"
+      }
     },
     {
       "name": "readme-to-landing-page",
@@ -315,7 +1590,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/readme-to-landing-page",
       "relPath": "skills/readme-to-landing-page",
-      "verified": true
+      "verified": true,
+      "tokenCount": 5201,
+      "evalSummary": {
+        "overallScore": 89,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.955Z",
+        "evaluatedVersion": "2.0.1"
+      }
     },
     {
       "name": "release-manager",
@@ -327,7 +1653,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/release-manager",
       "relPath": "skills/release-manager",
-      "verified": true
+      "verified": true,
+      "tokenCount": 4720,
+      "evalSummary": {
+        "overallScore": 80,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.957Z",
+        "evaluatedVersion": "2.4.0"
+      }
     },
     {
       "name": "seo-ai-optimizer",
@@ -339,7 +1716,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/seo-ai-optimizer",
       "relPath": "skills/seo-ai-optimizer",
-      "verified": true
+      "verified": true,
+      "tokenCount": 4393,
+      "evalSummary": {
+        "overallScore": 94,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.958Z",
+        "evaluatedVersion": "1.1.1"
+      }
     },
     {
       "name": "skill-creator",
@@ -351,7 +1779,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/skill-creator",
       "relPath": "skills/skill-creator",
-      "verified": true
+      "verified": true,
+      "tokenCount": 13818,
+      "evalSummary": {
+        "overallScore": 90,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.961Z",
+        "evaluatedVersion": "1.2.2"
+      }
     },
     {
       "name": "skill-inventory-auditor",
@@ -363,7 +1842,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/skill-inventory-auditor",
       "relPath": "skills/skill-inventory-auditor",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1953,
+      "evalSummary": {
+        "overallScore": 94,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.962Z",
+        "evaluatedVersion": "1.0.1"
+      }
     },
     {
       "name": "slop-code",
@@ -375,7 +1905,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/slop-code",
       "relPath": "skills/slop-code",
-      "verified": true
+      "verified": true,
+      "tokenCount": 4460,
+      "evalSummary": {
+        "overallScore": 87,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.963Z",
+        "evaluatedVersion": "1.0.0"
+      }
     },
     {
       "name": "system-design",
@@ -387,7 +1968,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/system-design",
       "relPath": "skills/system-design",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2514,
+      "evalSummary": {
+        "overallScore": 87,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.963Z",
+        "evaluatedVersion": "1.1.1"
+      }
     },
     {
       "name": "tasks-generator",
@@ -399,7 +2031,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/tasks-generator",
       "relPath": "skills/tasks-generator",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2235,
+      "evalSummary": {
+        "overallScore": 89,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.964Z",
+        "evaluatedVersion": "1.1.1"
+      }
     },
     {
       "name": "test-coverage",
@@ -411,7 +2094,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/test-coverage",
       "relPath": "skills/test-coverage",
-      "verified": true
+      "verified": true,
+      "tokenCount": 1922,
+      "evalSummary": {
+        "overallScore": 89,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.965Z",
+        "evaluatedVersion": "1.2.1"
+      }
     },
     {
       "name": "theme-transformer",
@@ -423,7 +2157,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/theme-transformer",
       "relPath": "skills/theme-transformer",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2164,
+      "evalSummary": {
+        "overallScore": 99,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.965Z",
+        "evaluatedVersion": "1.0.1"
+      }
     },
     {
       "name": "vscode-extension-publisher",
@@ -435,7 +2220,58 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/vscode-extension-publisher",
       "relPath": "skills/vscode-extension-publisher",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2629,
+      "evalSummary": {
+        "overallScore": 89,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:43.966Z",
+        "evaluatedVersion": "1.0.1"
+      }
     }
   ]
 }

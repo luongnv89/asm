@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/Leonxlnx/taste-skill.git",
   "owner": "Leonxlnx",
   "repo": "taste-skill",
-  "updatedAt": "2026-04-20T06:33:09.978Z",
+  "updatedAt": "2026-04-20T07:46:06.449Z",
   "skillCount": 8,
   "skills": [
     {
@@ -15,7 +15,58 @@
       "allowedTools": [],
       "installUrl": "github:Leonxlnx/taste-skill:skills/taste-skill",
       "relPath": "skills/taste-skill",
-      "verified": true
+      "verified": true,
+      "tokenCount": 5705,
+      "evalSummary": {
+        "overallScore": 50,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:46:06.435Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "full-output-enforcement",
@@ -27,7 +78,58 @@
       "allowedTools": [],
       "installUrl": "github:Leonxlnx/taste-skill:skills/output-skill",
       "relPath": "skills/output-skill",
-      "verified": true
+      "verified": true,
+      "tokenCount": 792,
+      "evalSummary": {
+        "overallScore": 57,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 9,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:46:06.435Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "gpt-taste",
@@ -39,7 +141,58 @@
       "allowedTools": [],
       "installUrl": "github:Leonxlnx/taste-skill:skills/gpt-tasteskill",
       "relPath": "skills/gpt-tasteskill",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2213,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:46:06.436Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "high-end-visual-design",
@@ -51,7 +204,58 @@
       "allowedTools": [],
       "installUrl": "github:Leonxlnx/taste-skill:skills/soft-skill",
       "relPath": "skills/soft-skill",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2845,
+      "evalSummary": {
+        "overallScore": 49,
+        "grade": "F",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:46:06.437Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "industrial-brutalist-ui",
@@ -63,7 +267,58 @@
       "allowedTools": [],
       "installUrl": "github:Leonxlnx/taste-skill:skills/brutalist-skill",
       "relPath": "skills/brutalist-skill",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2197,
+      "evalSummary": {
+        "overallScore": 54,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:46:06.438Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "minimalist-ui",
@@ -75,7 +330,58 @@
       "allowedTools": [],
       "installUrl": "github:Leonxlnx/taste-skill:skills/minimalist-skill",
       "relPath": "skills/minimalist-skill",
-      "verified": true
+      "verified": true,
+      "tokenCount": 2138,
+      "evalSummary": {
+        "overallScore": 47,
+        "grade": "F",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:46:06.439Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "redesign-existing-projects",
@@ -87,7 +393,58 @@
       "allowedTools": [],
       "installUrl": "github:Leonxlnx/taste-skill:skills/redesign-skill",
       "relPath": "skills/redesign-skill",
-      "verified": true
+      "verified": true,
+      "tokenCount": 4277,
+      "evalSummary": {
+        "overallScore": 57,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 9,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:46:06.441Z",
+        "evaluatedVersion": "0.0.0"
+      }
     },
     {
       "name": "stitch-design-taste",
@@ -99,7 +456,58 @@
       "allowedTools": [],
       "installUrl": "github:Leonxlnx/taste-skill:skills/stitch-skill",
       "relPath": "skills/stitch-skill",
-      "verified": true
+      "verified": true,
+      "tokenCount": 3169,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:46:06.442Z",
+        "evaluatedVersion": "0.0.0"
+      }
     }
   ]
 }

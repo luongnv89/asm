@@ -482,6 +482,22 @@ a:hover { text-decoration: underline; }
   white-space: nowrap;
 }
 .badge-cat { color: var(--brand-dim); background: var(--badge-cat-bg); }
+.badge-tokens {
+  color: var(--text-dim);
+  background: var(--bg-surface);
+  cursor: help;
+  font-weight: 500;
+}
+.badge-eval {
+  font-weight: 600;
+  cursor: help;
+  letter-spacing: 0.02em;
+}
+.badge-eval.eval-a { color: #4ade80; background: rgba(74, 222, 128, 0.12); }
+.badge-eval.eval-b { color: #38bdf8; background: rgba(56, 189, 248, 0.12); }
+.badge-eval.eval-c { color: #fbbf24; background: rgba(251, 191, 36, 0.14); }
+.badge-eval.eval-d { color: #fb923c; background: rgba(251, 146, 60, 0.14); }
+.badge-eval.eval-f { color: #f87171; background: rgba(248, 113, 113, 0.14); }
 .badge-warn {
   color: var(--yellow);
   background: var(--warn-bg);
@@ -614,6 +630,103 @@ a:hover { text-decoration: underline; }
   font-size: 12px;
 }
 .meta-value { color: var(--text-dim); }
+/* ─── Modal eval block ────────────────────────────────────────────────── */
+.modal-eval {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  background: var(--bg-surface);
+}
+.modal-eval-header {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.eval-overall {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.eval-score {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+.eval-overall.eval-a .eval-score { color: #4ade80; }
+.eval-overall.eval-b .eval-score { color: #38bdf8; }
+.eval-overall.eval-c .eval-score { color: #fbbf24; }
+.eval-overall.eval-d .eval-score { color: #fb923c; }
+.eval-overall.eval-f .eval-score { color: #f87171; }
+.eval-max {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.eval-grade {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.eval-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.eval-categories {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.eval-categories td { padding: 4px 0; vertical-align: middle; }
+.eval-cat-name {
+  color: var(--text-dim);
+  white-space: nowrap;
+  padding-right: 12px;
+}
+.eval-cat-bar { width: 100%; padding-right: 12px; }
+.eval-bar {
+  height: 6px;
+  background: var(--bg-card);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.eval-bar-fill { height: 100%; transition: width 0.2s; }
+.eval-bar-fill.eval-a { background: #4ade80; }
+.eval-bar-fill.eval-b { background: #38bdf8; }
+.eval-bar-fill.eval-c { background: #fbbf24; }
+.eval-bar-fill.eval-d { background: #fb923c; }
+.eval-bar-fill.eval-f { background: #f87171; }
+.eval-cat-score {
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  text-align: right;
+  white-space: nowrap;
+}
+.eval-empty {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.eval-empty code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background: var(--bg-card);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--brand-dim);
+}
 .modal-install {
   background: var(--bg-surface);
   border: 1px solid var(--border);
@@ -1548,6 +1661,28 @@ function getFiltered() {
 }
 
 // ─── Render Grid ───────────────────────────────────────────────────────────
+// Format an estimated token count as "~N tokens" / "~1.2k tokens" / "~12k tokens".
+// Mirrors src/utils/token-count.ts:formatTokenCount so the website + CLI agree.
+function formatTokens(count) {
+  if (typeof count !== 'number' || !isFinite(count) || count < 0) return '~0 tokens';
+  if (count < 1000) return '~' + count + ' tokens';
+  if (count < 10000) {
+    var k = (count / 1000).toFixed(1).replace(/\.0$/, '');
+    return '~' + k + 'k tokens';
+  }
+  return '~' + Math.round(count / 1000) + 'k tokens';
+}
+
+// Pick a CSS class for a 0..100 eval score so the badge color reflects quality.
+function evalScoreClass(score) {
+  if (typeof score !== 'number') return '';
+  if (score >= 90) return 'eval-a';
+  if (score >= 80) return 'eval-b';
+  if (score >= 65) return 'eval-c';
+  if (score >= 50) return 'eval-d';
+  return 'eval-f';
+}
+
 function renderCard(s) {
   const cmd = 'asm install ' + s.installUrl;
   const cats = s.categories.map(c => '<span class="badge badge-cat">' + esc(c) + '</span>').join('');
@@ -1559,6 +1694,15 @@ function renderCard(s) {
   const isVerified = s.verified === true;
   const officialBadge = isOfficial ? '<span class="badge badge-official">official</span>' : '';
   const verifiedBadge = isVerified ? '<span class="badge badge-verified">&#x2713; verified</span>' : '';
+  // Token count badge — labelled with `~` so users know it's an approximation.
+  const tokenBadge = typeof s.tokenCount === 'number'
+    ? '<span class="badge badge-tokens" title="Estimated tokens: words + spaces in SKILL.md (rough approximation)">' + esc(formatTokens(s.tokenCount)) + '</span>'
+    : '';
+  // Eval score badge — overall + grade. Empty state is omitted from the card
+  // to keep things tight; the modal always shows an explicit empty state.
+  const evalBadge = s.evalSummary
+    ? '<span class="badge badge-eval ' + evalScoreClass(s.evalSummary.overallScore) + '" title="asm eval score: ' + esc(s.evalSummary.overallScore + '/100 (' + s.evalSummary.grade + ')') + '">eval ' + esc(s.evalSummary.overallScore + ' ' + s.evalSummary.grade) + '</span>'
+    : '';
   let cardClass = 'skill-card';
   if (isOfficial) cardClass += ' official';
   if (isVerified) cardClass += ' verified';
@@ -1570,7 +1714,7 @@ function renderCard(s) {
     + '</div>'
     + '<p class="skill-desc">' + esc(s.description) + '</p>'
     + '<div class="card-footer">'
-    + '<div class="badge-row">' + officialBadge + verifiedBadge + cats + warn + '</div>'
+    + '<div class="badge-row">' + officialBadge + verifiedBadge + evalBadge + tokenBadge + cats + warn + '</div>'
     + ver
     + '</div>'
     + '<div class="install-bar">'
@@ -1658,15 +1802,48 @@ function openModal(skillId) {
   if (skill.license) meta += '<span class="meta-label">License</span><span class="meta-value">' + esc(skill.license) + '</span>';
   if (skill.creator) meta += '<span class="meta-label">Creator</span><span class="meta-value">' + esc(skill.creator) + '</span>';
   if (skill.compatibility) meta += '<span class="meta-label">Compat</span><span class="meta-value">' + esc(skill.compatibility) + '</span>';
+  if (typeof skill.tokenCount === 'number') meta += '<span class="meta-label" title="Estimated context cost: words + spaces in SKILL.md">Est. Tokens</span><span class="meta-value">' + esc(formatTokens(skill.tokenCount)) + '</span>';
   if (skill.allowedTools && skill.allowedTools.length > 0) meta += '<span class="meta-label">Tools</span><span class="meta-value badge-warn">' + esc(skill.allowedTools.join(', ')) + '</span>';
   meta += '<span class="meta-label">Repo</span><span class="meta-value"><a href="https://github.com/' + esc(skill.owner) + '/' + esc(skill.repo) + '" target="_blank" rel="noopener">' + esc(skill.owner) + '/' + esc(skill.repo) + '</a></span>';
   meta += '<span class="meta-label">Categories</span><span class="meta-value">' + cats + '</span>';
+
+  // Eval section — issue #187. Always rendered with an explicit empty state
+  // so it never reads as "broken or missing".
+  let evalSection = '<div class="modal-eval">';
+  evalSection += '<div class="modal-eval-header">asm eval score</div>';
+  if (skill.evalSummary) {
+    const ev = skill.evalSummary;
+    const scoreClass = evalScoreClass(ev.overallScore);
+    evalSection += '<div class="eval-overall ' + scoreClass + '">'
+      + '<span class="eval-score">' + esc(String(ev.overallScore)) + '<span class="eval-max">/100</span></span>'
+      + '<span class="eval-grade">grade ' + esc(ev.grade) + '</span>'
+      + '</div>';
+    const evDate = ev.evaluatedAt ? new Date(ev.evaluatedAt).toLocaleDateString() : '';
+    const evVer = ev.evaluatedVersion ? ' &middot; v' + esc(ev.evaluatedVersion) : '';
+    evalSection += '<div class="eval-meta">Evaluated ' + esc(evDate) + evVer + '</div>';
+    if (ev.categories && ev.categories.length > 0) {
+      evalSection += '<table class="eval-categories">';
+      for (const c of ev.categories) {
+        const pct = c.max > 0 ? Math.round((c.score / c.max) * 100) : 0;
+        evalSection += '<tr>'
+          + '<td class="eval-cat-name">' + esc(c.name) + '</td>'
+          + '<td class="eval-cat-bar"><div class="eval-bar"><div class="eval-bar-fill ' + evalScoreClass(pct) + '" style="width:' + pct + '%"></div></div></td>'
+          + '<td class="eval-cat-score">' + esc(String(c.score)) + '/' + esc(String(c.max)) + '</td>'
+          + '</tr>';
+      }
+      evalSection += '</table>';
+    }
+  } else {
+    evalSection += '<div class="eval-empty">No <code>asm eval</code> data is available for this skill yet. Run <code>asm eval &lt;skill-path&gt;</code> after installing to generate one.</div>';
+  }
+  evalSection += '</div>';
 
   document.getElementById('modal-content').innerHTML =
     '<div class="modal-name" id="modal-title">' + esc(skill.name) + '</div>'
     + '<div class="modal-repo">' + esc(skill.owner) + '/' + esc(skill.repo) + '</div>'
     + '<div class="modal-desc">' + esc(skill.description) + '</div>'
     + (meta ? '<div class="modal-meta">' + meta + '</div>' : '')
+    + evalSection
     + '<div class="modal-install">'
     + '<code>' + esc(cmd) + '</code>'
     + '<button class="copy-btn" data-cmd="' + esc(cmd) + '" onclick="copyCmd(this)">copy</button>'

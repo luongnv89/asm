@@ -11,7 +11,14 @@ import { getIndexDir } from "./config";
 import { loadAllIndices } from "./skill-index";
 import { debug } from "./logger";
 import { verifySkill } from "./verifier";
-import type { RepoIndex, IndexedSkill, ParsedSource } from "./utils/types";
+import { estimateTokenCount } from "./utils/token-count";
+import { evaluateSkillContent } from "./evaluator";
+import type {
+  RepoIndex,
+  IndexedSkill,
+  ParsedSource,
+  SkillEvalSummary,
+} from "./utils/types";
 
 export interface IngestResult {
   success: boolean;
@@ -73,6 +80,47 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
         );
       }
 
+      // Token count: prefer the value populated during discovery; recompute
+      // here as a safe fallback when discovery did not set it (e.g., older
+      // discovery code paths in tests).
+      const tokenCount =
+        typeof skill.tokenCount === "number"
+          ? skill.tokenCount
+          : skillMdContent
+            ? estimateTokenCount(skillMdContent)
+            : undefined;
+
+      // Eval summary — captured at index time so the website + TUI + CLI
+      // inspect surfaces can show "what would I be installing" before the
+      // user runs `asm install`. We intentionally drop findings/suggestions
+      // from the catalog payload to keep catalog.json small.
+      let evalSummary: SkillEvalSummary | undefined;
+      if (skillMdContent) {
+        try {
+          const report = evaluateSkillContent({
+            content: skillMdContent,
+            skillPath: skill.relPath || skill.name,
+            skillMdPath,
+          });
+          evalSummary = {
+            overallScore: report.overallScore,
+            grade: report.grade,
+            categories: report.categories.map((c) => ({
+              id: c.id,
+              name: c.name,
+              score: c.score,
+              max: c.max,
+            })),
+            evaluatedAt: report.evaluatedAt,
+            evaluatedVersion: skill.version || undefined,
+          };
+        } catch (err) {
+          // Eval is best-effort during indexing — never fail the whole
+          // ingest because one skill produced a malformed evaluator result.
+          debug(`ingester: eval failed for ${skill.name}: ${err}`);
+        }
+      }
+
       skills.push({
         name: skill.name,
         description: skill.description,
@@ -84,6 +132,8 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
         installUrl: `github:${source.owner}/${source.repo}${source.ref ? `#${source.ref}` : ""}${skill.relPath ? `:${skill.relPath}` : ""}`,
         relPath: skill.relPath,
         verified: verification.verified,
+        tokenCount,
+        evalSummary,
       });
     }
 

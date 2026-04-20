@@ -1,5 +1,6 @@
 import type { SkillInfo } from "./utils/types";
 import { countFiles } from "./scanner";
+import { formatTokenCount } from "./utils/token-count";
 
 // ─── Color helpers ──────────────────────────────────────────────────────────
 
@@ -150,6 +151,7 @@ interface GroupedSkill {
   version: string;
   creator: string;
   effort: string;
+  tokens: string;
   providers: Array<{ provider: string; label: string }>;
   scope: "global" | "project" | "mixed";
   type: "symlink" | "directory" | "mixed";
@@ -180,6 +182,10 @@ function groupSkills(skills: SkillInfo[]): GroupedSkill[] {
       version: ref.version,
       creator: ref.creator || "",
       effort: ref.effort || "",
+      tokens:
+        typeof ref.tokenCount === "number"
+          ? formatTokenCount(ref.tokenCount)
+          : "",
       providers: members.map((m) => ({
         provider: m.provider,
         label: m.providerLabel,
@@ -216,6 +222,12 @@ export function formatGroupedTable(skills: SkillInfo[]): string {
     6,
     ...grouped.map((g) => (g.effort || "\u2014").length),
   );
+  // Tokens column — render `~N tokens` directly (e.g. "~1.2k tokens").
+  // Width follows the longest cell; header label fallback `Tokens` is 6.
+  const hasAnyTokens = grouped.some((g) => g.tokens.length > 0);
+  const tokensW = hasAnyTokens
+    ? Math.max(6, ...grouped.map((g) => (g.tokens || "\u2014").length))
+    : 0;
   const scopeW = 7; // "project" is longest
   const typeW = 9; // "directory" is longest
 
@@ -231,10 +243,12 @@ export function formatGroupedTable(skills: SkillInfo[]): string {
   const pad = (s: string, w: number) => s.padEnd(w);
 
   // Header
-  const header = `${pad("Name", nameW)}  ${pad("Version", versionW)}  ${pad("Creator", creatorW)}  ${pad("Effort", effortW)}  ${pad("Tools", providerW)}  ${pad("Scope", scopeW)}  ${pad("Type", typeW)}`;
+  const tokensHeader = hasAnyTokens ? `  ${pad("Tokens", tokensW)}` : "";
+  const header = `${pad("Name", nameW)}  ${pad("Version", versionW)}  ${pad("Creator", creatorW)}  ${pad("Effort", effortW)}${tokensHeader}  ${pad("Tools", providerW)}  ${pad("Scope", scopeW)}  ${pad("Type", typeW)}`;
   lines.push(useColor() ? ansi.bold(header) : header);
+  const tokensSep = hasAnyTokens ? `  ${"-".repeat(tokensW)}` : "";
   lines.push(
-    `${"-".repeat(nameW)}  ${"-".repeat(versionW)}  ${"-".repeat(creatorW)}  ${"-".repeat(effortW)}  ${"-".repeat(providerW)}  ${"-".repeat(scopeW)}  ${"-".repeat(typeW)}`,
+    `${"-".repeat(nameW)}  ${"-".repeat(versionW)}  ${"-".repeat(creatorW)}  ${"-".repeat(effortW)}${tokensSep}  ${"-".repeat(providerW)}  ${"-".repeat(scopeW)}  ${"-".repeat(typeW)}`,
   );
 
   // Data rows
@@ -248,6 +262,9 @@ export function formatGroupedTable(skills: SkillInfo[]): string {
     const effortColored = g.effort ? colorEffort(g.effort) : "\u2014";
     const effortPad = effortW - effortPlain.length;
     const effort = effortColored + " ".repeat(Math.max(0, effortPad));
+    const tokensCell = hasAnyTokens
+      ? `  ${pad(g.tokens || "\u2014", tokensW)}`
+      : "";
     // Provider badges have ANSI codes, so we pad based on plain text width
     const provPadding = providerW - providerPlain[i].length;
     const prov = providerStrs[i] + " ".repeat(Math.max(0, provPadding));
@@ -259,7 +276,7 @@ export function formatGroupedTable(skills: SkillInfo[]): string {
         : "";
 
     lines.push(
-      `${name}  ${version}  ${creator}  ${effort}  ${prov}  ${scope}  ${type}${warn}`,
+      `${name}  ${version}  ${creator}  ${effort}${tokensCell}  ${prov}  ${scope}  ${type}${warn}`,
     );
   }
 
@@ -476,6 +493,9 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
   }
   const fileCount = skill.fileCount ?? (await countFiles(skill.path));
   lines.push(label("File Count", String(fileCount)));
+  if (typeof skill.tokenCount === "number") {
+    lines.push(label("Est. Tokens", formatTokenCount(skill.tokenCount)));
+  }
   if (skill.description) {
     lines.push("");
     lines.push(label("Description", skill.description));
@@ -491,6 +511,41 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
     }
   }
 
+  // Eval summary section — fulfills issue #187 acceptance criteria.
+  // Show empty state explicitly when not available so it never reads as
+  // "broken or missing".
+  lines.push("");
+  lines.push(useColor() ? ansi.bold("Eval Score:") : "Eval Score:");
+  if (skill.evalSummary) {
+    const ev = skill.evalSummary;
+    const overallColored = colorEvalScore(ev.overallScore);
+    lines.push(`  Overall: ${overallColored} / 100  (${ev.grade})`);
+    const evVer = ev.evaluatedVersion
+      ? ` — version ${ev.evaluatedVersion}`
+      : "";
+    lines.push(
+      `  ${useColor() ? ansi.dim("Evaluated:") : "Evaluated:"} ${ev.evaluatedAt}${evVer}`,
+    );
+    if (ev.categories.length > 0) {
+      lines.push(useColor() ? ansi.dim("  Categories:") : "  Categories:");
+      for (const c of ev.categories) {
+        lines.push(`    ${c.name.padEnd(28)} ${c.score}/${c.max}`);
+      }
+    }
+  } else {
+    lines.push(
+      useColor()
+        ? ansi.dim(
+            "  Not available — run `asm eval " +
+              skill.path +
+              "` to generate one.",
+          )
+        : "  Not available — run `asm eval " +
+            skill.path +
+            "` to generate one.",
+    );
+  }
+
   if (skill.warnings && skill.warnings.length > 0) {
     lines.push("");
     lines.push(useColor() ? ansi.bold("Warnings:") : "Warnings:");
@@ -502,6 +557,19 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
   }
 
   return lines.join("\n");
+}
+
+/**
+ * Color an `asm eval` overall score (0..100) by quality tier.
+ *   90+ green, 80+ cyan, 65+ yellow, else red.
+ */
+export function colorEvalScore(score: number): string {
+  const txt = String(score);
+  if (!useColor()) return txt;
+  if (score >= 90) return ansi.green(txt);
+  if (score >= 80) return ansi.cyan(txt);
+  if (score >= 65) return ansi.yellow(txt);
+  return ansi.red(txt);
 }
 
 // ─── Multi-instance detail formatter ────────────────────────────────────────
@@ -539,12 +607,43 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
 
   const fileCount = ref.fileCount ?? (await countFiles(ref.path));
   lines.push(label("  File Count", String(fileCount)));
+  if (typeof ref.tokenCount === "number") {
+    lines.push(label("  Est. Tokens", formatTokenCount(ref.tokenCount)));
+  }
 
   // Provider badges
   const badges = skills
     .map((s) => providerBadge(s.provider, s.providerLabel))
     .join(" ");
   lines.push(label("  Installed in", badges));
+
+  // Eval summary block
+  lines.push("");
+  lines.push(useColor() ? ansi.bold("  Eval Score:") : "  Eval Score:");
+  if (ref.evalSummary) {
+    const ev = ref.evalSummary;
+    const overallColored = colorEvalScore(ev.overallScore);
+    lines.push(`    Overall: ${overallColored} / 100  (${ev.grade})`);
+    const evVer = ev.evaluatedVersion
+      ? ` — version ${ev.evaluatedVersion}`
+      : "";
+    lines.push(
+      `    ${useColor() ? ansi.dim("Evaluated:") : "Evaluated:"} ${ev.evaluatedAt}${evVer}`,
+    );
+    if (ev.categories.length > 0) {
+      for (const c of ev.categories) {
+        lines.push(`      ${c.name.padEnd(28)} ${c.score}/${c.max}`);
+      }
+    }
+  } else {
+    lines.push(
+      useColor()
+        ? ansi.dim(
+            `    Not available — run \`asm eval ${ref.path}\` to generate one.`,
+          )
+        : `    Not available — run \`asm eval ${ref.path}\` to generate one.`,
+    );
+  }
 
   // ── Description ──
   if (ref.description) {

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/kemiljk/fluid-design.git",
   "owner": "kemiljk",
   "repo": "fluid-design",
-  "updatedAt": "2026-04-20T06:33:15.790Z",
+  "updatedAt": "2026-04-20T07:44:45.883Z",
   "skillCount": 1,
   "skills": [
     {
@@ -15,7 +15,58 @@
       "allowedTools": [],
       "installUrl": "github:kemiljk/fluid-design:skills/fluid-design",
       "relPath": "skills/fluid-design",
-      "verified": true
+      "verified": true,
+      "tokenCount": 6596,
+      "evalSummary": {
+        "overallScore": 51,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-04-20T07:44:45.879Z",
+        "evaluatedVersion": "0.0.0"
+      }
     }
   ]
 }
