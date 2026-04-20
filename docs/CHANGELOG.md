@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.2.0] - 2026-04-20
+
+### Added
+
+- Show estimated token count and `asm eval` scores on every consumer surface — website cards/modal, TUI list/detail, and CLI inspect. Token count uses a `words + spaces` heuristic labelled with `~`; eval scores include overall score, letter grade, per-category breakdown, and an explicit empty state pointing to `asm eval <skill>` when data is missing. Catalog payload is the single source of truth, so all 3,140 indexed skills carry both signals (#191, closes #187 and #188)
+
+### Changed
+
+- Refresh the website Documentation page with the full `asm` command reference — adds 6 missing commands (`import`, `outdated`, `update`, `doctor`, `bundle`, `config path`), expands global-options and install-flags tables, and adds per-command sections with flags and runnable examples (#190, closes #189)
+
 ## [2.1.0] - 2026-04-20
 
 ### Added

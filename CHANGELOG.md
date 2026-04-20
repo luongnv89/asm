@@ -1,5 +1,17 @@
 # Changelog
 
+## v2.2.0 — 2026-04-20
+
+### Features
+
+- Show estimated token count and `asm eval` scores on every consumer surface — website cards/modal, TUI list/detail, and CLI inspect. Token count uses a `words + spaces` heuristic labelled with `~`; eval scores include overall score, letter grade, per-category breakdown, and an explicit empty state pointing to `asm eval <skill>` when data is missing. Catalog payload is the single source of truth, so all 3,140 indexed skills carry both signals ([#191](https://github.com/luongnv89/agent-skill-manager/pull/191), closes [#187](https://github.com/luongnv89/agent-skill-manager/issues/187), [#188](https://github.com/luongnv89/agent-skill-manager/issues/188)) — @luongnv89
+
+### Documentation
+
+- Refresh the website Documentation page with the full `asm` command reference — adds 6 missing commands (`import`, `outdated`, `update`, `doctor`, `bundle`, `config path`), expands global-options and install-flags tables, and adds per-command sections with flags and runnable examples for `list`, `search`, `inspect`, `audit`, `uninstall`, `stats`, `doctor`, `bundle`, `index`, `outdated`/`update`, `export`/`import`, and `config` ([#190](https://github.com/luongnv89/agent-skill-manager/pull/190), closes [#189](https://github.com/luongnv89/agent-skill-manager/issues/189)) — @luongnv89
+
+**Full Changelog**: https://github.com/luongnv89/agent-skill-manager/compare/v2.1.0...v2.2.0
+
 ## v2.1.0 — 2026-04-20
 
 ### Features
