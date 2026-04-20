@@ -2,9 +2,21 @@
   "repoUrl": "https://github.com/mattpocock/skills.git",
   "owner": "mattpocock",
   "repo": "skills",
-  "updatedAt": "2026-03-27T23:21:31.694Z",
-  "skillCount": 18,
+  "updatedAt": "2026-04-20T05:58:08.185Z",
+  "skillCount": 21,
   "skills": [
+    {
+      "name": "caveman",
+      "description": "Ultra-compressed communication mode. Cuts token usage ~75% by dropping filler, articles, and pleasantries while keeping full technical accuracy. Use when user says \"caveman mode\", \"talk like caveman\", \"use caveman\", \"less tokens\", \"be brief\", or invokes /caveman.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:mattpocock/skills:caveman",
+      "relPath": "caveman",
+      "verified": true
+    },
     {
       "name": "design-an-interface",
       "description": "Generate multiple radically different interface designs for a module using parallel sub-agents. Use when user wants to design an API, explore interface options, compare module shapes, or mentions \"design it twice\".",
@@ -15,6 +27,18 @@
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:design-an-interface",
       "relPath": "design-an-interface",
+      "verified": true
+    },
+    {
+      "name": "domain-model",
+      "description": "Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates documentation (CONTEXT.md, ADRs) inline as decisions crystallise. Use when user wants to stress-test a plan against their project's language and documented decisions.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:mattpocock/skills:domain-model",
+      "relPath": "domain-model",
       "verified": true
     },
     {
@@ -39,6 +63,18 @@
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:git-guardrails-claude-code",
       "relPath": "git-guardrails-claude-code",
+      "verified": true
+    },
+    {
+      "name": "github-triage",
+      "description": "Triage GitHub issues through a label-based state machine with interactive grilling sessions. Use when user wants to triage issues, review incoming bugs or feature requests, prepare issues for an AFK agent, or manage issue workflow.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:mattpocock/skills:github-triage",
+      "relPath": "github-triage",
       "verified": true
     },
     {
@@ -87,30 +123,6 @@
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:obsidian-vault",
       "relPath": "obsidian-vault",
-      "verified": true
-    },
-    {
-      "name": "prd-to-issues",
-      "description": "Break a PRD into independently-grabbable GitHub issues using tracer-bullet vertical slices. Use when user wants to convert a PRD to issues, create implementation tickets, or break down a PRD into work items.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:mattpocock/skills:prd-to-issues",
-      "relPath": "prd-to-issues",
-      "verified": true
-    },
-    {
-      "name": "prd-to-plan",
-      "description": "Turn a PRD into a multi-phase implementation plan using tracer-bullet vertical slices, saved as a local Markdown file in ./plans/. Use when user wants to break down a PRD, create an implementation plan, plan phases from a PRD, or mentions \"tracer bullets\".",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:mattpocock/skills:prd-to-plan",
-      "relPath": "prd-to-plan",
       "verified": true
     },
     {
@@ -174,6 +186,30 @@
       "verified": true
     },
     {
+      "name": "to-issues",
+      "description": "Break a plan, spec, or PRD into independently-grabbable GitHub issues using tracer-bullet vertical slices. Use when user wants to convert a plan into issues, create implementation tickets, or break down work into issues.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:mattpocock/skills:to-issues",
+      "relPath": "to-issues",
+      "verified": true
+    },
+    {
+      "name": "to-prd",
+      "description": "Turn the current conversation context into a PRD and submit it as a GitHub issue. Use when user wants to create a PRD from the current context.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:mattpocock/skills:to-prd",
+      "relPath": "to-prd",
+      "verified": true
+    },
+    {
       "name": "triage-issue",
       "description": "Triage a bug or issue by exploring the codebase to find root cause, then create a GitHub issue with a TDD-based fix plan. Use when user reports a bug, wants to file an issue, mentions \"triage\", or wants to investigate and plan a fix for a problem.",
       "version": "0.0.0",
@@ -198,18 +234,6 @@
       "verified": true
     },
     {
-      "name": "write-a-prd",
-      "description": "Create a PRD through user interview, codebase exploration, and module design, then submit as a GitHub issue. Use when user wants to write a PRD, create a product requirements document, or plan a new feature.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:mattpocock/skills:write-a-prd",
-      "relPath": "write-a-prd",
-      "verified": true
-    },
-    {
       "name": "write-a-skill",
       "description": "Create new agent skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill.",
       "version": "0.0.0",
@@ -219,6 +243,18 @@
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:write-a-skill",
       "relPath": "write-a-skill",
+      "verified": true
+    },
+    {
+      "name": "zoom-out",
+      "description": "Tell the agent to zoom out and give broader context or a higher-level perspective. Use when you're unfamiliar with a section of code or need to understand how it fits into the bigger picture.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:mattpocock/skills:zoom-out",
+      "relPath": "zoom-out",
       "verified": true
     }
   ]
