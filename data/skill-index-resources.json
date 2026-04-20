@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-28T00:00:00Z",
+  "updatedAt": "2026-04-20T00:00:00Z",
   "repos": [
     {
       "source": "github:anthropics/skills",
@@ -215,6 +215,15 @@
       "repo": "academic-research-skills",
       "description": "Academic and research-oriented workflow skills for students and researchers",
       "maintainer": "@Imbad0202",
+      "enabled": true
+    },
+    {
+      "source": "github:heygen-com/hyperframes",
+      "url": "https://github.com/heygen-com/hyperframes",
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "description": "Write HTML. Render video. Built for agents.",
+      "maintainer": "@heygen-com",
       "enabled": true
     }
   ]
