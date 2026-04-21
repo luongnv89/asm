@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "name": "content-writing",
+  "description": "Content creation and marketing skills: blog drafting, social media posts, Reddit writing, and SEO optimization.",
+  "author": "ASM",
+  "createdAt": "2025-01-01T00:00:00.000Z",
+  "tags": ["content", "marketing", "social-media", "seo"],
+  "skills": [
+    {
+      "name": "blog-draft",
+      "installUrl": "github:luongnv89/skills:skills/blog-draft",
+      "description": "Draft SEO-optimized blog posts from ideas or outlines"
+    },
+    {
+      "name": "x-post-generator",
+      "installUrl": "github:luongnv89/skills:skills/x-post-generator",
+      "description": "Generate copy-paste-ready X (Twitter) posts"
+    },
+    {
+      "name": "reddit-writer",
+      "installUrl": "github:luongnv89/skills:skills/reddit-writer",
+      "description": "Generate authentic Reddit posts and replies"
+    },
+    {
+      "name": "seo-ai-optimizer",
+      "installUrl": "github:luongnv89/skills:skills/seo-ai-optimizer",
+      "description": "Audit and optimize website codebases for search engine visibility"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "name": "ios-release",
+  "description": "iOS app release workflow: release management, App Store review checks, release notes, and VS Code extension publishing.",
+  "author": "ASM",
+  "createdAt": "2025-01-01T00:00:00.000Z",
+  "tags": ["ios", "mobile", "release", "appstore"],
+  "skills": [
+    {
+      "name": "release-manager",
+      "installUrl": "github:luongnv89/skills:skills/release-manager",
+      "description": "Automate the full release lifecycle"
+    },
+    {
+      "name": "appstore-review-checker",
+      "installUrl": "github:luongnv89/skills:skills/appstore-review-checker",
+      "description": "Audit iOS/macOS app projects against App Store Review Guidelines"
+    },
+    {
+      "name": "release-notes",
+      "installUrl": "github:luongnv89/skills:skills/release-notes",
+      "description": "Generate release notes from git commits and GitHub PRs/issues"
+    },
+    {
+      "name": "vscode-extension-publisher",
+      "installUrl": "github:luongnv89/skills:skills/vscode-extension-publisher",
+      "description": "Publish VS Code extensions to the Visual Studio Marketplace"
+    }
+  ]
+}

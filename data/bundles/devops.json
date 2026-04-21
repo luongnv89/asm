@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "name": "devops",
+  "description": "DevOps workflow skills: CI/CD pipeline setup, release management, code review, and security review.",
+  "author": "ASM",
+  "createdAt": "2025-01-01T00:00:00.000Z",
+  "tags": ["devops", "ci-cd", "release", "security"],
+  "skills": [
+    {
+      "name": "devops-pipeline",
+      "installUrl": "github:luongnv89/skills:skills/devops-pipeline",
+      "description": "Implement pre-commit hooks and lean GitHub Actions CI/CD pipelines"
+    },
+    {
+      "name": "release-manager",
+      "installUrl": "github:luongnv89/skills:skills/release-manager",
+      "description": "Automate the full release lifecycle"
+    },
+    {
+      "name": "code-review",
+      "installUrl": "github:luongnv89/skills:skills/code-review",
+      "description": "Review code changes for bugs, security issues, and best practices"
+    },
+    {
+      "name": "security-review",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/security-review",
+      "description": "Complete a security review of the codebase"
+    }
+  ]
+}
