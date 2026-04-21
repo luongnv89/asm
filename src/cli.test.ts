@@ -3475,27 +3475,21 @@ version: 1.0.0
 ---
 # Modify Test Skill
 `;
-    await mkdir(join(tmpSkillDir, "skills", "modify-test-skill"), {
-      recursive: true,
-    });
-    await writeFile(
-      join(tmpSkillDir, "skills", "modify-test-skill", "SKILL.md"),
-      skillMd,
-    );
-    // Install the skill
-    await runCLI(
+    await writeFile(join(tmpSkillDir, "SKILL.md"), skillMd);
+    // Install the skill (place SKILL.md at root, no --subpath, matches CI-compatible pattern)
+    const installResult = await runCLI(
       "install",
       tmpSkillDir,
-      "--subpath",
-      "skills/modify-test-skill",
       "--yes",
       "--tool",
       "claude",
     );
+    expect(installResult.exitCode).toBe(0);
 
     // Create a bundle using the install
     const bundleName = "__test-modify-bundle__";
-    await runCLI("bundle", "create", bundleName, "--yes");
+    const createResult = await runCLI("bundle", "create", bundleName, "--yes");
+    expect(createResult.exitCode).toBe(0);
 
     try {
       const { stderr, exitCode } = await runCLI(
@@ -3539,24 +3533,20 @@ version: 1.0.0
 ---
 # rm-skill-a
 `;
-    await mkdir(join(tmpSkillDir, "skills", "rm-skill-a"), { recursive: true });
-    await writeFile(
-      join(tmpSkillDir, "skills", "rm-skill-a", "SKILL.md"),
-      skillMd,
-    );
+    await writeFile(join(tmpSkillDir, "SKILL.md"), skillMd);
 
-    await runCLI(
+    const installResult = await runCLI(
       "install",
       tmpSkillDir,
-      "--subpath",
-      "skills/rm-skill-a",
       "--yes",
       "--tool",
       "claude",
     );
+    expect(installResult.exitCode).toBe(0);
 
     const bundleName = "__test-remove-skill-bundle__";
-    await runCLI("bundle", "create", bundleName, "--yes");
+    const createResult = await runCLI("bundle", "create", bundleName, "--yes");
+    expect(createResult.exitCode).toBe(0);
 
     try {
       const { stderr, exitCode } = await runCLI(
@@ -3586,25 +3576,19 @@ version: 1.0.0
 ---
 # rm-only-skill
 `;
-    await mkdir(join(tmpSkillDir, "skills", "rm-only-skill"), {
-      recursive: true,
-    });
-    await writeFile(
-      join(tmpSkillDir, "skills", "rm-only-skill", "SKILL.md"),
-      skillMd,
-    );
-    await runCLI(
+    await writeFile(join(tmpSkillDir, "SKILL.md"), skillMd);
+    const installResult = await runCLI(
       "install",
       tmpSkillDir,
-      "--subpath",
-      "skills/rm-only-skill",
       "--yes",
       "--tool",
       "claude",
     );
+    expect(installResult.exitCode).toBe(0);
 
     const bundleName = "__test-remove-only-bundle__";
-    await runCLI("bundle", "create", bundleName, "--yes");
+    const createResult = await runCLI("bundle", "create", bundleName, "--yes");
+    expect(createResult.exitCode).toBe(0);
 
     // Verify the bundle was created and contains the skill
     const { stdout: showOut } = await runCLI(
@@ -3677,26 +3661,20 @@ version: 1.0.0
 ---
 # Export Test Skill
 `;
-    await mkdir(join(tmpSkillDir, "skills", "export-test-skill"), {
-      recursive: true,
-    });
-    await writeFile(
-      join(tmpSkillDir, "skills", "export-test-skill", "SKILL.md"),
-      skillMd,
-    );
+    await writeFile(join(tmpSkillDir, "SKILL.md"), skillMd);
 
-    await runCLI(
+    const installResult = await runCLI(
       "install",
       tmpSkillDir,
-      "--subpath",
-      "skills/export-test-skill",
       "--yes",
       "--tool",
       "claude",
     );
+    expect(installResult.exitCode).toBe(0);
 
     const bundleName = "__test-export-bundle__";
-    await runCLI("bundle", "create", bundleName, "--yes");
+    const createResult = await runCLI("bundle", "create", bundleName, "--yes");
+    expect(createResult.exitCode).toBe(0);
 
     const outputDir = await mkdtemp(join(tmpdir(), "cli-bundle-export-out-"));
     const outputFile = join(outputDir, "exported.json");
@@ -3735,26 +3713,20 @@ version: 1.0.0
 ---
 # Export Default Skill
 `;
-    await mkdir(join(tmpSkillDir, "skills", "export-default-skill"), {
-      recursive: true,
-    });
-    await writeFile(
-      join(tmpSkillDir, "skills", "export-default-skill", "SKILL.md"),
-      skillMd,
-    );
+    await writeFile(join(tmpSkillDir, "SKILL.md"), skillMd);
 
-    await runCLI(
+    const installResult = await runCLI(
       "install",
       tmpSkillDir,
-      "--subpath",
-      "skills/export-default-skill",
       "--yes",
       "--tool",
       "claude",
     );
+    expect(installResult.exitCode).toBe(0);
 
     const bundleName = "__test-export-default-bundle__";
-    await runCLI("bundle", "create", bundleName, "--yes");
+    const createResult = await runCLI("bundle", "create", bundleName, "--yes");
+    expect(createResult.exitCode).toBe(0);
 
     try {
       const { stderr, exitCode } = await runCLI(
@@ -3788,26 +3760,20 @@ version: 1.0.0
 ---
 # Export No-Overwrite Skill
 `;
-    await mkdir(join(tmpSkillDir, "skills", "export-nooverwrite-skill"), {
-      recursive: true,
-    });
-    await writeFile(
-      join(tmpSkillDir, "skills", "export-nooverwrite-skill", "SKILL.md"),
-      skillMd,
-    );
+    await writeFile(join(tmpSkillDir, "SKILL.md"), skillMd);
 
-    await runCLI(
+    const installResult = await runCLI(
       "install",
       tmpSkillDir,
-      "--subpath",
-      "skills/export-nooverwrite-skill",
       "--yes",
       "--tool",
       "claude",
     );
+    expect(installResult.exitCode).toBe(0);
 
     const bundleName = "__test-export-nooverwrite-bundle__";
-    await runCLI("bundle", "create", bundleName, "--yes");
+    const createResult = await runCLI("bundle", "create", bundleName, "--yes");
+    expect(createResult.exitCode).toBe(0);
 
     const outputDir = await mkdtemp(join(tmpdir(), "cli-bundle-noover-out-"));
     const outputFile = join(outputDir, "existing.json");
@@ -3846,26 +3812,20 @@ version: 1.0.0
 ---
 # Export Force Skill
 `;
-    await mkdir(join(tmpSkillDir, "skills", "export-force-skill"), {
-      recursive: true,
-    });
-    await writeFile(
-      join(tmpSkillDir, "skills", "export-force-skill", "SKILL.md"),
-      skillMd,
-    );
+    await writeFile(join(tmpSkillDir, "SKILL.md"), skillMd);
 
-    await runCLI(
+    const installResult = await runCLI(
       "install",
       tmpSkillDir,
-      "--subpath",
-      "skills/export-force-skill",
       "--yes",
       "--tool",
       "claude",
     );
+    expect(installResult.exitCode).toBe(0);
 
     const bundleName = "__test-export-force-bundle__";
-    await runCLI("bundle", "create", bundleName, "--yes");
+    const createResult = await runCLI("bundle", "create", bundleName, "--yes");
+    expect(createResult.exitCode).toBe(0);
 
     const outputDir = await mkdtemp(join(tmpdir(), "cli-bundle-force-out-"));
     const outputFile = join(outputDir, "force-out.json");
@@ -3906,26 +3866,20 @@ version: 1.0.0
 ---
 # Export JSON Skill
 `;
-    await mkdir(join(tmpSkillDir, "skills", "export-json-skill"), {
-      recursive: true,
-    });
-    await writeFile(
-      join(tmpSkillDir, "skills", "export-json-skill", "SKILL.md"),
-      skillMd,
-    );
+    await writeFile(join(tmpSkillDir, "SKILL.md"), skillMd);
 
-    await runCLI(
+    const installResult = await runCLI(
       "install",
       tmpSkillDir,
-      "--subpath",
-      "skills/export-json-skill",
       "--yes",
       "--tool",
       "claude",
     );
+    expect(installResult.exitCode).toBe(0);
 
     const bundleName = "__test-export-json-bundle__";
-    await runCLI("bundle", "create", bundleName, "--yes");
+    const createResult = await runCLI("bundle", "create", bundleName, "--yes");
+    expect(createResult.exitCode).toBe(0);
 
     const outputDir = await mkdtemp(join(tmpdir(), "cli-bundle-json-out-"));
     const outputFile = join(outputDir, "json-out.json");
