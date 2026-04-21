@@ -1,6 +1,7 @@
 import { readFile, writeFile, readdir, access, mkdir, rm } from "fs/promises";
-import { join, resolve } from "path";
+import { join, resolve, dirname } from "path";
 import { homedir } from "os";
+import { fileURLToPath } from "url";
 import { debug } from "./logger";
 import { readLock } from "./utils/lock";
 import type {
@@ -12,7 +13,17 @@ import type {
 
 // ─── Constants ─────────────────────────────────────────────────────────────
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const BUNDLE_DIR = join(homedir(), ".config", "agent-skill-manager", "bundles");
+
+/**
+ * Path to the shipped (predefined) bundles directory bundled with ASM.
+ * In dev (src/): __dirname is src/, data/bundles/ is at ../data/bundles/
+ * In dist/ build: __dirname is dist/, data/bundles/ is at ../data/bundles/
+ */
+const PREDEFINED_BUNDLE_DIR = resolve(__dirname, "..", "data", "bundles");
 
 // ─── Validation ────────────────────────────────────────────────────────────
 
@@ -203,6 +214,8 @@ export async function readBundleFile(
 
 /**
  * Load a bundle by name (looks in the bundles directory) or by file path.
+ * Falls back to the shipped predefined bundles in data/bundles/ when the
+ * name is not found in the user bundles directory.
  */
 export async function loadBundle(nameOrPath: string): Promise<BundleManifest> {
   // If it looks like a file path (has extension or path separator), read directly
@@ -215,10 +228,61 @@ export async function loadBundle(nameOrPath: string): Promise<BundleManifest> {
     return readBundleFile(absPath);
   }
 
-  // Otherwise, look in the bundles directory
+  // Look in the user bundles directory first
   const filename = `${sanitizeBundleName(nameOrPath)}.json`;
   const filePath = join(BUNDLE_DIR, filename);
-  return readBundleFile(filePath);
+
+  try {
+    return await readBundleFile(filePath);
+  } catch (err: any) {
+    // If not found in user dir, fall back to predefined (shipped) bundles
+    if (err?.message?.includes("Bundle file not found")) {
+      const predefinedPath = join(PREDEFINED_BUNDLE_DIR, filename);
+      try {
+        return await readBundleFile(predefinedPath);
+      } catch (predefinedErr: any) {
+        if (predefinedErr?.message?.includes("Bundle file not found")) {
+          throw new Error(`Bundle file not found: ${filePath}`);
+        }
+        throw predefinedErr;
+      }
+    }
+    throw err;
+  }
+}
+
+/**
+ * List all pre-defined (shipped) bundles from the data/bundles/ directory.
+ */
+export async function listPredefinedBundles(): Promise<BundleManifest[]> {
+  const bundles: BundleManifest[] = [];
+
+  try {
+    await access(PREDEFINED_BUNDLE_DIR);
+  } catch {
+    return bundles;
+  }
+
+  let entries: string[];
+  try {
+    entries = await readdir(PREDEFINED_BUNDLE_DIR);
+  } catch {
+    return bundles;
+  }
+
+  for (const entry of entries) {
+    if (!entry.endsWith(".json")) continue;
+    const filePath = join(PREDEFINED_BUNDLE_DIR, entry);
+    try {
+      const bundle = await readBundleFile(filePath);
+      bundles.push(bundle);
+    } catch {
+      debug(`bundle: skipping invalid predefined file ${filePath}`);
+    }
+  }
+
+  bundles.sort((a, b) => a.name.localeCompare(b.name));
+  return bundles;
 }
 
 /**

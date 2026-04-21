@@ -1,6 +1,7 @@
 import { describe, expect, it, beforeEach, afterEach } from "bun:test";
 import { mkdtemp, writeFile, mkdir, readdir, rm, readFile } from "fs/promises";
-import { join } from "path";
+import { join, resolve, dirname } from "path";
+import { fileURLToPath } from "url";
 import { tmpdir } from "os";
 import {
   validateBundle,
@@ -10,11 +11,16 @@ import {
   readBundleFile,
   loadBundle,
   listBundles,
+  listPredefinedBundles,
   removeBundle,
   getBundleDir,
   ensureBundleDir,
 } from "./bundler";
 import type { BundleManifest, BundleSkillRef, SkillInfo } from "./utils/types";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const PREDEFINED_BUNDLE_DIR = resolve(__dirname, "..", "data", "bundles");
 
 // ─── Test Helpers ──────────────────────────────────────────────────────────
 
@@ -569,5 +575,116 @@ describe("loadBundle", () => {
     await expect(loadBundle("__nonexistent-bundle-xyz__")).rejects.toThrow(
       "Bundle file not found",
     );
+  });
+
+  it("falls back to predefined bundle when not in user dir", async () => {
+    // 'frontend-dev' should exist as a predefined bundle
+    const bundle = await loadBundle("frontend-dev");
+    expect(bundle.name).toBe("frontend-dev");
+    expect(bundle.skills.length).toBeGreaterThan(0);
+    expect(bundle.version).toBe(1);
+  });
+
+  it("prefers user bundle over predefined bundle with same name", async () => {
+    // Save a user bundle with a predefined name to test priority
+    const userBundle = makeBundle({
+      name: "frontend-dev",
+      description: "User override of frontend-dev",
+    });
+    await saveBundle(userBundle);
+    try {
+      const loaded = await loadBundle("frontend-dev");
+      expect(loaded.description).toBe("User override of frontend-dev");
+    } finally {
+      await removeBundle("frontend-dev");
+    }
+  });
+});
+
+// ─── listPredefinedBundles ─────────────────────────────────────────────────
+
+describe("listPredefinedBundles", () => {
+  it("returns an array of bundles", async () => {
+    const bundles = await listPredefinedBundles();
+    expect(Array.isArray(bundles)).toBe(true);
+  });
+
+  it("returns at least 5 predefined bundles", async () => {
+    const bundles = await listPredefinedBundles();
+    expect(bundles.length).toBeGreaterThanOrEqual(5);
+  });
+
+  it("returns bundles sorted by name", async () => {
+    const bundles = await listPredefinedBundles();
+    for (let i = 1; i < bundles.length; i++) {
+      expect(
+        bundles[i].name.localeCompare(bundles[i - 1].name),
+      ).toBeGreaterThanOrEqual(0);
+    }
+  });
+
+  it("all predefined bundles are valid BundleManifest v1", async () => {
+    const bundles = await listPredefinedBundles();
+    for (const bundle of bundles) {
+      expect(bundle.version).toBe(1);
+      expect(typeof bundle.name).toBe("string");
+      expect(bundle.name.length).toBeGreaterThan(0);
+      expect(typeof bundle.description).toBe("string");
+      expect(typeof bundle.author).toBe("string");
+      expect(Array.isArray(bundle.skills)).toBe(true);
+      expect(bundle.skills.length).toBeGreaterThan(0);
+      for (const skill of bundle.skills) {
+        expect(typeof skill.name).toBe("string");
+        expect(typeof skill.installUrl).toBe("string");
+        expect(skill.installUrl.length).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("includes frontend-dev bundle", async () => {
+    const bundles = await listPredefinedBundles();
+    const frontendDev = bundles.find((b) => b.name === "frontend-dev");
+    expect(frontendDev).toBeDefined();
+    expect(frontendDev!.skills.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("includes devops bundle", async () => {
+    const bundles = await listPredefinedBundles();
+    const devops = bundles.find((b) => b.name === "devops");
+    expect(devops).toBeDefined();
+    expect(devops!.skills.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("includes ios-release bundle", async () => {
+    const bundles = await listPredefinedBundles();
+    const iosRelease = bundles.find((b) => b.name === "ios-release");
+    expect(iosRelease).toBeDefined();
+    expect(iosRelease!.skills.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("includes content-writing bundle", async () => {
+    const bundles = await listPredefinedBundles();
+    const contentWriting = bundles.find((b) => b.name === "content-writing");
+    expect(contentWriting).toBeDefined();
+    expect(contentWriting!.skills.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("includes eu-project-ops bundle", async () => {
+    const bundles = await listPredefinedBundles();
+    const euOps = bundles.find((b) => b.name === "eu-project-ops");
+    expect(euOps).toBeDefined();
+    expect(euOps!.skills.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("all bundles have tags as string arrays when present", async () => {
+    const bundles = await listPredefinedBundles();
+    for (const bundle of bundles) {
+      if (bundle.tags !== undefined) {
+        expect(Array.isArray(bundle.tags)).toBe(true);
+        for (const tag of bundle.tags) {
+          expect(typeof tag).toBe("string");
+        }
+      }
+    }
   });
 });

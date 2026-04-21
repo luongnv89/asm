@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "name": "eu-project-ops",
+  "description": "EU project operations skills: BIEN evaluation, COGNIMAN toolbox descriptions, and Montimage UI design.",
+  "author": "ASM",
+  "createdAt": "2025-01-01T00:00:00.000Z",
+  "tags": ["eu-project", "montimage", "cogniman", "bien"],
+  "skills": [
+    {
+      "name": "bien-evaluator",
+      "installUrl": "github:luongnv89/skills:skills/bien-evaluator",
+      "description": "Evaluate a French real estate listing for the BIEN database"
+    },
+    {
+      "name": "cogniman-toolbox-desc",
+      "installUrl": "github:luongnv89/skills:skills/cogniman-toolbox-desc",
+      "description": "Generate a COGNIMAN Toolbox tool description"
+    },
+    {
+      "name": "mi-designer",
+      "installUrl": "github:luongnv89/skills:skills/mi-designer",
+      "description": "Design frontend components and UI pages following Montimage brand identity"
+    }
+  ]
+}
