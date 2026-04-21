@@ -9,7 +9,7 @@ import type {
   SkillContext,
 } from "../../../types";
 
-const PROVIDER_ID = "skill-creator";
+const PROVIDER_ID = "skill-best-practice";
 const PROVIDER_VERSION = "1.0.0";
 const SCHEMA_VERSION = 1;
 
@@ -79,13 +79,12 @@ function buildRaw(
   checks: ValidationCheck[],
   frontmatter: Record<string, unknown> | null,
 ): ValidationPayload {
-  const errorChecks = checks.filter((check) => check.severity === "error");
   return {
     skillPath: ctx.skillPath,
     skillMdPath: ctx.skillMdPath,
     validatedAt: new Date().toISOString(),
-    checkCount: errorChecks.length,
-    passedChecks: errorChecks.filter((check) => check.passed).length,
+    checkCount: checks.length,
+    passedChecks: checks.filter((check) => check.passed).length,
     checks,
     frontmatter,
   };
@@ -214,11 +213,11 @@ async function validate(ctx: SkillContext): Promise<{
     pushCheck(
       checks,
       "name-kebab-case",
-      "Name follows skill-creator naming rules",
+      "Name follows skill-best-practice naming rules",
       validName,
       "error",
       validName
-        ? "Name follows the skill-creator kebab-case naming rules."
+        ? "Name follows the skill-best-practice kebab-case naming rules."
         : "Name must be kebab-case, avoid consecutive/edge hyphens, and stay within 64 characters.",
     );
   }
@@ -247,7 +246,7 @@ async function validate(ctx: SkillContext): Promise<{
     pushCheck(
       checks,
       "description-shape",
-      "Description follows skill-creator formatting rules",
+      "Description follows skill-best-practice formatting rules",
       validDescription,
       "error",
       validDescription
@@ -316,12 +315,12 @@ async function validate(ctx: SkillContext): Promise<{
   };
 }
 
-export const skillCreatorProviderV1: EvalProvider = {
+export const skillBestPracticeProviderV1: EvalProvider = {
   id: PROVIDER_ID,
   version: PROVIDER_VERSION,
   schemaVersion: SCHEMA_VERSION,
   description:
-    "Deterministic SKILL.md validation ported from skill-creator rules.",
+    "Deterministic SKILL.md best-practice validation (rules ported from Anthropic's skill-creator skill).",
 
   async applicable(ctx: SkillContext): Promise<ApplicableResult> {
     try {
@@ -366,4 +365,4 @@ export const skillCreatorProviderV1: EvalProvider = {
   },
 };
 
-export default skillCreatorProviderV1;
+export default skillBestPracticeProviderV1;

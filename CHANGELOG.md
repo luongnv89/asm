@@ -4,7 +4,7 @@
 
 ### Features
 
-- Add skill-creator deterministic provider (#197, #198) @luongnv89
+- Add skill-best-practice deterministic provider (#197, #198) @luongnv89
 - asm eval accepts GitHub refs and batch-evaluates collections (#196) @luongnv89
 - scannable asm list output for large inventories (#192, #195) @luongnv89
 - Multi-axis filtering and search highlighting on catalog page (#186) @luongnv89

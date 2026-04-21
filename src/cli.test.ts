@@ -1604,7 +1604,9 @@ describe("CLI integration: eval", () => {
         parsed.providers.some((p: { id: string }) => p.id === "quality"),
       ).toBe(true);
       expect(
-        parsed.providers.some((p: { id: string }) => p.id === "skill-creator"),
+        parsed.providers.some(
+          (p: { id: string }) => p.id === "skill-best-practice",
+        ),
       ).toBe(true);
     } finally {
       await cleanup();
@@ -1626,7 +1628,7 @@ describe("CLI integration: eval", () => {
       expect(Array.isArray(parsed.data.providers)).toBe(true);
       expect(
         parsed.data.providers.some(
-          (p: { id: string }) => p.id === "skill-creator",
+          (p: { id: string }) => p.id === "skill-best-practice",
         ),
       ).toBe(true);
     } finally {
@@ -1898,7 +1900,7 @@ describe("CLI integration: eval", () => {
 // ─── CLI integration: eval-providers ────────────────────────────────────────
 
 describe("CLI integration: eval-providers", () => {
-  test("eval-providers list prints quality and skill-creator with schema + description", async () => {
+  test("eval-providers list prints quality and skill-best-practice with schema + description", async () => {
     const { stdout, exitCode } = await runCLI("eval-providers", "list");
     expect(exitCode).toBe(0);
     // Column header + one quality row. Exact formatting is incidental; we
@@ -1909,10 +1911,10 @@ describe("CLI integration: eval-providers", () => {
     expect(stdout).toContain("description");
     expect(stdout).toContain("requires");
     expect(stdout).toContain("quality");
-    expect(stdout).toContain("skill-creator");
+    expect(stdout).toContain("skill-best-practice");
     expect(stdout).toContain("1.0.0");
     expect(stdout).toContain("Static linter for SKILL.md");
-    expect(stdout).toContain("Deterministic SKILL.md validation");
+    expect(stdout).toContain("Deterministic SKILL.md best-practice validation");
   });
 
   test("eval-providers list --json emits a parseable array", async () => {
@@ -1932,12 +1934,12 @@ describe("CLI integration: eval-providers", () => {
     expect(typeof quality.description).toBe("string");
     expect(quality.description.length).toBeGreaterThan(0);
     expect(Array.isArray(quality.requires)).toBe(true);
-    const skillCreator = parsed.find(
-      (p: { id: string }) => p.id === "skill-creator",
+    const skillBestPractice = parsed.find(
+      (p: { id: string }) => p.id === "skill-best-practice",
     );
-    expect(skillCreator).toBeTruthy();
-    expect(skillCreator.version).toBe("1.0.0");
-    expect(skillCreator.schemaVersion).toBe(1);
+    expect(skillBestPractice).toBeTruthy();
+    expect(skillBestPractice.version).toBe("1.0.0");
+    expect(skillBestPractice.schemaVersion).toBe(1);
   });
 
   test("eval-providers with no subcommand exits with code 2", async () => {

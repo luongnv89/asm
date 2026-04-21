@@ -16,7 +16,7 @@ describe("registerBuiltins", () => {
     const providers = list();
     expect(providers).toHaveLength(2);
     const ids = providers.map((p) => p.id).sort();
-    expect(ids).toEqual(["quality", "skill-creator"]);
+    expect(ids).toEqual(["quality", "skill-best-practice"]);
     for (const p of providers) {
       expect(p.version).toBe("1.0.0");
       expect(p.schemaVersion).toBe(1);
@@ -30,10 +30,10 @@ describe("registerBuiltins", () => {
     expect(provider.version).toBe("1.0.0");
   });
 
-  it("makes skill-creator resolvable via semver range", () => {
+  it("makes skill-best-practice resolvable via semver range", () => {
     registerBuiltins();
-    const provider = resolve("skill-creator", "^1.0.0");
-    expect(provider.id).toBe("skill-creator");
+    const provider = resolve("skill-best-practice", "^1.0.0");
+    expect(provider.id).toBe("skill-best-practice");
     expect(provider.version).toBe("1.0.0");
   });
 

@@ -1418,7 +1418,7 @@ function bar(score: number, max: number, width = 20): string {
  *
  * Quality is the primary provider — its score drives the `Overall score:`
  * headline and its categories get the familiar bar chart. Any additional
- * providers (e.g. skill-creator) are surfaced as a one-line score next to
+ * providers (e.g. skill-best-practice) are surfaced as a one-line score next to
  * the headline plus a dedicated findings block when they have something to
  * say. This keeps a single `asm eval` call showing all results without
  * duplicating quality's categories under a second heading.
@@ -1462,6 +1462,23 @@ export function formatReport(
   }
 
   for (const provider of extraProviders) {
+    const checks = extractProviderChecks(provider.raw);
+    if (checks && checks.length > 0) {
+      lines.push("");
+      lines.push(`${provider.id}@${provider.version} breakdown:`);
+      for (const check of checks) {
+        const mark = check.passed
+          ? "√"
+          : check.severity === "warning"
+            ? "⚠"
+            : "×";
+        lines.push(`  ${mark} ${check.label}`);
+        if (!check.passed) {
+          lines.push(`      [${check.severity}] ${check.message}`);
+        }
+      }
+      continue;
+    }
     if (provider.findings.length === 0) continue;
     lines.push("");
     lines.push(`${provider.id}@${provider.version} findings:`);
@@ -1470,6 +1487,42 @@ export function formatReport(
     }
   }
   return lines.join("\n");
+}
+
+interface ProviderCheck {
+  id: string;
+  label: string;
+  passed: boolean;
+  severity: "error" | "warning";
+  message: string;
+}
+
+function extractProviderChecks(raw: unknown): ProviderCheck[] | null {
+  if (!raw || typeof raw !== "object") return null;
+  const checks = (raw as { checks?: unknown }).checks;
+  if (!Array.isArray(checks)) return null;
+  const parsed: ProviderCheck[] = [];
+  for (const entry of checks) {
+    if (!entry || typeof entry !== "object") return null;
+    const c = entry as Record<string, unknown>;
+    if (
+      typeof c.id !== "string" ||
+      typeof c.label !== "string" ||
+      typeof c.passed !== "boolean" ||
+      typeof c.message !== "string" ||
+      (c.severity !== "error" && c.severity !== "warning")
+    ) {
+      return null;
+    }
+    parsed.push({
+      id: c.id,
+      label: c.label,
+      passed: c.passed,
+      severity: c.severity,
+      message: c.message,
+    });
+  }
+  return parsed;
 }
 
 export function formatReportJSON(report: EvaluationReport): string {

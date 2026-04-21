@@ -13,7 +13,7 @@
 
 import { register } from "../registry";
 import { qualityProviderV1 } from "./quality/v1";
-import { skillCreatorProviderV1 } from "./skill-creator/v1";
+import { skillBestPracticeProviderV1 } from "./skill-best-practice/v1";
 
 /**
  * Register every built-in provider with the shared registry.
@@ -24,5 +24,5 @@ import { skillCreatorProviderV1 } from "./skill-creator/v1";
  */
 export function registerBuiltins(): void {
   register(qualityProviderV1);
-  register(skillCreatorProviderV1);
+  register(skillBestPracticeProviderV1);
 }

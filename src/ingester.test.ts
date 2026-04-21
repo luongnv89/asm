@@ -351,7 +351,7 @@ example
     const { toSkillEvalSummary } = await import("./eval/summary");
     const summary = toSkillEvalSummary(
       {
-        providerId: "skill-creator",
+        providerId: "skill-best-practice",
         providerVersion: "1.0.0",
         schemaVersion: 1,
         score: 100,
@@ -371,7 +371,7 @@ example
       "0.2.0",
     );
 
-    expect(summary.providerId).toBe("skill-creator");
+    expect(summary.providerId).toBe("skill-best-practice");
     expect(summary.providerVersion).toBe("1.0.0");
     expect(summary.schemaVersion).toBe(1);
     expect(summary.passed).toBe(true);

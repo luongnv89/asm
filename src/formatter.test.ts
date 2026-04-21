@@ -1141,8 +1141,8 @@ describe("formatSkillDetail token count + eval", () => {
             ],
             evaluatedAt: "2026-04-20T10:00:00.000Z",
           },
-          "skill-creator": {
-            providerId: "skill-creator",
+          "skill-best-practice": {
+            providerId: "skill-best-practice",
             providerVersion: "1.0.0",
             overallScore: 100,
             grade: "A",
@@ -1160,7 +1160,7 @@ describe("formatSkillDetail token count + eval", () => {
       }),
     );
     expect(output).toContain("quality@1.0.0");
-    expect(output).toContain("skill-creator@1.0.0");
+    expect(output).toContain("skill-best-practice@1.0.0");
     expect(output).toContain("Deterministic validation");
     expect(output).toContain("7/7");
   });

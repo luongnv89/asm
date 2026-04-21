@@ -3,13 +3,15 @@ import { mkdtemp, rm, writeFile } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 import { runProvider } from "../../../runner";
-import { skillCreatorProviderV1 } from "./index";
+import { skillBestPracticeProviderV1 } from "./index";
 
 async function withSkill(
   content: string,
   testFn: (skillPath: string) => Promise<void>,
 ): Promise<void> {
-  const skillPath = await mkdtemp(join(tmpdir(), "skill-creator-provider-"));
+  const skillPath = await mkdtemp(
+    join(tmpdir(), "skill-best-practice-provider-"),
+  );
   try {
     await writeFile(join(skillPath, "SKILL.md"), content, "utf-8");
     await testFn(skillPath);
@@ -21,7 +23,7 @@ async function withSkill(
 async function run(content: string) {
   let result: Awaited<ReturnType<typeof runProvider>> | null = null;
   await withSkill(content, async (skillPath) => {
-    result = await runProvider(skillCreatorProviderV1, {
+    result = await runProvider(skillBestPracticeProviderV1, {
       skillPath,
       skillMdPath: join(skillPath, "SKILL.md"),
     });
@@ -29,7 +31,7 @@ async function run(content: string) {
   return result!;
 }
 
-describe("skillCreatorProviderV1", () => {
+describe("skillBestPracticeProviderV1", () => {
   it("accepts a valid skill", async () => {
     const result = await run(`---
 name: valid-skill

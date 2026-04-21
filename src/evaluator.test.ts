@@ -480,7 +480,7 @@ describe("formatters", () => {
           findings: [],
         },
         {
-          id: "skill-creator",
+          id: "skill-best-practice",
           version: "1.0.0",
           schemaVersion: 1,
           score: 88,
@@ -499,12 +499,12 @@ describe("formatters", () => {
     };
     const text = formatReport(withProviders);
     // Extra provider surfaces next to the headline
-    expect(text).toContain("skill-creator@1.0.0:  88/100  pass");
+    expect(text).toContain("skill-best-practice@1.0.0:  88/100  pass");
     // Quality categories appear exactly once
     const categoriesMatches = text.match(/Structure & completeness/g) ?? [];
     expect(categoriesMatches.length).toBe(1);
-    // Extra-provider findings render in their own block
-    expect(text).toContain("skill-creator@1.0.0 findings:");
+    // Without raw.checks, falls through to findings-only block
+    expect(text).toContain("skill-best-practice@1.0.0 findings:");
     expect(text).toContain("[warning] Missing negative-trigger clause.");
   });
 
