@@ -1426,6 +1426,18 @@ mark.hl {
     max-width: 100%;
   }
   .header-nav::-webkit-scrollbar { display: none; }
+  .header-nav.has-scroll-right {
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
+            mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
+  }
+  .header-nav.has-scroll-left.has-scroll-right {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 20px), transparent);
+            mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 20px), transparent);
+  }
+  .header-nav.has-scroll-left:not(.has-scroll-right) {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 20px);
+            mask-image: linear-gradient(to right, transparent, #000 20px);
+  }
   .nav-link { font-size: 11px; padding: 3px 6px; min-height: 44px; display: inline-flex; align-items: center; flex-shrink: 0; white-space: nowrap; }
   .gh-link { min-height: 44px; display: inline-flex; align-items: center; }
   .theme-toggle { width: 44px; height: 44px; }
@@ -2753,6 +2765,19 @@ function attachEvents() {
 // ─── Page Navigation ────────────────────────────────────────────────────────
 let currentPageView = 'catalog';
 
+// Detect whether scrollIntoView reads its argument as an options object.
+// Old engines (Safari <14, legacy Android WebView) coerce the argument to a
+// boolean (alignToTop), which would scroll the page vertically instead of
+// centering the nav link horizontally. Probe once at startup.
+var _scrollIntoViewAcceptsOptions = (function() {
+  if (typeof Element === 'undefined' || !Element.prototype || typeof Element.prototype.scrollIntoView !== 'function') return false;
+  var read = false;
+  var probe = {};
+  try { Object.defineProperty(probe, 'behavior', { get: function() { read = true; return 'auto'; } }); } catch (_) { return false; }
+  try { document.createElement('div').scrollIntoView(probe); } catch (_) {}
+  return read;
+})();
+
 function navigateTo(page, opts) {
   currentPageView = page;
   // Update nav active state
@@ -2760,10 +2785,11 @@ function navigateTo(page, opts) {
   document.querySelectorAll('.nav-link').forEach(function(link) {
     var isActive = link.getAttribute('data-page') === page;
     link.classList.toggle('active', isActive);
-    if (isActive && typeof link.scrollIntoView === 'function') {
+    if (isActive && _scrollIntoViewAcceptsOptions) {
       try { link.scrollIntoView({ inline: 'center', block: 'nearest', behavior: scrollBehavior }); } catch (_) {}
     }
   });
+  if (typeof updateNavScrollFades === 'function') updateNavScrollFades();
   // Show/hide pages
   document.getElementById('page-catalog').classList.toggle('hidden', page !== 'catalog');
   var docsEl = document.getElementById('page-docs');
@@ -2804,6 +2830,29 @@ function handleHashChange(opts) {
 }
 
 window.addEventListener('hashchange', handleHashChange);
+
+// Toggle edge-fade classes on the mobile nav based on scroll position so the
+// gradient mask only appears on the side that has more content to reveal.
+function updateNavScrollFades() {
+  var nav = document.querySelector('.header-nav');
+  if (!nav) return;
+  var maxScroll = nav.scrollWidth - nav.clientWidth;
+  nav.classList.toggle('has-scroll-left', nav.scrollLeft > 1);
+  nav.classList.toggle('has-scroll-right', nav.scrollLeft < maxScroll - 1);
+}
+(function initNavScrollFades() {
+  var nav = document.querySelector('.header-nav');
+  if (!nav) return;
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function() { updateNavScrollFades(); ticking = false; });
+  }
+  nav.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  updateNavScrollFades();
+})();
 
 // ─── Copy Buttons for Code Blocks ───────────────────────────────────────────
 function addPreCopyButtons(container) {
