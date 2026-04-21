@@ -1856,7 +1856,14 @@ function highlightMatches(text, query) {
   const uniq = Array.from(new Set(tokens)).sort((a, b) => b.length - a.length);
   const pattern = uniq.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
   const re = new RegExp('(' + pattern + ')', 'gi');
-  return escaped.replace(re, '<mark class="hl">$1</mark>');
+  // Skip already-escaped entities like &amp; so highlighting never corrupts
+  // the HTML by wrapping matches inside entity names.
+  const entitySplitRe = /(&(?:#\d+|#x[a-f0-9]+|[a-z0-9]+);)/gi;
+  const entityPartRe = /^&(?:#\d+|#x[a-f0-9]+|[a-z0-9]+);$/i;
+  return escaped
+    .split(entitySplitRe)
+    .map(part => entityPartRe.test(part) ? part : part.replace(re, '<mark class="hl">$1</mark>'))
+    .join('');
 }
 
 // ─── Search (originally mirrored src/skill-index.ts scoring; #186 extends it
