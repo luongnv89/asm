@@ -255,6 +255,16 @@ interface ParsedArgs {
      * users can inspect what was fetched (issue #193).
      */
     keep: boolean;
+    /** `asm bundle modify --add <installUrl>` — skill install URL to add (issue #204). */
+    add: string | null;
+    /** `asm bundle modify --remove <skillName>` — skill name to remove (issue #204). */
+    remove: string | null;
+    /** `asm bundle modify --description <desc>` — new description for bundle (issue #204). */
+    description: string | null;
+    /** `asm bundle modify --author <author>` — new author for bundle (issue #204). */
+    author: string | null;
+    /** `asm bundle modify --tags <tag,...>` — comma-separated tags for bundle (issue #204). */
+    tags: string | null;
   };
 }
 
@@ -296,6 +306,11 @@ export function parseArgs(argv: string[]): ParsedArgs {
       limit: 0,
       concurrency: 0,
       keep: false,
+      add: null,
+      remove: null,
+      description: null,
+      author: null,
+      tags: null,
     },
   };
 
@@ -424,6 +439,21 @@ export function parseArgs(argv: string[]): ParsedArgs {
     } else if (arg === "--missing") {
       i++;
       if (args[i]) result.flags.missing.push(args[i]);
+    } else if (arg === "--add") {
+      i++;
+      result.flags.add = args[i] || null;
+    } else if (arg === "--remove") {
+      i++;
+      result.flags.remove = args[i] || null;
+    } else if (arg === "--description") {
+      i++;
+      result.flags.description = args[i] || null;
+    } else if (arg === "--author") {
+      i++;
+      result.flags.author = args[i] || null;
+    } else if (arg === "--tags") {
+      i++;
+      result.flags.tags = args[i] || null;
     } else if (arg.startsWith("-")) {
       error(`Unknown option: ${arg}`);
       console.error(`Run "asm --help" for usage.`);
@@ -4004,6 +4034,8 @@ ${ansi.bold("Subcommands:")}
   list                   List all saved bundles
   show <name|file>       Show bundle details
   remove <name>          Remove a saved bundle
+  modify <name>          Add/remove skills or update bundle metadata
+  export <name> [file]   Export a bundle to a JSON file
 
 ${ansi.bold("Options:")}
   -s, --scope <s>      Filter: global, project, or both (default: both)
@@ -4019,7 +4051,11 @@ ${ansi.bold("Examples:")}
   asm bundle list                              ${ansi.dim("Show all saved bundles")}
   asm bundle list --json                       ${ansi.dim("List bundles as JSON")}
   asm bundle show my-workflow                  ${ansi.dim("Show bundle details")}
-  asm bundle remove my-workflow                ${ansi.dim("Remove a saved bundle")}`);
+  asm bundle remove my-workflow                ${ansi.dim("Remove a saved bundle")}
+  asm bundle modify my-workflow --add github:u/r  ${ansi.dim("Add a skill to bundle")}
+  asm bundle modify my-workflow --remove skill    ${ansi.dim("Remove a skill from bundle")}
+  asm bundle export my-workflow                  ${ansi.dim("Export to ./my-workflow.json")}
+  asm bundle export my-workflow out.json         ${ansi.dim("Export bundle to file")}`);
 }
 
 async function cmdBundle(args: ParsedArgs) {
@@ -4031,7 +4067,7 @@ async function cmdBundle(args: ParsedArgs) {
   const subcommand = args.subcommand;
 
   if (!subcommand) {
-    error("Missing subcommand. Use: create, install, list, show, or remove");
+    error("Missing subcommand. Use: create, install, list, show, remove, modify, or export");
     console.error(`Run "asm bundle --help" for usage.`);
     process.exit(2);
   }
@@ -4440,9 +4476,210 @@ async function cmdBundle(args: ParsedArgs) {
       break;
     }
 
+    case "modify": {
+      const bundleName = args.positional[0];
+      if (!bundleName) {
+        error("Missing required argument: <name>");
+        console.error(`Usage: asm bundle modify <name> [--add <installUrl>] [--remove <skillName>] [--description <desc>] [--author <author>] [--tags <tag,...>]`);
+        process.exit(2);
+      }
+
+      let bundle: import("./utils/types").BundleManifest;
+      try {
+        bundle = await loadBundle(bundleName);
+      } catch (err: any) {
+        error(err.message);
+        process.exit(1);
+      }
+
+      let modified = false;
+
+      // --add <installUrl>
+      const addUrl = args.flags.add;
+      if (addUrl) {
+        const newSkillRef: BundleSkillRef = {
+          name: addUrl.split("/").pop()?.replace(/\.json$/, "") ?? addUrl,
+          installUrl: addUrl,
+        };
+        bundle.skills.push(newSkillRef);
+        modified = true;
+        console.error(ansi.green(`Added skill from ${addUrl}`));
+      }
+
+      // --remove <skillName>
+      const removeSkill = args.flags.remove;
+      if (removeSkill) {
+        const before = bundle.skills.length;
+        bundle.skills = bundle.skills.filter(
+          (s) => s.name.toLowerCase() !== removeSkill.toLowerCase(),
+        );
+        if (bundle.skills.length < before) {
+          modified = true;
+          console.error(ansi.green(`Removed skill "${removeSkill}"`));
+        } else {
+          console.error(ansi.dim(`Skill "${removeSkill}" not found in bundle (no change)`));
+        }
+      }
+
+      // --description <desc>
+      const newDescription = args.flags.description;
+      if (newDescription !== null) {
+        bundle.description = newDescription;
+        modified = true;
+      }
+
+      // --author <author>
+      const newAuthor = args.flags.author;
+      if (newAuthor !== null) {
+        bundle.author = newAuthor;
+        modified = true;
+      }
+
+      // --tags <comma-separated>
+      const newTags = args.flags.tags;
+      if (newTags !== null) {
+        bundle.tags = newTags
+          .split(",")
+          .map((t) => t.trim())
+          .filter((t) => t.length > 0);
+        modified = true;
+      }
+
+      // Interactive flow when TTY and no flags given
+      if (
+        !modified &&
+        process.stdin.isTTY &&
+        !args.flags.yes &&
+        !addUrl &&
+        !removeSkill &&
+        newDescription === null &&
+        newAuthor === null &&
+        newTags === null
+      ) {
+        console.error(ansi.bold(`Modifying bundle "${bundle.name}"`));
+        console.error(`  Current skills: ${bundle.skills.map((s) => s.name).join(", ")}`);
+        console.error(`  Description: ${bundle.description}`);
+        console.error(`  Author: ${bundle.author}`);
+        console.error(`  Tags: ${bundle.tags?.join(", ") ?? "(none)"}`);
+        console.error(``);
+
+        process.stderr.write(`${ansi.bold("New description")} (Enter to keep current): `);
+        const descInput = await readLine();
+        if (descInput.trim()) {
+          bundle.description = descInput.trim();
+          modified = true;
+        }
+
+        process.stderr.write(`${ansi.bold("New author")} (Enter to keep current): `);
+        const authorInput = await readLine();
+        if (authorInput.trim()) {
+          bundle.author = authorInput.trim();
+          modified = true;
+        }
+
+        process.stderr.write(`${ansi.bold("New tags (comma-separated)")} (Enter to keep current): `);
+        const tagsInput = await readLine();
+        if (tagsInput.trim()) {
+          bundle.tags = tagsInput
+            .split(",")
+            .map((t) => t.trim())
+            .filter((t) => t.length > 0);
+          modified = true;
+        }
+      }
+
+      if (!modified) {
+        console.error(ansi.dim("No changes made to bundle."));
+        break;
+      }
+
+      // Validate resulting bundle has at least one skill
+      if (bundle.skills.length === 0) {
+        error("Bundle must contain at least one skill after modification.");
+        process.exit(1);
+      }
+
+      const savedPath = await saveBundle(bundle);
+
+      if (args.flags.json) {
+        console.log(JSON.stringify(bundle, null, 2));
+      } else {
+        console.error(
+          ansi.green(
+            `Bundle "${bundle.name}" updated (${bundle.skills.length} skill(s)).`,
+          ),
+        );
+        console.error(`  Saved to: ${ansi.dim(savedPath)}`);
+      }
+      break;
+    }
+
+    case "export": {
+      const bundleName = args.positional[0];
+      if (!bundleName) {
+        error("Missing required argument: <name>");
+        console.error(`Usage: asm bundle export <name> [output-file]`);
+        process.exit(2);
+      }
+
+      let bundle: import("./utils/types").BundleManifest;
+      try {
+        bundle = await loadBundle(bundleName);
+      } catch (err: any) {
+        error(err.message);
+        process.exit(1);
+      }
+
+      const outputFile =
+        (args.positional[1] as string | undefined) ??
+        `./${bundleName}.json`;
+
+      const { resolve: resolvePath } = await import("path");
+      const absOutputPath = resolvePath(outputFile);
+
+      // Check if file exists (unless --force)
+      if (!args.flags.force) {
+        const { access: fsAccess } = await import("fs/promises");
+        try {
+          await fsAccess(absOutputPath);
+          // File exists — prompt or error
+          if (process.stdin.isTTY && !args.flags.yes) {
+            process.stderr.write(
+              `File ${ansi.bold(absOutputPath)} already exists. Overwrite? [y/N] `,
+            );
+            const answer = await readLine();
+            if (
+              answer.toLowerCase() !== "y" &&
+              answer.toLowerCase() !== "yes"
+            ) {
+              console.error("Aborted.");
+              process.exit(0);
+            }
+          } else if (!args.flags.yes) {
+            error(
+              `File "${absOutputPath}" already exists. Use --force to overwrite.`,
+            );
+            process.exit(1);
+          }
+        } catch {
+          // File does not exist — proceed
+        }
+      }
+
+      const { writeFile: fsWriteFile } = await import("fs/promises");
+      await fsWriteFile(absOutputPath, JSON.stringify(bundle, null, 2) + "\n", "utf-8");
+
+      if (args.flags.json) {
+        console.log(JSON.stringify({ exported: true, path: absOutputPath, bundle }, null, 2));
+      } else {
+        console.error(ansi.green(`Exported to ${absOutputPath}`));
+      }
+      break;
+    }
+
     default:
       error(
-        `Unknown subcommand: "${subcommand}". Use: create, install, list, show, or remove`,
+        `Unknown subcommand: "${subcommand}". Use: create, install, list, show, remove, modify, or export`,
       );
       console.error(`Run "asm bundle --help" for usage.`);
       process.exit(2);
