@@ -6,6 +6,7 @@ on:
     paths:
       - "data/skill-index/**"
       - "data/skill-index-resources.json"
+      - "data/bundles/**"
       - "website/**"
       - "scripts/build-catalog.ts"
       - ".github/workflows/deploy-website.yml"
@@ -14,6 +15,7 @@ on:
     paths:
       - "data/skill-index/**"
       - "data/skill-index-resources.json"
+      - "data/bundles/**"
       - "website/**"
       - "scripts/build-catalog.ts"
   workflow_dispatch:
