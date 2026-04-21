@@ -461,6 +461,53 @@ describe("formatters", () => {
     expect(text).toContain("Structure & completeness");
   });
 
+  it("formatReport inlines extra providers in headline and renders their findings", () => {
+    const baseReport = evaluateSkillContent({
+      content: HIGH_QUALITY_SKILL,
+      skillPath: "/virtual/code-review",
+      skillMdPath: "/virtual/code-review/SKILL.md",
+    });
+    const withProviders = {
+      ...baseReport,
+      providers: [
+        {
+          id: "quality",
+          version: "1.0.0",
+          schemaVersion: 1,
+          score: baseReport.overallScore,
+          passed: true,
+          categories: [],
+          findings: [],
+        },
+        {
+          id: "skill-creator",
+          version: "1.0.0",
+          schemaVersion: 1,
+          score: 88,
+          passed: true,
+          categories: [],
+          findings: [
+            {
+              severity: "warning" as const,
+              message: "Missing negative-trigger clause.",
+              code: "negative-trigger-clause",
+              categoryId: "validation",
+            },
+          ],
+        },
+      ],
+    };
+    const text = formatReport(withProviders);
+    // Extra provider surfaces next to the headline
+    expect(text).toContain("skill-creator@1.0.0:  88/100  pass");
+    // Quality categories appear exactly once
+    const categoriesMatches = text.match(/Structure & completeness/g) ?? [];
+    expect(categoriesMatches.length).toBe(1);
+    // Extra-provider findings render in their own block
+    expect(text).toContain("skill-creator@1.0.0 findings:");
+    expect(text).toContain("[warning] Missing negative-trigger clause.");
+  });
+
   it("formatReportJSON returns parseable JSON", () => {
     const report = evaluateSkillContent({
       content: HIGH_QUALITY_SKILL,

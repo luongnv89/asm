@@ -13,6 +13,24 @@ const EFFORT_COLORS: Record<string, string> = {
   max: theme.accentAlt, // magenta
 };
 
+function getEvalSummaries(
+  skill: SkillInfo,
+): NonNullable<SkillInfo["evalSummary"]>[] {
+  if (skill.evalSummaries && Object.keys(skill.evalSummaries).length > 0) {
+    const summaries = Object.values(skill.evalSummaries) as NonNullable<
+      SkillInfo["evalSummary"]
+    >[];
+    return summaries.sort((a, b) => {
+      const aId = a.providerId ?? "quality";
+      const bId = b.providerId ?? "quality";
+      if (aId === "quality" && bId !== "quality") return -1;
+      if (bId === "quality" && aId !== "quality") return 1;
+      return aId.localeCompare(bId);
+    });
+  }
+  return skill.evalSummary ? [skill.evalSummary] : [];
+}
+
 function detailRow(
   ctx: RenderContext,
   id: string,
@@ -65,11 +83,17 @@ export function createDetailView(
         ? 3
         : 2
       : 0;
+  const evalSummaries = getEvalSummaries(skill);
   // Eval section: 2 lines for label + body in empty state, or
-  // 3 + categories (up to 7) in populated state.
-  const evalRows = skill.evalSummary
-    ? 3 + skill.evalSummary.categories.length
-    : 2;
+  // 2 lines per summary plus category rows. Multi-provider mode adds the
+  // provider label inline rather than creating separate section headers.
+  const evalRows =
+    evalSummaries.length > 0
+      ? evalSummaries.reduce(
+          (sum: number, summary) => sum + 2 + summary.categories.length,
+          0,
+        )
+      : 2;
   const boxHeight = Math.min(
     ctx.height - 2,
     10 +
@@ -244,39 +268,46 @@ export function createDetailView(
   });
   container.add(evalLabel);
 
-  if (skill.evalSummary) {
-    const ev = skill.evalSummary;
-    const overallColor =
-      ev.overallScore >= 90
-        ? theme.green
-        : ev.overallScore >= 80
-          ? theme.cyan
-          : ev.overallScore >= 65
-            ? theme.yellow
-            : theme.red;
-    container.add(
-      new TextRenderable(ctx, {
-        content: `  Overall: ${ev.overallScore}/100  (${ev.grade})`,
-        fg: overallColor,
-        height: 1,
-      }),
-    );
-    const evVer = ev.evaluatedVersion ? ` — v${ev.evaluatedVersion}` : "";
-    container.add(
-      new TextRenderable(ctx, {
-        content: `  Evaluated: ${ev.evaluatedAt}${evVer}`,
-        fg: theme.fgDim,
-        height: 1,
-      }),
-    );
-    for (const c of ev.categories) {
+  if (evalSummaries.length > 0) {
+    const multipleProviders = evalSummaries.length > 1;
+    for (const ev of evalSummaries) {
+      const overallColor =
+        ev.overallScore >= 90
+          ? theme.green
+          : ev.overallScore >= 80
+            ? theme.cyan
+            : ev.overallScore >= 65
+              ? theme.yellow
+              : theme.red;
+      const providerLabel = ev.providerId
+        ? `${ev.providerId}@${ev.providerVersion ?? "?"}`
+        : "quality";
       container.add(
         new TextRenderable(ctx, {
-          content: `    ${c.name.padEnd(28)} ${c.score}/${c.max}`,
-          fg: theme.fg,
+          content: multipleProviders
+            ? `  ${providerLabel}: ${ev.overallScore}/100  (${ev.grade})`
+            : `  Overall: ${ev.overallScore}/100  (${ev.grade})`,
+          fg: overallColor,
           height: 1,
         }),
       );
+      const evVer = ev.evaluatedVersion ? ` — v${ev.evaluatedVersion}` : "";
+      container.add(
+        new TextRenderable(ctx, {
+          content: `  Evaluated: ${ev.evaluatedAt}${evVer}`,
+          fg: theme.fgDim,
+          height: 1,
+        }),
+      );
+      for (const c of ev.categories) {
+        container.add(
+          new TextRenderable(ctx, {
+            content: `    ${c.name.padEnd(28)} ${c.score}/${c.max}`,
+            fg: theme.fg,
+            height: 1,
+          }),
+        );
+      }
     }
   } else {
     container.add(

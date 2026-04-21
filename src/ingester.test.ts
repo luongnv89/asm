@@ -346,4 +346,37 @@ example
     expect(typeof slim.evaluatedAt).toBe("string");
     expect(slim.evaluatedVersion).toBe("0.2.0");
   });
+
+  it("projects provider summaries with provider metadata", async () => {
+    const { toSkillEvalSummary } = await import("./eval/summary");
+    const summary = toSkillEvalSummary(
+      {
+        providerId: "skill-creator",
+        providerVersion: "1.0.0",
+        schemaVersion: 1,
+        score: 100,
+        passed: true,
+        categories: [
+          {
+            id: "validation",
+            name: "Deterministic validation",
+            score: 7,
+            max: 7,
+          },
+        ],
+        findings: [],
+        startedAt: "2026-04-21T10:00:00.000Z",
+        durationMs: 3,
+      },
+      "0.2.0",
+    );
+
+    expect(summary.providerId).toBe("skill-creator");
+    expect(summary.providerVersion).toBe("1.0.0");
+    expect(summary.schemaVersion).toBe(1);
+    expect(summary.passed).toBe(true);
+    expect(summary.overallScore).toBe(100);
+    expect(summary.grade).toBe("A");
+    expect(summary.categories).toHaveLength(1);
+  });
 });

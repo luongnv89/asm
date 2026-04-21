@@ -11,12 +11,12 @@ describe("registerBuiltins", () => {
     expect(typeof registerBuiltins).toBe("function");
   });
 
-  it("registers the quality provider", () => {
+  it("registers the built-in providers", () => {
     registerBuiltins();
     const providers = list();
-    expect(providers).toHaveLength(1);
+    expect(providers).toHaveLength(2);
     const ids = providers.map((p) => p.id).sort();
-    expect(ids).toEqual(["quality"]);
+    expect(ids).toEqual(["quality", "skill-creator"]);
     for (const p of providers) {
       expect(p.version).toBe("1.0.0");
       expect(p.schemaVersion).toBe(1);
@@ -27,6 +27,13 @@ describe("registerBuiltins", () => {
     registerBuiltins();
     const provider = resolve("quality", "^1.0.0");
     expect(provider.id).toBe("quality");
+    expect(provider.version).toBe("1.0.0");
+  });
+
+  it("makes skill-creator resolvable via semver range", () => {
+    registerBuiltins();
+    const provider = resolve("skill-creator", "^1.0.0");
+    expect(provider.id).toBe("skill-creator");
     expect(provider.version).toBe("1.0.0");
   });
 

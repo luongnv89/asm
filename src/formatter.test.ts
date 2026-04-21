@@ -1125,6 +1125,45 @@ describe("formatSkillDetail token count + eval", () => {
     expect(output).toContain("Safety");
     expect(output).toContain("7/10");
   });
+
+  test("renders multiple provider summaries when available", async () => {
+    const output = await formatSkillDetail(
+      makeSkill({
+        evalSummary: undefined,
+        evalSummaries: {
+          quality: {
+            providerId: "quality",
+            providerVersion: "1.0.0",
+            overallScore: 87,
+            grade: "B",
+            categories: [
+              { id: "structure", name: "Structure", score: 9, max: 10 },
+            ],
+            evaluatedAt: "2026-04-20T10:00:00.000Z",
+          },
+          "skill-creator": {
+            providerId: "skill-creator",
+            providerVersion: "1.0.0",
+            overallScore: 100,
+            grade: "A",
+            categories: [
+              {
+                id: "validation",
+                name: "Deterministic validation",
+                score: 7,
+                max: 7,
+              },
+            ],
+            evaluatedAt: "2026-04-20T10:00:01.000Z",
+          },
+        },
+      }),
+    );
+    expect(output).toContain("quality@1.0.0");
+    expect(output).toContain("skill-creator@1.0.0");
+    expect(output).toContain("Deterministic validation");
+    expect(output).toContain("7/7");
+  });
 });
 
 describe("formatGroupedTable token column", () => {

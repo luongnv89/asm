@@ -764,20 +764,40 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
   // "broken or missing".
   lines.push("");
   lines.push(useColor() ? ansi.bold("Eval Score:") : "Eval Score:");
-  if (skill.evalSummary) {
-    const ev = skill.evalSummary;
-    const overallColored = colorEvalScore(ev.overallScore);
-    lines.push(`  Overall: ${overallColored} / 100  (${ev.grade})`);
-    const evVer = ev.evaluatedVersion
-      ? ` — version ${ev.evaluatedVersion}`
-      : "";
-    lines.push(
-      `  ${useColor() ? ansi.dim("Evaluated:") : "Evaluated:"} ${ev.evaluatedAt}${evVer}`,
-    );
-    if (ev.categories.length > 0) {
-      lines.push(useColor() ? ansi.dim("  Categories:") : "  Categories:");
-      for (const c of ev.categories) {
-        lines.push(`    ${c.name.padEnd(28)} ${c.score}/${c.max}`);
+  const evalSummaries = getEvalSummaries(skill);
+  if (evalSummaries.length > 0) {
+    const multipleProviders = evalSummaries.length > 1;
+    for (const ev of evalSummaries) {
+      const overallColored = colorEvalScore(ev.overallScore);
+      const providerLabel = ev.providerId
+        ? `${ev.providerId}@${ev.providerVersion ?? "?"}`
+        : "quality";
+      if (multipleProviders) {
+        lines.push(
+          `  ${providerLabel}: ${overallColored} / 100  (${ev.grade})`,
+        );
+      } else {
+        lines.push(`  Overall: ${overallColored} / 100  (${ev.grade})`);
+      }
+      const evVer = ev.evaluatedVersion
+        ? ` — version ${ev.evaluatedVersion}`
+        : "";
+      lines.push(
+        `  ${useColor() ? ansi.dim("Evaluated:") : "Evaluated:"} ${ev.evaluatedAt}${evVer}`,
+      );
+      if (ev.categories.length > 0) {
+        if (multipleProviders) {
+          lines.push(
+            useColor()
+              ? ansi.dim(`  Categories (${providerLabel}):`)
+              : `  Categories (${providerLabel}):`,
+          );
+        } else {
+          lines.push(useColor() ? ansi.dim("  Categories:") : "  Categories:");
+        }
+        for (const c of ev.categories) {
+          lines.push(`    ${c.name.padEnd(28)} ${c.score}/${c.max}`);
+        }
       }
     }
   } else {
@@ -818,6 +838,24 @@ export function colorEvalScore(score: number): string {
   if (score >= 80) return ansi.cyan(txt);
   if (score >= 65) return ansi.yellow(txt);
   return ansi.red(txt);
+}
+
+function getEvalSummaries(
+  skill: SkillInfo,
+): NonNullable<SkillInfo["evalSummary"]>[] {
+  if (skill.evalSummaries && Object.keys(skill.evalSummaries).length > 0) {
+    const summaries = Object.values(skill.evalSummaries) as NonNullable<
+      SkillInfo["evalSummary"]
+    >[];
+    return summaries.sort((a, b) => {
+      const aId = a.providerId ?? "quality";
+      const bId = b.providerId ?? "quality";
+      if (aId === "quality" && bId !== "quality") return -1;
+      if (bId === "quality" && aId !== "quality") return 1;
+      return aId.localeCompare(bId);
+    });
+  }
+  return skill.evalSummary ? [skill.evalSummary] : [];
 }
 
 // ─── Multi-instance detail formatter ────────────────────────────────────────
@@ -868,19 +906,31 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
   // Eval summary block
   lines.push("");
   lines.push(useColor() ? ansi.bold("  Eval Score:") : "  Eval Score:");
-  if (ref.evalSummary) {
-    const ev = ref.evalSummary;
-    const overallColored = colorEvalScore(ev.overallScore);
-    lines.push(`    Overall: ${overallColored} / 100  (${ev.grade})`);
-    const evVer = ev.evaluatedVersion
-      ? ` — version ${ev.evaluatedVersion}`
-      : "";
-    lines.push(
-      `    ${useColor() ? ansi.dim("Evaluated:") : "Evaluated:"} ${ev.evaluatedAt}${evVer}`,
-    );
-    if (ev.categories.length > 0) {
-      for (const c of ev.categories) {
-        lines.push(`      ${c.name.padEnd(28)} ${c.score}/${c.max}`);
+  const refEvalSummaries = getEvalSummaries(ref);
+  if (refEvalSummaries.length > 0) {
+    const multipleProviders = refEvalSummaries.length > 1;
+    for (const ev of refEvalSummaries) {
+      const overallColored = colorEvalScore(ev.overallScore);
+      const providerLabel = ev.providerId
+        ? `${ev.providerId}@${ev.providerVersion ?? "?"}`
+        : "quality";
+      if (multipleProviders) {
+        lines.push(
+          `    ${providerLabel}: ${overallColored} / 100  (${ev.grade})`,
+        );
+      } else {
+        lines.push(`    Overall: ${overallColored} / 100  (${ev.grade})`);
+      }
+      const evVer = ev.evaluatedVersion
+        ? ` — version ${ev.evaluatedVersion}`
+        : "";
+      lines.push(
+        `    ${useColor() ? ansi.dim("Evaluated:") : "Evaluated:"} ${ev.evaluatedAt}${evVer}`,
+      );
+      if (ev.categories.length > 0) {
+        for (const c of ev.categories) {
+          lines.push(`      ${c.name.padEnd(28)} ${c.score}/${c.max}`);
+        }
       }
     }
   } else {

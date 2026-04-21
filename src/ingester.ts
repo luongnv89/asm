@@ -13,6 +13,9 @@ import { debug } from "./logger";
 import { verifySkill } from "./verifier";
 import { estimateTokenCount } from "./utils/token-count";
 import { evaluateSkillContent } from "./evaluator";
+import { getEvalProviders } from "./eval/builtins";
+import { runProvider } from "./eval/runner";
+import { sortProviderReports, toSkillEvalSummary } from "./eval/summary";
 import type {
   RepoIndex,
   IndexedSkill,
@@ -95,6 +98,7 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
       // user runs `asm install`. We intentionally drop findings/suggestions
       // from the catalog payload to keep catalog.json small.
       let evalSummary: SkillEvalSummary | undefined;
+      let evalSummaries: IndexedSkill["evalSummaries"] | undefined;
       if (skillMdContent) {
         try {
           const report = evaluateSkillContent({
@@ -119,6 +123,36 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
           // ingest because one skill produced a malformed evaluator result.
           debug(`ingester: eval failed for ${skill.name}: ${err}`);
         }
+
+        try {
+          const ctx = {
+            skillPath: join(tempDir, skill.relPath),
+            skillMdPath,
+          };
+          const providerResults = await Promise.all(
+            sortProviderReports(getEvalProviders()).map(async (provider) => {
+              const applicable = await provider.applicable(ctx, {});
+              if (!applicable.ok) return null;
+              return runProvider(provider, ctx);
+            }),
+          );
+          const summaries = providerResults
+            .filter(
+              (result): result is NonNullable<typeof result> => result !== null,
+            )
+            .map((result) =>
+              toSkillEvalSummary(result, skill.version || undefined),
+            );
+          if (summaries.length > 0) {
+            evalSummaries = Object.fromEntries(
+              summaries
+                .filter((summary) => summary.providerId)
+                .map((summary) => [summary.providerId!, summary]),
+            );
+          }
+        } catch (err) {
+          debug(`ingester: provider eval failed for ${skill.name}: ${err}`);
+        }
       }
 
       skills.push({
@@ -134,6 +168,7 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
         verified: verification.verified,
         tokenCount,
         evalSummary,
+        evalSummaries,
       });
     }
 

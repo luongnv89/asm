@@ -37,6 +37,8 @@ export interface SkillInfo {
    * Filled in by callers that opt to enrich (e.g., the TUI detail view).
    */
   evalSummary?: SkillEvalSummary;
+  /** Provider-keyed summaries for all registered eval providers. */
+  evalSummaries?: Record<string, SkillEvalSummary>;
   /** Marketplace name when skill was installed via Claude plugin marketplace */
   marketplace?: string;
   /** Codex plugin metadata when skill was discovered via Codex plugin cache */
@@ -59,6 +61,14 @@ export interface SkillInfo {
  * would bloat the payload by ~1MB+ for a few hundred skills.
  */
 export interface SkillEvalSummary {
+  /** Provider id that produced the summary (e.g. `quality`). */
+  providerId?: string;
+  /** Provider version that produced the summary. */
+  providerVersion?: string;
+  /** Eval result schema version for this provider summary. */
+  schemaVersion?: number;
+  /** Whether the provider considered the skill a pass. */
+  passed?: boolean;
   /** 0..100 normalized score across all categories. */
   overallScore: number;
   /** Letter grade for quick scanning. */
@@ -316,6 +326,8 @@ export interface IndexedSkill {
    * surfaces (website + TUI + CLI inspect).
    */
   evalSummary?: SkillEvalSummary;
+  /** Provider-keyed summaries for all registered eval providers. */
+  evalSummaries?: Record<string, SkillEvalSummary>;
 }
 
 export interface RepoIndex {

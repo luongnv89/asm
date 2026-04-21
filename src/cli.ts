@@ -122,12 +122,14 @@ import {
   type EvalTarget,
   type EvalProvenance,
 } from "./evaluator";
+import { ensureEvalBuiltins, getEvalProviders } from "./eval/builtins";
 import { runProvider } from "./eval/runner";
+import { list as listEvalProviders } from "./eval/registry";
 import {
-  resolve as resolveEvalProvider,
-  list as listEvalProviders,
-} from "./eval/registry";
-import { registerBuiltins } from "./eval/providers";
+  sortProviderReports,
+  toProviderEvalReport,
+  type ProviderEvalReport,
+} from "./eval/summary";
 import {
   formatMachineOutput,
   formatMachineError,
@@ -2781,17 +2783,6 @@ ${ansi.bold("Examples:")}
   asm eval-providers list                            ${ansi.dim("List registered eval providers")}`);
 }
 
-// Idempotency guard: `register()` throws on duplicate (id, version) so we only
-// call `registerBuiltins()` once per process lifetime. cmdEval and
-// cmdEvalProviders both call `ensureEvalBuiltins()` at entry; tests that reset
-// the registry directly are responsible for their own registration.
-let _evalBuiltinsRegistered = false;
-function ensureEvalBuiltins(): void {
-  if (_evalBuiltinsRegistered) return;
-  registerBuiltins();
-  _evalBuiltinsRegistered = true;
-}
-
 /**
  * If a `runProvider()` result carries an error-shaped finding (the runner's
  * error-wrap path), re-throw so the existing catch block in `cmdEval` keeps
@@ -2875,18 +2866,39 @@ async function fetchRemoteForEval(
   return { rootDir, cleanup, sourceRef, commitSha };
 }
 
-async function runSingleEval(
-  target: EvalTarget,
-): Promise<{ report: EvaluationReport | null; error: string | null }> {
+async function runSingleEval(target: EvalTarget): Promise<{
+  report: (EvaluationReport & { providers: ProviderEvalReport[] }) | null;
+  error: string | null;
+}> {
   ensureEvalBuiltins();
-  const provider = resolveEvalProvider("quality", "^1.0.0");
   try {
-    const result = await runProvider(provider, {
+    const ctx = {
       skillPath: target.skillPath,
       skillMdPath: target.skillMdPath,
-    });
-    unwrapRunnerErrorOrThrow(result);
-    return { report: result.raw as EvaluationReport, error: null };
+    };
+    const results = (
+      await Promise.all(
+        sortProviderReports(getEvalProviders()).map(async (provider) => {
+          const applicable = await provider.applicable(ctx, {});
+          if (!applicable.ok) return null;
+          return runProvider(provider, ctx);
+        }),
+      )
+    ).filter((result): result is NonNullable<typeof result> => result !== null);
+
+    const quality = results.find((result) => result.providerId === "quality");
+    if (!quality) {
+      throw new Error("quality provider did not produce a result");
+    }
+    unwrapRunnerErrorOrThrow(quality);
+    const report = quality.raw as EvaluationReport;
+    return {
+      report: {
+        ...report,
+        providers: sortProviderReports(results.map(toProviderEvalReport)),
+      },
+      error: null,
+    };
   } catch (err: any) {
     return { report: null, error: err?.message ?? String(err) };
   }
