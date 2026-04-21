@@ -154,6 +154,62 @@ describe("data/skill-index: token count + eval enrichment", () => {
   });
 });
 
+// ─── catalog dedup preserves distinct install paths (issue #201) ───────────
+
+describe("catalog: preserves all distinct install targets (issue #201)", () => {
+  const catalog = JSON.parse(
+    readFileSync(join(WEBSITE_DIR, "catalog.json"), "utf-8"),
+  );
+
+  test("catalog.totalSkills equals catalog.skills.length", () => {
+    expect(catalog.totalSkills).toBe(catalog.skills.length);
+  });
+
+  test("every catalog skill has a unique installUrl", () => {
+    const urls = catalog.skills.map(
+      (s: { installUrl: string }) => s.installUrl,
+    );
+    expect(new Set(urls).size).toBe(urls.length);
+  });
+
+  test("every repo's skillCount matches the number of catalog skills for that repo", () => {
+    const countsByRepo: Record<string, number> = {};
+    for (const s of catalog.skills) {
+      const key = `${s.owner}/${s.repo}`;
+      countsByRepo[key] = (countsByRepo[key] ?? 0) + 1;
+    }
+    for (const r of catalog.repos) {
+      const key = `${r.owner}/${r.repo}`;
+      expect(countsByRepo[key] ?? 0).toBe(r.skillCount);
+    }
+  });
+
+  test("plugin-bundle repos with same skill name at multiple relPaths are all preserved", () => {
+    // Find any repo that has multiple skills sharing a name (the pattern
+    // that used to trigger the broken dedup).
+    const skillsByRepoAndName: Record<string, number> = {};
+    for (const s of catalog.skills) {
+      const key = `${s.owner}/${s.repo}::${s.name}`;
+      skillsByRepoAndName[key] = (skillsByRepoAndName[key] ?? 0) + 1;
+    }
+    const hasMultiNameRepo = Object.values(skillsByRepoAndName).some(
+      (n) => n > 1,
+    );
+    // If no repo in the fixture ships a duplicated name, skip — the guard is
+    // exercised in the uniqueness + count tests above.
+    if (!hasMultiNameRepo) return;
+    // Otherwise every entry survived with a distinct installUrl.
+    const multiNameEntries = catalog.skills.filter(
+      (s: { owner: string; repo: string; name: string }) =>
+        skillsByRepoAndName[`${s.owner}/${s.repo}::${s.name}`] > 1,
+    );
+    const urls = multiNameEntries.map(
+      (s: { installUrl: string }) => s.installUrl,
+    );
+    expect(new Set(urls).size).toBe(urls.length);
+  });
+});
+
 // ─── website surfaces token count + eval (issues #188 + #187) ──────────────
 
 describe("website: token count + eval surfaces", () => {

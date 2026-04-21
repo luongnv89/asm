@@ -357,7 +357,10 @@ for (const file of files) {
   });
 
   for (const skill of repoIndex.skills) {
-    const id = `${repoIndex.owner}/${repoIndex.repo}::${skill.name}`;
+    // Include relPath so plugin-bundle repos that ship the same skill name at
+    // multiple install paths (each with a distinct installUrl) are preserved
+    // as separate targets instead of collapsed into the first occurrence.
+    const id = `${repoIndex.owner}/${repoIndex.repo}::${skill.relPath}::${skill.name}`;
     if (skillMap.has(id)) {
       console.warn(`Duplicate skill id: ${id} — skipping`);
       continue;
