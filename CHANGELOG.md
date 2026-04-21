@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- Add built-in `skill-auto-improver` skill — eval-driven improvement loop that runs `asm eval`, fixes weakest categories from a per-category playbook, and iterates until a skill clears the 85/8 quality floor (overallScore > 85 AND every category >= 8) or stops with a blocker report (#209) @luongnv89
+
 ## v2.3.0 — 2026-04-21
 
 ### Features
