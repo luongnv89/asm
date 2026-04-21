@@ -1390,6 +1390,27 @@ mark.hl {
 [data-theme="light"] .theme-toggle .icon-sun { display: block; }
 [data-theme="light"] .theme-toggle .icon-moon { display: none; }
 
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.menu-toggle:hover { border-color: var(--brand); color: var(--brand); }
+.menu-toggle svg { width: 20px; height: 20px; }
+.menu-toggle .icon-close { display: none; }
+.site-header.menu-open .menu-toggle .icon-open { display: none; }
+.site-header.menu-open .menu-toggle .icon-close { display: block; }
+
 /* ─── Light theme refinements ──────────────────────────────────────────── */
 [data-theme="light"] .skill-card {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
@@ -1412,33 +1433,30 @@ mark.hl {
     grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
     padding: 0 12px 24px;
   }
-  .site-header { padding: 12px 16px; flex-wrap: wrap; }
-  .header-left { min-width: 0; }
+  .site-header { padding: 12px 16px; position: relative; }
+  .header-left { min-width: 0; flex: 1; }
   .controls { padding: 0 12px; }
   .site-title { font-size: 14px; }
+  .menu-toggle { display: inline-flex; }
   .header-nav {
-    margin-left: 4px;
-    gap: 2px;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    max-width: 100%;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    margin: 0;
+    padding: 8px 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    z-index: 50;
   }
-  .header-nav::-webkit-scrollbar { display: none; }
-  .header-nav.has-scroll-right {
-    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
-            mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
-  }
-  .header-nav.has-scroll-left.has-scroll-right {
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 20px), transparent);
-            mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 20px), transparent);
-  }
-  .header-nav.has-scroll-left:not(.has-scroll-right) {
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 20px);
-            mask-image: linear-gradient(to right, transparent, #000 20px);
-  }
-  .nav-link { font-size: 11px; padding: 3px 6px; min-height: 44px; display: inline-flex; align-items: center; flex-shrink: 0; white-space: nowrap; }
+  .site-header.menu-open .header-nav { display: flex; }
+  .nav-link { font-size: 14px; padding: 12px 20px; min-height: 44px; display: flex; align-items: center; border-radius: 0; }
+  .nav-link.active { border-left: 3px solid var(--brand); padding-left: 17px; }
   .gh-link { min-height: 44px; display: inline-flex; align-items: center; }
   .theme-toggle { width: 44px; height: 44px; }
   .header-version { display: none; }
@@ -1465,8 +1483,6 @@ mark.hl {
   }
   .logo-mark { width: 26px; height: 26px; flex-shrink: 0; }
   .site-title { font-size: 13px; }
-  .header-nav { margin-left: 2px; gap: 1px; }
-  .nav-link { font-size: 12px; padding: 3px 5px; min-height: 44px; display: inline-flex; align-items: center; flex-shrink: 0; white-space: nowrap; }
   .header-right { gap: 8px; }
   .gh-link { padding: 5px 8px; font-size: 12px; min-height: 44px; display: inline-flex; align-items: center; }
   .gh-link span.gh-stars { display: none !important; }
@@ -1564,7 +1580,6 @@ mark.hl {
   }
   .logo-mark { width: 22px; height: 22px; }
   .site-title { font-size: 12px; }
-  .nav-link { font-size: 12px; padding: 2px 4px; min-height: 44px; display: inline-flex; align-items: center; flex-shrink: 0; white-space: nowrap; }
   .gh-link { padding: 4px 6px; font-size: 12px; min-height: 44px; display: inline-flex; align-items: center; }
   .gh-link svg { width: 14px; height: 14px; }
   .gh-link span:not(.gh-stars) { display: none; }
@@ -1622,7 +1637,6 @@ mark.hl {
   .header-left { gap: 4px; }
   .logo-mark { width: 20px; height: 20px; }
   .site-title { font-size: 12px; }
-  .header-nav { display: flex; }
   .header-right { gap: 6px; }
   .gh-link { padding: 3px 5px; min-height: 44px; display: inline-flex; align-items: center; }
   .theme-toggle { width: 44px; height: 44px; }
@@ -1745,7 +1759,7 @@ mark.hl {
       <circle cx="2.6" cy="3.2" r="1.3" fill="currentColor" opacity="0.7"/>
     </svg>
     <a href="#" class="site-title" onclick="navigateTo('catalog');return false;">asm <span>catalog</span></a>
-    <nav class="header-nav">
+    <nav class="header-nav" id="header-nav">
       <a class="nav-link active" href="#" data-page="catalog" onclick="navigateTo('catalog');return false;">Skills</a>
       <a class="nav-link" href="#bundles" data-page="bundles" onclick="navigateTo('bundles');return false;">Bundles</a>
       <a class="nav-link" href="#docs" data-page="docs" onclick="navigateTo('docs');return false;">Docs</a>
@@ -1757,6 +1771,10 @@ mark.hl {
   </div>
   <div class="header-right">
     <span class="header-version" id="header-version"></span>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="header-nav" title="Menu">
+      <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark theme" aria-pressed="false" title="Toggle theme">
       <svg class="icon-sun" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 1.78a1 1 0 011.41 0l.71.71a1 1 0 11-1.41 1.41l-.71-.71a1 1 0 010-1.41zM18 9a1 1 0 110 2h-1a1 1 0 110-2h1zM3 9a1 1 0 110 2H2a1 1 0 110-2h1zm13.93 5.51a1 1 0 01-.02 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71a1 1 0 011.43-.01zM4.78 14.51a1 1 0 010 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71a1 1 0 011.41 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm0-12a4 4 0 100 8 4 4 0 000-8z"/></svg>
       <svg class="icon-moon" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.002 8.002 0 1010.586 10.586z"/></svg>
@@ -2765,31 +2783,13 @@ function attachEvents() {
 // ─── Page Navigation ────────────────────────────────────────────────────────
 let currentPageView = 'catalog';
 
-// Detect whether scrollIntoView reads its argument as an options object.
-// Old engines (Safari <14, legacy Android WebView) coerce the argument to a
-// boolean (alignToTop), which would scroll the page vertically instead of
-// centering the nav link horizontally. Probe once at startup.
-var _scrollIntoViewAcceptsOptions = (function() {
-  if (typeof Element === 'undefined' || !Element.prototype || typeof Element.prototype.scrollIntoView !== 'function') return false;
-  var read = false;
-  var probe = {};
-  try { Object.defineProperty(probe, 'behavior', { get: function() { read = true; return 'auto'; } }); } catch (_) { return false; }
-  try { document.createElement('div').scrollIntoView(probe); } catch (_) {}
-  return read;
-})();
-
-function navigateTo(page, opts) {
+function navigateTo(page) {
   currentPageView = page;
   // Update nav active state
-  var scrollBehavior = (opts && opts.instant) ? 'auto' : 'smooth';
   document.querySelectorAll('.nav-link').forEach(function(link) {
-    var isActive = link.getAttribute('data-page') === page;
-    link.classList.toggle('active', isActive);
-    if (isActive && _scrollIntoViewAcceptsOptions) {
-      try { link.scrollIntoView({ inline: 'center', block: 'nearest', behavior: scrollBehavior }); } catch (_) {}
-    }
+    link.classList.toggle('active', link.getAttribute('data-page') === page);
   });
-  if (typeof updateNavScrollFades === 'function') updateNavScrollFades();
+  closeMobileMenu();
   // Show/hide pages
   document.getElementById('page-catalog').classList.toggle('hidden', page !== 'catalog');
   var docsEl = document.getElementById('page-docs');
@@ -2820,38 +2820,62 @@ function navigateTo(page, opts) {
   window.scrollTo(0, 0);
 }
 
-function handleHashChange(opts) {
+function handleHashChange() {
   var hash = location.hash.replace('#', '');
   if (hash === 'docs' || hash === 'registry' || hash === 'best-practices' || hash === 'changelog' || hash === 'acknowledgements' || hash === 'bundles') {
-    navigateTo(hash, opts);
+    navigateTo(hash);
   } else {
-    navigateTo('catalog', opts);
+    navigateTo('catalog');
   }
 }
 
 window.addEventListener('hashchange', handleHashChange);
 
-// Toggle edge-fade classes on the mobile nav based on scroll position so the
-// gradient mask only appears on the side that has more content to reveal.
-function updateNavScrollFades() {
-  var nav = document.querySelector('.header-nav');
-  if (!nav) return;
-  var maxScroll = nav.scrollWidth - nav.clientWidth;
-  nav.classList.toggle('has-scroll-left', nav.scrollLeft > 1);
-  nav.classList.toggle('has-scroll-right', nav.scrollLeft < maxScroll - 1);
+// ─── Mobile burger menu ─────────────────────────────────────────────────────
+function openMobileMenu() {
+  var header = document.querySelector('.site-header');
+  var btn = document.getElementById('menu-toggle');
+  if (!header || !btn) return;
+  header.classList.add('menu-open');
+  btn.setAttribute('aria-expanded', 'true');
 }
-(function initNavScrollFades() {
-  var nav = document.querySelector('.header-nav');
-  if (!nav) return;
-  var ticking = false;
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(function() { updateNavScrollFades(); ticking = false; });
-  }
-  nav.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  updateNavScrollFades();
+function closeMobileMenu() {
+  var header = document.querySelector('.site-header');
+  var btn = document.getElementById('menu-toggle');
+  if (!header || !btn) return;
+  if (!header.classList.contains('menu-open')) return;
+  header.classList.remove('menu-open');
+  btn.setAttribute('aria-expanded', 'false');
+}
+(function initMobileMenu() {
+  var btn = document.getElementById('menu-toggle');
+  var header = document.querySelector('.site-header');
+  if (!btn || !header) return;
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (header.classList.contains('menu-open')) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
+  document.addEventListener('click', function(e) {
+    if (!header.classList.contains('menu-open')) return;
+    if (header.contains(e.target)) return;
+    closeMobileMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && header.classList.contains('menu-open')) {
+      closeMobileMenu();
+      btn.focus();
+    }
+  });
+  // Close the menu when the viewport grows past the mobile breakpoint so the
+  // dropdown doesn't stay stuck open after rotating or resizing to desktop.
+  var mql = window.matchMedia('(min-width: 769px)');
+  var onChange = function(ev) { if (ev.matches) closeMobileMenu(); };
+  if (mql.addEventListener) mql.addEventListener('change', onChange);
+  else if (mql.addListener) mql.addListener(onChange);
 })();
 
 // ─── Copy Buttons for Code Blocks ───────────────────────────────────────────
@@ -4202,7 +4226,7 @@ async function boot() {
       document.getElementById('header-version').textContent = 'v' + catalog.version;
     }
     // Handle initial hash navigation
-    handleHashChange({ instant: true });
+    handleHashChange();
   } catch (err) {
     document.getElementById('skill-grid').innerHTML =
       '<div class="empty-state"><div class="empty-icon">&#x26a0;</div><p>Failed to load catalog: ' + esc(err.message) + '</p></div>';
