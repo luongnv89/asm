@@ -44,6 +44,10 @@ const result = await esbuild({
   define: {
     "process.env.__ASM_VERSION__": JSON.stringify(version),
     "process.env.__ASM_COMMIT__": JSON.stringify(commitHash),
+    // React picks its dev vs production runtime via this string; without
+    // inlining "production" here, esbuild keeps the dev build (larger, with
+    // prop-type validation and extra warnings).
+    "process.env.NODE_ENV": JSON.stringify("production"),
   },
   // Patch ESM-wrapped CJS deps so their `require(...)` shim resolves against
   // Node's real module loader. Without this, `require("process")` etc. from
