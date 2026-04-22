@@ -37,7 +37,7 @@ interface AppProps {
   initialConfig: AppConfig;
 }
 
-function App({ initialConfig }: AppProps) {
+export function App({ initialConfig }: AppProps) {
   const { exit } = useApp();
   const { stdout } = useStdout();
   const termWidth = stdout.columns ?? 80;

@@ -20,7 +20,7 @@
  * scoring change is intentional.
  */
 
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it } from "vitest";
 import { join, resolve } from "path";
 import { readFile, stat, mkdtemp } from "fs/promises";
 import { tmpdir } from "os";

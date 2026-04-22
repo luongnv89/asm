@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach, afterEach } from "bun:test";
+import { describe, expect, it, beforeEach, afterEach } from "vitest";
 import { generateSkillMd, scaffoldSkill, directoryExists } from "./initializer";
 import { mkdtemp, rm, readFile } from "fs/promises";
 import { join } from "path";

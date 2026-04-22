@@ -1,15 +1,8 @@
-import {
-  describe,
-  test,
-  expect,
-  beforeEach,
-  afterEach,
-  beforeAll,
-  afterAll,
-} from "bun:test";
+import { fileURLToPath } from "url";
+import { describe, test, expect, beforeEach, afterEach, beforeAll, afterAll } from "vitest";
 import { parseArgs, isCLIMode } from "./cli";
 import { compareSemver } from "./scanner";
-import { join } from "path";
+import { join, dirname } from "path";
 import {
   mkdtemp,
   rm,
@@ -21,25 +14,19 @@ import {
   symlink,
 } from "fs/promises";
 import { tmpdir, homedir } from "os";
+import { spawnCollect, runInlineTs } from "./utils/test-spawn";
 
 // Helper: path to the CLI entry point
-const CLI_BIN = join(import.meta.dir, "..", "bin", "agent-skill-manager.ts");
+const CLI_BIN = join(dirname(fileURLToPath(import.meta.url)), "..", "bin", "agent-skill-manager.ts");
 
 // Helper: run CLI as subprocess, returns { stdout, stderr, exitCode }
 async function runCLI(
   ...args: string[]
 ): Promise<{ stdout: string; stderr: string; exitCode: number }> {
-  const proc = Bun.spawn(["bun", CLI_BIN, ...args], {
-    stdout: "pipe",
-    stderr: "pipe",
+  const res = await spawnCollect(["npx", "tsx", CLI_BIN, ...args], {
     env: { ...process.env, NO_COLOR: "1" },
   });
-  const [stdout, stderr] = await Promise.all([
-    new Response(proc.stdout).text(),
-    new Response(proc.stderr).text(),
-  ]);
-  const exitCode = await proc.exited;
-  return { stdout: stdout.trim(), stderr: stderr.trim(), exitCode };
+  return { stdout: res.stdout.trim(), stderr: res.stderr.trim(), exitCode: res.exitCode };
 }
 
 // ─── parseArgs unit tests ───────────────────────────────────────────────────
@@ -1217,17 +1204,10 @@ describe("CLI integration: install registry resolution", () => {
       }
     `;
 
-    const proc = Bun.spawn(["bun", "-e", script], {
-      stdout: "pipe",
-      stderr: "pipe",
+    const { stdout, stderr, exitCode } = await runInlineTs(script, {
       env: { ...process.env, NO_COLOR: "1" },
-      cwd: join(import.meta.dir, ".."),
+      cwd: join(dirname(fileURLToPath(import.meta.url)), ".."),
     });
-    const [stdout, stderr] = await Promise.all([
-      new Response(proc.stdout).text(),
-      new Response(proc.stderr).text(),
-    ]);
-    const exitCode = await proc.exited;
 
     expect(exitCode).toBe(0);
     expect(stdout).toBe(`github:testauthor/my-test-repo#${"a".repeat(40)}`);
@@ -1246,15 +1226,11 @@ describe("readLine", () => {
       const result = await readLine();
       process.stdout.write(result);
     `;
-    const proc = Bun.spawn(["bun", "-e", script], {
-      stdout: "pipe",
-      stderr: "pipe",
-      stdin: new Blob(["hello\n"]),
+    const { stdout, exitCode } = await runInlineTs(script, {
+      stdin: "hello\n",
       env: { ...process.env },
-      cwd: join(import.meta.dir, ".."),
+      cwd: join(dirname(fileURLToPath(import.meta.url)), ".."),
     });
-    const stdout = await new Response(proc.stdout).text();
-    const exitCode = await proc.exited;
     expect(exitCode).toBe(0);
     expect(stdout).toBe("hello");
   });
@@ -1265,15 +1241,11 @@ describe("readLine", () => {
       const result = await readLine();
       process.stdout.write(result);
     `;
-    const proc = Bun.spawn(["bun", "-e", script], {
-      stdout: "pipe",
-      stderr: "pipe",
-      stdin: new Blob(["yes"]),
+    const { stdout, exitCode } = await runInlineTs(script, {
+      stdin: "yes",
       env: { ...process.env },
-      cwd: join(import.meta.dir, ".."),
+      cwd: join(dirname(fileURLToPath(import.meta.url)), ".."),
     });
-    const stdout = await new Response(proc.stdout).text();
-    const exitCode = await proc.exited;
     expect(exitCode).toBe(0);
     expect(stdout).toBe("yes");
   });
@@ -1284,15 +1256,11 @@ describe("readLine", () => {
       const result = await readLine();
       process.stdout.write(JSON.stringify(result));
     `;
-    const proc = Bun.spawn(["bun", "-e", script], {
-      stdout: "pipe",
-      stderr: "pipe",
-      stdin: new Blob([""]),
+    const { stdout, exitCode } = await runInlineTs(script, {
+      stdin: "",
       env: { ...process.env },
-      cwd: join(import.meta.dir, ".."),
+      cwd: join(dirname(fileURLToPath(import.meta.url)), ".."),
     });
-    const stdout = await new Response(proc.stdout).text();
-    const exitCode = await proc.exited;
     expect(exitCode).toBe(0);
     expect(stdout).toBe('""');
   });

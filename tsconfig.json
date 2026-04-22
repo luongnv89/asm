@@ -11,12 +11,13 @@
     "jsx": "react-jsx",
     "outDir": "dist",
     "rootDir": ".",
-    "types": ["bun-types"]
+    "types": ["node"]
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
     "bin/**/*.ts",
+    "scripts/**/*.ts",
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ]

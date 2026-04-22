@@ -8,18 +8,19 @@
     "asm": "dist/agent-skill-manager.js"
   },
   "scripts": {
-    "start": "bun run src/index.ts",
-    "typecheck": "bun run --bun tsc --noEmit",
-    "test": "bun test src/",
-    "test:e2e": "bun test tests/e2e/",
-    "test:e2e:node": "bun test tests/e2e/node-e2e.test.ts",
-    "test:e2e:install": "bun test tests/e2e/npm-install-e2e.test.ts",
-    "test:all": "bun test src/ && bun run build && bun test tests/e2e/",
-    "dev": "bun run src/index.ts",
-    "build": "bun run scripts/build.ts",
-    "preindex": "bun run scripts/preindex.ts",
-    "build:website": "bun scripts/build-catalog.ts",
-    "prepublishOnly": "bun run build",
+    "start": "tsx src/index.tsx",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run src/",
+    "test:watch": "vitest src/",
+    "test:e2e": "vitest run tests/e2e/",
+    "test:e2e:node": "vitest run tests/e2e/node-e2e.test.ts",
+    "test:e2e:install": "vitest run tests/e2e/npm-install-e2e.test.ts",
+    "test:all": "vitest run src/ && npm run build && vitest run tests/e2e/",
+    "dev": "tsx src/index.tsx",
+    "build": "tsx scripts/build.ts",
+    "preindex": "tsx scripts/preindex.ts",
+    "build:website": "tsx scripts/build-catalog.ts",
+    "prepublishOnly": "npm run build",
     "postinstall": "node scripts/postinstall.cjs"
   },
   "files": [
@@ -59,10 +60,15 @@
     "url": "https://github.com/luongnv89/agent-skill-manager/issues"
   },
   "devDependencies": {
+    "@types/node": "^18",
     "@types/react": "^18",
-    "bun-types": "^1.3.10",
+    "@vitest/ui": "^2",
+    "esbuild": "^0.24",
     "ink-testing-library": "^4",
     "minisearch": "7.2.0",
-    "prettier": "^3.8.1"
+    "prettier": "^3.8.1",
+    "tsx": "^4",
+    "typescript": "^5",
+    "vitest": "^2"
   }
 }

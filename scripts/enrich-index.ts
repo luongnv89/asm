@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 /**
  * Enrich existing `data/skill-index/*.json` files with `tokenCount` and
  * `evalSummary` fields for every indexed skill.
@@ -18,15 +18,16 @@
  *   bun run scripts/enrich-index.ts --only anthropics/skills
  */
 
+import { fileURLToPath } from "url";
 import { readFileSync, writeFileSync, readdirSync } from "fs";
-import { resolve, join } from "path";
+import { resolve, join, dirname } from "path";
 import { readFile } from "fs/promises";
 import { cloneToTemp, cleanupTemp, parseSource } from "../src/installer";
 import { estimateTokenCount } from "../src/utils/token-count";
 import { evaluateSkillContent } from "../src/evaluator";
 import type { RepoIndex, SkillEvalSummary } from "../src/utils/types";
 
-const root = resolve(import.meta.dir, "..");
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const indexDir = resolve(root, "data", "skill-index");
 
 function parseArgs() {

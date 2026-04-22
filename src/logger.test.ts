@@ -1,13 +1,13 @@
-import { describe, test, expect, beforeEach, afterEach, spyOn } from "bun:test";
+import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { setVerbose, isVerbose, debug } from "./logger";
 
 describe("logger", () => {
-  let stderrSpy: ReturnType<typeof spyOn>;
+  let stderrSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
     setVerbose(false);
     (globalThis as any).__CLI_NO_COLOR = false;
-    stderrSpy = spyOn(console, "error").mockImplementation(() => {});
+    stderrSpy = vi.spyOn(console, "error").mockImplementation(() => {});
   });
 
   afterEach(() => {

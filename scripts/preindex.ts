@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 
 /**
  * Pre-index script: clones all repos from the curated list and generates
@@ -6,17 +6,18 @@
  *
  * Reads the curated repo list from data/skill-index-resources.json.
  *
- * Usage: bun run scripts/preindex.ts
+ * Usage: node --experimental-strip-types scripts/preindex.ts
  */
 
-import { resolve, join } from "path";
+import { resolve, join, dirname } from "path";
+import { fileURLToPath } from "url";
 import { mkdirSync, readFileSync } from "fs";
 import { copyFile } from "fs/promises";
 import { ingestRepo } from "../src/ingester";
 import { getIndexDir } from "../src/config";
 import type { SkillIndexResources } from "../src/utils/types";
 
-const root = resolve(import.meta.dir, "..");
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const outputDir = resolve(root, "data", "skill-index");
 const resourcesPath = resolve(root, "data", "skill-index-resources.json");
 

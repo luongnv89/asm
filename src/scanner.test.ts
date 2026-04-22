@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach, afterEach, spyOn } from "bun:test";
+import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
 import { mkdtemp, writeFile, mkdir, rm, symlink, realpath } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
@@ -209,10 +209,10 @@ describe("compareSemver", () => {
 });
 
 describe("scanner verbose output", () => {
-  let stderrSpy: ReturnType<typeof spyOn>;
+  let stderrSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
-    stderrSpy = spyOn(console, "error").mockImplementation(() => {});
+    stderrSpy = vi.spyOn(console, "error").mockImplementation(() => {});
   });
 
   afterEach(() => {

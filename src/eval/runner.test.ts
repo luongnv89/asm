@@ -1,4 +1,4 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it } from "vitest";
 import { runProvider } from "./runner";
 import type { EvalProvider, EvalResult, SkillContext } from "./types";
 

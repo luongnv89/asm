@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach, afterEach, spyOn } from "bun:test";
+import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
 import {
   getDefaultConfig,
   resolveProviderPath,
@@ -115,10 +115,10 @@ describe("config backup on corruption", () => {
   const configPath = getConfigPath();
   const backupPath = configPath + ".bak";
   let originalContent: string | null = null;
-  let stderrSpy: ReturnType<typeof spyOn>;
+  let stderrSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(async () => {
-    stderrSpy = spyOn(console, "error").mockImplementation(() => {});
+    stderrSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     // Save original config if it exists
     try {
       originalContent = await readFile(configPath, "utf-8");
@@ -217,10 +217,10 @@ describe("config backup on corruption", () => {
 });
 
 describe("config verbose output", () => {
-  let stderrSpy: ReturnType<typeof spyOn>;
+  let stderrSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
-    stderrSpy = spyOn(console, "error").mockImplementation(() => {});
+    stderrSpy = vi.spyOn(console, "error").mockImplementation(() => {});
   });
 
   afterEach(() => {

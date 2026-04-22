@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach, afterEach } from "bun:test";
+import { describe, test, expect, beforeEach, afterEach } from "vitest";
 import { mkdtemp, writeFile, mkdir, rm } from "fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
@@ -256,7 +256,7 @@ describe("formatOutdatedJSON", () => {
     };
 
     const parsed = JSON.parse(formatOutdatedJSON(summary));
-    expect(parsed.skills).toBeArrayOfSize(1);
+    expect(parsed.skills).toHaveLength(1);
     expect(parsed.skills[0].name).toBe("test-skill");
     expect(parsed.skills[0].status).toBe("outdated");
     expect(parsed.summary.outdated).toBe(1);
@@ -279,7 +279,7 @@ describe("formatOutdatedMachine", () => {
     expect(parsed.v).toBe(1);
     expect(parsed.type).toBe("outdated");
     expect(parsed.data).toBeDefined();
-    expect(parsed.data.skills).toBeArray();
+    expect(parsed.data.skills).toEqual(expect.any(Array));
   });
 });
 
@@ -309,7 +309,7 @@ describe("formatUpdateJSON", () => {
     };
 
     const parsed = JSON.parse(formatUpdateJSON(summary));
-    expect(parsed.results).toBeArrayOfSize(2);
+    expect(parsed.results).toHaveLength(2);
     expect(parsed.results[0].status).toBe("updated");
     expect(parsed.results[1].status).toBe("skipped");
     expect(parsed.summary.updated).toBe(1);
@@ -332,7 +332,7 @@ describe("formatUpdateMachine", () => {
     expect(parsed.v).toBe(1);
     expect(parsed.type).toBe("update");
     expect(parsed.data).toBeDefined();
-    expect(parsed.data.results).toBeArray();
+    expect(parsed.data.results).toEqual(expect.any(Array));
   });
 
   test("includes oldCommit, newCommit, and securityVerdict in results", () => {

@@ -1,20 +1,25 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 
-import { readFileSync, rmSync } from "fs";
-import { resolve } from "path";
+import { readFileSync, writeFileSync, rmSync } from "node:fs";
+import { resolve, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
+import { build as esbuild } from "esbuild";
 
-const root = resolve(import.meta.dir, "..");
+const here = dirname(fileURLToPath(import.meta.url));
+const root = resolve(here, "..");
 const pkg = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8"));
-const version = pkg.version;
+const version: string = pkg.version;
 
 let commitHash = "unknown";
 try {
-  const proc = Bun.spawn(["git", "rev-parse", "--short", "HEAD"], {
-    stdout: "pipe",
-    stderr: "pipe",
+  const res = spawnSync("git", ["rev-parse", "--short", "HEAD"], {
     cwd: root,
+    encoding: "utf8",
   });
-  commitHash = (await new Response(proc.stdout).text()).trim() || "unknown";
+  if (res.status === 0) {
+    commitHash = res.stdout.trim() || "unknown";
+  }
 } catch {
   // git not available
 }
@@ -22,10 +27,15 @@ try {
 // Clean dist/ to remove stale chunks from previous builds
 rmSync(resolve(root, "dist"), { recursive: true, force: true });
 
-const result = await Bun.build({
-  entrypoints: [resolve(root, "bin/agent-skill-manager.ts")],
+const result = await esbuild({
+  entryPoints: [resolve(root, "bin/agent-skill-manager.ts")],
   outdir: resolve(root, "dist"),
-  target: "node",
+  outbase: resolve(root),
+  entryNames: "agent-skill-manager",
+  bundle: true,
+  format: "esm",
+  platform: "node",
+  target: "node18",
   minify: true,
   splitting: true,
   // Ink only loads react-devtools-core behind an `if (process.env.DEV)` gate;
@@ -35,15 +45,23 @@ const result = await Bun.build({
     "process.env.__ASM_VERSION__": JSON.stringify(version),
     "process.env.__ASM_COMMIT__": JSON.stringify(commitHash),
   },
+  // Patch ESM-wrapped CJS deps so their `require(...)` shim resolves against
+  // Node's real module loader. Without this, `require("process")` etc. from
+  // bundled CJS code throws "Dynamic require of X is not supported" at runtime.
+  banner: {
+    js: "import { createRequire as __asmCreateRequire } from 'node:module'; const require = __asmCreateRequire(import.meta.url);",
+  },
+  metafile: true,
+  logLevel: "warning",
 });
 
-if (!result.success) {
-  console.error("Build failed:");
-  for (const log of result.logs) {
-    console.error(log);
-  }
-  process.exit(1);
+// Prepend shebang to the CLI entry only (not shared chunks).
+const entryPath = resolve(root, "dist", "agent-skill-manager.js");
+const entryContent = readFileSync(entryPath, "utf8");
+if (!entryContent.startsWith("#!")) {
+  writeFileSync(entryPath, "#!/usr/bin/env node\n" + entryContent);
 }
 
+const outputCount = Object.keys(result.metafile?.outputs ?? {}).length;
 console.log(`Built agent-skill-manager v${version} (${commitHash})`);
-console.log(`  ${result.outputs.length} output(s) in dist/`);
+console.log(`  ${outputCount} output(s) in dist/`);

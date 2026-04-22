@@ -1,12 +1,4 @@
-import {
-  describe,
-  expect,
-  it,
-  beforeEach,
-  afterEach,
-  mock,
-  spyOn,
-} from "bun:test";
+import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
 import { mkdtemp, writeFile, mkdir, rm } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
@@ -651,7 +643,7 @@ describe("resolveFromRegistry", () => {
     commit: "c".repeat(40),
   });
 
-  let fetchSpy: ReturnType<typeof spyOn>;
+  let fetchSpy: import("vitest").MockInstance<typeof fetch>;
 
   afterEach(() => {
     fetchSpy?.mockRestore();
@@ -664,11 +656,11 @@ describe("resolveFromRegistry", () => {
   function mockFetch(data: RegistryIndex | null) {
     if (data === null) {
       // Simulate a network failure
-      fetchSpy = spyOn(globalThis, "fetch").mockRejectedValue(
+      fetchSpy = vi.spyOn(globalThis, "fetch").mockRejectedValue(
         new Error("network error"),
       );
     } else {
-      fetchSpy = spyOn(globalThis, "fetch").mockResolvedValue(
+      fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue(
         new Response(JSON.stringify(data), {
           status: 200,
           headers: { "Content-Type": "application/json" },

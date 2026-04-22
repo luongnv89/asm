@@ -1,27 +1,22 @@
-import { describe, test, expect, beforeEach, afterEach } from "bun:test";
-import { join, resolve } from "path";
+import { fileURLToPath } from "url";
+import { describe, test, expect, beforeEach, afterEach } from "vitest";
+import { join, resolve, dirname } from "path";
 import { mkdtemp, rm, readFile, writeFile } from "fs/promises";
 import { tmpdir } from "os";
+import { spawnCollect } from "../../src/utils/test-spawn";
 
-const ROOT = resolve(import.meta.dir, "..", "..");
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const DIST_BIN = join(ROOT, "dist", "agent-skill-manager.js");
 
 // Helper: run the built dist via Node.js as a subprocess
 async function runNode(
   ...args: string[]
 ): Promise<{ stdout: string; stderr: string; exitCode: number }> {
-  const proc = Bun.spawn(["node", DIST_BIN, ...args], {
-    stdout: "pipe",
-    stderr: "pipe",
+  const res = await spawnCollect(["node", DIST_BIN, ...args], {
     env: { ...process.env, NO_COLOR: "1" },
     cwd: ROOT,
   });
-  const [stdout, stderr] = await Promise.all([
-    new Response(proc.stdout).text(),
-    new Response(proc.stderr).text(),
-  ]);
-  const exitCode = await proc.exited;
-  return { stdout: stdout.trim(), stderr: stderr.trim(), exitCode };
+  return { stdout: res.stdout.trim(), stderr: res.stderr.trim(), exitCode: res.exitCode };
 }
 
 // ─── Tier 1: must work after install ────────────────────────────────────────

@@ -12,16 +12,9 @@
  * the cache file via the ASM_REGISTRY_CACHE env var.
  */
 
-import {
-  describe,
-  test,
-  expect,
-  beforeAll,
-  beforeEach,
-  afterEach,
-  setDefaultTimeout,
-} from "bun:test";
-import { join, resolve } from "path";
+import { fileURLToPath } from "url";
+import { describe, test, expect, beforeAll, beforeEach, afterEach, vi} from "vitest";
+import { join, resolve, dirname } from "path";
 import {
   mkdtemp,
   rm,
@@ -31,10 +24,11 @@ import {
   access,
 } from "fs/promises";
 import { tmpdir } from "os";
+import { spawnCollect } from "../../src/utils/test-spawn";
 
-setDefaultTimeout(120_000);
+vi.setConfig({ testTimeout: 120_000 });
 
-const ROOT = resolve(import.meta.dir, "..", "..");
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const DIST_BIN = join(ROOT, "dist", "agent-skill-manager.js");
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -44,26 +38,17 @@ async function runAsm(
   args: string[],
   opts: { env?: Record<string, string>; cwd?: string } = {},
 ): Promise<{ stdout: string; stderr: string; exitCode: number }> {
-  const proc = Bun.spawn(["bun", DIST_BIN, ...args], {
-    stdout: "pipe",
-    stderr: "pipe",
+  const res = await spawnCollect(["node", DIST_BIN, ...args], {
     env: { ...process.env, NO_COLOR: "1", ...opts.env },
     cwd: opts.cwd ?? ROOT,
   });
-  const [stdout, stderr] = await Promise.all([
-    new Response(proc.stdout).text(),
-    new Response(proc.stderr).text(),
-  ]);
-  const exitCode = await proc.exited;
-  return { stdout: stdout.trim(), stderr: stderr.trim(), exitCode };
+  return { stdout: res.stdout.trim(), stderr: res.stderr.trim(), exitCode: res.exitCode };
 }
 
 /** Run a git command in a directory */
 async function git(args: string[], cwd: string): Promise<string> {
-  const proc = Bun.spawn(["git", ...args], {
+  const res = await spawnCollect(["git", ...args], {
     cwd,
-    stdout: "pipe",
-    stderr: "pipe",
     env: {
       ...process.env,
       GIT_AUTHOR_NAME: "Test User",
@@ -72,13 +57,10 @@ async function git(args: string[], cwd: string): Promise<string> {
       GIT_COMMITTER_EMAIL: "test@example.com",
     },
   });
-  const stdout = await new Response(proc.stdout).text();
-  const exitCode = await proc.exited;
-  if (exitCode !== 0) {
-    const stderr = await new Response(proc.stderr).text();
-    throw new Error(`git ${args.join(" ")} failed: ${stderr}`);
+  if (res.exitCode !== 0) {
+    throw new Error(`git ${args.join(" ")} failed: ${res.stderr}`);
   }
-  return stdout.trim();
+  return res.stdout.trim();
 }
 
 /** Create a minimal git repo with one commit */

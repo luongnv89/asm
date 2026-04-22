@@ -1,10 +1,10 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 /**
  * Build script for the ASM Skill Catalog website.
  * Merges all data/skill-index/*.json files into a single website/catalog.json,
  * auto-categorizes skills by keyword matching, and copies static assets.
  *
- * Zero external dependencies — runs under Bun or Node 18+.
+ * Zero external dependencies — runs under Node 18+.
  */
 import {
   readdirSync,
@@ -14,6 +14,7 @@ import {
   copyFileSync,
   existsSync,
   rmSync,
+  statSync,
 } from "fs";
 import { createHash } from "crypto";
 import { join, dirname } from "path";
@@ -739,13 +740,13 @@ console.log(`  Categories: ${categories.join(", ")}`);
 console.log(`  Bundles: ${bundles.length}`);
 console.log(`  Split artifacts (issue #214):`);
 console.log(
-  `    catalog.json:     ${kb(Bun.file(join(outDir, "catalog.json")).size)}`,
+  `    catalog.json:     ${kb(statSync(join(outDir, "catalog.json")).size)}`,
 );
 console.log(
-  `    skills.min.json:  ${kb(Bun.file(join(outDir, "skills.min.json")).size)}`,
+  `    skills.min.json:  ${kb(statSync(join(outDir, "skills.min.json")).size)}`,
 );
 console.log(
-  `    search.idx.json:  ${kb(Bun.file(join(outDir, "search.idx.json")).size)}`,
+  `    search.idx.json:  ${kb(statSync(join(outDir, "search.idx.json")).size)}`,
 );
 console.log(`    skills/*.json:    ${detailFilesWritten} files`);
 

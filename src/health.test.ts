@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach, afterEach } from "bun:test";
+import { describe, expect, it, beforeEach, afterEach } from "vitest";
 import { checkHealth } from "./health";
 import type { SkillInfo } from "./utils/types";
 import { mkdtemp, writeFile, mkdir, rm } from "fs/promises";

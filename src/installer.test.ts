@@ -1,12 +1,4 @@
-import {
-  describe,
-  test,
-  expect,
-  mock,
-  beforeEach,
-  afterEach,
-  spyOn,
-} from "bun:test";
+import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import {
   mkdtemp,
   writeFile,
@@ -798,16 +790,16 @@ describe("resolveProvider", () => {
 
   test("interactive picker: single selection returns single provider", async () => {
     const { checkboxPicker } = await import("./utils/checkbox-picker");
-    const pickerMock = spyOn(
+    const pickerMock = vi.spyOn(
       { checkboxPicker },
       "checkboxPicker",
     ).mockResolvedValue([1]);
     // Re-mock the module so resolveProvider sees it
-    mock.module("./utils/checkbox-picker", () => ({
+    vi.doMock("./utils/checkbox-picker", () => ({
       checkboxPicker: pickerMock,
     }));
-    const saveMock = mock(() => Promise.resolve());
-    mock.module("./config", () => ({
+    const saveMock = vi.fn(() => Promise.resolve());
+    vi.doMock("./config", () => ({
       saveSelectedTools: saveMock,
     }));
 
@@ -827,12 +819,12 @@ describe("resolveProvider", () => {
       project: ".agents/skills",
       enabled: true,
     };
-    const pickerFn = mock(() => Promise.resolve([0, 2]));
-    mock.module("./utils/checkbox-picker", () => ({
+    const pickerFn = vi.fn(() => Promise.resolve([0, 2]));
+    vi.doMock("./utils/checkbox-picker", () => ({
       checkboxPicker: pickerFn,
     }));
-    const saveMock = mock(() => Promise.resolve());
-    mock.module("./config", () => ({
+    const saveMock = vi.fn(() => Promise.resolve());
+    vi.doMock("./config", () => ({
       saveSelectedTools: saveMock,
     }));
 
@@ -847,8 +839,8 @@ describe("resolveProvider", () => {
   });
 
   test("interactive picker: empty selection throws error", async () => {
-    const pickerFn = mock(() => Promise.resolve([]));
-    mock.module("./utils/checkbox-picker", () => ({
+    const pickerFn = vi.fn(() => Promise.resolve([]));
+    vi.doMock("./utils/checkbox-picker", () => ({
       checkboxPicker: pickerFn,
     }));
 
@@ -867,15 +859,15 @@ describe("resolveProvider", () => {
       enabled: true,
     };
     let capturedItems: unknown[] = [];
-    const pickerFn = mock((opts: { items: unknown[] }) => {
+    const pickerFn = vi.fn((opts: { items: unknown[] }) => {
       capturedItems = opts.items;
       return Promise.resolve([1]); // select agents
     });
-    mock.module("./utils/checkbox-picker", () => ({
+    vi.doMock("./utils/checkbox-picker", () => ({
       checkboxPicker: pickerFn,
     }));
-    const saveMock = mock(() => Promise.resolve());
-    mock.module("./config", () => ({
+    const saveMock = vi.fn(() => Promise.resolve());
+    vi.doMock("./config", () => ({
       saveSelectedTools: saveMock,
     }));
 
@@ -890,15 +882,15 @@ describe("resolveProvider", () => {
 
   test("interactive picker: saved tools override default checked state", async () => {
     let capturedItems: unknown[] = [];
-    const pickerFn = mock((opts: { items: unknown[] }) => {
+    const pickerFn = vi.fn((opts: { items: unknown[] }) => {
       capturedItems = opts.items;
       return Promise.resolve([0, 1]); // select claude and codex
     });
-    mock.module("./utils/checkbox-picker", () => ({
+    vi.doMock("./utils/checkbox-picker", () => ({
       checkboxPicker: pickerFn,
     }));
-    const saveMock = mock(() => Promise.resolve());
-    mock.module("./config", () => ({
+    const saveMock = vi.fn(() => Promise.resolve());
+    vi.doMock("./config", () => ({
       saveSelectedTools: saveMock,
     }));
 
@@ -930,15 +922,15 @@ describe("resolveProvider", () => {
 
   test("interactive picker: persists selected tool names after selection", async () => {
     let savedNames: string[] = [];
-    const pickerFn = mock(() => Promise.resolve([0, 2]));
-    mock.module("./utils/checkbox-picker", () => ({
+    const pickerFn = vi.fn(() => Promise.resolve([0, 2]));
+    vi.doMock("./utils/checkbox-picker", () => ({
       checkboxPicker: pickerFn,
     }));
-    const saveMock = mock((names: string[]) => {
+    const saveMock = vi.fn((names: string[]) => {
       savedNames = names;
       return Promise.resolve();
     });
-    mock.module("./config", () => ({
+    vi.doMock("./config", () => ({
       saveSelectedTools: saveMock,
     }));
 
@@ -965,15 +957,15 @@ describe("resolveProvider", () => {
       project: ".agents/skills",
       enabled: true,
     };
-    const pickerFn = mock((opts: { items: unknown[] }) => {
+    const pickerFn = vi.fn((opts: { items: unknown[] }) => {
       capturedItems = opts.items;
       return Promise.resolve([1]); // select agents
     });
-    mock.module("./utils/checkbox-picker", () => ({
+    vi.doMock("./utils/checkbox-picker", () => ({
       checkboxPicker: pickerFn,
     }));
-    const saveMock = mock(() => Promise.resolve());
-    mock.module("./config", () => ({
+    const saveMock = vi.fn(() => Promise.resolve());
+    vi.doMock("./config", () => ({
       saveSelectedTools: saveMock,
     }));
 
@@ -998,15 +990,15 @@ describe("resolveProvider", () => {
 
   test("interactive picker: all items default to deselected when no agents and no saved", async () => {
     let capturedItems: unknown[] = [];
-    const pickerFn = mock((opts: { items: unknown[] }) => {
+    const pickerFn = vi.fn((opts: { items: unknown[] }) => {
       capturedItems = opts.items;
       return Promise.resolve([0]);
     });
-    mock.module("./utils/checkbox-picker", () => ({
+    vi.doMock("./utils/checkbox-picker", () => ({
       checkboxPicker: pickerFn,
     }));
-    const saveMock = mock(() => Promise.resolve());
-    mock.module("./config", () => ({
+    const saveMock = vi.fn(() => Promise.resolve());
+    vi.doMock("./config", () => ({
       saveSelectedTools: saveMock,
     }));
 
@@ -1025,15 +1017,15 @@ describe("resolveProvider", () => {
       { ...codex, enabled: false },
     ];
     let capturedItems: unknown[] = [];
-    const pickerFn = mock((opts: { items: unknown[] }) => {
+    const pickerFn = vi.fn((opts: { items: unknown[] }) => {
       capturedItems = opts.items;
       return Promise.resolve([0]); // user selects first
     });
-    mock.module("./utils/checkbox-picker", () => ({
+    vi.doMock("./utils/checkbox-picker", () => ({
       checkboxPicker: pickerFn,
     }));
-    const saveMock = mock(() => Promise.resolve());
-    mock.module("./config", () => ({
+    const saveMock = vi.fn(() => Promise.resolve());
+    vi.doMock("./config", () => ({
       saveSelectedTools: saveMock,
     }));
 
@@ -1259,10 +1251,10 @@ describe("checkConflict", () => {
 import { setVerbose } from "./logger";
 
 describe("installer verbose output", () => {
-  let stderrSpy: ReturnType<typeof spyOn>;
+  let stderrSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
-    stderrSpy = spyOn(console, "error").mockImplementation(() => {});
+    stderrSpy = vi.spyOn(console, "error").mockImplementation(() => {});
   });
 
   afterEach(() => {

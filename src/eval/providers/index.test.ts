@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach } from "bun:test";
+import { describe, expect, it, beforeEach } from "vitest";
 import { registerBuiltins } from "./index";
 import { list, resolve, __resetForTests } from "../registry";
 

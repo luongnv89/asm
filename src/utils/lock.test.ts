@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach, afterEach, mock } from "bun:test";
+import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import {
   mkdtemp,
   writeFile,
@@ -21,7 +21,7 @@ import {
 let tempDir: string;
 let lockPath: string;
 
-mock.module("../config", () => ({
+vi.doMock("../config", () => ({
   getLockPath: () => lockPath,
 }));
 

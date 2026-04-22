@@ -1,4 +1,4 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it } from "vitest";
 import { validateManifest } from "./importer";
 import type { ExportManifest, ExportedSkill } from "./utils/types";
 

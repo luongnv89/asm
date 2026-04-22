@@ -1,4 +1,4 @@
-import { describe, it, expect } from "bun:test";
+import { describe, it, expect } from "vitest";
 import { parseEditorCommand } from "./editor";
 
 describe("parseEditorCommand", () => {

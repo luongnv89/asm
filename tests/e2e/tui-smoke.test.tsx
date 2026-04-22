@@ -10,7 +10,7 @@
  * unavailable when stdin is a pipe, and maintaining a cross-platform PTY
  * harness is disproportionate to the smoke-level signal we want here.
  */
-import { describe, test, expect } from "bun:test";
+import { describe, test, expect } from "vitest";
 import React from "react";
 import { render } from "ink-testing-library";
 import { HelpView } from "../../src/views/help";

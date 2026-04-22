@@ -1,20 +1,15 @@
-import {
-  describe,
-  test,
-  expect,
-  beforeAll,
-  afterAll,
-  setDefaultTimeout,
-} from "bun:test";
-import { join, resolve } from "path";
+import { fileURLToPath } from "url";
+import { describe, test, expect, beforeAll, afterAll, vi} from "vitest";
+import { join, resolve, dirname } from "path";
 import { mkdtemp, rm, readFile, access } from "fs/promises";
 import { existsSync, readdirSync } from "fs";
 import { tmpdir } from "os";
+import { spawnCollect } from "../../src/utils/test-spawn";
 
 // npm pack + install can take a while.
-setDefaultTimeout(120_000);
+vi.setConfig({ testTimeout: 120_000 });
 
-const ROOT = resolve(import.meta.dir, "..", "..");
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..");
 
 let installDir: string;
 let asmBin: string;
@@ -42,30 +37,19 @@ beforeAll(async () => {
       }
     } else {
       // Local: run npm pack to create it
-      const packProc = Bun.spawn(["npm", "pack"], {
-        stdout: "pipe",
-        stderr: "pipe",
-        cwd: ROOT,
-      });
-      const packOut = (await new Response(packProc.stdout).text()).trim();
-      await packProc.exited;
+      const packRes = await spawnCollect(["npm", "pack"], { cwd: ROOT });
+      const packOut = packRes.stdout.trim();
       tarball = join(ROOT, packOut.split("\n").pop()!);
     }
 
     // Install globally into the temp prefix
-    const installProc = Bun.spawn(
+    const installRes = await spawnCollect(
       ["npm", "install", "--global", "--prefix", installDir, tarball],
-      {
-        stdout: "pipe",
-        stderr: "pipe",
-        env: { ...process.env },
-      },
+      { env: { ...process.env } },
     );
-    const installStderr = await new Response(installProc.stderr).text();
-    const installExit = await installProc.exited;
 
-    if (installExit !== 0) {
-      setupError = `npm install failed (exit ${installExit}): ${installStderr}`;
+    if (installRes.exitCode !== 0) {
+      setupError = `npm install failed (exit ${installRes.exitCode}): ${installRes.stderr}`;
       return;
     }
 
@@ -109,21 +93,14 @@ async function runAsm(
 ): Promise<{ stdout: string; stderr: string; exitCode: number }> {
   if (setupError) throw new Error(setupError);
 
-  const proc = Bun.spawn([asmBin, ...args], {
-    stdout: "pipe",
-    stderr: "pipe",
+  const res = await spawnCollect([asmBin, ...args], {
     env: {
       ...process.env,
       NO_COLOR: "1",
       PATH: `${join(installDir, "bin")}:${process.env.PATH}`,
     },
   });
-  const [stdout, stderr] = await Promise.all([
-    new Response(proc.stdout).text(),
-    new Response(proc.stderr).text(),
-  ]);
-  const exitCode = await proc.exited;
-  return { stdout: stdout.trim(), stderr: stderr.trim(), exitCode };
+  return { stdout: res.stdout.trim(), stderr: res.stderr.trim(), exitCode: res.exitCode };
 }
 
 // ─── Installation structure ─────────────────────────────────────────────────

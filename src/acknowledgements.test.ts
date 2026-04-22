@@ -1,8 +1,9 @@
-import { describe, test, expect } from "bun:test";
+import { fileURLToPath } from "url";
+import { describe, test, expect } from "vitest";
 import { readFileSync } from "fs";
-import { resolve, join } from "path";
+import { resolve, join, dirname } from "path";
 
-const ROOT = resolve(import.meta.dir, "..");
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const README = join(ROOT, "README.md");
 const WEBSITE = join(ROOT, "website", "index.html");
 const ACK_JSON = join(ROOT, "website", "data", "acknowledgements.json");

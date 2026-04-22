@@ -1,11 +1,12 @@
-import { describe, test, expect } from "bun:test";
-import { join, resolve } from "path";
+import { fileURLToPath } from "url";
+import { describe, test, expect } from "vitest";
+import { join, resolve, dirname } from "path";
 import { readFileSync, existsSync, readdirSync, statSync } from "fs";
 import { MINISEARCH_OPTIONS } from "../../scripts/minisearch-options";
 
-const WEBSITE_DIR = resolve(import.meta.dir, "..", "..", "website");
+const WEBSITE_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "website");
 
-const ROOT = resolve(import.meta.dir, "..", "..");
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const DIST = join(ROOT, "dist");
 const ENTRY = join(DIST, "agent-skill-manager.js");
 const DATA_DIR = join(ROOT, "data", "skill-index");
