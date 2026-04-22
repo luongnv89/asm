@@ -2,6 +2,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   act,
+  cleanup,
   fireEvent,
   render,
   screen,
@@ -113,6 +114,12 @@ function mockFetch() {
 
 describe("App smoke", () => {
   beforeEach(() => {
+    // Reset both pathname AND hash — HashRouter persists its state in the
+    // URL hash, so without clearing it a prior test's `/skills/...` hash
+    // leaks into the next render and the catalog card links never mount.
+    // `vitest.config.ts` has `globals: false` so @testing-library/react's
+    // auto-cleanup is NOT registered; call `cleanup()` explicitly in
+    // afterEach (below) to unmount the previous test's App tree.
     window.history.replaceState(null, "", "/");
     globalThis.fetch = mockFetch();
     // localStorage sometimes throws in jsdom — stub safely.
@@ -123,6 +130,11 @@ describe("App smoke", () => {
     }
   });
   afterEach(() => {
+    // Unmount any component trees from the previous test — required because
+    // `globals: false` disables the auto-cleanup hook that @testing-library
+    // would otherwise install. Without this, the first test's App stays in
+    // the DOM and races with the next render.
+    cleanup();
     vi.restoreAllMocks();
   });
 
