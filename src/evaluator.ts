@@ -39,6 +39,7 @@ import {
 import { join, resolve, basename, isAbsolute } from "path";
 import type { ProviderEvalReport } from "./eval/summary";
 import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
+import { runCommand } from "./utils/spawn";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -1388,17 +1389,14 @@ export async function applyFix(
  */
 export async function detectGitAuthor(): Promise<string | null> {
   try {
-    // Use Bun.spawn when available; fall back to child_process for Node tests.
-    const proc = Bun.spawn(
-      ["git", "config", "--global", "--get", "user.name"],
-      {
-        stdout: "pipe",
-        stderr: "pipe",
-      },
-    );
-    const stdout = await new Response(proc.stdout).text();
-    const code = await proc.exited;
-    if (code !== 0) return null;
+    const { stdout, exitCode } = await runCommand([
+      "git",
+      "config",
+      "--global",
+      "--get",
+      "user.name",
+    ]);
+    if (exitCode !== 0) return null;
     const trimmed = stdout.trim();
     return trimmed ? trimmed : null;
   } catch {

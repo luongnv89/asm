@@ -14,6 +14,7 @@ import type { RegistryManifest } from "./registry";
 import type { SecurityVerdict, SecurityAuditReport } from "./utils/types";
 import type { PublishResult } from "./utils/types";
 import { debug } from "./logger";
+import { runCommand } from "./utils/spawn";
 
 // ─── Sanitization ──────────────────────────────────────────────────────────
 
@@ -126,12 +127,9 @@ export async function parseSkillMetadata(
  * Check that the target directory is inside a git repository.
  */
 export async function checkIsGitRepo(dir: string): Promise<void> {
-  const proc = Bun.spawn(["git", "rev-parse", "--git-dir"], {
+  const { exitCode } = await runCommand(["git", "rev-parse", "--git-dir"], {
     cwd: dir,
-    stdout: "pipe",
-    stderr: "pipe",
   });
-  const exitCode = await proc.exited;
   if (exitCode !== 0) {
     throw new Error(`${dir} is not inside a git repository.`);
   }
@@ -141,13 +139,9 @@ export async function checkIsGitRepo(dir: string): Promise<void> {
  * Get the current HEAD commit SHA.
  */
 export async function getHeadCommit(dir: string): Promise<string> {
-  const proc = Bun.spawn(["git", "rev-parse", "HEAD"], {
+  const { stdout, exitCode } = await runCommand(["git", "rev-parse", "HEAD"], {
     cwd: dir,
-    stdout: "pipe",
-    stderr: "pipe",
   });
-  const stdout = await new Response(proc.stdout).text();
-  const exitCode = await proc.exited;
   if (exitCode !== 0) {
     throw new Error("Failed to get HEAD commit. Is this a git repository?");
   }
@@ -158,13 +152,10 @@ export async function getHeadCommit(dir: string): Promise<string> {
  * Get the root directory of the git repository containing dir.
  */
 export async function getGitRoot(dir: string): Promise<string> {
-  const proc = Bun.spawn(["git", "rev-parse", "--show-toplevel"], {
-    cwd: dir,
-    stdout: "pipe",
-    stderr: "pipe",
-  });
-  const stdout = await new Response(proc.stdout).text();
-  const exitCode = await proc.exited;
+  const { stdout, exitCode } = await runCommand(
+    ["git", "rev-parse", "--show-toplevel"],
+    { cwd: dir },
+  );
   if (exitCode !== 0) {
     throw new Error("Failed to determine git repository root.");
   }
@@ -175,13 +166,10 @@ export async function getGitRoot(dir: string): Promise<string> {
  * Get the remote origin URL.
  */
 export async function getRemoteOrigin(dir: string): Promise<string> {
-  const proc = Bun.spawn(["git", "remote", "get-url", "origin"], {
-    cwd: dir,
-    stdout: "pipe",
-    stderr: "pipe",
-  });
-  const stdout = await new Response(proc.stdout).text();
-  const exitCode = await proc.exited;
+  const { stdout, exitCode } = await runCommand(
+    ["git", "remote", "get-url", "origin"],
+    { cwd: dir },
+  );
   if (exitCode !== 0) {
     throw new Error(
       "No remote origin found. Add one with: git remote add origin <url>",
@@ -210,33 +198,23 @@ export async function checkGhCli(): Promise<{
   authenticated: boolean;
   login: string | null;
 }> {
-  // Check if gh is installed (use gh --version instead of `which` for cross-platform compat)
-  const versionProc = Bun.spawn(["gh", "--version"], {
-    stdout: "pipe",
-    stderr: "pipe",
-  });
-  const versionExit = await versionProc.exited;
+  const { exitCode: versionExit } = await runCommand(["gh", "--version"]);
   if (versionExit !== 0) {
     return { available: false, authenticated: false, login: null };
   }
 
-  // Check authentication
-  const authProc = Bun.spawn(["gh", "auth", "status"], {
-    stdout: "pipe",
-    stderr: "pipe",
-  });
-  const authExit = await authProc.exited;
+  const { exitCode: authExit } = await runCommand(["gh", "auth", "status"]);
   if (authExit !== 0) {
     return { available: true, authenticated: false, login: null };
   }
 
-  // Get login
-  const loginProc = Bun.spawn(["gh", "api", "user", "--jq", ".login"], {
-    stdout: "pipe",
-    stderr: "pipe",
-  });
-  const loginOut = await new Response(loginProc.stdout).text();
-  const loginExit = await loginProc.exited;
+  const { stdout: loginOut, exitCode: loginExit } = await runCommand([
+    "gh",
+    "api",
+    "user",
+    "--jq",
+    ".login",
+  ]);
   const login = loginExit === 0 ? loginOut.trim() : null;
 
   return { available: true, authenticated: true, login };
@@ -553,11 +531,7 @@ export async function publishSkill(
 
   // Step 9: Fork registry
   debug(`publish: forking ${REGISTRY_REPO}`);
-  const forkProc = Bun.spawn(
-    ["gh", "repo", "fork", REGISTRY_REPO, "--clone=false"],
-    { stdout: "pipe", stderr: "pipe" },
-  );
-  await forkProc.exited;
+  await runCommand(["gh", "repo", "fork", REGISTRY_REPO, "--clone=false"]);
   // Fork may already exist, that's fine
 
   // Step 10: Create branch and write manifest via gh API
@@ -569,18 +543,13 @@ export async function publishSkill(
   );
 
   // Get the default branch SHA from the fork
-  const refProc = Bun.spawn(
-    [
-      "gh",
-      "api",
-      `repos/${author}/asm-registry/git/refs/heads/main`,
-      "--jq",
-      ".object.sha",
-    ],
-    { stdout: "pipe", stderr: "pipe" },
-  );
-  const refOut = await new Response(refProc.stdout).text();
-  const refExit = await refProc.exited;
+  const { stdout: refOut, exitCode: refExit } = await runCommand([
+    "gh",
+    "api",
+    `repos/${author}/asm-registry/git/refs/heads/main`,
+    "--jq",
+    ".object.sha",
+  ]);
 
   if (refExit !== 0) {
     return {
@@ -598,96 +567,75 @@ export async function publishSkill(
   const baseSha = refOut.trim();
 
   // Create branch in the fork
-  const createRefProc = Bun.spawn(
-    [
-      "gh",
-      "api",
-      `repos/${author}/asm-registry/git/refs`,
-      "-X",
-      "POST",
-      "-f",
-      `ref=refs/heads/${branchName}`,
-      "-f",
-      `sha=${baseSha}`,
-    ],
-    { stdout: "pipe", stderr: "pipe" },
-  );
-  const createRefExit = await createRefProc.exited;
+  const { exitCode: createRefExit } = await runCommand([
+    "gh",
+    "api",
+    `repos/${author}/asm-registry/git/refs`,
+    "-X",
+    "POST",
+    "-f",
+    `ref=refs/heads/${branchName}`,
+    "-f",
+    `sha=${baseSha}`,
+  ]);
 
   if (createRefExit !== 0) {
     // Branch may already exist — try to update it
-    const updateRefProc = Bun.spawn(
-      [
-        "gh",
-        "api",
-        `repos/${author}/asm-registry/git/refs/heads/${branchName}`,
-        "-X",
-        "PATCH",
-        "-f",
-        `sha=${baseSha}`,
-        "-f",
-        "force=true",
-      ],
-      { stdout: "pipe", stderr: "pipe" },
-    );
-    await updateRefProc.exited;
+    await runCommand([
+      "gh",
+      "api",
+      `repos/${author}/asm-registry/git/refs/heads/${branchName}`,
+      "-X",
+      "PATCH",
+      "-f",
+      `sha=${baseSha}`,
+      "-f",
+      "force=true",
+    ]);
   }
 
   // Write manifest file to the branch
-  const putFileProc = Bun.spawn(
-    [
-      "gh",
-      "api",
-      `repos/${author}/asm-registry/contents/${manifestPath}`,
-      "-X",
-      "PUT",
-      "-f",
-      `message=Publish ${author}/${metadata.name}`,
-      "-f",
-      `content=${encodedContent}`,
-      "-f",
-      `branch=${branchName}`,
-    ],
-    { stdout: "pipe", stderr: "pipe" },
-  );
-  const putFileStderr = await new Response(putFileProc.stderr).text();
-  const putFileExit = await putFileProc.exited;
+  const { stderr: putFileStderr, exitCode: putFileExit } = await runCommand([
+    "gh",
+    "api",
+    `repos/${author}/asm-registry/contents/${manifestPath}`,
+    "-X",
+    "PUT",
+    "-f",
+    `message=Publish ${author}/${metadata.name}`,
+    "-f",
+    `content=${encodedContent}`,
+    "-f",
+    `branch=${branchName}`,
+  ]);
 
   if (putFileExit !== 0) {
     // File may already exist — try updating with SHA
-    const getFileProc = Bun.spawn(
-      [
-        "gh",
-        "api",
-        `repos/${author}/asm-registry/contents/${manifestPath}?ref=${branchName}`,
-        "-q",
-        ".sha",
-      ],
-      { stdout: "pipe", stderr: "pipe" },
-    );
-    const fileSha = (await new Response(getFileProc.stdout).text()).trim();
-    const getFileExit = await getFileProc.exited;
+    const { stdout: getFileOut, exitCode: getFileExit } = await runCommand([
+      "gh",
+      "api",
+      `repos/${author}/asm-registry/contents/${manifestPath}?ref=${branchName}`,
+      "-q",
+      ".sha",
+    ]);
+    const fileSha = getFileOut.trim();
 
     if (getFileExit === 0 && fileSha) {
-      const updateFileProc = Bun.spawn(
-        [
-          "gh",
-          "api",
-          `repos/${author}/asm-registry/contents/${manifestPath}`,
-          "-X",
-          "PUT",
-          "-f",
-          `message=Update ${author}/${metadata.name}`,
-          "-f",
-          `content=${encodedContent}`,
-          "-f",
-          `branch=${branchName}`,
-          "-f",
-          `sha=${fileSha}`,
-        ],
-        { stdout: "pipe", stderr: "pipe" },
-      );
-      const updateExit = await updateFileProc.exited;
+      const { exitCode: updateExit } = await runCommand([
+        "gh",
+        "api",
+        `repos/${author}/asm-registry/contents/${manifestPath}`,
+        "-X",
+        "PUT",
+        "-f",
+        `message=Update ${author}/${metadata.name}`,
+        "-f",
+        `content=${encodedContent}`,
+        "-f",
+        `branch=${branchName}`,
+        "-f",
+        `sha=${fileSha}`,
+      ]);
       if (updateExit !== 0) {
         return {
           success: false,
@@ -731,25 +679,23 @@ export async function publishSkill(
     "*This PR was generated by `asm publish`.*",
   ].join("\n");
 
-  const prProc = Bun.spawn(
-    [
-      "gh",
-      "pr",
-      "create",
-      "--repo",
-      REGISTRY_REPO,
-      "--head",
-      `${author}:${branchName}`,
-      "--title",
-      prTitle,
-      "--body",
-      prBody,
-    ],
-    { stdout: "pipe", stderr: "pipe" },
-  );
-  const prOut = await new Response(prProc.stdout).text();
-  const prStderr = await new Response(prProc.stderr).text();
-  const prExit = await prProc.exited;
+  const {
+    stdout: prOut,
+    stderr: prStderr,
+    exitCode: prExit,
+  } = await runCommand([
+    "gh",
+    "pr",
+    "create",
+    "--repo",
+    REGISTRY_REPO,
+    "--head",
+    `${author}:${branchName}`,
+    "--title",
+    prTitle,
+    "--body",
+    prBody,
+  ]);
 
   let prUrl: string | null = null;
   if (prExit === 0) {

@@ -12,7 +12,8 @@
   <a href="https://github.com/luongnv89/agent-skill-manager/stargazers"><img src="https://img.shields.io/github/stars/luongnv89/agent-skill-manager.svg?style=social" alt="GitHub stars" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="MIT License" /></a>
   <a href="https://github.com/luongnv89/agent-skill-manager/actions"><img src="https://github.com/luongnv89/agent-skill-manager/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
-  <a href="https://bun.sh"><img src="https://img.shields.io/badge/runtime-Bun%20%E2%89%A5%201.0-black.svg" alt="Bun" /></a>
+  <a href="https://nodejs.org"><img src="https://img.shields.io/badge/CLI-Node.js%20%E2%89%A5%2018-339933.svg" alt="Node.js" /></a>
+  <a href="https://bun.sh"><img src="https://img.shields.io/badge/TUI-Bun%20%E2%89%A5%201.0-black.svg" alt="Bun (TUI only)" /></a>
 </p>
 
 <h1 align="center">One tool to manage every AI agent's skills</h1>
@@ -402,7 +403,8 @@ If multiple authors publish a skill with the same name, `asm` shows a disambigua
 npm install -g agent-skill-manager
 ```
 
-> Requires [Bun](https://bun.sh) >= 1.0.0 as the runtime. Install Bun: `curl -fsSL https://bun.sh/install | bash`
+> Runs on **Node.js ≥ 18** for all CLI commands (`list`, `install`, `update`, `eval`, `publish`, …).
+> [Bun](https://bun.sh) ≥ 1.0 is only needed for the interactive **TUI** (`asm` with no args). Install Bun if you want the TUI: `curl -fsSL https://bun.sh/install | bash`
 
 ### One-liner install
 
@@ -1140,7 +1142,8 @@ agent-skill-manager/
 <details>
 <summary><strong>Tech Stack</strong></summary>
 
-- **Runtime:** [Bun](https://bun.sh) >= 1.0.0
+- **CLI runtime:** Node.js ≥ 18 (works with `npm install -g agent-skill-manager` alone)
+- **TUI runtime:** [Bun](https://bun.sh) ≥ 1.0 (only required for the interactive UI)
 - **Language:** TypeScript (ESNext, strict mode)
 - **Build:** Bun bundler (ships pre-built via npm)
 - **TUI Framework:** [OpenTUI](https://github.com/nicholasgasior/opentui)
