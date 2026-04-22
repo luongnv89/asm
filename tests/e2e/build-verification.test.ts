@@ -246,7 +246,10 @@ describe("website: token count + eval surfaces", () => {
   });
 
   test("formatTokens always prefixes its output with `~` (approximation)", () => {
-    expect(html).toMatch(/return\s+'~'\s*\+\s*count\s*\+\s*' tokens'/);
+    // Keep this resilient to formatter-driven quote/line-wrap changes.
+    expect(html).toMatch(
+      /return\s+["']~["']\s*\+\s*count\s*\+\s*["'] tokens["']/,
+    );
   });
 });
 
@@ -422,8 +425,10 @@ describe("website: loader uses split artifacts (issue #214)", () => {
   const html = readFileSync(join(WEBSITE_DIR, "index.html"), "utf-8");
 
   test("boot fetches skills.min.json + search.idx.json in parallel", () => {
-    expect(html).toContain("fetch('skills.min.json')");
-    expect(html).toContain("fetch('search.idx.json')");
+    // Assert the resources + Promise.all are present without coupling to
+    // quote style or formatter line wrapping inside the HTML script block.
+    expect(html).toMatch(/fetch\(["']skills\.min\.json["']\)/);
+    expect(html).toMatch(/fetch\(["']search\.idx\.json["']\)/);
     expect(html).toContain("Promise.all");
   });
 
