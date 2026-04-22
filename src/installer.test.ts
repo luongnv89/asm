@@ -35,7 +35,7 @@ import type { AppConfig, ProviderConfig } from "./utils/types";
 // `vi.mock` is hoisted; route through `vi.hoisted` so tests can swap the
 // implementation per test by assigning to `mocks.checkboxPicker` / `mocks.saveSelectedTools`.
 const mocks = vi.hoisted(() => ({
-  checkboxPicker: vi.fn<(opts: unknown) => Promise<number[]>>(() =>
+  checkboxPicker: vi.fn<(opts: any) => Promise<number[]>>(() =>
     Promise.resolve([]),
   ),
   saveSelectedTools: vi.fn<(names: string[]) => Promise<void>>(() =>

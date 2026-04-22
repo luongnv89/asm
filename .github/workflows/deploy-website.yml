@@ -35,16 +35,17 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: 22
+          cache: npm
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: npm ci
 
       - name: Build catalog
-        run: bun scripts/build-catalog.ts
+        run: npm run build:website
 
       - name: Upload website artifact
         if: github.event_name != 'pull_request'

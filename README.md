@@ -72,7 +72,7 @@ The more AI agents you use, the worse this gets. Every new tool adds another ski
 
 ## How it works
 
-1. **Install `asm`** — one command via npm, Bun, or curl
+1. **Install `asm`** — one command via npm or curl
 2. **Run `asm`** — it auto-discovers skills across all configured agent directories
 3. **Manage everything** — install, search, inspect, audit, and uninstall skills from the TUI or CLI
 4. **Stay safe** — security scan skills before installing, detect duplicates, and clean up with confidence
@@ -420,27 +420,15 @@ asm
   <a href="#cli-commands"><strong>See All Commands &rarr;</strong></a>
 </p>
 
-### Pick one package manager
-
-Install `asm` via **either** `npm` **or** `bun` — not both. Each global install drops an `asm` binary in a different directory (`/opt/homebrew/bin/asm` via npm, `~/.bun/bin/asm` via bun), and shells resolve whichever appears first on `PATH`. An older install can silently shadow a fresh upgrade: you run `asm --version` and still see the old version even though the upgrade succeeded.
-
 <a id="troubleshooting"></a>
+
+### Shadowed installs
+
+If you have multiple `asm` binaries on `PATH` (for example, a leftover install from an older package manager), shells resolve whichever appears first and a fresh upgrade can be silently shadowed.
 
 **Diagnose:** `asm --version` detects and warns when it sees multiple `asm` binaries on `PATH`. For a full report, run `asm doctor` — it lists the resolved path and any shadowed installs.
 
-**Fix:** remove the duplicate install.
-
-```bash
-# If you're switching to npm:
-bun remove -g agent-skill-manager
-
-# If you're switching to bun:
-npm uninstall -g agent-skill-manager
-```
-
-Re-run `asm --version` to confirm only one binary is left. The postinstall step emits the same warning during `npm install -g agent-skill-manager` so you catch it at install time.
-
-> **Note:** Bun skips lifecycle scripts by default, so the postinstall warning does not fire for `bun add -g agent-skill-manager`. Use `asm --version` or `asm doctor` to check for shadowing after a bun install.
+**Fix:** remove the stale install with your package manager, then re-run `asm --version` to confirm only one binary is left.
 
 ---
 
@@ -1053,19 +1041,19 @@ asm init my-skill -p claude
 ```bash
 git clone https://github.com/luongnv89/agent-skill-manager.git
 cd agent-skill-manager
-bun install
+npm install
 ```
 
 Bundle to `dist/`:
 
 ```bash
-bun run build
+npm run build
 ```
 
 Run from source (development):
 
 ```bash
-bun run start
+npm start
 ```
 
 ### Advanced Install
@@ -1142,9 +1130,9 @@ agent-skill-manager/
 
 - **Runtime:** Node.js ≥ 18 (CLI and TUI both run on Node alone)
 - **Language:** TypeScript + TSX (ESNext, strict mode)
-- **Build:** Bun bundler (ships pre-built via npm)
+- **Build:** esbuild (ships pre-built via npm)
 - **TUI Framework:** [Ink](https://github.com/vadimdemedes/ink) + [@inkjs/ui](https://github.com/vadimdemedes/ink-ui)
-- **Testing:** Bun test runner
+- **Testing:** Vitest (+ ink-testing-library for TUI)
 - **CI:** GitHub Actions + pre-commit hooks
 
 </details>

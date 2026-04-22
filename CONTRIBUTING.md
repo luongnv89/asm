@@ -14,22 +14,22 @@ Thanks for your interest in contributing! This guide will help you get started.
 ```bash
 git clone https://github.com/luongnv89/agent-skill-manager.git
 cd agent-skill-manager
-bun install
-bun run start        # Launch the TUI
+npm install
+npm start        # Launch the TUI
 ```
 
 ### Running
 
 ```bash
-bun run start        # Launch the interactive TUI
-bun run bin/agent-skill-manager.ts list   # Test CLI commands
+npm start        # Launch the interactive TUI
+npm run bin/agent-skill-manager.ts list   # Test CLI commands
 ```
 
 ### Running Tests
 
 ```bash
-bun test             # Run all tests
-bun run typecheck    # Type-check without emitting
+npm test             # Run all tests
+npm run typecheck    # Type-check without emitting
 ```
 
 ## How to Contribute
@@ -40,7 +40,7 @@ Open a [bug report](https://github.com/luongnv89/agent-skill-manager/issues/new?
 
 - Steps to reproduce
 - Expected vs. actual behavior
-- Your environment (OS, Bun version)
+- Your environment (OS, Node version)
 
 ### Suggesting Features
 
@@ -56,8 +56,8 @@ Open a [feature request](https://github.com/luongnv89/agent-skill-manager/issues
 3. Make your changes
 4. Run tests and type-checking:
    ```bash
-   bun test
-   bun run typecheck
+   npm test
+   npm run typecheck
    ```
 5. Commit using [Conventional Commits](https://www.conventionalcommits.org/):
    ```
@@ -84,7 +84,7 @@ Open a [feature request](https://github.com/luongnv89/agent-skill-manager/issues
 ### Testing
 
 - Tests live alongside source files (`*.test.ts`)
-- Use the Bun test runner (`bun test`)
+- Use the Vitest (`npm test`)
 - Add tests for new logic, especially in `scanner.ts`, `config.ts`, `uninstaller.ts`, `auditor.ts`, and `cli.ts`
 
 ## Pull Request Process

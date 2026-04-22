@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main]
 
-# Pre-commit runs format, lint, typecheck, unit tests, build, and bun E2E
+# Pre-commit runs format, lint, typecheck, unit tests, build, and e2e
 # locally before every push. CI is a thin safety net for things that need
 # a clean VM or a version matrix.
 
@@ -16,37 +16,34 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: 22
+          cache: npm
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: npm ci
 
       - name: Run unit tests
-        run: bun test src/
+        run: npx vitest run src/
 
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: npm ci
 
       - name: Build
-        run: bun run build
+        run: npm run build
 
       - name: Verify build output
         run: |
@@ -84,14 +81,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
+          cache: npm
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: npm ci
 
       - name: Download dist artifact
         uses: actions/download-artifact@v4
@@ -103,10 +96,10 @@ jobs:
         run: chmod +x dist/agent-skill-manager.js
 
       - name: Build catalog (required by build-verification tests)
-        run: bun scripts/build-catalog.ts
+        run: npm run build:website
 
       - name: Run Node.js E2E tests
-        run: bun test tests/e2e/node-e2e.test.ts tests/e2e/build-verification.test.ts
+        run: npx vitest run tests/e2e/node-e2e.test.ts tests/e2e/build-verification.test.ts
 
   e2e-npm-install:
     needs: build
@@ -121,14 +114,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
+          cache: npm
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: npm ci
 
       - name: Download npm tarball
         uses: actions/download-artifact@v4
@@ -137,6 +126,6 @@ jobs:
           path: ./
 
       - name: Run npm install E2E tests
-        run: bun test tests/e2e/npm-install-e2e.test.ts
+        run: npx vitest run tests/e2e/npm-install-e2e.test.ts
         env:
           ASM_TARBALL: agent-skill-manager-*.tgz

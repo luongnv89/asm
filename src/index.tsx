@@ -355,7 +355,7 @@ export function App({ initialConfig }: AppProps) {
   );
 }
 
-async function main() {
+export async function main() {
   const config = await loadConfig();
 
   // Match the opentui `useAlternateScreen: true` behavior — draw the TUI in
@@ -389,7 +389,3 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.error("Fatal error:", err);
-  process.exit(1);
-});

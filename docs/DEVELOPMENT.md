@@ -11,30 +11,30 @@
 ```bash
 git clone https://github.com/luongnv89/agent-skill-manager.git
 cd agent-skill-manager
-bun install
+npm install
 ```
 
 ## Running
 
 ```bash
-bun run start        # Launch the TUI
-bun run dev          # Same as start (alias)
+npm start        # Launch the TUI
+npm run dev          # Same as start (alias)
 ```
 
 To test CLI commands during development:
 
 ```bash
-bun run bin/agent-skill-manager.ts list
-bun run bin/agent-skill-manager.ts search "my-skill"
-bun run bin/agent-skill-manager.ts audit --json
-bun run bin/agent-skill-manager.ts --help
+npm run bin/agent-skill-manager.ts list
+npm run bin/agent-skill-manager.ts search "my-skill"
+npm run bin/agent-skill-manager.ts audit --json
+npm run bin/agent-skill-manager.ts --help
 ```
 
 ## Testing
 
 ```bash
-bun test             # Run all tests
-bun run typecheck    # Type-check without emitting
+npm test             # Run all tests
+npm run typecheck    # Type-check without emitting
 ```
 
 Test files are co-located with source files using the `*.test.ts` convention:
@@ -74,8 +74,8 @@ Since this is a TUI application, standard `console.log` will interfere with the 
 2. Run tests to isolate logic from the TUI layer
 3. Use CLI commands to test core logic without launching the TUI:
    ```bash
-   bun run bin/agent-skill-manager.ts list --json
-   bun run bin/agent-skill-manager.ts audit --json
+   npm run bin/agent-skill-manager.ts list --json
+   npm run bin/agent-skill-manager.ts audit --json
    ```
 4. Use the `--help` flag to verify CLI plumbing without launching the TUI
 
