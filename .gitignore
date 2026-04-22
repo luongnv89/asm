@@ -25,16 +25,21 @@ Thumbs.db
 # Coverage
 coverage/
 
-# Website (generated at build time by `bun scripts/build-catalog.ts`, also
-# run by .github/workflows/deploy-website.yml before the Pages upload).
-# Kept out of git to avoid noisy diffs and keep data/skill-index/*.json as
-# the single source of truth.
+# Website (generated at build time by `tsx scripts/build-catalog.ts` and
+# `vite build`, both run by .github/workflows/deploy-website.yml before
+# the Pages upload). Kept out of git to avoid noisy diffs and keep
+# data/skill-index/*.json (catalog) + website-src/ (React app) as the
+# single sources of truth.
 website/catalog.json
 website/bundles.json
 website/skills.min.json
 website/search.idx.json
 website/skills/
 website/assets/favicon.svg
+# Vite build output (React app bundle)
+website/app.html
+website/assets/app-*.js
+website/assets/app-*.css
 
 
 # dev tools

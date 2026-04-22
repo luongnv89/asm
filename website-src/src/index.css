@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Legacy theme variables — keep the dark/light palette from the legacy
+ * `website/index.html` until #228 revisits the visual design. Tailwind
+ * utilities reference these via `bg-[var(--bg)]` etc., so components can
+ * opt into either raw CSS vars or Tailwind colour tokens.
+ */
+:root[data-theme="dark"] {
+  --brand: #00ff41;
+  --brand-dim: #00cc33;
+  --brand-glow: rgba(0, 255, 65, 0.12);
+  --bg: #0a0a0f;
+  --bg-card: #12131a;
+  --bg-hover: #1a1b24;
+  --bg-input: #0f1015;
+  --border: #242630;
+  --border-focus: rgba(0, 255, 65, 0.35);
+  --fg: #e8e9ef;
+  --fg-dim: #a0a2b0;
+  --fg-muted: #6b6d7a;
+  --warn: #ffb020;
+  --warn-bg: rgba(255, 176, 32, 0.1);
+}
+
+:root[data-theme="light"] {
+  --brand: #008a2a;
+  --brand-dim: #006b20;
+  --brand-glow: rgba(0, 138, 42, 0.1);
+  --bg: #fafbfc;
+  --bg-card: #ffffff;
+  --bg-hover: #f1f3f5;
+  --bg-input: #ffffff;
+  --border: #e1e4e8;
+  --border-focus: rgba(0, 138, 42, 0.35);
+  --fg: #1a1b24;
+  --fg-dim: #4a4c5a;
+  --fg-muted: #8b8d9a;
+  --warn: #b76e00;
+  --warn-bg: rgba(183, 110, 0, 0.1);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Highlight class used by MiniSearch match highlighter */
+mark.hl {
+  background: var(--brand-glow);
+  color: var(--brand);
+  padding: 0 2px;
+  border-radius: 2px;
+}
