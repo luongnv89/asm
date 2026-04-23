@@ -1220,64 +1220,198 @@ const VALID_TAGS = new Set([
   "performance",
 ]);
 
-function cap(s) {
-  return s.charAt(0).toUpperCase() + s.slice(1);
+const TAG_LABELS = {
+  added: "Added",
+  changed: "Changed",
+  fixed: "Fixed",
+  breaking: "Breaking",
+  docs: "Docs",
+  performance: "Performance",
+};
+
+function pad(n) {
+  return String(n).padStart(2, "0");
 }
 
-function Entry({ version, date, sections }) {
-  const versionLabel = /^\d/.test(version) ? `v${version}` : version;
+function formatDate(iso) {
+  // iso: "2026-04-23"
+  const [y, m, d] = iso.split("-");
+  const months = [
+    "JAN",
+    "FEB",
+    "MAR",
+    "APR",
+    "MAY",
+    "JUN",
+    "JUL",
+    "AUG",
+    "SEP",
+    "OCT",
+    "NOV",
+    "DEC",
+  ];
+  const mi = parseInt(m, 10) - 1;
+  return {
+    day: d,
+    month: months[mi] ?? m,
+    year: y,
+    short: `${months[mi] ?? m} ${parseInt(d, 10)}, ${y}`,
+  };
+}
+
+function versionSlug(v) {
+  return `v-${v.replace(/\./g, "-")}`;
+}
+
+function Entry({ version, date, sections, index }) {
+  const f = formatDate(date);
   return (
-    <div>
-      <div className="changelog-version">{versionLabel}</div>
-      <div className="changelog-date">{date}</div>
+    <section id={versionSlug(version)} className="cl-entry">
+      <header className="cl-head">
+        <h2 className="cl-v">
+          <span className="prefix">VERSION</span>
+          {version}
+        </h2>
+        <div className="cl-head-rule" aria-hidden="true" />
+        <time className="cl-date" dateTime={date}>
+          {f.short}
+        </time>
+      </header>
+
       {sections.map((s, i) => {
         const tagClass = VALID_TAGS.has(s.tag) ? s.tag : "added";
+        const label = TAG_LABELS[tagClass] ?? tagClass;
         return (
-          <div key={i}>
-            <span className={`changelog-tag ${tagClass}`}>{cap(s.tag)}</span>
-            <ul>
+          <div key={i} className="cl-section">
+            <div className="cl-section-head">
+              <span className={`cl-tag ${tagClass}`}>{label}</span>
+              <span className="cl-section-rule" aria-hidden="true" />
+              <span className="cl-count">
+                {pad(s.items.length)}{" "}
+                {s.items.length === 1 ? "entry" : "entries"}
+              </span>
+            </div>
+            <ul className="cl-items">
               {s.items.map((item, j) => (
-                <li key={j}>{item}</li>
+                <li key={j} className="cl-item">
+                  <span className="cl-item-num" aria-hidden="true">
+                    {pad(j + 1)}
+                  </span>
+                  <div className="cl-item-body">{item}</div>
+                </li>
               ))}
             </ul>
           </div>
         );
       })}
-    </div>
+    </section>
   );
 }
 
 export default function ChangelogPage() {
+  const latest = ENTRIES[0];
+  const latestDate = formatDate(latest.date);
+
   return (
-    <article className="mx-auto max-w-[820px] py-6 prose-asm">
-      <h1>Changelog</h1>
-      <p>
-        All notable changes to <code>agent-skill-manager</code>. Based on{" "}
-        <a
-          href="https://keepachangelog.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Keep a Changelog
-        </a>
-        , adhering to{" "}
-        <a href="https://semver.org/" target="_blank" rel="noopener noreferrer">
-          Semantic Versioning
-        </a>
-        .
-      </p>
-      <p>
-        <a
-          href={`${REPO}/blob/main/CHANGELOG.md`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View full changelog on GitHub →
-        </a>
-      </p>
-      {ENTRIES.map((e) => (
-        <Entry key={e.version} {...e} />
-      ))}
-    </article>
+    <div className="cl-root mx-auto max-w-[1120px] px-1">
+      <header className="cl-masthead">
+        <div className="cl-kicker">
+          <span className="dot" aria-hidden="true" />
+          <span>Release Log · agent-skill-manager</span>
+        </div>
+        <h1 className="cl-title">
+          What&apos;s <em>new</em>, what&apos;s next.
+        </h1>
+        <p className="cl-lede">
+          A running record of every meaningful change shipped to{" "}
+          <code
+            style={{
+              fontFamily: "var(--cl-mono)",
+              fontSize: "0.9em",
+              padding: "1px 6px",
+              border: "1px solid var(--cl-rule)",
+              borderRadius: 4,
+              background: "var(--bg-input)",
+              color: "var(--cl-ink)",
+            }}
+          >
+            asm
+          </code>{" "}
+          — curated in the spirit of{" "}
+          <a
+            href="https://keepachangelog.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Keep a Changelog
+          </a>
+          , versioned with{" "}
+          <a
+            href="https://semver.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            SemVer
+          </a>
+          .
+        </p>
+        <div className="cl-meta-row">
+          <span>
+            Latest · <strong>v{latest.version}</strong>
+          </span>
+          <span>{latestDate.short}</span>
+          <span>
+            <strong>{ENTRIES.length}</strong> releases
+          </span>
+          <a
+            href={`${REPO}/blob/main/CHANGELOG.md`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Full log on GitHub ↗
+          </a>
+        </div>
+      </header>
+
+      <div className="cl-layout">
+        <aside className="cl-rail" aria-label="Version index">
+          <div className="cl-rail-label">Index</div>
+          <ul>
+            {ENTRIES.map((e) => {
+              const f = formatDate(e.date);
+              return (
+                <li key={e.version}>
+                  <a href={`#${versionSlug(e.version)}`}>
+                    <span className="v">{e.version}</span>
+                    <span className="d">
+                      {f.month} &apos;{f.year.slice(2)}
+                    </span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </aside>
+
+        <div className="cl-stream">
+          {ENTRIES.map((e, i) => (
+            <Entry key={e.version} {...e} index={i} />
+          ))}
+
+          <div className="cl-outro">
+            <span>— End of log —</span>
+            <br />
+            <a
+              href={`${REPO}/releases`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ marginTop: 10, display: "inline-block" }}
+            >
+              Watch releases on GitHub ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
