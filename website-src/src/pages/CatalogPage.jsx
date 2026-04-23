@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useParams, Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import { List } from "react-window";
+import { List, useDynamicRowHeight } from "react-window";
 import { useCatalog } from "../hooks/useCatalog.jsx";
 import { useCatalogState } from "../hooks/useCatalogState.js";
 import {
@@ -19,7 +19,10 @@ import SkillDetail from "../components/SkillDetail.jsx";
 import SidebarDrawer from "../components/SidebarDrawer.jsx";
 import { Button } from "../components/ui/button.jsx";
 
-const ROW_HEIGHT = 120;
+// Starting estimate only — actual row height is measured via
+// `useDynamicRowHeight` so dense items (many badges, long owner/repo)
+// don't get visually clipped or leave gaps.
+const DEFAULT_ROW_HEIGHT = 128;
 
 function SkillRow({
   index,
@@ -80,6 +83,13 @@ export default function CatalogPage() {
   } = useCatalogState();
 
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  // Measure each rendered row so skill items with extra badges or a long
+  // owner/repo line aren't clipped. `key` changes invalidate the cache
+  // when the filtered list identity changes (search / filters applied).
+  const rowHeight = useDynamicRowHeight({
+    defaultRowHeight: DEFAULT_ROW_HEIGHT,
+  });
 
   const searchResults = useMemo(() => {
     if (!catalog || !miniSearch || !state.searchQuery.trim()) {
@@ -246,7 +256,7 @@ export default function CatalogPage() {
           <List
             rowComponent={SkillRow}
             rowCount={filtered.length}
-            rowHeight={ROW_HEIGHT}
+            rowHeight={rowHeight}
             overscanCount={4}
             rowProps={{
               skills: filtered,

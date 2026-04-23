@@ -3,6 +3,8 @@ import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import CatalogPage from "./pages/CatalogPage.jsx";
 import BundlesPage from "./pages/BundlesPage.jsx";
+import DocsPage from "./pages/DocsPage.jsx";
+import ChangelogPage from "./pages/ChangelogPage.jsx";
 import { CatalogProvider } from "./hooks/useCatalog.jsx";
 
 /**
@@ -29,6 +31,8 @@ export default function App() {
             <Route path="/skills/:id" element={<CatalogPage />} />
             <Route path="/bundles" element={<BundlesPage />} />
             <Route path="/bundles/:name" element={<BundlesPage />} />
+            <Route path="/docs" element={<DocsPage />} />
+            <Route path="/changelog" element={<ChangelogPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

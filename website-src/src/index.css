@@ -70,3 +70,173 @@ mark.hl {
   padding: 0 2px;
   border-radius: 2px;
 }
+
+/* ─── Markdown prose (docs + changelog pages) ───────────────────────── */
+.prose-asm {
+  color: var(--fg-dim);
+  line-height: 1.65;
+  font-size: 15px;
+}
+.prose-asm h1,
+.prose-asm h2,
+.prose-asm h3,
+.prose-asm h4 {
+  color: var(--fg);
+  font-weight: 600;
+  line-height: 1.25;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+.prose-asm h1 {
+  font-size: 2rem;
+  margin-top: 0;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border);
+}
+.prose-asm h2 {
+  font-size: 1.5rem;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border);
+}
+.prose-asm h3 {
+  font-size: 1.2rem;
+}
+.prose-asm h4 {
+  font-size: 1rem;
+}
+.prose-asm p,
+.prose-asm ul,
+.prose-asm ol,
+.prose-asm blockquote {
+  margin: 0.85em 0;
+}
+.prose-asm ul,
+.prose-asm ol {
+  padding-left: 1.5em;
+}
+.prose-asm li {
+  margin: 0.25em 0;
+}
+.prose-asm a {
+  color: var(--brand);
+  text-decoration: none;
+}
+.prose-asm a:hover {
+  text-decoration: underline;
+}
+.prose-asm code {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: var(--fg);
+  font-family:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+.prose-asm pre {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  border-radius: 6px;
+  overflow-x: auto;
+  line-height: 1.5;
+  margin: 1em 0;
+}
+.prose-asm pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: 0.88em;
+}
+.prose-asm blockquote {
+  border-left: 3px solid var(--brand);
+  padding: 0.25em 1em;
+  color: var(--fg-dim);
+  background: var(--brand-glow);
+  border-radius: 0 4px 4px 0;
+}
+.prose-asm hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 2em 0;
+}
+.prose-asm table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-size: 0.92em;
+}
+.prose-asm th,
+.prose-asm td {
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  text-align: left;
+}
+.prose-asm th {
+  background: var(--bg-card);
+  color: var(--fg);
+  font-weight: 600;
+}
+.prose-asm img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+.prose-asm .doc-section {
+  margin-bottom: 2rem;
+}
+.prose-asm .doc-section h2:first-child {
+  margin-top: 0;
+}
+
+/* Changelog-specific classes (ported from legacy) */
+.changelog-version {
+  font-family:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--brand);
+  margin-top: 2rem;
+  margin-bottom: 4px;
+}
+.changelog-version:first-child {
+  margin-top: 0.5rem;
+}
+.changelog-date {
+  font-family:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--fg-muted);
+  margin-bottom: 12px;
+}
+.changelog-tag {
+  font-family:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-weight: 600;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+.changelog-tag.added {
+  color: var(--brand);
+  background: var(--brand-glow);
+}
+.changelog-tag.changed {
+  color: #ffb020;
+  background: rgba(255, 176, 32, 0.12);
+}
+.changelog-tag.fixed {
+  color: #4fc3f7;
+  background: rgba(79, 195, 247, 0.12);
+}
+.changelog-tag.breaking {
+  color: #d73a49;
+  background: rgba(215, 58, 73, 0.12);
+}
+.changelog-tag.docs {
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.12);
+}

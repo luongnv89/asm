@@ -70,7 +70,7 @@ export default function Header() {
           className="flex items-center gap-2 font-semibold text-[var(--fg)] text-lg"
         >
           <img
-            src="assets/logo-mark.svg"
+            src="./assets/logo-mark.svg"
             alt=""
             aria-hidden="true"
             className="w-7 h-7"
@@ -85,22 +85,12 @@ export default function Header() {
           <NavLink to="/bundles" className={linkClass}>
             Bundles
           </NavLink>
-          <a
-            className={linkClass({ isActive: false })}
-            href={`${REPO_URL}#readme`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <NavLink to="/docs" className={linkClass}>
             Docs
-          </a>
-          <a
-            className={linkClass({ isActive: false })}
-            href={`${REPO_URL}/blob/main/CHANGELOG.md`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          </NavLink>
+          <NavLink to="/changelog" className={linkClass}>
             Changelog
-          </a>
+          </NavLink>
         </nav>
         <div className="ml-auto flex items-center gap-2">
           {version && (
