@@ -103,6 +103,14 @@ export interface FixResult {
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 
+/**
+ * Stable identifier for the root-README structural warning. Used by the
+ * `topSuggestions` builder to guarantee the finding reaches the default CLI
+ * output even when Structure is not among the lowest-scoring categories.
+ */
+export const ROOT_README_SUGGESTION =
+  "Relocate `README.md` out of the skill root so SKILL.md remains the sole top-level document (e.g., move it to `docs/README.md`).";
+
 /** Canonical frontmatter key ordering used by the auto-fixer. */
 export const CANONICAL_FIELD_ORDER = [
   "name",
@@ -313,6 +321,7 @@ function scoreStructure(
   fm: Record<string, string>,
   body: string,
   rawFrontmatter: string | null,
+  rootEntries?: string[],
 ): CategoryResult {
   const findings: string[] = [];
   const suggestions: string[] = [];
@@ -392,6 +401,21 @@ function scoreStructure(
     suggestions.push(
       "Add section headings (e.g. `## When to Use`, `## Instructions`) so the agent can navigate the skill quickly.",
     );
+  }
+
+  // README convention (skill-creator alignment): README.md is optional but
+  // must not sit at the skill root next to SKILL.md. A top-level README is
+  // surfaced as a warning only — no score change — since the catalog payload
+  // drops findings and rebalancing this saturated scorer would shift every
+  // skill's Structure score.
+  if (rootEntries) {
+    const rootReadme = rootEntries.find((e) => e.toLowerCase() === "readme.md");
+    if (rootReadme) {
+      findings.push(
+        `\`${rootReadme}\` found at skill root; move it to a subdirectory (e.g., \`docs/README.md\`).`,
+      );
+      suggestions.push(ROOT_README_SUGGESTION);
+    }
   }
 
   return {
@@ -903,13 +927,19 @@ export function evaluateSkillContent(args: {
   content: string;
   skillPath: string;
   skillMdPath: string;
+  /**
+   * Directory entry names at the skill root (basename only, one level deep).
+   * Used for filesystem-aware checks such as the README-at-root convention.
+   * When omitted (e.g., content-only callers) those checks are skipped.
+   */
+  rootEntries?: string[];
 }): EvaluationReport {
-  const { content, skillPath, skillMdPath } = args;
+  const { content, skillPath, skillMdPath, rootEntries } = args;
   const fm = parseFrontmatter(content);
   const { rawFrontmatter, body } = splitSkillMd(content);
 
   const categories: CategoryResult[] = [
-    scoreStructure(fm, body, rawFrontmatter),
+    scoreStructure(fm, body, rawFrontmatter, rootEntries),
     scoreDescription(fm, body),
     scorePromptEngineering(fm, body),
     scoreContextEfficiency(fm, body),
@@ -937,8 +967,14 @@ export function evaluateSkillContent(args: {
   else if (overallScore >= 65) grade = "C";
   else if (overallScore >= 50) grade = "D";
 
-  // Top 3 suggestions: pick from the 3 lowest-scoring categories
+  // Top 3 suggestions: pick from the 3 lowest-scoring categories. Structural
+  // warnings that don't move the score (e.g., README-at-root) are promoted
+  // first so they always surface in the default CLI output.
   const topSuggestions: string[] = [];
+  const structure = categories.find((c) => c.id === "structure");
+  if (structure?.suggestions.includes(ROOT_README_SUGGESTION)) {
+    topSuggestions.push(ROOT_README_SUGGESTION);
+  }
   const sortedByScore = [...categories].sort(
     (a, b) => a.score / a.max - b.score / b.max,
   );
@@ -1006,10 +1042,18 @@ export async function evaluateSkill(
     );
   }
 
+  let rootEntries: string[] | undefined;
+  try {
+    rootEntries = await readdir(resolved);
+  } catch {
+    rootEntries = undefined;
+  }
+
   return evaluateSkillContent({
     content,
     skillPath: resolved,
     skillMdPath,
+    rootEntries,
   });
 }
 

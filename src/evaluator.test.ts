@@ -293,6 +293,90 @@ describe("evaluateSkill (filesystem)", () => {
       /SKILL\.md/,
     );
   });
+
+  // README-at-root convention (issue #227): README.md is optional and must
+  // not sit next to SKILL.md. A top-level README produces a warning finding
+  // on the Structure category without changing scores.
+  describe("README-at-root rule", () => {
+    const findReadmeFinding = (
+      report: Awaited<ReturnType<typeof evaluateSkill>>,
+    ) =>
+      report.categories
+        .find((c) => c.id === "structure")
+        ?.findings.find((f) => /found at skill root/i.test(f));
+
+    it("does not warn when no README exists", async () => {
+      const dir = skillDir("no-readme");
+      await writeSkillMd(dir, HIGH_QUALITY_SKILL);
+      const report = await evaluateSkill(dir);
+      expect(findReadmeFinding(report)).toBeUndefined();
+    });
+
+    it("does not warn when README.md lives in a subdirectory", async () => {
+      const dir = skillDir("subdir-readme");
+      await writeSkillMd(dir, HIGH_QUALITY_SKILL);
+      await writeSkillMd(join(dir, "docs"), "# Docs\n", "README.md");
+      const report = await evaluateSkill(dir);
+      expect(findReadmeFinding(report)).toBeUndefined();
+    });
+
+    it("warns when README.md sits at the skill root", async () => {
+      const dir = skillDir("root-readme");
+      await writeSkillMd(dir, HIGH_QUALITY_SKILL);
+      await writeSkillMd(dir, "# Root readme\n", "README.md");
+      const report = await evaluateSkill(dir);
+      const finding = findReadmeFinding(report);
+      expect(finding).toBeDefined();
+      const structure = report.categories.find((c) => c.id === "structure")!;
+      expect(
+        structure.suggestions.some((s) => /relocate `README\.md`/i.test(s)),
+      ).toBe(true);
+      // The root-README suggestion must reach topSuggestions even when
+      // Structure is not among the lowest-scoring categories, so the default
+      // CLI output surfaces the warning.
+      expect(
+        report.topSuggestions.some((s) => /relocate `README\.md`/i.test(s)),
+      ).toBe(true);
+    });
+
+    it("warns for case variants like README.MD", async () => {
+      const dir = skillDir("root-readme-upper");
+      await writeSkillMd(dir, HIGH_QUALITY_SKILL);
+      await writeSkillMd(dir, "# upper\n", "README.MD");
+      const report = await evaluateSkill(dir);
+      const structure = report.categories.find((c) => c.id === "structure")!;
+      expect(structure.findings.some((f) => f.includes("`README.MD`"))).toBe(
+        true,
+      );
+    });
+
+    it("does not change the Structure score when a root README is present", async () => {
+      const cleanDir = skillDir("score-clean");
+      await writeSkillMd(cleanDir, HIGH_QUALITY_SKILL);
+      const clean = await evaluateSkill(cleanDir);
+
+      const offendingDir = skillDir("score-root-readme");
+      await writeSkillMd(offendingDir, HIGH_QUALITY_SKILL);
+      await writeSkillMd(offendingDir, "# Root readme\n", "README.md");
+      const offending = await evaluateSkill(offendingDir);
+
+      const cleanStructure = clean.categories.find(
+        (c) => c.id === "structure",
+      )!;
+      const offendingStructure = offending.categories.find(
+        (c) => c.id === "structure",
+      )!;
+      expect(offendingStructure.score).toBe(cleanStructure.score);
+    });
+
+    it("skips the rule when evaluating a direct SKILL.md file path", async () => {
+      const dir = skillDir("direct-file");
+      const skillMdPath = await writeSkillMd(dir, HIGH_QUALITY_SKILL);
+      await writeSkillMd(dir, "# Root readme\n", "README.md");
+      const report = await evaluateSkill(skillMdPath);
+      expect(findReadmeFinding(report)).toBeUndefined();
+    });
+  });
 });
 
 describe("buildFixPlan", () => {

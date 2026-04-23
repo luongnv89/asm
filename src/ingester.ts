@@ -1,4 +1,4 @@
-import { writeFile, mkdir, unlink, readFile } from "fs/promises";
+import { writeFile, mkdir, unlink, readFile, readdir } from "fs/promises";
 import { join } from "path";
 import {
   parseSource,
@@ -100,11 +100,19 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
       let evalSummary: SkillEvalSummary | undefined;
       let evalSummaries: IndexedSkill["evalSummaries"] | undefined;
       if (skillMdContent) {
+        let rootEntries: string[] | undefined;
+        try {
+          rootEntries = await readdir(join(tempDir, skill.relPath));
+        } catch {
+          rootEntries = undefined;
+        }
+
         try {
           const report = evaluateSkillContent({
             content: skillMdContent,
             skillPath: skill.relPath || skill.name,
             skillMdPath,
+            rootEntries,
           });
           evalSummary = {
             overallScore: report.overallScore,
