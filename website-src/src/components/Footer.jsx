@@ -12,7 +12,7 @@ export default function Footer() {
       <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center gap-2">
         <a
           className="text-[var(--fg)] hover:text-[var(--brand)]"
-          href="https://github.com/luongnv89/agent-skill-manager"
+          href="https://github.com/luongnv89/asm"
           target="_blank"
           rel="noopener noreferrer"
         >

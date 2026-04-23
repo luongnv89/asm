@@ -725,6 +725,10 @@ const faviconSrc = join(root, "assets", "logo", "favicon.svg");
 if (existsSync(faviconSrc)) {
   copyFileSync(faviconSrc, join(assetsOutDir, "favicon.svg"));
 }
+const logoMarkSrc = join(root, "assets", "logo", "logo-mark.svg");
+if (existsSync(logoMarkSrc)) {
+  copyFileSync(logoMarkSrc, join(assetsOutDir, "logo-mark.svg"));
+}
 
 // ─── Stats ───────────────────────────────────────────────────────────────────
 

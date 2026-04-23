@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useCatalog } from "../hooks/useCatalog.jsx";
 
 function applyTheme(next) {
   document.documentElement.setAttribute("data-theme", next);
@@ -7,13 +8,23 @@ function applyTheme(next) {
 }
 
 /**
- * Top navigation bar. Port of the legacy `<header class="site-header">`
- * limited to the surfaces in scope for #229 (Skills + Bundles). Docs,
- * Registry, Best Practices, Changelog, and Thanks pages are out of
- * scope for this refactor (tracked separately) and intentionally
- * omitted from the React shell.
+ * Top navigation bar. Skills + Bundles route internally; Docs and
+ * Changelog link out to the repo README and CHANGELOG since those
+ * pages don't have React equivalents yet. Version + star count come
+ * from the loaded catalog.
  */
+const REPO_URL = "https://github.com/luongnv89/asm";
+
+function formatStars(n) {
+  if (typeof n !== "number" || n <= 0) return null;
+  if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "k";
+  return String(n);
+}
+
 export default function Header() {
+  const { catalog } = useCatalog();
+  const version = catalog?.version;
+  const stars = formatStars(catalog?.stars);
   const [theme, setTheme] = useState(() =>
     typeof document === "undefined"
       ? "dark"
@@ -58,31 +69,12 @@ export default function Header() {
           to="/"
           className="flex items-center gap-2 font-semibold text-[var(--fg)] text-lg"
         >
-          <svg
-            viewBox="0 0 16 16"
-            fill="none"
-            className="w-5 h-5"
-            style={{ color: "var(--brand)" }}
+          <img
+            src="./assets/logo-mark.svg"
+            alt=""
             aria-hidden="true"
-          >
-            <rect
-              x="1"
-              y="1"
-              width="14"
-              height="14"
-              rx="2"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            />
-            <path
-              d="M5 8l2 2 4-4"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+            className="w-7 h-7"
+          />
           <span>asm</span>
           <span className="text-[var(--fg-muted)] font-normal">catalog</span>
         </Link>
@@ -93,8 +85,22 @@ export default function Header() {
           <NavLink to="/bundles" className={linkClass}>
             Bundles
           </NavLink>
+          <NavLink to="/docs" className={linkClass}>
+            Docs
+          </NavLink>
+          <NavLink to="/changelog" className={linkClass}>
+            Changelog
+          </NavLink>
         </nav>
         <div className="ml-auto flex items-center gap-2">
+          {version && (
+            <span
+              className="hidden sm:inline-block font-mono text-[11px] text-[var(--fg-muted)] px-2 py-0.5 border border-[var(--border)] rounded-md"
+              title="asm version"
+            >
+              v{version}
+            </span>
+          )}
           <button
             type="button"
             onClick={toggleTheme}
@@ -124,12 +130,25 @@ export default function Header() {
             )}
           </button>
           <a
-            className="text-[var(--fg-dim)] hover:text-[var(--fg)] text-sm px-2 py-1.5"
-            href="https://github.com/luongnv89/agent-skill-manager"
+            className="flex items-center gap-1.5 text-[var(--fg-dim)] hover:text-[var(--brand)] hover:border-[var(--brand)] text-sm px-2.5 py-1 border border-[var(--border)] rounded-md transition-colors"
+            href={REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
           >
-            GitHub
+            <svg
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              className="w-4 h-4"
+              aria-hidden="true"
+            >
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+            </svg>
+            {stars && (
+              <span className="font-mono text-[11px] text-[var(--brand)]">
+                ★ {stars}
+              </span>
+            )}
+            <span>GitHub</span>
           </a>
         </div>
       </div>

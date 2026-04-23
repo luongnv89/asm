@@ -5165,9 +5165,7 @@ export async function runCLI(argv: string[]): Promise<void> {
         ),
       );
       console.error(
-        ansi.dim(
-          "  See: https://github.com/luongnv89/agent-skill-manager#troubleshooting",
-        ),
+        ansi.dim("  See: https://github.com/luongnv89/asm#troubleshooting"),
       );
     }
     return;

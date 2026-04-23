@@ -67,7 +67,7 @@ export default function SidebarDrawer({
           "lg:max-h-[calc(100vh-var(--header-offset,5rem))]",
         )}
       >
-        <div className="p-3 lg:p-0 lg:pr-4">{children}</div>
+        <div className="p-3 lg:p-0 lg:pr-4 h-full">{children}</div>
       </aside>
     </>
   );

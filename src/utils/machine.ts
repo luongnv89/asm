@@ -1,7 +1,7 @@
 // ─── Machine Output (v1 envelope) ──────────────────────────────────────────
 //
 // Stable, versioned JSON envelope for programmatic consumption by AI agents.
-// See: https://github.com/luongnv89/agent-skill-manager/issues/109
+// See: https://github.com/luongnv89/asm/issues/109
 
 import { VERSION } from "./version";
 

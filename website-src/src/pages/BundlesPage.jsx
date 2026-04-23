@@ -158,6 +158,7 @@ export default function BundlesPage() {
               key={b.name}
               bundle={b}
               active={b.name === decodedName}
+              locationSearch={location.search}
             />
           ))
         )}

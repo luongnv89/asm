@@ -1,5 +1,16 @@
 /** @vitest-environment jsdom */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+// jsdom doesn't ship ResizeObserver; react-window (used by the virtualized
+// sidebar) subscribes to one on mount. A no-op stub is sufficient — the
+// tests don't measure actual row heights.
+if (typeof globalThis.ResizeObserver === "undefined") {
+  globalThis.ResizeObserver = class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+}
 import {
   act,
   cleanup,
@@ -153,7 +164,9 @@ describe("App smoke", () => {
 
   it("loads the catalog and renders skills in the sidebar list", async () => {
     render(
-      <HashRouter>
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <App />
       </HashRouter>,
     );
@@ -168,7 +181,9 @@ describe("App smoke", () => {
 
   it("selecting a sidebar row updates the URL and renders detail", async () => {
     const { container } = render(
-      <HashRouter>
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <App />
       </HashRouter>,
     );
@@ -204,7 +219,9 @@ describe("App smoke", () => {
     // Start with a category filter already active in the URL.
     window.history.replaceState(null, "", "/#/?cat=demo");
     const { container } = render(
-      <HashRouter>
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <App />
       </HashRouter>,
     );
@@ -230,7 +247,9 @@ describe("App smoke", () => {
   it("bundles page renders a sidebar list and detail empty state", async () => {
     window.history.replaceState(null, "", "/#/bundles");
     const { container } = render(
-      <HashRouter>
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <App />
       </HashRouter>,
     );

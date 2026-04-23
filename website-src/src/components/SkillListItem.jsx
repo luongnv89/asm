@@ -1,4 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
+import { memo } from "react";
+import { Link } from "react-router-dom";
 import { Wrench } from "lucide-react";
 import { Badge } from "./ui/badge.jsx";
 import { cn } from "../lib/cn.js";
@@ -20,13 +21,13 @@ import {
  * contrasting background) so the user never loses the currently
  * focused skill while scrolling.
  */
-export default function SkillListItem({
+function SkillListItem({
   skill,
   active,
   searchQuery,
   searchTerms,
+  locationSearch,
 }) {
-  const location = useLocation();
   const nameHtml = highlightMatches(skill.name, searchQuery, searchTerms);
   const descHtml = highlightMatches(
     skill.description,
@@ -47,7 +48,7 @@ export default function SkillListItem({
     <Link
       to={{
         pathname: `/skills/${encodeSkillId(skill.id)}`,
-        search: location.search,
+        search: locationSearch,
       }}
       aria-current={active ? "true" : undefined}
       className={cn(
@@ -63,17 +64,15 @@ export default function SkillListItem({
           className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r bg-[var(--brand)]"
         />
       )}
-      <div className="flex items-start justify-between gap-2">
-        <span
-          className={cn(
-            "text-sm font-semibold break-words",
-            active ? "text-[var(--brand)]" : "text-[var(--fg)]",
-          )}
-          dangerouslySetInnerHTML={{ __html: nameHtml }}
-        />
-        <span className="text-[10px] text-[var(--fg-muted)] whitespace-nowrap shrink-0">
-          {skill.owner}/{skill.repo}
-        </span>
+      <span
+        className={cn(
+          "block text-sm font-semibold break-words",
+          active ? "text-[var(--brand)]" : "text-[var(--fg)]",
+        )}
+        dangerouslySetInnerHTML={{ __html: nameHtml }}
+      />
+      <div className="mt-1 text-[10px] text-[var(--fg-muted)] truncate">
+        {skill.owner}/{skill.repo}
       </div>
       <p
         className="mt-1 text-xs text-[var(--fg-dim)] line-clamp-2 leading-snug"
@@ -110,3 +109,5 @@ export default function SkillListItem({
     </Link>
   );
 }
+
+export default memo(SkillListItem);

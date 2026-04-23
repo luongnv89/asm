@@ -1,4 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
+import { memo } from "react";
+import { Link } from "react-router-dom";
 import { Badge } from "./ui/badge.jsx";
 import { cn } from "../lib/cn.js";
 
@@ -8,15 +9,14 @@ import { cn } from "../lib/cn.js";
  * query (reserved for future filters) survives. `active` flips the
  * selected visual.
  */
-export default function BundleListItem({ bundle, active }) {
-  const location = useLocation();
+function BundleListItem({ bundle, active, locationSearch }) {
   const skillCount = (bundle.skills || []).length;
   const tags = bundle.tags || [];
   return (
     <Link
       to={{
         pathname: `/bundles/${encodeURIComponent(bundle.name)}`,
-        search: location.search,
+        search: locationSearch,
       }}
       aria-current={active ? "true" : undefined}
       className={cn(
@@ -63,3 +63,5 @@ export default function BundleListItem({ bundle, active }) {
     </Link>
   );
 }
+
+export default memo(BundleListItem);

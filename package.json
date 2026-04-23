@@ -39,6 +39,7 @@
     "ink": "^5",
     "react": "^18",
     "react-dom": "^18",
+    "react-window": "^2.2.7",
     "yaml": "^2.8.3"
   },
   "engines": {
@@ -56,13 +57,13 @@
   ],
   "author": "luongnv89",
   "license": "MIT",
-  "homepage": "https://github.com/luongnv89/agent-skill-manager#readme",
+  "homepage": "https://github.com/luongnv89/asm#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/luongnv89/agent-skill-manager.git"
+    "url": "git+https://github.com/luongnv89/asm.git"
   },
   "bugs": {
-    "url": "https://github.com/luongnv89/agent-skill-manager/issues"
+    "url": "https://github.com/luongnv89/asm/issues"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
