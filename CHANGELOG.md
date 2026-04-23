@@ -1,10 +1,47 @@
 # Changelog
 
-## Unreleased
+## v2.4.0 — 2026-04-23
 
 ### Features
 
-- Add built-in `skill-auto-improver` skill — eval-driven improvement loop that runs `asm eval`, fixes weakest categories from a per-category playbook, and iterates until a skill clears the 85/8 quality floor (overallScore > 85 AND every category >= 8) or stops with a blocker report (#209) @luongnv89
+- Drop Bun from the toolchain — replace `@opentui/core` with `ink` for the TUI so CLI and TUI both run on Node >=18 alone, removing the `bun:ffi` native dependency ([#224](https://github.com/luongnv89/asm/pull/224), [#226](https://github.com/luongnv89/asm/pull/226)) — @luongnv89
+- Make `bun` optional at install time — CLI runs on Node, Bun is only required for interactive TUI mode ([#221](https://github.com/luongnv89/asm/pull/221), [#223](https://github.com/luongnv89/asm/pull/223)) — @luongnv89
+- Add `skill-auto-improver` built-in skill — eval-driven improvement loop that runs `asm eval`, applies deterministic `--fix`, then iterates per-category playbook edits until a skill clears the 85/8 quality floor (overallScore > 85 AND every category >= 8) or stops with a blocker report. Self-dogfooded: scores 100/100 with every category at 10/10 ([#209](https://github.com/luongnv89/asm/issues/209), [#218](https://github.com/luongnv89/asm/pull/218)) — @luongnv89
+- Ship 5 curated pre-defined bundles with ASM for popular workflows (`frontend-dev`, `devops`, `ios-release`, `content-writing`, `eu-project-ops`) — add `--predefined` flag on `asm bundle list` to show shipped bundles ([#206](https://github.com/luongnv89/asm/issues/206), [#211](https://github.com/luongnv89/asm/pull/211)) — @luongnv89
+- Add `asm bundle modify` and `asm bundle export` subcommands — non-interactive editing via `--add`, `--remove`, `--description`, `--author`, `--tags`, plus an interactive prompt mode and JSON export with `--force` / `--json` ([#204](https://github.com/luongnv89/asm/issues/204), [#205](https://github.com/luongnv89/asm/issues/205), [#208](https://github.com/luongnv89/asm/pull/208)) — @luongnv89
+- Rewrite the ASM catalog website on React + Vite + Tailwind + shadcn/ui — replaces the 4.4k-line single-file `index.html`, retains full feature parity (catalog list, category tabs, facets, repo/sort selects, MiniSearch prefix + fuzzy search, pagination, bundle list, skill detail), and introduces a NeuronWiz-style sidebar + detail two-pane layout for catalog and bundles ([#228](https://github.com/luongnv89/asm/issues/228), [#229](https://github.com/luongnv89/asm/issues/229), [#230](https://github.com/luongnv89/asm/pull/230), [#231](https://github.com/luongnv89/asm/pull/231)) — @luongnv89
+- Add `/bundles` page to the ASM catalog website — each bundle card shows name, description, tags, included skills, and a copy-paste install command; deploy pipeline triggers on `data/bundles/**` changes ([#207](https://github.com/luongnv89/asm/issues/207), [#215](https://github.com/luongnv89/asm/pull/215)) — @luongnv89
+- Add `/docs` and `/changelog` SPA pages to the React website so header nav stays internal instead of bouncing to GitHub — @luongnv89
+- Consolidate mobile header actions (theme toggle, GitHub link, nav items) into a single burger menu at `<=768px` with aria-expanded, aria-controls, Escape-to-close, and outside-click dismissal ([#216](https://github.com/luongnv89/asm/pull/216), [#217](https://github.com/luongnv89/asm/pull/217)) — @luongnv89
+- Pin `skill-auto-improver` to the top of the catalog as a featured skill, with a distinct visual treatment ([#219](https://github.com/luongnv89/asm/pull/219)) — @luongnv89
+- Restore full website nav (Docs, Changelog, version pill, GitHub star count) and switch the catalog sidebar to `react-window` virtualization — cuts click latency on the 6,783-skill catalog from ~10s to instant ([#232](https://github.com/luongnv89/asm/pull/232)) — @luongnv89
+- Use the real ASM nexus logo in the website header — @luongnv89
+
+### Performance
+
+- Split `catalog.json` into a compact list + a MiniSearch index — faster initial load and smaller per-request payloads on the website ([#214](https://github.com/luongnv89/asm/issues/214), [#220](https://github.com/luongnv89/asm/pull/220)) — @luongnv89
+
+### Bug Fixes
+
+- Include `relPath` in the catalog dedup key so plugin-bundle variants aren't dropped — recovers ~3k installable targets that the `owner/repo::name` key had silently collapsed; adds regression tests asserting `totalSkills === skills.length` and unique `installUrl` per entry ([#201](https://github.com/luongnv89/asm/issues/201), [#203](https://github.com/luongnv89/asm/pull/203)) — @luongnv89
+- Opt into React Router v7 future flags (`v7_startTransition`, `v7_relativeSplatPath`) to silence v6 deprecation warnings — @luongnv89
+- Import test accounts for missing providers so the test suite runs cleanly when optional providers aren't installed — @luongnv89
+
+### Changed
+
+- Rename eval provider ID `skill-creator` → `skill-best-practice` to avoid collision with the real Anthropic `skill-creator` skill; include warning-severity checks in the score denominator; add per-check `√`/`×`/`⚠` breakdown under each extra provider's score line — @luongnv89
+
+### Testing
+
+- Isolate publisher and import tests from host `gh` CLI and skill-provider state via a `fakeGhCli()` helper — removes five flaky tests that depended on the developer's local environment ([#167](https://github.com/luongnv89/asm/issues/167), [#200](https://github.com/luongnv89/asm/pull/200)) — @luongnv89
+- Deflake runner timing assertions by bumping sleeps to 20ms and assertions to `>=10ms` for headroom against `Math.round` jitter — @luongnv89
+- Stub `ResizeObserver` in jsdom smoke tests so `react-window` v2 renders under Vitest — @luongnv89
+
+### Chores
+
+- Ignore `.agents/` directory in git — @luongnv89
+
+**Full Changelog**: https://github.com/luongnv89/asm/compare/v2.3.0...v2.4.0
 
 ## v2.3.0 — 2026-04-21
 

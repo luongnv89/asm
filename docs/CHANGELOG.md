@@ -4,6 +4,34 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.4.0] - 2026-04-23
+
+### Added
+
+- `skill-auto-improver` built-in skill — eval-driven improvement loop that runs `asm eval`, applies deterministic `--fix`, and iterates per-category playbook edits until a skill clears the 85/8 quality floor (overallScore > 85 AND every category >= 8) or stops with a blocker report (#209, #218)
+- `asm bundle modify` and `asm bundle export` subcommands — non-interactive editing via `--add`, `--remove`, `--description`, `--author`, `--tags`, plus an interactive prompt mode and JSON export with `--force` / `--json` (#204, #205, #208)
+- Ship 5 curated pre-defined bundles (`frontend-dev`, `devops`, `ios-release`, `content-writing`, `eu-project-ops`) — new `--predefined` flag on `asm bundle list` to show shipped bundles (#206, #211)
+- Full React + Vite + Tailwind + shadcn/ui rewrite of the ASM catalog website — replaces the 4.4k-line single-file `index.html` with sidebar + detail two-pane layout for catalog and bundles, plus `/bundles`, `/docs`, and `/changelog` SPA pages (#228, #229, #230, #231, #207, #215)
+- `react-window` virtualization of the catalog sidebar — click latency on the 6,783-skill catalog drops from ~10s to instant (#232)
+- Mobile burger menu consolidating theme toggle, GitHub link, and nav items at `<=768px` with aria-expanded, aria-controls, Escape-to-close, and outside-click dismissal (#216, #217)
+- Real ASM nexus logo in website header
+
+### Changed
+
+- Drop Bun from the toolchain — replace `@opentui/core` with `ink` for the TUI so CLI and TUI both run on Node >=18 alone, removing the `bun:ffi` native dependency (#224, #226)
+- Make `bun` optional at install time — CLI runs on Node; Bun is only required for interactive TUI mode (#221, #223)
+- Rename eval provider ID `skill-creator` → `skill-best-practice` to avoid collision with the Anthropic `skill-creator` skill; include warning-severity checks in the score denominator; add per-check `√`/`×`/`⚠` breakdown under each extra provider's score line
+
+### Performance
+
+- Split `catalog.json` into a compact list + a MiniSearch index — faster initial load and smaller per-request payloads on the website (#214, #220)
+
+### Fixed
+
+- Include `relPath` in the catalog dedup key so plugin-bundle variants aren't dropped — recovers ~3k installable targets that the `owner/repo::name` key had silently collapsed; regression tests assert `totalSkills === skills.length` and unique `installUrl` per entry (#201, #203)
+- Opt into React Router v7 future flags (`v7_startTransition`, `v7_relativeSplatPath`) to silence v6 deprecation warnings
+- Import test accounts for missing providers so the test suite runs cleanly when optional providers aren't installed
+
 ## [2.3.0] - 2026-04-21
 
 ### Added

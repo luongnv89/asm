@@ -27,6 +27,110 @@ function issue(n) {
 
 const ENTRIES = [
   {
+    version: "2.4.0",
+    date: "2026-04-23",
+    sections: [
+      {
+        tag: "added",
+        items: [
+          <>
+            <code>skill-auto-improver</code> built-in skill — eval-driven
+            improvement loop that runs <code>asm eval</code>, applies
+            deterministic <code>--fix</code>, then iterates per-category
+            playbook edits until a skill clears the 85/8 quality floor
+            (overallScore &gt; 85 AND every category &ge; 8) or stops with a
+            blocker report ({issue(209)}, {pr(218)})
+          </>,
+          <>
+            <code>asm bundle modify</code> and <code>asm bundle export</code>{" "}
+            subcommands — non-interactive editing via <code>--add</code>,{" "}
+            <code>--remove</code>, <code>--description</code>,{" "}
+            <code>--author</code>, <code>--tags</code>, plus an interactive
+            prompt mode and JSON export with <code>--force</code> /{" "}
+            <code>--json</code> ({issue(204)}, {issue(205)}, {pr(208)})
+          </>,
+          <>
+            Ship 5 curated pre-defined bundles for popular workflows (
+            <code>frontend-dev</code>, <code>devops</code>,{" "}
+            <code>ios-release</code>, <code>content-writing</code>,{" "}
+            <code>eu-project-ops</code>) — new <code>--predefined</code> flag on{" "}
+            <code>asm bundle list</code> ({issue(206)}, {pr(211)})
+          </>,
+          <>
+            Full React + Vite + Tailwind + shadcn/ui rewrite of the ASM catalog
+            website — replaces the 4.4k-line single-file <code>index.html</code>{" "}
+            with a sidebar + detail two-pane layout for catalog and bundles,
+            plus <code>/bundles</code>, <code>/docs</code>, and{" "}
+            <code>/changelog</code> SPA pages ({issue(228)}, {issue(229)},{" "}
+            {pr(230)}, {pr(231)}, {issue(207)}, {pr(215)})
+          </>,
+          <>
+            <code>react-window</code> virtualization of the catalog sidebar —
+            click latency on the 6,783-skill catalog drops from ~10s to instant
+            ({pr(232)})
+          </>,
+          <>
+            Mobile burger menu consolidating theme toggle, GitHub link, and nav
+            items at <code>&le;768px</code> with aria-expanded, aria-controls,
+            Escape-to-close, and outside-click dismissal ({pr(216)}, {pr(217)})
+          </>,
+          "Real ASM nexus logo in the website header",
+        ],
+      },
+      {
+        tag: "changed",
+        items: [
+          <>
+            Drop Bun from the toolchain — replace <code>@opentui/core</code>{" "}
+            with <code>ink</code> for the TUI so CLI and TUI both run on Node
+            &ge;18 alone, removing the <code>bun:ffi</code> native dependency (
+            {pr(224)}, {pr(226)})
+          </>,
+          <>
+            Make <code>bun</code> optional at install time — CLI runs on Node;
+            Bun is only required for interactive TUI mode ({pr(221)}, {pr(223)})
+          </>,
+          <>
+            Rename eval provider ID <code>skill-creator</code> →{" "}
+            <code>skill-best-practice</code> to avoid collision with the
+            Anthropic <code>skill-creator</code> skill; include warning-severity
+            checks in the score denominator; add per-check √/×/⚠ breakdown under
+            each extra provider's score line
+          </>,
+        ],
+      },
+      {
+        tag: "performance",
+        items: [
+          <>
+            Split <code>catalog.json</code> into a compact list + a MiniSearch
+            index — faster initial load and smaller per-request payloads on the
+            website ({issue(214)}, {pr(220)})
+          </>,
+        ],
+      },
+      {
+        tag: "fixed",
+        items: [
+          <>
+            Include <code>relPath</code> in the catalog dedup key so
+            plugin-bundle variants aren't dropped — recovers ~3k installable
+            targets that the <code>owner/repo::name</code> key had silently
+            collapsed; regression tests assert{" "}
+            <code>totalSkills === skills.length</code> and unique{" "}
+            <code>installUrl</code> per entry ({issue(201)}, {pr(203)})
+          </>,
+          <>
+            Opt into React Router v7 future flags (
+            <code>v7_startTransition</code>, <code>v7_relativeSplatPath</code>)
+            to silence v6 deprecation warnings
+          </>,
+          "Import test accounts for missing providers so the test suite runs cleanly when optional providers aren't installed",
+        ],
+      },
+    ],
+  },
+  {
     version: "2.3.0",
     date: "2026-04-21",
     sections: [
@@ -1107,7 +1211,14 @@ const ENTRIES = [
   },
 ];
 
-const VALID_TAGS = new Set(["added", "changed", "fixed", "breaking", "docs"]);
+const VALID_TAGS = new Set([
+  "added",
+  "changed",
+  "fixed",
+  "breaking",
+  "docs",
+  "performance",
+]);
 
 function cap(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
