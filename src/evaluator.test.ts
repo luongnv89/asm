@@ -221,6 +221,32 @@ describe("evaluateSkillContent", () => {
     ).toBe(true);
   });
 
+  it("awards authorship point for legacy creator-only skills", () => {
+    const report = evaluateSkillContent({
+      content:
+        "---\nname: x\ndescription: Do a thing when triggered.\nversion: 1.0.0\nlicense: MIT\ncreator: Legacy Author\n---\nbody\n",
+      skillPath: "/virtual/x",
+      skillMdPath: "/virtual/x/SKILL.md",
+    });
+    const structure = report.categories.find((c) => c.id === "structure")!;
+    expect(structure.findings.some((f) => /Missing.*author/i.test(f))).toBe(
+      false,
+    );
+  });
+
+  it("awards authorship point for metadata.author skills", () => {
+    const report = evaluateSkillContent({
+      content:
+        "---\nname: x\ndescription: Do a thing when triggered.\nversion: 1.0.0\nlicense: MIT\nmetadata:\n  author: Jane Doe\n---\nbody\n",
+      skillPath: "/virtual/x",
+      skillMdPath: "/virtual/x/SKILL.md",
+    });
+    const structure = report.categories.find((c) => c.id === "structure")!;
+    expect(structure.findings.some((f) => /Missing.*author/i.test(f))).toBe(
+      false,
+    );
+  });
+
   it("produces up to 3 top suggestions", () => {
     const report = evaluateSkillContent({
       content: POOR_SKILL,
@@ -398,20 +424,37 @@ describe("buildFixPlan", () => {
     );
   });
 
-  it("adds creator from gitAuthor option when absent", () => {
+  it("adds author from gitAuthor option when absent", () => {
     const plan = buildFixPlan(
       "---\nname: x\ndescription: do a thing\n---\n\nbody\n",
       { gitAuthor: "Jane Doe" },
     );
-    expect(plan.newContent).toContain("creator: Jane Doe");
-    expect(plan.applied.some((a) => a.id === "add-missing-creator")).toBe(true);
+    expect(plan.newContent).toContain("author: Jane Doe");
+    expect(plan.applied.some((a) => a.id === "add-missing-author")).toBe(true);
   });
 
-  it("skips creator when no gitAuthor is provided", () => {
+  it("skips author when no gitAuthor is provided", () => {
     const plan = buildFixPlan(
       "---\nname: x\ndescription: do a thing\n---\n\nbody\n",
     );
-    expect(plan.skipped.some((s) => s.id === "add-missing-creator")).toBe(true);
+    expect(plan.skipped.some((s) => s.id === "add-missing-author")).toBe(true);
+  });
+
+  it("accepts legacy `creator:` as an alias and does not re-add author", () => {
+    const plan = buildFixPlan(
+      "---\nname: x\ndescription: do a thing\ncreator: Legacy Author\n---\n\nbody\n",
+      { gitAuthor: "Jane Doe" },
+    );
+    expect(plan.newContent).not.toContain("author: Jane Doe");
+    expect(plan.applied.some((a) => a.id === "add-missing-author")).toBe(false);
+  });
+
+  it("accepts `metadata.author` as canonical", () => {
+    const plan = buildFixPlan(
+      "---\nname: x\ndescription: do a thing\nmetadata:\n  author: Jane Doe\n---\n\nbody\n",
+      { gitAuthor: "Git Name" },
+    );
+    expect(plan.applied.some((a) => a.id === "add-missing-author")).toBe(false);
   });
 
   it("infers effort from line count when missing", () => {
@@ -505,7 +548,7 @@ describe("applyFix", () => {
     expect(r.backupPath).toBe(join(dir, "SKILL.md.bak"));
     const after = await readFile(join(dir, "SKILL.md"), "utf-8");
     expect(after).toContain("version: 0.1.0");
-    expect(after).toContain("creator: Alice");
+    expect(after).toContain("author: Alice");
     const backup = await readFile(r.backupPath!, "utf-8");
     expect(backup).toBe(original);
   });
@@ -528,7 +571,7 @@ describe("applyFix", () => {
     );
     const r = await applyFix(dir, { dryRun: false, gitAuthor: "Bob" });
     expect(r.report.frontmatter.version).toBe("0.1.0");
-    expect(r.report.frontmatter.creator).toBe("Bob");
+    expect(r.report.frontmatter.author).toBe("Bob");
   });
 });
 

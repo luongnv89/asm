@@ -76,7 +76,7 @@
           "Missing required field: name.",
           "Missing required field: description.",
           "Missing or default version.",
-          "Missing `creator`.",
+          "Missing `author`.",
           "Missing `license`.",
           "Body has meaningful content.",
           "Body uses markdown headings."
@@ -86,7 +86,7 @@
           "Add `name:` to frontmatter (use the skill directory name).",
           "Add a one-line `description:` to frontmatter.",
           "Set `metadata.version` (or top-level `version`) using semver (e.g. 0.1.0).",
-          "Add a `creator` field so users know who authored and maintains the skill.",
+          "Add an `author` field so users know who authored and maintains the skill.",
           "Add a `license` field (e.g. `license: MIT`)."
         ]
       },

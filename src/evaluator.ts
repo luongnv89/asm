@@ -15,12 +15,14 @@
  *   7. Naming & conventions       — naming conventions, imperative mood, consistent labels
  *
  * Also provides `--fix` / `--fix --dry-run` auto-fix for deterministic
- * frontmatter issues (ordering, version default, creator from git, effort
+ * frontmatter issues (ordering, version default, author from git, effort
  * inference from size, trailing whitespace, CRLF normalization).
  *
  * Schema mapping notes (see also /docs/ARCHITECTURE.md + README "SKILL.md Format"):
  *   - Issue wording     → codebase convention
- *   - `author`          → `creator` (or `metadata.creator`)
+ *   - `author` is the canonical authorship field (top-level or `metadata.author`);
+ *     `creator` is accepted as a legacy alias for backwards compatibility and
+ *     resolves identically. The auto-fixer emits `author:` going forward.
  *   - top-level `version` → `metadata.version` (preferred) with `version` fallback
  *   - `XS/S/M/L/XL`     → `low/medium/high/max`
  *   - `type`            → not a recognized frontmatter field; ignored by the
@@ -111,12 +113,19 @@ export interface FixResult {
 export const ROOT_README_SUGGESTION =
   "Relocate `README.md` out of the skill root so SKILL.md remains the sole top-level document (e.g., move it to `docs/README.md`).";
 
-/** Canonical frontmatter key ordering used by the auto-fixer. */
+/** Canonical frontmatter key ordering used by the auto-fixer.
+ *
+ *  `author` is the canonical authorship field; `creator` is kept in the list
+ *  so legacy skills that still declare it are reordered correctly rather than
+ *  sinking to the bottom of the frontmatter. New skills scaffolded by the
+ *  auto-fixer receive `author:`.
+ */
 export const CANONICAL_FIELD_ORDER = [
   "name",
   "description",
   "version",
   "license",
+  "author",
   "creator",
   "compatibility",
   "allowed-tools",
@@ -365,12 +374,16 @@ function scoreStructure(
     );
   }
 
-  const hasCreator = Boolean(fm.creator || fm["metadata.creator"]);
-  if (hasCreator) score += 1;
+  // `author` is canonical; `creator` is accepted as a legacy alias so existing
+  // skills keep their score during the field rename transition.
+  const hasAuthor = Boolean(
+    fm.author || fm["metadata.author"] || fm.creator || fm["metadata.creator"],
+  );
+  if (hasAuthor) score += 1;
   else {
-    findings.push("Missing `creator`.");
+    findings.push("Missing `author`.");
     suggestions.push(
-      "Add a `creator` field so users know who authored and maintains the skill.",
+      "Add an `author` field so users know who authored and maintains the skill.",
     );
   }
 
@@ -1065,7 +1078,8 @@ export async function evaluateSkill(
  *
  * Only low-risk, deterministic edits are applied:
  *   - Add missing `version` as `0.1.0`
- *   - Add missing `creator` from git `user.name` if available
+ *   - Add missing `author` from git `user.name` if available (legacy
+ *     `creator:` is accepted and left in place — not rewritten)
  *   - Infer `effort` from body line count (low/medium/high/max)
  *   - Normalise trailing whitespace and CRLF line endings
  *   - Ensure a blank line between `---` and body
@@ -1075,7 +1089,9 @@ export async function evaluateSkill(
  * they're returned in `skipped`.
  */
 export interface BuildFixPlanOptions {
-  /** Optional git author string to use when `creator` is missing. */
+  /** Optional git author string to use when no authorship field
+   *  (`author`, `metadata.author`, or the legacy `creator` aliases) is
+   *  present. The fixer writes `author:` going forward. */
   gitAuthor?: string | null;
 }
 
@@ -1231,21 +1247,26 @@ export function buildFixPlan(
     });
   }
 
-  // 2) Add missing creator from git config user.name (if provided).
-  const hasCreator = Boolean(fm.creator || fm["metadata.creator"]);
-  if (!hasCreator) {
+  // 2) Add missing author from git config user.name (if provided).
+  //    `creator` is still accepted as a legacy alias, so a skill that declares
+  //    only `creator:` is considered complete and the auto-fixer leaves it
+  //    alone. New skills get `author:` written.
+  const hasAuthor = Boolean(
+    fm.author || fm["metadata.author"] || fm.creator || fm["metadata.creator"],
+  );
+  if (!hasAuthor) {
     const gitAuthor = options.gitAuthor?.trim();
     if (gitAuthor) {
-      fmStr = appendFrontmatterKey(fmStr, "creator", gitAuthor);
+      fmStr = appendFrontmatterKey(fmStr, "author", gitAuthor);
       applied.push({
-        id: "add-missing-creator",
-        description: `Add \`creator: ${gitAuthor}\` from git config.`,
+        id: "add-missing-author",
+        description: `Add \`author: ${gitAuthor}\` from git config.`,
       });
     } else {
       skipped.push({
-        id: "add-missing-creator",
+        id: "add-missing-author",
         description:
-          "Missing `creator` — no git user.name found to fill in safely.",
+          "Missing `author` — no git user.name found to fill in safely.",
       });
     }
   }
