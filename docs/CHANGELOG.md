@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.5.0] - 2026-04-24
+
+### Added
+
+- Bundle builder UI on the catalog website — interactive cart flow with localStorage persistence across routes, bundle metadata form (name/description/author/tags), and either `BundleManifest` JSON export or a pre-filled GitHub feature-request issue to publish the bundle (#238, #240)
+- `google/skills` and `antonbabenko/terraform-skill` sources in the skill-index — 13 Google product/technology skills plus a Terraform/OpenTofu skill for AI agents (#237)
+- `asm eval` warning when `README.md` sits at the skill root — flags a common packaging mistake that previously slipped through scoring (#227, #234)
+
+### Changed
+
+- Redesign the website `/changelog` page with an editorial release-log aesthetic — two-column layout with Fraunces + Instrument Serif masthead, JetBrains Mono sticky version index, outlined tag pills, and numbered receipt-style entries; existing `ENTRIES` data preserved verbatim
+- Remove the `eu-project-ops` predefined website bundle and update bundle tests and the website changelog bundle count to match the reduced set
+
+### Fixed
+
+- `deploy-website.yml` workflow now also triggers on changes to `website-src/**` and `package.json` — previously release commits that bumped only those paths would not fire the workflow, leaving the live site stale
+
 ## [2.4.0] - 2026-04-23
 
 ### Added

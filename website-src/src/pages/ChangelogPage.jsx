@@ -27,6 +27,63 @@ function issue(n) {
 
 const ENTRIES = [
   {
+    version: "2.5.0",
+    date: "2026-04-24",
+    sections: [
+      {
+        tag: "added",
+        items: [
+          <>
+            Bundle builder UI on the catalog website — interactive cart flow
+            with localStorage persistence across routes, bundle metadata form
+            (name / description / author / tags), and either{" "}
+            <code>BundleManifest</code> JSON export or a pre-filled GitHub
+            feature-request issue to publish the bundle ({pr(238)}, {pr(240)})
+          </>,
+          <>
+            <code>google/skills</code> and{" "}
+            <code>antonbabenko/terraform-skill</code> sources in the skill-index
+            — 13 Google product/technology skills plus a Terraform/OpenTofu
+            skill for AI agents ({pr(237)})
+          </>,
+          <>
+            <code>asm eval</code> warning when <code>README.md</code> sits at
+            the skill root — flags a common packaging mistake that previously
+            slipped through scoring ({issue(227)}, {pr(234)})
+          </>,
+        ],
+      },
+      {
+        tag: "changed",
+        items: [
+          <>
+            Redesign the website <code>/changelog</code> page with an editorial
+            release-log aesthetic — two-column layout with a Fraunces +
+            Instrument Serif masthead, JetBrains Mono sticky version index,
+            outlined tag pills, and numbered receipt-style entries; existing{" "}
+            <code>ENTRIES</code> data preserved verbatim
+          </>,
+          <>
+            Remove the <code>eu-project-ops</code> predefined website bundle and
+            update bundle tests and the website changelog bundle count to match
+            the reduced set
+          </>,
+        ],
+      },
+      {
+        tag: "fixed",
+        items: [
+          <>
+            <code>deploy-website.yml</code> workflow now also triggers on{" "}
+            <code>website-src/**</code> and <code>package.json</code> changes —
+            previously release commits that bumped only those paths would not
+            fire the workflow, leaving the live site stale
+          </>,
+        ],
+      },
+    ],
+  },
+  {
     version: "2.4.0",
     date: "2026-04-23",
     sections: [

@@ -1,5 +1,24 @@
 # Changelog
 
+## v2.5.0 — 2026-04-24
+
+### Features
+
+- Add a bundle builder UI to the catalog website — interactive cart flow lets users browse skills, add any to a persistent (localStorage) cart visible from the header across all routes, fill bundle metadata (name/description/author/tags), then either export a `BundleManifest`-conforming `.json` or publish a pre-filled feature request issue to promote the bundle. Validation mirrors the CLI's `validateBundle()` rules and truncation keeps the issue URL under GitHub's ~8KB pre-fill limit ([#238](https://github.com/luongnv89/asm/pull/238), [#240](https://github.com/luongnv89/asm/pull/240)) — @luongnv89
+- Add `google/skills` and `antonbabenko/terraform-skill` as curated sources in the skill-index — 13 Google product/technology skills plus a Terraform/OpenTofu skill for AI agents ([#237](https://github.com/luongnv89/asm/pull/237)) — @luongnv89
+- `asm eval` now warns when `README.md` sits at the skill root — flags a common packaging mistake that previously slipped through scoring ([#227](https://github.com/luongnv89/asm/issues/227), [#234](https://github.com/luongnv89/asm/pull/234)) — @luongnv89
+- Redesign the website `/changelog` page with an editorial release-log aesthetic — two-column layout with a Fraunces + Instrument Serif masthead, a JetBrains Mono sticky version index, monospace metadata strip, outlined tag pills, and numbered receipt-style entries separated by dashed rules; self-scoped `.cl-*` styles preserve existing `ENTRIES` data verbatim and work in both light and dark themes — @luongnv89
+
+### Bug Fixes
+
+- Deploy Skill Catalog workflow now also triggers on changes to `website-src/**` and `package.json` — previously release commits that bumped only those paths would not fire the workflow, leaving the live site stale (e.g. the v2.4.0 release left the nav pill showing 2.3.0 because `skills.min.json` was never regenerated on CI) — @luongnv89
+
+### Chores
+
+- Remove the `eu-project-ops` predefined website bundle and update bundle tests and the website changelog bundle count to match the reduced set — @luongnv89
+
+**Full Changelog**: https://github.com/luongnv89/asm/compare/v2.4.0...v2.5.0
+
 ## v2.4.0 — 2026-04-23
 
 ### Features
