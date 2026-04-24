@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   applyFilters,
   anyFilterActive,
+  buildNameCollisionKeys,
   defaultSort,
 } from "../lib/filter-sort.js";
 import { emptyFacetState } from "../lib/facets.js";
@@ -147,6 +148,69 @@ describe("applyFilters", () => {
     ]);
     const out = applyFilters(skills, state, { scoreById });
     expect(out.map((s) => s.id)).toEqual(["gamma", "beta"]);
+  });
+});
+
+describe("buildNameCollisionKeys (issue #241)", () => {
+  it("returns an empty set when every (owner, repo, name) is unique", () => {
+    const skills = [
+      mk({ id: "1", name: "a", owner: "o", repo: "r1" }),
+      mk({ id: "2", name: "a", owner: "o", repo: "r2" }),
+      mk({ id: "3", name: "b", owner: "o", repo: "r1" }),
+    ];
+    expect(buildNameCollisionKeys(skills).size).toBe(0);
+  });
+
+  it("flags only the (owner, repo, name) tuples that collide", () => {
+    const skills = [
+      // Two entries sharing owner/repo/name — a plugin-bundle variant
+      mk({ id: "1", name: "dup", owner: "o", repo: "r" }),
+      mk({ id: "2", name: "dup", owner: "o", repo: "r" }),
+      // Same name under a different repo — NOT a collision
+      mk({ id: "3", name: "dup", owner: "o", repo: "other" }),
+      // Unrelated unique entry
+      mk({ id: "4", name: "solo", owner: "o", repo: "r" }),
+    ];
+    const keys = buildNameCollisionKeys(skills);
+    expect(keys.has("o/r::dup")).toBe(true);
+    expect(keys.has("o/other::dup")).toBe(false);
+    expect(keys.has("o/r::solo")).toBe(false);
+    expect(keys.size).toBe(1);
+  });
+
+  it("handles the reported sickn33 case (3 install paths, same skill)", () => {
+    const skills = [
+      mk({
+        id: "a",
+        name: "00-andruia-consultant",
+        owner: "sickn33",
+        repo: "antigravity-awesome-skills",
+      }),
+      mk({
+        id: "b",
+        name: "00-andruia-consultant",
+        owner: "sickn33",
+        repo: "antigravity-awesome-skills",
+      }),
+      mk({
+        id: "c",
+        name: "00-andruia-consultant",
+        owner: "sickn33",
+        repo: "antigravity-awesome-skills",
+      }),
+    ];
+    const keys = buildNameCollisionKeys(skills);
+    expect(keys.size).toBe(1);
+    expect(
+      keys.has("sickn33/antigravity-awesome-skills::00-andruia-consultant"),
+    ).toBe(true);
+  });
+
+  it("returns a fresh Set (not a shared reference)", () => {
+    const skills = [mk({ id: "1", name: "x" })];
+    expect(buildNameCollisionKeys(skills)).not.toBe(
+      buildNameCollisionKeys(skills),
+    );
   });
 });
 
