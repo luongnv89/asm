@@ -9,6 +9,7 @@ import {
   formatTokens,
   highlightMatches,
   encodeSkillId,
+  skillRelPath,
 } from "../lib/utils.js";
 
 /**
@@ -28,6 +29,7 @@ function SkillListItem({
   searchQuery,
   searchTerms,
   locationSearch,
+  hasNameCollision,
 }) {
   const nameHtml = highlightMatches(skill.name, searchQuery, searchTerms);
   const descHtml = highlightMatches(
@@ -44,6 +46,10 @@ function SkillListItem({
   const evalTone = skill.evalSummary
     ? evalScoreClass(skill.evalSummary.overallScore)
     : null;
+  // When the same name appears at multiple install paths inside one repo
+  // (plugin-bundle variants — issue #241) surface the distinguishing
+  // relPath so the row is no longer visually identical to its siblings.
+  const collisionPath = hasNameCollision ? skillRelPath(skill.installUrl) : "";
 
   return (
     <Link
@@ -78,6 +84,14 @@ function SkillListItem({
       <div className="mt-1 text-[10px] text-[var(--fg-muted)] truncate">
         {skill.owner}/{skill.repo}
       </div>
+      {collisionPath && (
+        <div
+          className="text-[10px] text-[var(--fg-muted)] truncate font-mono"
+          title={"Install path: " + collisionPath}
+        >
+          {collisionPath}
+        </div>
+      )}
       <p
         className="mt-1 text-xs text-[var(--fg-dim)] line-clamp-2 leading-snug"
         dangerouslySetInnerHTML={{ __html: descHtml }}

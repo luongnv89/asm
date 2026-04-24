@@ -7,6 +7,7 @@ import { useCatalogState } from "../hooks/useCatalogState.js";
 import {
   applyFilters,
   anyFilterActive,
+  buildNameCollisionKeys,
   defaultSort,
 } from "../lib/filter-sort.js";
 import { computeFacetCounts } from "../lib/facets.js";
@@ -32,8 +33,12 @@ function SkillRow({
   searchQuery,
   searchTerms,
   locationSearch,
+  collisionKeys,
 }) {
   const s = skills[index];
+  const hasCollision =
+    !!collisionKeys &&
+    collisionKeys.has(s.owner + "/" + s.repo + "::" + s.name);
   return (
     <div style={style} className="pb-1.5">
       <SkillListItem
@@ -42,6 +47,7 @@ function SkillRow({
         searchQuery={searchQuery}
         searchTerms={searchTerms}
         locationSearch={locationSearch}
+        hasNameCollision={hasCollision}
       />
     </div>
   );
@@ -118,6 +124,18 @@ export default function CatalogPage() {
 
   const facetCounts = useMemo(
     () => (catalog ? computeFacetCounts(catalog.skills) : null),
+    [catalog],
+  );
+
+  // A skill name may appear at multiple install paths within a single repo
+  // (plugin-bundle layouts ship the same skill under several relPaths — see
+  // build-catalog.ts and issue #241). The data layer preserves every install
+  // target on purpose so each has a distinct `installUrl`, but with identical
+  // name/owner/repo/description/badges the list rows look like duplicates to
+  // a casual reader. The collision set lets `SkillListItem` surface the
+  // distinguishing sub-path on those rows only, keeping the common case clean.
+  const collisionKeys = useMemo(
+    () => (catalog ? buildNameCollisionKeys(catalog.skills) : null),
     [catalog],
   );
 
@@ -264,6 +282,7 @@ export default function CatalogPage() {
               searchQuery: state.searchQuery,
               searchTerms: searchResults.terms,
               locationSearch: location.search,
+              collisionKeys,
             }}
             style={{ height: "100%" }}
           />

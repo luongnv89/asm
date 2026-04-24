@@ -27,6 +27,19 @@ export function skillSource(s) {
   return "community";
 }
 
+// Extract the in-repo relPath from an installUrl formatted as
+// `github:owner/repo:relPath`. Returns an empty string when the URL has no
+// path segment (top-level SKILL.md in the repo root).
+export function skillRelPath(installUrl) {
+  if (!installUrl || typeof installUrl !== "string") return "";
+  const idx = installUrl.indexOf(":");
+  if (idx === -1) return "";
+  const rest = installUrl.slice(idx + 1);
+  const idx2 = rest.indexOf(":");
+  if (idx2 === -1) return "";
+  return rest.slice(idx2 + 1);
+}
+
 // Format an estimated token count as "~N tokens" / "~1.2k tokens" /
 // "~12k tokens". Mirrors src/utils/token-count.ts:formatTokenCount so the
 // website + CLI agree.

@@ -126,6 +126,30 @@ export function applyFilters(skills, state, options = {}) {
   return results;
 }
 
+/**
+ * Build the set of `owner/repo::name` keys that collide — i.e. the same
+ * skill name exists at more than one install path within a single repo
+ * (plugin-bundle layouts do this). Consumers use this to decide whether
+ * to surface the distinguishing sub-path on a list row so two otherwise
+ * identical-looking cards don't look like accidental duplicates
+ * (issue #241).
+ *
+ * @param {object[]} skills Slim skill rows.
+ * @returns {Set<string>}
+ */
+export function buildNameCollisionKeys(skills) {
+  const counts = new Map();
+  for (const s of skills) {
+    const key = s.owner + "/" + s.repo + "::" + s.name;
+    counts.set(key, (counts.get(key) ?? 0) + 1);
+  }
+  const collisions = new Set();
+  for (const [key, n] of counts) {
+    if (n > 1) collisions.add(key);
+  }
+  return collisions;
+}
+
 export function anyFilterActive(state) {
   if (state.searchQuery && state.searchQuery.trim()) return true;
   if (state.activeCategories.size > 0) return true;
