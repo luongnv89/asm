@@ -5,6 +5,7 @@ import { tmpdir } from "os";
 import { ensureIndexDir, listIndexedRepos, removeRepoIndex } from "./ingester";
 import { getIndexDir } from "./config";
 import { discoverSkills } from "./installer";
+import { dedupeSkillsByName } from "./skill-dedupe";
 import { verifySkill } from "./verifier";
 
 describe("ensureIndexDir", () => {
@@ -240,6 +241,97 @@ x`,
     expect(good!.verified).toBe(true);
     expect(bad).toBeDefined();
     expect(bad!.verified).toBe(false);
+  });
+});
+
+describe("ingester dedupe (issue #265)", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-ingest-dedupe-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  async function writeSkill(relPath: string, name: string): Promise<void> {
+    const skillDir = join(tempDir, relPath);
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      `---
+name: ${name}
+description: A skill at ${relPath} for dedup testing
+version: 1.0.0
+---
+
+# ${name}
+
+Body content long enough to satisfy any minimum-length verification rules.
+`,
+      "utf-8",
+    );
+  }
+
+  it("collapses same-name skills to one entry, picking skills/ over .claude/skills/", async () => {
+    await writeSkill("skills/foo", "foo");
+    await writeSkill(".claude/skills/foo", "foo");
+
+    const discovered = await discoverSkills(tempDir);
+    expect(discovered.length).toBe(2);
+
+    const { kept, decisions } = dedupeSkillsByName(discovered);
+    expect(kept).toHaveLength(1);
+    expect(kept[0].relPath).toBe("skills/foo");
+    expect(decisions).toHaveLength(1);
+    expect(decisions[0].name).toBe("foo");
+    expect(decisions[0].kept.relPath).toBe("skills/foo");
+    expect(decisions[0].dropped.map((d) => d.relPath)).toEqual([
+      ".claude/skills/foo",
+    ]);
+  });
+
+  it("keeps both entries when the names differ across directories", async () => {
+    await writeSkill("skills/alpha", "alpha");
+    await writeSkill(".claude/skills/beta", "beta");
+
+    const discovered = await discoverSkills(tempDir);
+    const { kept, decisions } = dedupeSkillsByName(discovered);
+    expect(kept).toHaveLength(2);
+    expect(decisions).toEqual([]);
+  });
+
+  it("falls through to .agent/skills/ when neither skills/ nor .claude/skills/ has the skill", async () => {
+    await writeSkill(".agent/skills/foo", "foo");
+    await writeSkill(".agents/skills/foo", "foo");
+
+    const discovered = await discoverSkills(tempDir);
+    expect(discovered.length).toBe(2);
+
+    const { kept } = dedupeSkillsByName(discovered);
+    expect(kept).toHaveLength(1);
+    // Both at priority 3 — first found wins. discoverSkills returns alphabetical
+    // by name (same here, "foo" === "foo"), so the order is the walker's
+    // traversal order. We don't pin which of the two wins; we only require
+    // exactly one to survive.
+    expect([".agent/skills/foo", ".agents/skills/foo"]).toContain(
+      kept[0].relPath,
+    );
+  });
+
+  it("is idempotent across repeated runs on the same input", async () => {
+    await writeSkill("skills/foo", "foo");
+    await writeSkill(".claude/skills/foo", "foo");
+    await writeSkill(".agent/skills/foo", "foo");
+
+    const discovered = await discoverSkills(tempDir);
+    const first = dedupeSkillsByName(discovered);
+    const second = dedupeSkillsByName(first.kept);
+    expect(first.kept).toHaveLength(1);
+    expect(first.kept[0].relPath).toBe("skills/foo");
+    expect(second.kept).toEqual(first.kept);
+    expect(second.decisions).toEqual([]);
   });
 });
 

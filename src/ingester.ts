@@ -10,6 +10,7 @@ import {
 import { getIndexDir } from "./config";
 import { loadAllIndices } from "./skill-index";
 import { debug } from "./logger";
+import { dedupeSkillsByName } from "./skill-dedupe";
 import { verifySkill } from "./verifier";
 import { estimateTokenCount } from "./utils/token-count";
 import { evaluateSkillContent } from "./evaluator";
@@ -64,8 +65,24 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
     const discovered = await discoverSkills(tempDir);
     debug(`ingester: found ${discovered.length} skills`);
 
+    // Dedupe by directory priority before verification. Issue #265: a
+    // higher-priority entry wins even if it would later fail verifySkill —
+    // priority is the canonical signal of "the maintainer's intended copy."
+    const { kept: deduped, decisions } = dedupeSkillsByName(discovered);
+    for (const decision of decisions) {
+      const droppedPaths = decision.dropped.map((d) => d.relPath).join(", ");
+      debug(
+        `ingester: dedupe "${decision.name}": kept ${decision.kept.relPath} (${decision.reason}); dropped ${droppedPaths}`,
+      );
+    }
+    if (decisions.length > 0) {
+      debug(
+        `ingester: deduped ${discovered.length} -> ${deduped.length} skills (${decisions.length} name collision${decisions.length === 1 ? "" : "s"})`,
+      );
+    }
+
     const skills: IndexedSkill[] = [];
-    for (const skill of discovered) {
+    for (const skill of deduped) {
       // Read SKILL.md content for verification
       const skillMdPath = join(tempDir, skill.relPath, "SKILL.md");
       let skillMdContent = "";
