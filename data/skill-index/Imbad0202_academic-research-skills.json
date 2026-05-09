@@ -2,146 +2,9 @@
   "repoUrl": "https://github.com/Imbad0202/academic-research-skills.git",
   "owner": "Imbad0202",
   "repo": "academic-research-skills",
-  "updatedAt": "2026-05-05T23:45:47.088Z",
-  "skillCount": 8,
+  "updatedAt": "2026-05-09T08:11:00.610Z",
+  "skillCount": 4,
   "skills": [
-    {
-      "name": "academic-paper",
-      "description": "12-agent academic paper writing pipeline. 10 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見.",
-      "version": "3.1.1",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Imbad0202/academic-research-skills:academic-paper",
-      "relPath": "academic-paper",
-      "verified": true,
-      "tokenCount": 8429,
-      "evalSummary": {
-        "overallScore": 69,
-        "grade": "C",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 2,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-05T23:45:47.057Z",
-        "evaluatedVersion": "3.1.1"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 69,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 2,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-05T23:45:47.057Z",
-          "evaluatedVersion": "3.1.1"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 79,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 11,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-05-05T23:45:47.057Z",
-          "evaluatedVersion": "3.1.1"
-        }
-      }
-    },
     {
       "name": "academic-paper",
       "description": "12-agent academic paper writing pipeline. 10 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見.",
@@ -201,7 +64,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-05T23:45:47.061Z",
+        "evaluatedAt": "2026-05-09T08:11:00.596Z",
         "evaluatedVersion": "3.1.1"
       },
       "evalSummaries": {
@@ -256,7 +119,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-05T23:45:47.061Z",
+          "evaluatedAt": "2026-05-09T08:11:00.596Z",
           "evaluatedVersion": "3.1.1"
         },
         "skill-best-practice": {
@@ -274,145 +137,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-05-05T23:45:47.061Z",
+          "evaluatedAt": "2026-05-09T08:11:00.596Z",
           "evaluatedVersion": "3.1.1"
-        }
-      }
-    },
-    {
-      "name": "academic-paper-reviewer",
-      "description": "Multi-perspective academic paper review with dynamic reviewer personas. Simulates 5 independent reviewers (EIC + 3 peer reviewers + Devil's Advocate) with field-specific expertise. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy.",
-      "version": "1.9.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Imbad0202/academic-research-skills:academic-paper-reviewer",
-      "relPath": "academic-paper-reviewer",
-      "verified": true,
-      "tokenCount": 5989,
-      "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-05T23:45:47.065Z",
-        "evaluatedVersion": "1.9.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 64,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-05T23:45:47.066Z",
-          "evaluatedVersion": "1.9.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 79,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 11,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-05-05T23:45:47.066Z",
-          "evaluatedVersion": "1.9.0"
         }
       }
     },
@@ -475,7 +201,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-05T23:45:47.069Z",
+        "evaluatedAt": "2026-05-09T08:11:00.600Z",
         "evaluatedVersion": "1.9.0"
       },
       "evalSummaries": {
@@ -530,7 +256,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-05T23:45:47.070Z",
+          "evaluatedAt": "2026-05-09T08:11:00.600Z",
           "evaluatedVersion": "1.9.0"
         },
         "skill-best-practice": {
@@ -548,145 +274,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-05-05T23:45:47.070Z",
+          "evaluatedAt": "2026-05-09T08:11:00.600Z",
           "evaluatedVersion": "1.9.0"
-        }
-      }
-    },
-    {
-      "name": "academic-pipeline",
-      "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory integrity verification, two-stage peer review, and reproducible quality gates. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow.",
-      "version": "3.7.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Imbad0202/academic-research-skills:academic-pipeline",
-      "relPath": "academic-pipeline",
-      "verified": true,
-      "tokenCount": 8877,
-      "evalSummary": {
-        "overallScore": 74,
-        "grade": "C",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 6,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-05T23:45:47.074Z",
-        "evaluatedVersion": "3.7.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 74,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 6,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-05T23:45:47.074Z",
-          "evaluatedVersion": "3.7.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 71,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 10,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-05-05T23:45:47.074Z",
-          "evaluatedVersion": "3.7.0"
         }
       }
     },
@@ -749,7 +338,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-05T23:45:47.079Z",
+        "evaluatedAt": "2026-05-09T08:11:00.604Z",
         "evaluatedVersion": "3.7.0"
       },
       "evalSummaries": {
@@ -804,7 +393,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-05T23:45:47.079Z",
+          "evaluatedAt": "2026-05-09T08:11:00.604Z",
           "evaluatedVersion": "3.7.0"
         },
         "skill-best-practice": {
@@ -822,145 +411,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-05-05T23:45:47.079Z",
+          "evaluatedAt": "2026-05-09T08:11:00.604Z",
           "evaluatedVersion": "3.7.0"
-        }
-      }
-    },
-    {
-      "name": "deep-research",
-      "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 7 modes: full research, quick brief, paper review, lit-review, fact-check, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題.",
-      "version": "2.9.3",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Imbad0202/academic-research-skills:deep-research",
-      "relPath": "deep-research",
-      "verified": true,
-      "tokenCount": 7111,
-      "evalSummary": {
-        "overallScore": 67,
-        "grade": "C",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-05T23:45:47.083Z",
-        "evaluatedVersion": "2.9.3"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 67,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-05T23:45:47.083Z",
-          "evaluatedVersion": "2.9.3"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 79,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 11,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-05-05T23:45:47.083Z",
-          "evaluatedVersion": "2.9.3"
         }
       }
     },
@@ -1023,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-05T23:45:47.086Z",
+        "evaluatedAt": "2026-05-09T08:11:00.608Z",
         "evaluatedVersion": "2.9.3"
       },
       "evalSummaries": {
@@ -1078,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-05T23:45:47.086Z",
+          "evaluatedAt": "2026-05-09T08:11:00.608Z",
           "evaluatedVersion": "2.9.3"
         },
         "skill-best-practice": {
@@ -1096,7 +548,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-05-05T23:45:47.087Z",
+          "evaluatedAt": "2026-05-09T08:11:00.608Z",
           "evaluatedVersion": "2.9.3"
         }
       }
