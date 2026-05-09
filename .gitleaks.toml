@@ -6,11 +6,13 @@ useDefault = true
 
 # Allowlist test fixtures that intentionally embed fake API keys to verify
 # ASM's own credential-leak detection. These are not real secrets and live
-# only inside test files.
+# only inside test files. Also allowlists security audit reports that quote
+# example key strings found in other audited skills (documentation, not real).
 [allowlist]
-description = "Test fixtures containing fake credentials used to exercise ASM's security auditor / verifier."
+description = "Test fixtures containing fake credentials used to exercise ASM's security auditor / verifier, plus security audit reports."
 paths = [
   '''^src/verifier\.test\.ts$''',
   '''^src/security-auditor\.test\.ts$''',
   '''^src/installer\.test\.ts$''',
+  '''^docs/security/skill-audit-269\.md$''',
 ]

@@ -111,10 +111,10 @@ Every skill with the automated `dangerous` verdict was inspected. None matches t
 
 Three skills had findings that pass the real-key-format filter:
 
-1. **`code-review/SKILL.md:358`** — `const API_KEY = "sk-prod-abc123xyz";`
+1. **`code-review/SKILL.md:358`** — `const API_KEY = "sk-prod-…";` (literal `sk-prod-` prefix followed by an example token in the source)
    Context: an example of a code-review report showing a "before" snippet of bad code. The very next block in the file is the "after" using `process.env.API_KEY`. Verdict: **documentation, not embedded credential**.
 
-2. **`gstack/test/skill-e2e-cso.test.ts:45`** — `const API_KEY = "sk-1234567890abcdef1234567890abcdef";`
+2. **`gstack/test/skill-e2e-cso.test.ts:45`** — `const API_KEY = "sk-…";` (literal `sk-` prefix followed by a 32-char hex example in the source)
    Context: code comment on the previous line literally says `// Planted vuln: hardcoded API key`. This file deliberately constructs a vulnerable repo so the `cso` security skill can detect the planted vuln. Verdict: **deliberate test fixture, not credential**.
 
 3. **`mcp-builder/reference/evaluation.md:444`** — `-e API_KEY=abc123 \`
