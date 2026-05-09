@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-09T00:00:00Z",
+  "updatedAt": "2026-05-09T08:10:02Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -278,6 +278,15 @@
       "repo": "skills",
       "description": "Cross-agent skills that help coding agents use Entire context from Checkpoints, sessions, and git history to search past work, explain code, and hand off sessions.",
       "maintainer": "@entireio",
+      "enabled": true
+    },
+    {
+      "source": "github:romainsimon/paperasse",
+      "url": "https://github.com/romainsimon/paperasse",
+      "owner": "romainsimon",
+      "repo": "paperasse",
+      "description": "🇫🇷  Skills pour agents IA spécialisés dans la bureaucratie française : Comptable, Notaire, ...",
+      "maintainer": "@romainsimon",
       "enabled": true
     }
   ]
