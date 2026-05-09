@@ -209,82 +209,117 @@ export default function SkillDetail({ slim }) {
         )}
       </Card>
 
-      <Card className="p-4">
-        <h2 className="text-xs uppercase tracking-wide text-[var(--fg-muted)] mb-4">
-          Quick Start
-        </h2>
-        <div className="flex flex-col gap-4">
-          <div className="flex gap-3">
-            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--bg-input)] flex items-center justify-center text-xs font-semibold text-[var(--fg)]">
-              1
+      {skill.installUrl && (
+        <Card className="p-4">
+          <h2
+            id="quick-start"
+            className="text-xs uppercase tracking-wide text-[var(--fg-muted)] mb-4"
+          >
+            Quick Start
+          </h2>
+          <div className="flex flex-col gap-4" role="list">
+            <div
+              className="flex gap-3"
+              role="listitem"
+              aria-label="Step 1 of 3: Security Check"
+            >
+              <div
+                className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--bg-input)] flex items-center justify-center text-xs font-semibold text-[var(--fg)]"
+                aria-hidden="true"
+              >
+                1
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-sm font-medium text-[var(--fg)] mb-1">
+                  Security Check
+                </div>
+                <div className="text-xs text-[var(--fg-dim)] mb-2">
+                  Check for security issues before installation
+                </div>
+                <div className="flex items-center gap-2">
+                  <code
+                    className="flex-1 text-xs font-mono bg-[var(--bg-input)] p-2 rounded text-[var(--fg)] truncate"
+                    aria-label={`Command: asm audit security ${skill.installUrl}`}
+                  >
+                    asm audit security {skill.installUrl}
+                  </code>
+                  <CopyButton
+                    text={`asm audit security ${skill.installUrl}`}
+                    size="md"
+                  />
+                </div>
+              </div>
             </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-[var(--fg)] mb-1">
-                Security Check
+
+            <div className="border-t border-[var(--border)]" />
+
+            <div
+              className="flex gap-3"
+              role="listitem"
+              aria-label="Step 2 of 3: Quality Evaluation"
+            >
+              <div
+                className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--bg-input)] flex items-center justify-center text-xs font-semibold text-[var(--fg)]"
+                aria-hidden="true"
+              >
+                2
               </div>
-              <div className="text-xs text-[var(--fg-dim)] mb-2">
-                Check for security issues before installation
+              <div className="flex-1 min-w-0">
+                <div className="text-sm font-medium text-[var(--fg)] mb-1">
+                  Quality Evaluation
+                </div>
+                <div className="text-xs text-[var(--fg-dim)] mb-2">
+                  Evaluate skill quality and metadata
+                </div>
+                <div className="flex items-center gap-2">
+                  <code
+                    className="flex-1 text-xs font-mono bg-[var(--bg-input)] p-2 rounded text-[var(--fg)] truncate"
+                    aria-label={`Command: asm eval ${skill.installUrl}`}
+                  >
+                    asm eval {skill.installUrl}
+                  </code>
+                  <CopyButton text={`asm eval ${skill.installUrl}`} size="md" />
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <code className="flex-1 text-xs font-mono bg-[var(--bg-input)] p-2 rounded text-[var(--fg)] truncate">
-                  asm audit security {skill.installUrl}
-                </code>
-                <CopyButton
-                  text={`asm audit security ${skill.installUrl}`}
-                  size="md"
-                />
+            </div>
+
+            <div className="border-t border-[var(--border)]" />
+
+            <div
+              className="flex gap-3"
+              role="listitem"
+              aria-label="Step 3 of 3: Install"
+            >
+              <div
+                className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--bg-input)] flex items-center justify-center text-xs font-semibold text-[var(--fg)]"
+                aria-hidden="true"
+              >
+                3
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-sm font-medium text-[var(--fg)] mb-1">
+                  Install
+                </div>
+                <div className="text-xs text-[var(--fg-dim)] mb-2">
+                  Install the skill to your Claude Code environment
+                </div>
+                <div className="flex items-center gap-2">
+                  <code
+                    className="flex-1 text-xs font-mono bg-[var(--bg-input)] p-2 rounded text-[var(--fg)] truncate"
+                    aria-label={`Command: asm install ${skill.installUrl}`}
+                  >
+                    asm install {skill.installUrl}
+                  </code>
+                  <CopyButton
+                    text={`asm install ${skill.installUrl}`}
+                    size="md"
+                  />
+                </div>
               </div>
             </div>
           </div>
-
-          <div className="border-t border-[var(--border)]" />
-
-          <div className="flex gap-3">
-            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--bg-input)] flex items-center justify-center text-xs font-semibold text-[var(--fg)]">
-              2
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-[var(--fg)] mb-1">
-                Quality Evaluation
-              </div>
-              <div className="text-xs text-[var(--fg-dim)] mb-2">
-                Evaluate skill quality and metadata
-              </div>
-              <div className="flex items-center gap-2">
-                <code className="flex-1 text-xs font-mono bg-[var(--bg-input)] p-2 rounded text-[var(--fg)] truncate">
-                  asm eval {skill.installUrl}
-                </code>
-                <CopyButton text={`asm eval ${skill.installUrl}`} size="md" />
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-[var(--border)]" />
-
-          <div className="flex gap-3">
-            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--bg-input)] flex items-center justify-center text-xs font-semibold text-[var(--fg)]">
-              3
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-[var(--fg)] mb-1">
-                Install
-              </div>
-              <div className="text-xs text-[var(--fg-dim)] mb-2">
-                Install the skill to your Claude Code environment
-              </div>
-              <div className="flex items-center gap-2">
-                <code className="flex-1 text-xs font-mono bg-[var(--bg-input)] p-2 rounded text-[var(--fg)] truncate">
-                  asm install {skill.installUrl}
-                </code>
-                <CopyButton
-                  text={`asm install ${skill.installUrl}`}
-                  size="md"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </Card>
+        </Card>
+      )}
 
       <Card className="flex items-center gap-2 p-3">
         <code className="flex-1 text-xs font-mono text-[var(--fg)] truncate">
