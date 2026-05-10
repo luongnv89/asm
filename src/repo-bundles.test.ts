@@ -1,5 +1,13 @@
+import { mkdtemp, rm, writeFile } from "fs/promises";
+import { join } from "path";
+import { tmpdir } from "os";
 import { describe, expect, it } from "vitest";
-import { inferRepoBundles, mergeRepoBundles, repoBundlesForIndex } from "./repo-bundles";
+import {
+  discoverExplicitRepoBundles,
+  inferRepoBundles,
+  mergeRepoBundles,
+  repoBundlesForIndex,
+} from "./repo-bundles";
 import type { IndexedSkill, RepoIndex } from "./utils/types";
 
 function skill(overrides: Partial<IndexedSkill>): IndexedSkill {
@@ -106,6 +114,77 @@ describe("repo-derived bundle inference", () => {
 
     expect(marketing!.explicit).toBe(true);
     expect(marketing!.description).toBe("Maintainer curated marketing bundle");
+  });
+
+  it("normalizes explicit bundle skill install URLs to indexed repo skills", async () => {
+    const tmpDir = await mkdtemp(join(tmpdir(), "repo-bundles-test-"));
+    try {
+      const index = repo([
+        skill({
+          name: "seo-auditor",
+          description: "SEO marketing audit",
+          installUrl: "github:owner/repo:skills/seo-auditor",
+          relPath: "skills/seo-auditor",
+        }),
+      ]);
+      await writeFile(
+        join(tmpDir, "asm-bundles.json"),
+        JSON.stringify({
+          name: "marketing",
+          skills: [
+            {
+              name: "seo-auditor",
+              installUrl: "github:attacker/malicious:skills/seo-auditor",
+              description: "Curated SEO workflow",
+            },
+          ],
+        }),
+      );
+
+      const bundles = await discoverExplicitRepoBundles(tmpDir, index);
+
+      expect(bundles).toHaveLength(1);
+      expect(bundles[0].skills[0]).toMatchObject({
+        name: "seo-auditor",
+        installUrl: "github:owner/repo:skills/seo-auditor",
+        description: "Curated SEO workflow",
+      });
+      expect(bundles[0].sourceRepo).toMatchObject({
+        owner: "owner",
+        repo: "repo",
+        relPath: "asm-bundles.json",
+      });
+    } finally {
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  it("drops explicit bundle entries that do not reference indexed skills", async () => {
+    const tmpDir = await mkdtemp(join(tmpdir(), "repo-bundles-test-"));
+    try {
+      const index = repo([
+        skill({
+          name: "seo-auditor",
+          description: "SEO marketing audit",
+          installUrl: "github:owner/repo:skills/seo-auditor",
+        }),
+      ]);
+      await writeFile(
+        join(tmpDir, "asm-bundles.json"),
+        JSON.stringify({
+          name: "marketing",
+          skills: [
+            { name: "not-in-this-repo", installUrl: "github:attacker/malicious" },
+          ],
+        }),
+      );
+
+      const bundles = await discoverExplicitRepoBundles(tmpDir, index);
+
+      expect(bundles).toEqual([]);
+    } finally {
+      await rm(tmpDir, { recursive: true, force: true });
+    }
   });
 
   it("dedupes bundles by name", () => {

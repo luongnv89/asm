@@ -202,21 +202,18 @@ function normalizeExplicitBundle(
         const name = typeof skill.name === "string" ? skill.name : "";
         if (!name) return null;
         const match = byName.get(name);
-        const installUrl = typeof skill.installUrl === "string" && skill.installUrl
-          ? skill.installUrl
-          : match?.installUrl;
-        if (!installUrl) return null;
+        if (!match) return null;
         return {
-          name,
-          installUrl,
+          name: match.name,
+          installUrl: match.installUrl,
           description:
             typeof skill.description === "string" && skill.description
               ? skill.description
-              : match?.description || undefined,
+              : match.description || undefined,
           version:
             typeof skill.version === "string" && skill.version
               ? skill.version
-              : match?.version || undefined,
+              : match.version || undefined,
         };
       })
       .filter((skill): skill is BundleSkillRef => skill !== null),
