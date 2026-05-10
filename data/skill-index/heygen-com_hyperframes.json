@@ -1786,5 +1786,409 @@
         }
       }
     }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "heygen-com-hyperframes-marketing",
+      "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from heygen-com/hyperframes.",
+      "author": "ASM (heygen-com/hyperframes)",
+      "createdAt": "2026-05-09T08:11:10.114Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "marketing",
+        "growth",
+        "seo",
+        "heygen-com",
+        "hyperframes"
+      ],
+      "skills": [
+        {
+          "name": "hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
+          "description": "Create video compositions, animations, title cards, overlays, captions, voiceovers, audio-reactive visuals, and scene transitions in HyperFrames HTML. Use when asked to build any HTML-based video content, add captions or subtitles synced to audio, generate text-to-speech narration, create audio-reactive animation (beat sync, glow, pulse driven by music), add animated text highlighting (marker sweeps, hand-drawn circles, burst lines, scribble, sketchout), or add transitions between scenes (crossfades, wipes, reveals, shader transitions). Covers composition authoring, timing, media, and the full video production workflow. For dev-loop CLI commands (init, lint, inspect, preview, render) see the hyperframes-cli skill; for asset preprocessing commands (tts, transcribe, remove-background) see the hyperframes-media skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "website-to-hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/website-to-hyperframes",
+          "description": "Capture a website and create a HyperFrames video from it. Use when: (1) a user provides a URL and wants a video, (2) someone says \"capture this site\", \"turn this into a video\", \"make a promo from my site\", (3) the user wants a social ad, product tour, or any video based on an existing website, (4) the user shares a link and asks for any kind of video content. Even if the user just pastes a URL — this is the skill to use.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "heygen-com",
+        "repo": "hyperframes",
+        "repoUrl": "https://github.com/heygen-com/hyperframes.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "heygen-com-hyperframes-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from heygen-com/hyperframes.",
+      "author": "ASM (heygen-com/hyperframes)",
+      "createdAt": "2026-05-09T08:11:10.114Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "heygen-com",
+        "hyperframes"
+      ],
+      "skills": [
+        {
+          "name": "animejs",
+          "installUrl": "github:heygen-com/hyperframes:skills/animejs",
+          "description": "Anime.js adapter patterns for HyperFrames. Use when writing Anime.js animations or timelines inside HyperFrames compositions, registering animations on window.__hfAnime, making Anime.js seek-driven and deterministic, or translating Anime.js examples into render-safe HyperFrames HTML.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gsap",
+          "installUrl": "github:heygen-com/hyperframes:skills/gsap",
+          "description": "GSAP animation reference for HyperFrames. Covers gsap.to(), from(), fromTo(), easing, stagger, defaults, timelines (gsap.timeline(), position parameter, labels, nesting, playback), and performance (transforms, will-change, quickTo). Use when writing GSAP animations in HyperFrames compositions.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
+          "description": "Create video compositions, animations, title cards, overlays, captions, voiceovers, audio-reactive visuals, and scene transitions in HyperFrames HTML. Use when asked to build any HTML-based video content, add captions or subtitles synced to audio, generate text-to-speech narration, create audio-reactive animation (beat sync, glow, pulse driven by music), add animated text highlighting (marker sweeps, hand-drawn circles, burst lines, scribble, sketchout), or add transitions between scenes (crossfades, wipes, reveals, shader transitions). Covers composition authoring, timing, media, and the full video production workflow. For dev-loop CLI commands (init, lint, inspect, preview, render) see the hyperframes-cli skill; for asset preprocessing commands (tts, transcribe, remove-background) see the hyperframes-media skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "remotion-to-hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/remotion-to-hyperframes",
+          "description": "Translate an existing Remotion (React-based) video composition into a HyperFrames HTML composition. Use ONLY when the user explicitly asks to port, convert, migrate, translate, or rewrite a Remotion composition as HyperFrames (e.g. \"port my Remotion project to HyperFrames\"). Do NOT use when (a) authoring a NEW HyperFrames composition (even if A/B-testing a Remotion video); (b) Remotion is mentioned in passing; (c) Remotion code is shared as reference, not for translation; (d) the user wants \"the same video as my Remotion one\" without explicitly asking to migrate the source — treat as a fresh HyperFrames build. When in doubt, default to the `hyperframes` skill. Detects unsupported patterns (useState, useEffect side effects, async calculateMetadata, third-party React component libraries, `@remotion/lambda`) and recommends the runtime interop escape hatch instead of a lossy translation.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "tailwind",
+          "installUrl": "github:heygen-com/hyperframes:skills/tailwind",
+          "description": "Tailwind CSS v4.2 browser-runtime patterns for HyperFrames compositions. Use when scaffolding or editing projects created with `hyperframes init --tailwind`, writing Tailwind utility classes in composition HTML, adding CSS-first Tailwind v4 theme tokens, debugging v3 vs v4 syntax, or deciding when to compile Tailwind to CSS instead of using the browser runtime.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "website-to-hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/website-to-hyperframes",
+          "description": "Capture a website and create a HyperFrames video from it. Use when: (1) a user provides a URL and wants a video, (2) someone says \"capture this site\", \"turn this into a video\", \"make a promo from my site\", (3) the user wants a social ad, product tour, or any video based on an existing website, (4) the user shares a link and asks for any kind of video content. Even if the user just pastes a URL — this is the skill to use.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "heygen-com",
+        "repo": "hyperframes",
+        "repoUrl": "https://github.com/heygen-com/hyperframes.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "heygen-com-hyperframes-research",
+      "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from heygen-com/hyperframes.",
+      "author": "ASM (heygen-com/hyperframes)",
+      "createdAt": "2026-05-09T08:11:10.114Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "research",
+        "academic",
+        "analysis",
+        "heygen-com",
+        "hyperframes"
+      ],
+      "skills": [
+        {
+          "name": "css-animations",
+          "installUrl": "github:heygen-com/hyperframes:skills/css-animations",
+          "description": "CSS animation adapter patterns for HyperFrames. Use when authoring CSS keyframes, animation-delay based timing, animation-fill-mode, animation-play-state, or CSS-only motion that HyperFrames must seek deterministically during preview and rendering.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
+          "description": "Create video compositions, animations, title cards, overlays, captions, voiceovers, audio-reactive visuals, and scene transitions in HyperFrames HTML. Use when asked to build any HTML-based video content, add captions or subtitles synced to audio, generate text-to-speech narration, create audio-reactive animation (beat sync, glow, pulse driven by music), add animated text highlighting (marker sweeps, hand-drawn circles, burst lines, scribble, sketchout), or add transitions between scenes (crossfades, wipes, reveals, shader transitions). Covers composition authoring, timing, media, and the full video production workflow. For dev-loop CLI commands (init, lint, inspect, preview, render) see the hyperframes-cli skill; for asset preprocessing commands (tts, transcribe, remove-background) see the hyperframes-media skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes-cli",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-cli",
+          "description": "HyperFrames CLI dev loop — `npx hyperframes` for scaffolding (init), validation (lint, inspect), preview, render, and environment troubleshooting (doctor, browser, info, upgrade). Use when running any of these commands or troubleshooting the HyperFrames build/render environment. For asset preprocessing commands (`tts`, `transcribe`, `remove-background`), invoke the `hyperframes-media` skill instead.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "heygen-com",
+        "repo": "hyperframes",
+        "repoUrl": "https://github.com/heygen-com/hyperframes.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "heygen-com-hyperframes-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from heygen-com/hyperframes.",
+      "author": "ASM (heygen-com/hyperframes)",
+      "createdAt": "2026-05-09T08:11:10.114Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "heygen-com",
+        "hyperframes"
+      ],
+      "skills": [
+        {
+          "name": "css-animations",
+          "installUrl": "github:heygen-com/hyperframes:skills/css-animations",
+          "description": "CSS animation adapter patterns for HyperFrames. Use when authoring CSS keyframes, animation-delay based timing, animation-fill-mode, animation-play-state, or CSS-only motion that HyperFrames must seek deterministically during preview and rendering.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
+          "description": "Create video compositions, animations, title cards, overlays, captions, voiceovers, audio-reactive visuals, and scene transitions in HyperFrames HTML. Use when asked to build any HTML-based video content, add captions or subtitles synced to audio, generate text-to-speech narration, create audio-reactive animation (beat sync, glow, pulse driven by music), add animated text highlighting (marker sweeps, hand-drawn circles, burst lines, scribble, sketchout), or add transitions between scenes (crossfades, wipes, reveals, shader transitions). Covers composition authoring, timing, media, and the full video production workflow. For dev-loop CLI commands (init, lint, inspect, preview, render) see the hyperframes-cli skill; for asset preprocessing commands (tts, transcribe, remove-background) see the hyperframes-media skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes-cli",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-cli",
+          "description": "HyperFrames CLI dev loop — `npx hyperframes` for scaffolding (init), validation (lint, inspect), preview, render, and environment troubleshooting (doctor, browser, info, upgrade). Use when running any of these commands or troubleshooting the HyperFrames build/render environment. For asset preprocessing commands (`tts`, `transcribe`, `remove-background`), invoke the `hyperframes-media` skill instead.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "remotion-to-hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/remotion-to-hyperframes",
+          "description": "Translate an existing Remotion (React-based) video composition into a HyperFrames HTML composition. Use ONLY when the user explicitly asks to port, convert, migrate, translate, or rewrite a Remotion composition as HyperFrames (e.g. \"port my Remotion project to HyperFrames\"). Do NOT use when (a) authoring a NEW HyperFrames composition (even if A/B-testing a Remotion video); (b) Remotion is mentioned in passing; (c) Remotion code is shared as reference, not for translation; (d) the user wants \"the same video as my Remotion one\" without explicitly asking to migrate the source — treat as a fresh HyperFrames build. When in doubt, default to the `hyperframes` skill. Detects unsupported patterns (useState, useEffect side effects, async calculateMetadata, third-party React component libraries, `@remotion/lambda`) and recommends the runtime interop escape hatch instead of a lossy translation.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "tailwind",
+          "installUrl": "github:heygen-com/hyperframes:skills/tailwind",
+          "description": "Tailwind CSS v4.2 browser-runtime patterns for HyperFrames compositions. Use when scaffolding or editing projects created with `hyperframes init --tailwind`, writing Tailwind utility classes in composition HTML, adding CSS-first Tailwind v4 theme tokens, debugging v3 vs v4 syntax, or deciding when to compile Tailwind to CSS instead of using the browser runtime.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "waapi",
+          "installUrl": "github:heygen-com/hyperframes:skills/waapi",
+          "description": "Web Animations API adapter patterns for HyperFrames. Use when authoring element.animate() motion, Animation currentTime seeking, document.getAnimations(), KeyframeEffect timing, fill modes, or native browser animations that must render deterministically in HyperFrames.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "heygen-com",
+        "repo": "hyperframes",
+        "repoUrl": "https://github.com/heygen-com/hyperframes.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "heygen-com-hyperframes-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from heygen-com/hyperframes.",
+      "author": "ASM (heygen-com/hyperframes)",
+      "createdAt": "2026-05-09T08:11:10.114Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "heygen-com",
+        "hyperframes"
+      ],
+      "skills": [
+        {
+          "name": "animejs",
+          "installUrl": "github:heygen-com/hyperframes:skills/animejs",
+          "description": "Anime.js adapter patterns for HyperFrames. Use when writing Anime.js animations or timelines inside HyperFrames compositions, registering animations on window.__hfAnime, making Anime.js seek-driven and deterministic, or translating Anime.js examples into render-safe HyperFrames HTML.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "css-animations",
+          "installUrl": "github:heygen-com/hyperframes:skills/css-animations",
+          "description": "CSS animation adapter patterns for HyperFrames. Use when authoring CSS keyframes, animation-delay based timing, animation-fill-mode, animation-play-state, or CSS-only motion that HyperFrames must seek deterministically during preview and rendering.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gsap",
+          "installUrl": "github:heygen-com/hyperframes:skills/gsap",
+          "description": "GSAP animation reference for HyperFrames. Covers gsap.to(), from(), fromTo(), easing, stagger, defaults, timelines (gsap.timeline(), position parameter, labels, nesting, playback), and performance (transforms, will-change, quickTo). Use when writing GSAP animations in HyperFrames compositions.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
+          "description": "Create video compositions, animations, title cards, overlays, captions, voiceovers, audio-reactive visuals, and scene transitions in HyperFrames HTML. Use when asked to build any HTML-based video content, add captions or subtitles synced to audio, generate text-to-speech narration, create audio-reactive animation (beat sync, glow, pulse driven by music), add animated text highlighting (marker sweeps, hand-drawn circles, burst lines, scribble, sketchout), or add transitions between scenes (crossfades, wipes, reveals, shader transitions). Covers composition authoring, timing, media, and the full video production workflow. For dev-loop CLI commands (init, lint, inspect, preview, render) see the hyperframes-cli skill; for asset preprocessing commands (tts, transcribe, remove-background) see the hyperframes-media skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes-cli",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-cli",
+          "description": "HyperFrames CLI dev loop — `npx hyperframes` for scaffolding (init), validation (lint, inspect), preview, render, and environment troubleshooting (doctor, browser, info, upgrade). Use when running any of these commands or troubleshooting the HyperFrames build/render environment. For asset preprocessing commands (`tts`, `transcribe`, `remove-background`), invoke the `hyperframes-media` skill instead.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes-registry",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-registry",
+          "description": "Install and wire registry blocks and components into HyperFrames compositions. Use when running hyperframes add, installing a block or component, wiring an installed item into index.html, or working with hyperframes.json. Covers the add command, install locations, block sub-composition wiring, component snippet merging, and registry discovery.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "remotion-to-hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/remotion-to-hyperframes",
+          "description": "Translate an existing Remotion (React-based) video composition into a HyperFrames HTML composition. Use ONLY when the user explicitly asks to port, convert, migrate, translate, or rewrite a Remotion composition as HyperFrames (e.g. \"port my Remotion project to HyperFrames\"). Do NOT use when (a) authoring a NEW HyperFrames composition (even if A/B-testing a Remotion video); (b) Remotion is mentioned in passing; (c) Remotion code is shared as reference, not for translation; (d) the user wants \"the same video as my Remotion one\" without explicitly asking to migrate the source — treat as a fresh HyperFrames build. When in doubt, default to the `hyperframes` skill. Detects unsupported patterns (useState, useEffect side effects, async calculateMetadata, third-party React component libraries, `@remotion/lambda`) and recommends the runtime interop escape hatch instead of a lossy translation.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "tailwind",
+          "installUrl": "github:heygen-com/hyperframes:skills/tailwind",
+          "description": "Tailwind CSS v4.2 browser-runtime patterns for HyperFrames compositions. Use when scaffolding or editing projects created with `hyperframes init --tailwind`, writing Tailwind utility classes in composition HTML, adding CSS-first Tailwind v4 theme tokens, debugging v3 vs v4 syntax, or deciding when to compile Tailwind to CSS instead of using the browser runtime.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "three",
+          "installUrl": "github:heygen-com/hyperframes:skills/three",
+          "description": "Three.js and WebGL adapter patterns for HyperFrames. Use when creating deterministic Three.js scenes, WebGL canvas layers, AnimationMixer timelines, camera motion, shader-driven visuals, or canvas renders that respond to HyperFrames hf-seek events.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "heygen-com",
+        "repo": "hyperframes",
+        "repoUrl": "https://github.com/heygen-com/hyperframes.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "heygen-com-hyperframes-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from heygen-com/hyperframes.",
+      "author": "ASM (heygen-com/hyperframes)",
+      "createdAt": "2026-05-09T08:11:10.114Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "heygen-com",
+        "hyperframes"
+      ],
+      "skills": [
+        {
+          "name": "hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
+          "description": "Create video compositions, animations, title cards, overlays, captions, voiceovers, audio-reactive visuals, and scene transitions in HyperFrames HTML. Use when asked to build any HTML-based video content, add captions or subtitles synced to audio, generate text-to-speech narration, create audio-reactive animation (beat sync, glow, pulse driven by music), add animated text highlighting (marker sweeps, hand-drawn circles, burst lines, scribble, sketchout), or add transitions between scenes (crossfades, wipes, reveals, shader transitions). Covers composition authoring, timing, media, and the full video production workflow. For dev-loop CLI commands (init, lint, inspect, preview, render) see the hyperframes-cli skill; for asset preprocessing commands (tts, transcribe, remove-background) see the hyperframes-media skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "remotion-to-hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/remotion-to-hyperframes",
+          "description": "Translate an existing Remotion (React-based) video composition into a HyperFrames HTML composition. Use ONLY when the user explicitly asks to port, convert, migrate, translate, or rewrite a Remotion composition as HyperFrames (e.g. \"port my Remotion project to HyperFrames\"). Do NOT use when (a) authoring a NEW HyperFrames composition (even if A/B-testing a Remotion video); (b) Remotion is mentioned in passing; (c) Remotion code is shared as reference, not for translation; (d) the user wants \"the same video as my Remotion one\" without explicitly asking to migrate the source — treat as a fresh HyperFrames build. When in doubt, default to the `hyperframes` skill. Detects unsupported patterns (useState, useEffect side effects, async calculateMetadata, third-party React component libraries, `@remotion/lambda`) and recommends the runtime interop escape hatch instead of a lossy translation.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "tailwind",
+          "installUrl": "github:heygen-com/hyperframes:skills/tailwind",
+          "description": "Tailwind CSS v4.2 browser-runtime patterns for HyperFrames compositions. Use when scaffolding or editing projects created with `hyperframes init --tailwind`, writing Tailwind utility classes in composition HTML, adding CSS-first Tailwind v4 theme tokens, debugging v3 vs v4 syntax, or deciding when to compile Tailwind to CSS instead of using the browser runtime.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "website-to-hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/website-to-hyperframes",
+          "description": "Capture a website and create a HyperFrames video from it. Use when: (1) a user provides a URL and wants a video, (2) someone says \"capture this site\", \"turn this into a video\", \"make a promo from my site\", (3) the user wants a social ad, product tour, or any video based on an existing website, (4) the user shares a link and asks for any kind of video content. Even if the user just pastes a URL — this is the skill to use.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "heygen-com",
+        "repo": "hyperframes",
+        "repoUrl": "https://github.com/heygen-com/hyperframes.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "heygen-com-hyperframes-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from heygen-com/hyperframes.",
+      "author": "ASM (heygen-com/hyperframes)",
+      "createdAt": "2026-05-09T08:11:10.114Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "heygen-com",
+        "hyperframes"
+      ],
+      "skills": [
+        {
+          "name": "hyperframes-media",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-media",
+          "description": "Asset preprocessing for HyperFrames compositions — text-to-speech narration (Kokoro), audio/video transcription (Whisper), and background removal for transparent overlays (u2net). Use when generating voiceover from text, transcribing speech for captions, removing the background from a video or image to use as a transparent overlay, choosing a TTS voice or whisper model, or chaining these (TTS → transcribe → captions). Each command downloads its own model on first run.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "remotion-to-hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/remotion-to-hyperframes",
+          "description": "Translate an existing Remotion (React-based) video composition into a HyperFrames HTML composition. Use ONLY when the user explicitly asks to port, convert, migrate, translate, or rewrite a Remotion composition as HyperFrames (e.g. \"port my Remotion project to HyperFrames\"). Do NOT use when (a) authoring a NEW HyperFrames composition (even if A/B-testing a Remotion video); (b) Remotion is mentioned in passing; (c) Remotion code is shared as reference, not for translation; (d) the user wants \"the same video as my Remotion one\" without explicitly asking to migrate the source — treat as a fresh HyperFrames build. When in doubt, default to the `hyperframes` skill. Detects unsupported patterns (useState, useEffect side effects, async calculateMetadata, third-party React component libraries, `@remotion/lambda`) and recommends the runtime interop escape hatch instead of a lossy translation.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "tailwind",
+          "installUrl": "github:heygen-com/hyperframes:skills/tailwind",
+          "description": "Tailwind CSS v4.2 browser-runtime patterns for HyperFrames compositions. Use when scaffolding or editing projects created with `hyperframes init --tailwind`, writing Tailwind utility classes in composition HTML, adding CSS-first Tailwind v4 theme tokens, debugging v3 vs v4 syntax, or deciding when to compile Tailwind to CSS instead of using the browser runtime.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "heygen-com",
+        "repo": "hyperframes",
+        "repoUrl": "https://github.com/heygen-com/hyperframes.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "heygen-com-hyperframes-product-business",
+      "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from heygen-com/hyperframes.",
+      "author": "ASM (heygen-com/hyperframes)",
+      "createdAt": "2026-05-09T08:11:10.114Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "product",
+        "business",
+        "planning",
+        "heygen-com",
+        "hyperframes"
+      ],
+      "skills": [
+        {
+          "name": "hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
+          "description": "Create video compositions, animations, title cards, overlays, captions, voiceovers, audio-reactive visuals, and scene transitions in HyperFrames HTML. Use when asked to build any HTML-based video content, add captions or subtitles synced to audio, generate text-to-speech narration, create audio-reactive animation (beat sync, glow, pulse driven by music), add animated text highlighting (marker sweeps, hand-drawn circles, burst lines, scribble, sketchout), or add transitions between scenes (crossfades, wipes, reveals, shader transitions). Covers composition authoring, timing, media, and the full video production workflow. For dev-loop CLI commands (init, lint, inspect, preview, render) see the hyperframes-cli skill; for asset preprocessing commands (tts, transcribe, remove-background) see the hyperframes-media skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "website-to-hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/website-to-hyperframes",
+          "description": "Capture a website and create a HyperFrames video from it. Use when: (1) a user provides a URL and wants a video, (2) someone says \"capture this site\", \"turn this into a video\", \"make a promo from my site\", (3) the user wants a social ad, product tour, or any video based on an existing website, (4) the user shares a link and asks for any kind of video content. Even if the user just pastes a URL — this is the skill to use.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "heygen-com",
+        "repo": "hyperframes",
+        "repoUrl": "https://github.com/heygen-com/hyperframes.git"
+      },
+      "inferred": true
+    }
   ]
 }

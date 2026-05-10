@@ -4,6 +4,8 @@ import { homedir } from "os";
 import { fileURLToPath } from "url";
 import { debug } from "./logger";
 import { readLock } from "./utils/lock";
+import { loadAllIndices } from "./skill-index";
+import { repoBundlesForIndex } from "./repo-bundles";
 import type {
   BundleManifest,
   BundleSkillRef,
@@ -242,6 +244,8 @@ export async function loadBundle(nameOrPath: string): Promise<BundleManifest> {
         return await readBundleFile(predefinedPath);
       } catch (predefinedErr: any) {
         if (predefinedErr?.message?.includes("Bundle file not found")) {
+          const repoBundle = await findRepoIndexBundle(nameOrPath);
+          if (repoBundle) return repoBundle;
           throw new Error(`Bundle file not found: ${filePath}`);
         }
         throw predefinedErr;
@@ -259,30 +263,56 @@ export async function listPredefinedBundles(): Promise<BundleManifest[]> {
 
   try {
     await access(PREDEFINED_BUNDLE_DIR);
-  } catch {
-    return bundles;
-  }
 
-  let entries: string[];
-  try {
-    entries = await readdir(PREDEFINED_BUNDLE_DIR);
-  } catch {
-    return bundles;
-  }
-
-  for (const entry of entries) {
-    if (!entry.endsWith(".json")) continue;
-    const filePath = join(PREDEFINED_BUNDLE_DIR, entry);
+    let entries: string[];
     try {
-      const bundle = await readBundleFile(filePath);
-      bundles.push(bundle);
+      entries = await readdir(PREDEFINED_BUNDLE_DIR);
     } catch {
-      debug(`bundle: skipping invalid predefined file ${filePath}`);
+      entries = [];
     }
+
+    for (const entry of entries) {
+      if (!entry.endsWith(".json")) continue;
+      const filePath = join(PREDEFINED_BUNDLE_DIR, entry);
+      try {
+        const bundle = await readBundleFile(filePath);
+        bundles.push(bundle);
+      } catch {
+        debug(`bundle: skipping invalid predefined file ${filePath}`);
+      }
+    }
+  } catch {
+    // No predefined bundle directory; repo-derived bundles below may still exist.
   }
 
-  bundles.sort((a, b) => a.name.localeCompare(b.name));
-  return bundles;
+  bundles.push(...(await listRepoIndexBundles()));
+
+  const byName = new Map<string, BundleManifest>();
+  for (const bundle of bundles) {
+    if (!byName.has(bundle.name)) byName.set(bundle.name, bundle);
+  }
+
+  return Array.from(byName.values()).sort((a, b) => a.name.localeCompare(b.name));
+}
+
+async function listRepoIndexBundles(): Promise<BundleManifest[]> {
+  try {
+    const indices = await loadAllIndices();
+    return indices.flatMap((index) => repoBundlesForIndex(index));
+  } catch (err) {
+    debug(`bundle: failed to load repo-derived bundles: ${err}`);
+    return [];
+  }
+}
+
+async function findRepoIndexBundle(name: string): Promise<BundleManifest | null> {
+  const sanitized = sanitizeBundleName(name);
+  const bundles = await listRepoIndexBundles();
+  return (
+    bundles.find((bundle) => bundle.name === name) ||
+    bundles.find((bundle) => sanitizeBundleName(bundle.name) === sanitized) ||
+    null
+  );
 }
 
 /**

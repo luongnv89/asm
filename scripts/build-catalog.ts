@@ -21,6 +21,7 @@ import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import MiniSearch from "minisearch";
 import { MINISEARCH_OPTIONS } from "./minisearch-options";
+import { repoBundlesForIndex, type RepoBundleManifest } from "../src/repo-bundles";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const indexDir = join(root, "data", "skill-index");
@@ -268,6 +269,7 @@ interface RepoIndex {
   updatedAt: string;
   skillCount: number;
   skills: IndexedSkill[];
+  bundles?: RepoBundleManifest[];
 }
 
 interface CatalogSkill {
@@ -342,6 +344,7 @@ if (existsSync(resourcesPath)) {
 // Read all index files
 const files = readdirSync(indexDir).filter((f) => f.endsWith(".json"));
 const repos: CatalogRepo[] = [];
+const repoDerivedBundles: Bundle[] = [];
 const skillMap = new Map<string, CatalogSkill>();
 const categorySet = new Set<string>();
 
@@ -368,6 +371,18 @@ for (const file of files) {
     maintainer: meta?.maintainer || "",
     skillCount: repoIndex.skills.length,
   });
+
+  repoDerivedBundles.push(
+    ...repoBundlesForIndex(repoIndex as any).map((bundle) => ({
+      ...bundle,
+      tags: bundle.tags || [],
+      skills: bundle.skills.map((skill) => ({
+        name: skill.name,
+        installUrl: skill.installUrl,
+        description: skill.description || "",
+      })),
+    })),
+  );
 
   for (const skill of repoIndex.skills) {
     // Include relPath so plugin-bundle repos that ship the same skill name at
@@ -697,7 +712,7 @@ const bundleFiles = existsSync(bundlesDir)
   ? readdirSync(bundlesDir).filter((f) => f.endsWith(".json"))
   : [];
 
-const bundles: Bundle[] = [];
+const bundles: Bundle[] = [...repoDerivedBundles];
 for (const file of bundleFiles.sort()) {
   const filePath = join(bundlesDir, file);
   try {
@@ -708,10 +723,18 @@ for (const file of bundleFiles.sort()) {
   }
 }
 
+const bundleMap = new Map<string, Bundle>();
+for (const bundle of bundles) {
+  if (!bundleMap.has(bundle.name)) bundleMap.set(bundle.name, bundle);
+}
+const uniqueBundles = Array.from(bundleMap.values()).sort((a, b) =>
+  a.name.localeCompare(b.name),
+);
+
 const bundlesData: BundlesData = {
   generatedAt: new Date().toISOString(),
-  totalBundles: bundles.length,
-  bundles,
+  totalBundles: uniqueBundles.length,
+  bundles: uniqueBundles,
 };
 
 writeFileSync(
@@ -741,7 +764,7 @@ console.log(`Catalog built successfully:`);
 console.log(`  Skills: ${skills.length}`);
 console.log(`  Repos:  ${repos.length}`);
 console.log(`  Categories: ${categories.join(", ")}`);
-console.log(`  Bundles: ${bundles.length}`);
+console.log(`  Bundles: ${uniqueBundles.length}`);
 console.log(`  Split artifacts (issue #214):`);
 console.log(
   `    catalog.json:     ${kb(statSync(join(outDir, "catalog.json")).size)}`,

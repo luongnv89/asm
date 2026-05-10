@@ -690,5 +690,133 @@
         }
       }
     }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "entireio-skills-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from entireio/skills.",
+      "author": "ASM (entireio/skills)",
+      "createdAt": "2026-05-09T08:11:13.670Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "entireio",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "explain",
+          "installUrl": "github:entireio/skills:skills/explain",
+          "description": "Explains the intent behind source code by finding original session transcripts. Use explain with a function, file, or line of code to understand why it exists.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "what-happened",
+          "installUrl": "github:entireio/skills:skills/what-happened",
+          "description": "Explain why code looks the way it does by tracing the latest change for a file range or pasted snippet through `git blame` and deduplicated `entire explain` lookups. Use when the user asks what happened, says \"tell me why\" about a code block, is confused about a section of code, asks \"wtf is going on\", \"why is this like this\", \"why was this changed\", or wants provenance for a specific file block.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "entireio",
+        "repo": "skills",
+        "repoUrl": "https://github.com/entireio/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "entireio-skills-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from entireio/skills.",
+      "author": "ASM (entireio/skills)",
+      "createdAt": "2026-05-09T08:11:13.670Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "entireio",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "session-to-skill",
+          "installUrl": "github:entireio/skills:skills/session-to-skill",
+          "description": "Use when the user wants to turn one or more Entire-tracked sessions, checkpoints, or repeated agent workflows into a reusable agent skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "what-happened",
+          "installUrl": "github:entireio/skills:skills/what-happened",
+          "description": "Explain why code looks the way it does by tracing the latest change for a file range or pasted snippet through `git blame` and deduplicated `entire explain` lookups. Use when the user asks what happened, says \"tell me why\" about a code block, is confused about a section of code, asks \"wtf is going on\", \"why is this like this\", \"why was this changed\", or wants provenance for a specific file block.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "entireio",
+        "repo": "skills",
+        "repoUrl": "https://github.com/entireio/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "entireio-skills-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from entireio/skills.",
+      "author": "ASM (entireio/skills)",
+      "createdAt": "2026-05-09T08:11:13.670Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "entireio",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "explain",
+          "installUrl": "github:entireio/skills:skills/explain",
+          "description": "Explains the intent behind source code by finding original session transcripts. Use explain with a function, file, or line of code to understand why it exists.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "search",
+          "installUrl": "github:entireio/skills:skills/search",
+          "description": "Use when the user wants to find prior work, checkpoints, or agent conversations by topic, repo, branch, author, or recent time window",
+          "version": "0.0.0"
+        },
+        {
+          "name": "session-handoff",
+          "installUrl": "github:entireio/skills:skills/session-handoff",
+          "description": "Use when the user wants to continue work from one agent in another agent, inspect recent sessions, or summarize a saved session or checkpoint for handoff",
+          "version": "0.0.0"
+        },
+        {
+          "name": "session-to-skill",
+          "installUrl": "github:entireio/skills:skills/session-to-skill",
+          "description": "Use when the user wants to turn one or more Entire-tracked sessions, checkpoints, or repeated agent workflows into a reusable agent skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "what-happened",
+          "installUrl": "github:entireio/skills:skills/what-happened",
+          "description": "Explain why code looks the way it does by tracing the latest change for a file range or pasted snippet through `git blame` and deduplicated `entire explain` lookups. Use when the user asks what happened, says \"tell me why\" about a code block, is confused about a section of code, asks \"wtf is going on\", \"why is this like this\", \"why was this changed\", or wants provenance for a specific file block.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "entireio",
+        "repo": "skills",
+        "repoUrl": "https://github.com/entireio/skills.git"
+      },
+      "inferred": true
+    }
   ]
 }

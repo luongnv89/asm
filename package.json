@@ -22,6 +22,7 @@
     "build": "tsx scripts/build.ts",
     "build:site": "vite build --config website-src/vite.config.js",
     "preindex": "tsx scripts/preindex.ts",
+    "refresh:repo-bundles": "tsx scripts/refresh-repo-bundles.ts",
     "build:website": "tsx scripts/build-catalog.ts && npm run build:site",
     "lint:site": "eslint --config website-src/eslint.config.js 'website-src/src/**/*.{js,jsx}'",
     "prepublishOnly": "npm run build",

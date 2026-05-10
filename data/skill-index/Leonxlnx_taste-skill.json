@@ -1649,5 +1649,397 @@
         }
       }
     }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "leonxlnx-taste-skill-marketing",
+      "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from Leonxlnx/taste-skill.",
+      "author": "ASM (Leonxlnx/taste-skill)",
+      "createdAt": "2026-05-09T08:10:39.871Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "marketing",
+        "growth",
+        "seo",
+        "leonxlnx",
+        "taste-skill"
+      ],
+      "skills": [
+        {
+          "name": "brandkit",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/brandkit",
+          "description": "Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gpt-taste",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/gpt-tasteskill",
+          "description": "Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "image-to-code",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/image-to-code-skill",
+          "description": "Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefer large, readable, section-specific images instead of tiny compressed boards, generate fresh standalone images for sections or detail views instead of cropping old ones, avoid lazy under-generation, avoid cards-inside-cards-inside-cards UI, and keep the hero clean, spacious, readable, and visible on a small laptop.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "imagegen-frontend-mobile",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/imagegen-frontend-mobile",
+          "description": "Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mockup with a visible frame, while the main focus stays on the app content itself. This skill generates images only. It does not write code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "imagegen-frontend-web",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/imagegen-frontend-web",
+          "description": "Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a single consistent palette across all images. Optimized for landing pages, marketing sites, and product comps that developers or coding models can accurately recreate.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "stitch-design-taste",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/stitch-skill",
+          "description": "Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Leonxlnx",
+        "repo": "taste-skill",
+        "repoUrl": "https://github.com/Leonxlnx/taste-skill.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "leonxlnx-taste-skill-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from Leonxlnx/taste-skill.",
+      "author": "ASM (Leonxlnx/taste-skill)",
+      "createdAt": "2026-05-09T08:10:39.871Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "leonxlnx",
+        "taste-skill"
+      ],
+      "skills": [
+        {
+          "name": "design-taste-frontend",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/taste-skill",
+          "description": "Senior UI/UX Engineer. Architect digital interfaces overriding default LLM biases. Enforces metric-based rules, strict component architecture, CSS hardware acceleration, and balanced design engineering.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "full-output-enforcement",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/output-skill",
+          "description": "Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gpt-taste",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/gpt-tasteskill",
+          "description": "Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "image-to-code",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/image-to-code-skill",
+          "description": "Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefer large, readable, section-specific images instead of tiny compressed boards, generate fresh standalone images for sections or detail views instead of cropping old ones, avoid lazy under-generation, avoid cards-inside-cards-inside-cards UI, and keep the hero clean, spacious, readable, and visible on a small laptop.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "imagegen-frontend-mobile",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/imagegen-frontend-mobile",
+          "description": "Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mockup with a visible frame, while the main focus stays on the app content itself. This skill generates images only. It does not write code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "imagegen-frontend-web",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/imagegen-frontend-web",
+          "description": "Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a single consistent palette across all images. Optimized for landing pages, marketing sites, and product comps that developers or coding models can accurately recreate.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Leonxlnx",
+        "repo": "taste-skill",
+        "repoUrl": "https://github.com/Leonxlnx/taste-skill.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "leonxlnx-taste-skill-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Leonxlnx/taste-skill.",
+      "author": "ASM (Leonxlnx/taste-skill)",
+      "createdAt": "2026-05-09T08:10:39.871Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "leonxlnx",
+        "taste-skill"
+      ],
+      "skills": [
+        {
+          "name": "brandkit",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/brandkit",
+          "description": "Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "design-taste-frontend",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/taste-skill",
+          "description": "Senior UI/UX Engineer. Architect digital interfaces overriding default LLM biases. Enforces metric-based rules, strict component architecture, CSS hardware acceleration, and balanced design engineering.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "full-output-enforcement",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/output-skill",
+          "description": "Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gpt-taste",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/gpt-tasteskill",
+          "description": "Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "high-end-visual-design",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/soft-skill",
+          "description": "Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "image-to-code",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/image-to-code-skill",
+          "description": "Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefer large, readable, section-specific images instead of tiny compressed boards, generate fresh standalone images for sections or detail views instead of cropping old ones, avoid lazy under-generation, avoid cards-inside-cards-inside-cards UI, and keep the hero clean, spacious, readable, and visible on a small laptop.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "imagegen-frontend-mobile",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/imagegen-frontend-mobile",
+          "description": "Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mockup with a visible frame, while the main focus stays on the app content itself. This skill generates images only. It does not write code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "imagegen-frontend-web",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/imagegen-frontend-web",
+          "description": "Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a single consistent palette across all images. Optimized for landing pages, marketing sites, and product comps that developers or coding models can accurately recreate.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "industrial-brutalist-ui",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/brutalist-skill",
+          "description": "Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "minimalist-ui",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/minimalist-skill",
+          "description": "Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "redesign-existing-projects",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/redesign-skill",
+          "description": "Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "stitch-design-taste",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/stitch-skill",
+          "description": "Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Leonxlnx",
+        "repo": "taste-skill",
+        "repoUrl": "https://github.com/Leonxlnx/taste-skill.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "leonxlnx-taste-skill-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Leonxlnx/taste-skill.",
+      "author": "ASM (Leonxlnx/taste-skill)",
+      "createdAt": "2026-05-09T08:10:39.871Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "leonxlnx",
+        "taste-skill"
+      ],
+      "skills": [
+        {
+          "name": "brandkit",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/brandkit",
+          "description": "Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gpt-taste",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/gpt-tasteskill",
+          "description": "Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "high-end-visual-design",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/soft-skill",
+          "description": "Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "image-to-code",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/image-to-code-skill",
+          "description": "Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefer large, readable, section-specific images instead of tiny compressed boards, generate fresh standalone images for sections or detail views instead of cropping old ones, avoid lazy under-generation, avoid cards-inside-cards-inside-cards UI, and keep the hero clean, spacious, readable, and visible on a small laptop.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Leonxlnx",
+        "repo": "taste-skill",
+        "repoUrl": "https://github.com/Leonxlnx/taste-skill.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "leonxlnx-taste-skill-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Leonxlnx/taste-skill.",
+      "author": "ASM (Leonxlnx/taste-skill)",
+      "createdAt": "2026-05-09T08:10:39.871Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "leonxlnx",
+        "taste-skill"
+      ],
+      "skills": [
+        {
+          "name": "brandkit",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/brandkit",
+          "description": "Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "design-taste-frontend",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/taste-skill",
+          "description": "Senior UI/UX Engineer. Architect digital interfaces overriding default LLM biases. Enforces metric-based rules, strict component architecture, CSS hardware acceleration, and balanced design engineering.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "full-output-enforcement",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/output-skill",
+          "description": "Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gpt-taste",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/gpt-tasteskill",
+          "description": "Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "high-end-visual-design",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/soft-skill",
+          "description": "Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "image-to-code",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/image-to-code-skill",
+          "description": "Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefer large, readable, section-specific images instead of tiny compressed boards, generate fresh standalone images for sections or detail views instead of cropping old ones, avoid lazy under-generation, avoid cards-inside-cards-inside-cards UI, and keep the hero clean, spacious, readable, and visible on a small laptop.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "imagegen-frontend-mobile",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/imagegen-frontend-mobile",
+          "description": "Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mockup with a visible frame, while the main focus stays on the app content itself. This skill generates images only. It does not write code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "imagegen-frontend-web",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/imagegen-frontend-web",
+          "description": "Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a single consistent palette across all images. Optimized for landing pages, marketing sites, and product comps that developers or coding models can accurately recreate.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "industrial-brutalist-ui",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/brutalist-skill",
+          "description": "Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "redesign-existing-projects",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/redesign-skill",
+          "description": "Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "stitch-design-taste",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/stitch-skill",
+          "description": "Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Leonxlnx",
+        "repo": "taste-skill",
+        "repoUrl": "https://github.com/Leonxlnx/taste-skill.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "leonxlnx-taste-skill-product-business",
+      "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from Leonxlnx/taste-skill.",
+      "author": "ASM (Leonxlnx/taste-skill)",
+      "createdAt": "2026-05-09T08:10:39.871Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "product",
+        "business",
+        "planning",
+        "leonxlnx",
+        "taste-skill"
+      ],
+      "skills": [
+        {
+          "name": "imagegen-frontend-mobile",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/imagegen-frontend-mobile",
+          "description": "Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mockup with a visible frame, while the main focus stays on the app content itself. This skill generates images only. It does not write code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "imagegen-frontend-web",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/imagegen-frontend-web",
+          "description": "Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a single consistent palette across all images. Optimized for landing pages, marketing sites, and product comps that developers or coding models can accurately recreate.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Leonxlnx",
+        "repo": "taste-skill",
+        "repoUrl": "https://github.com/Leonxlnx/taste-skill.git"
+      },
+      "inferred": true
+    }
   ]
 }

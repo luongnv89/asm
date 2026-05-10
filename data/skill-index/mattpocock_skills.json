@@ -3704,5 +3704,541 @@
         }
       }
     }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "mattpocock-skills-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from mattpocock/skills.",
+      "author": "ASM (mattpocock/skills)",
+      "createdAt": "2026-05-09T08:10:45.003Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "mattpocock",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "caveman",
+          "installUrl": "github:mattpocock/skills:skills/productivity/caveman",
+          "description": "Ultra-compressed communication mode. Cuts token usage ~75% by dropping filler, articles, and pleasantries while keeping full technical accuracy. Use when user says \"caveman mode\", \"talk like caveman\", \"use caveman\", \"less tokens\", \"be brief\", or invokes /caveman.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "diagnose",
+          "installUrl": "github:mattpocock/skills:skills/engineering/diagnose",
+          "description": "Disciplined diagnosis loop for hard bugs and performance regressions. Reproduce → minimise → hypothesise → instrument → fix → regression-test. Use when user says \"diagnose this\" / \"debug this\", reports a bug, says something is broken/throwing/failing, or describes a performance regression.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "edit-article",
+          "installUrl": "github:mattpocock/skills:skills/personal/edit-article",
+          "description": "Edit and improve articles by restructuring sections, improving clarity, and tightening prose. Use when user wants to edit, revise, or improve an article draft.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "grill-with-docs",
+          "installUrl": "github:mattpocock/skills:skills/engineering/grill-with-docs",
+          "description": "Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates documentation (CONTEXT.md, ADRs) inline as decisions crystallise. Use when user wants to stress-test a plan against their project's language and documented decisions.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "improve-codebase-architecture",
+          "installUrl": "github:mattpocock/skills:skills/engineering/improve-codebase-architecture",
+          "description": "Find deepening opportunities in a codebase, informed by the domain language in CONTEXT.md and the decisions in docs/adr/. Use when the user wants to improve architecture, find refactoring opportunities, consolidate tightly-coupled modules, or make a codebase more testable and AI-navigable.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "setup-matt-pocock-skills",
+          "installUrl": "github:mattpocock/skills:skills/engineering/setup-matt-pocock-skills",
+          "description": "Sets up an `## Agent skills` block in AGENTS.md/CLAUDE.md and `docs/agents/` so the engineering skills know this repo's issue tracker (GitHub or local markdown), triage label vocabulary, and domain doc layout. Run before first use of `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, or `zoom-out` — or if those skills appear to be missing context about the issue tracker, triage labels, or domain docs.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "write-a-skill",
+          "installUrl": "github:mattpocock/skills:skills/productivity/write-a-skill",
+          "description": "Create new agent skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "writing-beats",
+          "installUrl": "github:mattpocock/skills:skills/in-progress/writing-beats",
+          "description": "Shape an article as a journey of beats, choose-your-own-adventure style. The user picks a starting beat from the raw material, you write only that beat, then offer options for where to pivot next, beat by beat, until the article reaches a natural end. Use when the user has raw material and wants to assemble it as a narrative rather than an argument.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "writing-fragments",
+          "installUrl": "github:mattpocock/skills:skills/in-progress/writing-fragments",
+          "description": "Grilling session that mines the user for fragments — heterogeneous nuggets of writing (claims, vignettes, sharp sentences, half-thoughts) — and appends them to a single document as raw material for a future article. Use when the user wants to develop ideas before imposing structure, or mentions \"fragments\", \"ideate\", or \"raw material\" for writing.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "writing-shape",
+          "installUrl": "github:mattpocock/skills:skills/in-progress/writing-shape",
+          "description": "Take a markdown file of raw material and shape it into an article through a conversational session — drafting candidate openings, growing the piece paragraph by paragraph, arguing about format (lists, tables, callouts, quotes) at each step. Use when the user has a pile of notes, fragments, or a rough draft and wants help turning it into something publishable.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "mattpocock",
+        "repo": "skills",
+        "repoUrl": "https://github.com/mattpocock/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "mattpocock-skills-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from mattpocock/skills.",
+      "author": "ASM (mattpocock/skills)",
+      "createdAt": "2026-05-09T08:10:45.003Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "mattpocock",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "design-an-interface",
+          "installUrl": "github:mattpocock/skills:skills/deprecated/design-an-interface",
+          "description": "Generate multiple radically different interface designs for a module using parallel sub-agents. Use when user wants to design an API, explore interface options, compare module shapes, or mentions \"design it twice\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "diagnose",
+          "installUrl": "github:mattpocock/skills:skills/engineering/diagnose",
+          "description": "Disciplined diagnosis loop for hard bugs and performance regressions. Reproduce → minimise → hypothesise → instrument → fix → regression-test. Use when user says \"diagnose this\" / \"debug this\", reports a bug, says something is broken/throwing/failing, or describes a performance regression.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "git-guardrails-claude-code",
+          "installUrl": "github:mattpocock/skills:skills/misc/git-guardrails-claude-code",
+          "description": "Set up Claude Code hooks to block dangerous git commands (push, reset --hard, clean, branch -D, etc.) before they execute. Use when user wants to prevent destructive git operations, add git safety hooks, or block git push/reset in Claude Code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "grill-me",
+          "installUrl": "github:mattpocock/skills:skills/productivity/grill-me",
+          "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "grill-with-docs",
+          "installUrl": "github:mattpocock/skills:skills/engineering/grill-with-docs",
+          "description": "Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates documentation (CONTEXT.md, ADRs) inline as decisions crystallise. Use when user wants to stress-test a plan against their project's language and documented decisions.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "improve-codebase-architecture",
+          "installUrl": "github:mattpocock/skills:skills/engineering/improve-codebase-architecture",
+          "description": "Find deepening opportunities in a codebase, informed by the domain language in CONTEXT.md and the decisions in docs/adr/. Use when the user wants to improve architecture, find refactoring opportunities, consolidate tightly-coupled modules, or make a codebase more testable and AI-navigable.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "migrate-to-shoehorn",
+          "installUrl": "github:mattpocock/skills:skills/misc/migrate-to-shoehorn",
+          "description": "Migrate test files from `as` type assertions to @total-typescript/shoehorn. Use when user mentions shoehorn, wants to replace `as` in tests, or needs partial test data.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "prototype",
+          "installUrl": "github:mattpocock/skills:skills/engineering/prototype",
+          "description": "Build a throwaway prototype to flush out a design before committing to it. Routes between two branches — a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route. Use when the user wants to prototype, sanity-check a data model or state machine, mock up a UI, explore design options, or says \"prototype this\", \"let me play with it\", \"try a few designs\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "qa",
+          "installUrl": "github:mattpocock/skills:skills/deprecated/qa",
+          "description": "Interactive QA session where user reports bugs or issues conversationally, and the agent files GitHub issues. Explores the codebase in the background for context and domain language. Use when user wants to report bugs, do QA, file issues conversationally, or mentions \"QA session\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "request-refactor-plan",
+          "installUrl": "github:mattpocock/skills:skills/deprecated/request-refactor-plan",
+          "description": "Create a detailed refactor plan with tiny commits via user interview, then file it as a GitHub issue. Use when user wants to plan a refactor, create a refactoring RFC, or break a refactor into safe incremental steps.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "setup-matt-pocock-skills",
+          "installUrl": "github:mattpocock/skills:skills/engineering/setup-matt-pocock-skills",
+          "description": "Sets up an `## Agent skills` block in AGENTS.md/CLAUDE.md and `docs/agents/` so the engineering skills know this repo's issue tracker (GitHub or local markdown), triage label vocabulary, and domain doc layout. Run before first use of `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, or `zoom-out` — or if those skills appear to be missing context about the issue tracker, triage labels, or domain docs.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "setup-pre-commit",
+          "installUrl": "github:mattpocock/skills:skills/misc/setup-pre-commit",
+          "description": "Set up Husky pre-commit hooks with lint-staged (Prettier), type checking, and tests in the current repo. Use when user wants to add pre-commit hooks, set up Husky, configure lint-staged, or add commit-time formatting/typechecking/testing.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "tdd",
+          "installUrl": "github:mattpocock/skills:skills/engineering/tdd",
+          "description": "Test-driven development with red-green-refactor loop. Use when user wants to build features or fix bugs using TDD, mentions \"red-green-refactor\", wants integration tests, or asks for test-first development.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "triage",
+          "installUrl": "github:mattpocock/skills:skills/engineering/triage",
+          "description": "Triage issues through a state machine driven by triage roles. Use when user wants to create an issue, triage issues, review incoming bugs or feature requests, prepare issues for an AFK agent, or manage issue workflow.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "ubiquitous-language",
+          "installUrl": "github:mattpocock/skills:skills/deprecated/ubiquitous-language",
+          "description": "Extract a DDD-style ubiquitous language glossary from the current conversation, flagging ambiguities and proposing canonical terms. Saves to UBIQUITOUS_LANGUAGE.md. Use when user wants to define domain terms, build a glossary, harden terminology, create a ubiquitous language, or mentions \"domain model\" or \"DDD\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "write-a-skill",
+          "installUrl": "github:mattpocock/skills:skills/productivity/write-a-skill",
+          "description": "Create new agent skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "zoom-out",
+          "installUrl": "github:mattpocock/skills:skills/engineering/zoom-out",
+          "description": "Tell the agent to zoom out and give broader context or a higher-level perspective. Use when you're unfamiliar with a section of code or need to understand how it fits into the bigger picture.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "mattpocock",
+        "repo": "skills",
+        "repoUrl": "https://github.com/mattpocock/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "mattpocock-skills-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from mattpocock/skills.",
+      "author": "ASM (mattpocock/skills)",
+      "createdAt": "2026-05-09T08:10:45.003Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "mattpocock",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "design-an-interface",
+          "installUrl": "github:mattpocock/skills:skills/deprecated/design-an-interface",
+          "description": "Generate multiple radically different interface designs for a module using parallel sub-agents. Use when user wants to design an API, explore interface options, compare module shapes, or mentions \"design it twice\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "grill-me",
+          "installUrl": "github:mattpocock/skills:skills/productivity/grill-me",
+          "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "prototype",
+          "installUrl": "github:mattpocock/skills:skills/engineering/prototype",
+          "description": "Build a throwaway prototype to flush out a design before committing to it. Routes between two branches — a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route. Use when the user wants to prototype, sanity-check a data model or state machine, mock up a UI, explore design options, or says \"prototype this\", \"let me play with it\", \"try a few designs\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "setup-matt-pocock-skills",
+          "installUrl": "github:mattpocock/skills:skills/engineering/setup-matt-pocock-skills",
+          "description": "Sets up an `## Agent skills` block in AGENTS.md/CLAUDE.md and `docs/agents/` so the engineering skills know this repo's issue tracker (GitHub or local markdown), triage label vocabulary, and domain doc layout. Run before first use of `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, or `zoom-out` — or if those skills appear to be missing context about the issue tracker, triage labels, or domain docs.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "tdd",
+          "installUrl": "github:mattpocock/skills:skills/engineering/tdd",
+          "description": "Test-driven development with red-green-refactor loop. Use when user wants to build features or fix bugs using TDD, mentions \"red-green-refactor\", wants integration tests, or asks for test-first development.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "ubiquitous-language",
+          "installUrl": "github:mattpocock/skills:skills/deprecated/ubiquitous-language",
+          "description": "Extract a DDD-style ubiquitous language glossary from the current conversation, flagging ambiguities and proposing canonical terms. Saves to UBIQUITOUS_LANGUAGE.md. Use when user wants to define domain terms, build a glossary, harden terminology, create a ubiquitous language, or mentions \"domain model\" or \"DDD\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "write-a-skill",
+          "installUrl": "github:mattpocock/skills:skills/productivity/write-a-skill",
+          "description": "Create new agent skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "writing-shape",
+          "installUrl": "github:mattpocock/skills:skills/in-progress/writing-shape",
+          "description": "Take a markdown file of raw material and shape it into an article through a conversational session — drafting candidate openings, growing the piece paragraph by paragraph, arguing about format (lists, tables, callouts, quotes) at each step. Use when the user has a pile of notes, fragments, or a rough draft and wants help turning it into something publishable.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "mattpocock",
+        "repo": "skills",
+        "repoUrl": "https://github.com/mattpocock/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "mattpocock-skills-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from mattpocock/skills.",
+      "author": "ASM (mattpocock/skills)",
+      "createdAt": "2026-05-09T08:10:45.003Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "mattpocock",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "diagnose",
+          "installUrl": "github:mattpocock/skills:skills/engineering/diagnose",
+          "description": "Disciplined diagnosis loop for hard bugs and performance regressions. Reproduce → minimise → hypothesise → instrument → fix → regression-test. Use when user says \"diagnose this\" / \"debug this\", reports a bug, says something is broken/throwing/failing, or describes a performance regression.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "grill-me",
+          "installUrl": "github:mattpocock/skills:skills/productivity/grill-me",
+          "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "grill-with-docs",
+          "installUrl": "github:mattpocock/skills:skills/engineering/grill-with-docs",
+          "description": "Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates documentation (CONTEXT.md, ADRs) inline as decisions crystallise. Use when user wants to stress-test a plan against their project's language and documented decisions.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "improve-codebase-architecture",
+          "installUrl": "github:mattpocock/skills:skills/engineering/improve-codebase-architecture",
+          "description": "Find deepening opportunities in a codebase, informed by the domain language in CONTEXT.md and the decisions in docs/adr/. Use when the user wants to improve architecture, find refactoring opportunities, consolidate tightly-coupled modules, or make a codebase more testable and AI-navigable.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "scaffold-exercises",
+          "installUrl": "github:mattpocock/skills:skills/misc/scaffold-exercises",
+          "description": "Create exercise directory structures with sections, problems, solutions, and explainers that pass linting. Use when user wants to scaffold exercises, create exercise stubs, or set up a new course section.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "triage",
+          "installUrl": "github:mattpocock/skills:skills/engineering/triage",
+          "description": "Triage issues through a state machine driven by triage roles. Use when user wants to create an issue, triage issues, review incoming bugs or feature requests, prepare issues for an AFK agent, or manage issue workflow.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "mattpocock",
+        "repo": "skills",
+        "repoUrl": "https://github.com/mattpocock/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "mattpocock-skills-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from mattpocock/skills.",
+      "author": "ASM (mattpocock/skills)",
+      "createdAt": "2026-05-09T08:10:45.003Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "mattpocock",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "design-an-interface",
+          "installUrl": "github:mattpocock/skills:skills/deprecated/design-an-interface",
+          "description": "Generate multiple radically different interface designs for a module using parallel sub-agents. Use when user wants to design an API, explore interface options, compare module shapes, or mentions \"design it twice\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "diagnose",
+          "installUrl": "github:mattpocock/skills:skills/engineering/diagnose",
+          "description": "Disciplined diagnosis loop for hard bugs and performance regressions. Reproduce → minimise → hypothesise → instrument → fix → regression-test. Use when user says \"diagnose this\" / \"debug this\", reports a bug, says something is broken/throwing/failing, or describes a performance regression.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "git-guardrails-claude-code",
+          "installUrl": "github:mattpocock/skills:skills/misc/git-guardrails-claude-code",
+          "description": "Set up Claude Code hooks to block dangerous git commands (push, reset --hard, clean, branch -D, etc.) before they execute. Use when user wants to prevent destructive git operations, add git safety hooks, or block git push/reset in Claude Code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "grill-with-docs",
+          "installUrl": "github:mattpocock/skills:skills/engineering/grill-with-docs",
+          "description": "Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates documentation (CONTEXT.md, ADRs) inline as decisions crystallise. Use when user wants to stress-test a plan against their project's language and documented decisions.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "handoff",
+          "installUrl": "github:mattpocock/skills:skills/in-progress/handoff",
+          "description": "Compact the current conversation into a handoff document for another agent to pick up.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "improve-codebase-architecture",
+          "installUrl": "github:mattpocock/skills:skills/engineering/improve-codebase-architecture",
+          "description": "Find deepening opportunities in a codebase, informed by the domain language in CONTEXT.md and the decisions in docs/adr/. Use when the user wants to improve architecture, find refactoring opportunities, consolidate tightly-coupled modules, or make a codebase more testable and AI-navigable.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "migrate-to-shoehorn",
+          "installUrl": "github:mattpocock/skills:skills/misc/migrate-to-shoehorn",
+          "description": "Migrate test files from `as` type assertions to @total-typescript/shoehorn. Use when user mentions shoehorn, wants to replace `as` in tests, or needs partial test data.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "prototype",
+          "installUrl": "github:mattpocock/skills:skills/engineering/prototype",
+          "description": "Build a throwaway prototype to flush out a design before committing to it. Routes between two branches — a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route. Use when the user wants to prototype, sanity-check a data model or state machine, mock up a UI, explore design options, or says \"prototype this\", \"let me play with it\", \"try a few designs\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "qa",
+          "installUrl": "github:mattpocock/skills:skills/deprecated/qa",
+          "description": "Interactive QA session where user reports bugs or issues conversationally, and the agent files GitHub issues. Explores the codebase in the background for context and domain language. Use when user wants to report bugs, do QA, file issues conversationally, or mentions \"QA session\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "request-refactor-plan",
+          "installUrl": "github:mattpocock/skills:skills/deprecated/request-refactor-plan",
+          "description": "Create a detailed refactor plan with tiny commits via user interview, then file it as a GitHub issue. Use when user wants to plan a refactor, create a refactoring RFC, or break a refactor into safe incremental steps.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "scaffold-exercises",
+          "installUrl": "github:mattpocock/skills:skills/misc/scaffold-exercises",
+          "description": "Create exercise directory structures with sections, problems, solutions, and explainers that pass linting. Use when user wants to scaffold exercises, create exercise stubs, or set up a new course section.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "setup-matt-pocock-skills",
+          "installUrl": "github:mattpocock/skills:skills/engineering/setup-matt-pocock-skills",
+          "description": "Sets up an `## Agent skills` block in AGENTS.md/CLAUDE.md and `docs/agents/` so the engineering skills know this repo's issue tracker (GitHub or local markdown), triage label vocabulary, and domain doc layout. Run before first use of `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, or `zoom-out` — or if those skills appear to be missing context about the issue tracker, triage labels, or domain docs.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "triage",
+          "installUrl": "github:mattpocock/skills:skills/engineering/triage",
+          "description": "Triage issues through a state machine driven by triage roles. Use when user wants to create an issue, triage issues, review incoming bugs or feature requests, prepare issues for an AFK agent, or manage issue workflow.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "ubiquitous-language",
+          "installUrl": "github:mattpocock/skills:skills/deprecated/ubiquitous-language",
+          "description": "Extract a DDD-style ubiquitous language glossary from the current conversation, flagging ambiguities and proposing canonical terms. Saves to UBIQUITOUS_LANGUAGE.md. Use when user wants to define domain terms, build a glossary, harden terminology, create a ubiquitous language, or mentions \"domain model\" or \"DDD\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "write-a-skill",
+          "installUrl": "github:mattpocock/skills:skills/productivity/write-a-skill",
+          "description": "Create new agent skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "writing-fragments",
+          "installUrl": "github:mattpocock/skills:skills/in-progress/writing-fragments",
+          "description": "Grilling session that mines the user for fragments — heterogeneous nuggets of writing (claims, vignettes, sharp sentences, half-thoughts) — and appends them to a single document as raw material for a future article. Use when the user wants to develop ideas before imposing structure, or mentions \"fragments\", \"ideate\", or \"raw material\" for writing.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "zoom-out",
+          "installUrl": "github:mattpocock/skills:skills/engineering/zoom-out",
+          "description": "Tell the agent to zoom out and give broader context or a higher-level perspective. Use when you're unfamiliar with a section of code or need to understand how it fits into the bigger picture.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "mattpocock",
+        "repo": "skills",
+        "repoUrl": "https://github.com/mattpocock/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "mattpocock-skills-product-business",
+      "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from mattpocock/skills.",
+      "author": "ASM (mattpocock/skills)",
+      "createdAt": "2026-05-09T08:10:45.003Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "product",
+        "business",
+        "planning",
+        "mattpocock",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "caveman",
+          "installUrl": "github:mattpocock/skills:skills/productivity/caveman",
+          "description": "Ultra-compressed communication mode. Cuts token usage ~75% by dropping filler, articles, and pleasantries while keeping full technical accuracy. Use when user says \"caveman mode\", \"talk like caveman\", \"use caveman\", \"less tokens\", \"be brief\", or invokes /caveman.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "grill-me",
+          "installUrl": "github:mattpocock/skills:skills/productivity/grill-me",
+          "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "prototype",
+          "installUrl": "github:mattpocock/skills:skills/engineering/prototype",
+          "description": "Build a throwaway prototype to flush out a design before committing to it. Routes between two branches — a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route. Use when the user wants to prototype, sanity-check a data model or state machine, mock up a UI, explore design options, or says \"prototype this\", \"let me play with it\", \"try a few designs\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "setup-matt-pocock-skills",
+          "installUrl": "github:mattpocock/skills:skills/engineering/setup-matt-pocock-skills",
+          "description": "Sets up an `## Agent skills` block in AGENTS.md/CLAUDE.md and `docs/agents/` so the engineering skills know this repo's issue tracker (GitHub or local markdown), triage label vocabulary, and domain doc layout. Run before first use of `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, or `zoom-out` — or if those skills appear to be missing context about the issue tracker, triage labels, or domain docs.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "to-issues",
+          "installUrl": "github:mattpocock/skills:skills/engineering/to-issues",
+          "description": "Break a plan, spec, or PRD into independently-grabbable issues on the project issue tracker using tracer-bullet vertical slices. Use when user wants to convert a plan into issues, create implementation tickets, or break down work into issues.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "to-prd",
+          "installUrl": "github:mattpocock/skills:skills/engineering/to-prd",
+          "description": "Turn the current conversation context into a PRD and publish it to the project issue tracker. Use when user wants to create a PRD from the current context.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "write-a-skill",
+          "installUrl": "github:mattpocock/skills:skills/productivity/write-a-skill",
+          "description": "Create new agent skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "mattpocock",
+        "repo": "skills",
+        "repoUrl": "https://github.com/mattpocock/skills.git"
+      },
+      "inferred": true
+    }
   ]
 }

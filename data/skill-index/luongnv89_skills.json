@@ -3978,5 +3978,817 @@
         }
       }
     }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "luongnv89-skills-marketing",
+      "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from luongnv89/skills.",
+      "author": "ASM (luongnv89/skills)",
+      "createdAt": "2026-05-09T08:10:41.461Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "marketing",
+        "growth",
+        "seo",
+        "luongnv89",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "aso-marketing",
+          "installUrl": "github:luongnv89/skills:skills/aso-marketing",
+          "description": "Optimize App Store and Google Play listings with keyword strategy, metadata, and localization. Use when asked to improve app store visibility or ASO. Don't use for web SEO, paid UA campaigns, or pre-submission compliance audits.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "brand-name-checker",
+          "installUrl": "github:luongnv89/skills:skills/brand-name-checker",
+          "description": "Check product and brand names for conflicts across trademarks, domains, social handles, and package registries. Returns a risk level and Proceed/Modify/Abandon recommendation. Skip for name brainstorming, logo design, or trademark filings.",
+          "version": "1.3.0"
+        },
+        {
+          "name": "excalidraw-generator",
+          "installUrl": "github:luongnv89/skills:skills/excalidraw-generator",
+          "description": "Generate professional diagrams as valid Excalidraw JSON files — flowcharts, architecture, ER diagrams, mind maps, sequence diagrams, wireframes, C4 models, and more. Understands text, code, schemas, or verbal descriptions. Don't use for draw.io/Mermaid output, polished production slide decks, or pixel-perfect brand graphics.",
+          "version": "1.3.0"
+        },
+        {
+          "name": "idea-validator",
+          "installUrl": "github:luongnv89/skills:skills/idea-validator",
+          "description": "Evaluate app ideas and startup concepts across market viability, technical feasibility, and competitive landscape. Use when asked to validate, review, or score a product idea. Don't use for writing a PRD, detailed go-to-market plans, or financial/investor pitch decks.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "install-script-generator",
+          "installUrl": "github:luongnv89/skills:skills/install-script-generator",
+          "description": "Generate cross-platform installation scripts for any software, library, or module. Produces a standalone install.sh runnable via a single curl/wget one-liner, with automatic OS, architecture, and package manager detection. Don't use for authoring Dockerfiles, CI/CD pipelines, or one-off local shell scripts.",
+          "version": "2.1.0"
+        },
+        {
+          "name": "logo-designer",
+          "installUrl": "github:luongnv89/skills:skills/logo-designer",
+          "description": "Generate professional SVG logos from project context, producing 7 brand variants (mark, full, wordmark, icon, favicon, white, black) plus a showcase HTML page. Skip for raster-only logos, product illustrations, or full brand-guideline docs.",
+          "version": "1.2.1"
+        },
+        {
+          "name": "readme-to-landing-page",
+          "installUrl": "github:luongnv89/skills:skills/readme-to-landing-page",
+          "description": "Transform a project README.md into a conversion-optimized landing page using PAS, AIDA, or StoryBrand — hero, value prop, how it works, quick start, CTA in pure markdown. Skip for full HTML sites or general blog copy.",
+          "version": "2.1.0"
+        },
+        {
+          "name": "seo-ai-optimizer",
+          "installUrl": "github:luongnv89/skills:skills/seo-ai-optimizer",
+          "description": "Audit and optimize websites for technical SEO, content SEO, and AI bot accessibility. Fixes meta tags, sitemaps, robots.txt, structured data, llms.txt, and GPTBot/ClaudeBot directives. Not for App Store ASO, paid search, or blog writing.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "slop-cleanup",
+          "installUrl": "github:luongnv89/skills:skills/slop-cleanup",
+          "description": "Refactor a codebase to remove AI slop, dead code, weak types, duplication, defensive over-engineering, and legacy cruft using 8 parallel specialized subagents across two cleanup waves. Don't use for adding new features, performance tuning, or security-only audits.",
+          "version": "1.1.1"
+        },
+        {
+          "name": "usability-review",
+          "installUrl": "github:luongnv89/skills:skills/usability-review",
+          "description": "Review UI for usability issues using Steve Krug's principles and produce a scannable report. Use when asked for a usability audit, UX review, or UI feedback on screenshots, URLs, or code. Don't use for visual/brand design critique, accessibility (WCAG) audits, or backend/API review.",
+          "version": "1.2.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "luongnv89",
+        "repo": "skills",
+        "repoUrl": "https://github.com/luongnv89/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "luongnv89-skills-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from luongnv89/skills.",
+      "author": "ASM (luongnv89/skills)",
+      "createdAt": "2026-05-09T08:10:41.461Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "luongnv89",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "agent-config",
+          "installUrl": "github:luongnv89/skills:skills/agent-config",
+          "description": "Create or update CLAUDE.md and AGENTS.md files following official best practices. Use when asked to create, audit, or improve agent config files (CLAUDE.md, AGENTS.md). Don't use for README/contributor docs or non-Claude IDE plugins.",
+          "version": "1.3.0"
+        },
+        {
+          "name": "appstore-review-checker",
+          "installUrl": "github:luongnv89/skills:skills/appstore-review-checker",
+          "description": "Audit iOS/macOS app projects against Apple App Store Review Guidelines to catch rejection risks before submission, with per-guideline PASS/FAIL/WARNING verdicts and fix suggestions. Don't use for Google Play/Android submissions, general code review, or post-rejection appeal drafting.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "code-review",
+          "installUrl": "github:luongnv89/skills:skills/code-review",
+          "description": "Review code changes for bugs, security vulnerabilities, and code quality issues — producing prioritized findings with specific fix suggestions. Don't use for performance tuning, writing new features from scratch, or generating test cases.",
+          "version": "1.1.4"
+        },
+        {
+          "name": "docs-generator",
+          "installUrl": "github:luongnv89/skills:skills/docs-generator",
+          "description": "Generate and restructure project documentation into a clear, accessible hierarchy. Use when asked to organize docs, generate documentation, improve doc structure, or restructure README. Don't use for API reference generation from code (JSDoc/Sphinx), authoring a landing page, or agent-config files like CLAUDE.md.",
+          "version": "1.2.3"
+        },
+        {
+          "name": "idea-validator",
+          "installUrl": "github:luongnv89/skills:skills/idea-validator",
+          "description": "Evaluate app ideas and startup concepts across market viability, technical feasibility, and competitive landscape. Use when asked to validate, review, or score a product idea. Don't use for writing a PRD, detailed go-to-market plans, or financial/investor pitch decks.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "logo-designer",
+          "installUrl": "github:luongnv89/skills:skills/logo-designer",
+          "description": "Generate professional SVG logos from project context, producing 7 brand variants (mark, full, wordmark, icon, favicon, white, black) plus a showcase HTML page. Skip for raster-only logos, product illustrations, or full brand-guideline docs.",
+          "version": "1.2.1"
+        },
+        {
+          "name": "oss-ready",
+          "installUrl": "github:luongnv89/skills:skills/oss-ready",
+          "description": "Transform a project into a professional open-source repository by adding LICENSE, README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, and GitHub issue/PR templates. Don't use for documentation overhauls, landing-page generation, or registry publishing.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "readme-to-landing-page",
+          "installUrl": "github:luongnv89/skills:skills/readme-to-landing-page",
+          "description": "Transform a project README.md into a conversion-optimized landing page using PAS, AIDA, or StoryBrand — hero, value prop, how it works, quick start, CTA in pure markdown. Skip for full HTML sites or general blog copy.",
+          "version": "2.1.0"
+        },
+        {
+          "name": "seo-ai-optimizer",
+          "installUrl": "github:luongnv89/skills:skills/seo-ai-optimizer",
+          "description": "Audit and optimize websites for technical SEO, content SEO, and AI bot accessibility. Fixes meta tags, sitemaps, robots.txt, structured data, llms.txt, and GPTBot/ClaudeBot directives. Not for App Store ASO, paid search, or blog writing.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "tasks-generator",
+          "installUrl": "github:luongnv89/skills:skills/tasks-generator",
+          "description": "Generate development tasks from a PRD file with sprint-based planning. Use when users ask to create tasks from PRD, break down the PRD, generate sprint tasks, or want to convert product requirements into actionable development tasks. Creates/updates tasks.md and always reports GitHub links to changed files. Don't use for writing a PRD, authoring a TAD, or executing tasks (see openspec-task-loop).",
+          "version": "1.2.1"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "luongnv89",
+        "repo": "skills",
+        "repoUrl": "https://github.com/luongnv89/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "luongnv89-skills-research",
+      "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from luongnv89/skills.",
+      "author": "ASM (luongnv89/skills)",
+      "createdAt": "2026-05-09T08:10:41.461Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "research",
+        "academic",
+        "analysis",
+        "luongnv89",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "appstore-review-checker",
+          "installUrl": "github:luongnv89/skills:skills/appstore-review-checker",
+          "description": "Audit iOS/macOS app projects against Apple App Store Review Guidelines to catch rejection risks before submission, with per-guideline PASS/FAIL/WARNING verdicts and fix suggestions. Don't use for Google Play/Android submissions, general code review, or post-rejection appeal drafting.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "auto-push",
+          "installUrl": "github:luongnv89/skills:skills/auto-push",
+          "description": "Generate a commit message, stage all changes, and push to remote after scanning for secrets, large files, and protected-branch risks. Skip for opening PRs, code review, or cutting releases/tags.",
+          "version": "1.0.2"
+        },
+        {
+          "name": "cli-builder",
+          "installUrl": "github:luongnv89/skills:skills/cli-builder",
+          "description": "Build a production-quality CLI tool for any module or application. Auto-detects language, recommends CLI libraries, and follows a 5-step approval-gated workflow: Analyze, Design, Plan, Execute, Summarize. Don't use for building GUI/TUI apps, web APIs, or authoring one-off shell scripts.",
+          "version": "1.0.3"
+        },
+        {
+          "name": "code-optimizer",
+          "installUrl": "github:luongnv89/skills:skills/code-optimizer",
+          "description": "Analyze code for performance bottlenecks, memory leaks, and algorithmic inefficiencies. Use when asked to optimize, find bottlenecks, or improve efficiency. Don't use for bug-hunting code review, security audits, or refactoring without a perf goal.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "code-review",
+          "installUrl": "github:luongnv89/skills:skills/code-review",
+          "description": "Review code changes for bugs, security vulnerabilities, and code quality issues — producing prioritized findings with specific fix suggestions. Don't use for performance tuning, writing new features from scratch, or generating test cases.",
+          "version": "1.1.4"
+        },
+        {
+          "name": "idea-validator",
+          "installUrl": "github:luongnv89/skills:skills/idea-validator",
+          "description": "Evaluate app ideas and startup concepts across market viability, technical feasibility, and competitive landscape. Use when asked to validate, review, or score a product idea. Don't use for writing a PRD, detailed go-to-market plans, or financial/investor pitch decks.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "security-setup",
+          "installUrl": "github:luongnv89/skills:skills/security-setup",
+          "description": "Install local-first security hardening: pre-commit secret detection, offline dependency scans, static analysis, reports, and gated free CI. Use when hardening repos or adding security hooks. Don't use for incident response or cloud security reviews.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "usability-review",
+          "installUrl": "github:luongnv89/skills:skills/usability-review",
+          "description": "Review UI for usability issues using Steve Krug's principles and produce a scannable report. Use when asked for a usability audit, UX review, or UI feedback on screenshots, URLs, or code. Don't use for visual/brand design critique, accessibility (WCAG) audits, or backend/API review.",
+          "version": "1.2.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "luongnv89",
+        "repo": "skills",
+        "repoUrl": "https://github.com/luongnv89/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "luongnv89-skills-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from luongnv89/skills.",
+      "author": "ASM (luongnv89/skills)",
+      "createdAt": "2026-05-09T08:10:41.461Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "luongnv89",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "appstore-review-checker",
+          "installUrl": "github:luongnv89/skills:skills/appstore-review-checker",
+          "description": "Audit iOS/macOS app projects against Apple App Store Review Guidelines to catch rejection risks before submission, with per-guideline PASS/FAIL/WARNING verdicts and fix suggestions. Don't use for Google Play/Android submissions, general code review, or post-rejection appeal drafting.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "auto-push",
+          "installUrl": "github:luongnv89/skills:skills/auto-push",
+          "description": "Generate a commit message, stage all changes, and push to remote after scanning for secrets, large files, and protected-branch risks. Skip for opening PRs, code review, or cutting releases/tags.",
+          "version": "1.0.2"
+        },
+        {
+          "name": "cli-builder",
+          "installUrl": "github:luongnv89/skills:skills/cli-builder",
+          "description": "Build a production-quality CLI tool for any module or application. Auto-detects language, recommends CLI libraries, and follows a 5-step approval-gated workflow: Analyze, Design, Plan, Execute, Summarize. Don't use for building GUI/TUI apps, web APIs, or authoring one-off shell scripts.",
+          "version": "1.0.3"
+        },
+        {
+          "name": "code-optimizer",
+          "installUrl": "github:luongnv89/skills:skills/code-optimizer",
+          "description": "Analyze code for performance bottlenecks, memory leaks, and algorithmic inefficiencies. Use when asked to optimize, find bottlenecks, or improve efficiency. Don't use for bug-hunting code review, security audits, or refactoring without a perf goal.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "code-review",
+          "installUrl": "github:luongnv89/skills:skills/code-review",
+          "description": "Review code changes for bugs, security vulnerabilities, and code quality issues — producing prioritized findings with specific fix suggestions. Don't use for performance tuning, writing new features from scratch, or generating test cases.",
+          "version": "1.1.4"
+        },
+        {
+          "name": "devops-pipeline",
+          "installUrl": "github:luongnv89/skills:skills/devops-pipeline",
+          "description": "Configure pre-commit hooks and lean GitHub Actions for shift-left quality assurance. Use when adding or auditing CI/CD on a Git repo to maximize local test coverage and minimize CI cost. Skip for Terraform/K8s, deployment pipelines, or non-GitHub CI providers.",
+          "version": "2.0.1"
+        },
+        {
+          "name": "docs-generator",
+          "installUrl": "github:luongnv89/skills:skills/docs-generator",
+          "description": "Generate and restructure project documentation into a clear, accessible hierarchy. Use when asked to organize docs, generate documentation, improve doc structure, or restructure README. Don't use for API reference generation from code (JSDoc/Sphinx), authoring a landing page, or agent-config files like CLAUDE.md.",
+          "version": "1.2.3"
+        },
+        {
+          "name": "drawio-generator",
+          "installUrl": "github:luongnv89/skills:skills/drawio-generator",
+          "description": "Generate professional diagrams as valid draw.io XML files — flowcharts, architecture, C4 models, ER diagrams, sequence diagrams, mind maps, and swimlanes. Don't use for Excalidraw or Mermaid output, hand-drawn sketch styles, or slide decks/presentations.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "excalidraw-generator",
+          "installUrl": "github:luongnv89/skills:skills/excalidraw-generator",
+          "description": "Generate professional diagrams as valid Excalidraw JSON files — flowcharts, architecture, ER diagrams, mind maps, sequence diagrams, wireframes, C4 models, and more. Understands text, code, schemas, or verbal descriptions. Don't use for draw.io/Mermaid output, polished production slide decks, or pixel-perfect brand graphics.",
+          "version": "1.3.0"
+        },
+        {
+          "name": "frontend-design",
+          "installUrl": "github:luongnv89/skills:skills/frontend-design",
+          "description": "Build production-grade frontend interfaces with distinctive aesthetics and working code. Use when asked to create a UI, component, page, or frontend feature. Skip for backend/API work or usability-only audits.",
+          "version": "1.2.2"
+        },
+        {
+          "name": "idea-validator",
+          "installUrl": "github:luongnv89/skills:skills/idea-validator",
+          "description": "Evaluate app ideas and startup concepts across market viability, technical feasibility, and competitive landscape. Use when asked to validate, review, or score a product idea. Don't use for writing a PRD, detailed go-to-market plans, or financial/investor pitch decks.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "install-script-generator",
+          "installUrl": "github:luongnv89/skills:skills/install-script-generator",
+          "description": "Generate cross-platform installation scripts for any software, library, or module. Produces a standalone install.sh runnable via a single curl/wget one-liner, with automatic OS, architecture, and package manager detection. Don't use for authoring Dockerfiles, CI/CD pipelines, or one-off local shell scripts.",
+          "version": "2.1.0"
+        },
+        {
+          "name": "oss-ready",
+          "installUrl": "github:luongnv89/skills:skills/oss-ready",
+          "description": "Transform a project into a professional open-source repository by adding LICENSE, README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, and GitHub issue/PR templates. Don't use for documentation overhauls, landing-page generation, or registry publishing.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "security-setup",
+          "installUrl": "github:luongnv89/skills:skills/security-setup",
+          "description": "Install local-first security hardening: pre-commit secret detection, offline dependency scans, static analysis, reports, and gated free CI. Use when hardening repos or adding security hooks. Don't use for incident response or cloud security reviews.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "slop-cleanup",
+          "installUrl": "github:luongnv89/skills:skills/slop-cleanup",
+          "description": "Refactor a codebase to remove AI slop, dead code, weak types, duplication, defensive over-engineering, and legacy cruft using 8 parallel specialized subagents across two cleanup waves. Don't use for adding new features, performance tuning, or security-only audits.",
+          "version": "1.1.1"
+        },
+        {
+          "name": "tad-generator",
+          "installUrl": "github:luongnv89/skills:skills/tad-generator",
+          "description": "Generate a Technical Architecture Document (TAD) from a PRD. Use when asked to design the architecture, create a TAD, or define how a product is built. Creates/updates tad.md and reports GitHub links. Skip PRD authoring, sprint-tasks, or code implementation.",
+          "version": "1.3.0"
+        },
+        {
+          "name": "test-coverage",
+          "installUrl": "github:luongnv89/skills:skills/test-coverage",
+          "description": "Generate unit tests for untested branches and edge cases. Use when coverage is low, CI flags gaps, or a release needs hardening. Not for integration/E2E suites, framework migrations, or fixing production bugs.",
+          "version": "1.2.3"
+        },
+        {
+          "name": "usability-review",
+          "installUrl": "github:luongnv89/skills:skills/usability-review",
+          "description": "Review UI for usability issues using Steve Krug's principles and produce a scannable report. Use when asked for a usability audit, UX review, or UI feedback on screenshots, URLs, or code. Don't use for visual/brand design critique, accessibility (WCAG) audits, or backend/API review.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "website-cloner",
+          "installUrl": "github:luongnv89/skills:skills/website-cloner",
+          "description": "6-phase website cloning and improvement orchestrator. Takes a URL and produces an improved version (performance + UI/UX) via Vite/React/shadcn/Tailwind hosted on GitHub Pages. Use when asked to clone a site, rebuild a website, or make a better version of a URL. Orchestrates sibling skills with approval gates — don't use for single-phase work.",
+          "version": "1.1.1"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "luongnv89",
+        "repo": "skills",
+        "repoUrl": "https://github.com/luongnv89/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "luongnv89-skills-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from luongnv89/skills.",
+      "author": "ASM (luongnv89/skills)",
+      "createdAt": "2026-05-09T08:10:41.461Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "luongnv89",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "appstore-review-checker",
+          "installUrl": "github:luongnv89/skills:skills/appstore-review-checker",
+          "description": "Audit iOS/macOS app projects against Apple App Store Review Guidelines to catch rejection risks before submission, with per-guideline PASS/FAIL/WARNING verdicts and fix suggestions. Don't use for Google Play/Android submissions, general code review, or post-rejection appeal drafting.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "brand-name-checker",
+          "installUrl": "github:luongnv89/skills:skills/brand-name-checker",
+          "description": "Check product and brand names for conflicts across trademarks, domains, social handles, and package registries. Returns a risk level and Proceed/Modify/Abandon recommendation. Skip for name brainstorming, logo design, or trademark filings.",
+          "version": "1.3.0"
+        },
+        {
+          "name": "cli-builder",
+          "installUrl": "github:luongnv89/skills:skills/cli-builder",
+          "description": "Build a production-quality CLI tool for any module or application. Auto-detects language, recommends CLI libraries, and follows a 5-step approval-gated workflow: Analyze, Design, Plan, Execute, Summarize. Don't use for building GUI/TUI apps, web APIs, or authoring one-off shell scripts.",
+          "version": "1.0.3"
+        },
+        {
+          "name": "docs-generator",
+          "installUrl": "github:luongnv89/skills:skills/docs-generator",
+          "description": "Generate and restructure project documentation into a clear, accessible hierarchy. Use when asked to organize docs, generate documentation, improve doc structure, or restructure README. Don't use for API reference generation from code (JSDoc/Sphinx), authoring a landing page, or agent-config files like CLAUDE.md.",
+          "version": "1.2.3"
+        },
+        {
+          "name": "excalidraw-generator",
+          "installUrl": "github:luongnv89/skills:skills/excalidraw-generator",
+          "description": "Generate professional diagrams as valid Excalidraw JSON files — flowcharts, architecture, ER diagrams, mind maps, sequence diagrams, wireframes, C4 models, and more. Understands text, code, schemas, or verbal descriptions. Don't use for draw.io/Mermaid output, polished production slide decks, or pixel-perfect brand graphics.",
+          "version": "1.3.0"
+        },
+        {
+          "name": "frontend-design",
+          "installUrl": "github:luongnv89/skills:skills/frontend-design",
+          "description": "Build production-grade frontend interfaces with distinctive aesthetics and working code. Use when asked to create a UI, component, page, or frontend feature. Skip for backend/API work or usability-only audits.",
+          "version": "1.2.2"
+        },
+        {
+          "name": "logo-designer",
+          "installUrl": "github:luongnv89/skills:skills/logo-designer",
+          "description": "Generate professional SVG logos from project context, producing 7 brand variants (mark, full, wordmark, icon, favicon, white, black) plus a showcase HTML page. Skip for raster-only logos, product illustrations, or full brand-guideline docs.",
+          "version": "1.2.1"
+        },
+        {
+          "name": "oss-ready",
+          "installUrl": "github:luongnv89/skills:skills/oss-ready",
+          "description": "Transform a project into a professional open-source repository by adding LICENSE, README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, and GitHub issue/PR templates. Don't use for documentation overhauls, landing-page generation, or registry publishing.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "prd-generator",
+          "installUrl": "github:luongnv89/skills:skills/prd-generator",
+          "description": "Generate Product Requirements Documents from `idea.md` and `validate.md` files. Use when asked to create or update a PRD. Don't use for TAD, sprint tasks, or raw idea validation.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "readme-to-landing-page",
+          "installUrl": "github:luongnv89/skills:skills/readme-to-landing-page",
+          "description": "Transform a project README.md into a conversion-optimized landing page using PAS, AIDA, or StoryBrand — hero, value prop, how it works, quick start, CTA in pure markdown. Skip for full HTML sites or general blog copy.",
+          "version": "2.1.0"
+        },
+        {
+          "name": "tad-generator",
+          "installUrl": "github:luongnv89/skills:skills/tad-generator",
+          "description": "Generate a Technical Architecture Document (TAD) from a PRD. Use when asked to design the architecture, create a TAD, or define how a product is built. Creates/updates tad.md and reports GitHub links. Skip PRD authoring, sprint-tasks, or code implementation.",
+          "version": "1.3.0"
+        },
+        {
+          "name": "tasks-generator",
+          "installUrl": "github:luongnv89/skills:skills/tasks-generator",
+          "description": "Generate development tasks from a PRD file with sprint-based planning. Use when users ask to create tasks from PRD, break down the PRD, generate sprint tasks, or want to convert product requirements into actionable development tasks. Creates/updates tasks.md and always reports GitHub links to changed files. Don't use for writing a PRD, authoring a TAD, or executing tasks (see openspec-task-loop).",
+          "version": "1.2.1"
+        },
+        {
+          "name": "test-coverage",
+          "installUrl": "github:luongnv89/skills:skills/test-coverage",
+          "description": "Generate unit tests for untested branches and edge cases. Use when coverage is low, CI flags gaps, or a release needs hardening. Not for integration/E2E suites, framework migrations, or fixing production bugs.",
+          "version": "1.2.3"
+        },
+        {
+          "name": "usability-review",
+          "installUrl": "github:luongnv89/skills:skills/usability-review",
+          "description": "Review UI for usability issues using Steve Krug's principles and produce a scannable report. Use when asked for a usability audit, UX review, or UI feedback on screenshots, URLs, or code. Don't use for visual/brand design critique, accessibility (WCAG) audits, or backend/API review.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "website-cloner",
+          "installUrl": "github:luongnv89/skills:skills/website-cloner",
+          "description": "6-phase website cloning and improvement orchestrator. Takes a URL and produces an improved version (performance + UI/UX) via Vite/React/shadcn/Tailwind hosted on GitHub Pages. Use when asked to clone a site, rebuild a website, or make a better version of a URL. Orchestrates sibling skills with approval gates — don't use for single-phase work.",
+          "version": "1.1.1"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "luongnv89",
+        "repo": "skills",
+        "repoUrl": "https://github.com/luongnv89/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "luongnv89-skills-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from luongnv89/skills.",
+      "author": "ASM (luongnv89/skills)",
+      "createdAt": "2026-05-09T08:10:41.461Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "luongnv89",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "agent-config",
+          "installUrl": "github:luongnv89/skills:skills/agent-config",
+          "description": "Create or update CLAUDE.md and AGENTS.md files following official best practices. Use when asked to create, audit, or improve agent config files (CLAUDE.md, AGENTS.md). Don't use for README/contributor docs or non-Claude IDE plugins.",
+          "version": "1.3.0"
+        },
+        {
+          "name": "auto-push",
+          "installUrl": "github:luongnv89/skills:skills/auto-push",
+          "description": "Generate a commit message, stage all changes, and push to remote after scanning for secrets, large files, and protected-branch risks. Skip for opening PRs, code review, or cutting releases/tags.",
+          "version": "1.0.2"
+        },
+        {
+          "name": "brand-name-checker",
+          "installUrl": "github:luongnv89/skills:skills/brand-name-checker",
+          "description": "Check product and brand names for conflicts across trademarks, domains, social handles, and package registries. Returns a risk level and Proceed/Modify/Abandon recommendation. Skip for name brainstorming, logo design, or trademark filings.",
+          "version": "1.3.0"
+        },
+        {
+          "name": "cli-builder",
+          "installUrl": "github:luongnv89/skills:skills/cli-builder",
+          "description": "Build a production-quality CLI tool for any module or application. Auto-detects language, recommends CLI libraries, and follows a 5-step approval-gated workflow: Analyze, Design, Plan, Execute, Summarize. Don't use for building GUI/TUI apps, web APIs, or authoring one-off shell scripts.",
+          "version": "1.0.3"
+        },
+        {
+          "name": "code-optimizer",
+          "installUrl": "github:luongnv89/skills:skills/code-optimizer",
+          "description": "Analyze code for performance bottlenecks, memory leaks, and algorithmic inefficiencies. Use when asked to optimize, find bottlenecks, or improve efficiency. Don't use for bug-hunting code review, security audits, or refactoring without a perf goal.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "code-review",
+          "installUrl": "github:luongnv89/skills:skills/code-review",
+          "description": "Review code changes for bugs, security vulnerabilities, and code quality issues — producing prioritized findings with specific fix suggestions. Don't use for performance tuning, writing new features from scratch, or generating test cases.",
+          "version": "1.1.4"
+        },
+        {
+          "name": "devops-pipeline",
+          "installUrl": "github:luongnv89/skills:skills/devops-pipeline",
+          "description": "Configure pre-commit hooks and lean GitHub Actions for shift-left quality assurance. Use when adding or auditing CI/CD on a Git repo to maximize local test coverage and minimize CI cost. Skip for Terraform/K8s, deployment pipelines, or non-GitHub CI providers.",
+          "version": "2.0.1"
+        },
+        {
+          "name": "idea-validator",
+          "installUrl": "github:luongnv89/skills:skills/idea-validator",
+          "description": "Evaluate app ideas and startup concepts across market viability, technical feasibility, and competitive landscape. Use when asked to validate, review, or score a product idea. Don't use for writing a PRD, detailed go-to-market plans, or financial/investor pitch decks.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "install-script-generator",
+          "installUrl": "github:luongnv89/skills:skills/install-script-generator",
+          "description": "Generate cross-platform installation scripts for any software, library, or module. Produces a standalone install.sh runnable via a single curl/wget one-liner, with automatic OS, architecture, and package manager detection. Don't use for authoring Dockerfiles, CI/CD pipelines, or one-off local shell scripts.",
+          "version": "2.1.0"
+        },
+        {
+          "name": "logo-designer",
+          "installUrl": "github:luongnv89/skills:skills/logo-designer",
+          "description": "Generate professional SVG logos from project context, producing 7 brand variants (mark, full, wordmark, icon, favicon, white, black) plus a showcase HTML page. Skip for raster-only logos, product illustrations, or full brand-guideline docs.",
+          "version": "1.2.1"
+        },
+        {
+          "name": "release-manager",
+          "installUrl": "github:luongnv89/skills:skills/release-manager",
+          "description": "Manage software releases end-to-end: bump version, generate changelog, tag, push, GitHub release, publish to PyPI/npm. Use when user asks to ship, cut a release, tag a version, or list changes since last tag. Skip routine commits and marketplace publishing.",
+          "version": "2.4.1"
+        },
+        {
+          "name": "security-setup",
+          "installUrl": "github:luongnv89/skills:skills/security-setup",
+          "description": "Install local-first security hardening: pre-commit secret detection, offline dependency scans, static analysis, reports, and gated free CI. Use when hardening repos or adding security hooks. Don't use for incident response or cloud security reviews.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "slop-cleanup",
+          "installUrl": "github:luongnv89/skills:skills/slop-cleanup",
+          "description": "Refactor a codebase to remove AI slop, dead code, weak types, duplication, defensive over-engineering, and legacy cruft using 8 parallel specialized subagents across two cleanup waves. Don't use for adding new features, performance tuning, or security-only audits.",
+          "version": "1.1.1"
+        },
+        {
+          "name": "test-coverage",
+          "installUrl": "github:luongnv89/skills:skills/test-coverage",
+          "description": "Generate unit tests for untested branches and edge cases. Use when coverage is low, CI flags gaps, or a release needs hardening. Not for integration/E2E suites, framework migrations, or fixing production bugs.",
+          "version": "1.2.3"
+        },
+        {
+          "name": "usability-review",
+          "installUrl": "github:luongnv89/skills:skills/usability-review",
+          "description": "Review UI for usability issues using Steve Krug's principles and produce a scannable report. Use when asked for a usability audit, UX review, or UI feedback on screenshots, URLs, or code. Don't use for visual/brand design critique, accessibility (WCAG) audits, or backend/API review.",
+          "version": "1.2.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "luongnv89",
+        "repo": "skills",
+        "repoUrl": "https://github.com/luongnv89/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "luongnv89-skills-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from luongnv89/skills.",
+      "author": "ASM (luongnv89/skills)",
+      "createdAt": "2026-05-09T08:10:41.461Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "luongnv89",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "agent-config",
+          "installUrl": "github:luongnv89/skills:skills/agent-config",
+          "description": "Create or update CLAUDE.md and AGENTS.md files following official best practices. Use when asked to create, audit, or improve agent config files (CLAUDE.md, AGENTS.md). Don't use for README/contributor docs or non-Claude IDE plugins.",
+          "version": "1.3.0"
+        },
+        {
+          "name": "appstore-review-checker",
+          "installUrl": "github:luongnv89/skills:skills/appstore-review-checker",
+          "description": "Audit iOS/macOS app projects against Apple App Store Review Guidelines to catch rejection risks before submission, with per-guideline PASS/FAIL/WARNING verdicts and fix suggestions. Don't use for Google Play/Android submissions, general code review, or post-rejection appeal drafting.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "aso-marketing",
+          "installUrl": "github:luongnv89/skills:skills/aso-marketing",
+          "description": "Optimize App Store and Google Play listings with keyword strategy, metadata, and localization. Use when asked to improve app store visibility or ASO. Don't use for web SEO, paid UA campaigns, or pre-submission compliance audits.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "brand-name-checker",
+          "installUrl": "github:luongnv89/skills:skills/brand-name-checker",
+          "description": "Check product and brand names for conflicts across trademarks, domains, social handles, and package registries. Returns a risk level and Proceed/Modify/Abandon recommendation. Skip for name brainstorming, logo design, or trademark filings.",
+          "version": "1.3.0"
+        },
+        {
+          "name": "docs-generator",
+          "installUrl": "github:luongnv89/skills:skills/docs-generator",
+          "description": "Generate and restructure project documentation into a clear, accessible hierarchy. Use when asked to organize docs, generate documentation, improve doc structure, or restructure README. Don't use for API reference generation from code (JSDoc/Sphinx), authoring a landing page, or agent-config files like CLAUDE.md.",
+          "version": "1.2.3"
+        },
+        {
+          "name": "drawio-generator",
+          "installUrl": "github:luongnv89/skills:skills/drawio-generator",
+          "description": "Generate professional diagrams as valid draw.io XML files — flowcharts, architecture, C4 models, ER diagrams, sequence diagrams, mind maps, and swimlanes. Don't use for Excalidraw or Mermaid output, hand-drawn sketch styles, or slide decks/presentations.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "excalidraw-generator",
+          "installUrl": "github:luongnv89/skills:skills/excalidraw-generator",
+          "description": "Generate professional diagrams as valid Excalidraw JSON files — flowcharts, architecture, ER diagrams, mind maps, sequence diagrams, wireframes, C4 models, and more. Understands text, code, schemas, or verbal descriptions. Don't use for draw.io/Mermaid output, polished production slide decks, or pixel-perfect brand graphics.",
+          "version": "1.3.0"
+        },
+        {
+          "name": "idea-validator",
+          "installUrl": "github:luongnv89/skills:skills/idea-validator",
+          "description": "Evaluate app ideas and startup concepts across market viability, technical feasibility, and competitive landscape. Use when asked to validate, review, or score a product idea. Don't use for writing a PRD, detailed go-to-market plans, or financial/investor pitch decks.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "ollama-optimizer",
+          "installUrl": "github:luongnv89/skills:skills/ollama-optimizer",
+          "description": "Optimize Ollama configuration for the current machine's hardware. Use when asked to speed up Ollama, tune local LLM performance, or pick models that fit available GPU/RAM.",
+          "version": "1.0.4"
+        },
+        {
+          "name": "readme-to-landing-page",
+          "installUrl": "github:luongnv89/skills:skills/readme-to-landing-page",
+          "description": "Transform a project README.md into a conversion-optimized landing page using PAS, AIDA, or StoryBrand — hero, value prop, how it works, quick start, CTA in pure markdown. Skip for full HTML sites or general blog copy.",
+          "version": "2.1.0"
+        },
+        {
+          "name": "security-setup",
+          "installUrl": "github:luongnv89/skills:skills/security-setup",
+          "description": "Install local-first security hardening: pre-commit secret detection, offline dependency scans, static analysis, reports, and gated free CI. Use when hardening repos or adding security hooks. Don't use for incident response or cloud security reviews.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "seo-ai-optimizer",
+          "installUrl": "github:luongnv89/skills:skills/seo-ai-optimizer",
+          "description": "Audit and optimize websites for technical SEO, content SEO, and AI bot accessibility. Fixes meta tags, sitemaps, robots.txt, structured data, llms.txt, and GPTBot/ClaudeBot directives. Not for App Store ASO, paid search, or blog writing.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "slop-cleanup",
+          "installUrl": "github:luongnv89/skills:skills/slop-cleanup",
+          "description": "Refactor a codebase to remove AI slop, dead code, weak types, duplication, defensive over-engineering, and legacy cruft using 8 parallel specialized subagents across two cleanup waves. Don't use for adding new features, performance tuning, or security-only audits.",
+          "version": "1.1.1"
+        },
+        {
+          "name": "website-cloner",
+          "installUrl": "github:luongnv89/skills:skills/website-cloner",
+          "description": "6-phase website cloning and improvement orchestrator. Takes a URL and produces an improved version (performance + UI/UX) via Vite/React/shadcn/Tailwind hosted on GitHub Pages. Use when asked to clone a site, rebuild a website, or make a better version of a URL. Orchestrates sibling skills with approval gates — don't use for single-phase work.",
+          "version": "1.1.1"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "luongnv89",
+        "repo": "skills",
+        "repoUrl": "https://github.com/luongnv89/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "luongnv89-skills-product-business",
+      "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from luongnv89/skills.",
+      "author": "ASM (luongnv89/skills)",
+      "createdAt": "2026-05-09T08:10:41.461Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "product",
+        "business",
+        "planning",
+        "luongnv89",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "aso-marketing",
+          "installUrl": "github:luongnv89/skills:skills/aso-marketing",
+          "description": "Optimize App Store and Google Play listings with keyword strategy, metadata, and localization. Use when asked to improve app store visibility or ASO. Don't use for web SEO, paid UA campaigns, or pre-submission compliance audits.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "brand-name-checker",
+          "installUrl": "github:luongnv89/skills:skills/brand-name-checker",
+          "description": "Check product and brand names for conflicts across trademarks, domains, social handles, and package registries. Returns a risk level and Proceed/Modify/Abandon recommendation. Skip for name brainstorming, logo design, or trademark filings.",
+          "version": "1.3.0"
+        },
+        {
+          "name": "cli-builder",
+          "installUrl": "github:luongnv89/skills:skills/cli-builder",
+          "description": "Build a production-quality CLI tool for any module or application. Auto-detects language, recommends CLI libraries, and follows a 5-step approval-gated workflow: Analyze, Design, Plan, Execute, Summarize. Don't use for building GUI/TUI apps, web APIs, or authoring one-off shell scripts.",
+          "version": "1.0.3"
+        },
+        {
+          "name": "excalidraw-generator",
+          "installUrl": "github:luongnv89/skills:skills/excalidraw-generator",
+          "description": "Generate professional diagrams as valid Excalidraw JSON files — flowcharts, architecture, ER diagrams, mind maps, sequence diagrams, wireframes, C4 models, and more. Understands text, code, schemas, or verbal descriptions. Don't use for draw.io/Mermaid output, polished production slide decks, or pixel-perfect brand graphics.",
+          "version": "1.3.0"
+        },
+        {
+          "name": "frontend-design",
+          "installUrl": "github:luongnv89/skills:skills/frontend-design",
+          "description": "Build production-grade frontend interfaces with distinctive aesthetics and working code. Use when asked to create a UI, component, page, or frontend feature. Skip for backend/API work or usability-only audits.",
+          "version": "1.2.2"
+        },
+        {
+          "name": "idea-validator",
+          "installUrl": "github:luongnv89/skills:skills/idea-validator",
+          "description": "Evaluate app ideas and startup concepts across market viability, technical feasibility, and competitive landscape. Use when asked to validate, review, or score a product idea. Don't use for writing a PRD, detailed go-to-market plans, or financial/investor pitch decks.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "logo-designer",
+          "installUrl": "github:luongnv89/skills:skills/logo-designer",
+          "description": "Generate professional SVG logos from project context, producing 7 brand variants (mark, full, wordmark, icon, favicon, white, black) plus a showcase HTML page. Skip for raster-only logos, product illustrations, or full brand-guideline docs.",
+          "version": "1.2.1"
+        },
+        {
+          "name": "prd-generator",
+          "installUrl": "github:luongnv89/skills:skills/prd-generator",
+          "description": "Generate Product Requirements Documents from `idea.md` and `validate.md` files. Use when asked to create or update a PRD. Don't use for TAD, sprint tasks, or raw idea validation.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "release-manager",
+          "installUrl": "github:luongnv89/skills:skills/release-manager",
+          "description": "Manage software releases end-to-end: bump version, generate changelog, tag, push, GitHub release, publish to PyPI/npm. Use when user asks to ship, cut a release, tag a version, or list changes since last tag. Skip routine commits and marketplace publishing.",
+          "version": "2.4.1"
+        },
+        {
+          "name": "tad-generator",
+          "installUrl": "github:luongnv89/skills:skills/tad-generator",
+          "description": "Generate a Technical Architecture Document (TAD) from a PRD. Use when asked to design the architecture, create a TAD, or define how a product is built. Creates/updates tad.md and reports GitHub links. Skip PRD authoring, sprint-tasks, or code implementation.",
+          "version": "1.3.0"
+        },
+        {
+          "name": "tasks-generator",
+          "installUrl": "github:luongnv89/skills:skills/tasks-generator",
+          "description": "Generate development tasks from a PRD file with sprint-based planning. Use when users ask to create tasks from PRD, break down the PRD, generate sprint tasks, or want to convert product requirements into actionable development tasks. Creates/updates tasks.md and always reports GitHub links to changed files. Don't use for writing a PRD, authoring a TAD, or executing tasks (see openspec-task-loop).",
+          "version": "1.2.1"
+        },
+        {
+          "name": "test-coverage",
+          "installUrl": "github:luongnv89/skills:skills/test-coverage",
+          "description": "Generate unit tests for untested branches and edge cases. Use when coverage is low, CI flags gaps, or a release needs hardening. Not for integration/E2E suites, framework migrations, or fixing production bugs.",
+          "version": "1.2.3"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "luongnv89",
+        "repo": "skills",
+        "repoUrl": "https://github.com/luongnv89/skills.git"
+      },
+      "inferred": true
+    }
   ]
 }

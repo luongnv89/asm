@@ -336,6 +336,19 @@ export interface IndexedSkill {
   evalSummaries?: Record<string, SkillEvalSummary>;
 }
 
+export interface RepoBundleSource {
+  owner: string;
+  repo: string;
+  repoUrl: string;
+  relPath?: string;
+}
+
+export interface RepoIndexBundle extends BundleManifest {
+  sourceRepo: RepoBundleSource;
+  inferred?: boolean;
+  explicit?: boolean;
+}
+
 export interface RepoIndex {
   repoUrl: string;
   owner: string;
@@ -343,6 +356,8 @@ export interface RepoIndex {
   updatedAt: string;
   skillCount: number;
   skills: IndexedSkill[];
+  /** Repo-derived bundles created from explicit bundle metadata or inference. */
+  bundles?: RepoIndexBundle[];
 }
 
 // ─── Security Audit Types ────────────────────────────────────────────────

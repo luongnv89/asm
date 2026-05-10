@@ -2745,5 +2745,409 @@
         }
       }
     }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "paramchoudhary-resumeskills-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from Paramchoudhary/ResumeSkills.",
+      "author": "ASM (Paramchoudhary/ResumeSkills)",
+      "createdAt": "2026-05-09T08:11:12.290Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "paramchoudhary",
+        "resumeskills"
+      ],
+      "skills": [
+        {
+          "name": "Executive Resume Writer",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/executive-resume-writer",
+          "description": "Create C-suite and VP level resumes emphasizing strategic leadership",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Portfolio Case Study Writer",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/portfolio-case-study-writer",
+          "description": "Transform resume bullets into detailed portfolio case studies",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Resume Bullet Writer",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-bullet-writer",
+          "description": "Transform weak resume bullets into achievement-focused statements with metrics and impact",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Paramchoudhary",
+        "repo": "ResumeSkills",
+        "repoUrl": "https://github.com/Paramchoudhary/ResumeSkills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "paramchoudhary-resumeskills-research",
+      "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from Paramchoudhary/ResumeSkills.",
+      "author": "ASM (Paramchoudhary/ResumeSkills)",
+      "createdAt": "2026-05-09T08:11:12.290Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "research",
+        "academic",
+        "analysis",
+        "paramchoudhary",
+        "resumeskills"
+      ],
+      "skills": [
+        {
+          "name": "Academic CV Builder",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/academic-cv-builder",
+          "description": "Format CVs for academic positions with publications, grants, and teaching",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Offer Comparison Analyzer",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/offer-comparison-analyzer",
+          "description": "Compare multiple job offers side-by-side with total compensation analysis",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Salary Negotiation Prep",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/salary-negotiation-prep",
+          "description": "Research market rates, build negotiation strategy, and create counter-offer scripts",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Paramchoudhary",
+        "repo": "ResumeSkills",
+        "repoUrl": "https://github.com/Paramchoudhary/ResumeSkills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "paramchoudhary-resumeskills-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from Paramchoudhary/ResumeSkills.",
+      "author": "ASM (Paramchoudhary/ResumeSkills)",
+      "createdAt": "2026-05-09T08:11:12.290Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "paramchoudhary",
+        "resumeskills"
+      ],
+      "skills": [
+        {
+          "name": "Academic CV Builder",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/academic-cv-builder",
+          "description": "Format CVs for academic positions with publications, grants, and teaching",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Reference List Builder",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/reference-list-builder",
+          "description": "Format professional references properly and prepare reference materials",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Resume Section Builder",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-section-builder",
+          "description": "Create targeted resume sections optimized for different experience levels and roles",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Salary Negotiation Prep",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/salary-negotiation-prep",
+          "description": "Research market rates, build negotiation strategy, and create counter-offer scripts",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Paramchoudhary",
+        "repo": "ResumeSkills",
+        "repoUrl": "https://github.com/Paramchoudhary/ResumeSkills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "paramchoudhary-resumeskills-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Paramchoudhary/ResumeSkills.",
+      "author": "ASM (Paramchoudhary/ResumeSkills)",
+      "createdAt": "2026-05-09T08:11:12.290Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "paramchoudhary",
+        "resumeskills"
+      ],
+      "skills": [
+        {
+          "name": "Academic CV Builder",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/academic-cv-builder",
+          "description": "Format CVs for academic positions with publications, grants, and teaching",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Creative Portfolio Resume",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/creative-portfolio-resume",
+          "description": "Balance visual design with ATS compatibility for creative roles",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Executive Resume Writer",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/executive-resume-writer",
+          "description": "Create C-suite and VP level resumes emphasizing strategic leadership",
+          "version": "0.0.0"
+        },
+        {
+          "name": "LinkedIn Profile Optimizer",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/linkedin-profile-optimizer",
+          "description": "Optimize LinkedIn profile for searchability, recruiter visibility, and engagement",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Reference List Builder",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/reference-list-builder",
+          "description": "Format professional references properly and prepare reference materials",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Resume Formatter",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-formatter",
+          "description": "Ensure ATS-friendly formatting and create clean scannable layouts",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Resume Section Builder",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-section-builder",
+          "description": "Create targeted resume sections optimized for different experience levels and roles",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Salary Negotiation Prep",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/salary-negotiation-prep",
+          "description": "Research market rates, build negotiation strategy, and create counter-offer scripts",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Paramchoudhary",
+        "repo": "ResumeSkills",
+        "repoUrl": "https://github.com/Paramchoudhary/ResumeSkills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "paramchoudhary-resumeskills-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Paramchoudhary/ResumeSkills.",
+      "author": "ASM (Paramchoudhary/ResumeSkills)",
+      "createdAt": "2026-05-09T08:11:12.290Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "paramchoudhary",
+        "resumeskills"
+      ],
+      "skills": [
+        {
+          "name": "Offer Comparison Analyzer",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/offer-comparison-analyzer",
+          "description": "Compare multiple job offers side-by-side with total compensation analysis",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Portfolio Case Study Writer",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/portfolio-case-study-writer",
+          "description": "Transform resume bullets into detailed portfolio case studies",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Resume Quantifier",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-quantifier",
+          "description": "Find opportunities to add metrics and estimate numbers when exact data unavailable",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Resume Tailor",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-tailor",
+          "description": "Customize resume for specific job postings while maintaining truthfulness",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Resume Version Manager",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-version-manager",
+          "description": "Track different resume versions, maintain master resume, manage tailored versions",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Paramchoudhary",
+        "repo": "ResumeSkills",
+        "repoUrl": "https://github.com/Paramchoudhary/ResumeSkills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "paramchoudhary-resumeskills-product-business",
+      "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from Paramchoudhary/ResumeSkills.",
+      "author": "ASM (Paramchoudhary/ResumeSkills)",
+      "createdAt": "2026-05-09T08:11:12.290Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "product",
+        "business",
+        "planning",
+        "paramchoudhary",
+        "resumeskills"
+      ],
+      "skills": [
+        {
+          "name": "Academic CV Builder",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/academic-cv-builder",
+          "description": "Format CVs for academic positions with publications, grants, and teaching",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Career Changer Translator",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/career-changer-translator",
+          "description": "Translate skills from one industry to another, identify transferable skills",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Cover Letter Generator",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/cover-letter-generator",
+          "description": "Create personalized, compelling cover letters from resume and job description",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Creative Portfolio Resume",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/creative-portfolio-resume",
+          "description": "Balance visual design with ATS compatibility for creative roles",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Executive Resume Writer",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/executive-resume-writer",
+          "description": "Create C-suite and VP level resumes emphasizing strategic leadership",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Interview Prep Generator",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/interview-prep-generator",
+          "description": "Generate STAR stories, practice questions, and talking points from resume",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Job Description Analyzer",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/job-description-analyzer",
+          "description": "Analyze job postings, calculate match scores, identify gaps, and create application strategy",
+          "version": "0.0.0"
+        },
+        {
+          "name": "LinkedIn Profile Optimizer",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/linkedin-profile-optimizer",
+          "description": "Optimize LinkedIn profile for searchability, recruiter visibility, and engagement",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Offer Comparison Analyzer",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/offer-comparison-analyzer",
+          "description": "Compare multiple job offers side-by-side with total compensation analysis",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Portfolio Case Study Writer",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/portfolio-case-study-writer",
+          "description": "Transform resume bullets into detailed portfolio case studies",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Reference List Builder",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/reference-list-builder",
+          "description": "Format professional references properly and prepare reference materials",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Resume ATS Optimizer",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-ats-optimizer",
+          "description": "Optimize resumes for Applicant Tracking Systems, check ATS compatibility, and analyze keyword match",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Resume Bullet Writer",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-bullet-writer",
+          "description": "Transform weak resume bullets into achievement-focused statements with metrics and impact",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Resume Formatter",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-formatter",
+          "description": "Ensure ATS-friendly formatting and create clean scannable layouts",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Resume Quantifier",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-quantifier",
+          "description": "Find opportunities to add metrics and estimate numbers when exact data unavailable",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Resume Section Builder",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-section-builder",
+          "description": "Create targeted resume sections optimized for different experience levels and roles",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Resume Tailor",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-tailor",
+          "description": "Customize resume for specific job postings while maintaining truthfulness",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Resume Version Manager",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-version-manager",
+          "description": "Track different resume versions, maintain master resume, manage tailored versions",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Salary Negotiation Prep",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/salary-negotiation-prep",
+          "description": "Research market rates, build negotiation strategy, and create counter-offer scripts",
+          "version": "0.0.0"
+        },
+        {
+          "name": "Tech Resume Optimizer",
+          "installUrl": "github:Paramchoudhary/ResumeSkills:skills/tech-resume-optimizer",
+          "description": "Optimize resumes for software engineering, PM, and technical roles",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Paramchoudhary",
+        "repo": "ResumeSkills",
+        "repoUrl": "https://github.com/Paramchoudhary/ResumeSkills.git"
+      },
+      "inferred": true
+    }
   ]
 }

@@ -690,5 +690,115 @@
         }
       }
     }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "kepano-obsidian-skills-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from kepano/obsidian-skills.",
+      "author": "ASM (kepano/obsidian-skills)",
+      "createdAt": "2026-05-09T08:10:45.552Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "kepano",
+        "obsidian-skills"
+      ],
+      "skills": [
+        {
+          "name": "defuddle",
+          "installUrl": "github:kepano/obsidian-skills:skills/defuddle",
+          "description": "Extract clean markdown content from web pages using Defuddle CLI, removing clutter and navigation to save tokens. Use instead of WebFetch when the user provides a URL to read or analyze, for online documentation, articles, blog posts, or any standard web page. Do NOT use for URLs ending in .md — those are already markdown, use WebFetch directly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "obsidian-cli",
+          "installUrl": "github:kepano/obsidian-skills:skills/obsidian-cli",
+          "description": "Interact with Obsidian vaults using the Obsidian CLI to read, create, search, and manage notes, tasks, properties, and more. Also supports plugin and theme development with commands to reload plugins, run JavaScript, capture errors, take screenshots, and inspect the DOM. Use when the user asks to interact with their Obsidian vault, manage notes, search vault content, perform vault operations from the command line, or develop and debug Obsidian plugins and themes.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "kepano",
+        "repo": "obsidian-skills",
+        "repoUrl": "https://github.com/kepano/obsidian-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "kepano-obsidian-skills-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from kepano/obsidian-skills.",
+      "author": "ASM (kepano/obsidian-skills)",
+      "createdAt": "2026-05-09T08:10:45.552Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "kepano",
+        "obsidian-skills"
+      ],
+      "skills": [
+        {
+          "name": "defuddle",
+          "installUrl": "github:kepano/obsidian-skills:skills/defuddle",
+          "description": "Extract clean markdown content from web pages using Defuddle CLI, removing clutter and navigation to save tokens. Use instead of WebFetch when the user provides a URL to read or analyze, for online documentation, articles, blog posts, or any standard web page. Do NOT use for URLs ending in .md — those are already markdown, use WebFetch directly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "obsidian-cli",
+          "installUrl": "github:kepano/obsidian-skills:skills/obsidian-cli",
+          "description": "Interact with Obsidian vaults using the Obsidian CLI to read, create, search, and manage notes, tasks, properties, and more. Also supports plugin and theme development with commands to reload plugins, run JavaScript, capture errors, take screenshots, and inspect the DOM. Use when the user asks to interact with their Obsidian vault, manage notes, search vault content, perform vault operations from the command line, or develop and debug Obsidian plugins and themes.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "kepano",
+        "repo": "obsidian-skills",
+        "repoUrl": "https://github.com/kepano/obsidian-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "kepano-obsidian-skills-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from kepano/obsidian-skills.",
+      "author": "ASM (kepano/obsidian-skills)",
+      "createdAt": "2026-05-09T08:10:45.552Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "kepano",
+        "obsidian-skills"
+      ],
+      "skills": [
+        {
+          "name": "json-canvas",
+          "installUrl": "github:kepano/obsidian-skills:skills/json-canvas",
+          "description": "Create and edit JSON Canvas files (.canvas) with nodes, edges, groups, and connections. Use when working with .canvas files, creating visual canvases, mind maps, flowcharts, or when the user mentions Canvas files in Obsidian.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "obsidian-cli",
+          "installUrl": "github:kepano/obsidian-skills:skills/obsidian-cli",
+          "description": "Interact with Obsidian vaults using the Obsidian CLI to read, create, search, and manage notes, tasks, properties, and more. Also supports plugin and theme development with commands to reload plugins, run JavaScript, capture errors, take screenshots, and inspect the DOM. Use when the user asks to interact with their Obsidian vault, manage notes, search vault content, perform vault operations from the command line, or develop and debug Obsidian plugins and themes.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "kepano",
+        "repo": "obsidian-skills",
+        "repoUrl": "https://github.com/kepano/obsidian-skills.git"
+      },
+      "inferred": true
+    }
   ]
 }

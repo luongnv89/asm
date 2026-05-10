@@ -1786,5 +1786,391 @@
         }
       }
     }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "google-skills-research",
+      "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from google/skills.",
+      "author": "ASM (google/skills)",
+      "createdAt": "2026-05-09T08:11:10.843Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "research",
+        "academic",
+        "analysis",
+        "google",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "bigquery-basics",
+          "installUrl": "github:google/skills:skills/cloud/bigquery-basics",
+          "description": "Manages datasets, tables, and jobs in BigQuery, and integrates with BigQuery ML and Gemini for advanced data analytics and AI-driven insights. Use when you need to interact with BigQuery, run SQL queries, manage BigQuery resources, or leverage BigQuery's built-in ML capabilities. Also use when performing data analysis, ingesting data into BigQuery, or developing AI applications on BigQuery.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-cost-optimization",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-cost-optimization",
+          "description": "Generates cost optimization guidance for Google Cloud workloads based on the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify cost requirements and constraints, and provide actionable recommendations for build, deploy, and manage the workload cost-efficiently in Google Cloud.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-reliability",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-reliability",
+          "description": "Generates reliability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework. Use this skill to evaluate a workload, identify reliability requirements, and provide actionable recommendations for build, deploy, and manage the workload reliably in Google Cloud.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-security",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-security",
+          "description": "Generates security-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify security requirements, and provide actionable recommendations for IAM, network security, data protection, and operational security.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "skills",
+        "repoUrl": "https://github.com/google/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-skills-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from google/skills.",
+      "author": "ASM (google/skills)",
+      "createdAt": "2026-05-09T08:11:10.843Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "google",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "gemini-api",
+          "installUrl": "github:google/skills:skills/cloud/gemini-api",
+          "description": "Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like Live API, tools, multimedia generation, caching, and batch prediction.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gke-basics",
+          "installUrl": "github:google/skills:skills/cloud/gke-basics",
+          "description": "Plan, create, and configure production-ready Google Kubernetes Engine (GKE) clusters using the golden path Autopilot configuration. Covers Day-0 checklist, Autopilot vs Standard, networking (private clusters, VPC-native, Gateway API), security (Workload Identity, Secret Manager, RBAC hardening), observability, scaling, cost optimization, and AI/ML inference. WHEN: create GKE cluster, provision GKE environment, design GKE networking, secure GKE, optimize GKE cost, GKE autoscaling, GKE inference, GKE upgrade, GKE observability, GKE multi-tenancy, GKE batch, GKE HPC, GKE compute class.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "google-cloud-recipe-auth",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-recipe-auth",
+          "description": "Provides expert guidance on authenticating and authorizing to Google Cloud services and APIs, covering human users, service identities, Application Default Credentials (ADC), and best practices for secure access.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-recipe-networking-observability",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-networking-observability",
+          "description": "Investigates Google Cloud networking issues by analyzing logs, metrics, and diagnostics. Use when investigating VPC Flow Logs, NAT, firewall, or threat logs, querying latency and throughput metrics, or running Connectivity Tests for path diagnostics.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-cost-optimization",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-cost-optimization",
+          "description": "Generates cost optimization guidance for Google Cloud workloads based on the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify cost requirements and constraints, and provide actionable recommendations for build, deploy, and manage the workload cost-efficiently in Google Cloud.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-reliability",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-reliability",
+          "description": "Generates reliability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework. Use this skill to evaluate a workload, identify reliability requirements, and provide actionable recommendations for build, deploy, and manage the workload reliably in Google Cloud.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "skills",
+        "repoUrl": "https://github.com/google/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-skills-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from google/skills.",
+      "author": "ASM (google/skills)",
+      "createdAt": "2026-05-09T08:11:10.843Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "google",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "bigquery-basics",
+          "installUrl": "github:google/skills:skills/cloud/bigquery-basics",
+          "description": "Manages datasets, tables, and jobs in BigQuery, and integrates with BigQuery ML and Gemini for advanced data analytics and AI-driven insights. Use when you need to interact with BigQuery, run SQL queries, manage BigQuery resources, or leverage BigQuery's built-in ML capabilities. Also use when performing data analysis, ingesting data into BigQuery, or developing AI applications on BigQuery.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gemini-api",
+          "installUrl": "github:google/skills:skills/cloud/gemini-api",
+          "description": "Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like Live API, tools, multimedia generation, caching, and batch prediction.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gke-basics",
+          "installUrl": "github:google/skills:skills/cloud/gke-basics",
+          "description": "Plan, create, and configure production-ready Google Kubernetes Engine (GKE) clusters using the golden path Autopilot configuration. Covers Day-0 checklist, Autopilot vs Standard, networking (private clusters, VPC-native, Gateway API), security (Workload Identity, Secret Manager, RBAC hardening), observability, scaling, cost optimization, and AI/ML inference. WHEN: create GKE cluster, provision GKE environment, design GKE networking, secure GKE, optimize GKE cost, GKE autoscaling, GKE inference, GKE upgrade, GKE observability, GKE multi-tenancy, GKE batch, GKE HPC, GKE compute class.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "google-cloud-recipe-auth",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-recipe-auth",
+          "description": "Provides expert guidance on authenticating and authorizing to Google Cloud services and APIs, covering human users, service identities, Application Default Credentials (ADC), and best practices for secure access.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-recipe-onboarding",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-recipe-onboarding",
+          "description": "Guidance for a developer's first steps on Google Cloud, covering account creation, billing setup, project management, and deploying a first resource.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-cost-optimization",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-cost-optimization",
+          "description": "Generates cost optimization guidance for Google Cloud workloads based on the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify cost requirements and constraints, and provide actionable recommendations for build, deploy, and manage the workload cost-efficiently in Google Cloud.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-reliability",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-reliability",
+          "description": "Generates reliability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework. Use this skill to evaluate a workload, identify reliability requirements, and provide actionable recommendations for build, deploy, and manage the workload reliably in Google Cloud.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-security",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-security",
+          "description": "Generates security-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify security requirements, and provide actionable recommendations for IAM, network security, data protection, and operational security.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "skills",
+        "repoUrl": "https://github.com/google/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-skills-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from google/skills.",
+      "author": "ASM (google/skills)",
+      "createdAt": "2026-05-09T08:11:10.843Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "google",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "alloydb-basics",
+          "installUrl": "github:google/skills:skills/cloud/alloydb-basics",
+          "description": "Manages clusters, instances, and backups for AlloyDB for PostgreSQL, and integrates with AlloyDB model context protocol (MCP) tools for automated database operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "bigquery-basics",
+          "installUrl": "github:google/skills:skills/cloud/bigquery-basics",
+          "description": "Manages datasets, tables, and jobs in BigQuery, and integrates with BigQuery ML and Gemini for advanced data analytics and AI-driven insights. Use when you need to interact with BigQuery, run SQL queries, manage BigQuery resources, or leverage BigQuery's built-in ML capabilities. Also use when performing data analysis, ingesting data into BigQuery, or developing AI applications on BigQuery.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "cloud-run-basics",
+          "installUrl": "github:google/skills:skills/cloud/cloud-run-basics",
+          "description": "Manages Cloud Run services, jobs, and worker pools. Use when you need to deploy applications responding to HTTP requests (services), run event-triggered or scheduled tasks (jobs), or handle always-on pull-based background processing (worker pools).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "cloud-sql-basics",
+          "installUrl": "github:google/skills:skills/cloud/cloud-sql-basics",
+          "description": "This file generates or explains Cloud SQL resources. Use this file when the user asks to create a Cloud SQL instance or database for MySQL, PostgreSQL, or SQL Server. Cloud SQL manages third-party MySQL, PostgreSQL, and SQL Server instances as resources in Cloud SQL. For example, when Cloud SQL creates an open-source MySQL instance, the resulting resource is a Cloud SQL for MySQL instance that Google Cloud manages. Cloud SQL handles backups, high availability, and secure connectivity for relational database workloads.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "firebase-basics",
+          "installUrl": "github:google/skills:skills/cloud/firebase-basics",
+          "description": "Use this skill whenever you are working on a project that uses Firebase products or services, especially for mobile or web apps.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gemini-api",
+          "installUrl": "github:google/skills:skills/cloud/gemini-api",
+          "description": "Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like Live API, tools, multimedia generation, caching, and batch prediction.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gke-basics",
+          "installUrl": "github:google/skills:skills/cloud/gke-basics",
+          "description": "Plan, create, and configure production-ready Google Kubernetes Engine (GKE) clusters using the golden path Autopilot configuration. Covers Day-0 checklist, Autopilot vs Standard, networking (private clusters, VPC-native, Gateway API), security (Workload Identity, Secret Manager, RBAC hardening), observability, scaling, cost optimization, and AI/ML inference. WHEN: create GKE cluster, provision GKE environment, design GKE networking, secure GKE, optimize GKE cost, GKE autoscaling, GKE inference, GKE upgrade, GKE observability, GKE multi-tenancy, GKE batch, GKE HPC, GKE compute class.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "google-cloud-recipe-auth",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-recipe-auth",
+          "description": "Provides expert guidance on authenticating and authorizing to Google Cloud services and APIs, covering human users, service identities, Application Default Credentials (ADC), and best practices for secure access.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-recipe-networking-observability",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-networking-observability",
+          "description": "Investigates Google Cloud networking issues by analyzing logs, metrics, and diagnostics. Use when investigating VPC Flow Logs, NAT, firewall, or threat logs, querying latency and throughput metrics, or running Connectivity Tests for path diagnostics.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-recipe-onboarding",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-recipe-onboarding",
+          "description": "Guidance for a developer's first steps on Google Cloud, covering account creation, billing setup, project management, and deploying a first resource.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-cost-optimization",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-cost-optimization",
+          "description": "Generates cost optimization guidance for Google Cloud workloads based on the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify cost requirements and constraints, and provide actionable recommendations for build, deploy, and manage the workload cost-efficiently in Google Cloud.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-reliability",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-reliability",
+          "description": "Generates reliability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework. Use this skill to evaluate a workload, identify reliability requirements, and provide actionable recommendations for build, deploy, and manage the workload reliably in Google Cloud.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-security",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-security",
+          "description": "Generates security-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify security requirements, and provide actionable recommendations for IAM, network security, data protection, and operational security.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "skills",
+        "repoUrl": "https://github.com/google/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-skills-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from google/skills.",
+      "author": "ASM (google/skills)",
+      "createdAt": "2026-05-09T08:11:10.843Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "google",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "alloydb-basics",
+          "installUrl": "github:google/skills:skills/cloud/alloydb-basics",
+          "description": "Manages clusters, instances, and backups for AlloyDB for PostgreSQL, and integrates with AlloyDB model context protocol (MCP) tools for automated database operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "bigquery-basics",
+          "installUrl": "github:google/skills:skills/cloud/bigquery-basics",
+          "description": "Manages datasets, tables, and jobs in BigQuery, and integrates with BigQuery ML and Gemini for advanced data analytics and AI-driven insights. Use when you need to interact with BigQuery, run SQL queries, manage BigQuery resources, or leverage BigQuery's built-in ML capabilities. Also use when performing data analysis, ingesting data into BigQuery, or developing AI applications on BigQuery.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "cloud-sql-basics",
+          "installUrl": "github:google/skills:skills/cloud/cloud-sql-basics",
+          "description": "This file generates or explains Cloud SQL resources. Use this file when the user asks to create a Cloud SQL instance or database for MySQL, PostgreSQL, or SQL Server. Cloud SQL manages third-party MySQL, PostgreSQL, and SQL Server instances as resources in Cloud SQL. For example, when Cloud SQL creates an open-source MySQL instance, the resulting resource is a Cloud SQL for MySQL instance that Google Cloud manages. Cloud SQL handles backups, high availability, and secure connectivity for relational database workloads.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gemini-api",
+          "installUrl": "github:google/skills:skills/cloud/gemini-api",
+          "description": "Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like Live API, tools, multimedia generation, caching, and batch prediction.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gke-basics",
+          "installUrl": "github:google/skills:skills/cloud/gke-basics",
+          "description": "Plan, create, and configure production-ready Google Kubernetes Engine (GKE) clusters using the golden path Autopilot configuration. Covers Day-0 checklist, Autopilot vs Standard, networking (private clusters, VPC-native, Gateway API), security (Workload Identity, Secret Manager, RBAC hardening), observability, scaling, cost optimization, and AI/ML inference. WHEN: create GKE cluster, provision GKE environment, design GKE networking, secure GKE, optimize GKE cost, GKE autoscaling, GKE inference, GKE upgrade, GKE observability, GKE multi-tenancy, GKE batch, GKE HPC, GKE compute class.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "google-cloud-waf-cost-optimization",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-cost-optimization",
+          "description": "Generates cost optimization guidance for Google Cloud workloads based on the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify cost requirements and constraints, and provide actionable recommendations for build, deploy, and manage the workload cost-efficiently in Google Cloud.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-security",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-security",
+          "description": "Generates security-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify security requirements, and provide actionable recommendations for IAM, network security, data protection, and operational security.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "skills",
+        "repoUrl": "https://github.com/google/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-skills-product-business",
+      "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from google/skills.",
+      "author": "ASM (google/skills)",
+      "createdAt": "2026-05-09T08:11:10.843Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "product",
+        "business",
+        "planning",
+        "google",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "firebase-basics",
+          "installUrl": "github:google/skills:skills/cloud/firebase-basics",
+          "description": "Use this skill whenever you are working on a project that uses Firebase products or services, especially for mobile or web apps.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gke-basics",
+          "installUrl": "github:google/skills:skills/cloud/gke-basics",
+          "description": "Plan, create, and configure production-ready Google Kubernetes Engine (GKE) clusters using the golden path Autopilot configuration. Covers Day-0 checklist, Autopilot vs Standard, networking (private clusters, VPC-native, Gateway API), security (Workload Identity, Secret Manager, RBAC hardening), observability, scaling, cost optimization, and AI/ML inference. WHEN: create GKE cluster, provision GKE environment, design GKE networking, secure GKE, optimize GKE cost, GKE autoscaling, GKE inference, GKE upgrade, GKE observability, GKE multi-tenancy, GKE batch, GKE HPC, GKE compute class.",
+          "version": "1.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "skills",
+        "repoUrl": "https://github.com/google/skills.git"
+      },
+      "inferred": true
+    }
   ]
 }

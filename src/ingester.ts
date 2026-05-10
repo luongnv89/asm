@@ -12,6 +12,7 @@ import { loadAllIndices } from "./skill-index";
 import { debug } from "./logger";
 import { dedupeSkillsByName } from "./skill-dedupe";
 import { verifySkill } from "./verifier";
+import { discoverExplicitRepoBundles, inferRepoBundles, mergeRepoBundles } from "./repo-bundles";
 import { estimateTokenCount } from "./utils/token-count";
 import { evaluateSkillContent } from "./evaluator";
 import { getEvalProviders } from "./eval/builtins";
@@ -205,6 +206,11 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
       skillCount: skills.length,
       skills,
     };
+
+    repoIndex.bundles = mergeRepoBundles([
+      ...(await discoverExplicitRepoBundles(tempDir, repoIndex)),
+      ...inferRepoBundles(repoIndex),
+    ]);
 
     const indexDir = await ensureIndexDir();
     const outputFile = join(indexDir, `${source.owner}_${source.repo}.json`);

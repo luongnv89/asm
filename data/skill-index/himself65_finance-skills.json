@@ -3156,5 +3156,901 @@
         }
       }
     }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "himself65-finance-skills-marketing",
+      "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from himself65/finance-skills.",
+      "author": "ASM (himself65/finance-skills)",
+      "createdAt": "2026-05-09T08:10:47.261Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "marketing",
+        "growth",
+        "seo",
+        "himself65",
+        "finance-skills"
+      ],
+      "skills": [
+        {
+          "name": "discord-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/discord-reader",
+          "description": "Read Discord for financial research using opencli (read-only). Use this skill whenever the user wants to read Discord channels, search for messages in trading servers, view guild/channel info, monitor crypto or market discussion groups, or gather financial sentiment from Discord. Triggers include: \"check my Discord\", \"search Discord for\", \"read Discord messages\", \"what's happening in the trading Discord\", \"show Discord channels\", \"list my servers\", \"Discord sentiment on BTC\", \"what are people saying in Discord about AAPL\", \"monitor crypto Discord\", any mention of Discord in context of reading financial news, market research, or trading community discussions. This skill is READ-ONLY — it does NOT support sending messages, reacting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "earnings-preview",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/earnings-preview",
+          "description": "Generate a pre-earnings briefing for any stock using Yahoo Finance data. Use this skill whenever the user wants to prepare for an upcoming earnings report, understand what analysts expect, review a company's beat/miss track record, or get a quick overview before an earnings call. Triggers include: \"earnings preview for AAPL\", \"what to expect from TSLA earnings\", \"MSFT reports next week\", \"earnings preview\", \"pre-earnings analysis\", \"what are analysts expecting for NVDA\", \"earnings estimates for\", \"will GOOGL beat earnings\", \"earnings beat/miss history\", \"upcoming earnings\", \"before earnings\", \"earnings setup\", \"consensus estimates\", \"earnings whisper\", \"EPS expectations\", \"what's the street expecting\", \"earnings season preview\", any mention of preparing for or previewing an earnings report, or any request to understand expectations ahead of a company's earnings date. Always use this skill when the user mentions a ticker in context of upcoming earnings, even if they don't say \"preview\" explicitly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "estimate-analysis",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/estimate-analysis",
+          "description": "Deep-dive into analyst estimates and revision trends for any stock using Yahoo Finance data. Use when the user wants to understand analyst estimate direction, how EPS or revenue forecasts changed over time, compare estimate distributions, or analyze growth projections across periods. Triggers: \"estimate analysis for AAPL\", \"analyst estimate trends for NVDA\", \"EPS revisions for TSLA\", \"how have estimates changed for MSFT\", \"estimate revisions\", \"EPS trend\", \"revenue estimates\", \"consensus changes\", \"analyst estimates\", \"estimate distribution\", \"growth estimates for\", \"estimate momentum\", \"revision trend\", \"forward estimates\", \"next quarter estimates\", \"annual estimates\", \"estimate spread\", \"bull vs bear estimates\", \"estimate range\", or any request about tracking or comparing analyst estimates/revisions. Use this skill when the user asks about estimates beyond a simple lookup — if they want context, trends, or analysis, this is the right skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "finance-sentiment",
+          "installUrl": "github:himself65/finance-skills:plugins/data-providers/skills/finance-sentiment",
+          "description": "Fetch structured stock sentiment across Reddit, X.com, news, and Polymarket using the Adanos Finance API. Use this skill whenever the user asks how much people are talking about a stock, how hot a ticker is on social platforms, how many Polymarket bets exist for a company, whether sources are aligned, or to compare stock sentiment across multiple tickers. Triggers include: \"social sentiment on TSLA\", \"how hot is NVDA on X.com\", \"how many Reddit mentions does AAPL have\", \"compare sentiment on AMD vs NVDA\", \"how many Polymarket bets on Microsoft\", \"is Reddit aligned with X on META\", \"stock buzz\", \"bullish percentage\", and any mention of cross-source stock sentiment research. This skill is READ-ONLY and does not place trades or modify anything.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "funda-data",
+          "installUrl": "github:himself65/finance-skills:plugins/data-providers/skills/funda-data",
+          "description": "Fetch financial data from the Funda AI API (https://api.funda.ai). Covers quotes, historical prices, financials, SEC filings, transcripts, analyst estimates, options flow/greeks/GEX, supply chain graph, social sentiment, Polymarket, congressional trades, economics, ESG, news, AI-enriched news (sentiment + event timeline), AI-company recruit signals, and a Claude API proxy via Bedrock. Triggers: stock quotes, balance sheet, income statement, cash flow, analyst targets, DCF, options chain/flow, GEX, IV rank, max pain, earnings/dividend/IPO calendar, 10-K/10-Q/8-K, suppliers/customers/competitors, insider trades, 13F, Reddit/Twitter sentiment, Polymarket, treasury rates, GDP, CPI, FRED, commodity/forex/crypto, stock screener, ETF holdings, COT, ticker sentiment, OpenAI/Anthropic/xAI/Google/Mercor/SurgeAI job postings, product launch probabilities, AI threat to public stocks. Also triggers for \"funda\" or \"funda.ai\". If only a ticker is provided and Funda API can answer, use this skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "linkedin-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/linkedin-reader",
+          "description": "Read LinkedIn for financial research using opencli (read-only). Use this skill whenever the user wants to read their LinkedIn feed, search for jobs in the finance/trading industry, view professional posts about markets or earnings, or gather professional sentiment from LinkedIn. Triggers include: \"check my LinkedIn feed\", \"search LinkedIn for\", \"LinkedIn posts about\", \"what's on LinkedIn about AAPL\", \"finance jobs on LinkedIn\", \"LinkedIn market sentiment\", \"who's posting about earnings on LinkedIn\", \"LinkedIn feed\", \"professional network buzz\", \"what are analysts saying on LinkedIn\", any mention of LinkedIn in context of reading financial news, market research, job searches, or professional commentary. This skill is READ-ONLY — it does NOT support posting, liking, commenting, connecting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "opencli-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/opencli-reader",
+          "description": "Generic read-only fallback for any source opencli covers but this repo has no dedicated reader for — Yahoo Finance, Bloomberg, Reuters, Barchart, Eastmoney, Xueqiu, Sinafinance, Reddit, HackerNews, Substack, Medium, Weibo, Bilibili, Xiaohongshu, Zhihu, arXiv, Google Scholar, Apple Podcasts, Xiaoyuzhou, Spotify, YouTube, Weixin, Amazon, and more. Triggers: \"use opencli to read\", \"grab the frontpage from hackernews\", \"read reddit r/wallstreetbets\", \"fetch Eastmoney hot stocks\", \"pull Xueqiu feed\", \"get Bloomberg markets headlines\", \"search arXiv for\", any request to read from a site where a specialized skill does not exist but opencli does. FALLBACK — prefer twitter-reader, linkedin-reader, discord-reader, telegram-reader, or yc-reader when the source matches. READ-ONLY — never invoke write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "saas-valuation-compression",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/saas-valuation-compression",
+          "description": "Analyze SaaS company valuation compression between funding rounds. Use this skill whenever the user asks about: how much a SaaS company's valuation multiple changed between rounds, why the ARR multiple compressed or expanded, comparing a company's compression to macro benchmarks, or explaining what drove valuation changes for any VC-backed software company. Trigger on phrases like \"valuation compression\", \"ARR multiple\", \"round-to-round valuation\", \"multiple change\", or when the user asks to compare a company's funding rounds. Always use this skill for any multi-round SaaS valuation analysis — do not try to answer from memory alone.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "sepa-strategy",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/sepa-strategy",
+          "description": "Analyze stocks using Mark Minervini's SEPA (Specific Entry Point Analysis) methodology. Use this skill whenever the user mentions SEPA, Minervini, superperformance, trend template, VCP (Volatility Contraction Pattern), Stage 2 uptrend, stage analysis, pivot point breakout, or asks about growth stock screening criteria. Also triggers when the user wants to evaluate whether a stock meets swing trading entry criteria, check moving average alignment (bullish stacking: price above 50MA above 150MA above 200MA), assess breakout quality with volume confirmation, calculate position sizing based on risk percentage, or identify consolidation patterns like cup-with-handle, flat base, bull flag, or high tight flag. Use this skill even when the user simply asks \"should I buy this stock\" or \"is this a good setup\" in the context of growth/momentum trading, or when they share a stock chart and want pattern analysis.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "telegram-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/telegram-reader",
+          "description": "Read Telegram channels and groups for financial news and market research using tdl (read-only). Use this skill whenever the user wants to read Telegram channels, export messages from financial Telegram groups, list their Telegram chats, search for news in Telegram channels, or gather market intelligence from Telegram. Triggers include: \"check my Telegram\", \"read Telegram channel\", \"Telegram news\", \"what's new in my Telegram channels\", \"export messages from\", \"list my Telegram chats\", \"financial news on Telegram\", \"crypto Telegram\", \"market news Telegram\", any mention of Telegram in context of reading financial news, crypto signals, or market research. This skill is READ-ONLY — it does NOT support sending messages, joining channels, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "twitter-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/twitter-reader",
+          "description": "Read Twitter/X for financial research using opencli (read-only). Use this skill whenever the user wants to read their Twitter feed, search for financial tweets, view bookmarks, look up user profiles, or gather market sentiment from Twitter/X. Triggers include: \"check my feed\", \"search Twitter for\", \"show my bookmarks\", \"who follows\", \"look up @user\", \"what's trending about\", \"market sentiment on Twitter\", \"what are people saying about AAPL\", \"recent tweets from @elonmusk\", \"show me @user's posts\", \"fintwit\", any mention of Twitter/X in context of reading financial news or market research. This skill is READ-ONLY — it does NOT support posting, liking, retweeting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "yc-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/yc-reader",
+          "description": "Look up Y Combinator companies, batches, and startup ecosystem data using the yc-oss API (read-only). Use this skill whenever the user wants to research YC-backed startups, find companies in a specific batch or industry, check which YC companies are hiring, explore top YC companies, or analyze startup trends by sector or tag. Triggers include: \"YC companies in fintech\", \"who's in the latest YC batch\", \"YC startups hiring\", \"top Y Combinator companies\", \"find YC companies tagged AI\", \"W25 batch\", \"S24 companies\", \"YC stats\", \"Y Combinator portfolio\", \"startup research\", \"which YC companies do X\", \"venture research on YC\", any mention of Y Combinator, YC batch, or YC-backed companies in the context of startup research, venture analysis, or market intelligence. This is a read-only data source — the API is a static JSON dataset updated daily.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "himself65",
+        "repo": "finance-skills",
+        "repoUrl": "https://github.com/himself65/finance-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "himself65-finance-skills-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from himself65/finance-skills.",
+      "author": "ASM (himself65/finance-skills)",
+      "createdAt": "2026-05-09T08:10:47.261Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "himself65",
+        "finance-skills"
+      ],
+      "skills": [
+        {
+          "name": "discord-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/discord-reader",
+          "description": "Read Discord for financial research using opencli (read-only). Use this skill whenever the user wants to read Discord channels, search for messages in trading servers, view guild/channel info, monitor crypto or market discussion groups, or gather financial sentiment from Discord. Triggers include: \"check my Discord\", \"search Discord for\", \"read Discord messages\", \"what's happening in the trading Discord\", \"show Discord channels\", \"list my servers\", \"Discord sentiment on BTC\", \"what are people saying in Discord about AAPL\", \"monitor crypto Discord\", any mention of Discord in context of reading financial news, market research, or trading community discussions. This skill is READ-ONLY — it does NOT support sending messages, reacting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "generative-ui",
+          "installUrl": "github:himself65/finance-skills:plugins/ui-tools/skills/generative-ui",
+          "description": "Design system and guidelines for Claude's built-in generative UI — the show_widget tool that renders interactive HTML/SVG widgets inline in claude.ai conversations. This skill provides the complete Anthropic \"Imagine\" design system so Claude produces high-quality widgets without needing to call read_me first. Use this skill whenever the user asks to visualize data, create an interactive chart, build a dashboard, render a diagram, draw a flowchart, show a mockup, create an interactive explainer, or produce any visual content beyond plain text or markdown. Triggers include: \"show me\", \"visualize\", \"draw\", \"chart\", \"dashboard\", \"diagram\", \"flowchart\", \"widget\", \"interactive\", \"mockup\", \"illustrate\", \"explain how X works\" (with visual), or any request for visual/interactive output. Also triggers when the user wants to display financial data visually, create comparison grids, or build tools with sliders, toggles, or live-updating displays.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "linkedin-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/linkedin-reader",
+          "description": "Read LinkedIn for financial research using opencli (read-only). Use this skill whenever the user wants to read their LinkedIn feed, search for jobs in the finance/trading industry, view professional posts about markets or earnings, or gather professional sentiment from LinkedIn. Triggers include: \"check my LinkedIn feed\", \"search LinkedIn for\", \"LinkedIn posts about\", \"what's on LinkedIn about AAPL\", \"finance jobs on LinkedIn\", \"LinkedIn market sentiment\", \"who's posting about earnings on LinkedIn\", \"LinkedIn feed\", \"professional network buzz\", \"what are analysts saying on LinkedIn\", any mention of LinkedIn in context of reading financial news, market research, job searches, or professional commentary. This skill is READ-ONLY — it does NOT support posting, liking, commenting, connecting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "opencli-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/opencli-reader",
+          "description": "Generic read-only fallback for any source opencli covers but this repo has no dedicated reader for — Yahoo Finance, Bloomberg, Reuters, Barchart, Eastmoney, Xueqiu, Sinafinance, Reddit, HackerNews, Substack, Medium, Weibo, Bilibili, Xiaohongshu, Zhihu, arXiv, Google Scholar, Apple Podcasts, Xiaoyuzhou, Spotify, YouTube, Weixin, Amazon, and more. Triggers: \"use opencli to read\", \"grab the frontpage from hackernews\", \"read reddit r/wallstreetbets\", \"fetch Eastmoney hot stocks\", \"pull Xueqiu feed\", \"get Bloomberg markets headlines\", \"search arXiv for\", any request to read from a site where a specialized skill does not exist but opencli does. FALLBACK — prefer twitter-reader, linkedin-reader, discord-reader, telegram-reader, or yc-reader when the source matches. READ-ONLY — never invoke write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "skill-creator",
+          "installUrl": "github:himself65/finance-skills:plugins/skill-creator/skills/skill-creator",
+          "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or iterate on skill quality. Triggers: \"create a skill\", \"make a new skill\", \"build a skill for\", \"write a skill that\", \"skill for doing X\", \"I want a skill to\", \"new skill\", \"design a skill\", \"scaffold a skill\", \"improve this skill\", \"optimize this skill\", \"this skill isn't working well\", \"evaluate this skill\", \"score this skill\", \"how good is this skill\", \"run evals on\", \"benchmark this skill\", \"test this skill's quality\", \"skill quality\", \"skill performance\". Also triggers when a user describes a repeatable workflow they want to automate, says \"I keep doing X manually\", \"can you remember how to do X\", or \"turn this into a skill\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "telegram-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/telegram-reader",
+          "description": "Read Telegram channels and groups for financial news and market research using tdl (read-only). Use this skill whenever the user wants to read Telegram channels, export messages from financial Telegram groups, list their Telegram chats, search for news in Telegram channels, or gather market intelligence from Telegram. Triggers include: \"check my Telegram\", \"read Telegram channel\", \"Telegram news\", \"what's new in my Telegram channels\", \"export messages from\", \"list my Telegram chats\", \"financial news on Telegram\", \"crypto Telegram\", \"market news Telegram\", any mention of Telegram in context of reading financial news, crypto signals, or market research. This skill is READ-ONLY — it does NOT support sending messages, joining channels, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "twitter-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/twitter-reader",
+          "description": "Read Twitter/X for financial research using opencli (read-only). Use this skill whenever the user wants to read their Twitter feed, search for financial tweets, view bookmarks, look up user profiles, or gather market sentiment from Twitter/X. Triggers include: \"check my feed\", \"search Twitter for\", \"show my bookmarks\", \"who follows\", \"look up @user\", \"what's trending about\", \"market sentiment on Twitter\", \"what are people saying about AAPL\", \"recent tweets from @elonmusk\", \"show me @user's posts\", \"fintwit\", any mention of Twitter/X in context of reading financial news or market research. This skill is READ-ONLY — it does NOT support posting, liking, retweeting, or any write operations.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "himself65",
+        "repo": "finance-skills",
+        "repoUrl": "https://github.com/himself65/finance-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "himself65-finance-skills-research",
+      "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from himself65/finance-skills.",
+      "author": "ASM (himself65/finance-skills)",
+      "createdAt": "2026-05-09T08:10:47.261Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "research",
+        "academic",
+        "analysis",
+        "himself65",
+        "finance-skills"
+      ],
+      "skills": [
+        {
+          "name": "company-valuation",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/company-valuation",
+          "description": "Estimate the intrinsic value of a public company using DCF, relative (peer multiple) and sum-of-parts (SOTP) methods, then triangulate to an implied share price with upside/downside versus the current market price. Use this skill whenever the user asks: \"what is AAPL worth\", \"valuation of NVDA\", \"fair value of TSLA\", \"intrinsic value\", \"DCF for MSFT\", \"build a DCF\", \"discounted cash flow\", \"WACC\", \"terminal value\", \"implied share price\", \"upside to fair value\", \"is X overvalued/undervalued\", \"relative valuation\", \"peer comparison valuation\", \"EV/EBITDA target\", \"SOTP\", \"sum of the parts\", \"how much is [company] worth\", \"price target from fundamentals\", \"value this company\", or any ticker in the context of computing intrinsic or relative valuation. Default to running ALL three methods (DCF + relative + SOTP-if-applicable) and presenting a blended implied price with a sensitivity table. Do not answer valuation questions from memory — always run the workflow.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "discord-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/discord-reader",
+          "description": "Read Discord for financial research using opencli (read-only). Use this skill whenever the user wants to read Discord channels, search for messages in trading servers, view guild/channel info, monitor crypto or market discussion groups, or gather financial sentiment from Discord. Triggers include: \"check my Discord\", \"search Discord for\", \"read Discord messages\", \"what's happening in the trading Discord\", \"show Discord channels\", \"list my servers\", \"Discord sentiment on BTC\", \"what are people saying in Discord about AAPL\", \"monitor crypto Discord\", any mention of Discord in context of reading financial news, market research, or trading community discussions. This skill is READ-ONLY — it does NOT support sending messages, reacting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "earnings-preview",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/earnings-preview",
+          "description": "Generate a pre-earnings briefing for any stock using Yahoo Finance data. Use this skill whenever the user wants to prepare for an upcoming earnings report, understand what analysts expect, review a company's beat/miss track record, or get a quick overview before an earnings call. Triggers include: \"earnings preview for AAPL\", \"what to expect from TSLA earnings\", \"MSFT reports next week\", \"earnings preview\", \"pre-earnings analysis\", \"what are analysts expecting for NVDA\", \"earnings estimates for\", \"will GOOGL beat earnings\", \"earnings beat/miss history\", \"upcoming earnings\", \"before earnings\", \"earnings setup\", \"consensus estimates\", \"earnings whisper\", \"EPS expectations\", \"what's the street expecting\", \"earnings season preview\", any mention of preparing for or previewing an earnings report, or any request to understand expectations ahead of a company's earnings date. Always use this skill when the user mentions a ticker in context of upcoming earnings, even if they don't say \"preview\" explicitly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "earnings-recap",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/earnings-recap",
+          "description": "Generate a post-earnings analysis for any stock using Yahoo Finance data. Use when the user wants to review what happened after earnings, understand beat/miss results, see stock reaction, or get an earnings recap. Triggers: \"AAPL earnings recap\", \"how did TSLA earnings go\", \"MSFT earnings results\", \"did NVDA beat earnings\", \"post-earnings analysis\", \"earnings surprise\", \"what happened with GOOGL earnings\", \"earnings reaction\", \"stock moved after earnings\", \"EPS beat or miss\", \"revenue beat or miss\", \"quarterly results for\", \"how were earnings\", \"AMZN reported last night\", \"earnings call recap\", or any request about a company's recent earnings outcome. Use this skill when the user references a past earnings event, even if they just say \"AAPL reported\" or \"how did they do\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "estimate-analysis",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/estimate-analysis",
+          "description": "Deep-dive into analyst estimates and revision trends for any stock using Yahoo Finance data. Use when the user wants to understand analyst estimate direction, how EPS or revenue forecasts changed over time, compare estimate distributions, or analyze growth projections across periods. Triggers: \"estimate analysis for AAPL\", \"analyst estimate trends for NVDA\", \"EPS revisions for TSLA\", \"how have estimates changed for MSFT\", \"estimate revisions\", \"EPS trend\", \"revenue estimates\", \"consensus changes\", \"analyst estimates\", \"estimate distribution\", \"growth estimates for\", \"estimate momentum\", \"revision trend\", \"forward estimates\", \"next quarter estimates\", \"annual estimates\", \"estimate spread\", \"bull vs bear estimates\", \"estimate range\", or any request about tracking or comparing analyst estimates/revisions. Use this skill when the user asks about estimates beyond a simple lookup — if they want context, trends, or analysis, this is the right skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "etf-premium",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/etf-premium",
+          "description": "Calculate ETF premium or discount relative to Net Asset Value (NAV) using Yahoo Finance data. Use this skill whenever the user asks about an ETF's premium or discount, NAV comparison, whether an ETF is trading above or below its fair value, or wants to compare market price vs NAV. Triggers: \"ETF premium\", \"ETF discount\", \"NAV premium\", \"is SPY trading at a premium\", \"AGG premium to NAV\", \"market price vs NAV\", \"ETF mispricing\", \"BITO premium\", \"IBIT premium\", \"bond ETF discount\", \"trading above/below NAV\", \"ETF premium screener\", \"which ETFs have biggest discount\", \"compare ETF NAV\", \"ETF arbitrage\", or any request involving the gap between an ETF's market price and its underlying value. Also triggers when analyzing leveraged, inverse, international, bond, commodity, or crypto ETFs where premium/discount is a known concern.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "finance-sentiment",
+          "installUrl": "github:himself65/finance-skills:plugins/data-providers/skills/finance-sentiment",
+          "description": "Fetch structured stock sentiment across Reddit, X.com, news, and Polymarket using the Adanos Finance API. Use this skill whenever the user asks how much people are talking about a stock, how hot a ticker is on social platforms, how many Polymarket bets exist for a company, whether sources are aligned, or to compare stock sentiment across multiple tickers. Triggers include: \"social sentiment on TSLA\", \"how hot is NVDA on X.com\", \"how many Reddit mentions does AAPL have\", \"compare sentiment on AMD vs NVDA\", \"how many Polymarket bets on Microsoft\", \"is Reddit aligned with X on META\", \"stock buzz\", \"bullish percentage\", and any mention of cross-source stock sentiment research. This skill is READ-ONLY and does not place trades or modify anything.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "linkedin-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/linkedin-reader",
+          "description": "Read LinkedIn for financial research using opencli (read-only). Use this skill whenever the user wants to read their LinkedIn feed, search for jobs in the finance/trading industry, view professional posts about markets or earnings, or gather professional sentiment from LinkedIn. Triggers include: \"check my LinkedIn feed\", \"search LinkedIn for\", \"LinkedIn posts about\", \"what's on LinkedIn about AAPL\", \"finance jobs on LinkedIn\", \"LinkedIn market sentiment\", \"who's posting about earnings on LinkedIn\", \"LinkedIn feed\", \"professional network buzz\", \"what are analysts saying on LinkedIn\", any mention of LinkedIn in context of reading financial news, market research, job searches, or professional commentary. This skill is READ-ONLY — it does NOT support posting, liking, commenting, connecting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "opencli-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/opencli-reader",
+          "description": "Generic read-only fallback for any source opencli covers but this repo has no dedicated reader for — Yahoo Finance, Bloomberg, Reuters, Barchart, Eastmoney, Xueqiu, Sinafinance, Reddit, HackerNews, Substack, Medium, Weibo, Bilibili, Xiaohongshu, Zhihu, arXiv, Google Scholar, Apple Podcasts, Xiaoyuzhou, Spotify, YouTube, Weixin, Amazon, and more. Triggers: \"use opencli to read\", \"grab the frontpage from hackernews\", \"read reddit r/wallstreetbets\", \"fetch Eastmoney hot stocks\", \"pull Xueqiu feed\", \"get Bloomberg markets headlines\", \"search arXiv for\", any request to read from a site where a specialized skill does not exist but opencli does. FALLBACK — prefer twitter-reader, linkedin-reader, discord-reader, telegram-reader, or yc-reader when the source matches. READ-ONLY — never invoke write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "options-payoff",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/options-payoff",
+          "description": "Generate an interactive options payoff curve chart with dynamic parameter controls. Use this skill whenever the user shares an options position screenshot, describes an options strategy, or asks to visualize how an options trade makes or loses money. Triggers include: any mention of butterfly, spread (vertical/calendar/diagonal/ratio), straddle, strangle, condor, covered call, protective put, iron condor, or any multi-leg options structure. Also triggers when a user pastes strike prices, premiums, expiry dates, or says things like \"show me the payoff\", \"draw the P&L curve\", \"what does this trade look like\", or uploads a screenshot from a broker (IBKR, TastyTrade, Robinhood, etc). Always use this skill even if the user only provides partial info — extract what you can and use defaults for the rest.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "saas-valuation-compression",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/saas-valuation-compression",
+          "description": "Analyze SaaS company valuation compression between funding rounds. Use this skill whenever the user asks about: how much a SaaS company's valuation multiple changed between rounds, why the ARR multiple compressed or expanded, comparing a company's compression to macro benchmarks, or explaining what drove valuation changes for any VC-backed software company. Trigger on phrases like \"valuation compression\", \"ARR multiple\", \"round-to-round valuation\", \"multiple change\", or when the user asks to compare a company's funding rounds. Always use this skill for any multi-round SaaS valuation analysis — do not try to answer from memory alone.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "sepa-strategy",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/sepa-strategy",
+          "description": "Analyze stocks using Mark Minervini's SEPA (Specific Entry Point Analysis) methodology. Use this skill whenever the user mentions SEPA, Minervini, superperformance, trend template, VCP (Volatility Contraction Pattern), Stage 2 uptrend, stage analysis, pivot point breakout, or asks about growth stock screening criteria. Also triggers when the user wants to evaluate whether a stock meets swing trading entry criteria, check moving average alignment (bullish stacking: price above 50MA above 150MA above 200MA), assess breakout quality with volume confirmation, calculate position sizing based on risk percentage, or identify consolidation patterns like cup-with-handle, flat base, bull flag, or high tight flag. Use this skill even when the user simply asks \"should I buy this stock\" or \"is this a good setup\" in the context of growth/momentum trading, or when they share a stock chart and want pattern analysis.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "skill-creator",
+          "installUrl": "github:himself65/finance-skills:plugins/skill-creator/skills/skill-creator",
+          "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or iterate on skill quality. Triggers: \"create a skill\", \"make a new skill\", \"build a skill for\", \"write a skill that\", \"skill for doing X\", \"I want a skill to\", \"new skill\", \"design a skill\", \"scaffold a skill\", \"improve this skill\", \"optimize this skill\", \"this skill isn't working well\", \"evaluate this skill\", \"score this skill\", \"how good is this skill\", \"run evals on\", \"benchmark this skill\", \"test this skill's quality\", \"skill quality\", \"skill performance\". Also triggers when a user describes a repeatable workflow they want to automate, says \"I keep doing X manually\", \"can you remember how to do X\", or \"turn this into a skill\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "startup-analysis",
+          "installUrl": "github:himself65/finance-skills:plugins/startup-tools/skills/startup-analysis",
+          "description": "Analyze a startup from three perspectives: VC investor, job applicant, and CEO/founder. Use this skill whenever the user wants to evaluate a startup, assess whether to invest in or join a startup, do due diligence, evaluate a job offer from a startup, understand a startup's competitive position, or assess company health and trajectory. Triggers: \"analyze this startup\", \"should I join [company]\", \"is [company] a good investment\", \"evaluate [company]\", \"due diligence on [company]\", \"what do you think of [startup]\", \"should I take this startup job offer\", \"how healthy is [company]\", \"startup assessment\", \"company analysis\", \"is [company] worth joining\", \"what's the outlook for [company]\", \"research [company] for me\", any mention of evaluating or assessing a startup or tech company from investment, career, or strategic perspectives — provide all three perspectives by default.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "stock-correlation",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/stock-correlation",
+          "description": "Analyze stock correlations to find related companies and trading pairs. Use when the user asks about correlated stocks, related companies, sector peers, trading pairs, or how two or more stocks move together. Triggers: \"what correlates with NVDA\", \"find stocks related to AMD\", \"correlation between AAPL and MSFT\", \"what moves with\", \"sector peers\", \"pair trading\", \"correlated stocks\", \"when NVDA drops what else drops\", \"stocks that move together\", \"beta to\", \"relative performance\", \"supply chain partners\", \"correlation matrix\", \"co-movement\", \"related tickers\", \"sympathy plays\", \"semiconductor peers\", \"hedging pair\", \"realized correlation\", \"rolling correlation\", or any request about stocks that move in tandem or inversely. Also triggers for well-known pairs like AMD/NVDA, GOOGL/AVGO, LITE/COHR. If only one ticker is provided, infer the user wants correlated peers.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "stock-liquidity",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/stock-liquidity",
+          "description": "Analyze stock liquidity using bid-ask spreads, volume profiles, order book depth, market impact estimates, and turnover ratios via Yahoo Finance data. Use this skill whenever the user asks about liquidity, trading costs, bid-ask spread, market depth, volume analysis, slippage, market impact, turnover ratio, or how easy/hard it is to trade a stock without moving the price. Triggers: \"how liquid is AAPL\", \"bid-ask spread\", \"volume analysis\", \"order book depth\", \"market impact of a large order\", \"turnover ratio\", \"slippage estimate\", \"can I trade 100k shares without moving the price\", \"liquidity comparison\", \"spread analysis\", \"ADTV\", \"Amihud illiquidity\", \"dollar volume\", \"execution cost estimate\", \"liquidity score\", penny stocks, small caps, or thinly traded securities.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "telegram-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/telegram-reader",
+          "description": "Read Telegram channels and groups for financial news and market research using tdl (read-only). Use this skill whenever the user wants to read Telegram channels, export messages from financial Telegram groups, list their Telegram chats, search for news in Telegram channels, or gather market intelligence from Telegram. Triggers include: \"check my Telegram\", \"read Telegram channel\", \"Telegram news\", \"what's new in my Telegram channels\", \"export messages from\", \"list my Telegram chats\", \"financial news on Telegram\", \"crypto Telegram\", \"market news Telegram\", any mention of Telegram in context of reading financial news, crypto signals, or market research. This skill is READ-ONLY — it does NOT support sending messages, joining channels, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "twitter-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/twitter-reader",
+          "description": "Read Twitter/X for financial research using opencli (read-only). Use this skill whenever the user wants to read their Twitter feed, search for financial tweets, view bookmarks, look up user profiles, or gather market sentiment from Twitter/X. Triggers include: \"check my feed\", \"search Twitter for\", \"show my bookmarks\", \"who follows\", \"look up @user\", \"what's trending about\", \"market sentiment on Twitter\", \"what are people saying about AAPL\", \"recent tweets from @elonmusk\", \"show me @user's posts\", \"fintwit\", any mention of Twitter/X in context of reading financial news or market research. This skill is READ-ONLY — it does NOT support posting, liking, retweeting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "yc-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/yc-reader",
+          "description": "Look up Y Combinator companies, batches, and startup ecosystem data using the yc-oss API (read-only). Use this skill whenever the user wants to research YC-backed startups, find companies in a specific batch or industry, check which YC companies are hiring, explore top YC companies, or analyze startup trends by sector or tag. Triggers include: \"YC companies in fintech\", \"who's in the latest YC batch\", \"YC startups hiring\", \"top Y Combinator companies\", \"find YC companies tagged AI\", \"W25 batch\", \"S24 companies\", \"YC stats\", \"Y Combinator portfolio\", \"startup research\", \"which YC companies do X\", \"venture research on YC\", any mention of Y Combinator, YC batch, or YC-backed companies in the context of startup research, venture analysis, or market intelligence. This is a read-only data source — the API is a static JSON dataset updated daily.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "yfinance-data",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/yfinance-data",
+          "description": "Fetch financial and market data using the yfinance Python library. Use this skill whenever the user asks for stock prices, historical data, financial statements, options chains, dividends, earnings, analyst recommendations, or any market data. Triggers include: any mention of stock price, ticker symbol (AAPL, MSFT, TSLA, etc.), \"get me the financials\", \"show earnings\", \"what's the price of\", \"download stock data\", \"options chain\", \"dividend history\", \"balance sheet\", \"income statement\", \"cash flow\", \"analyst targets\", \"institutional holders\", \"compare stocks\", \"screen for stocks\", or any request involving Yahoo Finance data. Always use this skill even if the user only provides a ticker — infer intent from context.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "himself65",
+        "repo": "finance-skills",
+        "repoUrl": "https://github.com/himself65/finance-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "himself65-finance-skills-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from himself65/finance-skills.",
+      "author": "ASM (himself65/finance-skills)",
+      "createdAt": "2026-05-09T08:10:47.261Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "himself65",
+        "finance-skills"
+      ],
+      "skills": [
+        {
+          "name": "company-valuation",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/company-valuation",
+          "description": "Estimate the intrinsic value of a public company using DCF, relative (peer multiple) and sum-of-parts (SOTP) methods, then triangulate to an implied share price with upside/downside versus the current market price. Use this skill whenever the user asks: \"what is AAPL worth\", \"valuation of NVDA\", \"fair value of TSLA\", \"intrinsic value\", \"DCF for MSFT\", \"build a DCF\", \"discounted cash flow\", \"WACC\", \"terminal value\", \"implied share price\", \"upside to fair value\", \"is X overvalued/undervalued\", \"relative valuation\", \"peer comparison valuation\", \"EV/EBITDA target\", \"SOTP\", \"sum of the parts\", \"how much is [company] worth\", \"price target from fundamentals\", \"value this company\", or any ticker in the context of computing intrinsic or relative valuation. Default to running ALL three methods (DCF + relative + SOTP-if-applicable) and presenting a blended implied price with a sensitivity table. Do not answer valuation questions from memory — always run the workflow.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "discord-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/discord-reader",
+          "description": "Read Discord for financial research using opencli (read-only). Use this skill whenever the user wants to read Discord channels, search for messages in trading servers, view guild/channel info, monitor crypto or market discussion groups, or gather financial sentiment from Discord. Triggers include: \"check my Discord\", \"search Discord for\", \"read Discord messages\", \"what's happening in the trading Discord\", \"show Discord channels\", \"list my servers\", \"Discord sentiment on BTC\", \"what are people saying in Discord about AAPL\", \"monitor crypto Discord\", any mention of Discord in context of reading financial news, market research, or trading community discussions. This skill is READ-ONLY — it does NOT support sending messages, reacting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "earnings-preview",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/earnings-preview",
+          "description": "Generate a pre-earnings briefing for any stock using Yahoo Finance data. Use this skill whenever the user wants to prepare for an upcoming earnings report, understand what analysts expect, review a company's beat/miss track record, or get a quick overview before an earnings call. Triggers include: \"earnings preview for AAPL\", \"what to expect from TSLA earnings\", \"MSFT reports next week\", \"earnings preview\", \"pre-earnings analysis\", \"what are analysts expecting for NVDA\", \"earnings estimates for\", \"will GOOGL beat earnings\", \"earnings beat/miss history\", \"upcoming earnings\", \"before earnings\", \"earnings setup\", \"consensus estimates\", \"earnings whisper\", \"EPS expectations\", \"what's the street expecting\", \"earnings season preview\", any mention of preparing for or previewing an earnings report, or any request to understand expectations ahead of a company's earnings date. Always use this skill when the user mentions a ticker in context of upcoming earnings, even if they don't say \"preview\" explicitly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "earnings-recap",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/earnings-recap",
+          "description": "Generate a post-earnings analysis for any stock using Yahoo Finance data. Use when the user wants to review what happened after earnings, understand beat/miss results, see stock reaction, or get an earnings recap. Triggers: \"AAPL earnings recap\", \"how did TSLA earnings go\", \"MSFT earnings results\", \"did NVDA beat earnings\", \"post-earnings analysis\", \"earnings surprise\", \"what happened with GOOGL earnings\", \"earnings reaction\", \"stock moved after earnings\", \"EPS beat or miss\", \"revenue beat or miss\", \"quarterly results for\", \"how were earnings\", \"AMZN reported last night\", \"earnings call recap\", or any request about a company's recent earnings outcome. Use this skill when the user references a past earnings event, even if they just say \"AAPL reported\" or \"how did they do\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "finance-sentiment",
+          "installUrl": "github:himself65/finance-skills:plugins/data-providers/skills/finance-sentiment",
+          "description": "Fetch structured stock sentiment across Reddit, X.com, news, and Polymarket using the Adanos Finance API. Use this skill whenever the user asks how much people are talking about a stock, how hot a ticker is on social platforms, how many Polymarket bets exist for a company, whether sources are aligned, or to compare stock sentiment across multiple tickers. Triggers include: \"social sentiment on TSLA\", \"how hot is NVDA on X.com\", \"how many Reddit mentions does AAPL have\", \"compare sentiment on AMD vs NVDA\", \"how many Polymarket bets on Microsoft\", \"is Reddit aligned with X on META\", \"stock buzz\", \"bullish percentage\", and any mention of cross-source stock sentiment research. This skill is READ-ONLY and does not place trades or modify anything.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "funda-data",
+          "installUrl": "github:himself65/finance-skills:plugins/data-providers/skills/funda-data",
+          "description": "Fetch financial data from the Funda AI API (https://api.funda.ai). Covers quotes, historical prices, financials, SEC filings, transcripts, analyst estimates, options flow/greeks/GEX, supply chain graph, social sentiment, Polymarket, congressional trades, economics, ESG, news, AI-enriched news (sentiment + event timeline), AI-company recruit signals, and a Claude API proxy via Bedrock. Triggers: stock quotes, balance sheet, income statement, cash flow, analyst targets, DCF, options chain/flow, GEX, IV rank, max pain, earnings/dividend/IPO calendar, 10-K/10-Q/8-K, suppliers/customers/competitors, insider trades, 13F, Reddit/Twitter sentiment, Polymarket, treasury rates, GDP, CPI, FRED, commodity/forex/crypto, stock screener, ETF holdings, COT, ticker sentiment, OpenAI/Anthropic/xAI/Google/Mercor/SurgeAI job postings, product launch probabilities, AI threat to public stocks. Also triggers for \"funda\" or \"funda.ai\". If only a ticker is provided and Funda API can answer, use this skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "generative-ui",
+          "installUrl": "github:himself65/finance-skills:plugins/ui-tools/skills/generative-ui",
+          "description": "Design system and guidelines for Claude's built-in generative UI — the show_widget tool that renders interactive HTML/SVG widgets inline in claude.ai conversations. This skill provides the complete Anthropic \"Imagine\" design system so Claude produces high-quality widgets without needing to call read_me first. Use this skill whenever the user asks to visualize data, create an interactive chart, build a dashboard, render a diagram, draw a flowchart, show a mockup, create an interactive explainer, or produce any visual content beyond plain text or markdown. Triggers include: \"show me\", \"visualize\", \"draw\", \"chart\", \"dashboard\", \"diagram\", \"flowchart\", \"widget\", \"interactive\", \"mockup\", \"illustrate\", \"explain how X works\" (with visual), or any request for visual/interactive output. Also triggers when the user wants to display financial data visually, create comparison grids, or build tools with sliders, toggles, or live-updating displays.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "linkedin-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/linkedin-reader",
+          "description": "Read LinkedIn for financial research using opencli (read-only). Use this skill whenever the user wants to read their LinkedIn feed, search for jobs in the finance/trading industry, view professional posts about markets or earnings, or gather professional sentiment from LinkedIn. Triggers include: \"check my LinkedIn feed\", \"search LinkedIn for\", \"LinkedIn posts about\", \"what's on LinkedIn about AAPL\", \"finance jobs on LinkedIn\", \"LinkedIn market sentiment\", \"who's posting about earnings on LinkedIn\", \"LinkedIn feed\", \"professional network buzz\", \"what are analysts saying on LinkedIn\", any mention of LinkedIn in context of reading financial news, market research, job searches, or professional commentary. This skill is READ-ONLY — it does NOT support posting, liking, commenting, connecting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "opencli-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/opencli-reader",
+          "description": "Generic read-only fallback for any source opencli covers but this repo has no dedicated reader for — Yahoo Finance, Bloomberg, Reuters, Barchart, Eastmoney, Xueqiu, Sinafinance, Reddit, HackerNews, Substack, Medium, Weibo, Bilibili, Xiaohongshu, Zhihu, arXiv, Google Scholar, Apple Podcasts, Xiaoyuzhou, Spotify, YouTube, Weixin, Amazon, and more. Triggers: \"use opencli to read\", \"grab the frontpage from hackernews\", \"read reddit r/wallstreetbets\", \"fetch Eastmoney hot stocks\", \"pull Xueqiu feed\", \"get Bloomberg markets headlines\", \"search arXiv for\", any request to read from a site where a specialized skill does not exist but opencli does. FALLBACK — prefer twitter-reader, linkedin-reader, discord-reader, telegram-reader, or yc-reader when the source matches. READ-ONLY — never invoke write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "skill-creator",
+          "installUrl": "github:himself65/finance-skills:plugins/skill-creator/skills/skill-creator",
+          "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or iterate on skill quality. Triggers: \"create a skill\", \"make a new skill\", \"build a skill for\", \"write a skill that\", \"skill for doing X\", \"I want a skill to\", \"new skill\", \"design a skill\", \"scaffold a skill\", \"improve this skill\", \"optimize this skill\", \"this skill isn't working well\", \"evaluate this skill\", \"score this skill\", \"how good is this skill\", \"run evals on\", \"benchmark this skill\", \"test this skill's quality\", \"skill quality\", \"skill performance\". Also triggers when a user describes a repeatable workflow they want to automate, says \"I keep doing X manually\", \"can you remember how to do X\", or \"turn this into a skill\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "twitter-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/twitter-reader",
+          "description": "Read Twitter/X for financial research using opencli (read-only). Use this skill whenever the user wants to read their Twitter feed, search for financial tweets, view bookmarks, look up user profiles, or gather market sentiment from Twitter/X. Triggers include: \"check my feed\", \"search Twitter for\", \"show my bookmarks\", \"who follows\", \"look up @user\", \"what's trending about\", \"market sentiment on Twitter\", \"what are people saying about AAPL\", \"recent tweets from @elonmusk\", \"show me @user's posts\", \"fintwit\", any mention of Twitter/X in context of reading financial news or market research. This skill is READ-ONLY — it does NOT support posting, liking, retweeting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "yc-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/yc-reader",
+          "description": "Look up Y Combinator companies, batches, and startup ecosystem data using the yc-oss API (read-only). Use this skill whenever the user wants to research YC-backed startups, find companies in a specific batch or industry, check which YC companies are hiring, explore top YC companies, or analyze startup trends by sector or tag. Triggers include: \"YC companies in fintech\", \"who's in the latest YC batch\", \"YC startups hiring\", \"top Y Combinator companies\", \"find YC companies tagged AI\", \"W25 batch\", \"S24 companies\", \"YC stats\", \"Y Combinator portfolio\", \"startup research\", \"which YC companies do X\", \"venture research on YC\", any mention of Y Combinator, YC batch, or YC-backed companies in the context of startup research, venture analysis, or market intelligence. This is a read-only data source — the API is a static JSON dataset updated daily.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "yfinance-data",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/yfinance-data",
+          "description": "Fetch financial and market data using the yfinance Python library. Use this skill whenever the user asks for stock prices, historical data, financial statements, options chains, dividends, earnings, analyst recommendations, or any market data. Triggers include: any mention of stock price, ticker symbol (AAPL, MSFT, TSLA, etc.), \"get me the financials\", \"show earnings\", \"what's the price of\", \"download stock data\", \"options chain\", \"dividend history\", \"balance sheet\", \"income statement\", \"cash flow\", \"analyst targets\", \"institutional holders\", \"compare stocks\", \"screen for stocks\", or any request involving Yahoo Finance data. Always use this skill even if the user only provides a ticker — infer intent from context.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "himself65",
+        "repo": "finance-skills",
+        "repoUrl": "https://github.com/himself65/finance-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "himself65-finance-skills-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from himself65/finance-skills.",
+      "author": "ASM (himself65/finance-skills)",
+      "createdAt": "2026-05-09T08:10:47.261Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "himself65",
+        "finance-skills"
+      ],
+      "skills": [
+        {
+          "name": "company-valuation",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/company-valuation",
+          "description": "Estimate the intrinsic value of a public company using DCF, relative (peer multiple) and sum-of-parts (SOTP) methods, then triangulate to an implied share price with upside/downside versus the current market price. Use this skill whenever the user asks: \"what is AAPL worth\", \"valuation of NVDA\", \"fair value of TSLA\", \"intrinsic value\", \"DCF for MSFT\", \"build a DCF\", \"discounted cash flow\", \"WACC\", \"terminal value\", \"implied share price\", \"upside to fair value\", \"is X overvalued/undervalued\", \"relative valuation\", \"peer comparison valuation\", \"EV/EBITDA target\", \"SOTP\", \"sum of the parts\", \"how much is [company] worth\", \"price target from fundamentals\", \"value this company\", or any ticker in the context of computing intrinsic or relative valuation. Default to running ALL three methods (DCF + relative + SOTP-if-applicable) and presenting a blended implied price with a sensitivity table. Do not answer valuation questions from memory — always run the workflow.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "discord-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/discord-reader",
+          "description": "Read Discord for financial research using opencli (read-only). Use this skill whenever the user wants to read Discord channels, search for messages in trading servers, view guild/channel info, monitor crypto or market discussion groups, or gather financial sentiment from Discord. Triggers include: \"check my Discord\", \"search Discord for\", \"read Discord messages\", \"what's happening in the trading Discord\", \"show Discord channels\", \"list my servers\", \"Discord sentiment on BTC\", \"what are people saying in Discord about AAPL\", \"monitor crypto Discord\", any mention of Discord in context of reading financial news, market research, or trading community discussions. This skill is READ-ONLY — it does NOT support sending messages, reacting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "earnings-preview",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/earnings-preview",
+          "description": "Generate a pre-earnings briefing for any stock using Yahoo Finance data. Use this skill whenever the user wants to prepare for an upcoming earnings report, understand what analysts expect, review a company's beat/miss track record, or get a quick overview before an earnings call. Triggers include: \"earnings preview for AAPL\", \"what to expect from TSLA earnings\", \"MSFT reports next week\", \"earnings preview\", \"pre-earnings analysis\", \"what are analysts expecting for NVDA\", \"earnings estimates for\", \"will GOOGL beat earnings\", \"earnings beat/miss history\", \"upcoming earnings\", \"before earnings\", \"earnings setup\", \"consensus estimates\", \"earnings whisper\", \"EPS expectations\", \"what's the street expecting\", \"earnings season preview\", any mention of preparing for or previewing an earnings report, or any request to understand expectations ahead of a company's earnings date. Always use this skill when the user mentions a ticker in context of upcoming earnings, even if they don't say \"preview\" explicitly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "earnings-recap",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/earnings-recap",
+          "description": "Generate a post-earnings analysis for any stock using Yahoo Finance data. Use when the user wants to review what happened after earnings, understand beat/miss results, see stock reaction, or get an earnings recap. Triggers: \"AAPL earnings recap\", \"how did TSLA earnings go\", \"MSFT earnings results\", \"did NVDA beat earnings\", \"post-earnings analysis\", \"earnings surprise\", \"what happened with GOOGL earnings\", \"earnings reaction\", \"stock moved after earnings\", \"EPS beat or miss\", \"revenue beat or miss\", \"quarterly results for\", \"how were earnings\", \"AMZN reported last night\", \"earnings call recap\", or any request about a company's recent earnings outcome. Use this skill when the user references a past earnings event, even if they just say \"AAPL reported\" or \"how did they do\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "funda-data",
+          "installUrl": "github:himself65/finance-skills:plugins/data-providers/skills/funda-data",
+          "description": "Fetch financial data from the Funda AI API (https://api.funda.ai). Covers quotes, historical prices, financials, SEC filings, transcripts, analyst estimates, options flow/greeks/GEX, supply chain graph, social sentiment, Polymarket, congressional trades, economics, ESG, news, AI-enriched news (sentiment + event timeline), AI-company recruit signals, and a Claude API proxy via Bedrock. Triggers: stock quotes, balance sheet, income statement, cash flow, analyst targets, DCF, options chain/flow, GEX, IV rank, max pain, earnings/dividend/IPO calendar, 10-K/10-Q/8-K, suppliers/customers/competitors, insider trades, 13F, Reddit/Twitter sentiment, Polymarket, treasury rates, GDP, CPI, FRED, commodity/forex/crypto, stock screener, ETF holdings, COT, ticker sentiment, OpenAI/Anthropic/xAI/Google/Mercor/SurgeAI job postings, product launch probabilities, AI threat to public stocks. Also triggers for \"funda\" or \"funda.ai\". If only a ticker is provided and Funda API can answer, use this skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "generative-ui",
+          "installUrl": "github:himself65/finance-skills:plugins/ui-tools/skills/generative-ui",
+          "description": "Design system and guidelines for Claude's built-in generative UI — the show_widget tool that renders interactive HTML/SVG widgets inline in claude.ai conversations. This skill provides the complete Anthropic \"Imagine\" design system so Claude produces high-quality widgets without needing to call read_me first. Use this skill whenever the user asks to visualize data, create an interactive chart, build a dashboard, render a diagram, draw a flowchart, show a mockup, create an interactive explainer, or produce any visual content beyond plain text or markdown. Triggers include: \"show me\", \"visualize\", \"draw\", \"chart\", \"dashboard\", \"diagram\", \"flowchart\", \"widget\", \"interactive\", \"mockup\", \"illustrate\", \"explain how X works\" (with visual), or any request for visual/interactive output. Also triggers when the user wants to display financial data visually, create comparison grids, or build tools with sliders, toggles, or live-updating displays.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "options-payoff",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/options-payoff",
+          "description": "Generate an interactive options payoff curve chart with dynamic parameter controls. Use this skill whenever the user shares an options position screenshot, describes an options strategy, or asks to visualize how an options trade makes or loses money. Triggers include: any mention of butterfly, spread (vertical/calendar/diagonal/ratio), straddle, strangle, condor, covered call, protective put, iron condor, or any multi-leg options structure. Also triggers when a user pastes strike prices, premiums, expiry dates, or says things like \"show me the payoff\", \"draw the P&L curve\", \"what does this trade look like\", or uploads a screenshot from a broker (IBKR, TastyTrade, Robinhood, etc). Always use this skill even if the user only provides partial info — extract what you can and use defaults for the rest.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "skill-creator",
+          "installUrl": "github:himself65/finance-skills:plugins/skill-creator/skills/skill-creator",
+          "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or iterate on skill quality. Triggers: \"create a skill\", \"make a new skill\", \"build a skill for\", \"write a skill that\", \"skill for doing X\", \"I want a skill to\", \"new skill\", \"design a skill\", \"scaffold a skill\", \"improve this skill\", \"optimize this skill\", \"this skill isn't working well\", \"evaluate this skill\", \"score this skill\", \"how good is this skill\", \"run evals on\", \"benchmark this skill\", \"test this skill's quality\", \"skill quality\", \"skill performance\". Also triggers when a user describes a repeatable workflow they want to automate, says \"I keep doing X manually\", \"can you remember how to do X\", or \"turn this into a skill\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "stock-liquidity",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/stock-liquidity",
+          "description": "Analyze stock liquidity using bid-ask spreads, volume profiles, order book depth, market impact estimates, and turnover ratios via Yahoo Finance data. Use this skill whenever the user asks about liquidity, trading costs, bid-ask spread, market depth, volume analysis, slippage, market impact, turnover ratio, or how easy/hard it is to trade a stock without moving the price. Triggers: \"how liquid is AAPL\", \"bid-ask spread\", \"volume analysis\", \"order book depth\", \"market impact of a large order\", \"turnover ratio\", \"slippage estimate\", \"can I trade 100k shares without moving the price\", \"liquidity comparison\", \"spread analysis\", \"ADTV\", \"Amihud illiquidity\", \"dollar volume\", \"execution cost estimate\", \"liquidity score\", penny stocks, small caps, or thinly traded securities.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "himself65",
+        "repo": "finance-skills",
+        "repoUrl": "https://github.com/himself65/finance-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "himself65-finance-skills-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from himself65/finance-skills.",
+      "author": "ASM (himself65/finance-skills)",
+      "createdAt": "2026-05-09T08:10:47.261Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "himself65",
+        "finance-skills"
+      ],
+      "skills": [
+        {
+          "name": "company-valuation",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/company-valuation",
+          "description": "Estimate the intrinsic value of a public company using DCF, relative (peer multiple) and sum-of-parts (SOTP) methods, then triangulate to an implied share price with upside/downside versus the current market price. Use this skill whenever the user asks: \"what is AAPL worth\", \"valuation of NVDA\", \"fair value of TSLA\", \"intrinsic value\", \"DCF for MSFT\", \"build a DCF\", \"discounted cash flow\", \"WACC\", \"terminal value\", \"implied share price\", \"upside to fair value\", \"is X overvalued/undervalued\", \"relative valuation\", \"peer comparison valuation\", \"EV/EBITDA target\", \"SOTP\", \"sum of the parts\", \"how much is [company] worth\", \"price target from fundamentals\", \"value this company\", or any ticker in the context of computing intrinsic or relative valuation. Default to running ALL three methods (DCF + relative + SOTP-if-applicable) and presenting a blended implied price with a sensitivity table. Do not answer valuation questions from memory — always run the workflow.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "discord-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/discord-reader",
+          "description": "Read Discord for financial research using opencli (read-only). Use this skill whenever the user wants to read Discord channels, search for messages in trading servers, view guild/channel info, monitor crypto or market discussion groups, or gather financial sentiment from Discord. Triggers include: \"check my Discord\", \"search Discord for\", \"read Discord messages\", \"what's happening in the trading Discord\", \"show Discord channels\", \"list my servers\", \"Discord sentiment on BTC\", \"what are people saying in Discord about AAPL\", \"monitor crypto Discord\", any mention of Discord in context of reading financial news, market research, or trading community discussions. This skill is READ-ONLY — it does NOT support sending messages, reacting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "earnings-preview",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/earnings-preview",
+          "description": "Generate a pre-earnings briefing for any stock using Yahoo Finance data. Use this skill whenever the user wants to prepare for an upcoming earnings report, understand what analysts expect, review a company's beat/miss track record, or get a quick overview before an earnings call. Triggers include: \"earnings preview for AAPL\", \"what to expect from TSLA earnings\", \"MSFT reports next week\", \"earnings preview\", \"pre-earnings analysis\", \"what are analysts expecting for NVDA\", \"earnings estimates for\", \"will GOOGL beat earnings\", \"earnings beat/miss history\", \"upcoming earnings\", \"before earnings\", \"earnings setup\", \"consensus estimates\", \"earnings whisper\", \"EPS expectations\", \"what's the street expecting\", \"earnings season preview\", any mention of preparing for or previewing an earnings report, or any request to understand expectations ahead of a company's earnings date. Always use this skill when the user mentions a ticker in context of upcoming earnings, even if they don't say \"preview\" explicitly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "etf-premium",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/etf-premium",
+          "description": "Calculate ETF premium or discount relative to Net Asset Value (NAV) using Yahoo Finance data. Use this skill whenever the user asks about an ETF's premium or discount, NAV comparison, whether an ETF is trading above or below its fair value, or wants to compare market price vs NAV. Triggers: \"ETF premium\", \"ETF discount\", \"NAV premium\", \"is SPY trading at a premium\", \"AGG premium to NAV\", \"market price vs NAV\", \"ETF mispricing\", \"BITO premium\", \"IBIT premium\", \"bond ETF discount\", \"trading above/below NAV\", \"ETF premium screener\", \"which ETFs have biggest discount\", \"compare ETF NAV\", \"ETF arbitrage\", or any request involving the gap between an ETF's market price and its underlying value. Also triggers when analyzing leveraged, inverse, international, bond, commodity, or crypto ETFs where premium/discount is a known concern.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "finance-sentiment",
+          "installUrl": "github:himself65/finance-skills:plugins/data-providers/skills/finance-sentiment",
+          "description": "Fetch structured stock sentiment across Reddit, X.com, news, and Polymarket using the Adanos Finance API. Use this skill whenever the user asks how much people are talking about a stock, how hot a ticker is on social platforms, how many Polymarket bets exist for a company, whether sources are aligned, or to compare stock sentiment across multiple tickers. Triggers include: \"social sentiment on TSLA\", \"how hot is NVDA on X.com\", \"how many Reddit mentions does AAPL have\", \"compare sentiment on AMD vs NVDA\", \"how many Polymarket bets on Microsoft\", \"is Reddit aligned with X on META\", \"stock buzz\", \"bullish percentage\", and any mention of cross-source stock sentiment research. This skill is READ-ONLY and does not place trades or modify anything.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "funda-data",
+          "installUrl": "github:himself65/finance-skills:plugins/data-providers/skills/funda-data",
+          "description": "Fetch financial data from the Funda AI API (https://api.funda.ai). Covers quotes, historical prices, financials, SEC filings, transcripts, analyst estimates, options flow/greeks/GEX, supply chain graph, social sentiment, Polymarket, congressional trades, economics, ESG, news, AI-enriched news (sentiment + event timeline), AI-company recruit signals, and a Claude API proxy via Bedrock. Triggers: stock quotes, balance sheet, income statement, cash flow, analyst targets, DCF, options chain/flow, GEX, IV rank, max pain, earnings/dividend/IPO calendar, 10-K/10-Q/8-K, suppliers/customers/competitors, insider trades, 13F, Reddit/Twitter sentiment, Polymarket, treasury rates, GDP, CPI, FRED, commodity/forex/crypto, stock screener, ETF holdings, COT, ticker sentiment, OpenAI/Anthropic/xAI/Google/Mercor/SurgeAI job postings, product launch probabilities, AI threat to public stocks. Also triggers for \"funda\" or \"funda.ai\". If only a ticker is provided and Funda API can answer, use this skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "generative-ui",
+          "installUrl": "github:himself65/finance-skills:plugins/ui-tools/skills/generative-ui",
+          "description": "Design system and guidelines for Claude's built-in generative UI — the show_widget tool that renders interactive HTML/SVG widgets inline in claude.ai conversations. This skill provides the complete Anthropic \"Imagine\" design system so Claude produces high-quality widgets without needing to call read_me first. Use this skill whenever the user asks to visualize data, create an interactive chart, build a dashboard, render a diagram, draw a flowchart, show a mockup, create an interactive explainer, or produce any visual content beyond plain text or markdown. Triggers include: \"show me\", \"visualize\", \"draw\", \"chart\", \"dashboard\", \"diagram\", \"flowchart\", \"widget\", \"interactive\", \"mockup\", \"illustrate\", \"explain how X works\" (with visual), or any request for visual/interactive output. Also triggers when the user wants to display financial data visually, create comparison grids, or build tools with sliders, toggles, or live-updating displays.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "linkedin-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/linkedin-reader",
+          "description": "Read LinkedIn for financial research using opencli (read-only). Use this skill whenever the user wants to read their LinkedIn feed, search for jobs in the finance/trading industry, view professional posts about markets or earnings, or gather professional sentiment from LinkedIn. Triggers include: \"check my LinkedIn feed\", \"search LinkedIn for\", \"LinkedIn posts about\", \"what's on LinkedIn about AAPL\", \"finance jobs on LinkedIn\", \"LinkedIn market sentiment\", \"who's posting about earnings on LinkedIn\", \"LinkedIn feed\", \"professional network buzz\", \"what are analysts saying on LinkedIn\", any mention of LinkedIn in context of reading financial news, market research, job searches, or professional commentary. This skill is READ-ONLY — it does NOT support posting, liking, commenting, connecting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "opencli-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/opencli-reader",
+          "description": "Generic read-only fallback for any source opencli covers but this repo has no dedicated reader for — Yahoo Finance, Bloomberg, Reuters, Barchart, Eastmoney, Xueqiu, Sinafinance, Reddit, HackerNews, Substack, Medium, Weibo, Bilibili, Xiaohongshu, Zhihu, arXiv, Google Scholar, Apple Podcasts, Xiaoyuzhou, Spotify, YouTube, Weixin, Amazon, and more. Triggers: \"use opencli to read\", \"grab the frontpage from hackernews\", \"read reddit r/wallstreetbets\", \"fetch Eastmoney hot stocks\", \"pull Xueqiu feed\", \"get Bloomberg markets headlines\", \"search arXiv for\", any request to read from a site where a specialized skill does not exist but opencli does. FALLBACK — prefer twitter-reader, linkedin-reader, discord-reader, telegram-reader, or yc-reader when the source matches. READ-ONLY — never invoke write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "sepa-strategy",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/sepa-strategy",
+          "description": "Analyze stocks using Mark Minervini's SEPA (Specific Entry Point Analysis) methodology. Use this skill whenever the user mentions SEPA, Minervini, superperformance, trend template, VCP (Volatility Contraction Pattern), Stage 2 uptrend, stage analysis, pivot point breakout, or asks about growth stock screening criteria. Also triggers when the user wants to evaluate whether a stock meets swing trading entry criteria, check moving average alignment (bullish stacking: price above 50MA above 150MA above 200MA), assess breakout quality with volume confirmation, calculate position sizing based on risk percentage, or identify consolidation patterns like cup-with-handle, flat base, bull flag, or high tight flag. Use this skill even when the user simply asks \"should I buy this stock\" or \"is this a good setup\" in the context of growth/momentum trading, or when they share a stock chart and want pattern analysis.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "skill-creator",
+          "installUrl": "github:himself65/finance-skills:plugins/skill-creator/skills/skill-creator",
+          "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or iterate on skill quality. Triggers: \"create a skill\", \"make a new skill\", \"build a skill for\", \"write a skill that\", \"skill for doing X\", \"I want a skill to\", \"new skill\", \"design a skill\", \"scaffold a skill\", \"improve this skill\", \"optimize this skill\", \"this skill isn't working well\", \"evaluate this skill\", \"score this skill\", \"how good is this skill\", \"run evals on\", \"benchmark this skill\", \"test this skill's quality\", \"skill quality\", \"skill performance\". Also triggers when a user describes a repeatable workflow they want to automate, says \"I keep doing X manually\", \"can you remember how to do X\", or \"turn this into a skill\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "telegram-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/telegram-reader",
+          "description": "Read Telegram channels and groups for financial news and market research using tdl (read-only). Use this skill whenever the user wants to read Telegram channels, export messages from financial Telegram groups, list their Telegram chats, search for news in Telegram channels, or gather market intelligence from Telegram. Triggers include: \"check my Telegram\", \"read Telegram channel\", \"Telegram news\", \"what's new in my Telegram channels\", \"export messages from\", \"list my Telegram chats\", \"financial news on Telegram\", \"crypto Telegram\", \"market news Telegram\", any mention of Telegram in context of reading financial news, crypto signals, or market research. This skill is READ-ONLY — it does NOT support sending messages, joining channels, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "twitter-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/twitter-reader",
+          "description": "Read Twitter/X for financial research using opencli (read-only). Use this skill whenever the user wants to read their Twitter feed, search for financial tweets, view bookmarks, look up user profiles, or gather market sentiment from Twitter/X. Triggers include: \"check my feed\", \"search Twitter for\", \"show my bookmarks\", \"who follows\", \"look up @user\", \"what's trending about\", \"market sentiment on Twitter\", \"what are people saying about AAPL\", \"recent tweets from @elonmusk\", \"show me @user's posts\", \"fintwit\", any mention of Twitter/X in context of reading financial news or market research. This skill is READ-ONLY — it does NOT support posting, liking, retweeting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "yc-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/yc-reader",
+          "description": "Look up Y Combinator companies, batches, and startup ecosystem data using the yc-oss API (read-only). Use this skill whenever the user wants to research YC-backed startups, find companies in a specific batch or industry, check which YC companies are hiring, explore top YC companies, or analyze startup trends by sector or tag. Triggers include: \"YC companies in fintech\", \"who's in the latest YC batch\", \"YC startups hiring\", \"top Y Combinator companies\", \"find YC companies tagged AI\", \"W25 batch\", \"S24 companies\", \"YC stats\", \"Y Combinator portfolio\", \"startup research\", \"which YC companies do X\", \"venture research on YC\", any mention of Y Combinator, YC batch, or YC-backed companies in the context of startup research, venture analysis, or market intelligence. This is a read-only data source — the API is a static JSON dataset updated daily.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "yfinance-data",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/yfinance-data",
+          "description": "Fetch financial and market data using the yfinance Python library. Use this skill whenever the user asks for stock prices, historical data, financial statements, options chains, dividends, earnings, analyst recommendations, or any market data. Triggers include: any mention of stock price, ticker symbol (AAPL, MSFT, TSLA, etc.), \"get me the financials\", \"show earnings\", \"what's the price of\", \"download stock data\", \"options chain\", \"dividend history\", \"balance sheet\", \"income statement\", \"cash flow\", \"analyst targets\", \"institutional holders\", \"compare stocks\", \"screen for stocks\", or any request involving Yahoo Finance data. Always use this skill even if the user only provides a ticker — infer intent from context.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "himself65",
+        "repo": "finance-skills",
+        "repoUrl": "https://github.com/himself65/finance-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "himself65-finance-skills-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from himself65/finance-skills.",
+      "author": "ASM (himself65/finance-skills)",
+      "createdAt": "2026-05-09T08:10:47.261Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "himself65",
+        "finance-skills"
+      ],
+      "skills": [
+        {
+          "name": "company-valuation",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/company-valuation",
+          "description": "Estimate the intrinsic value of a public company using DCF, relative (peer multiple) and sum-of-parts (SOTP) methods, then triangulate to an implied share price with upside/downside versus the current market price. Use this skill whenever the user asks: \"what is AAPL worth\", \"valuation of NVDA\", \"fair value of TSLA\", \"intrinsic value\", \"DCF for MSFT\", \"build a DCF\", \"discounted cash flow\", \"WACC\", \"terminal value\", \"implied share price\", \"upside to fair value\", \"is X overvalued/undervalued\", \"relative valuation\", \"peer comparison valuation\", \"EV/EBITDA target\", \"SOTP\", \"sum of the parts\", \"how much is [company] worth\", \"price target from fundamentals\", \"value this company\", or any ticker in the context of computing intrinsic or relative valuation. Default to running ALL three methods (DCF + relative + SOTP-if-applicable) and presenting a blended implied price with a sensitivity table. Do not answer valuation questions from memory — always run the workflow.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "earnings-preview",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/earnings-preview",
+          "description": "Generate a pre-earnings briefing for any stock using Yahoo Finance data. Use this skill whenever the user wants to prepare for an upcoming earnings report, understand what analysts expect, review a company's beat/miss track record, or get a quick overview before an earnings call. Triggers include: \"earnings preview for AAPL\", \"what to expect from TSLA earnings\", \"MSFT reports next week\", \"earnings preview\", \"pre-earnings analysis\", \"what are analysts expecting for NVDA\", \"earnings estimates for\", \"will GOOGL beat earnings\", \"earnings beat/miss history\", \"upcoming earnings\", \"before earnings\", \"earnings setup\", \"consensus estimates\", \"earnings whisper\", \"EPS expectations\", \"what's the street expecting\", \"earnings season preview\", any mention of preparing for or previewing an earnings report, or any request to understand expectations ahead of a company's earnings date. Always use this skill when the user mentions a ticker in context of upcoming earnings, even if they don't say \"preview\" explicitly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "earnings-recap",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/earnings-recap",
+          "description": "Generate a post-earnings analysis for any stock using Yahoo Finance data. Use when the user wants to review what happened after earnings, understand beat/miss results, see stock reaction, or get an earnings recap. Triggers: \"AAPL earnings recap\", \"how did TSLA earnings go\", \"MSFT earnings results\", \"did NVDA beat earnings\", \"post-earnings analysis\", \"earnings surprise\", \"what happened with GOOGL earnings\", \"earnings reaction\", \"stock moved after earnings\", \"EPS beat or miss\", \"revenue beat or miss\", \"quarterly results for\", \"how were earnings\", \"AMZN reported last night\", \"earnings call recap\", or any request about a company's recent earnings outcome. Use this skill when the user references a past earnings event, even if they just say \"AAPL reported\" or \"how did they do\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "estimate-analysis",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/estimate-analysis",
+          "description": "Deep-dive into analyst estimates and revision trends for any stock using Yahoo Finance data. Use when the user wants to understand analyst estimate direction, how EPS or revenue forecasts changed over time, compare estimate distributions, or analyze growth projections across periods. Triggers: \"estimate analysis for AAPL\", \"analyst estimate trends for NVDA\", \"EPS revisions for TSLA\", \"how have estimates changed for MSFT\", \"estimate revisions\", \"EPS trend\", \"revenue estimates\", \"consensus changes\", \"analyst estimates\", \"estimate distribution\", \"growth estimates for\", \"estimate momentum\", \"revision trend\", \"forward estimates\", \"next quarter estimates\", \"annual estimates\", \"estimate spread\", \"bull vs bear estimates\", \"estimate range\", or any request about tracking or comparing analyst estimates/revisions. Use this skill when the user asks about estimates beyond a simple lookup — if they want context, trends, or analysis, this is the right skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "etf-premium",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/etf-premium",
+          "description": "Calculate ETF premium or discount relative to Net Asset Value (NAV) using Yahoo Finance data. Use this skill whenever the user asks about an ETF's premium or discount, NAV comparison, whether an ETF is trading above or below its fair value, or wants to compare market price vs NAV. Triggers: \"ETF premium\", \"ETF discount\", \"NAV premium\", \"is SPY trading at a premium\", \"AGG premium to NAV\", \"market price vs NAV\", \"ETF mispricing\", \"BITO premium\", \"IBIT premium\", \"bond ETF discount\", \"trading above/below NAV\", \"ETF premium screener\", \"which ETFs have biggest discount\", \"compare ETF NAV\", \"ETF arbitrage\", or any request involving the gap between an ETF's market price and its underlying value. Also triggers when analyzing leveraged, inverse, international, bond, commodity, or crypto ETFs where premium/discount is a known concern.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "finance-sentiment",
+          "installUrl": "github:himself65/finance-skills:plugins/data-providers/skills/finance-sentiment",
+          "description": "Fetch structured stock sentiment across Reddit, X.com, news, and Polymarket using the Adanos Finance API. Use this skill whenever the user asks how much people are talking about a stock, how hot a ticker is on social platforms, how many Polymarket bets exist for a company, whether sources are aligned, or to compare stock sentiment across multiple tickers. Triggers include: \"social sentiment on TSLA\", \"how hot is NVDA on X.com\", \"how many Reddit mentions does AAPL have\", \"compare sentiment on AMD vs NVDA\", \"how many Polymarket bets on Microsoft\", \"is Reddit aligned with X on META\", \"stock buzz\", \"bullish percentage\", and any mention of cross-source stock sentiment research. This skill is READ-ONLY and does not place trades or modify anything.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "funda-data",
+          "installUrl": "github:himself65/finance-skills:plugins/data-providers/skills/funda-data",
+          "description": "Fetch financial data from the Funda AI API (https://api.funda.ai). Covers quotes, historical prices, financials, SEC filings, transcripts, analyst estimates, options flow/greeks/GEX, supply chain graph, social sentiment, Polymarket, congressional trades, economics, ESG, news, AI-enriched news (sentiment + event timeline), AI-company recruit signals, and a Claude API proxy via Bedrock. Triggers: stock quotes, balance sheet, income statement, cash flow, analyst targets, DCF, options chain/flow, GEX, IV rank, max pain, earnings/dividend/IPO calendar, 10-K/10-Q/8-K, suppliers/customers/competitors, insider trades, 13F, Reddit/Twitter sentiment, Polymarket, treasury rates, GDP, CPI, FRED, commodity/forex/crypto, stock screener, ETF holdings, COT, ticker sentiment, OpenAI/Anthropic/xAI/Google/Mercor/SurgeAI job postings, product launch probabilities, AI threat to public stocks. Also triggers for \"funda\" or \"funda.ai\". If only a ticker is provided and Funda API can answer, use this skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "generative-ui",
+          "installUrl": "github:himself65/finance-skills:plugins/ui-tools/skills/generative-ui",
+          "description": "Design system and guidelines for Claude's built-in generative UI — the show_widget tool that renders interactive HTML/SVG widgets inline in claude.ai conversations. This skill provides the complete Anthropic \"Imagine\" design system so Claude produces high-quality widgets without needing to call read_me first. Use this skill whenever the user asks to visualize data, create an interactive chart, build a dashboard, render a diagram, draw a flowchart, show a mockup, create an interactive explainer, or produce any visual content beyond plain text or markdown. Triggers include: \"show me\", \"visualize\", \"draw\", \"chart\", \"dashboard\", \"diagram\", \"flowchart\", \"widget\", \"interactive\", \"mockup\", \"illustrate\", \"explain how X works\" (with visual), or any request for visual/interactive output. Also triggers when the user wants to display financial data visually, create comparison grids, or build tools with sliders, toggles, or live-updating displays.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hormuz-strait",
+          "installUrl": "github:himself65/finance-skills:plugins/data-providers/skills/hormuz-strait",
+          "description": "Check the current status of the Strait of Hormuz — shipping transit data, oil price impact, stranded vessels, insurance risk levels, diplomatic developments, and global trade impact. Use this skill whenever the user asks about the Strait of Hormuz, Hormuz chokepoint, Persian Gulf shipping risk, oil transit disruption, war risk premium in the Gulf, Middle East shipping routes, tanker traffic through Hormuz, oil supply chain risk, or geopolitical risk affecting energy markets. Triggers include: \"Hormuz status\", \"Strait of Hormuz\", \"is Hormuz open\", \"shipping through the Gulf\", \"oil chokepoint\", \"Persian Gulf tanker traffic\", \"war risk premium\", \"Hormuz crisis\", \"energy supply chain risk\", \"oil transit disruption\", \"Middle East shipping\", any mention of Hormuz or Persian Gulf in context of oil, shipping, or geopolitical risk.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "options-payoff",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/options-payoff",
+          "description": "Generate an interactive options payoff curve chart with dynamic parameter controls. Use this skill whenever the user shares an options position screenshot, describes an options strategy, or asks to visualize how an options trade makes or loses money. Triggers include: any mention of butterfly, spread (vertical/calendar/diagonal/ratio), straddle, strangle, condor, covered call, protective put, iron condor, or any multi-leg options structure. Also triggers when a user pastes strike prices, premiums, expiry dates, or says things like \"show me the payoff\", \"draw the P&L curve\", \"what does this trade look like\", or uploads a screenshot from a broker (IBKR, TastyTrade, Robinhood, etc). Always use this skill even if the user only provides partial info — extract what you can and use defaults for the rest.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "saas-valuation-compression",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/saas-valuation-compression",
+          "description": "Analyze SaaS company valuation compression between funding rounds. Use this skill whenever the user asks about: how much a SaaS company's valuation multiple changed between rounds, why the ARR multiple compressed or expanded, comparing a company's compression to macro benchmarks, or explaining what drove valuation changes for any VC-backed software company. Trigger on phrases like \"valuation compression\", \"ARR multiple\", \"round-to-round valuation\", \"multiple change\", or when the user asks to compare a company's funding rounds. Always use this skill for any multi-round SaaS valuation analysis — do not try to answer from memory alone.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "sepa-strategy",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/sepa-strategy",
+          "description": "Analyze stocks using Mark Minervini's SEPA (Specific Entry Point Analysis) methodology. Use this skill whenever the user mentions SEPA, Minervini, superperformance, trend template, VCP (Volatility Contraction Pattern), Stage 2 uptrend, stage analysis, pivot point breakout, or asks about growth stock screening criteria. Also triggers when the user wants to evaluate whether a stock meets swing trading entry criteria, check moving average alignment (bullish stacking: price above 50MA above 150MA above 200MA), assess breakout quality with volume confirmation, calculate position sizing based on risk percentage, or identify consolidation patterns like cup-with-handle, flat base, bull flag, or high tight flag. Use this skill even when the user simply asks \"should I buy this stock\" or \"is this a good setup\" in the context of growth/momentum trading, or when they share a stock chart and want pattern analysis.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "skill-creator",
+          "installUrl": "github:himself65/finance-skills:plugins/skill-creator/skills/skill-creator",
+          "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or iterate on skill quality. Triggers: \"create a skill\", \"make a new skill\", \"build a skill for\", \"write a skill that\", \"skill for doing X\", \"I want a skill to\", \"new skill\", \"design a skill\", \"scaffold a skill\", \"improve this skill\", \"optimize this skill\", \"this skill isn't working well\", \"evaluate this skill\", \"score this skill\", \"how good is this skill\", \"run evals on\", \"benchmark this skill\", \"test this skill's quality\", \"skill quality\", \"skill performance\". Also triggers when a user describes a repeatable workflow they want to automate, says \"I keep doing X manually\", \"can you remember how to do X\", or \"turn this into a skill\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "startup-analysis",
+          "installUrl": "github:himself65/finance-skills:plugins/startup-tools/skills/startup-analysis",
+          "description": "Analyze a startup from three perspectives: VC investor, job applicant, and CEO/founder. Use this skill whenever the user wants to evaluate a startup, assess whether to invest in or join a startup, do due diligence, evaluate a job offer from a startup, understand a startup's competitive position, or assess company health and trajectory. Triggers: \"analyze this startup\", \"should I join [company]\", \"is [company] a good investment\", \"evaluate [company]\", \"due diligence on [company]\", \"what do you think of [startup]\", \"should I take this startup job offer\", \"how healthy is [company]\", \"startup assessment\", \"company analysis\", \"is [company] worth joining\", \"what's the outlook for [company]\", \"research [company] for me\", any mention of evaluating or assessing a startup or tech company from investment, career, or strategic perspectives — provide all three perspectives by default.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "stock-correlation",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/stock-correlation",
+          "description": "Analyze stock correlations to find related companies and trading pairs. Use when the user asks about correlated stocks, related companies, sector peers, trading pairs, or how two or more stocks move together. Triggers: \"what correlates with NVDA\", \"find stocks related to AMD\", \"correlation between AAPL and MSFT\", \"what moves with\", \"sector peers\", \"pair trading\", \"correlated stocks\", \"when NVDA drops what else drops\", \"stocks that move together\", \"beta to\", \"relative performance\", \"supply chain partners\", \"correlation matrix\", \"co-movement\", \"related tickers\", \"sympathy plays\", \"semiconductor peers\", \"hedging pair\", \"realized correlation\", \"rolling correlation\", or any request about stocks that move in tandem or inversely. Also triggers for well-known pairs like AMD/NVDA, GOOGL/AVGO, LITE/COHR. If only one ticker is provided, infer the user wants correlated peers.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "stock-liquidity",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/stock-liquidity",
+          "description": "Analyze stock liquidity using bid-ask spreads, volume profiles, order book depth, market impact estimates, and turnover ratios via Yahoo Finance data. Use this skill whenever the user asks about liquidity, trading costs, bid-ask spread, market depth, volume analysis, slippage, market impact, turnover ratio, or how easy/hard it is to trade a stock without moving the price. Triggers: \"how liquid is AAPL\", \"bid-ask spread\", \"volume analysis\", \"order book depth\", \"market impact of a large order\", \"turnover ratio\", \"slippage estimate\", \"can I trade 100k shares without moving the price\", \"liquidity comparison\", \"spread analysis\", \"ADTV\", \"Amihud illiquidity\", \"dollar volume\", \"execution cost estimate\", \"liquidity score\", penny stocks, small caps, or thinly traded securities.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "yc-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/yc-reader",
+          "description": "Look up Y Combinator companies, batches, and startup ecosystem data using the yc-oss API (read-only). Use this skill whenever the user wants to research YC-backed startups, find companies in a specific batch or industry, check which YC companies are hiring, explore top YC companies, or analyze startup trends by sector or tag. Triggers include: \"YC companies in fintech\", \"who's in the latest YC batch\", \"YC startups hiring\", \"top Y Combinator companies\", \"find YC companies tagged AI\", \"W25 batch\", \"S24 companies\", \"YC stats\", \"Y Combinator portfolio\", \"startup research\", \"which YC companies do X\", \"venture research on YC\", any mention of Y Combinator, YC batch, or YC-backed companies in the context of startup research, venture analysis, or market intelligence. This is a read-only data source — the API is a static JSON dataset updated daily.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "yfinance-data",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/yfinance-data",
+          "description": "Fetch financial and market data using the yfinance Python library. Use this skill whenever the user asks for stock prices, historical data, financial statements, options chains, dividends, earnings, analyst recommendations, or any market data. Triggers include: any mention of stock price, ticker symbol (AAPL, MSFT, TSLA, etc.), \"get me the financials\", \"show earnings\", \"what's the price of\", \"download stock data\", \"options chain\", \"dividend history\", \"balance sheet\", \"income statement\", \"cash flow\", \"analyst targets\", \"institutional holders\", \"compare stocks\", \"screen for stocks\", or any request involving Yahoo Finance data. Always use this skill even if the user only provides a ticker — infer intent from context.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "himself65",
+        "repo": "finance-skills",
+        "repoUrl": "https://github.com/himself65/finance-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "himself65-finance-skills-product-business",
+      "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from himself65/finance-skills.",
+      "author": "ASM (himself65/finance-skills)",
+      "createdAt": "2026-05-09T08:10:47.261Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "product",
+        "business",
+        "planning",
+        "himself65",
+        "finance-skills"
+      ],
+      "skills": [
+        {
+          "name": "company-valuation",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/company-valuation",
+          "description": "Estimate the intrinsic value of a public company using DCF, relative (peer multiple) and sum-of-parts (SOTP) methods, then triangulate to an implied share price with upside/downside versus the current market price. Use this skill whenever the user asks: \"what is AAPL worth\", \"valuation of NVDA\", \"fair value of TSLA\", \"intrinsic value\", \"DCF for MSFT\", \"build a DCF\", \"discounted cash flow\", \"WACC\", \"terminal value\", \"implied share price\", \"upside to fair value\", \"is X overvalued/undervalued\", \"relative valuation\", \"peer comparison valuation\", \"EV/EBITDA target\", \"SOTP\", \"sum of the parts\", \"how much is [company] worth\", \"price target from fundamentals\", \"value this company\", or any ticker in the context of computing intrinsic or relative valuation. Default to running ALL three methods (DCF + relative + SOTP-if-applicable) and presenting a blended implied price with a sensitivity table. Do not answer valuation questions from memory — always run the workflow.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "discord-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/discord-reader",
+          "description": "Read Discord for financial research using opencli (read-only). Use this skill whenever the user wants to read Discord channels, search for messages in trading servers, view guild/channel info, monitor crypto or market discussion groups, or gather financial sentiment from Discord. Triggers include: \"check my Discord\", \"search Discord for\", \"read Discord messages\", \"what's happening in the trading Discord\", \"show Discord channels\", \"list my servers\", \"Discord sentiment on BTC\", \"what are people saying in Discord about AAPL\", \"monitor crypto Discord\", any mention of Discord in context of reading financial news, market research, or trading community discussions. This skill is READ-ONLY — it does NOT support sending messages, reacting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "earnings-preview",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/earnings-preview",
+          "description": "Generate a pre-earnings briefing for any stock using Yahoo Finance data. Use this skill whenever the user wants to prepare for an upcoming earnings report, understand what analysts expect, review a company's beat/miss track record, or get a quick overview before an earnings call. Triggers include: \"earnings preview for AAPL\", \"what to expect from TSLA earnings\", \"MSFT reports next week\", \"earnings preview\", \"pre-earnings analysis\", \"what are analysts expecting for NVDA\", \"earnings estimates for\", \"will GOOGL beat earnings\", \"earnings beat/miss history\", \"upcoming earnings\", \"before earnings\", \"earnings setup\", \"consensus estimates\", \"earnings whisper\", \"EPS expectations\", \"what's the street expecting\", \"earnings season preview\", any mention of preparing for or previewing an earnings report, or any request to understand expectations ahead of a company's earnings date. Always use this skill when the user mentions a ticker in context of upcoming earnings, even if they don't say \"preview\" explicitly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "earnings-recap",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/earnings-recap",
+          "description": "Generate a post-earnings analysis for any stock using Yahoo Finance data. Use when the user wants to review what happened after earnings, understand beat/miss results, see stock reaction, or get an earnings recap. Triggers: \"AAPL earnings recap\", \"how did TSLA earnings go\", \"MSFT earnings results\", \"did NVDA beat earnings\", \"post-earnings analysis\", \"earnings surprise\", \"what happened with GOOGL earnings\", \"earnings reaction\", \"stock moved after earnings\", \"EPS beat or miss\", \"revenue beat or miss\", \"quarterly results for\", \"how were earnings\", \"AMZN reported last night\", \"earnings call recap\", or any request about a company's recent earnings outcome. Use this skill when the user references a past earnings event, even if they just say \"AAPL reported\" or \"how did they do\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "estimate-analysis",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/estimate-analysis",
+          "description": "Deep-dive into analyst estimates and revision trends for any stock using Yahoo Finance data. Use when the user wants to understand analyst estimate direction, how EPS or revenue forecasts changed over time, compare estimate distributions, or analyze growth projections across periods. Triggers: \"estimate analysis for AAPL\", \"analyst estimate trends for NVDA\", \"EPS revisions for TSLA\", \"how have estimates changed for MSFT\", \"estimate revisions\", \"EPS trend\", \"revenue estimates\", \"consensus changes\", \"analyst estimates\", \"estimate distribution\", \"growth estimates for\", \"estimate momentum\", \"revision trend\", \"forward estimates\", \"next quarter estimates\", \"annual estimates\", \"estimate spread\", \"bull vs bear estimates\", \"estimate range\", or any request about tracking or comparing analyst estimates/revisions. Use this skill when the user asks about estimates beyond a simple lookup — if they want context, trends, or analysis, this is the right skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "etf-premium",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/etf-premium",
+          "description": "Calculate ETF premium or discount relative to Net Asset Value (NAV) using Yahoo Finance data. Use this skill whenever the user asks about an ETF's premium or discount, NAV comparison, whether an ETF is trading above or below its fair value, or wants to compare market price vs NAV. Triggers: \"ETF premium\", \"ETF discount\", \"NAV premium\", \"is SPY trading at a premium\", \"AGG premium to NAV\", \"market price vs NAV\", \"ETF mispricing\", \"BITO premium\", \"IBIT premium\", \"bond ETF discount\", \"trading above/below NAV\", \"ETF premium screener\", \"which ETFs have biggest discount\", \"compare ETF NAV\", \"ETF arbitrage\", or any request involving the gap between an ETF's market price and its underlying value. Also triggers when analyzing leveraged, inverse, international, bond, commodity, or crypto ETFs where premium/discount is a known concern.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "finance-sentiment",
+          "installUrl": "github:himself65/finance-skills:plugins/data-providers/skills/finance-sentiment",
+          "description": "Fetch structured stock sentiment across Reddit, X.com, news, and Polymarket using the Adanos Finance API. Use this skill whenever the user asks how much people are talking about a stock, how hot a ticker is on social platforms, how many Polymarket bets exist for a company, whether sources are aligned, or to compare stock sentiment across multiple tickers. Triggers include: \"social sentiment on TSLA\", \"how hot is NVDA on X.com\", \"how many Reddit mentions does AAPL have\", \"compare sentiment on AMD vs NVDA\", \"how many Polymarket bets on Microsoft\", \"is Reddit aligned with X on META\", \"stock buzz\", \"bullish percentage\", and any mention of cross-source stock sentiment research. This skill is READ-ONLY and does not place trades or modify anything.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "funda-data",
+          "installUrl": "github:himself65/finance-skills:plugins/data-providers/skills/funda-data",
+          "description": "Fetch financial data from the Funda AI API (https://api.funda.ai). Covers quotes, historical prices, financials, SEC filings, transcripts, analyst estimates, options flow/greeks/GEX, supply chain graph, social sentiment, Polymarket, congressional trades, economics, ESG, news, AI-enriched news (sentiment + event timeline), AI-company recruit signals, and a Claude API proxy via Bedrock. Triggers: stock quotes, balance sheet, income statement, cash flow, analyst targets, DCF, options chain/flow, GEX, IV rank, max pain, earnings/dividend/IPO calendar, 10-K/10-Q/8-K, suppliers/customers/competitors, insider trades, 13F, Reddit/Twitter sentiment, Polymarket, treasury rates, GDP, CPI, FRED, commodity/forex/crypto, stock screener, ETF holdings, COT, ticker sentiment, OpenAI/Anthropic/xAI/Google/Mercor/SurgeAI job postings, product launch probabilities, AI threat to public stocks. Also triggers for \"funda\" or \"funda.ai\". If only a ticker is provided and Funda API can answer, use this skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "generative-ui",
+          "installUrl": "github:himself65/finance-skills:plugins/ui-tools/skills/generative-ui",
+          "description": "Design system and guidelines for Claude's built-in generative UI — the show_widget tool that renders interactive HTML/SVG widgets inline in claude.ai conversations. This skill provides the complete Anthropic \"Imagine\" design system so Claude produces high-quality widgets without needing to call read_me first. Use this skill whenever the user asks to visualize data, create an interactive chart, build a dashboard, render a diagram, draw a flowchart, show a mockup, create an interactive explainer, or produce any visual content beyond plain text or markdown. Triggers include: \"show me\", \"visualize\", \"draw\", \"chart\", \"dashboard\", \"diagram\", \"flowchart\", \"widget\", \"interactive\", \"mockup\", \"illustrate\", \"explain how X works\" (with visual), or any request for visual/interactive output. Also triggers when the user wants to display financial data visually, create comparison grids, or build tools with sliders, toggles, or live-updating displays.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hormuz-strait",
+          "installUrl": "github:himself65/finance-skills:plugins/data-providers/skills/hormuz-strait",
+          "description": "Check the current status of the Strait of Hormuz — shipping transit data, oil price impact, stranded vessels, insurance risk levels, diplomatic developments, and global trade impact. Use this skill whenever the user asks about the Strait of Hormuz, Hormuz chokepoint, Persian Gulf shipping risk, oil transit disruption, war risk premium in the Gulf, Middle East shipping routes, tanker traffic through Hormuz, oil supply chain risk, or geopolitical risk affecting energy markets. Triggers include: \"Hormuz status\", \"Strait of Hormuz\", \"is Hormuz open\", \"shipping through the Gulf\", \"oil chokepoint\", \"Persian Gulf tanker traffic\", \"war risk premium\", \"Hormuz crisis\", \"energy supply chain risk\", \"oil transit disruption\", \"Middle East shipping\", any mention of Hormuz or Persian Gulf in context of oil, shipping, or geopolitical risk.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "linkedin-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/linkedin-reader",
+          "description": "Read LinkedIn for financial research using opencli (read-only). Use this skill whenever the user wants to read their LinkedIn feed, search for jobs in the finance/trading industry, view professional posts about markets or earnings, or gather professional sentiment from LinkedIn. Triggers include: \"check my LinkedIn feed\", \"search LinkedIn for\", \"LinkedIn posts about\", \"what's on LinkedIn about AAPL\", \"finance jobs on LinkedIn\", \"LinkedIn market sentiment\", \"who's posting about earnings on LinkedIn\", \"LinkedIn feed\", \"professional network buzz\", \"what are analysts saying on LinkedIn\", any mention of LinkedIn in context of reading financial news, market research, job searches, or professional commentary. This skill is READ-ONLY — it does NOT support posting, liking, commenting, connecting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "opencli-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/opencli-reader",
+          "description": "Generic read-only fallback for any source opencli covers but this repo has no dedicated reader for — Yahoo Finance, Bloomberg, Reuters, Barchart, Eastmoney, Xueqiu, Sinafinance, Reddit, HackerNews, Substack, Medium, Weibo, Bilibili, Xiaohongshu, Zhihu, arXiv, Google Scholar, Apple Podcasts, Xiaoyuzhou, Spotify, YouTube, Weixin, Amazon, and more. Triggers: \"use opencli to read\", \"grab the frontpage from hackernews\", \"read reddit r/wallstreetbets\", \"fetch Eastmoney hot stocks\", \"pull Xueqiu feed\", \"get Bloomberg markets headlines\", \"search arXiv for\", any request to read from a site where a specialized skill does not exist but opencli does. FALLBACK — prefer twitter-reader, linkedin-reader, discord-reader, telegram-reader, or yc-reader when the source matches. READ-ONLY — never invoke write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "options-payoff",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/options-payoff",
+          "description": "Generate an interactive options payoff curve chart with dynamic parameter controls. Use this skill whenever the user shares an options position screenshot, describes an options strategy, or asks to visualize how an options trade makes or loses money. Triggers include: any mention of butterfly, spread (vertical/calendar/diagonal/ratio), straddle, strangle, condor, covered call, protective put, iron condor, or any multi-leg options structure. Also triggers when a user pastes strike prices, premiums, expiry dates, or says things like \"show me the payoff\", \"draw the P&L curve\", \"what does this trade look like\", or uploads a screenshot from a broker (IBKR, TastyTrade, Robinhood, etc). Always use this skill even if the user only provides partial info — extract what you can and use defaults for the rest.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "saas-valuation-compression",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/saas-valuation-compression",
+          "description": "Analyze SaaS company valuation compression between funding rounds. Use this skill whenever the user asks about: how much a SaaS company's valuation multiple changed between rounds, why the ARR multiple compressed or expanded, comparing a company's compression to macro benchmarks, or explaining what drove valuation changes for any VC-backed software company. Trigger on phrases like \"valuation compression\", \"ARR multiple\", \"round-to-round valuation\", \"multiple change\", or when the user asks to compare a company's funding rounds. Always use this skill for any multi-round SaaS valuation analysis — do not try to answer from memory alone.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "sepa-strategy",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/sepa-strategy",
+          "description": "Analyze stocks using Mark Minervini's SEPA (Specific Entry Point Analysis) methodology. Use this skill whenever the user mentions SEPA, Minervini, superperformance, trend template, VCP (Volatility Contraction Pattern), Stage 2 uptrend, stage analysis, pivot point breakout, or asks about growth stock screening criteria. Also triggers when the user wants to evaluate whether a stock meets swing trading entry criteria, check moving average alignment (bullish stacking: price above 50MA above 150MA above 200MA), assess breakout quality with volume confirmation, calculate position sizing based on risk percentage, or identify consolidation patterns like cup-with-handle, flat base, bull flag, or high tight flag. Use this skill even when the user simply asks \"should I buy this stock\" or \"is this a good setup\" in the context of growth/momentum trading, or when they share a stock chart and want pattern analysis.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "skill-creator",
+          "installUrl": "github:himself65/finance-skills:plugins/skill-creator/skills/skill-creator",
+          "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or iterate on skill quality. Triggers: \"create a skill\", \"make a new skill\", \"build a skill for\", \"write a skill that\", \"skill for doing X\", \"I want a skill to\", \"new skill\", \"design a skill\", \"scaffold a skill\", \"improve this skill\", \"optimize this skill\", \"this skill isn't working well\", \"evaluate this skill\", \"score this skill\", \"how good is this skill\", \"run evals on\", \"benchmark this skill\", \"test this skill's quality\", \"skill quality\", \"skill performance\". Also triggers when a user describes a repeatable workflow they want to automate, says \"I keep doing X manually\", \"can you remember how to do X\", or \"turn this into a skill\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "startup-analysis",
+          "installUrl": "github:himself65/finance-skills:plugins/startup-tools/skills/startup-analysis",
+          "description": "Analyze a startup from three perspectives: VC investor, job applicant, and CEO/founder. Use this skill whenever the user wants to evaluate a startup, assess whether to invest in or join a startup, do due diligence, evaluate a job offer from a startup, understand a startup's competitive position, or assess company health and trajectory. Triggers: \"analyze this startup\", \"should I join [company]\", \"is [company] a good investment\", \"evaluate [company]\", \"due diligence on [company]\", \"what do you think of [startup]\", \"should I take this startup job offer\", \"how healthy is [company]\", \"startup assessment\", \"company analysis\", \"is [company] worth joining\", \"what's the outlook for [company]\", \"research [company] for me\", any mention of evaluating or assessing a startup or tech company from investment, career, or strategic perspectives — provide all three perspectives by default.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "stock-correlation",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/stock-correlation",
+          "description": "Analyze stock correlations to find related companies and trading pairs. Use when the user asks about correlated stocks, related companies, sector peers, trading pairs, or how two or more stocks move together. Triggers: \"what correlates with NVDA\", \"find stocks related to AMD\", \"correlation between AAPL and MSFT\", \"what moves with\", \"sector peers\", \"pair trading\", \"correlated stocks\", \"when NVDA drops what else drops\", \"stocks that move together\", \"beta to\", \"relative performance\", \"supply chain partners\", \"correlation matrix\", \"co-movement\", \"related tickers\", \"sympathy plays\", \"semiconductor peers\", \"hedging pair\", \"realized correlation\", \"rolling correlation\", or any request about stocks that move in tandem or inversely. Also triggers for well-known pairs like AMD/NVDA, GOOGL/AVGO, LITE/COHR. If only one ticker is provided, infer the user wants correlated peers.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "stock-liquidity",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/stock-liquidity",
+          "description": "Analyze stock liquidity using bid-ask spreads, volume profiles, order book depth, market impact estimates, and turnover ratios via Yahoo Finance data. Use this skill whenever the user asks about liquidity, trading costs, bid-ask spread, market depth, volume analysis, slippage, market impact, turnover ratio, or how easy/hard it is to trade a stock without moving the price. Triggers: \"how liquid is AAPL\", \"bid-ask spread\", \"volume analysis\", \"order book depth\", \"market impact of a large order\", \"turnover ratio\", \"slippage estimate\", \"can I trade 100k shares without moving the price\", \"liquidity comparison\", \"spread analysis\", \"ADTV\", \"Amihud illiquidity\", \"dollar volume\", \"execution cost estimate\", \"liquidity score\", penny stocks, small caps, or thinly traded securities.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "telegram-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/telegram-reader",
+          "description": "Read Telegram channels and groups for financial news and market research using tdl (read-only). Use this skill whenever the user wants to read Telegram channels, export messages from financial Telegram groups, list their Telegram chats, search for news in Telegram channels, or gather market intelligence from Telegram. Triggers include: \"check my Telegram\", \"read Telegram channel\", \"Telegram news\", \"what's new in my Telegram channels\", \"export messages from\", \"list my Telegram chats\", \"financial news on Telegram\", \"crypto Telegram\", \"market news Telegram\", any mention of Telegram in context of reading financial news, crypto signals, or market research. This skill is READ-ONLY — it does NOT support sending messages, joining channels, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "twitter-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/twitter-reader",
+          "description": "Read Twitter/X for financial research using opencli (read-only). Use this skill whenever the user wants to read their Twitter feed, search for financial tweets, view bookmarks, look up user profiles, or gather market sentiment from Twitter/X. Triggers include: \"check my feed\", \"search Twitter for\", \"show my bookmarks\", \"who follows\", \"look up @user\", \"what's trending about\", \"market sentiment on Twitter\", \"what are people saying about AAPL\", \"recent tweets from @elonmusk\", \"show me @user's posts\", \"fintwit\", any mention of Twitter/X in context of reading financial news or market research. This skill is READ-ONLY — it does NOT support posting, liking, retweeting, or any write operations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "yc-reader",
+          "installUrl": "github:himself65/finance-skills:plugins/social-readers/skills/yc-reader",
+          "description": "Look up Y Combinator companies, batches, and startup ecosystem data using the yc-oss API (read-only). Use this skill whenever the user wants to research YC-backed startups, find companies in a specific batch or industry, check which YC companies are hiring, explore top YC companies, or analyze startup trends by sector or tag. Triggers include: \"YC companies in fintech\", \"who's in the latest YC batch\", \"YC startups hiring\", \"top Y Combinator companies\", \"find YC companies tagged AI\", \"W25 batch\", \"S24 companies\", \"YC stats\", \"Y Combinator portfolio\", \"startup research\", \"which YC companies do X\", \"venture research on YC\", any mention of Y Combinator, YC batch, or YC-backed companies in the context of startup research, venture analysis, or market intelligence. This is a read-only data source — the API is a static JSON dataset updated daily.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "yfinance-data",
+          "installUrl": "github:himself65/finance-skills:plugins/market-analysis/skills/yfinance-data",
+          "description": "Fetch financial and market data using the yfinance Python library. Use this skill whenever the user asks for stock prices, historical data, financial statements, options chains, dividends, earnings, analyst recommendations, or any market data. Triggers include: any mention of stock price, ticker symbol (AAPL, MSFT, TSLA, etc.), \"get me the financials\", \"show earnings\", \"what's the price of\", \"download stock data\", \"options chain\", \"dividend history\", \"balance sheet\", \"income statement\", \"cash flow\", \"analyst targets\", \"institutional holders\", \"compare stocks\", \"screen for stocks\", or any request involving Yahoo Finance data. Always use this skill even if the user only provides a ticker — infer intent from context.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "himself65",
+        "repo": "finance-skills",
+        "repoUrl": "https://github.com/himself65/finance-skills.git"
+      },
+      "inferred": true
+    }
   ]
 }
