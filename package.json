@@ -44,7 +44,8 @@
     "yaml": "^2.8.3"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=18 <23",
+    "npm": ">=9"
   },
   "keywords": [
     "agent-skill-manager",

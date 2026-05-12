@@ -43,7 +43,9 @@ website/assets/index-*.js
 website/assets/index-*.css
 
 
-# dev tools
+# dev tools — per-developer AI agent sidecars, intentionally not tracked.
+# Each may contain its own package-lock.json / config; reproducibility is
+# the contributor's responsibility, not the repo's.
 .claude
 .claude/
 .codex
