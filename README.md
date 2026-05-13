@@ -585,6 +585,13 @@ asm
 | `asm index search <query>`      | Search indexed skills                                 |
 | `asm index list`                | List indexed repositories                             |
 | `asm index remove <owner/repo>` | Remove a repo from the index                          |
+| `asm bundle list`               | List saved or pre-defined bundles (`--predefined`)    |
+| `asm bundle install <name>`     | Install every skill in a bundle in one pass           |
+| `asm bundle create <name>`      | Create a bundle from installed skills                 |
+| `asm bundle show <name>`        | Show bundle details and skill list                    |
+| `asm bundle modify <name>`      | Add/remove skills or update bundle metadata           |
+| `asm bundle export <name>`      | Export a bundle to a JSON file                        |
+| `asm bundle remove <name>`      | Remove a saved bundle                                 |
 | `asm config show`               | Print current config                                  |
 | `asm config path`               | Print config file path                                |
 | `asm config reset`              | Reset config to defaults                              |
@@ -698,6 +705,33 @@ asm index ingest github:anthropics/skills
 ```bash
 asm index search "frontend design" --json
 ```
+
+**Skill bundles** — install a curated set of skills in one command. Pre-defined bundles ship with ASM for common workflows (frontend, devops, iOS release, content writing). Browse them at [luongnv.com/asm/bundles](https://luongnv.com/asm/bundles/) or list them locally:
+
+```bash
+asm bundle list --predefined
+```
+
+Install every skill in a pre-defined bundle:
+
+```bash
+asm bundle install frontend-dev
+```
+
+Install from a bundle file (custom or shared):
+
+```bash
+asm bundle install ./my-bundle.json
+```
+
+Build a custom bundle from your installed skills, then export it to share:
+
+```bash
+asm bundle create my-workflow
+asm bundle export my-workflow ./my-workflow.json
+```
+
+A bundle is a JSON file with a `name`, `description`, `author`, and a list of `skills` (each with `name` + `installUrl`). The schema is validated on install — see `src/utils/types.ts` (`BundleManifest`). You can also assemble a custom bundle visually on the website's [/bundles](https://luongnv.com/asm/bundles/) page and export it as JSON.
 
 </details>
 
