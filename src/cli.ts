@@ -633,7 +633,7 @@ before proceeding and asks for confirmation.
 ${ansi.bold("Options:")}
   -y, --yes          Skip confirmation prompt
   -s, --scope <s>    Filter: global, project, or both (default: both)
-  -t, --tool <name>  Filter by tool/provider (e.g., claude, codex)
+  -p, --tool <name>  Filter by tool/provider (e.g., claude, codex)
   --no-color         Disable ANSI colors
   -V, --verbose      Show debug output
 
@@ -641,7 +641,7 @@ ${ansi.bold("Examples:")}
   asm uninstall code-review              ${ansi.dim("Remove with confirmation")}
   asm uninstall code-review -y           ${ansi.dim("Remove without confirmation")}
   asm uninstall code-review -s project   ${ansi.dim("Remove project copy only")}
-  asm uninstall code-review -t claude    ${ansi.dim("Remove from Claude only")}`);
+  asm uninstall code-review -p claude    ${ansi.dim("Remove from Claude only")}`);
 }
 
 function printAuditHelp() {
