@@ -253,6 +253,12 @@ export function buildRelocationInfo(
   const target = findRelocationTarget(skillInstances, removedProvider);
   if (!target) return null;
 
+  // If the relocation target is itself a real folder, no relocation is
+  // needed — the kept provider already has the content. Renaming over it
+  // would destroy that data. The standard removal path handles this case.
+  const targetInstance = remaining.find((s) => s.originalPath === target.path);
+  if (targetInstance && !targetInstance.isSymlink) return null;
+
   const realDir = plan.directories.find((d) => !d.isSymlink);
   const repointPaths = remaining
     .map((s) => s.originalPath)
@@ -323,7 +329,23 @@ export async function executeRemoval(
         }
       }
 
-      await rename(relocation.fromPath, relocation.toPath);
+      try {
+        await rename(relocation.fromPath, relocation.toPath);
+      } catch (err: any) {
+        if (err.code === "EXDEV") {
+          // Cross-device rename — fall back to recursive copy + remove.
+          // Rare on a single-user machine but possible when ~/.claude and
+          // ~/.codex live on different mounts (NFS, encrypted volumes).
+          const { cp } = await import("fs/promises");
+          await cp(relocation.fromPath, relocation.toPath, {
+            recursive: true,
+            preserveTimestamps: true,
+          });
+          await rm(relocation.fromPath, { recursive: true, force: true });
+        } else {
+          throw err;
+        }
+      }
       log.push(
         `Relocated real folder: ${relocation.fromPath} -> ${relocation.toPath}`,
       );

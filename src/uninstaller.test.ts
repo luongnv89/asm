@@ -807,6 +807,33 @@ describe("buildRelocationInfo", () => {
 
     expect(buildRelocationInfo(plan, instances, "claude")).toBeNull();
   });
+
+  it("returns null when the relocation target is itself a real folder", () => {
+    // Two-real-folders topology (audit-detected duplicates, not the
+    // normal install layout). Relocation would destroy the target's
+    // content; the standard removal path handles this safely.
+    const plan: RemovalPlan = {
+      directories: [
+        { path: `${HOME}/.claude/skills/my-skill`, isSymlink: false },
+      ],
+      ruleFiles: [],
+      agentsBlocks: [],
+    };
+    const instances: SkillInfo[] = [
+      makeSkill({
+        provider: "claude",
+        isSymlink: false,
+        originalPath: `${HOME}/.claude/skills/my-skill`,
+      }),
+      makeSkill({
+        provider: "codex",
+        isSymlink: false,
+        originalPath: `${HOME}/.codex/skills/my-skill`,
+      }),
+    ];
+
+    expect(buildRelocationInfo(plan, instances, "claude")).toBeNull();
+  });
 });
 
 // ─── cleanEmptyParentDirs ────────────────────────────────────────────────
