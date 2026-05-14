@@ -4,6 +4,9 @@ import {
   buildFullRemovalPlan,
   executeRemoval,
   getExistingTargets,
+  findRelocationTarget,
+  buildRelocationInfo,
+  cleanEmptyParentDirs,
 } from "./uninstaller";
 import type { SkillInfo, AppConfig, RemovalPlan } from "./utils/types";
 import { homedir, tmpdir } from "os";
@@ -17,6 +20,7 @@ import {
   realpath,
   rm,
   symlink,
+  readdir,
 } from "fs/promises";
 
 const HOME = homedir();
@@ -626,5 +630,241 @@ describe("getExistingTargets", () => {
     } finally {
       await rm(base, { recursive: true, force: true });
     }
+  });
+});
+
+// ─── buildFullRemovalPlan with filtering ──────────────────────────────────────
+
+describe("buildFullRemovalPlan with options", () => {
+  it("filters by provider when providerFilter is set", () => {
+    const config = makeConfig();
+    const skills: SkillInfo[] = [
+      makeSkill({
+        dirName: "my-skill",
+        provider: "claude",
+        originalPath: `${HOME}/.claude/skills/my-skill`,
+      }),
+      makeSkill({
+        dirName: "my-skill",
+        provider: "codex",
+        originalPath: `${HOME}/.codex/skills/my-skill`,
+      }),
+    ];
+
+    const plan = buildFullRemovalPlan("my-skill", skills, config, {
+      providerFilter: "claude",
+    });
+    expect(plan.directories).toHaveLength(1);
+    expect(plan.directories[0].path).toContain(".claude");
+  });
+
+  it("filters by scope when scopeFilter is set", () => {
+    const config = makeConfig();
+    const skills: SkillInfo[] = [
+      makeSkill({
+        dirName: "my-skill",
+        scope: "global",
+        originalPath: `${HOME}/.claude/skills/my-skill`,
+      }),
+      makeSkill({
+        dirName: "my-skill",
+        scope: "project",
+        originalPath: ".claude/skills/my-skill",
+      }),
+    ];
+
+    const plan = buildFullRemovalPlan("my-skill", skills, config, {
+      scopeFilter: "global",
+    });
+    expect(plan.directories).toHaveLength(1);
+    expect(plan.directories[0].path).toContain(HOME);
+  });
+
+  it("returns empty plan when no skills match filters", () => {
+    const config = makeConfig();
+    const skills: SkillInfo[] = [
+      makeSkill({
+        dirName: "my-skill",
+        provider: "claude",
+      }),
+    ];
+
+    const plan = buildFullRemovalPlan("my-skill", skills, config, {
+      providerFilter: "codex",
+    });
+    expect(plan.directories).toHaveLength(0);
+  });
+});
+
+// ─── findRelocationTarget ─────────────────────────────────────────────────
+
+describe("findRelocationTarget", () => {
+  it("returns null when no remaining instances", () => {
+    const instances = [makeSkill({ provider: "claude" })];
+    expect(findRelocationTarget(instances, "claude")).toBeNull();
+  });
+
+  it("prefers a real folder over symlinks", () => {
+    const instances: SkillInfo[] = [
+      makeSkill({
+        provider: "claude",
+        isSymlink: false,
+        originalPath: `${HOME}/.claude/skills/my-skill`,
+      }),
+      makeSkill({
+        provider: "codex",
+        isSymlink: true,
+        originalPath: `${HOME}/.codex/skills/my-skill`,
+      }),
+    ];
+
+    const result = findRelocationTarget(instances, "claude");
+    expect(result).not.toBeNull();
+    expect(result!.path).toBe(`${HOME}/.codex/skills/my-skill`);
+  });
+
+  it("falls back to symlink when no real folder remains", () => {
+    const instances: SkillInfo[] = [
+      makeSkill({
+        provider: "claude",
+        isSymlink: true,
+        originalPath: `${HOME}/.claude/skills/my-skill`,
+      }),
+      makeSkill({
+        provider: "codex",
+        isSymlink: true,
+        originalPath: `${HOME}/.codex/skills/my-skill`,
+      }),
+    ];
+
+    const result = findRelocationTarget(instances, "claude");
+    expect(result).not.toBeNull();
+    expect(result!.path).toBe(`${HOME}/.codex/skills/my-skill`);
+  });
+});
+
+// ─── buildRelocationInfo ──────────────────────────────────────────────────
+
+describe("buildRelocationInfo", () => {
+  it("returns null when no real folder in plan", () => {
+    const plan: RemovalPlan = {
+      directories: [{ path: "/some/symlink", isSymlink: true }],
+      ruleFiles: [],
+      agentsBlocks: [],
+    };
+    const instances = [makeSkill({ provider: "claude" })];
+
+    expect(buildRelocationInfo(plan, instances, "claude")).toBeNull();
+  });
+
+  it("returns RelocationInfo when real folder is being removed", () => {
+    const plan: RemovalPlan = {
+      directories: [
+        { path: `${HOME}/.claude/skills/my-skill`, isSymlink: false },
+      ],
+      ruleFiles: [],
+      agentsBlocks: [],
+    };
+    const instances: SkillInfo[] = [
+      makeSkill({
+        provider: "claude",
+        isSymlink: false,
+        originalPath: `${HOME}/.claude/skills/my-skill`,
+      }),
+      makeSkill({
+        provider: "codex",
+        isSymlink: true,
+        originalPath: `${HOME}/.codex/skills/my-skill`,
+      }),
+    ];
+
+    const info = buildRelocationInfo(plan, instances, "claude");
+    expect(info).not.toBeNull();
+    expect(info!.needed).toBe(true);
+    expect(info!.fromProvider).toBe("claude");
+    expect(info!.toProvider).toBe("codex");
+  });
+
+  it("returns null when no remaining providers", () => {
+    const plan: RemovalPlan = {
+      directories: [
+        { path: `${HOME}/.claude/skills/my-skill`, isSymlink: false },
+      ],
+      ruleFiles: [],
+      agentsBlocks: [],
+    };
+    const instances = [
+      makeSkill({
+        provider: "claude",
+        isSymlink: false,
+      }),
+    ];
+
+    expect(buildRelocationInfo(plan, instances, "claude")).toBeNull();
+  });
+});
+
+// ─── cleanEmptyParentDirs ────────────────────────────────────────────────
+
+describe("cleanEmptyParentDirs", () => {
+  it("removes empty parent directories", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-cleanup-"));
+    try {
+      const skillDir = join(base, "skills", "my-skill");
+      await mkdir(skillDir, { recursive: true });
+
+      // Simulate: the skill dir was already removed
+      await rm(skillDir, { recursive: true, force: true });
+
+      const cleaned = await cleanEmptyParentDirs([skillDir]);
+      expect(cleaned).toContain(join(base, "skills"));
+
+      const exists = await readdir(join(base, "skills")).then(
+        () => true,
+        () => false,
+      );
+      expect(exists).toBe(false);
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("does not remove directories with other entries", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-cleanup-"));
+    try {
+      const skillDir = join(base, "skills", "my-skill");
+      const otherFile = join(base, "skills", "other-skill");
+      await mkdir(skillDir, { recursive: true });
+      await mkdir(otherFile, { recursive: true });
+
+      await rm(skillDir, { recursive: true, force: true });
+
+      const cleaned = await cleanEmptyParentDirs([skillDir]);
+      expect(cleaned).not.toContain(join(base, "skills"));
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("skips .DS_Store entries when checking emptiness", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-cleanup-"));
+    try {
+      const skillDir = join(base, "skills", "my-skill");
+      await mkdir(skillDir, { recursive: true });
+      await writeFile(join(base, "skills", ".DS_Store"), "");
+
+      // Simulate: the skill dir was already removed
+      await rm(skillDir, { recursive: true, force: true });
+
+      const cleaned = await cleanEmptyParentDirs([skillDir]);
+      expect(cleaned).toContain(join(base, "skills"));
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("handles non-existent directories gracefully", async () => {
+    const cleaned = await cleanEmptyParentDirs(["/tmp/nonexistent-xyz"]);
+    expect(cleaned).toHaveLength(0);
   });
 });
