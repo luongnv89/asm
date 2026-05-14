@@ -177,6 +177,19 @@ export interface RemovalPlan {
   agentsBlocks: Array<{ file: string; skillName: string }>;
 }
 
+export interface RemovalOptions {
+  providerFilter?: string;
+  scopeFilter?: Scope;
+}
+
+export interface RelocationInfo {
+  needed: boolean;
+  fromProvider: string;
+  fromPath: string;
+  toProvider: string;
+  toPath: string;
+}
+
 // ─── Audit Types ──────────────────────────────────────────────────────────
 
 export interface DuplicateGroup {

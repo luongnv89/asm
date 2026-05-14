@@ -6,10 +6,12 @@ import {
 } from "./config";
 import { scanAllSkills, searchSkills, sortSkills } from "./scanner";
 import {
-  buildFullRemovalPlan,
   buildRemovalPlan,
+  buildFullRemovalPlan,
   executeRemoval,
   getExistingTargets,
+  buildRelocationInfo,
+  findRelocationTarget,
 } from "./uninstaller";
 import {
   formatSkillTable,
@@ -84,7 +86,7 @@ import {
   removeBundle,
 } from "./bundler";
 import { publishSkill, formatFallbackInstructions } from "./publisher";
-import type { BundleSkillRef } from "./utils/types";
+import type { BundleSkillRef, RelocationInfo } from "./utils/types";
 import {
   detectDuplicates,
   sortInstancesForKeep,
@@ -631,13 +633,15 @@ before proceeding and asks for confirmation.
 ${ansi.bold("Options:")}
   -y, --yes          Skip confirmation prompt
   -s, --scope <s>    Filter: global, project, or both (default: both)
+  -t, --tool <name>  Filter by tool/provider (e.g., claude, codex)
   --no-color         Disable ANSI colors
   -V, --verbose      Show debug output
 
 ${ansi.bold("Examples:")}
-  asm uninstall code-review         ${ansi.dim("Remove with confirmation")}
-  asm uninstall code-review -y      ${ansi.dim("Remove without confirmation")}
-  asm uninstall code-review -s project  ${ansi.dim("Remove project copy only")}`);
+  asm uninstall code-review              ${ansi.dim("Remove with confirmation")}
+  asm uninstall code-review -y           ${ansi.dim("Remove without confirmation")}
+  asm uninstall code-review -s project   ${ansi.dim("Remove project copy only")}
+  asm uninstall code-review -t claude    ${ansi.dim("Remove from Claude only")}`);
 }
 
 function printAuditHelp() {
@@ -1026,7 +1030,17 @@ async function cmdUninstall(args: ParsedArgs) {
 
   const config = await loadConfig();
   const allSkills = await scanAllSkills(config, args.flags.scope);
-  const plan = buildFullRemovalPlan(skillName, allSkills, config);
+
+  // Apply provider filter if --tool flag is provided
+  const options: { providerFilter?: string; scopeFilter?: Scope } = {};
+  if (args.flags.provider) {
+    options.providerFilter = args.flags.provider;
+  }
+  if (args.flags.scope && args.flags.scope !== "both") {
+    options.scopeFilter = args.flags.scope;
+  }
+
+  const plan = buildFullRemovalPlan(skillName, allSkills, config, options);
 
   const existing = await getExistingTargets(plan);
   if (existing.length === 0) {
@@ -1034,8 +1048,26 @@ async function cmdUninstall(args: ParsedArgs) {
     process.exit(1);
   }
 
-  // Show removal plan
+  // Detect real-folder relocation
+  const matchingSkills = allSkills.filter((s) => s.dirName === skillName);
+  const targetProvider = options.providerFilter;
+  let relocationInfo: RelocationInfo | null = null;
+  if (targetProvider) {
+    relocationInfo = buildRelocationInfo(plan, matchingSkills, targetProvider);
+  }
+
+  // Show removal plan with details
   console.error(ansi.bold("Removal plan:"));
+  console.error(`  ${ansi.dim("Scope:")} ${options.scopeFilter || "both"}`);
+  if (targetProvider) {
+    console.error(`  ${ansi.dim("Tool:")} ${targetProvider}`);
+    if (relocationInfo?.needed) {
+      console.error(
+        `  ${ansi.yellow("⚠ Real folder relocation:")} ${relocationInfo.fromPath} → ${relocationInfo.toPath} (${relocationInfo.toProvider})`,
+      );
+    }
+  }
+  console.error("");
   for (const target of existing) {
     console.error(`  ${ansi.red("•")} ${shortenPath(target)}`);
   }
@@ -1056,7 +1088,13 @@ async function cmdUninstall(args: ParsedArgs) {
     }
   }
 
-  const log = await executeRemoval(plan);
+  // Determine if relocation is needed during execution
+  let symlinkTo: string | undefined;
+  if (relocationInfo?.needed) {
+    symlinkTo = relocationInfo.toPath;
+  }
+
+  const log = await executeRemoval(plan, symlinkTo);
   for (const entry of log) {
     console.error(entry);
   }

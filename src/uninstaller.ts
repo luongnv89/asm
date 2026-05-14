@@ -1,8 +1,23 @@
-import { rm, readFile, writeFile, access, lstat, symlink } from "fs/promises";
+import {
+  rm,
+  readFile,
+  writeFile,
+  access,
+  lstat,
+  symlink,
+  readdir,
+} from "fs/promises";
 import { join, resolve, dirname, relative } from "path";
 import { homedir } from "os";
 import { resolveProviderPath } from "./config";
-import type { SkillInfo, RemovalPlan, AppConfig } from "./utils/types";
+import type {
+  SkillInfo,
+  RemovalPlan,
+  RemovalOptions,
+  RelocationInfo,
+  AppConfig,
+  Scope,
+} from "./utils/types";
 
 const HOME = homedir();
 
@@ -59,8 +74,15 @@ export function buildFullRemovalPlan(
   dirName: string,
   allSkills: SkillInfo[],
   config: AppConfig,
+  options?: RemovalOptions,
 ): RemovalPlan {
-  const matching = allSkills.filter((s) => s.dirName === dirName);
+  let matching = allSkills.filter((s) => s.dirName === dirName);
+  if (options?.providerFilter) {
+    matching = matching.filter((s) => s.provider === options.providerFilter);
+  }
+  if (options?.scopeFilter) {
+    matching = matching.filter((s) => s.scope === options.scopeFilter);
+  }
   if (matching.length === 0) {
     return { directories: [], ruleFiles: [], agentsBlocks: [] };
   }
@@ -148,6 +170,75 @@ async function removeAgentsMdBlock(
   await writeFile(filePath, content, "utf-8");
 }
 
+export function findRelocationTarget(
+  skillInstances: SkillInfo[],
+  removedProvider: string,
+): { path: string; provider: string } | null {
+  const remaining = skillInstances.filter(
+    (s) => s.provider !== removedProvider,
+  );
+  if (remaining.length === 0) return null;
+
+  const realFolder = remaining.find((s) => !s.isSymlink);
+  if (realFolder) {
+    return { path: realFolder.originalPath, provider: realFolder.provider };
+  }
+
+  return { path: remaining[0].originalPath, provider: remaining[0].provider };
+}
+
+export function buildRelocationInfo(
+  plan: RemovalPlan,
+  skillInstances: SkillInfo[],
+  removedProvider: string,
+): RelocationInfo | null {
+  const hasRealFolder = plan.directories.some((d) => !d.isSymlink);
+  if (!hasRealFolder) return null;
+
+  const remaining = skillInstances.filter(
+    (s) => s.provider !== removedProvider,
+  );
+  if (remaining.length === 0) return null;
+
+  const target = findRelocationTarget(skillInstances, removedProvider);
+  if (!target) return null;
+
+  const realDir = plan.directories.find((d) => !d.isSymlink);
+  return {
+    needed: true,
+    fromProvider: removedProvider,
+    fromPath: realDir?.path || "",
+    toProvider: target.provider,
+    toPath: target.path,
+  };
+}
+
+export async function cleanEmptyParentDirs(paths: string[]): Promise<string[]> {
+  const cleaned: string[] = [];
+  const seen = new Set<string>();
+
+  for (const p of paths) {
+    const parent = dirname(p);
+    if (seen.has(parent)) continue;
+    seen.add(parent);
+
+    try {
+      const entries = await readdir(parent);
+      const filtered = entries.filter(
+        (e) => e !== ".DS_Store" && e !== ".gitkeep",
+      );
+      if (filtered.length === 0) {
+        await rm(parent, { recursive: true, force: true });
+        cleaned.push(parent);
+      }
+    } catch {
+      // directory doesn't exist or can't be read — skip
+    }
+  }
+
+  return cleaned;
+}
+
 export async function executeRemoval(
   plan: RemovalPlan,
   symlinkTo?: string,
@@ -175,6 +266,13 @@ export async function executeRemoval(
     } catch (err: any) {
       log.push(`Failed to remove ${dir.path}: ${err.message}`);
     }
+  }
+
+  // Clean up empty parent directories
+  const removedDirs = plan.directories.map((d) => d.path);
+  const emptyDirs = await cleanEmptyParentDirs(removedDirs);
+  for (const dir of emptyDirs) {
+    log.push(`Removed empty parent directory: ${dir}`);
   }
 
   // Remove rule files
