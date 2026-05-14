@@ -1088,13 +1088,14 @@ async function cmdUninstall(args: ParsedArgs) {
     }
   }
 
-  // Determine if relocation is needed during execution
-  let symlinkTo: string | undefined;
-  if (relocationInfo?.needed) {
-    symlinkTo = relocationInfo.toPath;
-  }
-
-  const log = await executeRemoval(plan, symlinkTo);
+  // When relocation is needed, pass the full RelocationInfo so executeRemoval
+  // physically renames the real folder rather than deleting it and symlinking
+  // to the original (which would have been the about-to-be-deleted path).
+  const log = await executeRemoval(
+    plan,
+    undefined,
+    relocationInfo?.needed ? relocationInfo : undefined,
+  );
   for (const entry of log) {
     console.error(entry);
   }

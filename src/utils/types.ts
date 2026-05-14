@@ -188,6 +188,12 @@ export interface RelocationInfo {
   fromPath: string;
   toProvider: string;
   toPath: string;
+  /**
+   * Other surviving instances (not at toPath) whose symlinks must be
+   * repointed to toPath after the real folder is renamed there. May be
+   * empty when only one other provider remains.
+   */
+  repointPaths?: string[];
 }
 
 // ─── Audit Types ──────────────────────────────────────────────────────────

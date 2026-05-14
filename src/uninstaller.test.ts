@@ -8,9 +8,14 @@ import {
   buildRelocationInfo,
   cleanEmptyParentDirs,
 } from "./uninstaller";
-import type { SkillInfo, AppConfig, RemovalPlan } from "./utils/types";
+import type {
+  SkillInfo,
+  AppConfig,
+  RemovalPlan,
+  RelocationInfo,
+} from "./utils/types";
 import { homedir, tmpdir } from "os";
-import { resolve, join, relative } from "path";
+import { resolve, join, relative, dirname } from "path";
 import {
   mkdtemp,
   mkdir,
@@ -866,5 +871,179 @@ describe("cleanEmptyParentDirs", () => {
   it("handles non-existent directories gracefully", async () => {
     const cleaned = await cleanEmptyParentDirs(["/tmp/nonexistent-xyz"]);
     expect(cleaned).toHaveLength(0);
+  });
+});
+
+// ─── executeRemoval with real-folder relocation (real install topology) ─────
+
+describe("executeRemoval with relocation", () => {
+  it("renames real folder to kept slot and preserves content", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-reloc-"));
+    try {
+      // Real install topology: one real folder + one symlink pointing to it
+      const realDir = join(base, "claude", "skills", "my-skill");
+      const linkDir = join(base, "codex", "skills", "my-skill");
+      await mkdir(realDir, { recursive: true });
+      await mkdir(dirname(linkDir), { recursive: true });
+      await writeFile(join(realDir, "SKILL.md"), "real content");
+      await symlink(realDir, linkDir, "dir");
+
+      // Sanity: the symlink resolves to the real content
+      const preResolve = await realpath(linkDir);
+      expect(preResolve).toBe(await realpath(realDir));
+
+      const plan: RemovalPlan = {
+        directories: [{ path: realDir, isSymlink: false }],
+        ruleFiles: [],
+        agentsBlocks: [],
+      };
+
+      const relocation: RelocationInfo = {
+        needed: true,
+        fromProvider: "claude",
+        fromPath: realDir,
+        toProvider: "codex",
+        toPath: linkDir,
+        repointPaths: [],
+      };
+
+      const log = await executeRemoval(plan, undefined, relocation);
+
+      // The kept slot is now a real directory with the original content
+      const targetStats = await lstat(linkDir);
+      expect(targetStats.isSymbolicLink()).toBe(false);
+      expect(targetStats.isDirectory()).toBe(true);
+      const { readFile } = await import("fs/promises");
+      const skillContent = await readFile(join(linkDir, "SKILL.md"), "utf-8");
+      expect(skillContent).toBe("real content");
+
+      // The original real-folder path is gone (no cycle, no leftover entry)
+      try {
+        await lstat(realDir);
+        throw new Error("realDir should not exist");
+      } catch (err: any) {
+        expect(err.code).toBe("ENOENT");
+      }
+
+      // Log mentions the relocation
+      expect(log.some((l) => l.includes("Relocated real folder"))).toBe(true);
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("repoints surviving symlinks at the new canonical path", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-reloc-multi-"));
+    try {
+      // Three providers: claude (real), codex (symlink), agents (symlink)
+      const realDir = join(base, "claude", "skills", "my-skill");
+      const linkA = join(base, "codex", "skills", "my-skill");
+      const linkB = join(base, "agents", "skills", "my-skill");
+      await mkdir(realDir, { recursive: true });
+      await mkdir(dirname(linkA), { recursive: true });
+      await mkdir(dirname(linkB), { recursive: true });
+      await writeFile(join(realDir, "SKILL.md"), "shared content");
+      await symlink(realDir, linkA, "dir");
+      await symlink(realDir, linkB, "dir");
+
+      const plan: RemovalPlan = {
+        directories: [{ path: realDir, isSymlink: false }],
+        ruleFiles: [],
+        agentsBlocks: [],
+      };
+
+      const relocation: RelocationInfo = {
+        needed: true,
+        fromProvider: "claude",
+        fromPath: realDir,
+        toProvider: "codex",
+        toPath: linkA,
+        repointPaths: [linkB],
+      };
+
+      await executeRemoval(plan, undefined, relocation);
+
+      // linkA becomes the real folder
+      const aStats = await lstat(linkA);
+      expect(aStats.isSymbolicLink()).toBe(false);
+      expect(aStats.isDirectory()).toBe(true);
+
+      // linkB is still a symlink, now pointing at linkA — no cycle
+      const bStats = await lstat(linkB);
+      expect(bStats.isSymbolicLink()).toBe(true);
+      const bResolved = await realpath(linkB);
+      expect(bResolved).toBe(await realpath(linkA));
+
+      // Content is intact and reachable from both surviving paths
+      const { readFile } = await import("fs/promises");
+      const fromA = await readFile(join(linkA, "SKILL.md"), "utf-8");
+      const fromB = await readFile(join(linkB, "SKILL.md"), "utf-8");
+      expect(fromA).toBe("shared content");
+      expect(fromB).toBe("shared content");
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+});
+
+// ─── buildFullRemovalPlan: AGENTS.md filter regression ─────────────────────
+
+describe("buildFullRemovalPlan AGENTS.md filtering", () => {
+  it("does not strip codex AGENTS.md when --tool=claude and codex still has the skill", () => {
+    const config = makeConfig();
+    const skills: SkillInfo[] = [
+      makeSkill({
+        dirName: "my-skill",
+        provider: "claude",
+        scope: "global",
+        originalPath: `${HOME}/.claude/skills/my-skill`,
+      }),
+      makeSkill({
+        dirName: "my-skill",
+        provider: "codex",
+        scope: "global",
+        originalPath: `${HOME}/.codex/skills/my-skill`,
+      }),
+    ];
+
+    const plan = buildFullRemovalPlan("my-skill", skills, config, {
+      providerFilter: "claude",
+    });
+
+    // The codex AGENTS.md path must NOT appear — codex still has the skill
+    const codexBlock = plan.agentsBlocks.find((b) => b.file.includes(".codex"));
+    expect(codexBlock).toBeUndefined();
+
+    // The claude AGENTS.md path SHOULD appear (claude is being uninstalled)
+    const claudeBlock = plan.agentsBlocks.find((b) =>
+      b.file.includes(".claude"),
+    );
+    expect(claudeBlock).toBeDefined();
+  });
+
+  it("strips all global AGENTS.md when no providerFilter (full removal)", () => {
+    const config = makeConfig();
+    const skills: SkillInfo[] = [
+      makeSkill({
+        dirName: "my-skill",
+        provider: "claude",
+        scope: "global",
+        originalPath: `${HOME}/.claude/skills/my-skill`,
+      }),
+      makeSkill({
+        dirName: "my-skill",
+        provider: "codex",
+        scope: "global",
+        originalPath: `${HOME}/.codex/skills/my-skill`,
+      }),
+    ];
+
+    const plan = buildFullRemovalPlan("my-skill", skills, config);
+
+    // Both providers are being uninstalled — both AGENTS.md blocks should appear
+    expect(plan.agentsBlocks.some((b) => b.file.includes(".claude"))).toBe(
+      true,
+    );
+    expect(plan.agentsBlocks.some((b) => b.file.includes(".codex"))).toBe(true);
   });
 });

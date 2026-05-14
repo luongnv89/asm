@@ -5,7 +5,10 @@ import {
   access,
   lstat,
   symlink,
+  rename,
   readdir,
+  mkdir,
+  unlink,
 } from "fs/promises";
 import { join, resolve, dirname, relative } from "path";
 import { homedir } from "os";
@@ -76,7 +79,8 @@ export function buildFullRemovalPlan(
   config: AppConfig,
   options?: RemovalOptions,
 ): RemovalPlan {
-  let matching = allSkills.filter((s) => s.dirName === dirName);
+  const allMatching = allSkills.filter((s) => s.dirName === dirName);
+  let matching = allMatching;
   if (options?.providerFilter) {
     matching = matching.filter((s) => s.provider === options.providerFilter);
   }
@@ -85,6 +89,46 @@ export function buildFullRemovalPlan(
   }
   if (matching.length === 0) {
     return { directories: [], ruleFiles: [], agentsBlocks: [] };
+  }
+
+  // Providers (per scope) that still have surviving instances after the
+  // filter — their AGENTS.md must NOT be touched.
+  const survivingKeys = new Set(
+    allMatching
+      .filter((s) => !matching.includes(s))
+      .map((s) => `${s.provider}::${s.scope}`),
+  );
+
+  // Map an AGENTS.md path to the (provider, scope) it belongs to, so we
+  // can decide whether the block is safe to strip.
+  function classifyAgentsMd(
+    file: string,
+  ): { provider: string; scope: Scope } | null {
+    // Project-scope AGENTS.md is at <cwd>/AGENTS.md
+    if (file === resolve("AGENTS.md")) {
+      // Belongs to whichever project provider the matching set covers.
+      // For project scope, any surviving project instance keeps it alive.
+      const projectSurvivor = Array.from(survivingKeys).find((k) =>
+        k.endsWith("::project"),
+      );
+      if (projectSurvivor) {
+        return { provider: projectSurvivor.split("::")[0], scope: "project" };
+      }
+      return null;
+    }
+    // Global AGENTS.md is at <providerGlobalDir>/../AGENTS.md
+    for (const provider of config.providers) {
+      const globalDir = resolveProviderPath(provider.global);
+      const agentsMdPath = join(dirname(globalDir), "AGENTS.md");
+      if (file === agentsMdPath) {
+        return { provider: provider.name, scope: "global" };
+      }
+    }
+    // Explicit codex fallback (~/.codex/AGENTS.md)
+    if (file === join(HOME, ".codex", "AGENTS.md")) {
+      return { provider: "codex", scope: "global" };
+    }
+    return null;
   }
 
   const combined: RemovalPlan = {
@@ -116,10 +160,16 @@ export function buildFullRemovalPlan(
 
     for (const block of plan.agentsBlocks) {
       const key = `${block.file}::${block.skillName}`;
-      if (!seenBlocks.has(key)) {
-        seenBlocks.add(key);
-        combined.agentsBlocks.push(block);
+      if (seenBlocks.has(key)) continue;
+
+      const classified = classifyAgentsMd(block.file);
+      if (classified) {
+        const survivorKey = `${classified.provider}::${classified.scope}`;
+        if (survivingKeys.has(survivorKey)) continue;
       }
+
+      seenBlocks.add(key);
+      combined.agentsBlocks.push(block);
     }
   }
 
@@ -204,12 +254,17 @@ export function buildRelocationInfo(
   if (!target) return null;
 
   const realDir = plan.directories.find((d) => !d.isSymlink);
+  const repointPaths = remaining
+    .map((s) => s.originalPath)
+    .filter((p) => p !== target.path);
+
   return {
     needed: true,
     fromProvider: removedProvider,
     fromPath: realDir?.path || "",
     toProvider: target.provider,
     toPath: target.path,
+    repointPaths,
   };
 }
 
@@ -242,12 +297,68 @@ export async function cleanEmptyParentDirs(paths: string[]): Promise<string[]> {
 export async function executeRemoval(
   plan: RemovalPlan,
   symlinkTo?: string,
+  relocation?: RelocationInfo,
 ): Promise<string[]> {
   const log: string[] = [];
 
-  // Remove directories/symlinks
+  // When a relocation is requested, physically move the real folder to
+  // the kept provider's slot BEFORE removing the source directory. This
+  // is the only safe order: a delete-then-symlink-to-sibling sequence
+  // would orphan the original symlink at the target slot and lose data
+  // when symlinks were the surviving instances.
+  if (relocation?.needed) {
+    try {
+      const targetParent = dirname(relocation.toPath);
+      await mkdir(targetParent, { recursive: true });
+
+      // The target slot is currently a symlink (or stale entry) pointing
+      // back at fromPath. Unlink it so rename has a clean destination.
+      try {
+        await unlink(relocation.toPath);
+      } catch (err: any) {
+        if (err.code !== "ENOENT") {
+          // Best-effort: if it's a non-empty dir we can't move over, fall
+          // back to a full remove so rename can proceed.
+          await rm(relocation.toPath, { recursive: true, force: true });
+        }
+      }
+
+      await rename(relocation.fromPath, relocation.toPath);
+      log.push(
+        `Relocated real folder: ${relocation.fromPath} -> ${relocation.toPath}`,
+      );
+
+      // Re-point any other surviving symlinks at the new canonical path.
+      for (const repointPath of relocation.repointPaths || []) {
+        try {
+          await unlink(repointPath);
+        } catch (err: any) {
+          if (err.code !== "ENOENT") {
+            await rm(repointPath, { recursive: true, force: true });
+          }
+        }
+        const parentDir = dirname(repointPath);
+        await mkdir(parentDir, { recursive: true });
+        const relTarget = relative(parentDir, relocation.toPath);
+        await symlink(relTarget, repointPath, "dir");
+        log.push(`Repointed symlink: ${repointPath} -> ${relTarget}`);
+      }
+    } catch (err: any) {
+      log.push(`Failed to relocate real folder: ${err.message}`);
+    }
+  }
+
+  // Remove directories/symlinks. When a relocation just moved fromPath
+  // away, skip removing it here — rename already consumed the entry.
   for (const dir of plan.directories) {
     try {
+      if (
+        relocation?.needed &&
+        resolve(dir.path) === resolve(relocation.fromPath)
+      ) {
+        continue;
+      }
+
       if (dir.isSymlink) {
         await rm(dir.path);
         log.push(`Removed symlink: ${dir.path}`);
@@ -256,8 +367,13 @@ export async function executeRemoval(
         log.push(`Removed directory: ${dir.path}`);
       }
 
-      // Replace with symlink to kept instance (for duplicate removal)
-      if (symlinkTo && resolve(dir.path) !== resolve(symlinkTo)) {
+      // Replace with symlink to kept instance (for duplicate removal).
+      // Not used in the relocation flow — relocation already handled it.
+      if (
+        !relocation?.needed &&
+        symlinkTo &&
+        resolve(dir.path) !== resolve(symlinkTo)
+      ) {
         const parentDir = dirname(dir.path);
         const relTarget = relative(parentDir, symlinkTo);
         await symlink(relTarget, dir.path, "dir");
