@@ -514,6 +514,44 @@ describe("executeRemoval with AGENTS.md blocks", () => {
     // Should not throw; no "Failed" entries in the log
     expect(log.every((l) => !l.includes("Failed"))).toBe(true);
   });
+
+  it("does not rewrite AGENTS.md when no marker for the skill is present", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-agents-md-mtime-"));
+    try {
+      const agentsMdPath = join(base, "AGENTS.md");
+      const content = [
+        "# Agents",
+        "",
+        "<!-- agent-skill-manager: other-skill -->",
+        "Block for a different skill",
+        "<!-- /agent-skill-manager: other-skill -->",
+        "",
+      ].join("\n");
+      await writeFile(agentsMdPath, content, "utf-8");
+      const beforeMtime = (await lstat(agentsMdPath)).mtimeMs;
+
+      // Wait briefly so any rewrite would produce a measurably newer mtime
+      await new Promise((r) => setTimeout(r, 20));
+
+      const plan: RemovalPlan = {
+        directories: [],
+        ruleFiles: [],
+        agentsBlocks: [{ file: agentsMdPath, skillName: "missing-skill" }],
+      };
+
+      await executeRemoval(plan);
+
+      const afterMtime = (await lstat(agentsMdPath)).mtimeMs;
+      expect(afterMtime).toBe(beforeMtime);
+
+      // Content is byte-for-byte unchanged
+      const { readFile } = await import("fs/promises");
+      const after = await readFile(agentsMdPath, "utf-8");
+      expect(after).toBe(content);
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
 });
 
 // ─── getExistingTargets ─────────────────────────────────────────────────────
@@ -808,10 +846,10 @@ describe("buildRelocationInfo", () => {
     expect(buildRelocationInfo(plan, instances, "claude")).toBeNull();
   });
 
-  it("returns null when the relocation target is itself a real folder", () => {
-    // Two-real-folders topology (audit-detected duplicates, not the
-    // normal install layout). Relocation would destroy the target's
-    // content; the standard removal path handles this safely.
+  it("returns null when the relocation target is itself a real folder and no symlinks survive", () => {
+    // Two-real-folders topology with no other symlinks. No relocation
+    // needed and no symlinks to repoint — the standard removal path
+    // safely handles this.
     const plan: RemovalPlan = {
       directories: [
         { path: `${HOME}/.claude/skills/my-skill`, isSymlink: false },
@@ -833,6 +871,42 @@ describe("buildRelocationInfo", () => {
     ];
 
     expect(buildRelocationInfo(plan, instances, "claude")).toBeNull();
+  });
+
+  it("returns repoint-only RelocationInfo when target is a real folder but symlinks survive", () => {
+    // Three providers: claude (real, being removed) + codex (real, kept)
+    // + agents (symlink pointing at claude's folder). Without repointing,
+    // the agents symlink would dangle after claude's folder is deleted.
+    const plan: RemovalPlan = {
+      directories: [
+        { path: `${HOME}/.claude/skills/my-skill`, isSymlink: false },
+      ],
+      ruleFiles: [],
+      agentsBlocks: [],
+    };
+    const instances: SkillInfo[] = [
+      makeSkill({
+        provider: "claude",
+        isSymlink: false,
+        originalPath: `${HOME}/.claude/skills/my-skill`,
+      }),
+      makeSkill({
+        provider: "codex",
+        isSymlink: false,
+        originalPath: `${HOME}/.codex/skills/my-skill`,
+      }),
+      makeSkill({
+        provider: "agents",
+        isSymlink: true,
+        originalPath: `${HOME}/.agents/skills/my-skill`,
+      }),
+    ];
+
+    const info = buildRelocationInfo(plan, instances, "claude");
+    expect(info).not.toBeNull();
+    expect(info!.repointOnly).toBe(true);
+    expect(info!.toPath).toBe(`${HOME}/.codex/skills/my-skill`);
+    expect(info!.repointPaths).toEqual([`${HOME}/.agents/skills/my-skill`]);
   });
 });
 
@@ -890,6 +964,29 @@ describe("cleanEmptyParentDirs", () => {
 
       const cleaned = await cleanEmptyParentDirs([skillDir]);
       expect(cleaned).toContain(join(base, "skills"));
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("preserves directories containing .gitkeep", async () => {
+    // A checked-in .gitkeep is a deliberate placeholder — removing the
+    // last skill must not silently wipe it.
+    const base = await mkdtemp(join(tmpdir(), "asm-cleanup-gitkeep-"));
+    try {
+      const skillDir = join(base, "skills", "my-skill");
+      const gitkeep = join(base, "skills", ".gitkeep");
+      await mkdir(skillDir, { recursive: true });
+      await writeFile(gitkeep, "");
+
+      await rm(skillDir, { recursive: true, force: true });
+
+      const cleaned = await cleanEmptyParentDirs([skillDir]);
+      expect(cleaned).not.toContain(join(base, "skills"));
+
+      // The .gitkeep itself must still exist
+      const stats = await lstat(gitkeep);
+      expect(stats.isFile()).toBe(true);
     } finally {
       await rm(base, { recursive: true, force: true });
     }
@@ -1007,6 +1104,116 @@ describe("executeRemoval with relocation", () => {
       const fromB = await readFile(join(linkB, "SKILL.md"), "utf-8");
       expect(fromA).toBe("shared content");
       expect(fromB).toBe("shared content");
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("repoints surviving symlinks in repoint-only mode (two real folders + symlink)", async () => {
+    // Two real folders (claude being removed, codex kept) + a third
+    // symlink at agents/ pointing at claude's folder. Without repoint
+    // the agents symlink would dangle when claude's folder is deleted.
+    const base = await mkdtemp(join(tmpdir(), "asm-reloc-repoint-only-"));
+    try {
+      const claudeReal = join(base, "claude", "skills", "my-skill");
+      const codexReal = join(base, "codex", "skills", "my-skill");
+      const agentsLink = join(base, "agents", "skills", "my-skill");
+      await mkdir(claudeReal, { recursive: true });
+      await mkdir(codexReal, { recursive: true });
+      await mkdir(dirname(agentsLink), { recursive: true });
+      await writeFile(join(claudeReal, "SKILL.md"), "claude content");
+      await writeFile(join(codexReal, "SKILL.md"), "codex content");
+      await symlink(claudeReal, agentsLink, "dir");
+
+      const plan: RemovalPlan = {
+        directories: [{ path: claudeReal, isSymlink: false }],
+        ruleFiles: [],
+        agentsBlocks: [],
+      };
+
+      const relocation: RelocationInfo = {
+        needed: true,
+        fromProvider: "claude",
+        fromPath: claudeReal,
+        toProvider: "codex",
+        toPath: codexReal,
+        repointPaths: [agentsLink],
+        repointOnly: true,
+      };
+
+      await executeRemoval(plan, undefined, relocation);
+
+      // codex real folder is untouched — relocation did NOT rename over it
+      const codexStats = await lstat(codexReal);
+      expect(codexStats.isDirectory()).toBe(true);
+      const { readFile } = await import("fs/promises");
+      const codexContent = await readFile(join(codexReal, "SKILL.md"), "utf-8");
+      expect(codexContent).toBe("codex content");
+
+      // claude's real folder is gone (standard removal still runs)
+      try {
+        await lstat(claudeReal);
+        throw new Error("claudeReal should not exist");
+      } catch (err: any) {
+        expect(err.code).toBe("ENOENT");
+      }
+
+      // agents symlink no longer dangles — resolves to codex's real folder
+      const agentsStats = await lstat(agentsLink);
+      expect(agentsStats.isSymbolicLink()).toBe(true);
+      const agentsResolved = await realpath(agentsLink);
+      expect(agentsResolved).toBe(await realpath(codexReal));
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("isolates per-symlink repoint failures and logs a rollback hint", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-reloc-partial-"));
+    try {
+      const realDir = join(base, "claude", "skills", "my-skill");
+      const goodLink = join(base, "codex", "skills", "my-skill");
+      // Place a regular file where the second symlink's PARENT should be,
+      // so mkdir+symlink on its child will fail (ENOTDIR), simulating a
+      // mid-loop repoint failure.
+      const blockedParent = join(base, "agents", "skills");
+      const blockedLink = join(blockedParent, "my-skill");
+      await mkdir(realDir, { recursive: true });
+      await mkdir(dirname(goodLink), { recursive: true });
+      await mkdir(dirname(blockedParent), { recursive: true });
+      await writeFile(blockedParent, "not a directory");
+      await writeFile(join(realDir, "SKILL.md"), "content");
+      await symlink(realDir, goodLink, "dir");
+
+      const plan: RemovalPlan = {
+        directories: [{ path: realDir, isSymlink: false }],
+        ruleFiles: [],
+        agentsBlocks: [],
+      };
+
+      const relocation: RelocationInfo = {
+        needed: true,
+        fromProvider: "claude",
+        fromPath: realDir,
+        toProvider: "codex",
+        toPath: goodLink,
+        repointPaths: [blockedLink],
+      };
+
+      const log = await executeRemoval(plan, undefined, relocation);
+
+      // The good slot was relocated even though the other repoint failed
+      const goodStats = await lstat(goodLink);
+      expect(goodStats.isSymbolicLink()).toBe(false);
+      expect(goodStats.isDirectory()).toBe(true);
+
+      // Log mentions the failure and includes a manual-fix hint
+      const failEntry = log.find((l) =>
+        l.includes("Failed to repoint symlink"),
+      );
+      expect(failEntry).toBeDefined();
+      expect(failEntry).toContain(blockedLink);
+      expect(failEntry).toContain("ln -sfn");
     } finally {
       await rm(base, { recursive: true, force: true });
     }

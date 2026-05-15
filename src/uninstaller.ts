@@ -192,6 +192,7 @@ async function removeAgentsMdBlock(
   if (!(await fileExists(filePath))) return;
 
   let content = await readFile(filePath, "utf-8");
+  let modified = false;
 
   // Try both new and old marker formats for backward compatibility
   for (const prefix of ["agent-skill-manager", "skill-manager", "pskills"]) {
@@ -215,8 +216,10 @@ async function removeAgentsMdBlock(
     }
 
     content = content.slice(0, removeStart) + content.slice(actualEnd);
+    modified = true;
   }
 
+  if (!modified) return;
   await writeFile(filePath, content, "utf-8");
 }
 
@@ -253,16 +256,29 @@ export function buildRelocationInfo(
   const target = findRelocationTarget(skillInstances, removedProvider);
   if (!target) return null;
 
-  // If the relocation target is itself a real folder, no relocation is
-  // needed — the kept provider already has the content. Renaming over it
-  // would destroy that data. The standard removal path handles this case.
-  const targetInstance = remaining.find((s) => s.originalPath === target.path);
-  if (targetInstance && !targetInstance.isSymlink) return null;
-
   const realDir = plan.directories.find((d) => !d.isSymlink);
   const repointPaths = remaining
     .map((s) => s.originalPath)
     .filter((p) => p !== target.path);
+
+  // If the relocation target is itself a real folder, the kept provider
+  // already has the content — don't rename (that would destroy it). But
+  // surviving symlinks may still point at the about-to-be-removed real
+  // folder; without repointing they become dangling. Emit a repoint-only
+  // plan when there's at least one symlink to fix; otherwise skip.
+  const targetInstance = remaining.find((s) => s.originalPath === target.path);
+  if (targetInstance && !targetInstance.isSymlink) {
+    if (repointPaths.length === 0) return null;
+    return {
+      needed: true,
+      fromProvider: removedProvider,
+      fromPath: realDir?.path || "",
+      toProvider: target.provider,
+      toPath: target.path,
+      repointPaths,
+      repointOnly: true,
+    };
+  }
 
   return {
     needed: true,
@@ -285,9 +301,9 @@ export async function cleanEmptyParentDirs(paths: string[]): Promise<string[]> {
 
     try {
       const entries = await readdir(parent);
-      const filtered = entries.filter(
-        (e) => e !== ".DS_Store" && e !== ".gitkeep",
-      );
+      // .DS_Store is OS noise (macOS Finder); a checked-in .gitkeep is a
+      // deliberate placeholder and must keep the directory alive.
+      const filtered = entries.filter((e) => e !== ".DS_Store");
       if (filtered.length === 0) {
         await rm(parent, { recursive: true, force: true });
         cleaned.push(parent);
@@ -312,46 +328,60 @@ export async function executeRemoval(
   // is the only safe order: a delete-then-symlink-to-sibling sequence
   // would orphan the original symlink at the target slot and lose data
   // when symlinks were the surviving instances.
+  //
+  // In repoint-only mode, the target already holds a real folder — skip
+  // the rename and only repoint surviving symlinks so they don't dangle
+  // when the removed provider's real folder gets deleted below.
   if (relocation?.needed) {
-    try {
-      const targetParent = dirname(relocation.toPath);
-      await mkdir(targetParent, { recursive: true });
-
-      // The target slot is currently a symlink (or stale entry) pointing
-      // back at fromPath. Unlink it so rename has a clean destination.
+    if (!relocation.repointOnly) {
       try {
-        await unlink(relocation.toPath);
-      } catch (err: any) {
-        if (err.code !== "ENOENT") {
-          // Best-effort: if it's a non-empty dir we can't move over, fall
-          // back to a full remove so rename can proceed.
-          await rm(relocation.toPath, { recursive: true, force: true });
-        }
-      }
+        const targetParent = dirname(relocation.toPath);
+        await mkdir(targetParent, { recursive: true });
 
+        // The target slot is currently a symlink (or stale entry) pointing
+        // back at fromPath. Unlink it so rename has a clean destination.
+        try {
+          await unlink(relocation.toPath);
+        } catch (err: any) {
+          if (err.code !== "ENOENT") {
+            // Best-effort: if it's a non-empty dir we can't move over, fall
+            // back to a full remove so rename can proceed.
+            await rm(relocation.toPath, { recursive: true, force: true });
+          }
+        }
+
+        try {
+          await rename(relocation.fromPath, relocation.toPath);
+        } catch (err: any) {
+          if (err.code === "EXDEV") {
+            // Cross-device rename — fall back to recursive copy + remove.
+            // Rare on a single-user machine but possible when ~/.claude and
+            // ~/.codex live on different mounts (NFS, encrypted volumes).
+            const { cp } = await import("fs/promises");
+            await cp(relocation.fromPath, relocation.toPath, {
+              recursive: true,
+              preserveTimestamps: true,
+            });
+            await rm(relocation.fromPath, { recursive: true, force: true });
+          } else {
+            throw err;
+          }
+        }
+        log.push(
+          `Relocated real folder: ${relocation.fromPath} -> ${relocation.toPath}`,
+        );
+      } catch (err: any) {
+        log.push(`Failed to relocate real folder: ${err.message}`);
+      }
+    }
+
+    // Re-point any other surviving symlinks at the new canonical path.
+    // Each repoint is isolated so one failure doesn't abort the rest;
+    // failures log the from/to so the user can recreate the symlink.
+    for (const repointPath of relocation.repointPaths || []) {
+      const parentDir = dirname(repointPath);
+      const relTarget = relative(parentDir, relocation.toPath);
       try {
-        await rename(relocation.fromPath, relocation.toPath);
-      } catch (err: any) {
-        if (err.code === "EXDEV") {
-          // Cross-device rename — fall back to recursive copy + remove.
-          // Rare on a single-user machine but possible when ~/.claude and
-          // ~/.codex live on different mounts (NFS, encrypted volumes).
-          const { cp } = await import("fs/promises");
-          await cp(relocation.fromPath, relocation.toPath, {
-            recursive: true,
-            preserveTimestamps: true,
-          });
-          await rm(relocation.fromPath, { recursive: true, force: true });
-        } else {
-          throw err;
-        }
-      }
-      log.push(
-        `Relocated real folder: ${relocation.fromPath} -> ${relocation.toPath}`,
-      );
-
-      // Re-point any other surviving symlinks at the new canonical path.
-      for (const repointPath of relocation.repointPaths || []) {
         try {
           await unlink(repointPath);
         } catch (err: any) {
@@ -359,23 +389,26 @@ export async function executeRemoval(
             await rm(repointPath, { recursive: true, force: true });
           }
         }
-        const parentDir = dirname(repointPath);
         await mkdir(parentDir, { recursive: true });
-        const relTarget = relative(parentDir, relocation.toPath);
         await symlink(relTarget, repointPath, "dir");
         log.push(`Repointed symlink: ${repointPath} -> ${relTarget}`);
+      } catch (err: any) {
+        log.push(
+          `Failed to repoint symlink ${repointPath} -> ${relTarget}: ${err.message}. To fix manually: ln -sfn ${relocation.toPath} ${repointPath}`,
+        );
       }
-    } catch (err: any) {
-      log.push(`Failed to relocate real folder: ${err.message}`);
     }
   }
 
   // Remove directories/symlinks. When a relocation just moved fromPath
-  // away, skip removing it here — rename already consumed the entry.
+  // away, skip removing it here — rename already consumed the entry. In
+  // repoint-only mode no rename happened, so the source still needs to
+  // be removed below.
   for (const dir of plan.directories) {
     try {
       if (
         relocation?.needed &&
+        !relocation.repointOnly &&
         resolve(dir.path) === resolve(relocation.fromPath)
       ) {
         continue;

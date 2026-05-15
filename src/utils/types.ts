@@ -194,6 +194,12 @@ export interface RelocationInfo {
    * empty when only one other provider remains.
    */
   repointPaths?: string[];
+  /**
+   * When true, skip the rename step (the target already holds a real
+   * folder) and only repoint surviving symlinks. The removed provider's
+   * real folder is deleted via the standard removal path.
+   */
+  repointOnly?: boolean;
 }
 
 // ─── Audit Types ──────────────────────────────────────────────────────────
