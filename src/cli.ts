@@ -1091,11 +1091,25 @@ async function cmdUninstall(args: ParsedArgs) {
   // When relocation is needed, pass the full RelocationInfo so executeRemoval
   // physically renames the real folder rather than deleting it and symlinking
   // to the original (which would have been the about-to-be-deleted path).
-  const log = await executeRemoval(
-    plan,
-    undefined,
-    relocationInfo?.needed ? relocationInfo : undefined,
-  );
+  let log: string[];
+  try {
+    log = await executeRemoval(
+      plan,
+      undefined,
+      relocationInfo?.needed ? relocationInfo : undefined,
+    );
+  } catch (err: any) {
+    // executeRemoval throws when a relocation rename/EXDEV-fallback fails.
+    // Surface any partial log entries (including the failure message it
+    // pushed before throwing) so the user sees what happened, then exit
+    // non-zero — don't print "Done." for a half-finished uninstall.
+    const partialLog: string[] = Array.isArray(err?.log) ? err.log : [];
+    for (const entry of partialLog) {
+      console.error(entry);
+    }
+    error(err?.message || "Uninstall failed.");
+    process.exit(1);
+  }
   for (const entry of log) {
     console.error(entry);
   }

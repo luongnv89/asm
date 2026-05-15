@@ -1218,6 +1218,50 @@ describe("executeRemoval with relocation", () => {
       await rm(base, { recursive: true, force: true });
     }
   });
+
+  it("throws (with log attached) when relocation rename fails so cmdUninstall exits non-zero", async () => {
+    // Regression for issue #282: a real-folder relocation failure was
+    // silently logged and the CLI still printed "Done." with exit 0.
+    // executeRemoval must propagate the failure so cmdUninstall can
+    // surface a non-zero exit, while keeping the log entry visible.
+    const base = await mkdtemp(join(tmpdir(), "asm-reloc-fail-"));
+    try {
+      const realDir = join(base, "claude", "skills", "my-skill");
+      const linkDir = join(base, "codex", "skills", "my-skill");
+      await mkdir(realDir, { recursive: true });
+      await mkdir(dirname(linkDir), { recursive: true });
+      await symlink(realDir, linkDir, "dir");
+
+      const plan: RemovalPlan = {
+        directories: [{ path: realDir, isSymlink: false }],
+        ruleFiles: [],
+        agentsBlocks: [],
+      };
+
+      // fromPath does not exist on disk — rename will fail with ENOENT,
+      // which is NOT EXDEV, so it hits the `throw err` branch in the
+      // rename try/catch and triggers the outer relocation catch block.
+      const relocation: RelocationInfo = {
+        needed: true,
+        fromProvider: "claude",
+        fromPath: join(base, "does", "not", "exist"),
+        toProvider: "codex",
+        toPath: linkDir,
+        repointPaths: [],
+      };
+
+      await expect(
+        executeRemoval(plan, undefined, relocation),
+      ).rejects.toMatchObject({
+        message: expect.stringContaining("Failed to relocate real folder"),
+        log: expect.arrayContaining([
+          expect.stringContaining("Failed to relocate real folder"),
+        ]),
+      });
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
 });
 
 // ─── buildFullRemovalPlan: AGENTS.md filter regression ─────────────────────

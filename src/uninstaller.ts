@@ -371,7 +371,18 @@ export async function executeRemoval(
           `Relocated real folder: ${relocation.fromPath} -> ${relocation.toPath}`,
         );
       } catch (err: any) {
+        // Relocation is load-bearing: if the rename/EXDEV-fallback fails
+        // we must NOT continue (repointing surviving symlinks at an empty
+        // toPath would dangle them, and the standard removal loop would
+        // delete the still-intact source). Push the human-readable log
+        // entry so callers can surface it, then throw so cmdUninstall
+        // exits non-zero rather than printing "Done."
         log.push(`Failed to relocate real folder: ${err.message}`);
+        const wrapped: Error & { log?: string[] } = new Error(
+          `Failed to relocate real folder: ${err.message}`,
+        );
+        wrapped.log = log;
+        throw wrapped;
       }
     }
 
