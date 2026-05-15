@@ -14,6 +14,7 @@ import {
   readLock,
   writeLockEntry,
   removeLockEntry,
+  setLockEntryProvider,
   getCommitHash,
 } from "./lock";
 
@@ -234,6 +235,89 @@ describe("removeLockEntry", () => {
   test("no-op when lock file does not exist", async () => {
     // Should not throw
     await removeLockEntry("anything");
+  });
+});
+
+// ─── setLockEntryProvider tests ──────────────────────────────────────────────
+
+describe("setLockEntryProvider", () => {
+  test("updates provider while preserving all other fields", async () => {
+    const data = {
+      version: 1,
+      skills: {
+        "my-skill": {
+          source: "github:owner/repo",
+          commitHash: "abc123",
+          ref: "v1.0",
+          installedAt: "2026-05-10T12:00:00Z",
+          provider: "claude",
+          sourceType: "github" as const,
+        },
+      },
+    };
+    await writeFile(mockState.lockPath, JSON.stringify(data), "utf-8");
+
+    await setLockEntryProvider("my-skill", "codex");
+
+    const lock = await readLock();
+    expect(lock.skills["my-skill"].provider).toBe("codex");
+    expect(lock.skills["my-skill"].source).toBe("github:owner/repo");
+    expect(lock.skills["my-skill"].commitHash).toBe("abc123");
+    expect(lock.skills["my-skill"].ref).toBe("v1.0");
+    expect(lock.skills["my-skill"].installedAt).toBe("2026-05-10T12:00:00Z");
+    expect(lock.skills["my-skill"].sourceType).toBe("github");
+  });
+
+  test("no-op when entry does not exist", async () => {
+    const data = {
+      version: 1,
+      skills: {
+        "skill-a": {
+          source: "github:owner/a",
+          commitHash: "aaa",
+          ref: "main",
+          installedAt: "2026-05-10T12:00:00Z",
+          provider: "claude",
+        },
+      },
+    };
+    await writeFile(mockState.lockPath, JSON.stringify(data), "utf-8");
+
+    await setLockEntryProvider("nonexistent", "codex");
+
+    const lock = await readLock();
+    expect(Object.keys(lock.skills)).toHaveLength(1);
+    expect(lock.skills["skill-a"].provider).toBe("claude");
+  });
+
+  test("no-op when lock file does not exist", async () => {
+    // Should not throw and should not create the lock file
+    await setLockEntryProvider("anything", "codex");
+    const lock = await readLock();
+    expect(lock.skills).toEqual({});
+  });
+
+  test("no-op when provider already matches", async () => {
+    const data = {
+      version: 1,
+      skills: {
+        "skill-a": {
+          source: "github:owner/a",
+          commitHash: "aaa",
+          ref: "main",
+          installedAt: "2026-05-10T12:00:00Z",
+          provider: "claude",
+        },
+      },
+    };
+    await writeFile(mockState.lockPath, JSON.stringify(data), "utf-8");
+    // Capture the on-disk bytes — no write should occur on a no-op match
+    const before = await readFile(mockState.lockPath, "utf-8");
+
+    await setLockEntryProvider("skill-a", "claude");
+
+    const after = await readFile(mockState.lockPath, "utf-8");
+    expect(after).toBe(before);
   });
 });
 

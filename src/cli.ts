@@ -98,7 +98,12 @@ import {
   formatSecurityReport,
   formatSecurityReportJSON,
 } from "./security-auditor";
-import { writeLockEntry, removeLockEntry, getCommitHash } from "./utils/lock";
+import {
+  writeLockEntry,
+  removeLockEntry,
+  setLockEntryProvider,
+  getCommitHash,
+} from "./utils/lock";
 import {
   checkOutdated,
   updateSkills,
@@ -151,7 +156,7 @@ import { VERSION_STRING } from "./utils/version";
 import { buildShadowingReport } from "./utils/path-shadowing";
 import { parseEditorCommand } from "./utils/editor";
 import { setVerbose } from "./logger";
-import { join as joinPath } from "path";
+import { join as joinPath, resolve } from "path";
 import type {
   Scope,
   SortBy,
@@ -1100,11 +1105,40 @@ async function cmdUninstall(args: ParsedArgs) {
     console.error(entry);
   }
 
-  // Remove lock entry for tracking
+  // Lock-entry cleanup. The lock schema stores one entry per skill name,
+  // keyed on a single provider field. On a full uninstall (no `-t`) we
+  // drop the entry. On a partial uninstall (`-t <provider>`) with other
+  // providers' instances still present, we MUST keep source-tracking
+  // metadata (`source`, `commitHash`, `ref`) alive for the survivors:
+  //
+  //   • Real-folder relocation (a real folder was moved to a kept
+  //     provider's slot) — repoint the lock entry's `provider` field at
+  //     the new home so `asm list`/`asm update` use the right path.
+  //   • Two-real-folders or repoint-only — at least one surviving
+  //     provider has a real folder, so source-tracking metadata stays
+  //     useful even if the entry's `provider` field is now stale
+  //     relative to which install survived.
+  //
+  // Known limitation: in the two-real-folders case the lock points at
+  // ONE provider only; that provider may not be the one that survived.
+  // Per-provider lock entries are the long-term fix (tracked separately).
+  const removedDirSet = new Set(plan.directories.map((d) => resolve(d.path)));
+  const survivingInstances = matchingSkills.filter(
+    (s) => !removedDirSet.has(resolve(s.originalPath)),
+  );
   try {
-    await removeLockEntry(skillName);
+    if (targetProvider && survivingInstances.length > 0) {
+      if (relocationInfo?.needed && !relocationInfo.repointOnly) {
+        await setLockEntryProvider(skillName, relocationInfo.toProvider);
+      }
+      // else: keep the lock entry as-is — two-real-folders or
+      // repoint-only, both leave the original provider's real folder
+      // intact, so source-tracking metadata stays accurate.
+    } else {
+      await removeLockEntry(skillName);
+    }
   } catch {
-    // Lock removal failure is non-fatal
+    // Lock cleanup failure is non-fatal
   }
 
   console.error(ansi.green("\nDone."));

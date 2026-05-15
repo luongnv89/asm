@@ -73,6 +73,32 @@ export async function removeLockEntry(name: string): Promise<void> {
   debug(`lock: removed entry for "${name}"`);
 }
 
+/**
+ * Rewrite an existing entry's provider field while preserving every other
+ * field (source, commitHash, ref, installedAt, sourceType, registryName).
+ * No-op when the entry doesn't exist. Used by partial-uninstall (`-t`) when
+ * a real-folder relocation moves the canonical home from one provider to
+ * another and source-tracking metadata must follow the surviving instance.
+ */
+export async function setLockEntryProvider(
+  name: string,
+  provider: string,
+): Promise<void> {
+  const lock = await readLock();
+  const entry = lock.skills[name];
+  if (!entry) {
+    debug(`lock: no entry for "${name}", cannot update provider`);
+    return;
+  }
+  if (entry.provider === provider) {
+    debug(`lock: entry for "${name}" already points at "${provider}"`);
+    return;
+  }
+  lock.skills[name] = { ...entry, provider };
+  await writeLock(lock);
+  debug(`lock: updated provider for "${name}" -> "${provider}"`);
+}
+
 async function writeLock(lock: LockFile): Promise<void> {
   const lockPath = getLockPath();
   await mkdir(dirname(lockPath), { recursive: true });
