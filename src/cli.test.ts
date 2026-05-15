@@ -16,6 +16,7 @@ import {
   rm,
   writeFile,
   mkdir,
+  readdir,
   readFile,
   lstat,
   readlink,
@@ -44,6 +45,29 @@ async function runCLI(
     stderr: res.stderr.trim(),
     exitCode: res.exitCode,
   };
+}
+
+// Helper: assert that a globally installed skill directory was actually removed.
+// `asm install <dir>` installs to ~/.claude/skills/<basename(dir)>, and the
+// uninstaller looks up by that same basename. When a test's source directory
+// basename does not match the skill's frontmatter `name`, the uninstall step
+// silently fails to match and leaks the install (issue #288). This helper, run
+// in each test's `finally`, catches regressions of that bug class.
+async function assertSkillUninstalled(installedDirName: string): Promise<void> {
+  const installedPath = join(homedir(), ".claude", "skills", installedDirName);
+  let leaked = false;
+  try {
+    await lstat(installedPath);
+    leaked = true;
+  } catch {
+    // ENOENT — expected: uninstall removed it.
+  }
+  if (leaked) {
+    await rm(installedPath, { recursive: true, force: true });
+    throw new Error(
+      `Test leaked installed skill at ${installedPath} — uninstall did not remove it.`,
+    );
+  }
 }
 
 // ─── parseArgs unit tests ───────────────────────────────────────────────────
@@ -3764,6 +3788,26 @@ describe("parseArgs: bundle modify and export", () => {
 // ─── CLI integration: bundle modify ──────────────────────────────────────────
 
 describe("CLI integration: bundle modify", () => {
+  // One-shot cleanup of historical leftovers from #288: prior versions of these
+  // tests used `mkdtemp` prefixes that did not match the frontmatter name, so
+  // `asm uninstall` could not find the installed copy and ~/.claude/skills/
+  // accumulated hundreds of `cli-skill-for-*` directories. Sweep any that
+  // remain on developer machines on the next test run.
+  beforeAll(async () => {
+    const skillsDir = join(homedir(), ".claude", "skills");
+    let entries: string[] = [];
+    try {
+      entries = await readdir(skillsDir);
+    } catch {
+      return; // no skills dir — nothing to sweep
+    }
+    await Promise.all(
+      entries
+        .filter((e) => e.startsWith("cli-skill-for-"))
+        .map((e) => rm(join(skillsDir, e), { recursive: true, force: true })),
+    );
+  });
+
   test("bundle modify without name exits 2", async () => {
     const { stderr, exitCode } = await runCLI("bundle", "modify");
     expect(exitCode).toBe(2);
@@ -3821,10 +3865,15 @@ describe("CLI integration: bundle modify", () => {
   });
 
   test("bundle modify --add and --description updates saved bundle", async () => {
-    // Create a real bundle in the bundles directory first
-    const tmpSkillDir = await mkdtemp(join(tmpdir(), "cli-skill-for-modify-"));
+    // Source dir basename must equal the skill's frontmatter `name` so the
+    // installer's destination directory matches the name the uninstall call
+    // uses for lookup — see #288.
+    const tmpRoot = await mkdtemp(join(tmpdir(), "cli-bundle-modify-"));
+    const skillName = "modify-test-skill";
+    const tmpSkillDir = join(tmpRoot, skillName);
+    await mkdir(tmpSkillDir, { recursive: true });
     const skillMd = `---
-name: modify-test-skill
+name: ${skillName}
 description: A test skill for modify
 version: 1.0.0
 ---
@@ -3869,15 +3918,19 @@ version: 1.0.0
       expect(parsed.tags).toEqual(["foo", "bar"]);
     } finally {
       await runCLI("bundle", "remove", bundleName, "--yes");
-      await runCLI("uninstall", "modify-test-skill", "--yes");
-      await rm(tmpSkillDir, { recursive: true, force: true });
+      await runCLI("uninstall", skillName, "--yes");
+      await rm(tmpRoot, { recursive: true, force: true });
+      await assertSkillUninstalled(skillName);
     }
   });
 
   test("bundle modify --remove on nonexistent skill reports no change", async () => {
-    const tmpSkillDir = await mkdtemp(join(tmpdir(), "cli-skill-for-remove-"));
+    const tmpRoot = await mkdtemp(join(tmpdir(), "cli-bundle-remove-"));
+    const skillName = "rm-skill-a";
+    const tmpSkillDir = join(tmpRoot, skillName);
+    await mkdir(tmpSkillDir, { recursive: true });
     const skillMd = `---
-name: rm-skill-a
+name: ${skillName}
 description: A test skill
 version: 1.0.0
 ---
@@ -3911,16 +3964,20 @@ version: 1.0.0
       expect(stderr).toContain("not found in bundle");
     } finally {
       await runCLI("bundle", "remove", bundleName, "--yes");
-      await runCLI("uninstall", "rm-skill-a", "--yes");
-      await rm(tmpSkillDir, { recursive: true, force: true });
+      await runCLI("uninstall", skillName, "--yes");
+      await rm(tmpRoot, { recursive: true, force: true });
+      await assertSkillUninstalled(skillName);
     }
   });
 
   test("bundle modify --remove all skills exits 1 with at-least-one-skill error", async () => {
     // Create a bundle file directly with one skill, then try to remove it
-    const tmpSkillDir = await mkdtemp(join(tmpdir(), "cli-skill-for-remove2-"));
+    const tmpRoot = await mkdtemp(join(tmpdir(), "cli-bundle-remove2-"));
+    const skillName = "rm-only-skill";
+    const tmpSkillDir = join(tmpRoot, skillName);
+    await mkdir(tmpSkillDir, { recursive: true });
     const skillMd = `---
-name: rm-only-skill
+name: ${skillName}
 description: Only skill
 version: 1.0.0
 ---
@@ -3949,7 +4006,7 @@ version: 1.0.0
     );
     const bundleData = JSON.parse(showOut);
     const hasSkill = bundleData.skills.some(
-      (s: { name: string }) => s.name === "rm-only-skill",
+      (s: { name: string }) => s.name === skillName,
     );
 
     try {
@@ -3960,7 +4017,7 @@ version: 1.0.0
           "modify",
           bundleName,
           "--remove",
-          "rm-only-skill",
+          skillName,
         );
         expect(exitCode).toBe(1);
         expect(stderr).toContain("at least one skill");
@@ -3970,8 +4027,9 @@ version: 1.0.0
       }
     } finally {
       await runCLI("bundle", "remove", bundleName, "--yes");
-      await runCLI("uninstall", "rm-only-skill", "--yes");
-      await rm(tmpSkillDir, { recursive: true, force: true });
+      await runCLI("uninstall", skillName, "--yes");
+      await rm(tmpRoot, { recursive: true, force: true });
+      await assertSkillUninstalled(skillName);
     }
   });
 
@@ -4003,9 +4061,12 @@ describe("CLI integration: bundle export", () => {
   });
 
   test("bundle export writes bundle JSON to specified file", async () => {
-    const tmpSkillDir = await mkdtemp(join(tmpdir(), "cli-skill-for-export-"));
+    const tmpRoot = await mkdtemp(join(tmpdir(), "cli-bundle-export-"));
+    const skillName = "export-test-skill";
+    const tmpSkillDir = join(tmpRoot, skillName);
+    await mkdir(tmpSkillDir, { recursive: true });
     const skillMd = `---
-name: export-test-skill
+name: ${skillName}
 description: A test skill for export
 version: 1.0.0
 ---
@@ -4048,16 +4109,20 @@ version: 1.0.0
       expect(Array.isArray(parsed.skills)).toBe(true);
     } finally {
       await runCLI("bundle", "remove", bundleName, "--yes");
-      await runCLI("uninstall", "export-test-skill", "--yes");
-      await rm(tmpSkillDir, { recursive: true, force: true });
+      await runCLI("uninstall", skillName, "--yes");
+      await rm(tmpRoot, { recursive: true, force: true });
       await rm(outputDir, { recursive: true, force: true });
+      await assertSkillUninstalled(skillName);
     }
   });
 
   test("bundle export defaults to ./<name>.json when no output file given", async () => {
-    const tmpSkillDir = await mkdtemp(join(tmpdir(), "cli-skill-for-export2-"));
+    const tmpRoot = await mkdtemp(join(tmpdir(), "cli-bundle-export2-"));
+    const skillName = "export-default-skill";
+    const tmpSkillDir = join(tmpRoot, skillName);
+    await mkdir(tmpSkillDir, { recursive: true });
     const skillMd = `---
-name: export-default-skill
+name: ${skillName}
 description: A test skill
 version: 1.0.0
 ---
@@ -4096,15 +4161,19 @@ version: 1.0.0
       }
     } finally {
       await runCLI("bundle", "remove", bundleName, "--yes");
-      await runCLI("uninstall", "export-default-skill", "--yes");
-      await rm(tmpSkillDir, { recursive: true, force: true });
+      await runCLI("uninstall", skillName, "--yes");
+      await rm(tmpRoot, { recursive: true, force: true });
+      await assertSkillUninstalled(skillName);
     }
   });
 
   test("bundle export does not overwrite existing file without --force", async () => {
-    const tmpSkillDir = await mkdtemp(join(tmpdir(), "cli-skill-for-noover-"));
+    const tmpRoot = await mkdtemp(join(tmpdir(), "cli-bundle-noover-"));
+    const skillName = "export-nooverwrite-skill";
+    const tmpSkillDir = join(tmpRoot, skillName);
+    await mkdir(tmpSkillDir, { recursive: true });
     const skillMd = `---
-name: export-nooverwrite-skill
+name: ${skillName}
 description: A test skill
 version: 1.0.0
 ---
@@ -4147,16 +4216,20 @@ version: 1.0.0
       expect(content).toBe("existing content");
     } finally {
       await runCLI("bundle", "remove", bundleName, "--yes");
-      await runCLI("uninstall", "export-nooverwrite-skill", "--yes");
-      await rm(tmpSkillDir, { recursive: true, force: true });
+      await runCLI("uninstall", skillName, "--yes");
+      await rm(tmpRoot, { recursive: true, force: true });
       await rm(outputDir, { recursive: true, force: true });
+      await assertSkillUninstalled(skillName);
     }
   });
 
   test("bundle export --force overwrites existing file", async () => {
-    const tmpSkillDir = await mkdtemp(join(tmpdir(), "cli-skill-for-force-"));
+    const tmpRoot = await mkdtemp(join(tmpdir(), "cli-bundle-force-"));
+    const skillName = "export-force-skill";
+    const tmpSkillDir = join(tmpRoot, skillName);
+    await mkdir(tmpSkillDir, { recursive: true });
     const skillMd = `---
-name: export-force-skill
+name: ${skillName}
 description: A test skill
 version: 1.0.0
 ---
@@ -4201,16 +4274,20 @@ version: 1.0.0
       expect(parsed.name).toBe(bundleName);
     } finally {
       await runCLI("bundle", "remove", bundleName, "--yes");
-      await runCLI("uninstall", "export-force-skill", "--yes");
-      await rm(tmpSkillDir, { recursive: true, force: true });
+      await runCLI("uninstall", skillName, "--yes");
+      await rm(tmpRoot, { recursive: true, force: true });
       await rm(outputDir, { recursive: true, force: true });
+      await assertSkillUninstalled(skillName);
     }
   });
 
   test("bundle export --json outputs structured JSON result", async () => {
-    const tmpSkillDir = await mkdtemp(join(tmpdir(), "cli-skill-for-json-"));
+    const tmpRoot = await mkdtemp(join(tmpdir(), "cli-bundle-json-"));
+    const skillName = "export-json-skill";
+    const tmpSkillDir = join(tmpRoot, skillName);
+    await mkdir(tmpSkillDir, { recursive: true });
     const skillMd = `---
-name: export-json-skill
+name: ${skillName}
 description: A test skill
 version: 1.0.0
 ---
@@ -4249,9 +4326,10 @@ version: 1.0.0
       expect(result.bundle.name).toBe(bundleName);
     } finally {
       await runCLI("bundle", "remove", bundleName, "--yes");
-      await runCLI("uninstall", "export-json-skill", "--yes");
-      await rm(tmpSkillDir, { recursive: true, force: true });
+      await runCLI("uninstall", skillName, "--yes");
+      await rm(tmpRoot, { recursive: true, force: true });
       await rm(outputDir, { recursive: true, force: true });
+      await assertSkillUninstalled(skillName);
     }
   });
 });

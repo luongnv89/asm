@@ -5,6 +5,7 @@
 ### Bug Fixes
 
 - `asm uninstall <name> -t <provider>` now preserves the `.skill-lock.json` entry (source-tracking metadata: `source`, `commitHash`, `ref`) when other providers still have the skill installed, so subsequent `asm list`/`asm update` keep working on the survivors. Implemented as a hybrid of the issue's option 2 + option 1: when a real-folder relocation moves the canonical home to a kept provider the lock entry's `provider` field is repointed at the new home; when no relocation happened (two-real-folders or repoint-only topology) the entry is left intact. The full-uninstall path (no `-t`) still drops the entry as before. Known caveat in the two-real-folders case: the lock points at one surviving provider; per-provider lock entries remain the long-term fix ([#284](https://github.com/luongnv89/asm/issues/284)) — @luongnv89
+- `fix(test):` Stop bundle modify/export tests from leaking installed skill copies into the user's real `~/.claude/skills/`. Each test now creates its source dir as `<tmpRoot>/<frontmatter-name>/` so the installer's destination basename matches the name the `uninstall` cleanup uses for lookup; a per-test `assertSkillUninstalled` guard fails the test if the install survives, and a one-shot `beforeAll` sweep removes any `cli-skill-for-*` leftovers accumulated by prior runs ([#288](https://github.com/luongnv89/asm/issues/288)) — @luongnv89
 
 ## v2.7.0 — 2026-05-10
 
