@@ -1,4 +1,26 @@
-import { describe, expect, it, beforeEach, afterEach } from "vitest";
+import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
+
+// ─── Module mocks for EXDEV cp fallback test (issue #283) ────────────────────
+// `vi.mock` is hoisted and file-level, so route through `vi.hoisted` so we can
+// swap rename/cp behaviour per test. All other tests fall through to the real
+// implementations.
+const fspMocks = vi.hoisted(() => ({
+  renameOverride: null as null | ((...args: any[]) => Promise<void>),
+  cpOverride: null as null | ((...args: any[]) => Promise<void>),
+}));
+vi.mock("fs/promises", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("fs/promises")>();
+  return {
+    ...actual,
+    rename: (...args: Parameters<typeof actual.rename>) =>
+      fspMocks.renameOverride
+        ? fspMocks.renameOverride(...args)
+        : actual.rename(...args),
+    cp: (...args: Parameters<typeof actual.cp>) =>
+      fspMocks.cpOverride ? fspMocks.cpOverride(...args) : actual.cp(...args),
+  };
+});
+
 import {
   buildRemovalPlan,
   buildFullRemovalPlan,
@@ -1259,6 +1281,82 @@ describe("executeRemoval with relocation", () => {
         ]),
       });
     } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("cleans up partial copy at toPath when EXDEV cp fallback fails mid-copy", async () => {
+    // Regression for issue #283: when rename returns EXDEV and the cp
+    // fallback throws partway through (e.g. ENOSPC), the partial copy at
+    // toPath was left behind, the source at fromPath was untouched, and
+    // the failure was swallowed by the outer catch as a generic log line —
+    // leaving a half-migrated skill with no surfaced error. executeRemoval
+    // must clean up toPath before re-raising so re-running uninstall starts
+    // from a clean slate.
+    const base = await mkdtemp(join(tmpdir(), "asm-reloc-exdev-"));
+    let cpCalls = 0;
+    let renameCalls = 0;
+    try {
+      const realDir = join(base, "claude", "skills", "my-skill");
+      const linkDir = join(base, "codex", "skills", "my-skill");
+      await mkdir(realDir, { recursive: true });
+      await writeFile(join(realDir, "SKILL.md"), "source content");
+      await mkdir(dirname(linkDir), { recursive: true });
+      await symlink(realDir, linkDir, "dir");
+
+      // Force rename to report EXDEV so the cp fallback is exercised, then
+      // have cp create a partial copy at toPath before throwing — this
+      // mirrors a real mid-copy failure (e.g. disk full after some files
+      // have already been written).
+      fspMocks.renameOverride = async () => {
+        renameCalls += 1;
+        throw Object.assign(new Error("cross-device link"), { code: "EXDEV" });
+      };
+      fspMocks.cpOverride = async (_src: string, dest: string) => {
+        cpCalls += 1;
+        await mkdir(dest, { recursive: true });
+        await writeFile(join(dest, "SKILL.md"), "partial");
+        throw Object.assign(new Error("no space left on device"), {
+          code: "ENOSPC",
+        });
+      };
+
+      const plan: RemovalPlan = {
+        directories: [{ path: realDir, isSymlink: false }],
+        ruleFiles: [],
+        agentsBlocks: [],
+      };
+      const relocation: RelocationInfo = {
+        needed: true,
+        fromProvider: "claude",
+        fromPath: realDir,
+        toProvider: "codex",
+        toPath: linkDir,
+        repointPaths: [],
+      };
+
+      await expect(
+        executeRemoval(plan, undefined, relocation),
+      ).rejects.toMatchObject({
+        message: expect.stringContaining("no space left on device"),
+        log: expect.arrayContaining([
+          expect.stringContaining("Failed to relocate real folder"),
+        ]),
+      });
+
+      // Partial copy at toPath was cleaned up.
+      await expect(lstat(linkDir)).rejects.toMatchObject({ code: "ENOENT" });
+      // Source at fromPath is intact so the user can re-run uninstall.
+      const sourceStats = await lstat(realDir);
+      expect(sourceStats.isDirectory()).toBe(true);
+      const sourceFile = await lstat(join(realDir, "SKILL.md"));
+      expect(sourceFile.isFile()).toBe(true);
+
+      expect(cpCalls).toBe(1);
+      expect(renameCalls).toBe(1);
+    } finally {
+      fspMocks.renameOverride = null;
+      fspMocks.cpOverride = null;
       await rm(base, { recursive: true, force: true });
     }
   });

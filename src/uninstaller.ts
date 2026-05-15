@@ -358,10 +358,27 @@ export async function executeRemoval(
             // Rare on a single-user machine but possible when ~/.claude and
             // ~/.codex live on different mounts (NFS, encrypted volumes).
             const { cp } = await import("fs/promises");
-            await cp(relocation.fromPath, relocation.toPath, {
-              recursive: true,
-              preserveTimestamps: true,
-            });
+            try {
+              await cp(relocation.fromPath, relocation.toPath, {
+                recursive: true,
+                preserveTimestamps: true,
+              });
+            } catch (cpErr: any) {
+              // Partial copy at toPath if cp threw mid-way (disk full, perm
+              // error on a specific file). Best-effort clean it up so the
+              // user isn't left with a half-migrated skill; fromPath is still
+              // intact because the rm below only runs after a successful cp,
+              // so re-running uninstall remains safe. Surface the original
+              // cp error so the outer catch wraps it as a relocation failure.
+              try {
+                await rm(relocation.toPath, { recursive: true, force: true });
+              } catch (cleanupErr: any) {
+                log.push(
+                  `Failed to clean up partial copy at ${relocation.toPath}: ${cleanupErr.message}`,
+                );
+              }
+              throw cpErr;
+            }
             await rm(relocation.fromPath, { recursive: true, force: true });
           } else {
             throw err;
