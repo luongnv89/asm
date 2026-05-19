@@ -329,3 +329,122 @@ describe("selectedTools preference", () => {
     expect(config.preferences.selectedTools).toEqual(["claude", "agents"]);
   });
 });
+
+describe("mergeWithDefaults priority-order insertion", () => {
+  const configPath = getConfigPath();
+  let originalContent: string | null = null;
+
+  beforeEach(async () => {
+    try {
+      originalContent = await readFile(configPath, "utf-8");
+    } catch {
+      originalContent = null;
+    }
+  });
+
+  afterEach(async () => {
+    if (originalContent !== null) {
+      await mkdir(dirname(configPath), { recursive: true });
+      await writeFile(configPath, originalContent, "utf-8");
+    } else {
+      try {
+        await rm(configPath);
+      } catch {}
+    }
+  });
+
+  it("inserts a new default provider in its canonical priority slot", async () => {
+    // Simulate an existing user upgrading: their saved config predates the
+    // addition of `pi`, so it has the other 18 default providers in the
+    // pre-#291 order.
+    await mkdir(dirname(configPath), { recursive: true });
+    const legacyNames = [
+      "claude",
+      "codex",
+      "opencode",
+      "hermes",
+      "openclaw",
+      "agents",
+      "cursor",
+      "copilot",
+      "windsurf",
+      "antigravity",
+      "gemini",
+      "cline",
+      "roocode",
+      "continue",
+      "aider",
+      "zed",
+      "augment",
+      "amp",
+    ];
+    const partial = {
+      version: 1,
+      providers: legacyNames.map((name) => ({
+        name,
+        label: name,
+        global: `~/.${name}/skills`,
+        project: `.${name}/skills`,
+        enabled: true,
+      })),
+      preferences: { defaultScope: "both", defaultSort: "name" },
+    };
+    await writeFile(configPath, JSON.stringify(partial), "utf-8");
+
+    const config = await loadConfig();
+    const piIdx = config.providers.findIndex((p) => p.name === "pi");
+    const opencodeIdx = config.providers.findIndex(
+      (p) => p.name === "opencode",
+    );
+    const hermesIdx = config.providers.findIndex((p) => p.name === "hermes");
+
+    expect(piIdx).toBeGreaterThan(opencodeIdx);
+    expect(piIdx).toBeLessThan(hermesIdx);
+  });
+
+  it("preserves user-added custom providers in place when adding new defaults", async () => {
+    await mkdir(dirname(configPath), { recursive: true });
+    // User has claude + a custom provider + amp (last default); upgrade should
+    // add the rest of the defaults without dislodging the custom one.
+    const partial = {
+      version: 1,
+      providers: [
+        {
+          name: "claude",
+          label: "Claude Code",
+          global: "~/.claude/skills",
+          project: ".claude/skills",
+          enabled: true,
+        },
+        {
+          name: "my-tool",
+          label: "My Tool",
+          global: "~/.mytool/skills",
+          project: ".mytool/skills",
+          enabled: true,
+        },
+        {
+          name: "amp",
+          label: "Amp",
+          global: "~/.amp/skills",
+          project: ".amp/skills",
+          enabled: true,
+        },
+      ],
+      preferences: { defaultScope: "both", defaultSort: "name" },
+    };
+    await writeFile(configPath, JSON.stringify(partial), "utf-8");
+
+    const config = await loadConfig();
+    const names = config.providers.map((p) => p.name);
+
+    expect(names).toContain("my-tool");
+    // my-tool sits between claude and amp in the saved config; new defaults
+    // (codex, opencode, pi, …) anchor off claude and slot in after it,
+    // pushing my-tool back but keeping it before amp.
+    const myToolIdx = names.indexOf("my-tool");
+    const ampIdx = names.indexOf("amp");
+    expect(myToolIdx).toBeLessThan(ampIdx);
+    expect(names.indexOf("claude")).toBeLessThan(myToolIdx);
+  });
+});

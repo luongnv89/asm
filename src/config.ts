@@ -212,12 +212,26 @@ function mergeWithDefaults(config: Partial<AppConfig>): AppConfig {
   const defaults = getDefaultConfig();
   const providers = config.providers || [];
 
-  // Add any new default providers that don't exist in the saved config
+  // Insert any new default providers in their canonical priority position,
+  // anchored to the nearest preceding default that the user already has.
+  // This keeps user-added providers in place while honoring DEFAULT_PROVIDERS
+  // ordering for newly-introduced built-ins.
   const existingNames = new Set(providers.map((p) => p.name));
-  for (const defaultProvider of defaults.providers) {
-    if (!existingNames.has(defaultProvider.name)) {
-      providers.push({ ...defaultProvider });
+  for (let i = 0; i < defaults.providers.length; i++) {
+    const defaultProvider = defaults.providers[i];
+    if (existingNames.has(defaultProvider.name)) continue;
+
+    let insertAt = providers.length;
+    for (let j = i - 1; j >= 0; j--) {
+      const anchorName = defaults.providers[j].name;
+      const anchorIdx = providers.findIndex((p) => p.name === anchorName);
+      if (anchorIdx !== -1) {
+        insertAt = anchorIdx + 1;
+        break;
+      }
     }
+    providers.splice(insertAt, 0, { ...defaultProvider });
+    existingNames.add(defaultProvider.name);
   }
 
   return {
