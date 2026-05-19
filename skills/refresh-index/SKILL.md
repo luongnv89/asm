@@ -1,6 +1,6 @@
 ---
 name: refresh-index
-description: "Refresh all indexed skill repos in data/skill-index-resources.json: sync the repo, re-ingest every enabled source via preindex, rebuild the catalog for verification, summarize updated/unchanged/failed/skipped repos, then gate commit + PR behind explicit confirmation. Use when asked to refresh, update, sync, or batch-maintain the indexed skills. Don't use for adding new repos (use skill-index-updater), improving a single skill (use skill-auto-improver), or installing skills locally (use asm install or asm update)."
+description: "Re-ingest every already-enabled repo in data/skill-index-resources.json: sync the working tree, run preindex, rebuild the catalog for verification, summarize updated/unchanged/failed/skipped, then gate commit + PR behind explicit confirmation. Use when asked to refresh the index, re-ingest indexed repos, or batch-maintain already-indexed skill sources. Don't use for adding new repos (use skill-index-updater), improving a single skill (use skill-auto-improver), or installing/updating skills on the local machine (use asm install or asm update)."
 license: MIT
 compatibility: Claude Code
 allowed-tools: Bash Read Write Edit Grep Glob
@@ -70,17 +70,29 @@ ROOT="$(git rev-parse --show-toplevel)"
 RES="$ROOT/data/skill-index-resources.json"
 ```
 
-Use `jq` (or your equivalent JSON reader) to build:
+Use `jq` (or your equivalent JSON reader) to build two lists, keyed on the `source` string (`github:owner/repo`) because that is the identifier `preindex` echoes in its log lines:
 
 - `enabled[]` — every repo with `"enabled": true`. These will be refreshed.
 - `disabled[]` — every repo with `"enabled": false`. These land in the **skipped** bucket up front with reason `"disabled in skill-index-resources.json"`.
 
 ```bash
-jq -r '.repos[] | select(.enabled == true) | "\(.owner)/\(.repo)"' "$RES"
-jq -r '.repos[] | select(.enabled == false) | "\(.owner)/\(.repo)"' "$RES"
+jq -r '.repos[] | select(.enabled == true)  | .source' "$RES"   # e.g. github:anthropics/skills
+jq -r '.repos[] | select(.enabled == false) | .source' "$RES"
 ```
 
-Verification: both lists are non-empty (the index always contains at least one enabled repo and one disabled self-reference). If `enabled[]` is empty, stop — there is nothing to refresh.
+Also derive the on-disk file key (`{owner}_{repo}`) for each enabled repo — this is what `data/skill-index/{owner}_{repo}.json` is named:
+
+```bash
+jq -r '.repos[] | select(.enabled == true) | "\(.source)\t\(.owner)_\(.repo)"' "$RES"
+```
+
+Verification: both lists are non-empty (the index always contains at least one enabled repo and one disabled self-reference). Also validate the existing per-repo JSON is parseable before re-ingesting — a pre-existing corruption otherwise gets masked by the refresh:
+
+```bash
+jq empty data/skill-index/*.json   # exits non-zero if any file is invalid
+```
+
+If `enabled[]` is empty or pre-validation fails, stop — there is nothing safe to refresh.
 
 ### Step 2: Snapshot pre-run skill counts
 
@@ -114,7 +126,7 @@ PREINDEX_EXIT=$?
 set -e
 ```
 
-Verification: the log file exists and contains one line per enabled repo formatted as either `  {source} ... {N} skills` (success) or `  {source} ... FAILED: {error}` (failure). If the log is empty or malformed, stop and surface the error.
+Verification: the log file exists and contains one line per enabled repo formatted as either `  {source} ... {N} skills` (success) or `  {source} ... FAILED: {error}` (failure), where `{source}` matches the `github:owner/repo` strings from Step 1. If the log is empty or no line matches, stop and surface the error.
 
 ### Step 4: Classify each repo
 
@@ -124,14 +136,14 @@ Build per-repo status from three signals — the preindex log, `git diff` on `da
 DIFF_FILES=$(git diff --name-only -- data/skill-index/ | sort -u)
 ```
 
-For each enabled repo (`{owner}/{repo}`):
+For each enabled repo, match the preindex log line by its `{source}` string (`github:owner/repo`) and look up the on-disk file by `{owner}_{repo}`:
 
-| Signal in `preindex.log` | `data/skill-index/{owner}_{repo}.json` in `git diff` | Bucket                                              |
-| ------------------------ | ---------------------------------------------------- | --------------------------------------------------- |
-| `... N skills`           | yes                                                  | **updated**                                         |
-| `... N skills`           | no                                                   | **unchanged**                                       |
-| `FAILED: ...`            | (either)                                             | **failed** (capture error message)                  |
-| (no line)                | (either)                                             | **failed** (capture as `"no output from preindex"`) |
+| Signal in `preindex.log` (per `{source}` line) | `data/skill-index/{owner}_{repo}.json` in `git diff` | Bucket                                              |
+| ---------------------------------------------- | ---------------------------------------------------- | --------------------------------------------------- |
+| `  {source} ... N skills`                      | yes                                                  | **updated**                                         |
+| `  {source} ... N skills`                      | no                                                   | **unchanged**                                       |
+| `  {source} ... FAILED: ...`                   | (either)                                             | **failed** (capture error message)                  |
+| (no line for this `{source}`)                  | (either)                                             | **failed** (capture as `"no output from preindex"`) |
 
 For each `disabled[]` repo: **skipped** with the disabled reason.
 
@@ -150,10 +162,13 @@ Verification: the script exits 0 and `website/catalog.json` is valid JSON (`jq e
 
 ### Step 6: Detect unexpected diff scope
 
-Confirm the only files that changed are the ones we expect (`data/skill-index-resources.json` for the `updatedAt` timestamp it does **not** auto-update — see note — and `data/skill-index/*.json`):
+Confirm the only files that changed are the ones we expect — per-repo data under `data/skill-index/` and, only if the user explicitly bumped the top-level `updatedAt`, `data/skill-index-resources.json`:
 
 ```bash
-UNEXPECTED=$(git diff --name-only | grep -v -E '^data/skill-index(-resources)?/' || true)
+UNEXPECTED=$(git diff --name-only \
+  | grep -v -E '^data/skill-index/' \
+  | grep -v -E '^data/skill-index-resources\.json$' \
+  || true)
 if [ -n "$UNEXPECTED" ]; then
   echo "⚠ Unexpected files in diff:"
   printf '%s\n' "$UNEXPECTED"
@@ -212,9 +227,9 @@ On `yes` (and only `yes`), stage **only** the index data files — never `websit
 ```bash
 git add data/skill-index/
 # Only add the resources file if it was intentionally modified (e.g., updatedAt bump):
-git diff --cached --name-only | grep -q data/skill-index-resources.json || \
-  git diff --name-only | grep -q data/skill-index-resources.json && \
+if git diff --name-only | grep -q '^data/skill-index-resources\.json$'; then
   git add data/skill-index-resources.json
+fi
 
 git commit -m "$(cat <<'EOF'
 chore(index): refresh indexed skill sources
@@ -283,7 +298,7 @@ If any of items 1–5 fails, do **not** proceed to Steps 6–7.
 Inputs the skill must handle without crashing, in order of likelihood:
 
 - **No enabled repos** (`enabled[]` is empty): stop with an explanation — there is nothing to refresh.
-- **Existing local edits to `data/skill-index/`**: the Step 0 stash captures them; if the post-run pop conflicts, the recovery hint in the stash block tells the user how to restore.
+- **Existing local edits to `data/skill-index/`**: the mandatory pre-edit stash (Repo Sync Before Edits) captures them; if the post-run pop conflicts, the recovery hint in the stash block tells the user how to restore.
 - **A single upstream repo is unreachable** (404, network blip): `preindex` marks it `FAILED` and continues; the failed repo lands in the **failed** bucket. The PR still ships for the other repos.
 - **All upstream repos fail** (no network, GitHub outage): every enabled repo lands in **failed**; the diff is empty; stop before Step 8 because there is nothing to commit.
 - **A repo's ingest produces zero `skillCount`** (upstream removed every SKILL.md): treat it as **updated** with a negative delta — the change is real and worth shipping.
