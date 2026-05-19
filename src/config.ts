@@ -19,19 +19,12 @@ const LOCK_PATH = join(CONFIG_DIR, ".skill-lock.json");
 const INDEX_DIR = join(CONFIG_DIR, "skill-index");
 
 const DEFAULT_PROVIDERS: ProviderConfig[] = [
-  // ── Priority providers (ordered by usage frequency) ──
+  // ── Priority providers (ordered by user preference) ──
   {
     name: "claude",
     label: "Claude Code",
     global: "~/.claude/skills",
     project: ".claude/skills",
-    enabled: true,
-  },
-  {
-    name: "agents",
-    label: "Agents",
-    global: "~/.agents/skills",
-    project: ".agents/skills",
     enabled: true,
   },
   {
@@ -49,10 +42,32 @@ const DEFAULT_PROVIDERS: ProviderConfig[] = [
     enabled: true,
   },
   {
+    name: "pi",
+    label: "Pi",
+    global: "~/.pi/skills",
+    project: ".pi/skills",
+    enabled: true,
+  },
+  {
+    name: "hermes",
+    label: "Hermes",
+    global: "~/.hermes/skills",
+    project: ".hermes/skills",
+    enabled: true,
+  },
+  {
     name: "openclaw",
     label: "OpenClaw",
     global: "~/.openclaw/skills",
     project: ".openclaw/skills",
+    enabled: true,
+  },
+  // ── Additional providers ──
+  {
+    name: "agents",
+    label: "Agents",
+    global: "~/.agents/skills",
+    project: ".agents/skills",
     enabled: true,
   },
   {
@@ -88,13 +103,6 @@ const DEFAULT_PROVIDERS: ProviderConfig[] = [
     label: "Gemini CLI",
     global: "~/.gemini/skills",
     project: ".gemini/skills",
-    enabled: true,
-  },
-  {
-    name: "hermes",
-    label: "Hermes",
-    global: "~/.hermes/skills",
-    project: ".hermes/skills",
     enabled: true,
   },
   // ── Remaining providers ──
