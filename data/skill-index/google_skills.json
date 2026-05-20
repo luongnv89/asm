@@ -2,9 +2,146 @@
   "repoUrl": "https://github.com/google/skills.git",
   "owner": "google",
   "repo": "skills",
-  "updatedAt": "2026-05-09T08:11:10.843Z",
-  "skillCount": 13,
+  "updatedAt": "2026-05-20T09:16:34.803Z",
+  "skillCount": 16,
   "skills": [
+    {
+      "name": "agent-platform-skill-registry",
+      "description": "Interact with the Gemini Enterprise Agent Platform Skill Registry to create and search for available skills. Use this skill to enable agents to register functionality or discover new capabilities.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:google/skills:skills/cloud/agent-platform-skill-registry",
+      "relPath": "skills/cloud/agent-platform-skill-registry",
+      "verified": true,
+      "tokenCount": 523,
+      "evalSummary": {
+        "overallScore": 69,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-05-20T09:16:34.772Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:34.772Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:34.772Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
     {
       "name": "alloydb-basics",
       "description": "Manages clusters, instances, and backups for AlloyDB for PostgreSQL, and integrates with AlloyDB model context protocol (MCP) tools for automated database operations.",
@@ -16,7 +153,7 @@
       "installUrl": "github:google/skills:skills/cloud/alloydb-basics",
       "relPath": "skills/cloud/alloydb-basics",
       "verified": true,
-      "tokenCount": 593,
+      "tokenCount": 617,
       "evalSummary": {
         "overallScore": 63,
         "grade": "D",
@@ -64,7 +201,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:11:10.824Z",
+        "evaluatedAt": "2026-05-20T09:16:34.773Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -119,7 +256,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.824Z",
+          "evaluatedAt": "2026-05-20T09:16:34.773Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +274,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.824Z",
+          "evaluatedAt": "2026-05-20T09:16:34.773Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -153,7 +290,7 @@
       "installUrl": "github:google/skills:skills/cloud/bigquery-basics",
       "relPath": "skills/cloud/bigquery-basics",
       "verified": true,
-      "tokenCount": 828,
+      "tokenCount": 830,
       "evalSummary": {
         "overallScore": 64,
         "grade": "D",
@@ -201,7 +338,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:11:10.825Z",
+        "evaluatedAt": "2026-05-20T09:16:34.774Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -256,7 +393,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.825Z",
+          "evaluatedAt": "2026-05-20T09:16:34.774Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +411,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.825Z",
+          "evaluatedAt": "2026-05-20T09:16:34.774Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -290,7 +427,7 @@
       "installUrl": "github:google/skills:skills/cloud/cloud-run-basics",
       "relPath": "skills/cloud/cloud-run-basics",
       "verified": true,
-      "tokenCount": 4310,
+      "tokenCount": 4364,
       "evalSummary": {
         "overallScore": 76,
         "grade": "C",
@@ -338,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:11:10.827Z",
+        "evaluatedAt": "2026-05-20T09:16:34.776Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -393,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.827Z",
+          "evaluatedAt": "2026-05-20T09:16:34.776Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +548,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.827Z",
+          "evaluatedAt": "2026-05-20T09:16:34.776Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -427,7 +564,7 @@
       "installUrl": "github:google/skills:skills/cloud/cloud-sql-basics",
       "relPath": "skills/cloud/cloud-sql-basics",
       "verified": true,
-      "tokenCount": 994,
+      "tokenCount": 1032,
       "evalSummary": {
         "overallScore": 59,
         "grade": "D",
@@ -475,7 +612,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:11:10.829Z",
+        "evaluatedAt": "2026-05-20T09:16:34.778Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -530,7 +667,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.829Z",
+          "evaluatedAt": "2026-05-20T09:16:34.778Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +685,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.829Z",
+          "evaluatedAt": "2026-05-20T09:16:34.778Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -612,7 +749,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:11:10.830Z",
+        "evaluatedAt": "2026-05-20T09:16:34.779Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -667,7 +804,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.830Z",
+          "evaluatedAt": "2026-05-20T09:16:34.779Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +822,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.830Z",
+          "evaluatedAt": "2026-05-20T09:16:34.779Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -749,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:11:10.831Z",
+        "evaluatedAt": "2026-05-20T09:16:34.780Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -804,7 +941,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.831Z",
+          "evaluatedAt": "2026-05-20T09:16:34.780Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +959,281 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.831Z",
+          "evaluatedAt": "2026-05-20T09:16:34.780Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "gemini-interactions-api",
+      "description": "Guides the usage of Gemini Interactions API on Gemini Enterprise Agent Platform. Use when the user wants to use the stateful, server-managed Interactions API for multi-turn conversations, background execution, streaming, structured output, and function calling on the Agent Platform.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:google/skills:skills/cloud/gemini-interactions-api",
+      "relPath": "skills/cloud/gemini-interactions-api",
+      "verified": true,
+      "tokenCount": 3815,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-05-20T09:16:34.782Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:34.782Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:34.783Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "gemini-managed-agents-api",
+      "description": "Manages custom Agent resources on Gemini Enterprise Agent Platform. Use when the user wants to programmatically create, configure, list, update, or delete stateful, server-managed Agent resources (including mounting files, skills, and tools) before executing conversations.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:google/skills:skills/cloud/gemini-agents-api",
+      "relPath": "skills/cloud/gemini-agents-api",
+      "verified": true,
+      "tokenCount": 2748,
+      "evalSummary": {
+        "overallScore": 60,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-05-20T09:16:34.785Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 60,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 7,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:34.785Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:34.785Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -838,7 +1249,7 @@
       "installUrl": "github:google/skills:skills/cloud/gke-basics",
       "relPath": "skills/cloud/gke-basics",
       "verified": true,
-      "tokenCount": 1017,
+      "tokenCount": 1023,
       "evalSummary": {
         "overallScore": 61,
         "grade": "D",
@@ -886,7 +1297,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:11:10.832Z",
+        "evaluatedAt": "2026-05-20T09:16:34.786Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -941,7 +1352,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.832Z",
+          "evaluatedAt": "2026-05-20T09:16:34.786Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -959,8 +1370,145 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.832Z",
+          "evaluatedAt": "2026-05-20T09:16:34.786Z",
           "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "google-cloud-networking-observability",
+      "description": "Investigates Google Cloud networking issues by analyzing logs, metrics, and diagnostics. Use when investigating VPC Flow Logs, NAT, firewall, or threat logs, querying latency and throughput metrics, or running Connectivity Tests for path diagnostics.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:google/skills:skills/cloud/google-cloud-networking-observability",
+      "relPath": "skills/cloud/google-cloud-networking-observability",
+      "verified": true,
+      "tokenCount": 2014,
+      "evalSummary": {
+        "overallScore": 77,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-05-20T09:16:34.788Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:34.788Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:34.788Z",
+          "evaluatedVersion": "0.0.0"
         }
       }
     },
@@ -1023,7 +1571,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:11:10.834Z",
+        "evaluatedAt": "2026-05-20T09:16:34.790Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1078,7 +1626,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.834Z",
+          "evaluatedAt": "2026-05-20T09:16:34.791Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1096,144 +1644,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.834Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "google-cloud-recipe-networking-observability",
-      "description": "Investigates Google Cloud networking issues by analyzing logs, metrics, and diagnostics. Use when investigating VPC Flow Logs, NAT, firewall, or threat logs, querying latency and throughput metrics, or running Connectivity Tests for path diagnostics.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:google/skills:skills/cloud/google-cloud-networking-observability",
-      "relPath": "skills/cloud/google-cloud-networking-observability",
-      "verified": true,
-      "tokenCount": 2014,
-      "evalSummary": {
-        "overallScore": 70,
-        "grade": "C",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 3,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-09T08:11:10.836Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 70,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 3,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-09T08:11:10.836Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 69,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 9,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-05-09T08:11:10.836Z",
+          "evaluatedAt": "2026-05-20T09:16:34.790Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1249,7 +1660,7 @@
       "installUrl": "github:google/skills:skills/cloud/google-cloud-recipe-onboarding",
       "relPath": "skills/cloud/google-cloud-recipe-onboarding",
       "verified": true,
-      "tokenCount": 1440,
+      "tokenCount": 1442,
       "evalSummary": {
         "overallScore": 76,
         "grade": "C",
@@ -1297,7 +1708,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:11:10.837Z",
+        "evaluatedAt": "2026-05-20T09:16:34.793Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1352,7 +1763,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.837Z",
+          "evaluatedAt": "2026-05-20T09:16:34.793Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1781,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.837Z",
+          "evaluatedAt": "2026-05-20T09:16:34.793Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1434,7 +1845,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:11:10.838Z",
+        "evaluatedAt": "2026-05-20T09:16:34.796Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1489,7 +1900,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.838Z",
+          "evaluatedAt": "2026-05-20T09:16:34.797Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1918,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.839Z",
+          "evaluatedAt": "2026-05-20T09:16:34.797Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1571,7 +1982,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:11:10.840Z",
+        "evaluatedAt": "2026-05-20T09:16:34.799Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1626,7 +2037,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.840Z",
+          "evaluatedAt": "2026-05-20T09:16:34.799Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +2055,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.840Z",
+          "evaluatedAt": "2026-05-20T09:16:34.799Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1708,7 +2119,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:11:10.842Z",
+        "evaluatedAt": "2026-05-20T09:16:34.801Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1763,7 +2174,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.842Z",
+          "evaluatedAt": "2026-05-20T09:16:34.801Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +2192,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:11:10.842Z",
+          "evaluatedAt": "2026-05-20T09:16:34.801Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1790,20 +2201,32 @@
   "bundles": [
     {
       "version": 1,
-      "name": "google-skills-research",
-      "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from google/skills.",
+      "name": "google-skills-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from google/skills.",
       "author": "ASM (google/skills)",
-      "createdAt": "2026-05-09T08:11:10.843Z",
+      "createdAt": "2026-05-20T09:16:34.803Z",
       "tags": [
         "repo-derived",
         "inferred",
-        "research",
-        "academic",
-        "analysis",
+        "data",
+        "ai",
+        "agents",
         "google",
         "skills"
       ],
       "skills": [
+        {
+          "name": "agent-platform-skill-registry",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-skill-registry",
+          "description": "Interact with the Gemini Enterprise Agent Platform Skill Registry to create and search for available skills. Use this skill to enable agents to register functionality or discover new capabilities.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "alloydb-basics",
+          "installUrl": "github:google/skills:skills/cloud/alloydb-basics",
+          "description": "Manages clusters, instances, and backups for AlloyDB for PostgreSQL, and integrates with AlloyDB model context protocol (MCP) tools for automated database operations.",
+          "version": "0.0.0"
+        },
         {
           "name": "bigquery-basics",
           "installUrl": "github:google/skills:skills/cloud/bigquery-basics",
@@ -1811,111 +2234,9 @@
           "version": "0.0.0"
         },
         {
-          "name": "google-cloud-waf-cost-optimization",
-          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-cost-optimization",
-          "description": "Generates cost optimization guidance for Google Cloud workloads based on the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify cost requirements and constraints, and provide actionable recommendations for build, deploy, and manage the workload cost-efficiently in Google Cloud.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "google-cloud-waf-reliability",
-          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-reliability",
-          "description": "Generates reliability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework. Use this skill to evaluate a workload, identify reliability requirements, and provide actionable recommendations for build, deploy, and manage the workload reliably in Google Cloud.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "google-cloud-waf-security",
-          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-security",
-          "description": "Generates security-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify security requirements, and provide actionable recommendations for IAM, network security, data protection, and operational security.",
-          "version": "0.0.0"
-        }
-      ],
-      "sourceRepo": {
-        "owner": "google",
-        "repo": "skills",
-        "repoUrl": "https://github.com/google/skills.git"
-      },
-      "inferred": true
-    },
-    {
-      "version": 1,
-      "name": "google-skills-engineering",
-      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from google/skills.",
-      "author": "ASM (google/skills)",
-      "createdAt": "2026-05-09T08:11:10.843Z",
-      "tags": [
-        "repo-derived",
-        "inferred",
-        "engineering",
-        "coding",
-        "testing",
-        "google",
-        "skills"
-      ],
-      "skills": [
-        {
-          "name": "gemini-api",
-          "installUrl": "github:google/skills:skills/cloud/gemini-api",
-          "description": "Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like Live API, tools, multimedia generation, caching, and batch prediction.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "gke-basics",
-          "installUrl": "github:google/skills:skills/cloud/gke-basics",
-          "description": "Plan, create, and configure production-ready Google Kubernetes Engine (GKE) clusters using the golden path Autopilot configuration. Covers Day-0 checklist, Autopilot vs Standard, networking (private clusters, VPC-native, Gateway API), security (Workload Identity, Secret Manager, RBAC hardening), observability, scaling, cost optimization, and AI/ML inference. WHEN: create GKE cluster, provision GKE environment, design GKE networking, secure GKE, optimize GKE cost, GKE autoscaling, GKE inference, GKE upgrade, GKE observability, GKE multi-tenancy, GKE batch, GKE HPC, GKE compute class.",
-          "version": "1.0.0"
-        },
-        {
-          "name": "google-cloud-recipe-auth",
-          "installUrl": "github:google/skills:skills/cloud/google-cloud-recipe-auth",
-          "description": "Provides expert guidance on authenticating and authorizing to Google Cloud services and APIs, covering human users, service identities, Application Default Credentials (ADC), and best practices for secure access.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "google-cloud-recipe-networking-observability",
-          "installUrl": "github:google/skills:skills/cloud/google-cloud-networking-observability",
-          "description": "Investigates Google Cloud networking issues by analyzing logs, metrics, and diagnostics. Use when investigating VPC Flow Logs, NAT, firewall, or threat logs, querying latency and throughput metrics, or running Connectivity Tests for path diagnostics.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "google-cloud-waf-cost-optimization",
-          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-cost-optimization",
-          "description": "Generates cost optimization guidance for Google Cloud workloads based on the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify cost requirements and constraints, and provide actionable recommendations for build, deploy, and manage the workload cost-efficiently in Google Cloud.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "google-cloud-waf-reliability",
-          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-reliability",
-          "description": "Generates reliability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework. Use this skill to evaluate a workload, identify reliability requirements, and provide actionable recommendations for build, deploy, and manage the workload reliably in Google Cloud.",
-          "version": "0.0.0"
-        }
-      ],
-      "sourceRepo": {
-        "owner": "google",
-        "repo": "skills",
-        "repoUrl": "https://github.com/google/skills.git"
-      },
-      "inferred": true
-    },
-    {
-      "version": 1,
-      "name": "google-skills-frontend-design",
-      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from google/skills.",
-      "author": "ASM (google/skills)",
-      "createdAt": "2026-05-09T08:11:10.843Z",
-      "tags": [
-        "repo-derived",
-        "inferred",
-        "frontend",
-        "design",
-        "ui",
-        "google",
-        "skills"
-      ],
-      "skills": [
-        {
-          "name": "bigquery-basics",
-          "installUrl": "github:google/skills:skills/cloud/bigquery-basics",
-          "description": "Manages datasets, tables, and jobs in BigQuery, and integrates with BigQuery ML and Gemini for advanced data analytics and AI-driven insights. Use when you need to interact with BigQuery, run SQL queries, manage BigQuery resources, or leverage BigQuery's built-in ML capabilities. Also use when performing data analysis, ingesting data into BigQuery, or developing AI applications on BigQuery.",
+          "name": "cloud-sql-basics",
+          "installUrl": "github:google/skills:skills/cloud/cloud-sql-basics",
+          "description": "This file generates or explains Cloud SQL resources. Use this file when the user asks to create a Cloud SQL instance or database for MySQL, PostgreSQL, or SQL Server. Cloud SQL manages third-party MySQL, PostgreSQL, and SQL Server instances as resources in Cloud SQL. For example, when Cloud SQL creates an open-source MySQL instance, the resulting resource is a Cloud SQL for MySQL instance that Google Cloud manages. Cloud SQL handles backups, high availability, and secure connectivity for relational database workloads.",
           "version": "0.0.0"
         },
         {
@@ -1925,33 +2246,27 @@
           "version": "0.0.0"
         },
         {
+          "name": "gemini-interactions-api",
+          "installUrl": "github:google/skills:skills/cloud/gemini-interactions-api",
+          "description": "Guides the usage of Gemini Interactions API on Gemini Enterprise Agent Platform. Use when the user wants to use the stateful, server-managed Interactions API for multi-turn conversations, background execution, streaming, structured output, and function calling on the Agent Platform.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gemini-managed-agents-api",
+          "installUrl": "github:google/skills:skills/cloud/gemini-agents-api",
+          "description": "Manages custom Agent resources on Gemini Enterprise Agent Platform. Use when the user wants to programmatically create, configure, list, update, or delete stateful, server-managed Agent resources (including mounting files, skills, and tools) before executing conversations.",
+          "version": "0.0.0"
+        },
+        {
           "name": "gke-basics",
           "installUrl": "github:google/skills:skills/cloud/gke-basics",
           "description": "Plan, create, and configure production-ready Google Kubernetes Engine (GKE) clusters using the golden path Autopilot configuration. Covers Day-0 checklist, Autopilot vs Standard, networking (private clusters, VPC-native, Gateway API), security (Workload Identity, Secret Manager, RBAC hardening), observability, scaling, cost optimization, and AI/ML inference. WHEN: create GKE cluster, provision GKE environment, design GKE networking, secure GKE, optimize GKE cost, GKE autoscaling, GKE inference, GKE upgrade, GKE observability, GKE multi-tenancy, GKE batch, GKE HPC, GKE compute class.",
           "version": "1.0.0"
         },
         {
-          "name": "google-cloud-recipe-auth",
-          "installUrl": "github:google/skills:skills/cloud/google-cloud-recipe-auth",
-          "description": "Provides expert guidance on authenticating and authorizing to Google Cloud services and APIs, covering human users, service identities, Application Default Credentials (ADC), and best practices for secure access.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "google-cloud-recipe-onboarding",
-          "installUrl": "github:google/skills:skills/cloud/google-cloud-recipe-onboarding",
-          "description": "Guidance for a developer's first steps on Google Cloud, covering account creation, billing setup, project management, and deploying a first resource.",
-          "version": "0.0.0"
-        },
-        {
           "name": "google-cloud-waf-cost-optimization",
           "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-cost-optimization",
           "description": "Generates cost optimization guidance for Google Cloud workloads based on the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify cost requirements and constraints, and provide actionable recommendations for build, deploy, and manage the workload cost-efficiently in Google Cloud.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "google-cloud-waf-reliability",
-          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-reliability",
-          "description": "Generates reliability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework. Use this skill to evaluate a workload, identify reliability requirements, and provide actionable recommendations for build, deploy, and manage the workload reliably in Google Cloud.",
           "version": "0.0.0"
         },
         {
@@ -1973,7 +2288,7 @@
       "name": "google-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from google/skills.",
       "author": "ASM (google/skills)",
-      "createdAt": "2026-05-09T08:11:10.843Z",
+      "createdAt": "2026-05-20T09:16:34.803Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1984,6 +2299,12 @@
         "skills"
       ],
       "skills": [
+        {
+          "name": "agent-platform-skill-registry",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-skill-registry",
+          "description": "Interact with the Gemini Enterprise Agent Platform Skill Registry to create and search for available skills. Use this skill to enable agents to register functionality or discover new capabilities.",
+          "version": "0.0.0"
+        },
         {
           "name": "alloydb-basics",
           "installUrl": "github:google/skills:skills/cloud/alloydb-basics",
@@ -2021,21 +2342,33 @@
           "version": "0.0.0"
         },
         {
+          "name": "gemini-interactions-api",
+          "installUrl": "github:google/skills:skills/cloud/gemini-interactions-api",
+          "description": "Guides the usage of Gemini Interactions API on Gemini Enterprise Agent Platform. Use when the user wants to use the stateful, server-managed Interactions API for multi-turn conversations, background execution, streaming, structured output, and function calling on the Agent Platform.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gemini-managed-agents-api",
+          "installUrl": "github:google/skills:skills/cloud/gemini-agents-api",
+          "description": "Manages custom Agent resources on Gemini Enterprise Agent Platform. Use when the user wants to programmatically create, configure, list, update, or delete stateful, server-managed Agent resources (including mounting files, skills, and tools) before executing conversations.",
+          "version": "0.0.0"
+        },
+        {
           "name": "gke-basics",
           "installUrl": "github:google/skills:skills/cloud/gke-basics",
           "description": "Plan, create, and configure production-ready Google Kubernetes Engine (GKE) clusters using the golden path Autopilot configuration. Covers Day-0 checklist, Autopilot vs Standard, networking (private clusters, VPC-native, Gateway API), security (Workload Identity, Secret Manager, RBAC hardening), observability, scaling, cost optimization, and AI/ML inference. WHEN: create GKE cluster, provision GKE environment, design GKE networking, secure GKE, optimize GKE cost, GKE autoscaling, GKE inference, GKE upgrade, GKE observability, GKE multi-tenancy, GKE batch, GKE HPC, GKE compute class.",
           "version": "1.0.0"
         },
         {
-          "name": "google-cloud-recipe-auth",
-          "installUrl": "github:google/skills:skills/cloud/google-cloud-recipe-auth",
-          "description": "Provides expert guidance on authenticating and authorizing to Google Cloud services and APIs, covering human users, service identities, Application Default Credentials (ADC), and best practices for secure access.",
+          "name": "google-cloud-networking-observability",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-networking-observability",
+          "description": "Investigates Google Cloud networking issues by analyzing logs, metrics, and diagnostics. Use when investigating VPC Flow Logs, NAT, firewall, or threat logs, querying latency and throughput metrics, or running Connectivity Tests for path diagnostics.",
           "version": "0.0.0"
         },
         {
-          "name": "google-cloud-recipe-networking-observability",
-          "installUrl": "github:google/skills:skills/cloud/google-cloud-networking-observability",
-          "description": "Investigates Google Cloud networking issues by analyzing logs, metrics, and diagnostics. Use when investigating VPC Flow Logs, NAT, firewall, or threat logs, querying latency and throughput metrics, or running Connectivity Tests for path diagnostics.",
+          "name": "google-cloud-recipe-auth",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-recipe-auth",
+          "description": "Provides expert guidance on authenticating and authorizing to Google Cloud services and APIs, covering human users, service identities, Application Default Credentials (ADC), and best practices for secure access.",
           "version": "0.0.0"
         },
         {
@@ -2072,42 +2405,36 @@
     },
     {
       "version": 1,
-      "name": "google-skills-data-ai",
-      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from google/skills.",
+      "name": "google-skills-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from google/skills.",
       "author": "ASM (google/skills)",
-      "createdAt": "2026-05-09T08:11:10.843Z",
+      "createdAt": "2026-05-20T09:16:34.803Z",
       "tags": [
         "repo-derived",
         "inferred",
-        "data",
-        "ai",
-        "agents",
+        "engineering",
+        "coding",
+        "testing",
         "google",
         "skills"
       ],
       "skills": [
         {
-          "name": "alloydb-basics",
-          "installUrl": "github:google/skills:skills/cloud/alloydb-basics",
-          "description": "Manages clusters, instances, and backups for AlloyDB for PostgreSQL, and integrates with AlloyDB model context protocol (MCP) tools for automated database operations.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "bigquery-basics",
-          "installUrl": "github:google/skills:skills/cloud/bigquery-basics",
-          "description": "Manages datasets, tables, and jobs in BigQuery, and integrates with BigQuery ML and Gemini for advanced data analytics and AI-driven insights. Use when you need to interact with BigQuery, run SQL queries, manage BigQuery resources, or leverage BigQuery's built-in ML capabilities. Also use when performing data analysis, ingesting data into BigQuery, or developing AI applications on BigQuery.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "cloud-sql-basics",
-          "installUrl": "github:google/skills:skills/cloud/cloud-sql-basics",
-          "description": "This file generates or explains Cloud SQL resources. Use this file when the user asks to create a Cloud SQL instance or database for MySQL, PostgreSQL, or SQL Server. Cloud SQL manages third-party MySQL, PostgreSQL, and SQL Server instances as resources in Cloud SQL. For example, when Cloud SQL creates an open-source MySQL instance, the resulting resource is a Cloud SQL for MySQL instance that Google Cloud manages. Cloud SQL handles backups, high availability, and secure connectivity for relational database workloads.",
-          "version": "0.0.0"
-        },
-        {
           "name": "gemini-api",
           "installUrl": "github:google/skills:skills/cloud/gemini-api",
           "description": "Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like Live API, tools, multimedia generation, caching, and batch prediction.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gemini-interactions-api",
+          "installUrl": "github:google/skills:skills/cloud/gemini-interactions-api",
+          "description": "Guides the usage of Gemini Interactions API on Gemini Enterprise Agent Platform. Use when the user wants to use the stateful, server-managed Interactions API for multi-turn conversations, background execution, streaming, structured output, and function calling on the Agent Platform.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gemini-managed-agents-api",
+          "installUrl": "github:google/skills:skills/cloud/gemini-agents-api",
+          "description": "Manages custom Agent resources on Gemini Enterprise Agent Platform. Use when the user wants to programmatically create, configure, list, update, or delete stateful, server-managed Agent resources (including mounting files, skills, and tools) before executing conversations.",
           "version": "0.0.0"
         },
         {
@@ -2117,9 +2444,99 @@
           "version": "1.0.0"
         },
         {
+          "name": "google-cloud-networking-observability",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-networking-observability",
+          "description": "Investigates Google Cloud networking issues by analyzing logs, metrics, and diagnostics. Use when investigating VPC Flow Logs, NAT, firewall, or threat logs, querying latency and throughput metrics, or running Connectivity Tests for path diagnostics.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-recipe-auth",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-recipe-auth",
+          "description": "Provides expert guidance on authenticating and authorizing to Google Cloud services and APIs, covering human users, service identities, Application Default Credentials (ADC), and best practices for secure access.",
+          "version": "0.0.0"
+        },
+        {
           "name": "google-cloud-waf-cost-optimization",
           "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-cost-optimization",
           "description": "Generates cost optimization guidance for Google Cloud workloads based on the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify cost requirements and constraints, and provide actionable recommendations for build, deploy, and manage the workload cost-efficiently in Google Cloud.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-reliability",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-reliability",
+          "description": "Generates reliability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework. Use this skill to evaluate a workload, identify reliability requirements, and provide actionable recommendations for build, deploy, and manage the workload reliably in Google Cloud.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "skills",
+        "repoUrl": "https://github.com/google/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-skills-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from google/skills.",
+      "author": "ASM (google/skills)",
+      "createdAt": "2026-05-20T09:16:34.803Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "google",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "bigquery-basics",
+          "installUrl": "github:google/skills:skills/cloud/bigquery-basics",
+          "description": "Manages datasets, tables, and jobs in BigQuery, and integrates with BigQuery ML and Gemini for advanced data analytics and AI-driven insights. Use when you need to interact with BigQuery, run SQL queries, manage BigQuery resources, or leverage BigQuery's built-in ML capabilities. Also use when performing data analysis, ingesting data into BigQuery, or developing AI applications on BigQuery.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gemini-api",
+          "installUrl": "github:google/skills:skills/cloud/gemini-api",
+          "description": "Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like Live API, tools, multimedia generation, caching, and batch prediction.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gemini-interactions-api",
+          "installUrl": "github:google/skills:skills/cloud/gemini-interactions-api",
+          "description": "Guides the usage of Gemini Interactions API on Gemini Enterprise Agent Platform. Use when the user wants to use the stateful, server-managed Interactions API for multi-turn conversations, background execution, streaming, structured output, and function calling on the Agent Platform.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gke-basics",
+          "installUrl": "github:google/skills:skills/cloud/gke-basics",
+          "description": "Plan, create, and configure production-ready Google Kubernetes Engine (GKE) clusters using the golden path Autopilot configuration. Covers Day-0 checklist, Autopilot vs Standard, networking (private clusters, VPC-native, Gateway API), security (Workload Identity, Secret Manager, RBAC hardening), observability, scaling, cost optimization, and AI/ML inference. WHEN: create GKE cluster, provision GKE environment, design GKE networking, secure GKE, optimize GKE cost, GKE autoscaling, GKE inference, GKE upgrade, GKE observability, GKE multi-tenancy, GKE batch, GKE HPC, GKE compute class.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "google-cloud-recipe-auth",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-recipe-auth",
+          "description": "Provides expert guidance on authenticating and authorizing to Google Cloud services and APIs, covering human users, service identities, Application Default Credentials (ADC), and best practices for secure access.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-recipe-onboarding",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-recipe-onboarding",
+          "description": "Guidance for a developer's first steps on Google Cloud, covering account creation, billing setup, project management, and deploying a first resource.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-cost-optimization",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-cost-optimization",
+          "description": "Generates cost optimization guidance for Google Cloud workloads based on the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify cost requirements and constraints, and provide actionable recommendations for build, deploy, and manage the workload cost-efficiently in Google Cloud.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-reliability",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-reliability",
+          "description": "Generates reliability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework. Use this skill to evaluate a workload, identify reliability requirements, and provide actionable recommendations for build, deploy, and manage the workload reliably in Google Cloud.",
           "version": "0.0.0"
         },
         {
@@ -2141,7 +2558,7 @@
       "name": "google-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from google/skills.",
       "author": "ASM (google/skills)",
-      "createdAt": "2026-05-09T08:11:10.843Z",
+      "createdAt": "2026-05-20T09:16:34.803Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2163,6 +2580,54 @@
           "installUrl": "github:google/skills:skills/cloud/gke-basics",
           "description": "Plan, create, and configure production-ready Google Kubernetes Engine (GKE) clusters using the golden path Autopilot configuration. Covers Day-0 checklist, Autopilot vs Standard, networking (private clusters, VPC-native, Gateway API), security (Workload Identity, Secret Manager, RBAC hardening), observability, scaling, cost optimization, and AI/ML inference. WHEN: create GKE cluster, provision GKE environment, design GKE networking, secure GKE, optimize GKE cost, GKE autoscaling, GKE inference, GKE upgrade, GKE observability, GKE multi-tenancy, GKE batch, GKE HPC, GKE compute class.",
           "version": "1.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "skills",
+        "repoUrl": "https://github.com/google/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-skills-research",
+      "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from google/skills.",
+      "author": "ASM (google/skills)",
+      "createdAt": "2026-05-20T09:16:34.803Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "research",
+        "academic",
+        "analysis",
+        "google",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "bigquery-basics",
+          "installUrl": "github:google/skills:skills/cloud/bigquery-basics",
+          "description": "Manages datasets, tables, and jobs in BigQuery, and integrates with BigQuery ML and Gemini for advanced data analytics and AI-driven insights. Use when you need to interact with BigQuery, run SQL queries, manage BigQuery resources, or leverage BigQuery's built-in ML capabilities. Also use when performing data analysis, ingesting data into BigQuery, or developing AI applications on BigQuery.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-cost-optimization",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-cost-optimization",
+          "description": "Generates cost optimization guidance for Google Cloud workloads based on the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify cost requirements and constraints, and provide actionable recommendations for build, deploy, and manage the workload cost-efficiently in Google Cloud.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-reliability",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-reliability",
+          "description": "Generates reliability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework. Use this skill to evaluate a workload, identify reliability requirements, and provide actionable recommendations for build, deploy, and manage the workload reliably in Google Cloud.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-security",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-security",
+          "description": "Generates security-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify security requirements, and provide actionable recommendations for IAM, network security, data protection, and operational security.",
+          "version": "0.0.0"
         }
       ],
       "sourceRepo": {

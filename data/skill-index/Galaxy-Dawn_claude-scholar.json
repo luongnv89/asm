@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/Galaxy-Dawn/claude-scholar.git",
   "owner": "Galaxy-Dawn",
   "repo": "claude-scholar",
-  "updatedAt": "2026-05-09T08:10:46.497Z",
-  "skillCount": 39,
+  "updatedAt": "2026-05-20T09:16:05.699Z",
+  "skillCount": 45,
   "skills": [
     {
       "name": "agent-identifier",
@@ -64,7 +64,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.434Z",
+        "evaluatedAt": "2026-05-20T09:16:05.600Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -119,7 +119,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.434Z",
+          "evaluatedAt": "2026-05-20T09:16:05.600Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -137,7 +137,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.434Z",
+          "evaluatedAt": "2026-05-20T09:16:05.600Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -201,7 +201,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.436Z",
+        "evaluatedAt": "2026-05-20T09:16:05.602Z",
         "evaluatedVersion": "1.2.0"
       },
       "evalSummaries": {
@@ -256,7 +256,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.436Z",
+          "evaluatedAt": "2026-05-20T09:16:05.602Z",
           "evaluatedVersion": "1.2.0"
         },
         "skill-best-practice": {
@@ -274,7 +274,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.436Z",
+          "evaluatedAt": "2026-05-20T09:16:05.602Z",
           "evaluatedVersion": "1.2.0"
         }
       }
@@ -338,7 +338,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.438Z",
+        "evaluatedAt": "2026-05-20T09:16:05.604Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -393,7 +393,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.438Z",
+          "evaluatedAt": "2026-05-20T09:16:05.604Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -411,7 +411,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.438Z",
+          "evaluatedAt": "2026-05-20T09:16:05.604Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -427,9 +427,9 @@
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/citation-verification",
       "relPath": "skills/citation-verification",
       "verified": true,
-      "tokenCount": 1891,
+      "tokenCount": 2081,
       "evalSummary": {
-        "overallScore": 77,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
@@ -459,7 +459,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 9,
+            "score": 6,
             "max": 10
           },
           {
@@ -475,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.439Z",
+        "evaluatedAt": "2026-05-20T09:16:05.605Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -484,7 +484,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 77,
+          "overallScore": 73,
           "grade": "C",
           "categories": [
             {
@@ -514,7 +514,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 9,
+              "score": 6,
               "max": 10
             },
             {
@@ -530,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.439Z",
+          "evaluatedAt": "2026-05-20T09:16:05.606Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -548,7 +548,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.439Z",
+          "evaluatedAt": "2026-05-20T09:16:05.606Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -612,7 +612,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.441Z",
+        "evaluatedAt": "2026-05-20T09:16:05.608Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -667,7 +667,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.442Z",
+          "evaluatedAt": "2026-05-20T09:16:05.608Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -685,7 +685,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.442Z",
+          "evaluatedAt": "2026-05-20T09:16:05.608Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -749,7 +749,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.444Z",
+        "evaluatedAt": "2026-05-20T09:16:05.611Z",
         "evaluatedVersion": "0.2.0"
       },
       "evalSummaries": {
@@ -804,7 +804,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.445Z",
+          "evaluatedAt": "2026-05-20T09:16:05.611Z",
           "evaluatedVersion": "0.2.0"
         },
         "skill-best-practice": {
@@ -822,7 +822,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.445Z",
+          "evaluatedAt": "2026-05-20T09:16:05.611Z",
           "evaluatedVersion": "0.2.0"
         }
       }
@@ -886,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.447Z",
+        "evaluatedAt": "2026-05-20T09:16:05.613Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -941,7 +941,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.447Z",
+          "evaluatedAt": "2026-05-20T09:16:05.613Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +959,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.447Z",
+          "evaluatedAt": "2026-05-20T09:16:05.613Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1023,7 +1023,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.448Z",
+        "evaluatedAt": "2026-05-20T09:16:05.614Z",
         "evaluatedVersion": "0.5.1"
       },
       "evalSummaries": {
@@ -1078,7 +1078,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.448Z",
+          "evaluatedAt": "2026-05-20T09:16:05.614Z",
           "evaluatedVersion": "0.5.1"
         },
         "skill-best-practice": {
@@ -1096,7 +1096,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.448Z",
+          "evaluatedAt": "2026-05-20T09:16:05.614Z",
           "evaluatedVersion": "0.5.1"
         }
       }
@@ -1160,7 +1160,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.448Z",
+        "evaluatedAt": "2026-05-20T09:16:05.615Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1215,7 +1215,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.448Z",
+          "evaluatedAt": "2026-05-20T09:16:05.615Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1233,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.448Z",
+          "evaluatedAt": "2026-05-20T09:16:05.615Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1297,7 +1297,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.450Z",
+        "evaluatedAt": "2026-05-20T09:16:05.617Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -1352,7 +1352,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.450Z",
+          "evaluatedAt": "2026-05-20T09:16:05.617Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -1370,8 +1370,145 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.450Z",
+          "evaluatedAt": "2026-05-20T09:16:05.617Z",
           "evaluatedVersion": "0.1.0"
+        }
+      }
+    },
+    {
+      "name": "expression-skill",
+      "description": "This skill should be used when the user asks for efficient communication, task reports, file-operation summaries, research discussion, study-note synthesis, planning, writing feedback, or responses that need conclusion-first structure, concrete evidence, risk disclosure, and useful next steps.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/expression-skill",
+      "relPath": "skills/expression-skill",
+      "verified": true,
+      "tokenCount": 2582,
+      "evalSummary": {
+        "overallScore": 80,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-05-20T09:16:05.619Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 80,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:05.619Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:05.619Z",
+          "evaluatedVersion": "0.0.0"
         }
       }
     },
@@ -1434,7 +1571,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.452Z",
+        "evaluatedAt": "2026-05-20T09:16:05.621Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -1489,7 +1626,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.452Z",
+          "evaluatedAt": "2026-05-20T09:16:05.621Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1644,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.452Z",
+          "evaluatedAt": "2026-05-20T09:16:05.621Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -1571,7 +1708,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.453Z",
+        "evaluatedAt": "2026-05-20T09:16:05.622Z",
         "evaluatedVersion": "1.2.0"
       },
       "evalSummaries": {
@@ -1626,7 +1763,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.453Z",
+          "evaluatedAt": "2026-05-20T09:16:05.623Z",
           "evaluatedVersion": "1.2.0"
         },
         "skill-best-practice": {
@@ -1644,7 +1781,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.453Z",
+          "evaluatedAt": "2026-05-20T09:16:05.623Z",
           "evaluatedVersion": "1.2.0"
         }
       }
@@ -1708,7 +1845,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.455Z",
+        "evaluatedAt": "2026-05-20T09:16:05.625Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -1763,7 +1900,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.455Z",
+          "evaluatedAt": "2026-05-20T09:16:05.625Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -1781,7 +1918,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.455Z",
+          "evaluatedAt": "2026-05-20T09:16:05.626Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -1845,7 +1982,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.457Z",
+        "evaluatedAt": "2026-05-20T09:16:05.628Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -1900,7 +2037,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.457Z",
+          "evaluatedAt": "2026-05-20T09:16:05.628Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -1918,7 +2055,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.457Z",
+          "evaluatedAt": "2026-05-20T09:16:05.628Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -1982,7 +2119,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.459Z",
+        "evaluatedAt": "2026-05-20T09:16:05.633Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -2037,7 +2174,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.459Z",
+          "evaluatedAt": "2026-05-20T09:16:05.633Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -2055,7 +2192,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.459Z",
+          "evaluatedAt": "2026-05-20T09:16:05.633Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -2119,7 +2256,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.461Z",
+        "evaluatedAt": "2026-05-20T09:16:05.636Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -2174,7 +2311,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.461Z",
+          "evaluatedAt": "2026-05-20T09:16:05.636Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -2192,7 +2329,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.461Z",
+          "evaluatedAt": "2026-05-20T09:16:05.636Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -2208,7 +2345,7 @@
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/ml-paper-writing",
       "relPath": "skills/ml-paper-writing",
       "verified": true,
-      "tokenCount": 11347,
+      "tokenCount": 11615,
       "evalSummary": {
         "overallScore": 87,
         "grade": "B",
@@ -2256,7 +2393,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.465Z",
+        "evaluatedAt": "2026-05-20T09:16:05.641Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2311,7 +2448,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.465Z",
+          "evaluatedAt": "2026-05-20T09:16:05.641Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2329,8 +2466,556 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.465Z",
+          "evaluatedAt": "2026-05-20T09:16:05.641Z",
           "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "nature-data",
+      "description": "Prepare, audit, or revise Nature-ready Data Availability statements, data repository plans, dataset citations, and FAIR metadata checklists for manuscripts. Use when the user asks about Nature data availability, research data sharing, repository selection, accession numbers, restricted or sensitive data, source data, supplementary datasets, DataCite-style dataset references, FAIR metadata for academic publication, or Chinese-to-English data availability wording for Chinese-speaking authors preparing Nature-family submissions.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-data",
+      "relPath": "skills/nature-data",
+      "verified": true,
+      "tokenCount": 1555,
+      "evalSummary": {
+        "overallScore": 76,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-05-20T09:16:05.648Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:05.648Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:05.648Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "nature-polishing",
+      "description": "Polish, restructure, or translate academic prose into Nature-leaning English using writing-strategy principles, curated Nature/Nature Communications article patterns, and phrase-level support from Academic Phrasebank. Use whenever the user asks to polish a manuscript paragraph, abstract, introduction, results, discussion, conclusion, title, methods section, or Chinese academic draft for publication-quality English.",
+      "version": "5.0.2",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-polishing",
+      "relPath": "skills/nature-polishing",
+      "verified": true,
+      "tokenCount": 3890,
+      "evalSummary": {
+        "overallScore": 76,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-05-20T09:16:05.650Z",
+        "evaluatedVersion": "5.0.2"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:05.650Z",
+          "evaluatedVersion": "5.0.2"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:05.650Z",
+          "evaluatedVersion": "5.0.2"
+        }
+      }
+    },
+    {
+      "name": "nature-response",
+      "description": "Draft, audit, or revise point-by-point reviewer response letters for Nature-family manuscript revisions. Use when the user provides reviewer comments, editor decision letters, revision notes, response drafts, or asks how to respond to major/minor revision requests, rebuttal letters, response to reviewers, peer-review reports, 审稿意见回复, 逐点回复, 修回信, 大修回复, 小修回复, or 如何回复 reviewer.",
+      "version": "0.1.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-response",
+      "relPath": "skills/nature-response",
+      "verified": true,
+      "tokenCount": 1606,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-05-20T09:16:05.652Z",
+        "evaluatedVersion": "0.1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:05.653Z",
+          "evaluatedVersion": "0.1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:05.652Z",
+          "evaluatedVersion": "0.1.0"
+        }
+      }
+    },
+    {
+      "name": "nature-writing",
+      "description": "Draft, restructure, or plan Nature-style manuscript sections from author-provided claims, results, figures, notes, or Chinese drafts. Use when the user wants to write or rebuild an abstract, introduction, results narrative, discussion, conclusion, title, or full manuscript argument rather than only polish finished prose.",
+      "version": "0.2.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-writing",
+      "relPath": "skills/nature-writing",
+      "verified": true,
+      "tokenCount": 1692,
+      "evalSummary": {
+        "overallScore": 66,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-05-20T09:16:05.655Z",
+        "evaluatedVersion": "0.2.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 66,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:05.655Z",
+          "evaluatedVersion": "0.2.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:05.655Z",
+          "evaluatedVersion": "0.2.0"
         }
       }
     },
@@ -2345,9 +3030,9 @@
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-kb-artifacts",
       "relPath": "skills/obsidian-kb-artifacts",
       "verified": true,
-      "tokenCount": 239,
+      "tokenCount": 291,
       "evalSummary": {
-        "overallScore": 54,
+        "overallScore": 59,
         "grade": "D",
         "categories": [
           {
@@ -2365,13 +3050,13 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 3,
+            "score": 4,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
@@ -2393,7 +3078,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.468Z",
+        "evaluatedAt": "2026-05-20T09:16:05.656Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2402,7 +3087,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 54,
+          "overallScore": 59,
           "grade": "D",
           "categories": [
             {
@@ -2420,13 +3105,13 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 3,
+              "score": 4,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
@@ -2448,7 +3133,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.468Z",
+          "evaluatedAt": "2026-05-20T09:16:05.656Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2466,7 +3151,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.468Z",
+          "evaluatedAt": "2026-05-20T09:16:05.656Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2482,9 +3167,9 @@
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-literature-workflow",
       "relPath": "skills/obsidian-literature-workflow",
       "verified": true,
-      "tokenCount": 252,
+      "tokenCount": 382,
       "evalSummary": {
-        "overallScore": 60,
+        "overallScore": 63,
         "grade": "D",
         "categories": [
           {
@@ -2508,7 +3193,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
@@ -2530,7 +3215,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.469Z",
+        "evaluatedAt": "2026-05-20T09:16:05.657Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2539,7 +3224,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 60,
+          "overallScore": 63,
           "grade": "D",
           "categories": [
             {
@@ -2563,7 +3248,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
@@ -2585,7 +3270,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.469Z",
+          "evaluatedAt": "2026-05-20T09:16:05.657Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2603,7 +3288,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.469Z",
+          "evaluatedAt": "2026-05-20T09:16:05.657Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2667,7 +3352,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.469Z",
+        "evaluatedAt": "2026-05-20T09:16:05.658Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2722,7 +3407,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.469Z",
+          "evaluatedAt": "2026-05-20T09:16:05.658Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2740,7 +3425,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.469Z",
+          "evaluatedAt": "2026-05-20T09:16:05.658Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2804,7 +3489,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.470Z",
+        "evaluatedAt": "2026-05-20T09:16:05.659Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2859,7 +3544,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.470Z",
+          "evaluatedAt": "2026-05-20T09:16:05.659Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2877,14 +3562,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.470Z",
+          "evaluatedAt": "2026-05-20T09:16:05.659Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "paper-self-review",
-      "description": "This skill should be used when the user asks to \"review paper quality\", \"check paper completeness\", \"validate paper structure\", \"self-review before submission\", or mentions systematic paper quality checking. Provides comprehensive quality assurance checklist for academic papers.",
+      "description": "This skill should be used when the user asks to \"review paper quality\", \"check paper completeness\", \"validate paper structure\", \"self-review before submission\", \"audit claims\", \"check overclaiming\", \"verify whether results support claims\", or mentions systematic paper quality checking. Provides comprehensive quality assurance checklist for academic papers.",
       "version": "0.1.0",
       "license": "",
       "creator": "",
@@ -2893,10 +3578,10 @@
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/paper-self-review",
       "relPath": "skills/paper-self-review",
       "verified": true,
-      "tokenCount": 1322,
+      "tokenCount": 1636,
       "evalSummary": {
-        "overallScore": 83,
-        "grade": "B",
+        "overallScore": 77,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -2907,7 +3592,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 5,
             "max": 10
           },
           {
@@ -2925,7 +3610,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 5,
             "max": 10
           },
           {
@@ -2941,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.471Z",
+        "evaluatedAt": "2026-05-20T09:16:05.660Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -2950,8 +3635,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 83,
-          "grade": "B",
+          "overallScore": 77,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -2962,7 +3647,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 5,
               "max": 10
             },
             {
@@ -2980,7 +3665,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 5,
               "max": 10
             },
             {
@@ -2996,7 +3681,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.471Z",
+          "evaluatedAt": "2026-05-20T09:16:05.660Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -3014,7 +3699,144 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.471Z",
+          "evaluatedAt": "2026-05-20T09:16:05.660Z",
+          "evaluatedVersion": "0.1.0"
+        }
+      }
+    },
+    {
+      "name": "planning-with-files",
+      "description": "Use this by default for non-trivial multi-step work that needs persistent planning, progress tracking, or durable notes on disk. Trigger when a task will likely span multiple tool calls, research steps, verification loops, or enough context that the plan should not live only in transient chat memory.",
+      "version": "0.1.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/planning-with-files",
+      "relPath": "skills/planning-with-files",
+      "verified": true,
+      "tokenCount": 1268,
+      "evalSummary": {
+        "overallScore": 64,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-05-20T09:16:05.662Z",
+        "evaluatedVersion": "0.1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 64,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:05.662Z",
+          "evaluatedVersion": "0.1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-05-20T09:16:05.662Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -3078,7 +3900,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.472Z",
+        "evaluatedAt": "2026-05-20T09:16:05.664Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -3133,7 +3955,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.472Z",
+          "evaluatedAt": "2026-05-20T09:16:05.664Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -3151,7 +3973,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.472Z",
+          "evaluatedAt": "2026-05-20T09:16:05.664Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -3215,7 +4037,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.474Z",
+        "evaluatedAt": "2026-05-20T09:16:05.666Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -3270,7 +4092,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.474Z",
+          "evaluatedAt": "2026-05-20T09:16:05.666Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -3288,7 +4110,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.474Z",
+          "evaluatedAt": "2026-05-20T09:16:05.666Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -3304,7 +4126,7 @@
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/publication-chart-skill",
       "relPath": "skills/publication-chart-skill",
       "verified": true,
-      "tokenCount": 3332,
+      "tokenCount": 3514,
       "evalSummary": {
         "overallScore": 71,
         "grade": "C",
@@ -3352,7 +4174,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.476Z",
+        "evaluatedAt": "2026-05-20T09:16:05.669Z",
         "evaluatedVersion": "0.2.0"
       },
       "evalSummaries": {
@@ -3407,7 +4229,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.476Z",
+          "evaluatedAt": "2026-05-20T09:16:05.669Z",
           "evaluatedVersion": "0.2.0"
         },
         "skill-best-practice": {
@@ -3425,7 +4247,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.476Z",
+          "evaluatedAt": "2026-05-20T09:16:05.669Z",
           "evaluatedVersion": "0.2.0"
         }
       }
@@ -3441,7 +4263,7 @@
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/research-ideation",
       "relPath": "skills/research-ideation",
       "verified": true,
-      "tokenCount": 2074,
+      "tokenCount": 2392,
       "evalSummary": {
         "overallScore": 73,
         "grade": "C",
@@ -3489,7 +4311,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.478Z",
+        "evaluatedAt": "2026-05-20T09:16:05.672Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -3544,7 +4366,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.478Z",
+          "evaluatedAt": "2026-05-20T09:16:05.672Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -3562,7 +4384,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.478Z",
+          "evaluatedAt": "2026-05-20T09:16:05.672Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -3578,7 +4400,7 @@
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/results-analysis",
       "relPath": "skills/results-analysis",
       "verified": true,
-      "tokenCount": 1769,
+      "tokenCount": 2464,
       "evalSummary": {
         "overallScore": 77,
         "grade": "C",
@@ -3626,7 +4448,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.480Z",
+        "evaluatedAt": "2026-05-20T09:16:05.674Z",
         "evaluatedVersion": "0.2.0"
       },
       "evalSummaries": {
@@ -3681,7 +4503,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.480Z",
+          "evaluatedAt": "2026-05-20T09:16:05.674Z",
           "evaluatedVersion": "0.2.0"
         },
         "skill-best-practice": {
@@ -3699,7 +4521,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.480Z",
+          "evaluatedAt": "2026-05-20T09:16:05.674Z",
           "evaluatedVersion": "0.2.0"
         }
       }
@@ -3715,7 +4537,7 @@
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/results-report",
       "relPath": "skills/results-report",
       "verified": true,
-      "tokenCount": 1387,
+      "tokenCount": 1540,
       "evalSummary": {
         "overallScore": 74,
         "grade": "C",
@@ -3763,7 +4585,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.481Z",
+        "evaluatedAt": "2026-05-20T09:16:05.676Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -3818,7 +4640,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.481Z",
+          "evaluatedAt": "2026-05-20T09:16:05.676Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -3836,7 +4658,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.481Z",
+          "evaluatedAt": "2026-05-20T09:16:05.676Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -3852,7 +4674,7 @@
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/review-response",
       "relPath": "skills/review-response",
       "verified": true,
-      "tokenCount": 1231,
+      "tokenCount": 1421,
       "evalSummary": {
         "overallScore": 67,
         "grade": "C",
@@ -3900,7 +4722,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.482Z",
+        "evaluatedAt": "2026-05-20T09:16:05.678Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -3955,7 +4777,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.482Z",
+          "evaluatedAt": "2026-05-20T09:16:05.678Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -3973,7 +4795,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.482Z",
+          "evaluatedAt": "2026-05-20T09:16:05.678Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -4037,7 +4859,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.483Z",
+        "evaluatedAt": "2026-05-20T09:16:05.679Z",
         "evaluatedVersion": "0.2.0"
       },
       "evalSummaries": {
@@ -4092,7 +4914,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.483Z",
+          "evaluatedAt": "2026-05-20T09:16:05.679Z",
           "evaluatedVersion": "0.2.0"
         },
         "skill-best-practice": {
@@ -4110,7 +4932,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.483Z",
+          "evaluatedAt": "2026-05-20T09:16:05.679Z",
           "evaluatedVersion": "0.2.0"
         }
       }
@@ -4174,7 +4996,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.485Z",
+        "evaluatedAt": "2026-05-20T09:16:05.681Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4229,7 +5051,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.485Z",
+          "evaluatedAt": "2026-05-20T09:16:05.681Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4247,7 +5069,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.485Z",
+          "evaluatedAt": "2026-05-20T09:16:05.681Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4311,7 +5133,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.486Z",
+        "evaluatedAt": "2026-05-20T09:16:05.684Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -4366,7 +5188,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.486Z",
+          "evaluatedAt": "2026-05-20T09:16:05.684Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -4384,7 +5206,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.486Z",
+          "evaluatedAt": "2026-05-20T09:16:05.684Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -4448,7 +5270,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.488Z",
+        "evaluatedAt": "2026-05-20T09:16:05.686Z",
         "evaluatedVersion": "0.2.0"
       },
       "evalSummaries": {
@@ -4503,7 +5325,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.488Z",
+          "evaluatedAt": "2026-05-20T09:16:05.686Z",
           "evaluatedVersion": "0.2.0"
         },
         "skill-best-practice": {
@@ -4521,7 +5343,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.488Z",
+          "evaluatedAt": "2026-05-20T09:16:05.687Z",
           "evaluatedVersion": "0.2.0"
         }
       }
@@ -4585,7 +5407,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.489Z",
+        "evaluatedAt": "2026-05-20T09:16:05.689Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -4640,7 +5462,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.490Z",
+          "evaluatedAt": "2026-05-20T09:16:05.689Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -4658,7 +5480,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.490Z",
+          "evaluatedAt": "2026-05-20T09:16:05.689Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -4722,7 +5544,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.491Z",
+        "evaluatedAt": "2026-05-20T09:16:05.691Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4777,7 +5599,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.491Z",
+          "evaluatedAt": "2026-05-20T09:16:05.691Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4795,7 +5617,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.491Z",
+          "evaluatedAt": "2026-05-20T09:16:05.692Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4859,7 +5681,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.493Z",
+        "evaluatedAt": "2026-05-20T09:16:05.693Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -4914,7 +5736,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.493Z",
+          "evaluatedAt": "2026-05-20T09:16:05.693Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -4932,7 +5754,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.493Z",
+          "evaluatedAt": "2026-05-20T09:16:05.693Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -4996,7 +5818,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.494Z",
+        "evaluatedAt": "2026-05-20T09:16:05.695Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -5051,7 +5873,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.494Z",
+          "evaluatedAt": "2026-05-20T09:16:05.695Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -5069,7 +5891,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.494Z",
+          "evaluatedAt": "2026-05-20T09:16:05.695Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -5133,7 +5955,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.496Z",
+        "evaluatedAt": "2026-05-20T09:16:05.697Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -5188,7 +6010,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.496Z",
+          "evaluatedAt": "2026-05-20T09:16:05.697Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -5206,7 +6028,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.496Z",
+          "evaluatedAt": "2026-05-20T09:16:05.697Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -5222,10 +6044,10 @@
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/zotero-obsidian-bridge",
       "relPath": "skills/zotero-obsidian-bridge",
       "verified": true,
-      "tokenCount": 199,
+      "tokenCount": 540,
       "evalSummary": {
-        "overallScore": 50,
-        "grade": "D",
+        "overallScore": 66,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -5242,25 +6064,25 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 4,
+            "score": 5,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 4,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 2,
+            "score": 5,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 0,
+            "score": 2,
             "max": 10
           },
           {
@@ -5270,7 +6092,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-09T08:10:46.497Z",
+        "evaluatedAt": "2026-05-20T09:16:05.698Z",
         "evaluatedVersion": "0.3.0"
       },
       "evalSummaries": {
@@ -5279,8 +6101,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 50,
-          "grade": "D",
+          "overallScore": 66,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -5297,25 +6119,25 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 4,
+              "score": 5,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 4,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 2,
+              "score": 5,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 0,
+              "score": 2,
               "max": 10
             },
             {
@@ -5325,7 +6147,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.497Z",
+          "evaluatedAt": "2026-05-20T09:16:05.698Z",
           "evaluatedVersion": "0.3.0"
         },
         "skill-best-practice": {
@@ -5343,7 +6165,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-09T08:10:46.497Z",
+          "evaluatedAt": "2026-05-20T09:16:05.698Z",
           "evaluatedVersion": "0.3.0"
         }
       }
@@ -5352,178 +6174,16 @@
   "bundles": [
     {
       "version": 1,
-      "name": "galaxy-dawn-claude-scholar-marketing",
-      "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from Galaxy-Dawn/claude-scholar.",
+      "name": "galaxy-dawn-claude-scholar-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Galaxy-Dawn/claude-scholar.",
       "author": "ASM (Galaxy-Dawn/claude-scholar)",
-      "createdAt": "2026-05-09T08:10:46.497Z",
+      "createdAt": "2026-05-20T09:16:05.699Z",
       "tags": [
         "repo-derived",
         "inferred",
-        "marketing",
-        "growth",
-        "seo",
-        "galaxy-dawn",
-        "claude-scholar"
-      ],
-      "skills": [
-        {
-          "name": "kaggle-learner",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/kaggle-learner",
-          "description": "This skill should be used when the user asks to \"learn from Kaggle\", \"study Kaggle solutions\", \"analyze Kaggle competitions\", or mentions Kaggle competition URLs. Provides access to extracted knowledge from winning Kaggle solutions across NLP, CV, time series, tabular, and multimodal domains.",
-          "version": "0.1.0"
-        },
-        {
-          "name": "skill-quality-reviewer",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/skill-quality-reviewer",
-          "description": "This skill should be used when the user asks to \"analyze skill quality\", \"evaluate this skill\", \"review skill quality\", \"check my skill\", or \"generate quality report\". Evaluates local skills across description quality, content organization, writing style, and structural integrity.",
-          "version": "0.1.0"
-        }
-      ],
-      "sourceRepo": {
-        "owner": "Galaxy-Dawn",
-        "repo": "claude-scholar",
-        "repoUrl": "https://github.com/Galaxy-Dawn/claude-scholar.git"
-      },
-      "inferred": true
-    },
-    {
-      "version": 1,
-      "name": "galaxy-dawn-claude-scholar-writing",
-      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from Galaxy-Dawn/claude-scholar.",
-      "author": "ASM (Galaxy-Dawn/claude-scholar)",
-      "createdAt": "2026-05-09T08:10:46.497Z",
-      "tags": [
-        "repo-derived",
-        "inferred",
-        "writing",
-        "content",
-        "docs",
-        "galaxy-dawn",
-        "claude-scholar"
-      ],
-      "skills": [
-        {
-          "name": "citation-verification",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/citation-verification",
-          "description": "This skill provides reference guidance for citation verification in academic writing. Use when the user asks about \"citation verification best practices\", \"how to verify references\", \"preventing fake citations\", or needs guidance on citation accuracy. This skill supports ml-paper-writing by providing detailed verification principles and common error patterns.",
-          "version": "0.1.0"
-        },
-        {
-          "name": "code-review-excellence",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/code-review-excellence",
-          "description": "This skill should be used when the user asks to review a diff or pull request, write review comments, audit code quality, establish review standards, or improve how a team performs code review.",
-          "version": "0.1.0"
-        },
-        {
-          "name": "command-development",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/command-development",
-          "description": "This skill should be used when the user asks to \"create a slash command\", \"add a command\", \"write a custom command\", \"define command arguments\", \"use command frontmatter\", \"organize commands\", \"create command with file references\", \"interactive command\", \"use AskUserQuestion in command\", or needs guidance on slash command structure, YAML frontmatter fields, dynamic arguments, bash execution in commands, user interaction patterns, or command development best practices for Claude Code.",
-          "version": "0.2.0"
-        },
-        {
-          "name": "daily-coding",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/daily-coding",
-          "description": "Use for everyday coding tasks that involve writing or modifying source code.",
-          "version": "1.0.0"
-        },
-        {
-          "name": "daily-paper-generator",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/daily-paper-generator",
-          "description": "Use when the user asks to generate daily paper digests on a general topic. This skill supports both arXiv and bioRxiv (or either one), then produces structured Chinese/English summaries for selected papers.",
-          "version": "0.5.1"
-        },
-        {
-          "name": "doc-coauthoring",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/doc-coauthoring",
-          "description": "This skill should be used when the user asks to co-author documentation, draft a proposal, write a technical spec, create a decision doc or RFC, or structure a substantial document through iterative collaboration and reader testing.",
-          "version": "0.1.0"
-        },
-        {
-          "name": "ml-paper-writing",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/ml-paper-writing",
-          "description": "Write publication-ready ML/AI papers for NeurIPS, ICML, ICLR, ACL, AAAI, COLM. Use when drafting papers from research repos, conducting literature reviews, finding related work, verifying citations, or preparing camera-ready submissions. Includes LaTeX templates, citation verification workflows, and paper discovery/evaluation criteria.",
-          "version": "1.0.0"
-        },
-        {
-          "name": "obsidian-literature-workflow",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-literature-workflow",
-          "description": "Use this skill for project-scoped literature review built on Sources/Papers, with synthesis landing in Knowledge, writing handoff in Writing, and the default literature canvas under Maps/literature.canvas.",
-          "version": "1.0.0"
-        },
-        {
-          "name": "obsidian-source-ingestion",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-source-ingestion",
-          "description": "Use this skill to ingest external materials into the current project-scoped Obsidian KB as source notes under Sources/Papers, Sources/Web, Sources/Docs, Sources/Data, Sources/Interviews, or Sources/Notes.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "paper-self-review",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/paper-self-review",
-          "description": "This skill should be used when the user asks to \"review paper quality\", \"check paper completeness\", \"validate paper structure\", \"self-review before submission\", or mentions systematic paper quality checking. Provides comprehensive quality assurance checklist for academic papers.",
-          "version": "0.1.0"
-        },
-        {
-          "name": "post-acceptance",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/post-acceptance",
-          "description": "This skill should be used when the user asks to \"prepare conference presentation\", \"create presentation slides\", \"design poster\", \"make academic poster\", \"write promotion content\", \"create Twitter thread\", or mentions post-acceptance conference preparation. Provides comprehensive workflow for presentation, poster, and promotion content creation.",
-          "version": "0.1.0"
-        },
-        {
-          "name": "publication-chart-skill",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/publication-chart-skill",
-          "description": "This skill should be used when the user asks for a publication-quality scientific figure or table, wants help choosing the right chart for results, needs a paper-ready pubfig or pubtab workflow, wants a figure + companion table for a results section, wants an Excel sheet turned into publication-ready LaTeX, or wants an existing scientific figure/table reviewed and upgraded.",
-          "version": "0.2.0"
-        },
-        {
-          "name": "results-report",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/results-report",
-          "description": "This skill should be used when the user asks to \"write an experiment report\", \"summarize experimental results\", \"do experiment retrospection\", \"write a results report\", \"写实验总结报告\", \"写实验复盘\", or mentions turning completed experiment artifacts into a structured, decision-oriented research report. It assumes strict analysis should come from `results-analysis` first.",
-          "version": "0.1.0"
-        },
-        {
-          "name": "review-response",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/review-response",
-          "description": "Systematic review response workflow from comment analysis to professional rebuttal writing. Use when the user asks to \"write rebuttal\", \"respond to reviewers\", \"draft review response\", or \"analyze review comments\". Improves paper acceptance rates.",
-          "version": "0.1.0"
-        },
-        {
-          "name": "skill-quality-reviewer",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/skill-quality-reviewer",
-          "description": "This skill should be used when the user asks to \"analyze skill quality\", \"evaluate this skill\", \"review skill quality\", \"check my skill\", or \"generate quality report\". Evaluates local skills across description quality, content organization, writing style, and structural integrity.",
-          "version": "0.1.0"
-        },
-        {
-          "name": "writing-anti-ai",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/writing-anti-ai",
-          "description": "This skill should be used when the user asks to \"remove AI writing patterns\", \"humanize this text\", \"make this sound more natural\", \"remove AI-generated traces\", \"fix robotic writing\", or needs to eliminate AI writing patterns from prose. Supports both English and Chinese text. Based on Wikipedia's \"Signs of AI writing\" guide, detects and fixes inflated symbolism, promotional language, superficial -ing analyses, vague attributions, AI vocabulary, negative parallelisms, and excessive conjunctive phrases.",
-          "version": "1.0.0"
-        },
-        {
-          "name": "zotero-obsidian-bridge",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/zotero-obsidian-bridge",
-          "description": "Use this skill when Zotero is the literature source of truth and the project KB should receive source notes under Sources/Papers plus project-linked synthesis in Knowledge and Writing.",
-          "version": "0.3.0"
-        }
-      ],
-      "sourceRepo": {
-        "owner": "Galaxy-Dawn",
-        "repo": "claude-scholar",
-        "repoUrl": "https://github.com/Galaxy-Dawn/claude-scholar.git"
-      },
-      "inferred": true
-    },
-    {
-      "version": 1,
-      "name": "galaxy-dawn-claude-scholar-research",
-      "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from Galaxy-Dawn/claude-scholar.",
-      "author": "ASM (Galaxy-Dawn/claude-scholar)",
-      "createdAt": "2026-05-09T08:10:46.497Z",
-      "tags": [
-        "repo-derived",
-        "inferred",
-        "research",
-        "academic",
-        "analysis",
+        "data",
+        "ai",
+        "agents",
         "galaxy-dawn",
         "claude-scholar"
       ],
@@ -5589,6 +6249,12 @@
           "version": "0.1.0"
         },
         {
+          "name": "expression-skill",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/expression-skill",
+          "description": "This skill should be used when the user asks for efficient communication, task reports, file-operation summaries, research discussion, study-note synthesis, planning, writing feedback, or responses that need conclusion-first structure, concrete evidence, risk disclosure, and useful next steps.",
+          "version": "0.0.0"
+        },
+        {
           "name": "frontend-design",
           "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/frontend-design",
           "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.",
@@ -5631,6 +6297,30 @@
           "version": "1.0.0"
         },
         {
+          "name": "nature-data",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-data",
+          "description": "Prepare, audit, or revise Nature-ready Data Availability statements, data repository plans, dataset citations, and FAIR metadata checklists for manuscripts. Use when the user asks about Nature data availability, research data sharing, repository selection, accession numbers, restricted or sensitive data, source data, supplementary datasets, DataCite-style dataset references, FAIR metadata for academic publication, or Chinese-to-English data availability wording for Chinese-speaking authors preparing Nature-family submissions.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "nature-polishing",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-polishing",
+          "description": "Polish, restructure, or translate academic prose into Nature-leaning English using writing-strategy principles, curated Nature/Nature Communications article patterns, and phrase-level support from Academic Phrasebank. Use whenever the user asks to polish a manuscript paragraph, abstract, introduction, results, discussion, conclusion, title, methods section, or Chinese academic draft for publication-quality English.",
+          "version": "5.0.2"
+        },
+        {
+          "name": "nature-response",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-response",
+          "description": "Draft, audit, or revise point-by-point reviewer response letters for Nature-family manuscript revisions. Use when the user provides reviewer comments, editor decision letters, revision notes, response drafts, or asks how to respond to major/minor revision requests, rebuttal letters, response to reviewers, peer-review reports, 审稿意见回复, 逐点回复, 修回信, 大修回复, 小修回复, or 如何回复 reviewer.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "nature-writing",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-writing",
+          "description": "Draft, restructure, or plan Nature-style manuscript sections from author-provided claims, results, figures, notes, or Chinese drafts. Use when the user wants to write or rebuild an abstract, introduction, results narrative, discussion, conclusion, title, or full manuscript argument rather than only polish finished prose.",
+          "version": "0.2.0"
+        },
+        {
           "name": "obsidian-kb-artifacts",
           "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-kb-artifacts",
           "description": "Use this skill for Obsidian-native formatting and derived artifacts such as Markdown formatting, wikilinks, registry tables, canvas files, optional Bases, CLI operations, and link repair. This skill does not decide knowledge routing.",
@@ -5657,7 +6347,13 @@
         {
           "name": "paper-self-review",
           "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/paper-self-review",
-          "description": "This skill should be used when the user asks to \"review paper quality\", \"check paper completeness\", \"validate paper structure\", \"self-review before submission\", or mentions systematic paper quality checking. Provides comprehensive quality assurance checklist for academic papers.",
+          "description": "This skill should be used when the user asks to \"review paper quality\", \"check paper completeness\", \"validate paper structure\", \"self-review before submission\", \"audit claims\", \"check overclaiming\", \"verify whether results support claims\", or mentions systematic paper quality checking. Provides comprehensive quality assurance checklist for academic papers.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "planning-with-files",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/planning-with-files",
+          "description": "Use this by default for non-trivial multi-step work that needs persistent planning, progress tracking, or durable notes on disk. Trigger when a task will likely span multiple tool calls, research steps, verification loops, or enough context that the plan should not live only in transient chat memory.",
           "version": "0.1.0"
         },
         {
@@ -5772,10 +6468,154 @@
     },
     {
       "version": 1,
+      "name": "galaxy-dawn-claude-scholar-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Galaxy-Dawn/claude-scholar.",
+      "author": "ASM (Galaxy-Dawn/claude-scholar)",
+      "createdAt": "2026-05-20T09:16:05.699Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "galaxy-dawn",
+        "claude-scholar"
+      ],
+      "skills": [
+        {
+          "name": "bug-detective",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/bug-detective",
+          "description": "This skill should be used when the user asks to \"debug this\", \"fix this error\", \"investigate this bug\", \"troubleshoot this issue\", \"find the problem\", \"something is broken\", \"this isn't working\", \"why is this failing\", or reports errors/exceptions/bugs. Provides systematic debugging workflow and common error patterns.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "citation-verification",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/citation-verification",
+          "description": "This skill provides reference guidance for citation verification in academic writing. Use when the user asks about \"citation verification best practices\", \"how to verify references\", \"preventing fake citations\", or needs guidance on citation accuracy. This skill supports ml-paper-writing by providing detailed verification principles and common error patterns.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "defuddle",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/defuddle",
+          "description": "Extract clean Markdown from web pages. In the KB workflow, use it as a utility under obsidian-source-ingestion.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "doc-coauthoring",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/doc-coauthoring",
+          "description": "This skill should be used when the user asks to co-author documentation, draft a proposal, write a technical spec, create a decision doc or RFC, or structure a substantial document through iterative collaboration and reader testing.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "expression-skill",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/expression-skill",
+          "description": "This skill should be used when the user asks for efficient communication, task reports, file-operation summaries, research discussion, study-note synthesis, planning, writing feedback, or responses that need conclusion-first structure, concrete evidence, risk disclosure, and useful next steps.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "git-workflow",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/git-workflow",
+          "description": "This skill should be used when the user asks to \"create git commit\", \"manage branches\", \"follow git workflow\", \"use Conventional Commits\", \"handle merge conflicts\", or asks about git branching strategies, version control best practices, pull request workflows. Provides comprehensive Git workflow guidance for team collaboration.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "ml-paper-writing",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/ml-paper-writing",
+          "description": "Write publication-ready ML/AI papers for NeurIPS, ICML, ICLR, ACL, AAAI, COLM. Use when drafting papers from research repos, conducting literature reviews, finding related work, verifying citations, or preparing camera-ready submissions. Includes LaTeX templates, citation verification workflows, and paper discovery/evaluation criteria.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "nature-data",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-data",
+          "description": "Prepare, audit, or revise Nature-ready Data Availability statements, data repository plans, dataset citations, and FAIR metadata checklists for manuscripts. Use when the user asks about Nature data availability, research data sharing, repository selection, accession numbers, restricted or sensitive data, source data, supplementary datasets, DataCite-style dataset references, FAIR metadata for academic publication, or Chinese-to-English data availability wording for Chinese-speaking authors preparing Nature-family submissions.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "nature-polishing",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-polishing",
+          "description": "Polish, restructure, or translate academic prose into Nature-leaning English using writing-strategy principles, curated Nature/Nature Communications article patterns, and phrase-level support from Academic Phrasebank. Use whenever the user asks to polish a manuscript paragraph, abstract, introduction, results, discussion, conclusion, title, methods section, or Chinese academic draft for publication-quality English.",
+          "version": "5.0.2"
+        },
+        {
+          "name": "nature-response",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-response",
+          "description": "Draft, audit, or revise point-by-point reviewer response letters for Nature-family manuscript revisions. Use when the user provides reviewer comments, editor decision letters, revision notes, response drafts, or asks how to respond to major/minor revision requests, rebuttal letters, response to reviewers, peer-review reports, 审稿意见回复, 逐点回复, 修回信, 大修回复, 小修回复, or 如何回复 reviewer.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "obsidian-kb-artifacts",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-kb-artifacts",
+          "description": "Use this skill for Obsidian-native formatting and derived artifacts such as Markdown formatting, wikilinks, registry tables, canvas files, optional Bases, CLI operations, and link repair. This skill does not decide knowledge routing.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "obsidian-literature-workflow",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-literature-workflow",
+          "description": "Use this skill for project-scoped literature review built on Sources/Papers, with synthesis landing in Knowledge, writing handoff in Writing, and the default literature canvas under Maps/literature.canvas.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "post-acceptance",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/post-acceptance",
+          "description": "This skill should be used when the user asks to \"prepare conference presentation\", \"create presentation slides\", \"design poster\", \"make academic poster\", \"write promotion content\", \"create Twitter thread\", or mentions post-acceptance conference preparation. Provides comprehensive workflow for presentation, poster, and promotion content creation.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "publication-chart-skill",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/publication-chart-skill",
+          "description": "This skill should be used when the user asks for a publication-quality scientific figure or table, wants help choosing the right chart for results, needs a paper-ready pubfig or pubtab workflow, wants a figure + companion table for a results section, wants an Excel sheet turned into publication-ready LaTeX, or wants an existing scientific figure/table reviewed and upgraded.",
+          "version": "0.2.0"
+        },
+        {
+          "name": "research-ideation",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/research-ideation",
+          "description": "This skill should be used when the user asks to \"brainstorm research ideas\", \"use 5W1H framework\", \"identify research gaps\", \"conduct gap analysis\", \"start research project\", \"conduct literature review\", \"define research question\", \"select research method\", \"plan research\", or mentions research project initiation phase. Provides comprehensive guidance for research startup workflow from idea generation to planning.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "results-analysis",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/results-analysis",
+          "description": "This skill should be used when the user asks to \"analyze experimental results\", \"run strict statistical analysis\", \"compare model performance\", \"generate scientific figures\", \"check significance\", \"do ablation analysis\", or mentions interpreting experiment data with rigorous statistics and visualization. It focuses on strict analysis bundles, not Results-section prose.",
+          "version": "0.2.0"
+        },
+        {
+          "name": "results-report",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/results-report",
+          "description": "This skill should be used when the user asks to \"write an experiment report\", \"summarize experimental results\", \"do experiment retrospection\", \"write a results report\", \"写实验总结报告\", \"写实验复盘\", or mentions turning completed experiment artifacts into a structured, decision-oriented research report. It assumes strict analysis should come from `results-analysis` first.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "review-response",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/review-response",
+          "description": "Systematic review response workflow from comment analysis to professional rebuttal writing. Use when the user asks to \"write rebuttal\", \"respond to reviewers\", \"draft review response\", or \"analyze review comments\". Improves paper acceptance rates.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "uv-package-manager",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/uv-package-manager",
+          "description": "Master the uv package manager for fast Python dependency management, virtual environments, and modern Python project workflows. Use when setting up Python projects, managing dependencies, or optimizing Python development workflows with uv.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "writing-anti-ai",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/writing-anti-ai",
+          "description": "This skill should be used when the user asks to \"remove AI writing patterns\", \"humanize this text\", \"make this sound more natural\", \"remove AI-generated traces\", \"fix robotic writing\", or needs to eliminate AI writing patterns from prose. Supports both English and Chinese text. Based on Wikipedia's \"Signs of AI writing\" guide, detects and fixes inflated symbolism, promotional language, superficial -ing analyses, vague attributions, AI vocabulary, negative parallelisms, and excessive conjunctive phrases.",
+          "version": "1.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Galaxy-Dawn",
+        "repo": "claude-scholar",
+        "repoUrl": "https://github.com/Galaxy-Dawn/claude-scholar.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
       "name": "galaxy-dawn-claude-scholar-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from Galaxy-Dawn/claude-scholar.",
       "author": "ASM (Galaxy-Dawn/claude-scholar)",
-      "createdAt": "2026-05-09T08:10:46.497Z",
+      "createdAt": "2026-05-20T09:16:05.699Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5853,6 +6693,18 @@
           "version": "1.0.0"
         },
         {
+          "name": "nature-response",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-response",
+          "description": "Draft, audit, or revise point-by-point reviewer response letters for Nature-family manuscript revisions. Use when the user provides reviewer comments, editor decision letters, revision notes, response drafts, or asks how to respond to major/minor revision requests, rebuttal letters, response to reviewers, peer-review reports, 审稿意见回复, 逐点回复, 修回信, 大修回复, 小修回复, or 如何回复 reviewer.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "nature-writing",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-writing",
+          "description": "Draft, restructure, or plan Nature-style manuscript sections from author-provided claims, results, figures, notes, or Chinese drafts. Use when the user wants to write or rebuild an abstract, introduction, results narrative, discussion, conclusion, title, or full manuscript argument rather than only polish finished prose.",
+          "version": "0.2.0"
+        },
+        {
           "name": "obsidian-kb-artifacts",
           "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-kb-artifacts",
           "description": "Use this skill for Obsidian-native formatting and derived artifacts such as Markdown formatting, wikilinks, registry tables, canvas files, optional Bases, CLI operations, and link repair. This skill does not decide knowledge routing.",
@@ -5867,7 +6719,7 @@
         {
           "name": "paper-self-review",
           "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/paper-self-review",
-          "description": "This skill should be used when the user asks to \"review paper quality\", \"check paper completeness\", \"validate paper structure\", \"self-review before submission\", or mentions systematic paper quality checking. Provides comprehensive quality assurance checklist for academic papers.",
+          "description": "This skill should be used when the user asks to \"review paper quality\", \"check paper completeness\", \"validate paper structure\", \"self-review before submission\", \"audit claims\", \"check overclaiming\", \"verify whether results support claims\", or mentions systematic paper quality checking. Provides comprehensive quality assurance checklist for academic papers.",
           "version": "0.1.0"
         },
         {
@@ -5949,7 +6801,7 @@
       "name": "galaxy-dawn-claude-scholar-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Galaxy-Dawn/claude-scholar.",
       "author": "ASM (Galaxy-Dawn/claude-scholar)",
-      "createdAt": "2026-05-09T08:10:46.497Z",
+      "createdAt": "2026-05-20T09:16:05.699Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6001,6 +6853,12 @@
           "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/mcp-integration",
           "description": "This skill should be used when the user asks to \"add MCP server\", \"integrate MCP\", \"configure MCP in plugin\", \"use .mcp.json\", \"set up Model Context Protocol\", \"connect external service\", mentions \"${CLAUDE_PLUGIN_ROOT} with MCP\", or discusses MCP server types (SSE, stdio, HTTP, WebSocket). Provides comprehensive guidance for integrating Model Context Protocol servers into Claude Code plugins for external tool and service integration.",
           "version": "0.1.0"
+        },
+        {
+          "name": "nature-writing",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-writing",
+          "description": "Draft, restructure, or plan Nature-style manuscript sections from author-provided claims, results, figures, notes, or Chinese drafts. Use when the user wants to write or rebuild an abstract, introduction, results narrative, discussion, conclusion, title, or full manuscript argument rather than only polish finished prose.",
+          "version": "0.2.0"
         },
         {
           "name": "obsidian-literature-workflow",
@@ -6072,115 +6930,31 @@
     },
     {
       "version": 1,
-      "name": "galaxy-dawn-claude-scholar-devops",
-      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Galaxy-Dawn/claude-scholar.",
+      "name": "galaxy-dawn-claude-scholar-marketing",
+      "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from Galaxy-Dawn/claude-scholar.",
       "author": "ASM (Galaxy-Dawn/claude-scholar)",
-      "createdAt": "2026-05-09T08:10:46.497Z",
+      "createdAt": "2026-05-20T09:16:05.699Z",
       "tags": [
         "repo-derived",
         "inferred",
-        "devops",
-        "infra",
-        "automation",
+        "marketing",
+        "growth",
+        "seo",
         "galaxy-dawn",
         "claude-scholar"
       ],
       "skills": [
         {
-          "name": "bug-detective",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/bug-detective",
-          "description": "This skill should be used when the user asks to \"debug this\", \"fix this error\", \"investigate this bug\", \"troubleshoot this issue\", \"find the problem\", \"something is broken\", \"this isn't working\", \"why is this failing\", or reports errors/exceptions/bugs. Provides systematic debugging workflow and common error patterns.",
+          "name": "kaggle-learner",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/kaggle-learner",
+          "description": "This skill should be used when the user asks to \"learn from Kaggle\", \"study Kaggle solutions\", \"analyze Kaggle competitions\", or mentions Kaggle competition URLs. Provides access to extracted knowledge from winning Kaggle solutions across NLP, CV, time series, tabular, and multimodal domains.",
           "version": "0.1.0"
         },
         {
-          "name": "citation-verification",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/citation-verification",
-          "description": "This skill provides reference guidance for citation verification in academic writing. Use when the user asks about \"citation verification best practices\", \"how to verify references\", \"preventing fake citations\", or needs guidance on citation accuracy. This skill supports ml-paper-writing by providing detailed verification principles and common error patterns.",
+          "name": "skill-quality-reviewer",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/skill-quality-reviewer",
+          "description": "This skill should be used when the user asks to \"analyze skill quality\", \"evaluate this skill\", \"review skill quality\", \"check my skill\", or \"generate quality report\". Evaluates local skills across description quality, content organization, writing style, and structural integrity.",
           "version": "0.1.0"
-        },
-        {
-          "name": "defuddle",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/defuddle",
-          "description": "Extract clean Markdown from web pages. In the KB workflow, use it as a utility under obsidian-source-ingestion.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "doc-coauthoring",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/doc-coauthoring",
-          "description": "This skill should be used when the user asks to co-author documentation, draft a proposal, write a technical spec, create a decision doc or RFC, or structure a substantial document through iterative collaboration and reader testing.",
-          "version": "0.1.0"
-        },
-        {
-          "name": "git-workflow",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/git-workflow",
-          "description": "This skill should be used when the user asks to \"create git commit\", \"manage branches\", \"follow git workflow\", \"use Conventional Commits\", \"handle merge conflicts\", or asks about git branching strategies, version control best practices, pull request workflows. Provides comprehensive Git workflow guidance for team collaboration.",
-          "version": "1.2.0"
-        },
-        {
-          "name": "ml-paper-writing",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/ml-paper-writing",
-          "description": "Write publication-ready ML/AI papers for NeurIPS, ICML, ICLR, ACL, AAAI, COLM. Use when drafting papers from research repos, conducting literature reviews, finding related work, verifying citations, or preparing camera-ready submissions. Includes LaTeX templates, citation verification workflows, and paper discovery/evaluation criteria.",
-          "version": "1.0.0"
-        },
-        {
-          "name": "obsidian-kb-artifacts",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-kb-artifacts",
-          "description": "Use this skill for Obsidian-native formatting and derived artifacts such as Markdown formatting, wikilinks, registry tables, canvas files, optional Bases, CLI operations, and link repair. This skill does not decide knowledge routing.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "obsidian-literature-workflow",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-literature-workflow",
-          "description": "Use this skill for project-scoped literature review built on Sources/Papers, with synthesis landing in Knowledge, writing handoff in Writing, and the default literature canvas under Maps/literature.canvas.",
-          "version": "1.0.0"
-        },
-        {
-          "name": "post-acceptance",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/post-acceptance",
-          "description": "This skill should be used when the user asks to \"prepare conference presentation\", \"create presentation slides\", \"design poster\", \"make academic poster\", \"write promotion content\", \"create Twitter thread\", or mentions post-acceptance conference preparation. Provides comprehensive workflow for presentation, poster, and promotion content creation.",
-          "version": "0.1.0"
-        },
-        {
-          "name": "publication-chart-skill",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/publication-chart-skill",
-          "description": "This skill should be used when the user asks for a publication-quality scientific figure or table, wants help choosing the right chart for results, needs a paper-ready pubfig or pubtab workflow, wants a figure + companion table for a results section, wants an Excel sheet turned into publication-ready LaTeX, or wants an existing scientific figure/table reviewed and upgraded.",
-          "version": "0.2.0"
-        },
-        {
-          "name": "research-ideation",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/research-ideation",
-          "description": "This skill should be used when the user asks to \"brainstorm research ideas\", \"use 5W1H framework\", \"identify research gaps\", \"conduct gap analysis\", \"start research project\", \"conduct literature review\", \"define research question\", \"select research method\", \"plan research\", or mentions research project initiation phase. Provides comprehensive guidance for research startup workflow from idea generation to planning.",
-          "version": "0.1.0"
-        },
-        {
-          "name": "results-analysis",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/results-analysis",
-          "description": "This skill should be used when the user asks to \"analyze experimental results\", \"run strict statistical analysis\", \"compare model performance\", \"generate scientific figures\", \"check significance\", \"do ablation analysis\", or mentions interpreting experiment data with rigorous statistics and visualization. It focuses on strict analysis bundles, not Results-section prose.",
-          "version": "0.2.0"
-        },
-        {
-          "name": "results-report",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/results-report",
-          "description": "This skill should be used when the user asks to \"write an experiment report\", \"summarize experimental results\", \"do experiment retrospection\", \"write a results report\", \"写实验总结报告\", \"写实验复盘\", or mentions turning completed experiment artifacts into a structured, decision-oriented research report. It assumes strict analysis should come from `results-analysis` first.",
-          "version": "0.1.0"
-        },
-        {
-          "name": "review-response",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/review-response",
-          "description": "Systematic review response workflow from comment analysis to professional rebuttal writing. Use when the user asks to \"write rebuttal\", \"respond to reviewers\", \"draft review response\", or \"analyze review comments\". Improves paper acceptance rates.",
-          "version": "0.1.0"
-        },
-        {
-          "name": "uv-package-manager",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/uv-package-manager",
-          "description": "Master the uv package manager for fast Python dependency management, virtual environments, and modern Python project workflows. Use when setting up Python projects, managing dependencies, or optimizing Python development workflows with uv.",
-          "version": "0.1.0"
-        },
-        {
-          "name": "writing-anti-ai",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/writing-anti-ai",
-          "description": "This skill should be used when the user asks to \"remove AI writing patterns\", \"humanize this text\", \"make this sound more natural\", \"remove AI-generated traces\", \"fix robotic writing\", or needs to eliminate AI writing patterns from prose. Supports both English and Chinese text. Based on Wikipedia's \"Signs of AI writing\" guide, detects and fixes inflated symbolism, promotional language, superficial -ing analyses, vague attributions, AI vocabulary, negative parallelisms, and excessive conjunctive phrases.",
-          "version": "1.0.0"
         }
       ],
       "sourceRepo": {
@@ -6192,16 +6966,70 @@
     },
     {
       "version": 1,
-      "name": "galaxy-dawn-claude-scholar-data-ai",
-      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Galaxy-Dawn/claude-scholar.",
+      "name": "galaxy-dawn-claude-scholar-product-business",
+      "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from Galaxy-Dawn/claude-scholar.",
       "author": "ASM (Galaxy-Dawn/claude-scholar)",
-      "createdAt": "2026-05-09T08:10:46.497Z",
+      "createdAt": "2026-05-20T09:16:05.699Z",
       "tags": [
         "repo-derived",
         "inferred",
-        "data",
-        "ai",
-        "agents",
+        "product",
+        "business",
+        "planning",
+        "galaxy-dawn",
+        "claude-scholar"
+      ],
+      "skills": [
+        {
+          "name": "expression-skill",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/expression-skill",
+          "description": "This skill should be used when the user asks for efficient communication, task reports, file-operation summaries, research discussion, study-note synthesis, planning, writing feedback, or responses that need conclusion-first structure, concrete evidence, risk disclosure, and useful next steps.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "frontend-design",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/frontend-design",
+          "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "nature-polishing",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-polishing",
+          "description": "Polish, restructure, or translate academic prose into Nature-leaning English using writing-strategy principles, curated Nature/Nature Communications article patterns, and phrase-level support from Academic Phrasebank. Use whenever the user asks to polish a manuscript paragraph, abstract, introduction, results, discussion, conclusion, title, methods section, or Chinese academic draft for publication-quality English.",
+          "version": "5.0.2"
+        },
+        {
+          "name": "planning-with-files",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/planning-with-files",
+          "description": "Use this by default for non-trivial multi-step work that needs persistent planning, progress tracking, or durable notes on disk. Trigger when a task will likely span multiple tool calls, research steps, verification loops, or enough context that the plan should not live only in transient chat memory.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "research-ideation",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/research-ideation",
+          "description": "This skill should be used when the user asks to \"brainstorm research ideas\", \"use 5W1H framework\", \"identify research gaps\", \"conduct gap analysis\", \"start research project\", \"conduct literature review\", \"define research question\", \"select research method\", \"plan research\", or mentions research project initiation phase. Provides comprehensive guidance for research startup workflow from idea generation to planning.",
+          "version": "0.1.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Galaxy-Dawn",
+        "repo": "claude-scholar",
+        "repoUrl": "https://github.com/Galaxy-Dawn/claude-scholar.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "galaxy-dawn-claude-scholar-research",
+      "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from Galaxy-Dawn/claude-scholar.",
+      "author": "ASM (Galaxy-Dawn/claude-scholar)",
+      "createdAt": "2026-05-20T09:16:05.699Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "research",
+        "academic",
+        "analysis",
         "galaxy-dawn",
         "claude-scholar"
       ],
@@ -6267,6 +7095,12 @@
           "version": "0.1.0"
         },
         {
+          "name": "expression-skill",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/expression-skill",
+          "description": "This skill should be used when the user asks for efficient communication, task reports, file-operation summaries, research discussion, study-note synthesis, planning, writing feedback, or responses that need conclusion-first structure, concrete evidence, risk disclosure, and useful next steps.",
+          "version": "0.0.0"
+        },
+        {
           "name": "frontend-design",
           "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/frontend-design",
           "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.",
@@ -6309,6 +7143,30 @@
           "version": "1.0.0"
         },
         {
+          "name": "nature-data",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-data",
+          "description": "Prepare, audit, or revise Nature-ready Data Availability statements, data repository plans, dataset citations, and FAIR metadata checklists for manuscripts. Use when the user asks about Nature data availability, research data sharing, repository selection, accession numbers, restricted or sensitive data, source data, supplementary datasets, DataCite-style dataset references, FAIR metadata for academic publication, or Chinese-to-English data availability wording for Chinese-speaking authors preparing Nature-family submissions.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "nature-polishing",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-polishing",
+          "description": "Polish, restructure, or translate academic prose into Nature-leaning English using writing-strategy principles, curated Nature/Nature Communications article patterns, and phrase-level support from Academic Phrasebank. Use whenever the user asks to polish a manuscript paragraph, abstract, introduction, results, discussion, conclusion, title, methods section, or Chinese academic draft for publication-quality English.",
+          "version": "5.0.2"
+        },
+        {
+          "name": "nature-response",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-response",
+          "description": "Draft, audit, or revise point-by-point reviewer response letters for Nature-family manuscript revisions. Use when the user provides reviewer comments, editor decision letters, revision notes, response drafts, or asks how to respond to major/minor revision requests, rebuttal letters, response to reviewers, peer-review reports, 审稿意见回复, 逐点回复, 修回信, 大修回复, 小修回复, or 如何回复 reviewer.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "nature-writing",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-writing",
+          "description": "Draft, restructure, or plan Nature-style manuscript sections from author-provided claims, results, figures, notes, or Chinese drafts. Use when the user wants to write or rebuild an abstract, introduction, results narrative, discussion, conclusion, title, or full manuscript argument rather than only polish finished prose.",
+          "version": "0.2.0"
+        },
+        {
           "name": "obsidian-kb-artifacts",
           "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-kb-artifacts",
           "description": "Use this skill for Obsidian-native formatting and derived artifacts such as Markdown formatting, wikilinks, registry tables, canvas files, optional Bases, CLI operations, and link repair. This skill does not decide knowledge routing.",
@@ -6335,7 +7193,13 @@
         {
           "name": "paper-self-review",
           "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/paper-self-review",
-          "description": "This skill should be used when the user asks to \"review paper quality\", \"check paper completeness\", \"validate paper structure\", \"self-review before submission\", or mentions systematic paper quality checking. Provides comprehensive quality assurance checklist for academic papers.",
+          "description": "This skill should be used when the user asks to \"review paper quality\", \"check paper completeness\", \"validate paper structure\", \"self-review before submission\", \"audit claims\", \"check overclaiming\", \"verify whether results support claims\", or mentions systematic paper quality checking. Provides comprehensive quality assurance checklist for academic papers.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "planning-with-files",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/planning-with-files",
+          "description": "Use this by default for non-trivial multi-step work that needs persistent planning, progress tracking, or durable notes on disk. Trigger when a task will likely span multiple tool calls, research steps, verification loops, or enough context that the plan should not live only in transient chat memory.",
           "version": "0.1.0"
         },
         {
@@ -6450,31 +7314,145 @@
     },
     {
       "version": 1,
-      "name": "galaxy-dawn-claude-scholar-product-business",
-      "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from Galaxy-Dawn/claude-scholar.",
+      "name": "galaxy-dawn-claude-scholar-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from Galaxy-Dawn/claude-scholar.",
       "author": "ASM (Galaxy-Dawn/claude-scholar)",
-      "createdAt": "2026-05-09T08:10:46.497Z",
+      "createdAt": "2026-05-20T09:16:05.699Z",
       "tags": [
         "repo-derived",
         "inferred",
-        "product",
-        "business",
-        "planning",
+        "writing",
+        "content",
+        "docs",
         "galaxy-dawn",
         "claude-scholar"
       ],
       "skills": [
         {
-          "name": "frontend-design",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/frontend-design",
-          "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.",
+          "name": "citation-verification",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/citation-verification",
+          "description": "This skill provides reference guidance for citation verification in academic writing. Use when the user asks about \"citation verification best practices\", \"how to verify references\", \"preventing fake citations\", or needs guidance on citation accuracy. This skill supports ml-paper-writing by providing detailed verification principles and common error patterns.",
           "version": "0.1.0"
         },
         {
-          "name": "research-ideation",
-          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/research-ideation",
-          "description": "This skill should be used when the user asks to \"brainstorm research ideas\", \"use 5W1H framework\", \"identify research gaps\", \"conduct gap analysis\", \"start research project\", \"conduct literature review\", \"define research question\", \"select research method\", \"plan research\", or mentions research project initiation phase. Provides comprehensive guidance for research startup workflow from idea generation to planning.",
+          "name": "code-review-excellence",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/code-review-excellence",
+          "description": "This skill should be used when the user asks to review a diff or pull request, write review comments, audit code quality, establish review standards, or improve how a team performs code review.",
           "version": "0.1.0"
+        },
+        {
+          "name": "command-development",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/command-development",
+          "description": "This skill should be used when the user asks to \"create a slash command\", \"add a command\", \"write a custom command\", \"define command arguments\", \"use command frontmatter\", \"organize commands\", \"create command with file references\", \"interactive command\", \"use AskUserQuestion in command\", or needs guidance on slash command structure, YAML frontmatter fields, dynamic arguments, bash execution in commands, user interaction patterns, or command development best practices for Claude Code.",
+          "version": "0.2.0"
+        },
+        {
+          "name": "daily-coding",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/daily-coding",
+          "description": "Use for everyday coding tasks that involve writing or modifying source code.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "daily-paper-generator",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/daily-paper-generator",
+          "description": "Use when the user asks to generate daily paper digests on a general topic. This skill supports both arXiv and bioRxiv (or either one), then produces structured Chinese/English summaries for selected papers.",
+          "version": "0.5.1"
+        },
+        {
+          "name": "doc-coauthoring",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/doc-coauthoring",
+          "description": "This skill should be used when the user asks to co-author documentation, draft a proposal, write a technical spec, create a decision doc or RFC, or structure a substantial document through iterative collaboration and reader testing.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "expression-skill",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/expression-skill",
+          "description": "This skill should be used when the user asks for efficient communication, task reports, file-operation summaries, research discussion, study-note synthesis, planning, writing feedback, or responses that need conclusion-first structure, concrete evidence, risk disclosure, and useful next steps.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "ml-paper-writing",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/ml-paper-writing",
+          "description": "Write publication-ready ML/AI papers for NeurIPS, ICML, ICLR, ACL, AAAI, COLM. Use when drafting papers from research repos, conducting literature reviews, finding related work, verifying citations, or preparing camera-ready submissions. Includes LaTeX templates, citation verification workflows, and paper discovery/evaluation criteria.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "nature-polishing",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-polishing",
+          "description": "Polish, restructure, or translate academic prose into Nature-leaning English using writing-strategy principles, curated Nature/Nature Communications article patterns, and phrase-level support from Academic Phrasebank. Use whenever the user asks to polish a manuscript paragraph, abstract, introduction, results, discussion, conclusion, title, methods section, or Chinese academic draft for publication-quality English.",
+          "version": "5.0.2"
+        },
+        {
+          "name": "nature-response",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-response",
+          "description": "Draft, audit, or revise point-by-point reviewer response letters for Nature-family manuscript revisions. Use when the user provides reviewer comments, editor decision letters, revision notes, response drafts, or asks how to respond to major/minor revision requests, rebuttal letters, response to reviewers, peer-review reports, 审稿意见回复, 逐点回复, 修回信, 大修回复, 小修回复, or 如何回复 reviewer.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "nature-writing",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-writing",
+          "description": "Draft, restructure, or plan Nature-style manuscript sections from author-provided claims, results, figures, notes, or Chinese drafts. Use when the user wants to write or rebuild an abstract, introduction, results narrative, discussion, conclusion, title, or full manuscript argument rather than only polish finished prose.",
+          "version": "0.2.0"
+        },
+        {
+          "name": "obsidian-literature-workflow",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-literature-workflow",
+          "description": "Use this skill for project-scoped literature review built on Sources/Papers, with synthesis landing in Knowledge, writing handoff in Writing, and the default literature canvas under Maps/literature.canvas.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "obsidian-source-ingestion",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-source-ingestion",
+          "description": "Use this skill to ingest external materials into the current project-scoped Obsidian KB as source notes under Sources/Papers, Sources/Web, Sources/Docs, Sources/Data, Sources/Interviews, or Sources/Notes.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "paper-self-review",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/paper-self-review",
+          "description": "This skill should be used when the user asks to \"review paper quality\", \"check paper completeness\", \"validate paper structure\", \"self-review before submission\", \"audit claims\", \"check overclaiming\", \"verify whether results support claims\", or mentions systematic paper quality checking. Provides comprehensive quality assurance checklist for academic papers.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "post-acceptance",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/post-acceptance",
+          "description": "This skill should be used when the user asks to \"prepare conference presentation\", \"create presentation slides\", \"design poster\", \"make academic poster\", \"write promotion content\", \"create Twitter thread\", or mentions post-acceptance conference preparation. Provides comprehensive workflow for presentation, poster, and promotion content creation.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "publication-chart-skill",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/publication-chart-skill",
+          "description": "This skill should be used when the user asks for a publication-quality scientific figure or table, wants help choosing the right chart for results, needs a paper-ready pubfig or pubtab workflow, wants a figure + companion table for a results section, wants an Excel sheet turned into publication-ready LaTeX, or wants an existing scientific figure/table reviewed and upgraded.",
+          "version": "0.2.0"
+        },
+        {
+          "name": "results-report",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/results-report",
+          "description": "This skill should be used when the user asks to \"write an experiment report\", \"summarize experimental results\", \"do experiment retrospection\", \"write a results report\", \"写实验总结报告\", \"写实验复盘\", or mentions turning completed experiment artifacts into a structured, decision-oriented research report. It assumes strict analysis should come from `results-analysis` first.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "review-response",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/review-response",
+          "description": "Systematic review response workflow from comment analysis to professional rebuttal writing. Use when the user asks to \"write rebuttal\", \"respond to reviewers\", \"draft review response\", or \"analyze review comments\". Improves paper acceptance rates.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "skill-quality-reviewer",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/skill-quality-reviewer",
+          "description": "This skill should be used when the user asks to \"analyze skill quality\", \"evaluate this skill\", \"review skill quality\", \"check my skill\", or \"generate quality report\". Evaluates local skills across description quality, content organization, writing style, and structural integrity.",
+          "version": "0.1.0"
+        },
+        {
+          "name": "writing-anti-ai",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/writing-anti-ai",
+          "description": "This skill should be used when the user asks to \"remove AI writing patterns\", \"humanize this text\", \"make this sound more natural\", \"remove AI-generated traces\", \"fix robotic writing\", or needs to eliminate AI writing patterns from prose. Supports both English and Chinese text. Based on Wikipedia's \"Signs of AI writing\" guide, detects and fixes inflated symbolism, promotional language, superficial -ing analyses, vague attributions, AI vocabulary, negative parallelisms, and excessive conjunctive phrases.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "zotero-obsidian-bridge",
+          "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/zotero-obsidian-bridge",
+          "description": "Use this skill when Zotero is the literature source of truth and the project KB should receive source notes under Sources/Papers plus project-linked synthesis in Knowledge and Writing.",
+          "version": "0.3.0"
         }
       ],
       "sourceRepo": {
