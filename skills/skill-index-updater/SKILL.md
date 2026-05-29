@@ -130,7 +130,7 @@ Run `asm eval` on each discovered skill directory and capture the JSON report. T
 asm eval "$TEMP_DIR/{repo}/{relPath}" --json
 ```
 
-The JSON report contains `overallScore` (0-100), a letter `grade` (A/B/C/D/F), and a `categories[]` array with per-category scores. You do not need to re-run eval during indexing — `bun run preindex` (Step 7) invokes the evaluator via the ingester and writes `evalSummary` + `tokenCount` into `data/skill-index/{owner}_{repo}.json` automatically. The explicit run here is for **pre-commit visibility** only.
+The JSON report contains `overallScore` (0-100), a letter `grade` (A/B/C/D/F), and a `categories[]` array with per-category scores. You do not need to re-run eval during indexing — `npm run preindex` (Step 7) invokes the evaluator via the ingester and writes `evalSummary` + `tokenCount` into `data/skill-index/{owner}_{repo}.json` automatically. The explicit run here is for **pre-commit visibility** only.
 
 #### Combined report
 
@@ -203,10 +203,10 @@ For each repo (new and updated), generate the index JSON file. Use the project's
 
 ```bash
 cd "$(git rev-parse --show-toplevel)"
-bun run preindex
+npm run preindex
 ```
 
-If `bun run preindex` fails or takes too long, generate the index file manually by creating `data/skill-index/{owner}_{repo}.json` with this structure:
+If `npm run preindex` fails or takes too long, generate the index file manually by creating `data/skill-index/{owner}_{repo}.json` with this structure:
 
 ```json
 {
@@ -250,7 +250,7 @@ If you fall back to manual generation, you can populate `tokenCount` and `evalSu
 Run the catalog build script to regenerate `website/catalog.json`:
 
 ```bash
-bun scripts/build-catalog.ts
+npx tsx scripts/build-catalog.ts
 ```
 
 Verify the output:
@@ -265,7 +265,7 @@ Run a final check:
 
 1. `data/skill-index-resources.json` is valid JSON and contains the new entries
 2. Each new `data/skill-index/{owner}_{repo}.json` exists and is valid JSON
-3. Each skill entry in those index files has `tokenCount` (number) and `evalSummary` (object with `overallScore`, `grade`, `categories`) populated — if any are missing, re-run `bun run preindex` or fall back to manual population as described in Step 7
+3. Each skill entry in those index files has `tokenCount` (number) and `evalSummary` (object with `overallScore`, `grade`, `categories`) populated — if any are missing, re-run `npm run preindex` or fall back to manual population as described in Step 7
 4. `website/catalog.json` is valid JSON and includes the new skills
 5. `git diff --stat` shows only the expected files changed
 
@@ -363,8 +363,8 @@ Inputs the skill must handle without crashing, in order of likelihood:
 - **Repo has 50+ SKILL.md files**: keep going, but warn the user about runtime — `asm eval` over many skills is slow.
 - **Repo is already in the index but unchanged**: report `EXISTS, no diff` and skip the index regeneration for that repo.
 - **Repo is already in the index with breaking changes** (skill removed, name renamed): show a diff and require explicit user confirmation before overwriting.
-- **`bun run preindex` is missing or fails**: fall back to manual generation per Step 7; do not block the PR.
-- **`bun scripts/build-catalog.ts` fails**: stop — this is structural and a PR with a broken catalog should not land.
+- **`npm run preindex` is missing or fails**: fall back to manual generation per Step 7; do not block the PR.
+- **`npx tsx scripts/build-catalog.ts` fails**: stop — this is structural and a PR with a broken catalog should not land.
 - **`gh` CLI not authenticated**: prompt the user to run `gh auth login`; do not attempt to push without auth.
 - **User passes a non-GitHub URL** (GitLab, Bitbucket): reject in Step 1 — this skill only indexes github.com.
 - **User passes a URL to a single skill subdirectory** (`github.com/owner/repo/tree/main/skills/foo`): treat as the parent repo URL and let Step 2's discoverer pick up just that skill.

@@ -73,7 +73,7 @@ async function assertSkillUninstalled(installedDirName: string): Promise<void> {
 // ─── parseArgs unit tests ───────────────────────────────────────────────────
 
 describe("parseArgs", () => {
-  const parse = (...args: string[]) => parseArgs(["bun", "script.ts", ...args]);
+  const parse = (...args: string[]) => parseArgs(["node", "script.ts", ...args]);
 
   test("no args yields null command", () => {
     const result = parse();
@@ -325,7 +325,7 @@ describe("parseArgs", () => {
 // ─── isCLIMode unit tests ──────────────────────────────────────────────────
 
 describe("isCLIMode", () => {
-  const check = (...args: string[]) => isCLIMode(["bun", "script.ts", ...args]);
+  const check = (...args: string[]) => isCLIMode(["node", "script.ts", ...args]);
 
   test("no args → not CLI mode", () => {
     expect(check()).toBe(false);
@@ -1111,7 +1111,7 @@ describe("CLI integration: config", () => {
 // ─── parseArgs: install command ─────────────────────────────────────────────
 
 describe("parseArgs: install", () => {
-  const parse = (...args: string[]) => parseArgs(["bun", "script.ts", ...args]);
+  const parse = (...args: string[]) => parseArgs(["node", "script.ts", ...args]);
 
   test("parses install with source", () => {
     const result = parse("install", "github:user/repo");
@@ -1304,7 +1304,7 @@ describe("parseArgs: install", () => {
 // ─── isCLIMode: install ────────────────────────────────────────────────────
 
 describe("isCLIMode: install", () => {
-  const check = (...args: string[]) => isCLIMode(["bun", "script.ts", ...args]);
+  const check = (...args: string[]) => isCLIMode(["node", "script.ts", ...args]);
 
   test("install → CLI mode", () => {
     expect(check("install")).toBe(true);
@@ -1502,7 +1502,7 @@ describe("CLI integration: verbose flag", () => {
 // ─── parseArgs: additional flags ────────────────────────────────────────────
 
 describe("parseArgs: additional flags", () => {
-  const parse = (...args: string[]) => parseArgs(["bun", "script.ts", ...args]);
+  const parse = (...args: string[]) => parseArgs(["node", "script.ts", ...args]);
 
   test("parses --flat flag", () => {
     const result = parse("list", "--flat");
@@ -1550,7 +1550,7 @@ describe("parseArgs: additional flags", () => {
 // ─── parseArgs: large-list flags (issue #192) ───────────────────────────────
 
 describe("parseArgs: large-list flags (#192)", () => {
-  const parse = (...args: string[]) => parseArgs(["bun", "script.ts", ...args]);
+  const parse = (...args: string[]) => parseArgs(["node", "script.ts", ...args]);
 
   test("parses --compact flag", () => {
     const result = parse("list", "--compact");
@@ -1611,7 +1611,7 @@ describe("parseArgs: large-list flags (#192)", () => {
 // ─── isCLIMode: newer commands ──────────────────────────────────────────────
 
 describe("isCLIMode: newer commands", () => {
-  const check = (...args: string[]) => isCLIMode(["bun", "script.ts", ...args]);
+  const check = (...args: string[]) => isCLIMode(["node", "script.ts", ...args]);
 
   test("export → CLI mode", () => {
     expect(check("export")).toBe(true);
@@ -2050,7 +2050,7 @@ describe("CLI integration: eval", () => {
 
   test("parseArgs accepts --concurrency and --keep flags", () => {
     const r = parseArgs([
-      "bun",
+      "node",
       "script.ts",
       "eval",
       "./x",
@@ -3330,7 +3330,7 @@ describe("CLI integration: install --path/--all subpath discovery", () => {
 // ─── isCLIMode: bundle ────────────────────────────────────────────────────
 
 describe("isCLIMode: bundle", () => {
-  const check = (...args: string[]) => isCLIMode(["bun", "script.ts", ...args]);
+  const check = (...args: string[]) => isCLIMode(["node", "script.ts", ...args]);
 
   test("bundle -> CLI mode", () => {
     expect(check("bundle")).toBe(true);
@@ -3352,7 +3352,7 @@ describe("isCLIMode: bundle", () => {
 // ─── parseArgs: bundle ────────────────────────────────────────────────────
 
 describe("parseArgs: bundle", () => {
-  const parse = (...args: string[]) => parseArgs(["bun", "script.ts", ...args]);
+  const parse = (...args: string[]) => parseArgs(["node", "script.ts", ...args]);
 
   test("bundle create my-bundle", () => {
     const r = parse("bundle", "create", "my-bundle");
@@ -3711,7 +3711,7 @@ describe("CLI integration: bundle", () => {
 // ─── parseArgs: bundle modify / export ──────────────────────────────────────
 
 describe("parseArgs: bundle modify and export", () => {
-  const parse = (...args: string[]) => parseArgs(["bun", "script.ts", ...args]);
+  const parse = (...args: string[]) => parseArgs(["node", "script.ts", ...args]);
 
   test("bundle modify my-bundle parses subcommand and positional", () => {
     const r = parse("bundle", "modify", "my-bundle");

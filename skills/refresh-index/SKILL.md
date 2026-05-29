@@ -51,7 +51,7 @@ If `origin` is missing or rebase conflicts occur, **stop and ask the user** befo
 
 Verify each before any ingest. Stop and tell the user if any fails.
 
-- `bun` on PATH (`command -v bun`) — required by `bun run preindex`
+- `node` and `npm` on PATH (`command -v node`, `command -v npm`) — required by `npm run preindex`
 - `asm` on PATH (`command -v asm`) — invoked transitively by the ingester for `asm eval`
 - `gh` on PATH and authenticated (`gh auth status`) — required for PR creation
 - `git` on PATH and inside the ASM repo working tree (`git rev-parse --show-toplevel`)
@@ -113,7 +113,7 @@ done
 
 If a repo is enabled but has no existing index file, treat the pre-count as `0`. The repo will then show up in **updated** with a positive delta in Step 7.
 
-### Step 3: Run `bun run preindex`
+### Step 3: Run `npm run preindex`
 
 Re-ingest every enabled repo via the project's preindex script. Capture both stdout and the exit code — `preindex` exits 1 if any repo fails, but **do not abort the run**. We still want partial results so the summary can show what succeeded.
 
@@ -121,7 +121,7 @@ Re-ingest every enabled repo via the project's preindex script. Capture both std
 LOG="/tmp/refresh-index/preindex.log"
 cd "$ROOT"
 set +e
-bun run preindex 2>&1 | tee "$LOG"
+npm run preindex 2>&1 | tee "$LOG"
 PREINDEX_EXIT=$?
 set -e
 ```
@@ -155,7 +155,7 @@ Run the catalog build to confirm the refreshed index is structurally valid. **`w
 
 ```bash
 cd "$ROOT"
-bun scripts/build-catalog.ts
+npx tsx scripts/build-catalog.ts
 ```
 
 Verification: the script exits 0 and `website/catalog.json` is valid JSON (`jq empty website/catalog.json`). If it fails, stop the pipeline — investigate the data issue before committing anything.
@@ -176,7 +176,7 @@ if [ -n "$UNEXPECTED" ]; then
 fi
 ```
 
-Note: `bun run preindex` does **not** modify `data/skill-index-resources.json` — it only writes per-repo files under `data/skill-index/`. The resources file should only appear in the diff if the user is also refreshing the top-level `updatedAt` timestamp (optional — leave it alone unless asked).
+Note: `npm run preindex` does **not** modify `data/skill-index-resources.json` — it only writes per-repo files under `data/skill-index/`. The resources file should only appear in the diff if the user is also refreshing the top-level `updatedAt` timestamp (optional — leave it alone unless asked).
 
 If unexpected files appear (e.g. someone left edits in `src/` or `skills/`), stop and tell the user. Do not commit a mixed change.
 
@@ -268,7 +268,7 @@ Re-ingested all enabled repos in `data/skill-index-resources.json` to bring the 
 
 ## Test Plan
 - [ ] `data/skill-index/*.json` files are valid JSON
-- [ ] `bun scripts/build-catalog.ts` rebuilds `website/catalog.json` without errors
+- [ ] `npx tsx scripts/build-catalog.ts` rebuilds `website/catalog.json` without errors
 - [ ] No files outside `data/skill-index/` and `data/skill-index-resources.json` are staged
 - [ ] CI passes
 EOF
@@ -284,9 +284,9 @@ Verification: `gh pr view --json url` returns the new PR URL. Print it back to t
 On a successful run, the user should see (and the agent should verify) all of the following:
 
 1. **Repo synced** — branch is up to date with `origin`, any local edits were stashed and restored cleanly.
-2. **`bun run preindex` completed** — exit code captured; per-repo lines visible in the log.
+2. **`npm run preindex` completed** — exit code captured; per-repo lines visible in the log.
 3. **All four buckets populated** — every enabled repo lands in exactly one of updated / unchanged / failed, and every disabled repo lands in skipped. Totals add up.
-4. **`bun scripts/build-catalog.ts` succeeded** — `website/catalog.json` rebuilt and is valid JSON. **Not staged.**
+4. **`npx tsx scripts/build-catalog.ts` succeeded** — `website/catalog.json` rebuilt and is valid JSON. **Not staged.**
 5. **Diff scope contained** — only `data/skill-index/*.json` (and optionally `data/skill-index-resources.json` if explicitly refreshed) appear in `git diff`.
 6. **User confirmed** — explicit `yes` recorded before commit + push.
 7. **PR opened** — conventional-commit title (`chore(index): refresh indexed skill sources`), body filled from Step 8 template, URL returned to user.
@@ -302,8 +302,8 @@ Inputs the skill must handle without crashing, in order of likelihood:
 - **A single upstream repo is unreachable** (404, network blip): `preindex` marks it `FAILED` and continues; the failed repo lands in the **failed** bucket. The PR still ships for the other repos.
 - **All upstream repos fail** (no network, GitHub outage): every enabled repo lands in **failed**; the diff is empty; stop before Step 8 because there is nothing to commit.
 - **A repo's ingest produces zero `skillCount`** (upstream removed every SKILL.md): treat it as **updated** with a negative delta — the change is real and worth shipping.
-- **`bun run preindex` is missing or errors before producing any log lines**: stop in Step 3 — this is environmental, not a per-repo failure. Prompt the user to run `bun install` and retry.
-- **`bun scripts/build-catalog.ts` fails after a successful preindex**: stop in Step 5 — the index is internally inconsistent. Investigate manually before committing anything.
+- **`npm run preindex` is missing or errors before producing any log lines**: stop in Step 3 — this is environmental, not a per-repo failure. Prompt the user to run `npm install` and retry.
+- **`npx tsx scripts/build-catalog.ts` fails after a successful preindex**: stop in Step 5 — the index is internally inconsistent. Investigate manually before committing anything.
 - **`website/catalog.json` accidentally appears in `git status`**: it is gitignored; if `.gitignore` was broken, fix it before staging. **Never `git add website/catalog.json`.**
 - **Unexpected files in the diff** (someone left WIP edits in `src/` or `skills/`): stop in Step 6 and tell the user — do not commit a mixed change.
 - **User declines the confirmation in Step 8**: stop cleanly. Leave the refreshed `data/skill-index/*.json` files in the working tree so the user can inspect or re-confirm later. Do not `git checkout --` anything.

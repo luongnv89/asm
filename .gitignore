@@ -1,6 +1,5 @@
 node_modules/
 dist/
-bun.lock
 
 # Temp files from runInlineTs (tests/e2e). Cleaned up by a finally block
 # on success; listing them here keeps a SIGKILL'd test runner from leaving

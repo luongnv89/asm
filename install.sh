@@ -11,9 +11,8 @@ set -euo pipefail
 # ============================================================================
 
 TOOL_NAME="agent-skill-manager"
-REPO_OWNER="luongnv89"
-REPO_NAME="agent-skill-manager"
-BUN_MIN_VERSION="1.0.0"
+NODE_MIN_VERSION="18.0.0"
+NPM_MIN_VERSION="9.0.0"
 
 # --- Color Output ---
 RED='\033[0;31m'
@@ -52,102 +51,75 @@ detect_arch() {
 }
 
 # --- Version Comparison ---
-# Returns 0 if $1 >= $2 (semver)
+# Returns 0 if $1 >= $2 (semver). Strips a leading "v" and any pre-release/build
+# suffix (e.g. "20.1.0-nightly" → "20.1.0") before comparing.
 version_gte() {
     local IFS=.
-    local i ver1=($1) ver2=($2)
+    local v1_clean v2_clean
+    v1_clean="${1#v}"; v1_clean="${v1_clean%%-*}"
+    v2_clean="${2#v}"; v2_clean="${v2_clean%%-*}"
+    # Intentional word-splitting on IFS=. to turn "20.1.0" into array elements.
+    # shellcheck disable=SC2206
+    local i ver1=($v1_clean) ver2=($v2_clean)
     for ((i=0; i<${#ver2[@]}; i++)); do
-        local v1="${ver1[i]:-0}"
-        local v2="${ver2[i]:-0}"
-        if ((v1 > v2)); then return 0; fi
-        if ((v1 < v2)); then return 1; fi
+        local p1="${ver1[i]:-0}"
+        local p2="${ver2[i]:-0}"
+        # Drop any non-numeric remainder so arithmetic comparison is safe.
+        p1="${p1%%[!0-9]*}"; p2="${p2%%[!0-9]*}"
+        if ((10#${p1:-0} > 10#${p2:-0})); then return 0; fi
+        if ((10#${p1:-0} < 10#${p2:-0})); then return 1; fi
     done
     return 0
 }
 
-# --- Bun Detection & Installation ---
-check_bun() {
-    if command -v bun &>/dev/null; then
-        local bun_version
-        bun_version="$(bun --version 2>/dev/null || echo "0.0.0")"
-        if version_gte "$bun_version" "$BUN_MIN_VERSION"; then
-            ok "Bun $bun_version found (>= $BUN_MIN_VERSION required)"
-            return 0
-        else
-            warn "Bun $bun_version found but >= $BUN_MIN_VERSION is required"
-            return 1
-        fi
-    else
+# --- Node.js Detection ---
+check_node() {
+    if ! command -v node &>/dev/null; then
+        err "Node.js is not installed."
+        err "agent-skill-manager requires Node.js >= $NODE_MIN_VERSION."
+        err "Install it from https://nodejs.org/ (or via nvm, fnm, Homebrew, apt, …),"
+        err "then re-run this script."
         return 1
     fi
+
+    local node_version
+    node_version="$(node --version 2>/dev/null || echo "0.0.0")"
+    if version_gte "$node_version" "$NODE_MIN_VERSION"; then
+        ok "Node.js $node_version found (>= $NODE_MIN_VERSION required)"
+        return 0
+    fi
+
+    err "Node.js $node_version found but >= $NODE_MIN_VERSION is required."
+    err "Upgrade Node.js (https://nodejs.org/) and re-run this script."
+    return 1
 }
 
-install_bun() {
-    info "Installing Bun..."
-    if command -v curl &>/dev/null; then
-        curl -fsSL https://bun.sh/install | bash
-    elif command -v wget &>/dev/null; then
-        wget -qO- https://bun.sh/install | bash
-    else
-        die "Neither curl nor wget found. Please install one of them first."
+# --- npm Detection ---
+check_npm() {
+    if ! command -v npm &>/dev/null; then
+        err "npm is not installed."
+        err "npm ships with Node.js — reinstall Node.js from https://nodejs.org/,"
+        err "then re-run this script."
+        return 1
     fi
 
-    # Source bun into current shell
-    local bun_install="${BUN_INSTALL:-$HOME/.bun}"
-    if [ -f "$bun_install/bin/bun" ]; then
-        export BUN_INSTALL="$bun_install"
-        export PATH="$bun_install/bin:$PATH"
+    local npm_version
+    npm_version="$(npm --version 2>/dev/null || echo "0.0.0")"
+    if version_gte "$npm_version" "$NPM_MIN_VERSION"; then
+        ok "npm $npm_version found (>= $NPM_MIN_VERSION required)"
+        return 0
     fi
 
-    if ! command -v bun &>/dev/null; then
-        die "Bun installation completed but 'bun' is not in PATH. Please restart your shell and re-run this script."
-    fi
-
-    ok "Bun $(bun --version) installed"
-}
-
-# --- Ensure Bun global bin is in PATH ---
-ensure_bun_in_path() {
-    local bun_bin="${BUN_INSTALL:-$HOME/.bun}/bin"
-    if [[ ":$PATH:" != *":$bun_bin:"* ]]; then
-        export PATH="$bun_bin:$PATH"
-        info "Added $bun_bin to PATH for this session"
-    fi
+    warn "npm $npm_version found but >= $NPM_MIN_VERSION is recommended."
+    warn "Upgrade with: npm install -g npm@latest"
+    return 0
 }
 
 # --- Install agent-skill-manager ---
 install_asm() {
-    info "Installing $TOOL_NAME globally via Bun..."
-    bun install -g "$TOOL_NAME"
+    info "Installing $TOOL_NAME globally via npm..."
+    npm install -g "$TOOL_NAME"
     ok "$TOOL_NAME installed globally"
-}
-
-# --- Create command aliases ---
-create_aliases() {
-    local bun_bin="${BUN_INSTALL:-$HOME/.bun}/bin"
-    local bin_target=""
-
-    # Find the actual installed binary (could be skill-manager or agent-skill-manager)
-    for name in skill-manager agent-skill-manager; do
-        if [ -f "$bun_bin/$name" ] || [ -L "$bun_bin/$name" ]; then
-            bin_target="$bun_bin/$name"
-            break
-        fi
-    done
-
-    if [ -z "$bin_target" ]; then
-        warn "Could not find installed binary in $bun_bin"
-        return 1
-    fi
-
-    # Create symlinks for all expected command names
-    for alias_name in agent-skill-manager asm; do
-        local alias_path="$bun_bin/$alias_name"
-        if [ ! -f "$alias_path" ] && [ ! -L "$alias_path" ]; then
-            ln -s "$bin_target" "$alias_path"
-            ok "Created alias: $alias_name"
-        fi
-    done
 }
 
 # --- Verification ---
@@ -155,7 +127,8 @@ verify_installation() {
     info "Verifying installation..."
     local found=false
 
-    for cmd in agent-skill-manager asm skill-manager; do
+    # npm's `bin` field installs both `asm` and `agent-skill-manager`.
+    for cmd in agent-skill-manager asm; do
         if command -v "$cmd" &>/dev/null; then
             ok "$cmd is available"
             found=true
@@ -164,8 +137,9 @@ verify_installation() {
 
     if [ "$found" = false ]; then
         warn "No commands found in PATH"
-        warn "Add Bun's global bin to your PATH by adding this to your shell profile:"
-        warn "  export PATH=\"\$HOME/.bun/bin:\$PATH\""
+        warn "Add npm's global bin to your PATH. Find it with:"
+        warn "  npm prefix -g"
+        warn "then add its 'bin' subdirectory to PATH in your shell profile."
         return 1
     fi
 
@@ -175,9 +149,9 @@ verify_installation() {
 }
 
 # --- PATH shadowing detection ---
-# Warns when multiple `asm` binaries live on different PATH entries (e.g. one
-# from `npm install -g` and one from `bun add -g`). The first match in PATH
-# wins, so an older install can silently outrun a fresh one.
+# Warns when multiple `asm` binaries live on different PATH entries (e.g. a stale
+# global install left over from a previous package manager). The first match in
+# PATH wins, so an older install can silently outrun a fresh one.
 detect_path_shadowing() {
     local IFS=':'
     local -a hits=()
@@ -211,9 +185,8 @@ detect_path_shadowing() {
             warn "  shadowed: ${hits[$i]}"
             i=$((i + 1))
         done
-        warn "Pick one package manager (npm OR bun) and remove the other:"
+        warn "Remove the stale install and keep only one:"
         warn "  npm uninstall -g agent-skill-manager"
-        warn "  bun remove -g agent-skill-manager"
     fi
 }
 
@@ -231,24 +204,18 @@ main() {
     info "OS: $os | Arch: $arch"
     echo ""
 
-    # Step 1: Ensure Bun is installed
-    if ! check_bun; then
-        install_bun
-    fi
+    # Step 1: Ensure Node.js and npm are present (instruct on failure; we do not
+    # auto-install a runtime via curl|bash).
+    check_node || exit 1
+    check_npm || exit 1
     echo ""
 
-    # Step 2: Ensure Bun global bin is in PATH
-    ensure_bun_in_path
-
-    # Step 3: Install agent-skill-manager
+    # Step 2: Install agent-skill-manager (npm installs both `asm` and
+    # `agent-skill-manager` from package.json's `bin` field).
     install_asm
     echo ""
 
-    # Step 4: Create aliases (agent-skill-manager, asm)
-    create_aliases
-    echo ""
-
-    # Step 5: Verify
+    # Step 3: Verify
     if verify_installation; then
         echo ""
         info "============================================"

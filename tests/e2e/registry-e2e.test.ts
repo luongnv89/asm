@@ -127,7 +127,7 @@ beforeAll(async () => {
     await access(DIST_BIN);
   } catch {
     throw new Error(
-      `dist binary not found at ${DIST_BIN}. Run "bun run build" first.`,
+      `dist binary not found at ${DIST_BIN}. Run "npm run build" first.`,
     );
   }
 });

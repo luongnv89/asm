@@ -163,11 +163,11 @@ metadata:
 
 | Aspect       | Detail                                                                    |
 | ------------ | ------------------------------------------------------------------------- |
-| Runtime      | Bun >= 1.0 (also runs on Node.js >= 18)                                   |
+| Runtime      | Node.js >= 18                                                             |
 | Language     | TypeScript (ESNext, strict mode)                                          |
-| Build        | Bun bundler, pre-built for npm distribution                               |
+| Build        | esbuild via `tsx scripts/build.ts`, pre-built for npm distribution        |
 | Dependencies | 2 production: `@opentui/core` 0.1.87, `yaml` ^2.8.2                       |
-| Testing      | Bun test runner, 722 test cases across 15 files                           |
+| Testing      | Vitest test runner                                                        |
 | CI           | GitHub Actions (format, typecheck, test)                                  |
 | Pre-commit   | Prettier + trailing whitespace + YAML/JSON checks + typecheck             |
 | Distribution | npm (`agent-skill-manager`), binary aliases: `asm`, `agent-skill-manager` |
@@ -295,7 +295,7 @@ asm update --json         # Machine-readable output
 
 A GitHub Pages-hosted, auto-generated skill directory.
 
-**Stack:** Bun static site generator + GitHub Actions rebuild on push.
+**Stack:** Vite static site build + GitHub Actions rebuild on push.
 
 **Pages:**
 
@@ -558,7 +558,7 @@ Optional paid skills with license key validation. Revenue split with skill autho
 | Production dependencies    | Stay at 2 (or reduce)                   |
 | Test coverage              | > 700 test cases, 40%+ test:code ratio  |
 | CI pipeline                | < 2 minutes (format + typecheck + test) |
-| Node.js compatibility      | >= 18 (Bun optional runtime)            |
+| Node.js compatibility      | >= 18                                   |
 
 ---
 

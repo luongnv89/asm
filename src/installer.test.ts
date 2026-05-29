@@ -1769,7 +1769,7 @@ describe("executeInstallAllProviders with project scope", () => {
 
 describe("checkNpxAvailable", () => {
   test("does not throw when npx is available", async () => {
-    // npx should be available in the test environment since bun/node is present
+    // npx should be available in the test environment since node is present
     await expect(checkNpxAvailable()).resolves.toBeUndefined();
   });
 });

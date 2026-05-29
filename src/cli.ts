@@ -280,7 +280,7 @@ interface ParsedArgs {
 }
 
 export function parseArgs(argv: string[]): ParsedArgs {
-  const args = argv.slice(2); // skip bun and script path
+  const args = argv.slice(2); // skip node and script path
 
   const result: ParsedArgs = {
     command: null,
@@ -5387,7 +5387,7 @@ export async function runCLI(argv: string[]): Promise<void> {
       }
       console.error(
         ansi.dim(
-          "  Pick one package manager (npm OR bun) and remove the other install.",
+          "  Remove the stale global install (npm uninstall -g agent-skill-manager) and keep only one.",
         ),
       );
       console.error(

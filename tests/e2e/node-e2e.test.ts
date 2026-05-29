@@ -347,11 +347,6 @@ describe("Node E2E: no Node.js protocol errors", () => {
     const { stderr } = await runNode("--version");
     expect(stderr).not.toContain("ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING");
   });
-
-  test("no bun: protocol references in error output", async () => {
-    const { stderr } = await runNode("list", "--json");
-    expect(stderr).not.toContain("bun:");
-  });
 });
 
 // ─── Per-command --help ─────────────────────────────────────────────────────
@@ -381,36 +376,6 @@ describe("Node E2E: per-command --help", () => {
       expect(exitCode).toBe(0);
     });
   }
-});
-
-// Regression: `eval --fix` and `publish` previously called `Bun.spawn` directly,
-// which threw `ReferenceError: Bun is not defined` on Node. Both code paths now
-// route through `runCommand()` (src/utils/spawn.ts) so they must not blow up
-// with a Bun reference error when invoked under Node.
-describe("Node E2E: bun-free CLI execution (issue #221)", () => {
-  test("eval --fix invokes detectGitAuthor without ReferenceError", async () => {
-    // `--fix` is the path that calls detectGitAuthor() → runCommand().
-    // The missing skill path will fail later in applyFix, but only after
-    // detectGitAuthor has exercised runCommand's Node branch.
-    const { stderr, exitCode } = await runNode(
-      "eval",
-      "/tmp/asm-does-not-exist-xyz",
-      "--fix",
-      "--dry-run",
-    );
-    expect(stderr).not.toContain("Bun is not defined");
-    expect(stderr).not.toContain("ReferenceError");
-    expect(exitCode).not.toBe(0);
-  });
-
-  test("publish --dry-run on non-repo exits cleanly without ReferenceError", async () => {
-    // /tmp is intentionally not a git repo; publish should fail cleanly via
-    // its own error path, not via a Bun ReferenceError from a spawn site.
-    const { stderr, exitCode } = await runNode("publish", "/tmp", "--dry-run");
-    expect(stderr).not.toContain("Bun is not defined");
-    expect(stderr).not.toContain("ReferenceError");
-    expect(exitCode).not.toBe(0);
-  });
 });
 
 // ─── inspect command ──────────────────────────────────────────────────────

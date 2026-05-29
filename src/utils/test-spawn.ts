@@ -13,8 +13,8 @@ import type {
 } from "node:child_process";
 
 /**
- * Thin argv-first wrapper around `child_process.spawnSync` for tests that used
- * to call `Bun.spawnSync(argv, opts)`. Returns the Node-shaped result directly.
+ * Thin argv-first wrapper around `child_process.spawnSync` for tests. Takes an
+ * argv array (`[cmd, ...args]`) and returns the Node-shaped result directly.
  */
 export function spawnSyncArgv(
   argv: readonly string[],
@@ -25,9 +25,9 @@ export function spawnSyncArgv(
 }
 
 /**
- * Argv-first wrapper around `child_process.spawn`. Test code that previously
- * called `Bun.spawn(argv, { stdout: "pipe", stderr: "pipe", cwd })` now uses
- * this, and then reads `proc.stdout` / `proc.stderr` as Node streams.
+ * Argv-first wrapper around `child_process.spawn`. Takes an argv array and
+ * returns a Node `ChildProcess` whose `proc.stdout` / `proc.stderr` are read
+ * as Node streams.
  */
 export function spawnArgv(
   argv: readonly string[],
@@ -38,9 +38,8 @@ export function spawnArgv(
 }
 
 /**
- * Collect stdout/stderr and wait for exit. Mirrors the `{ exitCode, stdout,
- * stderr }` shape that Bun.spawn / `await new Response(proc.stdout).text()`
- * produced, so call sites can keep the same assertions.
+ * Collect stdout/stderr and wait for exit, resolving to a
+ * `{ exitCode, stdout, stderr }` shape that call sites assert against.
  */
 export function spawnCollect(
   argv: readonly string[],
@@ -85,7 +84,7 @@ export function spawnCollect(
 }
 
 /**
- * Run an inline TS snippet under `tsx` (replacement for `bun -e <script>`).
+ * Run an inline TS snippet under `tsx`.
  * Writes the snippet inside `opts.cwd` (or process.cwd()) so that relative
  * imports like `./src/registry` resolve against the project tree, then runs
  * it via `npx tsx` and cleans up.

@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- [Bun](https://bun.sh) >= 1.0.0
+- [Node.js](https://nodejs.org/) >= 18.0.0 (with npm >= 9)
 - [Git](https://git-scm.com/)
 - [pre-commit](https://pre-commit.com/) (optional, for git hooks)
 
@@ -70,7 +70,7 @@ pre-commit install
 
 Since this is a TUI application, standard `console.log` will interfere with the terminal UI. For debugging:
 
-1. Write to a log file: `Bun.write("/tmp/sm-debug.log", JSON.stringify(data))`
+1. Write to a log file: `fs.writeFileSync("/tmp/sm-debug.log", JSON.stringify(data))`
 2. Run tests to isolate logic from the TUI layer
 3. Use CLI commands to test core logic without launching the TUI:
    ```bash

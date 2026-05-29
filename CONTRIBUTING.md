@@ -6,7 +6,7 @@ Thanks for your interest in contributing! This guide will help you get started.
 
 ### Prerequisites
 
-- [Bun](https://bun.sh) >= 1.0.0
+- [Node.js](https://nodejs.org/) >= 18.0.0 (with npm >= 9)
 - [Git](https://git-scm.com/)
 
 ### Development Setup

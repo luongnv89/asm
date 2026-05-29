@@ -392,11 +392,11 @@ describe("parseArgs publish flags", () => {
 
 describe("isCLIMode recognizes publish", () => {
   test("publish is recognized as CLI mode", () => {
-    expect(isCLIMode(["bun", "script.ts", "publish"])).toBe(true);
+    expect(isCLIMode(["node", "script.ts", "publish"])).toBe(true);
   });
 
   test("publish with flags is CLI mode", () => {
-    expect(isCLIMode(["bun", "script.ts", "publish", "--dry-run"])).toBe(true);
+    expect(isCLIMode(["node", "script.ts", "publish", "--dry-run"])).toBe(true);
   });
 });
 

@@ -31,7 +31,7 @@ If applicable, add screenshots to help explain your problem.
 ## Environment
 
 - OS: [e.g., macOS 14.0, Ubuntu 22.04, Windows 11]
-- Bun version: [e.g., 1.1.0]
+- Node.js version: [e.g., 20.11.0]
 - agent-skill-manager version: [e.g., 1.0.0]
 
 ## Additional Context

@@ -14,8 +14,8 @@
  * new runs.
  *
  * Usage:
- *   bun run scripts/enrich-index.ts
- *   bun run scripts/enrich-index.ts --only anthropics/skills
+ *   npx tsx scripts/enrich-index.ts
+ *   npx tsx scripts/enrich-index.ts --only anthropics/skills
  */
 
 import { fileURLToPath } from "url";
