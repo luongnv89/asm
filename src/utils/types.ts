@@ -49,6 +49,30 @@ export interface SkillInfo {
     pluginVersion?: string;
     enabled?: boolean;
   };
+  /**
+   * True when this skill instance is currently disabled via `asm disable`
+   * (its `SKILL.md` was renamed to `SKILL.md.disabled`, so the scanner can't
+   * see it — `asm list` reconstructs the row from the skill-state file).
+   */
+  disabled?: boolean;
+}
+
+/**
+ * Persisted "disabled" state for skills toggled off via `asm disable`.
+ *
+ * The on-disk rename of `SKILL.md` → `SKILL.md.disabled` is the enforcement
+ * mechanism; this file is the source of truth for what asm itself disabled and
+ * lets `asm list` re-surface entries the scanner can no longer see.
+ *
+ * Structure is keyed by skill dirName → provider → scope → `true`, designed to
+ * be shared with future sandbox-mode work (issue #92).
+ */
+export interface SkillStateFile {
+  version: 1;
+  disabled: Record<
+    string,
+    Record<string, Partial<Record<"global" | "project", true>>>
+  >;
 }
 
 /**

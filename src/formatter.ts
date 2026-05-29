@@ -114,7 +114,9 @@ export function formatSkillTable(skills: SkillInfo[]): string {
   ];
 
   const rows = skills.map((s) => [
-    s.name,
+    // Append a `[disabled]` tag to the name cell for disabled instances so the
+    // column width accounts for it; the whole line is dimmed below (issue #91).
+    s.disabled ? `${s.name} [disabled]` : s.name,
     s.version,
     s.creator || "\u2014",
     s.effort || "\u2014",
@@ -133,9 +135,11 @@ export function formatSkillTable(skills: SkillInfo[]): string {
 
   const headerLine = headers.map((h, i) => pad(h, widths[i])).join("  ");
   const separator = widths.map((w) => "-".repeat(w)).join("--");
-  const dataLines = rows.map((row) =>
-    row.map((cell, i) => pad(cell, widths[i])).join("  "),
-  );
+  const dataLines = rows.map((row, idx) => {
+    const line = row.map((cell, i) => pad(cell, widths[i])).join("  ");
+    // Dim the entire row for disabled instances.
+    return skills[idx].disabled ? ansi.dim(line) : line;
+  });
 
   return [
     useColor() ? ansi.bold(headerLine) : headerLine,
@@ -157,13 +161,17 @@ interface GroupedSkill {
   type: "symlink" | "directory" | "mixed";
   path: string;
   warningCount: number;
+  /** True when every instance in this group is disabled (issue #91). */
+  disabled: boolean;
 }
 
 function groupSkills(skills: SkillInfo[]): GroupedSkill[] {
   const groups = new Map<string, SkillInfo[]>();
 
   for (const s of skills) {
-    const key = `${s.dirName}||${s.scope}`;
+    // Include disabled state in the key so a disabled instance never collapses
+    // into the same row as an active instance of the same dirName+scope.
+    const key = `${s.dirName}||${s.scope}||${s.disabled ? "off" : "on"}`;
     const list = groups.get(key) ?? [];
     list.push(s);
     groups.set(key, list);
@@ -197,10 +205,19 @@ function groupSkills(skills: SkillInfo[]): GroupedSkill[] {
         (sum, m) => sum + (m.warnings?.length ?? 0),
         0,
       ),
+      disabled: members.every((m) => m.disabled === true),
     });
   }
 
   return result;
+}
+
+/**
+ * Display name for a grouped row — appends ` [disabled]` for disabled groups so
+ * column-width math and the rendered cell stay consistent (issue #91).
+ */
+function groupDisplayName(g: GroupedSkill): string {
+  return g.disabled ? `${g.name} [disabled]` : g.name;
 }
 
 /**
@@ -327,7 +344,7 @@ export function formatCompactTable(skills: SkillInfo[]): string {
   const grouped = groupSkills(skills);
   const lines: string[] = [];
 
-  const nameW = Math.max(4, ...grouped.map((g) => g.name.length));
+  const nameW = Math.max(4, ...grouped.map((g) => groupDisplayName(g).length));
   const versionW = Math.max(7, ...grouped.map((g) => g.version.length));
 
   const providerStrs = grouped.map((g) =>
@@ -343,12 +360,13 @@ export function formatCompactTable(skills: SkillInfo[]): string {
 
   for (let i = 0; i < grouped.length; i++) {
     const g = grouped[i];
-    const name = pad(g.name, nameW);
+    const name = pad(groupDisplayName(g), nameW);
     const version = ansi.dim(pad(g.version, versionW));
     const provPadding = providerW - providerPlain[i].length;
     const prov = providerStrs[i] + " ".repeat(Math.max(0, provPadding));
     const scope = ansi.dim(pad(g.scope, scopeW));
-    lines.push(`${name}  ${version}  ${prov}  ${scope}`);
+    const row = `${name}  ${version}  ${prov}  ${scope}`;
+    lines.push(g.disabled ? ansi.dim(row) : row);
   }
 
   // Footer — short, just total/unique count
@@ -502,7 +520,9 @@ export function formatGroupedTable(skills: SkillInfo[]): string {
   // Data rows
   for (let i = 0; i < grouped.length; i++) {
     const g = grouped[i];
-    const name = pad(g.name, nameW);
+    // Disabled groups get a `[disabled]` tag on the name; the whole row is
+    // dimmed below (issue #91).
+    const name = pad(groupDisplayName(g), nameW);
     const version = pad(g.version, versionW);
     const creatorDisplay = (g.creator || "\u2014").slice(0, 15);
     const creator = pad(creatorDisplay, creatorW);
@@ -523,9 +543,8 @@ export function formatGroupedTable(skills: SkillInfo[]): string {
         ? ` ${ansi.yellow(`(${g.warningCount} warning${g.warningCount > 1 ? "s" : ""})`)}`
         : "";
 
-    lines.push(
-      `${name}  ${version}  ${creator}  ${effort}${tokensCell}  ${prov}  ${scope}  ${type}${warn}`,
-    );
+    const row = `${name}  ${version}  ${creator}  ${effort}${tokensCell}  ${prov}  ${scope}  ${type}${warn}`;
+    lines.push(g.disabled ? ansi.dim(row) : row);
   }
 
   // Footer summary

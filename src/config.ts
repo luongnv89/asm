@@ -16,6 +16,7 @@ const HOME = homedir();
 const CONFIG_DIR = join(HOME, ".config", "agent-skill-manager");
 const CONFIG_PATH = join(CONFIG_DIR, "config.json");
 const LOCK_PATH = join(CONFIG_DIR, ".skill-lock.json");
+const SKILL_STATE_PATH = join(CONFIG_DIR, "skill-state.json");
 const INDEX_DIR = join(CONFIG_DIR, "skill-index");
 
 const DEFAULT_PROVIDERS: ProviderConfig[] = [
@@ -175,6 +176,14 @@ export function getConfigPath(): string {
 
 export function getLockPath(): string {
   return LOCK_PATH;
+}
+
+/**
+ * Returns the path to the skill-state file that records which skills asm has
+ * disabled (survives across sessions). See `src/skill-state.ts`.
+ */
+export function getSkillStatePath(): string {
+  return SKILL_STATE_PATH;
 }
 
 export function getIndexDir(): string {
