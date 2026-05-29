@@ -41,9 +41,9 @@ Parses arguments and dispatches to command handlers:
 
 Output is routed through `formatter.ts` for consistent table, detail, and JSON formatting.
 
-## TUI Mode (`src/index.ts`)
+## TUI Mode (`src/index.tsx`)
 
-Initializes the OpenTUI renderer, wires up keyboard handlers, and manages view state transitions.
+Renders the root ink/React component, wires up keyboard handlers (`useInput`), and manages view state transitions.
 
 ### View State Machine
 
@@ -64,17 +64,17 @@ stateDiagram-v2
 
 ### Views (`src/views/`)
 
-Each view is a factory function that creates OpenTUI components:
+Each view is an ink/React component:
 
-| View         | File              | Purpose                                              |
-| ------------ | ----------------- | ---------------------------------------------------- |
-| Dashboard    | `dashboard.ts`    | Main layout with scope tabs, search input, stats bar |
-| Skill List   | `skill-list.ts`   | Scrollable, selectable list of discovered skills     |
-| Skill Detail | `skill-detail.ts` | Overlay showing full skill metadata                  |
-| Confirm      | `confirm.ts`      | Uninstall confirmation dialog with removal plan      |
-| Duplicates   | `duplicates.ts`   | Two-phase audit overlay (groups → instance picker)   |
-| Config       | `config.ts`       | Provider toggle UI                                   |
-| Help         | `help.ts`         | Keyboard shortcut overlay                            |
+| View         | File               | Purpose                                              |
+| ------------ | ------------------ | ---------------------------------------------------- |
+| Dashboard    | `dashboard.tsx`    | Main layout with scope tabs, search input, stats bar |
+| Skill List   | `skill-list.tsx`   | Scrollable, selectable list of discovered skills     |
+| Skill Detail | `skill-detail.tsx` | Overlay showing full skill metadata                  |
+| Confirm      | `confirm.tsx`      | Uninstall confirmation dialog with removal plan      |
+| Duplicates   | `duplicates.tsx`   | Two-phase audit overlay (groups → instance picker)   |
+| Config       | `config.tsx`       | Provider toggle UI                                   |
+| Help         | `help.tsx`         | Keyboard shortcut overlay                            |
 
 ## Core Modules
 

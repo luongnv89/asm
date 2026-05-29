@@ -50,7 +50,7 @@ We are building the **npm analog for AI agent skills** — a lightweight, npm-na
 **Key advantages we double down on:**
 
 - Zero-friction npm install (`npm i -g agent-skill-manager`)
-- Minimal dependencies (2 production deps)
+- Minimal dependencies (ink-based TUI + yaml)
 - Strict TypeScript, 42% test:code ratio
 - Built-in security scanning (26 pattern rules)
 - Pre-indexed offline skill search
@@ -62,10 +62,10 @@ We are building the **npm analog for AI agent skills** — a lightweight, npm-na
 
 ### 4.1 Dual Interface
 
-| Interface           | Description                                                                                                                                                                                                      |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Interactive TUI** | Full terminal UI built on OpenTUI. Dashboard with scope tabs, live search, skill detail overlays, duplicate audit, config editor, help overlay. Keyboard-driven (j/k navigation, `/` search, `Tab` scope cycle). |
-| **CLI**             | Non-interactive commands for scripting and automation. All commands support `--json` output, `--scope`, `--sort`, `--no-color`, `--verbose`, `--yes`.                                                            |
+| Interface           | Description                                                                                                                                                                                                            |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Interactive TUI** | Full terminal UI built on `ink` + React. Dashboard with scope tabs, live search, skill detail overlays, duplicate audit, config editor, help overlay. Keyboard-driven (j/k navigation, `/` search, `Tab` scope cycle). |
+| **CLI**             | Non-interactive commands for scripting and automation. All commands support `--json` output, `--scope`, `--sort`, `--no-color`, `--verbose`, `--yes`.                                                                  |
 
 ### 4.2 Skill Discovery & Browsing
 
@@ -161,16 +161,16 @@ metadata:
 
 ### 4.10 Technical Foundation
 
-| Aspect       | Detail                                                                    |
-| ------------ | ------------------------------------------------------------------------- |
-| Runtime      | Node.js >= 18                                                             |
-| Language     | TypeScript (ESNext, strict mode)                                          |
-| Build        | esbuild via `tsx scripts/build.ts`, pre-built for npm distribution        |
-| Dependencies | 2 production: `@opentui/core` 0.1.87, `yaml` ^2.8.2                       |
-| Testing      | Vitest test runner                                                        |
-| CI           | GitHub Actions (format, typecheck, test)                                  |
-| Pre-commit   | Prettier + trailing whitespace + YAML/JSON checks + typecheck             |
-| Distribution | npm (`agent-skill-manager`), binary aliases: `asm`, `agent-skill-manager` |
+| Aspect       | Detail                                                                             |
+| ------------ | ---------------------------------------------------------------------------------- |
+| Runtime      | Node.js >= 18                                                                      |
+| Language     | TypeScript (ESNext, strict mode)                                                   |
+| Build        | esbuild via `tsx scripts/build.ts`, pre-built for npm distribution                 |
+| Dependencies | Production: `ink` + `@inkjs/ui` (TUI), `react`/`react-dom`, `react-window`, `yaml` |
+| Testing      | Vitest test runner                                                                 |
+| CI           | GitHub Actions (Node 18/20/22 matrix: audit, unit tests, build, E2E)               |
+| Pre-commit   | Prettier + trailing whitespace + YAML/JSON checks + typecheck                      |
+| Distribution | npm (`agent-skill-manager`), binary aliases: `asm`, `agent-skill-manager`          |
 
 ---
 
@@ -502,8 +502,8 @@ Optional paid skills with license key validation. Revenue split with skill autho
   └─────────────────┬─────────────────────┬────────────────────┘
                     │                     │
         ┌───────────▼──────────┐  ┌───────▼──────────┐
-        │  cli.ts (dispatcher) │  │  index.ts (TUI)  │
-        │  13 commands         │  │  OpenTUI views   │
+        │  cli.ts (dispatcher) │  │  index.tsx (TUI) │
+        │  13 commands         │  │  ink/React views │
         └───────────┬──────────┘  └───────┬──────────┘
                     │                     │
         ┌───────────▼─────────────────────▼────────────────────┐
@@ -546,19 +546,19 @@ Optional paid skills with license key validation. Revenue split with skill autho
 
 ## 11. Non-functional Requirements
 
-| Requirement                | Target                                  |
-| -------------------------- | --------------------------------------- |
-| Install time               | `npm i -g` completes in < 10 seconds    |
-| CLI startup                | < 200ms to first output                 |
-| TUI startup                | < 500ms to interactive                  |
-| `asm list` (50 skills)     | < 1 second                              |
-| `asm outdated` (50 skills) | < 10 seconds (parallel git ls-remote)   |
-| `asm install`              | < 30 seconds for typical skill repo     |
-| Bundle size (dist/)        | < 30 MB                                 |
-| Production dependencies    | Stay at 2 (or reduce)                   |
-| Test coverage              | > 700 test cases, 40%+ test:code ratio  |
-| CI pipeline                | < 2 minutes (format + typecheck + test) |
-| Node.js compatibility      | >= 18                                   |
+| Requirement                | Target                                    |
+| -------------------------- | ----------------------------------------- |
+| Install time               | `npm i -g` completes in < 10 seconds      |
+| CLI startup                | < 200ms to first output                   |
+| TUI startup                | < 500ms to interactive                    |
+| `asm list` (50 skills)     | < 1 second                                |
+| `asm outdated` (50 skills) | < 10 seconds (parallel git ls-remote)     |
+| `asm install`              | < 30 seconds for typical skill repo       |
+| Bundle size (dist/)        | < 30 MB                                   |
+| Production dependencies    | Keep minimal (TUI + yaml only)            |
+| Test coverage              | > 700 test cases, 40%+ test:code ratio    |
+| CI pipeline                | < 5 minutes (audit + tests + build + E2E) |
+| Node.js compatibility      | >= 18                                     |
 
 ---
 

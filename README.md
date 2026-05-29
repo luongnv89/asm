@@ -1204,10 +1204,14 @@ agent-skill-manager/
 
 ### Dependencies
 
-| Library                                               | Description                                                                                        |
-| ----------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| [@opentui/core](https://github.com/anomalyco/opentui) | TypeScript library on a native Zig core for building terminal user interfaces — powers the asm TUI |
-| [yaml](https://github.com/eemeli/yaml)                | JavaScript parser and stringifier for YAML — used to parse SKILL.md frontmatter                    |
+| Library                                                 | Description                                                                     |
+| ------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| [ink](https://github.com/vadimdemedes/ink)              | React renderer for interactive command-line apps — powers the asm TUI           |
+| [@inkjs/ui](https://github.com/vadimdemedes/ink-ui)     | Prebuilt ink components (inputs, spinners, lists) used across the TUI views     |
+| [react](https://github.com/facebook/react)              | UI library backing the ink TUI components and the web catalog                   |
+| [react-dom](https://github.com/facebook/react)          | React DOM renderer for the browser-based skill catalog                          |
+| [react-window](https://github.com/bvaughn/react-window) | Windowed list virtualization for the browser-based skill catalog                |
+| [yaml](https://github.com/eemeli/yaml)                  | JavaScript parser and stringifier for YAML — used to parse SKILL.md frontmatter |
 
 ---
 

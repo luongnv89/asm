@@ -35,6 +35,25 @@ describe("build: dist entry point", () => {
   });
 });
 
+// ─── no bun:ffi leak (issue #35 regression) ─────────────────────────────────
+// The bun:ffi native dependency was removed in #224. This guard ensures it
+// never creeps back into a shipped artifact: a literal "bun:ffi" import would
+// make Node throw ERR_UNSUPPORTED_ESM_URL_SCHEME at runtime.
+
+describe("build: no bun:ffi leak (issue #35 regression)", () => {
+  test('no dist file contains a literal "bun:ffi" import', () => {
+    const files = readdirSync(DIST).filter((f) => f.endsWith(".js"));
+    for (const file of files) {
+      const content = readFileSync(join(DIST, file), "utf-8");
+      const hasBunFfi =
+        content.includes('from "bun:ffi"') ||
+        content.includes("from 'bun:ffi'") ||
+        content.includes('require("bun:ffi")');
+      expect(hasBunFfi).toBe(false);
+    }
+  });
+});
+
 // ─── data directory ─────────────────────────────────────────────────────────
 
 describe("build: data/skill-index shipped", () => {

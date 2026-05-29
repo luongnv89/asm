@@ -378,6 +378,34 @@ describe("Node E2E: per-command --help", () => {
   }
 });
 
+// ─── error-path smoke tests ─────────────────────────────────────────────────
+// `eval --fix` and `publish` route through runCommand() (src/utils/spawn.ts).
+// These assert the spawn-heavy paths fail cleanly on bad input (nonzero exit,
+// no uncaught crash) rather than throwing an unexpected runtime error.
+
+describe("Node E2E: error-path smoke", () => {
+  test("eval --fix on a nonexistent path exits nonzero without crashing", async () => {
+    const { stderr, exitCode } = await runNode(
+      "eval",
+      "/tmp/asm-does-not-exist-xyz",
+      "--fix",
+      "--dry-run",
+    );
+    expect(exitCode).not.toBe(0);
+    expect(stderr).not.toContain("ReferenceError");
+    expect(stderr).not.toContain("is not defined");
+  });
+
+  test("publish --dry-run on a non-repo exits nonzero without crashing", async () => {
+    // /tmp is intentionally not a git repo; publish should fail via its own
+    // error path, not via an uncaught runtime error from a spawn site.
+    const { stderr, exitCode } = await runNode("publish", "/tmp", "--dry-run");
+    expect(exitCode).not.toBe(0);
+    expect(stderr).not.toContain("ReferenceError");
+    expect(stderr).not.toContain("is not defined");
+  });
+});
+
 // ─── inspect command ──────────────────────────────────────────────────────
 
 describe("Node E2E: inspect", () => {

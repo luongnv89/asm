@@ -18,14 +18,38 @@
   ],
   "dependencies": [
     {
-      "name": "@opentui/core",
-      "version": "0.1.87",
-      "url": "https://github.com/anomalyco/opentui",
-      "desc": "TypeScript library on a native Zig core for building terminal user interfaces — powers the asm TUI"
+      "name": "ink",
+      "version": "^5",
+      "url": "https://github.com/vadimdemedes/ink",
+      "desc": "React renderer for interactive command-line apps — powers the asm TUI"
+    },
+    {
+      "name": "@inkjs/ui",
+      "version": "^2",
+      "url": "https://github.com/vadimdemedes/ink-ui",
+      "desc": "Prebuilt ink components (inputs, spinners, lists) used across the TUI views"
+    },
+    {
+      "name": "react",
+      "version": "^18",
+      "url": "https://github.com/facebook/react",
+      "desc": "UI library backing the ink TUI components and the web catalog"
+    },
+    {
+      "name": "react-dom",
+      "version": "^18",
+      "url": "https://github.com/facebook/react",
+      "desc": "React DOM renderer for the browser-based skill catalog"
+    },
+    {
+      "name": "react-window",
+      "version": "^2.2.7",
+      "url": "https://github.com/bvaughn/react-window",
+      "desc": "Windowed list virtualization for the browser-based skill catalog"
     },
     {
       "name": "yaml",
-      "version": "^2.8.2",
+      "version": "^2.8.3",
       "url": "https://github.com/eemeli/yaml",
       "desc": "JavaScript parser and stringifier for YAML — used to parse SKILL.md frontmatter"
     }
