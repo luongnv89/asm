@@ -6,9 +6,10 @@ import {
   writeFile,
   readFile,
   access,
+  symlink,
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, relative } from "node:path";
 import {
   emptyState,
   loadSkillState,
@@ -23,7 +24,8 @@ import {
   skillFilePath,
   disabledFilePath,
 } from "./skill-state";
-import type { SkillStateFile } from "./utils/types";
+import { groupBySource } from "./cli";
+import type { SkillInfo, SkillStateFile } from "./utils/types";
 
 type NameDir = { name: string; dirName: string };
 
@@ -329,5 +331,215 @@ describe("disable/enable + state contract (integration)", () => {
     const reloaded = await loadSkillState(statePath);
     expect(isDisabled(reloaded, "code-review", "claude", "global")).toBe(true);
     expect(isDisabled(reloaded, "code-review", "codex", "global")).toBe(false);
+  });
+});
+
+describe("symlinked-sibling topology (real install layout, issue #91)", () => {
+  // `asm install` to multiple providers copies the skill into ONE primary
+  // provider and symlinks every other provider's directory at that copy (see
+  // installer.ts `executeInstallAllProviders`). All siblings therefore share a
+  // single SKILL.md. These tests document that disable/enable resolve through a
+  // dir-symlink to the canonical source — they would catch a future change that
+  // breaks the symlink or writes a stray copy. (The original per-tool-desync bug
+  // lived at the command layer, not here — see the `groupBySource` tests below.)
+  let root: string;
+  let canonicalDir: string; // primary provider's real copy
+  let symlinkDir: string; // another provider's symlinked directory
+
+  beforeEach(async () => {
+    root = await mkdtemp(join(tmpdir(), "asm-symlink-"));
+    const claudeProvider = join(root, "claude");
+    const codexProvider = join(root, "codex");
+    canonicalDir = join(claudeProvider, "code-review");
+    symlinkDir = join(codexProvider, "code-review");
+
+    await mkdir(canonicalDir, { recursive: true });
+    await mkdir(codexProvider, { recursive: true });
+    await writeFile(
+      skillFilePath(canonicalDir),
+      "---\nname: code-review\n---\nbody\n",
+    );
+    // codex's directory is a relative symlink at the claude copy, exactly as
+    // the installer creates it.
+    await symlink(relative(codexProvider, canonicalDir), symlinkDir, "dir");
+  });
+
+  afterEach(async () => {
+    await rm(root, { recursive: true, force: true });
+  });
+
+  it("disabling via the SYMLINK path renames the canonical SKILL.md (not a stray copy)", async () => {
+    expect(await disableSkillInstance(symlinkDir)).toBe(true);
+
+    // The rename landed on the shared canonical source — there is exactly one
+    // SKILL.md.disabled and no orphaned SKILL.md left behind anywhere.
+    await expect(
+      access(disabledFilePath(canonicalDir)),
+    ).resolves.toBeUndefined();
+    await expect(access(skillFilePath(canonicalDir))).rejects.toThrow();
+    // Seen through the symlink, the canonical state is reflected for the sibling.
+    await expect(access(skillFilePath(symlinkDir))).rejects.toThrow();
+  });
+
+  it("is deterministic: disabling via canonical or symlink path hits the same file", async () => {
+    // Drive the disable from the canonical side this time.
+    expect(await disableSkillInstance(canonicalDir)).toBe(true);
+    await expect(
+      access(disabledFilePath(canonicalDir)),
+    ).resolves.toBeUndefined();
+
+    // A second call via the symlink path is a no-op — it resolves to the same
+    // already-disabled canonical source, so there is no double-rename or throw.
+    expect(await disableSkillInstance(symlinkDir)).toBe(false);
+    await expect(
+      access(disabledFilePath(canonicalDir)),
+    ).resolves.toBeUndefined();
+  });
+
+  it("enabling via the symlink path restores the shared canonical SKILL.md", async () => {
+    await disableSkillInstance(canonicalDir);
+
+    expect(await enableSkillInstance(symlinkDir)).toBe(true);
+    await expect(access(skillFilePath(canonicalDir))).resolves.toBeUndefined();
+    await expect(access(disabledFilePath(canonicalDir))).rejects.toThrow();
+    // Content survives the symlink-path round-trip.
+    expect(await readFile(skillFilePath(canonicalDir), "utf-8")).toContain(
+      "name: code-review",
+    );
+  });
+});
+
+describe("groupBySource — sibling expansion (the per-tool desync fix, issue #91)", () => {
+  // The original bug: `disable --tool codex` on a skill symlinked across tools
+  // renames the ONE shared SKILL.md (disabling claude too), but the old loop
+  // recorded state only for the matched `codex` subset → `asm list` lost the
+  // claude row (file gone, state silent) and `enable` couldn't clear it.
+  // groupBySource expands the matched subset to every sibling sharing the
+  // canonical `realPath` (discovered from the *unfiltered* pool), so the command
+  // records/clears state for all of them. These fixtures discriminate the fix
+  // from the bug; the loop-mirroring assertions fail on the pre-fix code.
+
+  function info(
+    over: Partial<SkillInfo> & Pick<SkillInfo, "provider">,
+  ): SkillInfo {
+    return {
+      name: "code-review",
+      version: "1.0.0",
+      description: "",
+      creator: "",
+      license: "",
+      compatibility: "",
+      allowedTools: [],
+      dirName: "code-review",
+      path: `/skills/${over.provider}/code-review`,
+      originalPath: `/skills/${over.provider}/code-review`,
+      location: `global-${over.provider}`,
+      scope: "global",
+      providerLabel: over.provider,
+      isSymlink: false,
+      symlinkTarget: null,
+      // Default: each provider its own realPath (copy topology). Symlink
+      // topology is modeled by passing a shared `realPath`.
+      realPath: `/skills/${over.provider}/code-review`,
+      ...over,
+    };
+  }
+
+  it("symlink topology: --tool codex expands to every sibling sharing the source", () => {
+    const shared = "/skills/claude/code-review"; // canonical copy claude holds
+    const claude = info({ provider: "claude", realPath: shared });
+    const codex = info({
+      provider: "codex",
+      realPath: shared,
+      isSymlink: true,
+    });
+    const pool = [claude, codex];
+
+    // Simulate `--tool codex`: only codex is matched.
+    const groups = groupBySource([codex], pool);
+    expect(groups).toHaveLength(1);
+    expect(groups[0].siblings.map((s) => s.provider).sort()).toEqual([
+      "claude",
+      "codex",
+    ]);
+
+    // Mirror cmdDisable's record-every-sibling loop. On the pre-fix code this
+    // recorded only codex, leaving claude's disabled file orphaned in `list`.
+    const st = emptyState();
+    for (const g of groups) {
+      for (const s of g.siblings)
+        setDisabled(st, s.dirName, s.provider, s.scope);
+    }
+    expect(isDisabled(st, "code-review", "claude", "global")).toBe(true);
+    expect(isDisabled(st, "code-review", "codex", "global")).toBe(true);
+  });
+
+  it("copy topology: distinct realPaths stay independent — --tool codex records only codex", () => {
+    const claude = info({ provider: "claude" }); // own realPath
+    const codex = info({ provider: "codex" }); // own realPath
+    const pool = [claude, codex];
+
+    const groups = groupBySource([codex], pool);
+    expect(groups).toHaveLength(1);
+    expect(groups[0].siblings.map((s) => s.provider)).toEqual(["codex"]);
+
+    const st = emptyState();
+    for (const g of groups) {
+      for (const s of g.siblings)
+        setDisabled(st, s.dirName, s.provider, s.scope);
+    }
+    expect(isDisabled(st, "code-review", "codex", "global")).toBe(true);
+    expect(isDisabled(st, "code-review", "claude", "global")).toBe(false);
+  });
+
+  it("collapses multiple matched siblings of the same source into one group", () => {
+    const shared = "/skills/claude/code-review";
+    const claude = info({ provider: "claude", realPath: shared });
+    const codex = info({
+      provider: "codex",
+      realPath: shared,
+      isSymlink: true,
+    });
+    const pool = [claude, codex];
+
+    // `--all` matches both; they must collapse to a single rename group.
+    const groups = groupBySource([claude, codex], pool);
+    expect(groups).toHaveLength(1);
+    expect(groups[0].siblings).toHaveLength(2);
+  });
+
+  it("enable side: reconstructed disabled siblings share a realPath so both clear", () => {
+    // After disabling a symlinked skill, reconstructDisabledSkills resolves each
+    // recorded provider to the same canonical realPath (via fsRealpath); enabling
+    // must then clear state for every sibling, or claude stays stuck-disabled.
+    const shared = "/skills/claude/code-review";
+    const claude = info({
+      provider: "claude",
+      realPath: shared,
+      disabled: true,
+    });
+    const codex = info({
+      provider: "codex",
+      realPath: shared,
+      isSymlink: true,
+      disabled: true,
+    });
+    const disabledPool = [claude, codex];
+
+    // `enable --tool codex` matches codex; group expands to both.
+    const groups = groupBySource([codex], disabledPool);
+    expect(groups[0].siblings.map((s) => s.provider).sort()).toEqual([
+      "claude",
+      "codex",
+    ]);
+
+    const st = emptyState();
+    setDisabled(st, "code-review", "claude", "global");
+    setDisabled(st, "code-review", "codex", "global");
+    for (const g of groups) {
+      for (const s of g.siblings)
+        clearDisabled(st, s.dirName, s.provider, s.scope);
+    }
+    expect(st.disabled).toEqual({});
   });
 });

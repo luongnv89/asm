@@ -17,7 +17,7 @@ import {
   enableSkillInstance,
   disabledFilePath,
 } from "./skill-state";
-import { readFile as fsReadFile } from "fs/promises";
+import { readFile as fsReadFile, realpath as fsRealpath } from "fs/promises";
 import { existsSync } from "fs";
 import {
   buildRemovalPlan,
@@ -1253,6 +1253,10 @@ Disable skills without uninstalling them. Disabling renames a skill's
 ${ansi.dim("SKILL.md")} to ${ansi.dim("SKILL.md.disabled")} so neither asm nor your agent sees it.
 The directory stays intact; ${ansi.bold("asm enable")} reverses it.
 
+${ansi.dim("Note: skills installed to several tools at once share one SKILL.md")}
+${ansi.dim("(siblings are symlinks), so disabling one affects all of them — asm warns")}
+${ansi.dim("and records every sibling. Separately-installed copies stay independent.")}
+
 ${ansi.bold("Targets:")}
   <name>               Exact skill name or directory name
   '<glob>*'            Glob match (${ansi.dim("* matches any characters")})
@@ -1284,6 +1288,9 @@ function printEnableHelp() {
 
 Re-enable skills previously disabled with ${ansi.bold("asm disable")}. Enabling renames
 ${ansi.dim("SKILL.md.disabled")} back to ${ansi.dim("SKILL.md")} so asm and your agent see it again.
+
+${ansi.dim("Note: a skill shared across tools via symlinks re-enables for every tool")}
+${ansi.dim("at once (one shared SKILL.md); asm warns and clears state for all siblings.")}
 
 ${ansi.bold("Targets:")}
   <name>               Exact skill name or directory name
@@ -1361,6 +1368,15 @@ async function reconstructDisabledSkills(
         } catch {
           // Best effort — fall back to dirName below.
         }
+        // Resolve the canonical source so symlinked siblings (which share one
+        // disabled SKILL.md.disabled) collapse onto the same realPath — enabling
+        // then renames once and clears state for every sibling (issue #91).
+        let realPath = skillDir;
+        try {
+          realPath = await fsRealpath(skillDir);
+        } catch {
+          // Directory unresolvable — keep skillDir; it still groups alone.
+        }
         results.push({
           name: fm.name || dirName,
           version: fm["metadata.version"] || fm.version || "0.0.0",
@@ -1378,7 +1394,7 @@ async function reconstructDisabledSkills(
           providerLabel: provider.label,
           isSymlink: false,
           symlinkTarget: null,
-          realPath: skillDir,
+          realPath,
           disabled: true,
         });
       }
@@ -1406,6 +1422,56 @@ function emitToggleOutput(args: ParsedArgs, done: ToggleResult[]): void {
   }
 }
 
+/**
+ * A canonical skill source plus every provider instance that shares it.
+ *
+ * `asm install` copies a skill into one primary provider and symlinks the rest
+ * at that copy, so symlinked siblings resolve to a single `realPath` and share
+ * one `SKILL.md`. Disabling/enabling renames that one file (honest shared
+ * semantics — issue #91): the toggle takes effect for every sibling at once, so
+ * we record state for and report all of them, not just the matched instance.
+ */
+export interface SiblingGroup {
+  /** Canonical on-disk directory (resolved `realPath`) all siblings share. */
+  realPath: string;
+  /** The instance to drive the on-disk rename from (any sibling works). */
+  representative: SkillInfo;
+  /** Every scanned instance — across providers/scopes — sharing `realPath`. */
+  siblings: SkillInfo[];
+}
+
+/**
+ * Groups `matched` instances by their canonical source, expanding each group to
+ * include all sibling instances from `pool` that share the same `realPath`.
+ *
+ * `matched` is what the user's target/filter selected; `pool` is the full
+ * (unfiltered) candidate set used to discover siblings the filter excluded —
+ * e.g. `disable --tool codex` on a symlinked skill must still record state for
+ * the claude sibling, because the shared `SKILL.md` is renamed for both.
+ */
+export function groupBySource(
+  matched: SkillInfo[],
+  pool: SkillInfo[],
+): SiblingGroup[] {
+  const siblingsByPath = new Map<string, SkillInfo[]>();
+  for (const s of pool) {
+    const list = siblingsByPath.get(s.realPath) ?? [];
+    list.push(s);
+    siblingsByPath.set(s.realPath, list);
+  }
+
+  const groups = new Map<string, SiblingGroup>();
+  for (const s of matched) {
+    if (groups.has(s.realPath)) continue;
+    groups.set(s.realPath, {
+      realPath: s.realPath,
+      representative: s,
+      siblings: siblingsByPath.get(s.realPath) ?? [s],
+    });
+  }
+  return [...groups.values()];
+}
+
 async function cmdDisable(args: ParsedArgs) {
   if (args.flags.help) {
     printDisableHelp();
@@ -1427,16 +1493,18 @@ async function cmdDisable(args: ParsedArgs) {
   const config = await loadConfig();
   const providerFilter = args.flags.provider;
 
-  // Disable operates on currently-active (scanned) skills.
-  let candidates = await scanAllSkills(config, args.flags.scope);
-  if (providerFilter) {
-    candidates = candidates.filter((s) => s.provider === providerFilter);
-  }
-  // Only real provider instances can be toggled (skip plugin/marketplace
-  // pseudo-skills that have no writable SKILL.md we manage).
-  candidates = candidates.filter(
+  // Disable operates on currently-active (scanned) skills. Scan the FULL set
+  // first (provider filter applied only when matching) so we can discover
+  // symlinked siblings the filter excludes — disabling renames the shared
+  // SKILL.md for all of them, so state/reporting must cover them too.
+  const scanned = (await scanAllSkills(config, args.flags.scope)).filter(
+    // Only real provider instances can be toggled (skip plugin/marketplace
+    // pseudo-skills that have no writable SKILL.md we manage).
     (s) => s.provider !== "plugin" && s.provider !== "codex-plugin",
   );
+  const candidates = providerFilter
+    ? scanned.filter((s) => s.provider === providerFilter)
+    : scanned;
 
   const matched = args.flags.all
     ? candidates
@@ -1448,10 +1516,36 @@ async function cmdDisable(args: ParsedArgs) {
     return;
   }
 
+  // Collapse matched instances onto their shared on-disk sources. A symlinked
+  // skill resolves to one canonical SKILL.md, so each group is disabled once
+  // and recorded for every sibling provider/scope (honest shared semantics).
+  const groups = groupBySource(matched, scanned);
+  const matchedKeys = new Set(
+    matched.map((s) => `${s.realPath}||${s.provider}||${s.scope}`),
+  );
+
   if (!args.flags.json && !args.flags.machine) {
-    console.log(ansi.bold(`Will disable ${matched.length} skill(s):`));
-    for (const s of matched) {
-      console.log(`  ${ansi.dim("•")} ${s.name} (${s.provider}, ${s.scope})`);
+    const total = groups.reduce((n, g) => n + g.siblings.length, 0);
+    console.log(ansi.bold(`Will disable ${total} skill instance(s):`));
+    for (const g of groups) {
+      for (const s of g.siblings) {
+        const extra = matchedKeys.has(
+          `${s.realPath}||${s.provider}||${s.scope}`,
+        )
+          ? ""
+          : ansi.yellow(" (shared via symlink)");
+        console.log(
+          `  ${ansi.dim("•")} ${s.name} (${s.provider}, ${s.scope})${extra}`,
+        );
+      }
+      if (g.siblings.length > 1) {
+        console.log(
+          ansi.yellow(
+            `    ⚠ ${g.representative.name} shares one SKILL.md across ` +
+              `${g.siblings.length} tools — disabling affects all of them.`,
+          ),
+        );
+      }
     }
     if (!args.flags.yes && process.stdin.isTTY) {
       process.stdout.write(`\n${ansi.bold("Proceed?")} [y/N] `);
@@ -1466,19 +1560,22 @@ async function cmdDisable(args: ParsedArgs) {
   const state = await loadSkillState();
   const done: ToggleResult[] = [];
   try {
-    for (const s of matched) {
-      await disableSkillInstance(s.path);
-      setDisabled(state, s.dirName, s.provider, s.scope);
-      done.push({
-        name: s.name,
-        provider: s.provider,
-        scope: s.scope,
-        action: "disabled",
-      });
-      if (!args.flags.json && !args.flags.machine) {
-        console.log(
-          `${ansi.green("✓")} disabled ${s.name} (${s.provider}, ${s.scope})`,
-        );
+    for (const g of groups) {
+      // One rename on the shared canonical source disables every sibling.
+      await disableSkillInstance(g.representative.path);
+      for (const s of g.siblings) {
+        setDisabled(state, s.dirName, s.provider, s.scope);
+        done.push({
+          name: s.name,
+          provider: s.provider,
+          scope: s.scope,
+          action: "disabled",
+        });
+        if (!args.flags.json && !args.flags.machine) {
+          console.log(
+            `${ansi.green("✓")} disabled ${s.name} (${s.provider}, ${s.scope})`,
+          );
+        }
       }
     }
   } finally {
@@ -1510,14 +1607,19 @@ async function cmdEnable(args: ParsedArgs) {
   const providerFilter = args.flags.provider;
 
   // Enable operates on currently-DISABLED skills, which the scanner can't see;
-  // reconstruct them from the state file.
+  // reconstruct them from the state file. Reconstruct the FULL disabled set
+  // (no provider filter) so symlinked siblings the filter excludes are still
+  // discovered — enabling renames the shared SKILL.md.disabled for all of them,
+  // so state must be cleared for every sibling too (honest shared semantics).
   const state = await loadSkillState();
-  const candidates = await reconstructDisabledSkills(
+  const disabledPool = await reconstructDisabledSkills(
     config,
     state,
     args.flags.scope,
-    providerFilter,
   );
+  const candidates = providerFilter
+    ? disabledPool.filter((s) => s.provider === providerFilter)
+    : disabledPool;
 
   const matched = args.flags.all
     ? candidates
@@ -1529,10 +1631,35 @@ async function cmdEnable(args: ParsedArgs) {
     return;
   }
 
+  // Collapse onto shared sources like cmdDisable: one rename per canonical
+  // SKILL.md.disabled re-enables every sibling, so clear state for all of them.
+  const groups = groupBySource(matched, disabledPool);
+  const matchedKeys = new Set(
+    matched.map((s) => `${s.realPath}||${s.provider}||${s.scope}`),
+  );
+
   if (!args.flags.json && !args.flags.machine) {
-    console.log(ansi.bold(`Will enable ${matched.length} skill(s):`));
-    for (const s of matched) {
-      console.log(`  ${ansi.dim("•")} ${s.name} (${s.provider}, ${s.scope})`);
+    const total = groups.reduce((n, g) => n + g.siblings.length, 0);
+    console.log(ansi.bold(`Will enable ${total} skill instance(s):`));
+    for (const g of groups) {
+      for (const s of g.siblings) {
+        const extra = matchedKeys.has(
+          `${s.realPath}||${s.provider}||${s.scope}`,
+        )
+          ? ""
+          : ansi.yellow(" (shared via symlink)");
+        console.log(
+          `  ${ansi.dim("•")} ${s.name} (${s.provider}, ${s.scope})${extra}`,
+        );
+      }
+      if (g.siblings.length > 1) {
+        console.log(
+          ansi.yellow(
+            `    ⚠ ${g.representative.name} shares one SKILL.md across ` +
+              `${g.siblings.length} tools — enabling affects all of them.`,
+          ),
+        );
+      }
     }
     if (!args.flags.yes && process.stdin.isTTY) {
       process.stdout.write(`\n${ansi.bold("Proceed?")} [y/N] `);
@@ -1546,19 +1673,21 @@ async function cmdEnable(args: ParsedArgs) {
 
   const done: ToggleResult[] = [];
   try {
-    for (const s of matched) {
-      await enableSkillInstance(s.path);
-      clearDisabled(state, s.dirName, s.provider, s.scope);
-      done.push({
-        name: s.name,
-        provider: s.provider,
-        scope: s.scope,
-        action: "enabled",
-      });
-      if (!args.flags.json && !args.flags.machine) {
-        console.log(
-          `${ansi.green("✓")} enabled ${s.name} (${s.provider}, ${s.scope})`,
-        );
+    for (const g of groups) {
+      await enableSkillInstance(g.representative.path);
+      for (const s of g.siblings) {
+        clearDisabled(state, s.dirName, s.provider, s.scope);
+        done.push({
+          name: s.name,
+          provider: s.provider,
+          scope: s.scope,
+          action: "enabled",
+        });
+        if (!args.flags.json && !args.flags.machine) {
+          console.log(
+            `${ansi.green("✓")} enabled ${s.name} (${s.provider}, ${s.scope})`,
+          );
+        }
       }
     }
   } finally {

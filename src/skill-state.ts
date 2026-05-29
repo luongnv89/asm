@@ -16,6 +16,7 @@ import {
   rename,
   copyFile,
   access,
+  realpath,
 } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { getSkillStatePath } from "./config";
@@ -196,14 +197,38 @@ async function pathExists(p: string): Promise<boolean> {
 }
 
 /**
- * Disables a skill instance by renaming SKILL.md → SKILL.md.disabled.
+ * Resolves a skill directory to its canonical on-disk source.
+ *
+ * `asm install` copies a skill into one primary provider and **symlinks** every
+ * other provider's directory at that copy (see `executeInstallAllProviders`),
+ * so symlinked siblings share a single `SKILL.md`. Renaming through a symlink
+ * path mutates the shared file — disabling the skill for every sibling — which
+ * is exactly the "honest shared semantics" the CLI surfaces. Resolving the real
+ * directory first makes the rename deterministic (it never depends on which
+ * sibling path was passed) and idempotent across siblings. Falls back to the
+ * given path if it can't be resolved (e.g. it does not exist yet).
+ */
+async function canonicalSkillDir(skillDir: string): Promise<string> {
+  try {
+    return await realpath(skillDir);
+  } catch {
+    return skillDir;
+  }
+}
+
+/**
+ * Disables a skill instance by renaming SKILL.md → SKILL.md.disabled on the
+ * canonical source directory (see {@link canonicalSkillDir}). For a skill
+ * symlinked across providers this disables it for every sibling — one shared
+ * `SKILL.md`, one rename; the CLI records state for and warns about all of them.
  *
  * If SKILL.md is already absent but SKILL.md.disabled is present, this is a
  * no-op (already disabled). Returns `true` if a rename was performed.
  */
 export async function disableSkillInstance(skillDir: string): Promise<boolean> {
-  const active = skillFilePath(skillDir);
-  const disabled = disabledFilePath(skillDir);
+  const dir = await canonicalSkillDir(skillDir);
+  const active = skillFilePath(dir);
+  const disabled = disabledFilePath(dir);
   if (!(await pathExists(active)) && (await pathExists(disabled))) {
     return false; // already disabled
   }
@@ -212,14 +237,17 @@ export async function disableSkillInstance(skillDir: string): Promise<boolean> {
 }
 
 /**
- * Enables a skill instance by renaming SKILL.md.disabled → SKILL.md.
+ * Enables a skill instance by renaming SKILL.md.disabled → SKILL.md on the
+ * canonical source directory (see {@link canonicalSkillDir}). For a skill
+ * symlinked across providers this re-enables it for every sibling.
  *
  * If SKILL.md.disabled is absent but SKILL.md is present, this is a no-op
  * (already enabled). Returns `true` if a rename was performed.
  */
 export async function enableSkillInstance(skillDir: string): Promise<boolean> {
-  const active = skillFilePath(skillDir);
-  const disabled = disabledFilePath(skillDir);
+  const dir = await canonicalSkillDir(skillDir);
+  const active = skillFilePath(dir);
+  const disabled = disabledFilePath(dir);
   if (!(await pathExists(disabled)) && (await pathExists(active))) {
     return false; // already enabled
   }
