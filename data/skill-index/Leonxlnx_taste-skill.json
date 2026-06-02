@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/Leonxlnx/taste-skill.git",
   "owner": "Leonxlnx",
   "repo": "taste-skill",
-  "updatedAt": "2026-05-20T09:15:58.429Z",
-  "skillCount": 12,
+  "updatedAt": "2026-06-02T22:28:55.941Z",
+  "skillCount": 13,
   "skills": [
     {
       "name": "brandkit",
@@ -64,7 +64,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:15:58.391Z",
+        "evaluatedAt": "2026-06-02T22:28:55.892Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -119,7 +119,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.391Z",
+          "evaluatedAt": "2026-06-02T22:28:55.892Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,14 +137,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.391Z",
+          "evaluatedAt": "2026-06-02T22:28:55.892Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "design-taste-frontend",
-      "description": "Senior UI/UX Engineer. Architect digital interfaces overriding default LLM biases. Enforces metric-based rules, strict component architecture, CSS hardware acceleration, and balanced design engineering.",
+      "description": "Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real design systems when applicable, audit-first on redesigns, strict pre-flight check.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -153,9 +153,146 @@
       "installUrl": "github:Leonxlnx/taste-skill:skills/taste-skill",
       "relPath": "skills/taste-skill",
       "verified": true,
-      "tokenCount": 5705,
+      "tokenCount": 25793,
       "evalSummary": {
-        "overallScore": 50,
+        "overallScore": 66,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:28:55.900Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 66,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 7,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:28:55.900Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:28:55.900Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "design-taste-frontend-v1",
+      "description": "The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Leonxlnx/taste-skill:skills/taste-skill-v1",
+      "relPath": "skills/taste-skill-v1",
+      "verified": true,
+      "tokenCount": 5731,
+      "evalSummary": {
+        "overallScore": 54,
         "grade": "D",
         "categories": [
           {
@@ -167,7 +304,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 4,
+            "score": 7,
             "max": 10
           },
           {
@@ -201,7 +338,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:15:58.395Z",
+        "evaluatedAt": "2026-06-02T22:28:55.907Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -210,7 +347,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 50,
+          "overallScore": 54,
           "grade": "D",
           "categories": [
             {
@@ -222,7 +359,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 4,
+              "score": 7,
               "max": 10
             },
             {
@@ -256,7 +393,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.395Z",
+          "evaluatedAt": "2026-06-02T22:28:55.907Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -264,17 +401,17 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 69,
-          "grade": "C",
+          "overallScore": 62,
+          "grade": "D",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
+              "score": 8,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.395Z",
+          "evaluatedAt": "2026-06-02T22:28:55.907Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -338,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:15:58.397Z",
+        "evaluatedAt": "2026-06-02T22:28:55.909Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -393,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.397Z",
+          "evaluatedAt": "2026-06-02T22:28:55.909Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +548,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.397Z",
+          "evaluatedAt": "2026-06-02T22:28:55.909Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -475,7 +612,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:15:58.398Z",
+        "evaluatedAt": "2026-06-02T22:28:55.911Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -530,7 +667,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.398Z",
+          "evaluatedAt": "2026-06-02T22:28:55.911Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +685,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.398Z",
+          "evaluatedAt": "2026-06-02T22:28:55.911Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -612,7 +749,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:15:58.400Z",
+        "evaluatedAt": "2026-06-02T22:28:55.913Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -667,7 +804,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.400Z",
+          "evaluatedAt": "2026-06-02T22:28:55.913Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +822,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.400Z",
+          "evaluatedAt": "2026-06-02T22:28:55.913Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -749,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:15:58.405Z",
+        "evaluatedAt": "2026-06-02T22:28:55.917Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -804,7 +941,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.405Z",
+          "evaluatedAt": "2026-06-02T22:28:55.917Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +959,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.405Z",
+          "evaluatedAt": "2026-06-02T22:28:55.917Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -886,7 +1023,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:15:58.411Z",
+        "evaluatedAt": "2026-06-02T22:28:55.923Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -941,7 +1078,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.411Z",
+          "evaluatedAt": "2026-06-02T22:28:55.924Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +1096,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.411Z",
+          "evaluatedAt": "2026-06-02T22:28:55.924Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1023,7 +1160,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:15:58.417Z",
+        "evaluatedAt": "2026-06-02T22:28:55.930Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1078,7 +1215,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.417Z",
+          "evaluatedAt": "2026-06-02T22:28:55.930Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1096,7 +1233,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.418Z",
+          "evaluatedAt": "2026-06-02T22:28:55.930Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1160,7 +1297,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:15:58.421Z",
+        "evaluatedAt": "2026-06-02T22:28:55.934Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1215,7 +1352,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.421Z",
+          "evaluatedAt": "2026-06-02T22:28:55.934Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1370,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.421Z",
+          "evaluatedAt": "2026-06-02T22:28:55.934Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1297,7 +1434,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:15:58.423Z",
+        "evaluatedAt": "2026-06-02T22:28:55.936Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1352,7 +1489,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.423Z",
+          "evaluatedAt": "2026-06-02T22:28:55.936Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1507,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.423Z",
+          "evaluatedAt": "2026-06-02T22:28:55.936Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1434,7 +1571,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:15:58.425Z",
+        "evaluatedAt": "2026-06-02T22:28:55.938Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1489,7 +1626,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.425Z",
+          "evaluatedAt": "2026-06-02T22:28:55.938Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1644,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.425Z",
+          "evaluatedAt": "2026-06-02T22:28:55.938Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1571,7 +1708,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:15:58.428Z",
+        "evaluatedAt": "2026-06-02T22:28:55.940Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1626,7 +1763,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.428Z",
+          "evaluatedAt": "2026-06-02T22:28:55.940Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +1781,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:15:58.428Z",
+          "evaluatedAt": "2026-06-02T22:28:55.940Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1656,7 +1793,7 @@
       "name": "leonxlnx-taste-skill-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Leonxlnx/taste-skill.",
       "author": "ASM (Leonxlnx/taste-skill)",
-      "createdAt": "2026-05-20T09:15:58.429Z",
+      "createdAt": "2026-06-02T22:28:55.941Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1676,7 +1813,7 @@
         {
           "name": "design-taste-frontend",
           "installUrl": "github:Leonxlnx/taste-skill:skills/taste-skill",
-          "description": "Senior UI/UX Engineer. Architect digital interfaces overriding default LLM biases. Enforces metric-based rules, strict component architecture, CSS hardware acceleration, and balanced design engineering.",
+          "description": "Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real design systems when applicable, audit-first on redesigns, strict pre-flight check.",
           "version": "0.0.0"
         },
         {
@@ -1746,7 +1883,7 @@
       "name": "leonxlnx-taste-skill-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Leonxlnx/taste-skill.",
       "author": "ASM (Leonxlnx/taste-skill)",
-      "createdAt": "2026-05-20T09:15:58.429Z",
+      "createdAt": "2026-06-02T22:28:55.941Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1794,7 +1931,7 @@
       "name": "leonxlnx-taste-skill-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from Leonxlnx/taste-skill.",
       "author": "ASM (Leonxlnx/taste-skill)",
-      "createdAt": "2026-05-20T09:15:58.429Z",
+      "createdAt": "2026-06-02T22:28:55.941Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1805,12 +1942,6 @@
         "taste-skill"
       ],
       "skills": [
-        {
-          "name": "design-taste-frontend",
-          "installUrl": "github:Leonxlnx/taste-skill:skills/taste-skill",
-          "description": "Senior UI/UX Engineer. Architect digital interfaces overriding default LLM biases. Enforces metric-based rules, strict component architecture, CSS hardware acceleration, and balanced design engineering.",
-          "version": "0.0.0"
-        },
         {
           "name": "full-output-enforcement",
           "installUrl": "github:Leonxlnx/taste-skill:skills/output-skill",
@@ -1854,7 +1985,7 @@
       "name": "leonxlnx-taste-skill-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Leonxlnx/taste-skill.",
       "author": "ASM (Leonxlnx/taste-skill)",
-      "createdAt": "2026-05-20T09:15:58.429Z",
+      "createdAt": "2026-06-02T22:28:55.941Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1874,7 +2005,13 @@
         {
           "name": "design-taste-frontend",
           "installUrl": "github:Leonxlnx/taste-skill:skills/taste-skill",
-          "description": "Senior UI/UX Engineer. Architect digital interfaces overriding default LLM biases. Enforces metric-based rules, strict component architecture, CSS hardware acceleration, and balanced design engineering.",
+          "description": "Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real design systems when applicable, audit-first on redesigns, strict pre-flight check.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "design-taste-frontend-v1",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/taste-skill-v1",
+          "description": "The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.",
           "version": "0.0.0"
         },
         {
@@ -1950,7 +2087,7 @@
       "name": "leonxlnx-taste-skill-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from Leonxlnx/taste-skill.",
       "author": "ASM (Leonxlnx/taste-skill)",
-      "createdAt": "2026-05-20T09:15:58.429Z",
+      "createdAt": "2026-06-02T22:28:55.941Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2010,7 +2147,7 @@
       "name": "leonxlnx-taste-skill-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from Leonxlnx/taste-skill.",
       "author": "ASM (Leonxlnx/taste-skill)",
-      "createdAt": "2026-05-20T09:15:58.429Z",
+      "createdAt": "2026-06-02T22:28:55.941Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2031,6 +2168,42 @@
           "name": "imagegen-frontend-web",
           "installUrl": "github:Leonxlnx/taste-skill:skills/imagegen-frontend-web",
           "description": "Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a single consistent palette across all images. Optimized for landing pages, marketing sites, and product comps that developers or coding models can accurately recreate.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Leonxlnx",
+        "repo": "taste-skill",
+        "repoUrl": "https://github.com/Leonxlnx/taste-skill.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "leonxlnx-taste-skill-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from Leonxlnx/taste-skill.",
+      "author": "ASM (Leonxlnx/taste-skill)",
+      "createdAt": "2026-06-02T22:28:55.941Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "leonxlnx",
+        "taste-skill"
+      ],
+      "skills": [
+        {
+          "name": "design-taste-frontend-v1",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/taste-skill-v1",
+          "description": "The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "imagegen-frontend-mobile",
+          "installUrl": "github:Leonxlnx/taste-skill:skills/imagegen-frontend-mobile",
+          "description": "Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mockup with a visible frame, while the main focus stays on the app content itself. This skill generates images only. It does not write code.",
           "version": "0.0.0"
         }
       ],

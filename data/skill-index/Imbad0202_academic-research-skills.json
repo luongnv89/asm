@@ -2,13 +2,13 @@
   "repoUrl": "https://github.com/Imbad0202/academic-research-skills.git",
   "owner": "Imbad0202",
   "repo": "academic-research-skills",
-  "updatedAt": "2026-05-20T09:16:22.668Z",
+  "updatedAt": "2026-06-02T22:29:23.156Z",
   "skillCount": 4,
   "skills": [
     {
       "name": "academic-paper",
       "description": "12-agent academic paper writing pipeline. 10 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見.",
-      "version": "3.1.2",
+      "version": "3.2.0",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -16,7 +16,7 @@
       "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper",
       "relPath": "skills/academic-paper",
       "verified": true,
-      "tokenCount": 8924,
+      "tokenCount": 8932,
       "evalSummary": {
         "overallScore": 69,
         "grade": "C",
@@ -64,8 +64,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:22.651Z",
-        "evaluatedVersion": "3.1.2"
+        "evaluatedAt": "2026-06-02T22:29:23.140Z",
+        "evaluatedVersion": "3.2.0"
       },
       "evalSummaries": {
         "quality": {
@@ -119,8 +119,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:22.651Z",
-          "evaluatedVersion": "3.1.2"
+          "evaluatedAt": "2026-06-02T22:29:23.140Z",
+          "evaluatedVersion": "3.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -137,15 +137,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:22.651Z",
-          "evaluatedVersion": "3.1.2"
+          "evaluatedAt": "2026-06-02T22:29:23.140Z",
+          "evaluatedVersion": "3.2.0"
         }
       }
     },
     {
       "name": "academic-paper-reviewer",
       "description": "Multi-perspective academic paper review with dynamic reviewer personas. Simulates 5 independent reviewers (EIC + 3 peer reviewers + Devil's Advocate) with field-specific expertise. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy.",
-      "version": "1.9.1",
+      "version": "1.10.0",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -201,8 +201,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:22.656Z",
-        "evaluatedVersion": "1.9.1"
+        "evaluatedAt": "2026-06-02T22:29:23.144Z",
+        "evaluatedVersion": "1.10.0"
       },
       "evalSummaries": {
         "quality": {
@@ -256,8 +256,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:22.656Z",
-          "evaluatedVersion": "1.9.1"
+          "evaluatedAt": "2026-06-02T22:29:23.145Z",
+          "evaluatedVersion": "1.10.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -274,15 +274,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:22.656Z",
-          "evaluatedVersion": "1.9.1"
+          "evaluatedAt": "2026-06-02T22:29:23.145Z",
+          "evaluatedVersion": "1.10.0"
         }
       }
     },
     {
       "name": "academic-pipeline",
       "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory integrity verification, two-stage peer review, and reproducible quality gates. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow.",
-      "version": "3.9.4.2",
+      "version": "3.10.0",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -338,8 +338,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:22.660Z",
-        "evaluatedVersion": "3.9.4.2"
+        "evaluatedAt": "2026-06-02T22:29:23.149Z",
+        "evaluatedVersion": "3.10.0"
       },
       "evalSummaries": {
         "quality": {
@@ -393,26 +393,26 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:22.661Z",
-          "evaluatedVersion": "3.9.4.2"
+          "evaluatedAt": "2026-06-02T22:29:23.149Z",
+          "evaluatedVersion": "3.10.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 71,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
+              "score": 10,
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:22.661Z",
-          "evaluatedVersion": "3.9.4.2"
+          "evaluatedAt": "2026-06-02T22:29:23.149Z",
+          "evaluatedVersion": "3.10.0"
         }
       }
     },
@@ -427,7 +427,7 @@
       "installUrl": "github:Imbad0202/academic-research-skills:skills/deep-research",
       "relPath": "skills/deep-research",
       "verified": true,
-      "tokenCount": 7492,
+      "tokenCount": 7683,
       "evalSummary": {
         "overallScore": 67,
         "grade": "C",
@@ -475,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:22.665Z",
+        "evaluatedAt": "2026-06-02T22:29:23.154Z",
         "evaluatedVersion": "2.9.4"
       },
       "evalSummaries": {
@@ -530,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:22.665Z",
+          "evaluatedAt": "2026-06-02T22:29:23.154Z",
           "evaluatedVersion": "2.9.4"
         },
         "skill-best-practice": {
@@ -548,7 +548,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:22.665Z",
+          "evaluatedAt": "2026-06-02T22:29:23.154Z",
           "evaluatedVersion": "2.9.4"
         }
       }
@@ -560,7 +560,7 @@
       "name": "imbad0202-academic-research-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-05-20T09:16:22.668Z",
+      "createdAt": "2026-06-02T22:29:23.156Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -575,7 +575,7 @@
           "name": "academic-paper",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper",
           "description": "12-agent academic paper writing pipeline. 10 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見.",
-          "version": "3.1.2"
+          "version": "3.2.0"
         },
         {
           "name": "deep-research",
@@ -596,7 +596,7 @@
       "name": "imbad0202-academic-research-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-05-20T09:16:22.668Z",
+      "createdAt": "2026-06-02T22:29:23.156Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -611,19 +611,19 @@
           "name": "academic-paper",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper",
           "description": "12-agent academic paper writing pipeline. 10 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見.",
-          "version": "3.1.2"
+          "version": "3.2.0"
         },
         {
           "name": "academic-paper-reviewer",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper-reviewer",
           "description": "Multi-perspective academic paper review with dynamic reviewer personas. Simulates 5 independent reviewers (EIC + 3 peer reviewers + Devil's Advocate) with field-specific expertise. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy.",
-          "version": "1.9.1"
+          "version": "1.10.0"
         },
         {
           "name": "academic-pipeline",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-pipeline",
           "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory integrity verification, two-stage peer review, and reproducible quality gates. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow.",
-          "version": "3.9.4.2"
+          "version": "3.10.0"
         },
         {
           "name": "deep-research",
@@ -644,7 +644,7 @@
       "name": "imbad0202-academic-research-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-05-20T09:16:22.668Z",
+      "createdAt": "2026-06-02T22:29:23.156Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -659,19 +659,19 @@
           "name": "academic-paper",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper",
           "description": "12-agent academic paper writing pipeline. 10 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見.",
-          "version": "3.1.2"
+          "version": "3.2.0"
         },
         {
           "name": "academic-paper-reviewer",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper-reviewer",
           "description": "Multi-perspective academic paper review with dynamic reviewer personas. Simulates 5 independent reviewers (EIC + 3 peer reviewers + Devil's Advocate) with field-specific expertise. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy.",
-          "version": "1.9.1"
+          "version": "1.10.0"
         },
         {
           "name": "academic-pipeline",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-pipeline",
           "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory integrity verification, two-stage peer review, and reproducible quality gates. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow.",
-          "version": "3.9.4.2"
+          "version": "3.10.0"
         },
         {
           "name": "deep-research",
@@ -692,7 +692,7 @@
       "name": "imbad0202-academic-research-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-05-20T09:16:22.668Z",
+      "createdAt": "2026-06-02T22:29:23.156Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -707,13 +707,13 @@
           "name": "academic-paper",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper",
           "description": "12-agent academic paper writing pipeline. 10 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見.",
-          "version": "3.1.2"
+          "version": "3.2.0"
         },
         {
           "name": "academic-paper-reviewer",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper-reviewer",
           "description": "Multi-perspective academic paper review with dynamic reviewer personas. Simulates 5 independent reviewers (EIC + 3 peer reviewers + Devil's Advocate) with field-specific expertise. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy.",
-          "version": "1.9.1"
+          "version": "1.10.0"
         },
         {
           "name": "deep-research",
@@ -734,7 +734,7 @@
       "name": "imbad0202-academic-research-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-05-20T09:16:22.668Z",
+      "createdAt": "2026-06-02T22:29:23.156Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -749,19 +749,19 @@
           "name": "academic-paper",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper",
           "description": "12-agent academic paper writing pipeline. 10 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見.",
-          "version": "3.1.2"
+          "version": "3.2.0"
         },
         {
           "name": "academic-paper-reviewer",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper-reviewer",
           "description": "Multi-perspective academic paper review with dynamic reviewer personas. Simulates 5 independent reviewers (EIC + 3 peer reviewers + Devil's Advocate) with field-specific expertise. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy.",
-          "version": "1.9.1"
+          "version": "1.10.0"
         },
         {
           "name": "academic-pipeline",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-pipeline",
           "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory integrity verification, two-stage peer review, and reproducible quality gates. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow.",
-          "version": "3.9.4.2"
+          "version": "3.10.0"
         },
         {
           "name": "deep-research",
@@ -782,7 +782,7 @@
       "name": "imbad0202-academic-research-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-05-20T09:16:22.668Z",
+      "createdAt": "2026-06-02T22:29:23.156Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -797,19 +797,19 @@
           "name": "academic-paper",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper",
           "description": "12-agent academic paper writing pipeline. 10 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見.",
-          "version": "3.1.2"
+          "version": "3.2.0"
         },
         {
           "name": "academic-paper-reviewer",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper-reviewer",
           "description": "Multi-perspective academic paper review with dynamic reviewer personas. Simulates 5 independent reviewers (EIC + 3 peer reviewers + Devil's Advocate) with field-specific expertise. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy.",
-          "version": "1.9.1"
+          "version": "1.10.0"
         },
         {
           "name": "academic-pipeline",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-pipeline",
           "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory integrity verification, two-stage peer review, and reproducible quality gates. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow.",
-          "version": "3.9.4.2"
+          "version": "3.10.0"
         },
         {
           "name": "deep-research",

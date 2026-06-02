@@ -2,11 +2,11 @@
   "repoUrl": "https://github.com/Paramchoudhary/ResumeSkills.git",
   "owner": "Paramchoudhary",
   "repo": "ResumeSkills",
-  "updatedAt": "2026-05-20T09:16:36.117Z",
+  "updatedAt": "2026-06-02T22:29:38.232Z",
   "skillCount": 20,
   "skills": [
     {
-      "name": "Academic CV Builder",
+      "name": "academic-cv-builder",
       "description": "Format CVs for academic positions with publications, grants, and teaching",
       "version": "0.0.0",
       "license": "",
@@ -16,9 +16,9 @@
       "installUrl": "github:Paramchoudhary/ResumeSkills:skills/academic-cv-builder",
       "relPath": "skills/academic-cv-builder",
       "verified": true,
-      "tokenCount": 2369,
+      "tokenCount": 2365,
       "evalSummary": {
-        "overallScore": 57,
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -60,11 +60,11 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 5,
+            "score": 10,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:36.060Z",
+        "evaluatedAt": "2026-06-02T22:29:38.188Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -73,7 +73,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 57,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -115,11 +115,11 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 5,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:36.060Z",
+          "evaluatedAt": "2026-06-02T22:29:38.188Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -127,23 +127,23 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 62,
-          "grade": "D",
+          "overallScore": 77,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
+              "score": 10,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:36.060Z",
+          "evaluatedAt": "2026-06-02T22:29:38.188Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
-      "name": "Career Changer Translator",
+      "name": "career-changer-translator",
       "description": "Translate skills from one industry to another, identify transferable skills",
       "version": "0.0.0",
       "license": "",
@@ -153,9 +153,9 @@
       "installUrl": "github:Paramchoudhary/ResumeSkills:skills/career-changer-translator",
       "relPath": "skills/career-changer-translator",
       "verified": true,
-      "tokenCount": 2643,
+      "tokenCount": 2639,
       "evalSummary": {
-        "overallScore": 51,
+        "overallScore": 59,
         "grade": "D",
         "categories": [
           {
@@ -197,11 +197,11 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 5,
+            "score": 10,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:36.063Z",
+        "evaluatedAt": "2026-06-02T22:29:38.190Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -210,7 +210,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 51,
+          "overallScore": 59,
           "grade": "D",
           "categories": [
             {
@@ -252,11 +252,11 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 5,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:36.063Z",
+          "evaluatedAt": "2026-06-02T22:29:38.190Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -264,23 +264,23 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 62,
-          "grade": "D",
+          "overallScore": 77,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
+              "score": 10,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:36.063Z",
+          "evaluatedAt": "2026-06-02T22:29:38.190Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
-      "name": "Cover Letter Generator",
+      "name": "cover-letter-generator",
       "description": "Create personalized, compelling cover letters from resume and job description",
       "version": "0.0.0",
       "license": "",
@@ -290,9 +290,9 @@
       "installUrl": "github:Paramchoudhary/ResumeSkills:skills/cover-letter-generator",
       "relPath": "skills/cover-letter-generator",
       "verified": true,
-      "tokenCount": 2559,
+      "tokenCount": 2555,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 79,
         "grade": "C",
         "categories": [
           {
@@ -334,11 +334,1381 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 5,
+            "score": 10,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:36.065Z",
+        "evaluatedAt": "2026-06-02T22:29:38.192Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.192Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.192Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "creative-portfolio-resume",
+      "description": "Balance visual design with ATS compatibility for creative roles",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/creative-portfolio-resume",
+      "relPath": "skills/creative-portfolio-resume",
+      "verified": true,
+      "tokenCount": 2165,
+      "evalSummary": {
+        "overallScore": 66,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:38.194Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 66,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.194Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.194Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "executive-resume-writer",
+      "description": "Create C-suite and VP level resumes emphasizing strategic leadership",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/executive-resume-writer",
+      "relPath": "skills/executive-resume-writer",
+      "verified": true,
+      "tokenCount": 2373,
+      "evalSummary": {
+        "overallScore": 64,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:38.197Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 64,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.197Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.197Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "interview-prep-generator",
+      "description": "Generate STAR stories, practice questions, and talking points from resume",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/interview-prep-generator",
+      "relPath": "skills/interview-prep-generator",
+      "verified": true,
+      "tokenCount": 3531,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:38.199Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.199Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.199Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "job-description-analyzer",
+      "description": "Analyze job postings, calculate match scores, identify gaps, and create application strategy",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/job-description-analyzer",
+      "relPath": "skills/job-description-analyzer",
+      "verified": true,
+      "tokenCount": 3756,
+      "evalSummary": {
+        "overallScore": 76,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:38.202Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.202Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.202Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "linkedin-profile-optimizer",
+      "description": "Optimize LinkedIn profile for searchability, recruiter visibility, and engagement",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/linkedin-profile-optimizer",
+      "relPath": "skills/linkedin-profile-optimizer",
+      "verified": true,
+      "tokenCount": 2790,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:38.205Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.205Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.205Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "offer-comparison-analyzer",
+      "description": "Compare multiple job offers side-by-side with total compensation analysis",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/offer-comparison-analyzer",
+      "relPath": "skills/offer-comparison-analyzer",
+      "verified": true,
+      "tokenCount": 3444,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:38.207Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 67,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.207Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.207Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "portfolio-case-study-writer",
+      "description": "Transform resume bullets into detailed portfolio case studies",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/portfolio-case-study-writer",
+      "relPath": "skills/portfolio-case-study-writer",
+      "verified": true,
+      "tokenCount": 2384,
+      "evalSummary": {
+        "overallScore": 70,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:38.209Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 70,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.209Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.209Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "reference-list-builder",
+      "description": "Format professional references properly and prepare reference materials",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/reference-list-builder",
+      "relPath": "skills/reference-list-builder",
+      "verified": true,
+      "tokenCount": 2264,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:38.211Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.211Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.211Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "resume-ats-optimizer",
+      "description": "Optimize resumes for Applicant Tracking Systems, check ATS compatibility, and analyze keyword match",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-ats-optimizer",
+      "relPath": "skills/resume-ats-optimizer",
+      "verified": true,
+      "tokenCount": 2478,
+      "evalSummary": {
+        "overallScore": 84,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:38.213Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 84,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.213Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.213Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "resume-bullet-writer",
+      "description": "Transform weak resume bullets into achievement-focused statements with metrics and impact",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-bullet-writer",
+      "relPath": "skills/resume-bullet-writer",
+      "verified": true,
+      "tokenCount": 3929,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:38.216Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -371,13 +1741,13 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 9,
+              "score": 8,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 9,
+              "score": 5,
               "max": 10
             },
             {
@@ -389,285 +1759,11 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 5,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.065Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.065Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "Creative Portfolio Resume",
-      "description": "Balance visual design with ATS compatibility for creative roles",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/creative-portfolio-resume",
-      "relPath": "skills/creative-portfolio-resume",
-      "verified": true,
-      "tokenCount": 2169,
-      "evalSummary": {
-        "overallScore": 59,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 6,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 5,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-20T09:16:36.067Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 59,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 6,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 5,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.067Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.067Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "Executive Resume Writer",
-      "description": "Create C-suite and VP level resumes emphasizing strategic leadership",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/executive-resume-writer",
-      "relPath": "skills/executive-resume-writer",
-      "verified": true,
-      "tokenCount": 2377,
-      "evalSummary": {
-        "overallScore": 57,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 5,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-20T09:16:36.069Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 57,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
               "score": 10,
               "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 5,
-              "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:36.069Z",
+          "evaluatedAt": "2026-06-02T22:29:38.216Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -675,444 +1771,33 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 62,
-          "grade": "D",
+          "overallScore": 77,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.069Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "Interview Prep Generator",
-      "description": "Generate STAR stories, practice questions, and talking points from resume",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/interview-prep-generator",
-      "relPath": "skills/interview-prep-generator",
-      "verified": true,
-      "tokenCount": 3535,
-      "evalSummary": {
-        "overallScore": 66,
-        "grade": "C",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 5,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-20T09:16:36.071Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 66,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 5,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.071Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.071Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "Job Description Analyzer",
-      "description": "Analyze job postings, calculate match scores, identify gaps, and create application strategy",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/job-description-analyzer",
-      "relPath": "skills/job-description-analyzer",
-      "verified": true,
-      "tokenCount": 3760,
-      "evalSummary": {
-        "overallScore": 69,
-        "grade": "C",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 5,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-20T09:16:36.074Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 69,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 5,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.074Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.074Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "LinkedIn Profile Optimizer",
-      "description": "Optimize LinkedIn profile for searchability, recruiter visibility, and engagement",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/linkedin-profile-optimizer",
-      "relPath": "skills/linkedin-profile-optimizer",
-      "verified": true,
-      "tokenCount": 2794,
-      "evalSummary": {
-        "overallScore": 67,
-        "grade": "C",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 5,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-20T09:16:36.077Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 67,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
               "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 5,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.077Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 8,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:36.077Z",
+          "evaluatedAt": "2026-06-02T22:29:38.216Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
-      "name": "Offer Comparison Analyzer",
-      "description": "Compare multiple job offers side-by-side with total compensation analysis",
+      "name": "resume-formatter",
+      "description": "Ensure ATS-friendly formatting and create clean scannable layouts",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/offer-comparison-analyzer",
-      "relPath": "skills/offer-comparison-analyzer",
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-formatter",
+      "relPath": "skills/resume-formatter",
       "verified": true,
-      "tokenCount": 3448,
+      "tokenCount": 2345,
       "evalSummary": {
         "overallScore": 60,
         "grade": "D",
@@ -1132,19 +1817,19 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 6,
+            "score": 8,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 9,
+            "score": 3,
             "max": 10
           },
           {
@@ -1156,11 +1841,11 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 5,
+            "score": 10,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:36.079Z",
+        "evaluatedAt": "2026-06-02T22:29:38.218Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1187,19 +1872,19 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 6,
+              "score": 8,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 9,
+              "score": 3,
               "max": 10
             },
             {
@@ -1211,11 +1896,11 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 5,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:36.079Z",
+          "evaluatedAt": "2026-06-02T22:29:38.218Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1223,35 +1908,172 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 62,
-          "grade": "D",
+          "overallScore": 77,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
+              "score": 10,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:36.079Z",
+          "evaluatedAt": "2026-06-02T22:29:38.218Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
-      "name": "Portfolio Case Study Writer",
-      "description": "Transform resume bullets into detailed portfolio case studies",
+      "name": "resume-quantifier",
+      "description": "Find opportunities to add metrics and estimate numbers when exact data unavailable",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/portfolio-case-study-writer",
-      "relPath": "skills/portfolio-case-study-writer",
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-quantifier",
+      "relPath": "skills/resume-quantifier",
       "verified": true,
-      "tokenCount": 2390,
+      "tokenCount": 2320,
       "evalSummary": {
-        "overallScore": 63,
+        "overallScore": 69,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:38.220Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.220Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.220Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "resume-section-builder",
+      "description": "Create targeted resume sections optimized for different experience levels and roles",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-section-builder",
+      "relPath": "skills/resume-section-builder",
+      "verified": true,
+      "tokenCount": 2383,
+      "evalSummary": {
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -1263,41 +2085,41 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 10,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 10,
+            "score": 6,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 5,
+            "score": 3,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 3,
+            "score": 0,
             "max": 10
           },
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 5,
+            "score": 10,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:36.081Z",
+        "evaluatedAt": "2026-06-02T22:29:38.222Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1306,7 +2128,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 63,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -1318,41 +2140,41 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 10,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 10,
+              "score": 6,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 5,
+              "score": 3,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 3,
+              "score": 0,
               "max": 10
             },
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 5,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:36.081Z",
+          "evaluatedAt": "2026-06-02T22:29:38.223Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1360,35 +2182,35 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 62,
-          "grade": "D",
+          "overallScore": 77,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
+              "score": 10,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:36.082Z",
+          "evaluatedAt": "2026-06-02T22:29:38.223Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
-      "name": "Reference List Builder",
-      "description": "Format professional references properly and prepare reference materials",
+      "name": "resume-tailor",
+      "description": "Customize resume for specific job postings while maintaining truthfulness",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/reference-list-builder",
-      "relPath": "skills/reference-list-builder",
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-tailor",
+      "relPath": "skills/resume-tailor",
       "verified": true,
-      "tokenCount": 2268,
+      "tokenCount": 2433,
       "evalSummary": {
-        "overallScore": 67,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -1412,13 +2234,13 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 9,
+            "score": 5,
             "max": 10
           },
           {
@@ -1430,11 +2252,11 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 5,
+            "score": 10,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:36.084Z",
+        "evaluatedAt": "2026-06-02T22:29:38.225Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1443,7 +2265,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -1467,13 +2289,13 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 9,
+              "score": 10,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 9,
+              "score": 5,
               "max": 10
             },
             {
@@ -1485,11 +2307,11 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 5,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:36.084Z",
+          "evaluatedAt": "2026-06-02T22:29:38.225Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1497,33 +2319,307 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 62,
-          "grade": "D",
+          "overallScore": 77,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
+              "score": 10,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:36.084Z",
+          "evaluatedAt": "2026-06-02T22:29:38.225Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
-      "name": "Resume ATS Optimizer",
-      "description": "Optimize resumes for Applicant Tracking Systems, check ATS compatibility, and analyze keyword match",
+      "name": "resume-version-manager",
+      "description": "Track different resume versions, maintain master resume, manage tailored versions",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-ats-optimizer",
-      "relPath": "skills/resume-ats-optimizer",
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-version-manager",
+      "relPath": "skills/resume-version-manager",
       "verified": true,
-      "tokenCount": 2482,
+      "tokenCount": 2211,
+      "evalSummary": {
+        "overallScore": 59,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:38.227Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 59,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.227Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.227Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "salary-negotiation-prep",
+      "description": "Research market rates, build negotiation strategy, and create counter-offer scripts",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/salary-negotiation-prep",
+      "relPath": "skills/salary-negotiation-prep",
+      "verified": true,
+      "tokenCount": 3178,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:38.229Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.229Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:38.229Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "tech-resume-optimizer",
+      "description": "Optimize resumes for software engineering, PM, and technical roles",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/tech-resume-optimizer",
+      "relPath": "skills/tech-resume-optimizer",
+      "verified": true,
+      "tokenCount": 2716,
       "evalSummary": {
         "overallScore": 77,
         "grade": "C",
@@ -1549,7 +2645,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
@@ -1561,17 +2657,17 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 7,
+            "score": 3,
             "max": 10
           },
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 5,
+            "score": 10,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:36.088Z",
+        "evaluatedAt": "2026-06-02T22:29:38.231Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1604,971 +2700,12 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 5,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.088Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.088Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "Resume Bullet Writer",
-      "description": "Transform weak resume bullets into achievement-focused statements with metrics and impact",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-bullet-writer",
-      "relPath": "skills/resume-bullet-writer",
-      "verified": true,
-      "tokenCount": 3933,
-      "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 5,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-20T09:16:36.091Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 64,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 5,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.091Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.091Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "Resume Formatter",
-      "description": "Ensure ATS-friendly formatting and create clean scannable layouts",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-formatter",
-      "relPath": "skills/resume-formatter",
-      "verified": true,
-      "tokenCount": 2347,
-      "evalSummary": {
-        "overallScore": 53,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 4,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 1,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 5,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-20T09:16:36.094Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 53,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 4,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
               "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 1,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 5,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.094Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.094Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "Resume Quantifier",
-      "description": "Find opportunities to add metrics and estimate numbers when exact data unavailable",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-quantifier",
-      "relPath": "skills/resume-quantifier",
-      "verified": true,
-      "tokenCount": 2322,
-      "evalSummary": {
-        "overallScore": 61,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 4,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 5,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-20T09:16:36.097Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 61,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 4,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 5,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.097Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.097Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "Resume Section Builder",
-      "description": "Create targeted resume sections optimized for different experience levels and roles",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-section-builder",
-      "relPath": "skills/resume-section-builder",
-      "verified": true,
-      "tokenCount": 2387,
-      "evalSummary": {
-        "overallScore": 57,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 6,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 5,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-20T09:16:36.099Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 57,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 6,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 5,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.099Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.099Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "Resume Tailor",
-      "description": "Customize resume for specific job postings while maintaining truthfulness",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-tailor",
-      "relPath": "skills/resume-tailor",
-      "verified": true,
-      "tokenCount": 2435,
-      "evalSummary": {
-        "overallScore": 63,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 5,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-20T09:16:36.106Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 63,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 5,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.106Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.106Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "Resume Version Manager",
-      "description": "Track different resume versions, maintain master resume, manage tailored versions",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-version-manager",
-      "relPath": "skills/resume-version-manager",
-      "verified": true,
-      "tokenCount": 2215,
-      "evalSummary": {
-        "overallScore": 51,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 4,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 5,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-20T09:16:36.109Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 51,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 4,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 5,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.109Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.109Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "Salary Negotiation Prep",
-      "description": "Research market rates, build negotiation strategy, and create counter-offer scripts",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/salary-negotiation-prep",
-      "relPath": "skills/salary-negotiation-prep",
-      "verified": true,
-      "tokenCount": 3182,
-      "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 5,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-20T09:16:36.111Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 64,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
               "score": 7,
               "max": 10
             },
@@ -2581,11 +2718,11 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 5,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:36.111Z",
+          "evaluatedAt": "2026-06-02T22:29:38.231Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2593,154 +2730,17 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.111Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "Tech Resume Optimizer",
-      "description": "Optimize resumes for software engineering, PM, and technical roles",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Paramchoudhary/ResumeSkills:skills/tech-resume-optimizer",
-      "relPath": "skills/tech-resume-optimizer",
-      "verified": true,
-      "tokenCount": 2720,
-      "evalSummary": {
-        "overallScore": 70,
-        "grade": "C",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 5,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-20T09:16:36.114Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 70,
+          "overallScore": 77,
           "grade": "C",
           "categories": [
             {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 5,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:36.114Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
+              "score": 10,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:36.114Z",
+          "evaluatedAt": "2026-06-02T22:29:38.231Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2752,7 +2752,7 @@
       "name": "paramchoudhary-resumeskills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Paramchoudhary/ResumeSkills.",
       "author": "ASM (Paramchoudhary/ResumeSkills)",
-      "createdAt": "2026-05-20T09:16:36.117Z",
+      "createdAt": "2026-06-02T22:29:38.232Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2764,31 +2764,31 @@
       ],
       "skills": [
         {
-          "name": "Offer Comparison Analyzer",
+          "name": "offer-comparison-analyzer",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/offer-comparison-analyzer",
           "description": "Compare multiple job offers side-by-side with total compensation analysis",
           "version": "0.0.0"
         },
         {
-          "name": "Portfolio Case Study Writer",
+          "name": "portfolio-case-study-writer",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/portfolio-case-study-writer",
           "description": "Transform resume bullets into detailed portfolio case studies",
           "version": "0.0.0"
         },
         {
-          "name": "Resume Quantifier",
+          "name": "resume-quantifier",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-quantifier",
           "description": "Find opportunities to add metrics and estimate numbers when exact data unavailable",
           "version": "0.0.0"
         },
         {
-          "name": "Resume Tailor",
+          "name": "resume-tailor",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-tailor",
           "description": "Customize resume for specific job postings while maintaining truthfulness",
           "version": "0.0.0"
         },
         {
-          "name": "Resume Version Manager",
+          "name": "resume-version-manager",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-version-manager",
           "description": "Track different resume versions, maintain master resume, manage tailored versions",
           "version": "0.0.0"
@@ -2806,7 +2806,7 @@
       "name": "paramchoudhary-resumeskills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from Paramchoudhary/ResumeSkills.",
       "author": "ASM (Paramchoudhary/ResumeSkills)",
-      "createdAt": "2026-05-20T09:16:36.117Z",
+      "createdAt": "2026-06-02T22:29:38.232Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2818,25 +2818,25 @@
       ],
       "skills": [
         {
-          "name": "Academic CV Builder",
+          "name": "academic-cv-builder",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/academic-cv-builder",
           "description": "Format CVs for academic positions with publications, grants, and teaching",
           "version": "0.0.0"
         },
         {
-          "name": "Reference List Builder",
+          "name": "reference-list-builder",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/reference-list-builder",
           "description": "Format professional references properly and prepare reference materials",
           "version": "0.0.0"
         },
         {
-          "name": "Resume Section Builder",
+          "name": "resume-section-builder",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-section-builder",
           "description": "Create targeted resume sections optimized for different experience levels and roles",
           "version": "0.0.0"
         },
         {
-          "name": "Salary Negotiation Prep",
+          "name": "salary-negotiation-prep",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/salary-negotiation-prep",
           "description": "Research market rates, build negotiation strategy, and create counter-offer scripts",
           "version": "0.0.0"
@@ -2854,7 +2854,7 @@
       "name": "paramchoudhary-resumeskills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Paramchoudhary/ResumeSkills.",
       "author": "ASM (Paramchoudhary/ResumeSkills)",
-      "createdAt": "2026-05-20T09:16:36.117Z",
+      "createdAt": "2026-06-02T22:29:38.232Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2866,49 +2866,49 @@
       ],
       "skills": [
         {
-          "name": "Academic CV Builder",
+          "name": "academic-cv-builder",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/academic-cv-builder",
           "description": "Format CVs for academic positions with publications, grants, and teaching",
           "version": "0.0.0"
         },
         {
-          "name": "Creative Portfolio Resume",
+          "name": "creative-portfolio-resume",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/creative-portfolio-resume",
           "description": "Balance visual design with ATS compatibility for creative roles",
           "version": "0.0.0"
         },
         {
-          "name": "Executive Resume Writer",
+          "name": "executive-resume-writer",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/executive-resume-writer",
           "description": "Create C-suite and VP level resumes emphasizing strategic leadership",
           "version": "0.0.0"
         },
         {
-          "name": "LinkedIn Profile Optimizer",
+          "name": "linkedin-profile-optimizer",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/linkedin-profile-optimizer",
           "description": "Optimize LinkedIn profile for searchability, recruiter visibility, and engagement",
           "version": "0.0.0"
         },
         {
-          "name": "Reference List Builder",
+          "name": "reference-list-builder",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/reference-list-builder",
           "description": "Format professional references properly and prepare reference materials",
           "version": "0.0.0"
         },
         {
-          "name": "Resume Formatter",
+          "name": "resume-formatter",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-formatter",
           "description": "Ensure ATS-friendly formatting and create clean scannable layouts",
           "version": "0.0.0"
         },
         {
-          "name": "Resume Section Builder",
+          "name": "resume-section-builder",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-section-builder",
           "description": "Create targeted resume sections optimized for different experience levels and roles",
           "version": "0.0.0"
         },
         {
-          "name": "Salary Negotiation Prep",
+          "name": "salary-negotiation-prep",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/salary-negotiation-prep",
           "description": "Research market rates, build negotiation strategy, and create counter-offer scripts",
           "version": "0.0.0"
@@ -2926,7 +2926,7 @@
       "name": "paramchoudhary-resumeskills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from Paramchoudhary/ResumeSkills.",
       "author": "ASM (Paramchoudhary/ResumeSkills)",
-      "createdAt": "2026-05-20T09:16:36.117Z",
+      "createdAt": "2026-06-02T22:29:38.232Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2938,121 +2938,121 @@
       ],
       "skills": [
         {
-          "name": "Academic CV Builder",
+          "name": "academic-cv-builder",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/academic-cv-builder",
           "description": "Format CVs for academic positions with publications, grants, and teaching",
           "version": "0.0.0"
         },
         {
-          "name": "Career Changer Translator",
+          "name": "career-changer-translator",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/career-changer-translator",
           "description": "Translate skills from one industry to another, identify transferable skills",
           "version": "0.0.0"
         },
         {
-          "name": "Cover Letter Generator",
+          "name": "cover-letter-generator",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/cover-letter-generator",
           "description": "Create personalized, compelling cover letters from resume and job description",
           "version": "0.0.0"
         },
         {
-          "name": "Creative Portfolio Resume",
+          "name": "creative-portfolio-resume",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/creative-portfolio-resume",
           "description": "Balance visual design with ATS compatibility for creative roles",
           "version": "0.0.0"
         },
         {
-          "name": "Executive Resume Writer",
+          "name": "executive-resume-writer",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/executive-resume-writer",
           "description": "Create C-suite and VP level resumes emphasizing strategic leadership",
           "version": "0.0.0"
         },
         {
-          "name": "Interview Prep Generator",
+          "name": "interview-prep-generator",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/interview-prep-generator",
           "description": "Generate STAR stories, practice questions, and talking points from resume",
           "version": "0.0.0"
         },
         {
-          "name": "Job Description Analyzer",
+          "name": "job-description-analyzer",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/job-description-analyzer",
           "description": "Analyze job postings, calculate match scores, identify gaps, and create application strategy",
           "version": "0.0.0"
         },
         {
-          "name": "LinkedIn Profile Optimizer",
+          "name": "linkedin-profile-optimizer",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/linkedin-profile-optimizer",
           "description": "Optimize LinkedIn profile for searchability, recruiter visibility, and engagement",
           "version": "0.0.0"
         },
         {
-          "name": "Offer Comparison Analyzer",
+          "name": "offer-comparison-analyzer",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/offer-comparison-analyzer",
           "description": "Compare multiple job offers side-by-side with total compensation analysis",
           "version": "0.0.0"
         },
         {
-          "name": "Portfolio Case Study Writer",
+          "name": "portfolio-case-study-writer",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/portfolio-case-study-writer",
           "description": "Transform resume bullets into detailed portfolio case studies",
           "version": "0.0.0"
         },
         {
-          "name": "Reference List Builder",
+          "name": "reference-list-builder",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/reference-list-builder",
           "description": "Format professional references properly and prepare reference materials",
           "version": "0.0.0"
         },
         {
-          "name": "Resume ATS Optimizer",
+          "name": "resume-ats-optimizer",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-ats-optimizer",
           "description": "Optimize resumes for Applicant Tracking Systems, check ATS compatibility, and analyze keyword match",
           "version": "0.0.0"
         },
         {
-          "name": "Resume Bullet Writer",
+          "name": "resume-bullet-writer",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-bullet-writer",
           "description": "Transform weak resume bullets into achievement-focused statements with metrics and impact",
           "version": "0.0.0"
         },
         {
-          "name": "Resume Formatter",
+          "name": "resume-formatter",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-formatter",
           "description": "Ensure ATS-friendly formatting and create clean scannable layouts",
           "version": "0.0.0"
         },
         {
-          "name": "Resume Quantifier",
+          "name": "resume-quantifier",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-quantifier",
           "description": "Find opportunities to add metrics and estimate numbers when exact data unavailable",
           "version": "0.0.0"
         },
         {
-          "name": "Resume Section Builder",
+          "name": "resume-section-builder",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-section-builder",
           "description": "Create targeted resume sections optimized for different experience levels and roles",
           "version": "0.0.0"
         },
         {
-          "name": "Resume Tailor",
+          "name": "resume-tailor",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-tailor",
           "description": "Customize resume for specific job postings while maintaining truthfulness",
           "version": "0.0.0"
         },
         {
-          "name": "Resume Version Manager",
+          "name": "resume-version-manager",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-version-manager",
           "description": "Track different resume versions, maintain master resume, manage tailored versions",
           "version": "0.0.0"
         },
         {
-          "name": "Salary Negotiation Prep",
+          "name": "salary-negotiation-prep",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/salary-negotiation-prep",
           "description": "Research market rates, build negotiation strategy, and create counter-offer scripts",
           "version": "0.0.0"
         },
         {
-          "name": "Tech Resume Optimizer",
+          "name": "tech-resume-optimizer",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/tech-resume-optimizer",
           "description": "Optimize resumes for software engineering, PM, and technical roles",
           "version": "0.0.0"
@@ -3070,7 +3070,7 @@
       "name": "paramchoudhary-resumeskills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from Paramchoudhary/ResumeSkills.",
       "author": "ASM (Paramchoudhary/ResumeSkills)",
-      "createdAt": "2026-05-20T09:16:36.117Z",
+      "createdAt": "2026-06-02T22:29:38.232Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3082,19 +3082,19 @@
       ],
       "skills": [
         {
-          "name": "Academic CV Builder",
+          "name": "academic-cv-builder",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/academic-cv-builder",
           "description": "Format CVs for academic positions with publications, grants, and teaching",
           "version": "0.0.0"
         },
         {
-          "name": "Offer Comparison Analyzer",
+          "name": "offer-comparison-analyzer",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/offer-comparison-analyzer",
           "description": "Compare multiple job offers side-by-side with total compensation analysis",
           "version": "0.0.0"
         },
         {
-          "name": "Salary Negotiation Prep",
+          "name": "salary-negotiation-prep",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/salary-negotiation-prep",
           "description": "Research market rates, build negotiation strategy, and create counter-offer scripts",
           "version": "0.0.0"
@@ -3112,7 +3112,7 @@
       "name": "paramchoudhary-resumeskills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from Paramchoudhary/ResumeSkills.",
       "author": "ASM (Paramchoudhary/ResumeSkills)",
-      "createdAt": "2026-05-20T09:16:36.117Z",
+      "createdAt": "2026-06-02T22:29:38.232Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3124,19 +3124,19 @@
       ],
       "skills": [
         {
-          "name": "Executive Resume Writer",
+          "name": "executive-resume-writer",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/executive-resume-writer",
           "description": "Create C-suite and VP level resumes emphasizing strategic leadership",
           "version": "0.0.0"
         },
         {
-          "name": "Portfolio Case Study Writer",
+          "name": "portfolio-case-study-writer",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/portfolio-case-study-writer",
           "description": "Transform resume bullets into detailed portfolio case studies",
           "version": "0.0.0"
         },
         {
-          "name": "Resume Bullet Writer",
+          "name": "resume-bullet-writer",
           "installUrl": "github:Paramchoudhary/ResumeSkills:skills/resume-bullet-writer",
           "description": "Transform weak resume bullets into achievement-focused statements with metrics and impact",
           "version": "0.0.0"

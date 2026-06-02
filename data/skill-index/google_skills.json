@@ -2,9 +2,694 @@
   "repoUrl": "https://github.com/google/skills.git",
   "owner": "google",
   "repo": "skills",
-  "updatedAt": "2026-05-20T09:16:34.803Z",
-  "skillCount": 16,
+  "updatedAt": "2026-06-02T22:29:37.019Z",
+  "skillCount": 27,
   "skills": [
+    {
+      "name": "agent-platform-deploy",
+      "description": "Deploy open models or custom weights from Model Garden to Agent Platform endpoints, check deployment status, verify serving endpoints, or clean up resources by undeploying models and deleting endpoints. Use when asked to deploy models on Agent Platform, list available Model Garden models, check if a model is deployable, query deployment cost, troubleshoot deployment errors (like quota limits), or undeploy/clean up endpoints. Also use when copying and deploying a 1P Tuned Model. Don't use for public Vertex AI deployments (use the `vertex-deploy` skill) or for running model evaluations (use the `agent-platform-eval` skill).",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:google/skills:skills/cloud/agent-platform-deploy",
+      "relPath": "skills/cloud/agent-platform-deploy",
+      "verified": true,
+      "tokenCount": 3291,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:36.976Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.976Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.976Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "agent-platform-eval-flywheel",
+      "description": "Measure and improve the quality of AI models and agents on Google Cloud using the Eval Quality Flywheel methodology. Use when evaluating an agent or model, building an eval dataset, picking or writing evaluation metrics, analyzing failures, comparing results before and after a fix, or when guidance is needed on Agent Platform eval methodology — including dataset schema, LLM-as-judge scoring, and common failure causes. For fine-tuning, use agent-platform-tuning. For deployment, use agent-platform-deploy.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:google/skills:skills/cloud/agent-platform-eval-flywheel",
+      "relPath": "skills/cloud/agent-platform-eval-flywheel",
+      "verified": true,
+      "tokenCount": 5265,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:36.978Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.978Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.978Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "agent-platform-model-registry",
+      "description": "Agent Platform Model Registry Management. Use when you need to upload, list, describe, update, or delete machine learning models (and their versions) in the Agent Platform Model Registry. Don't use for model training, model deployment to endpoints, or managing non-Agent Platform models.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:google/skills:skills/cloud/agent-platform-model-registry",
+      "relPath": "skills/cloud/agent-platform-model-registry",
+      "verified": true,
+      "tokenCount": 1317,
+      "evalSummary": {
+        "overallScore": 76,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:36.981Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.981Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.981Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "agent-platform-prompt-management",
+      "description": "Manages and orchestrates prompts in Agent Platform. Use when you need to create, list, retrieve, version, or delete managed prompts in Agent Platform. Don't use for model training, model deployment to endpoints, or managing non-Agent Platform prompts.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:google/skills:skills/cloud/agent-platform-prompt-management",
+      "relPath": "skills/cloud/agent-platform-prompt-management",
+      "verified": true,
+      "tokenCount": 1223,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:36.982Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.982Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.982Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "agent-platform-rag-engine-management",
+      "description": "Manage and query Agent Platform RAG Engine Corpora and retrieve grounded contexts using the Google GenAI SDK. Use when listing RAG corpora or files, inspecting a corpus, retrieving contexts, or generating content grounded in a RAG corpus. Do not use for standard database queries (use SQL/Spanner skills), Google Workspace RAG, or other RAG products like gRAG.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:google/skills:skills/cloud/agent-platform-rag-engine-management",
+      "relPath": "skills/cloud/agent-platform-rag-engine-management",
+      "verified": true,
+      "tokenCount": 1882,
+      "evalSummary": {
+        "overallScore": 70,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:36.983Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 70,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.983Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.983Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
     {
       "name": "agent-platform-skill-registry",
       "description": "Interact with the Gemini Enterprise Agent Platform Skill Registry to create and search for available skills. Use this skill to enable agents to register functionality or discover new capabilities.",
@@ -64,7 +749,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:34.772Z",
+        "evaluatedAt": "2026-06-02T22:29:36.984Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -119,7 +804,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.772Z",
+          "evaluatedAt": "2026-06-02T22:29:36.984Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +822,281 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.772Z",
+          "evaluatedAt": "2026-06-02T22:29:36.984Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "agent-platform-tuning",
+      "description": "Agent Platform Model Tuning. Use when you need to fine-tune open models or Gemini models using Agent Platform infrastructure. Don't use for model training outside Agent Platform, model deployment to endpoints (use `agent-platform-deploy`), or managing serving endpoints (use `agent-platform-endpoint-management`).",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:google/skills:skills/cloud/agent-platform-tuning",
+      "relPath": "skills/cloud/agent-platform-tuning",
+      "verified": true,
+      "tokenCount": 5070,
+      "evalSummary": {
+        "overallScore": 76,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:36.986Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.986Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.986Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "agent-platform-tuning-management",
+      "description": "Manages GenAI tuning jobs in Agent Platform. Use this to list, get, or cancel ongoing model tuning jobs. Don't use for fine-tuning models (use `agent-platform-tuning`), deploying models to endpoints (use `agent-platform-deploy`), or managing serving endpoints (use `agent-platform-endpoint-management`).",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:google/skills:skills/cloud/agent-platform-tuning-management",
+      "relPath": "skills/cloud/agent-platform-tuning-management",
+      "verified": true,
+      "tokenCount": 1731,
+      "evalSummary": {
+        "overallScore": 81,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:36.988Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 81,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.988Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.988Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -201,7 +1160,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:34.773Z",
+        "evaluatedAt": "2026-06-02T22:29:36.989Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -256,7 +1215,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.773Z",
+          "evaluatedAt": "2026-06-02T22:29:36.989Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +1233,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.773Z",
+          "evaluatedAt": "2026-06-02T22:29:36.989Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -290,7 +1249,7 @@
       "installUrl": "github:google/skills:skills/cloud/bigquery-basics",
       "relPath": "skills/cloud/bigquery-basics",
       "verified": true,
-      "tokenCount": 830,
+      "tokenCount": 892,
       "evalSummary": {
         "overallScore": 64,
         "grade": "D",
@@ -338,7 +1297,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:34.774Z",
+        "evaluatedAt": "2026-06-02T22:29:36.990Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -393,7 +1352,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.774Z",
+          "evaluatedAt": "2026-06-02T22:29:36.990Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +1370,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.774Z",
+          "evaluatedAt": "2026-06-02T22:29:36.990Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -475,7 +1434,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:34.776Z",
+        "evaluatedAt": "2026-06-02T22:29:36.992Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -530,7 +1489,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.776Z",
+          "evaluatedAt": "2026-06-02T22:29:36.992Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +1507,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.776Z",
+          "evaluatedAt": "2026-06-02T22:29:36.992Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -612,7 +1571,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:34.778Z",
+        "evaluatedAt": "2026-06-02T22:29:36.993Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -667,7 +1626,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.778Z",
+          "evaluatedAt": "2026-06-02T22:29:36.994Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +1644,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.778Z",
+          "evaluatedAt": "2026-06-02T22:29:36.994Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -749,7 +1708,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:34.779Z",
+        "evaluatedAt": "2026-06-02T22:29:36.994Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -804,7 +1763,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.779Z",
+          "evaluatedAt": "2026-06-02T22:29:36.994Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,14 +1781,288 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.779Z",
+          "evaluatedAt": "2026-06-02T22:29:36.994Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "gcloud",
+      "description": "Interacts with Google Cloud services using the gcloud CLI safely and efficiently. Covers command validation, data reduction, safety guardrails with a denylist, and workflows for discovery and investigation. You MUST read this skill before invoking any gcloud command. Use when managing cloud resources, querying configurations, or troubleshooting issues via gcloud. Don't use when writing or debugging Google Cloud client library code or raw REST/gRPC API interactions.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:google/skills:skills/cloud/gcloud",
+      "relPath": "skills/cloud/gcloud",
+      "verified": true,
+      "tokenCount": 3248,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:36.996Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.996Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.996Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "gemini-agents-api",
+      "description": "Manages custom Agent resources on Gemini Enterprise Agent Platform. Use when the user wants to programmatically create, configure, list, update, or delete stateful, server-managed Agent resources (including mounting files, skills, and tools) before executing conversations.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:google/skills:skills/cloud/gemini-agents-api",
+      "relPath": "skills/cloud/gemini-agents-api",
+      "verified": true,
+      "tokenCount": 2748,
+      "evalSummary": {
+        "overallScore": 61,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:36.997Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 61,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.997Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:36.997Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "gemini-api",
-      "description": "Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like Live API, tools, multimedia generation, caching, and batch prediction.",
+      "description": "Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like multimodal inputs, tools, media generation, caching, batch prediction, and Live API.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -838,7 +2071,7 @@
       "installUrl": "github:google/skills:skills/cloud/gemini-api",
       "relPath": "skills/cloud/gemini-api",
       "verified": true,
-      "tokenCount": 2048,
+      "tokenCount": 2065,
       "evalSummary": {
         "overallScore": 71,
         "grade": "C",
@@ -886,7 +2119,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:34.780Z",
+        "evaluatedAt": "2026-06-02T22:29:36.999Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -941,7 +2174,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.780Z",
+          "evaluatedAt": "2026-06-02T22:29:36.999Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +2192,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.780Z",
+          "evaluatedAt": "2026-06-02T22:29:36.999Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1023,7 +2256,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:34.782Z",
+        "evaluatedAt": "2026-06-02T22:29:37.001Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1078,7 +2311,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.782Z",
+          "evaluatedAt": "2026-06-02T22:29:37.001Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1096,144 +2329,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.783Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "gemini-managed-agents-api",
-      "description": "Manages custom Agent resources on Gemini Enterprise Agent Platform. Use when the user wants to programmatically create, configure, list, update, or delete stateful, server-managed Agent resources (including mounting files, skills, and tools) before executing conversations.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:google/skills:skills/cloud/gemini-agents-api",
-      "relPath": "skills/cloud/gemini-agents-api",
-      "verified": true,
-      "tokenCount": 2748,
-      "evalSummary": {
-        "overallScore": 60,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 6,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 1,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 7,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-05-20T09:16:34.785Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 60,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 6,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 1,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 7,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:34.785Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-05-20T09:16:34.785Z",
+          "evaluatedAt": "2026-06-02T22:29:37.001Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1297,7 +2393,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:34.786Z",
+        "evaluatedAt": "2026-06-02T22:29:37.003Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1352,7 +2448,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.786Z",
+          "evaluatedAt": "2026-06-02T22:29:37.003Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +2466,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.786Z",
+          "evaluatedAt": "2026-06-02T22:29:37.003Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1434,7 +2530,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:34.788Z",
+        "evaluatedAt": "2026-06-02T22:29:37.004Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1489,7 +2585,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.788Z",
+          "evaluatedAt": "2026-06-02T22:29:37.004Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +2603,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.788Z",
+          "evaluatedAt": "2026-06-02T22:29:37.004Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1571,7 +2667,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:34.790Z",
+        "evaluatedAt": "2026-06-02T22:29:37.006Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1626,7 +2722,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.791Z",
+          "evaluatedAt": "2026-06-02T22:29:37.006Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +2740,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.790Z",
+          "evaluatedAt": "2026-06-02T22:29:37.006Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1708,7 +2804,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:34.793Z",
+        "evaluatedAt": "2026-06-02T22:29:37.008Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1763,7 +2859,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.793Z",
+          "evaluatedAt": "2026-06-02T22:29:37.008Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +2877,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.793Z",
+          "evaluatedAt": "2026-06-02T22:29:37.008Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1845,7 +2941,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:34.796Z",
+        "evaluatedAt": "2026-06-02T22:29:37.009Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1900,7 +2996,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.797Z",
+          "evaluatedAt": "2026-06-02T22:29:37.009Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1918,7 +3014,281 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.797Z",
+          "evaluatedAt": "2026-06-02T22:29:37.009Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "google-cloud-waf-operational-excellence",
+      "description": "Generates operations-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Operational Excellence pillar of the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify operational requirements, and provide actionable recommendations for deployment, monitoring, and incident management.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-operational-excellence",
+      "relPath": "skills/cloud/google-cloud-waf-operational-excellence",
+      "verified": true,
+      "tokenCount": 1903,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:37.011Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:37.011Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:37.011Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "google-cloud-waf-performance-optimization",
+      "description": "Generates performance-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Performance Optimization pillar of the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify performance requirements, and provide actionable recommendations for resource allocation, modular design, and elasticity.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-performance-optimization",
+      "relPath": "skills/cloud/google-cloud-waf-performance-optimization",
+      "verified": true,
+      "tokenCount": 2135,
+      "evalSummary": {
+        "overallScore": 63,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 6,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:37.012Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 63,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 6,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:37.012Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:37.012Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1982,7 +3352,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:34.799Z",
+        "evaluatedAt": "2026-06-02T22:29:37.013Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2037,7 +3407,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.799Z",
+          "evaluatedAt": "2026-06-02T22:29:37.013Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2055,7 +3425,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.799Z",
+          "evaluatedAt": "2026-06-02T22:29:37.013Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2119,7 +3489,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-05-20T09:16:34.801Z",
+        "evaluatedAt": "2026-06-02T22:29:37.015Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2174,7 +3544,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.801Z",
+          "evaluatedAt": "2026-06-02T22:29:37.015Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2192,7 +3562,144 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-05-20T09:16:34.801Z",
+          "evaluatedAt": "2026-06-02T22:29:37.015Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "google-cloud-waf-sustainability",
+      "description": "Generates sustainability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify environmental impact requirements, and provide actionable recommendations to build, deploy, and manage the workload sustainably in Google Cloud.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-sustainability",
+      "relPath": "skills/cloud/google-cloud-waf-sustainability",
+      "verified": true,
+      "tokenCount": 4080,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-02T22:29:37.017Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 67,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:37.018Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-02T22:29:37.018Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2204,7 +3711,7 @@
       "name": "google-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from google/skills.",
       "author": "ASM (google/skills)",
-      "createdAt": "2026-05-20T09:16:34.803Z",
+      "createdAt": "2026-06-02T22:29:37.019Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2216,9 +3723,51 @@
       ],
       "skills": [
         {
+          "name": "agent-platform-deploy",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-deploy",
+          "description": "Deploy open models or custom weights from Model Garden to Agent Platform endpoints, check deployment status, verify serving endpoints, or clean up resources by undeploying models and deleting endpoints. Use when asked to deploy models on Agent Platform, list available Model Garden models, check if a model is deployable, query deployment cost, troubleshoot deployment errors (like quota limits), or undeploy/clean up endpoints. Also use when copying and deploying a 1P Tuned Model. Don't use for public Vertex AI deployments (use the `vertex-deploy` skill) or for running model evaluations (use the `agent-platform-eval` skill).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "agent-platform-eval-flywheel",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-eval-flywheel",
+          "description": "Measure and improve the quality of AI models and agents on Google Cloud using the Eval Quality Flywheel methodology. Use when evaluating an agent or model, building an eval dataset, picking or writing evaluation metrics, analyzing failures, comparing results before and after a fix, or when guidance is needed on Agent Platform eval methodology — including dataset schema, LLM-as-judge scoring, and common failure causes. For fine-tuning, use agent-platform-tuning. For deployment, use agent-platform-deploy.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "agent-platform-model-registry",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-model-registry",
+          "description": "Agent Platform Model Registry Management. Use when you need to upload, list, describe, update, or delete machine learning models (and their versions) in the Agent Platform Model Registry. Don't use for model training, model deployment to endpoints, or managing non-Agent Platform models.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "agent-platform-prompt-management",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-prompt-management",
+          "description": "Manages and orchestrates prompts in Agent Platform. Use when you need to create, list, retrieve, version, or delete managed prompts in Agent Platform. Don't use for model training, model deployment to endpoints, or managing non-Agent Platform prompts.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "agent-platform-rag-engine-management",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-rag-engine-management",
+          "description": "Manage and query Agent Platform RAG Engine Corpora and retrieve grounded contexts using the Google GenAI SDK. Use when listing RAG corpora or files, inspecting a corpus, retrieving contexts, or generating content grounded in a RAG corpus. Do not use for standard database queries (use SQL/Spanner skills), Google Workspace RAG, or other RAG products like gRAG.",
+          "version": "0.0.0"
+        },
+        {
           "name": "agent-platform-skill-registry",
           "installUrl": "github:google/skills:skills/cloud/agent-platform-skill-registry",
           "description": "Interact with the Gemini Enterprise Agent Platform Skill Registry to create and search for available skills. Use this skill to enable agents to register functionality or discover new capabilities.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "agent-platform-tuning",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-tuning",
+          "description": "Agent Platform Model Tuning. Use when you need to fine-tune open models or Gemini models using Agent Platform infrastructure. Don't use for model training outside Agent Platform, model deployment to endpoints (use `agent-platform-deploy`), or managing serving endpoints (use `agent-platform-endpoint-management`).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "agent-platform-tuning-management",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-tuning-management",
+          "description": "Manages GenAI tuning jobs in Agent Platform. Use this to list, get, or cancel ongoing model tuning jobs. Don't use for fine-tuning models (use `agent-platform-tuning`), deploying models to endpoints (use `agent-platform-deploy`), or managing serving endpoints (use `agent-platform-endpoint-management`).",
           "version": "0.0.0"
         },
         {
@@ -2240,21 +3789,27 @@
           "version": "0.0.0"
         },
         {
+          "name": "gcloud",
+          "installUrl": "github:google/skills:skills/cloud/gcloud",
+          "description": "Interacts with Google Cloud services using the gcloud CLI safely and efficiently. Covers command validation, data reduction, safety guardrails with a denylist, and workflows for discovery and investigation. You MUST read this skill before invoking any gcloud command. Use when managing cloud resources, querying configurations, or troubleshooting issues via gcloud. Don't use when writing or debugging Google Cloud client library code or raw REST/gRPC API interactions.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gemini-agents-api",
+          "installUrl": "github:google/skills:skills/cloud/gemini-agents-api",
+          "description": "Manages custom Agent resources on Gemini Enterprise Agent Platform. Use when the user wants to programmatically create, configure, list, update, or delete stateful, server-managed Agent resources (including mounting files, skills, and tools) before executing conversations.",
+          "version": "0.0.0"
+        },
+        {
           "name": "gemini-api",
           "installUrl": "github:google/skills:skills/cloud/gemini-api",
-          "description": "Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like Live API, tools, multimedia generation, caching, and batch prediction.",
+          "description": "Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like multimodal inputs, tools, media generation, caching, batch prediction, and Live API.",
           "version": "0.0.0"
         },
         {
           "name": "gemini-interactions-api",
           "installUrl": "github:google/skills:skills/cloud/gemini-interactions-api",
           "description": "Guides the usage of Gemini Interactions API on Gemini Enterprise Agent Platform. Use when the user wants to use the stateful, server-managed Interactions API for multi-turn conversations, background execution, streaming, structured output, and function calling on the Agent Platform.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "gemini-managed-agents-api",
-          "installUrl": "github:google/skills:skills/cloud/gemini-agents-api",
-          "description": "Manages custom Agent resources on Gemini Enterprise Agent Platform. Use when the user wants to programmatically create, configure, list, update, or delete stateful, server-managed Agent resources (including mounting files, skills, and tools) before executing conversations.",
           "version": "0.0.0"
         },
         {
@@ -2274,6 +3829,12 @@
           "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-security",
           "description": "Generates security-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify security requirements, and provide actionable recommendations for IAM, network security, data protection, and operational security.",
           "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-sustainability",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-sustainability",
+          "description": "Generates sustainability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify environmental impact requirements, and provide actionable recommendations to build, deploy, and manage the workload sustainably in Google Cloud.",
+          "version": "0.0.0"
         }
       ],
       "sourceRepo": {
@@ -2288,7 +3849,7 @@
       "name": "google-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from google/skills.",
       "author": "ASM (google/skills)",
-      "createdAt": "2026-05-20T09:16:34.803Z",
+      "createdAt": "2026-06-02T22:29:37.019Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2300,9 +3861,51 @@
       ],
       "skills": [
         {
+          "name": "agent-platform-deploy",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-deploy",
+          "description": "Deploy open models or custom weights from Model Garden to Agent Platform endpoints, check deployment status, verify serving endpoints, or clean up resources by undeploying models and deleting endpoints. Use when asked to deploy models on Agent Platform, list available Model Garden models, check if a model is deployable, query deployment cost, troubleshoot deployment errors (like quota limits), or undeploy/clean up endpoints. Also use when copying and deploying a 1P Tuned Model. Don't use for public Vertex AI deployments (use the `vertex-deploy` skill) or for running model evaluations (use the `agent-platform-eval` skill).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "agent-platform-eval-flywheel",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-eval-flywheel",
+          "description": "Measure and improve the quality of AI models and agents on Google Cloud using the Eval Quality Flywheel methodology. Use when evaluating an agent or model, building an eval dataset, picking or writing evaluation metrics, analyzing failures, comparing results before and after a fix, or when guidance is needed on Agent Platform eval methodology — including dataset schema, LLM-as-judge scoring, and common failure causes. For fine-tuning, use agent-platform-tuning. For deployment, use agent-platform-deploy.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "agent-platform-model-registry",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-model-registry",
+          "description": "Agent Platform Model Registry Management. Use when you need to upload, list, describe, update, or delete machine learning models (and their versions) in the Agent Platform Model Registry. Don't use for model training, model deployment to endpoints, or managing non-Agent Platform models.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "agent-platform-prompt-management",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-prompt-management",
+          "description": "Manages and orchestrates prompts in Agent Platform. Use when you need to create, list, retrieve, version, or delete managed prompts in Agent Platform. Don't use for model training, model deployment to endpoints, or managing non-Agent Platform prompts.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "agent-platform-rag-engine-management",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-rag-engine-management",
+          "description": "Manage and query Agent Platform RAG Engine Corpora and retrieve grounded contexts using the Google GenAI SDK. Use when listing RAG corpora or files, inspecting a corpus, retrieving contexts, or generating content grounded in a RAG corpus. Do not use for standard database queries (use SQL/Spanner skills), Google Workspace RAG, or other RAG products like gRAG.",
+          "version": "0.0.0"
+        },
+        {
           "name": "agent-platform-skill-registry",
           "installUrl": "github:google/skills:skills/cloud/agent-platform-skill-registry",
           "description": "Interact with the Gemini Enterprise Agent Platform Skill Registry to create and search for available skills. Use this skill to enable agents to register functionality or discover new capabilities.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "agent-platform-tuning",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-tuning",
+          "description": "Agent Platform Model Tuning. Use when you need to fine-tune open models or Gemini models using Agent Platform infrastructure. Don't use for model training outside Agent Platform, model deployment to endpoints (use `agent-platform-deploy`), or managing serving endpoints (use `agent-platform-endpoint-management`).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "agent-platform-tuning-management",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-tuning-management",
+          "description": "Manages GenAI tuning jobs in Agent Platform. Use this to list, get, or cancel ongoing model tuning jobs. Don't use for fine-tuning models (use `agent-platform-tuning`), deploying models to endpoints (use `agent-platform-deploy`), or managing serving endpoints (use `agent-platform-endpoint-management`).",
           "version": "0.0.0"
         },
         {
@@ -2336,21 +3939,27 @@
           "version": "0.0.0"
         },
         {
+          "name": "gcloud",
+          "installUrl": "github:google/skills:skills/cloud/gcloud",
+          "description": "Interacts with Google Cloud services using the gcloud CLI safely and efficiently. Covers command validation, data reduction, safety guardrails with a denylist, and workflows for discovery and investigation. You MUST read this skill before invoking any gcloud command. Use when managing cloud resources, querying configurations, or troubleshooting issues via gcloud. Don't use when writing or debugging Google Cloud client library code or raw REST/gRPC API interactions.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gemini-agents-api",
+          "installUrl": "github:google/skills:skills/cloud/gemini-agents-api",
+          "description": "Manages custom Agent resources on Gemini Enterprise Agent Platform. Use when the user wants to programmatically create, configure, list, update, or delete stateful, server-managed Agent resources (including mounting files, skills, and tools) before executing conversations.",
+          "version": "0.0.0"
+        },
+        {
           "name": "gemini-api",
           "installUrl": "github:google/skills:skills/cloud/gemini-api",
-          "description": "Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like Live API, tools, multimedia generation, caching, and batch prediction.",
+          "description": "Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like multimodal inputs, tools, media generation, caching, batch prediction, and Live API.",
           "version": "0.0.0"
         },
         {
           "name": "gemini-interactions-api",
           "installUrl": "github:google/skills:skills/cloud/gemini-interactions-api",
           "description": "Guides the usage of Gemini Interactions API on Gemini Enterprise Agent Platform. Use when the user wants to use the stateful, server-managed Interactions API for multi-turn conversations, background execution, streaming, structured output, and function calling on the Agent Platform.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "gemini-managed-agents-api",
-          "installUrl": "github:google/skills:skills/cloud/gemini-agents-api",
-          "description": "Manages custom Agent resources on Gemini Enterprise Agent Platform. Use when the user wants to programmatically create, configure, list, update, or delete stateful, server-managed Agent resources (including mounting files, skills, and tools) before executing conversations.",
           "version": "0.0.0"
         },
         {
@@ -2384,6 +3993,18 @@
           "version": "0.0.0"
         },
         {
+          "name": "google-cloud-waf-operational-excellence",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-operational-excellence",
+          "description": "Generates operations-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Operational Excellence pillar of the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify operational requirements, and provide actionable recommendations for deployment, monitoring, and incident management.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-performance-optimization",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-performance-optimization",
+          "description": "Generates performance-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Performance Optimization pillar of the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify performance requirements, and provide actionable recommendations for resource allocation, modular design, and elasticity.",
+          "version": "0.0.0"
+        },
+        {
           "name": "google-cloud-waf-reliability",
           "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-reliability",
           "description": "Generates reliability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework. Use this skill to evaluate a workload, identify reliability requirements, and provide actionable recommendations for build, deploy, and manage the workload reliably in Google Cloud.",
@@ -2393,6 +4014,12 @@
           "name": "google-cloud-waf-security",
           "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-security",
           "description": "Generates security-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify security requirements, and provide actionable recommendations for IAM, network security, data protection, and operational security.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-sustainability",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-sustainability",
+          "description": "Generates sustainability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify environmental impact requirements, and provide actionable recommendations to build, deploy, and manage the workload sustainably in Google Cloud.",
           "version": "0.0.0"
         }
       ],
@@ -2408,7 +4035,7 @@
       "name": "google-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from google/skills.",
       "author": "ASM (google/skills)",
-      "createdAt": "2026-05-20T09:16:34.803Z",
+      "createdAt": "2026-06-02T22:29:37.019Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2420,21 +4047,33 @@
       ],
       "skills": [
         {
+          "name": "agent-platform-eval-flywheel",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-eval-flywheel",
+          "description": "Measure and improve the quality of AI models and agents on Google Cloud using the Eval Quality Flywheel methodology. Use when evaluating an agent or model, building an eval dataset, picking or writing evaluation metrics, analyzing failures, comparing results before and after a fix, or when guidance is needed on Agent Platform eval methodology — including dataset schema, LLM-as-judge scoring, and common failure causes. For fine-tuning, use agent-platform-tuning. For deployment, use agent-platform-deploy.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gcloud",
+          "installUrl": "github:google/skills:skills/cloud/gcloud",
+          "description": "Interacts with Google Cloud services using the gcloud CLI safely and efficiently. Covers command validation, data reduction, safety guardrails with a denylist, and workflows for discovery and investigation. You MUST read this skill before invoking any gcloud command. Use when managing cloud resources, querying configurations, or troubleshooting issues via gcloud. Don't use when writing or debugging Google Cloud client library code or raw REST/gRPC API interactions.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gemini-agents-api",
+          "installUrl": "github:google/skills:skills/cloud/gemini-agents-api",
+          "description": "Manages custom Agent resources on Gemini Enterprise Agent Platform. Use when the user wants to programmatically create, configure, list, update, or delete stateful, server-managed Agent resources (including mounting files, skills, and tools) before executing conversations.",
+          "version": "0.0.0"
+        },
+        {
           "name": "gemini-api",
           "installUrl": "github:google/skills:skills/cloud/gemini-api",
-          "description": "Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like Live API, tools, multimedia generation, caching, and batch prediction.",
+          "description": "Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like multimodal inputs, tools, media generation, caching, batch prediction, and Live API.",
           "version": "0.0.0"
         },
         {
           "name": "gemini-interactions-api",
           "installUrl": "github:google/skills:skills/cloud/gemini-interactions-api",
           "description": "Guides the usage of Gemini Interactions API on Gemini Enterprise Agent Platform. Use when the user wants to use the stateful, server-managed Interactions API for multi-turn conversations, background execution, streaming, structured output, and function calling on the Agent Platform.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "gemini-managed-agents-api",
-          "installUrl": "github:google/skills:skills/cloud/gemini-agents-api",
-          "description": "Manages custom Agent resources on Gemini Enterprise Agent Platform. Use when the user wants to programmatically create, configure, list, update, or delete stateful, server-managed Agent resources (including mounting files, skills, and tools) before executing conversations.",
           "version": "0.0.0"
         },
         {
@@ -2466,6 +4105,12 @@
           "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-reliability",
           "description": "Generates reliability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework. Use this skill to evaluate a workload, identify reliability requirements, and provide actionable recommendations for build, deploy, and manage the workload reliably in Google Cloud.",
           "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-sustainability",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-sustainability",
+          "description": "Generates sustainability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify environmental impact requirements, and provide actionable recommendations to build, deploy, and manage the workload sustainably in Google Cloud.",
+          "version": "0.0.0"
         }
       ],
       "sourceRepo": {
@@ -2480,7 +4125,7 @@
       "name": "google-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from google/skills.",
       "author": "ASM (google/skills)",
-      "createdAt": "2026-05-20T09:16:34.803Z",
+      "createdAt": "2026-06-02T22:29:37.019Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2492,6 +4137,12 @@
       ],
       "skills": [
         {
+          "name": "agent-platform-eval-flywheel",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-eval-flywheel",
+          "description": "Measure and improve the quality of AI models and agents on Google Cloud using the Eval Quality Flywheel methodology. Use when evaluating an agent or model, building an eval dataset, picking or writing evaluation metrics, analyzing failures, comparing results before and after a fix, or when guidance is needed on Agent Platform eval methodology — including dataset schema, LLM-as-judge scoring, and common failure causes. For fine-tuning, use agent-platform-tuning. For deployment, use agent-platform-deploy.",
+          "version": "0.0.0"
+        },
+        {
           "name": "bigquery-basics",
           "installUrl": "github:google/skills:skills/cloud/bigquery-basics",
           "description": "Manages datasets, tables, and jobs in BigQuery, and integrates with BigQuery ML and Gemini for advanced data analytics and AI-driven insights. Use when you need to interact with BigQuery, run SQL queries, manage BigQuery resources, or leverage BigQuery's built-in ML capabilities. Also use when performing data analysis, ingesting data into BigQuery, or developing AI applications on BigQuery.",
@@ -2500,7 +4151,7 @@
         {
           "name": "gemini-api",
           "installUrl": "github:google/skills:skills/cloud/gemini-api",
-          "description": "Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like Live API, tools, multimedia generation, caching, and batch prediction.",
+          "description": "Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like multimodal inputs, tools, media generation, caching, batch prediction, and Live API.",
           "version": "0.0.0"
         },
         {
@@ -2534,6 +4185,18 @@
           "version": "0.0.0"
         },
         {
+          "name": "google-cloud-waf-operational-excellence",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-operational-excellence",
+          "description": "Generates operations-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Operational Excellence pillar of the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify operational requirements, and provide actionable recommendations for deployment, monitoring, and incident management.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-performance-optimization",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-performance-optimization",
+          "description": "Generates performance-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Performance Optimization pillar of the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify performance requirements, and provide actionable recommendations for resource allocation, modular design, and elasticity.",
+          "version": "0.0.0"
+        },
+        {
           "name": "google-cloud-waf-reliability",
           "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-reliability",
           "description": "Generates reliability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework. Use this skill to evaluate a workload, identify reliability requirements, and provide actionable recommendations for build, deploy, and manage the workload reliably in Google Cloud.",
@@ -2543,6 +4206,12 @@
           "name": "google-cloud-waf-security",
           "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-security",
           "description": "Generates security-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify security requirements, and provide actionable recommendations for IAM, network security, data protection, and operational security.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-sustainability",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-sustainability",
+          "description": "Generates sustainability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify environmental impact requirements, and provide actionable recommendations to build, deploy, and manage the workload sustainably in Google Cloud.",
           "version": "0.0.0"
         }
       ],
@@ -2558,7 +4227,7 @@
       "name": "google-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from google/skills.",
       "author": "ASM (google/skills)",
-      "createdAt": "2026-05-20T09:16:34.803Z",
+      "createdAt": "2026-06-02T22:29:37.019Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2569,6 +4238,12 @@
         "skills"
       ],
       "skills": [
+        {
+          "name": "agent-platform-rag-engine-management",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-rag-engine-management",
+          "description": "Manage and query Agent Platform RAG Engine Corpora and retrieve grounded contexts using the Google GenAI SDK. Use when listing RAG corpora or files, inspecting a corpus, retrieving contexts, or generating content grounded in a RAG corpus. Do not use for standard database queries (use SQL/Spanner skills), Google Workspace RAG, or other RAG products like gRAG.",
+          "version": "0.0.0"
+        },
         {
           "name": "firebase-basics",
           "installUrl": "github:google/skills:skills/cloud/firebase-basics",
@@ -2594,7 +4269,7 @@
       "name": "google-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from google/skills.",
       "author": "ASM (google/skills)",
-      "createdAt": "2026-05-20T09:16:34.803Z",
+      "createdAt": "2026-06-02T22:29:37.019Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2605,6 +4280,12 @@
         "skills"
       ],
       "skills": [
+        {
+          "name": "agent-platform-deploy",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-deploy",
+          "description": "Deploy open models or custom weights from Model Garden to Agent Platform endpoints, check deployment status, verify serving endpoints, or clean up resources by undeploying models and deleting endpoints. Use when asked to deploy models on Agent Platform, list available Model Garden models, check if a model is deployable, query deployment cost, troubleshoot deployment errors (like quota limits), or undeploy/clean up endpoints. Also use when copying and deploying a 1P Tuned Model. Don't use for public Vertex AI deployments (use the `vertex-deploy` skill) or for running model evaluations (use the `agent-platform-eval` skill).",
+          "version": "0.0.0"
+        },
         {
           "name": "bigquery-basics",
           "installUrl": "github:google/skills:skills/cloud/bigquery-basics",
@@ -2618,6 +4299,18 @@
           "version": "0.0.0"
         },
         {
+          "name": "google-cloud-waf-operational-excellence",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-operational-excellence",
+          "description": "Generates operations-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Operational Excellence pillar of the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify operational requirements, and provide actionable recommendations for deployment, monitoring, and incident management.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-performance-optimization",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-performance-optimization",
+          "description": "Generates performance-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Performance Optimization pillar of the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify performance requirements, and provide actionable recommendations for resource allocation, modular design, and elasticity.",
+          "version": "0.0.0"
+        },
+        {
           "name": "google-cloud-waf-reliability",
           "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-reliability",
           "description": "Generates reliability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework. Use this skill to evaluate a workload, identify reliability requirements, and provide actionable recommendations for build, deploy, and manage the workload reliably in Google Cloud.",
@@ -2627,6 +4320,60 @@
           "name": "google-cloud-waf-security",
           "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-security",
           "description": "Generates security-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify security requirements, and provide actionable recommendations for IAM, network security, data protection, and operational security.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-cloud-waf-sustainability",
+          "installUrl": "github:google/skills:skills/cloud/google-cloud-waf-sustainability",
+          "description": "Generates sustainability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify environmental impact requirements, and provide actionable recommendations to build, deploy, and manage the workload sustainably in Google Cloud.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "skills",
+        "repoUrl": "https://github.com/google/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-skills-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from google/skills.",
+      "author": "ASM (google/skills)",
+      "createdAt": "2026-06-02T22:29:37.019Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "google",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "agent-platform-deploy",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-deploy",
+          "description": "Deploy open models or custom weights from Model Garden to Agent Platform endpoints, check deployment status, verify serving endpoints, or clean up resources by undeploying models and deleting endpoints. Use when asked to deploy models on Agent Platform, list available Model Garden models, check if a model is deployable, query deployment cost, troubleshoot deployment errors (like quota limits), or undeploy/clean up endpoints. Also use when copying and deploying a 1P Tuned Model. Don't use for public Vertex AI deployments (use the `vertex-deploy` skill) or for running model evaluations (use the `agent-platform-eval` skill).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "agent-platform-eval-flywheel",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-eval-flywheel",
+          "description": "Measure and improve the quality of AI models and agents on Google Cloud using the Eval Quality Flywheel methodology. Use when evaluating an agent or model, building an eval dataset, picking or writing evaluation metrics, analyzing failures, comparing results before and after a fix, or when guidance is needed on Agent Platform eval methodology — including dataset schema, LLM-as-judge scoring, and common failure causes. For fine-tuning, use agent-platform-tuning. For deployment, use agent-platform-deploy.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "agent-platform-rag-engine-management",
+          "installUrl": "github:google/skills:skills/cloud/agent-platform-rag-engine-management",
+          "description": "Manage and query Agent Platform RAG Engine Corpora and retrieve grounded contexts using the Google GenAI SDK. Use when listing RAG corpora or files, inspecting a corpus, retrieving contexts, or generating content grounded in a RAG corpus. Do not use for standard database queries (use SQL/Spanner skills), Google Workspace RAG, or other RAG products like gRAG.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gcloud",
+          "installUrl": "github:google/skills:skills/cloud/gcloud",
+          "description": "Interacts with Google Cloud services using the gcloud CLI safely and efficiently. Covers command validation, data reduction, safety guardrails with a denylist, and workflows for discovery and investigation. You MUST read this skill before invoking any gcloud command. Use when managing cloud resources, querying configurations, or troubleshooting issues via gcloud. Don't use when writing or debugging Google Cloud client library code or raw REST/gRPC API interactions.",
           "version": "0.0.0"
         }
       ],
