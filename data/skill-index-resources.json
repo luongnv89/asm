@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-08T09:00:00Z",
+  "updatedAt": "2026-06-09T00:00:00Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -287,6 +287,15 @@
       "repo": "paperasse",
       "description": "🇫🇷  Skills pour agents IA spécialisés dans la bureaucratie française : Comptable, Notaire, ...",
       "maintainer": "@romainsimon",
+      "enabled": true
+    },
+    {
+      "source": "github:briiirussell/cybersecurity-skills",
+      "url": "https://github.com/briiirussell/cybersecurity-skills",
+      "owner": "briiirussell",
+      "repo": "cybersecurity-skills",
+      "description": "37 cybersecurity skills for AI agents — AppSec, audits, incident response, threat modeling, compliance, and more",
+      "maintainer": "@briiirussell",
       "enabled": true
     },
     {
