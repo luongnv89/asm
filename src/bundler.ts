@@ -292,7 +292,9 @@ export async function listPredefinedBundles(): Promise<BundleManifest[]> {
     if (!byName.has(bundle.name)) byName.set(bundle.name, bundle);
   }
 
-  return Array.from(byName.values()).sort((a, b) => a.name.localeCompare(b.name));
+  return Array.from(byName.values()).sort((a, b) =>
+    a.name.localeCompare(b.name),
+  );
 }
 
 async function listRepoIndexBundles(): Promise<BundleManifest[]> {
@@ -305,7 +307,9 @@ async function listRepoIndexBundles(): Promise<BundleManifest[]> {
   }
 }
 
-async function findRepoIndexBundle(name: string): Promise<BundleManifest | null> {
+async function findRepoIndexBundle(
+  name: string,
+): Promise<BundleManifest | null> {
   const sanitized = sanitizeBundleName(name);
   const bundles = await listRepoIndexBundles();
   return (

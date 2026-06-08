@@ -15,13 +15,17 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const indexDir = join(root, "data", "skill-index");
 
 async function main() {
-  const files = (await readdir(indexDir)).filter((file) => file.endsWith(".json")).sort();
+  const files = (await readdir(indexDir))
+    .filter((file) => file.endsWith(".json"))
+    .sort();
   let updated = 0;
   let bundleCount = 0;
 
   for (const file of files) {
     const filePath = join(indexDir, file);
-    const repoIndex = JSON.parse(await readFile(filePath, "utf-8")) as RepoIndex;
+    const repoIndex = JSON.parse(
+      await readFile(filePath, "utf-8"),
+    ) as RepoIndex;
     const inferred = inferRepoBundles(repoIndex);
     const next: RepoIndex = { ...repoIndex };
 
@@ -40,7 +44,9 @@ async function main() {
     }
   }
 
-  console.log(`Refreshed repo-derived bundles: ${bundleCount} bundles across ${updated} index files`);
+  console.log(
+    `Refreshed repo-derived bundles: ${bundleCount} bundles across ${updated} index files`,
+  );
 }
 
 main().catch((err) => {

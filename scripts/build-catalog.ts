@@ -21,7 +21,10 @@ import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import MiniSearch from "minisearch";
 import { MINISEARCH_OPTIONS } from "./minisearch-options";
-import { repoBundlesForIndex, type RepoBundleManifest } from "../src/repo-bundles";
+import {
+  repoBundlesForIndex,
+  type RepoBundleManifest,
+} from "../src/repo-bundles";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const indexDir = join(root, "data", "skill-index");

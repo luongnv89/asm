@@ -60,11 +60,16 @@ describe("repo-derived bundle inference", () => {
     ]);
 
     const bundles = inferRepoBundles(index);
-    const marketing = bundles.find((bundle) => bundle.name === "owner-repo-marketing");
+    const marketing = bundles.find(
+      (bundle) => bundle.name === "owner-repo-marketing",
+    );
 
     expect(marketing).toBeDefined();
     expect(marketing!.inferred).toBe(true);
-    expect(marketing!.sourceRepo).toMatchObject({ owner: "owner", repo: "repo" });
+    expect(marketing!.sourceRepo).toMatchObject({
+      owner: "owner",
+      repo: "repo",
+    });
     expect(marketing!.skills.map((s) => s.name)).toEqual([
       "aso-marketing",
       "seo-auditor",
@@ -110,7 +115,9 @@ describe("repo-derived bundle inference", () => {
     ];
 
     const bundles = repoBundlesForIndex(index);
-    const marketing = bundles.find((bundle) => bundle.name === "owner-repo-marketing");
+    const marketing = bundles.find(
+      (bundle) => bundle.name === "owner-repo-marketing",
+    );
 
     expect(marketing!.explicit).toBe(true);
     expect(marketing!.description).toBe("Maintainer curated marketing bundle");
@@ -174,7 +181,10 @@ describe("repo-derived bundle inference", () => {
         JSON.stringify({
           name: "marketing",
           skills: [
-            { name: "not-in-this-repo", installUrl: "github:attacker/malicious" },
+            {
+              name: "not-in-this-repo",
+              installUrl: "github:attacker/malicious",
+            },
           ],
         }),
       );
@@ -197,7 +207,11 @@ describe("repo-derived bundle inference", () => {
         createdAt: "2026-05-10T00:00:00.000Z",
         tags: ["repo-derived"],
         skills: [skill({ name: "seo" })],
-        sourceRepo: { owner: "owner", repo: "repo", repoUrl: "https://github.com/owner/repo.git" },
+        sourceRepo: {
+          owner: "owner",
+          repo: "repo",
+          repoUrl: "https://github.com/owner/repo.git",
+        },
         inferred: true,
       },
       {
@@ -208,7 +222,11 @@ describe("repo-derived bundle inference", () => {
         createdAt: "2026-05-10T00:00:00.000Z",
         tags: ["repo-derived"],
         skills: [skill({ name: "aso" })],
-        sourceRepo: { owner: "owner", repo: "repo", repoUrl: "https://github.com/owner/repo.git" },
+        sourceRepo: {
+          owner: "owner",
+          repo: "repo",
+          repoUrl: "https://github.com/owner/repo.git",
+        },
         explicit: true,
       },
     ]);

@@ -1,6 +1,11 @@
 import { readdir, readFile, stat } from "fs/promises";
 import { join } from "path";
-import type { BundleManifest, BundleSkillRef, IndexedSkill, RepoIndex } from "./utils/types";
+import type {
+  BundleManifest,
+  BundleSkillRef,
+  IndexedSkill,
+  RepoIndex,
+} from "./utils/types";
 
 export interface RepoBundleSource {
   owner: string;
@@ -27,58 +32,184 @@ const GROUPS: BundleGroup[] = [
   {
     id: "marketing",
     title: "Marketing Skills",
-    description: "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills.",
+    description:
+      "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills.",
     tags: ["marketing", "growth", "seo"],
-    keywords: ["marketing", "growth", "seo", "aso", "affiliate", "sales", "copy", "copywriting", "conversion", "cro", "brand", "social", "campaign"],
+    keywords: [
+      "marketing",
+      "growth",
+      "seo",
+      "aso",
+      "affiliate",
+      "sales",
+      "copy",
+      "copywriting",
+      "conversion",
+      "cro",
+      "brand",
+      "social",
+      "campaign",
+    ],
   },
   {
     id: "writing",
     title: "Writing Skills",
-    description: "Writing, editing, documentation, publishing, and content-production skills.",
+    description:
+      "Writing, editing, documentation, publishing, and content-production skills.",
     tags: ["writing", "content", "docs"],
-    keywords: ["write", "writing", "writer", "blog", "article", "content", "docs", "documentation", "draft", "copy", "readme", "paper", "thesis", "proposal"],
+    keywords: [
+      "write",
+      "writing",
+      "writer",
+      "blog",
+      "article",
+      "content",
+      "docs",
+      "documentation",
+      "draft",
+      "copy",
+      "readme",
+      "paper",
+      "thesis",
+      "proposal",
+    ],
   },
   {
     id: "research",
     title: "Research Skills",
-    description: "Research, academic, literature-review, citation, paper, and analysis skills.",
+    description:
+      "Research, academic, literature-review, citation, paper, and analysis skills.",
     tags: ["research", "academic", "analysis"],
-    keywords: ["research", "academic", "scholar", "paper", "literature", "citation", "review", "analysis", "summar", "evaluate", "verify"],
+    keywords: [
+      "research",
+      "academic",
+      "scholar",
+      "paper",
+      "literature",
+      "citation",
+      "review",
+      "analysis",
+      "summar",
+      "evaluate",
+      "verify",
+    ],
   },
   {
     id: "engineering",
     title: "Engineering Skills",
-    description: "Coding, debugging, testing, architecture, review, and software engineering skills.",
+    description:
+      "Coding, debugging, testing, architecture, review, and software engineering skills.",
     tags: ["engineering", "coding", "testing"],
-    keywords: ["code", "coding", "debug", "test", "testing", "coverage", "review", "refactor", "architecture", "typescript", "python", "javascript", "build", "cli", "api"],
+    keywords: [
+      "code",
+      "coding",
+      "debug",
+      "test",
+      "testing",
+      "coverage",
+      "review",
+      "refactor",
+      "architecture",
+      "typescript",
+      "python",
+      "javascript",
+      "build",
+      "cli",
+      "api",
+    ],
   },
   {
     id: "frontend-design",
     title: "Frontend & Design Skills",
-    description: "Frontend, UI, UX, visual design, component, theme, and landing-page skills.",
+    description:
+      "Frontend, UI, UX, visual design, component, theme, and landing-page skills.",
     tags: ["frontend", "design", "ui"],
-    keywords: ["frontend", "ui", "ux", "design", "component", "react", "css", "html", "figma", "theme", "landing", "layout", "visual", "brand", "logo"],
+    keywords: [
+      "frontend",
+      "ui",
+      "ux",
+      "design",
+      "component",
+      "react",
+      "css",
+      "html",
+      "figma",
+      "theme",
+      "landing",
+      "layout",
+      "visual",
+      "brand",
+      "logo",
+    ],
   },
   {
     id: "devops",
     title: "DevOps Skills",
-    description: "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills.",
+    description:
+      "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills.",
     tags: ["devops", "infra", "automation"],
-    keywords: ["devops", "deploy", "deployment", "ci", "cd", "pipeline", "docker", "kubernetes", "terraform", "ansible", "cloud", "infra", "infrastructure", "workflow", "release"],
+    keywords: [
+      "devops",
+      "deploy",
+      "deployment",
+      "ci",
+      "cd",
+      "pipeline",
+      "docker",
+      "kubernetes",
+      "terraform",
+      "ansible",
+      "cloud",
+      "infra",
+      "infrastructure",
+      "workflow",
+      "release",
+    ],
   },
   {
     id: "data-ai",
     title: "Data & AI Skills",
-    description: "Data, analytics, AI, model, prompt, agent, and automation skills.",
+    description:
+      "Data, analytics, AI, model, prompt, agent, and automation skills.",
     tags: ["data", "ai", "agents"],
-    keywords: ["data", "analytics", "analysis", "ai", "agent", "llm", "model", "prompt", "openai", "claude", "gemini", "automation", "dataset", "sql"],
+    keywords: [
+      "data",
+      "analytics",
+      "analysis",
+      "ai",
+      "agent",
+      "llm",
+      "model",
+      "prompt",
+      "openai",
+      "claude",
+      "gemini",
+      "automation",
+      "dataset",
+      "sql",
+    ],
   },
   {
     id: "product-business",
     title: "Product & Business Skills",
-    description: "Product, strategy, PRD, planning, finance, resume, and business workflow skills.",
+    description:
+      "Product, strategy, PRD, planning, finance, resume, and business workflow skills.",
     tags: ["product", "business", "planning"],
-    keywords: ["product", "prd", "strategy", "planning", "business", "finance", "resume", "career", "startup", "market", "competitor", "customer", "sales"],
+    keywords: [
+      "product",
+      "prd",
+      "strategy",
+      "planning",
+      "business",
+      "finance",
+      "resume",
+      "career",
+      "startup",
+      "market",
+      "competitor",
+      "customer",
+      "sales",
+    ],
   },
 ];
 
@@ -147,7 +278,10 @@ function sortSkills(skills: BundleSkillRef[]): BundleSkillRef[] {
 
 export function inferRepoBundles(repoIndex: RepoIndex): RepoBundleManifest[] {
   const bundles: RepoBundleManifest[] = [];
-  if (!repoIndex.skills || repoIndex.skills.length < MIN_SKILLS_PER_INFERRED_BUNDLE) {
+  if (
+    !repoIndex.skills ||
+    repoIndex.skills.length < MIN_SKILLS_PER_INFERRED_BUNDLE
+  ) {
     return bundles;
   }
 
@@ -165,7 +299,13 @@ export function inferRepoBundles(repoIndex: RepoIndex): RepoBundleManifest[] {
       description: `${group.description} Derived from ${repoIndex.owner}/${repoIndex.repo}.`,
       author: `ASM (${repoIndex.owner}/${repoIndex.repo})`,
       createdAt: repoIndex.updatedAt,
-      tags: ["repo-derived", "inferred", ...group.tags, slugify(repoIndex.owner), slugify(repoIndex.repo)],
+      tags: [
+        "repo-derived",
+        "inferred",
+        ...group.tags,
+        slugify(repoIndex.owner),
+        slugify(repoIndex.repo),
+      ],
       skills: sortSkills(matchingSkills.map(toBundleSkillRef)),
       sourceRepo: {
         owner: repoIndex.owner,
@@ -181,7 +321,10 @@ export function inferRepoBundles(repoIndex: RepoIndex): RepoBundleManifest[] {
 
 function normalizeExplicitBundle(
   raw: unknown,
-  repoIndex: Pick<RepoIndex, "owner" | "repo" | "repoUrl" | "updatedAt" | "skills">,
+  repoIndex: Pick<
+    RepoIndex,
+    "owner" | "repo" | "repoUrl" | "updatedAt" | "skills"
+  >,
   relPath: string,
 ): RepoBundleManifest | null {
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
@@ -197,7 +340,8 @@ function normalizeExplicitBundle(
           const match = byName.get(entry);
           return match ? toBundleSkillRef(match) : null;
         }
-        if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+        if (!entry || typeof entry !== "object" || Array.isArray(entry))
+          return null;
         const skill = entry as Record<string, any>;
         const name = typeof skill.name === "string" ? skill.name : "";
         if (!name) return null;
@@ -221,7 +365,10 @@ function normalizeExplicitBundle(
 
   if (skillRefs.length === 0) return null;
 
-  const baseName = typeof obj.name === "string" && obj.name ? obj.name : relPath.replace(/\.json$/, "");
+  const baseName =
+    typeof obj.name === "string" && obj.name
+      ? obj.name
+      : relPath.replace(/\.json$/, "");
   return {
     version: 1,
     name: repoScopedName(repoIndex.owner, repoIndex.repo, baseName),
@@ -238,7 +385,11 @@ function normalizeExplicitBundle(
         ? obj.createdAt
         : repoIndex.updatedAt,
     tags: Array.isArray(obj.tags)
-      ? ["repo-derived", "explicit", ...obj.tags.filter((tag: unknown) => typeof tag === "string")]
+      ? [
+          "repo-derived",
+          "explicit",
+          ...obj.tags.filter((tag: unknown) => typeof tag === "string"),
+        ]
       : ["repo-derived", "explicit"],
     skills: sortSkills(skillRefs),
     sourceRepo: {
@@ -269,14 +420,19 @@ async function dirExists(path: string): Promise<boolean> {
   }
 }
 
-async function readBundleCandidates(repoRoot: string): Promise<Array<{ relPath: string; data: unknown }>> {
+async function readBundleCandidates(
+  repoRoot: string,
+): Promise<Array<{ relPath: string; data: unknown }>> {
   const candidates: Array<{ relPath: string; data: unknown }> = [];
 
   for (const relPath of EXPLICIT_BUNDLE_FILES) {
     const absPath = join(repoRoot, relPath);
     if (!(await fileExists(absPath))) continue;
     try {
-      candidates.push({ relPath, data: JSON.parse(await readFile(absPath, "utf-8")) });
+      candidates.push({
+        relPath,
+        data: JSON.parse(await readFile(absPath, "utf-8")),
+      });
     } catch {
       // Ignore malformed explicit bundle metadata. Indexing must remain best-effort.
     }
@@ -291,10 +447,15 @@ async function readBundleCandidates(repoRoot: string): Promise<Array<{ relPath: 
     } catch {
       continue;
     }
-    for (const entry of entries.filter((name) => name.endsWith(".json")).sort()) {
+    for (const entry of entries
+      .filter((name) => name.endsWith(".json"))
+      .sort()) {
       const relPath = `${relDir}/${entry}`;
       try {
-        candidates.push({ relPath, data: JSON.parse(await readFile(join(absDir, entry), "utf-8")) });
+        candidates.push({
+          relPath,
+          data: JSON.parse(await readFile(join(absDir, entry), "utf-8")),
+        });
       } catch {
         // Ignore malformed explicit bundle metadata. Indexing must remain best-effort.
       }
@@ -306,7 +467,10 @@ async function readBundleCandidates(repoRoot: string): Promise<Array<{ relPath: 
 
 export async function discoverExplicitRepoBundles(
   repoRoot: string,
-  repoIndex: Pick<RepoIndex, "owner" | "repo" | "repoUrl" | "updatedAt" | "skills">,
+  repoIndex: Pick<
+    RepoIndex,
+    "owner" | "repo" | "repoUrl" | "updatedAt" | "skills"
+  >,
 ): Promise<RepoBundleManifest[]> {
   const bundles: RepoBundleManifest[] = [];
   const candidates = await readBundleCandidates(repoRoot);
@@ -315,7 +479,11 @@ export async function discoverExplicitRepoBundles(
     const data = candidate.data as any;
     const bundleInputs = Array.isArray(data?.bundles) ? data.bundles : [data];
     for (const input of bundleInputs) {
-      const bundle = normalizeExplicitBundle(input, repoIndex, candidate.relPath);
+      const bundle = normalizeExplicitBundle(
+        input,
+        repoIndex,
+        candidate.relPath,
+      );
       if (bundle) bundles.push(bundle);
     }
   }
@@ -323,7 +491,9 @@ export async function discoverExplicitRepoBundles(
   return mergeRepoBundles(bundles);
 }
 
-export function mergeRepoBundles(bundles: RepoBundleManifest[]): RepoBundleManifest[] {
+export function mergeRepoBundles(
+  bundles: RepoBundleManifest[],
+): RepoBundleManifest[] {
   const byName = new Map<string, RepoBundleManifest>();
   for (const bundle of bundles) {
     const existing = byName.get(bundle.name);
@@ -331,10 +501,14 @@ export function mergeRepoBundles(bundles: RepoBundleManifest[]): RepoBundleManif
       byName.set(bundle.name, bundle);
     }
   }
-  return Array.from(byName.values()).sort((a, b) => a.name.localeCompare(b.name));
+  return Array.from(byName.values()).sort((a, b) =>
+    a.name.localeCompare(b.name),
+  );
 }
 
-export function repoBundlesForIndex(repoIndex: RepoIndex): RepoBundleManifest[] {
+export function repoBundlesForIndex(
+  repoIndex: RepoIndex,
+): RepoBundleManifest[] {
   const explicit = (repoIndex.bundles || []) as RepoBundleManifest[];
   const inferred = inferRepoBundles(repoIndex);
   return mergeRepoBundles([...explicit, ...inferred]);

@@ -117,10 +117,7 @@ describe("dedupeSkillsByName", () => {
   });
 
   it("recognizes a top-level repo dir literally named 'skills' (relPath === 'skills')", () => {
-    const input = [
-      make("foo", ".claude/skills/foo"),
-      make("foo", "skills"),
-    ];
+    const input = [make("foo", ".claude/skills/foo"), make("foo", "skills")];
     const { kept } = dedupeSkillsByName(input);
     expect(kept).toHaveLength(1);
     expect(kept[0].relPath).toBe("skills");
@@ -128,10 +125,7 @@ describe("dedupeSkillsByName", () => {
 
   it("on a tie within the same priority tier, keeps the first occurrence", () => {
     // Two same-name skills, both under skills/ (priority 1). Tie → first found.
-    const input = [
-      make("foo", "skills/foo"),
-      make("foo", "skills/sub/foo"),
-    ];
+    const input = [make("foo", "skills/foo"), make("foo", "skills/sub/foo")];
     const { kept, decisions } = dedupeSkillsByName(input);
     expect(kept).toHaveLength(1);
     expect(kept[0].relPath).toBe("skills/foo");
@@ -140,10 +134,7 @@ describe("dedupeSkillsByName", () => {
   });
 
   it("does not affect different names that happen to share the same directory", () => {
-    const input = [
-      make("foo", "skills/foo"),
-      make("bar", "skills/bar"),
-    ];
+    const input = [make("foo", "skills/foo"), make("bar", "skills/bar")];
     const { kept, decisions } = dedupeSkillsByName(input);
     expect(kept).toEqual(input);
     expect(decisions).toEqual([]);

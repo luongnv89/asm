@@ -12,7 +12,11 @@ import { loadAllIndices } from "./skill-index";
 import { debug } from "./logger";
 import { dedupeSkillsByName } from "./skill-dedupe";
 import { verifySkill } from "./verifier";
-import { discoverExplicitRepoBundles, inferRepoBundles, mergeRepoBundles } from "./repo-bundles";
+import {
+  discoverExplicitRepoBundles,
+  inferRepoBundles,
+  mergeRepoBundles,
+} from "./repo-bundles";
 import { estimateTokenCount } from "./utils/token-count";
 import { evaluateSkillContent } from "./evaluator";
 import { getEvalProviders } from "./eval/builtins";
