@@ -41,6 +41,13 @@ export async function ensureIndexDir(): Promise<string> {
   return indexDir;
 }
 
+export function buildSkillInstallUrl(
+  source: ParsedSource,
+  relPath: string,
+): string {
+  return `github:${source.owner}/${source.repo}${source.ref ? `#${source.ref}` : ""}${relPath ? `:${relPath}` : ""}`;
+}
+
 export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
   await checkGitAvailable();
 
@@ -193,7 +200,7 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
         creator: skill.creator,
         compatibility: skill.compatibility,
         allowedTools: skill.allowedTools,
-        installUrl: `github:${source.owner}/${source.repo}${source.ref ? `#${source.ref}` : ""}${skill.relPath ? `:${skill.relPath}` : ""}`,
+        installUrl: buildSkillInstallUrl(source, skill.relPath),
         relPath: skill.relPath,
         verified: verification.verified,
         tokenCount,

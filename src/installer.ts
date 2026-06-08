@@ -458,6 +458,28 @@ export async function discoverSkills(
 ): Promise<DiscoveredSkill[]> {
   const skills: DiscoveredSkill[] = [];
 
+  // A repository with SKILL.md at its root is a single root-level skill.
+  // Do not recurse into child directories, even if they contain SKILL.md too.
+  try {
+    const content = await readFile(join(tempDir, "SKILL.md"), "utf-8");
+    const fm = parseFrontmatter(content);
+    skills.push({
+      relPath: "",
+      name: fm.name || basename(tempDir),
+      version: resolveVersion(fm),
+      description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
+      effort: fm.effort || fm["metadata.effort"] || undefined,
+      license: (fm.license || "").trim(),
+      creator: (fm["metadata.creator"] || "").trim(),
+      compatibility: (fm.compatibility || "").trim(),
+      allowedTools: resolveAllowedTools(fm),
+      tokenCount: estimateTokenCount(content),
+    });
+    return skills;
+  } catch {
+    // No root skill; continue with existing subdirectory discovery behavior.
+  }
+
   async function walk(dir: string, relPrefix: string, depth: number) {
     let entries: string[];
     try {
@@ -509,6 +531,32 @@ export async function discoverSkills(
   await walk(tempDir, "", 0);
   skills.sort((a, b) => a.name.localeCompare(b.name));
   return skills;
+}
+
+export async function installScriptDependencies(
+  skillDir: string,
+  runner: typeof execFileAsync = execFileAsync,
+): Promise<void> {
+  const scriptsDir = join(skillDir, "scripts");
+  const packageJson = join(scriptsDir, "package.json");
+
+  try {
+    await access(packageJson);
+  } catch {
+    debug(
+      `install: no scripts/package.json in ${skillDir}; skipping npm install`,
+    );
+    return;
+  }
+
+  debug(`install: installing script dependencies in ${scriptsDir}`);
+  try {
+    await runner("npm", ["install"], { cwd: scriptsDir, timeout: 120_000 });
+  } catch (err: any) {
+    throw new Error(
+      `Installed skill, but failed to install dependencies in scripts/: ${err.stderr || err.message}`,
+    );
+  }
 }
 
 export interface SecurityWarning {
@@ -605,6 +653,8 @@ export async function executeInstall(
       "Installation verification failed: SKILL.md not found at target",
     );
   }
+
+  await installScriptDependencies(plan.targetDir);
 
   // Read metadata for result
   const content = await readFile(skillMd, "utf-8");

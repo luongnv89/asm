@@ -2,7 +2,12 @@ import { describe, expect, it, beforeEach, afterEach } from "vitest";
 import { mkdtemp, writeFile, mkdir, rm, readFile, readdir } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
-import { ensureIndexDir, listIndexedRepos, removeRepoIndex } from "./ingester";
+import {
+  buildSkillInstallUrl,
+  ensureIndexDir,
+  listIndexedRepos,
+  removeRepoIndex,
+} from "./ingester";
 import { getIndexDir } from "./config";
 import { discoverSkills } from "./installer";
 import { dedupeSkillsByName } from "./skill-dedupe";
@@ -88,6 +93,40 @@ describe("removeRepoIndex", () => {
   });
 });
 
+describe("buildSkillInstallUrl", () => {
+  it("does not append a trailing colon for a root-level skill", () => {
+    expect(
+      buildSkillInstallUrl(
+        {
+          owner: "zarazhangrui",
+          repo: "follow-builders",
+          ref: null,
+          subpath: null,
+          cloneUrl: "https://github.com/zarazhangrui/follow-builders.git",
+          sshCloneUrl: "git@github.com:zarazhangrui/follow-builders.git",
+        },
+        "",
+      ),
+    ).toBe("github:zarazhangrui/follow-builders");
+  });
+
+  it("keeps subdirectory installUrl behavior unchanged", () => {
+    expect(
+      buildSkillInstallUrl(
+        {
+          owner: "owner",
+          repo: "repo",
+          ref: "main",
+          subpath: null,
+          cloneUrl: "https://github.com/owner/repo.git",
+          sshCloneUrl: "git@github.com:owner/repo.git",
+        },
+        "skills/example",
+      ),
+    ).toBe("github:owner/repo#main:skills/example");
+  });
+});
+
 describe("ingester verification path", () => {
   let tempDir: string;
 
@@ -97,6 +136,34 @@ describe("ingester verification path", () => {
 
   afterEach(async () => {
     await rm(tempDir, { recursive: true, force: true });
+  });
+
+  it("reads and verifies root-level SKILL.md using empty relPath", async () => {
+    await writeFile(
+      join(tempDir, "SKILL.md"),
+      `---
+name: root-good
+description: A root-level skill for testing
+version: 1.0.0
+---
+
+# Root Good
+
+This root-level skill has enough instruction content to pass verification.
+`,
+      "utf-8",
+    );
+
+    const discovered = await discoverSkills(tempDir);
+    expect(discovered).toHaveLength(1);
+    expect(discovered[0].relPath).toBe("");
+
+    const skillMdContent = await readFile(
+      join(tempDir, discovered[0].relPath, "SKILL.md"),
+      "utf-8",
+    );
+    const result = verifySkill(discovered[0], skillMdContent);
+    expect(result.verified).toBe(true);
   });
 
   it("produces verified:true for a well-formed skill", async () => {

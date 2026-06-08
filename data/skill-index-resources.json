@@ -306,6 +306,15 @@
       "description": "Collection of agent skills compatible with pi-coding-agent, Claude Code, Codex CLI, Amp, and Droid",
       "maintainer": "@badlogic",
       "enabled": true
+    },
+    {
+      "source": "github:zarazhangrui/follow-builders",
+      "url": "https://github.com/zarazhangrui/follow-builders",
+      "owner": "zarazhangrui",
+      "repo": "follow-builders",
+      "description": "Follow Builders skill for discovering and following builders",
+      "maintainer": "@zarazhangrui",
+      "enabled": true
     }
   ]
 }

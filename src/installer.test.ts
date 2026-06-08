@@ -22,6 +22,7 @@ import {
   discoverSkills,
   scanForWarnings,
   resolveProvider,
+  executeInstall,
   executeInstallAllProviders,
   buildInstallPlan,
   checkConflict,
@@ -29,6 +30,7 @@ import {
   findDuplicateInstallNames,
   buildRepoUrl,
   checkNpxAvailable,
+  installScriptDependencies,
 } from "./installer";
 import type { AppConfig, ProviderConfig } from "./utils/types";
 
@@ -539,6 +541,23 @@ describe("discoverSkills", () => {
 
   afterEach(async () => {
     await rm(tempDir, { recursive: true, force: true });
+  });
+
+  test("discovers a root-level skill and does not recurse into children", async () => {
+    await mkdir(join(tempDir, "child"), { recursive: true });
+    await writeFile(
+      join(tempDir, "SKILL.md"),
+      "---\nname: root-skill\nversion: 1.0.0\ndescription: Root skill\n---\n# Root\n",
+    );
+    await writeFile(
+      join(tempDir, "child", "SKILL.md"),
+      "---\nname: child-skill\n---\n# Child\n",
+    );
+
+    const discovered = await discoverSkills(tempDir);
+    expect(discovered).toHaveLength(1);
+    expect(discovered[0].name).toBe("root-skill");
+    expect(discovered[0].relPath).toBe("");
   });
 
   test("discovers skills in subdirectories", async () => {
@@ -1686,6 +1705,99 @@ describe("buildInstallPlan scope - target directory resolution", () => {
     expect(plan.skillName).toBe("foo");
     expect(plan.providerName).toBe("agents");
     expect(plan.providerLabel).toBe("Agents");
+  });
+});
+
+// ─── executeInstall post-install dependency tests ───────────────────────────
+
+describe("installScriptDependencies", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-test-scripts-deps-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  test("runs npm install only in scripts directory when scripts/package.json exists", async () => {
+    const scriptsDir = join(tempDir, "scripts");
+    await mkdir(scriptsDir, { recursive: true });
+    await writeFile(join(scriptsDir, "package.json"), '{"dependencies":{}}\n');
+    const runner = vi.fn().mockResolvedValue({ stdout: "", stderr: "" });
+
+    await installScriptDependencies(tempDir, runner as any);
+
+    expect(runner).toHaveBeenCalledTimes(1);
+    expect(runner).toHaveBeenCalledWith("npm", ["install"], {
+      cwd: scriptsDir,
+      timeout: 120_000,
+    });
+  });
+
+  test("skips npm install when only unrelated package.json exists", async () => {
+    await writeFile(join(tempDir, "package.json"), '{"dependencies":{}}\n');
+    const runner = vi.fn().mockResolvedValue({ stdout: "", stderr: "" });
+
+    await installScriptDependencies(tempDir, runner as any);
+
+    expect(runner).not.toHaveBeenCalled();
+  });
+
+  test("reports clear failure when scripts npm install fails", async () => {
+    const scriptsDir = join(tempDir, "scripts");
+    await mkdir(scriptsDir, { recursive: true });
+    await writeFile(join(scriptsDir, "package.json"), '{"dependencies":{}}\n');
+    const runner = vi.fn().mockRejectedValue({ stderr: "dependency error" });
+
+    await expect(
+      installScriptDependencies(tempDir, runner as any),
+    ).rejects.toThrow("failed to install dependencies in scripts/");
+  });
+});
+
+describe("executeInstall", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-test-execute-install-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  test("installs root-level skill sources", async () => {
+    const sourceDir = join(tempDir, "source");
+    const targetDir = join(tempDir, "target", "root-skill");
+    await mkdir(sourceDir, { recursive: true });
+    await writeFile(
+      join(sourceDir, "SKILL.md"),
+      "---\nname: root-skill\nversion: 1.0.0\n---\n# Root\n",
+    );
+
+    const result = await executeInstall({
+      source: {
+        owner: "user",
+        repo: "root-skill",
+        ref: null,
+        subpath: null,
+        cloneUrl: "https://github.com/user/root-skill.git",
+        sshCloneUrl: "git@github.com:user/root-skill.git",
+      },
+      tempDir: sourceDir,
+      sourceDir,
+      targetDir,
+      skillName: "root-skill",
+      force: false,
+      providerName: "agents",
+      providerLabel: "Agents",
+      scope: "global",
+    });
+
+    expect(result.success).toBe(true);
+    expect(result.name).toBe("root-skill");
   });
 });
 
