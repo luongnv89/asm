@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-09T08:10:02Z",
+  "updatedAt": "2026-06-08T09:00:00Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -287,6 +287,15 @@
       "repo": "paperasse",
       "description": "🇫🇷  Skills pour agents IA spécialisés dans la bureaucratie française : Comptable, Notaire, ...",
       "maintainer": "@romainsimon",
+      "enabled": true
+    },
+    {
+      "source": "github:badlogic/pi-skills",
+      "url": "https://github.com/badlogic/pi-skills",
+      "owner": "badlogic",
+      "repo": "pi-skills",
+      "description": "Collection of agent skills compatible with pi-coding-agent, Claude Code, Codex CLI, Amp, and Droid",
+      "maintainer": "@badlogic",
       "enabled": true
     }
   ]
