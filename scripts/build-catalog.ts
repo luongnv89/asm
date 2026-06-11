@@ -756,6 +756,51 @@ if (existsSync(logoMarkSrc)) {
   copyFileSync(logoMarkSrc, join(assetsOutDir, "logo-mark.svg"));
 }
 
+// ─── SEO static files (llms.txt, sitemap.xml, robots.txt) ────────────────────
+// These live as templates in website-src/ and are rendered into website/ with
+// live catalog counts so AI crawlers and search engines read accurate numbers
+// without executing JS. Keeping the templates source-controlled (rather than
+// hand-editing the built website/ copies) means the counts can never drift out
+// of sync with the catalog again. index.html counts are injected separately by
+// the Vite `inject-catalog-counts` plugin during `build:site`.
+const seoSrcDir = join(root, "website-src");
+const seoTokens: Record<string, string> = {
+  "{{SKILL_COUNT}}": String(catalog.totalSkills),
+  "{{REPO_COUNT}}": String(catalog.totalRepos),
+  "{{CATEGORY_COUNT}}": String(categories.length),
+  // catalog.generatedAt is an ISO timestamp; sitemap <lastmod> wants YYYY-MM-DD.
+  "{{LASTMOD}}": catalog.generatedAt.slice(0, 10),
+};
+// Each entry renders website-src/<from> → website/<to> with token substitution.
+const seoTemplates: { from: string; to: string }[] = [
+  { from: "llms.txt", to: "llms.txt" },
+  { from: "sitemap.xml", to: "sitemap.xml" },
+  { from: "robots.txt", to: "robots.txt" },
+  { from: "assets/og-image.svg", to: "assets/og-image.svg" },
+];
+function renderSeoTemplate(from: string, to: string): void {
+  const srcPath = join(seoSrcDir, from);
+  if (!existsSync(srcPath)) {
+    console.warn(`  SEO: template ${from} not found in website-src/, skipping`);
+    return;
+  }
+  let content = readFileSync(srcPath, "utf-8");
+  for (const [token, value] of Object.entries(seoTokens)) {
+    content = content.split(token).join(value);
+  }
+  const leftover = content.match(/\{\{[A-Z_]+\}\}/);
+  if (leftover) {
+    throw new Error(
+      `SEO: unresolved placeholder ${leftover[0]} in ${from}. ` +
+        `Add it to seoTokens in scripts/build-catalog.ts.`,
+    );
+  }
+  writeFileSync(join(outDir, to), content, "utf-8");
+}
+for (const { from, to } of seoTemplates) {
+  renderSeoTemplate(from, to);
+}
+
 // ─── Stats ───────────────────────────────────────────────────────────────────
 
 function kb(bytes: number): string {
@@ -779,6 +824,9 @@ console.log(
   `    search.idx.json:  ${kb(statSync(join(outDir, "search.idx.json")).size)}`,
 );
 console.log(`    skills/*.json:    ${detailFilesWritten} files`);
+console.log(
+  `  SEO: llms.txt, sitemap.xml, robots.txt, og-image.svg rendered (skills=${catalog.totalSkills}, repos=${catalog.totalRepos}, lastmod=${seoTokens["{{LASTMOD}}"]})`,
+);
 
 // Category distribution
 const catCounts: Record<string, number> = {};

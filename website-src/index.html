@@ -6,7 +6,7 @@
     <title>ASM Skill Catalog — Agent Skill Manager</title>
     <meta
       name="description"
-      content="Browse, search, and install 3,400+ agent skills for Claude Code, Codex, and more. The official skill catalog for agent-skill-manager (asm)."
+      content="Browse, search, and install {{SKILL_COUNT}}+ agent skills for Claude Code, Codex, and more. The official skill catalog for agent-skill-manager (asm)."
     />
     <link rel="canonical" href="https://luongnv.com/asm/" />
     <meta
@@ -15,7 +15,7 @@
     />
     <meta
       property="og:description"
-      content="Browse, search, and install 3,400+ agent skills for Claude Code, Codex, and more."
+      content="Browse, search, and install {{SKILL_COUNT}}+ agent skills for Claude Code, Codex, and more."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://luongnv.com/asm/" />
@@ -31,13 +31,43 @@
     />
     <meta
       name="twitter:description"
-      content="Browse, search, and install 3,400+ agent skills for Claude Code, Codex, and more."
+      content="Browse, search, and install {{SKILL_COUNT}}+ agent skills for Claude Code, Codex, and more."
     />
     <meta
       name="twitter:image"
       content="https://luongnv.com/asm/assets/og-image.svg"
     />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "@id": "https://luongnv.com/asm/#webapp",
+        "name": "ASM Skill Catalog",
+        "url": "https://luongnv.com/asm/",
+        "description": "Browse, search, and install agent skills for Claude Code, Codex, and other AI coding agents. The official skill catalog for agent-skill-manager (asm).",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "image": "https://luongnv.com/asm/assets/og-image.svg",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "isAccessibleForFree": true,
+        "sameAs": [
+          "https://github.com/luongnv89/agent-skill-manager",
+          "https://www.npmjs.com/package/agent-skill-manager"
+        ],
+        "softwareHelp": "https://github.com/luongnv89/agent-skill-manager",
+        "author": {
+          "@type": "Person",
+          "name": "Luong NGUYEN",
+          "url": "https://luongnv.com/"
+        }
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
