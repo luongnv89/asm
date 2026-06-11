@@ -40,6 +40,12 @@ website/assets/logo-mark.svg
 website/index.html
 website/assets/index-*.js
 website/assets/index-*.css
+# SEO surfaces rendered from website-src/ templates by build-catalog.ts with
+# live catalog counts. Kept out of git so the committed copies can't freeze
+# stale numbers/dates — website-src/ templates are the single source of truth.
+website/llms.txt
+website/sitemap.xml
+website/assets/og-image.svg
 
 
 # dev tools — per-developer AI agent sidecars, intentionally not tracked.
