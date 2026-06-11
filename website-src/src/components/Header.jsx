@@ -3,6 +3,23 @@ import { Link, NavLink } from "react-router-dom";
 import { useCatalog } from "../hooks/useCatalog.jsx";
 import BundleCartButton from "./BundleCartButton.jsx";
 
+/**
+ * Fetch live GitHub star count for the ASM repo.
+ * Falls back to the static catalog value if the API call fails.
+ */
+const REPO_API = "https://api.github.com/repos/luongnv89/asm";
+
+async function fetchLiveStars(signal) {
+  try {
+    const res = await fetch(REPO_API, { signal });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.stargazers_count ?? null;
+  } catch {
+    return null;
+  }
+}
+
 function applyTheme(next) {
   document.documentElement.setAttribute("data-theme", next);
   localStorage.setItem("asm-theme", next);
@@ -25,7 +42,18 @@ function formatStars(n) {
 export default function Header({ onOpenBundleBuilder }) {
   const { catalog } = useCatalog();
   const version = catalog?.version;
-  const stars = formatStars(catalog?.stars);
+  const [liveStars, setLiveStars] = useState(null);
+
+  // Fetch live GitHub stars on mount, fall back to static catalog value
+  useEffect(() => {
+    const ctrl = new AbortController();
+    fetchLiveStars(ctrl.signal).then((n) => {
+      if (n != null) setLiveStars(n);
+    });
+    return () => ctrl.abort();
+  }, []);
+
+  const stars = formatStars(liveStars ?? catalog?.stars);
   const [theme, setTheme] = useState(() =>
     typeof document === "undefined"
       ? "dark"
