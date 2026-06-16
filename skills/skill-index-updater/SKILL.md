@@ -94,6 +94,8 @@ git clone --depth 1 "https://github.com/{owner}/{repo}.git" "$TEMP_DIR/{repo}"
 find "$TEMP_DIR/{repo}" -maxdepth 5 -name "SKILL.md" -type f
 ```
 
+`discoverSkills` (used by `asm index ingest` and preindex) indexes a **root** `SKILL.md` when present **and** continues scanning subdirectories for additional skills. A repo with both root and nested skills should list every skill in the index entry — not only the root.
+
 For each discovered SKILL.md, parse the YAML frontmatter to extract:
 
 - `name` (required)

@@ -280,6 +280,14 @@ describe("findDuplicateInstallNames", () => {
     ]);
     expect(duplicates).toEqual([]);
   });
+
+  test("uses custom resolver for root relPath", () => {
+    const duplicates = findDuplicateInstallNames(
+      ["", "skills/other"],
+      (relPath) => (relPath === "" ? "root-skill" : "other"),
+    );
+    expect(duplicates).toEqual([]);
+  });
 });
 
 // ─── resolveSubpath tests ─────────────────────────────────────────────────
@@ -543,7 +551,7 @@ describe("discoverSkills", () => {
     await rm(tempDir, { recursive: true, force: true });
   });
 
-  test("discovers a root-level skill and does not recurse into children", async () => {
+  test("discovers root-level and nested sibling skills", async () => {
     await mkdir(join(tempDir, "child"), { recursive: true });
     await writeFile(
       join(tempDir, "SKILL.md"),
@@ -555,9 +563,11 @@ describe("discoverSkills", () => {
     );
 
     const discovered = await discoverSkills(tempDir);
-    expect(discovered).toHaveLength(1);
-    expect(discovered[0].name).toBe("root-skill");
-    expect(discovered[0].relPath).toBe("");
+    expect(discovered).toHaveLength(2);
+    const root = discovered.find((s) => s.relPath === "");
+    const child = discovered.find((s) => s.relPath === "child");
+    expect(root?.name).toBe("root-skill");
+    expect(child?.name).toBe("child-skill");
   });
 
   test("discovers skills in subdirectories", async () => {

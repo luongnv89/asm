@@ -830,7 +830,9 @@ asm install github:user/my-skill -p claude --yes --json
 | `-y, --yes`              | Skip confirmation prompt                                   |
 | `--json`                 | Output result as JSON                                      |
 
-**Multi-skill repo support:** When a repo doesn't have `SKILL.md` at the root, `asm` automatically scans for skills in subdirectories (up to 5 levels deep). In interactive mode, it presents a numbered picker. Use `--path` to target a specific skill or `--all` to batch-install everything.
+**Multi-skill repo support:** `asm` scans for skills in subdirectories (up to 5 levels deep). Repos with only nested skills use that scan by default. Repos with **both** a root `SKILL.md` and nested skills install the root skill by default; use `--all` to install every discovered skill (root plus nested). In interactive mode, discovery shows a numbered picker. Use `--path` to target a specific skill.
+
+**Indexing (`asm index ingest` / `npm run preindex`):** Discovery always includes a root `SKILL.md` when present **and** any nested skills in subdirectories, so curated indexes do not silently drop skills when a repo adds a root-level skill.
 
 The install command clones the repository, validates `SKILL.md` files, scans for security warnings, previews skill metadata, and installs to the selected provider's global skill directory. Requires `git` on PATH.
 

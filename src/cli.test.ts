@@ -3297,6 +3297,42 @@ describe("CLI integration: install --path/--all subpath discovery", () => {
     }
   });
 
+  test("--all on repo with root SKILL.md and nested skills discovers all (issue #305)", async () => {
+    const tmpDir = await mkdtemp(join(tmpdir(), "asm-install-305-"));
+    try {
+      const src = join(tmpDir, "src");
+      await mkdir(join(src, "skills", "nested-one"), { recursive: true });
+      await writeFile(
+        join(src, "SKILL.md"),
+        "---\nname: root-index\nversion: 1.0.0\ndescription: Root\n---\n# Root\n",
+      );
+      await writeFile(
+        join(src, "skills", "nested-one", "SKILL.md"),
+        "---\nname: nested-one\nversion: 1.0.0\ndescription: Nested\n---\n# Nested\n",
+      );
+
+      const { stdout, stderr, exitCode } = await runCLIWithHome(
+        tmpDir,
+        "install",
+        src,
+        "--all",
+        "-y",
+        "-p",
+        "claude",
+        "--scope",
+        "global",
+      );
+      const all = stdout + "\n" + stderr;
+      expect(all).not.toContain("Invalid skill name");
+      expect(all).not.toContain("Duplicate skill names");
+      expect(exitCode).toBe(0);
+      expect(all).toMatch(/root-index/);
+      expect(all).toMatch(/nested-one/);
+    } finally {
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
   test("bare --all (no subpath) on a repo with name collisions still errors (regression guard)", async () => {
     const tmpDir = await mkdtemp(join(tmpdir(), "asm-install-252-regress-"));
     try {

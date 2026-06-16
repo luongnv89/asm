@@ -63,6 +63,7 @@ import {
   buildInstallPlan,
   checkConflict,
   findDuplicateInstallNames,
+  getInstallNameFromPath,
   checkNpxAvailable,
   executeNpxSkillsAdd,
   buildRepoUrl,
@@ -2637,6 +2638,7 @@ async function cmdInstall(args: ParsedArgs) {
     let needsDiscovery = false;
     let discoveryRoot = scanBaseDir;
     let discoveryPrefix = "";
+    let isRootSkill = false;
 
     if (effectivePath) {
       // Case 1: path specified — install specific subdirectory
@@ -2682,7 +2684,6 @@ async function cmdInstall(args: ParsedArgs) {
         selectedDirs = [{ skillDir, nameOverride: args.flags.name }];
       }
     } else {
-      let isRootSkill = false;
       try {
         await validateSkill(scanBaseDir);
         isRootSkill = true;
@@ -2690,8 +2691,8 @@ async function cmdInstall(args: ParsedArgs) {
         // Not a root-level skill
       }
 
-      if (isRootSkill) {
-        // Case 2: SKILL.md at root — single-skill directory/repo
+      if (isRootSkill && !args.flags.all) {
+        // Case 2: SKILL.md at root — default single-skill install
         const metadata = await validateSkill(scanBaseDir);
         console.info(
           `  Found: ${ansi.bold(metadata.name)} v${metadata.version}`,
@@ -2699,6 +2700,9 @@ async function cmdInstall(args: ParsedArgs) {
         selectedDirs = [
           { skillDir: scanBaseDir, nameOverride: args.flags.name },
         ];
+      } else if (isRootSkill && args.flags.all) {
+        // Root skill plus nested skills: discover full repo for --all
+        needsDiscovery = true;
       } else {
         // Case 3: Multi-skill directory/repo — discover skills in subdirectories
         needsDiscovery = true;
@@ -2709,6 +2713,10 @@ async function cmdInstall(args: ParsedArgs) {
       if (discoveryPrefix) {
         console.info(
           `  No SKILL.md at ${ansi.bold(discoveryPrefix)}. Scanning subdirectories...`,
+        );
+      } else if (isRootSkill) {
+        console.info(
+          `  Root SKILL.md found. Scanning for additional skills in subdirectories...`,
         );
       } else {
         console.info(`  No SKILL.md at root. Scanning subdirectories...`);
@@ -2798,7 +2806,14 @@ async function cmdInstall(args: ParsedArgs) {
         return; // unreachable but helps TypeScript
       }
 
-      const duplicateInstallNames = findDuplicateInstallNames(selectedPaths);
+      const installNameByRelPath = new Map(
+        discovered.map((s) => [s.relPath, s.name] as const),
+      );
+      const duplicateInstallNames = findDuplicateInstallNames(
+        selectedPaths,
+        (relPath) =>
+          installNameByRelPath.get(relPath) ?? getInstallNameFromPath(relPath),
+      );
       if (duplicateInstallNames.length > 0) {
         const lines = duplicateInstallNames
           .map(

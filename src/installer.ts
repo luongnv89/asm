@@ -296,10 +296,11 @@ export function getInstallNameFromPath(relPath: string): string {
 
 export function findDuplicateInstallNames(
   relPaths: string[],
+  resolveName: (relPath: string) => string = getInstallNameFromPath,
 ): Array<{ name: string; paths: string[] }> {
   const seen = new Map<string, string[]>();
   for (const relPath of relPaths) {
-    const name = getInstallNameFromPath(relPath);
+    const name = resolveName(relPath);
     const paths = seen.get(name);
     if (paths) {
       paths.push(relPath);
@@ -458,8 +459,8 @@ export async function discoverSkills(
 ): Promise<DiscoveredSkill[]> {
   const skills: DiscoveredSkill[] = [];
 
-  // A repository with SKILL.md at its root is a single root-level skill.
-  // Do not recurse into child directories, even if they contain SKILL.md too.
+  // Index root SKILL.md when present, then discover nested skills in
+  // subdirectories (same walk rules as repos without a root skill).
   try {
     const content = await readFile(join(tempDir, "SKILL.md"), "utf-8");
     const fm = parseFrontmatter(content);
@@ -475,9 +476,8 @@ export async function discoverSkills(
       allowedTools: resolveAllowedTools(fm),
       tokenCount: estimateTokenCount(content),
     });
-    return skills;
   } catch {
-    // No root skill; continue with existing subdirectory discovery behavior.
+    // No root skill; subdirectory discovery still runs below.
   }
 
   async function walk(dir: string, relPrefix: string, depth: number) {

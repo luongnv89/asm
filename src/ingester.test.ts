@@ -166,6 +166,26 @@ This root-level skill has enough instruction content to pass verification.
     expect(result.verified).toBe(true);
   });
 
+  it("discovers root and nested skills for indexing", async () => {
+    await mkdir(join(tempDir, "skills", "nested-one"), { recursive: true });
+    await writeFile(
+      join(tempDir, "SKILL.md"),
+      "---\nname: root-index\nversion: 1.0.0\ndescription: Root\n---\n# Root\n",
+      "utf-8",
+    );
+    await writeFile(
+      join(tempDir, "skills", "nested-one", "SKILL.md"),
+      "---\nname: nested-one\nversion: 1.0.0\ndescription: Nested\n---\n# Nested\n",
+      "utf-8",
+    );
+
+    const discovered = await discoverSkills(tempDir);
+    expect(discovered.map((s) => s.relPath).sort()).toEqual([
+      "",
+      "skills/nested-one",
+    ]);
+  });
+
   it("produces verified:true for a well-formed skill", async () => {
     const skillDir = join(tempDir, "good-skill");
     await mkdir(skillDir, { recursive: true });
