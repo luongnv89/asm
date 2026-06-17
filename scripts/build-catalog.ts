@@ -755,6 +755,17 @@ const logoMarkSrc = join(root, "assets", "logo", "logo-mark.svg");
 if (existsSync(logoMarkSrc)) {
   copyFileSync(logoMarkSrc, join(assetsOutDir, "logo-mark.svg"));
 }
+// OG image for social cards. Shipped as a pre-rendered PNG (not the SVG
+// template) because social unfurlers — Twitter/X, Facebook, LinkedIn, Slack,
+// Discord — do not render SVG og:images. The PNG carries rounded catalog
+// counts (e.g. "3,800+") which stay truthful as the catalog grows (monotonic,
+// with a trailing "+"), and platforms cache OG images anyway, so a per-build
+// "live" number would be frozen on first share regardless. Plain copy: the PNG
+// has no tokens, so it is not part of the renderSeoTemplate token pipeline.
+const ogImagePngSrc = join(root, "website-src", "assets", "og-image.png");
+if (existsSync(ogImagePngSrc)) {
+  copyFileSync(ogImagePngSrc, join(assetsOutDir, "og-image.png"));
+}
 
 // ─── SEO static files (llms.txt, sitemap.xml, robots.txt) ────────────────────
 // These live as templates in website-src/ and are rendered into website/ with
