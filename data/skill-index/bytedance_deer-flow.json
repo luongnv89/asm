@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/bytedance/deer-flow.git",
   "owner": "bytedance",
   "repo": "deer-flow",
-  "updatedAt": "2026-06-08T23:20:19.965Z",
-  "skillCount": 23,
+  "updatedAt": "2026-06-17T07:47:30.246Z",
+  "skillCount": 25,
   "skills": [
     {
       "name": "academic-paper-review",
@@ -64,7 +64,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.925Z",
+        "evaluatedAt": "2026-06-17T07:47:30.196Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -119,7 +119,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.925Z",
+          "evaluatedAt": "2026-06-17T07:47:30.196Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +137,144 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.925Z",
+          "evaluatedAt": "2026-06-17T07:47:30.196Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "blocking-io-guard",
+      "description": "Ensure async-path backend code that could block the asyncio event loop is protected by a teeth-verified runtime anchor in tests/blocking_io/. Use when changing backend Python under app/, packages/harness/deerflow/, or scripts/, when running a blocking-IO triage round over the whole repo, or when a reviewer/CI asks for blocking-IO coverage. Runs a deterministic scan (changed-lines or full-repo), routes each candidate, drafts/extends an anchor, and proves it fails when the blocking IO regresses.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:bytedance/deer-flow:.agent/skills/blocking-io-guard",
+      "relPath": ".agent/skills/blocking-io-guard",
+      "verified": true,
+      "tokenCount": 2004,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-17T07:47:30.198Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-17T07:47:30.198Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-17T07:47:30.198Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -201,7 +338,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.927Z",
+        "evaluatedAt": "2026-06-17T07:47:30.199Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -256,7 +393,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.927Z",
+          "evaluatedAt": "2026-06-17T07:47:30.199Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +411,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.927Z",
+          "evaluatedAt": "2026-06-17T07:47:30.199Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -338,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.928Z",
+        "evaluatedAt": "2026-06-17T07:47:30.200Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -393,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.928Z",
+          "evaluatedAt": "2026-06-17T07:47:30.200Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +548,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.928Z",
+          "evaluatedAt": "2026-06-17T07:47:30.200Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -475,7 +612,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.929Z",
+        "evaluatedAt": "2026-06-17T07:47:30.201Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -530,7 +667,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.929Z",
+          "evaluatedAt": "2026-06-17T07:47:30.201Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +685,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.929Z",
+          "evaluatedAt": "2026-06-17T07:47:30.201Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -612,7 +749,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.931Z",
+        "evaluatedAt": "2026-06-17T07:47:30.203Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -667,7 +804,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.931Z",
+          "evaluatedAt": "2026-06-17T07:47:30.204Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +822,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.931Z",
+          "evaluatedAt": "2026-06-17T07:47:30.204Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -749,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.934Z",
+        "evaluatedAt": "2026-06-17T07:47:30.207Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -804,7 +941,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.935Z",
+          "evaluatedAt": "2026-06-17T07:47:30.207Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +959,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.935Z",
+          "evaluatedAt": "2026-06-17T07:47:30.207Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -886,7 +1023,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.938Z",
+        "evaluatedAt": "2026-06-17T07:47:30.211Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -941,7 +1078,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.938Z",
+          "evaluatedAt": "2026-06-17T07:47:30.211Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +1096,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.938Z",
+          "evaluatedAt": "2026-06-17T07:47:30.211Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1023,7 +1160,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.940Z",
+        "evaluatedAt": "2026-06-17T07:47:30.213Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1078,7 +1215,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.940Z",
+          "evaluatedAt": "2026-06-17T07:47:30.213Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1096,7 +1233,144 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.940Z",
+          "evaluatedAt": "2026-06-17T07:47:30.213Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "deerflow-maintainer-orchestrator",
+      "description": "Use when a DeerFlow maintainer needs comment-only GitHub issue or PR handling: resolve issue/PR scopes with gh, analyze issues, post or draft issue comments, perform PR review comments, review PR or issue batches, compare competing PRs that target the same issue, give fix strategy, risk classification, and validation guidance. Intended for maintainers and trusted local agents, not general contributors.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:bytedance/deer-flow:.agent/skills/deerflow-maintainer-orchestrator",
+      "relPath": ".agent/skills/deerflow-maintainer-orchestrator",
+      "verified": true,
+      "tokenCount": 6293,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-17T07:47:30.215Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-17T07:47:30.216Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-17T07:47:30.216Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1160,7 +1434,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.941Z",
+        "evaluatedAt": "2026-06-17T07:47:30.218Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1215,7 +1489,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.941Z",
+          "evaluatedAt": "2026-06-17T07:47:30.218Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1507,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.941Z",
+          "evaluatedAt": "2026-06-17T07:47:30.218Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1297,7 +1571,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.942Z",
+        "evaluatedAt": "2026-06-17T07:47:30.219Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1352,7 +1626,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.942Z",
+          "evaluatedAt": "2026-06-17T07:47:30.219Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1644,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.942Z",
+          "evaluatedAt": "2026-06-17T07:47:30.220Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1434,7 +1708,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.944Z",
+        "evaluatedAt": "2026-06-17T07:47:30.221Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1489,7 +1763,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.944Z",
+          "evaluatedAt": "2026-06-17T07:47:30.221Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1781,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.944Z",
+          "evaluatedAt": "2026-06-17T07:47:30.221Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1571,7 +1845,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.945Z",
+        "evaluatedAt": "2026-06-17T07:47:30.223Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1626,7 +1900,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.945Z",
+          "evaluatedAt": "2026-06-17T07:47:30.223Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +1918,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.945Z",
+          "evaluatedAt": "2026-06-17T07:47:30.223Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1708,7 +1982,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.946Z",
+        "evaluatedAt": "2026-06-17T07:47:30.224Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1763,7 +2037,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.946Z",
+          "evaluatedAt": "2026-06-17T07:47:30.224Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +2055,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.946Z",
+          "evaluatedAt": "2026-06-17T07:47:30.224Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1845,7 +2119,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.948Z",
+        "evaluatedAt": "2026-06-17T07:47:30.226Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1900,7 +2174,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.948Z",
+          "evaluatedAt": "2026-06-17T07:47:30.226Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1918,7 +2192,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.948Z",
+          "evaluatedAt": "2026-06-17T07:47:30.226Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1982,7 +2256,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.949Z",
+        "evaluatedAt": "2026-06-17T07:47:30.228Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2037,7 +2311,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.949Z",
+          "evaluatedAt": "2026-06-17T07:47:30.228Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2055,7 +2329,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.949Z",
+          "evaluatedAt": "2026-06-17T07:47:30.228Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2119,7 +2393,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.952Z",
+        "evaluatedAt": "2026-06-17T07:47:30.231Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2174,7 +2448,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.952Z",
+          "evaluatedAt": "2026-06-17T07:47:30.231Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2192,7 +2466,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.952Z",
+          "evaluatedAt": "2026-06-17T07:47:30.231Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2256,7 +2530,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.956Z",
+        "evaluatedAt": "2026-06-17T07:47:30.236Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2311,7 +2585,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.956Z",
+          "evaluatedAt": "2026-06-17T07:47:30.236Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2329,7 +2603,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.956Z",
+          "evaluatedAt": "2026-06-17T07:47:30.236Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2393,7 +2667,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.958Z",
+        "evaluatedAt": "2026-06-17T07:47:30.239Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2448,7 +2722,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.958Z",
+          "evaluatedAt": "2026-06-17T07:47:30.239Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2466,7 +2740,7 @@
               "max": 2
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.958Z",
+          "evaluatedAt": "2026-06-17T07:47:30.239Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2530,7 +2804,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.960Z",
+        "evaluatedAt": "2026-06-17T07:47:30.240Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2585,7 +2859,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.960Z",
+          "evaluatedAt": "2026-06-17T07:47:30.240Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2603,7 +2877,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.960Z",
+          "evaluatedAt": "2026-06-17T07:47:30.240Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2667,7 +2941,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.962Z",
+        "evaluatedAt": "2026-06-17T07:47:30.242Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2722,7 +2996,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.962Z",
+          "evaluatedAt": "2026-06-17T07:47:30.242Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2740,7 +3014,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.962Z",
+          "evaluatedAt": "2026-06-17T07:47:30.242Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2804,7 +3078,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.963Z",
+        "evaluatedAt": "2026-06-17T07:47:30.244Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2859,7 +3133,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.963Z",
+          "evaluatedAt": "2026-06-17T07:47:30.244Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2877,7 +3151,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.963Z",
+          "evaluatedAt": "2026-06-17T07:47:30.244Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2941,7 +3215,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.964Z",
+        "evaluatedAt": "2026-06-17T07:47:30.245Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2996,7 +3270,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.964Z",
+          "evaluatedAt": "2026-06-17T07:47:30.245Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3014,7 +3288,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.964Z",
+          "evaluatedAt": "2026-06-17T07:47:30.245Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3078,7 +3352,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-08T23:20:19.965Z",
+        "evaluatedAt": "2026-06-17T07:47:30.246Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3133,7 +3407,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.965Z",
+          "evaluatedAt": "2026-06-17T07:47:30.246Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3151,7 +3425,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-08T23:20:19.965Z",
+          "evaluatedAt": "2026-06-17T07:47:30.246Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3163,7 +3437,7 @@
       "name": "bytedance-deer-flow-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from bytedance/deer-flow.",
       "author": "ASM (bytedance/deer-flow)",
-      "createdAt": "2026-06-08T23:20:19.965Z",
+      "createdAt": "2026-06-17T07:47:30.246Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3174,6 +3448,12 @@
         "deer-flow"
       ],
       "skills": [
+        {
+          "name": "blocking-io-guard",
+          "installUrl": "github:bytedance/deer-flow:.agent/skills/blocking-io-guard",
+          "description": "Ensure async-path backend code that could block the asyncio event loop is protected by a teeth-verified runtime anchor in tests/blocking_io/. Use when changing backend Python under app/, packages/harness/deerflow/, or scripts/, when running a blocking-IO triage round over the whole repo, or when a reviewer/CI asks for blocking-IO coverage. Runs a deterministic scan (changed-lines or full-repo), routes each candidate, drafts/extends an anchor, and proves it fails when the blocking IO regresses.",
+          "version": "0.0.0"
+        },
         {
           "name": "bootstrap",
           "installUrl": "github:bytedance/deer-flow:skills/public/bootstrap",
@@ -3208,6 +3488,12 @@
           "name": "deep-research",
           "installUrl": "github:bytedance/deer-flow:skills/public/deep-research",
           "description": "Use this skill instead of WebSearch for ANY question requiring web research. Trigger on queries like \"what is X\", \"explain X\", \"compare X and Y\", \"research X\", or before content generation tasks. Provides systematic multi-angle research methodology instead of single superficial searches. Use this proactively when the user's question needs online information.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "deerflow-maintainer-orchestrator",
+          "installUrl": "github:bytedance/deer-flow:.agent/skills/deerflow-maintainer-orchestrator",
+          "description": "Use when a DeerFlow maintainer needs comment-only GitHub issue or PR handling: resolve issue/PR scopes with gh, analyze issues, post or draft issue comments, perform PR review comments, review PR or issue batches, compare competing PRs that target the same issue, give fix strategy, risk classification, and validation guidance. Intended for maintainers and trusted local agents, not general contributors.",
           "version": "0.0.0"
         },
         {
@@ -3289,7 +3575,7 @@
       "name": "bytedance-deer-flow-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from bytedance/deer-flow.",
       "author": "ASM (bytedance/deer-flow)",
-      "createdAt": "2026-06-08T23:20:19.965Z",
+      "createdAt": "2026-06-17T07:47:30.246Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3304,6 +3590,12 @@
           "name": "academic-paper-review",
           "installUrl": "github:bytedance/deer-flow:skills/public/academic-paper-review",
           "description": "Use this skill when the user requests to review, analyze, critique, or summarize academic papers, research articles, preprints, or scientific publications. Supports comprehensive structured reviews covering methodology assessment, contribution evaluation, literature positioning, and constructive feedback generation. Trigger on queries involving paper URLs, uploaded PDFs, arXiv links, or requests like \"review this paper\", \"analyze this research\", \"summarize this study\", or \"write a peer review\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "blocking-io-guard",
+          "installUrl": "github:bytedance/deer-flow:.agent/skills/blocking-io-guard",
+          "description": "Ensure async-path backend code that could block the asyncio event loop is protected by a teeth-verified runtime anchor in tests/blocking_io/. Use when changing backend Python under app/, packages/harness/deerflow/, or scripts/, when running a blocking-IO triage round over the whole repo, or when a reviewer/CI asks for blocking-IO coverage. Runs a deterministic scan (changed-lines or full-repo), routes each candidate, drafts/extends an anchor, and proves it fails when the blocking IO regresses.",
           "version": "0.0.0"
         },
         {
@@ -3349,7 +3641,7 @@
       "name": "bytedance-deer-flow-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from bytedance/deer-flow.",
       "author": "ASM (bytedance/deer-flow)",
-      "createdAt": "2026-06-08T23:20:19.965Z",
+      "createdAt": "2026-06-17T07:47:30.246Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3364,6 +3656,12 @@
           "name": "academic-paper-review",
           "installUrl": "github:bytedance/deer-flow:skills/public/academic-paper-review",
           "description": "Use this skill when the user requests to review, analyze, critique, or summarize academic papers, research articles, preprints, or scientific publications. Supports comprehensive structured reviews covering methodology assessment, contribution evaluation, literature positioning, and constructive feedback generation. Trigger on queries involving paper URLs, uploaded PDFs, arXiv links, or requests like \"review this paper\", \"analyze this research\", \"summarize this study\", or \"write a peer review\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "blocking-io-guard",
+          "installUrl": "github:bytedance/deer-flow:.agent/skills/blocking-io-guard",
+          "description": "Ensure async-path backend code that could block the asyncio event loop is protected by a teeth-verified runtime anchor in tests/blocking_io/. Use when changing backend Python under app/, packages/harness/deerflow/, or scripts/, when running a blocking-IO triage round over the whole repo, or when a reviewer/CI asks for blocking-IO coverage. Runs a deterministic scan (changed-lines or full-repo), routes each candidate, drafts/extends an anchor, and proves it fails when the blocking IO regresses.",
           "version": "0.0.0"
         },
         {
@@ -3382,6 +3680,12 @@
           "name": "code-documentation",
           "installUrl": "github:bytedance/deer-flow:skills/public/code-documentation",
           "description": "Use this skill when the user requests to generate, create, or improve documentation for code, APIs, libraries, repositories, or software projects. Supports README generation, API reference documentation, inline code comments, architecture documentation, changelog generation, and developer guides. Trigger on requests like \"document this code\", \"create a README\", \"generate API docs\", \"write developer guide\", or when analyzing codebases for documentation purposes.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "deerflow-maintainer-orchestrator",
+          "installUrl": "github:bytedance/deer-flow:.agent/skills/deerflow-maintainer-orchestrator",
+          "description": "Use when a DeerFlow maintainer needs comment-only GitHub issue or PR handling: resolve issue/PR scopes with gh, analyze issues, post or draft issue comments, perform PR review comments, review PR or issue batches, compare competing PRs that target the same issue, give fix strategy, risk classification, and validation guidance. Intended for maintainers and trusted local agents, not general contributors.",
           "version": "0.0.0"
         },
         {
@@ -3439,7 +3743,7 @@
       "name": "bytedance-deer-flow-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from bytedance/deer-flow.",
       "author": "ASM (bytedance/deer-flow)",
-      "createdAt": "2026-06-08T23:20:19.965Z",
+      "createdAt": "2026-06-17T07:47:30.246Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3472,6 +3776,12 @@
           "name": "deep-research",
           "installUrl": "github:bytedance/deer-flow:skills/public/deep-research",
           "description": "Use this skill instead of WebSearch for ANY question requiring web research. Trigger on queries like \"what is X\", \"explain X\", \"compare X and Y\", \"research X\", or before content generation tasks. Provides systematic multi-angle research methodology instead of single superficial searches. Use this proactively when the user's question needs online information.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "deerflow-maintainer-orchestrator",
+          "installUrl": "github:bytedance/deer-flow:.agent/skills/deerflow-maintainer-orchestrator",
+          "description": "Use when a DeerFlow maintainer needs comment-only GitHub issue or PR handling: resolve issue/PR scopes with gh, analyze issues, post or draft issue comments, perform PR review comments, review PR or issue batches, compare competing PRs that target the same issue, give fix strategy, risk classification, and validation guidance. Intended for maintainers and trusted local agents, not general contributors.",
           "version": "0.0.0"
         },
         {
@@ -3535,7 +3845,7 @@
       "name": "bytedance-deer-flow-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from bytedance/deer-flow.",
       "author": "ASM (bytedance/deer-flow)",
-      "createdAt": "2026-06-08T23:20:19.965Z",
+      "createdAt": "2026-06-17T07:47:30.246Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3571,7 +3881,7 @@
       "name": "bytedance-deer-flow-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from bytedance/deer-flow.",
       "author": "ASM (bytedance/deer-flow)",
-      "createdAt": "2026-06-08T23:20:19.965Z",
+      "createdAt": "2026-06-17T07:47:30.246Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3586,6 +3896,12 @@
           "name": "consulting-analysis",
           "installUrl": "github:bytedance/deer-flow:skills/public/consulting-analysis",
           "description": "Use this skill when the user requests to generate, create, or write professional research reports including but not limited to market analysis, consumer insights, brand analysis, financial analysis, industry research, competitive intelligence, investment due diligence, or any consulting-grade analytical report. This skill operates in two phases — (1) generating a structured analysis framework with chapter skeleton, data query requirements, and analysis logic, and (2) after data collection by other skills, producing the final consulting-grade report with structured narratives, embedded charts, and strategic insights.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "deerflow-maintainer-orchestrator",
+          "installUrl": "github:bytedance/deer-flow:.agent/skills/deerflow-maintainer-orchestrator",
+          "description": "Use when a DeerFlow maintainer needs comment-only GitHub issue or PR handling: resolve issue/PR scopes with gh, analyze issues, post or draft issue comments, perform PR review comments, review PR or issue batches, compare competing PRs that target the same issue, give fix strategy, risk classification, and validation guidance. Intended for maintainers and trusted local agents, not general contributors.",
           "version": "0.0.0"
         },
         {
@@ -3619,7 +3935,7 @@
       "name": "bytedance-deer-flow-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from bytedance/deer-flow.",
       "author": "ASM (bytedance/deer-flow)",
-      "createdAt": "2026-06-08T23:20:19.965Z",
+      "createdAt": "2026-06-17T07:47:30.246Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3634,6 +3950,12 @@
           "name": "academic-paper-review",
           "installUrl": "github:bytedance/deer-flow:skills/public/academic-paper-review",
           "description": "Use this skill when the user requests to review, analyze, critique, or summarize academic papers, research articles, preprints, or scientific publications. Supports comprehensive structured reviews covering methodology assessment, contribution evaluation, literature positioning, and constructive feedback generation. Trigger on queries involving paper URLs, uploaded PDFs, arXiv links, or requests like \"review this paper\", \"analyze this research\", \"summarize this study\", or \"write a peer review\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "blocking-io-guard",
+          "installUrl": "github:bytedance/deer-flow:.agent/skills/blocking-io-guard",
+          "description": "Ensure async-path backend code that could block the asyncio event loop is protected by a teeth-verified runtime anchor in tests/blocking_io/. Use when changing backend Python under app/, packages/harness/deerflow/, or scripts/, when running a blocking-IO triage round over the whole repo, or when a reviewer/CI asks for blocking-IO coverage. Runs a deterministic scan (changed-lines or full-repo), routes each candidate, drafts/extends an anchor, and proves it fails when the blocking IO regresses.",
           "version": "0.0.0"
         },
         {
@@ -3658,6 +3980,12 @@
           "name": "deep-research",
           "installUrl": "github:bytedance/deer-flow:skills/public/deep-research",
           "description": "Use this skill instead of WebSearch for ANY question requiring web research. Trigger on queries like \"what is X\", \"explain X\", \"compare X and Y\", \"research X\", or before content generation tasks. Provides systematic multi-angle research methodology instead of single superficial searches. Use this proactively when the user's question needs online information.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "deerflow-maintainer-orchestrator",
+          "installUrl": "github:bytedance/deer-flow:.agent/skills/deerflow-maintainer-orchestrator",
+          "description": "Use when a DeerFlow maintainer needs comment-only GitHub issue or PR handling: resolve issue/PR scopes with gh, analyze issues, post or draft issue comments, perform PR review comments, review PR or issue batches, compare competing PRs that target the same issue, give fix strategy, risk classification, and validation guidance. Intended for maintainers and trusted local agents, not general contributors.",
           "version": "0.0.0"
         },
         {
@@ -3715,7 +4043,7 @@
       "name": "bytedance-deer-flow-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from bytedance/deer-flow.",
       "author": "ASM (bytedance/deer-flow)",
-      "createdAt": "2026-06-08T23:20:19.965Z",
+      "createdAt": "2026-06-17T07:47:30.246Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3730,6 +4058,12 @@
           "name": "academic-paper-review",
           "installUrl": "github:bytedance/deer-flow:skills/public/academic-paper-review",
           "description": "Use this skill when the user requests to review, analyze, critique, or summarize academic papers, research articles, preprints, or scientific publications. Supports comprehensive structured reviews covering methodology assessment, contribution evaluation, literature positioning, and constructive feedback generation. Trigger on queries involving paper URLs, uploaded PDFs, arXiv links, or requests like \"review this paper\", \"analyze this research\", \"summarize this study\", or \"write a peer review\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "blocking-io-guard",
+          "installUrl": "github:bytedance/deer-flow:.agent/skills/blocking-io-guard",
+          "description": "Ensure async-path backend code that could block the asyncio event loop is protected by a teeth-verified runtime anchor in tests/blocking_io/. Use when changing backend Python under app/, packages/harness/deerflow/, or scripts/, when running a blocking-IO triage round over the whole repo, or when a reviewer/CI asks for blocking-IO coverage. Runs a deterministic scan (changed-lines or full-repo), routes each candidate, drafts/extends an anchor, and proves it fails when the blocking IO regresses.",
           "version": "0.0.0"
         },
         {
@@ -3748,6 +4082,12 @@
           "name": "deep-research",
           "installUrl": "github:bytedance/deer-flow:skills/public/deep-research",
           "description": "Use this skill instead of WebSearch for ANY question requiring web research. Trigger on queries like \"what is X\", \"explain X\", \"compare X and Y\", \"research X\", or before content generation tasks. Provides systematic multi-angle research methodology instead of single superficial searches. Use this proactively when the user's question needs online information.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "deerflow-maintainer-orchestrator",
+          "installUrl": "github:bytedance/deer-flow:.agent/skills/deerflow-maintainer-orchestrator",
+          "description": "Use when a DeerFlow maintainer needs comment-only GitHub issue or PR handling: resolve issue/PR scopes with gh, analyze issues, post or draft issue comments, perform PR review comments, review PR or issue batches, compare competing PRs that target the same issue, give fix strategy, risk classification, and validation guidance. Intended for maintainers and trusted local agents, not general contributors.",
           "version": "0.0.0"
         },
         {
