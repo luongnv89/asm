@@ -59,9 +59,9 @@ function SkillRow({
  * the selected skill's detail (when the URL is `/skills/:id`) or a
  * friendly empty state prompting the user to pick one.
  *
- * Both `/` and `/skills/:id` render this component so that:
+ * Both `/skills` and `/skills/:id` render this component so that:
  *   - direct deep-links to a skill still work (`:id` from useParams)
- *   - the sidebar is always present — the list is the home view
+ *   - the sidebar is always present — the list is the catalog home view
  *
  * The data contract (`skills.min.json` + `search.idx.json`) is
  * consumed unchanged; `scripts/build-catalog.ts` remains the sole

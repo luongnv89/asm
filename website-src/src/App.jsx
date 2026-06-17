@@ -72,11 +72,25 @@ export default function App() {
 
 /**
  * Root route. The catalog used to live here, so a root visit that still
- * carries catalog filter params (`?q=`, `?cat=`, `?repo=`, `?facet=`,
- * `?sort=`) is an old shared link — forward it to `/skills` with the
- * query string intact. A bare root visit shows the new landing page.
+ * carries any catalog filter param (search `?q=`, category `?cat=`, repo
+ * `?repo=`, the facet params `?license=`/`?grade=`/`?source=`/`?tools=`,
+ * the legacy `?verified=`, `?sort=`, or `?page=`) is an old shared link —
+ * forward it to `/skills` with the query string intact. A bare root visit
+ * shows the new landing page. Keep this list in sync with the params read
+ * by `useCatalogState`.
  */
-const CATALOG_PARAMS = ["q", "cat", "repo", "facet", "sort"];
+const CATALOG_PARAMS = [
+  "q",
+  "cat",
+  "repo",
+  "license",
+  "grade",
+  "source",
+  "tools",
+  "verified",
+  "sort",
+  "page",
+];
 
 function LegacyCatalogRedirect() {
   const location = useLocation();

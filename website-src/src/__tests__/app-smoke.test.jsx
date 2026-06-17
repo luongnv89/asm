@@ -253,6 +253,28 @@ describe("App smoke", () => {
     });
   });
 
+  it("redirects a legacy root link carrying only a facet param to /skills", async () => {
+    // Regression: a root deep link carrying only a facet/page filter (here
+    // `?source=verified`, no q/cat/repo) is still an old catalog link and
+    // must redirect to `/skills` with the query intact — not fall through to
+    // the landing page. Guards against LegacyCatalogRedirect's param list
+    // drifting out of sync with the params `useCatalogState` reads.
+    window.history.replaceState(null, "", "/#/?source=verified");
+    render(
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
+        <App />
+      </HashRouter>,
+    );
+    // The catalog (sidebar list) renders, not the landing hero.
+    await waitFor(() => expect(screen.getByText("hello-world")).toBeTruthy());
+    await waitFor(() => {
+      expect(window.location.hash).toContain("/skills");
+      expect(window.location.hash).toContain("source=verified");
+    });
+  });
+
   it("bundles page renders a sidebar list and detail empty state", async () => {
     window.history.replaceState(null, "", "/#/bundles");
     const { container } = render(
