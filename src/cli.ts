@@ -2806,13 +2806,19 @@ async function cmdInstall(args: ParsedArgs) {
         return; // unreachable but helps TypeScript
       }
 
-      const installNameByRelPath = new Map(
-        discovered.map((s) => [s.relPath, s.name] as const),
-      );
+      // Duplicate detection must key on the *install target directory* name,
+      // which inspectSkillForInstall derives from the path basename (and falls
+      // back to source.repo for the root skill, whose relPath is ""). Keying on
+      // frontmatter names would both miss real collisions (two skills sharing a
+      // basename → same target dir, silent overwrite) and flag false ones (two
+      // dirs sharing a frontmatter name → distinct target dirs). The root "" is
+      // special-cased because getInstallNameFromPath("") throws on an empty name.
       const duplicateInstallNames = findDuplicateInstallNames(
         selectedPaths,
         (relPath) =>
-          installNameByRelPath.get(relPath) ?? getInstallNameFromPath(relPath),
+          relPath === ""
+            ? sanitizeName(source.repo)
+            : getInstallNameFromPath(relPath),
       );
       if (duplicateInstallNames.length > 0) {
         const lines = duplicateInstallNames
