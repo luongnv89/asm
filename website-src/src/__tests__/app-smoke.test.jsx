@@ -27,10 +27,15 @@ import { MINISEARCH_OPTIONS } from "../lib/minisearch-options.js";
 /**
  * End-to-end smoke tests for the React app.
  *
- * Updated for #228: the catalog now renders as a two-pane layout
- * (sidebar list + detail pane). These tests assert that the list
- * is visible, selecting a skill in the sidebar updates the URL and
- * renders the detail pane, and filter state survives selection.
+ * Updated for #228: the catalog renders as a two-pane layout (sidebar
+ * list + detail pane). These tests assert that the list is visible,
+ * selecting a skill in the sidebar updates the URL and renders the
+ * detail pane, and filter state survives selection.
+ *
+ * Updated for the landing page: `/` now renders the marketing landing
+ * page and the catalog moved to `/skills`, so the catalog tests below
+ * navigate to `/#/skills` before asserting. A separate test covers the
+ * root landing page and the legacy `/?cat=` → `/skills` redirect.
  */
 const generatedAt = "2026-04-22T00:00:00.000Z";
 
@@ -163,6 +168,7 @@ describe("App smoke", () => {
   });
 
   it("loads the catalog and renders skills in the sidebar list", async () => {
+    window.history.replaceState(null, "", "/#/skills");
     render(
       <HashRouter
         future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
@@ -180,6 +186,7 @@ describe("App smoke", () => {
   });
 
   it("selecting a sidebar row updates the URL and renders detail", async () => {
+    window.history.replaceState(null, "", "/#/skills");
     const { container } = render(
       <HashRouter
         future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
@@ -216,7 +223,9 @@ describe("App smoke", () => {
   });
 
   it("preserves filter query params across selection", async () => {
-    // Start with a category filter already active in the URL.
+    // A legacy catalog deep link: the catalog used to live at `/`, so a
+    // root URL carrying `?cat=` must redirect to `/skills?cat=demo` and
+    // keep the filter active. This exercises LegacyCatalogRedirect too.
     window.history.replaceState(null, "", "/#/?cat=demo");
     const { container } = render(
       <HashRouter
@@ -271,5 +280,24 @@ describe("App smoke", () => {
     await waitFor(() => {
       expect(screen.getByText(/asm bundle install starter/)).toBeTruthy();
     });
+  });
+
+  it("root path renders the marketing landing page, not the catalog", async () => {
+    window.history.replaceState(null, "", "/");
+    const { container } = render(
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
+        <App />
+      </HashRouter>,
+    );
+    // Landing hero headline + a primary CTA into the catalog should mount.
+    await waitFor(() => {
+      expect(screen.getByText(/manage every AI agent/i)).toBeTruthy();
+    });
+    const catalogCta = container.querySelector("a[href$='/skills']");
+    expect(catalogCta).toBeTruthy();
+    // The catalog sidebar list must NOT be present on the landing page.
+    expect(container.querySelector("aside a[href*='/skills/']")).toBeNull();
   });
 });

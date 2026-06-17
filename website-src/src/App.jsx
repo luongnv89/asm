@@ -1,8 +1,9 @@
 import { useCallback, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import BundleBuilderDialog from "./components/BundleBuilderDialog.jsx";
+import LandingPage from "./pages/LandingPage.jsx";
 import CatalogPage from "./pages/CatalogPage.jsx";
 import BundlesPage from "./pages/BundlesPage.jsx";
 import DocsPage from "./pages/DocsPage.jsx";
@@ -18,10 +19,17 @@ import { BundleCartProvider } from "./hooks/useBundleCart.jsx";
  * to HashRouter preserves external deep links and avoids the need for
  * server-side rewrites.
  *
- * Routing (#228): `/` and `/skills/:id` both render `CatalogPage` —
+ * Routing: `/` renders the marketing `LandingPage`; the catalog now
+ * lives at `/skills` and `/skills/:id` (both render `CatalogPage`) —
  * the catalog is always a two-pane layout, and the `:id` in the URL
  * simply selects which skill shows in the detail pane. Same pattern
  * for `/bundles` and `/bundles/:name`.
+ *
+ * Legacy deep links: the catalog used to live at `/`, so older shared
+ * URLs carry filter query params on the root (e.g. `#/?q=code-review`).
+ * `LegacyCatalogRedirect` forwards any root visit that carries those
+ * params to `/skills`, preserving the query string so the filters still
+ * apply. `/skills/:id` links were already that shape and keep working.
  *
  * Bundle builder (#238): dialog state lives at the app shell so the
  * header cart button (any route) can open it. The `BundleCartProvider`
@@ -41,7 +49,8 @@ export default function App() {
           <Header onOpenBundleBuilder={openBuilder} />
           <main className="flex-1 w-full max-w-[1280px] mx-auto px-4 sm:px-6 py-6">
             <Routes>
-              <Route path="/" element={<CatalogPage />} />
+              <Route path="/" element={<LegacyCatalogRedirect />} />
+              <Route path="/skills" element={<CatalogPage />} />
               <Route path="/skills/:id" element={<CatalogPage />} />
               <Route path="/bundles" element={<BundlesPage />} />
               <Route path="/bundles/:name" element={<BundlesPage />} />
@@ -59,4 +68,24 @@ export default function App() {
       </BundleCartProvider>
     </CatalogProvider>
   );
+}
+
+/**
+ * Root route. The catalog used to live here, so a root visit that still
+ * carries catalog filter params (`?q=`, `?cat=`, `?repo=`, `?facet=`,
+ * `?sort=`) is an old shared link — forward it to `/skills` with the
+ * query string intact. A bare root visit shows the new landing page.
+ */
+const CATALOG_PARAMS = ["q", "cat", "repo", "facet", "sort"];
+
+function LegacyCatalogRedirect() {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const isLegacyCatalogLink = CATALOG_PARAMS.some((k) => params.has(k));
+  if (isLegacyCatalogLink) {
+    return (
+      <Navigate to={{ pathname: "/skills", search: location.search }} replace />
+    );
+  }
+  return <LandingPage />;
 }

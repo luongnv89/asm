@@ -622,3 +622,264 @@ mark.hl {
 .cl-outro a:hover {
   color: var(--cl-accent);
 }
+
+/* ─── Landing page (editorial / terminal) ──────────────────────────── */
+.lp {
+  --lp-serif: "Fraunces", "Instrument Serif", ui-serif, Georgia, serif;
+  --lp-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Monospace eyebrow / kicker shared by every section */
+.lp-kicker {
+  font-family: var(--lp-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.lp-kicker .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-glow);
+  animation: cl-pulse 2.4s ease-in-out infinite;
+}
+
+/* Big editorial serif headline */
+.lp-title {
+  font-family: var(--lp-serif);
+  font-weight: 400;
+  font-size: clamp(44px, 6.5vw, 84px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  color: var(--fg);
+  margin: 0;
+  font-variation-settings: "opsz" 144;
+}
+.lp-title em {
+  font-style: italic;
+  color: var(--brand);
+  font-family: "Instrument Serif", var(--lp-serif);
+}
+
+.lp-section-title {
+  font-family: var(--lp-serif);
+  font-weight: 400;
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--fg);
+  margin: 0;
+  font-variation-settings: "opsz" 120;
+}
+
+.lp-lede {
+  max-width: 620px;
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.55;
+  color: var(--fg-dim);
+}
+
+/* Terminal-style command chip */
+.lp-cmd {
+  font-family: var(--lp-mono);
+  font-size: 14px;
+  color: var(--fg);
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+}
+.lp-cmd .prompt {
+  color: var(--brand);
+  user-select: none;
+}
+
+/* Hero terminal mock */
+.lp-term {
+  font-family: var(--lp-mono);
+  font-size: 12.5px;
+  line-height: 1.7;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.lp-term-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.lp-term-bar .tdot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--border);
+}
+.lp-term-bar .tlabel {
+  margin-left: 8px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.lp-term-body {
+  padding: 16px 16px 18px;
+  color: var(--fg-dim);
+  white-space: pre-wrap;
+}
+.lp-term-body .c {
+  color: var(--brand);
+}
+.lp-term-body .dim {
+  color: var(--fg-muted);
+}
+.lp-term-body .warn {
+  color: var(--warn);
+}
+.lp-term-body .fg {
+  color: var(--fg);
+}
+
+/* Feature card */
+.lp-card {
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 22px 22px 24px;
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+.lp-card:hover {
+  border-color: color-mix(in srgb, var(--brand) 45%, var(--border));
+  transform: translateY(-2px);
+}
+.lp-card-icon {
+  font-family: var(--lp-mono);
+  font-size: 12px;
+  color: var(--brand);
+  letter-spacing: 0.1em;
+}
+.lp-card h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 12px 0 8px;
+  line-height: 1.3;
+}
+.lp-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fg-dim);
+  margin: 0;
+}
+
+/* Numbered step */
+.lp-step-num {
+  font-family: var(--lp-serif);
+  font-size: clamp(40px, 5vw, 60px);
+  font-weight: 400;
+  line-height: 1;
+  color: color-mix(in srgb, var(--brand) 65%, transparent);
+  font-variation-settings: "opsz" 144;
+}
+
+/* Stat figure */
+.lp-stat-num {
+  font-family: var(--lp-serif);
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--fg);
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 120;
+}
+.lp-stat-label {
+  font-family: var(--lp-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-top: 8px;
+}
+
+/* Primary CTA button */
+.lp-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 22px;
+  border-radius: 9px;
+  background: var(--brand);
+  color: #06120a;
+  border: 1px solid var(--brand);
+  transition:
+    filter 160ms ease,
+    transform 160ms ease;
+}
+.lp-cta:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+.lp-cta-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 12px 20px;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--border);
+  transition:
+    border-color 160ms ease,
+    color 160ms ease;
+}
+.lp-cta-ghost:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+
+/* Section divider rule with a node */
+.lp-rule {
+  height: 1px;
+  background: var(--border);
+  position: relative;
+}
+.lp-rule::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-card:hover,
+  .lp-cta:hover,
+  .lp-cta-ghost:hover {
+    transform: none;
+  }
+  .lp-kicker .dot {
+    animation: none;
+  }
+}

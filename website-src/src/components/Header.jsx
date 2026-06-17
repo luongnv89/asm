@@ -105,10 +105,12 @@ export default function Header({ onOpenBundleBuilder }) {
             className="w-7 h-7"
           />
           <span>asm</span>
-          <span className="text-[var(--fg-muted)] font-normal">catalog</span>
+          <span className="text-[var(--fg-muted)] font-normal hidden sm:inline">
+            agent-skill-manager
+          </span>
         </Link>
         <nav className="flex items-center gap-1 ml-4">
-          <NavLink to="/" end className={linkClass}>
+          <NavLink to="/skills" className={linkClass}>
             Skills
           </NavLink>
           <NavLink to="/bundles" className={linkClass}>

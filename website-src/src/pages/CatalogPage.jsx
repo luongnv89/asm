@@ -309,7 +309,7 @@ export default function CatalogPage() {
         </Button>
         {decodedId && (
           <Link
-            to={{ pathname: "/", search: location.search }}
+            to={{ pathname: "/skills", search: location.search }}
             className="text-xs text-[var(--fg-dim)] hover:text-[var(--brand)]"
           >
             ← Clear selection

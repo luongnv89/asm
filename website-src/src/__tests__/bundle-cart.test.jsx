@@ -134,7 +134,9 @@ function mockFetch() {
 
 describe("Bundle cart flow", () => {
   beforeEach(() => {
-    window.history.replaceState(null, "", "/");
+    // The catalog list (with add-to-bundle buttons) now lives at /skills;
+    // `/` renders the marketing landing page.
+    window.history.replaceState(null, "", "/#/skills");
     globalThis.fetch = mockFetch();
     installLocalStorageShim();
   });
