@@ -1,0 +1,1317 @@
+{
+  "repoUrl": "https://github.com/Egonex-AI/Understand-Anything.git",
+  "owner": "Egonex-AI",
+  "repo": "Understand-Anything",
+  "updatedAt": "2026-06-18T14:32:49.312Z",
+  "skillCount": 8,
+  "skills": [
+    {
+      "name": "understand",
+      "description": "Analyze a codebase to produce an interactive knowledge graph for understanding architecture, components, and relationships",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand",
+      "relPath": "understand-anything-plugin/skills/understand",
+      "verified": true,
+      "tokenCount": 12024,
+      "evalSummary": {
+        "overallScore": 79,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-18T14:32:49.258Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-18T14:32:49.260Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-18T14:32:49.260Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "understand-chat",
+      "description": "Use when you need to ask questions about a codebase or understand code using a knowledge graph",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-chat",
+      "relPath": "understand-anything-plugin/skills/understand-chat",
+      "verified": true,
+      "tokenCount": 895,
+      "evalSummary": {
+        "overallScore": 63,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-18T14:32:49.269Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 63,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-18T14:32:49.269Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-18T14:32:49.269Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "understand-dashboard",
+      "description": "Launch the interactive web dashboard to visualize a codebase's knowledge graph",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-dashboard",
+      "relPath": "understand-anything-plugin/skills/understand-dashboard",
+      "verified": true,
+      "tokenCount": 1308,
+      "evalSummary": {
+        "overallScore": 63,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-18T14:32:49.274Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 63,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-18T14:32:49.275Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-18T14:32:49.275Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "understand-diff",
+      "description": "Use when you need to analyze git diffs or pull requests to understand what changed, affected components, and risks",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-diff",
+      "relPath": "understand-anything-plugin/skills/understand-diff",
+      "verified": true,
+      "tokenCount": 1208,
+      "evalSummary": {
+        "overallScore": 64,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-18T14:32:49.277Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 64,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-18T14:32:49.278Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-18T14:32:49.278Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "understand-domain",
+      "description": "Extract business domain knowledge from a codebase and generate an interactive domain flow graph. Works standalone (lightweight scan) or derives from an existing /understand knowledge graph.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-domain",
+      "relPath": "understand-anything-plugin/skills/understand-domain",
+      "verified": true,
+      "tokenCount": 1884,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-18T14:32:49.298Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 67,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-18T14:32:49.299Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-18T14:32:49.299Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "understand-explain",
+      "description": "Use when you need a deep-dive explanation of a specific file, function, or module in the codebase",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-explain",
+      "relPath": "understand-anything-plugin/skills/understand-explain",
+      "verified": true,
+      "tokenCount": 992,
+      "evalSummary": {
+        "overallScore": 64,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-18T14:32:49.306Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 64,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-18T14:32:49.306Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-18T14:32:49.307Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "understand-knowledge",
+      "description": "Analyze a Karpathy-pattern LLM wiki knowledge base and generate an interactive knowledge graph with entity extraction, implicit relationships, and topic clustering.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-knowledge",
+      "relPath": "understand-anything-plugin/skills/understand-knowledge",
+      "verified": true,
+      "tokenCount": 1525,
+      "evalSummary": {
+        "overallScore": 70,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-18T14:32:49.308Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 70,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-18T14:32:49.308Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-18T14:32:49.308Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "understand-onboard",
+      "description": "Use when you need to generate an onboarding guide for new team members joining a project",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-onboard",
+      "relPath": "understand-anything-plugin/skills/understand-onboard",
+      "verified": true,
+      "tokenCount": 936,
+      "evalSummary": {
+        "overallScore": 66,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-18T14:32:49.311Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 66,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-18T14:32:49.311Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-18T14:32:49.311Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "egonex-ai-understand-anything-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Egonex-AI/Understand-Anything.",
+      "author": "ASM (Egonex-AI/Understand-Anything)",
+      "createdAt": "2026-06-18T14:32:49.312Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "egonex-ai",
+        "understand-anything"
+      ],
+      "skills": [
+        {
+          "name": "understand",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand",
+          "description": "Analyze a codebase to produce an interactive knowledge graph for understanding architecture, components, and relationships",
+          "version": "0.0.0"
+        },
+        {
+          "name": "understand-chat",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-chat",
+          "description": "Use when you need to ask questions about a codebase or understand code using a knowledge graph",
+          "version": "0.0.0"
+        },
+        {
+          "name": "understand-dashboard",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-dashboard",
+          "description": "Launch the interactive web dashboard to visualize a codebase's knowledge graph",
+          "version": "0.0.0"
+        },
+        {
+          "name": "understand-diff",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-diff",
+          "description": "Use when you need to analyze git diffs or pull requests to understand what changed, affected components, and risks",
+          "version": "0.0.0"
+        },
+        {
+          "name": "understand-domain",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-domain",
+          "description": "Extract business domain knowledge from a codebase and generate an interactive domain flow graph. Works standalone (lightweight scan) or derives from an existing /understand knowledge graph.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "understand-explain",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-explain",
+          "description": "Use when you need a deep-dive explanation of a specific file, function, or module in the codebase",
+          "version": "0.0.0"
+        },
+        {
+          "name": "understand-knowledge",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-knowledge",
+          "description": "Analyze a Karpathy-pattern LLM wiki knowledge base and generate an interactive knowledge graph with entity extraction, implicit relationships, and topic clustering.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "understand-onboard",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-onboard",
+          "description": "Use when you need to generate an onboarding guide for new team members joining a project",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Egonex-AI",
+        "repo": "Understand-Anything",
+        "repoUrl": "https://github.com/Egonex-AI/Understand-Anything.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "egonex-ai-understand-anything-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Egonex-AI/Understand-Anything.",
+      "author": "ASM (Egonex-AI/Understand-Anything)",
+      "createdAt": "2026-06-18T14:32:49.312Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "egonex-ai",
+        "understand-anything"
+      ],
+      "skills": [
+        {
+          "name": "understand-explain",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-explain",
+          "description": "Use when you need a deep-dive explanation of a specific file, function, or module in the codebase",
+          "version": "0.0.0"
+        },
+        {
+          "name": "understand-knowledge",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-knowledge",
+          "description": "Analyze a Karpathy-pattern LLM wiki knowledge base and generate an interactive knowledge graph with entity extraction, implicit relationships, and topic clustering.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Egonex-AI",
+        "repo": "Understand-Anything",
+        "repoUrl": "https://github.com/Egonex-AI/Understand-Anything.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "egonex-ai-understand-anything-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from Egonex-AI/Understand-Anything.",
+      "author": "ASM (Egonex-AI/Understand-Anything)",
+      "createdAt": "2026-06-18T14:32:49.312Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "egonex-ai",
+        "understand-anything"
+      ],
+      "skills": [
+        {
+          "name": "understand",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand",
+          "description": "Analyze a codebase to produce an interactive knowledge graph for understanding architecture, components, and relationships",
+          "version": "0.0.0"
+        },
+        {
+          "name": "understand-chat",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-chat",
+          "description": "Use when you need to ask questions about a codebase or understand code using a knowledge graph",
+          "version": "0.0.0"
+        },
+        {
+          "name": "understand-dashboard",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-dashboard",
+          "description": "Launch the interactive web dashboard to visualize a codebase's knowledge graph",
+          "version": "0.0.0"
+        },
+        {
+          "name": "understand-domain",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-domain",
+          "description": "Extract business domain knowledge from a codebase and generate an interactive domain flow graph. Works standalone (lightweight scan) or derives from an existing /understand knowledge graph.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "understand-explain",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-explain",
+          "description": "Use when you need a deep-dive explanation of a specific file, function, or module in the codebase",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Egonex-AI",
+        "repo": "Understand-Anything",
+        "repoUrl": "https://github.com/Egonex-AI/Understand-Anything.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "egonex-ai-understand-anything-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Egonex-AI/Understand-Anything.",
+      "author": "ASM (Egonex-AI/Understand-Anything)",
+      "createdAt": "2026-06-18T14:32:49.312Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "egonex-ai",
+        "understand-anything"
+      ],
+      "skills": [
+        {
+          "name": "understand",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand",
+          "description": "Analyze a codebase to produce an interactive knowledge graph for understanding architecture, components, and relationships",
+          "version": "0.0.0"
+        },
+        {
+          "name": "understand-dashboard",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-dashboard",
+          "description": "Launch the interactive web dashboard to visualize a codebase's knowledge graph",
+          "version": "0.0.0"
+        },
+        {
+          "name": "understand-diff",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-diff",
+          "description": "Use when you need to analyze git diffs or pull requests to understand what changed, affected components, and risks",
+          "version": "0.0.0"
+        },
+        {
+          "name": "understand-onboard",
+          "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-onboard",
+          "description": "Use when you need to generate an onboarding guide for new team members joining a project",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Egonex-AI",
+        "repo": "Understand-Anything",
+        "repoUrl": "https://github.com/Egonex-AI/Understand-Anything.git"
+      },
+      "inferred": true
+    }
+  ]
+}

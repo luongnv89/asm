@@ -436,6 +436,10 @@ If you have multiple `asm` binaries on `PATH` (for example, a leftover install f
 
 A curated list of skill repositories you can install with a single command. Over **2,800 skills** available across these collections:
 
+### Top agent skills repositories
+
+ASM now indexes the requested top starred agent-skill collections: [`obra/superpowers`](https://github.com/obra/superpowers), [`anthropics/skills`](https://github.com/anthropics/skills), [`garrytan/gstack`](https://github.com/garrytan/gstack), [`Egonex-AI/Understand-Anything`](https://github.com/Egonex-AI/Understand-Anything), [`addyosmani/agent-skills`](https://github.com/addyosmani/agent-skills), [`mattpocock/skills`](https://github.com/mattpocock/skills), [`santifer/career-ops`](https://github.com/santifer/career-ops), [`nextlevelbuilder/ui-ux-pro-max-skill`](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill), [`Leonxlnx/taste-skill`](https://github.com/Leonxlnx/taste-skill), and [`mvanhorn/last30days-skill`](https://github.com/mvanhorn/last30days-skill). Use `asm search <term>` to discover individual skills, then install a collection with `asm install github:owner/repo`.
+
 > **Last updated:** 2026-03-28
 
 | Repository                                                                          | Description                                                         |  Stars | Skills |
