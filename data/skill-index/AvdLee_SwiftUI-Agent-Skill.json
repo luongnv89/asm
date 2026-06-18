@@ -1,0 +1,429 @@
+{
+  "repoUrl": "https://github.com/AvdLee/SwiftUI-Agent-Skill.git",
+  "owner": "AvdLee",
+  "repo": "SwiftUI-Agent-Skill",
+  "updatedAt": "2026-06-18T13:45:58.632Z",
+  "skillCount": 2,
+  "skills": [
+    {
+      "name": "swiftui-expert-skill",
+      "description": "Use when writing, reviewing, or refactoring SwiftUI code for iOS or macOS, including state management and `@Observable` data flow, view composition and invalidation/performance, lists and `ForEach` identity, environment usage, localization, animations, Liquid Glass adoption, migrating soft-deprecated APIs, or Instruments `.trace` capture/analysis for hangs, hitches, CPU hotspots, or",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:swiftui-expert-skill",
+      "relPath": "swiftui-expert-skill",
+      "verified": true,
+      "tokenCount": 3059,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-18T13:45:58.627Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-18T13:45:58.628Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-18T13:45:58.628Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "update-swiftui-apis",
+      "description": "Scan Apple's SwiftUI documentation for deprecated APIs and update the SwiftUI Expert Skill with modern replacements. Use when asked to \"update latest APIs\", \"refresh deprecated SwiftUI APIs\", \"check for new SwiftUI deprecations\", \"scan for API changes\", or after a new iOS/Xcode release. Requires the Sosumi MCP to be available.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:.agents/skills/update-swiftui-apis",
+      "relPath": ".agents/skills/update-swiftui-apis",
+      "verified": true,
+      "tokenCount": 1184,
+      "evalSummary": {
+        "overallScore": 70,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-18T13:45:58.630Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 70,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-18T13:45:58.631Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-18T13:45:58.631Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "avdlee-swiftui-agent-skill-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from AvdLee/SwiftUI-Agent-Skill.",
+      "author": "ASM (AvdLee/SwiftUI-Agent-Skill)",
+      "createdAt": "2026-06-18T13:45:58.632Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "avdlee",
+        "swiftui-agent-skill"
+      ],
+      "skills": [
+        {
+          "name": "swiftui-expert-skill",
+          "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:swiftui-expert-skill",
+          "description": "Use when writing, reviewing, or refactoring SwiftUI code for iOS or macOS, including state management and `@Observable` data flow, view composition and invalidation/performance, lists and `ForEach` identity, environment usage, localization, animations, Liquid Glass adoption, migrating soft-deprecated APIs, or Instruments `.trace` capture/analysis for hangs, hitches, CPU hotspots, or",
+          "version": "0.0.0"
+        },
+        {
+          "name": "update-swiftui-apis",
+          "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:.agents/skills/update-swiftui-apis",
+          "description": "Scan Apple's SwiftUI documentation for deprecated APIs and update the SwiftUI Expert Skill with modern replacements. Use when asked to \"update latest APIs\", \"refresh deprecated SwiftUI APIs\", \"check for new SwiftUI deprecations\", \"scan for API changes\", or after a new iOS/Xcode release. Requires the Sosumi MCP to be available.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "AvdLee",
+        "repo": "SwiftUI-Agent-Skill",
+        "repoUrl": "https://github.com/AvdLee/SwiftUI-Agent-Skill.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "avdlee-swiftui-agent-skill-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from AvdLee/SwiftUI-Agent-Skill.",
+      "author": "ASM (AvdLee/SwiftUI-Agent-Skill)",
+      "createdAt": "2026-06-18T13:45:58.632Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "avdlee",
+        "swiftui-agent-skill"
+      ],
+      "skills": [
+        {
+          "name": "swiftui-expert-skill",
+          "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:swiftui-expert-skill",
+          "description": "Use when writing, reviewing, or refactoring SwiftUI code for iOS or macOS, including state management and `@Observable` data flow, view composition and invalidation/performance, lists and `ForEach` identity, environment usage, localization, animations, Liquid Glass adoption, migrating soft-deprecated APIs, or Instruments `.trace` capture/analysis for hangs, hitches, CPU hotspots, or",
+          "version": "0.0.0"
+        },
+        {
+          "name": "update-swiftui-apis",
+          "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:.agents/skills/update-swiftui-apis",
+          "description": "Scan Apple's SwiftUI documentation for deprecated APIs and update the SwiftUI Expert Skill with modern replacements. Use when asked to \"update latest APIs\", \"refresh deprecated SwiftUI APIs\", \"check for new SwiftUI deprecations\", \"scan for API changes\", or after a new iOS/Xcode release. Requires the Sosumi MCP to be available.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "AvdLee",
+        "repo": "SwiftUI-Agent-Skill",
+        "repoUrl": "https://github.com/AvdLee/SwiftUI-Agent-Skill.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "avdlee-swiftui-agent-skill-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from AvdLee/SwiftUI-Agent-Skill.",
+      "author": "ASM (AvdLee/SwiftUI-Agent-Skill)",
+      "createdAt": "2026-06-18T13:45:58.632Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "avdlee",
+        "swiftui-agent-skill"
+      ],
+      "skills": [
+        {
+          "name": "swiftui-expert-skill",
+          "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:swiftui-expert-skill",
+          "description": "Use when writing, reviewing, or refactoring SwiftUI code for iOS or macOS, including state management and `@Observable` data flow, view composition and invalidation/performance, lists and `ForEach` identity, environment usage, localization, animations, Liquid Glass adoption, migrating soft-deprecated APIs, or Instruments `.trace` capture/analysis for hangs, hitches, CPU hotspots, or",
+          "version": "0.0.0"
+        },
+        {
+          "name": "update-swiftui-apis",
+          "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:.agents/skills/update-swiftui-apis",
+          "description": "Scan Apple's SwiftUI documentation for deprecated APIs and update the SwiftUI Expert Skill with modern replacements. Use when asked to \"update latest APIs\", \"refresh deprecated SwiftUI APIs\", \"check for new SwiftUI deprecations\", \"scan for API changes\", or after a new iOS/Xcode release. Requires the Sosumi MCP to be available.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "AvdLee",
+        "repo": "SwiftUI-Agent-Skill",
+        "repoUrl": "https://github.com/AvdLee/SwiftUI-Agent-Skill.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "avdlee-swiftui-agent-skill-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from AvdLee/SwiftUI-Agent-Skill.",
+      "author": "ASM (AvdLee/SwiftUI-Agent-Skill)",
+      "createdAt": "2026-06-18T13:45:58.632Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "avdlee",
+        "swiftui-agent-skill"
+      ],
+      "skills": [
+        {
+          "name": "swiftui-expert-skill",
+          "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:swiftui-expert-skill",
+          "description": "Use when writing, reviewing, or refactoring SwiftUI code for iOS or macOS, including state management and `@Observable` data flow, view composition and invalidation/performance, lists and `ForEach` identity, environment usage, localization, animations, Liquid Glass adoption, migrating soft-deprecated APIs, or Instruments `.trace` capture/analysis for hangs, hitches, CPU hotspots, or",
+          "version": "0.0.0"
+        },
+        {
+          "name": "update-swiftui-apis",
+          "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:.agents/skills/update-swiftui-apis",
+          "description": "Scan Apple's SwiftUI documentation for deprecated APIs and update the SwiftUI Expert Skill with modern replacements. Use when asked to \"update latest APIs\", \"refresh deprecated SwiftUI APIs\", \"check for new SwiftUI deprecations\", \"scan for API changes\", or after a new iOS/Xcode release. Requires the Sosumi MCP to be available.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "AvdLee",
+        "repo": "SwiftUI-Agent-Skill",
+        "repoUrl": "https://github.com/AvdLee/SwiftUI-Agent-Skill.git"
+      },
+      "inferred": true
+    }
+  ]
+}

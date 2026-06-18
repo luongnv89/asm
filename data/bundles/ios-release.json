@@ -1,11 +1,51 @@
 {
   "version": 1,
   "name": "ios-release",
-  "description": "iOS app release workflow: release management, App Store review checks, release notes, and VS Code extension publishing.",
+  "description": "iOS and Swift workflow: SwiftUI, concurrency, testing, persistence, Xcode build optimization, App Store checks, and release management.",
   "author": "ASM",
   "createdAt": "2025-01-01T00:00:00.000Z",
-  "tags": ["ios", "mobile", "release", "appstore"],
+  "tags": ["ios", "swift", "swiftui", "mobile", "release", "appstore"],
   "skills": [
+    {
+      "name": "swiftui-pro",
+      "installUrl": "github:twostraws/SwiftUI-Agent-Skill:swiftui-pro",
+      "description": "Review SwiftUI code for modern API, maintainability, and performance best practices"
+    },
+    {
+      "name": "swift-concurrency-pro",
+      "installUrl": "github:twostraws/Swift-Concurrency-Agent-Skill:swift-concurrency-pro",
+      "description": "Review async/await, actors, Sendable, and Swift concurrency correctness"
+    },
+    {
+      "name": "swift-testing-pro",
+      "installUrl": "github:twostraws/Swift-Testing-Agent-Skill:swift-testing-pro",
+      "description": "Write, review, and improve Swift Testing suites"
+    },
+    {
+      "name": "swiftdata-pro",
+      "installUrl": "github:twostraws/SwiftData-Agent-Skill:swiftdata-pro",
+      "description": "Write, review, and improve SwiftData code"
+    },
+    {
+      "name": "swiftui-expert-skill",
+      "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:swiftui-expert-skill",
+      "description": "Expert SwiftUI guidance for state, composition, performance, and API migrations"
+    },
+    {
+      "name": "core-data-expert",
+      "installUrl": "github:AvdLee/Core-Data-Agent-Skill:core-data-expert",
+      "description": "Expert Core Data guidance for persistence, migrations, concurrency, and performance"
+    },
+    {
+      "name": "uikit-expert",
+      "installUrl": "github:ivan-magda/uikit-expert-skill:uikit-expert",
+      "description": "Expert UIKit guidance for view controllers, Auto Layout, collection views, and SwiftUI bridging"
+    },
+    {
+      "name": "xcode-build-orchestrator",
+      "installUrl": "github:AvdLee/Xcode-Build-Optimization-Agent-Skill:skills/xcode-build-orchestrator",
+      "description": "Coordinate Xcode build benchmarking, analysis, optimization, and verification"
+    },
     {
       "name": "release-manager",
       "installUrl": "github:luongnv89/skills:skills/release-manager",
@@ -25,6 +65,11 @@
       "name": "vscode-extension-publisher",
       "installUrl": "github:luongnv89/skills:skills/vscode-extension-publisher",
       "description": "Publish VS Code extensions to the Visual Studio Marketplace"
+    },
+    {
+      "name": "asc-app-create-ui",
+      "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-app-create-ui",
+      "description": "Automate App Store Connect app record creation when public APIs are unavailable"
     }
   ]
 }

@@ -734,6 +734,8 @@ asm bundle export my-workflow ./my-workflow.json
 
 A bundle is a JSON file with a `name`, `description`, `author`, and a list of `skills` (each with `name` + `installUrl`). The schema is validated on install — see `src/utils/types.ts` (`BundleManifest`). You can also assemble a custom bundle visually on the website's [/bundles](https://luongnv.com/asm/#/bundles) page and export it as JSON.
 
+**iOS/Swift catalog note:** ASM indexes public, installable Swift and Apple-platform skill repos from maintainers such as Hacking with Swift (`twostraws`), Antoine van der Lee (`AvdLee`), Dimillian, Rudrank Riyam, and Ivan Magda. Use `asm bundle install ios-release` for a curated SwiftUI, concurrency, testing, persistence, Xcode build, App Store, and release-management starter set, or search the catalog for `swift`, `swiftui`, `swift testing`, `uikit`, `swiftdata`, or `app store connect` to install individual skills. Sources that are private, landing-page-only, or do not expose discoverable `SKILL.md` content are not added as enabled catalog entries.
+
 </details>
 
 <details>
