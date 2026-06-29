@@ -67,6 +67,9 @@ import {
   checkNpxAvailable,
   executeNpxSkillsAdd,
   buildRepoUrl,
+  checkCrossToolLink,
+  linkExistingSkill,
+  type CrossToolLinkInfo,
 } from "./installer";
 import type {
   InstallResult,
@@ -2058,6 +2061,12 @@ function printInstallHelp() {
 
 Install a skill from a GitHub repository, the curated registry, or a local path.
 
+${ansi.bold("Cross-tool linking (issue #322):")}
+  If the skill is already installed in another tool, ASM offers two options:
+    1. Reinstall — download fresh from the index (gets latest version)
+    2. Link — symlink from the existing install (no download, shares files)
+  Skills installed from a local folder always reinstall (link does not apply).
+
 ${ansi.bold("Source Format:")}
   code-review                    Install by name from the curated registry
   author/code-review             Install a scoped name (author/name) from registry
@@ -2144,6 +2153,8 @@ interface SkillInspection {
   riskLevel: "high" | "medium" | "safe";
   riskLabel: string;
   plan: ReturnType<typeof buildInstallPlan>;
+  /** When set, the skill exists in another tool — user can Link instead of reinstall. */
+  crossToolLink?: CrossToolLinkInfo | null;
 }
 
 async function inspectSkillForInstall(
@@ -2181,7 +2192,17 @@ async function inspectSkillForInstall(
       installStatus = `UPDATE: ${existingMatch.version} → ${metadata.version}`;
     }
   } else {
-    installStatus = "NEW";
+    // Skill not installed in target provider — check if it exists in another tool
+    const crossToolInfo = await checkCrossToolLink(
+      skillName,
+      provider.name,
+      config,
+    );
+    if (crossToolInfo) {
+      installStatus = "LINK_AVAILABLE";
+    } else {
+      installStatus = "NEW";
+    }
   }
 
   // If skill already exists, force overwrite (user will confirm at the end)
@@ -2216,6 +2237,7 @@ async function inspectSkillForInstall(
     riskLevel,
     riskLabel,
     plan,
+    crossToolLink: crossToolLink ?? null,
   };
 }
 
@@ -2229,7 +2251,7 @@ function displaySkillInspection(
   isBatch: boolean,
   batchContext?: { index: number; total: number },
 ) {
-  const { metadata, warnings, installStatus, riskLabel, plan } = inspection;
+  const { metadata, warnings, installStatus, riskLabel, plan, crossToolLink } = inspection;
 
   if (isBatch && batchContext) {
     const progress = ansi.dim(`[${batchContext.index}/${batchContext.total}]`);
@@ -2248,6 +2270,13 @@ function displaySkillInspection(
     console.info(
       `  ${ansi.bold(metadata.name)} v${metadata.version} ${statusColor}`,
     );
+
+    // Show cross-tool link hint
+    if (installStatus === "LINK_AVAILABLE" && crossToolLink) {
+      console.info(
+        `    ${ansi.dim(`Already installed in ${crossToolLink.existingProviderLabel}. `)}${ansi.cyan(`Run with --tool ${provider.name} to link, or reinstall for a fresh copy.`)}`,
+      );
+    }
 
     console.info(`\n  ${ansi.bold("Install preview:")}`);
     console.info(`    ${ansi.bold("Name:")}        ${metadata.name}`);
@@ -2916,34 +2945,98 @@ async function cmdInstall(args: ParsedArgs) {
     // Step 8: Confirm & Install
     console.info(stepHeader("Installing"));
 
-    // Confirmation prompt
-    if (!args.flags.yes) {
-      const hasHighRisk = inspections.some((i) => i.riskLevel === "high");
+    // Cross-tool link choice: if a skill exists in another tool, offer
+    // "Link" (symlink) vs "Reinstall" (fresh copy) before confirming (issue #322).
+    const linkChoices: Map<
+      number,
+      "link" | "reinstall"
+    > = new Map();
+    const hasLinkAvailable = inspections.some(
+      (i) => i.installStatus === "LINK_AVAILABLE" && i.crossToolLink,
+    );
 
+    if (hasLinkAvailable && !args.flags.yes) {
       if (!process.stdin.isTTY) {
-        error(
-          "Cannot prompt for confirmation in non-interactive mode. Use --yes to skip.",
-        );
-        process.exit(2);
-      }
-
-      const countLabel = isBatch
-        ? `${inspections.length} skills`
-        : `"${inspections[0].metadata.name}"`;
-      const promptText = hasHighRisk
-        ? `\n  ${ansi.red("[!]")} ${ansi.bold(`Install ${countLabel}? Some have high-risk patterns.`)} [y/N] `
-        : `\n  ${ansi.bold(`Install ${countLabel}?`)} [Y/n] `;
-      process.stderr.write(promptText);
-      const answer = await readLine();
-      if (hasHighRisk) {
-        if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
-          console.error("Aborted.");
-          process.exit(0);
+        // In non-interactive mode with LINK_AVAILABLE, default to Link
+        for (let i = 0; i < inspections.length; i++) {
+          if (inspections[i].installStatus === "LINK_AVAILABLE") {
+            linkChoices.set(i, "link");
+          }
         }
       } else {
-        if (answer.toLowerCase() === "n" || answer.toLowerCase() === "no") {
-          console.error("Aborted.");
-          process.exit(0);
+        for (let i = 0; i < inspections.length; i++) {
+          const inspection = inspections[i];
+          if (inspection.installStatus !== "LINK_AVAILABLE" || !inspection.crossToolLink) {
+            continue;
+          }
+
+          const ct = inspection.crossToolLink!;
+          console.info(
+            `\n  ${ansi.yellow("⚠")} ${ansi.bold(inspection.metadata.name)} is already installed in ${ct.existingProviderLabel}.`,
+          );
+          console.info(
+            `    Existing: ${ansi.dim(ct.existingPath)}`,
+          );
+          console.info(
+            `\n  ${ansi.cyan("Option 1")} — ${ansi.bold("Reinstall")}: Download fresh from index (gets latest version)`,
+          );
+          console.info(
+            `  ${ansi.cyan("Option 2")} — ${ansi.bold("Link")}: Symlink from existing install (no download, shares files)`,
+          );
+          process.stderr.write(`  Choose (1/2): `);
+          const answer = await readLine();
+          if (answer === "2" || answer.toLowerCase() === "link") {
+            linkChoices.set(i, "link");
+            console.info(
+              `  ${ansi.green("✓")} Selected: Link from ${ct.existingProviderLabel}`,
+            );
+          } else {
+            linkChoices.set(i, "reinstall");
+            console.info(
+              `  ${ansi.green("✓")} Selected: Reinstall from index`,
+            );
+          }
+        }
+      }
+    }
+
+    // Confirmation prompt
+    if (!args.flags.yes) {
+      // Skip confirmation for skills that are being linked (already decided)
+      const needsConfirmation = inspections.some(
+        (i) =>
+          i.installStatus !== "LINK_AVAILABLE" ||
+          linkChoices.get(i) === "reinstall",
+      );
+
+      if (needsConfirmation) {
+        const hasHighRisk = inspections.some((i) => i.riskLevel === "high");
+
+        if (!process.stdin.isTTY) {
+          error(
+            "Cannot prompt for confirmation in non-interactive mode. Use --yes to skip.",
+          );
+          process.exit(2);
+        }
+
+        const countLabel = isBatch
+          ? `${inspections.length} skills`
+          : `"${inspections[0].metadata.name}"`;
+        const promptText = hasHighRisk
+          ? `\n  ${ansi.red("[!]")} ${ansi.bold(`Install ${countLabel}? Some have high-risk patterns.`)} [y/N] `
+          : `\n  ${ansi.bold(`Install ${countLabel}?`)} [Y/n] `;
+        process.stderr.write(promptText);
+        const answer = await readLine();
+        if (hasHighRisk) {
+          if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
+            console.error("Aborted.");
+            process.exit(0);
+          }
+        } else {
+          if (answer.toLowerCase() === "n" || answer.toLowerCase() === "no") {
+            console.error("Aborted.");
+            process.exit(0);
+          }
         }
       }
     }
@@ -2958,6 +3051,58 @@ async function cmdInstall(args: ParsedArgs) {
       const progress = isBatch
         ? ansi.dim(`[${i + 1}/${inspections.length}]`) + " "
         : "  ";
+
+      // Handle Link choice: skip clone/copy, just symlink from existing install
+      if (linkChoices.get(i) === "link" && inspection.crossToolLink) {
+        const ct = inspection.crossToolLink!;
+        try {
+          console.info(
+            `${progress}Linking ${ansi.bold(inspection.metadata.name)} from ${ct.existingProviderLabel}...`,
+          );
+          const targetPath = await linkExistingSkill(
+            inspection.skillName,
+            ct.existingPath,
+            provider.name,
+            installScope,
+            config,
+            args.flags.force,
+          );
+          results.push({
+            success: true,
+            path: targetPath,
+            name: inspection.metadata.name,
+            version: inspection.metadata.version,
+            provider: `Linked from ${ct.existingProviderLabel}`,
+            source: `link:${ct.existingPath}`,
+          });
+          console.info(
+            `${progress}${ansi.green("✓")} ${inspection.metadata.name} linked to ${ansi.dim(targetPath)}`,
+          );
+
+          // Write lock entry for tracking
+          try {
+            await writeLockEntry(inspection.metadata.name, {
+              source: `link:${ct.existingPath}`,
+              commitHash: "linked",
+              ref: null,
+              installedAt: new Date().toISOString(),
+              provider: provider.name,
+              sourceType: "local",
+            });
+          } catch {
+            // Lock write failure is non-fatal
+          }
+        } catch (linkErr: any) {
+          failures.push({
+            name: inspection.metadata.name,
+            error: linkErr.message,
+          });
+          console.error(
+            `${progress}${ansi.red("✗")} ${ansi.bold(inspection.metadata.name)} — ${ansi.red(linkErr.message)}`,
+          );
+        }
+        continue;
+      }
 
       try {
         console.info(

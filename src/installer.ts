@@ -26,6 +26,7 @@ import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import { readFilesRecursive } from "./utils/fs";
 import { checkboxPicker } from "./utils/checkbox-picker";
+import { createLink } from "./linker";
 import type {
   ParsedSource,
   InstallPlan,
@@ -911,4 +912,109 @@ export async function checkConflict(
     // Otherwise, directory doesn't exist — no conflict
     debug(`install: target ${targetDir} — no conflict`);
   }
+}
+
+// ─── Cross-Tool Link Detection ─────────────────────────────────────────────
+
+/**
+ * Result of checking whether a skill already exists in another tool's
+ * installation directory. Used by the install flow to offer the user a
+ * "Link" option instead of a full reinstall (issue #322).
+ */
+export interface CrossToolLinkInfo {
+  /** The provider where the skill already lives */
+  existingProvider: string;
+  /** Human-readable label (e.g. "Claude Code") */
+  existingProviderLabel: string;
+  /** Absolute path to the existing skill directory */
+  existingPath: string;
+  /** Whether the existing install came from a local source */
+  isLocalSource: boolean;
+}
+
+/**
+ * Scan all enabled provider directories for an existing installation of
+ * `skillName`. Returns info about the first match found, or null if the
+ * skill is not installed anywhere.
+ *
+ * This is used by the install flow to detect cross-tool installs: if the
+ * skill exists in a provider different from the target, the user can
+ * choose to link instead of reinstalling (issue #322).
+ */
+export async function checkCrossToolLink(
+  skillName: string,
+  targetProviderName: string,
+  config: import("./config").AppConfig,
+): Promise<CrossToolLinkInfo | null> {
+  for (const provider of config.providers) {
+    if (!provider.enabled) continue;
+    if (provider.name === targetProviderName) continue; // skip target
+
+    const globalDir = resolveProviderPath(provider.global);
+    const candidatePath = join(globalDir, skillName);
+
+    try {
+      await access(candidatePath);
+      // Check it has a SKILL.md (valid skill)
+      const skillMd = join(candidatePath, "SKILL.md");
+      await access(skillMd);
+
+      // Verify it's the right skill (frontmatter name matches)
+      const content = await readFile(skillMd, "utf-8");
+      const fm = parseFrontmatter(content);
+      const existingName = fm.name || candidatePath.split(/[/\\]/).pop() || "";
+
+      if (existingName === skillName) {
+        debug(
+          `install: cross-tool link found — "${skillName}" already installed in ${provider.label} at ${candidatePath}`,
+        );
+        return {
+          existingProvider: provider.name,
+          existingProviderLabel: provider.label,
+          existingPath: candidatePath,
+          isLocalSource: false,
+        };
+      }
+    } catch {
+      // Not found or not a valid skill — try next provider
+      continue;
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Link an existing skill installation from one tool to another by creating
+ * a symlink. The source directory is the canonical install; the target is
+ * a symlink in the new tool's skill directory.
+ *
+ * Returns the path of the created symlink.
+ */
+export async function linkExistingSkill(
+  skillName: string,
+  sourcePath: string,
+  targetProviderName: string,
+  targetScope: "global" | "project",
+  config: import("./config").AppConfig,
+  force: boolean = false,
+): Promise<string> {
+  const provider = config.providers.find((p) => p.name === targetProviderName);
+  if (!provider) {
+    throw new Error(
+      `Target provider "${targetProviderName}" not found in config.`,
+    );
+  }
+
+  const basePath = targetScope === "project" ? provider.project : provider.global;
+  const providerDir = resolveProviderPath(basePath);
+  const targetPath = join(providerDir, skillName);
+
+  // Use the linker's createLink which handles force, mkdir, and symlink
+  await createLink(sourcePath, providerDir, skillName, force);
+
+  debug(
+    `install: linked "${skillName}" from ${sourcePath} -> ${targetPath}`,
+  );
+  return targetPath;
 }

@@ -31,6 +31,8 @@ import {
   buildRepoUrl,
   checkNpxAvailable,
   installScriptDependencies,
+  checkCrossToolLink,
+  linkExistingSkill,
 } from "./installer";
 import type { AppConfig, ProviderConfig } from "./utils/types";
 
@@ -1893,5 +1895,280 @@ describe("checkNpxAvailable", () => {
   test("does not throw when npx is available", async () => {
     // npx should be available in the test environment since node is present
     await expect(checkNpxAvailable()).resolves.toBeUndefined();
+  });
+});
+
+// ─── Cross-tool link tests (issue #322) ────────────────────────────────────
+
+describe("checkCrossToolLink", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "cross-tool-link-test-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  function makeConfig(overrides?: Partial<AppConfig>): AppConfig {
+    return {
+      version: 1,
+      providers: [
+        {
+          name: "claude",
+          label: "Claude Code",
+          global: join(tempDir, "claude-skills"),
+          project: ".claude/skills",
+          enabled: true,
+        },
+        {
+          name: "codex",
+          label: "Codex",
+          global: join(tempDir, "codex-skills"),
+          project: ".codex/skills",
+          enabled: true,
+        },
+        {
+          name: "pi",
+          label: "Pi",
+          global: join(tempDir, "pi-skills"),
+          project: ".pi/skills",
+          enabled: true,
+        },
+      ],
+      customPaths: [],
+      preferences: {
+        defaultScope: "global",
+        defaultSort: "name",
+      },
+      ...overrides,
+    };
+  }
+
+  async function createSkillDir(
+    providerDir: string,
+    skillName: string,
+    version: string = "1.0.0",
+  ) {
+    const skillDir = join(providerDir, skillName);
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      `---\nname: ${skillName}\nversion: ${version}\n---\nSkill body.\n`,
+    );
+    return skillDir;
+  }
+
+  test("returns null when skill is not installed anywhere", async () => {
+    const config = makeConfig();
+    const result = await checkCrossToolLink("code-review", "claude", config);
+    expect(result).toBeNull();
+  });
+
+  test("returns null when skill only exists in target provider", async () => {
+    const config = makeConfig();
+    const claudeDir = join(tempDir, "claude-skills");
+    await createSkillDir(claudeDir, "code-review");
+
+    const result = await checkCrossToolLink("code-review", "claude", config);
+    expect(result).toBeNull();
+  });
+
+  test("detects skill installed in another provider", async () => {
+    const config = makeConfig();
+    const claudeDir = join(tempDir, "claude-skills");
+    const skillDir = await createSkillDir(claudeDir, "code-review");
+
+    const result = await checkCrossToolLink("code-review", "codex", config);
+    expect(result).not.toBeNull();
+    expect(result!.existingProvider).toBe("claude");
+    expect(result!.existingProviderLabel).toBe("Claude Code");
+    expect(result!.existingPath).toBe(skillDir);
+    expect(result!.isLocalSource).toBe(false);
+  });
+
+  test("skips disabled providers", async () => {
+    const config = makeConfig({
+      providers: [
+        {
+          name: "claude",
+          label: "Claude Code",
+          global: join(tempDir, "claude-skills"),
+          project: ".claude/skills",
+          enabled: true,
+        },
+        {
+          name: "codex",
+          label: "Codex",
+          global: join(tempDir, "codex-skills"),
+          project: ".codex/skills",
+          enabled: false, // disabled
+        },
+      ],
+    });
+    const claudeDir = join(tempDir, "claude-skills");
+    await createSkillDir(claudeDir, "code-review");
+
+    // codex is disabled, so checking from codex perspective should find claude
+    const result = await checkCrossToolLink("code-review", "pi", config);
+    expect(result).not.toBeNull();
+    expect(result!.existingProvider).toBe("claude");
+  });
+
+  test("returns null for wrong skill name in another provider", async () => {
+    const config = makeConfig();
+    const claudeDir = join(tempDir, "claude-skills");
+    await createSkillDir(claudeDir, "other-skill");
+
+    const result = await checkCrossToolLink("code-review", "codex", config);
+    expect(result).toBeNull();
+  });
+
+  test("returns null when existing dir has no SKILL.md", async () => {
+    const config = makeConfig();
+    const claudeDir = join(tempDir, "claude-skills");
+    const skillDir = join(claudeDir, "code-review");
+    await mkdir(skillDir, { recursive: true });
+    // No SKILL.md
+
+    const result = await checkCrossToolLink("code-review", "codex", config);
+    expect(result).toBeNull();
+  });
+});
+
+describe("linkExistingSkill", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "link-existing-test-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  function makeConfig() {
+    return {
+      version: 1,
+      providers: [
+        {
+          name: "claude",
+          label: "Claude Code",
+          global: join(tempDir, "claude-skills"),
+          project: ".claude/skills",
+          enabled: true,
+        },
+        {
+          name: "codex",
+          label: "Codex",
+          global: join(tempDir, "codex-skills"),
+          project: ".codex/skills",
+          enabled: true,
+        },
+      ],
+      customPaths: [],
+      preferences: {
+        defaultScope: "global",
+        defaultSort: "name",
+      },
+    };
+  }
+
+  async function createSkillInProvider(
+    providerDir: string,
+    skillName: string,
+    version: string = "1.0.0",
+  ) {
+    const skillDir = join(providerDir, skillName);
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      `---\nname: ${skillName}\nversion: ${version}\n---\nSkill body.\n`,
+    );
+    return skillDir;
+  }
+
+  test("creates a symlink from existing install to target provider", async () => {
+    const config = makeConfig();
+    const claudeDir = join(tempDir, "claude-skills");
+    const codexDir = join(tempDir, "codex-skills");
+    const skillDir = await createSkillInProvider(claudeDir, "code-review");
+
+    const targetPath = await linkExistingSkill(
+      "code-review",
+      skillDir,
+      "codex",
+      "global",
+      config,
+    );
+
+    // Check symlink exists
+    const stats = await lstat(targetPath);
+    expect(stats.isSymbolicLink()).toBe(true);
+
+    // Check symlink target
+    const linkTarget = await readlink(targetPath);
+    expect(linkTarget).toBe(skillDir);
+  });
+
+  test("overwrites existing symlink with force=true", async () => {
+    const config = makeConfig();
+    const claudeDir = join(tempDir, "claude-skills");
+    const codexDir = join(tempDir, "codex-skills");
+    const claudeSkillDir = await createSkillInProvider(claudeDir, "code-review");
+
+    // First link
+    await linkExistingSkill("code-review", claudeSkillDir, "codex", "global", config);
+
+    // Create a different source
+    const piDir = join(tempDir, "pi-skills-real");
+    const piSkillDir = await createSkillInProvider(piDir, "code-review");
+
+    // Overwrite with force
+    const targetPath = await linkExistingSkill(
+      "code-review",
+      piSkillDir,
+      "codex",
+      "global",
+      config,
+      true,
+    );
+
+    const stats = await lstat(targetPath);
+    expect(stats.isSymbolicLink()).toBe(true);
+    const linkTarget = await readlink(targetPath);
+    expect(linkTarget).toBe(piSkillDir);
+  });
+
+  test("throws when target exists and force is false", async () => {
+    const config = makeConfig();
+    const claudeDir = join(tempDir, "claude-skills");
+    const codexDir = join(tempDir, "codex-skills");
+    const skillDir = await createSkillInProvider(claudeDir, "code-review");
+
+    // First link
+    await linkExistingSkill("code-review", skillDir, "codex", "global", config);
+
+    // Try without force — should throw
+    await expect(
+      linkExistingSkill("code-review", skillDir, "codex", "global", config, false),
+    ).rejects.toThrow("Target already exists");
+  });
+
+  test("throws for unknown provider", async () => {
+    const config = makeConfig();
+    const claudeDir = join(tempDir, "claude-skills");
+    const skillDir = await createSkillInProvider(claudeDir, "code-review");
+
+    await expect(
+      linkExistingSkill(
+        "code-review",
+        skillDir,
+        "nonexistent",
+        "global",
+        config,
+      ),
+    ).rejects.toThrow("not found in config");
   });
 });
