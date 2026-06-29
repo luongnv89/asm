@@ -2,24 +2,24 @@
   "repoUrl": "https://github.com/luongnv89/asm.git",
   "owner": "luongnv89",
   "repo": "asm",
-  "updatedAt": "2026-04-21T20:48:38.441Z",
-  "skillCount": 1,
+  "updatedAt": "2026-06-29T21:39:38.074Z",
+  "skillCount": 3,
   "skills": [
     {
       "name": "skill-auto-improver",
-      "description": "Improve a SKILL.md skill by running `asm eval`, fixing weakest categories, and looping until it clears the 85/8 floor or stops with a blocker. Use when leveling up a skill, preparing for publish, or rescuing a failing eval.",
-      "version": "0.1.0",
+      "description": "Improve a SKILL.md to pass the skill-creator standard (quick_validate, frontmatter audit, ≤500 lines) AND the asm-eval 85/8 floor. Use to level up a skill before publish. Don't use for authoring from scratch, bulk evaluation, or prose rewriting.",
+      "version": "1.0.2",
       "license": "MIT",
       "creator": "luongnv89",
-      "compatibility": "Claude Code",
-      "allowedTools": ["Bash", "Read", "Write", "Edit", "Grep", "Glob"],
+      "compatibility": "Claude Code; requires `asm` on PATH and Python 3 for skill-creator's quick_validate.py",
+      "allowedTools": [],
       "installUrl": "github:luongnv89/asm:skills/skill-auto-improver",
       "relPath": "skills/skill-auto-improver",
       "verified": true,
       "featured": true,
-      "tokenCount": 3101,
+      "tokenCount": 5435,
       "evalSummary": {
-        "overallScore": 100,
+        "overallScore": 97,
         "grade": "A",
         "categories": [
           {
@@ -43,7 +43,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 10,
+            "score": 8,
             "max": 10
           },
           {
@@ -65,8 +65,134 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-21T20:48:38.441Z",
-        "evaluatedVersion": "0.1.0"
+        "evaluatedAt": "2026-06-29T21:39:38.069Z",
+        "evaluatedVersion": "1.0.2"
+      }
+    },
+    {
+      "name": "find-me-skills",
+      "description": "Discover which Agent Skills a user needs for a goal they can't name yet, then export an installable bundle. Use for 'I want to do X but don't know which skills', 'find me skills for', or 'recommend skills for my project'. Don't use for installing an already-named skill, authoring a skill (skill-creator), or maintaining the catalog.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "creator": "Luong NGUYEN <luongnv89@gmail.com>",
+      "compatibility": "Claude Code with the `asm` CLI on PATH",
+      "allowedTools": [],
+      "installUrl": "github:luongnv89/asm:skills/find-me-skills",
+      "relPath": "skills/find-me-skills",
+      "verified": true,
+      "tokenCount": 3563,
+      "evalSummary": {
+        "overallScore": 81,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-29T21:39:38.071Z",
+        "evaluatedVersion": "1.0.0"
+      }
+    },
+    {
+      "name": "skill-creator",
+      "description": "Create, improve, evaluate, and benchmark skills. Use when authoring a new skill, updating an existing one, running evals, or optimizing a skill's description for triggering. Don't use for invoking skills, writing prose, or scaffolding Python projects.",
+      "version": "1.8.0",
+      "license": "MIT",
+      "creator": "Luong NGUYEN",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:luongnv89/asm:skills/skill-creator",
+      "relPath": "skills/skill-creator",
+      "verified": true,
+      "tokenCount": 4864,
+      "evalSummary": {
+        "overallScore": 97,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-29T21:39:38.073Z",
+        "evaluatedVersion": "1.8.0"
       }
     }
   ]
