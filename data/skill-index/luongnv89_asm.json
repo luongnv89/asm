@@ -12,7 +12,7 @@
       "license": "MIT",
       "creator": "luongnv89",
       "compatibility": "Claude Code; requires `asm` on PATH and Python 3 for skill-creator's quick_validate.py",
-      "allowedTools": [],
+      "allowedTools": ["Bash", "Read", "Write", "Edit", "Grep", "Glob"],
       "installUrl": "github:luongnv89/asm:skills/skill-auto-improver",
       "relPath": "skills/skill-auto-improver",
       "verified": true,
