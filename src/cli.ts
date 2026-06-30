@@ -2509,6 +2509,7 @@ async function inspectSkillForInstall(
       s.provider === provider.name,
   );
   let installStatus: string;
+  let crossToolLink: CrossToolLinkInfo | null = null;
   const alreadyExists = !!existingMatch;
   if (existingMatch) {
     if (existingMatch.version === metadata.version) {
@@ -2520,12 +2521,8 @@ async function inspectSkillForInstall(
     }
   } else {
     // Skill not installed in target provider — check if it exists in another tool
-    const crossToolInfo = await checkCrossToolLink(
-      skillName,
-      provider.name,
-      config,
-    );
-    if (crossToolInfo) {
+    crossToolLink = await checkCrossToolLink(skillName, provider.name, config);
+    if (crossToolLink) {
       installStatus = "LINK_AVAILABLE";
     } else {
       installStatus = "NEW";
