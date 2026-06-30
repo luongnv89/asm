@@ -1,11 +1,10 @@
 ---
 name: skill-creator
-description: "Create, improve, evaluate, and benchmark skills. Use when authoring a new skill, updating an existing one, running evals, or optimizing a skill's description for triggering. Don't use for invoking skills, writing prose, or scaffolding Python projects."
+description: "Create, improve, evaluate, benchmark skills. Use when authoring a new skill, updating an existing one, running evals, or optimizing a skill's description for triggering. Don't use for invoking skills, writing prose, or scaffolding Python projects."
 license: MIT
-creator: Luong NGUYEN
 effort: max
 metadata:
-  version: 1.8.0
+  version: 1.9.0
   author: Luong NGUYEN <luongnv89@gmail.com>
 ---
 
@@ -107,10 +106,13 @@ Start by understanding the user's intent. The current conversation might already
    - Does the skill need independent quality review? → Review loop with fresh subagents
    - Will the skill produce large artifacts that require focused reasoning? → Executor subagent
      If any apply, design the skill with a main-agent-as-orchestrator architecture so subagents handle the heavy lifting and the main conversation context stays clean.
+6. **Model-invoked or user-invoked?** Decide the _primary_ invocation before drafting — it changes how you write the skill. **Model-invoked** (the default) is for a reusable discipline the agent applies on its own when the situation fits; optimize the description for reliable triggering. **User-invoked** (`/skill-name`) is for orchestration or control the user runs deliberately (a pipeline, an expensive or destructive action); the body reads as "the user asked for this, proceed." Weigh the **context-load and cognitive-load** budgets here too — keep the skill small and design its structure around them. See `references/predictability-rubric.md` for the full tradeoff.
 
 ### Interview and Research
 
 Proactively ask questions about edge cases, input/output formats, example files, success criteria, and dependencies. Wait to write test prompts until this part is ironed out. Check available MCPs — research in parallel via subagents if available, otherwise inline.
+
+**Map the skill's branches before drafting the body.** Identify the distinct modes the skill runs in — the paths that need different instructions (create-vs-improve, per-framework, per-environment, dry-run-vs-apply). Knowing them first lets you open the SKILL.md with a short selector and disclose branch-specific material only on the branch that uses it, instead of forcing every run to read every branch. The "Two entry paths" block at the top of this skill is itself an example of a branch selector. See `references/predictability-rubric.md` → _Map branches before drafting_.
 
 ### Write the SKILL.md
 
@@ -157,6 +159,17 @@ Read `references/writing-guide.md` for the full guide. It covers:
 - **Generate README.md** — `docs/README.md` only, with AI-skip notice; see `references/readme-template.md`.
 - **Test Cases** — 2-3 realistic prompts saved to `evals/evals.json`; see `references/schemas.md`.
 - **Optional pre-eval LLM validation** — see `references/validation-prompts.md`.
+
+### Make it predictable (publish-ready by construction)
+
+The goal of creating a skill here is a **predictable process** — the agent follows the same reliable path every run — and a skill that ships **publish-ready** without later needing a `skill-auto-improver` cleanup pass. Read `references/predictability-rubric.md` for the full standard and its checkable pass/fail bar; the hooks below are the ones you apply _while writing_:
+
+- **Demanding completion criteria.** For step-based workflows, end every major step with a bar the agent can _check_, not vibe — tied to a command, file state, or count. The Step Completion Reports format above is the vehicle (`√/×` checks + a `Result:` line). Strong criteria are what stop the agent declaring success early; this is the difference between a repeatable process and a hopeful one.
+- **Progressive disclosure for non-universal material.** Anything branch-specific, long, or not needed on every run goes to `references/` behind a one-line pointer (mechanics in `references/writing-guide.md` → _Progressive Disclosure_) — keeps context load low and SKILL.md under 500 lines.
+- **Leading words.** Name a recurring concept once with a short load-bearing term ("atomic commit", "fail-soft", "publish-ready") and reuse the term, rather than re-explaining it at each use.
+- **Pruning pass — run before finishing.** Make one explicit pass to cut **duplication** (the same instruction in two places — keep one home, link to it), **stale sediment** (leftover guidance, dead references, obsolete names), **sprawl** (sections grown past their value, prose that should be a table or a leading word), and **no-op instructions** (lines that change nothing the agent does — "be careful", "use good judgment" — replace with a checkable criterion or delete). This pass is what most often separates a skill-creator-authored skill from one that still needs `skill-auto-improver`.
+
+`skill-auto-improver` remains the remediation tool for _externally authored_ or _legacy_ skills — not a required second stage for a skill created through this path.
 
 ## Running and evaluating test cases
 
@@ -234,6 +247,7 @@ The `agents/` directory contains instructions for specialized subagents. Read th
 The `references/` directory has additional documentation:
 
 - `references/frontmatter-rules.md` — Version Management, YAML Safety, and Frontmatter Audit (mandatory).
+- `references/predictability-rubric.md` — The predictability standard a new skill must meet by construction: invocation choice, branch mapping, demanding completion criteria, leading words, the pruning pass, and publish-ready (no auto-improver dependency).
 - `references/writing-guide.md` — Anatomy, progressive disclosure, writing patterns, error messages, test cases.
 - `references/schemas.md` — JSON structures for evals.json, grading.json, etc.
 - `references/subagent-patterns.md` — When and how to design skills that use the Agent tool.
