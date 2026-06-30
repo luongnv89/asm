@@ -1,5 +1,6 @@
 import { describe, test, expect, beforeEach, afterEach } from "vitest";
 import {
+  chmod,
   lstat,
   mkdir,
   mkdtemp,
@@ -270,6 +271,65 @@ describe("activateLibrarySkill", () => {
     );
 
     await expect(readlink(symlinkPath)).resolves.toBe(existingPath);
+  });
+
+  test("overwrites an existing symlink with force", async () => {
+    const symlinkPath = join(targetDir, "brainstorming");
+    const existingPath = join(tempDir, "existing");
+    await mkdir(targetDir, { recursive: true });
+    await mkdir(existingPath, { recursive: true });
+    await symlink(existingPath, symlinkPath, "dir");
+
+    const result = await activateLibrarySkill({
+      libraryPath,
+      targetDir,
+      activationName: "brainstorming",
+      force: true,
+    });
+
+    expect(result).toEqual({ symlinkPath, targetPath: libraryPath });
+    await expect(readlink(symlinkPath)).resolves.toBe(libraryPath);
+  });
+
+  test("refuses to overwrite a real directory with force", async () => {
+    const symlinkPath = join(targetDir, "brainstorming");
+    const sentinel = join(symlinkPath, "keep-me.txt");
+    await mkdir(symlinkPath, { recursive: true });
+    await writeFile(sentinel, "precious", "utf-8");
+
+    await expect(
+      activateLibrarySkill({
+        libraryPath,
+        targetDir,
+        activationName: "brainstorming",
+        force: true,
+      }),
+    ).rejects.toThrow(
+      `Refusing to overwrite non-symlink target: ${symlinkPath}.`,
+    );
+
+    await expect(readFile(sentinel, "utf-8")).resolves.toBe("precious");
+    await expect(lstat(symlinkPath)).resolves.toMatchObject({
+      isDirectory: expect.any(Function),
+    });
+    expect((await lstat(symlinkPath)).isDirectory()).toBe(true);
+  });
+
+  test("rethrows non-ENOENT lstat errors on the activation target", async () => {
+    await mkdir(targetDir, { recursive: true });
+    await chmod(targetDir, 0o000);
+    try {
+      await expect(
+        activateLibrarySkill({
+          libraryPath,
+          targetDir,
+          activationName: "brainstorming",
+          force: false,
+        }),
+      ).rejects.toMatchObject({ code: "EACCES" });
+    } finally {
+      await chmod(targetDir, 0o755);
+    }
   });
 
   test("rejects invalid activation names before touching filesystem targets", async () => {
@@ -1149,6 +1209,44 @@ describe("updateLibrarySkill", () => {
     await expect(
       readFile(join(externalDir, "brainstorming", "SKILL.md"), "utf-8"),
     ).rejects.toMatchObject({ code: "ENOENT" });
+  });
+
+  test("skips update when local commit hash is unchanged", async () => {
+    const first = await updateLibrarySkill("brainstorming", {
+      skillsDir,
+      lockPath,
+    });
+    expect(first.status).toBe("updated");
+
+    const lockBefore = await readLibraryLock(lockPath);
+    const installedAtBefore = lockBefore.skills.brainstorming.installedAt;
+    const commitBefore = lockBefore.skills.brainstorming.commitHash;
+
+    const result = await updateLibrarySkill("brainstorming", {
+      skillsDir,
+      lockPath,
+    });
+
+    expect(result).toMatchObject({
+      name: "brainstorming",
+      status: "skipped",
+      oldCommit: commitBefore,
+      newCommit: commitBefore,
+    });
+    const lockAfter = await readLibraryLock(lockPath);
+    expect(lockAfter.skills.brainstorming.installedAt).toBe(installedAtBefore);
+    expect(lockAfter.skills.brainstorming.commitHash).toBe(commitBefore);
+    await expect(
+      readFile(join(libraryPath, "SKILL.md"), "utf-8"),
+    ).resolves.toContain("# Old Source");
+  });
+
+  test("skippedCount reflects unchanged skills in update --all", async () => {
+    await updateLibrarySkill("brainstorming", { skillsDir, lockPath });
+    const summary = await updateLibrarySkills(null, { skillsDir, lockPath });
+    expect(summary.skippedCount).toBe(1);
+    expect(summary.updatedCount).toBe(0);
+    expect(summary.results[0].status).toBe("skipped");
   });
 
   test("includes non-SKILL.md files in local commit hash", async () => {

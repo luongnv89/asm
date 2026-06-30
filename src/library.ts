@@ -583,6 +583,16 @@ export async function updateLibrarySkill(
     if (!nextCommitHash) {
       return libraryUpdateFailure(dirName, "Could not read new commit");
     }
+    if (entry.commitHash === nextCommitHash) {
+      return {
+        name: nameFromSource,
+        status: "skipped",
+        oldVersion: entry.version,
+        newVersion: versionFromSource,
+        oldCommit: entry.commitHash,
+        newCommit: nextCommitHash,
+      };
+    }
     const updatedLock = {
       ...lock,
       skills: {
@@ -756,15 +766,24 @@ export async function activateLibrarySkill(input: {
   const activationName = validateSkillDirectoryName(input.activationName);
   const symlinkPath = join(input.targetDir, activationName);
   try {
-    await lstat(symlinkPath);
+    const stat = await lstat(symlinkPath);
     if (!input.force) {
       throw new Error(
         `Target already exists: ${symlinkPath}. Use --force to overwrite.`,
       );
     }
-    await rm(symlinkPath, { recursive: true, force: true });
+    if (!stat.isSymbolicLink()) {
+      throw new Error(
+        `Refusing to overwrite non-symlink target: ${symlinkPath}.`,
+      );
+    }
+    await rm(symlinkPath, { force: true });
   } catch (err: any) {
-    if (err?.message?.includes("--force")) throw err;
+    if (err?.code === "ENOENT") {
+      // Target does not exist; proceed to create symlink.
+    } else {
+      throw err;
+    }
   }
 
   await mkdir(input.targetDir, { recursive: true });
