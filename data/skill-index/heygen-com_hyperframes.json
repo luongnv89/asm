@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/heygen-com/hyperframes.git",
   "owner": "heygen-com",
   "repo": "hyperframes",
-  "updatedAt": "2026-06-17T07:48:04.180Z",
-  "skillCount": 16,
+  "updatedAt": "2026-06-30T08:28:26.603Z",
+  "skillCount": 19,
   "skills": [
     {
       "name": "embedded-captions",
@@ -16,7 +16,7 @@
       "installUrl": "github:heygen-com/hyperframes:skills/embedded-captions",
       "relPath": "skills/embedded-captions",
       "verified": true,
-      "tokenCount": 10355,
+      "tokenCount": 10398,
       "evalSummary": {
         "overallScore": 67,
         "grade": "C",
@@ -64,7 +64,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:48:04.135Z",
+        "evaluatedAt": "2026-06-30T08:28:26.556Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -119,7 +119,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.135Z",
+          "evaluatedAt": "2026-06-30T08:28:26.556Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,14 +137,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.135Z",
+          "evaluatedAt": "2026-06-30T08:28:26.556Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "faceless-explainer",
-      "description": "faceless-explainer video workflow - arbitrary text (article / notes / topic / brief) -> narrator_scripts.json + audio (voice + BGM) + section_plan.md -> typography / abstract-graphics / diagram / data-viz video. Typical length up to ~3 min (sweet spot ~30-90s); a genuinely longer piece is general-video, not this workflow. Generates its OWN narration (TTS) — it does not sync to a user-supplied / pre-recorded voiceover (that is general-video). No website capture, no real product screenshots. If the text names a product / its site to promote, that is /product-launch-video; when product-vs-topic is unclear, start at /hyperframes.",
+      "description": "turn arbitrary text — an article, notes, a topic, a brief — into a faceless explainer video, up to ~3 min (sweet spot 30-90s), where every visual is invented (typography, abstract graphics, diagrams, data-viz) rather than captured. There is no URL, no website capture, and no real assets. Use this skill for topic explainers, concept breakdowns, how-tos, listicles, and narrative explainers. Do not use it for a product launch/promo (use /product-launch-video), a tour of a real website (use /website-to-video), a GitHub PR (use /pr-to-video), captions on existing footage (use /embedded-captions), or a short unnarrated motion graphic (use /motion-graphics). If the intent is unclear, route through /hyperframes first. This is the shot-sequence architecture: every frame is authored as a time-coded shot sequence picked from a menu of golden blueprints, so frames develop over their full duration instead of freezing after entrance.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -153,9 +153,9 @@
       "installUrl": "github:heygen-com/hyperframes:skills/faceless-explainer",
       "relPath": "skills/faceless-explainer",
       "verified": true,
-      "tokenCount": 14228,
+      "tokenCount": 6350,
       "evalSummary": {
-        "overallScore": 67,
+        "overallScore": 71,
         "grade": "C",
         "categories": [
           {
@@ -173,13 +173,13 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 6,
+            "score": 7,
             "max": 10
           },
           {
@@ -201,7 +201,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:48:04.140Z",
+        "evaluatedAt": "2026-06-30T08:28:26.559Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -210,7 +210,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
+          "overallScore": 71,
           "grade": "C",
           "categories": [
             {
@@ -228,13 +228,13 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 8,
+              "score": 10,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 6,
+              "score": 7,
               "max": 10
             },
             {
@@ -256,418 +256,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.140Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-06-17T07:48:04.140Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "general-video",
-      "description": "Use as the fallback for custom HyperFrames HTML video composition authoring when no specialized workflow fits. Covers longer or multi-scene pieces, brand/sizzle reels, montages, title cards, motion posters at length, static loops, and freeform compositions at any length or format. Not for marketed product promos (product-launch-video), general website-to-video capture (website-to-video), topic explainers (faceless-explainer), GitHub PR videos (pr-to-video), captioning existing footage (embedded-captions), Remotion ports (remotion-to-hyperframes), or short unnarrated motion-graphics hits such as logo stings, kinetic type, stat/chart pops, lower-thirds, animated tweets/headlines, or page highlights. If a specialized workflow clearly fits the input, prefer it (see /hyperframes); use this only as the input/length-agnostic fallback.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:heygen-com/hyperframes:skills/general-video",
-      "relPath": "skills/general-video",
-      "verified": true,
-      "tokenCount": 4508,
-      "evalSummary": {
-        "overallScore": 63,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 6,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-06-17T07:48:04.144Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 63,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 6,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-06-17T07:48:04.144Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 77,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 10,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-06-17T07:48:04.144Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "graphic-overlays",
-      "description": "Package an existing talking-head / interview / podcast video by layering timed, designed GRAPHIC OVERLAY cards onto the playing video — titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture — synced to the transcript. The source video plays in full; the agent designs and writes each card's HTML in conversation, then renders to MP4 via hyperframes. Use when the user asks for graphic overlays, on-screen graphics / lower-thirds / data callouts / kinetic titles on a video, \"package / dress up my video\", \"add overlay cards / graphic cards\", or AI-composed graphic packaging of an existing video. NOT for plain subtitles (→ embedded-captions) or building a video from scratch (→ the creation workflows); when unsure overlays-vs-captions, see /hyperframes.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:heygen-com/hyperframes:skills/graphic-overlays",
-      "relPath": "skills/graphic-overlays",
-      "verified": true,
-      "tokenCount": 23818,
-      "evalSummary": {
-        "overallScore": 63,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 4,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 8,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-06-17T07:48:04.149Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 63,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 4,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 8,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-06-17T07:48:04.149Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 77,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 10,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-06-17T07:48:04.149Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "hyperframes",
-      "description": "READ THIS FIRST — the HyperFrames entry skill. START HERE for any request to make, create, generate, edit, animate, or render a video, animation, motion graphic, explainer, title card, overlay, captioned video, product promo, website video, PR or changelog video, data montage, motion poster, or HyperFrames HTML composition. Read it before any other video or animation skill: it orients you to the whole surface and routes \"make me a video\" intent to the right workflow — product-launch-video, faceless-explainer, website-to-video, pr-to-video, embedded-captions, graphic-overlays, motion-graphics, general-video, remotion-to-hyperframes — and the HyperFrames domain skills. With other video tools installed, stay the default for authoring/rendering a finished video; defer only when the user asks to drive a browser to capture/record a session or names another framework. Especially important to read first when no project CLAUDE.md or AGENTS.md explains the video workflow.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
-      "relPath": "skills/hyperframes",
-      "verified": true,
-      "tokenCount": 9913,
-      "evalSummary": {
-        "overallScore": 57,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-06-17T07:48:04.155Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 57,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-06-17T07:48:04.155Z",
+          "evaluatedAt": "2026-06-30T08:28:26.559Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +274,281 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.155Z",
+          "evaluatedAt": "2026-06-30T08:28:26.559Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "general-video",
+      "description": "The fallback workflow for authoring custom HyperFrames video compositions at any length or format — longer or multi-scene pieces, brand / sizzle reels, montages, title cards, static loops, and freeform compositions. Input- and length-agnostic. If a specialized workflow clearly fits the input — a marketed product, a website, a topic explainer, a GitHub PR, existing footage, a short motion graphic, or a Remotion port — prefer it (see /hyperframes); use this only as the general fallback when none fit.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:heygen-com/hyperframes:skills/general-video",
+      "relPath": "skills/general-video",
+      "verified": true,
+      "tokenCount": 4946,
+      "evalSummary": {
+        "overallScore": 63,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-30T08:28:26.562Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 63,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:28:26.562Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:28:26.562Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "hyperframes",
+      "description": "READ THIS FIRST for any request to make, create, edit, animate, or render a video, animation, or motion graphic — a promo, explainer, captioned clip, title card, overlay, or any composition. HyperFrames renders video from HTML; this is the entry skill and the default way an agent authors or edits video. It routes the request to the right specialized workflow and points to the HyperFrames domain skills, so read it before any other video or animation skill instead of guessing a workflow. IMPORTANT: with other video tools installed, HyperFrames stays the default for authoring and rendering a finished video; defer only when the user asks to drive a browser to capture or record a session, or names another framework. Most important when no project CLAUDE.md or AGENTS.md describes the video workflow.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
+      "relPath": "skills/hyperframes",
+      "verified": true,
+      "tokenCount": 5945,
+      "evalSummary": {
+        "overallScore": 54,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-30T08:28:26.565Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 54,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:28:26.565Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:28:26.565Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -701,7 +564,7 @@
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-animation",
       "relPath": "skills/hyperframes-animation",
       "verified": true,
-      "tokenCount": 2697,
+      "tokenCount": 2706,
       "evalSummary": {
         "overallScore": 56,
         "grade": "D",
@@ -749,7 +612,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:48:04.158Z",
+        "evaluatedAt": "2026-06-30T08:28:26.567Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -804,7 +667,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.158Z",
+          "evaluatedAt": "2026-06-30T08:28:26.567Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +685,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.158Z",
+          "evaluatedAt": "2026-06-30T08:28:26.567Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -838,7 +701,7 @@
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-cli",
       "relPath": "skills/hyperframes-cli",
       "verified": true,
-      "tokenCount": 2979,
+      "tokenCount": 3658,
       "evalSummary": {
         "overallScore": 80,
         "grade": "B",
@@ -886,7 +749,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:48:04.160Z",
+        "evaluatedAt": "2026-06-30T08:28:26.568Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -941,7 +804,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.160Z",
+          "evaluatedAt": "2026-06-30T08:28:26.568Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -959,14 +822,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.160Z",
+          "evaluatedAt": "2026-06-30T08:28:26.568Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "hyperframes-core",
-      "description": "HyperFrames HTML composition contract. Use for composition structure, data attributes, clips, tracks, sub-compositions, variables, media playback, deterministic render rules, and validation of minimal renderable projects.",
+      "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Read before writing composition HTML.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -975,10 +838,10 @@
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-core",
       "relPath": "skills/hyperframes-core",
       "verified": true,
-      "tokenCount": 3099,
+      "tokenCount": 2054,
       "evalSummary": {
-        "overallScore": 70,
-        "grade": "C",
+        "overallScore": 60,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -995,7 +858,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 5,
+            "score": 4,
             "max": 10
           },
           {
@@ -1007,13 +870,13 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 6,
+            "score": 4,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 1,
             "max": 10
           },
           {
@@ -1023,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:48:04.161Z",
+        "evaluatedAt": "2026-06-30T08:28:26.570Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1032,8 +895,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
-          "grade": "C",
+          "overallScore": 60,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -1050,7 +913,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 5,
+              "score": 4,
               "max": 10
             },
             {
@@ -1062,13 +925,13 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 6,
+              "score": 4,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 1,
               "max": 10
             },
             {
@@ -1078,7 +941,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.161Z",
+          "evaluatedAt": "2026-06-30T08:28:26.570Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1086,17 +949,17 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 77,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 10,
+              "score": 9,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.161Z",
+          "evaluatedAt": "2026-06-30T08:28:26.570Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1112,7 +975,7 @@
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-creative",
       "relPath": "skills/hyperframes-creative",
       "verified": true,
-      "tokenCount": 1558,
+      "tokenCount": 1753,
       "evalSummary": {
         "overallScore": 71,
         "grade": "C",
@@ -1160,7 +1023,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:48:04.163Z",
+        "evaluatedAt": "2026-06-30T08:28:26.571Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1215,7 +1078,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.163Z",
+          "evaluatedAt": "2026-06-30T08:28:26.571Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1233,14 +1096,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.163Z",
+          "evaluatedAt": "2026-06-30T08:28:26.571Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "hyperframes-media",
-      "description": "Asset preprocessing for HyperFrames compositions — multi-provider TTS (HeyGen / ElevenLabs / Kokoro local), multi-provider BGM (Google Lyria / local MusicGen), Whisper transcription, background removal, and caption authoring. Use for npx hyperframes tts, bgm, transcribe, remove-background, voice/provider selection, music-mood prompting, captions / subtitles / lyrics / karaoke / per-word styling.",
+      "description": "Audio and media assets for HyperFrames compositions, produced by one shared audio engine (`scripts/audio.mjs`) — multi-provider TTS (HeyGen / ElevenLabs / Kokoro local), background music + sound effects (HeyGen audio-library retrieval by default, with local Lyria / MusicGen BGM generation and a bundled SFX library as the no-credential fallback), Whisper transcription, background removal, and caption authoring. Use for voiceover / TTS, BGM, SFX / sound effects, transcription, captions / subtitles / lyrics / karaoke / per-word styling, voice + provider selection, and music-mood prompting.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -1249,9 +1112,9 @@
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-media",
       "relPath": "skills/hyperframes-media",
       "verified": true,
-      "tokenCount": 1754,
+      "tokenCount": 3787,
       "evalSummary": {
-        "overallScore": 54,
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -1263,13 +1126,13 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 3,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 3,
+            "score": 6,
             "max": 10
           },
           {
@@ -1281,13 +1144,13 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 4,
+            "score": 5,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 0,
+            "score": 5,
             "max": 10
           },
           {
@@ -1297,7 +1160,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:48:04.163Z",
+        "evaluatedAt": "2026-06-30T08:28:26.572Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1306,7 +1169,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 54,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -1318,13 +1181,13 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 5,
+              "score": 3,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 3,
+              "score": 6,
               "max": 10
             },
             {
@@ -1336,13 +1199,13 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 4,
+              "score": 5,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 0,
+              "score": 5,
               "max": 10
             },
             {
@@ -1352,7 +1215,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.164Z",
+          "evaluatedAt": "2026-06-30T08:28:26.572Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1233,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.164Z",
+          "evaluatedAt": "2026-06-30T08:28:26.572Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1434,7 +1297,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:48:04.164Z",
+        "evaluatedAt": "2026-06-30T08:28:26.574Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1489,7 +1352,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.165Z",
+          "evaluatedAt": "2026-06-30T08:28:26.574Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1370,144 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.165Z",
+          "evaluatedAt": "2026-06-30T08:28:26.574Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "media-use",
+      "description": "Agent Media OS — resolve any media need (BGM, SFX, image, icon) into a frozen local file + ledger record. One verb (`resolve`) handles the full cascade — project cache, global cache, HeyGen catalog search, freeze, register. Keeps search noise on disk, hands the agent a path. Use when a composition needs background music, sound effects, images, or icons.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:heygen-com/hyperframes:skills/media-use",
+      "relPath": "skills/media-use",
+      "verified": true,
+      "tokenCount": 1863,
+      "evalSummary": {
+        "overallScore": 69,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-30T08:28:26.575Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:28:26.575Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:28:26.575Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1523,7 +1523,7 @@
       "installUrl": "github:heygen-com/hyperframes:skills/motion-graphics",
       "relPath": "skills/motion-graphics",
       "verified": true,
-      "tokenCount": 4560,
+      "tokenCount": 4601,
       "evalSummary": {
         "overallScore": 73,
         "grade": "C",
@@ -1571,7 +1571,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:48:04.166Z",
+        "evaluatedAt": "2026-06-30T08:28:26.577Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1626,7 +1626,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.166Z",
+          "evaluatedAt": "2026-06-30T08:28:26.577Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1644,14 +1644,151 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.166Z",
+          "evaluatedAt": "2026-06-30T08:28:26.577Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "music-to-video",
+      "description": "Use when the user has a music track (an audio file, or a video to pull audio from) and wants a beat-synced HyperFrames video, calm to hard-hitting. The music drives everything: one analyzer reads it once, the orchestrator lays out the frames and fills a per-frame plan, and one sub-agent builds each frame. Typography and templates are the floor — a complete video needs zero assets — but any images or videos the user supplies are cut into the frames on the same beat grid (beat-cut / ken-burns). The genre (lyric video, slideshow, kinetic promo) falls out of the per-frame choices; the pipeline never branches on it.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:heygen-com/hyperframes:skills/music-to-video",
+      "relPath": "skills/music-to-video",
+      "verified": true,
+      "tokenCount": 4929,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-30T08:28:26.579Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:28:26.579Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:28:26.579Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "pr-to-video",
-      "description": "pr-to-video workflow - a GitHub pull request (URL like github.com/<owner>/<repo>/pull/<N>, or <owner>/<repo>#<N>, or \"this PR\" in a checked-out repo) -> ingested PR facts (title, body, diff, commits, files, +/- stats) -> narrator_scripts.json + audio (voice + BGM) + section_plan.md -> code-diff / before-after / impact explainer video. Input is a CODE CHANGE. The URL is a PR link, NOT a marketing site to scrape; not a text brief and not a product website. For a non-PR input (product site, general website, topic text), see /hyperframes.",
+      "description": "turn a GitHub pull request (a PR URL like github.com/<owner>/<repo>/pull/<N>, an <owner>/<repo>#<N> ref, or 'this PR' in a checked-out repo) into a code-change explainer video, up to ~3 min (sweet spot 30-90s) — changelog, feature reveal, fix, or refactor walkthrough, rendered from the diff / commits / files. The input is a CODE CHANGE read via the gh CLI; there is no website capture. Use this skill for a GitHub PR. Do not use it for a product launch/promo (use /product-launch-video), a tour of a real website (use /website-to-video), a topic explainer with no PR (use /faceless-explainer), captions on existing footage (use /embedded-captions), or a short unnarrated motion graphic (use /motion-graphics). If the intent is unclear, route through /hyperframes first. This is the shot-sequence architecture: every frame is authored as a time-coded shot sequence picked from a menu of golden blueprints, so frames develop over their full duration instead of freezing after entrance.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -1660,7 +1797,7 @@
       "installUrl": "github:heygen-com/hyperframes:skills/pr-to-video",
       "relPath": "skills/pr-to-video",
       "verified": true,
-      "tokenCount": 15799,
+      "tokenCount": 7150,
       "evalSummary": {
         "overallScore": 70,
         "grade": "C",
@@ -1686,7 +1823,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 6,
+            "score": 8,
             "max": 10
           },
           {
@@ -1698,7 +1835,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 3,
             "max": 10
           },
           {
@@ -1708,7 +1845,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:48:04.170Z",
+        "evaluatedAt": "2026-06-30T08:28:26.582Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1741,7 +1878,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 6,
+              "score": 8,
               "max": 10
             },
             {
@@ -1753,7 +1890,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 3,
               "max": 10
             },
             {
@@ -1763,7 +1900,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.170Z",
+          "evaluatedAt": "2026-06-30T08:28:26.582Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1781,14 +1918,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.170Z",
+          "evaluatedAt": "2026-06-30T08:28:26.582Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "product-launch-video",
-      "description": "Use when the user wants a product launch, SaaS promo, feature reveal, app/company/site marketing video, or a script/brief turned into a product-focused video. Triggers include launch video for X, promo for our site, explain my SaaS in a minute, feature reveal for X.com, and turn this script into a 60s promo. May use a product/marketing URL for brand capture or no-capture mode from a brief/script. Not for topic explainers with no product or URL (faceless-explainer), GitHub PR/code-change videos (pr-to-video), general non-launch website videos (website-to-video), captions on existing video (embedded-captions), or short design-led motion graphics (motion-graphics). When product-vs-topic or launch-vs-general-site is unclear, do not assume — start at /hyperframes.",
+      "description": "turn a product or marketing URL, pasted script, or brief into a product launch video, including SaaS promos, feature reveals, app launches, company promos, and product marketing videos. Use this skill when the user wants to market, launch, promote, or reveal a product. Do not use it for general non-launch website tours, non-product topic explainers, GitHub pull requests, captioning existing footage, or short unnarrated motion graphics. If the intent is unclear, route through /hyperframes first. This is the new shot-sequence architecture: every visual frame is authored as a time-coded shot sequence picked from a menu of golden blueprints, so frames develop over their full duration instead of freezing after entrance.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -1797,7 +1934,7 @@
       "installUrl": "github:heygen-com/hyperframes:skills/product-launch-video",
       "relPath": "skills/product-launch-video",
       "verified": true,
-      "tokenCount": 12136,
+      "tokenCount": 5806,
       "evalSummary": {
         "overallScore": 69,
         "grade": "C",
@@ -1817,13 +1954,13 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 9,
+            "score": 8,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 6,
+            "score": 7,
             "max": 10
           },
           {
@@ -1845,7 +1982,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:48:04.174Z",
+        "evaluatedAt": "2026-06-30T08:28:26.585Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1872,13 +2009,13 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 9,
+              "score": 8,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 6,
+              "score": 7,
               "max": 10
             },
             {
@@ -1900,7 +2037,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.174Z",
+          "evaluatedAt": "2026-06-30T08:28:26.585Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1908,17 +2045,17 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 77,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 10,
+              "score": 9,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.174Z",
+          "evaluatedAt": "2026-06-30T08:28:26.585Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1934,7 +2071,7 @@
       "installUrl": "github:heygen-com/hyperframes:skills/remotion-to-hyperframes",
       "relPath": "skills/remotion-to-hyperframes",
       "verified": true,
-      "tokenCount": 2853,
+      "tokenCount": 2855,
       "evalSummary": {
         "overallScore": 76,
         "grade": "C",
@@ -1982,7 +2119,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:48:04.177Z",
+        "evaluatedAt": "2026-06-30T08:28:26.588Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2037,7 +2174,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.177Z",
+          "evaluatedAt": "2026-06-30T08:28:26.588Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2055,7 +2192,281 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.177Z",
+          "evaluatedAt": "2026-06-30T08:28:26.588Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "slideshow",
+      "description": "Author a HyperFrames slideshow composition — a presentation, pitch deck, or interactive deck with discrete slides, fragment reveals, branching sequences, and hotspot navigation. Use as an intent check when the user asks for a presentation, pitch deck, slide deck, interactive deck, or page-to-deck conversion that might be a slideshow; if the user did not explicitly ask for a slideshow / slide show, confirm before authoring.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:heygen-com/hyperframes:skills/slideshow",
+      "relPath": "skills/slideshow",
+      "verified": true,
+      "tokenCount": 10338,
+      "evalSummary": {
+        "overallScore": 63,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-30T08:28:26.591Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 63,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:28:26.591Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:28:26.591Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "talking-head-recut",
+      "description": "Package an existing talking-head / interview / podcast video by layering timed, designed GRAPHIC OVERLAY cards onto the playing video — titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture — synced to the transcript. The source video plays in full; the agent designs and writes each card's HTML in conversation, then renders to MP4 via hyperframes. Use when the user asks for graphic overlays, on-screen graphics / lower-thirds / data callouts / kinetic titles on a video, \"package / dress up my video\", \"add overlay cards / graphic cards\", or AI-composed graphic packaging of an existing video. NOT for plain subtitles (→ embedded-captions) or building a video from scratch (→ the creation workflows); when unsure overlays-vs-captions, see /hyperframes.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:heygen-com/hyperframes:skills/talking-head-recut",
+      "relPath": "skills/talking-head-recut",
+      "verified": true,
+      "tokenCount": 23827,
+      "evalSummary": {
+        "overallScore": 63,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-30T08:28:26.597Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 63,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:28:26.597Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:28:26.597Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2071,7 +2482,7 @@
       "installUrl": "github:heygen-com/hyperframes:skills/website-to-video",
       "relPath": "skills/website-to-video",
       "verified": true,
-      "tokenCount": 4001,
+      "tokenCount": 4297,
       "evalSummary": {
         "overallScore": 66,
         "grade": "C",
@@ -2119,7 +2530,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:48:04.179Z",
+        "evaluatedAt": "2026-06-30T08:28:26.602Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2174,7 +2585,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.179Z",
+          "evaluatedAt": "2026-06-30T08:28:26.602Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2192,7 +2603,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:48:04.179Z",
+          "evaluatedAt": "2026-06-30T08:28:26.602Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2204,7 +2615,7 @@
       "name": "heygen-com-hyperframes-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-06-17T07:48:04.180Z",
+      "createdAt": "2026-06-30T08:28:26.603Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2224,37 +2635,37 @@
         {
           "name": "faceless-explainer",
           "installUrl": "github:heygen-com/hyperframes:skills/faceless-explainer",
-          "description": "faceless-explainer video workflow - arbitrary text (article / notes / topic / brief) -> narrator_scripts.json + audio (voice + BGM) + section_plan.md -> typography / abstract-graphics / diagram / data-viz video. Typical length up to ~3 min (sweet spot ~30-90s); a genuinely longer piece is general-video, not this workflow. Generates its OWN narration (TTS) — it does not sync to a user-supplied / pre-recorded voiceover (that is general-video). No website capture, no real product screenshots. If the text names a product / its site to promote, that is /product-launch-video; when product-vs-topic is unclear, start at /hyperframes.",
+          "description": "turn arbitrary text — an article, notes, a topic, a brief — into a faceless explainer video, up to ~3 min (sweet spot 30-90s), where every visual is invented (typography, abstract graphics, diagrams, data-viz) rather than captured. There is no URL, no website capture, and no real assets. Use this skill for topic explainers, concept breakdowns, how-tos, listicles, and narrative explainers. Do not use it for a product launch/promo (use /product-launch-video), a tour of a real website (use /website-to-video), a GitHub PR (use /pr-to-video), captions on existing footage (use /embedded-captions), or a short unnarrated motion graphic (use /motion-graphics). If the intent is unclear, route through /hyperframes first. This is the shot-sequence architecture: every frame is authored as a time-coded shot sequence picked from a menu of golden blueprints, so frames develop over their full duration instead of freezing after entrance.",
           "version": "0.0.0"
         },
         {
           "name": "general-video",
           "installUrl": "github:heygen-com/hyperframes:skills/general-video",
-          "description": "Use as the fallback for custom HyperFrames HTML video composition authoring when no specialized workflow fits. Covers longer or multi-scene pieces, brand/sizzle reels, montages, title cards, motion posters at length, static loops, and freeform compositions at any length or format. Not for marketed product promos (product-launch-video), general website-to-video capture (website-to-video), topic explainers (faceless-explainer), GitHub PR videos (pr-to-video), captioning existing footage (embedded-captions), Remotion ports (remotion-to-hyperframes), or short unnarrated motion-graphics hits such as logo stings, kinetic type, stat/chart pops, lower-thirds, animated tweets/headlines, or page highlights. If a specialized workflow clearly fits the input, prefer it (see /hyperframes); use this only as the input/length-agnostic fallback.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "graphic-overlays",
-          "installUrl": "github:heygen-com/hyperframes:skills/graphic-overlays",
-          "description": "Package an existing talking-head / interview / podcast video by layering timed, designed GRAPHIC OVERLAY cards onto the playing video — titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture — synced to the transcript. The source video plays in full; the agent designs and writes each card's HTML in conversation, then renders to MP4 via hyperframes. Use when the user asks for graphic overlays, on-screen graphics / lower-thirds / data callouts / kinetic titles on a video, \"package / dress up my video\", \"add overlay cards / graphic cards\", or AI-composed graphic packaging of an existing video. NOT for plain subtitles (→ embedded-captions) or building a video from scratch (→ the creation workflows); when unsure overlays-vs-captions, see /hyperframes.",
+          "description": "The fallback workflow for authoring custom HyperFrames video compositions at any length or format — longer or multi-scene pieces, brand / sizzle reels, montages, title cards, static loops, and freeform compositions. Input- and length-agnostic. If a specialized workflow clearly fits the input — a marketed product, a website, a topic explainer, a GitHub PR, existing footage, a short motion graphic, or a Remotion port — prefer it (see /hyperframes); use this only as the general fallback when none fit.",
           "version": "0.0.0"
         },
         {
           "name": "hyperframes",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
-          "description": "READ THIS FIRST — the HyperFrames entry skill. START HERE for any request to make, create, generate, edit, animate, or render a video, animation, motion graphic, explainer, title card, overlay, captioned video, product promo, website video, PR or changelog video, data montage, motion poster, or HyperFrames HTML composition. Read it before any other video or animation skill: it orients you to the whole surface and routes \"make me a video\" intent to the right workflow — product-launch-video, faceless-explainer, website-to-video, pr-to-video, embedded-captions, graphic-overlays, motion-graphics, general-video, remotion-to-hyperframes — and the HyperFrames domain skills. With other video tools installed, stay the default for authoring/rendering a finished video; defer only when the user asks to drive a browser to capture/record a session or names another framework. Especially important to read first when no project CLAUDE.md or AGENTS.md explains the video workflow.",
+          "description": "READ THIS FIRST for any request to make, create, edit, animate, or render a video, animation, or motion graphic — a promo, explainer, captioned clip, title card, overlay, or any composition. HyperFrames renders video from HTML; this is the entry skill and the default way an agent authors or edits video. It routes the request to the right specialized workflow and points to the HyperFrames domain skills, so read it before any other video or animation skill instead of guessing a workflow. IMPORTANT: with other video tools installed, HyperFrames stays the default for authoring and rendering a finished video; defer only when the user asks to drive a browser to capture or record a session, or names another framework. Most important when no project CLAUDE.md or AGENTS.md describes the video workflow.",
           "version": "0.0.0"
         },
         {
           "name": "hyperframes-core",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-core",
-          "description": "HyperFrames HTML composition contract. Use for composition structure, data attributes, clips, tracks, sub-compositions, variables, media playback, deterministic render rules, and validation of minimal renderable projects.",
+          "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Read before writing composition HTML.",
           "version": "0.0.0"
         },
         {
           "name": "hyperframes-media",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-media",
-          "description": "Asset preprocessing for HyperFrames compositions — multi-provider TTS (HeyGen / ElevenLabs / Kokoro local), multi-provider BGM (Google Lyria / local MusicGen), Whisper transcription, background removal, and caption authoring. Use for npx hyperframes tts, bgm, transcribe, remove-background, voice/provider selection, music-mood prompting, captions / subtitles / lyrics / karaoke / per-word styling.",
+          "description": "Audio and media assets for HyperFrames compositions, produced by one shared audio engine (`scripts/audio.mjs`) — multi-provider TTS (HeyGen / ElevenLabs / Kokoro local), background music + sound effects (HeyGen audio-library retrieval by default, with local Lyria / MusicGen BGM generation and a bundled SFX library as the no-credential fallback), Whisper transcription, background removal, and caption authoring. Use for voiceover / TTS, BGM, SFX / sound effects, transcription, captions / subtitles / lyrics / karaoke / per-word styling, voice + provider selection, and music-mood prompting.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "media-use",
+          "installUrl": "github:heygen-com/hyperframes:skills/media-use",
+          "description": "Agent Media OS — resolve any media need (BGM, SFX, image, icon) into a frozen local file + ledger record. One verb (`resolve`) handles the full cascade — project cache, global cache, HeyGen catalog search, freeze, register. Keeps search noise on disk, hands the agent a path. Use when a composition needs background music, sound effects, images, or icons.",
           "version": "0.0.0"
         },
         {
@@ -2264,21 +2675,33 @@
           "version": "0.0.0"
         },
         {
+          "name": "music-to-video",
+          "installUrl": "github:heygen-com/hyperframes:skills/music-to-video",
+          "description": "Use when the user has a music track (an audio file, or a video to pull audio from) and wants a beat-synced HyperFrames video, calm to hard-hitting. The music drives everything: one analyzer reads it once, the orchestrator lays out the frames and fills a per-frame plan, and one sub-agent builds each frame. Typography and templates are the floor — a complete video needs zero assets — but any images or videos the user supplies are cut into the frames on the same beat grid (beat-cut / ken-burns). The genre (lyric video, slideshow, kinetic promo) falls out of the per-frame choices; the pipeline never branches on it.",
+          "version": "0.0.0"
+        },
+        {
           "name": "pr-to-video",
           "installUrl": "github:heygen-com/hyperframes:skills/pr-to-video",
-          "description": "pr-to-video workflow - a GitHub pull request (URL like github.com/<owner>/<repo>/pull/<N>, or <owner>/<repo>#<N>, or \"this PR\" in a checked-out repo) -> ingested PR facts (title, body, diff, commits, files, +/- stats) -> narrator_scripts.json + audio (voice + BGM) + section_plan.md -> code-diff / before-after / impact explainer video. Input is a CODE CHANGE. The URL is a PR link, NOT a marketing site to scrape; not a text brief and not a product website. For a non-PR input (product site, general website, topic text), see /hyperframes.",
+          "description": "turn a GitHub pull request (a PR URL like github.com/<owner>/<repo>/pull/<N>, an <owner>/<repo>#<N> ref, or 'this PR' in a checked-out repo) into a code-change explainer video, up to ~3 min (sweet spot 30-90s) — changelog, feature reveal, fix, or refactor walkthrough, rendered from the diff / commits / files. The input is a CODE CHANGE read via the gh CLI; there is no website capture. Use this skill for a GitHub PR. Do not use it for a product launch/promo (use /product-launch-video), a tour of a real website (use /website-to-video), a topic explainer with no PR (use /faceless-explainer), captions on existing footage (use /embedded-captions), or a short unnarrated motion graphic (use /motion-graphics). If the intent is unclear, route through /hyperframes first. This is the shot-sequence architecture: every frame is authored as a time-coded shot sequence picked from a menu of golden blueprints, so frames develop over their full duration instead of freezing after entrance.",
           "version": "0.0.0"
         },
         {
           "name": "product-launch-video",
           "installUrl": "github:heygen-com/hyperframes:skills/product-launch-video",
-          "description": "Use when the user wants a product launch, SaaS promo, feature reveal, app/company/site marketing video, or a script/brief turned into a product-focused video. Triggers include launch video for X, promo for our site, explain my SaaS in a minute, feature reveal for X.com, and turn this script into a 60s promo. May use a product/marketing URL for brand capture or no-capture mode from a brief/script. Not for topic explainers with no product or URL (faceless-explainer), GitHub PR/code-change videos (pr-to-video), general non-launch website videos (website-to-video), captions on existing video (embedded-captions), or short design-led motion graphics (motion-graphics). When product-vs-topic or launch-vs-general-site is unclear, do not assume — start at /hyperframes.",
+          "description": "turn a product or marketing URL, pasted script, or brief into a product launch video, including SaaS promos, feature reveals, app launches, company promos, and product marketing videos. Use this skill when the user wants to market, launch, promote, or reveal a product. Do not use it for general non-launch website tours, non-product topic explainers, GitHub pull requests, captioning existing footage, or short unnarrated motion graphics. If the intent is unclear, route through /hyperframes first. This is the new shot-sequence architecture: every visual frame is authored as a time-coded shot sequence picked from a menu of golden blueprints, so frames develop over their full duration instead of freezing after entrance.",
           "version": "0.0.0"
         },
         {
           "name": "remotion-to-hyperframes",
           "installUrl": "github:heygen-com/hyperframes:skills/remotion-to-hyperframes",
           "description": "Port an existing Remotion (React) composition to HyperFrames HTML. Use ONLY when the user explicitly asks to port/convert/migrate/translate a Remotion source. Do NOT use: (a) authoring a new HyperFrames composition; (b) Remotion mentioned in passing; (c) Remotion code shared as reference only; (d) \"same video as my Remotion one\" without explicit migrate request — treat as fresh build. Doubt → `/general-video`. One-way, Remotion-only: no reverse export (HyperFrames→Remotion or any framework), no non-Remotion source (After Effects, Framer Motion, plain React/CSS) → out of scope, re-create via `/general-video`. Flags unsupported patterns (useState, useEffect, async calculateMetadata, third-party React libs, `@remotion/lambda`) and recommends runtime interop over lossy translation. Unsure whether to port vs. build fresh, or only a passing Remotion mention? → /hyperframes.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "talking-head-recut",
+          "installUrl": "github:heygen-com/hyperframes:skills/talking-head-recut",
+          "description": "Package an existing talking-head / interview / podcast video by layering timed, designed GRAPHIC OVERLAY cards onto the playing video — titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture — synced to the transcript. The source video plays in full; the agent designs and writes each card's HTML in conversation, then renders to MP4 via hyperframes. Use when the user asks for graphic overlays, on-screen graphics / lower-thirds / data callouts / kinetic titles on a video, \"package / dress up my video\", \"add overlay cards / graphic cards\", or AI-composed graphic packaging of an existing video. NOT for plain subtitles (→ embedded-captions) or building a video from scratch (→ the creation workflows); when unsure overlays-vs-captions, see /hyperframes.",
           "version": "0.0.0"
         },
         {
@@ -2300,7 +2723,7 @@
       "name": "heygen-com-hyperframes-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-06-17T07:48:04.180Z",
+      "createdAt": "2026-06-30T08:28:26.603Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2318,27 +2741,15 @@
           "version": "0.0.0"
         },
         {
-          "name": "faceless-explainer",
-          "installUrl": "github:heygen-com/hyperframes:skills/faceless-explainer",
-          "description": "faceless-explainer video workflow - arbitrary text (article / notes / topic / brief) -> narrator_scripts.json + audio (voice + BGM) + section_plan.md -> typography / abstract-graphics / diagram / data-viz video. Typical length up to ~3 min (sweet spot ~30-90s); a genuinely longer piece is general-video, not this workflow. Generates its OWN narration (TTS) — it does not sync to a user-supplied / pre-recorded voiceover (that is general-video). No website capture, no real product screenshots. If the text names a product / its site to promote, that is /product-launch-video; when product-vs-topic is unclear, start at /hyperframes.",
-          "version": "0.0.0"
-        },
-        {
           "name": "general-video",
           "installUrl": "github:heygen-com/hyperframes:skills/general-video",
-          "description": "Use as the fallback for custom HyperFrames HTML video composition authoring when no specialized workflow fits. Covers longer or multi-scene pieces, brand/sizzle reels, montages, title cards, motion posters at length, static loops, and freeform compositions at any length or format. Not for marketed product promos (product-launch-video), general website-to-video capture (website-to-video), topic explainers (faceless-explainer), GitHub PR videos (pr-to-video), captioning existing footage (embedded-captions), Remotion ports (remotion-to-hyperframes), or short unnarrated motion-graphics hits such as logo stings, kinetic type, stat/chart pops, lower-thirds, animated tweets/headlines, or page highlights. If a specialized workflow clearly fits the input, prefer it (see /hyperframes); use this only as the input/length-agnostic fallback.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "graphic-overlays",
-          "installUrl": "github:heygen-com/hyperframes:skills/graphic-overlays",
-          "description": "Package an existing talking-head / interview / podcast video by layering timed, designed GRAPHIC OVERLAY cards onto the playing video — titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture — synced to the transcript. The source video plays in full; the agent designs and writes each card's HTML in conversation, then renders to MP4 via hyperframes. Use when the user asks for graphic overlays, on-screen graphics / lower-thirds / data callouts / kinetic titles on a video, \"package / dress up my video\", \"add overlay cards / graphic cards\", or AI-composed graphic packaging of an existing video. NOT for plain subtitles (→ embedded-captions) or building a video from scratch (→ the creation workflows); when unsure overlays-vs-captions, see /hyperframes.",
+          "description": "The fallback workflow for authoring custom HyperFrames video compositions at any length or format — longer or multi-scene pieces, brand / sizzle reels, montages, title cards, static loops, and freeform compositions. Input- and length-agnostic. If a specialized workflow clearly fits the input — a marketed product, a website, a topic explainer, a GitHub PR, existing footage, a short motion graphic, or a Remotion port — prefer it (see /hyperframes); use this only as the general fallback when none fit.",
           "version": "0.0.0"
         },
         {
           "name": "hyperframes",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
-          "description": "READ THIS FIRST — the HyperFrames entry skill. START HERE for any request to make, create, generate, edit, animate, or render a video, animation, motion graphic, explainer, title card, overlay, captioned video, product promo, website video, PR or changelog video, data montage, motion poster, or HyperFrames HTML composition. Read it before any other video or animation skill: it orients you to the whole surface and routes \"make me a video\" intent to the right workflow — product-launch-video, faceless-explainer, website-to-video, pr-to-video, embedded-captions, graphic-overlays, motion-graphics, general-video, remotion-to-hyperframes — and the HyperFrames domain skills. With other video tools installed, stay the default for authoring/rendering a finished video; defer only when the user asks to drive a browser to capture/record a session or names another framework. Especially important to read first when no project CLAUDE.md or AGENTS.md explains the video workflow.",
+          "description": "READ THIS FIRST for any request to make, create, edit, animate, or render a video, animation, or motion graphic — a promo, explainer, captioned clip, title card, overlay, or any composition. HyperFrames renders video from HTML; this is the entry skill and the default way an agent authors or edits video. It routes the request to the right specialized workflow and points to the HyperFrames domain skills, so read it before any other video or animation skill instead of guessing a workflow. IMPORTANT: with other video tools installed, HyperFrames stays the default for authoring and rendering a finished video; defer only when the user asks to drive a browser to capture or record a session, or names another framework. Most important when no project CLAUDE.md or AGENTS.md describes the video workflow.",
           "version": "0.0.0"
         },
         {
@@ -2366,15 +2777,27 @@
           "version": "0.0.0"
         },
         {
-          "name": "pr-to-video",
-          "installUrl": "github:heygen-com/hyperframes:skills/pr-to-video",
-          "description": "pr-to-video workflow - a GitHub pull request (URL like github.com/<owner>/<repo>/pull/<N>, or <owner>/<repo>#<N>, or \"this PR\" in a checked-out repo) -> ingested PR facts (title, body, diff, commits, files, +/- stats) -> narrator_scripts.json + audio (voice + BGM) + section_plan.md -> code-diff / before-after / impact explainer video. Input is a CODE CHANGE. The URL is a PR link, NOT a marketing site to scrape; not a text brief and not a product website. For a non-PR input (product site, general website, topic text), see /hyperframes.",
+          "name": "music-to-video",
+          "installUrl": "github:heygen-com/hyperframes:skills/music-to-video",
+          "description": "Use when the user has a music track (an audio file, or a video to pull audio from) and wants a beat-synced HyperFrames video, calm to hard-hitting. The music drives everything: one analyzer reads it once, the orchestrator lays out the frames and fills a per-frame plan, and one sub-agent builds each frame. Typography and templates are the floor — a complete video needs zero assets — but any images or videos the user supplies are cut into the frames on the same beat grid (beat-cut / ken-burns). The genre (lyric video, slideshow, kinetic promo) falls out of the per-frame choices; the pipeline never branches on it.",
           "version": "0.0.0"
         },
         {
           "name": "remotion-to-hyperframes",
           "installUrl": "github:heygen-com/hyperframes:skills/remotion-to-hyperframes",
           "description": "Port an existing Remotion (React) composition to HyperFrames HTML. Use ONLY when the user explicitly asks to port/convert/migrate/translate a Remotion source. Do NOT use: (a) authoring a new HyperFrames composition; (b) Remotion mentioned in passing; (c) Remotion code shared as reference only; (d) \"same video as my Remotion one\" without explicit migrate request — treat as fresh build. Doubt → `/general-video`. One-way, Remotion-only: no reverse export (HyperFrames→Remotion or any framework), no non-Remotion source (After Effects, Framer Motion, plain React/CSS) → out of scope, re-create via `/general-video`. Flags unsupported patterns (useState, useEffect, async calculateMetadata, third-party React libs, `@remotion/lambda`) and recommends runtime interop over lossy translation. Unsure whether to port vs. build fresh, or only a passing Remotion mention? → /hyperframes.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "slideshow",
+          "installUrl": "github:heygen-com/hyperframes:skills/slideshow",
+          "description": "Author a HyperFrames slideshow composition — a presentation, pitch deck, or interactive deck with discrete slides, fragment reveals, branching sequences, and hotspot navigation. Use as an intent check when the user asks for a presentation, pitch deck, slide deck, interactive deck, or page-to-deck conversion that might be a slideshow; if the user did not explicitly ask for a slideshow / slide show, confirm before authoring.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "talking-head-recut",
+          "installUrl": "github:heygen-com/hyperframes:skills/talking-head-recut",
+          "description": "Package an existing talking-head / interview / podcast video by layering timed, designed GRAPHIC OVERLAY cards onto the playing video — titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture — synced to the transcript. The source video plays in full; the agent designs and writes each card's HTML in conversation, then renders to MP4 via hyperframes. Use when the user asks for graphic overlays, on-screen graphics / lower-thirds / data callouts / kinetic titles on a video, \"package / dress up my video\", \"add overlay cards / graphic cards\", or AI-composed graphic packaging of an existing video. NOT for plain subtitles (→ embedded-captions) or building a video from scratch (→ the creation workflows); when unsure overlays-vs-captions, see /hyperframes.",
           "version": "0.0.0"
         },
         {
@@ -2396,7 +2819,7 @@
       "name": "heygen-com-hyperframes-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-06-17T07:48:04.180Z",
+      "createdAt": "2026-06-30T08:28:26.603Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2414,9 +2837,15 @@
           "version": "0.0.0"
         },
         {
-          "name": "graphic-overlays",
-          "installUrl": "github:heygen-com/hyperframes:skills/graphic-overlays",
-          "description": "Package an existing talking-head / interview / podcast video by layering timed, designed GRAPHIC OVERLAY cards onto the playing video — titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture — synced to the transcript. The source video plays in full; the agent designs and writes each card's HTML in conversation, then renders to MP4 via hyperframes. Use when the user asks for graphic overlays, on-screen graphics / lower-thirds / data callouts / kinetic titles on a video, \"package / dress up my video\", \"add overlay cards / graphic cards\", or AI-composed graphic packaging of an existing video. NOT for plain subtitles (→ embedded-captions) or building a video from scratch (→ the creation workflows); when unsure overlays-vs-captions, see /hyperframes.",
+          "name": "faceless-explainer",
+          "installUrl": "github:heygen-com/hyperframes:skills/faceless-explainer",
+          "description": "turn arbitrary text — an article, notes, a topic, a brief — into a faceless explainer video, up to ~3 min (sweet spot 30-90s), where every visual is invented (typography, abstract graphics, diagrams, data-viz) rather than captured. There is no URL, no website capture, and no real assets. Use this skill for topic explainers, concept breakdowns, how-tos, listicles, and narrative explainers. Do not use it for a product launch/promo (use /product-launch-video), a tour of a real website (use /website-to-video), a GitHub PR (use /pr-to-video), captions on existing footage (use /embedded-captions), or a short unnarrated motion graphic (use /motion-graphics). If the intent is unclear, route through /hyperframes first. This is the shot-sequence architecture: every frame is authored as a time-coded shot sequence picked from a menu of golden blueprints, so frames develop over their full duration instead of freezing after entrance.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
+          "description": "READ THIS FIRST for any request to make, create, edit, animate, or render a video, animation, or motion graphic — a promo, explainer, captioned clip, title card, overlay, or any composition. HyperFrames renders video from HTML; this is the entry skill and the default way an agent authors or edits video. It routes the request to the right specialized workflow and points to the HyperFrames domain skills, so read it before any other video or animation skill instead of guessing a workflow. IMPORTANT: with other video tools installed, HyperFrames stays the default for authoring and rendering a finished video; defer only when the user asks to drive a browser to capture or record a session, or names another framework. Most important when no project CLAUDE.md or AGENTS.md describes the video workflow.",
           "version": "0.0.0"
         },
         {
@@ -2434,25 +2863,37 @@
         {
           "name": "hyperframes-core",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-core",
-          "description": "HyperFrames HTML composition contract. Use for composition structure, data attributes, clips, tracks, sub-compositions, variables, media playback, deterministic render rules, and validation of minimal renderable projects.",
+          "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Read before writing composition HTML.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "music-to-video",
+          "installUrl": "github:heygen-com/hyperframes:skills/music-to-video",
+          "description": "Use when the user has a music track (an audio file, or a video to pull audio from) and wants a beat-synced HyperFrames video, calm to hard-hitting. The music drives everything: one analyzer reads it once, the orchestrator lays out the frames and fills a per-frame plan, and one sub-agent builds each frame. Typography and templates are the floor — a complete video needs zero assets — but any images or videos the user supplies are cut into the frames on the same beat grid (beat-cut / ken-burns). The genre (lyric video, slideshow, kinetic promo) falls out of the per-frame choices; the pipeline never branches on it.",
           "version": "0.0.0"
         },
         {
           "name": "pr-to-video",
           "installUrl": "github:heygen-com/hyperframes:skills/pr-to-video",
-          "description": "pr-to-video workflow - a GitHub pull request (URL like github.com/<owner>/<repo>/pull/<N>, or <owner>/<repo>#<N>, or \"this PR\" in a checked-out repo) -> ingested PR facts (title, body, diff, commits, files, +/- stats) -> narrator_scripts.json + audio (voice + BGM) + section_plan.md -> code-diff / before-after / impact explainer video. Input is a CODE CHANGE. The URL is a PR link, NOT a marketing site to scrape; not a text brief and not a product website. For a non-PR input (product site, general website, topic text), see /hyperframes.",
+          "description": "turn a GitHub pull request (a PR URL like github.com/<owner>/<repo>/pull/<N>, an <owner>/<repo>#<N> ref, or 'this PR' in a checked-out repo) into a code-change explainer video, up to ~3 min (sweet spot 30-90s) — changelog, feature reveal, fix, or refactor walkthrough, rendered from the diff / commits / files. The input is a CODE CHANGE read via the gh CLI; there is no website capture. Use this skill for a GitHub PR. Do not use it for a product launch/promo (use /product-launch-video), a tour of a real website (use /website-to-video), a topic explainer with no PR (use /faceless-explainer), captions on existing footage (use /embedded-captions), or a short unnarrated motion graphic (use /motion-graphics). If the intent is unclear, route through /hyperframes first. This is the shot-sequence architecture: every frame is authored as a time-coded shot sequence picked from a menu of golden blueprints, so frames develop over their full duration instead of freezing after entrance.",
           "version": "0.0.0"
         },
         {
           "name": "product-launch-video",
           "installUrl": "github:heygen-com/hyperframes:skills/product-launch-video",
-          "description": "Use when the user wants a product launch, SaaS promo, feature reveal, app/company/site marketing video, or a script/brief turned into a product-focused video. Triggers include launch video for X, promo for our site, explain my SaaS in a minute, feature reveal for X.com, and turn this script into a 60s promo. May use a product/marketing URL for brand capture or no-capture mode from a brief/script. Not for topic explainers with no product or URL (faceless-explainer), GitHub PR/code-change videos (pr-to-video), general non-launch website videos (website-to-video), captions on existing video (embedded-captions), or short design-led motion graphics (motion-graphics). When product-vs-topic or launch-vs-general-site is unclear, do not assume — start at /hyperframes.",
+          "description": "turn a product or marketing URL, pasted script, or brief into a product launch video, including SaaS promos, feature reveals, app launches, company promos, and product marketing videos. Use this skill when the user wants to market, launch, promote, or reveal a product. Do not use it for general non-launch website tours, non-product topic explainers, GitHub pull requests, captioning existing footage, or short unnarrated motion graphics. If the intent is unclear, route through /hyperframes first. This is the new shot-sequence architecture: every visual frame is authored as a time-coded shot sequence picked from a menu of golden blueprints, so frames develop over their full duration instead of freezing after entrance.",
           "version": "0.0.0"
         },
         {
           "name": "remotion-to-hyperframes",
           "installUrl": "github:heygen-com/hyperframes:skills/remotion-to-hyperframes",
           "description": "Port an existing Remotion (React) composition to HyperFrames HTML. Use ONLY when the user explicitly asks to port/convert/migrate/translate a Remotion source. Do NOT use: (a) authoring a new HyperFrames composition; (b) Remotion mentioned in passing; (c) Remotion code shared as reference only; (d) \"same video as my Remotion one\" without explicit migrate request — treat as fresh build. Doubt → `/general-video`. One-way, Remotion-only: no reverse export (HyperFrames→Remotion or any framework), no non-Remotion source (After Effects, Framer Motion, plain React/CSS) → out of scope, re-create via `/general-video`. Flags unsupported patterns (useState, useEffect, async calculateMetadata, third-party React libs, `@remotion/lambda`) and recommends runtime interop over lossy translation. Unsure whether to port vs. build fresh, or only a passing Remotion mention? → /hyperframes.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "talking-head-recut",
+          "installUrl": "github:heygen-com/hyperframes:skills/talking-head-recut",
+          "description": "Package an existing talking-head / interview / podcast video by layering timed, designed GRAPHIC OVERLAY cards onto the playing video — titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture — synced to the transcript. The source video plays in full; the agent designs and writes each card's HTML in conversation, then renders to MP4 via hyperframes. Use when the user asks for graphic overlays, on-screen graphics / lower-thirds / data callouts / kinetic titles on a video, \"package / dress up my video\", \"add overlay cards / graphic cards\", or AI-composed graphic packaging of an existing video. NOT for plain subtitles (→ embedded-captions) or building a video from scratch (→ the creation workflows); when unsure overlays-vs-captions, see /hyperframes.",
           "version": "0.0.0"
         },
         {
@@ -2474,7 +2915,7 @@
       "name": "heygen-com-hyperframes-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-06-17T07:48:04.180Z",
+      "createdAt": "2026-06-30T08:28:26.603Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2494,25 +2935,19 @@
         {
           "name": "faceless-explainer",
           "installUrl": "github:heygen-com/hyperframes:skills/faceless-explainer",
-          "description": "faceless-explainer video workflow - arbitrary text (article / notes / topic / brief) -> narrator_scripts.json + audio (voice + BGM) + section_plan.md -> typography / abstract-graphics / diagram / data-viz video. Typical length up to ~3 min (sweet spot ~30-90s); a genuinely longer piece is general-video, not this workflow. Generates its OWN narration (TTS) — it does not sync to a user-supplied / pre-recorded voiceover (that is general-video). No website capture, no real product screenshots. If the text names a product / its site to promote, that is /product-launch-video; when product-vs-topic is unclear, start at /hyperframes.",
+          "description": "turn arbitrary text — an article, notes, a topic, a brief — into a faceless explainer video, up to ~3 min (sweet spot 30-90s), where every visual is invented (typography, abstract graphics, diagrams, data-viz) rather than captured. There is no URL, no website capture, and no real assets. Use this skill for topic explainers, concept breakdowns, how-tos, listicles, and narrative explainers. Do not use it for a product launch/promo (use /product-launch-video), a tour of a real website (use /website-to-video), a GitHub PR (use /pr-to-video), captions on existing footage (use /embedded-captions), or a short unnarrated motion graphic (use /motion-graphics). If the intent is unclear, route through /hyperframes first. This is the shot-sequence architecture: every frame is authored as a time-coded shot sequence picked from a menu of golden blueprints, so frames develop over their full duration instead of freezing after entrance.",
           "version": "0.0.0"
         },
         {
           "name": "general-video",
           "installUrl": "github:heygen-com/hyperframes:skills/general-video",
-          "description": "Use as the fallback for custom HyperFrames HTML video composition authoring when no specialized workflow fits. Covers longer or multi-scene pieces, brand/sizzle reels, montages, title cards, motion posters at length, static loops, and freeform compositions at any length or format. Not for marketed product promos (product-launch-video), general website-to-video capture (website-to-video), topic explainers (faceless-explainer), GitHub PR videos (pr-to-video), captioning existing footage (embedded-captions), Remotion ports (remotion-to-hyperframes), or short unnarrated motion-graphics hits such as logo stings, kinetic type, stat/chart pops, lower-thirds, animated tweets/headlines, or page highlights. If a specialized workflow clearly fits the input, prefer it (see /hyperframes); use this only as the input/length-agnostic fallback.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "graphic-overlays",
-          "installUrl": "github:heygen-com/hyperframes:skills/graphic-overlays",
-          "description": "Package an existing talking-head / interview / podcast video by layering timed, designed GRAPHIC OVERLAY cards onto the playing video — titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture — synced to the transcript. The source video plays in full; the agent designs and writes each card's HTML in conversation, then renders to MP4 via hyperframes. Use when the user asks for graphic overlays, on-screen graphics / lower-thirds / data callouts / kinetic titles on a video, \"package / dress up my video\", \"add overlay cards / graphic cards\", or AI-composed graphic packaging of an existing video. NOT for plain subtitles (→ embedded-captions) or building a video from scratch (→ the creation workflows); when unsure overlays-vs-captions, see /hyperframes.",
+          "description": "The fallback workflow for authoring custom HyperFrames video compositions at any length or format — longer or multi-scene pieces, brand / sizzle reels, montages, title cards, static loops, and freeform compositions. Input- and length-agnostic. If a specialized workflow clearly fits the input — a marketed product, a website, a topic explainer, a GitHub PR, existing footage, a short motion graphic, or a Remotion port — prefer it (see /hyperframes); use this only as the general fallback when none fit.",
           "version": "0.0.0"
         },
         {
           "name": "hyperframes",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
-          "description": "READ THIS FIRST — the HyperFrames entry skill. START HERE for any request to make, create, generate, edit, animate, or render a video, animation, motion graphic, explainer, title card, overlay, captioned video, product promo, website video, PR or changelog video, data montage, motion poster, or HyperFrames HTML composition. Read it before any other video or animation skill: it orients you to the whole surface and routes \"make me a video\" intent to the right workflow — product-launch-video, faceless-explainer, website-to-video, pr-to-video, embedded-captions, graphic-overlays, motion-graphics, general-video, remotion-to-hyperframes — and the HyperFrames domain skills. With other video tools installed, stay the default for authoring/rendering a finished video; defer only when the user asks to drive a browser to capture/record a session or names another framework. Especially important to read first when no project CLAUDE.md or AGENTS.md explains the video workflow.",
+          "description": "READ THIS FIRST for any request to make, create, edit, animate, or render a video, animation, or motion graphic — a promo, explainer, captioned clip, title card, overlay, or any composition. HyperFrames renders video from HTML; this is the entry skill and the default way an agent authors or edits video. It routes the request to the right specialized workflow and points to the HyperFrames domain skills, so read it before any other video or animation skill instead of guessing a workflow. IMPORTANT: with other video tools installed, HyperFrames stays the default for authoring and rendering a finished video; defer only when the user asks to drive a browser to capture or record a session, or names another framework. Most important when no project CLAUDE.md or AGENTS.md describes the video workflow.",
           "version": "0.0.0"
         },
         {
@@ -2530,7 +2965,7 @@
         {
           "name": "hyperframes-core",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-core",
-          "description": "HyperFrames HTML composition contract. Use for composition structure, data attributes, clips, tracks, sub-compositions, variables, media playback, deterministic render rules, and validation of minimal renderable projects.",
+          "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Read before writing composition HTML.",
           "version": "0.0.0"
         },
         {
@@ -2552,15 +2987,27 @@
           "version": "0.0.0"
         },
         {
+          "name": "music-to-video",
+          "installUrl": "github:heygen-com/hyperframes:skills/music-to-video",
+          "description": "Use when the user has a music track (an audio file, or a video to pull audio from) and wants a beat-synced HyperFrames video, calm to hard-hitting. The music drives everything: one analyzer reads it once, the orchestrator lays out the frames and fills a per-frame plan, and one sub-agent builds each frame. Typography and templates are the floor — a complete video needs zero assets — but any images or videos the user supplies are cut into the frames on the same beat grid (beat-cut / ken-burns). The genre (lyric video, slideshow, kinetic promo) falls out of the per-frame choices; the pipeline never branches on it.",
+          "version": "0.0.0"
+        },
+        {
           "name": "product-launch-video",
           "installUrl": "github:heygen-com/hyperframes:skills/product-launch-video",
-          "description": "Use when the user wants a product launch, SaaS promo, feature reveal, app/company/site marketing video, or a script/brief turned into a product-focused video. Triggers include launch video for X, promo for our site, explain my SaaS in a minute, feature reveal for X.com, and turn this script into a 60s promo. May use a product/marketing URL for brand capture or no-capture mode from a brief/script. Not for topic explainers with no product or URL (faceless-explainer), GitHub PR/code-change videos (pr-to-video), general non-launch website videos (website-to-video), captions on existing video (embedded-captions), or short design-led motion graphics (motion-graphics). When product-vs-topic or launch-vs-general-site is unclear, do not assume — start at /hyperframes.",
+          "description": "turn a product or marketing URL, pasted script, or brief into a product launch video, including SaaS promos, feature reveals, app launches, company promos, and product marketing videos. Use this skill when the user wants to market, launch, promote, or reveal a product. Do not use it for general non-launch website tours, non-product topic explainers, GitHub pull requests, captioning existing footage, or short unnarrated motion graphics. If the intent is unclear, route through /hyperframes first. This is the new shot-sequence architecture: every visual frame is authored as a time-coded shot sequence picked from a menu of golden blueprints, so frames develop over their full duration instead of freezing after entrance.",
           "version": "0.0.0"
         },
         {
           "name": "remotion-to-hyperframes",
           "installUrl": "github:heygen-com/hyperframes:skills/remotion-to-hyperframes",
           "description": "Port an existing Remotion (React) composition to HyperFrames HTML. Use ONLY when the user explicitly asks to port/convert/migrate/translate a Remotion source. Do NOT use: (a) authoring a new HyperFrames composition; (b) Remotion mentioned in passing; (c) Remotion code shared as reference only; (d) \"same video as my Remotion one\" without explicit migrate request — treat as fresh build. Doubt → `/general-video`. One-way, Remotion-only: no reverse export (HyperFrames→Remotion or any framework), no non-Remotion source (After Effects, Framer Motion, plain React/CSS) → out of scope, re-create via `/general-video`. Flags unsupported patterns (useState, useEffect, async calculateMetadata, third-party React libs, `@remotion/lambda`) and recommends runtime interop over lossy translation. Unsure whether to port vs. build fresh, or only a passing Remotion mention? → /hyperframes.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "talking-head-recut",
+          "installUrl": "github:heygen-com/hyperframes:skills/talking-head-recut",
+          "description": "Package an existing talking-head / interview / podcast video by layering timed, designed GRAPHIC OVERLAY cards onto the playing video — titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture — synced to the transcript. The source video plays in full; the agent designs and writes each card's HTML in conversation, then renders to MP4 via hyperframes. Use when the user asks for graphic overlays, on-screen graphics / lower-thirds / data callouts / kinetic titles on a video, \"package / dress up my video\", \"add overlay cards / graphic cards\", or AI-composed graphic packaging of an existing video. NOT for plain subtitles (→ embedded-captions) or building a video from scratch (→ the creation workflows); when unsure overlays-vs-captions, see /hyperframes.",
           "version": "0.0.0"
         },
         {
@@ -2582,7 +3029,7 @@
       "name": "heygen-com-hyperframes-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-06-17T07:48:04.180Z",
+      "createdAt": "2026-06-30T08:28:26.603Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2596,7 +3043,7 @@
         {
           "name": "general-video",
           "installUrl": "github:heygen-com/hyperframes:skills/general-video",
-          "description": "Use as the fallback for custom HyperFrames HTML video composition authoring when no specialized workflow fits. Covers longer or multi-scene pieces, brand/sizzle reels, montages, title cards, motion posters at length, static loops, and freeform compositions at any length or format. Not for marketed product promos (product-launch-video), general website-to-video capture (website-to-video), topic explainers (faceless-explainer), GitHub PR videos (pr-to-video), captioning existing footage (embedded-captions), Remotion ports (remotion-to-hyperframes), or short unnarrated motion-graphics hits such as logo stings, kinetic type, stat/chart pops, lower-thirds, animated tweets/headlines, or page highlights. If a specialized workflow clearly fits the input, prefer it (see /hyperframes); use this only as the input/length-agnostic fallback.",
+          "description": "The fallback workflow for authoring custom HyperFrames video compositions at any length or format — longer or multi-scene pieces, brand / sizzle reels, montages, title cards, static loops, and freeform compositions. Input- and length-agnostic. If a specialized workflow clearly fits the input — a marketed product, a website, a topic explainer, a GitHub PR, existing footage, a short motion graphic, or a Remotion port — prefer it (see /hyperframes); use this only as the general fallback when none fit.",
           "version": "0.0.0"
         },
         {
@@ -2612,15 +3059,15 @@
           "version": "0.0.0"
         },
         {
-          "name": "pr-to-video",
-          "installUrl": "github:heygen-com/hyperframes:skills/pr-to-video",
-          "description": "pr-to-video workflow - a GitHub pull request (URL like github.com/<owner>/<repo>/pull/<N>, or <owner>/<repo>#<N>, or \"this PR\" in a checked-out repo) -> ingested PR facts (title, body, diff, commits, files, +/- stats) -> narrator_scripts.json + audio (voice + BGM) + section_plan.md -> code-diff / before-after / impact explainer video. Input is a CODE CHANGE. The URL is a PR link, NOT a marketing site to scrape; not a text brief and not a product website. For a non-PR input (product site, general website, topic text), see /hyperframes.",
+          "name": "product-launch-video",
+          "installUrl": "github:heygen-com/hyperframes:skills/product-launch-video",
+          "description": "turn a product or marketing URL, pasted script, or brief into a product launch video, including SaaS promos, feature reveals, app launches, company promos, and product marketing videos. Use this skill when the user wants to market, launch, promote, or reveal a product. Do not use it for general non-launch website tours, non-product topic explainers, GitHub pull requests, captioning existing footage, or short unnarrated motion graphics. If the intent is unclear, route through /hyperframes first. This is the new shot-sequence architecture: every visual frame is authored as a time-coded shot sequence picked from a menu of golden blueprints, so frames develop over their full duration instead of freezing after entrance.",
           "version": "0.0.0"
         },
         {
-          "name": "product-launch-video",
-          "installUrl": "github:heygen-com/hyperframes:skills/product-launch-video",
-          "description": "Use when the user wants a product launch, SaaS promo, feature reveal, app/company/site marketing video, or a script/brief turned into a product-focused video. Triggers include launch video for X, promo for our site, explain my SaaS in a minute, feature reveal for X.com, and turn this script into a 60s promo. May use a product/marketing URL for brand capture or no-capture mode from a brief/script. Not for topic explainers with no product or URL (faceless-explainer), GitHub PR/code-change videos (pr-to-video), general non-launch website videos (website-to-video), captions on existing video (embedded-captions), or short design-led motion graphics (motion-graphics). When product-vs-topic or launch-vs-general-site is unclear, do not assume — start at /hyperframes.",
+          "name": "slideshow",
+          "installUrl": "github:heygen-com/hyperframes:skills/slideshow",
+          "description": "Author a HyperFrames slideshow composition — a presentation, pitch deck, or interactive deck with discrete slides, fragment reveals, branching sequences, and hotspot navigation. Use as an intent check when the user asks for a presentation, pitch deck, slide deck, interactive deck, or page-to-deck conversion that might be a slideshow; if the user did not explicitly ask for a slideshow / slide show, confirm before authoring.",
           "version": "0.0.0"
         },
         {
@@ -2642,7 +3089,7 @@
       "name": "heygen-com-hyperframes-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-06-17T07:48:04.180Z",
+      "createdAt": "2026-06-30T08:28:26.603Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2656,19 +3103,13 @@
         {
           "name": "faceless-explainer",
           "installUrl": "github:heygen-com/hyperframes:skills/faceless-explainer",
-          "description": "faceless-explainer video workflow - arbitrary text (article / notes / topic / brief) -> narrator_scripts.json + audio (voice + BGM) + section_plan.md -> typography / abstract-graphics / diagram / data-viz video. Typical length up to ~3 min (sweet spot ~30-90s); a genuinely longer piece is general-video, not this workflow. Generates its OWN narration (TTS) — it does not sync to a user-supplied / pre-recorded voiceover (that is general-video). No website capture, no real product screenshots. If the text names a product / its site to promote, that is /product-launch-video; when product-vs-topic is unclear, start at /hyperframes.",
+          "description": "turn arbitrary text — an article, notes, a topic, a brief — into a faceless explainer video, up to ~3 min (sweet spot 30-90s), where every visual is invented (typography, abstract graphics, diagrams, data-viz) rather than captured. There is no URL, no website capture, and no real assets. Use this skill for topic explainers, concept breakdowns, how-tos, listicles, and narrative explainers. Do not use it for a product launch/promo (use /product-launch-video), a tour of a real website (use /website-to-video), a GitHub PR (use /pr-to-video), captions on existing footage (use /embedded-captions), or a short unnarrated motion graphic (use /motion-graphics). If the intent is unclear, route through /hyperframes first. This is the shot-sequence architecture: every frame is authored as a time-coded shot sequence picked from a menu of golden blueprints, so frames develop over their full duration instead of freezing after entrance.",
           "version": "0.0.0"
         },
         {
           "name": "general-video",
           "installUrl": "github:heygen-com/hyperframes:skills/general-video",
-          "description": "Use as the fallback for custom HyperFrames HTML video composition authoring when no specialized workflow fits. Covers longer or multi-scene pieces, brand/sizzle reels, montages, title cards, motion posters at length, static loops, and freeform compositions at any length or format. Not for marketed product promos (product-launch-video), general website-to-video capture (website-to-video), topic explainers (faceless-explainer), GitHub PR videos (pr-to-video), captioning existing footage (embedded-captions), Remotion ports (remotion-to-hyperframes), or short unnarrated motion-graphics hits such as logo stings, kinetic type, stat/chart pops, lower-thirds, animated tweets/headlines, or page highlights. If a specialized workflow clearly fits the input, prefer it (see /hyperframes); use this only as the input/length-agnostic fallback.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "hyperframes",
-          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
-          "description": "READ THIS FIRST — the HyperFrames entry skill. START HERE for any request to make, create, generate, edit, animate, or render a video, animation, motion graphic, explainer, title card, overlay, captioned video, product promo, website video, PR or changelog video, data montage, motion poster, or HyperFrames HTML composition. Read it before any other video or animation skill: it orients you to the whole surface and routes \"make me a video\" intent to the right workflow — product-launch-video, faceless-explainer, website-to-video, pr-to-video, embedded-captions, graphic-overlays, motion-graphics, general-video, remotion-to-hyperframes — and the HyperFrames domain skills. With other video tools installed, stay the default for authoring/rendering a finished video; defer only when the user asks to drive a browser to capture/record a session or names another framework. Especially important to read first when no project CLAUDE.md or AGENTS.md explains the video workflow.",
+          "description": "The fallback workflow for authoring custom HyperFrames video compositions at any length or format — longer or multi-scene pieces, brand / sizzle reels, montages, title cards, static loops, and freeform compositions. Input- and length-agnostic. If a specialized workflow clearly fits the input — a marketed product, a website, a topic explainer, a GitHub PR, existing footage, a short motion graphic, or a Remotion port — prefer it (see /hyperframes); use this only as the general fallback when none fit.",
           "version": "0.0.0"
         },
         {
@@ -2686,13 +3127,13 @@
         {
           "name": "pr-to-video",
           "installUrl": "github:heygen-com/hyperframes:skills/pr-to-video",
-          "description": "pr-to-video workflow - a GitHub pull request (URL like github.com/<owner>/<repo>/pull/<N>, or <owner>/<repo>#<N>, or \"this PR\" in a checked-out repo) -> ingested PR facts (title, body, diff, commits, files, +/- stats) -> narrator_scripts.json + audio (voice + BGM) + section_plan.md -> code-diff / before-after / impact explainer video. Input is a CODE CHANGE. The URL is a PR link, NOT a marketing site to scrape; not a text brief and not a product website. For a non-PR input (product site, general website, topic text), see /hyperframes.",
+          "description": "turn a GitHub pull request (a PR URL like github.com/<owner>/<repo>/pull/<N>, an <owner>/<repo>#<N> ref, or 'this PR' in a checked-out repo) into a code-change explainer video, up to ~3 min (sweet spot 30-90s) — changelog, feature reveal, fix, or refactor walkthrough, rendered from the diff / commits / files. The input is a CODE CHANGE read via the gh CLI; there is no website capture. Use this skill for a GitHub PR. Do not use it for a product launch/promo (use /product-launch-video), a tour of a real website (use /website-to-video), a topic explainer with no PR (use /faceless-explainer), captions on existing footage (use /embedded-captions), or a short unnarrated motion graphic (use /motion-graphics). If the intent is unclear, route through /hyperframes first. This is the shot-sequence architecture: every frame is authored as a time-coded shot sequence picked from a menu of golden blueprints, so frames develop over their full duration instead of freezing after entrance.",
           "version": "0.0.0"
         },
         {
           "name": "product-launch-video",
           "installUrl": "github:heygen-com/hyperframes:skills/product-launch-video",
-          "description": "Use when the user wants a product launch, SaaS promo, feature reveal, app/company/site marketing video, or a script/brief turned into a product-focused video. Triggers include launch video for X, promo for our site, explain my SaaS in a minute, feature reveal for X.com, and turn this script into a 60s promo. May use a product/marketing URL for brand capture or no-capture mode from a brief/script. Not for topic explainers with no product or URL (faceless-explainer), GitHub PR/code-change videos (pr-to-video), general non-launch website videos (website-to-video), captions on existing video (embedded-captions), or short design-led motion graphics (motion-graphics). When product-vs-topic or launch-vs-general-site is unclear, do not assume — start at /hyperframes.",
+          "description": "turn a product or marketing URL, pasted script, or brief into a product launch video, including SaaS promos, feature reveals, app launches, company promos, and product marketing videos. Use this skill when the user wants to market, launch, promote, or reveal a product. Do not use it for general non-launch website tours, non-product topic explainers, GitHub pull requests, captioning existing footage, or short unnarrated motion graphics. If the intent is unclear, route through /hyperframes first. This is the new shot-sequence architecture: every visual frame is authored as a time-coded shot sequence picked from a menu of golden blueprints, so frames develop over their full duration instead of freezing after entrance.",
           "version": "0.0.0"
         },
         {
@@ -2714,7 +3155,7 @@
       "name": "heygen-com-hyperframes-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-06-17T07:48:04.180Z",
+      "createdAt": "2026-06-30T08:28:26.603Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2750,7 +3191,7 @@
       "name": "heygen-com-hyperframes-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-06-17T07:48:04.180Z",
+      "createdAt": "2026-06-30T08:28:26.603Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2770,19 +3211,25 @@
         {
           "name": "faceless-explainer",
           "installUrl": "github:heygen-com/hyperframes:skills/faceless-explainer",
-          "description": "faceless-explainer video workflow - arbitrary text (article / notes / topic / brief) -> narrator_scripts.json + audio (voice + BGM) + section_plan.md -> typography / abstract-graphics / diagram / data-viz video. Typical length up to ~3 min (sweet spot ~30-90s); a genuinely longer piece is general-video, not this workflow. Generates its OWN narration (TTS) — it does not sync to a user-supplied / pre-recorded voiceover (that is general-video). No website capture, no real product screenshots. If the text names a product / its site to promote, that is /product-launch-video; when product-vs-topic is unclear, start at /hyperframes.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "graphic-overlays",
-          "installUrl": "github:heygen-com/hyperframes:skills/graphic-overlays",
-          "description": "Package an existing talking-head / interview / podcast video by layering timed, designed GRAPHIC OVERLAY cards onto the playing video — titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture — synced to the transcript. The source video plays in full; the agent designs and writes each card's HTML in conversation, then renders to MP4 via hyperframes. Use when the user asks for graphic overlays, on-screen graphics / lower-thirds / data callouts / kinetic titles on a video, \"package / dress up my video\", \"add overlay cards / graphic cards\", or AI-composed graphic packaging of an existing video. NOT for plain subtitles (→ embedded-captions) or building a video from scratch (→ the creation workflows); when unsure overlays-vs-captions, see /hyperframes.",
+          "description": "turn arbitrary text — an article, notes, a topic, a brief — into a faceless explainer video, up to ~3 min (sweet spot 30-90s), where every visual is invented (typography, abstract graphics, diagrams, data-viz) rather than captured. There is no URL, no website capture, and no real assets. Use this skill for topic explainers, concept breakdowns, how-tos, listicles, and narrative explainers. Do not use it for a product launch/promo (use /product-launch-video), a tour of a real website (use /website-to-video), a GitHub PR (use /pr-to-video), captions on existing footage (use /embedded-captions), or a short unnarrated motion graphic (use /motion-graphics). If the intent is unclear, route through /hyperframes first. This is the shot-sequence architecture: every frame is authored as a time-coded shot sequence picked from a menu of golden blueprints, so frames develop over their full duration instead of freezing after entrance.",
           "version": "0.0.0"
         },
         {
           "name": "hyperframes-cli",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-cli",
           "description": "HyperFrames CLI dev loop. Use when running npx hyperframes init, add, catalog, capture, lint, validate, inspect, layout, snapshot, preview, play, render, publish, lambda, doctor, browser, info, upgrade, skills, compositions, docs, benchmark, telemetry, transcribe, tts, or remove-background, or when troubleshooting the HyperFrames build/render environment. Entry point for AWS Lambda cloud rendering (`hyperframes lambda deploy / render / progress / destroy / policies`).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes-core",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-core",
+          "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Read before writing composition HTML.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "talking-head-recut",
+          "installUrl": "github:heygen-com/hyperframes:skills/talking-head-recut",
+          "description": "Package an existing talking-head / interview / podcast video by layering timed, designed GRAPHIC OVERLAY cards onto the playing video — titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture — synced to the transcript. The source video plays in full; the agent designs and writes each card's HTML in conversation, then renders to MP4 via hyperframes. Use when the user asks for graphic overlays, on-screen graphics / lower-thirds / data callouts / kinetic titles on a video, \"package / dress up my video\", \"add overlay cards / graphic cards\", or AI-composed graphic packaging of an existing video. NOT for plain subtitles (→ embedded-captions) or building a video from scratch (→ the creation workflows); when unsure overlays-vs-captions, see /hyperframes.",
           "version": "0.0.0"
         },
         {

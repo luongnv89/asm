@@ -2,11 +2,11 @@
   "repoUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
   "owner": "nextlevelbuilder",
   "repo": "ui-ux-pro-max-skill",
-  "updatedAt": "2026-06-17T07:47:07.241Z",
+  "updatedAt": "2026-06-30T08:27:03.630Z",
   "skillCount": 7,
   "skills": [
     {
-      "name": "ckm:banner-design",
+      "name": "banner-design",
       "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
       "version": "1.0.0",
       "license": "MIT",
@@ -16,10 +16,10 @@
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/banner-design",
       "relPath": ".claude/skills/banner-design",
       "verified": true,
-      "tokenCount": 2225,
+      "tokenCount": 2267,
       "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
+        "overallScore": 74,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -48,7 +48,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
@@ -60,11 +60,11 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 5,
+            "score": 10,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:07.225Z",
+        "evaluatedAt": "2026-06-30T08:27:03.614Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -73,8 +73,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 74,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -103,7 +103,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
@@ -115,11 +115,11 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 5,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:07.225Z",
+          "evaluatedAt": "2026-06-30T08:27:03.614Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -127,23 +127,23 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 79,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
+              "score": 11,
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:07.225Z",
+          "evaluatedAt": "2026-06-30T08:27:03.614Z",
           "evaluatedVersion": "1.0.0"
         }
       }
     },
     {
-      "name": "ckm:brand",
+      "name": "brand",
       "description": "Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides.",
       "version": "1.0.0",
       "license": "",
@@ -155,8 +155,8 @@
       "verified": true,
       "tokenCount": 614,
       "evalSummary": {
-        "overallScore": 63,
-        "grade": "D",
+        "overallScore": 70,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -197,11 +197,11 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 5,
+            "score": 10,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:07.227Z",
+        "evaluatedAt": "2026-06-30T08:27:03.615Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -210,8 +210,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 63,
-          "grade": "D",
+          "overallScore": 70,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -252,11 +252,11 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 5,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:07.227Z",
+          "evaluatedAt": "2026-06-30T08:27:03.615Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -264,23 +264,23 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 71,
-          "grade": "C",
+          "overallScore": 86,
+          "grade": "B",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 10,
+              "score": 12,
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:07.227Z",
+          "evaluatedAt": "2026-06-30T08:27:03.615Z",
           "evaluatedVersion": "1.0.0"
         }
       }
     },
     {
-      "name": "ckm:design",
+      "name": "design",
       "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
       "version": "2.1.0",
       "license": "MIT",
@@ -290,10 +290,10 @@
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design",
       "relPath": ".claude/skills/design",
       "verified": true,
-      "tokenCount": 2772,
+      "tokenCount": 2867,
       "evalSummary": {
-        "overallScore": 59,
-        "grade": "D",
+        "overallScore": 69,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -322,7 +322,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
@@ -334,11 +334,11 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 5,
+            "score": 10,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:07.229Z",
+        "evaluatedAt": "2026-06-30T08:27:03.617Z",
         "evaluatedVersion": "2.1.0"
       },
       "evalSummaries": {
@@ -347,8 +347,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 59,
-          "grade": "D",
+          "overallScore": 69,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -377,7 +377,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
@@ -389,11 +389,11 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 5,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:07.229Z",
+          "evaluatedAt": "2026-06-30T08:27:03.617Z",
           "evaluatedVersion": "2.1.0"
         },
         "skill-best-practice": {
@@ -401,23 +401,23 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 79,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
+              "score": 11,
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:07.229Z",
+          "evaluatedAt": "2026-06-30T08:27:03.617Z",
           "evaluatedVersion": "2.1.0"
         }
       }
     },
     {
-      "name": "ckm:design-system",
+      "name": "design-system",
       "description": "Token architecture, component specifications, and slide generation. Three-layer tokens (primitive→semantic→component), CSS variables, spacing/typography scales, component specs, strategic slide creation. Use for design tokens, systematic design, brand-compliant presentations.",
       "version": "1.0.0",
       "license": "MIT",
@@ -429,7 +429,7 @@
       "verified": true,
       "tokenCount": 1648,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 77,
         "grade": "C",
         "categories": [
           {
@@ -471,11 +471,11 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 5,
+            "score": 10,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:07.230Z",
+        "evaluatedAt": "2026-06-30T08:27:03.619Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -484,7 +484,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 77,
           "grade": "C",
           "categories": [
             {
@@ -526,11 +526,11 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 5,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:07.230Z",
+          "evaluatedAt": "2026-06-30T08:27:03.619Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -538,23 +538,23 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 79,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
+              "score": 11,
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:07.230Z",
+          "evaluatedAt": "2026-06-30T08:27:03.619Z",
           "evaluatedVersion": "1.0.0"
         }
       }
     },
     {
-      "name": "ckm:slides",
+      "name": "slides",
       "description": "Create strategic HTML presentations with Chart.js, design tokens, responsive layouts, copywriting formulas, and contextual slide strategies.",
       "version": "1.0.0",
       "license": "",
@@ -564,10 +564,10 @@
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/slides",
       "relPath": ".claude/skills/slides",
       "verified": true,
-      "tokenCount": 247,
+      "tokenCount": 246,
       "evalSummary": {
-        "overallScore": 49,
-        "grade": "F",
+        "overallScore": 56,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -608,11 +608,11 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 5,
+            "score": 10,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:07.232Z",
+        "evaluatedAt": "2026-06-30T08:27:03.620Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -620,9 +620,9 @@
           "providerId": "quality",
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 49,
-          "grade": "F",
+          "passed": true,
+          "overallScore": 56,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -663,11 +663,11 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 5,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:07.232Z",
+          "evaluatedAt": "2026-06-30T08:27:03.620Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -675,23 +675,23 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 71,
-          "grade": "C",
+          "overallScore": 86,
+          "grade": "B",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 10,
+              "score": 12,
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:07.232Z",
+          "evaluatedAt": "2026-06-30T08:27:03.620Z",
           "evaluatedVersion": "1.0.0"
         }
       }
     },
     {
-      "name": "ckm:ui-styling",
+      "name": "ui-styling",
       "description": "Create beautiful, accessible user interfaces with shadcn/ui components (built on Radix UI + Tailwind), Tailwind CSS utility-first styling, and canvas-based visual designs. Use when building user interfaces, implementing design systems, creating responsive layouts, adding accessible components (dialogs, dropdowns, forms, tables), customizing themes and colors, implementing dark mode, generating visual designs and posters, or establishing consistent styling patterns across applications.",
       "version": "1.0.0",
       "license": "MIT",
@@ -703,7 +703,7 @@
       "verified": true,
       "tokenCount": 2372,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 77,
         "grade": "C",
         "categories": [
           {
@@ -745,11 +745,11 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 5,
+            "score": 10,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:07.233Z",
+        "evaluatedAt": "2026-06-30T08:27:03.622Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -758,7 +758,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 77,
           "grade": "C",
           "categories": [
             {
@@ -800,11 +800,11 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 5,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:07.233Z",
+          "evaluatedAt": "2026-06-30T08:27:03.622Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -812,17 +812,17 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 79,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
+              "score": 11,
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:07.233Z",
+          "evaluatedAt": "2026-06-30T08:27:03.622Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -838,7 +838,7 @@
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/ui-ux-pro-max",
       "relPath": ".claude/skills/ui-ux-pro-max",
       "verified": true,
-      "tokenCount": 12401,
+      "tokenCount": 12818,
       "evalSummary": {
         "overallScore": 69,
         "grade": "C",
@@ -886,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:07.238Z",
+        "evaluatedAt": "2026-06-30T08:27:03.626Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -941,7 +941,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:07.238Z",
+          "evaluatedAt": "2026-06-30T08:27:03.627Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +959,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:07.238Z",
+          "evaluatedAt": "2026-06-30T08:27:03.626Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -971,7 +971,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-06-17T07:47:07.241Z",
+      "createdAt": "2026-06-30T08:27:03.630Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -983,37 +983,37 @@
       ],
       "skills": [
         {
-          "name": "ckm:banner-design",
+          "name": "banner-design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/banner-design",
           "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:brand",
+          "name": "brand",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/brand",
           "description": "Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:design",
+          "name": "design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design",
           "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
           "version": "2.1.0"
         },
         {
-          "name": "ckm:design-system",
+          "name": "design-system",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design-system",
           "description": "Token architecture, component specifications, and slide generation. Three-layer tokens (primitive→semantic→component), CSS variables, spacing/typography scales, component specs, strategic slide creation. Use for design tokens, systematic design, brand-compliant presentations.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:slides",
+          "name": "slides",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/slides",
           "description": "Create strategic HTML presentations with Chart.js, design tokens, responsive layouts, copywriting formulas, and contextual slide strategies.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:ui-styling",
+          "name": "ui-styling",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/ui-styling",
           "description": "Create beautiful, accessible user interfaces with shadcn/ui components (built on Radix UI + Tailwind), Tailwind CSS utility-first styling, and canvas-based visual designs. Use when building user interfaces, implementing design systems, creating responsive layouts, adding accessible components (dialogs, dropdowns, forms, tables), customizing themes and colors, implementing dark mode, generating visual designs and posters, or establishing consistent styling patterns across applications.",
           "version": "1.0.0"
@@ -1037,7 +1037,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-06-17T07:47:07.241Z",
+      "createdAt": "2026-06-30T08:27:03.630Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1049,19 +1049,19 @@
       ],
       "skills": [
         {
-          "name": "ckm:banner-design",
+          "name": "banner-design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/banner-design",
           "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:design",
+          "name": "design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design",
           "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
           "version": "2.1.0"
         },
         {
-          "name": "ckm:design-system",
+          "name": "design-system",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design-system",
           "description": "Token architecture, component specifications, and slide generation. Three-layer tokens (primitive→semantic→component), CSS variables, spacing/typography scales, component specs, strategic slide creation. Use for design tokens, systematic design, brand-compliant presentations.",
           "version": "1.0.0"
@@ -1085,7 +1085,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-06-17T07:47:07.241Z",
+      "createdAt": "2026-06-30T08:27:03.630Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1097,37 +1097,37 @@
       ],
       "skills": [
         {
-          "name": "ckm:banner-design",
+          "name": "banner-design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/banner-design",
           "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:brand",
+          "name": "brand",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/brand",
           "description": "Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:design",
+          "name": "design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design",
           "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
           "version": "2.1.0"
         },
         {
-          "name": "ckm:design-system",
+          "name": "design-system",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design-system",
           "description": "Token architecture, component specifications, and slide generation. Three-layer tokens (primitive→semantic→component), CSS variables, spacing/typography scales, component specs, strategic slide creation. Use for design tokens, systematic design, brand-compliant presentations.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:slides",
+          "name": "slides",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/slides",
           "description": "Create strategic HTML presentations with Chart.js, design tokens, responsive layouts, copywriting formulas, and contextual slide strategies.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:ui-styling",
+          "name": "ui-styling",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/ui-styling",
           "description": "Create beautiful, accessible user interfaces with shadcn/ui components (built on Radix UI + Tailwind), Tailwind CSS utility-first styling, and canvas-based visual designs. Use when building user interfaces, implementing design systems, creating responsive layouts, adding accessible components (dialogs, dropdowns, forms, tables), customizing themes and colors, implementing dark mode, generating visual designs and posters, or establishing consistent styling patterns across applications.",
           "version": "1.0.0"
@@ -1151,7 +1151,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-06-17T07:47:07.241Z",
+      "createdAt": "2026-06-30T08:27:03.630Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1163,37 +1163,37 @@
       ],
       "skills": [
         {
-          "name": "ckm:banner-design",
+          "name": "banner-design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/banner-design",
           "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:brand",
+          "name": "brand",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/brand",
           "description": "Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:design",
+          "name": "design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design",
           "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
           "version": "2.1.0"
         },
         {
-          "name": "ckm:design-system",
+          "name": "design-system",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design-system",
           "description": "Token architecture, component specifications, and slide generation. Three-layer tokens (primitive→semantic→component), CSS variables, spacing/typography scales, component specs, strategic slide creation. Use for design tokens, systematic design, brand-compliant presentations.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:slides",
+          "name": "slides",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/slides",
           "description": "Create strategic HTML presentations with Chart.js, design tokens, responsive layouts, copywriting formulas, and contextual slide strategies.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:ui-styling",
+          "name": "ui-styling",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/ui-styling",
           "description": "Create beautiful, accessible user interfaces with shadcn/ui components (built on Radix UI + Tailwind), Tailwind CSS utility-first styling, and canvas-based visual designs. Use when building user interfaces, implementing design systems, creating responsive layouts, adding accessible components (dialogs, dropdowns, forms, tables), customizing themes and colors, implementing dark mode, generating visual designs and posters, or establishing consistent styling patterns across applications.",
           "version": "1.0.0"
@@ -1217,7 +1217,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-06-17T07:47:07.241Z",
+      "createdAt": "2026-06-30T08:27:03.630Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1229,37 +1229,37 @@
       ],
       "skills": [
         {
-          "name": "ckm:banner-design",
+          "name": "banner-design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/banner-design",
           "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:brand",
+          "name": "brand",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/brand",
           "description": "Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:design",
+          "name": "design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design",
           "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
           "version": "2.1.0"
         },
         {
-          "name": "ckm:design-system",
+          "name": "design-system",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design-system",
           "description": "Token architecture, component specifications, and slide generation. Three-layer tokens (primitive→semantic→component), CSS variables, spacing/typography scales, component specs, strategic slide creation. Use for design tokens, systematic design, brand-compliant presentations.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:slides",
+          "name": "slides",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/slides",
           "description": "Create strategic HTML presentations with Chart.js, design tokens, responsive layouts, copywriting formulas, and contextual slide strategies.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:ui-styling",
+          "name": "ui-styling",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/ui-styling",
           "description": "Create beautiful, accessible user interfaces with shadcn/ui components (built on Radix UI + Tailwind), Tailwind CSS utility-first styling, and canvas-based visual designs. Use when building user interfaces, implementing design systems, creating responsive layouts, adding accessible components (dialogs, dropdowns, forms, tables), customizing themes and colors, implementing dark mode, generating visual designs and posters, or establishing consistent styling patterns across applications.",
           "version": "1.0.0"
@@ -1283,7 +1283,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-06-17T07:47:07.241Z",
+      "createdAt": "2026-06-30T08:27:03.630Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1295,7 +1295,7 @@
       ],
       "skills": [
         {
-          "name": "ckm:brand",
+          "name": "brand",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/brand",
           "description": "Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides.",
           "version": "1.0.0"
@@ -1319,7 +1319,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-06-17T07:47:07.241Z",
+      "createdAt": "2026-06-30T08:27:03.630Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1331,13 +1331,13 @@
       ],
       "skills": [
         {
-          "name": "ckm:brand",
+          "name": "brand",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/brand",
           "description": "Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides.",
           "version": "1.0.0"
         },
         {
-          "name": "ckm:slides",
+          "name": "slides",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/slides",
           "description": "Create strategic HTML presentations with Chart.js, design tokens, responsive layouts, copywriting formulas, and contextual slide strategies.",
           "version": "1.0.0"

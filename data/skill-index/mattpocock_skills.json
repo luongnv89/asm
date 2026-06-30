@@ -2,23 +2,23 @@
   "repoUrl": "https://github.com/mattpocock/skills.git",
   "owner": "mattpocock",
   "repo": "skills",
-  "updatedAt": "2026-06-17T07:47:24.059Z",
-  "skillCount": 29,
+  "updatedAt": "2026-06-30T08:27:35.284Z",
+  "skillCount": 36,
   "skills": [
     {
-      "name": "caveman",
-      "description": "Ultra-compressed communication mode. Cuts token usage ~75% by dropping filler, articles, and pleasantries while keeping full technical accuracy. Use when user says \"caveman mode\", \"talk like caveman\", \"use caveman\", \"less tokens\", \"be brief\", or invokes /caveman.",
+      "name": "ask-matt",
+      "description": "Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "installUrl": "github:mattpocock/skills:skills/productivity/caveman",
-      "relPath": "skills/productivity/caveman",
+      "installUrl": "github:mattpocock/skills:skills/engineering/ask-matt",
+      "relPath": "skills/engineering/ask-matt",
       "verified": true,
-      "tokenCount": 526,
+      "tokenCount": 1311,
       "evalSummary": {
-        "overallScore": 60,
+        "overallScore": 57,
         "grade": "D",
         "categories": [
           {
@@ -30,25 +30,25 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 4,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 3,
+            "score": 6,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 10,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 2,
             "max": 10
           },
           {
@@ -64,7 +64,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.033Z",
+        "evaluatedAt": "2026-06-30T08:27:35.242Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -73,7 +73,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 60,
+          "overallScore": 57,
           "grade": "D",
           "categories": [
             {
@@ -85,25 +85,25 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 4,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 3,
+              "score": 6,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 10,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 2,
               "max": 10
             },
             {
@@ -119,7 +119,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.033Z",
+          "evaluatedAt": "2026-06-30T08:27:35.242Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +137,281 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.033Z",
+          "evaluatedAt": "2026-06-30T08:27:35.242Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "codebase-design",
+      "description": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:mattpocock/skills:skills/engineering/codebase-design",
+      "relPath": "skills/engineering/codebase-design",
+      "verified": true,
+      "tokenCount": 1781,
+      "evalSummary": {
+        "overallScore": 70,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-30T08:27:35.244Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 70,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.244Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.244Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "decision-mapping",
+      "description": "Turn a loose idea into a sequenced map of investigation tickets, then drive them to resolution one at a time.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:mattpocock/skills:skills/in-progress/decision-mapping",
+      "relPath": "skills/in-progress/decision-mapping",
+      "verified": true,
+      "tokenCount": 1660,
+      "evalSummary": {
+        "overallScore": 64,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-30T08:27:35.245Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 64,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.245Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.245Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -201,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.034Z",
+        "evaluatedAt": "2026-06-30T08:27:35.247Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -256,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.034Z",
+          "evaluatedAt": "2026-06-30T08:27:35.247Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,25 +548,25 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.034Z",
+          "evaluatedAt": "2026-06-30T08:27:35.247Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
-      "name": "diagnose",
-      "description": "Disciplined diagnosis loop for hard bugs and performance regressions. Reproduce → minimise → hypothesise → instrument → fix → regression-test. Use when user says \"diagnose this\" / \"debug this\", reports a bug, says something is broken/throwing/failing, or describes a performance regression.",
+      "name": "diagnosing-bugs",
+      "description": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "installUrl": "github:mattpocock/skills:skills/engineering/diagnose",
-      "relPath": "skills/engineering/diagnose",
+      "installUrl": "github:mattpocock/skills:skills/engineering/diagnosing-bugs",
+      "relPath": "skills/engineering/diagnosing-bugs",
       "verified": true,
-      "tokenCount": 2272,
+      "tokenCount": 2740,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 79,
         "grade": "C",
         "categories": [
           {
@@ -304,13 +578,13 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 7,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 6,
+            "score": 8,
             "max": 10
           },
           {
@@ -338,7 +612,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.035Z",
+        "evaluatedAt": "2026-06-30T08:27:35.248Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -347,7 +621,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 79,
           "grade": "C",
           "categories": [
             {
@@ -359,13 +633,13 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 5,
+              "score": 7,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 6,
+              "score": 8,
               "max": 10
             },
             {
@@ -393,7 +667,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.035Z",
+          "evaluatedAt": "2026-06-30T08:27:35.248Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -401,17 +675,154 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 69,
+          "overallScore": 77,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
+              "score": 10,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.035Z",
+          "evaluatedAt": "2026-06-30T08:27:35.248Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "domain-modeling",
+      "description": "Build and sharpen a project's domain model. Use when the user wants to pin down domain terminology or a ubiquitous language, record an architectural decision, or when another skill needs to maintain the domain model.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:mattpocock/skills:skills/engineering/domain-modeling",
+      "relPath": "skills/engineering/domain-modeling",
+      "verified": true,
+      "tokenCount": 1061,
+      "evalSummary": {
+        "overallScore": 66,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-30T08:27:35.249Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 66,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.250Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.250Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -427,7 +838,7 @@
       "installUrl": "github:mattpocock/skills:skills/personal/edit-article",
       "relPath": "skills/personal/edit-article",
       "verified": true,
-      "tokenCount": 215,
+      "tokenCount": 218,
       "evalSummary": {
         "overallScore": 53,
         "grade": "D",
@@ -475,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.036Z",
+        "evaluatedAt": "2026-06-30T08:27:35.250Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -530,7 +941,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.036Z",
+          "evaluatedAt": "2026-06-30T08:27:35.250Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -538,17 +949,17 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 77,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 10,
+              "score": 9,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.036Z",
+          "evaluatedAt": "2026-06-30T08:27:35.250Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -612,7 +1023,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.036Z",
+        "evaluatedAt": "2026-06-30T08:27:35.251Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -667,7 +1078,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.036Z",
+          "evaluatedAt": "2026-06-30T08:27:35.251Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,14 +1096,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.036Z",
+          "evaluatedAt": "2026-06-30T08:27:35.251Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "grill-me",
-      "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+      "description": "A relentless interview to sharpen a plan or design.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -701,9 +1112,283 @@
       "installUrl": "github:mattpocock/skills:skills/productivity/grill-me",
       "relPath": "skills/productivity/grill-me",
       "verified": true,
-      "tokenCount": 189,
+      "tokenCount": 34,
       "evalSummary": {
-        "overallScore": 40,
+        "overallScore": 31,
+        "grade": "F",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-30T08:27:35.252Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 31,
+          "grade": "F",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 7,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.252Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.252Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "grill-with-docs",
+      "description": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:mattpocock/skills:skills/engineering/grill-with-docs",
+      "relPath": "skills/engineering/grill-with-docs",
+      "verified": true,
+      "tokenCount": 62,
+      "evalSummary": {
+        "overallScore": 31,
+        "grade": "F",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-30T08:27:35.253Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 31,
+          "grade": "F",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 7,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.253Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.253Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "grilling",
+      "description": "Interview the user relentlessly about a plan or design. Use when the user wants to stress-test a plan before building, or uses any 'grill' trigger phrases.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:mattpocock/skills:skills/productivity/grilling",
+      "relPath": "skills/productivity/grilling",
+      "verified": true,
+      "tokenCount": 197,
+      "evalSummary": {
+        "overallScore": 43,
         "grade": "F",
         "categories": [
           {
@@ -727,7 +1412,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 2,
+            "score": 4,
             "max": 10
           },
           {
@@ -749,7 +1434,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.037Z",
+        "evaluatedAt": "2026-06-30T08:27:35.254Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -758,7 +1443,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 40,
+          "overallScore": 43,
           "grade": "F",
           "categories": [
             {
@@ -782,7 +1467,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 2,
+              "score": 4,
               "max": 10
             },
             {
@@ -804,7 +1489,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.037Z",
+          "evaluatedAt": "2026-06-30T08:27:35.254Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,144 +1507,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.037Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "grill-with-docs",
-      "description": "Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates documentation (CONTEXT.md, ADRs) inline as decisions crystallise. Use when user wants to stress-test a plan against their project's language and documented decisions.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:mattpocock/skills:skills/engineering/grill-with-docs",
-      "relPath": "skills/engineering/grill-with-docs",
-      "verified": true,
-      "tokenCount": 1082,
-      "evalSummary": {
-        "overallScore": 67,
-        "grade": "C",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 4,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-06-17T07:47:24.038Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 67,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 4,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-06-17T07:47:24.038Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 69,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 9,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-06-17T07:47:24.038Z",
+          "evaluatedAt": "2026-06-30T08:27:35.254Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -975,7 +1523,7 @@
       "installUrl": "github:mattpocock/skills:skills/productivity/handoff",
       "relPath": "skills/productivity/handoff",
       "verified": true,
-      "tokenCount": 254,
+      "tokenCount": 257,
       "evalSummary": {
         "overallScore": 44,
         "grade": "F",
@@ -1023,7 +1571,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.038Z",
+        "evaluatedAt": "2026-06-30T08:27:35.255Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1078,7 +1626,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.038Z",
+          "evaluatedAt": "2026-06-30T08:27:35.255Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1096,14 +1644,151 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.038Z",
+          "evaluatedAt": "2026-06-30T08:27:35.255Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "implement",
+      "description": "Implement a piece of work based on a PRD or set of issues.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:mattpocock/skills:skills/engineering/implement",
+      "relPath": "skills/engineering/implement",
+      "verified": true,
+      "tokenCount": 130,
+      "evalSummary": {
+        "overallScore": 34,
+        "grade": "F",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-30T08:27:35.255Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 34,
+          "grade": "F",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 7,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.255Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.256Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "improve-codebase-architecture",
-      "description": "Find deepening opportunities in a codebase, informed by the domain language in CONTEXT.md and the decisions in docs/adr/. Use when the user wants to improve architecture, find refactoring opportunities, consolidate tightly-coupled modules, or make a codebase more testable and AI-navigable.",
+      "description": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -1112,9 +1797,9 @@
       "installUrl": "github:mattpocock/skills:skills/engineering/improve-codebase-architecture",
       "relPath": "skills/engineering/improve-codebase-architecture",
       "verified": true,
-      "tokenCount": 1847,
+      "tokenCount": 1560,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -1144,7 +1829,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 5,
+            "score": 6,
             "max": 10
           },
           {
@@ -1156,11 +1841,11 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 10,
+            "score": 8,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.039Z",
+        "evaluatedAt": "2026-06-30T08:27:35.257Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1169,7 +1854,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -1199,7 +1884,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 5,
+              "score": 6,
               "max": 10
             },
             {
@@ -1211,11 +1896,11 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 10,
+              "score": 8,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.039Z",
+          "evaluatedAt": "2026-06-30T08:27:35.257Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1918,144 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.039Z",
+          "evaluatedAt": "2026-06-30T08:27:35.257Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "loop-me",
+      "description": "Grill me about specs for the workflows I want to build, within this workspace.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:mattpocock/skills:skills/in-progress/loop-me",
+      "relPath": "skills/in-progress/loop-me",
+      "verified": true,
+      "tokenCount": 831,
+      "evalSummary": {
+        "overallScore": 57,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-30T08:27:35.258Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 57,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.258Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.258Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1297,7 +2119,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.040Z",
+        "evaluatedAt": "2026-06-30T08:27:35.259Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1352,7 +2174,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.040Z",
+          "evaluatedAt": "2026-06-30T08:27:35.259Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +2192,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.040Z",
+          "evaluatedAt": "2026-06-30T08:27:35.259Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1434,7 +2256,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.041Z",
+        "evaluatedAt": "2026-06-30T08:27:35.260Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1489,7 +2311,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.041Z",
+          "evaluatedAt": "2026-06-30T08:27:35.260Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1507,14 +2329,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.041Z",
+          "evaluatedAt": "2026-06-30T08:27:35.260Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "prototype",
-      "description": "Build a throwaway prototype to flesh out a design before committing to it. Routes between two branches — a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route. Use when the user wants to prototype, sanity-check a data model or state machine, mock up a UI, explore design options, or says \"prototype this\", \"let me play with it\", \"try a few designs\".",
+      "description": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -1523,9 +2345,9 @@
       "installUrl": "github:mattpocock/skills:skills/engineering/prototype",
       "relPath": "skills/engineering/prototype",
       "verified": true,
-      "tokenCount": 1062,
+      "tokenCount": 988,
       "evalSummary": {
-        "overallScore": 59,
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -1537,7 +2359,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 6,
+            "score": 10,
             "max": 10
           },
           {
@@ -1571,7 +2393,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.042Z",
+        "evaluatedAt": "2026-06-30T08:27:35.261Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1580,7 +2402,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 59,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -1592,7 +2414,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 6,
+              "score": 10,
               "max": 10
             },
             {
@@ -1626,7 +2448,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.042Z",
+          "evaluatedAt": "2026-06-30T08:27:35.261Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1634,17 +2456,17 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 69,
+          "overallScore": 77,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
+              "score": 10,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.042Z",
+          "evaluatedAt": "2026-06-30T08:27:35.261Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1708,7 +2530,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.043Z",
+        "evaluatedAt": "2026-06-30T08:27:35.262Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1763,7 +2585,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.043Z",
+          "evaluatedAt": "2026-06-30T08:27:35.262Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +2603,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.043Z",
+          "evaluatedAt": "2026-06-30T08:27:35.262Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1845,7 +2667,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.043Z",
+        "evaluatedAt": "2026-06-30T08:27:35.263Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1900,7 +2722,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.043Z",
+          "evaluatedAt": "2026-06-30T08:27:35.263Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1918,7 +2740,144 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.043Z",
+          "evaluatedAt": "2026-06-30T08:27:35.263Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "resolving-merge-conflicts",
+      "description": "Use when you need to resolve an in-progress git merge/rebase conflict.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:mattpocock/skills:skills/engineering/resolving-merge-conflicts",
+      "relPath": "skills/engineering/resolving-merge-conflicts",
+      "verified": true,
+      "tokenCount": 259,
+      "evalSummary": {
+        "overallScore": 49,
+        "grade": "F",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-30T08:27:35.264Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 49,
+          "grade": "F",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 7,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.264Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.264Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1934,7 +2893,7 @@
       "installUrl": "github:mattpocock/skills:skills/in-progress/review",
       "relPath": "skills/in-progress/review",
       "verified": true,
-      "tokenCount": 1344,
+      "tokenCount": 1253,
       "evalSummary": {
         "overallScore": 60,
         "grade": "D",
@@ -1982,7 +2941,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.044Z",
+        "evaluatedAt": "2026-06-30T08:27:35.265Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2037,7 +2996,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.044Z",
+          "evaluatedAt": "2026-06-30T08:27:35.265Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2055,7 +3014,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.044Z",
+          "evaluatedAt": "2026-06-30T08:27:35.265Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2119,7 +3078,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.045Z",
+        "evaluatedAt": "2026-06-30T08:27:35.266Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2174,7 +3133,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.045Z",
+          "evaluatedAt": "2026-06-30T08:27:35.266Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2192,14 +3151,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.045Z",
+          "evaluatedAt": "2026-06-30T08:27:35.266Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "setup-matt-pocock-skills",
-      "description": "Sets up an `## Agent skills` block in AGENTS.md/CLAUDE.md and `docs/agents/` so the engineering skills know this repo's issue tracker (GitHub or local markdown), triage label vocabulary, and domain doc layout. Run before first use of `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, or `zoom-out` — or if those skills appear to be missing context about the issue tracker, triage labels, or domain docs.",
+      "description": "Configure this repo for the engineering skills — set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -2208,10 +3167,10 @@
       "installUrl": "github:mattpocock/skills:skills/engineering/setup-matt-pocock-skills",
       "relPath": "skills/engineering/setup-matt-pocock-skills",
       "verified": true,
-      "tokenCount": 1999,
+      "tokenCount": 2164,
       "evalSummary": {
-        "overallScore": 61,
-        "grade": "D",
+        "overallScore": 67,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -2222,7 +3181,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 6,
+            "score": 10,
             "max": 10
           },
           {
@@ -2256,7 +3215,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.046Z",
+        "evaluatedAt": "2026-06-30T08:27:35.268Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2265,8 +3224,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 61,
-          "grade": "D",
+          "overallScore": 67,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -2277,7 +3236,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 6,
+              "score": 10,
               "max": 10
             },
             {
@@ -2311,7 +3270,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.046Z",
+          "evaluatedAt": "2026-06-30T08:27:35.268Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2319,17 +3278,17 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 62,
-          "grade": "D",
+          "overallScore": 69,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
+              "score": 9,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.046Z",
+          "evaluatedAt": "2026-06-30T08:27:35.268Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2393,7 +3352,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.047Z",
+        "evaluatedAt": "2026-06-30T08:27:35.269Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2448,7 +3407,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.047Z",
+          "evaluatedAt": "2026-06-30T08:27:35.269Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2466,14 +3425,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.047Z",
+          "evaluatedAt": "2026-06-30T08:27:35.269Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "tdd",
-      "description": "Test-driven development with red-green-refactor loop. Use when user wants to build features or fix bugs using TDD, mentions \"red-green-refactor\", wants integration tests, or asks for test-first development.",
+      "description": "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -2482,9 +3441,9 @@
       "installUrl": "github:mattpocock/skills:skills/engineering/tdd",
       "relPath": "skills/engineering/tdd",
       "verified": true,
-      "tokenCount": 1290,
+      "tokenCount": 1495,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 77,
         "grade": "C",
         "categories": [
           {
@@ -2502,7 +3461,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2530,7 +3489,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.048Z",
+        "evaluatedAt": "2026-06-30T08:27:35.270Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2539,7 +3498,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 76,
+          "overallScore": 77,
           "grade": "C",
           "categories": [
             {
@@ -2557,7 +3516,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 9,
+              "score": 10,
               "max": 10
             },
             {
@@ -2585,7 +3544,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.048Z",
+          "evaluatedAt": "2026-06-30T08:27:35.270Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2603,7 +3562,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.048Z",
+          "evaluatedAt": "2026-06-30T08:27:35.270Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2619,7 +3578,7 @@
       "installUrl": "github:mattpocock/skills:skills/productivity/teach",
       "relPath": "skills/productivity/teach",
       "verified": true,
-      "tokenCount": 2667,
+      "tokenCount": 2898,
       "evalSummary": {
         "overallScore": 64,
         "grade": "D",
@@ -2667,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.050Z",
+        "evaluatedAt": "2026-06-30T08:27:35.272Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2722,7 +3681,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.050Z",
+          "evaluatedAt": "2026-06-30T08:27:35.272Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2740,14 +3699,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.050Z",
+          "evaluatedAt": "2026-06-30T08:27:35.272Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "to-issues",
-      "description": "Break a plan, spec, or PRD into independently-grabbable issues on the project issue tracker using tracer-bullet vertical slices. Use when user wants to convert a plan into issues, create implementation tickets, or break down work into issues.",
+      "description": "Break a plan, spec, or PRD into independently-grabbable issues on the project issue tracker using tracer-bullet vertical slices.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -2756,10 +3715,10 @@
       "installUrl": "github:mattpocock/skills:skills/engineering/to-issues",
       "relPath": "skills/engineering/to-issues",
       "verified": true,
-      "tokenCount": 1112,
+      "tokenCount": 1015,
       "evalSummary": {
-        "overallScore": 66,
-        "grade": "C",
+        "overallScore": 64,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -2770,7 +3729,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 4,
             "max": 10
           },
           {
@@ -2794,7 +3753,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 3,
+            "score": 5,
             "max": 10
           },
           {
@@ -2804,7 +3763,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.051Z",
+        "evaluatedAt": "2026-06-30T08:27:35.273Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2813,8 +3772,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 66,
-          "grade": "C",
+          "overallScore": 64,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -2825,7 +3784,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 4,
               "max": 10
             },
             {
@@ -2849,7 +3808,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 3,
+              "score": 5,
               "max": 10
             },
             {
@@ -2859,7 +3818,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.051Z",
+          "evaluatedAt": "2026-06-30T08:27:35.274Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2867,24 +3826,24 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 77,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 10,
+              "score": 9,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.051Z",
+          "evaluatedAt": "2026-06-30T08:27:35.274Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "to-prd",
-      "description": "Turn the current conversation context into a PRD and publish it to the project issue tracker. Use when user wants to create a PRD from the current context.",
+      "description": "Turn the current conversation into a PRD and publish it to the project issue tracker — no interview, just synthesis of what you've already discussed.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -2893,10 +3852,10 @@
       "installUrl": "github:mattpocock/skills:skills/engineering/to-prd",
       "relPath": "skills/engineering/to-prd",
       "verified": true,
-      "tokenCount": 916,
+      "tokenCount": 941,
       "evalSummary": {
-        "overallScore": 67,
-        "grade": "C",
+        "overallScore": 63,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -2907,7 +3866,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 4,
             "max": 10
           },
           {
@@ -2941,7 +3900,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.052Z",
+        "evaluatedAt": "2026-06-30T08:27:35.275Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2950,8 +3909,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
-          "grade": "C",
+          "overallScore": 63,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -2962,7 +3921,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 4,
               "max": 10
             },
             {
@@ -2996,7 +3955,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.052Z",
+          "evaluatedAt": "2026-06-30T08:27:35.275Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3004,24 +3963,24 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 77,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 10,
+              "score": 9,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.052Z",
+          "evaluatedAt": "2026-06-30T08:27:35.275Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "triage",
-      "description": "Triage issues through a state machine driven by triage roles. Use when user wants to create an issue, triage issues, review incoming bugs or feature requests, prepare issues for an AFK agent, or manage issue workflow.",
+      "description": "Move issues and external PRs through a state machine of triage roles — categorise, verify, grill if needed, and write agent-ready briefs.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -3030,7 +3989,7 @@
       "installUrl": "github:mattpocock/skills:skills/engineering/triage",
       "relPath": "skills/engineering/triage",
       "verified": true,
-      "tokenCount": 1403,
+      "tokenCount": 1965,
       "evalSummary": {
         "overallScore": 67,
         "grade": "C",
@@ -3044,7 +4003,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 4,
             "max": 10
           },
           {
@@ -3062,7 +4021,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 4,
+            "score": 7,
             "max": 10
           },
           {
@@ -3078,7 +4037,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.053Z",
+        "evaluatedAt": "2026-06-30T08:27:35.276Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3099,7 +4058,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 4,
               "max": 10
             },
             {
@@ -3117,7 +4076,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 4,
+              "score": 7,
               "max": 10
             },
             {
@@ -3133,7 +4092,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.053Z",
+          "evaluatedAt": "2026-06-30T08:27:35.276Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3141,17 +4100,17 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 77,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 10,
+              "score": 9,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.053Z",
+          "evaluatedAt": "2026-06-30T08:27:35.276Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3215,7 +4174,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.054Z",
+        "evaluatedAt": "2026-06-30T08:27:35.277Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3270,7 +4229,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.054Z",
+          "evaluatedAt": "2026-06-30T08:27:35.277Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3288,25 +4247,25 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.054Z",
+          "evaluatedAt": "2026-06-30T08:27:35.277Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
-      "name": "write-a-skill",
-      "description": "Create new agent skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill.",
+      "name": "wizard",
+      "description": "Generate an interactive bash wizard that walks a human through a manual procedure — third-party setup, a one-off migration, an A→B state transition — opening URLs, capturing values, confirming each step, and writing .env files and GitHub Actions secrets.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "installUrl": "github:mattpocock/skills:skills/productivity/write-a-skill",
-      "relPath": "skills/productivity/write-a-skill",
+      "installUrl": "github:mattpocock/skills:skills/in-progress/wizard",
+      "relPath": "skills/in-progress/wizard",
       "verified": true,
-      "tokenCount": 909,
+      "tokenCount": 1339,
       "evalSummary": {
-        "overallScore": 79,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -3318,13 +4277,13 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 10,
+            "score": 7,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 9,
+            "score": 7,
             "max": 10
           },
           {
@@ -3336,23 +4295,23 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 9,
+            "score": 8,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 1,
+            "score": 3,
             "max": 10
           },
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 10,
+            "score": 8,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.055Z",
+        "evaluatedAt": "2026-06-30T08:27:35.278Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3361,7 +4320,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 79,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -3373,13 +4332,13 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 10,
+              "score": 7,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 9,
+              "score": 7,
               "max": 10
             },
             {
@@ -3391,23 +4350,23 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 9,
+              "score": 8,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 1,
+              "score": 3,
               "max": 10
             },
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 10,
+              "score": 8,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.055Z",
+          "evaluatedAt": "2026-06-30T08:27:35.278Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3415,24 +4374,24 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 77,
-          "grade": "C",
+          "overallScore": 62,
+          "grade": "D",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 10,
+              "score": 8,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.055Z",
+          "evaluatedAt": "2026-06-30T08:27:35.279Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "writing-beats",
-      "description": "Shape an article as a journey of beats, choose-your-own-adventure style. The user picks a starting beat from the raw material, you write only that beat, then offer options for where to pivot next, beat by beat, until the article reaches a natural end. Use when the user has raw material and wants to assemble it as a narrative rather than an argument.",
+      "description": "Writing, exploit — assemble raw material into a journey of beats, grounding each term before a beat leans on it.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -3441,9 +4400,9 @@
       "installUrl": "github:mattpocock/skills:skills/in-progress/writing-beats",
       "relPath": "skills/in-progress/writing-beats",
       "verified": true,
-      "tokenCount": 988,
+      "tokenCount": 1697,
       "evalSummary": {
-        "overallScore": 51,
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -3455,7 +4414,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 3,
+            "score": 7,
             "max": 10
           },
           {
@@ -3473,7 +4432,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 2,
+            "score": 7,
             "max": 10
           },
           {
@@ -3489,7 +4448,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.056Z",
+        "evaluatedAt": "2026-06-30T08:27:35.280Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3498,7 +4457,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 51,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -3510,7 +4469,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 3,
+              "score": 7,
               "max": 10
             },
             {
@@ -3528,7 +4487,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 2,
+              "score": 7,
               "max": 10
             },
             {
@@ -3544,7 +4503,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.056Z",
+          "evaluatedAt": "2026-06-30T08:27:35.280Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3562,14 +4521,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.056Z",
+          "evaluatedAt": "2026-06-30T08:27:35.280Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "writing-fragments",
-      "description": "Grilling session that mines the user for fragments — heterogeneous nuggets of writing (claims, vignettes, sharp sentences, half-thoughts) — and appends them to a single document as raw material for a future article. Use when the user wants to develop ideas before imposing structure, or mentions \"fragments\", \"ideate\", or \"raw material\" for writing.",
+      "description": "Writing, explore — mine raw fragments, no structure yet.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -3578,9 +4537,9 @@
       "installUrl": "github:mattpocock/skills:skills/in-progress/writing-fragments",
       "relPath": "skills/in-progress/writing-fragments",
       "verified": true,
-      "tokenCount": 1067,
+      "tokenCount": 1158,
       "evalSummary": {
-        "overallScore": 53,
+        "overallScore": 50,
         "grade": "D",
         "categories": [
           {
@@ -3592,13 +4551,13 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 4,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 8,
+            "score": 7,
             "max": 10
           },
           {
@@ -3626,7 +4585,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.057Z",
+        "evaluatedAt": "2026-06-30T08:27:35.281Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3635,7 +4594,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 53,
+          "overallScore": 50,
           "grade": "D",
           "categories": [
             {
@@ -3647,13 +4606,13 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 5,
+              "score": 4,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 8,
+              "score": 7,
               "max": 10
             },
             {
@@ -3681,7 +4640,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.057Z",
+          "evaluatedAt": "2026-06-30T08:27:35.281Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3699,14 +4658,151 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.057Z",
+          "evaluatedAt": "2026-06-30T08:27:35.281Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "writing-great-skills",
+      "description": "Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:mattpocock/skills:skills/productivity/writing-great-skills",
+      "relPath": "skills/productivity/writing-great-skills",
+      "verified": true,
+      "tokenCount": 2885,
+      "evalSummary": {
+        "overallScore": 66,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-06-30T08:27:35.282Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 66,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.282Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-06-30T08:27:35.282Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "writing-shape",
-      "description": "Take a markdown file of raw material and shape it into an article through a conversational session — drafting candidate openings, growing the piece paragraph by paragraph, arguing about format (lists, tables, callouts, quotes) at each step. Use when the user has a pile of notes, fragments, or a rough draft and wants help turning it into something publishable.",
+      "description": "Writing, exploit — shape raw material into an article, paragraph by paragraph.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -3715,9 +4811,9 @@
       "installUrl": "github:mattpocock/skills:skills/in-progress/writing-shape",
       "relPath": "skills/in-progress/writing-shape",
       "verified": true,
-      "tokenCount": 1557,
+      "tokenCount": 2036,
       "evalSummary": {
-        "overallScore": 57,
+        "overallScore": 61,
         "grade": "D",
         "categories": [
           {
@@ -3729,7 +4825,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 4,
             "max": 10
           },
           {
@@ -3747,7 +4843,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 1,
+            "score": 5,
             "max": 10
           },
           {
@@ -3763,7 +4859,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-17T07:47:24.058Z",
+        "evaluatedAt": "2026-06-30T08:27:35.284Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3772,7 +4868,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 57,
+          "overallScore": 61,
           "grade": "D",
           "categories": [
             {
@@ -3784,7 +4880,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 5,
+              "score": 4,
               "max": 10
             },
             {
@@ -3802,7 +4898,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 1,
+              "score": 5,
               "max": 10
             },
             {
@@ -3818,7 +4914,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.058Z",
+          "evaluatedAt": "2026-06-30T08:27:35.284Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3836,144 +4932,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-17T07:47:24.058Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "zoom-out",
-      "description": "Tell the agent to zoom out and give broader context or a higher-level perspective. Use when you're unfamiliar with a section of code or need to understand how it fits into the bigger picture.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:mattpocock/skills:skills/engineering/zoom-out",
-      "relPath": "skills/engineering/zoom-out",
-      "verified": true,
-      "tokenCount": 138,
-      "evalSummary": {
-        "overallScore": 34,
-        "grade": "F",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 6,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 2,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 2,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 7,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-06-17T07:47:24.059Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 34,
-          "grade": "F",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 6,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 2,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 2,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 7,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-06-17T07:47:24.059Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 69,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 9,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-06-17T07:47:24.059Z",
+          "evaluatedAt": "2026-06-30T08:27:35.284Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3985,7 +4944,7 @@
       "name": "mattpocock-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from mattpocock/skills.",
       "author": "ASM (mattpocock/skills)",
-      "createdAt": "2026-06-17T07:47:24.059Z",
+      "createdAt": "2026-06-30T08:27:35.284Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3997,15 +4956,27 @@
       ],
       "skills": [
         {
+          "name": "codebase-design",
+          "installUrl": "github:mattpocock/skills:skills/engineering/codebase-design",
+          "description": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
+          "version": "0.0.0"
+        },
+        {
           "name": "design-an-interface",
           "installUrl": "github:mattpocock/skills:skills/deprecated/design-an-interface",
           "description": "Generate multiple radically different interface designs for a module using parallel sub-agents. Use when user wants to design an API, explore interface options, compare module shapes, or mentions \"design it twice\".",
           "version": "0.0.0"
         },
         {
-          "name": "diagnose",
-          "installUrl": "github:mattpocock/skills:skills/engineering/diagnose",
-          "description": "Disciplined diagnosis loop for hard bugs and performance regressions. Reproduce → minimise → hypothesise → instrument → fix → regression-test. Use when user says \"diagnose this\" / \"debug this\", reports a bug, says something is broken/throwing/failing, or describes a performance regression.",
+          "name": "diagnosing-bugs",
+          "installUrl": "github:mattpocock/skills:skills/engineering/diagnosing-bugs",
+          "description": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "domain-modeling",
+          "installUrl": "github:mattpocock/skills:skills/engineering/domain-modeling",
+          "description": "Build and sharpen a project's domain model. Use when the user wants to pin down domain terminology or a ubiquitous language, record an architectural decision, or when another skill needs to maintain the domain model.",
           "version": "0.0.0"
         },
         {
@@ -4015,21 +4986,9 @@
           "version": "0.0.0"
         },
         {
-          "name": "grill-with-docs",
-          "installUrl": "github:mattpocock/skills:skills/engineering/grill-with-docs",
-          "description": "Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates documentation (CONTEXT.md, ADRs) inline as decisions crystallise. Use when user wants to stress-test a plan against their project's language and documented decisions.",
-          "version": "0.0.0"
-        },
-        {
           "name": "handoff",
           "installUrl": "github:mattpocock/skills:skills/productivity/handoff",
           "description": "Compact the current conversation into a handoff document for another agent to pick up.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "improve-codebase-architecture",
-          "installUrl": "github:mattpocock/skills:skills/engineering/improve-codebase-architecture",
-          "description": "Find deepening opportunities in a codebase, informed by the domain language in CONTEXT.md and the decisions in docs/adr/. Use when the user wants to improve architecture, find refactoring opportunities, consolidate tightly-coupled modules, or make a codebase more testable and AI-navigable.",
           "version": "0.0.0"
         },
         {
@@ -4041,7 +5000,7 @@
         {
           "name": "prototype",
           "installUrl": "github:mattpocock/skills:skills/engineering/prototype",
-          "description": "Build a throwaway prototype to flesh out a design before committing to it. Routes between two branches — a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route. Use when the user wants to prototype, sanity-check a data model or state machine, mock up a UI, explore design options, or says \"prototype this\", \"let me play with it\", \"try a few designs\".",
+          "description": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.",
           "version": "0.0.0"
         },
         {
@@ -4071,37 +5030,19 @@
         {
           "name": "setup-matt-pocock-skills",
           "installUrl": "github:mattpocock/skills:skills/engineering/setup-matt-pocock-skills",
-          "description": "Sets up an `## Agent skills` block in AGENTS.md/CLAUDE.md and `docs/agents/` so the engineering skills know this repo's issue tracker (GitHub or local markdown), triage label vocabulary, and domain doc layout. Run before first use of `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, or `zoom-out` — or if those skills appear to be missing context about the issue tracker, triage labels, or domain docs.",
+          "description": "Configure this repo for the engineering skills — set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.",
           "version": "0.0.0"
         },
         {
           "name": "triage",
           "installUrl": "github:mattpocock/skills:skills/engineering/triage",
-          "description": "Triage issues through a state machine driven by triage roles. Use when user wants to create an issue, triage issues, review incoming bugs or feature requests, prepare issues for an AFK agent, or manage issue workflow.",
+          "description": "Move issues and external PRs through a state machine of triage roles — categorise, verify, grill if needed, and write agent-ready briefs.",
           "version": "0.0.0"
         },
         {
           "name": "ubiquitous-language",
           "installUrl": "github:mattpocock/skills:skills/deprecated/ubiquitous-language",
           "description": "Extract a DDD-style ubiquitous language glossary from the current conversation, flagging ambiguities and proposing canonical terms. Saves to UBIQUITOUS_LANGUAGE.md. Use when user wants to define domain terms, build a glossary, harden terminology, create a ubiquitous language, or mentions \"domain model\" or \"DDD\".",
-          "version": "0.0.0"
-        },
-        {
-          "name": "write-a-skill",
-          "installUrl": "github:mattpocock/skills:skills/productivity/write-a-skill",
-          "description": "Create new agent skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "writing-fragments",
-          "installUrl": "github:mattpocock/skills:skills/in-progress/writing-fragments",
-          "description": "Grilling session that mines the user for fragments — heterogeneous nuggets of writing (claims, vignettes, sharp sentences, half-thoughts) — and appends them to a single document as raw material for a future article. Use when the user wants to develop ideas before imposing structure, or mentions \"fragments\", \"ideate\", or \"raw material\" for writing.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "zoom-out",
-          "installUrl": "github:mattpocock/skills:skills/engineering/zoom-out",
-          "description": "Tell the agent to zoom out and give broader context or a higher-level perspective. Use when you're unfamiliar with a section of code or need to understand how it fits into the bigger picture.",
           "version": "0.0.0"
         }
       ],
@@ -4117,7 +5058,7 @@
       "name": "mattpocock-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from mattpocock/skills.",
       "author": "ASM (mattpocock/skills)",
-      "createdAt": "2026-06-17T07:47:24.059Z",
+      "createdAt": "2026-06-30T08:27:35.284Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4129,27 +5070,27 @@
       ],
       "skills": [
         {
-          "name": "diagnose",
-          "installUrl": "github:mattpocock/skills:skills/engineering/diagnose",
-          "description": "Disciplined diagnosis loop for hard bugs and performance regressions. Reproduce → minimise → hypothesise → instrument → fix → regression-test. Use when user says \"diagnose this\" / \"debug this\", reports a bug, says something is broken/throwing/failing, or describes a performance regression.",
+          "name": "codebase-design",
+          "installUrl": "github:mattpocock/skills:skills/engineering/codebase-design",
+          "description": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
           "version": "0.0.0"
         },
         {
-          "name": "grill-me",
-          "installUrl": "github:mattpocock/skills:skills/productivity/grill-me",
-          "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+          "name": "decision-mapping",
+          "installUrl": "github:mattpocock/skills:skills/in-progress/decision-mapping",
+          "description": "Turn a loose idea into a sequenced map of investigation tickets, then drive them to resolution one at a time.",
           "version": "0.0.0"
         },
         {
-          "name": "grill-with-docs",
-          "installUrl": "github:mattpocock/skills:skills/engineering/grill-with-docs",
-          "description": "Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates documentation (CONTEXT.md, ADRs) inline as decisions crystallise. Use when user wants to stress-test a plan against their project's language and documented decisions.",
+          "name": "domain-modeling",
+          "installUrl": "github:mattpocock/skills:skills/engineering/domain-modeling",
+          "description": "Build and sharpen a project's domain model. Use when the user wants to pin down domain terminology or a ubiquitous language, record an architectural decision, or when another skill needs to maintain the domain model.",
           "version": "0.0.0"
         },
         {
-          "name": "improve-codebase-architecture",
-          "installUrl": "github:mattpocock/skills:skills/engineering/improve-codebase-architecture",
-          "description": "Find deepening opportunities in a codebase, informed by the domain language in CONTEXT.md and the decisions in docs/adr/. Use when the user wants to improve architecture, find refactoring opportunities, consolidate tightly-coupled modules, or make a codebase more testable and AI-navigable.",
+          "name": "loop-me",
+          "installUrl": "github:mattpocock/skills:skills/in-progress/loop-me",
+          "description": "Grill me about specs for the workflows I want to build, within this workspace.",
           "version": "0.0.0"
         },
         {
@@ -4159,9 +5100,9 @@
           "version": "0.0.0"
         },
         {
-          "name": "triage",
-          "installUrl": "github:mattpocock/skills:skills/engineering/triage",
-          "description": "Triage issues through a state machine driven by triage roles. Use when user wants to create an issue, triage issues, review incoming bugs or feature requests, prepare issues for an AFK agent, or manage issue workflow.",
+          "name": "writing-great-skills",
+          "installUrl": "github:mattpocock/skills:skills/productivity/writing-great-skills",
+          "description": "Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable.",
           "version": "0.0.0"
         }
       ],
@@ -4177,7 +5118,7 @@
       "name": "mattpocock-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from mattpocock/skills.",
       "author": "ASM (mattpocock/skills)",
-      "createdAt": "2026-06-17T07:47:24.059Z",
+      "createdAt": "2026-06-30T08:27:35.284Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4189,15 +5130,27 @@
       ],
       "skills": [
         {
+          "name": "codebase-design",
+          "installUrl": "github:mattpocock/skills:skills/engineering/codebase-design",
+          "description": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
+          "version": "0.0.0"
+        },
+        {
           "name": "design-an-interface",
           "installUrl": "github:mattpocock/skills:skills/deprecated/design-an-interface",
           "description": "Generate multiple radically different interface designs for a module using parallel sub-agents. Use when user wants to design an API, explore interface options, compare module shapes, or mentions \"design it twice\".",
           "version": "0.0.0"
         },
         {
-          "name": "diagnose",
-          "installUrl": "github:mattpocock/skills:skills/engineering/diagnose",
-          "description": "Disciplined diagnosis loop for hard bugs and performance regressions. Reproduce → minimise → hypothesise → instrument → fix → regression-test. Use when user says \"diagnose this\" / \"debug this\", reports a bug, says something is broken/throwing/failing, or describes a performance regression.",
+          "name": "diagnosing-bugs",
+          "installUrl": "github:mattpocock/skills:skills/engineering/diagnosing-bugs",
+          "description": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "domain-modeling",
+          "installUrl": "github:mattpocock/skills:skills/engineering/domain-modeling",
+          "description": "Build and sharpen a project's domain model. Use when the user wants to pin down domain terminology or a ubiquitous language, record an architectural decision, or when another skill needs to maintain the domain model.",
           "version": "0.0.0"
         },
         {
@@ -4207,21 +5160,21 @@
           "version": "0.0.0"
         },
         {
-          "name": "grill-me",
-          "installUrl": "github:mattpocock/skills:skills/productivity/grill-me",
-          "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
-          "version": "0.0.0"
-        },
-        {
-          "name": "grill-with-docs",
-          "installUrl": "github:mattpocock/skills:skills/engineering/grill-with-docs",
-          "description": "Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates documentation (CONTEXT.md, ADRs) inline as decisions crystallise. Use when user wants to stress-test a plan against their project's language and documented decisions.",
+          "name": "grilling",
+          "installUrl": "github:mattpocock/skills:skills/productivity/grilling",
+          "description": "Interview the user relentlessly about a plan or design. Use when the user wants to stress-test a plan before building, or uses any 'grill' trigger phrases.",
           "version": "0.0.0"
         },
         {
           "name": "improve-codebase-architecture",
           "installUrl": "github:mattpocock/skills:skills/engineering/improve-codebase-architecture",
-          "description": "Find deepening opportunities in a codebase, informed by the domain language in CONTEXT.md and the decisions in docs/adr/. Use when the user wants to improve architecture, find refactoring opportunities, consolidate tightly-coupled modules, or make a codebase more testable and AI-navigable.",
+          "description": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "loop-me",
+          "installUrl": "github:mattpocock/skills:skills/in-progress/loop-me",
+          "description": "Grill me about specs for the workflows I want to build, within this workspace.",
           "version": "0.0.0"
         },
         {
@@ -4233,7 +5186,7 @@
         {
           "name": "prototype",
           "installUrl": "github:mattpocock/skills:skills/engineering/prototype",
-          "description": "Build a throwaway prototype to flesh out a design before committing to it. Routes between two branches — a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route. Use when the user wants to prototype, sanity-check a data model or state machine, mock up a UI, explore design options, or says \"prototype this\", \"let me play with it\", \"try a few designs\".",
+          "description": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.",
           "version": "0.0.0"
         },
         {
@@ -4255,12 +5208,6 @@
           "version": "0.0.0"
         },
         {
-          "name": "setup-matt-pocock-skills",
-          "installUrl": "github:mattpocock/skills:skills/engineering/setup-matt-pocock-skills",
-          "description": "Sets up an `## Agent skills` block in AGENTS.md/CLAUDE.md and `docs/agents/` so the engineering skills know this repo's issue tracker (GitHub or local markdown), triage label vocabulary, and domain doc layout. Run before first use of `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, or `zoom-out` — or if those skills appear to be missing context about the issue tracker, triage labels, or domain docs.",
-          "version": "0.0.0"
-        },
-        {
           "name": "setup-pre-commit",
           "installUrl": "github:mattpocock/skills:skills/misc/setup-pre-commit",
           "description": "Set up Husky pre-commit hooks with lint-staged (Prettier), type checking, and tests in the current repo. Use when user wants to add pre-commit hooks, set up Husky, configure lint-staged, or add commit-time formatting/typechecking/testing.",
@@ -4269,31 +5216,13 @@
         {
           "name": "tdd",
           "installUrl": "github:mattpocock/skills:skills/engineering/tdd",
-          "description": "Test-driven development with red-green-refactor loop. Use when user wants to build features or fix bugs using TDD, mentions \"red-green-refactor\", wants integration tests, or asks for test-first development.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "triage",
-          "installUrl": "github:mattpocock/skills:skills/engineering/triage",
-          "description": "Triage issues through a state machine driven by triage roles. Use when user wants to create an issue, triage issues, review incoming bugs or feature requests, prepare issues for an AFK agent, or manage issue workflow.",
+          "description": "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests.",
           "version": "0.0.0"
         },
         {
           "name": "ubiquitous-language",
           "installUrl": "github:mattpocock/skills:skills/deprecated/ubiquitous-language",
           "description": "Extract a DDD-style ubiquitous language glossary from the current conversation, flagging ambiguities and proposing canonical terms. Saves to UBIQUITOUS_LANGUAGE.md. Use when user wants to define domain terms, build a glossary, harden terminology, create a ubiquitous language, or mentions \"domain model\" or \"DDD\".",
-          "version": "0.0.0"
-        },
-        {
-          "name": "write-a-skill",
-          "installUrl": "github:mattpocock/skills:skills/productivity/write-a-skill",
-          "description": "Create new agent skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "zoom-out",
-          "installUrl": "github:mattpocock/skills:skills/engineering/zoom-out",
-          "description": "Tell the agent to zoom out and give broader context or a higher-level perspective. Use when you're unfamiliar with a section of code or need to understand how it fits into the bigger picture.",
           "version": "0.0.0"
         }
       ],
@@ -4309,7 +5238,7 @@
       "name": "mattpocock-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from mattpocock/skills.",
       "author": "ASM (mattpocock/skills)",
-      "createdAt": "2026-06-17T07:47:24.059Z",
+      "createdAt": "2026-06-30T08:27:35.284Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4321,51 +5250,75 @@
       ],
       "skills": [
         {
+          "name": "codebase-design",
+          "installUrl": "github:mattpocock/skills:skills/engineering/codebase-design",
+          "description": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
+          "version": "0.0.0"
+        },
+        {
           "name": "design-an-interface",
           "installUrl": "github:mattpocock/skills:skills/deprecated/design-an-interface",
           "description": "Generate multiple radically different interface designs for a module using parallel sub-agents. Use when user wants to design an API, explore interface options, compare module shapes, or mentions \"design it twice\".",
           "version": "0.0.0"
         },
         {
+          "name": "domain-modeling",
+          "installUrl": "github:mattpocock/skills:skills/engineering/domain-modeling",
+          "description": "Build and sharpen a project's domain model. Use when the user wants to pin down domain terminology or a ubiquitous language, record an architectural decision, or when another skill needs to maintain the domain model.",
+          "version": "0.0.0"
+        },
+        {
           "name": "grill-me",
           "installUrl": "github:mattpocock/skills:skills/productivity/grill-me",
-          "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+          "description": "A relentless interview to sharpen a plan or design.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "grill-with-docs",
+          "installUrl": "github:mattpocock/skills:skills/engineering/grill-with-docs",
+          "description": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "grilling",
+          "installUrl": "github:mattpocock/skills:skills/productivity/grilling",
+          "description": "Interview the user relentlessly about a plan or design. Use when the user wants to stress-test a plan before building, or uses any 'grill' trigger phrases.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "improve-codebase-architecture",
+          "installUrl": "github:mattpocock/skills:skills/engineering/improve-codebase-architecture",
+          "description": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "loop-me",
+          "installUrl": "github:mattpocock/skills:skills/in-progress/loop-me",
+          "description": "Grill me about specs for the workflows I want to build, within this workspace.",
           "version": "0.0.0"
         },
         {
           "name": "prototype",
           "installUrl": "github:mattpocock/skills:skills/engineering/prototype",
-          "description": "Build a throwaway prototype to flesh out a design before committing to it. Routes between two branches — a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route. Use when the user wants to prototype, sanity-check a data model or state machine, mock up a UI, explore design options, or says \"prototype this\", \"let me play with it\", \"try a few designs\".",
+          "description": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.",
           "version": "0.0.0"
         },
         {
           "name": "setup-matt-pocock-skills",
           "installUrl": "github:mattpocock/skills:skills/engineering/setup-matt-pocock-skills",
-          "description": "Sets up an `## Agent skills` block in AGENTS.md/CLAUDE.md and `docs/agents/` so the engineering skills know this repo's issue tracker (GitHub or local markdown), triage label vocabulary, and domain doc layout. Run before first use of `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, or `zoom-out` — or if those skills appear to be missing context about the issue tracker, triage labels, or domain docs.",
+          "description": "Configure this repo for the engineering skills — set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.",
           "version": "0.0.0"
         },
         {
           "name": "tdd",
           "installUrl": "github:mattpocock/skills:skills/engineering/tdd",
-          "description": "Test-driven development with red-green-refactor loop. Use when user wants to build features or fix bugs using TDD, mentions \"red-green-refactor\", wants integration tests, or asks for test-first development.",
+          "description": "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests.",
           "version": "0.0.0"
         },
         {
           "name": "ubiquitous-language",
           "installUrl": "github:mattpocock/skills:skills/deprecated/ubiquitous-language",
           "description": "Extract a DDD-style ubiquitous language glossary from the current conversation, flagging ambiguities and proposing canonical terms. Saves to UBIQUITOUS_LANGUAGE.md. Use when user wants to define domain terms, build a glossary, harden terminology, create a ubiquitous language, or mentions \"domain model\" or \"DDD\".",
-          "version": "0.0.0"
-        },
-        {
-          "name": "write-a-skill",
-          "installUrl": "github:mattpocock/skills:skills/productivity/write-a-skill",
-          "description": "Create new agent skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "writing-shape",
-          "installUrl": "github:mattpocock/skills:skills/in-progress/writing-shape",
-          "description": "Take a markdown file of raw material and shape it into an article through a conversational session — drafting candidate openings, growing the piece paragraph by paragraph, arguing about format (lists, tables, callouts, quotes) at each step. Use when the user has a pile of notes, fragments, or a rough draft and wants help turning it into something publishable.",
           "version": "0.0.0"
         }
       ],
@@ -4381,7 +5334,7 @@
       "name": "mattpocock-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from mattpocock/skills.",
       "author": "ASM (mattpocock/skills)",
-      "createdAt": "2026-06-17T07:47:24.059Z",
+      "createdAt": "2026-06-30T08:27:35.284Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4393,15 +5346,15 @@
       ],
       "skills": [
         {
-          "name": "caveman",
-          "installUrl": "github:mattpocock/skills:skills/productivity/caveman",
-          "description": "Ultra-compressed communication mode. Cuts token usage ~75% by dropping filler, articles, and pleasantries while keeping full technical accuracy. Use when user says \"caveman mode\", \"talk like caveman\", \"use caveman\", \"less tokens\", \"be brief\", or invokes /caveman.",
+          "name": "grill-me",
+          "installUrl": "github:mattpocock/skills:skills/productivity/grill-me",
+          "description": "A relentless interview to sharpen a plan or design.",
           "version": "0.0.0"
         },
         {
-          "name": "grill-me",
-          "installUrl": "github:mattpocock/skills:skills/productivity/grill-me",
-          "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+          "name": "grilling",
+          "installUrl": "github:mattpocock/skills:skills/productivity/grilling",
+          "description": "Interview the user relentlessly about a plan or design. Use when the user wants to stress-test a plan before building, or uses any 'grill' trigger phrases.",
           "version": "0.0.0"
         },
         {
@@ -4411,21 +5364,15 @@
           "version": "0.0.0"
         },
         {
-          "name": "prototype",
-          "installUrl": "github:mattpocock/skills:skills/engineering/prototype",
-          "description": "Build a throwaway prototype to flesh out a design before committing to it. Routes between two branches — a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route. Use when the user wants to prototype, sanity-check a data model or state machine, mock up a UI, explore design options, or says \"prototype this\", \"let me play with it\", \"try a few designs\".",
+          "name": "implement",
+          "installUrl": "github:mattpocock/skills:skills/engineering/implement",
+          "description": "Implement a piece of work based on a PRD or set of issues.",
           "version": "0.0.0"
         },
         {
           "name": "review",
           "installUrl": "github:mattpocock/skills:skills/in-progress/review",
           "description": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes — Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/PRD asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \"review since X\".",
-          "version": "0.0.0"
-        },
-        {
-          "name": "setup-matt-pocock-skills",
-          "installUrl": "github:mattpocock/skills:skills/engineering/setup-matt-pocock-skills",
-          "description": "Sets up an `## Agent skills` block in AGENTS.md/CLAUDE.md and `docs/agents/` so the engineering skills know this repo's issue tracker (GitHub or local markdown), triage label vocabulary, and domain doc layout. Run before first use of `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, or `zoom-out` — or if those skills appear to be missing context about the issue tracker, triage labels, or domain docs.",
           "version": "0.0.0"
         },
         {
@@ -4437,19 +5384,19 @@
         {
           "name": "to-issues",
           "installUrl": "github:mattpocock/skills:skills/engineering/to-issues",
-          "description": "Break a plan, spec, or PRD into independently-grabbable issues on the project issue tracker using tracer-bullet vertical slices. Use when user wants to convert a plan into issues, create implementation tickets, or break down work into issues.",
+          "description": "Break a plan, spec, or PRD into independently-grabbable issues on the project issue tracker using tracer-bullet vertical slices.",
           "version": "0.0.0"
         },
         {
           "name": "to-prd",
           "installUrl": "github:mattpocock/skills:skills/engineering/to-prd",
-          "description": "Turn the current conversation context into a PRD and publish it to the project issue tracker. Use when user wants to create a PRD from the current context.",
+          "description": "Turn the current conversation into a PRD and publish it to the project issue tracker — no interview, just synthesis of what you've already discussed.",
           "version": "0.0.0"
         },
         {
-          "name": "write-a-skill",
-          "installUrl": "github:mattpocock/skills:skills/productivity/write-a-skill",
-          "description": "Create new agent skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill.",
+          "name": "writing-great-skills",
+          "installUrl": "github:mattpocock/skills:skills/productivity/writing-great-skills",
+          "description": "Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable.",
           "version": "0.0.0"
         }
       ],
@@ -4465,7 +5412,7 @@
       "name": "mattpocock-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from mattpocock/skills.",
       "author": "ASM (mattpocock/skills)",
-      "createdAt": "2026-06-17T07:47:24.059Z",
+      "createdAt": "2026-06-30T08:27:35.284Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4485,7 +5432,7 @@
         {
           "name": "triage",
           "installUrl": "github:mattpocock/skills:skills/engineering/triage",
-          "description": "Triage issues through a state machine driven by triage roles. Use when user wants to create an issue, triage issues, review incoming bugs or feature requests, prepare issues for an AFK agent, or manage issue workflow.",
+          "description": "Move issues and external PRs through a state machine of triage roles — categorise, verify, grill if needed, and write agent-ready briefs.",
           "version": "0.0.0"
         }
       ],
@@ -4501,7 +5448,7 @@
       "name": "mattpocock-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from mattpocock/skills.",
       "author": "ASM (mattpocock/skills)",
-      "createdAt": "2026-06-17T07:47:24.059Z",
+      "createdAt": "2026-06-30T08:27:35.284Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4513,18 +5460,6 @@
       ],
       "skills": [
         {
-          "name": "caveman",
-          "installUrl": "github:mattpocock/skills:skills/productivity/caveman",
-          "description": "Ultra-compressed communication mode. Cuts token usage ~75% by dropping filler, articles, and pleasantries while keeping full technical accuracy. Use when user says \"caveman mode\", \"talk like caveman\", \"use caveman\", \"less tokens\", \"be brief\", or invokes /caveman.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "diagnose",
-          "installUrl": "github:mattpocock/skills:skills/engineering/diagnose",
-          "description": "Disciplined diagnosis loop for hard bugs and performance regressions. Reproduce → minimise → hypothesise → instrument → fix → regression-test. Use when user says \"diagnose this\" / \"debug this\", reports a bug, says something is broken/throwing/failing, or describes a performance regression.",
-          "version": "0.0.0"
-        },
-        {
           "name": "edit-article",
           "installUrl": "github:mattpocock/skills:skills/personal/edit-article",
           "description": "Edit and improve articles by restructuring sections, improving clarity, and tightening prose. Use when user wants to edit, revise, or improve an article draft.",
@@ -4533,43 +5468,49 @@
         {
           "name": "grill-with-docs",
           "installUrl": "github:mattpocock/skills:skills/engineering/grill-with-docs",
-          "description": "Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates documentation (CONTEXT.md, ADRs) inline as decisions crystallise. Use when user wants to stress-test a plan against their project's language and documented decisions.",
+          "description": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
           "version": "0.0.0"
         },
         {
-          "name": "improve-codebase-architecture",
-          "installUrl": "github:mattpocock/skills:skills/engineering/improve-codebase-architecture",
-          "description": "Find deepening opportunities in a codebase, informed by the domain language in CONTEXT.md and the decisions in docs/adr/. Use when the user wants to improve architecture, find refactoring opportunities, consolidate tightly-coupled modules, or make a codebase more testable and AI-navigable.",
+          "name": "to-prd",
+          "installUrl": "github:mattpocock/skills:skills/engineering/to-prd",
+          "description": "Turn the current conversation into a PRD and publish it to the project issue tracker — no interview, just synthesis of what you've already discussed.",
           "version": "0.0.0"
         },
         {
-          "name": "setup-matt-pocock-skills",
-          "installUrl": "github:mattpocock/skills:skills/engineering/setup-matt-pocock-skills",
-          "description": "Sets up an `## Agent skills` block in AGENTS.md/CLAUDE.md and `docs/agents/` so the engineering skills know this repo's issue tracker (GitHub or local markdown), triage label vocabulary, and domain doc layout. Run before first use of `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, or `zoom-out` — or if those skills appear to be missing context about the issue tracker, triage labels, or domain docs.",
+          "name": "triage",
+          "installUrl": "github:mattpocock/skills:skills/engineering/triage",
+          "description": "Move issues and external PRs through a state machine of triage roles — categorise, verify, grill if needed, and write agent-ready briefs.",
           "version": "0.0.0"
         },
         {
-          "name": "write-a-skill",
-          "installUrl": "github:mattpocock/skills:skills/productivity/write-a-skill",
-          "description": "Create new agent skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill.",
+          "name": "wizard",
+          "installUrl": "github:mattpocock/skills:skills/in-progress/wizard",
+          "description": "Generate an interactive bash wizard that walks a human through a manual procedure — third-party setup, a one-off migration, an A→B state transition — opening URLs, capturing values, confirming each step, and writing .env files and GitHub Actions secrets.",
           "version": "0.0.0"
         },
         {
           "name": "writing-beats",
           "installUrl": "github:mattpocock/skills:skills/in-progress/writing-beats",
-          "description": "Shape an article as a journey of beats, choose-your-own-adventure style. The user picks a starting beat from the raw material, you write only that beat, then offer options for where to pivot next, beat by beat, until the article reaches a natural end. Use when the user has raw material and wants to assemble it as a narrative rather than an argument.",
+          "description": "Writing, exploit — assemble raw material into a journey of beats, grounding each term before a beat leans on it.",
           "version": "0.0.0"
         },
         {
           "name": "writing-fragments",
           "installUrl": "github:mattpocock/skills:skills/in-progress/writing-fragments",
-          "description": "Grilling session that mines the user for fragments — heterogeneous nuggets of writing (claims, vignettes, sharp sentences, half-thoughts) — and appends them to a single document as raw material for a future article. Use when the user wants to develop ideas before imposing structure, or mentions \"fragments\", \"ideate\", or \"raw material\" for writing.",
+          "description": "Writing, explore — mine raw fragments, no structure yet.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "writing-great-skills",
+          "installUrl": "github:mattpocock/skills:skills/productivity/writing-great-skills",
+          "description": "Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable.",
           "version": "0.0.0"
         },
         {
           "name": "writing-shape",
           "installUrl": "github:mattpocock/skills:skills/in-progress/writing-shape",
-          "description": "Take a markdown file of raw material and shape it into an article through a conversational session — drafting candidate openings, growing the piece paragraph by paragraph, arguing about format (lists, tables, callouts, quotes) at each step. Use when the user has a pile of notes, fragments, or a rough draft and wants help turning it into something publishable.",
+          "description": "Writing, exploit — shape raw material into an article, paragraph by paragraph.",
           "version": "0.0.0"
         }
       ],
