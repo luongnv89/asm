@@ -33,7 +33,7 @@ Use `asm bundle install <file>` for a recommended set of skills. `asm install <f
 - `createdAt` must be ISO-8601; generate it with `date -u +%Y-%m-%dT%H:%M:%S.000Z`.
 - `skills` must be non-empty.
 - Each skill needs `name` and `installUrl`; `description` is optional but recommended.
-- `installUrl` must be copied from the `installCommand` returned by `asm search --available --json`.
+- `installUrl` must be the raw source part after the leading `asm install ` prefix in the `installCommand` returned by `asm search --available --json` (for example, `github:owner/repo:path`), not the full command.
 - Exclude already-installed skills and invented URLs.
 
 ## Final check
