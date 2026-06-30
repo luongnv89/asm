@@ -1,23 +1,26 @@
 ---
 name: skill-auto-improver
-description: "Improve a SKILL.md to pass the skill-creator standard (quick_validate, frontmatter audit, ≤500 lines) AND the asm-eval 85/8 floor. Use to level up a skill before publish. Don't use for authoring from scratch, bulk evaluation, or prose rewriting."
+description: "Improve an external, legacy, or drifted SKILL.md to the skill-creator standard — hard validation gates plus an advisory predictability audit. Don't use for authoring from scratch (skill-creator output is already standard), bulk eval, or prose edits."
 license: MIT
 compatibility: "Claude Code; requires `asm` on PATH and Python 3 for skill-creator's quick_validate.py"
 allowed-tools: Bash Read Write Edit Grep Glob
 effort: high
 metadata:
-  version: 1.0.2
+  version: 1.1.0
   author: luongnv89
 ---
 
 # Skill Auto-Improver
 
-You are running an eval-driven improvement loop for a SKILL.md-based skill. The target skill must clear **two gates** in this order:
+You run an eval-driven loop that **retrofits an existing SKILL.md to the current skill-creator standard**. This is the remediation tool for skills that did **not** go through skill-creator — external, legacy, manually-authored, or drifted. Fresh skill-creator output is publish-ready by construction (see skill-creator's `predictability-rubric.md` → _Publish-ready — no auto-improver dependency_) and should **not** normally need this skill.
 
-1. **Skill-creator standard (must-pass floor)** — `python scripts/quick_validate.py` is clean; the Frontmatter Audit passes; SKILL.md is under 500 lines; description has a negative-trigger clause; `metadata.version` and `metadata.author` are present; `docs/README.md` (if it exists) carries the AI-skip notice; bundled scripts print descriptive errors before exiting.
-2. **`asm eval` quality floor (supplementary)** — `overallScore > 85` AND every category score `>= 8`.
+The target must clear **two hard gates**, then gets one **advisory** audit:
 
-A skill that scores 92 on `asm eval` but fails `quick_validate.py` is **not** done. A skill that passes `quick_validate.py` but scores 70 on `asm eval` is **not** done. Both gates must clear, or the loop reports a blocker.
+1. **Gate 1 — skill-creator standard (must-pass floor)** — `quick_validate` clean, Frontmatter Audit passes, ≤500 lines (detail below).
+2. **Gate 2 — asm-eval floor (supplementary)** — `overallScore > 85` AND every category `>= 8`.
+3. **Advisory — predictability audit (Phase 2b, not a gate)** — judgment-based findings against skill-creator's rubric, reported separately, **never** blocking.
+
+A skill that scores 92 but fails `quick_validate.py` is not done; one that passes `quick_validate.py` but scores 70 is not done. **Both gates must clear, or the loop reports a blocker** — open predictability findings alone never make one.
 
 ## Repo Sync Before Edits (mandatory)
 
@@ -33,12 +36,14 @@ If the working tree is dirty, `git stash`, sync, then `git stash pop`. If `origi
 
 ## When to Use
 
-- The user asks to "improve", "level up", "fix", "polish", or "bring up to standard" an existing skill
-- A skill fails `quick_validate.py` or scores below the asm-eval 85/8 floor and must ship
-- You are preparing a skill for `asm publish` or inclusion in a catalog
-- You want to dogfood quality improvements on one of your own skills
+Reach for this on an **existing, external, legacy, manually-authored, or drifted** skill:
 
-If the user only wants a report without edits, run `asm eval <path>` and `python scripts/quick_validate.py <path>` directly — that is not this skill. If the user is authoring a brand-new skill from scratch, send them to `/skill-creator` instead — this skill assumes a SKILL.md already exists.
+- The user asks to "improve", "level up", "fix", "polish", or "bring up to standard" an existing skill
+- A skill was authored outside skill-creator (hand-written, imported, inherited) and must meet the current bar
+- A skill has **drifted** — predates the standard, or edits left it failing `quick_validate.py` or below the 85/8 floor
+- You are preparing such a skill for `asm publish` or a catalog
+
+**Not** for routine cleanup of fresh skill-creator output (publish-ready by construction — use `/skill-creator` to author). Assumes a SKILL.md exists. For a report only, run `asm eval` and `quick_validate.py` directly — not this skill.
 
 ## Prerequisites
 
@@ -50,11 +55,13 @@ Verify all of the following before touching any files. Stop and tell the user if
 - The working tree has no unrelated uncommitted edits (dirty files get mixed into diffs)
 - You have write access to the skill directory
 
-Resolve the path to skill-creator's validator once at the start and reuse it:
+Resolve skill-creator's validator (required) and rubric (fail-soft) once and reuse them. The rubric is **fail-soft** — a locally-installed skill-creator may predate the repo and not ship it; a missing file only degrades Phase 2b to a warning and never aborts the run:
 
 ```bash
 QV="$HOME/.claude/skills/skill-creator/scripts/quick_validate.py"
 test -f "$QV" || { echo "skill-creator not installed at $QV"; exit 1; }
+RUBRIC="$HOME/.claude/skills/skill-creator/references/predictability-rubric.md"
+test -f "$RUBRIC" || echo "⚠ predictability rubric missing — Phase 2b degraded (gates unaffected)"
 ```
 
 ## Inputs
@@ -67,7 +74,9 @@ The user provides one of:
 
 For GitHub inputs, ask the user to clone locally first or whether you should open a PR back to that repo. This skill's default path is **local editing** — remote editing is out of scope for v1.
 
-## The Two Gates
+## The Gates
+
+Keep two decision classes separate: **hard gates** (Gate 1, Gate 2) are mechanical and pass/fail — they alone decide PASS vs BLOCKER. **Predictability findings** (Phase 2b) are judgment-based and advisory — both gates green with open findings is still a PASS.
 
 ### Gate 1 — Skill-creator standard (must-pass floor)
 
@@ -89,7 +98,11 @@ This gate is **non-negotiable** — `asm publish` and the catalog rely on it.
 overallScore > 85   AND   min(categories[*].score) >= 8
 ```
 
-Stricter than overall score alone — a skill at 86 with a 5 in `testability` still fails. This forces balanced quality instead of letting one strong area hide a weak one.
+Stricter than overall alone — 86 with a 5 in `testability` still fails. Forces balanced quality instead of letting one strong area hide a weak one.
+
+### Advisory — predictability audit (not a gate)
+
+Both gates green does not guarantee the skill drives the same _process_ each run. The Phase 2b audit catches that — see `references/predictability-audit.md` for the checklist and finding classes.
 
 ## Workflow
 
@@ -156,7 +169,16 @@ Many skills jump 5–15 points on `asm eval` here without touching the body, and
 - Missing AI-skip notice in `docs/README.md` → prepend the HTML comment from `references/skill-creator-checklist.md`
 - Bundled script exits silently → add `echo "Error: ..." >&2` lines before each `exit 1` / `sys.exit(1)`
 
-Re-run `python "$QV" "$SKILL_PATH"` after every Gate 1 edit. Do not move to Phase 3 until Gate 1 is clean.
+Re-run `python "$QV" "$SKILL_PATH"` after every Gate 1 edit. Do not move to Phase 2b until Gate 1 is clean.
+
+### Phase 2b — Audit against the predictability rubric (advisory)
+
+With Gate 1 clean, audit against skill-creator's rubric **before** Phase 3 so the findings can steer your category edits. Advisory — never gates, never blocks.
+
+1. Confirm `$RUBRIC` resolved (Prerequisites). If missing, **skip fail-soft** — log `⚠ predictability audit skipped (rubric unavailable)` and move to Phase 3.
+2. Walk `references/predictability-audit.md` — record each of the 7 items as `pass` / `advisory` with a specific note, save to `.asm-improver/predictability-audit.md`.
+
+Act on findings only when _targeted_ (a predictability fix often also lifts an asm-eval category); never bloat to satisfy one. Finding-handling detail and the no-bloat rule live in `references/predictability-audit.md`.
 
 ### Phase 3 — Fix the lowest asm-eval categories
 
@@ -172,24 +194,7 @@ For each category below 8:
 
 ### Phase 4 — Watch for cross-gate tradeoffs (sidebar — applies during Phase 3)
 
-These principles apply continuously while doing Phase 3 category fixes, not as a separate sequential phase. Read them once before Phase 3 and keep them in mind on every edit.
-
-The two gates pull in opposite directions on body length:
-
-- `asm eval`'s `prompt-engineering` rewards bodies up to 3000 words
-- `asm eval`'s `context-efficiency` rewards bodies under 1500 words
-- Gate 1 caps SKILL.md at **500 lines** (the hard skill-creator rule, ~ a few thousand words)
-
-When you add content, default to **linking out, not inlining**:
-
-- Long examples → `references/examples.md` with `See references/examples.md for...`
-- Long scripts → `scripts/foo.sh` with `Run scripts/foo.sh to...`
-- Long tables → `references/rubric.md`
-- Long prerequisite lists → `references/prerequisites.md`
-
-This pattern earns `context-efficiency` points (the words "reference" / "see" / "link" / "template" are scanned for), keeps SKILL.md under the 500-line Gate 1 cap, and reduces token cost on every invocation.
-
-Concretely, if you would need more than ~80 lines to add a section, put it in `references/` and link to it from SKILL.md in 2-3 lines.
+A continuous sidebar, not a sequential phase: the two gates pull in opposite directions on body length, so a fix that lifts one asm-eval category can sink another or breach the 500-line cap. Read `references/cross-gate-tradeoffs.md` once before Phase 3 and default to **linking out, not inlining** on every edit.
 
 ### Phase 5 — Bump the target skill's `metadata.version`
 
@@ -222,20 +227,13 @@ Save every iteration's JSON to `.asm-improver/iter-N.json` and a one-line gate s
 
 ### Phase 7 — Write the final report
 
-On pass, write `.asm-improver/report.md` with:
+Write `.asm-improver/report.md` (full layout in `references/report-template.md`) keeping **three report sections visually distinct**:
 
-- Target skill path
-- Baseline vs final for **both gates**: `quick_validate.py` status, Frontmatter Audit findings cleared, `overallScore`, `grade`, per-category before/after table
-- Target skill's `metadata.version`: baseline → final
-- Files changed (list every path under the skill directory that was edited or created)
-- Iterations taken (N of 8)
-- Key fixes applied (one line per category or audit item that moved)
+1. **Gate status** — baseline vs final for both hard gates (`quick_validate.py`, Frontmatter Audit, `overallScore`, `grade`, per-category before/after). Decides PASS vs BLOCKER.
+2. **Predictability findings** (advisory) — Phase 2b findings per item, open ones with a one-line note; say so if it was skipped fail-soft. Never a gate failure.
+3. **Unresolved blockers** — BLOCKER only; each names the failed **hard gate** (Gate 1 or Gate 2), the specific check, and what was unresolvable. Predictability findings are never promoted here.
 
-On blocker, write the same report but add a "Blockers" section explaining why a gate was not cleared. Blocker entries must name the gate (Gate 1 or Gate 2), the specific failing check (e.g., `quick_validate.py: unexpected key 'tags'`), and what the loop was unable to resolve. Do not pretend a blocker is a pass.
-
-Example blocker entry:
-
-> **Gate 2 — testability** (stuck at 6/10): The evaluator wants verifiable outputs and an "Acceptance Criteria" section. The skill's output is a subjective rewrite of prose, which is hard to express as a testable assertion. Author decision needed: accept a 6 here, or redefine scope so output is machine-checkable.
+Also include: skill path, `metadata.version` baseline → final, files changed, iterations (N of 8), key fixes applied. Do not pretend a blocker is a pass.
 
 ## Step Completion Reports (mandatory)
 
@@ -252,28 +250,29 @@ After each phase, emit a compact status block so pass/fail is scannable:
   Result:              PASS | FAIL | PARTIAL
 ```
 
-Use `√` for pass, `×` for fail, `—` for context. Report per phase: Phase 0 (baseline captured), Phase 1 (deterministic + normalization), Phase 2 (Gate 1 fixes), Phase 3 (asm-eval category fixes), Phase 5 (version bump applied), Phase 6 (loop stop condition), Phase 7 (final report written).
+Use `√` for pass, `×` for fail, `—` for context. Report per phase: Phase 0 (baseline captured), Phase 1 (deterministic + normalization), Phase 2 (Gate 1 fixes), Phase 2b (predictability audit — report findings count and "advisory" / "skipped fail-soft"; this phase never gates), Phase 3 (asm-eval category fixes), Phase 5 (version bump applied), Phase 6 (loop stop condition), Phase 7 (final report written).
 
 ## Acceptance Criteria
 
 - `.asm-improver/baseline.json`, `.asm-improver/baseline-quickvalidate.txt`, and `.asm-improver/baseline-frontmatter-audit.md` captured before any edits
 - `asm eval --fix` applied, then frontmatter normalized so `quick_validate.py` accepts the result
 - Each Gate 1 check addressed at least once before any Gate 2 work
+- Predictability audit (Phase 2b) run after Gate 1 is clean — findings captured to `.asm-improver/predictability-audit.md`, or the skip logged when the rubric is unavailable. Findings are advisory and never gate the loop
 - Each `asm eval` category below 8 addressed at least once
 - Re-eval against **both** gates after every iteration, captured to `.asm-improver/iter-N.json` and `.asm-improver/iter-N-gates.txt`
 - Target skill's `metadata.version` bumped exactly once per iteration that produced edits
 - Loop stops on one of the 4 conditions in Phase 6 — never unbounded
-- `.asm-improver/report.md` exists on exit, pass or blocker
+- `.asm-improver/report.md` exists on exit, pass or blocker, with gate status, advisory predictability findings, and unresolved blockers as three visually distinct sections
 - On PASS: `python "$QV" "$SKILL_PATH"` exits 0 AND final eval JSON shows `overallScore > 85` AND `min(categories[*].score) >= 8`
-- On BLOCKER: report names every Gate 1 check still failing and every category still below 8 with a one-line reason
+- On BLOCKER: report names every Gate 1 check still failing and every category still below 8 with a one-line reason. Open predictability findings alone never constitute a blocker
 
 ### Expected output
 
-See `references/report-template.md` for the full PASS and BLOCKER report templates. On BLOCKER, include a `## Blockers` section naming each failing gate check with a one-line reason.
+See `references/report-template.md` for the full PASS and BLOCKER report templates. On BLOCKER, include an `## Unresolved blockers` section naming each failing **hard gate** check with a one-line reason.
 
 ## Edge Cases
 
-- **Skill already passes both gates**: stop at Phase 0, skip to report. Do not edit passing skills.
+- **Skill already passes both gates**: do not edit it. Still run the Phase 2b predictability audit read-only and report any advisory findings, then stop — passing gates does not guarantee a predictable process, but open findings here never force an edit.
 - **SKILL.md has no frontmatter**: `asm eval --fix` cannot add it. Ask the user whether to scaffold one (using the skill-creator template) or abort.
 - **Iterating regresses either gate**: revert the last edit (`cp SKILL.md.bak SKILL.md` if available, or undo via git) and try a different fix pattern from the playbook.
 - **`asm eval --fix` writes a key `quick_validate.py` rejects**: this is expected — Phase 1's normalization step handles it. Do not skip the normalization.
@@ -288,8 +287,11 @@ See `references/report-template.md` for the full PASS and BLOCKER report templat
 - `references/skill-creator-checklist.md` — Gate 1 retrofit playbook (frontmatter, README, scripts, body length)
 - `references/frontmatter-audit.md` — full audit checklist plus the `asm eval --fix` normalization migration
 - `references/category-playbook.md` — per-category fix patterns for `asm eval` Gate 2
+- `references/predictability-audit.md` — Phase 2b advisory audit checklist (the rubric's operational checklist, applied to the target skill)
+- `references/cross-gate-tradeoffs.md` — Phase 4 sidebar: the body-length tradeoff between the two gates and the link-out rule
 - `references/report-template.md` — PASS and BLOCKER report layouts
 - `~/.claude/skills/skill-creator/scripts/quick_validate.py` — the Gate 1 mechanical validator
 - `~/.claude/skills/skill-creator/references/frontmatter-rules.md` — upstream source of the audit rules
+- `~/.claude/skills/skill-creator/references/predictability-rubric.md` — upstream source of the Phase 2b audit (fail-soft if absent)
 - `asm eval --help` — flag reference for the evaluator
 - `src/evaluator.ts` in the ASM repo — source of truth for how each Gate 2 category is scored
