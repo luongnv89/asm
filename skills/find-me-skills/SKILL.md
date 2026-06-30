@@ -1,11 +1,11 @@
 ---
 name: find-me-skills
-description: "Discover which Agent Skills a user needs for a goal they can't name yet, then export an installable bundle. Use for 'I want to do X but don't know which skills', 'find me skills for', or 'recommend skills for my project'. Don't use for installing an already-named skill, authoring a skill (skill-creator), or maintaining the catalog."
+description: "Find Agent Skills for a goal the user cannot name yet, then export an installable bundle. Use when they ask which skills fit a project. Don't use for installing named skills, authoring skills, or catalog maintenance."
 license: MIT
-compatibility: Claude Code with the `asm` CLI on PATH
+compatibility: "Claude Code with the `asm` CLI on PATH"
 effort: medium
 metadata:
-  version: 1.0.0
+  version: 1.2.0
   author: Luong NGUYEN <luongnv89@gmail.com>
 ---
 
@@ -85,44 +85,9 @@ Derive 2–5 search terms from the confirmed goal and query each:
 asm search "<term>" --available --json
 ```
 
-`--available` returns catalog matches that carry an `installCommand` (the URL you
-need for the bundle). It does **not** filter by what the user already has — a
-skill they've installed can still show up here as `"status": "available"`. That's
-fine for discovery; the "Also consider what's already installed" step below is
-where you detect and exclude installed skills. Run a separate search per term —
-broad terms ("marketing", "seo", "landing page", "launch") surface different
-skills. Each JSON result has this shape:
+Run a separate search per term — broad terms ("marketing", "seo", "landing page", "launch") surface different skills. Read `references/catalog-discovery.md` when you need the JSON shape, installed-vs-available rules, or empty-result handling; keep this detail out of the main context budget until Step 3 needs it.
 
-```json
-{
-  "name": "marketing-ideas",
-  "description": "When the user needs marketing ideas …",
-  "version": "1.0.0",
-  "repo": "alirezarezvani/claude-skills",
-  "installCommand": "asm install github:alirezarezvani/claude-skills:.codex/skills/marketing-ideas",
-  "status": "available"
-}
-```
-
-The string after `asm install ` in `installCommand` is the skill's
-**install URL** (`github:owner/repo:path`) — you will copy it verbatim into the
-bundle. Read each candidate's `description` to judge relevance; the description's
-own "Use when…" / "Don't use for…" text tells you whether it fits the user's goal.
-
-If a search returns nothing useful, widen the term and try again. If after a few
-honest attempts the catalog has no good match for part of the goal, **say so** —
-don't pad the list with weak fits. A short, relevant list beats a long, padded one.
-
-### Also consider what's already installed
-
-Run `asm search "<term>" --json` (without `--available`) too — this is the
-authoritative way to learn what the user already has, because the plain search
-scans installed skills and the `--available` search does not. Skills returned
-with `"status": "installed"` should be mentioned in the plan ("you already have
-`code-review` for this step") but **excluded from the bundle** — the bundle is
-for new installs. Before adding any skill to the bundle, confirm its name does
-not appear in the installed set. Only `available` skills with an `installCommand`
-go in.
+Read each candidate's `description` to judge relevance; the description's own "Use when…" / "Don't use for…" text tells you whether it fits the user's goal. Also run `asm search "<term>" --json` without `--available` to detect installed skills: mention installed matches in the plan, but exclude them from the bundle. Only `available` skills with an `installCommand` go in.
 
 ## Step 4 — Curate: dedupe and explain
 
@@ -162,54 +127,9 @@ Show this plan to the user before exporting anything. Make it easy to say
 
 ## Step 6 — Export an installable bundle (on approval)
 
-Only after the user approves the plan, emit a **bundle file** in `asm`'s
-`BundleManifest` format and give them the one-line install command.
+Only after the user approves the plan, emit a **bundle file** in `asm`'s `BundleManifest` format and give them the one-line install command. Write a goal-based file such as `marketing-starter.bundle.json`.
 
-> **Why a bundle, not `asm install <file>` or `asm import`?** `asm install` takes
-> a single skill source, not a set file. `asm import` only restores skills from
-> an `asm export` backup of already-installed skills. `asm bundle install <file>`
-> is the purpose-built command that reads a set file and installs each skill from
-> its remote URL — exactly the "skills-set file + one command" outcome the user
-> wants.
-
-Write the file (suggest a goal-based name like `marketing-starter.bundle.json`).
-**Required shape** — every field below is validated by `asm`; the build will
-reject the bundle if any are missing:
-
-```json
-{
-  "version": 1,
-  "name": "marketing-starter",
-  "description": "Skills to market a new app from scratch: positioning, landing page, and launch copy.",
-  "author": "find-me-skills",
-  "createdAt": "2026-01-01T00:00:00.000Z",
-  "tags": ["marketing", "launch"],
-  "skills": [
-    {
-      "name": "marketing-context",
-      "installUrl": "github:alirezarezvani/claude-skills:.codex/skills/marketing-context",
-      "description": "Create the positioning brief other marketing skills read first"
-    },
-    {
-      "name": "landing-page-copywriter",
-      "installUrl": "github:luongnv89/skills:skills/landing-page-copywriter",
-      "description": "Write conversion-focused landing-page copy"
-    }
-  ]
-}
-```
-
-Rules for a valid bundle:
-
-- `version` must be the number `1`.
-- `name`, `description`, `author`, `createdAt` are all required non-empty strings.
-  Use an ISO-8601 timestamp for `createdAt` (run `date -u +%Y-%m-%dT%H:%M:%S.000Z`).
-- `skills` must be non-empty. Each entry needs `name` and `installUrl`; `description`
-  is optional but recommended. **`installUrl` is the `github:owner/repo:path` string
-  you took from each `installCommand` in step 3** — copy it verbatim; do not
-  hand-construct it.
-- Only include `available` skills. Never put an already-installed skill or an
-  invented URL in the bundle.
+See `references/bundle-format.md` for the required JSON template, validation rules, and the reason this skill uses `asm bundle install` instead of `asm install` or `asm import`. Copy each `installUrl` from Step 3 verbatim; never hand-construct it and never include already-installed skills.
 
 Then verify and hand off:
 
@@ -228,6 +148,17 @@ Tell them what it does: it installs every recommended skill from its source, wit
 a confirmation prompt (add `-y` to skip it). They can re-run the plan's steps in
 order afterward. If `asm bundle show` errors, fix the offending field (the error
 names it) and re-check before handing off.
+
+## Acceptance Criteria
+
+Verify all of these before calling the run complete:
+
+- The user explicitly confirmed the goal before any catalog search.
+- At least one `asm search "<term>" --available --json` query was run for each chosen search term.
+- Installed skills were checked with `asm search "<term>" --json` and excluded from the bundle.
+- The user approved the sequenced plan before any file was written.
+- Expected output exists: a numbered plan, a bundle file path, and an install command.
+- `asm bundle show ./<file>.bundle.json` succeeds, or the run reports the validation error instead of handing off a broken command.
 
 ## Output format
 
