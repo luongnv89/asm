@@ -16,14 +16,6 @@ You are refreshing every enabled repository in the ASM curated skill index. The 
 
 This is the inverse of `skill-index-updater`. That skill **adds new repos** from URLs the user supplies. This skill **refreshes the repos that are already enabled** in `data/skill-index-resources.json`.
 
-## When to Use
-
-- User asks to "refresh the index", "update the indexed skills", "sync the catalog", "re-ingest all repos", or "batch-maintain the skill index"
-- A scheduled refresh is due and the user wants to bring `data/skill-index/*.json` up to date with upstream changes
-- A new ASM release is approaching and the catalog should reflect the latest upstream skill metadata
-
-Do **not** trigger for: adding a new repository to the index (use `skill-index-updater`), authoring or improving a single skill (`skill-creator`, `skill-auto-improver`), opening an upstream PR to a third-party skill (`skill-upstream-pr`), or installing/updating skills on the local machine (`asm install`, `asm update`).
-
 ## Repo Sync Before Edits (mandatory)
 
 Before re-ingesting anything, pull the latest remote branch:
@@ -279,43 +271,26 @@ Fill the `<X>` / `<Y>` / `<Z>` / `<W>` placeholders and the per-bucket tables wi
 
 Verification: `gh pr view --json url` returns the new PR URL. Print it back to the user.
 
-## Expected Output
+## Edge Cases & Error Handling
 
-On a successful run, the user should see (and the agent should verify) all of the following:
+Each row names a condition, the step that owns it, and the required response. When two rows touch the same guardrail (never stage `website/catalog.json`; `yes`-only gate), honor it at every point of action — the cost of forgetting mid-run is a bad push.
 
-1. **Repo synced** — branch is up to date with `origin`, any local edits were stashed and restored cleanly.
-2. **`npm run preindex` completed** — exit code captured; per-repo lines visible in the log.
-3. **All four buckets populated** — every enabled repo lands in exactly one of updated / unchanged / failed, and every disabled repo lands in skipped. Totals add up.
-4. **`npx tsx scripts/build-catalog.ts` succeeded** — `website/catalog.json` rebuilt and is valid JSON. **Not staged.**
-5. **Diff scope contained** — only `data/skill-index/*.json` (and optionally `data/skill-index-resources.json` if explicitly refreshed) appear in `git diff`.
-6. **User confirmed** — explicit `yes` recorded before commit + push.
-7. **PR opened** — conventional-commit title (`chore(index): refresh indexed skill sources`), body filled from Step 8 template, URL returned to user.
-
-If any of items 1–5 fails, do **not** proceed to Steps 6–7.
-
-## Edge Cases
-
-Inputs the skill must handle without crashing, in order of likelihood:
-
-- **No enabled repos** (`enabled[]` is empty): stop with an explanation — there is nothing to refresh.
-- **Existing local edits to `data/skill-index/`**: the mandatory pre-edit stash (Repo Sync Before Edits) captures them; if the post-run pop conflicts, the recovery hint in the stash block tells the user how to restore.
-- **A single upstream repo is unreachable** (404, network blip): `preindex` marks it `FAILED` and continues; the failed repo lands in the **failed** bucket. The PR still ships for the other repos.
-- **All upstream repos fail** (no network, GitHub outage): every enabled repo lands in **failed**; the diff is empty; stop before Step 8 because there is nothing to commit.
-- **A repo's ingest produces zero `skillCount`** (upstream removed every SKILL.md): treat it as **updated** with a negative delta — the change is real and worth shipping.
-- **`npm run preindex` is missing or errors before producing any log lines**: stop in Step 3 — this is environmental, not a per-repo failure. Prompt the user to run `npm install` and retry.
-- **`npx tsx scripts/build-catalog.ts` fails after a successful preindex**: stop in Step 5 — the index is internally inconsistent. Investigate manually before committing anything.
-- **`website/catalog.json` accidentally appears in `git status`**: it is gitignored; if `.gitignore` was broken, fix it before staging. **Never `git add website/catalog.json`.**
-- **Unexpected files in the diff** (someone left WIP edits in `src/` or `skills/`): stop in Step 6 and tell the user — do not commit a mixed change.
-- **User declines the confirmation in Step 8**: stop cleanly. Leave the refreshed `data/skill-index/*.json` files in the working tree so the user can inspect or re-confirm later. Do not `git checkout --` anything.
-- **`gh` CLI not authenticated**: prompt the user to run `gh auth login` before retrying Step 8.
-
-## Error Handling
-
-- **Stash pop conflict** after sync: surface the recovery hint, stop the pipeline. The user resolves manually.
-- **`preindex` exits 1 but produced a partial log**: continue to Step 4 — partial results are still useful.
-- **`build-catalog` exits non-zero**: stop. A broken catalog is a structural data issue, not a transient error.
-- **`git diff` shows unexpected files**: stop. Ask the user to either revert unrelated edits or run this skill on a clean branch.
-- **`gh pr create` fails** (auth, network, missing remote): print the staged commit SHA so the user can push and open the PR manually.
+| Condition                                                               | Response                                                                                                                         |
+| ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **No enabled repos** (`enabled[]` empty)                                | Stop in Step 1 — nothing to refresh.                                                                                             |
+| **Pre-existing corrupt `data/skill-index/*.json`**                      | Step 1 `jq empty` catches it — stop before the refresh masks it.                                                                 |
+| **Existing local edits to `data/skill-index/`**                         | The mandatory pre-edit stash captures them; if the post-run pop conflicts, follow the recovery hint in the stash block and stop. |
+| **A single upstream repo unreachable** (404, network blip)              | `preindex` marks it `FAILED` and continues; it lands in **failed**. The PR still ships the rest.                                 |
+| **All upstream repos fail** (no network, outage)                        | Every repo lands in **failed**; the diff is empty; stop before Step 8 — nothing to commit.                                       |
+| **Ingest produces zero `skillCount`** (upstream removed every SKILL.md) | Treat as **updated** with a negative delta — a real change worth shipping.                                                       |
+| **`preindex` errors before any log line**                               | Stop in Step 3 — environmental, not per-repo. Prompt `npm install` and retry.                                                    |
+| **`preindex` exits 1 with a partial log**                               | Continue to Step 4 — partial results are still useful.                                                                           |
+| **`build-catalog` fails after preindex**                                | Stop in Step 5 — the index is internally inconsistent. Investigate before committing.                                            |
+| **`website/catalog.json` in `git status`**                              | It is gitignored; if `.gitignore` broke, fix it. **Never `git add website/catalog.json`.**                                       |
+| **Unexpected files in the diff** (WIP in `src/`, `skills/`)             | Stop in Step 6 — do not commit a mixed change. Ask the user to revert or run on a clean branch.                                  |
+| **User declines the Step 8 gate**                                       | Stop cleanly. Leave the refreshed files in the working tree for inspection. Do not `git checkout --` anything.                   |
+| **`gh` not authenticated**                                              | Prompt `gh auth login` before retrying Step 8.                                                                                   |
+| **`gh pr create` fails** (auth, network, missing remote)                | Print the committed SHA so the user can push and open the PR manually.                                                           |
 
 ## Cleanup
 

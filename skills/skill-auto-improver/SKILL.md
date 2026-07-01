@@ -6,7 +6,7 @@ compatibility: "Claude Code; requires `asm` on PATH and Python 3 for skill-creat
 allowed-tools: Bash Read Write Edit Grep Glob
 effort: high
 metadata:
-  version: 1.1.0
+  version: 1.3.0
   author: luongnv89
 ---
 

@@ -4,7 +4,7 @@ description: "Create, improve, evaluate, benchmark skills. Use when authoring a 
 license: MIT
 effort: max
 metadata:
-  version: 1.9.0
+  version: 1.11.0
   author: Luong NGUYEN <luongnv89@gmail.com>
 ---
 
@@ -54,7 +54,7 @@ Adapt the check names to match what the step actually validates. Use `√` for p
 
 **Intent Capture phase checks:** `Goal defined`, `Triggers identified`, `Output format agreed`
 
-**Skill Writing phase checks:** `SKILL.md written`, `README generated`, `Subagents designed`
+**Skill Writing phase checks:** `SKILL.md written`, `README generated`, `Subagents designed`, `Predictability pass` (the 7 rubric items from _Make it predictable_ — √ when each is satisfied, × naming the gap)
 
 **Testing phase checks:** `Evals created`, `Runs completed`, `Viewer launched`
 
@@ -135,6 +135,8 @@ A description has two jobs: pull in the queries that _should_ trigger the skill,
 
 Write positive and negative halves as one continuous sentence or two back-to-back sentences — not a structured list. `scripts/quick_validate.py` warns (non-fatal) when the negative-trigger clause appears missing.
 
+**One trigger per branch.** Every word in the description costs context load on every turn, so name each distinct triggering branch once and stop. Two triggers that describe the _same_ branch in different words ("build features test-first … asks for TDD") are that branch written twice — keep one. List only genuinely distinct branches, plus a short "when another skill needs…" clause if another skill must reach this one.
+
 #### Description length budget
 
 Three limits, in order of which one bites first:
@@ -168,6 +170,8 @@ The goal of creating a skill here is a **predictable process** — the agent fol
 - **Progressive disclosure for non-universal material.** Anything branch-specific, long, or not needed on every run goes to `references/` behind a one-line pointer (mechanics in `references/writing-guide.md` → _Progressive Disclosure_) — keeps context load low and SKILL.md under 500 lines.
 - **Leading words.** Name a recurring concept once with a short load-bearing term ("atomic commit", "fail-soft", "publish-ready") and reuse the term, rather than re-explaining it at each use.
 - **Pruning pass — run before finishing.** Make one explicit pass to cut **duplication** (the same instruction in two places — keep one home, link to it), **stale sediment** (leftover guidance, dead references, obsolete names), **sprawl** (sections grown past their value, prose that should be a table or a leading word), and **no-op instructions** (lines that change nothing the agent does — "be careful", "use good judgment" — replace with a checkable criterion or delete). This pass is what most often separates a skill-creator-authored skill from one that still needs `skill-auto-improver`.
+
+Before finishing, **walk all 7 rubric items** (`references/predictability-rubric.md` — the four hooks above plus invocation choice, branch mapping, and publish-ready) and emit the result as the `Predictability pass` row of the Skill Writing Step Completion Report: `√` per item satisfied, `×` naming any gap. This makes the rubric walk visible instead of silent — a `×` is a fix-before-publish signal, not a blocker.
 
 `skill-auto-improver` remains the remediation tool for _externally authored_ or _legacy_ skills — not a required second stage for a skill created through this path.
 

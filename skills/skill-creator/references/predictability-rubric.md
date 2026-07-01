@@ -22,6 +22,8 @@ Decide **model-invoked vs user-invoked** before drafting the body — it changes
 
 A skill can be both, but pick the _primary_ path — it decides whether you optimize the description for triggering or for human-readable intent, and whether the body reads as "apply this now" or "the user asked for this, proceed."
 
+User-invoked skills cost no context load but spend **cognitive load**: the user is the index that must remember they exist. When a family of them grows past what the user can hold in mind, cure it with a **router skill** — one user-invoked skill that names the others and says when to reach for each — instead of paying context load to make them all model-invoked.
+
 **Checkable:** the skill states (in its own design notes or its shape) which invocation it targets, and the description/body match that choice.
 
 ## 2. Map branches before drafting
@@ -36,7 +38,9 @@ Why first: branches drive both structure _and_ progressive disclosure. Once you 
 
 Each ordered step ends with a completion bar the agent can _check_, not vibe. "Done when the report prints PASS and `quick_validate.py` is clean" beats "done when it looks good." Strong criteria are what make the process repeatable — they stop the agent from declaring success early.
 
-Use the Step Completion Reports format (`SKILL.md` → _Step Completion Reports_) for step-based workflows: explicit `√/×` checks plus a `Result: PASS | FAIL | PARTIAL` line. Make the checks _demanding_ — tie them to commands, file states, or counts, not impressions.
+Use the Step Completion Reports format (`SKILL.md` → _Step Completion Reports_) for step-based workflows: explicit `√/×` checks plus a `Result: PASS | FAIL | PARTIAL` line. Make the checks _demanding_ — tie them to commands, file states, or counts, not impressions. Where it matters, make the criterion _exhaustive_ ("every modified file accounted for", not "produce a change list") — a vague bar invites **premature completion**, the agent ending a step before it is genuinely done because its attention slipped to _being done_.
+
+**Defence against premature completion, in order:** sharpen the completion criterion first (cheap, local). Only if the criterion is irreducibly fuzzy _and_ you observe the agent rushing, split the run by **sequence** — move the still-ahead steps out of view (into a later phase or reference) so the agent can't see the finish line and does more legwork on the step in front of it.
 
 **Checkable:** every major step in a step-based skill has a verifiable completion condition; the skill cannot report success without meeting it.
 
@@ -44,7 +48,9 @@ Use the Step Completion Reports format (`SKILL.md` → _Step Completion Reports_
 
 Anything **branch-specific, long, or not needed on every run** belongs in `references/`, reached by a one-line pointer — not inlined into SKILL.md. This is the same rule SKILL.md already states for the 500-line cap; named here so the rubric is complete. Do not re-document the mechanics — see `writing-guide.md` → _Progressive Disclosure_.
 
-**Checkable:** SKILL.md stays under 500 lines; reference files are one level deep and pointed to with clear "read this when X" guidance.
+Where disclosure decides _how far down_ a piece sits, **co-location** decides _what sits beside it_ once there: keep a concept's definition, its rules, and its caveats under one heading rather than scattered across the file, so reading one part pulls in its neighbours. Scattered rules are how an author edits one occurrence and misses the other — the seed of **duplication** and drift.
+
+**Checkable:** SKILL.md stays under 500 lines; reference files are one level deep and pointed to with clear "read this when X" guidance; each concept's rules and caveats sit together, not scattered.
 
 ## 5. Leading words
 
