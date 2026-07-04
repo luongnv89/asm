@@ -13,7 +13,8 @@ import {
   symlink,
   mkdir,
 } from "fs/promises";
-import { join, resolve, relative, basename } from "path";
+import { existsSync } from "fs";
+import { join, resolve, relative, basename, dirname } from "path";
 import { homedir } from "os";
 import { tmpdir } from "os";
 import {
@@ -726,9 +727,61 @@ export async function cleanupTemp(tempDir: string): Promise<void> {
 
 // ─── Vercel npx skills add Support ──────────────────────────────────────────
 
+/**
+ * Resolve npm's bundled `npx-cli.js` so npx can be launched via the current
+ * Node binary (`process.execPath`) instead of the platform `npx` shim.
+ *
+ * On Windows the shim is `npx.cmd`, which `child_process.execFile`/`spawn`
+ * cannot launch without `shell: true`: a bare `npx` throws ENOENT (Node does
+ * not consult PATHEXT for the command name) and `npx.cmd` throws EINVAL under
+ * Node's CVE-2024-27980 hardening, which refuses to spawn `.cmd`/`.bat` files
+ * without a shell. Invoking `node <npx-cli.js> …` sidesteps the shim entirely
+ * and passes arguments as a verbatim argv, so paths with spaces and shell
+ * metacharacters stay safe (no shell interpolation, unlike `shell: true`).
+ *
+ * Returns the absolute path to `npx-cli.js`, or null when it cannot be located
+ * (exotic runtimes) — callers then fall back to the `npx` shim on PATH.
+ */
+export function resolveNpxCli(): string | null {
+  const nodeDir = dirname(process.execPath);
+  const candidates = [
+    // Windows installers, nvm-windows, fnm, Volta: npm sits beside node.
+    join(nodeDir, "node_modules", "npm", "bin", "npx-cli.js"),
+    // POSIX layouts (system packages, nvm, Homebrew): node in bin/, npm in lib/.
+    join(nodeDir, "..", "lib", "node_modules", "npm", "bin", "npx-cli.js"),
+  ];
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) return candidate;
+  }
+  return null;
+}
+
+/**
+ * Cross-platform runner for the `npx` CLI. Prefers launching npm's bundled
+ * `npx-cli.js` through the current Node binary — this behaves identically on
+ * every OS and avoids the Windows `.cmd` shim problem (see `resolveNpxCli`).
+ * Falls back to the `npx` shim on PATH when the CLI script cannot be found.
+ */
+function runNpx(
+  args: string[],
+  opts: { timeout?: number } = {},
+): Promise<{ stdout: string; stderr: string }> {
+  // Only Windows needs the node + npx-cli.js indirection: there `npx` is a
+  // `.cmd` shim that execFile cannot launch (see resolveNpxCli). On POSIX the
+  // bare `npx` on PATH resolves correctly, so leave that path byte-for-byte
+  // unchanged to keep the blast radius of this fix on Windows alone.
+  if (process.platform === "win32") {
+    const npxCli = resolveNpxCli();
+    if (npxCli) {
+      return execFileAsync(process.execPath, [npxCli, ...args], opts);
+    }
+  }
+  return execFileAsync("npx", args, opts);
+}
+
 export async function checkNpxAvailable(): Promise<void> {
   try {
-    await execFileAsync("npx", ["--version"]);
+    await runNpx(["--version"]);
     debug("install: npx available");
   } catch {
     throw new Error(
@@ -752,7 +805,7 @@ export async function executeNpxSkillsAdd(
   debug(`install: running npx ${args.join(" ")}`);
 
   try {
-    const result = await execFileAsync("npx", args, { timeout: 120_000 });
+    const result = await runNpx(args, { timeout: 120_000 });
     return { stdout: result.stdout, stderr: result.stderr };
   } catch (err: any) {
     const stderr = err.stderr || err.message || "";

@@ -8,7 +8,8 @@ import {
   lstat,
   symlink,
 } from "fs/promises";
-import { join, relative } from "path";
+import { existsSync } from "fs";
+import { join, relative, basename } from "path";
 import { tmpdir } from "os";
 import {
   parseSource,
@@ -30,6 +31,7 @@ import {
   findDuplicateInstallNames,
   buildRepoUrl,
   checkNpxAvailable,
+  resolveNpxCli,
   installScriptDependencies,
   checkCrossToolLink,
   linkExistingSkill,
@@ -1889,11 +1891,32 @@ describe("executeInstallAllProviders with project scope", () => {
   });
 });
 
+// ─── resolveNpxCli tests ────────────────────────────────────────────────────
+
+describe("resolveNpxCli", () => {
+  test("locates npm's npx-cli.js next to the running Node binary", () => {
+    // The test runner is launched by node, whose bundled npm ships npx-cli.js.
+    const cli = resolveNpxCli();
+    expect(cli).not.toBeNull();
+    expect(basename(cli as string)).toBe("npx-cli.js");
+    expect(existsSync(cli as string)).toBe(true);
+  });
+
+  test("returns a path under npm's bin directory", () => {
+    const cli = resolveNpxCli();
+    // Normalize separators so the assertion holds on Windows and POSIX alike.
+    const normalized = (cli as string).replace(/\\/g, "/");
+    expect(normalized).toContain("/npm/bin/npx-cli.js");
+  });
+});
+
 // ─── checkNpxAvailable tests ────────────────────────────────────────────────
 
 describe("checkNpxAvailable", () => {
   test("does not throw when npx is available", async () => {
-    // npx should be available in the test environment since node is present
+    // npx should be available in the test environment since node is present.
+    // On Windows this only passes because the runner invokes npx via node +
+    // npx-cli.js rather than the `npx.cmd` shim (which execFile cannot spawn).
     await expect(checkNpxAvailable()).resolves.toBeUndefined();
   });
 });
