@@ -10,7 +10,6 @@ import {
   access,
   stat,
   lstat,
-  symlink,
   mkdir,
 } from "fs/promises";
 import { existsSync } from "fs";
@@ -25,7 +24,7 @@ import {
 import { estimateTokenCount } from "./utils/token-count";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
-import { readFilesRecursive } from "./utils/fs";
+import { createDirSymlink, readFilesRecursive } from "./utils/fs";
 import { checkboxPicker } from "./utils/checkbox-picker";
 import { createLink } from "./linker";
 import type {
@@ -708,7 +707,7 @@ export async function executeInstallAllProviders(
 
     // Create relative symlink pointing to the primary install location
     const relTarget = relative(providerDir, plan.targetDir);
-    await symlink(relTarget, targetPath, "dir");
+    await createDirSymlink(relTarget, targetPath);
     debug(`install: symlinked ${targetPath} -> ${relTarget}`);
   }
 

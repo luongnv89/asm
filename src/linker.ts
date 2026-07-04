@@ -1,15 +1,7 @@
-import {
-  access,
-  lstat,
-  mkdir,
-  readdir,
-  readFile,
-  rm,
-  stat,
-  symlink,
-} from "fs/promises";
+import { access, lstat, mkdir, readdir, readFile, rm, stat } from "fs/promises";
 import { join } from "path";
 import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
+import { createDirSymlink } from "./utils/fs";
 
 export interface LinkableSkill {
   /** Absolute path to the skill directory */
@@ -93,8 +85,8 @@ export async function createLink(
   // Ensure the parent directory exists before creating the symlink
   await mkdir(targetDir, { recursive: true });
 
-  // Create symlink
-  await symlink(sourcePath, targetPath, "dir");
+  // Create symlink (a junction on Windows — see createDirSymlink)
+  await createDirSymlink(sourcePath, targetPath);
 }
 
 /**

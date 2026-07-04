@@ -1,7 +1,8 @@
-import { readFile, access, mkdir, cp, rm, symlink } from "fs/promises";
+import { readFile, access, mkdir, cp, rm } from "fs/promises";
 import { join, basename } from "path";
 import { resolveProviderPath, loadConfig } from "./config";
 import { scanAllSkills } from "./scanner";
+import { createDirSymlink } from "./utils/fs";
 import { debug } from "./logger";
 import type {
   ExportManifest,
@@ -271,7 +272,7 @@ export async function importSkills(
         // Recreate the symlink; fall back to copy if the target doesn't exist
         try {
           await access(skill.symlinkTarget);
-          await symlink(skill.symlinkTarget, targetDir);
+          await createDirSymlink(skill.symlinkTarget, targetDir);
           debug(
             `import: symlinked "${skill.name}" -> ${skill.symlinkTarget} at ${targetDir}`,
           );

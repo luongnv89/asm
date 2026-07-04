@@ -11,7 +11,6 @@ import {
   realpath,
   rename,
   rm,
-  symlink,
   writeFile,
 } from "fs/promises";
 import { execFile } from "child_process";
@@ -21,6 +20,7 @@ import { dirname, isAbsolute, join, relative, resolve } from "path";
 import { getLibraryLockPath, getLibrarySkillsDir } from "./config";
 import { debug } from "./logger";
 import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
+import { createDirSymlink } from "./utils/fs";
 import { sourceToCloneUrl } from "./updater";
 import type { LibraryLockFile, LibrarySkillEntry } from "./utils/types";
 
@@ -787,7 +787,7 @@ export async function activateLibrarySkill(input: {
   }
 
   await mkdir(input.targetDir, { recursive: true });
-  await symlink(input.libraryPath, symlinkPath, "dir");
+  await createDirSymlink(input.libraryPath, symlinkPath);
   return { symlinkPath, targetPath: input.libraryPath };
 }
 

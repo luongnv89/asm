@@ -1,5 +1,31 @@
-import { readdir, readFile, stat } from "fs/promises";
-import { join } from "path";
+import { readdir, readFile, stat, symlink } from "fs/promises";
+import { dirname, join, resolve } from "path";
+
+/**
+ * Create a directory symlink that works on every platform.
+ *
+ * POSIX: a standard directory symlink, preserving the caller's target — which
+ * is often relative, so the link stays valid if the home directory moves.
+ *
+ * Windows: a directory *junction* instead of a real symlink. Real directory
+ * symlinks require elevation (Admin / Developer Mode) and otherwise fail with
+ * `EPERM`, whereas junctions need no special privileges. Node still reports a
+ * junction as a symlink via `lstat().isSymbolicLink()` and resolves it through
+ * `readlink()`/`realpath()`, so asm's symlink detection, dedup, and uninstall
+ * logic keep working unchanged. Junction targets must be absolute, so the
+ * (possibly relative) target is resolved against the link's parent directory —
+ * the same base against which a symlink target is interpreted.
+ */
+export async function createDirSymlink(
+  target: string,
+  linkPath: string,
+): Promise<void> {
+  if (process.platform === "win32") {
+    await symlink(resolve(dirname(linkPath), target), linkPath, "junction");
+  } else {
+    await symlink(target, linkPath, "dir");
+  }
+}
 
 export const BINARY_EXTENSIONS = new Set([
   ".png",

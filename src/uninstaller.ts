@@ -4,7 +4,6 @@ import {
   writeFile,
   access,
   lstat,
-  symlink,
   rename,
   readdir,
   mkdir,
@@ -13,6 +12,7 @@ import {
 import { join, resolve, dirname, relative } from "path";
 import { homedir } from "os";
 import { resolveProviderPath } from "./config";
+import { createDirSymlink } from "./utils/fs";
 import type {
   SkillInfo,
   RemovalPlan,
@@ -418,7 +418,7 @@ export async function executeRemoval(
           }
         }
         await mkdir(parentDir, { recursive: true });
-        await symlink(relTarget, repointPath, "dir");
+        await createDirSymlink(relTarget, repointPath);
         log.push(`Repointed symlink: ${repointPath} -> ${relTarget}`);
       } catch (err: any) {
         log.push(
@@ -459,7 +459,7 @@ export async function executeRemoval(
       ) {
         const parentDir = dirname(dir.path);
         const relTarget = relative(parentDir, symlinkTo);
-        await symlink(relTarget, dir.path, "dir");
+        await createDirSymlink(relTarget, dir.path);
         log.push(`Created symlink: ${dir.path} -> ${relTarget}`);
       }
     } catch (err: any) {
