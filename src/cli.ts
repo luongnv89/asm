@@ -89,7 +89,16 @@ import type { RegistryManifest, ResolutionSource } from "./registry";
 import { buildManifest } from "./exporter";
 import { readManifestFile, importSkills } from "./importer";
 import { scaffoldSkill, directoryExists } from "./initializer";
-import { computeStats, formatStatsReport } from "./stats";
+import {
+  computeStats,
+  formatStatsReport,
+  computeRepoStats,
+  computeAuthorStats,
+  computeIndexStats,
+  formatRepoStatsReport,
+  formatAuthorStatsReport,
+  formatIndexStatsReport,
+} from "./stats";
 import {
   validateLinkSource,
   createLink,
@@ -169,6 +178,7 @@ import {
   searchSkills as searchIndexSkills,
   getTotalSkillCount,
   getMissingMetadataFields,
+  loadAllIndices,
 } from "./skill-index";
 import type { SearchFilters } from "./skill-index";
 import { VERSION_STRING } from "./utils/version";
@@ -191,6 +201,9 @@ import type {
   SecurityAuditReport,
   AppConfig,
   SkillStateFile,
+  RepoStatsReport,
+  AuthorStatsReport,
+  IndexStatsReport,
 } from "./utils/types";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -565,6 +578,9 @@ ${ansi.bold("Commands:")}
   import <file>          Import skills from a previously exported manifest
   init <name>            Scaffold a new skill with SKILL.md template
   stats                  Show aggregate skill metrics dashboard
+  stats repo <repo>      Show per-repo stats (indexed skills)
+  stats author <owner>   Show per-author stats (indexed skills)
+  stats index            Show index-wide statistics
   link <path>            Symlink a local skill directory into an agent
   outdated               Show which installed skills have newer versions
   update [name...]       Update outdated skills with security re-audit
@@ -3911,10 +3927,15 @@ async function cmdInit(args: ParsedArgs) {
 // ─── Stats ──────────────────────────────────────────────────────────────────
 
 function printStatsHelp() {
-  console.log(`${ansi.bold("Usage:")} asm stats [options]
+  console.log(`${ansi.bold("Usage:")} asm stats [subcommand] [options]
 
 Show aggregate skill metrics with provider distribution charts,
 scope breakdown, disk usage, and duplicate summary.
+
+${ansi.bold("Subcommands:")}
+  repo <owner/repo>    Show per-repo stats from the skill index
+  author <owner>       Show per-author stats from the skill index
+  index                Show index-wide statistics
 
 ${ansi.bold("Options:")}
   --json             Output as JSON
@@ -3923,9 +3944,12 @@ ${ansi.bold("Options:")}
   -V, --verbose      Show debug output
 
 ${ansi.bold("Examples:")}
-  asm stats                         ${ansi.dim("Show full dashboard")}
+  asm stats                         ${ansi.dim("Show installed skills dashboard")}
   asm stats -s global               ${ansi.dim("Global skills only")}
-  asm stats --json                  ${ansi.dim("Output raw data as JSON")}`);
+  asm stats --json                  ${ansi.dim("Output raw data as JSON")}
+  asm stats repo anthropics/skills  ${ansi.dim("Show indexed repo stats")}
+  asm stats author luongnv89        ${ansi.dim("Show indexed author stats")}
+  asm stats index                   ${ansi.dim("Show index-wide stats")}`);
 }
 
 async function cmdStats(args: ParsedArgs) {
@@ -3934,6 +3958,22 @@ async function cmdStats(args: ParsedArgs) {
     return;
   }
 
+  // Dispatch to subcommands
+  const subcommand = args.subcommand;
+  if (subcommand === "repo") {
+    await cmdStatsRepo(args);
+    return;
+  }
+  if (subcommand === "author") {
+    await cmdStatsAuthor(args);
+    return;
+  }
+  if (subcommand === "index") {
+    await cmdStatsIndex(args);
+    return;
+  }
+
+  // Default: installed skills stats (original behavior)
   const config = await loadConfig();
   const allSkills = await scanAllSkills(config, args.flags.scope);
 
@@ -3955,6 +3995,156 @@ async function cmdStats(args: ParsedArgs) {
     }
   } else {
     console.log(formatStatsReport(report));
+  }
+}
+
+function printStatsRepoHelp() {
+  console.log(`${ansi.bold("Usage:")} asm stats repo <owner/repo> [options]
+
+Show statistics for a specific indexed repository.
+
+${ansi.bold("Arguments:")}
+  owner/repo           Repository identifier (e.g. anthropics/skills)
+
+${ansi.bold("Options:")}
+  --json               Output as JSON
+  --no-color           Disable ANSI colors
+
+${ansi.bold("Examples:")}
+  asm stats repo anthropics/skills
+  asm stats repo luongnv89/asm --json`);
+}
+
+async function cmdStatsRepo(args: ParsedArgs) {
+  if (args.flags.help) {
+    printStatsRepoHelp();
+    return;
+  }
+
+  const repoArg = args.subcommand;
+  if (!repoArg) {
+    error("Missing required argument: <owner/repo>");
+    console.error(`Run "asm stats repo --help" for usage.`);
+    process.exit(2);
+  }
+
+  const [owner, repo] = repoArg.split("/");
+  if (!owner || !repo) {
+    error(`Invalid repository: "${repoArg}". Expected format: owner/repo`);
+    process.exit(2);
+  }
+
+  const indices = await loadAllIndices();
+  const repoIndex = indices.find(
+    (i) => i.owner === owner && i.repo === repo,
+  );
+
+  if (!repoIndex) {
+    error(`Repository "${owner}/${repo}" not found in the skill index.`);
+    console.error(
+      ansi.dim(`Run "asm index list" to see all indexed repositories.`),
+    );
+    process.exit(1);
+  }
+
+  const repoStats = computeRepoStats([repoIndex]);
+  if (repoStats.length === 0) {
+    console.log(`No stats for "${owner}/${repo}".`);
+    return;
+  }
+
+  if (args.flags.json) {
+    console.log(formatJSON(repoStats[0]));
+  } else {
+    console.log(formatRepoStatsReport(repoStats[0]));
+  }
+}
+
+function printStatsAuthorHelp() {
+  console.log(`${ansi.bold("Usage:")} asm stats author <owner> [options]
+
+Show statistics for a specific author across all indexed repositories.
+
+${ansi.bold("Arguments:")}
+  owner                Author/organization name (e.g. luongnv89)
+
+${ansi.bold("Options:")}
+  --json               Output as JSON
+  --no-color           Disable ANSI colors
+
+${ansi.bold("Examples:")}
+  asm stats author anthropics
+  asm stats author luongnv89 --json`);
+}
+
+async function cmdStatsAuthor(args: ParsedArgs) {
+  if (args.flags.help) {
+    printStatsAuthorHelp();
+    return;
+  }
+
+  const owner = args.subcommand;
+  if (!owner) {
+    error("Missing required argument: <owner>");
+    console.error(`Run "asm stats author --help" for usage.`);
+    process.exit(2);
+  }
+
+  const indices = await loadAllIndices();
+  const authorStats = computeAuthorStats(indices);
+  const author = authorStats.find((a) => a.owner === owner);
+
+  if (!author) {
+    error(`Author "${owner}" not found in the skill index.`);
+    console.error(
+      ansi.dim(`Run "asm stats index" to see all authors.`),
+    );
+    process.exit(1);
+  }
+
+  if (args.flags.json) {
+    console.log(formatJSON(author));
+  } else {
+    console.log(formatAuthorStatsReport(author));
+  }
+}
+
+function printStatsIndexHelp() {
+  console.log(`${ansi.bold("Usage:")} asm stats index [options]
+
+Show aggregate statistics across all indexed repositories.
+
+${ansi.bold("Options:")}
+  --json               Output as JSON
+  --no-color           Disable ANSI colors
+
+${ansi.bold("Examples:")}
+  asm stats index
+  asm stats index --json`);
+}
+
+async function cmdStatsIndex(args: ParsedArgs) {
+  if (args.flags.help) {
+    printStatsIndexHelp();
+    return;
+  }
+
+  const indices = await loadAllIndices();
+
+  if (indices.length === 0) {
+    console.log("No indexed repositories found.");
+    console.error(
+      ansi.dim(`Run "asm index ingest <repo>" to add repositories.`),
+    );
+    return;
+  }
+
+  const report = computeIndexStats(indices);
+
+  if (args.flags.json) {
+    console.log(formatJSON(report));
+  } else {
+    console.log(formatIndexStatsReport(report));
   }
 }
 
