@@ -8,6 +8,8 @@ import CatalogPage from "./pages/CatalogPage.jsx";
 import BundlesPage from "./pages/BundlesPage.jsx";
 import DocsPage from "./pages/DocsPage.jsx";
 import ChangelogPage from "./pages/ChangelogPage.jsx";
+import StatsPage from "./pages/StatsPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
 import { CatalogProvider } from "./hooks/useCatalog.jsx";
 import { BundleCartProvider } from "./hooks/useBundleCart.jsx";
 
@@ -56,6 +58,8 @@ export default function App() {
               <Route path="/bundles/:name" element={<BundlesPage />} />
               <Route path="/docs" element={<DocsPage />} />
               <Route path="/changelog" element={<ChangelogPage />} />
+              <Route path="/stats" element={<StatsPage />} />
+              <Route path="/profile/:owner" element={<ProfilePage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>

@@ -122,6 +122,9 @@ export default function Header({ onOpenBundleBuilder }) {
           <NavLink to="/changelog" className={linkClass}>
             Changelog
           </NavLink>
+          <NavLink to="/stats" className={linkClass}>
+            Stats
+          </NavLink>
         </nav>
         <div className="ml-auto flex items-center gap-2">
           {version && (

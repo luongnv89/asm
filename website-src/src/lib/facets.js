@@ -32,6 +32,11 @@ export const FACET_DEFS = [
     order: ["yes", "no"],
     display: { yes: "uses tools", no: "no tools" },
   },
+  {
+    key: "author",
+    label: "Author",
+    order: [],
+  },
 ];
 
 export function emptyFacetState() {
@@ -40,6 +45,7 @@ export function emptyFacetState() {
     grade: new Set(),
     source: new Set(),
     usesTools: new Set(),
+    author: new Set(),
   };
 }
 
@@ -49,6 +55,7 @@ export function computeFacetCounts(skills) {
     grade: {},
     source: {},
     usesTools: { yes: 0, no: 0 },
+    author: {},
   };
   for (const s of skills) {
     const lb = licenseBucket(s.license);
@@ -62,6 +69,10 @@ export function computeFacetCounts(skills) {
     const yes =
       s.hasTools === true || !!(s.allowedTools && s.allowedTools.length > 0);
     out.usesTools[yes ? "yes" : "no"]++;
+    // Author facet — bucket by owner
+    if (s.owner) {
+      out.author[s.owner] = (out.author[s.owner] || 0) + 1;
+    }
   }
   return out;
 }
