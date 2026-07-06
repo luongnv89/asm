@@ -433,6 +433,43 @@ export interface RepoIndex {
   bundles?: RepoIndexBundle[];
 }
 
+// ─── Stats / Visualization Types ──────────────────────────────────────────
+
+/** Per-repo aggregated statistics for the catalog index. */
+export interface RepoStatsReport {
+  owner: string;
+  repo: string;
+  repoUrl: string;
+  skillCount: number;
+  categories: Record<string, number>;
+  verifiedCount: number;
+  totalTokens: number;
+  avgEvalScore?: number;
+}
+
+/** Per-author (owner) aggregated statistics across all indexed repos. */
+export interface AuthorStatsReport {
+  owner: string;
+  totalSkills: number;
+  repos: string[];
+  categories: Record<string, number>;
+  verifiedCount: number;
+  totalTokens: number;
+  avgEvalScore?: number;
+  topSkills: Array<{ name: string; repo: string }>;
+}
+
+/** Aggregated stats across all indexed repos and authors. */
+export interface IndexStatsReport {
+  totalRepos: number;
+  totalSkills: number;
+  totalAuthors: number;
+  categoryDistribution: Record<string, number>;
+  verifiedCount: number;
+  totalTokens: number;
+  avgTokensPerSkill: number;
+}
+
 // ─── Security Audit Types ────────────────────────────────────────────────
 
 export interface SourceAnalysis {
