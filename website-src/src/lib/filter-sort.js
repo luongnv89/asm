@@ -58,6 +58,11 @@ export function applyFilters(skills, state, options = {}) {
       );
     });
   }
+  if (state.activeFacets.author.size > 0) {
+    results = results.filter(
+      (s) => s.owner && state.activeFacets.author.has(s.owner),
+    );
+  }
 
   // Featured skills pin to the top of every sort mode (including search
   // relevance). Returns -1/1 when featured differs, 0 otherwise so callers

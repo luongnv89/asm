@@ -4,7 +4,7 @@ import { csvToSet, setToCsv } from "../lib/utils.js";
 import { emptyFacetState } from "../lib/facets.js";
 import { defaultSort } from "../lib/filter-sort.js";
 
-const FACET_KEYS = ["license", "grade", "source", "usesTools"];
+const FACET_KEYS = ["license", "grade", "source", "usesTools", "author"];
 
 /**
  * React Router's `useSearchParams` keeps the URL query string in sync with
@@ -32,6 +32,7 @@ export function useCatalogState() {
     facets.grade = csvToSet(params.get("grade"));
     facets.source = csvToSet(params.get("source"));
     facets.usesTools = csvToSet(params.get("tools"));
+    facets.author = csvToSet(params.get("author"));
     // Backwards-compat: migrate old `?verified=1` into source facet.
     if (params.get("verified") === "1") facets.source.add("verified");
     return {
