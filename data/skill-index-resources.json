@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-29T21:45:00Z",
+  "updatedAt": "2026-07-06T12:06:19Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -476,6 +476,15 @@
       "repo": "follow-builders",
       "description": "Follow Builders skill for discovering and following builders",
       "maintainer": "@zarazhangrui",
+      "enabled": true
+    },
+    {
+      "source": "github:davidondrej/skills",
+      "url": "https://github.com/davidondrej/skills",
+      "owner": "davidondrej",
+      "repo": "skills",
+      "description": "access to david ondrej's personal agent skills",
+      "maintainer": "@davidondrej",
       "enabled": true
     }
   ]
