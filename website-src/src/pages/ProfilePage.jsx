@@ -10,15 +10,21 @@ import { Badge } from "../components/ui/badge";
  * Data comes from the build-time author-stats.json artifact.
  */
 
-function cssBar(value, max, width = 24) {
-  const filled = Math.round((value / max) * width);
-  const empty = width - filled;
+function cssBar(value, max) {
+  const pct = max > 0 ? Math.max(4, Math.round((value / max) * 100)) : 0;
   return (
-    <span className="inline-flex items-center">
-      <span className="text-emerald-400">{"#".repeat(filled)}</span>
-      <span className="text-[var(--fg-dim)]">{"-".repeat(empty)}</span>
+    <span className="block h-2 min-w-0 rounded-full bg-[var(--bg-muted)]">
+      <span
+        className="block h-2 rounded-full bg-emerald-400"
+        style={{ width: `${pct}%` }}
+      />
     </span>
   );
+}
+
+function profileShareUrl(owner) {
+  if (typeof window === "undefined") return `#/profile/${owner}`;
+  return `${window.location.origin}${window.location.pathname}#/profile/${encodeURIComponent(owner)}`;
 }
 
 function SectionTitle({ children }) {
@@ -46,7 +52,7 @@ export default function ProfilePage() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    fetch("/author-stats.json")
+    fetch("author-stats.json")
       .then((r) => r.json())
       .then((data) => {
         const found = data?.stats?.find((a) => a.owner === owner);
@@ -89,7 +95,7 @@ export default function ProfilePage() {
   const maxCatCount = catEntries.length > 0 ? catEntries[0][1] : 1;
 
   // Build shareable URL
-  const shareUrl = `${window.location.origin}/profile/${author.owner}`;
+  const shareUrl = profileShareUrl(author.owner);
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -138,15 +144,18 @@ export default function ProfilePage() {
           <SectionTitle>Category Distribution</SectionTitle>
           <div className="space-y-1">
             {catEntries.map(([cat, count]) => (
-              <div key={cat} className="flex items-center gap-3 text-sm">
+              <div
+                key={cat}
+                className="grid grid-cols-[minmax(5rem,8rem)_minmax(0,1fr)_2.5rem] items-center gap-3 text-sm"
+              >
                 <span
-                  className="w-32 text-right text-[var(--fg)] truncate"
+                  className="text-right text-[var(--fg)] truncate"
                   title={cat}
                 >
                   {cat}
                 </span>
-                <span className="flex-1">{cssBar(count, maxCatCount, 24)}</span>
-                <span className="w-10 text-right font-mono text-[var(--fg-dim)]">
+                <span className="min-w-0">{cssBar(count, maxCatCount)}</span>
+                <span className="text-right font-mono text-[var(--fg-dim)]">
                   {count}
                 </span>
               </div>
@@ -175,15 +184,17 @@ export default function ProfilePage() {
             {author.topSkills.map((s, i) => (
               <div
                 key={`${s.name}-${s.repo}`}
-                className="flex items-center gap-3 text-sm py-2 border-b border-[var(--border)] last:border-0"
+                className="grid grid-cols-[1.5rem_minmax(0,1fr)] sm:grid-cols-[1.5rem_minmax(0,1fr)_minmax(6rem,auto)] items-center gap-3 text-sm py-2 border-b border-[var(--border)] last:border-0"
               >
                 <span className="w-6 text-right font-mono text-[var(--fg-muted)]">
                   {i + 1}
                 </span>
-                <span className="flex-1 font-medium text-[var(--fg)]">
+                <span className="min-w-0 font-medium text-[var(--fg)] truncate">
                   {s.name}
                 </span>
-                <span className="text-[var(--fg-dim)] text-xs">{s.repo}</span>
+                <span className="hidden sm:inline text-[var(--fg-dim)] text-xs truncate">
+                  {s.repo}
+                </span>
               </div>
             ))}
           </div>

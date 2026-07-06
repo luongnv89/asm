@@ -4021,7 +4021,7 @@ async function cmdStatsRepo(args: ParsedArgs) {
     return;
   }
 
-  const repoArg = args.subcommand;
+  const repoArg = args.positional[0];
   if (!repoArg) {
     error("Missing required argument: <owner/repo>");
     console.error(`Run "asm stats repo --help" for usage.`);
@@ -4035,9 +4035,7 @@ async function cmdStatsRepo(args: ParsedArgs) {
   }
 
   const indices = await loadAllIndices();
-  const repoIndex = indices.find(
-    (i) => i.owner === owner && i.repo === repo,
-  );
+  const repoIndex = indices.find((i) => i.owner === owner && i.repo === repo);
 
   if (!repoIndex) {
     error(`Repository "${owner}/${repo}" not found in the skill index.`);
@@ -4083,7 +4081,7 @@ async function cmdStatsAuthor(args: ParsedArgs) {
     return;
   }
 
-  const owner = args.subcommand;
+  const owner = args.positional[0];
   if (!owner) {
     error("Missing required argument: <owner>");
     console.error(`Run "asm stats author --help" for usage.`);
@@ -4096,9 +4094,7 @@ async function cmdStatsAuthor(args: ParsedArgs) {
 
   if (!author) {
     error(`Author "${owner}" not found in the skill index.`);
-    console.error(
-      ansi.dim(`Run "asm stats index" to see all authors.`),
-    );
+    console.error(ansi.dim(`Run "asm stats index" to see all authors.`));
     process.exit(1);
   }
 

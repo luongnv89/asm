@@ -86,17 +86,17 @@ export default function Header({ onOpenBundleBuilder }) {
   };
 
   const linkClass = ({ isActive }) =>
-    "px-3 py-1.5 rounded-md text-sm font-medium transition-colors " +
+    "px-3 py-1.5 rounded-md text-sm font-medium whitespace-nowrap transition-colors " +
     (isActive
       ? "bg-[color-mix(in_srgb,var(--brand)_18%,transparent)] text-[var(--brand)]"
       : "text-[var(--fg-dim)] hover:text-[var(--fg)] hover:bg-[var(--bg-hover)]");
 
   return (
     <header className="border-b border-[var(--border)] bg-[var(--bg-card)]">
-      <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 py-3 flex items-center gap-4">
+      <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 py-3 flex items-center gap-2 sm:gap-4 min-w-0">
         <Link
           to="/"
-          className="flex items-center gap-2 font-semibold text-[var(--fg)] text-lg"
+          className="flex shrink-0 items-center gap-2 font-semibold text-[var(--fg)] text-lg"
         >
           <img
             src="./assets/logo-mark.svg"
@@ -109,7 +109,7 @@ export default function Header({ onOpenBundleBuilder }) {
             agent-skill-manager
           </span>
         </Link>
-        <nav className="flex items-center gap-1 ml-4">
+        <nav className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto ml-1 sm:ml-4 md:flex-none">
           <NavLink to="/skills" className={linkClass}>
             Skills
           </NavLink>
@@ -126,7 +126,7 @@ export default function Header({ onOpenBundleBuilder }) {
             Stats
           </NavLink>
         </nav>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex shrink-0 items-center gap-2">
           {version && (
             <span
               className="hidden sm:inline-block font-mono text-[11px] text-[var(--fg-muted)] px-2 py-0.5 border border-[var(--border)] rounded-md"

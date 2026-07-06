@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useCatalog } from "../hooks/useCatalog.jsx";
 import { Badge } from "../components/ui/badge";
 import CopyButton from "../components/CopyButton";
@@ -11,15 +12,21 @@ import CopyButton from "../components/CopyButton";
  * index-stats.json) shipped alongside the catalog.
  */
 
-function cssBar(value, max, width = 20) {
-  const filled = Math.round((value / max) * width);
-  const empty = width - filled;
+function cssBar(value, max) {
+  const pct = max > 0 ? Math.max(4, Math.round((value / max) * 100)) : 0;
   return (
-    <span className="inline-flex items-center">
-      <span className="text-emerald-400">{"#".repeat(filled)}</span>
-      <span className="text-[var(--fg-dim)]">{"-".repeat(empty)}</span>
+    <span className="block h-2 min-w-0 rounded-full bg-[var(--bg-muted)]">
+      <span
+        className="block h-2 rounded-full bg-emerald-400"
+        style={{ width: `${pct}%` }}
+      />
     </span>
   );
+}
+
+function profileShareUrl(owner) {
+  if (typeof window === "undefined") return `#/profile/${owner}`;
+  return `${window.location.origin}${window.location.pathname}#/profile/${encodeURIComponent(owner)}`;
 }
 
 function SectionTitle({ children }) {
@@ -49,13 +56,13 @@ export default function StatsPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch("/repo-stats.json")
+      fetch("repo-stats.json")
         .then((r) => r.json())
         .catch(() => null),
-      fetch("/author-stats.json")
+      fetch("author-stats.json")
         .then((r) => r.json())
         .catch(() => null),
-      fetch("/index-stats.json")
+      fetch("index-stats.json")
         .then((r) => r.json())
         .catch(() => null),
     ]).then(([rs, as, is]) => {
@@ -119,15 +126,18 @@ export default function StatsPage() {
           <SectionTitle>Category Distribution</SectionTitle>
           <div className="space-y-1">
             {catEntries.map(([cat, count]) => (
-              <div key={cat} className="flex items-center gap-3 text-sm">
+              <div
+                key={cat}
+                className="grid grid-cols-[minmax(5rem,8rem)_minmax(0,1fr)_2.5rem] items-center gap-3 text-sm"
+              >
                 <span
-                  className="w-32 text-right text-[var(--fg)] truncate"
+                  className="text-right text-[var(--fg)] truncate"
                   title={cat}
                 >
                   {cat}
                 </span>
-                <span className="flex-1">{cssBar(count, maxCatCount, 24)}</span>
-                <span className="w-10 text-right font-mono text-[var(--fg-dim)]">
+                <span className="min-w-0">{cssBar(count, maxCatCount)}</span>
+                <span className="text-right font-mono text-[var(--fg-dim)]">
                   {count}
                 </span>
               </div>
@@ -143,7 +153,7 @@ export default function StatsPage() {
           {repos.slice(0, 15).map((r, i) => (
             <div
               key={`${r.owner}/${r.repo}`}
-              className="flex items-center gap-3 text-sm py-2 border-b border-[var(--border)] last:border-0"
+              className="grid grid-cols-[1.5rem_minmax(0,1fr)_auto] sm:grid-cols-[1.5rem_minmax(0,1fr)_6rem_auto] items-center gap-3 text-sm py-2 border-b border-[var(--border)] last:border-0"
             >
               <span className="w-6 text-right font-mono text-[var(--fg-muted)]">
                 {i + 1}
@@ -152,13 +162,13 @@ export default function StatsPage() {
                 href={r.repoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 font-medium text-[var(--fg)] hover:text-[var(--brand)] transition-colors truncate"
+                className="min-w-0 font-medium text-[var(--fg)] hover:text-[var(--brand)] transition-colors truncate"
                 title={`${r.owner}/${r.repo}`}
               >
                 {r.owner}/{r.repo}
               </a>
               <span
-                className="text-[var(--fg-dim)] text-xs w-24 truncate"
+                className="hidden sm:block text-[var(--fg-dim)] text-xs truncate"
                 title={r.description}
               >
                 {r.description?.slice(0, 40)}
@@ -183,27 +193,24 @@ export default function StatsPage() {
           {authors.slice(0, 15).map((a, i) => (
             <div
               key={a.owner}
-              className="flex items-center gap-3 text-sm py-2 border-b border-[var(--border)] last:border-0"
+              className="grid grid-cols-[1.5rem_minmax(0,1fr)_auto_auto] items-center gap-3 text-sm py-2 border-b border-[var(--border)] last:border-0"
             >
               <span className="w-6 text-right font-mono text-[var(--fg-muted)]">
                 {i + 1}
               </span>
-              <a
-                href={`/profile/${a.owner}`}
-                className="flex-1 font-medium text-[var(--fg)] hover:text-[var(--brand)] transition-colors"
+              <Link
+                to={`/profile/${encodeURIComponent(a.owner)}`}
+                className="min-w-0 font-medium text-[var(--fg)] hover:text-[var(--brand)] transition-colors truncate"
               >
                 {a.owner}
-              </a>
-              <span className="text-[var(--fg-dim)] text-xs">
+              </Link>
+              <span className="hidden sm:inline text-[var(--fg-dim)] text-xs">
                 {a.repos.length} repo{a.repos.length !== 1 ? "s" : ""}
               </span>
               <Badge variant="secondary" className="text-xs">
                 {a.totalSkills} skills
               </Badge>
-              <CopyButton
-                text={`${window.location.origin}/profile/${a.owner}`}
-                size="sm"
-              />
+              <CopyButton text={profileShareUrl(a.owner)} size="sm" />
             </div>
           ))}
           {authors.length === 0 && (
