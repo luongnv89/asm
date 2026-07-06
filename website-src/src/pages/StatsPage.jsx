@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useCatalog } from "../hooks/useCatalog.jsx";
 import { Badge } from "../components/ui/badge";
-import { CopyButton } from "../components/CopyButton";
+import CopyButton from "../components/CopyButton";
 
 /**
  * Stats overview page — shows top repos by skill count, top authors,

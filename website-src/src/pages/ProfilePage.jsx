@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { CopyButton } from "../components/CopyButton";
+import CopyButton from "../components/CopyButton";
 import { Badge } from "../components/ui/badge";
 
 /**
