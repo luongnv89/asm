@@ -15,8 +15,8 @@ function cssBar(value, max, width = 24) {
   const empty = width - filled;
   return (
     <span className="inline-flex items-center">
-      <span className="text-emerald-400">{ "#".repeat(filled) }</span>
-      <span className="text-[var(--fg-dim)]">{ "-".repeat(empty) }</span>
+      <span className="text-emerald-400">{"#".repeat(filled)}</span>
+      <span className="text-[var(--fg-dim)]">{"-".repeat(empty)}</span>
     </span>
   );
 }
@@ -24,7 +24,7 @@ function cssBar(value, max, width = 24) {
 function SectionTitle({ children }) {
   return (
     <h2 className="text-lg font-semibold text-[var(--fg)] mt-6 mb-3 pb-2 border-b border-[var(--border)]">
-      { children }
+      {children}
     </h2>
   );
 }
@@ -32,9 +32,9 @@ function SectionTitle({ children }) {
 function StatCard({ label, value, sub }) {
   return (
     <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-4">
-      <div className="text-sm text-[var(--fg-dim)]">{ label }</div>
-      <div className="text-2xl font-bold text-[var(--fg)] mt-1">{ value }</div>
-      { sub && <div className="text-xs text-[var(--fg-muted)] mt-1">{ sub }</div> }
+      <div className="text-sm text-[var(--fg-dim)]">{label}</div>
+      <div className="text-2xl font-bold text-[var(--fg)] mt-1">{value}</div>
+      {sub && <div className="text-xs text-[var(--fg-muted)] mt-1">{sub}</div>}
     </div>
   );
 }
@@ -75,10 +75,7 @@ export default function ProfilePage() {
         <p className="text-[var(--fg-dim)] mb-6">
           No indexed skills found for <strong>{owner}</strong>.
         </p>
-        <Link
-          to="/stats"
-          className="text-[var(--brand)] hover:underline"
-        >
+        <Link to="/stats" className="text-[var(--brand)] hover:underline">
           ← Back to Stats
         </Link>
       </div>
@@ -142,11 +139,16 @@ export default function ProfilePage() {
           <div className="space-y-1">
             {catEntries.map(([cat, count]) => (
               <div key={cat} className="flex items-center gap-3 text-sm">
-                <span className="w-32 text-right text-[var(--fg)] truncate" title={cat}>
+                <span
+                  className="w-32 text-right text-[var(--fg)] truncate"
+                  title={cat}
+                >
                   {cat}
                 </span>
                 <span className="flex-1">{cssBar(count, maxCatCount, 24)}</span>
-                <span className="w-10 text-right font-mono text-[var(--fg-dim)]">{count}</span>
+                <span className="w-10 text-right font-mono text-[var(--fg-dim)]">
+                  {count}
+                </span>
               </div>
             ))}
           </div>
@@ -181,9 +183,7 @@ export default function ProfilePage() {
                 <span className="flex-1 font-medium text-[var(--fg)]">
                   {s.name}
                 </span>
-                <span className="text-[var(--fg-dim)] text-xs">
-                  {s.repo}
-                </span>
+                <span className="text-[var(--fg-dim)] text-xs">{s.repo}</span>
               </div>
             ))}
           </div>
@@ -192,7 +192,10 @@ export default function ProfilePage() {
 
       {/* Back link */}
       <div className="mt-8">
-        <Link to="/stats" className="text-[var(--brand)] hover:underline text-sm">
+        <Link
+          to="/stats"
+          className="text-[var(--brand)] hover:underline text-sm"
+        >
           ← Back to Stats
         </Link>
       </div>

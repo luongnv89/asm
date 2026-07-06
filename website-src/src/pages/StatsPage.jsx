@@ -16,8 +16,8 @@ function cssBar(value, max, width = 20) {
   const empty = width - filled;
   return (
     <span className="inline-flex items-center">
-      <span className="text-emerald-400">{ "#".repeat(filled) }</span>
-      <span className="text-[var(--fg-dim)]">{ "-".repeat(empty) }</span>
+      <span className="text-emerald-400">{"#".repeat(filled)}</span>
+      <span className="text-[var(--fg-dim)]">{"-".repeat(empty)}</span>
     </span>
   );
 }
@@ -25,7 +25,7 @@ function cssBar(value, max, width = 20) {
 function SectionTitle({ children }) {
   return (
     <h2 className="text-lg font-semibold text-[var(--fg)] mt-8 mb-3 pb-2 border-b border-[var(--border)]">
-      { children }
+      {children}
     </h2>
   );
 }
@@ -33,9 +33,9 @@ function SectionTitle({ children }) {
 function StatCard({ label, value, sub }) {
   return (
     <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-4">
-      <div className="text-sm text-[var(--fg-dim)]">{ label }</div>
-      <div className="text-2xl font-bold text-[var(--fg)] mt-1">{ value }</div>
-      { sub && <div className="text-xs text-[var(--fg-muted)] mt-1">{ sub }</div> }
+      <div className="text-sm text-[var(--fg-dim)]">{label}</div>
+      <div className="text-2xl font-bold text-[var(--fg)] mt-1">{value}</div>
+      {sub && <div className="text-xs text-[var(--fg-muted)] mt-1">{sub}</div>}
     </div>
   );
 }
@@ -49,9 +49,15 @@ export default function StatsPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch("/repo-stats.json").then((r) => r.json()).catch(() => null),
-      fetch("/author-stats.json").then((r) => r.json()).catch(() => null),
-      fetch("/index-stats.json").then((r) => r.json()).catch(() => null),
+      fetch("/repo-stats.json")
+        .then((r) => r.json())
+        .catch(() => null),
+      fetch("/author-stats.json")
+        .then((r) => r.json())
+        .catch(() => null),
+      fetch("/index-stats.json")
+        .then((r) => r.json())
+        .catch(() => null),
     ]).then(([rs, as, is]) => {
       setRepoStats(rs?.stats || []);
       setAuthorStats(as?.stats || []);
@@ -69,7 +75,7 @@ export default function StatsPage() {
   }
 
   // Fallback to catalog data if build artifacts not available
-  const repos = repoStats || (catalog?.repos || []);
+  const repos = repoStats || catalog?.repos || [];
   const authors = authorStats || [];
   const idx = indexStats;
 
@@ -77,7 +83,7 @@ export default function StatsPage() {
   const catCounts = {};
   if (catalog?.skills) {
     for (const s of catalog.skills) {
-      for (const c of (s.categories || [])) {
+      for (const c of s.categories || []) {
         catCounts[c] = (catCounts[c] || 0) + 1;
       }
     }
@@ -114,11 +120,16 @@ export default function StatsPage() {
           <div className="space-y-1">
             {catEntries.map(([cat, count]) => (
               <div key={cat} className="flex items-center gap-3 text-sm">
-                <span className="w-32 text-right text-[var(--fg)] truncate" title={cat}>
+                <span
+                  className="w-32 text-right text-[var(--fg)] truncate"
+                  title={cat}
+                >
                   {cat}
                 </span>
                 <span className="flex-1">{cssBar(count, maxCatCount, 24)}</span>
-                <span className="w-10 text-right font-mono text-[var(--fg-dim)]">{count}</span>
+                <span className="w-10 text-right font-mono text-[var(--fg-dim)]">
+                  {count}
+                </span>
               </div>
             ))}
           </div>
@@ -146,7 +157,10 @@ export default function StatsPage() {
               >
                 {r.owner}/{r.repo}
               </a>
-              <span className="text-[var(--fg-dim)] text-xs w-24 truncate" title={r.description}>
+              <span
+                className="text-[var(--fg-dim)] text-xs w-24 truncate"
+                title={r.description}
+              >
                 {r.description?.slice(0, 40)}
               </span>
               <Badge variant="secondary" className="text-xs">
