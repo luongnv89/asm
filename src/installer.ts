@@ -741,14 +741,33 @@ export async function cleanupTemp(tempDir: string): Promise<void> {
  *
  * Returns the absolute path to `npx-cli.js`, or null when it cannot be located
  * (exotic runtimes) — callers then fall back to the `npx` shim on PATH.
+ *
+ * `nodeDir` is injectable for testing; production always resolves it from the
+ * running Node binary.
  */
-export function resolveNpxCli(): string | null {
-  const nodeDir = dirname(process.execPath);
+export function resolveNpxCli(
+  nodeDir: string = dirname(process.execPath),
+): string | null {
   const candidates = [
-    // Windows installers, nvm-windows, fnm, Volta: npm sits beside node.
+    // Windows installers, nvm-windows, fnm, Volta, Chocolatey, Scoop: npm sits
+    // beside node under node_modules/.
     join(nodeDir, "node_modules", "npm", "bin", "npx-cli.js"),
-    // POSIX layouts (system packages, nvm, Homebrew): node in bin/, npm in lib/.
+    // Standard POSIX (system packages, nvm, CI toolcache, Homebrew node@NN):
+    // node in bin/, npm in ../lib/node_modules/.
     join(nodeDir, "..", "lib", "node_modules", "npm", "bin", "npx-cli.js"),
+    // Homebrew's *unversioned* `node` formula is keg-only and installs npm
+    // under libexec (bin/npx is only a symlink into it), so relative to the
+    // real node binary npm lives in ../libexec/lib/node_modules/.
+    join(
+      nodeDir,
+      "..",
+      "libexec",
+      "lib",
+      "node_modules",
+      "npm",
+      "bin",
+      "npx-cli.js",
+    ),
   ];
   for (const candidate of candidates) {
     if (existsSync(candidate)) return candidate;
