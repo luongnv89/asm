@@ -812,6 +812,160 @@ for (const { from, to } of seoTemplates) {
   renderSeoTemplate(from, to);
 }
 
+// ─── Per-Repo and Per-Author Stats (issue #344) ─────────────────────────────
+
+interface RepoStatsEntry {
+  owner: string;
+  repo: string;
+  repoUrl: string;
+  skillCount: number;
+  categories: Record<string, number>;
+  verifiedCount: number;
+  totalTokens: number;
+  avgEvalScore?: number;
+}
+
+interface AuthorStatsEntry {
+  owner: string;
+  totalSkills: number;
+  repos: string[];
+  categories: Record<string, number>;
+  verifiedCount: number;
+  totalTokens: number;
+  avgEvalScore?: number;
+  topSkills: Array<{ name: string; repo: string }>;
+}
+
+interface IndexStatsEntry {
+  totalRepos: number;
+  totalSkills: number;
+  totalAuthors: number;
+  categoryDistribution: Record<string, number>;
+  verifiedCount: number;
+  totalTokens: number;
+  avgTokensPerSkill: number;
+}
+
+// Compute per-repo stats
+const repoStats: RepoStatsEntry[] = repos
+  .map((r) => {
+    const repoSkills = skills.filter(
+      (s) => s.owner === r.owner && s.repo === r.repo,
+    );
+    const catCounts: Record<string, number> = {};
+    let verifiedCount = 0;
+    let totalTokens = 0;
+    let evalScoreSum = 0;
+    let evalScoreCount = 0;
+
+    for (const s of repoSkills) {
+      for (const c of s.categories) {
+        catCounts[c] = (catCounts[c] || 0) + 1;
+      }
+      if (s.verified) verifiedCount++;
+      totalTokens += s.tokenCount ?? 0;
+      if (s.evalSummary) {
+        evalScoreSum += s.evalSummary.overallScore;
+        evalScoreCount++;
+      }
+    }
+
+    return {
+      owner: r.owner,
+      repo: r.repo,
+      repoUrl: r.repoUrl,
+      skillCount: r.skillCount,
+      categories: catCounts,
+      verifiedCount,
+      totalTokens,
+      avgEvalScore:
+        evalScoreCount > 0 ? Math.round(evalScoreSum / evalScoreCount) : undefined,
+    };
+  })
+  .sort((a, b) => b.skillCount - a.skillCount);
+
+// Compute per-author stats
+const authorMap = new Map<string, AuthorStatsEntry>();
+for (const r of repos) {
+  let author = authorMap.get(r.owner);
+  if (!author) {
+    author = {
+      owner: r.owner,
+      totalSkills: 0,
+      repos: [],
+      categories: {},
+      verifiedCount: 0,
+      totalTokens: 0,
+      topSkills: [],
+    };
+    authorMap.set(r.owner, author);
+  }
+
+  const repoSkills = skills.filter(
+    (s) => s.owner === r.owner && s.repo === r.repo,
+  );
+  author.repos.push(`${r.owner}/${r.repo}`);
+
+  for (const s of repoSkills) {
+    author.totalSkills++;
+    for (const c of s.categories) {
+      author.categories[c] = (author.categories[c] || 0) + 1;
+    }
+    if (s.verified) author.verifiedCount++;
+    author.totalTokens += s.tokenCount ?? 0;
+    author.topSkills.push({ name: s.name, repo: `${r.owner}/${r.repo}` });
+  }
+}
+
+const authorStats: AuthorStatsEntry[] = Array.from(authorMap.values())
+  .map((a) => ({
+    ...a,
+    topSkills: a.topSkills
+      .sort((a, b) => b.name.localeCompare(a.name))
+      .slice(0, 10),
+  }))
+  .sort((a, b) => b.totalSkills - a.totalSkills);
+
+// Compute index-wide stats
+const indexCatDist: Record<string, number> = {};
+for (const s of skills) {
+  for (const c of s.categories) {
+    indexCatDist[c] = (indexCatDist[c] || 0) + 1;
+  }
+}
+const indexStats: IndexStatsEntry = {
+  totalRepos: repos.length,
+  totalSkills: skills.length,
+  totalAuthors: authorMap.size,
+  categoryDistribution: indexCatDist,
+  verifiedCount: skills.filter((s) => s.verified).length,
+  totalTokens: skills.reduce((sum, s) => sum + (s.tokenCount ?? 0), 0),
+  avgTokensPerSkill:
+    skills.length > 0
+      ? Math.round(
+          skills.reduce((sum, s) => sum + (s.tokenCount ?? 0), 0) /
+            skills.length,
+        )
+      : 0,
+};
+
+// Write stats artifacts
+writeFileSync(
+  join(outDir, "repo-stats.json"),
+  JSON.stringify({ generatedAt: new Date().toISOString(), stats: repoStats }),
+  "utf-8",
+);
+writeFileSync(
+  join(outDir, "author-stats.json"),
+  JSON.stringify({ generatedAt: new Date().toISOString(), stats: authorStats }),
+  "utf-8",
+);
+writeFileSync(
+  join(outDir, "index-stats.json"),
+  JSON.stringify({ generatedAt: new Date().toISOString(), stats: indexStats }),
+  "utf-8",
+);
+
 // ─── Stats ───────────────────────────────────────────────────────────────────
 
 function kb(bytes: number): string {
