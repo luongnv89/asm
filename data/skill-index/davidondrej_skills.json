@@ -418,7 +418,7 @@
     },
     {
       "name": "browser-harness",
-      "description": "",
+      "description": "Direct browser control via CDP. Use when the user wants to automate, scrape, test, or interact with web pages. Connects to the user's already-running Chrome.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -426,52 +426,52 @@
       "allowedTools": [],
       "installUrl": "github:davidondrej/skills:skills/research-and-web/browser-harness",
       "relPath": "skills/research-and-web/browser-harness",
-      "verified": false,
-      "tokenCount": 1,
+      "verified": true,
+      "tokenCount": 3052,
       "evalSummary": {
-        "overallScore": 9,
-        "grade": "F",
+        "overallScore": 70,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 0,
+            "score": 7,
             "max": 10
           },
           {
             "id": "description",
             "name": "Description quality",
-            "score": 0,
+            "score": 7,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 0,
+            "score": 7,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 2,
+            "score": 7,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 2,
+            "score": 4,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 0,
+            "score": 7,
             "max": 10
           },
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 2,
+            "score": 10,
             "max": 10
           }
         ],
@@ -483,50 +483,50 @@
           "providerId": "quality",
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 9,
-          "grade": "F",
+          "passed": true,
+          "overallScore": 70,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
               "name": "Structure & completeness",
-              "score": 0,
+              "score": 7,
               "max": 10
             },
             {
               "id": "description",
               "name": "Description quality",
-              "score": 0,
+              "score": 7,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 0,
+              "score": 7,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 2,
+              "score": 7,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 2,
+              "score": 4,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 0,
+              "score": 7,
               "max": 10
             },
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 2,
+              "score": 10,
               "max": 10
             }
           ],
@@ -538,14 +538,14 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 0,
-          "grade": "F",
+          "overallScore": 77,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 0,
-              "max": 1
+              "score": 10,
+              "max": 13
             }
           ],
           "evaluatedAt": "2026-07-06T12:09:06.064Z",
