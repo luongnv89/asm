@@ -67,7 +67,7 @@ export default function CategoryPieChart({ entries }) {
         viewBox="0 0 160 160"
         className="w-40 h-40 shrink-0"
         role="img"
-        aria-label={`Category distribution pie chart, ${total} skills total`}
+        aria-label={`Category distribution pie chart, ${total} category tags`}
       >
         {slices.map((slice) => (
           <path
