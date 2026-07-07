@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/coreyhaines31/marketingskills.git",
   "owner": "coreyhaines31",
   "repo": "marketingskills",
-  "updatedAt": "2026-06-30T08:27:18.059Z",
-  "skillCount": 45,
+  "updatedAt": "2026-07-07T08:53:52.727Z",
+  "skillCount": 47,
   "skills": [
     {
       "name": "ab-testing",
@@ -64,7 +64,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.950Z",
+        "evaluatedAt": "2026-07-07T08:53:52.612Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -119,7 +119,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.950Z",
+          "evaluatedAt": "2026-07-07T08:53:52.612Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -137,15 +137,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.950Z",
+          "evaluatedAt": "2026-07-07T08:53:52.612Z",
           "evaluatedVersion": "2.0.0"
         }
       }
     },
     {
       "name": "ad-creative",
-      "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
-      "version": "2.0.0",
+      "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+      "version": "2.1.0",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -153,7 +153,7 @@
       "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
       "relPath": "skills/ad-creative",
       "verified": true,
-      "tokenCount": 3797,
+      "tokenCount": 4831,
       "evalSummary": {
         "overallScore": 67,
         "grade": "C",
@@ -201,8 +201,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.952Z",
-        "evaluatedVersion": "2.0.0"
+        "evaluatedAt": "2026-07-07T08:53:52.614Z",
+        "evaluatedVersion": "2.1.0"
       },
       "evalSummaries": {
         "quality": {
@@ -256,8 +256,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.953Z",
-          "evaluatedVersion": "2.0.0"
+          "evaluatedAt": "2026-07-07T08:53:52.614Z",
+          "evaluatedVersion": "2.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -274,15 +274,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.953Z",
-          "evaluatedVersion": "2.0.0"
+          "evaluatedAt": "2026-07-07T08:53:52.615Z",
+          "evaluatedVersion": "2.1.0"
         }
       }
     },
     {
       "name": "ads",
-      "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ROAS,' 'CPA,' 'ad campaign,' 'retargeting,' 'audience targeting,' 'Google Ads,' 'Facebook ads,' 'LinkedIn ads,' 'ad budget,' 'cost per click,' 'ad spend,' or 'should I run ads.' Use this for campaign strategy, audience targeting, bidding, and optimization. For bulk ad creative generation and iteration, see ad-creative. For landing page optimization, see cro.",
-      "version": "2.0.1",
+      "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ROAS,' 'CPA,' 'ad campaign,' 'retargeting,' 'audience targeting,' 'Google Ads,' 'Facebook ads,' 'LinkedIn ads,' 'ad budget,' 'cost per click,' 'ad spend,' 'should I run ads,' 'ABM,' 'account-based marketing,' 'B2B ads,' 'lead quality,' 'negative keywords,' 'Performance Max,' 'thought leader ads,' or 'when should I kill an ad.' Use this for campaign strategy, audience targeting, bidding, and optimization. For bulk ad creative generation and iteration, see ad-creative. For landing page optimization, see cro.",
+      "version": "2.2.0",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -290,10 +290,10 @@
       "installUrl": "github:coreyhaines31/marketingskills:skills/ads",
       "relPath": "skills/ads",
       "verified": true,
-      "tokenCount": 3871,
+      "tokenCount": 7159,
       "evalSummary": {
-        "overallScore": 66,
-        "grade": "C",
+        "overallScore": 60,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -310,25 +310,25 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 7,
+            "score": 5,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 8,
+            "score": 6,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 5,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 3,
+            "score": 5,
             "max": 10
           },
           {
@@ -338,8 +338,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.955Z",
-        "evaluatedVersion": "2.0.1"
+        "evaluatedAt": "2026-07-07T08:53:52.618Z",
+        "evaluatedVersion": "2.2.0"
       },
       "evalSummaries": {
         "quality": {
@@ -347,8 +347,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 66,
-          "grade": "C",
+          "overallScore": 60,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -365,25 +365,25 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 7,
+              "score": 5,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 8,
+              "score": 6,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 5,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 3,
+              "score": 5,
               "max": 10
             },
             {
@@ -393,8 +393,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.955Z",
-          "evaluatedVersion": "2.0.1"
+          "evaluatedAt": "2026-07-07T08:53:52.618Z",
+          "evaluatedVersion": "2.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -411,8 +411,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.955Z",
-          "evaluatedVersion": "2.0.1"
+          "evaluatedAt": "2026-07-07T08:53:52.618Z",
+          "evaluatedVersion": "2.2.0"
         }
       }
     },
@@ -475,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.959Z",
+        "evaluatedAt": "2026-07-07T08:53:52.622Z",
         "evaluatedVersion": "2.1.0"
       },
       "evalSummaries": {
@@ -530,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.960Z",
+          "evaluatedAt": "2026-07-07T08:53:52.622Z",
           "evaluatedVersion": "2.1.0"
         },
         "skill-best-practice": {
@@ -548,7 +548,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.960Z",
+          "evaluatedAt": "2026-07-07T08:53:52.622Z",
           "evaluatedVersion": "2.1.0"
         }
       }
@@ -612,7 +612,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.963Z",
+        "evaluatedAt": "2026-07-07T08:53:52.626Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -667,7 +667,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.963Z",
+          "evaluatedAt": "2026-07-07T08:53:52.626Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +685,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.963Z",
+          "evaluatedAt": "2026-07-07T08:53:52.626Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -749,7 +749,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.965Z",
+        "evaluatedAt": "2026-07-07T08:53:52.628Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -804,7 +804,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.965Z",
+          "evaluatedAt": "2026-07-07T08:53:52.628Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +822,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.965Z",
+          "evaluatedAt": "2026-07-07T08:53:52.628Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -886,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.968Z",
+        "evaluatedAt": "2026-07-07T08:53:52.631Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -941,7 +941,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.968Z",
+          "evaluatedAt": "2026-07-07T08:53:52.631Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +959,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.968Z",
+          "evaluatedAt": "2026-07-07T08:53:52.631Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1023,7 +1023,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.971Z",
+        "evaluatedAt": "2026-07-07T08:53:52.634Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1078,7 +1078,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.971Z",
+          "evaluatedAt": "2026-07-07T08:53:52.634Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -1096,7 +1096,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.971Z",
+          "evaluatedAt": "2026-07-07T08:53:52.634Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1160,7 +1160,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.973Z",
+        "evaluatedAt": "2026-07-07T08:53:52.636Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1215,7 +1215,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.973Z",
+          "evaluatedAt": "2026-07-07T08:53:52.636Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1233,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.973Z",
+          "evaluatedAt": "2026-07-07T08:53:52.636Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1297,7 +1297,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.974Z",
+        "evaluatedAt": "2026-07-07T08:53:52.638Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1352,7 +1352,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.974Z",
+          "evaluatedAt": "2026-07-07T08:53:52.638Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1370,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.974Z",
+          "evaluatedAt": "2026-07-07T08:53:52.638Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1434,7 +1434,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.977Z",
+        "evaluatedAt": "2026-07-07T08:53:52.640Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1489,7 +1489,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.977Z",
+          "evaluatedAt": "2026-07-07T08:53:52.640Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1507,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.977Z",
+          "evaluatedAt": "2026-07-07T08:53:52.640Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1571,7 +1571,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.979Z",
+        "evaluatedAt": "2026-07-07T08:53:52.642Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1626,7 +1626,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.979Z",
+          "evaluatedAt": "2026-07-07T08:53:52.642Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +1644,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.979Z",
+          "evaluatedAt": "2026-07-07T08:53:52.642Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1708,7 +1708,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.981Z",
+        "evaluatedAt": "2026-07-07T08:53:52.644Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1763,7 +1763,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.982Z",
+          "evaluatedAt": "2026-07-07T08:53:52.644Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +1781,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.982Z",
+          "evaluatedAt": "2026-07-07T08:53:52.644Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1845,7 +1845,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.985Z",
+        "evaluatedAt": "2026-07-07T08:53:52.647Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1900,7 +1900,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.985Z",
+          "evaluatedAt": "2026-07-07T08:53:52.647Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -1918,7 +1918,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.985Z",
+          "evaluatedAt": "2026-07-07T08:53:52.647Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1982,7 +1982,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.988Z",
+        "evaluatedAt": "2026-07-07T08:53:52.649Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -2037,7 +2037,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.988Z",
+          "evaluatedAt": "2026-07-07T08:53:52.649Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
@@ -2055,7 +2055,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.988Z",
+          "evaluatedAt": "2026-07-07T08:53:52.649Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -2119,7 +2119,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.989Z",
+        "evaluatedAt": "2026-07-07T08:53:52.651Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -2174,7 +2174,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.989Z",
+          "evaluatedAt": "2026-07-07T08:53:52.651Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -2192,7 +2192,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.989Z",
+          "evaluatedAt": "2026-07-07T08:53:52.651Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -2256,7 +2256,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.991Z",
+        "evaluatedAt": "2026-07-07T08:53:52.653Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -2311,7 +2311,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.991Z",
+          "evaluatedAt": "2026-07-07T08:53:52.653Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -2329,7 +2329,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.991Z",
+          "evaluatedAt": "2026-07-07T08:53:52.653Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -2393,7 +2393,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.995Z",
+        "evaluatedAt": "2026-07-07T08:53:52.656Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -2448,7 +2448,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.995Z",
+          "evaluatedAt": "2026-07-07T08:53:52.656Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -2466,7 +2466,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.995Z",
+          "evaluatedAt": "2026-07-07T08:53:52.656Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -2530,7 +2530,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.998Z",
+        "evaluatedAt": "2026-07-07T08:53:52.659Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -2585,7 +2585,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.998Z",
+          "evaluatedAt": "2026-07-07T08:53:52.659Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -2603,7 +2603,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.998Z",
+          "evaluatedAt": "2026-07-07T08:53:52.659Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -2667,7 +2667,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:17.999Z",
+        "evaluatedAt": "2026-07-07T08:53:52.661Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -2722,7 +2722,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.999Z",
+          "evaluatedAt": "2026-07-07T08:53:52.661Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -2740,7 +2740,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:17.999Z",
+          "evaluatedAt": "2026-07-07T08:53:52.661Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -2804,7 +2804,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.001Z",
+        "evaluatedAt": "2026-07-07T08:53:52.663Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -2859,7 +2859,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.001Z",
+          "evaluatedAt": "2026-07-07T08:53:52.663Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
@@ -2877,7 +2877,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.001Z",
+          "evaluatedAt": "2026-07-07T08:53:52.663Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -2941,7 +2941,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.004Z",
+        "evaluatedAt": "2026-07-07T08:53:52.666Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -2996,7 +2996,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.004Z",
+          "evaluatedAt": "2026-07-07T08:53:52.666Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
@@ -3014,7 +3014,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.004Z",
+          "evaluatedAt": "2026-07-07T08:53:52.666Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -3078,7 +3078,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.006Z",
+        "evaluatedAt": "2026-07-07T08:53:52.668Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -3133,7 +3133,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.006Z",
+          "evaluatedAt": "2026-07-07T08:53:52.668Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -3151,8 +3151,145 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.006Z",
+          "evaluatedAt": "2026-07-07T08:53:52.668Z",
           "evaluatedVersion": "2.0.0"
+        }
+      }
+    },
+    {
+      "name": "marketing-council",
+      "description": "When the user wants multiple expert perspectives on a marketing question — a simulated board of advisors staffed by legendary marketers (Seth Godin, David Ogilvy, Eugene Schwartz, April Dunford, Rory Sutherland, Alex Hormozi, Byron Sharp, and more). Also use when the user mentions 'marketing council,' 'board of advisors,' 'advisory board,' 'what would Seth Godin say,' 'what would Ogilvy think,' 'channel Hormozi,' 'get multiple perspectives,' 'debate this,' 'have the council review,' 'marketing mentors,' or asks how a famous marketer would approach their problem. The council gives each advisor's take through their documented frameworks, surfaces where they disagree, and synthesizes a recommendation. For executing the winning direction, hand off to positioning, offers, copywriting, ads, or the relevant skill.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-council",
+      "relPath": "skills/marketing-council",
+      "verified": true,
+      "tokenCount": 3484,
+      "evalSummary": {
+        "overallScore": 59,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-07T08:53:52.670Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 59,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-07T08:53:52.670Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-07-07T08:53:52.670Z",
+          "evaluatedVersion": "1.0.0"
         }
       }
     },
@@ -3215,7 +3352,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.008Z",
+        "evaluatedAt": "2026-07-07T08:53:52.672Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -3270,7 +3407,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.008Z",
+          "evaluatedAt": "2026-07-07T08:53:52.673Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -3288,8 +3425,145 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.008Z",
+          "evaluatedAt": "2026-07-07T08:53:52.673Z",
           "evaluatedVersion": "2.0.0"
+        }
+      }
+    },
+    {
+      "name": "marketing-loops",
+      "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
+      "version": "1.1.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-loops",
+      "relPath": "skills/marketing-loops",
+      "verified": true,
+      "tokenCount": 2740,
+      "evalSummary": {
+        "overallScore": 77,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-07T08:53:52.674Z",
+        "evaluatedVersion": "1.1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-07T08:53:52.674Z",
+          "evaluatedVersion": "1.1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-07-07T08:53:52.674Z",
+          "evaluatedVersion": "1.1.0"
         }
       }
     },
@@ -3352,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.011Z",
+        "evaluatedAt": "2026-07-07T08:53:52.677Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3407,7 +3681,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.011Z",
+          "evaluatedAt": "2026-07-07T08:53:52.677Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3425,7 +3699,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.011Z",
+          "evaluatedAt": "2026-07-07T08:53:52.677Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3489,7 +3763,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.015Z",
+        "evaluatedAt": "2026-07-07T08:53:52.681Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -3544,7 +3818,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.015Z",
+          "evaluatedAt": "2026-07-07T08:53:52.681Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -3562,7 +3836,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.015Z",
+          "evaluatedAt": "2026-07-07T08:53:52.681Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -3626,7 +3900,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.018Z",
+        "evaluatedAt": "2026-07-07T08:53:52.683Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3681,7 +3955,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.018Z",
+          "evaluatedAt": "2026-07-07T08:53:52.684Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3699,7 +3973,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.018Z",
+          "evaluatedAt": "2026-07-07T08:53:52.683Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3763,7 +4037,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.020Z",
+        "evaluatedAt": "2026-07-07T08:53:52.685Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -3818,7 +4092,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.020Z",
+          "evaluatedAt": "2026-07-07T08:53:52.685Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -3836,7 +4110,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.020Z",
+          "evaluatedAt": "2026-07-07T08:53:52.685Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -3900,7 +4174,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.021Z",
+        "evaluatedAt": "2026-07-07T08:53:52.687Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -3955,7 +4229,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.021Z",
+          "evaluatedAt": "2026-07-07T08:53:52.687Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -3973,7 +4247,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.021Z",
+          "evaluatedAt": "2026-07-07T08:53:52.687Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -4037,7 +4311,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.023Z",
+        "evaluatedAt": "2026-07-07T08:53:52.689Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -4092,7 +4366,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.023Z",
+          "evaluatedAt": "2026-07-07T08:53:52.689Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -4110,7 +4384,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.023Z",
+          "evaluatedAt": "2026-07-07T08:53:52.689Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -4174,7 +4448,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.025Z",
+        "evaluatedAt": "2026-07-07T08:53:52.691Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -4229,7 +4503,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.025Z",
+          "evaluatedAt": "2026-07-07T08:53:52.691Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
@@ -4247,7 +4521,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.025Z",
+          "evaluatedAt": "2026-07-07T08:53:52.691Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -4311,7 +4585,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.027Z",
+        "evaluatedAt": "2026-07-07T08:53:52.693Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -4366,7 +4640,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.027Z",
+          "evaluatedAt": "2026-07-07T08:53:52.693Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -4384,7 +4658,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.027Z",
+          "evaluatedAt": "2026-07-07T08:53:52.693Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -4448,7 +4722,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.029Z",
+        "evaluatedAt": "2026-07-07T08:53:52.695Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -4503,7 +4777,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.029Z",
+          "evaluatedAt": "2026-07-07T08:53:52.695Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -4521,7 +4795,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.029Z",
+          "evaluatedAt": "2026-07-07T08:53:52.695Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -4585,7 +4859,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.031Z",
+        "evaluatedAt": "2026-07-07T08:53:52.697Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4640,7 +4914,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.031Z",
+          "evaluatedAt": "2026-07-07T08:53:52.697Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4658,7 +4932,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.031Z",
+          "evaluatedAt": "2026-07-07T08:53:52.697Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4722,7 +4996,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.033Z",
+        "evaluatedAt": "2026-07-07T08:53:52.699Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4777,7 +5051,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.033Z",
+          "evaluatedAt": "2026-07-07T08:53:52.699Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4795,7 +5069,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.033Z",
+          "evaluatedAt": "2026-07-07T08:53:52.699Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4859,7 +5133,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.035Z",
+        "evaluatedAt": "2026-07-07T08:53:52.701Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -4914,7 +5188,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.035Z",
+          "evaluatedAt": "2026-07-07T08:53:52.701Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -4932,7 +5206,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.035Z",
+          "evaluatedAt": "2026-07-07T08:53:52.701Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -4996,7 +5270,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.037Z",
+        "evaluatedAt": "2026-07-07T08:53:52.703Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -5051,7 +5325,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.037Z",
+          "evaluatedAt": "2026-07-07T08:53:52.703Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -5069,7 +5343,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.037Z",
+          "evaluatedAt": "2026-07-07T08:53:52.703Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -5133,7 +5407,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.040Z",
+        "evaluatedAt": "2026-07-07T08:53:52.705Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -5188,7 +5462,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.040Z",
+          "evaluatedAt": "2026-07-07T08:53:52.705Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
@@ -5206,7 +5480,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.040Z",
+          "evaluatedAt": "2026-07-07T08:53:52.705Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -5270,7 +5544,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.042Z",
+        "evaluatedAt": "2026-07-07T08:53:52.708Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -5325,7 +5599,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.042Z",
+          "evaluatedAt": "2026-07-07T08:53:52.709Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -5343,7 +5617,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.042Z",
+          "evaluatedAt": "2026-07-07T08:53:52.709Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -5407,7 +5681,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.044Z",
+        "evaluatedAt": "2026-07-07T08:53:52.712Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -5462,7 +5736,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.044Z",
+          "evaluatedAt": "2026-07-07T08:53:52.712Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -5480,7 +5754,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.044Z",
+          "evaluatedAt": "2026-07-07T08:53:52.712Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -5544,7 +5818,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.047Z",
+        "evaluatedAt": "2026-07-07T08:53:52.715Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -5599,7 +5873,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.047Z",
+          "evaluatedAt": "2026-07-07T08:53:52.715Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -5617,7 +5891,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.047Z",
+          "evaluatedAt": "2026-07-07T08:53:52.715Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -5681,7 +5955,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.049Z",
+        "evaluatedAt": "2026-07-07T08:53:52.717Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -5736,7 +6010,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.049Z",
+          "evaluatedAt": "2026-07-07T08:53:52.718Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -5754,7 +6028,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.049Z",
+          "evaluatedAt": "2026-07-07T08:53:52.718Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -5818,7 +6092,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.052Z",
+        "evaluatedAt": "2026-07-07T08:53:52.720Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -5873,7 +6147,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.052Z",
+          "evaluatedAt": "2026-07-07T08:53:52.720Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -5891,7 +6165,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.052Z",
+          "evaluatedAt": "2026-07-07T08:53:52.720Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -5955,7 +6229,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.054Z",
+        "evaluatedAt": "2026-07-07T08:53:52.723Z",
         "evaluatedVersion": "2.1.0"
       },
       "evalSummaries": {
@@ -6010,7 +6284,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.055Z",
+          "evaluatedAt": "2026-07-07T08:53:52.723Z",
           "evaluatedVersion": "2.1.0"
         },
         "skill-best-practice": {
@@ -6028,7 +6302,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.055Z",
+          "evaluatedAt": "2026-07-07T08:53:52.723Z",
           "evaluatedVersion": "2.1.0"
         }
       }
@@ -6092,7 +6366,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:18.057Z",
+        "evaluatedAt": "2026-07-07T08:53:52.726Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -6147,7 +6421,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.057Z",
+          "evaluatedAt": "2026-07-07T08:53:52.726Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
@@ -6165,7 +6439,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:18.057Z",
+          "evaluatedAt": "2026-07-07T08:53:52.726Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -6177,7 +6451,7 @@
       "name": "coreyhaines31-marketingskills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-06-30T08:27:18.059Z",
+      "createdAt": "2026-07-07T08:53:52.727Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6197,14 +6471,14 @@
         {
           "name": "ad-creative",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
-          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
-          "version": "2.0.0"
+          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+          "version": "2.1.0"
         },
         {
           "name": "ads",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ads",
-          "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ROAS,' 'CPA,' 'ad campaign,' 'retargeting,' 'audience targeting,' 'Google Ads,' 'Facebook ads,' 'LinkedIn ads,' 'ad budget,' 'cost per click,' 'ad spend,' or 'should I run ads.' Use this for campaign strategy, audience targeting, bidding, and optimization. For bulk ad creative generation and iteration, see ad-creative. For landing page optimization, see cro.",
-          "version": "2.0.1"
+          "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ROAS,' 'CPA,' 'ad campaign,' 'retargeting,' 'audience targeting,' 'Google Ads,' 'Facebook ads,' 'LinkedIn ads,' 'ad budget,' 'cost per click,' 'ad spend,' 'should I run ads,' 'ABM,' 'account-based marketing,' 'B2B ads,' 'lead quality,' 'negative keywords,' 'Performance Max,' 'thought leader ads,' or 'when should I kill an ad.' Use this for campaign strategy, audience targeting, bidding, and optimization. For bulk ad creative generation and iteration, see ad-creative. For landing page optimization, see cro.",
+          "version": "2.2.0"
         },
         {
           "name": "ai-seo",
@@ -6327,10 +6601,22 @@
           "version": "2.0.0"
         },
         {
+          "name": "marketing-council",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-council",
+          "description": "When the user wants multiple expert perspectives on a marketing question — a simulated board of advisors staffed by legendary marketers (Seth Godin, David Ogilvy, Eugene Schwartz, April Dunford, Rory Sutherland, Alex Hormozi, Byron Sharp, and more). Also use when the user mentions 'marketing council,' 'board of advisors,' 'advisory board,' 'what would Seth Godin say,' 'what would Ogilvy think,' 'channel Hormozi,' 'get multiple perspectives,' 'debate this,' 'have the council review,' 'marketing mentors,' or asks how a famous marketer would approach their problem. The council gives each advisor's take through their documented frameworks, surfaces where they disagree, and synthesizes a recommendation. For executing the winning direction, hand off to positioning, offers, copywriting, ads, or the relevant skill.",
+          "version": "1.0.0"
+        },
+        {
           "name": "marketing-ideas",
           "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-ideas",
           "description": "When the user needs marketing ideas, inspiration, or strategies for their SaaS or software product. Also use when the user asks for 'marketing ideas,' 'growth ideas,' 'how to market,' 'marketing strategies,' 'marketing tactics,' 'ways to promote,' 'ideas to grow,' 'what else can I try,' 'I don't know how to market this,' 'brainstorm marketing,' or 'what marketing should I do.' Use this as a starting point whenever someone is stuck or looking for inspiration on how to grow. For specific channel execution, see the relevant skill (ads, social, emails, etc.).",
           "version": "2.0.0"
+        },
+        {
+          "name": "marketing-loops",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-loops",
+          "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
+          "version": "1.1.0"
         },
         {
           "name": "marketing-plan",
@@ -6471,7 +6757,7 @@
       "name": "coreyhaines31-marketingskills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-06-30T08:27:18.059Z",
+      "createdAt": "2026-07-07T08:53:52.727Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6555,10 +6841,22 @@
           "version": "2.0.1"
         },
         {
+          "name": "marketing-council",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-council",
+          "description": "When the user wants multiple expert perspectives on a marketing question — a simulated board of advisors staffed by legendary marketers (Seth Godin, David Ogilvy, Eugene Schwartz, April Dunford, Rory Sutherland, Alex Hormozi, Byron Sharp, and more). Also use when the user mentions 'marketing council,' 'board of advisors,' 'advisory board,' 'what would Seth Godin say,' 'what would Ogilvy think,' 'channel Hormozi,' 'get multiple perspectives,' 'debate this,' 'have the council review,' 'marketing mentors,' or asks how a famous marketer would approach their problem. The council gives each advisor's take through their documented frameworks, surfaces where they disagree, and synthesizes a recommendation. For executing the winning direction, hand off to positioning, offers, copywriting, ads, or the relevant skill.",
+          "version": "1.0.0"
+        },
+        {
           "name": "marketing-ideas",
           "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-ideas",
           "description": "When the user needs marketing ideas, inspiration, or strategies for their SaaS or software product. Also use when the user asks for 'marketing ideas,' 'growth ideas,' 'how to market,' 'marketing strategies,' 'marketing tactics,' 'ways to promote,' 'ideas to grow,' 'what else can I try,' 'I don't know how to market this,' 'brainstorm marketing,' or 'what marketing should I do.' Use this as a starting point whenever someone is stuck or looking for inspiration on how to grow. For specific channel execution, see the relevant skill (ads, social, emails, etc.).",
           "version": "2.0.0"
+        },
+        {
+          "name": "marketing-loops",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-loops",
+          "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
+          "version": "1.1.0"
         },
         {
           "name": "marketing-plan",
@@ -6651,7 +6949,7 @@
       "name": "coreyhaines31-marketingskills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-06-30T08:27:18.059Z",
+      "createdAt": "2026-07-07T08:53:52.727Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6671,14 +6969,14 @@
         {
           "name": "ad-creative",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
-          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
-          "version": "2.0.0"
+          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+          "version": "2.1.0"
         },
         {
           "name": "ads",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ads",
-          "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ROAS,' 'CPA,' 'ad campaign,' 'retargeting,' 'audience targeting,' 'Google Ads,' 'Facebook ads,' 'LinkedIn ads,' 'ad budget,' 'cost per click,' 'ad spend,' or 'should I run ads.' Use this for campaign strategy, audience targeting, bidding, and optimization. For bulk ad creative generation and iteration, see ad-creative. For landing page optimization, see cro.",
-          "version": "2.0.1"
+          "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ROAS,' 'CPA,' 'ad campaign,' 'retargeting,' 'audience targeting,' 'Google Ads,' 'Facebook ads,' 'LinkedIn ads,' 'ad budget,' 'cost per click,' 'ad spend,' 'should I run ads,' 'ABM,' 'account-based marketing,' 'B2B ads,' 'lead quality,' 'negative keywords,' 'Performance Max,' 'thought leader ads,' or 'when should I kill an ad.' Use this for campaign strategy, audience targeting, bidding, and optimization. For bulk ad creative generation and iteration, see ad-creative. For landing page optimization, see cro.",
+          "version": "2.2.0"
         },
         {
           "name": "ai-seo",
@@ -6727,6 +7025,18 @@
           "installUrl": "github:coreyhaines31/marketingskills:skills/free-tools",
           "description": "When the user wants to plan, evaluate, or build a free tool for marketing purposes — lead generation, SEO value, or brand awareness. Also use when the user mentions \"engineering as marketing,\" \"free tool,\" \"marketing tool,\" \"calculator,\" \"generator,\" \"interactive tool,\" \"lead gen tool,\" \"build a tool for leads,\" \"free resource,\" \"ROI calculator,\" \"grader tool,\" \"audit tool,\" \"should I build a free tool,\" or \"tools for lead gen.\" Use this whenever someone wants to build something useful and give it away to attract leads or earn links. For downloadable content lead magnets (ebooks, checklists, templates), see lead-magnets.",
           "version": "2.0.0"
+        },
+        {
+          "name": "marketing-council",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-council",
+          "description": "When the user wants multiple expert perspectives on a marketing question — a simulated board of advisors staffed by legendary marketers (Seth Godin, David Ogilvy, Eugene Schwartz, April Dunford, Rory Sutherland, Alex Hormozi, Byron Sharp, and more). Also use when the user mentions 'marketing council,' 'board of advisors,' 'advisory board,' 'what would Seth Godin say,' 'what would Ogilvy think,' 'channel Hormozi,' 'get multiple perspectives,' 'debate this,' 'have the council review,' 'marketing mentors,' or asks how a famous marketer would approach their problem. The council gives each advisor's take through their documented frameworks, surfaces where they disagree, and synthesizes a recommendation. For executing the winning direction, hand off to positioning, offers, copywriting, ads, or the relevant skill.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "marketing-loops",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-loops",
+          "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
+          "version": "1.1.0"
         },
         {
           "name": "marketing-plan",
@@ -6795,7 +7105,7 @@
       "name": "coreyhaines31-marketingskills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-06-30T08:27:18.059Z",
+      "createdAt": "2026-07-07T08:53:52.727Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6815,14 +7125,14 @@
         {
           "name": "ad-creative",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
-          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
-          "version": "2.0.0"
+          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+          "version": "2.1.0"
         },
         {
           "name": "ads",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ads",
-          "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ROAS,' 'CPA,' 'ad campaign,' 'retargeting,' 'audience targeting,' 'Google Ads,' 'Facebook ads,' 'LinkedIn ads,' 'ad budget,' 'cost per click,' 'ad spend,' or 'should I run ads.' Use this for campaign strategy, audience targeting, bidding, and optimization. For bulk ad creative generation and iteration, see ad-creative. For landing page optimization, see cro.",
-          "version": "2.0.1"
+          "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ROAS,' 'CPA,' 'ad campaign,' 'retargeting,' 'audience targeting,' 'Google Ads,' 'Facebook ads,' 'LinkedIn ads,' 'ad budget,' 'cost per click,' 'ad spend,' 'should I run ads,' 'ABM,' 'account-based marketing,' 'B2B ads,' 'lead quality,' 'negative keywords,' 'Performance Max,' 'thought leader ads,' or 'when should I kill an ad.' Use this for campaign strategy, audience targeting, bidding, and optimization. For bulk ad creative generation and iteration, see ad-creative. For landing page optimization, see cro.",
+          "version": "2.2.0"
         },
         {
           "name": "churn-prevention",
@@ -6939,7 +7249,7 @@
       "name": "coreyhaines31-marketingskills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-06-30T08:27:18.059Z",
+      "createdAt": "2026-07-07T08:53:52.727Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6959,14 +7269,14 @@
         {
           "name": "ad-creative",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
-          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
-          "version": "2.0.0"
+          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+          "version": "2.1.0"
         },
         {
           "name": "ads",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ads",
-          "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ROAS,' 'CPA,' 'ad campaign,' 'retargeting,' 'audience targeting,' 'Google Ads,' 'Facebook ads,' 'LinkedIn ads,' 'ad budget,' 'cost per click,' 'ad spend,' or 'should I run ads.' Use this for campaign strategy, audience targeting, bidding, and optimization. For bulk ad creative generation and iteration, see ad-creative. For landing page optimization, see cro.",
-          "version": "2.0.1"
+          "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ROAS,' 'CPA,' 'ad campaign,' 'retargeting,' 'audience targeting,' 'Google Ads,' 'Facebook ads,' 'LinkedIn ads,' 'ad budget,' 'cost per click,' 'ad spend,' 'should I run ads,' 'ABM,' 'account-based marketing,' 'B2B ads,' 'lead quality,' 'negative keywords,' 'Performance Max,' 'thought leader ads,' or 'when should I kill an ad.' Use this for campaign strategy, audience targeting, bidding, and optimization. For bulk ad creative generation and iteration, see ad-creative. For landing page optimization, see cro.",
+          "version": "2.2.0"
         },
         {
           "name": "ai-seo",
@@ -7089,10 +7399,22 @@
           "version": "2.0.0"
         },
         {
+          "name": "marketing-council",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-council",
+          "description": "When the user wants multiple expert perspectives on a marketing question — a simulated board of advisors staffed by legendary marketers (Seth Godin, David Ogilvy, Eugene Schwartz, April Dunford, Rory Sutherland, Alex Hormozi, Byron Sharp, and more). Also use when the user mentions 'marketing council,' 'board of advisors,' 'advisory board,' 'what would Seth Godin say,' 'what would Ogilvy think,' 'channel Hormozi,' 'get multiple perspectives,' 'debate this,' 'have the council review,' 'marketing mentors,' or asks how a famous marketer would approach their problem. The council gives each advisor's take through their documented frameworks, surfaces where they disagree, and synthesizes a recommendation. For executing the winning direction, hand off to positioning, offers, copywriting, ads, or the relevant skill.",
+          "version": "1.0.0"
+        },
+        {
           "name": "marketing-ideas",
           "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-ideas",
           "description": "When the user needs marketing ideas, inspiration, or strategies for their SaaS or software product. Also use when the user asks for 'marketing ideas,' 'growth ideas,' 'how to market,' 'marketing strategies,' 'marketing tactics,' 'ways to promote,' 'ideas to grow,' 'what else can I try,' 'I don't know how to market this,' 'brainstorm marketing,' or 'what marketing should I do.' Use this as a starting point whenever someone is stuck or looking for inspiration on how to grow. For specific channel execution, see the relevant skill (ads, social, emails, etc.).",
           "version": "2.0.0"
+        },
+        {
+          "name": "marketing-loops",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-loops",
+          "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
+          "version": "1.1.0"
         },
         {
           "name": "marketing-plan",
@@ -7233,7 +7555,7 @@
       "name": "coreyhaines31-marketingskills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-06-30T08:27:18.059Z",
+      "createdAt": "2026-07-07T08:53:52.727Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7253,14 +7575,14 @@
         {
           "name": "ad-creative",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
-          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
-          "version": "2.0.0"
+          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+          "version": "2.1.0"
         },
         {
           "name": "ads",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ads",
-          "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ROAS,' 'CPA,' 'ad campaign,' 'retargeting,' 'audience targeting,' 'Google Ads,' 'Facebook ads,' 'LinkedIn ads,' 'ad budget,' 'cost per click,' 'ad spend,' or 'should I run ads.' Use this for campaign strategy, audience targeting, bidding, and optimization. For bulk ad creative generation and iteration, see ad-creative. For landing page optimization, see cro.",
-          "version": "2.0.1"
+          "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ROAS,' 'CPA,' 'ad campaign,' 'retargeting,' 'audience targeting,' 'Google Ads,' 'Facebook ads,' 'LinkedIn ads,' 'ad budget,' 'cost per click,' 'ad spend,' 'should I run ads,' 'ABM,' 'account-based marketing,' 'B2B ads,' 'lead quality,' 'negative keywords,' 'Performance Max,' 'thought leader ads,' or 'when should I kill an ad.' Use this for campaign strategy, audience targeting, bidding, and optimization. For bulk ad creative generation and iteration, see ad-creative. For landing page optimization, see cro.",
+          "version": "2.2.0"
         },
         {
           "name": "ai-seo",
@@ -7383,10 +7705,22 @@
           "version": "2.0.0"
         },
         {
+          "name": "marketing-council",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-council",
+          "description": "When the user wants multiple expert perspectives on a marketing question — a simulated board of advisors staffed by legendary marketers (Seth Godin, David Ogilvy, Eugene Schwartz, April Dunford, Rory Sutherland, Alex Hormozi, Byron Sharp, and more). Also use when the user mentions 'marketing council,' 'board of advisors,' 'advisory board,' 'what would Seth Godin say,' 'what would Ogilvy think,' 'channel Hormozi,' 'get multiple perspectives,' 'debate this,' 'have the council review,' 'marketing mentors,' or asks how a famous marketer would approach their problem. The council gives each advisor's take through their documented frameworks, surfaces where they disagree, and synthesizes a recommendation. For executing the winning direction, hand off to positioning, offers, copywriting, ads, or the relevant skill.",
+          "version": "1.0.0"
+        },
+        {
           "name": "marketing-ideas",
           "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-ideas",
           "description": "When the user needs marketing ideas, inspiration, or strategies for their SaaS or software product. Also use when the user asks for 'marketing ideas,' 'growth ideas,' 'how to market,' 'marketing strategies,' 'marketing tactics,' 'ways to promote,' 'ideas to grow,' 'what else can I try,' 'I don't know how to market this,' 'brainstorm marketing,' or 'what marketing should I do.' Use this as a starting point whenever someone is stuck or looking for inspiration on how to grow. For specific channel execution, see the relevant skill (ads, social, emails, etc.).",
           "version": "2.0.0"
+        },
+        {
+          "name": "marketing-loops",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-loops",
+          "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
+          "version": "1.1.0"
         },
         {
           "name": "marketing-plan",
@@ -7527,7 +7861,7 @@
       "name": "coreyhaines31-marketingskills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-06-30T08:27:18.059Z",
+      "createdAt": "2026-07-07T08:53:52.727Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7575,6 +7909,18 @@
           "version": "2.0.0"
         },
         {
+          "name": "marketing-council",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-council",
+          "description": "When the user wants multiple expert perspectives on a marketing question — a simulated board of advisors staffed by legendary marketers (Seth Godin, David Ogilvy, Eugene Schwartz, April Dunford, Rory Sutherland, Alex Hormozi, Byron Sharp, and more). Also use when the user mentions 'marketing council,' 'board of advisors,' 'advisory board,' 'what would Seth Godin say,' 'what would Ogilvy think,' 'channel Hormozi,' 'get multiple perspectives,' 'debate this,' 'have the council review,' 'marketing mentors,' or asks how a famous marketer would approach their problem. The council gives each advisor's take through their documented frameworks, surfaces where they disagree, and synthesizes a recommendation. For executing the winning direction, hand off to positioning, offers, copywriting, ads, or the relevant skill.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "marketing-loops",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-loops",
+          "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
+          "version": "1.1.0"
+        },
+        {
           "name": "prospecting",
           "installUrl": "github:coreyhaines31/marketingskills:skills/prospecting",
           "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" or \"qualified leads.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
@@ -7611,7 +7957,7 @@
       "name": "coreyhaines31-marketingskills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-06-30T08:27:18.059Z",
+      "createdAt": "2026-07-07T08:53:52.727Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7631,8 +7977,8 @@
         {
           "name": "ad-creative",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
-          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
-          "version": "2.0.0"
+          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+          "version": "2.1.0"
         },
         {
           "name": "ai-seo",
@@ -7693,6 +8039,18 @@
           "installUrl": "github:coreyhaines31/marketingskills:skills/lead-magnets",
           "description": "When the user wants to create, plan, or optimize a lead magnet for email capture or lead generation. Also use when the user mentions \"lead magnet,\" \"gated content,\" \"content upgrade,\" \"downloadable,\" \"ebook,\" \"cheat sheet,\" \"checklist,\" \"template download,\" \"opt-in,\" \"freebie,\" \"PDF download,\" \"resource library,\" \"content offer,\" \"email capture content,\" \"Notion template,\" \"spreadsheet template,\" or \"what should I give away for emails.\" Use this for planning what to create and how to distribute it. For interactive tools as lead magnets, see free-tools. For writing the actual content, see copywriting. For the email sequence after capture, see emails.",
           "version": "2.0.0"
+        },
+        {
+          "name": "marketing-council",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-council",
+          "description": "When the user wants multiple expert perspectives on a marketing question — a simulated board of advisors staffed by legendary marketers (Seth Godin, David Ogilvy, Eugene Schwartz, April Dunford, Rory Sutherland, Alex Hormozi, Byron Sharp, and more). Also use when the user mentions 'marketing council,' 'board of advisors,' 'advisory board,' 'what would Seth Godin say,' 'what would Ogilvy think,' 'channel Hormozi,' 'get multiple perspectives,' 'debate this,' 'have the council review,' 'marketing mentors,' or asks how a famous marketer would approach their problem. The council gives each advisor's take through their documented frameworks, surfaces where they disagree, and synthesizes a recommendation. For executing the winning direction, hand off to positioning, offers, copywriting, ads, or the relevant skill.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "marketing-loops",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-loops",
+          "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
+          "version": "1.1.0"
         },
         {
           "name": "marketing-psychology",

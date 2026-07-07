@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/K-Dense-AI/claude-scientific-skills.git",
   "owner": "K-Dense-AI",
   "repo": "claude-scientific-skills",
-  "updatedAt": "2026-06-30T08:27:55.419Z",
+  "updatedAt": "2026-07-07T08:54:33.914Z",
   "skillCount": 149,
   "skills": [
     {
@@ -64,7 +64,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.004Z",
+        "evaluatedAt": "2026-07-07T08:54:33.547Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -119,7 +119,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.004Z",
+          "evaluatedAt": "2026-07-07T08:54:33.547Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +137,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.004Z",
+          "evaluatedAt": "2026-07-07T08:54:33.547Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -149,7 +149,12 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and the aeon package (uv pip install). Optional aeon[all_extras] for deep learning and extended dependencies.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/aeon",
       "relPath": "skills/aeon",
       "verified": true,
@@ -201,7 +206,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.006Z",
+        "evaluatedAt": "2026-07-07T08:54:33.549Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -256,7 +261,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.006Z",
+          "evaluatedAt": "2026-07-07T08:54:33.549Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +279,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.006Z",
+          "evaluatedAt": "2026-07-07T08:54:33.549Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -286,7 +291,12 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.11+ and uv. Examples target AnnData 0.12.16, with experimental APIs clearly marked where used.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/anndata",
       "relPath": "skills/anndata",
       "verified": true,
@@ -338,7 +348,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.008Z",
+        "evaluatedAt": "2026-07-07T08:54:33.551Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -393,7 +403,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.008Z",
+          "evaluatedAt": "2026-07-07T08:54:33.551Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +421,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.008Z",
+          "evaluatedAt": "2026-07-07T08:54:33.551Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -423,7 +433,13 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash", "Agent"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash",
+        "Agent"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/arbor",
       "relPath": "skills/arbor",
       "verified": true,
@@ -475,7 +491,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.011Z",
+        "evaluatedAt": "2026-07-07T08:54:33.553Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -530,7 +546,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.011Z",
+          "evaluatedAt": "2026-07-07T08:54:33.553Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +564,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.011Z",
+          "evaluatedAt": "2026-07-07T08:54:33.553Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -612,7 +628,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.013Z",
+        "evaluatedAt": "2026-07-07T08:54:33.555Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -667,7 +683,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.013Z",
+          "evaluatedAt": "2026-07-07T08:54:33.555Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +701,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.013Z",
+          "evaluatedAt": "2026-07-07T08:54:33.555Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -749,7 +765,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.016Z",
+        "evaluatedAt": "2026-07-07T08:54:33.557Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -804,7 +820,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.016Z",
+          "evaluatedAt": "2026-07-07T08:54:33.557Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +838,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.016Z",
+          "evaluatedAt": "2026-07-07T08:54:33.557Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -834,7 +850,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/autoskill",
       "relPath": "skills/autoskill",
       "verified": true,
@@ -886,7 +907,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.018Z",
+        "evaluatedAt": "2026-07-07T08:54:33.559Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -941,7 +962,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.018Z",
+          "evaluatedAt": "2026-07-07T08:54:33.559Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +980,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.018Z",
+          "evaluatedAt": "2026-07-07T08:54:33.559Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -971,7 +992,12 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires a Benchling account, tenant URL, and API key or OAuth app credentials. Install benchling-sdk with uv pip install.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/benchling-integration",
       "relPath": "skills/benchling-integration",
       "verified": true,
@@ -1023,7 +1049,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.021Z",
+        "evaluatedAt": "2026-07-07T08:54:33.561Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1078,7 +1104,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.021Z",
+          "evaluatedAt": "2026-07-07T08:54:33.561Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1096,7 +1122,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.021Z",
+          "evaluatedAt": "2026-07-07T08:54:33.561Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1160,7 +1186,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.024Z",
+        "evaluatedAt": "2026-07-07T08:54:33.564Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1215,7 +1241,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.024Z",
+          "evaluatedAt": "2026-07-07T08:54:33.564Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1259,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.024Z",
+          "evaluatedAt": "2026-07-07T08:54:33.564Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1297,7 +1323,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.027Z",
+        "evaluatedAt": "2026-07-07T08:54:33.566Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1352,7 +1378,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.027Z",
+          "evaluatedAt": "2026-07-07T08:54:33.566Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1396,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.027Z",
+          "evaluatedAt": "2026-07-07T08:54:33.566Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1382,7 +1408,12 @@
       "license": "Biopython License Agreement",
       "creator": "",
       "compatibility": "Requires Python 3.10+, NumPy, and Biopython. Entrez and web BLAST examples require network access; local BLAST/MUSCLE examples require those command-line tools installed separately.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/biopython",
       "relPath": "skills/biopython",
       "verified": true,
@@ -1434,7 +1465,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.031Z",
+        "evaluatedAt": "2026-07-07T08:54:33.570Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1489,7 +1520,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.031Z",
+          "evaluatedAt": "2026-07-07T08:54:33.570Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1538,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.031Z",
+          "evaluatedAt": "2026-07-07T08:54:33.570Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1519,7 +1550,12 @@
       "license": "GPLv3 license",
       "creator": "",
       "compatibility": "Requires Python 3.9–3.12 and internet access to 40+ bioinformatics web APIs. NCBI BLAST requires a contact email (`NCBI_EMAIL` env var or explicit parameter).",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/bioservices",
       "relPath": "skills/bioservices",
       "verified": true,
@@ -1571,7 +1607,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.034Z",
+        "evaluatedAt": "2026-07-07T08:54:33.572Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1626,7 +1662,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.034Z",
+          "evaluatedAt": "2026-07-07T08:54:33.572Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +1680,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.034Z",
+          "evaluatedAt": "2026-07-07T08:54:33.572Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1708,7 +1744,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.036Z",
+        "evaluatedAt": "2026-07-07T08:54:33.574Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1763,7 +1799,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.037Z",
+          "evaluatedAt": "2026-07-07T08:54:33.574Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +1817,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.037Z",
+          "evaluatedAt": "2026-07-07T08:54:33.574Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1793,7 +1829,12 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python >=3.10,<3.13. Examples target cellxgene-census 1.17.x and the 2025-11-08 stable LTS Census; spatial workflows need the spatial extra and TileDB-SOMA >=1.15.5. No authentication is required for public Census data.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/cellxgene-census",
       "relPath": "skills/cellxgene-census",
       "verified": true,
@@ -1845,7 +1886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.039Z",
+        "evaluatedAt": "2026-07-07T08:54:33.578Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1900,7 +1941,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.039Z",
+          "evaluatedAt": "2026-07-07T08:54:33.578Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1918,7 +1959,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.039Z",
+          "evaluatedAt": "2026-07-07T08:54:33.578Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1930,7 +1971,12 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/cirq",
       "relPath": "skills/cirq",
       "verified": true,
@@ -1982,7 +2028,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.042Z",
+        "evaluatedAt": "2026-07-07T08:54:33.580Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2037,7 +2083,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.042Z",
+          "evaluatedAt": "2026-07-07T08:54:33.580Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2055,7 +2101,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.042Z",
+          "evaluatedAt": "2026-07-07T08:54:33.580Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2067,7 +2113,12 @@
       "license": "MIT License",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/citation-management",
       "relPath": "skills/citation-management",
       "verified": true,
@@ -2119,7 +2170,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.046Z",
+        "evaluatedAt": "2026-07-07T08:54:33.584Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2174,7 +2225,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.046Z",
+          "evaluatedAt": "2026-07-07T08:54:33.584Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2192,7 +2243,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.046Z",
+          "evaluatedAt": "2026-07-07T08:54:33.584Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2204,7 +2255,12 @@
       "license": "MIT License",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/clinical-decision-support",
       "relPath": "skills/clinical-decision-support",
       "verified": true,
@@ -2256,7 +2312,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.051Z",
+        "evaluatedAt": "2026-07-07T08:54:33.588Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2311,7 +2367,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.051Z",
+          "evaluatedAt": "2026-07-07T08:54:33.588Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2329,7 +2385,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.052Z",
+          "evaluatedAt": "2026-07-07T08:54:33.588Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2341,7 +2397,12 @@
       "license": "MIT License",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/clinical-reports",
       "relPath": "skills/clinical-reports",
       "verified": true,
@@ -2393,7 +2454,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.056Z",
+        "evaluatedAt": "2026-07-07T08:54:33.593Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2448,7 +2509,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.056Z",
+          "evaluatedAt": "2026-07-07T08:54:33.593Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2466,7 +2527,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.056Z",
+          "evaluatedAt": "2026-07-07T08:54:33.593Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2478,7 +2539,12 @@
       "license": "GPL-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.9+ (cobra 0.30+ dropped 3.8). Install with uv pip install. GLPK (swiglpk) is the default solver; CPLEX/Gurobi optional. load_model fetches from bundled data, BiGG, or BioModels (network required for remote models).",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/cobrapy",
       "relPath": "skills/cobrapy",
       "verified": true,
@@ -2530,7 +2596,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.061Z",
+        "evaluatedAt": "2026-07-07T08:54:33.596Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2585,7 +2651,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.061Z",
+          "evaluatedAt": "2026-07-07T08:54:33.597Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2603,7 +2669,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.061Z",
+          "evaluatedAt": "2026-07-07T08:54:33.597Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2615,7 +2681,10 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write"],
+      "allowedTools": [
+        "Read",
+        "Write"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/consciousness-council",
       "relPath": "skills/consciousness-council",
       "verified": true,
@@ -2667,7 +2736,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.063Z",
+        "evaluatedAt": "2026-07-07T08:54:33.599Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2722,7 +2791,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.063Z",
+          "evaluatedAt": "2026-07-07T08:54:33.599Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2740,7 +2809,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.063Z",
+          "evaluatedAt": "2026-07-07T08:54:33.599Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2752,7 +2821,12 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and dask 2025.1+. DataFrame workflows need pandas 2+ and PyArrow 16+. Cloud paths (s3://, gcs://) need s3fs or gcsfs. Cluster deployment uses dask.distributed (included with dask[complete]).",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/dask",
       "relPath": "skills/dask",
       "verified": true,
@@ -2804,7 +2878,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.066Z",
+        "evaluatedAt": "2026-07-07T08:54:33.601Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2859,7 +2933,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.066Z",
+          "evaluatedAt": "2026-07-07T08:54:33.601Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2877,25 +2951,28 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.066Z",
+          "evaluatedAt": "2026-07-07T08:54:33.601Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "database-lookup",
-      "description": "Deterministically query 78 public scientific, biomedical, materials science, regulatory, finance, and demographics databases through documented REST APIs. Use for reproducible lookups of compounds, genes, proteins, pathways, variants, clinical trials, patents, economic indicators, structures, astronomy objects, environmental records, or database-backed scientific facts when endpoints, filters, pagination, and provenance need to be explicit.",
-      "version": "1.1",
+      "description": "Query documented public database APIs with explicit endpoints, filters, pagination, and provenance. Use when a scientific, regulatory, financial, or other database-backed fact must be retrieved reproducibly from a named source rather than inferred from general knowledge.",
+      "version": "1.2",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/database-lookup",
       "relPath": "skills/database-lookup",
       "verified": true,
-      "tokenCount": 9561,
+      "tokenCount": 10216,
       "evalSummary": {
-        "overallScore": 83,
+        "overallScore": 86,
         "grade": "B",
         "categories": [
           {
@@ -2907,7 +2984,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 7,
             "max": 10
           },
           {
@@ -2941,8 +3018,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.070Z",
-        "evaluatedVersion": "1.1"
+        "evaluatedAt": "2026-07-07T08:54:33.604Z",
+        "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
         "quality": {
@@ -2950,7 +3027,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 83,
+          "overallScore": 86,
           "grade": "B",
           "categories": [
             {
@@ -2962,7 +3039,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 5,
+              "score": 7,
               "max": 10
             },
             {
@@ -2996,8 +3073,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.070Z",
-          "evaluatedVersion": "1.1"
+          "evaluatedAt": "2026-07-07T08:54:33.604Z",
+          "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -3014,8 +3091,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.070Z",
-          "evaluatedVersion": "1.1"
+          "evaluatedAt": "2026-07-07T08:54:33.604Z",
+          "evaluatedVersion": "1.2"
         }
       }
     },
@@ -3026,7 +3103,12 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.8+ and datamol (uv pip install). RDKit is installed automatically as a datamol dependency (since 0.12.2). Optional s3fs/gcsfs for cloud I/O via fsspec.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/datamol",
       "relPath": "skills/datamol",
       "verified": true,
@@ -3078,7 +3160,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.074Z",
+        "evaluatedAt": "2026-07-07T08:54:33.608Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3133,7 +3215,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.074Z",
+          "evaluatedAt": "2026-07-07T08:54:33.608Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3151,7 +3233,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.074Z",
+          "evaluatedAt": "2026-07-07T08:54:33.608Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3163,7 +3245,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python 3.7–3.11 (PyPI 2.8.0 caps at <3.12). Install PyTorch, TensorFlow, or JAX before the matching deepchem extra. RDKit is a core dependency.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/deepchem",
       "relPath": "skills/deepchem",
       "verified": true,
@@ -3215,7 +3302,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.077Z",
+        "evaluatedAt": "2026-07-07T08:54:33.611Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3270,7 +3357,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.077Z",
+          "evaluatedAt": "2026-07-07T08:54:33.611Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3288,7 +3375,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.077Z",
+          "evaluatedAt": "2026-07-07T08:54:33.611Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3352,7 +3439,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.081Z",
+        "evaluatedAt": "2026-07-07T08:54:33.614Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3407,7 +3494,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.081Z",
+          "evaluatedAt": "2026-07-07T08:54:33.614Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3425,7 +3512,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.081Z",
+          "evaluatedAt": "2026-07-07T08:54:33.614Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3489,7 +3576,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.083Z",
+        "evaluatedAt": "2026-07-07T08:54:33.616Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3544,7 +3631,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.083Z",
+          "evaluatedAt": "2026-07-07T08:54:33.616Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3562,7 +3649,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.083Z",
+          "evaluatedAt": "2026-07-07T08:54:33.616Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3574,7 +3661,10 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write"],
+      "allowedTools": [
+        "Read",
+        "Write"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/dhdna-profiler",
       "relPath": "skills/dhdna-profiler",
       "verified": true,
@@ -3626,7 +3716,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.085Z",
+        "evaluatedAt": "2026-07-07T08:54:33.618Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3681,7 +3771,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.085Z",
+          "evaluatedAt": "2026-07-07T08:54:33.618Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3699,7 +3789,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.085Z",
+          "evaluatedAt": "2026-07-07T08:54:33.618Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3763,7 +3853,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.088Z",
+        "evaluatedAt": "2026-07-07T08:54:33.620Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3818,7 +3908,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.088Z",
+          "evaluatedAt": "2026-07-07T08:54:33.620Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3836,7 +3926,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.088Z",
+          "evaluatedAt": "2026-07-07T08:54:33.620Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3900,7 +3990,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.090Z",
+        "evaluatedAt": "2026-07-07T08:54:33.622Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3955,7 +4045,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.090Z",
+          "evaluatedAt": "2026-07-07T08:54:33.622Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3973,7 +4063,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.090Z",
+          "evaluatedAt": "2026-07-07T08:54:33.622Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4037,7 +4127,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.093Z",
+        "evaluatedAt": "2026-07-07T08:54:33.625Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4092,7 +4182,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.093Z",
+          "evaluatedAt": "2026-07-07T08:54:33.625Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4110,7 +4200,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.093Z",
+          "evaluatedAt": "2026-07-07T08:54:33.625Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4174,7 +4264,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.096Z",
+        "evaluatedAt": "2026-07-07T08:54:33.627Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4229,7 +4319,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.096Z",
+          "evaluatedAt": "2026-07-07T08:54:33.627Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4247,7 +4337,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.096Z",
+          "evaluatedAt": "2026-07-07T08:54:33.627Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4311,7 +4401,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.098Z",
+        "evaluatedAt": "2026-07-07T08:54:33.629Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4366,7 +4456,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.098Z",
+          "evaluatedAt": "2026-07-07T08:54:33.629Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4384,7 +4474,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.098Z",
+          "evaluatedAt": "2026-07-07T08:54:33.629Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4448,7 +4538,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.100Z",
+        "evaluatedAt": "2026-07-07T08:54:33.631Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4503,7 +4593,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.100Z",
+          "evaluatedAt": "2026-07-07T08:54:33.631Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4521,7 +4611,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.101Z",
+          "evaluatedAt": "2026-07-07T08:54:33.631Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4533,7 +4623,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python >=3.10. Scripts use numpy, pandas, and pyDOE3 (DOE matrices). Install with uv as shown below.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/experimental-design",
       "relPath": "skills/experimental-design",
       "verified": true,
@@ -4585,7 +4680,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.102Z",
+        "evaluatedAt": "2026-07-07T08:54:33.633Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4640,7 +4735,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.102Z",
+          "evaluatedAt": "2026-07-07T08:54:33.633Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4658,7 +4753,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.102Z",
+          "evaluatedAt": "2026-07-07T08:54:33.633Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4722,7 +4817,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.105Z",
+        "evaluatedAt": "2026-07-07T08:54:33.635Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4777,7 +4872,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.105Z",
+          "evaluatedAt": "2026-07-07T08:54:33.635Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4795,7 +4890,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.105Z",
+          "evaluatedAt": "2026-07-07T08:54:33.635Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4859,7 +4954,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.108Z",
+        "evaluatedAt": "2026-07-07T08:54:33.637Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4914,7 +5009,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.108Z",
+          "evaluatedAt": "2026-07-07T08:54:33.637Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4932,7 +5027,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.108Z",
+          "evaluatedAt": "2026-07-07T08:54:33.637Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4996,7 +5091,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.110Z",
+        "evaluatedAt": "2026-07-07T08:54:33.639Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5051,7 +5146,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.110Z",
+          "evaluatedAt": "2026-07-07T08:54:33.639Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5069,7 +5164,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.110Z",
+          "evaluatedAt": "2026-07-07T08:54:33.639Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5133,7 +5228,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.111Z",
+        "evaluatedAt": "2026-07-07T08:54:33.640Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5188,7 +5283,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.111Z",
+          "evaluatedAt": "2026-07-07T08:54:33.640Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5206,7 +5301,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.111Z",
+          "evaluatedAt": "2026-07-07T08:54:33.640Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5270,7 +5365,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.113Z",
+        "evaluatedAt": "2026-07-07T08:54:33.642Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5325,7 +5420,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.113Z",
+          "evaluatedAt": "2026-07-07T08:54:33.642Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5343,7 +5438,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.113Z",
+          "evaluatedAt": "2026-07-07T08:54:33.642Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5407,7 +5502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.115Z",
+        "evaluatedAt": "2026-07-07T08:54:33.644Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5462,7 +5557,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.115Z",
+          "evaluatedAt": "2026-07-07T08:54:33.644Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5480,7 +5575,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.115Z",
+          "evaluatedAt": "2026-07-07T08:54:33.644Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5544,7 +5639,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.117Z",
+        "evaluatedAt": "2026-07-07T08:54:33.645Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5599,7 +5694,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.117Z",
+          "evaluatedAt": "2026-07-07T08:54:33.645Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5617,7 +5712,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.117Z",
+          "evaluatedAt": "2026-07-07T08:54:33.645Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5681,7 +5776,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.118Z",
+        "evaluatedAt": "2026-07-07T08:54:33.646Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5736,7 +5831,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.118Z",
+          "evaluatedAt": "2026-07-07T08:54:33.646Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5754,7 +5849,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.118Z",
+          "evaluatedAt": "2026-07-07T08:54:33.646Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5818,7 +5913,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.122Z",
+        "evaluatedAt": "2026-07-07T08:54:33.650Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5873,7 +5968,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.122Z",
+          "evaluatedAt": "2026-07-07T08:54:33.650Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5891,7 +5986,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.122Z",
+          "evaluatedAt": "2026-07-07T08:54:33.650Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5903,7 +5998,9 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read"],
+      "allowedTools": [
+        "Read"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/ginkgo-cloud-lab",
       "relPath": "skills/ginkgo-cloud-lab",
       "verified": true,
@@ -5955,7 +6052,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.125Z",
+        "evaluatedAt": "2026-07-07T08:54:33.652Z",
         "evaluatedVersion": "2.0"
       },
       "evalSummaries": {
@@ -6010,7 +6107,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.125Z",
+          "evaluatedAt": "2026-07-07T08:54:33.652Z",
           "evaluatedVersion": "2.0"
         },
         "skill-best-practice": {
@@ -6028,7 +6125,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.125Z",
+          "evaluatedAt": "2026-07-07T08:54:33.652Z",
           "evaluatedVersion": "2.0"
         }
       }
@@ -6092,7 +6189,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.127Z",
+        "evaluatedAt": "2026-07-07T08:54:33.654Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6147,7 +6244,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.127Z",
+          "evaluatedAt": "2026-07-07T08:54:33.654Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6165,7 +6262,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.127Z",
+          "evaluatedAt": "2026-07-07T08:54:33.654Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6229,7 +6326,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.129Z",
+        "evaluatedAt": "2026-07-07T08:54:33.656Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6284,7 +6381,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.129Z",
+          "evaluatedAt": "2026-07-07T08:54:33.656Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6302,7 +6399,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.129Z",
+          "evaluatedAt": "2026-07-07T08:54:33.656Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6366,7 +6463,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.132Z",
+        "evaluatedAt": "2026-07-07T08:54:33.658Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6421,7 +6518,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.132Z",
+          "evaluatedAt": "2026-07-07T08:54:33.658Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6439,7 +6536,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.132Z",
+          "evaluatedAt": "2026-07-07T08:54:33.658Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6503,7 +6600,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.135Z",
+        "evaluatedAt": "2026-07-07T08:54:33.661Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6558,7 +6655,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.135Z",
+          "evaluatedAt": "2026-07-07T08:54:33.661Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6576,7 +6673,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.135Z",
+          "evaluatedAt": "2026-07-07T08:54:33.661Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6640,7 +6737,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.137Z",
+        "evaluatedAt": "2026-07-07T08:54:33.663Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6695,7 +6792,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.138Z",
+          "evaluatedAt": "2026-07-07T08:54:33.663Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6713,7 +6810,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.138Z",
+          "evaluatedAt": "2026-07-07T08:54:33.663Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6725,7 +6822,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/hypothesis-generation",
       "relPath": "skills/hypothesis-generation",
       "verified": true,
@@ -6777,7 +6879,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.141Z",
+        "evaluatedAt": "2026-07-07T08:54:33.666Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6832,7 +6934,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.141Z",
+          "evaluatedAt": "2026-07-07T08:54:33.666Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6850,7 +6952,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.141Z",
+          "evaluatedAt": "2026-07-07T08:54:33.666Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6914,7 +7016,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.145Z",
+        "evaluatedAt": "2026-07-07T08:54:33.670Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6969,7 +7071,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.145Z",
+          "evaluatedAt": "2026-07-07T08:54:33.670Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6987,7 +7089,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.145Z",
+          "evaluatedAt": "2026-07-07T08:54:33.670Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6999,7 +7101,12 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/infographics",
       "relPath": "skills/infographics",
       "verified": true,
@@ -7051,7 +7158,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.149Z",
+        "evaluatedAt": "2026-07-07T08:54:33.673Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7106,7 +7213,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.149Z",
+          "evaluatedAt": "2026-07-07T08:54:33.673Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7124,7 +7231,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.149Z",
+          "evaluatedAt": "2026-07-07T08:54:33.673Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7188,7 +7295,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.152Z",
+        "evaluatedAt": "2026-07-07T08:54:33.677Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7243,7 +7350,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.152Z",
+          "evaluatedAt": "2026-07-07T08:54:33.677Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7261,7 +7368,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.152Z",
+          "evaluatedAt": "2026-07-07T08:54:33.677Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7325,7 +7432,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.155Z",
+        "evaluatedAt": "2026-07-07T08:54:33.679Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7380,7 +7487,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.155Z",
+          "evaluatedAt": "2026-07-07T08:54:33.679Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7398,7 +7505,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.155Z",
+          "evaluatedAt": "2026-07-07T08:54:33.679Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7462,7 +7569,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.157Z",
+        "evaluatedAt": "2026-07-07T08:54:33.681Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7517,7 +7624,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.157Z",
+          "evaluatedAt": "2026-07-07T08:54:33.681Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7535,7 +7642,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.157Z",
+          "evaluatedAt": "2026-07-07T08:54:33.681Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7599,7 +7706,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.160Z",
+        "evaluatedAt": "2026-07-07T08:54:33.683Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7654,7 +7761,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.160Z",
+          "evaluatedAt": "2026-07-07T08:54:33.683Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7672,7 +7779,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.160Z",
+          "evaluatedAt": "2026-07-07T08:54:33.683Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7684,7 +7791,12 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/latex-posters",
       "relPath": "skills/latex-posters",
       "verified": true,
@@ -7736,7 +7848,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.165Z",
+        "evaluatedAt": "2026-07-07T08:54:33.688Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7791,7 +7903,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.166Z",
+          "evaluatedAt": "2026-07-07T08:54:33.688Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7809,7 +7921,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.166Z",
+          "evaluatedAt": "2026-07-07T08:54:33.688Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7821,7 +7933,12 @@
       "license": "Apache-2.0",
       "creator": "",
       "compatibility": "Python 3.10+. Optional LibreOffice (Office formats) and ImageMagick (images). Bundled Tesseract for OCR. All processing is local — no cloud API required.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/liteparse",
       "relPath": "skills/liteparse",
       "verified": true,
@@ -7873,7 +7990,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.170Z",
+        "evaluatedAt": "2026-07-07T08:54:33.693Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7928,7 +8045,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.170Z",
+          "evaluatedAt": "2026-07-07T08:54:33.693Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7946,7 +8063,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.170Z",
+          "evaluatedAt": "2026-07-07T08:54:33.693Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7958,7 +8075,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/literature-review",
       "relPath": "skills/literature-review",
       "verified": true,
@@ -8010,7 +8132,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.173Z",
+        "evaluatedAt": "2026-07-07T08:54:33.695Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -8065,7 +8187,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.173Z",
+          "evaluatedAt": "2026-07-07T08:54:33.696Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -8083,7 +8205,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.173Z",
+          "evaluatedAt": "2026-07-07T08:54:33.696Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -8095,7 +8217,12 @@
       "license": "Apache-2.0",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/markdown-mermaid-writing",
       "relPath": "skills/markdown-mermaid-writing",
       "verified": true,
@@ -8147,7 +8274,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.177Z",
+        "evaluatedAt": "2026-07-07T08:54:33.699Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -8202,7 +8329,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.177Z",
+          "evaluatedAt": "2026-07-07T08:54:33.699Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -8220,7 +8347,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.177Z",
+          "evaluatedAt": "2026-07-07T08:54:33.699Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -8232,7 +8359,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/market-research-reports",
       "relPath": "skills/market-research-reports",
       "verified": true,
@@ -8284,7 +8416,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.180Z",
+        "evaluatedAt": "2026-07-07T08:54:33.702Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -8339,7 +8471,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.180Z",
+          "evaluatedAt": "2026-07-07T08:54:33.702Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -8357,7 +8489,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.180Z",
+          "evaluatedAt": "2026-07-07T08:54:33.702Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -8369,7 +8501,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/markitdown",
       "relPath": "skills/markitdown",
       "verified": true,
@@ -8421,7 +8558,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.183Z",
+        "evaluatedAt": "2026-07-07T08:54:33.705Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -8476,7 +8613,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.183Z",
+          "evaluatedAt": "2026-07-07T08:54:33.705Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -8494,7 +8631,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.183Z",
+          "evaluatedAt": "2026-07-07T08:54:33.705Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -8558,7 +8695,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.185Z",
+        "evaluatedAt": "2026-07-07T08:54:33.707Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -8613,7 +8750,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.185Z",
+          "evaluatedAt": "2026-07-07T08:54:33.707Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -8631,7 +8768,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.185Z",
+          "evaluatedAt": "2026-07-07T08:54:33.707Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -8695,7 +8832,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.187Z",
+        "evaluatedAt": "2026-07-07T08:54:33.709Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -8750,7 +8887,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.187Z",
+          "evaluatedAt": "2026-07-07T08:54:33.709Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -8768,7 +8905,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.187Z",
+          "evaluatedAt": "2026-07-07T08:54:33.709Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -8832,7 +8969,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.189Z",
+        "evaluatedAt": "2026-07-07T08:54:33.710Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -8887,7 +9024,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.189Z",
+          "evaluatedAt": "2026-07-07T08:54:33.710Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -8905,7 +9042,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.189Z",
+          "evaluatedAt": "2026-07-07T08:54:33.710Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -8917,7 +9054,12 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.9+ and datamol (installed with medchem). Optional Lilly demerit filter requires separate `lilly-medchem-rules` conda package.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/medchem",
       "relPath": "skills/medchem",
       "verified": true,
@@ -8969,7 +9111,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.191Z",
+        "evaluatedAt": "2026-07-07T08:54:33.712Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -9024,7 +9166,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.191Z",
+          "evaluatedAt": "2026-07-07T08:54:33.712Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -9042,7 +9184,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.191Z",
+          "evaluatedAt": "2026-07-07T08:54:33.712Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -9106,7 +9248,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.193Z",
+        "evaluatedAt": "2026-07-07T08:54:33.714Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -9161,7 +9303,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.193Z",
+          "evaluatedAt": "2026-07-07T08:54:33.714Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -9179,7 +9321,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.193Z",
+          "evaluatedAt": "2026-07-07T08:54:33.714Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -9243,7 +9385,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.196Z",
+        "evaluatedAt": "2026-07-07T08:54:33.717Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -9298,7 +9440,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.196Z",
+          "evaluatedAt": "2026-07-07T08:54:33.717Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -9316,7 +9458,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.196Z",
+          "evaluatedAt": "2026-07-07T08:54:33.717Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -9328,7 +9470,12 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.9–3.10 (molfeat 0.11.0 does not support 3.11+). Requires datamol, PyTorch, and optional extras for GNN/transformer models.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/molfeat",
       "relPath": "skills/molfeat",
       "verified": true,
@@ -9380,7 +9527,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.198Z",
+        "evaluatedAt": "2026-07-07T08:54:33.719Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -9435,7 +9582,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.198Z",
+          "evaluatedAt": "2026-07-07T08:54:33.719Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -9453,7 +9600,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.198Z",
+          "evaluatedAt": "2026-07-07T08:54:33.719Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -9517,7 +9664,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.201Z",
+        "evaluatedAt": "2026-07-07T08:54:33.721Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -9572,7 +9719,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.201Z",
+          "evaluatedAt": "2026-07-07T08:54:33.721Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -9590,7 +9737,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.201Z",
+          "evaluatedAt": "2026-07-07T08:54:33.721Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -9654,7 +9801,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.203Z",
+        "evaluatedAt": "2026-07-07T08:54:33.723Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -9709,7 +9856,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.203Z",
+          "evaluatedAt": "2026-07-07T08:54:33.723Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -9727,7 +9874,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.203Z",
+          "evaluatedAt": "2026-07-07T08:54:33.723Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -9791,7 +9938,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.205Z",
+        "evaluatedAt": "2026-07-07T08:54:33.725Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -9846,7 +9993,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.205Z",
+          "evaluatedAt": "2026-07-07T08:54:33.725Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -9864,7 +10011,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.205Z",
+          "evaluatedAt": "2026-07-07T08:54:33.725Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -9928,7 +10075,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.207Z",
+        "evaluatedAt": "2026-07-07T08:54:33.728Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -9983,7 +10130,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.207Z",
+          "evaluatedAt": "2026-07-07T08:54:33.728Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -10001,7 +10148,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.207Z",
+          "evaluatedAt": "2026-07-07T08:54:33.728Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -10065,7 +10212,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.209Z",
+        "evaluatedAt": "2026-07-07T08:54:33.729Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -10120,7 +10267,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.209Z",
+          "evaluatedAt": "2026-07-07T08:54:33.729Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -10138,7 +10285,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.209Z",
+          "evaluatedAt": "2026-07-07T08:54:33.729Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -10150,7 +10297,10 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python >=3.12. Variant and sample queries require outbound network access to the public 1000 Genomes query endpoint over TLS; the sample/population metadata commands run fully offline over a data file bundled in the skill. No credentials, API keys, or environment variables are used.",
-      "allowedTools": ["Write", "Bash"],
+      "allowedTools": [
+        "Write",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/onekgpd",
       "relPath": "skills/onekgpd",
       "verified": true,
@@ -10202,7 +10352,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.212Z",
+        "evaluatedAt": "2026-07-07T08:54:33.732Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -10257,7 +10407,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.212Z",
+          "evaluatedAt": "2026-07-07T08:54:33.732Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -10275,7 +10425,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.212Z",
+          "evaluatedAt": "2026-07-07T08:54:33.732Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -10339,7 +10489,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.214Z",
+        "evaluatedAt": "2026-07-07T08:54:33.734Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -10394,7 +10544,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.214Z",
+          "evaluatedAt": "2026-07-07T08:54:33.734Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -10412,7 +10562,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.214Z",
+          "evaluatedAt": "2026-07-07T08:54:33.734Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -10476,7 +10626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.216Z",
+        "evaluatedAt": "2026-07-07T08:54:33.736Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -10531,7 +10681,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.216Z",
+          "evaluatedAt": "2026-07-07T08:54:33.736Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -10549,7 +10699,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.216Z",
+          "evaluatedAt": "2026-07-07T08:54:33.736Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -10565,7 +10715,7 @@
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/optimize-for-gpu",
       "relPath": "skills/optimize-for-gpu",
       "verified": true,
-      "tokenCount": 8871,
+      "tokenCount": 9337,
       "evalSummary": {
         "overallScore": 64,
         "grade": "D",
@@ -10613,7 +10763,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.220Z",
+        "evaluatedAt": "2026-07-07T08:54:33.740Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -10668,7 +10818,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.220Z",
+          "evaluatedAt": "2026-07-07T08:54:33.740Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -10686,7 +10836,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.220Z",
+          "evaluatedAt": "2026-07-07T08:54:33.740Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -10750,7 +10900,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.223Z",
+        "evaluatedAt": "2026-07-07T08:54:33.742Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -10805,7 +10955,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.223Z",
+          "evaluatedAt": "2026-07-07T08:54:33.742Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -10823,31 +10973,34 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.223Z",
+          "evaluatedAt": "2026-07-07T08:54:33.742Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "paper-lookup",
-      "description": "Search 10 academic paper databases via REST APIs for research papers, preprints, and scholarly articles. Covers PubMed, PMC (full text), bioRxiv, medRxiv, arXiv, OpenAlex, Crossref, Semantic Scholar, CORE, Unpaywall. Use when searching for papers, citations, DOI/PMID lookups, abstracts, full text, open access, preprints, citation graphs, author search, or any scholarly literature query. Triggers on mentions of any supported database or requests like \"find papers on X\" or \"look up this DOI\".",
-      "version": "0.0.0",
-      "license": "",
+      "description": "Search 10 academic literature APIs for papers, preprints, citations, and open-access full text, and return results with reproducible provenance. Covers PubMed, PMC (full text), bioRxiv, medRxiv, arXiv, OpenAlex, Crossref, Semantic Scholar, CORE, Unpaywall. Use when searching for papers, citations, DOI/PMID/arXiv lookups, abstracts, full text, open-access PDFs, preprints, citation graphs, author publications, or any scholarly literature query. Triggers on mentions of any supported database or requests like \"find papers on X\", \"look up this DOI\", \"who cites this paper\", or \"get me the PDF\".",
+      "version": "1.1",
+      "license": "MIT",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [],
+      "allowedTools": [
+        "Read",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/paper-lookup",
       "relPath": "skills/paper-lookup",
       "verified": true,
-      "tokenCount": 3013,
+      "tokenCount": 4450,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 76,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
@@ -10859,13 +11012,13 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 9,
+            "score": 8,
             "max": 10
           },
           {
@@ -10887,8 +11040,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.225Z",
-        "evaluatedVersion": "0.0.0"
+        "evaluatedAt": "2026-07-07T08:54:33.744Z",
+        "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
         "quality": {
@@ -10896,13 +11049,13 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 76,
           "grade": "C",
           "categories": [
             {
               "id": "structure",
               "name": "Structure & completeness",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
@@ -10914,13 +11067,13 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 9,
+              "score": 10,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 9,
+              "score": 8,
               "max": 10
             },
             {
@@ -10942,8 +11095,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.225Z",
-          "evaluatedVersion": "0.0.0"
+          "evaluatedAt": "2026-07-07T08:54:33.744Z",
+          "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -10960,8 +11113,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.225Z",
-          "evaluatedVersion": "0.0.0"
+          "evaluatedAt": "2026-07-07T08:54:33.744Z",
+          "evaluatedVersion": "1.1"
         }
       }
     },
@@ -11024,7 +11177,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.226Z",
+        "evaluatedAt": "2026-07-07T08:54:33.746Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -11079,7 +11232,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.226Z",
+          "evaluatedAt": "2026-07-07T08:54:33.746Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -11097,7 +11250,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.226Z",
+          "evaluatedAt": "2026-07-07T08:54:33.746Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -11161,7 +11314,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.227Z",
+        "evaluatedAt": "2026-07-07T08:54:33.747Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -11216,7 +11369,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.227Z",
+          "evaluatedAt": "2026-07-07T08:54:33.747Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -11234,7 +11387,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.227Z",
+          "evaluatedAt": "2026-07-07T08:54:33.747Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -11298,7 +11451,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.229Z",
+        "evaluatedAt": "2026-07-07T08:54:33.748Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -11353,7 +11506,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.229Z",
+          "evaluatedAt": "2026-07-07T08:54:33.748Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -11371,7 +11524,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.229Z",
+          "evaluatedAt": "2026-07-07T08:54:33.748Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -11435,7 +11588,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.230Z",
+        "evaluatedAt": "2026-07-07T08:54:33.750Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -11490,7 +11643,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.231Z",
+          "evaluatedAt": "2026-07-07T08:54:33.750Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -11508,7 +11661,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.230Z",
+          "evaluatedAt": "2026-07-07T08:54:33.750Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -11572,7 +11725,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.235Z",
+        "evaluatedAt": "2026-07-07T08:54:33.752Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -11627,7 +11780,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.235Z",
+          "evaluatedAt": "2026-07-07T08:54:33.752Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -11645,7 +11798,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.235Z",
+          "evaluatedAt": "2026-07-07T08:54:33.752Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -11657,7 +11810,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/peer-review",
       "relPath": "skills/peer-review",
       "verified": true,
@@ -11709,7 +11867,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.237Z",
+        "evaluatedAt": "2026-07-07T08:54:33.755Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -11764,7 +11922,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.237Z",
+          "evaluatedAt": "2026-07-07T08:54:33.755Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -11782,7 +11940,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.237Z",
+          "evaluatedAt": "2026-07-07T08:54:33.755Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -11846,7 +12004,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.240Z",
+        "evaluatedAt": "2026-07-07T08:54:33.758Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -11901,7 +12059,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.240Z",
+          "evaluatedAt": "2026-07-07T08:54:33.758Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -11919,7 +12077,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.240Z",
+          "evaluatedAt": "2026-07-07T08:54:33.758Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -11983,7 +12141,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.242Z",
+        "evaluatedAt": "2026-07-07T08:54:33.760Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -12038,7 +12196,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.242Z",
+          "evaluatedAt": "2026-07-07T08:54:33.760Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -12056,7 +12214,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.242Z",
+          "evaluatedAt": "2026-07-07T08:54:33.760Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -12120,7 +12278,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.244Z",
+        "evaluatedAt": "2026-07-07T08:54:33.762Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -12175,7 +12333,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.244Z",
+          "evaluatedAt": "2026-07-07T08:54:33.762Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -12193,7 +12351,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.244Z",
+          "evaluatedAt": "2026-07-07T08:54:33.762Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -12205,7 +12363,9 @@
       "license": "https://github.com/pola-rs/polars/blob/main/LICENSE",
       "creator": "",
       "compatibility": "Requires Python 3.10+ for polars 1.41.x. Install with uv pip install; optional extras enable Excel, database, cloud, pandas/NumPy, and GPU integrations.",
-      "allowedTools": ["Read"],
+      "allowedTools": [
+        "Read"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/polars",
       "relPath": "skills/polars",
       "verified": true,
@@ -12257,7 +12417,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.246Z",
+        "evaluatedAt": "2026-07-07T08:54:33.763Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -12312,7 +12472,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.246Z",
+          "evaluatedAt": "2026-07-07T08:54:33.763Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -12330,7 +12490,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.246Z",
+          "evaluatedAt": "2026-07-07T08:54:33.763Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -12342,7 +12502,12 @@
       "license": "Apache-2.0",
       "creator": "",
       "compatibility": "Requires Python 3.11–3.14 and polars-bio (uv pip install). Cloud I/O uses standard AWS/GCS/Azure SDK env vars when paths use s3://, gs://, or az:// URIs.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/polars-bio",
       "relPath": "skills/polars-bio",
       "verified": true,
@@ -12394,7 +12559,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.248Z",
+        "evaluatedAt": "2026-07-07T08:54:33.765Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -12449,7 +12614,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.248Z",
+          "evaluatedAt": "2026-07-07T08:54:33.765Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -12467,7 +12632,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.248Z",
+          "evaluatedAt": "2026-07-07T08:54:33.765Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -12531,7 +12696,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.250Z",
+        "evaluatedAt": "2026-07-07T08:54:33.767Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -12586,7 +12751,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.250Z",
+          "evaluatedAt": "2026-07-07T08:54:33.767Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -12604,7 +12769,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.250Z",
+          "evaluatedAt": "2026-07-07T08:54:33.767Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -12616,7 +12781,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/pptx-posters",
       "relPath": "skills/pptx-posters",
       "verified": true,
@@ -12668,7 +12838,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.252Z",
+        "evaluatedAt": "2026-07-07T08:54:33.769Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -12723,7 +12893,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.252Z",
+          "evaluatedAt": "2026-07-07T08:54:33.769Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -12741,7 +12911,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.252Z",
+          "evaluatedAt": "2026-07-07T08:54:33.769Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -12805,7 +12975,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.254Z",
+        "evaluatedAt": "2026-07-07T08:54:33.771Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -12860,7 +13030,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.254Z",
+          "evaluatedAt": "2026-07-07T08:54:33.771Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -12878,7 +13048,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.254Z",
+          "evaluatedAt": "2026-07-07T08:54:33.771Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -12942,7 +13112,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.255Z",
+        "evaluatedAt": "2026-07-07T08:54:33.772Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -12997,7 +13167,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.255Z",
+          "evaluatedAt": "2026-07-07T08:54:33.772Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -13015,7 +13185,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.255Z",
+          "evaluatedAt": "2026-07-07T08:54:33.772Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -13079,7 +13249,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.258Z",
+        "evaluatedAt": "2026-07-07T08:54:33.774Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -13134,7 +13304,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.258Z",
+          "evaluatedAt": "2026-07-07T08:54:33.774Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -13152,7 +13322,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.258Z",
+          "evaluatedAt": "2026-07-07T08:54:33.774Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -13164,7 +13334,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python >=3.11 and PyDESeq2 0.5.4-compatible dependencies. Examples target PyDESeq2 0.5.x, formulaic design strings, explicit contrasts, and uv-based installs.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/pydeseq2",
       "relPath": "skills/pydeseq2",
       "verified": true,
@@ -13216,7 +13391,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.260Z",
+        "evaluatedAt": "2026-07-07T08:54:33.777Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -13271,7 +13446,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.260Z",
+          "evaluatedAt": "2026-07-07T08:54:33.777Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -13289,7 +13464,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.261Z",
+          "evaluatedAt": "2026-07-07T08:54:33.777Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -13353,7 +13528,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.263Z",
+        "evaluatedAt": "2026-07-07T08:54:33.779Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -13408,7 +13583,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.263Z",
+          "evaluatedAt": "2026-07-07T08:54:33.779Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -13426,7 +13601,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.263Z",
+          "evaluatedAt": "2026-07-07T08:54:33.779Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -13490,7 +13665,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.265Z",
+        "evaluatedAt": "2026-07-07T08:54:33.780Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -13545,7 +13720,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.265Z",
+          "evaluatedAt": "2026-07-07T08:54:33.780Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -13563,7 +13738,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.265Z",
+          "evaluatedAt": "2026-07-07T08:54:33.780Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -13627,7 +13802,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.266Z",
+        "evaluatedAt": "2026-07-07T08:54:33.782Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -13682,7 +13857,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.266Z",
+          "evaluatedAt": "2026-07-07T08:54:33.782Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -13700,7 +13875,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.266Z",
+          "evaluatedAt": "2026-07-07T08:54:33.782Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -13764,7 +13939,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.269Z",
+        "evaluatedAt": "2026-07-07T08:54:33.784Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -13819,7 +13994,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.269Z",
+          "evaluatedAt": "2026-07-07T08:54:33.784Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -13837,7 +14012,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.269Z",
+          "evaluatedAt": "2026-07-07T08:54:33.784Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -13849,7 +14024,12 @@
       "license": "Apache License, Version 2.0",
       "creator": "",
       "compatibility": "Requires Python 3.12+ and PyMC 6.0.1-compatible dependencies. Install reproducible environments with `uv pip install \"pymc[nutpie]==6.0.1\"`; optional NumPyro or BlackJAX samplers require separately pinned JAX-compatible dependencies.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/pymc",
       "relPath": "skills/pymc",
       "verified": true,
@@ -13901,7 +14081,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.272Z",
+        "evaluatedAt": "2026-07-07T08:54:33.787Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -13956,7 +14136,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.272Z",
+          "evaluatedAt": "2026-07-07T08:54:33.787Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -13974,7 +14154,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.272Z",
+          "evaluatedAt": "2026-07-07T08:54:33.787Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -13986,7 +14166,12 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and pymoo (uv pip install). Optional matplotlib for visualization plots; optional autograd for gradient-based features; optional joblib for JoblibParallelization.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/pymoo",
       "relPath": "skills/pymoo",
       "verified": true,
@@ -14038,7 +14223,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.275Z",
+        "evaluatedAt": "2026-07-07T08:54:33.790Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -14093,7 +14278,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.275Z",
+          "evaluatedAt": "2026-07-07T08:54:33.790Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -14111,7 +14296,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.275Z",
+          "evaluatedAt": "2026-07-07T08:54:33.790Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -14123,7 +14308,12 @@
       "license": "3 clause BSD license",
       "creator": "",
       "compatibility": "Requires Python 3.9+ and uv. Examples and scripts target pyOpenMS 3.5.0.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/pyopenms",
       "relPath": "skills/pyopenms",
       "verified": true,
@@ -14175,7 +14365,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.277Z",
+        "evaluatedAt": "2026-07-07T08:54:33.792Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -14230,7 +14420,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.277Z",
+          "evaluatedAt": "2026-07-07T08:54:33.792Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -14248,7 +14438,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.277Z",
+          "evaluatedAt": "2026-07-07T08:54:33.792Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -14312,7 +14502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.279Z",
+        "evaluatedAt": "2026-07-07T08:54:33.793Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -14367,7 +14557,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.279Z",
+          "evaluatedAt": "2026-07-07T08:54:33.794Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -14385,7 +14575,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.279Z",
+          "evaluatedAt": "2026-07-07T08:54:33.794Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -14449,7 +14639,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.281Z",
+        "evaluatedAt": "2026-07-07T08:54:33.795Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -14504,7 +14694,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.281Z",
+          "evaluatedAt": "2026-07-07T08:54:33.795Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -14522,7 +14712,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.281Z",
+          "evaluatedAt": "2026-07-07T08:54:33.795Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -14534,7 +14724,12 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and lightning 2.6+ (or pytorch-lightning 2.6+). GPU training needs CUDA-capable PyTorch. Optional loggers (wandb, mlflow, comet-ml) and DeepSpeed require separate installs.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/pytorch-lightning",
       "relPath": "skills/pytorch-lightning",
       "verified": true,
@@ -14586,7 +14781,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.283Z",
+        "evaluatedAt": "2026-07-07T08:54:33.797Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -14641,7 +14836,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.283Z",
+          "evaluatedAt": "2026-07-07T08:54:33.797Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -14659,7 +14854,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.283Z",
+          "evaluatedAt": "2026-07-07T08:54:33.797Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -14671,7 +14866,12 @@
       "license": "MIT License",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and pyzotero 1.13+. Web API access needs a Zotero API key. Optional CLI and MCP extras require Zotero 7 with local API access enabled.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/pyzotero",
       "relPath": "skills/pyzotero",
       "verified": true,
@@ -14723,7 +14923,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.284Z",
+        "evaluatedAt": "2026-07-07T08:54:33.798Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -14778,7 +14978,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.284Z",
+          "evaluatedAt": "2026-07-07T08:54:33.798Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -14796,7 +14996,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.284Z",
+          "evaluatedAt": "2026-07-07T08:54:33.798Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -14860,7 +15060,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.285Z",
+        "evaluatedAt": "2026-07-07T08:54:33.799Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -14915,7 +15115,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.285Z",
+          "evaluatedAt": "2026-07-07T08:54:33.800Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -14933,7 +15133,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.285Z",
+          "evaluatedAt": "2026-07-07T08:54:33.800Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -14997,7 +15197,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.287Z",
+        "evaluatedAt": "2026-07-07T08:54:33.801Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -15052,7 +15252,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.287Z",
+          "evaluatedAt": "2026-07-07T08:54:33.801Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -15070,7 +15270,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.287Z",
+          "evaluatedAt": "2026-07-07T08:54:33.801Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -15134,7 +15334,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.290Z",
+        "evaluatedAt": "2026-07-07T08:54:33.804Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -15189,7 +15389,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.290Z",
+          "evaluatedAt": "2026-07-07T08:54:33.804Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -15207,7 +15407,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.290Z",
+          "evaluatedAt": "2026-07-07T08:54:33.804Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -15219,7 +15419,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Works in Agent Skills-compatible hosts. Grant-writing guidance needs no network; optional figures via the scientific-schematics skill require OPENROUTER_API_KEY and outbound API access.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/research-grants",
       "relPath": "skills/research-grants",
       "verified": true,
@@ -15271,7 +15476,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.295Z",
+        "evaluatedAt": "2026-07-07T08:54:33.808Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -15326,7 +15531,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.295Z",
+          "evaluatedAt": "2026-07-07T08:54:33.808Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -15344,25 +15549,30 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.295Z",
+          "evaluatedAt": "2026-07-07T08:54:33.808Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "research-lookup",
-      "description": "Look up current research information using parallel-cli search (primary, fast web search), the Parallel Chat API (deep research), or Perplexity sonar-pro-search (academic paper searches). Automatically routes queries to the best backend. Use for finding papers, gathering research data, and verifying scientific information. Note: query text is transmitted to api.parallel.ai (PARALLEL_API_KEY) and, for academic searches, to openrouter.ai (OPENROUTER_API_KEY).",
+      "description": "Look up current research and scientific information across three backends: fast web search via parallel-cli (default), the Parallel Chat API for deep multi-source synthesis, and Perplexity sonar-pro-search for scholarly paper searches. Automatically routes each query to the best backend and saves every result to sources/ for reproducible citation. Use this whenever you need to find papers, gather statistics or market data, verify a scientific claim, collect citations, or research any topic for scientific/technical writing — even if the user does not say \"research\" explicitly. Note: query text is sent to api.parallel.ai (PARALLEL_API_KEY) and, for academic searches, to openrouter.ai (OPENROUTER_API_KEY).",
       "version": "0.0.0",
       "license": "MIT license",
       "creator": "",
       "compatibility": "parallel-cli required (primary); PARALLEL_API_KEY and OPENROUTER_API_KEY optional for deep/academic backends",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/research-lookup",
       "relPath": "skills/research-lookup",
       "verified": true,
-      "tokenCount": 5608,
+      "tokenCount": 3594,
       "evalSummary": {
-        "overallScore": 79,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -15374,19 +15584,19 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 3,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 10,
+            "score": 8,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 8,
+            "score": 7,
             "max": 10
           },
           {
@@ -15398,7 +15608,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 7,
+            "score": 5,
             "max": 10
           },
           {
@@ -15408,7 +15618,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.299Z",
+        "evaluatedAt": "2026-07-07T08:54:33.811Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -15417,7 +15627,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 79,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -15429,19 +15639,19 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 5,
+              "score": 3,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 10,
+              "score": 8,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 8,
+              "score": 7,
               "max": 10
             },
             {
@@ -15453,7 +15663,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 7,
+              "score": 5,
               "max": 10
             },
             {
@@ -15463,7 +15673,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.299Z",
+          "evaluatedAt": "2026-07-07T08:54:33.811Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -15481,7 +15691,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.299Z",
+          "evaluatedAt": "2026-07-07T08:54:33.811Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -15545,7 +15755,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.304Z",
+        "evaluatedAt": "2026-07-07T08:54:33.815Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -15600,7 +15810,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.304Z",
+          "evaluatedAt": "2026-07-07T08:54:33.815Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -15618,7 +15828,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.304Z",
+          "evaluatedAt": "2026-07-07T08:54:33.815Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -15682,7 +15892,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.308Z",
+        "evaluatedAt": "2026-07-07T08:54:33.818Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -15737,7 +15947,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.308Z",
+          "evaluatedAt": "2026-07-07T08:54:33.818Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -15755,7 +15965,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.308Z",
+          "evaluatedAt": "2026-07-07T08:54:33.818Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -15819,7 +16029,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.311Z",
+        "evaluatedAt": "2026-07-07T08:54:33.821Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -15874,7 +16084,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.311Z",
+          "evaluatedAt": "2026-07-07T08:54:33.821Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -15892,7 +16102,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.311Z",
+          "evaluatedAt": "2026-07-07T08:54:33.821Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -15956,7 +16166,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.313Z",
+        "evaluatedAt": "2026-07-07T08:54:33.822Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -16011,7 +16221,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.313Z",
+          "evaluatedAt": "2026-07-07T08:54:33.822Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -16029,7 +16239,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.313Z",
+          "evaluatedAt": "2026-07-07T08:54:33.822Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -16041,7 +16251,11 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Analytical guidance needs no network. Optional figures via the scientific-schematics skill require OPENROUTER_API_KEY and outbound API access to OpenRouter.",
-      "allowedTools": ["Read", "Write", "Edit"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/scientific-critical-thinking",
       "relPath": "skills/scientific-critical-thinking",
       "verified": true,
@@ -16093,7 +16307,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.316Z",
+        "evaluatedAt": "2026-07-07T08:54:33.825Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -16148,7 +16362,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.316Z",
+          "evaluatedAt": "2026-07-07T08:54:33.825Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -16166,7 +16380,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.316Z",
+          "evaluatedAt": "2026-07-07T08:54:33.825Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -16178,7 +16392,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/scientific-schematics",
       "relPath": "skills/scientific-schematics",
       "verified": true,
@@ -16230,7 +16449,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.320Z",
+        "evaluatedAt": "2026-07-07T08:54:33.828Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -16285,7 +16504,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.320Z",
+          "evaluatedAt": "2026-07-07T08:54:33.828Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -16303,7 +16522,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.320Z",
+          "evaluatedAt": "2026-07-07T08:54:33.828Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -16315,7 +16534,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/scientific-slides",
       "relPath": "skills/scientific-slides",
       "verified": true,
@@ -16367,7 +16591,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.325Z",
+        "evaluatedAt": "2026-07-07T08:54:33.833Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -16422,7 +16646,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.325Z",
+          "evaluatedAt": "2026-07-07T08:54:33.833Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -16440,7 +16664,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.325Z",
+          "evaluatedAt": "2026-07-07T08:54:33.833Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -16504,7 +16728,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.331Z",
+        "evaluatedAt": "2026-07-07T08:54:33.838Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -16559,7 +16783,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.331Z",
+          "evaluatedAt": "2026-07-07T08:54:33.838Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -16577,7 +16801,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.331Z",
+          "evaluatedAt": "2026-07-07T08:54:33.838Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -16589,7 +16813,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/scientific-writing",
       "relPath": "skills/scientific-writing",
       "verified": true,
@@ -16641,7 +16870,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.336Z",
+        "evaluatedAt": "2026-07-07T08:54:33.842Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -16696,7 +16925,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.336Z",
+          "evaluatedAt": "2026-07-07T08:54:33.842Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -16714,7 +16943,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.336Z",
+          "evaluatedAt": "2026-07-07T08:54:33.842Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -16726,7 +16955,12 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and scikit-bio 0.7+ (uv pip install scikit-bio). NumPy 2.0+ is required. Optional matplotlib/seaborn/plotly for plotting; biom-format for BIOM tables; polars/anndata for table interoperability.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/scikit-bio",
       "relPath": "skills/scikit-bio",
       "verified": true,
@@ -16778,7 +17012,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.340Z",
+        "evaluatedAt": "2026-07-07T08:54:33.846Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -16833,7 +17067,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.340Z",
+          "evaluatedAt": "2026-07-07T08:54:33.846Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -16851,7 +17085,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.340Z",
+          "evaluatedAt": "2026-07-07T08:54:33.846Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -16863,7 +17097,12 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.11+ and scikit-learn 1.7+. NumPy and SciPy are required dependencies. Optional matplotlib/seaborn for bundled example scripts that save plots.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/scikit-learn",
       "relPath": "skills/scikit-learn",
       "verified": true,
@@ -16915,7 +17154,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.343Z",
+        "evaluatedAt": "2026-07-07T08:54:33.849Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -16970,7 +17209,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.343Z",
+          "evaluatedAt": "2026-07-07T08:54:33.849Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -16988,7 +17227,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.343Z",
+          "evaluatedAt": "2026-07-07T08:54:33.849Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -17052,7 +17291,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.346Z",
+        "evaluatedAt": "2026-07-07T08:54:33.851Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -17107,7 +17346,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.346Z",
+          "evaluatedAt": "2026-07-07T08:54:33.851Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -17125,7 +17364,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.346Z",
+          "evaluatedAt": "2026-07-07T08:54:33.851Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -17189,7 +17428,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.349Z",
+        "evaluatedAt": "2026-07-07T08:54:33.853Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -17244,7 +17483,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.349Z",
+          "evaluatedAt": "2026-07-07T08:54:33.853Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -17262,7 +17501,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.349Z",
+          "evaluatedAt": "2026-07-07T08:54:33.853Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -17326,7 +17565,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.350Z",
+        "evaluatedAt": "2026-07-07T08:54:33.855Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -17381,7 +17620,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.350Z",
+          "evaluatedAt": "2026-07-07T08:54:33.855Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -17399,7 +17638,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.350Z",
+          "evaluatedAt": "2026-07-07T08:54:33.855Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -17411,7 +17650,12 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.8+ and seaborn 0.13.2-compatible dependencies. Install with uv pip install seaborn==0.13.2; use seaborn[stats]==0.13.2 when advanced regression or clustering examples need scipy/statsmodels.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/seaborn",
       "relPath": "skills/seaborn",
       "verified": true,
@@ -17463,7 +17707,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.353Z",
+        "evaluatedAt": "2026-07-07T08:54:33.857Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -17518,7 +17762,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.353Z",
+          "evaluatedAt": "2026-07-07T08:54:33.858Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -17536,7 +17780,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.353Z",
+          "evaluatedAt": "2026-07-07T08:54:33.858Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -17600,7 +17844,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.357Z",
+        "evaluatedAt": "2026-07-07T08:54:33.861Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -17655,7 +17899,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.357Z",
+          "evaluatedAt": "2026-07-07T08:54:33.861Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -17673,7 +17917,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.357Z",
+          "evaluatedAt": "2026-07-07T08:54:33.861Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -17737,7 +17981,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.359Z",
+        "evaluatedAt": "2026-07-07T08:54:33.863Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -17792,7 +18036,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.359Z",
+          "evaluatedAt": "2026-07-07T08:54:33.863Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -17810,7 +18054,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.359Z",
+          "evaluatedAt": "2026-07-07T08:54:33.863Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -17822,7 +18066,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python 3.10+, PyTorch >= 2.3, and stable-baselines3 2.8+. Gymnasium environments; optional extras for TensorBoard and Atari (ale-py).",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/stable-baselines3",
       "relPath": "skills/stable-baselines3",
       "verified": true,
@@ -17874,7 +18123,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.361Z",
+        "evaluatedAt": "2026-07-07T08:54:33.865Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -17929,7 +18178,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.361Z",
+          "evaluatedAt": "2026-07-07T08:54:33.865Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -17947,14 +18196,14 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.361Z",
+          "evaluatedAt": "2026-07-07T08:54:33.865Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "statistical-analysis",
-      "description": "Guided statistical analysis with test selection and reporting. Use when you need help choosing appropriate tests for your data, assumption checking, power analysis, and APA-formatted results. Best for academic research reporting, test selection guidance. For implementing specific models programmatically use statsmodels.",
+      "description": "Guided statistical analysis for research data - test selection, assumption checking, effect sizes, power analysis, Bayesian alternatives, and APA-formatted reporting. Use whenever a user wants to compare groups, test a hypothesis, analyze experimental or survey data, check statistical assumptions, compute required sample sizes, or write up results - even if they never name a specific test. Covers t-tests, ANOVA, chi-square, correlation, regression, non-parametric and Bayesian methods. For low-level model APIs, see the statsmodels and pymc skills.",
       "version": "0.0.0",
       "license": "MIT license",
       "creator": "",
@@ -17963,10 +18212,10 @@
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/statistical-analysis",
       "relPath": "skills/statistical-analysis",
       "verified": true,
-      "tokenCount": 5149,
+      "tokenCount": 5333,
       "evalSummary": {
-        "overallScore": 80,
-        "grade": "B",
+        "overallScore": 73,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -17977,7 +18226,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 3,
             "max": 10
           },
           {
@@ -17995,13 +18244,13 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 7,
+            "score": 3,
             "max": 10
           },
           {
@@ -18011,7 +18260,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.364Z",
+        "evaluatedAt": "2026-07-07T08:54:33.867Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -18020,8 +18269,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 80,
-          "grade": "B",
+          "overallScore": 73,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -18032,7 +18281,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 5,
+              "score": 3,
               "max": 10
             },
             {
@@ -18050,13 +18299,13 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 9,
+              "score": 10,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 7,
+              "score": 3,
               "max": 10
             },
             {
@@ -18066,7 +18315,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.364Z",
+          "evaluatedAt": "2026-07-07T08:54:33.867Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -18084,7 +18333,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.364Z",
+          "evaluatedAt": "2026-07-07T08:54:33.867Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -18096,7 +18345,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python >=3.10. Examples target statsmodels >=0.14.6, scipy >=1.11, pingouin >=0.6, numpy >=1.26, and matplotlib. Optional extras are statsmodels mixed models and lifelines for simulation-based power.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/statistical-power",
       "relPath": "skills/statistical-power",
       "verified": true,
@@ -18148,7 +18402,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.367Z",
+        "evaluatedAt": "2026-07-07T08:54:33.869Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -18203,7 +18457,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.367Z",
+          "evaluatedAt": "2026-07-07T08:54:33.869Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -18221,7 +18475,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.367Z",
+          "evaluatedAt": "2026-07-07T08:54:33.869Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -18233,7 +18487,12 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.9+ and statsmodels 0.14.6-compatible dependencies. Use `uv pip install statsmodels==0.14.6`; optional predictive-metric examples also need scikit-learn.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/statsmodels",
       "relPath": "skills/statsmodels",
       "verified": true,
@@ -18285,7 +18544,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.370Z",
+        "evaluatedAt": "2026-07-07T08:54:33.872Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -18340,7 +18599,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.370Z",
+          "evaluatedAt": "2026-07-07T08:54:33.872Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -18358,7 +18617,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.370Z",
+          "evaluatedAt": "2026-07-07T08:54:33.872Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -18370,7 +18629,12 @@
       "license": "https://github.com/sympy/sympy/blob/master/LICENSE",
       "creator": "",
       "compatibility": "Requires Python 3.9+ and SymPy 1.14+. Optional NumPy/SciPy/Matplotlib for lambdify examples; C/Fortran compiler for autowrap/codegen.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/sympy",
       "relPath": "skills/sympy",
       "verified": true,
@@ -18422,7 +18686,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.373Z",
+        "evaluatedAt": "2026-07-07T08:54:33.874Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -18477,7 +18741,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.373Z",
+          "evaluatedAt": "2026-07-07T08:54:33.874Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -18495,7 +18759,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.373Z",
+          "evaluatedAt": "2026-07-07T08:54:33.874Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -18559,7 +18823,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.376Z",
+        "evaluatedAt": "2026-07-07T08:54:33.877Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -18614,7 +18878,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.376Z",
+          "evaluatedAt": "2026-07-07T08:54:33.877Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -18632,7 +18896,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.376Z",
+          "evaluatedAt": "2026-07-07T08:54:33.877Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -18696,7 +18960,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.380Z",
+        "evaluatedAt": "2026-07-07T08:54:33.880Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -18751,7 +19015,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.380Z",
+          "evaluatedAt": "2026-07-07T08:54:33.880Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -18769,7 +19033,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.380Z",
+          "evaluatedAt": "2026-07-07T08:54:33.880Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -18781,7 +19045,12 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/timesfm-forecasting",
       "relPath": "skills/timesfm-forecasting",
       "verified": true,
@@ -18833,7 +19102,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.383Z",
+        "evaluatedAt": "2026-07-07T08:54:33.883Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -18888,7 +19157,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.383Z",
+          "evaluatedAt": "2026-07-07T08:54:33.883Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -18906,7 +19175,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.383Z",
+          "evaluatedAt": "2026-07-07T08:54:33.883Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -18970,7 +19239,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.387Z",
+        "evaluatedAt": "2026-07-07T08:54:33.887Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -19025,7 +19294,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.387Z",
+          "evaluatedAt": "2026-07-07T08:54:33.887Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -19043,7 +19312,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.387Z",
+          "evaluatedAt": "2026-07-07T08:54:33.887Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -19107,7 +19376,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.390Z",
+        "evaluatedAt": "2026-07-07T08:54:33.890Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -19162,7 +19431,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.390Z",
+          "evaluatedAt": "2026-07-07T08:54:33.890Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -19180,7 +19449,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.390Z",
+          "evaluatedAt": "2026-07-07T08:54:33.890Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -19192,7 +19461,12 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.10+, PyTorch 2.4+, and transformers 5.x. Gated or private Hub models need an HF token (`hf auth login` or `HF_TOKEN`).",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/transformers",
       "relPath": "skills/transformers",
       "verified": true,
@@ -19244,7 +19518,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.392Z",
+        "evaluatedAt": "2026-07-07T08:54:33.892Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -19299,7 +19573,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.392Z",
+          "evaluatedAt": "2026-07-07T08:54:33.892Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -19317,7 +19591,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.392Z",
+          "evaluatedAt": "2026-07-07T08:54:33.892Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -19329,7 +19603,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/treatment-plans",
       "relPath": "skills/treatment-plans",
       "verified": true,
@@ -19381,7 +19660,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.397Z",
+        "evaluatedAt": "2026-07-07T08:54:33.896Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -19436,7 +19715,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.397Z",
+          "evaluatedAt": "2026-07-07T08:54:33.896Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -19454,7 +19733,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.397Z",
+          "evaluatedAt": "2026-07-07T08:54:33.896Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -19518,7 +19797,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.402Z",
+        "evaluatedAt": "2026-07-07T08:54:33.900Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -19573,7 +19852,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.402Z",
+          "evaluatedAt": "2026-07-07T08:54:33.900Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -19591,7 +19870,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.402Z",
+          "evaluatedAt": "2026-07-07T08:54:33.900Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -19603,7 +19882,12 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/usfiscaldata",
       "relPath": "skills/usfiscaldata",
       "verified": true,
@@ -19655,7 +19939,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.404Z",
+        "evaluatedAt": "2026-07-07T08:54:33.902Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -19710,7 +19994,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.404Z",
+          "evaluatedAt": "2026-07-07T08:54:33.902Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -19728,7 +20012,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.404Z",
+          "evaluatedAt": "2026-07-07T08:54:33.902Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -19740,7 +20024,14 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ (3.12+ recommended with vaex 4.19.0). Install with uv pip install vaex. Optional s3fs/gcsfs/adlfs for cloud I/O.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash", "Grep", "Glob"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash",
+        "Grep",
+        "Glob"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/vaex",
       "relPath": "skills/vaex",
       "verified": true,
@@ -19792,7 +20083,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.406Z",
+        "evaluatedAt": "2026-07-07T08:54:33.903Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -19847,7 +20138,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.406Z",
+          "evaluatedAt": "2026-07-07T08:54:33.903Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -19865,7 +20156,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.406Z",
+          "evaluatedAt": "2026-07-07T08:54:33.903Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -19877,7 +20168,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/venue-templates",
       "relPath": "skills/venue-templates",
       "verified": true,
@@ -19929,7 +20225,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.409Z",
+        "evaluatedAt": "2026-07-07T08:54:33.906Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -19984,7 +20280,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.409Z",
+          "evaluatedAt": "2026-07-07T08:54:33.906Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -20002,7 +20298,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.409Z",
+          "evaluatedAt": "2026-07-07T08:54:33.906Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -20066,7 +20362,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.412Z",
+        "evaluatedAt": "2026-07-07T08:54:33.908Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -20121,7 +20417,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.412Z",
+          "evaluatedAt": "2026-07-07T08:54:33.908Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -20139,7 +20435,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.412Z",
+          "evaluatedAt": "2026-07-07T08:54:33.908Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -20151,7 +20447,14 @@
       "license": "Proprietary. LICENSE.txt has complete terms",
       "creator": "",
       "compatibility": "Requires Python 3.8+, LibreOffice (soffice on PATH), and gcc only when Unix sockets are restricted",
-      "allowedTools": ["Read", "Write", "Edit", "Bash", "Grep", "Glob"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash",
+        "Grep",
+        "Glob"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/xlsx",
       "relPath": "skills/xlsx",
       "verified": true,
@@ -20203,7 +20506,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.414Z",
+        "evaluatedAt": "2026-07-07T08:54:33.910Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -20258,7 +20561,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.414Z",
+          "evaluatedAt": "2026-07-07T08:54:33.910Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -20276,7 +20579,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.414Z",
+          "evaluatedAt": "2026-07-07T08:54:33.910Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -20288,7 +20591,12 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python 3.12+ and zarr 3.x. Cloud I/O needs zarr[remote] plus pinned s3fs or gcsfs. Legacy Zarr v2 workflows need exact 2.x pins on older Python.",
-      "allowedTools": ["Read", "Write", "Edit", "Bash"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash"
+      ],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/zarr-python",
       "relPath": "skills/zarr-python",
       "verified": true,
@@ -20340,7 +20648,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:55.417Z",
+        "evaluatedAt": "2026-07-07T08:54:33.913Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -20395,7 +20703,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.417Z",
+          "evaluatedAt": "2026-07-07T08:54:33.913Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -20413,7 +20721,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:55.417Z",
+          "evaluatedAt": "2026-07-07T08:54:33.913Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -20425,7 +20733,7 @@
       "name": "k-dense-ai-claude-scientific-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from K-Dense-AI/claude-scientific-skills.",
       "author": "ASM (K-Dense-AI/claude-scientific-skills)",
-      "createdAt": "2026-06-30T08:27:55.419Z",
+      "createdAt": "2026-07-07T08:54:33.914Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -20565,8 +20873,8 @@
         {
           "name": "database-lookup",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/database-lookup",
-          "description": "Deterministically query 78 public scientific, biomedical, materials science, regulatory, finance, and demographics databases through documented REST APIs. Use for reproducible lookups of compounds, genes, proteins, pathways, variants, clinical trials, patents, economic indicators, structures, astronomy objects, environmental records, or database-backed scientific facts when endpoints, filters, pagination, and provenance need to be explicit.",
-          "version": "1.1"
+          "description": "Query documented public database APIs with explicit endpoints, filters, pagination, and provenance. Use when a scientific, regulatory, financial, or other database-backed fact must be retrieved reproducibly from a named source rather than inferred from general knowledge.",
+          "version": "1.2"
         },
         {
           "name": "datamol",
@@ -20913,8 +21221,8 @@
         {
           "name": "paper-lookup",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/paper-lookup",
-          "description": "Search 10 academic paper databases via REST APIs for research papers, preprints, and scholarly articles. Covers PubMed, PMC (full text), bioRxiv, medRxiv, arXiv, OpenAlex, Crossref, Semantic Scholar, CORE, Unpaywall. Use when searching for papers, citations, DOI/PMID lookups, abstracts, full text, open access, preprints, citation graphs, author search, or any scholarly literature query. Triggers on mentions of any supported database or requests like \"find papers on X\" or \"look up this DOI\".",
-          "version": "0.0.0"
+          "description": "Search 10 academic literature APIs for papers, preprints, citations, and open-access full text, and return results with reproducible provenance. Covers PubMed, PMC (full text), bioRxiv, medRxiv, arXiv, OpenAlex, Crossref, Semantic Scholar, CORE, Unpaywall. Use when searching for papers, citations, DOI/PMID/arXiv lookups, abstracts, full text, open-access PDFs, preprints, citation graphs, author publications, or any scholarly literature query. Triggers on mentions of any supported database or requests like \"find papers on X\", \"look up this DOI\", \"who cites this paper\", or \"get me the PDF\".",
+          "version": "1.1"
         }
       ],
       "sourceRepo": {
@@ -20929,7 +21237,7 @@
       "name": "k-dense-ai-claude-scientific-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from K-Dense-AI/claude-scientific-skills.",
       "author": "ASM (K-Dense-AI/claude-scientific-skills)",
-      "createdAt": "2026-06-30T08:27:55.419Z",
+      "createdAt": "2026-07-07T08:54:33.914Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -21069,8 +21377,8 @@
         {
           "name": "database-lookup",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/database-lookup",
-          "description": "Deterministically query 78 public scientific, biomedical, materials science, regulatory, finance, and demographics databases through documented REST APIs. Use for reproducible lookups of compounds, genes, proteins, pathways, variants, clinical trials, patents, economic indicators, structures, astronomy objects, environmental records, or database-backed scientific facts when endpoints, filters, pagination, and provenance need to be explicit.",
-          "version": "1.1"
+          "description": "Query documented public database APIs with explicit endpoints, filters, pagination, and provenance. Use when a scientific, regulatory, financial, or other database-backed fact must be retrieved reproducibly from a named source rather than inferred from general knowledge.",
+          "version": "1.2"
         },
         {
           "name": "datamol",
@@ -21417,8 +21725,8 @@
         {
           "name": "paper-lookup",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/paper-lookup",
-          "description": "Search 10 academic paper databases via REST APIs for research papers, preprints, and scholarly articles. Covers PubMed, PMC (full text), bioRxiv, medRxiv, arXiv, OpenAlex, Crossref, Semantic Scholar, CORE, Unpaywall. Use when searching for papers, citations, DOI/PMID lookups, abstracts, full text, open access, preprints, citation graphs, author search, or any scholarly literature query. Triggers on mentions of any supported database or requests like \"find papers on X\" or \"look up this DOI\".",
-          "version": "0.0.0"
+          "description": "Search 10 academic literature APIs for papers, preprints, citations, and open-access full text, and return results with reproducible provenance. Covers PubMed, PMC (full text), bioRxiv, medRxiv, arXiv, OpenAlex, Crossref, Semantic Scholar, CORE, Unpaywall. Use when searching for papers, citations, DOI/PMID/arXiv lookups, abstracts, full text, open-access PDFs, preprints, citation graphs, author publications, or any scholarly literature query. Triggers on mentions of any supported database or requests like \"find papers on X\", \"look up this DOI\", \"who cites this paper\", or \"get me the PDF\".",
+          "version": "1.1"
         }
       ],
       "sourceRepo": {
@@ -21433,7 +21741,7 @@
       "name": "k-dense-ai-claude-scientific-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from K-Dense-AI/claude-scientific-skills.",
       "author": "ASM (K-Dense-AI/claude-scientific-skills)",
-      "createdAt": "2026-06-30T08:27:55.419Z",
+      "createdAt": "2026-07-07T08:54:33.914Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -21519,8 +21827,8 @@
         {
           "name": "database-lookup",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/database-lookup",
-          "description": "Deterministically query 78 public scientific, biomedical, materials science, regulatory, finance, and demographics databases through documented REST APIs. Use for reproducible lookups of compounds, genes, proteins, pathways, variants, clinical trials, patents, economic indicators, structures, astronomy objects, environmental records, or database-backed scientific facts when endpoints, filters, pagination, and provenance need to be explicit.",
-          "version": "1.1"
+          "description": "Query documented public database APIs with explicit endpoints, filters, pagination, and provenance. Use when a scientific, regulatory, financial, or other database-backed fact must be retrieved reproducibly from a named source rather than inferred from general knowledge.",
+          "version": "1.2"
         },
         {
           "name": "datamol",
@@ -21681,8 +21989,8 @@
         {
           "name": "paper-lookup",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/paper-lookup",
-          "description": "Search 10 academic paper databases via REST APIs for research papers, preprints, and scholarly articles. Covers PubMed, PMC (full text), bioRxiv, medRxiv, arXiv, OpenAlex, Crossref, Semantic Scholar, CORE, Unpaywall. Use when searching for papers, citations, DOI/PMID lookups, abstracts, full text, open access, preprints, citation graphs, author search, or any scholarly literature query. Triggers on mentions of any supported database or requests like \"find papers on X\" or \"look up this DOI\".",
-          "version": "0.0.0"
+          "description": "Search 10 academic literature APIs for papers, preprints, citations, and open-access full text, and return results with reproducible provenance. Covers PubMed, PMC (full text), bioRxiv, medRxiv, arXiv, OpenAlex, Crossref, Semantic Scholar, CORE, Unpaywall. Use when searching for papers, citations, DOI/PMID/arXiv lookups, abstracts, full text, open-access PDFs, preprints, citation graphs, author publications, or any scholarly literature query. Triggers on mentions of any supported database or requests like \"find papers on X\", \"look up this DOI\", \"who cites this paper\", or \"get me the PDF\".",
+          "version": "1.1"
         },
         {
           "name": "parallel-web",
@@ -21801,7 +22109,7 @@
         {
           "name": "research-lookup",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/research-lookup",
-          "description": "Look up current research information using parallel-cli search (primary, fast web search), the Parallel Chat API (deep research), or Perplexity sonar-pro-search (academic paper searches). Automatically routes queries to the best backend. Use for finding papers, gathering research data, and verifying scientific information. Note: query text is transmitted to api.parallel.ai (PARALLEL_API_KEY) and, for academic searches, to openrouter.ai (OPENROUTER_API_KEY).",
+          "description": "Look up current research and scientific information across three backends: fast web search via parallel-cli (default), the Parallel Chat API for deep multi-source synthesis, and Perplexity sonar-pro-search for scholarly paper searches. Automatically routes each query to the best backend and saves every result to sources/ for reproducible citation. Use this whenever you need to find papers, gather statistics or market data, verify a scientific claim, collect citations, or research any topic for scientific/technical writing — even if the user does not say \"research\" explicitly. Note: query text is sent to api.parallel.ai (PARALLEL_API_KEY) and, for academic searches, to openrouter.ai (OPENROUTER_API_KEY).",
           "version": "0.0.0"
         },
         {
@@ -21867,7 +22175,7 @@
         {
           "name": "statistical-analysis",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/statistical-analysis",
-          "description": "Guided statistical analysis with test selection and reporting. Use when you need help choosing appropriate tests for your data, assumption checking, power analysis, and APA-formatted results. Best for academic research reporting, test selection guidance. For implementing specific models programmatically use statsmodels.",
+          "description": "Guided statistical analysis for research data - test selection, assumption checking, effect sizes, power analysis, Bayesian alternatives, and APA-formatted reporting. Use whenever a user wants to compare groups, test a hypothesis, analyze experimental or survey data, check statistical assumptions, compute required sample sizes, or write up results - even if they never name a specific test. Covers t-tests, ANOVA, chi-square, correlation, regression, non-parametric and Bayesian methods. For low-level model APIs, see the statsmodels and pymc skills.",
           "version": "0.0.0"
         },
         {
@@ -21937,7 +22245,7 @@
       "name": "k-dense-ai-claude-scientific-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from K-Dense-AI/claude-scientific-skills.",
       "author": "ASM (K-Dense-AI/claude-scientific-skills)",
-      "createdAt": "2026-06-30T08:27:55.419Z",
+      "createdAt": "2026-07-07T08:54:33.914Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -22347,7 +22655,7 @@
         {
           "name": "statistical-analysis",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/statistical-analysis",
-          "description": "Guided statistical analysis with test selection and reporting. Use when you need help choosing appropriate tests for your data, assumption checking, power analysis, and APA-formatted results. Best for academic research reporting, test selection guidance. For implementing specific models programmatically use statsmodels.",
+          "description": "Guided statistical analysis for research data - test selection, assumption checking, effect sizes, power analysis, Bayesian alternatives, and APA-formatted reporting. Use whenever a user wants to compare groups, test a hypothesis, analyze experimental or survey data, check statistical assumptions, compute required sample sizes, or write up results - even if they never name a specific test. Covers t-tests, ANOVA, chi-square, correlation, regression, non-parametric and Bayesian methods. For low-level model APIs, see the statsmodels and pymc skills.",
           "version": "0.0.0"
         },
         {
@@ -22411,7 +22719,7 @@
       "name": "k-dense-ai-claude-scientific-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from K-Dense-AI/claude-scientific-skills.",
       "author": "ASM (K-Dense-AI/claude-scientific-skills)",
-      "createdAt": "2026-06-30T08:27:55.419Z",
+      "createdAt": "2026-07-07T08:54:33.914Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -22497,8 +22805,8 @@
         {
           "name": "paper-lookup",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/paper-lookup",
-          "description": "Search 10 academic paper databases via REST APIs for research papers, preprints, and scholarly articles. Covers PubMed, PMC (full text), bioRxiv, medRxiv, arXiv, OpenAlex, Crossref, Semantic Scholar, CORE, Unpaywall. Use when searching for papers, citations, DOI/PMID lookups, abstracts, full text, open access, preprints, citation graphs, author search, or any scholarly literature query. Triggers on mentions of any supported database or requests like \"find papers on X\" or \"look up this DOI\".",
-          "version": "0.0.0"
+          "description": "Search 10 academic literature APIs for papers, preprints, citations, and open-access full text, and return results with reproducible provenance. Covers PubMed, PMC (full text), bioRxiv, medRxiv, arXiv, OpenAlex, Crossref, Semantic Scholar, CORE, Unpaywall. Use when searching for papers, citations, DOI/PMID/arXiv lookups, abstracts, full text, open-access PDFs, preprints, citation graphs, author publications, or any scholarly literature query. Triggers on mentions of any supported database or requests like \"find papers on X\", \"look up this DOI\", \"who cites this paper\", or \"get me the PDF\".",
+          "version": "1.1"
         },
         {
           "name": "pennylane",
@@ -22534,6 +22842,12 @@
           "name": "pymatgen",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/pymatgen",
           "description": "Materials science toolkit. Crystal structures (CIF, POSCAR), phase diagrams, band structure, DOS, Materials Project integration, format conversion, for computational materials science.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "research-lookup",
+          "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/research-lookup",
+          "description": "Look up current research and scientific information across three backends: fast web search via parallel-cli (default), the Parallel Chat API for deep multi-source synthesis, and Perplexity sonar-pro-search for scholarly paper searches. Automatically routes each query to the best backend and saves every result to sources/ for reproducible citation. Use this whenever you need to find papers, gather statistics or market data, verify a scientific claim, collect citations, or research any topic for scientific/technical writing — even if the user does not say \"research\" explicitly. Note: query text is sent to api.parallel.ai (PARALLEL_API_KEY) and, for academic searches, to openrouter.ai (OPENROUTER_API_KEY).",
           "version": "0.0.0"
         },
         {
@@ -22585,7 +22899,7 @@
       "name": "k-dense-ai-claude-scientific-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from K-Dense-AI/claude-scientific-skills.",
       "author": "ASM (K-Dense-AI/claude-scientific-skills)",
-      "createdAt": "2026-06-30T08:27:55.419Z",
+      "createdAt": "2026-07-07T08:54:33.914Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -22596,12 +22910,6 @@
         "claude-scientific-skills"
       ],
       "skills": [
-        {
-          "name": "database-lookup",
-          "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/database-lookup",
-          "description": "Deterministically query 78 public scientific, biomedical, materials science, regulatory, finance, and demographics databases through documented REST APIs. Use for reproducible lookups of compounds, genes, proteins, pathways, variants, clinical trials, patents, economic indicators, structures, astronomy objects, environmental records, or database-backed scientific facts when endpoints, filters, pagination, and provenance need to be explicit.",
-          "version": "1.1"
-        },
         {
           "name": "experimental-design",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/experimental-design",
@@ -22642,6 +22950,12 @@
           "name": "qiskit",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/qiskit",
           "description": "IBM quantum computing framework. Use when targeting IBM Quantum hardware, working with Qiskit Runtime for production workloads, or needing IBM optimization tools. Best for IBM hardware execution, quantum error mitigation, and enterprise quantum computing. For Google hardware use cirq; for gradient-based quantum ML use pennylane; for open quantum system simulations use qutip.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "research-lookup",
+          "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/research-lookup",
+          "description": "Look up current research and scientific information across three backends: fast web search via parallel-cli (default), the Parallel Chat API for deep multi-source synthesis, and Perplexity sonar-pro-search for scholarly paper searches. Automatically routes each query to the best backend and saves every result to sources/ for reproducible citation. Use this whenever you need to find papers, gather statistics or market data, verify a scientific claim, collect citations, or research any topic for scientific/technical writing — even if the user does not say \"research\" explicitly. Note: query text is sent to api.parallel.ai (PARALLEL_API_KEY) and, for academic searches, to openrouter.ai (OPENROUTER_API_KEY).",
           "version": "0.0.0"
         },
         {
@@ -22687,7 +23001,7 @@
       "name": "k-dense-ai-claude-scientific-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from K-Dense-AI/claude-scientific-skills.",
       "author": "ASM (K-Dense-AI/claude-scientific-skills)",
-      "createdAt": "2026-06-30T08:27:55.419Z",
+      "createdAt": "2026-07-07T08:54:33.914Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -22947,8 +23261,8 @@
         {
           "name": "paper-lookup",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/paper-lookup",
-          "description": "Search 10 academic paper databases via REST APIs for research papers, preprints, and scholarly articles. Covers PubMed, PMC (full text), bioRxiv, medRxiv, arXiv, OpenAlex, Crossref, Semantic Scholar, CORE, Unpaywall. Use when searching for papers, citations, DOI/PMID lookups, abstracts, full text, open access, preprints, citation graphs, author search, or any scholarly literature query. Triggers on mentions of any supported database or requests like \"find papers on X\" or \"look up this DOI\".",
-          "version": "0.0.0"
+          "description": "Search 10 academic literature APIs for papers, preprints, citations, and open-access full text, and return results with reproducible provenance. Covers PubMed, PMC (full text), bioRxiv, medRxiv, arXiv, OpenAlex, Crossref, Semantic Scholar, CORE, Unpaywall. Use when searching for papers, citations, DOI/PMID/arXiv lookups, abstracts, full text, open-access PDFs, preprints, citation graphs, author publications, or any scholarly literature query. Triggers on mentions of any supported database or requests like \"find papers on X\", \"look up this DOI\", \"who cites this paper\", or \"get me the PDF\".",
+          "version": "1.1"
         },
         {
           "name": "paperzilla",
@@ -23037,7 +23351,7 @@
         {
           "name": "research-lookup",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/research-lookup",
-          "description": "Look up current research information using parallel-cli search (primary, fast web search), the Parallel Chat API (deep research), or Perplexity sonar-pro-search (academic paper searches). Automatically routes queries to the best backend. Use for finding papers, gathering research data, and verifying scientific information. Note: query text is transmitted to api.parallel.ai (PARALLEL_API_KEY) and, for academic searches, to openrouter.ai (OPENROUTER_API_KEY).",
+          "description": "Look up current research and scientific information across three backends: fast web search via parallel-cli (default), the Parallel Chat API for deep multi-source synthesis, and Perplexity sonar-pro-search for scholarly paper searches. Automatically routes each query to the best backend and saves every result to sources/ for reproducible citation. Use this whenever you need to find papers, gather statistics or market data, verify a scientific claim, collect citations, or research any topic for scientific/technical writing — even if the user does not say \"research\" explicitly. Note: query text is sent to api.parallel.ai (PARALLEL_API_KEY) and, for academic searches, to openrouter.ai (OPENROUTER_API_KEY).",
           "version": "0.0.0"
         },
         {
@@ -23109,7 +23423,7 @@
         {
           "name": "statistical-analysis",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/statistical-analysis",
-          "description": "Guided statistical analysis with test selection and reporting. Use when you need help choosing appropriate tests for your data, assumption checking, power analysis, and APA-formatted results. Best for academic research reporting, test selection guidance. For implementing specific models programmatically use statsmodels.",
+          "description": "Guided statistical analysis for research data - test selection, assumption checking, effect sizes, power analysis, Bayesian alternatives, and APA-formatted reporting. Use whenever a user wants to compare groups, test a hypothesis, analyze experimental or survey data, check statistical assumptions, compute required sample sizes, or write up results - even if they never name a specific test. Covers t-tests, ANOVA, chi-square, correlation, regression, non-parametric and Bayesian methods. For low-level model APIs, see the statsmodels and pymc skills.",
           "version": "0.0.0"
         },
         {
@@ -23161,7 +23475,7 @@
       "name": "k-dense-ai-claude-scientific-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from K-Dense-AI/claude-scientific-skills.",
       "author": "ASM (K-Dense-AI/claude-scientific-skills)",
-      "createdAt": "2026-06-30T08:27:55.419Z",
+      "createdAt": "2026-07-07T08:54:33.914Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -23337,8 +23651,8 @@
         {
           "name": "paper-lookup",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/paper-lookup",
-          "description": "Search 10 academic paper databases via REST APIs for research papers, preprints, and scholarly articles. Covers PubMed, PMC (full text), bioRxiv, medRxiv, arXiv, OpenAlex, Crossref, Semantic Scholar, CORE, Unpaywall. Use when searching for papers, citations, DOI/PMID lookups, abstracts, full text, open access, preprints, citation graphs, author search, or any scholarly literature query. Triggers on mentions of any supported database or requests like \"find papers on X\" or \"look up this DOI\".",
-          "version": "0.0.0"
+          "description": "Search 10 academic literature APIs for papers, preprints, citations, and open-access full text, and return results with reproducible provenance. Covers PubMed, PMC (full text), bioRxiv, medRxiv, arXiv, OpenAlex, Crossref, Semantic Scholar, CORE, Unpaywall. Use when searching for papers, citations, DOI/PMID/arXiv lookups, abstracts, full text, open-access PDFs, preprints, citation graphs, author publications, or any scholarly literature query. Triggers on mentions of any supported database or requests like \"find papers on X\", \"look up this DOI\", \"who cites this paper\", or \"get me the PDF\".",
+          "version": "1.1"
         },
         {
           "name": "paperzilla",
@@ -23403,7 +23717,7 @@
         {
           "name": "research-lookup",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/research-lookup",
-          "description": "Look up current research information using parallel-cli search (primary, fast web search), the Parallel Chat API (deep research), or Perplexity sonar-pro-search (academic paper searches). Automatically routes queries to the best backend. Use for finding papers, gathering research data, and verifying scientific information. Note: query text is transmitted to api.parallel.ai (PARALLEL_API_KEY) and, for academic searches, to openrouter.ai (OPENROUTER_API_KEY).",
+          "description": "Look up current research and scientific information across three backends: fast web search via parallel-cli (default), the Parallel Chat API for deep multi-source synthesis, and Perplexity sonar-pro-search for scholarly paper searches. Automatically routes each query to the best backend and saves every result to sources/ for reproducible citation. Use this whenever you need to find papers, gather statistics or market data, verify a scientific claim, collect citations, or research any topic for scientific/technical writing — even if the user does not say \"research\" explicitly. Note: query text is sent to api.parallel.ai (PARALLEL_API_KEY) and, for academic searches, to openrouter.ai (OPENROUTER_API_KEY).",
           "version": "0.0.0"
         },
         {
@@ -23440,6 +23754,12 @@
           "name": "scikit-learn",
           "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/scikit-learn",
           "description": "Machine learning in Python with scikit-learn. Use when working with supervised learning (classification, regression), unsupervised learning (clustering, dimensionality reduction), model evaluation, hyperparameter tuning, preprocessing, or building ML pipelines. Provides comprehensive reference documentation for algorithms, preprocessing techniques, pipelines, and best practices.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "statistical-analysis",
+          "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/statistical-analysis",
+          "description": "Guided statistical analysis for research data - test selection, assumption checking, effect sizes, power analysis, Bayesian alternatives, and APA-formatted reporting. Use whenever a user wants to compare groups, test a hypothesis, analyze experimental or survey data, check statistical assumptions, compute required sample sizes, or write up results - even if they never name a specific test. Covers t-tests, ANOVA, chi-square, correlation, regression, non-parametric and Bayesian methods. For low-level model APIs, see the statsmodels and pymc skills.",
           "version": "0.0.0"
         },
         {

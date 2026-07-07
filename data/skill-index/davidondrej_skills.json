@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/davidondrej/skills.git",
   "owner": "davidondrej",
   "repo": "skills",
-  "updatedAt": "2026-07-06T12:09:06.108Z",
-  "skillCount": 29,
+  "updatedAt": "2026-07-07T08:55:16.751Z",
+  "skillCount": 31,
   "skills": [
     {
       "name": "agent-self-scheduling",
@@ -16,7 +16,7 @@
       "installUrl": "github:davidondrej/skills:skills/agent-orchestration/agent-self-scheduling",
       "relPath": "skills/agent-orchestration/agent-self-scheduling",
       "verified": true,
-      "tokenCount": 1372,
+      "tokenCount": 1376,
       "evalSummary": {
         "overallScore": 63,
         "grade": "D",
@@ -64,7 +64,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.058Z",
+        "evaluatedAt": "2026-07-07T08:55:16.709Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -119,7 +119,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.058Z",
+          "evaluatedAt": "2026-07-07T08:55:16.709Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,14 +137,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.058Z",
+          "evaluatedAt": "2026-07-07T08:55:16.709Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "anti-sleep",
-      "description": "Keep David's MacBook awake with macOS caffeinate — prevent sleep, screen dimming, or both, for a set duration or while a process runs. Use when the user says \"don't let my mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", or wants the machine awake overnight / during a long build.",
+      "description": "Keep the user's MacBook awake with macOS caffeinate — prevent sleep, screen dimming, or both, for a set duration or while a process runs. Use when the user says \"don't let my mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", or wants the machine awake overnight / during a long build.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -153,7 +153,7 @@
       "installUrl": "github:davidondrej/skills:skills/ops-and-setup/anti-sleep",
       "relPath": "skills/ops-and-setup/anti-sleep",
       "verified": true,
-      "tokenCount": 993,
+      "tokenCount": 995,
       "evalSummary": {
         "overallScore": 57,
         "grade": "D",
@@ -201,7 +201,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.059Z",
+        "evaluatedAt": "2026-07-07T08:55:16.710Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -256,7 +256,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.059Z",
+          "evaluatedAt": "2026-07-07T08:55:16.710Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,14 +274,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.059Z",
+          "evaluatedAt": "2026-07-07T08:55:16.710Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "brain-to-docs",
-      "description": "Use when David wants to extract project vision, decisions, and preferences from his head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
+      "description": "Use when the user wants to extract project vision, decisions, and preferences from their head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -290,7 +290,7 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/brain-to-docs",
       "relPath": "skills/thinking-and-docs/brain-to-docs",
       "verified": true,
-      "tokenCount": 535,
+      "tokenCount": 549,
       "evalSummary": {
         "overallScore": 56,
         "grade": "D",
@@ -338,7 +338,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.062Z",
+        "evaluatedAt": "2026-07-07T08:55:16.711Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -393,7 +393,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.062Z",
+          "evaluatedAt": "2026-07-07T08:55:16.711Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +411,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.062Z",
+          "evaluatedAt": "2026-07-07T08:55:16.711Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -475,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.063Z",
+        "evaluatedAt": "2026-07-07T08:55:16.712Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -530,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.064Z",
+          "evaluatedAt": "2026-07-07T08:55:16.712Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +548,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.064Z",
+          "evaluatedAt": "2026-07-07T08:55:16.712Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -564,7 +564,7 @@
       "installUrl": "github:davidondrej/skills:skills/agent-orchestration/cmux",
       "relPath": "skills/agent-orchestration/cmux",
       "verified": true,
-      "tokenCount": 4055,
+      "tokenCount": 4061,
       "evalSummary": {
         "overallScore": 66,
         "grade": "C",
@@ -612,7 +612,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.065Z",
+        "evaluatedAt": "2026-07-07T08:55:16.714Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -667,7 +667,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.065Z",
+          "evaluatedAt": "2026-07-07T08:55:16.714Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,26 +685,26 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.065Z",
+          "evaluatedAt": "2026-07-07T08:55:16.714Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
-      "name": "codex-goal-loop",
-      "description": "Explain and write effective instructions for OpenAI Codex's `/goal` feature — the persistent self-checking agent loop (plan → act → test → review → iterate). Use when the user mentions Codex `/goal`, \"goal loop\", \"Ralph loop\", wants to kick off a long-running autonomous Codex run, asks how to write a goal prompt, or wants a one-paragraph goal instruction drafted.",
+      "name": "codex-subagent",
+      "description": "Launch OpenAI Codex CLI as a subagent (ChatGPT subscription auth, no API key). Use when delegating a self-contained coding task to Codex from another agent — parallel implementation work, a second opinion, or an independent verification pass.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "installUrl": "github:davidondrej/skills:skills/agent-orchestration/codex-goal-loop",
-      "relPath": "skills/agent-orchestration/codex-goal-loop",
+      "installUrl": "github:davidondrej/skills:skills/agent-orchestration/codex-subagent",
+      "relPath": "skills/agent-orchestration/codex-subagent",
       "verified": true,
-      "tokenCount": 2921,
+      "tokenCount": 1177,
       "evalSummary": {
-        "overallScore": 84,
-        "grade": "B",
+        "overallScore": 69,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -715,31 +715,31 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 8,
+            "score": 7,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 10,
+            "score": 6,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 6,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 7,
+            "score": 3,
             "max": 10
           },
           {
@@ -749,7 +749,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.068Z",
+        "evaluatedAt": "2026-07-07T08:55:16.716Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -758,8 +758,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 84,
-          "grade": "B",
+          "overallScore": 69,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -770,31 +770,31 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 8,
+              "score": 7,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 10,
+              "score": 6,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 6,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 7,
+              "score": 3,
               "max": 10
             },
             {
@@ -804,7 +804,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.068Z",
+          "evaluatedAt": "2026-07-07T08:55:16.716Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,14 +822,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.068Z",
+          "evaluatedAt": "2026-07-07T08:55:16.716Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "copywriting",
-      "description": "How David Ondrej writes copy — voice, tone, and formatting rules. Use when writing any public-facing text for David: tweets, YouTube titles/descriptions, GitHub repo/About descriptions, READMEs, landing pages, bios, or product copy. Differentiator vs `short`: this shapes voice and style of new copy, not compressing an existing answer.",
+      "description": "How David Ondrej writes. Use EVERY time you write copy or any text on David's behalf — tweets, DMs, YouTube titles and descriptions, GitHub About and READMEs, landing pages, bios, emails, product copy, announcements. Covers his two styles (authentic and formal) and when to use each.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -838,9 +838,9 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/copywriting",
       "relPath": "skills/thinking-and-docs/copywriting",
       "verified": true,
-      "tokenCount": 295,
+      "tokenCount": 769,
       "evalSummary": {
-        "overallScore": 46,
+        "overallScore": 47,
         "grade": "F",
         "categories": [
           {
@@ -864,7 +864,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 4,
+            "score": 7,
             "max": 10
           },
           {
@@ -876,7 +876,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 3,
+            "score": 1,
             "max": 10
           },
           {
@@ -886,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.069Z",
+        "evaluatedAt": "2026-07-07T08:55:16.717Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -895,7 +895,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 46,
+          "overallScore": 47,
           "grade": "F",
           "categories": [
             {
@@ -919,7 +919,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 4,
+              "score": 7,
               "max": 10
             },
             {
@@ -931,7 +931,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 3,
+              "score": 1,
               "max": 10
             },
             {
@@ -941,7 +941,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.069Z",
+          "evaluatedAt": "2026-07-07T08:55:16.717Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -949,24 +949,24 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 0,
-          "grade": "F",
+          "overallScore": 69,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 1,
-              "max": 2
+              "score": 9,
+              "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.069Z",
+          "evaluatedAt": "2026-07-07T08:55:16.717Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "cyber-audit",
-      "description": "Read-only exposure audit of David's MacBook (and ~/Documents/ projects) for a CVE, breach, malicious package, or other security advisory, then write a structured report to ~/Documents/. Use when the user shares a breach/CVE/malware/supply-chain advisory and asks if they're affected, says \"scan my system for X\", \"are we affected by Y\", \"check if I'm vulnerable to Z\", or requests any hack/breach/cyber/vulnerability audit on this MacBook. Output matches the existing audit format in ~/Documents/.",
+      "description": "Read-only exposure audit of the user's MacBook (and ~/Documents/code projects) for a CVE, breach, malicious package, or other security advisory, then write a structured report to ~/Documents/security-audits/. Use when the user shares a breach/CVE/malware/supply-chain advisory and asks if they're affected, says \"scan my system for X\", \"are we affected by Y\", \"check if I'm vulnerable to Z\", or requests any hack/breach/cyber/vulnerability audit on this MacBook. Output matches the existing audit format in ~/Documents/security-audits/.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -975,9 +975,9 @@
       "installUrl": "github:davidondrej/skills:skills/ops-and-setup/cyber-audit",
       "relPath": "skills/ops-and-setup/cyber-audit",
       "verified": true,
-      "tokenCount": 1505,
+      "tokenCount": 1519,
       "evalSummary": {
-        "overallScore": 60,
+        "overallScore": 61,
         "grade": "D",
         "categories": [
           {
@@ -995,7 +995,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 6,
+            "score": 7,
             "max": 10
           },
           {
@@ -1023,7 +1023,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.071Z",
+        "evaluatedAt": "2026-07-07T08:55:16.718Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1032,7 +1032,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 60,
+          "overallScore": 61,
           "grade": "D",
           "categories": [
             {
@@ -1050,7 +1050,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 6,
+              "score": 7,
               "max": 10
             },
             {
@@ -1078,7 +1078,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.071Z",
+          "evaluatedAt": "2026-07-07T08:55:16.718Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1096,14 +1096,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.071Z",
+          "evaluatedAt": "2026-07-07T08:55:16.718Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "deep-research",
-      "description": "Run a deep, source-backed research query via DeepAPI (David's own product) POST /v1/research/deep. Builds a rigorous one-paragraph research prompt (per research-prompt rules), fires it, and saves a cited markdown report. Use when David asks for \"deep research\", \"deepapi research\", \"perplexity deep research\" (legacy trigger), or any deep source-backed research run. Differentiator vs the deepapi skill: this is the full research workflow (prompt + run + report file), not raw endpoint access.",
+      "description": "Run a deep, source-backed research query via DeepAPI (go to deepapi.co to get an API key) POST /v1/research/deep. Builds a rigorous one-paragraph research prompt (per research-prompt rules), fires it, and saves a cited markdown report. Use when the user asks for \"deep research\", \"deepapi research\", \"perplexity deep research\" (legacy trigger), or any deep source-backed research run. Differentiator vs the deepapi skill: this is the full research workflow (prompt + run + report file), not raw endpoint access.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -1112,7 +1112,7 @@
       "installUrl": "github:davidondrej/skills:skills/research-and-web/deep-research",
       "relPath": "skills/research-and-web/deep-research",
       "verified": true,
-      "tokenCount": 1110,
+      "tokenCount": 1134,
       "evalSummary": {
         "overallScore": 61,
         "grade": "D",
@@ -1160,7 +1160,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.072Z",
+        "evaluatedAt": "2026-07-07T08:55:16.720Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1215,7 +1215,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.072Z",
+          "evaluatedAt": "2026-07-07T08:55:16.720Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1233,7 @@
               "max": 2
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.072Z",
+          "evaluatedAt": "2026-07-07T08:55:16.720Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1249,7 +1249,7 @@
       "installUrl": "github:davidondrej/skills:skills/research-and-web/deepapi",
       "relPath": "skills/research-and-web/deepapi",
       "verified": true,
-      "tokenCount": 7465,
+      "tokenCount": 7515,
       "evalSummary": {
         "overallScore": 63,
         "grade": "D",
@@ -1297,7 +1297,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.076Z",
+        "evaluatedAt": "2026-07-07T08:55:16.722Z",
         "evaluatedVersion": "b17ad5148ab7"
       },
       "evalSummaries": {
@@ -1352,7 +1352,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.076Z",
+          "evaluatedAt": "2026-07-07T08:55:16.722Z",
           "evaluatedVersion": "b17ad5148ab7"
         },
         "skill-best-practice": {
@@ -1370,7 +1370,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.076Z",
+          "evaluatedAt": "2026-07-07T08:55:16.722Z",
           "evaluatedVersion": "b17ad5148ab7"
         }
       }
@@ -1386,7 +1386,7 @@
       "installUrl": "github:davidondrej/skills:skills/agent-orchestration/delegating-to-agents",
       "relPath": "skills/agent-orchestration/delegating-to-agents",
       "verified": true,
-      "tokenCount": 982,
+      "tokenCount": 996,
       "evalSummary": {
         "overallScore": 57,
         "grade": "D",
@@ -1434,7 +1434,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.080Z",
+        "evaluatedAt": "2026-07-07T08:55:16.726Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1489,7 +1489,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.080Z",
+          "evaluatedAt": "2026-07-07T08:55:16.726Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1507,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.080Z",
+          "evaluatedAt": "2026-07-07T08:55:16.726Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1523,7 +1523,7 @@
       "installUrl": "github:davidondrej/skills:skills/skill-authoring/distribute-skill-to-all-agents",
       "relPath": "skills/skill-authoring/distribute-skill-to-all-agents",
       "verified": true,
-      "tokenCount": 1116,
+      "tokenCount": 1124,
       "evalSummary": {
         "overallScore": 63,
         "grade": "D",
@@ -1571,7 +1571,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.081Z",
+        "evaluatedAt": "2026-07-07T08:55:16.728Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1626,7 +1626,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.081Z",
+          "evaluatedAt": "2026-07-07T08:55:16.728Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +1644,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.081Z",
+          "evaluatedAt": "2026-07-07T08:55:16.728Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1708,7 +1708,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.084Z",
+        "evaluatedAt": "2026-07-07T08:55:16.730Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1763,7 +1763,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.084Z",
+          "evaluatedAt": "2026-07-07T08:55:16.730Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +1781,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.084Z",
+          "evaluatedAt": "2026-07-07T08:55:16.730Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1845,7 +1845,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.086Z",
+        "evaluatedAt": "2026-07-07T08:55:16.732Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1900,7 +1900,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.087Z",
+          "evaluatedAt": "2026-07-07T08:55:16.732Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1918,14 +1918,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.087Z",
+          "evaluatedAt": "2026-07-07T08:55:16.732Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "folder-specific-claude-and-agents-md",
-      "description": "Create a specialized CLAUDE.md (+ AGENTS.md symlink) inside a specific folder to give future agents folder-scoped context. Use when David asks to create a CLAUDE.md for a folder, write folder instructions, or add agent context to a directory.",
+      "description": "Create a specialized CLAUDE.md (+ AGENTS.md symlink) inside a specific folder to give future agents folder-scoped context. Use when the user asks to create a CLAUDE.md for a folder, write folder instructions, or add agent context to a directory.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -1934,7 +1934,7 @@
       "installUrl": "github:davidondrej/skills:skills/skill-authoring/folder-specific-claude-and-agents-md",
       "relPath": "skills/skill-authoring/folder-specific-claude-and-agents-md",
       "verified": true,
-      "tokenCount": 1536,
+      "tokenCount": 1570,
       "evalSummary": {
         "overallScore": 81,
         "grade": "B",
@@ -1982,7 +1982,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.088Z",
+        "evaluatedAt": "2026-07-07T08:55:16.733Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2037,7 +2037,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.088Z",
+          "evaluatedAt": "2026-07-07T08:55:16.733Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2055,7 +2055,144 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.088Z",
+          "evaluatedAt": "2026-07-07T08:55:16.733Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "goal-loop",
+      "description": "Explain and write effective instructions for the `/goal` feature — the persistent self-checking agent loop (plan → act → test → review → iterate), available in agents like Codex, Claude Code, and Hermes Agent. Use when the user mentions `/goal`, \"goal loop\", \"Ralph loop\", wants to kick off a long-running autonomous agent run, asks how to write a goal prompt, or wants a one-paragraph goal instruction drafted.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:davidondrej/skills:skills/agent-orchestration/goal-loop",
+      "relPath": "skills/agent-orchestration/goal-loop",
+      "verified": true,
+      "tokenCount": 3008,
+      "evalSummary": {
+        "overallScore": 81,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-07T08:55:16.735Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 81,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-07T08:55:16.735Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-07T08:55:16.735Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2071,9 +2208,9 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/grill-me",
       "relPath": "skills/thinking-and-docs/grill-me",
       "verified": true,
-      "tokenCount": 192,
+      "tokenCount": 205,
       "evalSummary": {
-        "overallScore": 40,
+        "overallScore": 43,
         "grade": "F",
         "categories": [
           {
@@ -2097,7 +2234,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 2,
+            "score": 4,
             "max": 10
           },
           {
@@ -2119,7 +2256,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.090Z",
+        "evaluatedAt": "2026-07-07T08:55:16.736Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2128,7 +2265,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 40,
+          "overallScore": 43,
           "grade": "F",
           "categories": [
             {
@@ -2152,7 +2289,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 2,
+              "score": 4,
               "max": 10
             },
             {
@@ -2174,7 +2311,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.090Z",
+          "evaluatedAt": "2026-07-07T08:55:16.736Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2192,7 +2329,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.090Z",
+          "evaluatedAt": "2026-07-07T08:55:16.736Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2256,7 +2393,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.091Z",
+        "evaluatedAt": "2026-07-07T08:55:16.737Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2311,7 +2448,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.091Z",
+          "evaluatedAt": "2026-07-07T08:55:16.737Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2329,14 +2466,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.091Z",
+          "evaluatedAt": "2026-07-07T08:55:16.737Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "interview-style-doc-building",
-      "description": "Use when David wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
+      "description": "Use when the user wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -2345,7 +2482,7 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/interview-style-doc-building",
       "relPath": "skills/thinking-and-docs/interview-style-doc-building",
       "verified": true,
-      "tokenCount": 1254,
+      "tokenCount": 1286,
       "evalSummary": {
         "overallScore": 67,
         "grade": "C",
@@ -2393,7 +2530,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.092Z",
+        "evaluatedAt": "2026-07-07T08:55:16.738Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2448,7 +2585,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.092Z",
+          "evaluatedAt": "2026-07-07T08:55:16.738Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2466,7 +2603,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.092Z",
+          "evaluatedAt": "2026-07-07T08:55:16.738Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2530,7 +2667,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.094Z",
+        "evaluatedAt": "2026-07-07T08:55:16.739Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2585,7 +2722,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.094Z",
+          "evaluatedAt": "2026-07-07T08:55:16.739Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2603,7 +2740,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.094Z",
+          "evaluatedAt": "2026-07-07T08:55:16.739Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2667,7 +2804,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.095Z",
+        "evaluatedAt": "2026-07-07T08:55:16.740Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2722,7 +2859,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.095Z",
+          "evaluatedAt": "2026-07-07T08:55:16.740Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2740,7 +2877,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.095Z",
+          "evaluatedAt": "2026-07-07T08:55:16.740Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2756,7 +2893,7 @@
       "installUrl": "github:davidondrej/skills:skills/research-and-web/pi-web-search",
       "relPath": "skills/research-and-web/pi-web-search",
       "verified": true,
-      "tokenCount": 882,
+      "tokenCount": 884,
       "evalSummary": {
         "overallScore": 59,
         "grade": "D",
@@ -2804,7 +2941,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.096Z",
+        "evaluatedAt": "2026-07-07T08:55:16.741Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2859,7 +2996,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.096Z",
+          "evaluatedAt": "2026-07-07T08:55:16.741Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2877,14 +3014,151 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.096Z",
+          "evaluatedAt": "2026-07-07T08:55:16.741Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "push-skill-to-github",
+      "description": "Commit and push agent-skill changes to the user's private skills GitHub repo (rooted at ~/.agents). Use after creating or updating any skill, when the user says \"push the skill\", \"push skills to github\", \"save the skill to my repo\", or \"update the skills repo\". Handles staging, committing, pushing, and cleaning up the cmux pane used to do it.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:davidondrej/skills:skills/skill-authoring/push-skill-to-github",
+      "relPath": "skills/skill-authoring/push-skill-to-github",
+      "verified": true,
+      "tokenCount": 674,
+      "evalSummary": {
+        "overallScore": 60,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-07T08:55:16.742Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 60,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-07T08:55:16.742Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-07T08:55:16.742Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "read-all-adrs",
-      "description": "Read every ADR markdown file in the project's docs/adr/ folder so you have full context on past decisions. Use only when David explicitly calls it.",
+      "description": "Read every ADR markdown file in the project's docs/adr/ folder so you have full context on past decisions. Use only when the user explicitly calls it.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -2893,7 +3167,7 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/read-all-adrs",
       "relPath": "skills/thinking-and-docs/read-all-adrs",
       "verified": true,
-      "tokenCount": 136,
+      "tokenCount": 138,
       "evalSummary": {
         "overallScore": 37,
         "grade": "F",
@@ -2941,7 +3215,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.097Z",
+        "evaluatedAt": "2026-07-07T08:55:16.743Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2996,7 +3270,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.098Z",
+          "evaluatedAt": "2026-07-07T08:55:16.743Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3014,7 +3288,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.098Z",
+          "evaluatedAt": "2026-07-07T08:55:16.743Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3030,7 +3304,7 @@
       "installUrl": "github:davidondrej/skills:skills/research-and-web/research-prompt",
       "relPath": "skills/research-and-web/research-prompt",
       "verified": true,
-      "tokenCount": 1396,
+      "tokenCount": 1390,
       "evalSummary": {
         "overallScore": 63,
         "grade": "D",
@@ -3078,7 +3352,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.099Z",
+        "evaluatedAt": "2026-07-07T08:55:16.744Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3133,7 +3407,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.099Z",
+          "evaluatedAt": "2026-07-07T08:55:16.744Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3151,7 +3425,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.099Z",
+          "evaluatedAt": "2026-07-07T08:55:16.744Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3167,7 +3441,7 @@
       "installUrl": "github:davidondrej/skills:skills/agent-orchestration/run-deep-swe",
       "relPath": "skills/agent-orchestration/run-deep-swe",
       "verified": true,
-      "tokenCount": 1188,
+      "tokenCount": 1176,
       "evalSummary": {
         "overallScore": 67,
         "grade": "C",
@@ -3215,7 +3489,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.100Z",
+        "evaluatedAt": "2026-07-07T08:55:16.745Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3270,7 +3544,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.101Z",
+          "evaluatedAt": "2026-07-07T08:55:16.745Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3288,14 +3562,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.101Z",
+          "evaluatedAt": "2026-07-07T08:55:16.745Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "setup-help",
-      "description": "Walk David through setting up anything step by step. Use when David asks for help setting up, configuring, installing, or getting something working — \"help me set up X\", \"walk me through this\", \"setup-help\". Differentiator: gives one current step at a time, then always lists every remaining setup step after each response.",
+      "description": "Walk the user through setting up anything step by step. Use when the user asks for help setting up, configuring, installing, or getting something working — \"help me set up X\", \"walk me through this\", \"setup-help\". Differentiator: gives one current step at a time, then always lists every remaining setup step after each response.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -3304,7 +3578,7 @@
       "installUrl": "github:davidondrej/skills:skills/ops-and-setup/setup-help",
       "relPath": "skills/ops-and-setup/setup-help",
       "verified": true,
-      "tokenCount": 648,
+      "tokenCount": 656,
       "evalSummary": {
         "overallScore": 56,
         "grade": "D",
@@ -3352,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.102Z",
+        "evaluatedAt": "2026-07-07T08:55:16.746Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3407,7 +3681,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.102Z",
+          "evaluatedAt": "2026-07-07T08:55:16.746Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3425,14 +3699,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.102Z",
+          "evaluatedAt": "2026-07-07T08:55:16.746Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "short",
-      "description": "Manually-invoked skill that forces the agent to compress its current answer — strip filler, simplify wording, and cut length while keeping the substance. Use when David says \"short\", \"shorter\", \"simpler\", \"too long\", \"tl;dr\", or wants a more concise version of the previous response.",
+      "description": "Manually-invoked skill that forces the agent to compress its current answer — strip filler, simplify wording, and cut length while keeping the substance. Use when the user says \"short\", \"shorter\", \"simpler\", \"too long\", \"tl;dr\", or wants a more concise version of the previous response.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -3441,7 +3715,7 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/short",
       "relPath": "skills/thinking-and-docs/short",
       "verified": true,
-      "tokenCount": 122,
+      "tokenCount": 124,
       "evalSummary": {
         "overallScore": 31,
         "grade": "F",
@@ -3489,7 +3763,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.103Z",
+        "evaluatedAt": "2026-07-07T08:55:16.747Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3544,7 +3818,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.103Z",
+          "evaluatedAt": "2026-07-07T08:55:16.747Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3562,7 +3836,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.103Z",
+          "evaluatedAt": "2026-07-07T08:55:16.747Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3578,7 +3852,7 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/teach",
       "relPath": "skills/thinking-and-docs/teach",
       "verified": true,
-      "tokenCount": 2807,
+      "tokenCount": 2819,
       "evalSummary": {
         "overallScore": 64,
         "grade": "D",
@@ -3626,7 +3900,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.104Z",
+        "evaluatedAt": "2026-07-07T08:55:16.748Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3681,7 +3955,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.104Z",
+          "evaluatedAt": "2026-07-07T08:55:16.748Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3699,14 +3973,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.104Z",
+          "evaluatedAt": "2026-07-07T08:55:16.748Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "vps-server-management",
-      "description": "Use when David wants to manage his VPS servers and the AI agents running inside them — connecting, deploying, monitoring, restarting, and operating remote hosts and their agents. Triggers on VPS, server management, remote host, SSH into server, manage my servers, agents on the server.",
+      "description": "Use when the user wants to manage their VPS servers and the AI agents running inside them — connecting, deploying, monitoring, restarting, and operating remote hosts and their agents. Triggers on VPS, server management, remote host, SSH into server, manage my servers, agents on the server.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -3715,9 +3989,9 @@
       "installUrl": "github:davidondrej/skills:skills/ops-and-setup/vps-server-management",
       "relPath": "skills/ops-and-setup/vps-server-management",
       "verified": true,
-      "tokenCount": 874,
+      "tokenCount": 880,
       "evalSummary": {
-        "overallScore": 57,
+        "overallScore": 59,
         "grade": "D",
         "categories": [
           {
@@ -3735,7 +4009,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 5,
+            "score": 6,
             "max": 10
           },
           {
@@ -3763,7 +4037,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.106Z",
+        "evaluatedAt": "2026-07-07T08:55:16.749Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3772,7 +4046,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 57,
+          "overallScore": 59,
           "grade": "D",
           "categories": [
             {
@@ -3790,7 +4064,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 5,
+              "score": 6,
               "max": 10
             },
             {
@@ -3818,7 +4092,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.106Z",
+          "evaluatedAt": "2026-07-07T08:55:16.749Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3836,14 +4110,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.106Z",
+          "evaluatedAt": "2026-07-07T08:55:16.749Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "youtube-transcript",
-      "description": "Use whenever the user needs the transcript of a YouTube video — fetching, extracting, downloading, or pulling captions/subtitles/transcript text from a YouTube URL. Triggers on \"get the transcript\", \"transcript of this video\", \"pull the captions\", \"download subtitles\", \"what does this YouTube video say\". Primary path is DeepAPI (David's own product); yt-dlp is the local fallback.",
+      "description": "Use whenever the user needs the transcript of a YouTube video — fetching, extracting, downloading, or pulling captions/subtitles/transcript text from a YouTube URL. Triggers on \"get the transcript\", \"transcript of this video\", \"pull the captions\", \"download subtitles\", \"what does this YouTube video say\". Primary path is DeepAPI (go to deepapi.co to get an API key); yt-dlp is the local fallback.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -3852,7 +4126,7 @@
       "installUrl": "github:davidondrej/skills:skills/research-and-web/youtube-transcript",
       "relPath": "skills/research-and-web/youtube-transcript",
       "verified": true,
-      "tokenCount": 1278,
+      "tokenCount": 1292,
       "evalSummary": {
         "overallScore": 54,
         "grade": "D",
@@ -3900,7 +4174,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-06T12:09:06.107Z",
+        "evaluatedAt": "2026-07-07T08:55:16.750Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3955,7 +4229,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.107Z",
+          "evaluatedAt": "2026-07-07T08:55:16.750Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3973,7 +4247,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-06T12:09:06.107Z",
+          "evaluatedAt": "2026-07-07T08:55:16.750Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3985,7 +4259,7 @@
       "name": "davidondrej-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-07-06T12:09:06.108Z",
+      "createdAt": "2026-07-07T08:55:16.751Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4005,7 +4279,7 @@
         {
           "name": "brain-to-docs",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/brain-to-docs",
-          "description": "Use when David wants to extract project vision, decisions, and preferences from his head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
+          "description": "Use when the user wants to extract project vision, decisions, and preferences from their head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
           "version": "0.0.0"
         },
         {
@@ -4015,21 +4289,27 @@
           "version": "0.0.0"
         },
         {
-          "name": "codex-goal-loop",
-          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/codex-goal-loop",
-          "description": "Explain and write effective instructions for OpenAI Codex's `/goal` feature — the persistent self-checking agent loop (plan → act → test → review → iterate). Use when the user mentions Codex `/goal`, \"goal loop\", \"Ralph loop\", wants to kick off a long-running autonomous Codex run, asks how to write a goal prompt, or wants a one-paragraph goal instruction drafted.",
+          "name": "codex-subagent",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/codex-subagent",
+          "description": "Launch OpenAI Codex CLI as a subagent (ChatGPT subscription auth, no API key). Use when delegating a self-contained coding task to Codex from another agent — parallel implementation work, a second opinion, or an independent verification pass.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "copywriting",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/copywriting",
+          "description": "How David Ondrej writes. Use EVERY time you write copy or any text on David's behalf — tweets, DMs, YouTube titles and descriptions, GitHub About and READMEs, landing pages, bios, emails, product copy, announcements. Covers his two styles (authentic and formal) and when to use each.",
           "version": "0.0.0"
         },
         {
           "name": "cyber-audit",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/cyber-audit",
-          "description": "Read-only exposure audit of David's MacBook (and ~/Documents/ projects) for a CVE, breach, malicious package, or other security advisory, then write a structured report to ~/Documents/. Use when the user shares a breach/CVE/malware/supply-chain advisory and asks if they're affected, says \"scan my system for X\", \"are we affected by Y\", \"check if I'm vulnerable to Z\", or requests any hack/breach/cyber/vulnerability audit on this MacBook. Output matches the existing audit format in ~/Documents/.",
+          "description": "Read-only exposure audit of the user's MacBook (and ~/Documents/code projects) for a CVE, breach, malicious package, or other security advisory, then write a structured report to ~/Documents/security-audits/. Use when the user shares a breach/CVE/malware/supply-chain advisory and asks if they're affected, says \"scan my system for X\", \"are we affected by Y\", \"check if I'm vulnerable to Z\", or requests any hack/breach/cyber/vulnerability audit on this MacBook. Output matches the existing audit format in ~/Documents/security-audits/.",
           "version": "0.0.0"
         },
         {
           "name": "deep-research",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/deep-research",
-          "description": "Run a deep, source-backed research query via DeepAPI (David's own product) POST /v1/research/deep. Builds a rigorous one-paragraph research prompt (per research-prompt rules), fires it, and saves a cited markdown report. Use when David asks for \"deep research\", \"deepapi research\", \"perplexity deep research\" (legacy trigger), or any deep source-backed research run. Differentiator vs the deepapi skill: this is the full research workflow (prompt + run + report file), not raw endpoint access.",
+          "description": "Run a deep, source-backed research query via DeepAPI (go to deepapi.co to get an API key) POST /v1/research/deep. Builds a rigorous one-paragraph research prompt (per research-prompt rules), fires it, and saves a cited markdown report. Use when the user asks for \"deep research\", \"deepapi research\", \"perplexity deep research\" (legacy trigger), or any deep source-backed research run. Differentiator vs the deepapi skill: this is the full research workflow (prompt + run + report file), not raw endpoint access.",
           "version": "0.0.0"
         },
         {
@@ -4065,7 +4345,13 @@
         {
           "name": "folder-specific-claude-and-agents-md",
           "installUrl": "github:davidondrej/skills:skills/skill-authoring/folder-specific-claude-and-agents-md",
-          "description": "Create a specialized CLAUDE.md (+ AGENTS.md symlink) inside a specific folder to give future agents folder-scoped context. Use when David asks to create a CLAUDE.md for a folder, write folder instructions, or add agent context to a directory.",
+          "description": "Create a specialized CLAUDE.md (+ AGENTS.md symlink) inside a specific folder to give future agents folder-scoped context. Use when the user asks to create a CLAUDE.md for a folder, write folder instructions, or add agent context to a directory.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "goal-loop",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/goal-loop",
+          "description": "Explain and write effective instructions for the `/goal` feature — the persistent self-checking agent loop (plan → act → test → review → iterate), available in agents like Codex, Claude Code, and Hermes Agent. Use when the user mentions `/goal`, \"goal loop\", \"Ralph loop\", wants to kick off a long-running autonomous agent run, asks how to write a goal prompt, or wants a one-paragraph goal instruction drafted.",
           "version": "0.0.0"
         },
         {
@@ -4093,6 +4379,12 @@
           "version": "0.0.0"
         },
         {
+          "name": "push-skill-to-github",
+          "installUrl": "github:davidondrej/skills:skills/skill-authoring/push-skill-to-github",
+          "description": "Commit and push agent-skill changes to the user's private skills GitHub repo (rooted at ~/.agents). Use after creating or updating any skill, when the user says \"push the skill\", \"push skills to github\", \"save the skill to my repo\", or \"update the skills repo\". Handles staging, committing, pushing, and cleaning up the cmux pane used to do it.",
+          "version": "0.0.0"
+        },
+        {
           "name": "research-prompt",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/research-prompt",
           "description": "Write a single-paragraph Deep Research prompt to hand to a human researcher (or a deep-research AI). Use when the user wants a research brief, a \"deep research prompt\", a one-paragraph task for a researcher, or asks \"what should our researcher look for\". Produces ONE tight paragraph with full context, numbered sub-questions, and per-finding output format.",
@@ -4107,19 +4399,19 @@
         {
           "name": "setup-help",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/setup-help",
-          "description": "Walk David through setting up anything step by step. Use when David asks for help setting up, configuring, installing, or getting something working — \"help me set up X\", \"walk me through this\", \"setup-help\". Differentiator: gives one current step at a time, then always lists every remaining setup step after each response.",
+          "description": "Walk the user through setting up anything step by step. Use when the user asks for help setting up, configuring, installing, or getting something working — \"help me set up X\", \"walk me through this\", \"setup-help\". Differentiator: gives one current step at a time, then always lists every remaining setup step after each response.",
           "version": "0.0.0"
         },
         {
           "name": "short",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/short",
-          "description": "Manually-invoked skill that forces the agent to compress its current answer — strip filler, simplify wording, and cut length while keeping the substance. Use when David says \"short\", \"shorter\", \"simpler\", \"too long\", \"tl;dr\", or wants a more concise version of the previous response.",
+          "description": "Manually-invoked skill that forces the agent to compress its current answer — strip filler, simplify wording, and cut length while keeping the substance. Use when the user says \"short\", \"shorter\", \"simpler\", \"too long\", \"tl;dr\", or wants a more concise version of the previous response.",
           "version": "0.0.0"
         },
         {
           "name": "vps-server-management",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/vps-server-management",
-          "description": "Use when David wants to manage his VPS servers and the AI agents running inside them — connecting, deploying, monitoring, restarting, and operating remote hosts and their agents. Triggers on VPS, server management, remote host, SSH into server, manage my servers, agents on the server.",
+          "description": "Use when the user wants to manage their VPS servers and the AI agents running inside them — connecting, deploying, monitoring, restarting, and operating remote hosts and their agents. Triggers on VPS, server management, remote host, SSH into server, manage my servers, agents on the server.",
           "version": "0.0.0"
         }
       ],
@@ -4135,7 +4427,7 @@
       "name": "davidondrej-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-07-06T12:09:06.108Z",
+      "createdAt": "2026-07-07T08:55:16.751Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4149,31 +4441,31 @@
         {
           "name": "brain-to-docs",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/brain-to-docs",
-          "description": "Use when David wants to extract project vision, decisions, and preferences from his head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
+          "description": "Use when the user wants to extract project vision, decisions, and preferences from their head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
           "version": "0.0.0"
         },
         {
-          "name": "copywriting",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/copywriting",
-          "description": "How David Ondrej writes copy — voice, tone, and formatting rules. Use when writing any public-facing text for David: tweets, YouTube titles/descriptions, GitHub repo/About descriptions, READMEs, landing pages, bios, or product copy. Differentiator vs `short`: this shapes voice and style of new copy, not compressing an existing answer.",
+          "name": "browser-harness",
+          "installUrl": "github:davidondrej/skills:skills/research-and-web/browser-harness",
+          "description": "Direct browser control via CDP. Use when the user wants to automate, scrape, test, or interact with web pages. Connects to the user's already-running Chrome.",
           "version": "0.0.0"
         },
         {
           "name": "cyber-audit",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/cyber-audit",
-          "description": "Read-only exposure audit of David's MacBook (and ~/Documents/ projects) for a CVE, breach, malicious package, or other security advisory, then write a structured report to ~/Documents/. Use when the user shares a breach/CVE/malware/supply-chain advisory and asks if they're affected, says \"scan my system for X\", \"are we affected by Y\", \"check if I'm vulnerable to Z\", or requests any hack/breach/cyber/vulnerability audit on this MacBook. Output matches the existing audit format in ~/Documents/.",
+          "description": "Read-only exposure audit of the user's MacBook (and ~/Documents/code projects) for a CVE, breach, malicious package, or other security advisory, then write a structured report to ~/Documents/security-audits/. Use when the user shares a breach/CVE/malware/supply-chain advisory and asks if they're affected, says \"scan my system for X\", \"are we affected by Y\", \"check if I'm vulnerable to Z\", or requests any hack/breach/cyber/vulnerability audit on this MacBook. Output matches the existing audit format in ~/Documents/security-audits/.",
           "version": "0.0.0"
         },
         {
           "name": "deep-research",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/deep-research",
-          "description": "Run a deep, source-backed research query via DeepAPI (David's own product) POST /v1/research/deep. Builds a rigorous one-paragraph research prompt (per research-prompt rules), fires it, and saves a cited markdown report. Use when David asks for \"deep research\", \"deepapi research\", \"perplexity deep research\" (legacy trigger), or any deep source-backed research run. Differentiator vs the deepapi skill: this is the full research workflow (prompt + run + report file), not raw endpoint access.",
+          "description": "Run a deep, source-backed research query via DeepAPI (go to deepapi.co to get an API key) POST /v1/research/deep. Builds a rigorous one-paragraph research prompt (per research-prompt rules), fires it, and saves a cited markdown report. Use when the user asks for \"deep research\", \"deepapi research\", \"perplexity deep research\" (legacy trigger), or any deep source-backed research run. Differentiator vs the deepapi skill: this is the full research workflow (prompt + run + report file), not raw endpoint access.",
           "version": "0.0.0"
         },
         {
           "name": "folder-specific-claude-and-agents-md",
           "installUrl": "github:davidondrej/skills:skills/skill-authoring/folder-specific-claude-and-agents-md",
-          "description": "Create a specialized CLAUDE.md (+ AGENTS.md symlink) inside a specific folder to give future agents folder-scoped context. Use when David asks to create a CLAUDE.md for a folder, write folder instructions, or add agent context to a directory.",
+          "description": "Create a specialized CLAUDE.md (+ AGENTS.md symlink) inside a specific folder to give future agents folder-scoped context. Use when the user asks to create a CLAUDE.md for a folder, write folder instructions, or add agent context to a directory.",
           "version": "0.0.0"
         },
         {
@@ -4185,7 +4477,7 @@
         {
           "name": "interview-style-doc-building",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/interview-style-doc-building",
-          "description": "Use when David wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
+          "description": "Use when the user wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
           "version": "0.0.0"
         },
         {
@@ -4197,7 +4489,7 @@
         {
           "name": "read-all-adrs",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/read-all-adrs",
-          "description": "Read every ADR markdown file in the project's docs/adr/ folder so you have full context on past decisions. Use only when David explicitly calls it.",
+          "description": "Read every ADR markdown file in the project's docs/adr/ folder so you have full context on past decisions. Use only when the user explicitly calls it.",
           "version": "0.0.0"
         },
         {
@@ -4209,13 +4501,13 @@
         {
           "name": "short",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/short",
-          "description": "Manually-invoked skill that forces the agent to compress its current answer — strip filler, simplify wording, and cut length while keeping the substance. Use when David says \"short\", \"shorter\", \"simpler\", \"too long\", \"tl;dr\", or wants a more concise version of the previous response.",
+          "description": "Manually-invoked skill that forces the agent to compress its current answer — strip filler, simplify wording, and cut length while keeping the substance. Use when the user says \"short\", \"shorter\", \"simpler\", \"too long\", \"tl;dr\", or wants a more concise version of the previous response.",
           "version": "0.0.0"
         },
         {
           "name": "vps-server-management",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/vps-server-management",
-          "description": "Use when David wants to manage his VPS servers and the AI agents running inside them — connecting, deploying, monitoring, restarting, and operating remote hosts and their agents. Triggers on VPS, server management, remote host, SSH into server, manage my servers, agents on the server.",
+          "description": "Use when the user wants to manage their VPS servers and the AI agents running inside them — connecting, deploying, monitoring, restarting, and operating remote hosts and their agents. Triggers on VPS, server management, remote host, SSH into server, manage my servers, agents on the server.",
           "version": "0.0.0"
         }
       ],
@@ -4231,7 +4523,7 @@
       "name": "davidondrej-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-07-06T12:09:06.108Z",
+      "createdAt": "2026-07-07T08:55:16.751Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4251,13 +4543,19 @@
         {
           "name": "anti-sleep",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/anti-sleep",
-          "description": "Keep David's MacBook awake with macOS caffeinate — prevent sleep, screen dimming, or both, for a set duration or while a process runs. Use when the user says \"don't let my mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", or wants the machine awake overnight / during a long build.",
+          "description": "Keep the user's MacBook awake with macOS caffeinate — prevent sleep, screen dimming, or both, for a set duration or while a process runs. Use when the user says \"don't let my mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", or wants the machine awake overnight / during a long build.",
           "version": "0.0.0"
         },
         {
           "name": "brain-to-docs",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/brain-to-docs",
-          "description": "Use when David wants to extract project vision, decisions, and preferences from his head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
+          "description": "Use when the user wants to extract project vision, decisions, and preferences from their head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "browser-harness",
+          "installUrl": "github:davidondrej/skills:skills/research-and-web/browser-harness",
+          "description": "Direct browser control via CDP. Use when the user wants to automate, scrape, test, or interact with web pages. Connects to the user's already-running Chrome.",
           "version": "0.0.0"
         },
         {
@@ -4267,15 +4565,21 @@
           "version": "0.0.0"
         },
         {
-          "name": "codex-goal-loop",
-          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/codex-goal-loop",
-          "description": "Explain and write effective instructions for OpenAI Codex's `/goal` feature — the persistent self-checking agent loop (plan → act → test → review → iterate). Use when the user mentions Codex `/goal`, \"goal loop\", \"Ralph loop\", wants to kick off a long-running autonomous Codex run, asks how to write a goal prompt, or wants a one-paragraph goal instruction drafted.",
+          "name": "codex-subagent",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/codex-subagent",
+          "description": "Launch OpenAI Codex CLI as a subagent (ChatGPT subscription auth, no API key). Use when delegating a self-contained coding task to Codex from another agent — parallel implementation work, a second opinion, or an independent verification pass.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "cyber-audit",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/cyber-audit",
+          "description": "Read-only exposure audit of the user's MacBook (and ~/Documents/code projects) for a CVE, breach, malicious package, or other security advisory, then write a structured report to ~/Documents/security-audits/. Use when the user shares a breach/CVE/malware/supply-chain advisory and asks if they're affected, says \"scan my system for X\", \"are we affected by Y\", \"check if I'm vulnerable to Z\", or requests any hack/breach/cyber/vulnerability audit on this MacBook. Output matches the existing audit format in ~/Documents/security-audits/.",
           "version": "0.0.0"
         },
         {
           "name": "deep-research",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/deep-research",
-          "description": "Run a deep, source-backed research query via DeepAPI (David's own product) POST /v1/research/deep. Builds a rigorous one-paragraph research prompt (per research-prompt rules), fires it, and saves a cited markdown report. Use when David asks for \"deep research\", \"deepapi research\", \"perplexity deep research\" (legacy trigger), or any deep source-backed research run. Differentiator vs the deepapi skill: this is the full research workflow (prompt + run + report file), not raw endpoint access.",
+          "description": "Run a deep, source-backed research query via DeepAPI (go to deepapi.co to get an API key) POST /v1/research/deep. Builds a rigorous one-paragraph research prompt (per research-prompt rules), fires it, and saves a cited markdown report. Use when the user asks for \"deep research\", \"deepapi research\", \"perplexity deep research\" (legacy trigger), or any deep source-backed research run. Differentiator vs the deepapi skill: this is the full research workflow (prompt + run + report file), not raw endpoint access.",
           "version": "0.0.0"
         },
         {
@@ -4309,6 +4613,12 @@
           "version": "0.0.0"
         },
         {
+          "name": "goal-loop",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/goal-loop",
+          "description": "Explain and write effective instructions for the `/goal` feature — the persistent self-checking agent loop (plan → act → test → review → iterate), available in agents like Codex, Claude Code, and Hermes Agent. Use when the user mentions `/goal`, \"goal loop\", \"Ralph loop\", wants to kick off a long-running autonomous agent run, asks how to write a goal prompt, or wants a one-paragraph goal instruction drafted.",
+          "version": "0.0.0"
+        },
+        {
           "name": "grill-me",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/grill-me",
           "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
@@ -4323,7 +4633,7 @@
         {
           "name": "interview-style-doc-building",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/interview-style-doc-building",
-          "description": "Use when David wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
+          "description": "Use when the user wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
           "version": "0.0.0"
         },
         {
@@ -4335,7 +4645,7 @@
         {
           "name": "youtube-transcript",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/youtube-transcript",
-          "description": "Use whenever the user needs the transcript of a YouTube video — fetching, extracting, downloading, or pulling captions/subtitles/transcript text from a YouTube URL. Triggers on \"get the transcript\", \"transcript of this video\", \"pull the captions\", \"download subtitles\", \"what does this YouTube video say\". Primary path is DeepAPI (David's own product); yt-dlp is the local fallback.",
+          "description": "Use whenever the user needs the transcript of a YouTube video — fetching, extracting, downloading, or pulling captions/subtitles/transcript text from a YouTube URL. Triggers on \"get the transcript\", \"transcript of this video\", \"pull the captions\", \"download subtitles\", \"what does this YouTube video say\". Primary path is DeepAPI (go to deepapi.co to get an API key); yt-dlp is the local fallback.",
           "version": "0.0.0"
         }
       ],
@@ -4351,7 +4661,7 @@
       "name": "davidondrej-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-07-06T12:09:06.108Z",
+      "createdAt": "2026-07-07T08:55:16.751Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4371,13 +4681,13 @@
         {
           "name": "anti-sleep",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/anti-sleep",
-          "description": "Keep David's MacBook awake with macOS caffeinate — prevent sleep, screen dimming, or both, for a set duration or while a process runs. Use when the user says \"don't let my mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", or wants the machine awake overnight / during a long build.",
+          "description": "Keep the user's MacBook awake with macOS caffeinate — prevent sleep, screen dimming, or both, for a set duration or while a process runs. Use when the user says \"don't let my mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", or wants the machine awake overnight / during a long build.",
           "version": "0.0.0"
         },
         {
           "name": "brain-to-docs",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/brain-to-docs",
-          "description": "Use when David wants to extract project vision, decisions, and preferences from his head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
+          "description": "Use when the user wants to extract project vision, decisions, and preferences from their head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
           "version": "0.0.0"
         },
         {
@@ -4389,13 +4699,13 @@
         {
           "name": "copywriting",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/copywriting",
-          "description": "How David Ondrej writes copy — voice, tone, and formatting rules. Use when writing any public-facing text for David: tweets, YouTube titles/descriptions, GitHub repo/About descriptions, READMEs, landing pages, bios, or product copy. Differentiator vs `short`: this shapes voice and style of new copy, not compressing an existing answer.",
+          "description": "How David Ondrej writes. Use EVERY time you write copy or any text on David's behalf — tweets, DMs, YouTube titles and descriptions, GitHub About and READMEs, landing pages, bios, emails, product copy, announcements. Covers his two styles (authentic and formal) and when to use each.",
           "version": "0.0.0"
         },
         {
           "name": "deep-research",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/deep-research",
-          "description": "Run a deep, source-backed research query via DeepAPI (David's own product) POST /v1/research/deep. Builds a rigorous one-paragraph research prompt (per research-prompt rules), fires it, and saves a cited markdown report. Use when David asks for \"deep research\", \"deepapi research\", \"perplexity deep research\" (legacy trigger), or any deep source-backed research run. Differentiator vs the deepapi skill: this is the full research workflow (prompt + run + report file), not raw endpoint access.",
+          "description": "Run a deep, source-backed research query via DeepAPI (go to deepapi.co to get an API key) POST /v1/research/deep. Builds a rigorous one-paragraph research prompt (per research-prompt rules), fires it, and saves a cited markdown report. Use when the user asks for \"deep research\", \"deepapi research\", \"perplexity deep research\" (legacy trigger), or any deep source-backed research run. Differentiator vs the deepapi skill: this is the full research workflow (prompt + run + report file), not raw endpoint access.",
           "version": "0.0.0"
         },
         {
@@ -4425,13 +4735,19 @@
         {
           "name": "interview-style-doc-building",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/interview-style-doc-building",
-          "description": "Use when David wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
+          "description": "Use when the user wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
           "version": "0.0.0"
         },
         {
           "name": "markdown-rendering",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/markdown-rendering",
           "description": "How to reliably open a markdown file in a cmux right pane without it rendering blank. Use whenever opening/showing/rendering a .md file in cmux's right pane via `cmux markdown open`. Covers the move-surface blank-render bug and the only two reliable approaches — open it correctly the first time, or close the existing right pane(s) first then open a fresh right pane.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "push-skill-to-github",
+          "installUrl": "github:davidondrej/skills:skills/skill-authoring/push-skill-to-github",
+          "description": "Commit and push agent-skill changes to the user's private skills GitHub repo (rooted at ~/.agents). Use after creating or updating any skill, when the user says \"push the skill\", \"push skills to github\", \"save the skill to my repo\", or \"update the skills repo\". Handles staging, committing, pushing, and cleaning up the cmux pane used to do it.",
           "version": "0.0.0"
         }
       ],
@@ -4447,7 +4763,7 @@
       "name": "davidondrej-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-07-06T12:09:06.108Z",
+      "createdAt": "2026-07-07T08:55:16.751Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4467,7 +4783,7 @@
         {
           "name": "copywriting",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/copywriting",
-          "description": "How David Ondrej writes copy — voice, tone, and formatting rules. Use when writing any public-facing text for David: tweets, YouTube titles/descriptions, GitHub repo/About descriptions, READMEs, landing pages, bios, or product copy. Differentiator vs `short`: this shapes voice and style of new copy, not compressing an existing answer.",
+          "description": "How David Ondrej writes. Use EVERY time you write copy or any text on David's behalf — tweets, DMs, YouTube titles and descriptions, GitHub About and READMEs, landing pages, bios, emails, product copy, announcements. Covers his two styles (authentic and formal) and when to use each.",
           "version": "0.0.0"
         },
         {
@@ -4501,7 +4817,7 @@
       "name": "davidondrej-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-07-06T12:09:06.108Z",
+      "createdAt": "2026-07-07T08:55:16.751Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4515,25 +4831,13 @@
         {
           "name": "copywriting",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/copywriting",
-          "description": "How David Ondrej writes copy — voice, tone, and formatting rules. Use when writing any public-facing text for David: tweets, YouTube titles/descriptions, GitHub repo/About descriptions, READMEs, landing pages, bios, or product copy. Differentiator vs `short`: this shapes voice and style of new copy, not compressing an existing answer.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "deep-research",
-          "installUrl": "github:davidondrej/skills:skills/research-and-web/deep-research",
-          "description": "Run a deep, source-backed research query via DeepAPI (David's own product) POST /v1/research/deep. Builds a rigorous one-paragraph research prompt (per research-prompt rules), fires it, and saves a cited markdown report. Use when David asks for \"deep research\", \"deepapi research\", \"perplexity deep research\" (legacy trigger), or any deep source-backed research run. Differentiator vs the deepapi skill: this is the full research workflow (prompt + run + report file), not raw endpoint access.",
+          "description": "How David Ondrej writes. Use EVERY time you write copy or any text on David's behalf — tweets, DMs, YouTube titles and descriptions, GitHub About and READMEs, landing pages, bios, emails, product copy, announcements. Covers his two styles (authentic and formal) and when to use each.",
           "version": "0.0.0"
         },
         {
           "name": "interview-style-doc-building",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/interview-style-doc-building",
-          "description": "Use when David wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
-          "version": "0.0.0"
-        },
-        {
-          "name": "youtube-transcript",
-          "installUrl": "github:davidondrej/skills:skills/research-and-web/youtube-transcript",
-          "description": "Use whenever the user needs the transcript of a YouTube video — fetching, extracting, downloading, or pulling captions/subtitles/transcript text from a YouTube URL. Triggers on \"get the transcript\", \"transcript of this video\", \"pull the captions\", \"download subtitles\", \"what does this YouTube video say\". Primary path is DeepAPI (David's own product); yt-dlp is the local fallback.",
+          "description": "Use when the user wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
           "version": "0.0.0"
         }
       ],
@@ -4549,7 +4853,7 @@
       "name": "davidondrej-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-07-06T12:09:06.108Z",
+      "createdAt": "2026-07-07T08:55:16.751Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4563,18 +4867,13 @@
         {
           "name": "browser-harness",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/browser-harness",
-          "version": "0.0.0"
-        },
-        {
-          "name": "codex-goal-loop",
-          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/codex-goal-loop",
-          "description": "Explain and write effective instructions for OpenAI Codex's `/goal` feature — the persistent self-checking agent loop (plan → act → test → review → iterate). Use when the user mentions Codex `/goal`, \"goal loop\", \"Ralph loop\", wants to kick off a long-running autonomous Codex run, asks how to write a goal prompt, or wants a one-paragraph goal instruction drafted.",
+          "description": "Direct browser control via CDP. Use when the user wants to automate, scrape, test, or interact with web pages. Connects to the user's already-running Chrome.",
           "version": "0.0.0"
         },
         {
           "name": "deep-research",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/deep-research",
-          "description": "Run a deep, source-backed research query via DeepAPI (David's own product) POST /v1/research/deep. Builds a rigorous one-paragraph research prompt (per research-prompt rules), fires it, and saves a cited markdown report. Use when David asks for \"deep research\", \"deepapi research\", \"perplexity deep research\" (legacy trigger), or any deep source-backed research run. Differentiator vs the deepapi skill: this is the full research workflow (prompt + run + report file), not raw endpoint access.",
+          "description": "Run a deep, source-backed research query via DeepAPI (go to deepapi.co to get an API key) POST /v1/research/deep. Builds a rigorous one-paragraph research prompt (per research-prompt rules), fires it, and saves a cited markdown report. Use when the user asks for \"deep research\", \"deepapi research\", \"perplexity deep research\" (legacy trigger), or any deep source-backed research run. Differentiator vs the deepapi skill: this is the full research workflow (prompt + run + report file), not raw endpoint access.",
           "version": "0.0.0"
         },
         {
@@ -4590,9 +4889,15 @@
           "version": "0.0.0"
         },
         {
+          "name": "goal-loop",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/goal-loop",
+          "description": "Explain and write effective instructions for the `/goal` feature — the persistent self-checking agent loop (plan → act → test → review → iterate), available in agents like Codex, Claude Code, and Hermes Agent. Use when the user mentions `/goal`, \"goal loop\", \"Ralph loop\", wants to kick off a long-running autonomous agent run, asks how to write a goal prompt, or wants a one-paragraph goal instruction drafted.",
+          "version": "0.0.0"
+        },
+        {
           "name": "interview-style-doc-building",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/interview-style-doc-building",
-          "description": "Use when David wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
+          "description": "Use when the user wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
           "version": "0.0.0"
         },
         {
@@ -4616,7 +4921,7 @@
         {
           "name": "youtube-transcript",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/youtube-transcript",
-          "description": "Use whenever the user needs the transcript of a YouTube video — fetching, extracting, downloading, or pulling captions/subtitles/transcript text from a YouTube URL. Triggers on \"get the transcript\", \"transcript of this video\", \"pull the captions\", \"download subtitles\", \"what does this YouTube video say\". Primary path is DeepAPI (David's own product); yt-dlp is the local fallback.",
+          "description": "Use whenever the user needs the transcript of a YouTube video — fetching, extracting, downloading, or pulling captions/subtitles/transcript text from a YouTube URL. Triggers on \"get the transcript\", \"transcript of this video\", \"pull the captions\", \"download subtitles\", \"what does this YouTube video say\". Primary path is DeepAPI (go to deepapi.co to get an API key); yt-dlp is the local fallback.",
           "version": "0.0.0"
         }
       ],
@@ -4632,7 +4937,7 @@
       "name": "davidondrej-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-07-06T12:09:06.108Z",
+      "createdAt": "2026-07-07T08:55:16.751Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4646,25 +4951,19 @@
         {
           "name": "brain-to-docs",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/brain-to-docs",
-          "description": "Use when David wants to extract project vision, decisions, and preferences from his head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
-          "version": "0.0.0"
-        },
-        {
-          "name": "codex-goal-loop",
-          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/codex-goal-loop",
-          "description": "Explain and write effective instructions for OpenAI Codex's `/goal` feature — the persistent self-checking agent loop (plan → act → test → review → iterate). Use when the user mentions Codex `/goal`, \"goal loop\", \"Ralph loop\", wants to kick off a long-running autonomous Codex run, asks how to write a goal prompt, or wants a one-paragraph goal instruction drafted.",
+          "description": "Use when the user wants to extract project vision, decisions, and preferences from their head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
           "version": "0.0.0"
         },
         {
           "name": "copywriting",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/copywriting",
-          "description": "How David Ondrej writes copy — voice, tone, and formatting rules. Use when writing any public-facing text for David: tweets, YouTube titles/descriptions, GitHub repo/About descriptions, READMEs, landing pages, bios, or product copy. Differentiator vs `short`: this shapes voice and style of new copy, not compressing an existing answer.",
+          "description": "How David Ondrej writes. Use EVERY time you write copy or any text on David's behalf — tweets, DMs, YouTube titles and descriptions, GitHub About and READMEs, landing pages, bios, emails, product copy, announcements. Covers his two styles (authentic and formal) and when to use each.",
           "version": "0.0.0"
         },
         {
           "name": "cyber-audit",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/cyber-audit",
-          "description": "Read-only exposure audit of David's MacBook (and ~/Documents/ projects) for a CVE, breach, malicious package, or other security advisory, then write a structured report to ~/Documents/. Use when the user shares a breach/CVE/malware/supply-chain advisory and asks if they're affected, says \"scan my system for X\", \"are we affected by Y\", \"check if I'm vulnerable to Z\", or requests any hack/breach/cyber/vulnerability audit on this MacBook. Output matches the existing audit format in ~/Documents/.",
+          "description": "Read-only exposure audit of the user's MacBook (and ~/Documents/code projects) for a CVE, breach, malicious package, or other security advisory, then write a structured report to ~/Documents/security-audits/. Use when the user shares a breach/CVE/malware/supply-chain advisory and asks if they're affected, says \"scan my system for X\", \"are we affected by Y\", \"check if I'm vulnerable to Z\", or requests any hack/breach/cyber/vulnerability audit on this MacBook. Output matches the existing audit format in ~/Documents/security-audits/.",
           "version": "0.0.0"
         },
         {
@@ -4682,7 +4981,13 @@
         {
           "name": "folder-specific-claude-and-agents-md",
           "installUrl": "github:davidondrej/skills:skills/skill-authoring/folder-specific-claude-and-agents-md",
-          "description": "Create a specialized CLAUDE.md (+ AGENTS.md symlink) inside a specific folder to give future agents folder-scoped context. Use when David asks to create a CLAUDE.md for a folder, write folder instructions, or add agent context to a directory.",
+          "description": "Create a specialized CLAUDE.md (+ AGENTS.md symlink) inside a specific folder to give future agents folder-scoped context. Use when the user asks to create a CLAUDE.md for a folder, write folder instructions, or add agent context to a directory.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "goal-loop",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/goal-loop",
+          "description": "Explain and write effective instructions for the `/goal` feature — the persistent self-checking agent loop (plan → act → test → review → iterate), available in agents like Codex, Claude Code, and Hermes Agent. Use when the user mentions `/goal`, \"goal loop\", \"Ralph loop\", wants to kick off a long-running autonomous agent run, asks how to write a goal prompt, or wants a one-paragraph goal instruction drafted.",
           "version": "0.0.0"
         },
         {
@@ -4700,7 +5005,7 @@
         {
           "name": "interview-style-doc-building",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/interview-style-doc-building",
-          "description": "Use when David wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
+          "description": "Use when the user wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
           "version": "0.0.0"
         },
         {
@@ -4712,7 +5017,7 @@
         {
           "name": "read-all-adrs",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/read-all-adrs",
-          "description": "Read every ADR markdown file in the project's docs/adr/ folder so you have full context on past decisions. Use only when David explicitly calls it.",
+          "description": "Read every ADR markdown file in the project's docs/adr/ folder so you have full context on past decisions. Use only when the user explicitly calls it.",
           "version": "0.0.0"
         },
         {
@@ -4724,7 +5029,7 @@
         {
           "name": "short",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/short",
-          "description": "Manually-invoked skill that forces the agent to compress its current answer — strip filler, simplify wording, and cut length while keeping the substance. Use when David says \"short\", \"shorter\", \"simpler\", \"too long\", \"tl;dr\", or wants a more concise version of the previous response.",
+          "description": "Manually-invoked skill that forces the agent to compress its current answer — strip filler, simplify wording, and cut length while keeping the substance. Use when the user says \"short\", \"shorter\", \"simpler\", \"too long\", \"tl;dr\", or wants a more concise version of the previous response.",
           "version": "0.0.0"
         },
         {

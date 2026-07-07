@@ -2,21 +2,27 @@
   "repoUrl": "https://github.com/mvanhorn/last30days-skill.git",
   "owner": "mvanhorn",
   "repo": "last30days-skill",
-  "updatedAt": "2026-06-30T08:27:43.059Z",
+  "updatedAt": "2026-07-07T08:54:21.382Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "last30days",
-      "description": "Research what people actually say about any topic in the last 30 days. Pulls posts and engagement from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web.",
-      "version": "3.8.3",
+      "description": "Research what people actually say about any topic in the last 30 days. Pulls posts and engagement from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web. Includes a doctor health check to diagnose broken or missing sources.",
+      "version": "3.11.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Bash", "Read", "Write", "AskUserQuestion", "WebSearch"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "AskUserQuestion",
+        "WebSearch"
+      ],
       "installUrl": "github:mvanhorn/last30days-skill:skills/last30days",
       "relPath": "skills/last30days",
       "verified": true,
-      "tokenCount": 52803,
+      "tokenCount": 56371,
       "evalSummary": {
         "overallScore": 79,
         "grade": "C",
@@ -64,8 +70,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:27:43.048Z",
-        "evaluatedVersion": "3.8.3"
+        "evaluatedAt": "2026-07-07T08:54:21.370Z",
+        "evaluatedVersion": "3.11.0"
       },
       "evalSummaries": {
         "quality": {
@@ -119,8 +125,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:43.048Z",
-          "evaluatedVersion": "3.8.3"
+          "evaluatedAt": "2026-07-07T08:54:21.370Z",
+          "evaluatedVersion": "3.11.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -137,8 +143,8 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-30T08:27:43.048Z",
-          "evaluatedVersion": "3.8.3"
+          "evaluatedAt": "2026-07-07T08:54:21.370Z",
+          "evaluatedVersion": "3.11.0"
         }
       }
     }

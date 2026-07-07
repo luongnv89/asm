@@ -2,9 +2,146 @@
   "repoUrl": "https://github.com/entireio/skills.git",
   "owner": "entireio",
   "repo": "skills",
-  "updatedAt": "2026-06-30T08:28:30.805Z",
-  "skillCount": 11,
+  "updatedAt": "2026-07-07T08:55:12.637Z",
+  "skillCount": 12,
   "skills": [
+    {
+      "name": "address-findings",
+      "description": "Address the review findings posted on an Entire trail: fetch the trail's open findings, fix the code, and resolve them on the trail. Use when the user gives a trail URL or number and asks to address, fix, or resolve its findings or review comments. Not for local diff review — that is the `review` skill.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:entireio/skills:skills/address-findings",
+      "relPath": "skills/address-findings",
+      "verified": true,
+      "tokenCount": 2099,
+      "evalSummary": {
+        "overallScore": 70,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-07T08:55:12.622Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 70,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-07T08:55:12.622Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-07T08:55:12.622Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
     {
       "name": "explain",
       "description": "Explains the intent behind source code by finding original session transcripts. Use explain with a function, file, or line of code to understand why it exists.",
@@ -64,7 +201,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:28:30.787Z",
+        "evaluatedAt": "2026-07-07T08:55:12.623Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -119,7 +256,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.787Z",
+          "evaluatedAt": "2026-07-07T08:55:12.623Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +274,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.787Z",
+          "evaluatedAt": "2026-07-07T08:55:12.623Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -201,7 +338,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:28:30.789Z",
+        "evaluatedAt": "2026-07-07T08:55:12.623Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -256,7 +393,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.789Z",
+          "evaluatedAt": "2026-07-07T08:55:12.624Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +411,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.789Z",
+          "evaluatedAt": "2026-07-07T08:55:12.624Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -338,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:28:30.790Z",
+        "evaluatedAt": "2026-07-07T08:55:12.625Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -393,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.790Z",
+          "evaluatedAt": "2026-07-07T08:55:12.625Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +548,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.790Z",
+          "evaluatedAt": "2026-07-07T08:55:12.625Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -475,7 +612,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:28:30.792Z",
+        "evaluatedAt": "2026-07-07T08:55:12.626Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -530,7 +667,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.792Z",
+          "evaluatedAt": "2026-07-07T08:55:12.626Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +685,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.792Z",
+          "evaluatedAt": "2026-07-07T08:55:12.626Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -612,7 +749,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:28:30.794Z",
+        "evaluatedAt": "2026-07-07T08:55:12.627Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -667,7 +804,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.794Z",
+          "evaluatedAt": "2026-07-07T08:55:12.627Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +822,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.794Z",
+          "evaluatedAt": "2026-07-07T08:55:12.627Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -749,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:28:30.795Z",
+        "evaluatedAt": "2026-07-07T08:55:12.628Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -804,7 +941,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.795Z",
+          "evaluatedAt": "2026-07-07T08:55:12.628Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +959,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.795Z",
+          "evaluatedAt": "2026-07-07T08:55:12.628Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -886,7 +1023,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:28:30.797Z",
+        "evaluatedAt": "2026-07-07T08:55:12.630Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -941,7 +1078,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.797Z",
+          "evaluatedAt": "2026-07-07T08:55:12.630Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +1096,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.797Z",
+          "evaluatedAt": "2026-07-07T08:55:12.630Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1023,7 +1160,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:28:30.798Z",
+        "evaluatedAt": "2026-07-07T08:55:12.631Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1078,7 +1215,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.798Z",
+          "evaluatedAt": "2026-07-07T08:55:12.631Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1096,7 +1233,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.798Z",
+          "evaluatedAt": "2026-07-07T08:55:12.631Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1160,7 +1297,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:28:30.800Z",
+        "evaluatedAt": "2026-07-07T08:55:12.633Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1215,7 +1352,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.800Z",
+          "evaluatedAt": "2026-07-07T08:55:12.633Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1370,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.800Z",
+          "evaluatedAt": "2026-07-07T08:55:12.633Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1297,7 +1434,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:28:30.801Z",
+        "evaluatedAt": "2026-07-07T08:55:12.634Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1352,7 +1489,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.802Z",
+          "evaluatedAt": "2026-07-07T08:55:12.634Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1507,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.802Z",
+          "evaluatedAt": "2026-07-07T08:55:12.634Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1434,7 +1571,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-30T08:28:30.804Z",
+        "evaluatedAt": "2026-07-07T08:55:12.636Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1489,7 +1626,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.804Z",
+          "evaluatedAt": "2026-07-07T08:55:12.636Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1644,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-06-30T08:28:30.804Z",
+          "evaluatedAt": "2026-07-07T08:55:12.636Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1519,7 +1656,7 @@
       "name": "entireio-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from entireio/skills.",
       "author": "ASM (entireio/skills)",
-      "createdAt": "2026-06-30T08:28:30.805Z",
+      "createdAt": "2026-07-07T08:55:12.637Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1530,6 +1667,12 @@
         "skills"
       ],
       "skills": [
+        {
+          "name": "address-findings",
+          "installUrl": "github:entireio/skills:skills/address-findings",
+          "description": "Address the review findings posted on an Entire trail: fetch the trail's open findings, fix the code, and resolve them on the trail. Use when the user gives a trail URL or number and asks to address, fix, or resolve its findings or review comments. Not for local diff review — that is the `review` skill.",
+          "version": "0.0.0"
+        },
         {
           "name": "explain",
           "installUrl": "github:entireio/skills:skills/explain",
@@ -1585,7 +1728,7 @@
       "name": "entireio-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from entireio/skills.",
       "author": "ASM (entireio/skills)",
-      "createdAt": "2026-06-30T08:28:30.805Z",
+      "createdAt": "2026-07-07T08:55:12.637Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1621,7 +1764,7 @@
       "name": "entireio-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from entireio/skills.",
       "author": "ASM (entireio/skills)",
-      "createdAt": "2026-06-30T08:28:30.805Z",
+      "createdAt": "2026-07-07T08:55:12.637Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1632,6 +1775,12 @@
         "skills"
       ],
       "skills": [
+        {
+          "name": "address-findings",
+          "installUrl": "github:entireio/skills:skills/address-findings",
+          "description": "Address the review findings posted on an Entire trail: fetch the trail's open findings, fix the code, and resolve them on the trail. Use when the user gives a trail URL or number and asks to address, fix, or resolve its findings or review comments. Not for local diff review — that is the `review` skill.",
+          "version": "0.0.0"
+        },
         {
           "name": "explain",
           "installUrl": "github:entireio/skills:skills/explain",
@@ -1669,7 +1818,7 @@
       "name": "entireio-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from entireio/skills.",
       "author": "ASM (entireio/skills)",
-      "createdAt": "2026-06-30T08:28:30.805Z",
+      "createdAt": "2026-07-07T08:55:12.637Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1705,7 +1854,7 @@
       "name": "entireio-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from entireio/skills.",
       "author": "ASM (entireio/skills)",
-      "createdAt": "2026-06-30T08:28:30.805Z",
+      "createdAt": "2026-07-07T08:55:12.637Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1716,6 +1865,12 @@
         "skills"
       ],
       "skills": [
+        {
+          "name": "address-findings",
+          "installUrl": "github:entireio/skills:skills/address-findings",
+          "description": "Address the review findings posted on an Entire trail: fetch the trail's open findings, fix the code, and resolve them on the trail. Use when the user gives a trail URL or number and asks to address, fix, or resolve its findings or review comments. Not for local diff review — that is the `review` skill.",
+          "version": "0.0.0"
+        },
         {
           "name": "review",
           "installUrl": "github:entireio/skills:skills/review",
