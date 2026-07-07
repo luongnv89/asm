@@ -193,7 +193,7 @@ export default function StatsPage() {
           {authors.slice(0, 15).map((a, i) => (
             <div
               key={a.owner}
-              className="grid grid-cols-[1.5rem_minmax(0,1fr)_auto_auto] items-center gap-3 text-sm py-2 border-b border-[var(--border)] last:border-0"
+              className="grid grid-cols-[1.5rem_minmax(0,1fr)_auto_auto] sm:grid-cols-[1.5rem_minmax(0,1fr)_auto_auto_auto] items-center gap-3 text-sm py-2 border-b border-[var(--border)] last:border-0"
             >
               <span className="w-6 text-right font-mono text-[var(--fg-muted)]">
                 {i + 1}
