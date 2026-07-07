@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Eye } from "lucide-react";
 import { useCatalog } from "../hooks/useCatalog.jsx";
 import { Badge } from "../components/ui/badge";
+import { Button } from "../components/ui/button";
+import CategoryPieChart from "../components/CategoryPieChart";
 import CopyButton from "../components/CopyButton";
 
 /**
@@ -11,23 +14,6 @@ import CopyButton from "../components/CopyButton";
  * Data comes from the build-time artifacts (repo-stats.json, author-stats.json,
  * index-stats.json) shipped alongside the catalog.
  */
-
-function cssBar(value, max) {
-  const pct = max > 0 ? Math.max(4, Math.round((value / max) * 100)) : 0;
-  return (
-    <span className="block h-2 min-w-0 rounded-full bg-[var(--bg-muted)]">
-      <span
-        className="block h-2 rounded-full bg-emerald-400"
-        style={{ width: `${pct}%` }}
-      />
-    </span>
-  );
-}
-
-function profileShareUrl(owner) {
-  if (typeof window === "undefined") return `#/profile/${owner}`;
-  return `${window.location.origin}${window.location.pathname}#/profile/${encodeURIComponent(owner)}`;
-}
 
 function SectionTitle({ children }) {
   return (
@@ -96,7 +82,6 @@ export default function StatsPage() {
     }
   }
   const catEntries = Object.entries(catCounts).sort((a, b) => b[1] - a[1]);
-  const maxCatCount = catEntries.length > 0 ? catEntries[0][1] : 1;
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -124,25 +109,7 @@ export default function StatsPage() {
       {catEntries.length > 0 && (
         <section>
           <SectionTitle>Category Distribution</SectionTitle>
-          <div className="space-y-1">
-            {catEntries.map(([cat, count]) => (
-              <div
-                key={cat}
-                className="grid grid-cols-[minmax(5rem,8rem)_minmax(0,1fr)_2.5rem] items-center gap-3 text-sm"
-              >
-                <span
-                  className="text-right text-[var(--fg)] truncate"
-                  title={cat}
-                >
-                  {cat}
-                </span>
-                <span className="min-w-0">{cssBar(count, maxCatCount)}</span>
-                <span className="text-right font-mono text-[var(--fg-dim)]">
-                  {count}
-                </span>
-              </div>
-            ))}
-          </div>
+          <CategoryPieChart entries={catEntries} />
         </section>
       )}
 
@@ -210,7 +177,15 @@ export default function StatsPage() {
               <Badge variant="secondary" className="text-xs">
                 {a.totalSkills} skills
               </Badge>
-              <CopyButton text={profileShareUrl(a.owner)} size="sm" />
+              <Button variant="outline" size="sm" asChild>
+                <Link
+                  to={`/profile/${encodeURIComponent(a.owner)}`}
+                  aria-label={`View stats for ${a.owner}`}
+                >
+                  <Eye className="h-3 w-3 mr-1" aria-hidden="true" />
+                  View
+                </Link>
+              </Button>
             </div>
           ))}
           {authors.length === 0 && (

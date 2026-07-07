@@ -1,6 +1,7 @@
 /** @vitest-environment jsdom */
 import { afterEach, describe, expect, it } from "vitest";
 import { cleanup, render, screen } from "@testing-library/react";
+import { HashRouter } from "react-router-dom";
 import SkillDetail from "../components/SkillDetail.jsx";
 
 /**
@@ -34,7 +35,11 @@ const baseSkill = {
 };
 
 function renderDetail(props) {
-  return render(<SkillDetail slim={baseSkill} {...props} />);
+  return render(
+    <HashRouter>
+      <SkillDetail slim={baseSkill} {...props} />
+    </HashRouter>,
+  );
 }
 
 describe("SkillDetail — Quick Start section (issue #273)", () => {
@@ -90,7 +95,11 @@ describe("SkillDetail — Quick Start section (issue #273)", () => {
       ...baseSkill,
       installUrl: "github:custom/path:to/skill",
     };
-    render(<SkillDetail slim={customSkill} />);
+    render(
+      <HashRouter>
+        <SkillDetail slim={customSkill} />
+      </HashRouter>,
+    );
     expect(
       screen.getByText("asm audit security github:custom/path:to/skill"),
     ).toBeTruthy();
@@ -114,7 +123,11 @@ describe("SkillDetail — Quick Start section (issue #273)", () => {
       ...baseSkill,
       installUrl: undefined,
     };
-    render(<SkillDetail slim={skillWithoutUrl} />);
+    render(
+      <HashRouter>
+        <SkillDetail slim={skillWithoutUrl} />
+      </HashRouter>,
+    );
     expect(screen.queryByText("Quick Start")).toBeNull();
   });
 
@@ -123,7 +136,38 @@ describe("SkillDetail — Quick Start section (issue #273)", () => {
       ...baseSkill,
       installUrl: null,
     };
-    render(<SkillDetail slim={skillWithNullUrl} />);
+    render(
+      <HashRouter>
+        <SkillDetail slim={skillWithNullUrl} />
+      </HashRouter>,
+    );
     expect(screen.queryByText("Quick Start")).toBeNull();
+  });
+});
+
+describe("SkillDetail — author stats link (issue #351)", () => {
+  afterEach(() => cleanup());
+
+  it("renders a labeled link to the author stats page", () => {
+    renderDetail();
+    const link = screen.getByRole("link", { name: "View stats for test" });
+    expect(link.getAttribute("href")).toBe("#/profile/test");
+    expect(screen.getByText("Author stats")).toBeTruthy();
+  });
+
+  it("uses the skill owner in the profile link href", () => {
+    const customSkill = {
+      ...baseSkill,
+      owner: "custom-author",
+    };
+    render(
+      <HashRouter>
+        <SkillDetail slim={customSkill} />
+      </HashRouter>,
+    );
+    const link = screen.getByRole("link", {
+      name: "View stats for custom-author",
+    });
+    expect(link.getAttribute("href")).toBe("#/profile/custom-author");
   });
 });

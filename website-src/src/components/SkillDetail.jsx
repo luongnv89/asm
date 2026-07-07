@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { evalScoreClass, formatTokens } from "../lib/utils.js";
 import CopyButton from "./CopyButton.jsx";
 import AddToBundleButton from "./AddToBundleButton.jsx";
@@ -110,6 +111,14 @@ export default function SkillDetail({ slim }) {
           >
             {skill.owner}/{skill.repo}
           </a>
+        </Row>
+        <Row label="Author stats">
+          <Link
+            to={`/profile/${encodeURIComponent(skill.owner)}`}
+            className="text-[var(--brand)] hover:underline"
+          >
+            View stats for {skill.owner}
+          </Link>
         </Row>
         <Row label="Categories">
           <div className="flex flex-wrap gap-1">
