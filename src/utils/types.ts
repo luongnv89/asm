@@ -189,6 +189,28 @@ export interface ExportManifest {
 
 // ─── Import Types ──────────────────────────────────────────────────────────
 
+/**
+ * A skill that exists both locally (at the import target) and in the manifest
+ * source, with differing content. Timestamps are the latest file
+ * mtime found in each tree, so "newer" reflects the most recent edit.
+ */
+export interface ImportConflict {
+  skillName: string;
+  provider: string;
+  scope: "global" | "project";
+  /** The local version — the directory the import would overwrite. */
+  targetDir: string;
+  /** The imported version — the source install the manifest resolves to. */
+  sourcePath: string;
+  /** ISO timestamp of the last modification in the local tree. */
+  localModified: string;
+  /** ISO timestamp of the last modification in the imported tree. */
+  importedModified: string;
+  newer: "local" | "imported" | "same";
+}
+
+export type ImportConflictChoice = "keep-local" | "use-imported" | "skip";
+
 export interface ImportResult {
   skillName: string;
   provider: string;
@@ -196,6 +218,8 @@ export interface ImportResult {
   status: "installed" | "skipped" | "failed" | "dry-run";
   reason?: string;
   path?: string;
+  /** Present when this skill was detected as a conflict. */
+  conflict?: ImportConflict;
 }
 
 export interface ImportSummary {
@@ -203,6 +227,8 @@ export interface ImportSummary {
   installed: number;
   skipped: number;
   failed: number;
+  /** Number of results that carried conflict information. */
+  conflicts: number;
   results: ImportResult[];
 }
 

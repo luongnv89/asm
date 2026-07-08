@@ -87,7 +87,8 @@ import {
 } from "./registry";
 import type { RegistryManifest, ResolutionSource } from "./registry";
 import { buildManifest } from "./exporter";
-import { readManifestFile, importSkills } from "./importer";
+import { readManifestFile, importSkills, renderConflictDiff } from "./importer";
+import type { ImportConflict, ImportConflictChoice } from "./utils/types";
 import { scaffoldSkill, directoryExists } from "./initializer";
 import {
   computeStats,
@@ -279,6 +280,8 @@ interface ParsedArgs {
     has: string[];
     missing: string[];
     dryRun: boolean;
+    /** `asm import --diff` — show unified diffs for conflicts. */
+    diff: boolean;
     machine: boolean;
     noCache: boolean;
     fix: boolean;
@@ -352,6 +355,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       has: [],
       missing: [],
       dryRun: false,
+      diff: false,
       machine: false,
       noCache: false,
       fix: false,
@@ -494,6 +498,8 @@ export function parseArgs(argv: string[]): ParsedArgs {
       result.flags.path = args[i] || null;
     } else if (arg === "--dry-run") {
       result.flags.dryRun = true;
+    } else if (arg === "--diff") {
+      result.flags.diff = true;
     } else if (arg === "--fix") {
       result.flags.fix = true;
     } else if (arg === "--machine") {
@@ -3704,20 +3710,26 @@ function printImportHelp() {
 Import skills from a previously exported JSON manifest. Recreates skill
 installations based on the manifest metadata.
 
-Skills that already exist at the target location are skipped unless --force
-is used. Skills whose source files cannot be found locally are reported as
-failed — install them first with "asm install".
+Skills that already exist with identical content are skipped. When an
+existing skill differs from the imported version, the conflict is reported
+with which side is newer; in a terminal you can resolve each conflict
+(keep local, use imported, or skip), optionally viewing a diff. --force
+overwrites all conflicts without asking. Skills whose source files cannot
+be found locally are reported as failed — install them first with
+"asm install".
 
 ${ansi.bold("Options:")}
   -s, --scope <s>    Filter: global, project, or both (default: both)
-  -f, --force        Overwrite existing skills
-  -y, --yes          Skip confirmation prompt
-  --json             Output results as JSON
+  -f, --force        Overwrite existing skills without conflict prompts
+  --diff             Show unified diffs for conflicting skills
+  -y, --yes          Skip prompts (conflicts are skipped and reported)
+  --json             Output results as JSON (includes conflict details)
   --no-color         Disable ANSI colors
   -V, --verbose      Show debug output
 
 ${ansi.bold("Examples:")}
   asm import skills.json              ${ansi.dim("Import from manifest")}
+  asm import skills.json --diff       ${ansi.dim("Show diffs for conflicting skills")}
   asm import skills.json --force      ${ansi.dim("Overwrite existing skills")}
   asm import skills.json -s global    ${ansi.dim("Import only global skills")}
   asm export > backup.json            ${ansi.dim("Export first, then import later")}
@@ -3755,7 +3767,14 @@ async function cmdImport(args: ParsedArgs) {
     if (args.flags.json) {
       console.log(
         JSON.stringify(
-          { total: 0, installed: 0, skipped: 0, failed: 0, results: [] },
+          {
+            total: 0,
+            installed: 0,
+            skipped: 0,
+            failed: 0,
+            conflicts: 0,
+            results: [],
+          },
           null,
           2,
         ),
@@ -3789,12 +3808,76 @@ async function cmdImport(args: ParsedArgs) {
     }
   }
 
+  // Conflicts (existing skill with different content) are resolved
+  // interactively on a TTY unless --force or --yes was given; otherwise
+  // they are skipped and reported.
+  const interactive =
+    !args.flags.force && !args.flags.yes && !!process.stdin.isTTY;
+  const showDiff = args.flags.diff;
+
+  async function promptForConflict(
+    conflict: ImportConflict,
+  ): Promise<ImportConflictChoice> {
+    const mark = (side: "local" | "imported") =>
+      conflict.newer === side
+        ? ` ${ansi.green("(newer)")}`
+        : conflict.newer === "same"
+          ? ""
+          : ` ${ansi.dim("(older)")}`;
+    console.error("");
+    console.error(
+      `${ansi.bold("Conflict:")} ${conflict.skillName} (${conflict.provider}/${conflict.scope})`,
+    );
+    console.error(`  local:    ${conflict.localModified}${mark("local")}`);
+    console.error(
+      `  imported: ${conflict.importedModified}${mark("imported")}`,
+    );
+
+    let diffShown = false;
+    if (showDiff) {
+      const diff = await renderConflictDiff(conflict);
+      console.error(diff ? `\n${diff}\n` : "  (no textual differences found)");
+      diffShown = true;
+    }
+
+    for (;;) {
+      process.stderr.write(
+        `  [k] keep local  [u] use imported  [s] skip${diffShown ? "" : "  [d] show diff"}  ${ansi.dim("[s]")} `,
+      );
+      const answer = (await readLine()).trim().toLowerCase();
+      if (answer === "k" || answer === "keep") return "keep-local";
+      if (answer === "u" || answer === "use") return "use-imported";
+      if (answer === "" || answer === "s" || answer === "skip") return "skip";
+      if (answer === "d" || answer === "diff") {
+        const diff = await renderConflictDiff(conflict);
+        console.error(
+          diff ? `\n${diff}\n` : "  (no textual differences found)",
+        );
+        diffShown = true;
+      }
+    }
+  }
+
   // Run import
   const summary = await importSkills(manifest, {
     force: args.flags.force,
     dryRun: false,
     scopeFilter: args.flags.scope,
+    onConflict: interactive ? promptForConflict : undefined,
   });
+
+  // Non-interactive --diff: print the diff for each detected conflict so the
+  // user can inspect before deciding on --force or an interactive run.
+  if (showDiff && !interactive) {
+    for (const result of summary.results) {
+      if (!result.conflict) continue;
+      const diff = await renderConflictDiff(result.conflict);
+      console.error(
+        `\n${ansi.bold(`Conflict diff: ${result.skillName} (${result.provider}/${result.scope})`)} ${ansi.dim("local -> imported")}`,
+      );
+      console.error(diff || "  (no textual differences found)");
+    }
+  }
 
   // Output results
   if (args.flags.json) {
@@ -3827,12 +3910,24 @@ async function cmdImport(args: ParsedArgs) {
   }
 
   console.error("");
+  const conflictsPart =
+    summary.conflicts > 0
+      ? `, ${ansi.yellow(String(summary.conflicts))} conflicts`
+      : "";
   console.error(
     `${ansi.bold("Summary:")} ${summary.total} total, ` +
       `${ansi.green(String(summary.installed))} installed, ` +
       `${ansi.yellow(String(summary.skipped))} skipped, ` +
-      `${ansi.red(String(summary.failed))} failed`,
+      `${ansi.red(String(summary.failed))} failed${conflictsPart}`,
   );
+
+  if (summary.conflicts > 0 && !interactive && !args.flags.force) {
+    console.error(
+      ansi.dim(
+        "Conflicts were skipped. Re-run in a terminal to resolve each one, add --diff to inspect, or --force to overwrite all.",
+      ),
+    );
+  }
 
   if (summary.failed > 0) {
     process.exitCode = 1;

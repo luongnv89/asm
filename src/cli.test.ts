@@ -1150,6 +1150,13 @@ describe("parseArgs: install", () => {
     expect(result.flags.library).toBe(true);
   });
 
+  test("parses import --diff", () => {
+    const result = parse("import", "skills.json", "--diff");
+    expect(result.command).toBe("import");
+    expect(result.subcommand).toBe("skills.json");
+    expect(result.flags.diff).toBe(true);
+  });
+
   test("parses --provider flag", () => {
     const result = parse("install", "github:user/repo", "--provider", "claude");
     expect(result.flags.provider).toBe("claude");

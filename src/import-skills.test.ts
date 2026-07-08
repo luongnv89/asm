@@ -6,17 +6,25 @@ import {
   rm,
   readdir,
   readlink,
+  readFile,
   lstat,
+  utimes,
 } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
-import { importSkills } from "./importer";
+import {
+  importSkills,
+  skillDirsIdentical,
+  buildImportConflict,
+  renderConflictDiff,
+} from "./importer";
 import type {
   ExportManifest,
   ExportedSkill,
   AppConfig,
   ProviderConfig,
   SkillInfo,
+  ImportConflict,
 } from "./utils/types";
 
 // ─── Shared test temp dir ────────────────────────────────────────────────────
@@ -451,5 +459,365 @@ describe("importSkills", () => {
     expect(stat.isDirectory()).toBe(true);
     const files = await readdir(targetPath);
     expect(files).toContain("skill.md");
+  });
+});
+
+// ─── Conflict detection & safe overwrite ────────────────────────
+
+describe("importSkills conflicts", () => {
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "importer-conflict-"));
+    globalSkillsDir = join(tempDir, "global-skills");
+    projectSkillsDir = join(tempDir, "project-skills");
+    sourceSkillsDir = join(tempDir, "source-skills");
+    await mkdir(globalSkillsDir, { recursive: true });
+    await mkdir(projectSkillsDir, { recursive: true });
+    await mkdir(sourceSkillsDir, { recursive: true });
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  async function makeSkillDir(dir: string, content: string): Promise<void> {
+    await mkdir(dir, { recursive: true });
+    await writeFile(join(dir, "SKILL.md"), content);
+  }
+
+  const HOUR = 60 * 60 * 1000;
+
+  it("does not delete the skill when the manifest source is the target itself (self-import regression)", async () => {
+    // `asm export` then `asm import --force` on the same machine resolves the
+    // copy source to the install being overwritten. The old remove-then-copy
+    // deleted the only copy and then failed with ENOENT.
+    const targetDir = join(globalSkillsDir, "test-skill");
+    await makeSkillDir(targetDir, "# Precious content");
+
+    const deps = makeDeps({
+      installedSkills: [
+        makeSkillInfo({
+          realPath: targetDir,
+          path: targetDir,
+          originalPath: targetDir,
+        }),
+      ],
+    });
+
+    const summary = await importSkills(
+      makeManifest(),
+      { force: true, dryRun: false, scopeFilter: "both" },
+      deps,
+    );
+
+    expect(summary.failed).toBe(0);
+    expect(summary.results[0].status).toBe("skipped");
+    await expect(readFile(join(targetDir, "SKILL.md"), "utf-8")).resolves.toBe(
+      "# Precious content",
+    );
+  });
+
+  it("skips without a conflict when existing content is identical", async () => {
+    const targetDir = join(globalSkillsDir, "test-skill");
+    const srcDir = join(sourceSkillsDir, "test-skill");
+    await makeSkillDir(targetDir, "# Same");
+    await makeSkillDir(srcDir, "# Same");
+
+    const deps = makeDeps({
+      installedSkills: [makeSkillInfo({ realPath: srcDir })],
+    });
+
+    const summary = await importSkills(
+      makeManifest(),
+      { force: false, dryRun: false, scopeFilter: "both" },
+      deps,
+    );
+
+    expect(summary.conflicts).toBe(0);
+    expect(summary.results[0].status).toBe("skipped");
+    expect(summary.results[0].reason).toContain("Already installed");
+    expect(summary.results[0].conflict).toBeUndefined();
+  });
+
+  it("reports a conflict with the newer side when contents differ (local newer)", async () => {
+    const targetDir = join(globalSkillsDir, "test-skill");
+    const srcDir = join(sourceSkillsDir, "test-skill");
+    await makeSkillDir(targetDir, "# Local edit");
+    await makeSkillDir(srcDir, "# Imported edit");
+    const now = new Date();
+    const earlier = new Date(now.getTime() - HOUR);
+    await utimes(join(targetDir, "SKILL.md"), now, now);
+    await utimes(join(srcDir, "SKILL.md"), earlier, earlier);
+
+    const deps = makeDeps({
+      installedSkills: [makeSkillInfo({ realPath: srcDir })],
+    });
+
+    const summary = await importSkills(
+      makeManifest(),
+      { force: false, dryRun: false, scopeFilter: "both" },
+      deps,
+    );
+
+    expect(summary.conflicts).toBe(1);
+    const result = summary.results[0];
+    expect(result.status).toBe("skipped");
+    expect(result.reason).toContain("Conflict");
+    expect(result.reason).toContain("local version is newer");
+    expect(result.conflict?.newer).toBe("local");
+    // Local content untouched
+    await expect(readFile(join(targetDir, "SKILL.md"), "utf-8")).resolves.toBe(
+      "# Local edit",
+    );
+  });
+
+  it("reports the imported side as newer when the source was modified later", async () => {
+    const targetDir = join(globalSkillsDir, "test-skill");
+    const srcDir = join(sourceSkillsDir, "test-skill");
+    await makeSkillDir(targetDir, "# Local");
+    await makeSkillDir(srcDir, "# Imported");
+    const now = new Date();
+    const earlier = new Date(now.getTime() - HOUR);
+    await utimes(join(targetDir, "SKILL.md"), earlier, earlier);
+    await utimes(join(srcDir, "SKILL.md"), now, now);
+
+    const deps = makeDeps({
+      installedSkills: [makeSkillInfo({ realPath: srcDir })],
+    });
+
+    const summary = await importSkills(
+      makeManifest(),
+      { force: false, dryRun: false, scopeFilter: "both" },
+      deps,
+    );
+
+    expect(summary.results[0].reason).toContain("imported version is newer");
+    expect(summary.results[0].conflict?.newer).toBe("imported");
+  });
+
+  it("resolves a conflict with use-imported via the onConflict callback", async () => {
+    const targetDir = join(globalSkillsDir, "test-skill");
+    const srcDir = join(sourceSkillsDir, "test-skill");
+    await makeSkillDir(targetDir, "# Local");
+    await makeSkillDir(srcDir, "# Imported");
+
+    const seen: ImportConflict[] = [];
+    const deps = makeDeps({
+      installedSkills: [makeSkillInfo({ realPath: srcDir })],
+    });
+
+    const summary = await importSkills(
+      makeManifest(),
+      {
+        force: false,
+        dryRun: false,
+        scopeFilter: "both",
+        onConflict: async (c) => {
+          seen.push(c);
+          return "use-imported";
+        },
+      },
+      deps,
+    );
+
+    expect(seen).toHaveLength(1);
+    expect(summary.installed).toBe(1);
+    expect(summary.conflicts).toBe(1);
+    expect(summary.results[0].status).toBe("installed");
+    await expect(readFile(join(targetDir, "SKILL.md"), "utf-8")).resolves.toBe(
+      "# Imported",
+    );
+  });
+
+  it("keeps the local version when the callback answers keep-local", async () => {
+    const targetDir = join(globalSkillsDir, "test-skill");
+    const srcDir = join(sourceSkillsDir, "test-skill");
+    await makeSkillDir(targetDir, "# Local");
+    await makeSkillDir(srcDir, "# Imported");
+
+    const deps = makeDeps({
+      installedSkills: [makeSkillInfo({ realPath: srcDir })],
+    });
+
+    const summary = await importSkills(
+      makeManifest(),
+      {
+        force: false,
+        dryRun: false,
+        scopeFilter: "both",
+        onConflict: async () => "keep-local",
+      },
+      deps,
+    );
+
+    expect(summary.results[0].status).toBe("skipped");
+    expect(summary.results[0].reason).toContain("kept local");
+    await expect(readFile(join(targetDir, "SKILL.md"), "utf-8")).resolves.toBe(
+      "# Local",
+    );
+  });
+
+  it("skips the skill when the callback answers skip", async () => {
+    const targetDir = join(globalSkillsDir, "test-skill");
+    const srcDir = join(sourceSkillsDir, "test-skill");
+    await makeSkillDir(targetDir, "# Local");
+    await makeSkillDir(srcDir, "# Imported");
+
+    const deps = makeDeps({
+      installedSkills: [makeSkillInfo({ realPath: srcDir })],
+    });
+
+    const summary = await importSkills(
+      makeManifest(),
+      {
+        force: false,
+        dryRun: false,
+        scopeFilter: "both",
+        onConflict: async () => "skip",
+      },
+      deps,
+    );
+
+    expect(summary.results[0].status).toBe("skipped");
+    expect(summary.results[0].reason).toContain("Conflict: skipped");
+    await expect(readFile(join(targetDir, "SKILL.md"), "utf-8")).resolves.toBe(
+      "# Local",
+    );
+  });
+
+  it("force still overwrites a differing skill (existing escape hatch)", async () => {
+    const targetDir = join(globalSkillsDir, "test-skill");
+    const srcDir = join(sourceSkillsDir, "test-skill");
+    await makeSkillDir(targetDir, "# Local");
+    await makeSkillDir(srcDir, "# Imported");
+
+    const deps = makeDeps({
+      installedSkills: [makeSkillInfo({ realPath: srcDir })],
+    });
+
+    const summary = await importSkills(
+      makeManifest(),
+      { force: true, dryRun: false, scopeFilter: "both" },
+      deps,
+    );
+
+    expect(summary.installed).toBe(1);
+    await expect(readFile(join(targetDir, "SKILL.md"), "utf-8")).resolves.toBe(
+      "# Imported",
+    );
+  });
+});
+
+describe("skillDirsIdentical", () => {
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "dirs-identical-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  it("returns true for identical trees including nested directories", async () => {
+    const a = join(tempDir, "a");
+    const b = join(tempDir, "b");
+    await mkdir(join(a, "nested"), { recursive: true });
+    await mkdir(join(b, "nested"), { recursive: true });
+    await writeFile(join(a, "SKILL.md"), "# Same");
+    await writeFile(join(b, "SKILL.md"), "# Same");
+    await writeFile(join(a, "nested", "ref.md"), "ref");
+    await writeFile(join(b, "nested", "ref.md"), "ref");
+
+    await expect(skillDirsIdentical(a, b)).resolves.toBe(true);
+  });
+
+  it("returns false when file contents differ", async () => {
+    const a = join(tempDir, "a");
+    const b = join(tempDir, "b");
+    await mkdir(a, { recursive: true });
+    await mkdir(b, { recursive: true });
+    await writeFile(join(a, "SKILL.md"), "# One");
+    await writeFile(join(b, "SKILL.md"), "# Two");
+
+    await expect(skillDirsIdentical(a, b)).resolves.toBe(false);
+  });
+
+  it("returns false when one tree has an extra file", async () => {
+    const a = join(tempDir, "a");
+    const b = join(tempDir, "b");
+    await mkdir(a, { recursive: true });
+    await mkdir(b, { recursive: true });
+    await writeFile(join(a, "SKILL.md"), "# Same");
+    await writeFile(join(b, "SKILL.md"), "# Same");
+    await writeFile(join(b, "extra.txt"), "surplus");
+
+    await expect(skillDirsIdentical(a, b)).resolves.toBe(false);
+  });
+
+  it("ignores .git directories", async () => {
+    const a = join(tempDir, "a");
+    const b = join(tempDir, "b");
+    await mkdir(join(a, ".git"), { recursive: true });
+    await mkdir(b, { recursive: true });
+    await writeFile(join(a, "SKILL.md"), "# Same");
+    await writeFile(join(b, "SKILL.md"), "# Same");
+    await writeFile(join(a, ".git", "HEAD"), "ref: refs/heads/main");
+
+    await expect(skillDirsIdentical(a, b)).resolves.toBe(true);
+  });
+});
+
+describe("buildImportConflict / renderConflictDiff", () => {
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "conflict-diff-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  it("reports same-age trees as 'same' within the mtime epsilon", async () => {
+    const local = join(tempDir, "local");
+    const imported = join(tempDir, "imported");
+    await mkdir(local, { recursive: true });
+    await mkdir(imported, { recursive: true });
+    await writeFile(join(local, "SKILL.md"), "# A");
+    await writeFile(join(imported, "SKILL.md"), "# B");
+    const when = new Date();
+    await utimes(join(local, "SKILL.md"), when, when);
+    await utimes(join(imported, "SKILL.md"), when, when);
+
+    const conflict = await buildImportConflict(
+      makeExportedSkill(),
+      imported,
+      local,
+    );
+    expect(conflict.newer).toBe("same");
+  });
+
+  it("renders per-file unified diffs and added/removed notes", async () => {
+    const local = join(tempDir, "local");
+    const imported = join(tempDir, "imported");
+    await mkdir(local, { recursive: true });
+    await mkdir(imported, { recursive: true });
+    await writeFile(join(local, "SKILL.md"), "shared\nlocal line\n");
+    await writeFile(join(imported, "SKILL.md"), "shared\nimported line\n");
+    await writeFile(join(local, "only-local.md"), "x");
+    await writeFile(join(imported, "only-imported.md"), "y");
+
+    const conflict: ImportConflict = {
+      skillName: "test-skill",
+      provider: "claude",
+      scope: "global",
+      targetDir: local,
+      sourcePath: imported,
+      localModified: new Date().toISOString(),
+      importedModified: new Date().toISOString(),
+      newer: "same",
+    };
+
+    const diff = await renderConflictDiff(conflict);
+    expect(diff).toContain("-local line");
+    expect(diff).toContain("+imported line");
+    expect(diff).toContain("only in local: only-local.md");
+    expect(diff).toContain("only in imported: only-imported.md");
   });
 });
