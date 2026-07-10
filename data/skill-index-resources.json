@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-06T12:06:19Z",
+  "updatedAt": "2026-07-10T00:00:00Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -485,6 +485,15 @@
       "repo": "skills",
       "description": "access to david ondrej's personal agent skills",
       "maintainer": "@davidondrej",
+      "enabled": true
+    },
+    {
+      "source": "github:emilkowalski/skills",
+      "url": "https://github.com/emilkowalski/skills",
+      "owner": "emilkowalski",
+      "repo": "skills",
+      "description": "Design-engineering skills — animations, Apple design patterns, and UI craft",
+      "maintainer": "@emilkowalski",
       "enabled": true
     }
   ]

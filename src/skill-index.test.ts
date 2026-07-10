@@ -222,4 +222,33 @@ describe("Index resource integrity", () => {
       expect(idx.skillCount).toBeGreaterThan(0);
     }
   });
+
+  it("indexes emilkowalski/skills with expected skills and install URLs", async () => {
+    const indices = await loadAllIndices();
+    const emil = indices.find(
+      (idx) => idx.owner === "emilkowalski" && idx.repo === "skills",
+    );
+    expect(emil).toBeDefined();
+    expect(emil!.skillCount).toBe(4);
+    const names = new Set(emil!.skills.map((s) => s.name));
+    expect(names).toEqual(
+      new Set([
+        "emil-design-eng",
+        "review-animations",
+        "animation-vocabulary",
+        "apple-design",
+      ]),
+    );
+    for (const skill of emil!.skills) {
+      expect(skill.installUrl).toMatch(/^github:emilkowalski\/skills:/);
+    }
+  });
+
+  it("discovers emil-design-eng via search without duplicate repo entries", async () => {
+    const results = await searchSkills("emil-design-eng", 20);
+    const emilHits = results.filter(
+      (r) => r.repo.owner === "emilkowalski" && r.skill.name === "emil-design-eng",
+    );
+    expect(emilHits).toHaveLength(1);
+  });
 });
