@@ -244,9 +244,7 @@ describe("formatStatsReport", () => {
 
 // ─── computeRepoStats ────────────────────────────────────────────────────────
 
-function makeRepoIndex(
-  overrides: Partial<RepoIndex> = {},
-): RepoIndex {
+function makeRepoIndex(overrides: Partial<RepoIndex> = {}): RepoIndex {
   return {
     repoUrl: "https://github.com/test/repo",
     owner: "test",
@@ -313,24 +311,56 @@ describe("computeRepoStats", () => {
       owner: "user",
       repo: "small",
       skills: [
-        { name: "a", description: "", version: "1.0.0", license: "MIT",
-          creator: "", compatibility: "claude", allowedTools: [],
-          installUrl: "github:user/small:a", relPath: "a" },
+        {
+          name: "a",
+          description: "",
+          version: "1.0.0",
+          license: "MIT",
+          creator: "",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:user/small:a",
+          relPath: "a",
+        },
       ],
     });
     const indexB = makeRepoIndex({
       owner: "user",
       repo: "big",
       skills: [
-        { name: "a", description: "", version: "1.0.0", license: "MIT",
-          creator: "", compatibility: "claude", allowedTools: [],
-          installUrl: "github:user/big:a", relPath: "a" },
-        { name: "b", description: "", version: "1.0.0", license: "MIT",
-          creator: "", compatibility: "claude", allowedTools: [],
-          installUrl: "github:user/big:b", relPath: "b" },
-        { name: "c", description: "", version: "1.0.0", license: "MIT",
-          creator: "", compatibility: "claude", allowedTools: [],
-          installUrl: "github:user/big:c", relPath: "c" },
+        {
+          name: "a",
+          description: "",
+          version: "1.0.0",
+          license: "MIT",
+          creator: "",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:user/big:a",
+          relPath: "a",
+        },
+        {
+          name: "b",
+          description: "",
+          version: "1.0.0",
+          license: "MIT",
+          creator: "",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:user/big:b",
+          relPath: "b",
+        },
+        {
+          name: "c",
+          description: "",
+          version: "1.0.0",
+          license: "MIT",
+          creator: "",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:user/big:c",
+          relPath: "c",
+        },
       ],
     });
 
@@ -354,7 +384,12 @@ describe("computeRepoStats", () => {
           allowedTools: [],
           installUrl: "github:test/eval-repo:skill-a",
           relPath: "skill-a",
-          evalSummary: { overallScore: 90, grade: "A", categories: [], evaluatedAt: new Date().toISOString() },
+          evalSummary: {
+            overallScore: 90,
+            grade: "A",
+            categories: [],
+            evaluatedAt: new Date().toISOString(),
+          },
         },
         {
           name: "skill-b",
@@ -366,7 +401,12 @@ describe("computeRepoStats", () => {
           allowedTools: [],
           installUrl: "github:test/eval-repo:skill-b",
           relPath: "skill-b",
-          evalSummary: { overallScore: 75, grade: "C", categories: [], evaluatedAt: new Date().toISOString() },
+          evalSummary: {
+            overallScore: 75,
+            grade: "C",
+            categories: [],
+            evaluatedAt: new Date().toISOString(),
+          },
         },
       ],
     });
@@ -389,24 +429,45 @@ describe("computeAuthorStats", () => {
       owner: "anthropics",
       repo: "skills",
       skills: [
-        { name: "code-review", description: "Code review", version: "1.0.0",
-          license: "MIT", creator: "anthropics", compatibility: "claude",
-          allowedTools: [], installUrl: "github:anthropics/skills:cr",
-          relPath: "cr" },
+        {
+          name: "code-review",
+          description: "Code review",
+          version: "1.0.0",
+          license: "MIT",
+          creator: "anthropics",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:anthropics/skills:cr",
+          relPath: "cr",
+        },
       ],
     });
     const index2 = makeRepoIndex({
       owner: "anthropics",
       repo: "more-skills",
       skills: [
-        { name: "openspec", description: "OpenSpec workflow", version: "0.2.0",
-          license: "MIT", creator: "anthropics", compatibility: "claude",
-          allowedTools: [], installUrl: "github:anthropics/more-skills:os",
-          relPath: "os" },
-        { name: "eval", description: "Eval best practices", version: "1.0.0",
-          license: "MIT", creator: "anthropics", compatibility: "claude",
-          allowedTools: [], installUrl: "github:anthropics/more-skills:eval",
-          relPath: "eval" },
+        {
+          name: "openspec",
+          description: "OpenSpec workflow",
+          version: "0.2.0",
+          license: "MIT",
+          creator: "anthropics",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:anthropics/more-skills:os",
+          relPath: "os",
+        },
+        {
+          name: "eval",
+          description: "Eval best practices",
+          version: "1.0.0",
+          license: "MIT",
+          creator: "anthropics",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:anthropics/more-skills:eval",
+          relPath: "eval",
+        },
       ],
     });
 
@@ -424,21 +485,45 @@ describe("computeAuthorStats", () => {
       owner: "big-author",
       repo: "repo-a",
       skills: [
-        { name: "a", description: "", version: "1.0.0", license: "MIT",
-          creator: "", compatibility: "claude", allowedTools: [],
-          installUrl: "github:big-author/repo-a:a", relPath: "a" },
-        { name: "b", description: "", version: "1.0.0", license: "MIT",
-          creator: "", compatibility: "claude", allowedTools: [],
-          installUrl: "github:big-author/repo-a:b", relPath: "b" },
+        {
+          name: "a",
+          description: "",
+          version: "1.0.0",
+          license: "MIT",
+          creator: "",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:big-author/repo-a:a",
+          relPath: "a",
+        },
+        {
+          name: "b",
+          description: "",
+          version: "1.0.0",
+          license: "MIT",
+          creator: "",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:big-author/repo-a:b",
+          relPath: "b",
+        },
       ],
     });
     const indexB = makeRepoIndex({
       owner: "small-author",
       repo: "repo-b",
       skills: [
-        { name: "x", description: "", version: "1.0.0", license: "MIT",
-          creator: "", compatibility: "claude", allowedTools: [],
-          installUrl: "github:small-author/repo-b:x", relPath: "x" },
+        {
+          name: "x",
+          description: "",
+          version: "1.0.0",
+          license: "MIT",
+          creator: "",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:small-author/repo-b:x",
+          relPath: "x",
+        },
       ],
     });
 
@@ -452,18 +537,34 @@ describe("computeAuthorStats", () => {
       owner: "user-a",
       repo: "repo-a",
       skills: [
-        { name: "a", description: "", version: "1.0.0", license: "MIT",
-          creator: "", compatibility: "claude", allowedTools: [],
-          installUrl: "github:user-a/repo-a:a", relPath: "a" },
+        {
+          name: "a",
+          description: "",
+          version: "1.0.0",
+          license: "MIT",
+          creator: "",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:user-a/repo-a:a",
+          relPath: "a",
+        },
       ],
     });
     const indexB = makeRepoIndex({
       owner: "user-b",
       repo: "repo-b",
       skills: [
-        { name: "b", description: "", version: "1.0.0", license: "MIT",
-          creator: "", compatibility: "claude", allowedTools: [],
-          installUrl: "github:user-b/repo-b:b", relPath: "b" },
+        {
+          name: "b",
+          description: "",
+          version: "1.0.0",
+          license: "MIT",
+          creator: "",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:user-b/repo-b:b",
+          relPath: "b",
+        },
       ],
     });
 
@@ -492,24 +593,49 @@ describe("computeIndexStats", () => {
       owner: "anthropics",
       repo: "skills",
       skills: [
-        { name: "code-review", description: "Code review", version: "1.0.0",
-          license: "MIT", creator: "anthropics", compatibility: "claude",
-          allowedTools: [], installUrl: "github:anthropics/skills:cr",
-          relPath: "cr", verified: true, tokenCount: 1200 },
-        { name: "openspec", description: "OpenSpec workflow", version: "0.2.0",
-          license: "MIT", creator: "anthropics", compatibility: "claude",
-          allowedTools: [], installUrl: "github:anthropics/skills:os",
-          relPath: "os", tokenCount: 3500 },
+        {
+          name: "code-review",
+          description: "Code review",
+          version: "1.0.0",
+          license: "MIT",
+          creator: "anthropics",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:anthropics/skills:cr",
+          relPath: "cr",
+          verified: true,
+          tokenCount: 1200,
+        },
+        {
+          name: "openspec",
+          description: "OpenSpec workflow",
+          version: "0.2.0",
+          license: "MIT",
+          creator: "anthropics",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:anthropics/skills:os",
+          relPath: "os",
+          tokenCount: 3500,
+        },
       ],
     });
     const index2 = makeRepoIndex({
       owner: "luongnv89",
       repo: "asm",
       skills: [
-        { name: "hello-world", description: "Hello world skill", version: "1.0.0",
-          license: "MIT", creator: "luongnv89", compatibility: "claude",
-          allowedTools: [], installUrl: "github:luongnv89/asm:h",
-          relPath: "h", tokenCount: 500 },
+        {
+          name: "hello-world",
+          description: "Hello world skill",
+          version: "1.0.0",
+          license: "MIT",
+          creator: "luongnv89",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:luongnv89/asm:h",
+          relPath: "h",
+          tokenCount: 500,
+        },
       ],
     });
 
@@ -527,12 +653,28 @@ describe("computeIndexStats", () => {
       owner: "test",
       repo: "repo",
       skills: [
-        { name: "code-review", description: "Code review best practices", version: "1.0.0",
-          license: "MIT", creator: "test", compatibility: "claude",
-          allowedTools: [], installUrl: "github:test/repo:cr", relPath: "cr" },
-        { name: "docker-setup", description: "Docker containerization", version: "1.0.0",
-          license: "MIT", creator: "test", compatibility: "claude",
-          allowedTools: [], installUrl: "github:test/repo:ds", relPath: "ds" },
+        {
+          name: "code-review",
+          description: "Code review best practices",
+          version: "1.0.0",
+          license: "MIT",
+          creator: "test",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:test/repo:cr",
+          relPath: "cr",
+        },
+        {
+          name: "docker-setup",
+          description: "Docker containerization",
+          version: "1.0.0",
+          license: "MIT",
+          creator: "test",
+          compatibility: "claude",
+          allowedTools: [],
+          installUrl: "github:test/repo:ds",
+          relPath: "ds",
+        },
       ],
     });
 
@@ -552,7 +694,9 @@ describe("formatRepoStatsReport", () => {
     delete (globalThis as any).__CLI_NO_COLOR;
   });
 
-  function makeReport(overrides: Partial<RepoStatsReport> = {}): RepoStatsReport {
+  function makeReport(
+    overrides: Partial<RepoStatsReport> = {},
+  ): RepoStatsReport {
     return {
       owner: "anthropics",
       repo: "skills",
@@ -604,7 +748,9 @@ describe("formatAuthorStatsReport", () => {
     delete (globalThis as any).__CLI_NO_COLOR;
   });
 
-  function makeReport(overrides: Partial<AuthorStatsReport> = {}): AuthorStatsReport {
+  function makeReport(
+    overrides: Partial<AuthorStatsReport> = {},
+  ): AuthorStatsReport {
     return {
       owner: "anthropics",
       totalSkills: 10,
@@ -669,12 +815,21 @@ describe("formatIndexStatsReport", () => {
     delete (globalThis as any).__CLI_NO_COLOR;
   });
 
-  function makeReport(overrides: Partial<IndexStatsReport> = {}): IndexStatsReport {
+  function makeReport(
+    overrides: Partial<IndexStatsReport> = {},
+  ): IndexStatsReport {
     return {
       totalRepos: 5,
       totalSkills: 50,
       totalAuthors: 3,
-      categoryDistribution: { coding: 15, testing: 10, security: 8, devops: 7, frontend: 5, general: 5 },
+      categoryDistribution: {
+        coding: 15,
+        testing: 10,
+        security: 8,
+        devops: 7,
+        frontend: 5,
+        general: 5,
+      },
       verifiedCount: 20,
       totalTokens: 100000,
       avgTokensPerSkill: 2000,

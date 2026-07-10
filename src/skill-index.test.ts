@@ -247,7 +247,8 @@ describe("Index resource integrity", () => {
   it("discovers emil-design-eng via search without duplicate repo entries", async () => {
     const results = await searchSkills("emil-design-eng", 20);
     const emilHits = results.filter(
-      (r) => r.repo.owner === "emilkowalski" && r.skill.name === "emil-design-eng",
+      (r) =>
+        r.repo.owner === "emilkowalski" && r.skill.name === "emil-design-eng",
     );
     expect(emilHits).toHaveLength(1);
   });

@@ -215,9 +215,7 @@ export function computeRepoStats(indices: RepoIndex[]): RepoStatsReport[] {
 /**
  * Aggregate statistics per author (owner) across all indexed repos.
  */
-export function computeAuthorStats(
-  indices: RepoIndex[],
-): AuthorStatsReport[] {
+export function computeAuthorStats(indices: RepoIndex[]): AuthorStatsReport[] {
   const authorMap = new Map<string, AuthorStatsReport>();
 
   for (const index of indices) {
@@ -315,9 +313,7 @@ export function computeIndexStats(indices: RepoIndex[]): IndexStatsReport {
 /**
  * Format a per-repo stats report as CLI text with bar charts.
  */
-export function formatRepoStatsReport(
-  report: RepoStatsReport,
-): string {
+export function formatRepoStatsReport(report: RepoStatsReport): string {
   const lines: string[] = [];
 
   lines.push("");
@@ -352,9 +348,7 @@ export function formatRepoStatsReport(
     for (const [cat, count] of catEntries) {
       const label = cat.padEnd(18);
       const countStr = String(count).padStart(4);
-      lines.push(
-        `    ${label}  ${countStr}  ${bar(count, maxCount, 20)}`,
-      );
+      lines.push(`    ${label}  ${countStr}  ${bar(count, maxCount, 20)}`);
     }
     lines.push("");
   }
@@ -366,9 +360,7 @@ export function formatRepoStatsReport(
 /**
  * Format a per-author stats report as CLI text with bar charts.
  */
-export function formatAuthorStatsReport(
-  report: AuthorStatsReport,
-): string {
+export function formatAuthorStatsReport(report: AuthorStatsReport): string {
   const lines: string[] = [];
 
   lines.push("");
@@ -401,9 +393,7 @@ export function formatAuthorStatsReport(
     for (const [cat, count] of catEntries) {
       const label = cat.padEnd(18);
       const countStr = String(count).padStart(4);
-      lines.push(
-        `    ${label}  ${countStr}  ${bar(count, maxCount, 20)}`,
-      );
+      lines.push(`    ${label}  ${countStr}  ${bar(count, maxCount, 20)}`);
     }
     lines.push("");
   }
@@ -427,9 +417,7 @@ export function formatAuthorStatsReport(
 /**
  * Format the cross-index stats report as CLI text.
  */
-export function formatIndexStatsReport(
-  report: IndexStatsReport,
-): string {
+export function formatIndexStatsReport(report: IndexStatsReport): string {
   const lines: string[] = [];
 
   lines.push("");
@@ -465,9 +453,7 @@ export function formatIndexStatsReport(
     for (const [cat, count] of catEntries) {
       const label = cat.padEnd(18);
       const countStr = String(count).padStart(4);
-      lines.push(
-        `    ${label}  ${countStr}  ${bar(count, maxCount, 20)}`,
-      );
+      lines.push(`    ${label}  ${countStr}  ${bar(count, maxCount, 20)}`);
     }
     lines.push("");
   }
@@ -488,60 +474,177 @@ function categorizeSkill(name: string, description: string): string[] {
 
   const categoryKeywords: Record<string, string[]> = {
     "ai-agents": [
-      "agent", "llm", "claude", "gpt", "prompt", "openai", "anthropic",
-      "model", "skill-creator", "mcp", "orchestrat",
+      "agent",
+      "llm",
+      "claude",
+      "gpt",
+      "prompt",
+      "openai",
+      "anthropic",
+      "model",
+      "skill-creator",
+      "mcp",
+      "orchestrat",
     ],
     security: [
-      "security", "auth", "oauth", "jwt", "ssl", "vulnerab", "audit",
-      "pentest", "owasp", "encrypt", "threat", "cso",
+      "security",
+      "auth",
+      "oauth",
+      "jwt",
+      "ssl",
+      "vulnerab",
+      "audit",
+      "pentest",
+      "owasp",
+      "encrypt",
+      "threat",
+      "cso",
     ],
     devops: [
-      "docker", "kubernetes", "deploy", "pipeline", "terraform",
-      "ansible", "github action", "pre-commit", "devops",
+      "docker",
+      "kubernetes",
+      "deploy",
+      "pipeline",
+      "terraform",
+      "ansible",
+      "github action",
+      "pre-commit",
+      "devops",
     ],
     frontend: [
-      "ui", "ux", "css", "html", "react", "vue", "svelte", "frontend",
-      "component", "layout", "landing page", "web artifact", "design system",
+      "ui",
+      "ux",
+      "css",
+      "html",
+      "react",
+      "vue",
+      "svelte",
+      "frontend",
+      "component",
+      "layout",
+      "landing page",
+      "web artifact",
+      "design system",
     ],
     design: [
-      "design", "visual", "algorithmic art", "generative art", "canvas",
-      "color", "logo", "brand", "theme", "figma", "typography", "illustration",
+      "design",
+      "visual",
+      "algorithmic art",
+      "generative art",
+      "canvas",
+      "color",
+      "logo",
+      "brand",
+      "theme",
+      "figma",
+      "typography",
+      "illustration",
     ],
     backend: [
-      "api", "rest", "graphql", "database", "sql", "postgres", "redis",
-      "server", "backend", "microservice",
+      "api",
+      "rest",
+      "graphql",
+      "database",
+      "sql",
+      "postgres",
+      "redis",
+      "server",
+      "backend",
+      "microservice",
     ],
     testing: [
-      "test", "spec", "e2e", "unit test", "coverage", "mock", "qa",
-      "benchmark", "playwright",
+      "test",
+      "spec",
+      "e2e",
+      "unit test",
+      "coverage",
+      "mock",
+      "qa",
+      "benchmark",
+      "playwright",
     ],
     coding: [
-      "code review", "refactor", "debug", "lint", "typescript", "python",
-      "javascript", "rust", "golang", "build", "cli", "optimizer",
+      "code review",
+      "refactor",
+      "debug",
+      "lint",
+      "typescript",
+      "python",
+      "javascript",
+      "rust",
+      "golang",
+      "build",
+      "cli",
+      "optimizer",
     ],
     writing: [
-      "write", "blog", "article", "documentation", "docs", "draft",
-      "content", "copy", "proposal", "readme", "changelog",
+      "write",
+      "blog",
+      "article",
+      "documentation",
+      "docs",
+      "draft",
+      "content",
+      "copy",
+      "proposal",
+      "readme",
+      "changelog",
     ],
     mobile: [
-      "ios", "android", "mobile", "xcode", "swift", "kotlin", "flutter",
-      "app store", "testflight", "asc",
+      "ios",
+      "android",
+      "mobile",
+      "xcode",
+      "swift",
+      "kotlin",
+      "flutter",
+      "app store",
+      "testflight",
+      "asc",
     ],
     finance: [
-      "finance", "trading", "stock", "crypto", "payment", "billing",
-      "fintech", "invest", "revenue",
+      "finance",
+      "trading",
+      "stock",
+      "crypto",
+      "payment",
+      "billing",
+      "fintech",
+      "invest",
+      "revenue",
     ],
     marketing: [
-      "seo", "aso", "marketing", "analytics", "growth", "conversion",
-      "affiliate", "campaign", "social media", "reddit", "twitter",
+      "seo",
+      "aso",
+      "marketing",
+      "analytics",
+      "growth",
+      "conversion",
+      "affiliate",
+      "campaign",
+      "social media",
+      "reddit",
+      "twitter",
     ],
     git: ["git", "commit", "branch", "pull request", "pr review", "merge"],
     productivity: [
-      "workflow", "automation", "task", "schedule", "pdf", "xlsx",
-      "docx", "pptx", "spreadsheet", "presentation",
+      "workflow",
+      "automation",
+      "task",
+      "schedule",
+      "pdf",
+      "xlsx",
+      "docx",
+      "pptx",
+      "spreadsheet",
+      "presentation",
     ],
     research: [
-      "research", "scholar", "paper", "academic", "peer review",
+      "research",
+      "scholar",
+      "paper",
+      "academic",
+      "peer review",
       "investigation",
     ],
   };
@@ -560,9 +663,7 @@ function categorizeSkill(name: string, description: string): string[] {
 
 function matchesKeyword(text: string, kw: string): boolean {
   if (kw.length <= 3) {
-    const re = new RegExp(
-      `\\b${kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`,
-    );
+    const re = new RegExp(`\\b${kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`);
     return re.test(text);
   }
   return text.includes(kw);

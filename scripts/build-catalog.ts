@@ -879,7 +879,9 @@ const repoStats: RepoStatsEntry[] = repos
       verifiedCount,
       totalTokens,
       avgEvalScore:
-        evalScoreCount > 0 ? Math.round(evalScoreSum / evalScoreCount) : undefined,
+        evalScoreCount > 0
+          ? Math.round(evalScoreSum / evalScoreCount)
+          : undefined,
     };
   })
   .sort((a, b) => b.skillCount - a.skillCount);

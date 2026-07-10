@@ -149,12 +149,7 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and the aeon package (uv pip install). Optional aeon[all_extras] for deep learning and extended dependencies.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/aeon",
       "relPath": "skills/aeon",
       "verified": true,
@@ -291,12 +286,7 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.11+ and uv. Examples target AnnData 0.12.16, with experimental APIs clearly marked where used.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/anndata",
       "relPath": "skills/anndata",
       "verified": true,
@@ -433,13 +423,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Agent"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Agent"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/arbor",
       "relPath": "skills/arbor",
       "verified": true,
@@ -850,12 +834,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/autoskill",
       "relPath": "skills/autoskill",
       "verified": true,
@@ -992,12 +971,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires a Benchling account, tenant URL, and API key or OAuth app credentials. Install benchling-sdk with uv pip install.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/benchling-integration",
       "relPath": "skills/benchling-integration",
       "verified": true,
@@ -1408,12 +1382,7 @@
       "license": "Biopython License Agreement",
       "creator": "",
       "compatibility": "Requires Python 3.10+, NumPy, and Biopython. Entrez and web BLAST examples require network access; local BLAST/MUSCLE examples require those command-line tools installed separately.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/biopython",
       "relPath": "skills/biopython",
       "verified": true,
@@ -1550,12 +1519,7 @@
       "license": "GPLv3 license",
       "creator": "",
       "compatibility": "Requires Python 3.9–3.12 and internet access to 40+ bioinformatics web APIs. NCBI BLAST requires a contact email (`NCBI_EMAIL` env var or explicit parameter).",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/bioservices",
       "relPath": "skills/bioservices",
       "verified": true,
@@ -1829,12 +1793,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python >=3.10,<3.13. Examples target cellxgene-census 1.17.x and the 2025-11-08 stable LTS Census; spatial workflows need the spatial extra and TileDB-SOMA >=1.15.5. No authentication is required for public Census data.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/cellxgene-census",
       "relPath": "skills/cellxgene-census",
       "verified": true,
@@ -1971,12 +1930,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/cirq",
       "relPath": "skills/cirq",
       "verified": true,
@@ -2113,12 +2067,7 @@
       "license": "MIT License",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/citation-management",
       "relPath": "skills/citation-management",
       "verified": true,
@@ -2255,12 +2204,7 @@
       "license": "MIT License",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/clinical-decision-support",
       "relPath": "skills/clinical-decision-support",
       "verified": true,
@@ -2397,12 +2341,7 @@
       "license": "MIT License",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/clinical-reports",
       "relPath": "skills/clinical-reports",
       "verified": true,
@@ -2539,12 +2478,7 @@
       "license": "GPL-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.9+ (cobra 0.30+ dropped 3.8). Install with uv pip install. GLPK (swiglpk) is the default solver; CPLEX/Gurobi optional. load_model fetches from bundled data, BiGG, or BioModels (network required for remote models).",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/cobrapy",
       "relPath": "skills/cobrapy",
       "verified": true,
@@ -2681,10 +2615,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write"
-      ],
+      "allowedTools": ["Read", "Write"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/consciousness-council",
       "relPath": "skills/consciousness-council",
       "verified": true,
@@ -2821,12 +2752,7 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and dask 2025.1+. DataFrame workflows need pandas 2+ and PyArrow 16+. Cloud paths (s3://, gcs://) need s3fs or gcsfs. Cluster deployment uses dask.distributed (included with dask[complete]).",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/dask",
       "relPath": "skills/dask",
       "verified": true,
@@ -2963,10 +2889,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/database-lookup",
       "relPath": "skills/database-lookup",
       "verified": true,
@@ -3103,12 +3026,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.8+ and datamol (uv pip install). RDKit is installed automatically as a datamol dependency (since 0.12.2). Optional s3fs/gcsfs for cloud I/O via fsspec.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/datamol",
       "relPath": "skills/datamol",
       "verified": true,
@@ -3245,12 +3163,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python 3.7–3.11 (PyPI 2.8.0 caps at <3.12). Install PyTorch, TensorFlow, or JAX before the matching deepchem extra. RDKit is a core dependency.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/deepchem",
       "relPath": "skills/deepchem",
       "verified": true,
@@ -3661,10 +3574,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write"
-      ],
+      "allowedTools": ["Read", "Write"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/dhdna-profiler",
       "relPath": "skills/dhdna-profiler",
       "verified": true,
@@ -4623,12 +4533,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python >=3.10. Scripts use numpy, pandas, and pyDOE3 (DOE matrices). Install with uv as shown below.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/experimental-design",
       "relPath": "skills/experimental-design",
       "verified": true,
@@ -5998,9 +5903,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read"
-      ],
+      "allowedTools": ["Read"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/ginkgo-cloud-lab",
       "relPath": "skills/ginkgo-cloud-lab",
       "verified": true,
@@ -6822,12 +6725,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/hypothesis-generation",
       "relPath": "skills/hypothesis-generation",
       "verified": true,
@@ -7101,12 +6999,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/infographics",
       "relPath": "skills/infographics",
       "verified": true,
@@ -7791,12 +7684,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/latex-posters",
       "relPath": "skills/latex-posters",
       "verified": true,
@@ -7933,12 +7821,7 @@
       "license": "Apache-2.0",
       "creator": "",
       "compatibility": "Python 3.10+. Optional LibreOffice (Office formats) and ImageMagick (images). Bundled Tesseract for OCR. All processing is local — no cloud API required.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/liteparse",
       "relPath": "skills/liteparse",
       "verified": true,
@@ -8075,12 +7958,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/literature-review",
       "relPath": "skills/literature-review",
       "verified": true,
@@ -8217,12 +8095,7 @@
       "license": "Apache-2.0",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/markdown-mermaid-writing",
       "relPath": "skills/markdown-mermaid-writing",
       "verified": true,
@@ -8359,12 +8232,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/market-research-reports",
       "relPath": "skills/market-research-reports",
       "verified": true,
@@ -8501,12 +8369,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/markitdown",
       "relPath": "skills/markitdown",
       "verified": true,
@@ -9054,12 +8917,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.9+ and datamol (installed with medchem). Optional Lilly demerit filter requires separate `lilly-medchem-rules` conda package.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/medchem",
       "relPath": "skills/medchem",
       "verified": true,
@@ -9470,12 +9328,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.9–3.10 (molfeat 0.11.0 does not support 3.11+). Requires datamol, PyTorch, and optional extras for GNN/transformer models.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/molfeat",
       "relPath": "skills/molfeat",
       "verified": true,
@@ -10297,10 +10150,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python >=3.12. Variant and sample queries require outbound network access to the public 1000 Genomes query endpoint over TLS; the sample/population metadata commands run fully offline over a data file bundled in the skill. No credentials, API keys, or environment variables are used.",
-      "allowedTools": [
-        "Write",
-        "Bash"
-      ],
+      "allowedTools": ["Write", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/onekgpd",
       "relPath": "skills/onekgpd",
       "verified": true,
@@ -10985,10 +10835,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/paper-lookup",
       "relPath": "skills/paper-lookup",
       "verified": true,
@@ -11810,12 +11657,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/peer-review",
       "relPath": "skills/peer-review",
       "verified": true,
@@ -12363,9 +12205,7 @@
       "license": "https://github.com/pola-rs/polars/blob/main/LICENSE",
       "creator": "",
       "compatibility": "Requires Python 3.10+ for polars 1.41.x. Install with uv pip install; optional extras enable Excel, database, cloud, pandas/NumPy, and GPU integrations.",
-      "allowedTools": [
-        "Read"
-      ],
+      "allowedTools": ["Read"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/polars",
       "relPath": "skills/polars",
       "verified": true,
@@ -12502,12 +12342,7 @@
       "license": "Apache-2.0",
       "creator": "",
       "compatibility": "Requires Python 3.11–3.14 and polars-bio (uv pip install). Cloud I/O uses standard AWS/GCS/Azure SDK env vars when paths use s3://, gs://, or az:// URIs.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/polars-bio",
       "relPath": "skills/polars-bio",
       "verified": true,
@@ -12781,12 +12616,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/pptx-posters",
       "relPath": "skills/pptx-posters",
       "verified": true,
@@ -13334,12 +13164,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python >=3.11 and PyDESeq2 0.5.4-compatible dependencies. Examples target PyDESeq2 0.5.x, formulaic design strings, explicit contrasts, and uv-based installs.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/pydeseq2",
       "relPath": "skills/pydeseq2",
       "verified": true,
@@ -14024,12 +13849,7 @@
       "license": "Apache License, Version 2.0",
       "creator": "",
       "compatibility": "Requires Python 3.12+ and PyMC 6.0.1-compatible dependencies. Install reproducible environments with `uv pip install \"pymc[nutpie]==6.0.1\"`; optional NumPyro or BlackJAX samplers require separately pinned JAX-compatible dependencies.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/pymc",
       "relPath": "skills/pymc",
       "verified": true,
@@ -14166,12 +13986,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and pymoo (uv pip install). Optional matplotlib for visualization plots; optional autograd for gradient-based features; optional joblib for JoblibParallelization.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/pymoo",
       "relPath": "skills/pymoo",
       "verified": true,
@@ -14308,12 +14123,7 @@
       "license": "3 clause BSD license",
       "creator": "",
       "compatibility": "Requires Python 3.9+ and uv. Examples and scripts target pyOpenMS 3.5.0.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/pyopenms",
       "relPath": "skills/pyopenms",
       "verified": true,
@@ -14724,12 +14534,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and lightning 2.6+ (or pytorch-lightning 2.6+). GPU training needs CUDA-capable PyTorch. Optional loggers (wandb, mlflow, comet-ml) and DeepSpeed require separate installs.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/pytorch-lightning",
       "relPath": "skills/pytorch-lightning",
       "verified": true,
@@ -14866,12 +14671,7 @@
       "license": "MIT License",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and pyzotero 1.13+. Web API access needs a Zotero API key. Optional CLI and MCP extras require Zotero 7 with local API access enabled.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/pyzotero",
       "relPath": "skills/pyzotero",
       "verified": true,
@@ -15419,12 +15219,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Works in Agent Skills-compatible hosts. Grant-writing guidance needs no network; optional figures via the scientific-schematics skill require OPENROUTER_API_KEY and outbound API access.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/research-grants",
       "relPath": "skills/research-grants",
       "verified": true,
@@ -15561,12 +15356,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "parallel-cli required (primary); PARALLEL_API_KEY and OPENROUTER_API_KEY optional for deep/academic backends",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/research-lookup",
       "relPath": "skills/research-lookup",
       "verified": true,
@@ -16251,11 +16041,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Analytical guidance needs no network. Optional figures via the scientific-schematics skill require OPENROUTER_API_KEY and outbound API access to OpenRouter.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit"
-      ],
+      "allowedTools": ["Read", "Write", "Edit"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/scientific-critical-thinking",
       "relPath": "skills/scientific-critical-thinking",
       "verified": true,
@@ -16392,12 +16178,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/scientific-schematics",
       "relPath": "skills/scientific-schematics",
       "verified": true,
@@ -16534,12 +16315,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/scientific-slides",
       "relPath": "skills/scientific-slides",
       "verified": true,
@@ -16813,12 +16589,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/scientific-writing",
       "relPath": "skills/scientific-writing",
       "verified": true,
@@ -16955,12 +16726,7 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and scikit-bio 0.7+ (uv pip install scikit-bio). NumPy 2.0+ is required. Optional matplotlib/seaborn/plotly for plotting; biom-format for BIOM tables; polars/anndata for table interoperability.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/scikit-bio",
       "relPath": "skills/scikit-bio",
       "verified": true,
@@ -17097,12 +16863,7 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.11+ and scikit-learn 1.7+. NumPy and SciPy are required dependencies. Optional matplotlib/seaborn for bundled example scripts that save plots.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/scikit-learn",
       "relPath": "skills/scikit-learn",
       "verified": true,
@@ -17650,12 +17411,7 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.8+ and seaborn 0.13.2-compatible dependencies. Install with uv pip install seaborn==0.13.2; use seaborn[stats]==0.13.2 when advanced regression or clustering examples need scipy/statsmodels.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/seaborn",
       "relPath": "skills/seaborn",
       "verified": true,
@@ -18066,12 +17822,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python 3.10+, PyTorch >= 2.3, and stable-baselines3 2.8+. Gymnasium environments; optional extras for TensorBoard and Atari (ale-py).",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/stable-baselines3",
       "relPath": "skills/stable-baselines3",
       "verified": true,
@@ -18345,12 +18096,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python >=3.10. Examples target statsmodels >=0.14.6, scipy >=1.11, pingouin >=0.6, numpy >=1.26, and matplotlib. Optional extras are statsmodels mixed models and lifelines for simulation-based power.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/statistical-power",
       "relPath": "skills/statistical-power",
       "verified": true,
@@ -18487,12 +18233,7 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.9+ and statsmodels 0.14.6-compatible dependencies. Use `uv pip install statsmodels==0.14.6`; optional predictive-metric examples also need scikit-learn.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/statsmodels",
       "relPath": "skills/statsmodels",
       "verified": true,
@@ -18629,12 +18370,7 @@
       "license": "https://github.com/sympy/sympy/blob/master/LICENSE",
       "creator": "",
       "compatibility": "Requires Python 3.9+ and SymPy 1.14+. Optional NumPy/SciPy/Matplotlib for lambdify examples; C/Fortran compiler for autowrap/codegen.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/sympy",
       "relPath": "skills/sympy",
       "verified": true,
@@ -19045,12 +18781,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/timesfm-forecasting",
       "relPath": "skills/timesfm-forecasting",
       "verified": true,
@@ -19461,12 +19192,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.10+, PyTorch 2.4+, and transformers 5.x. Gated or private Hub models need an HF token (`hf auth login` or `HF_TOKEN`).",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/transformers",
       "relPath": "skills/transformers",
       "verified": true,
@@ -19603,12 +19329,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/treatment-plans",
       "relPath": "skills/treatment-plans",
       "verified": true,
@@ -19882,12 +19603,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/usfiscaldata",
       "relPath": "skills/usfiscaldata",
       "verified": true,
@@ -20024,14 +19740,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ (3.12+ recommended with vaex 4.19.0). Install with uv pip install vaex. Optional s3fs/gcsfs/adlfs for cloud I/O.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Grep",
-        "Glob"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Grep", "Glob"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/vaex",
       "relPath": "skills/vaex",
       "verified": true,
@@ -20168,12 +19877,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/venue-templates",
       "relPath": "skills/venue-templates",
       "verified": true,
@@ -20447,14 +20151,7 @@
       "license": "Proprietary. LICENSE.txt has complete terms",
       "creator": "",
       "compatibility": "Requires Python 3.8+, LibreOffice (soffice on PATH), and gcc only when Unix sockets are restricted",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Grep",
-        "Glob"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Grep", "Glob"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/xlsx",
       "relPath": "skills/xlsx",
       "verified": true,
@@ -20591,12 +20288,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python 3.12+ and zarr 3.x. Cloud I/O needs zarr[remote] plus pinned s3fs or gcsfs. Legacy Zarr v2 workflows need exact 2.x pins on older Python.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "installUrl": "github:K-Dense-AI/claude-scientific-skills:skills/zarr-python",
       "relPath": "skills/zarr-python",
       "verified": true,
