@@ -8,7 +8,13 @@ import {
   beforeAll,
   afterAll,
 } from "vitest";
-import { parseArgs, isCLIMode } from "./cli";
+import {
+  parseArgs,
+  isCLIMode,
+  printImportConflictDiffs,
+  promptForImportConflict,
+} from "./cli";
+import type { ImportConflict, ImportResult } from "./utils/types";
 import { compareSemver } from "./scanner";
 import { join, dirname } from "path";
 import {
@@ -2577,6 +2583,8 @@ describe("CLI integration: per-command --help (new commands)", () => {
     expect(stdout).toContain("asm import");
     expect(stdout).toContain("--scope");
     expect(stdout).toContain("--force");
+    expect(stdout).toContain("--diff");
+    expect(stdout).toContain("cannot be combined with --force");
     expect(stdout).toContain("--json");
   });
 
@@ -3103,6 +3111,131 @@ describe("CLI integration: export", () => {
   });
 });
 
+// ─── Import conflict CLI behavior ──────────────────────────────────────────
+
+function makeImportConflict(
+  newer: ImportConflict["newer"] = "local",
+): ImportConflict {
+  return {
+    skillName: "test-skill",
+    provider: "claude",
+    scope: "global",
+    targetDir: "/tmp/local",
+    sourcePath: "/tmp/imported",
+    localModified: "2026-01-02T00:00:00.000Z",
+    importedModified: "2026-01-01T00:00:00.000Z",
+    newer,
+  };
+}
+
+describe("import conflict prompt", () => {
+  test.each([
+    ["k", "keep-local"],
+    ["u", "use-imported"],
+    ["s", "skip"],
+  ] as const)("maps %s to %s", async (answer, expected) => {
+    const choice = await promptForImportConflict(makeImportConflict(), {
+      readAnswer: async () => answer,
+      writeLine: () => {},
+      writePrompt: () => {},
+    });
+
+    expect(choice).toBe(expected);
+  });
+
+  test("shows a diff for d, then prompts again for a resolution", async () => {
+    const answers = ["d", "k"];
+    const lines: string[] = [];
+    const prompts: string[] = [];
+    let renders = 0;
+
+    const choice = await promptForImportConflict(makeImportConflict(), {
+      readAnswer: async () => answers.shift() ?? "s",
+      renderDiff: async () => {
+        renders += 1;
+        return "--- local/SKILL.md\n+++ imported/SKILL.md";
+      },
+      writeLine: (line) => lines.push(line),
+      writePrompt: (prompt) => prompts.push(prompt),
+    });
+
+    expect(choice).toBe("keep-local");
+    expect(renders).toBe(1);
+    expect(lines.join("\n")).toContain("--- local/SKILL.md");
+    expect(prompts).toHaveLength(2);
+    expect(prompts[0]).toContain("[d] show diff");
+    expect(prompts[1]).not.toContain("[d] show diff");
+  });
+
+  test.each([
+    ["local", "local:", "imported:"],
+    ["imported", "imported:", "local:"],
+  ] as const)(
+    "marks the %s side newer and the other side older",
+    async (newer, newerLabel, olderLabel) => {
+      const lines: string[] = [];
+      await promptForImportConflict(makeImportConflict(newer), {
+        readAnswer: async () => "s",
+        writeLine: (line) => lines.push(line),
+        writePrompt: () => {},
+      });
+
+      const newerLine = lines.find((line) => line.includes(newerLabel));
+      const olderLine = lines.find((line) => line.includes(olderLabel));
+      expect(newerLine).toContain("(newer)");
+      expect(olderLine).toContain("(older)");
+    },
+  );
+
+  test("--diff renders before prompting and hides the d choice", async () => {
+    const lines: string[] = [];
+    const prompts: string[] = [];
+    await promptForImportConflict(makeImportConflict(), {
+      showDiff: true,
+      readAnswer: async () => "s",
+      renderDiff: async () => "conflict diff",
+      writeLine: (line) => lines.push(line),
+      writePrompt: (prompt) => prompts.push(prompt),
+    });
+
+    expect(lines.join("\n")).toContain("conflict diff");
+    expect(prompts[0]).not.toContain("[d] show diff");
+  });
+});
+
+describe("non-interactive import conflict diffs", () => {
+  test("prints every collected conflict and skips non-conflict results", async () => {
+    const conflict = makeImportConflict();
+    const results: ImportResult[] = [
+      {
+        skillName: "test-skill",
+        provider: "claude",
+        scope: "global",
+        status: "skipped",
+        conflict,
+      },
+      {
+        skillName: "unchanged-skill",
+        provider: "claude",
+        scope: "global",
+        status: "skipped",
+      },
+    ];
+    const lines: string[] = [];
+
+    await printImportConflictDiffs(
+      results,
+      async () => "--- local/SKILL.md\n+++ imported/SKILL.md",
+      (line) => lines.push(line),
+    );
+
+    expect(lines.join("\n")).toContain("Conflict diff: test-skill");
+    expect(lines.join("\n")).toContain("local -> imported");
+    expect(lines.join("\n")).toContain("+++ imported/SKILL.md");
+    expect(lines.join("\n")).not.toContain("unchanged-skill");
+  });
+});
+
 // ─── CLI integration: import ────────────────────────────────────────────────
 
 describe("CLI integration: import", () => {
@@ -3130,6 +3263,80 @@ describe("CLI integration: import", () => {
     );
     expect(exitCode).toBe(1);
     expect(stderr).toContain("Manifest file not found");
+  });
+
+  test("import rejects --force with --diff before reading the manifest", async () => {
+    const { stderr, exitCode } = await runCLI(
+      "import",
+      "/tmp/nonexistent-manifest-xyz.json",
+      "--force",
+      "--diff",
+    );
+
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("--force and --diff cannot be used together");
+    expect(stderr).toContain("Run without --force to inspect conflicts");
+    expect(stderr).not.toContain("Manifest file not found");
+  });
+
+  test("import --diff prints a collected conflict in non-interactive mode", async () => {
+    const homeDir = join(tempDir, "home");
+    const sourceDir = join(homeDir, ".claude", "skills", "diff-skill");
+    const targetDir = join(tempDir, ".claude", "skills", "diff-skill");
+    await mkdir(sourceDir, { recursive: true });
+    await mkdir(targetDir, { recursive: true });
+    await writeFile(
+      join(sourceDir, "SKILL.md"),
+      "---\nname: diff-skill\ndescription: imported\n---\n# Imported\n",
+    );
+    await writeFile(
+      join(targetDir, "SKILL.md"),
+      "---\nname: diff-skill\ndescription: local\n---\n# Local\n",
+    );
+    const manifestPath = join(tempDir, "manifest.json");
+    await writeFile(
+      manifestPath,
+      JSON.stringify({
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        skills: [
+          {
+            name: "diff-skill",
+            version: "1.0.0",
+            dirName: "diff-skill",
+            provider: "claude",
+            scope: "project",
+            path: sourceDir,
+            isSymlink: false,
+            symlinkTarget: null,
+          },
+        ],
+      }),
+    );
+
+    const result = await spawnCollect(
+      [
+        join(process.cwd(), "node_modules", ".bin", "tsx"),
+        CLI_BIN,
+        "import",
+        manifestPath,
+        "--yes",
+        "--diff",
+      ],
+      {
+        cwd: tempDir,
+        env: { ...process.env, HOME: homeDir, NO_COLOR: "1" },
+      },
+    );
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stderr).toContain("Conflict diff: diff-skill");
+    expect(result.stderr).toContain("local -> imported");
+    expect(result.stderr).toContain("-# Local");
+    expect(result.stderr).toContain("+# Imported");
+    expect(await readFile(join(targetDir, "SKILL.md"), "utf-8")).toContain(
+      "# Local",
+    );
   });
 
   test("import invalid JSON shows error", async () => {

@@ -88,7 +88,11 @@ import {
 import type { RegistryManifest, ResolutionSource } from "./registry";
 import { buildManifest } from "./exporter";
 import { readManifestFile, importSkills, renderConflictDiff } from "./importer";
-import type { ImportConflict, ImportConflictChoice } from "./utils/types";
+import type {
+  ImportConflict,
+  ImportConflictChoice,
+  ImportResult,
+} from "./utils/types";
 import { scaffoldSkill, directoryExists } from "./initializer";
 import {
   computeStats,
@@ -3721,7 +3725,7 @@ be found locally are reported as failed — install them first with
 ${ansi.bold("Options:")}
   -s, --scope <s>    Filter: global, project, or both (default: both)
   -f, --force        Overwrite existing skills without conflict prompts
-  --diff             Show unified diffs for conflicting skills
+  --diff             Show unified diffs (cannot be combined with --force)
   -y, --yes          Skip prompts (conflicts are skipped and reported)
   --json             Output results as JSON (includes conflict details)
   --no-color         Disable ANSI colors
@@ -3736,6 +3740,80 @@ ${ansi.bold("Examples:")}
   asm import backup.json              ${ansi.dim("Restore from backup")}`);
 }
 
+type ImportConflictPromptOptions = {
+  showDiff?: boolean;
+  readAnswer?: () => Promise<string>;
+  renderDiff?: (conflict: ImportConflict) => Promise<string>;
+  writeLine?: (text: string) => void;
+  writePrompt?: (text: string) => void;
+};
+
+/** Prompt for one import conflict. Dependencies are injectable for CLI tests. */
+export async function promptForImportConflict(
+  conflict: ImportConflict,
+  options: ImportConflictPromptOptions = {},
+): Promise<ImportConflictChoice> {
+  const {
+    showDiff = false,
+    readAnswer = readLine,
+    renderDiff = renderConflictDiff,
+    writeLine = console.error,
+    writePrompt = (text) => process.stderr.write(text),
+  } = options;
+  const mark = (side: "local" | "imported") =>
+    conflict.newer === side
+      ? ` ${ansi.green("(newer)")}`
+      : conflict.newer === "same"
+        ? ""
+        : ` ${ansi.dim("(older)")}`;
+  writeLine("");
+  writeLine(
+    `${ansi.bold("Conflict:")} ${conflict.skillName} (${conflict.provider}/${conflict.scope})`,
+  );
+  writeLine(`  local:    ${conflict.localModified}${mark("local")}`);
+  writeLine(`  imported: ${conflict.importedModified}${mark("imported")}`);
+
+  let diffShown = false;
+  if (showDiff) {
+    const diff = await renderDiff(conflict);
+    writeLine(diff ? `\n${diff}\n` : "  (no textual differences found)");
+    diffShown = true;
+  }
+
+  for (;;) {
+    writePrompt(
+      `  [k] keep local  [u] use imported  [s] skip${diffShown ? "" : "  [d] show diff"}  ${ansi.dim("[s]")} `,
+    );
+    const answer = (await readAnswer()).trim().toLowerCase();
+    if (answer === "k" || answer === "keep") return "keep-local";
+    if (answer === "u" || answer === "use") return "use-imported";
+    if (answer === "" || answer === "s" || answer === "skip") return "skip";
+    if (answer === "d" || answer === "diff") {
+      const diff = await renderDiff(conflict);
+      writeLine(diff ? `\n${diff}\n` : "  (no textual differences found)");
+      diffShown = true;
+    }
+  }
+}
+
+/** Print conflict diffs collected by a non-interactive import. */
+export async function printImportConflictDiffs(
+  results: ImportResult[],
+  renderDiff: (
+    conflict: ImportConflict,
+  ) => Promise<string> = renderConflictDiff,
+  writeLine: (text: string) => void = console.error,
+): Promise<void> {
+  for (const result of results) {
+    if (!result.conflict) continue;
+    const diff = await renderDiff(result.conflict);
+    writeLine(
+      `\n${ansi.bold(`Conflict diff: ${result.skillName} (${result.provider}/${result.scope})`)} ${ansi.dim("local -> imported")}`,
+    );
+    writeLine(diff || "  (no textual differences found)");
+  }
+}
+
 async function cmdImport(args: ParsedArgs) {
   if (args.flags.help) {
     printImportHelp();
@@ -3746,6 +3824,12 @@ async function cmdImport(args: ParsedArgs) {
   if (!filePath) {
     error("Missing required argument: <file>");
     console.error(`Run "asm import --help" for usage.`);
+    process.exit(2);
+  }
+  if (args.flags.force && args.flags.diff) {
+    error(
+      "--force and --diff cannot be used together. Run without --force to inspect conflicts, or omit --diff to overwrite them.",
+    );
     process.exit(2);
   }
 
@@ -3815,68 +3899,20 @@ async function cmdImport(args: ParsedArgs) {
     !args.flags.force && !args.flags.yes && !!process.stdin.isTTY;
   const showDiff = args.flags.diff;
 
-  async function promptForConflict(
-    conflict: ImportConflict,
-  ): Promise<ImportConflictChoice> {
-    const mark = (side: "local" | "imported") =>
-      conflict.newer === side
-        ? ` ${ansi.green("(newer)")}`
-        : conflict.newer === "same"
-          ? ""
-          : ` ${ansi.dim("(older)")}`;
-    console.error("");
-    console.error(
-      `${ansi.bold("Conflict:")} ${conflict.skillName} (${conflict.provider}/${conflict.scope})`,
-    );
-    console.error(`  local:    ${conflict.localModified}${mark("local")}`);
-    console.error(
-      `  imported: ${conflict.importedModified}${mark("imported")}`,
-    );
-
-    let diffShown = false;
-    if (showDiff) {
-      const diff = await renderConflictDiff(conflict);
-      console.error(diff ? `\n${diff}\n` : "  (no textual differences found)");
-      diffShown = true;
-    }
-
-    for (;;) {
-      process.stderr.write(
-        `  [k] keep local  [u] use imported  [s] skip${diffShown ? "" : "  [d] show diff"}  ${ansi.dim("[s]")} `,
-      );
-      const answer = (await readLine()).trim().toLowerCase();
-      if (answer === "k" || answer === "keep") return "keep-local";
-      if (answer === "u" || answer === "use") return "use-imported";
-      if (answer === "" || answer === "s" || answer === "skip") return "skip";
-      if (answer === "d" || answer === "diff") {
-        const diff = await renderConflictDiff(conflict);
-        console.error(
-          diff ? `\n${diff}\n` : "  (no textual differences found)",
-        );
-        diffShown = true;
-      }
-    }
-  }
-
   // Run import
   const summary = await importSkills(manifest, {
     force: args.flags.force,
     dryRun: false,
     scopeFilter: args.flags.scope,
-    onConflict: interactive ? promptForConflict : undefined,
+    onConflict: interactive
+      ? (conflict) => promptForImportConflict(conflict, { showDiff })
+      : undefined,
   });
 
   // Non-interactive --diff: print the diff for each detected conflict so the
-  // user can inspect before deciding on --force or an interactive run.
+  // user can inspect before deciding on an interactive run.
   if (showDiff && !interactive) {
-    for (const result of summary.results) {
-      if (!result.conflict) continue;
-      const diff = await renderConflictDiff(result.conflict);
-      console.error(
-        `\n${ansi.bold(`Conflict diff: ${result.skillName} (${result.provider}/${result.scope})`)} ${ansi.dim("local -> imported")}`,
-      );
-      console.error(diff || "  (no textual differences found)");
-    }
+    await printImportConflictDiffs(summary.results);
   }
 
   // Output results
