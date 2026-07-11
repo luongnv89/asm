@@ -743,6 +743,20 @@ describe("skillDirsIdentical", () => {
     await expect(skillDirsIdentical(a, b)).resolves.toBe(true);
   });
 
+  it("compares each non-cyclic symlink path when targets are shared", async () => {
+    const a = join(tempDir, "a");
+    const b = join(tempDir, "b");
+    await mkdir(join(a, "target"), { recursive: true });
+    await mkdir(join(b, "target"), { recursive: true });
+    await writeFile(join(a, "target", "ref.md"), "ref");
+    await writeFile(join(b, "target", "ref.md"), "ref");
+    await createDirSymlink("target", join(a, "first"));
+    await createDirSymlink("target", join(a, "second"));
+    await createDirSymlink("target", join(b, "first"));
+
+    await expect(skillDirsIdentical(a, b)).resolves.toBe(false);
+  });
+
   it("returns false when file contents differ", async () => {
     const a = join(tempDir, "a");
     const b = join(tempDir, "b");

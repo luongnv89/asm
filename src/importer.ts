@@ -156,14 +156,14 @@ async function isSameDir(a: string, b: string): Promise<boolean> {
  */
 async function collectFiles(dir: string): Promise<Map<string, string>> {
   const files = new Map<string, string>();
-  const visitedDirs = new Set<string>();
+  const activeDirs = new Set<string>();
 
   async function walk(currentDir: string, prefix: string): Promise<void> {
     const resolvedDir = await realpath(currentDir);
     const visitKey =
       process.platform === "win32" ? resolvedDir.toLowerCase() : resolvedDir;
-    if (visitedDirs.has(visitKey)) return;
-    visitedDirs.add(visitKey);
+    if (activeDirs.has(visitKey)) return;
+    activeDirs.add(visitKey);
 
     const entries = await readdir(currentDir, { withFileTypes: true });
     for (const entry of entries) {
@@ -188,6 +188,7 @@ async function collectFiles(dir: string): Promise<Map<string, string>> {
         }
       }
     }
+    activeDirs.delete(visitKey);
   }
 
   await walk(dir, "");
