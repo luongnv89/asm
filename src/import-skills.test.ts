@@ -18,6 +18,7 @@ import {
   buildImportConflict,
   renderConflictDiff,
 } from "./importer";
+import { createDirSymlink } from "./utils/fs";
 import type {
   ExportManifest,
   ExportedSkill,
@@ -725,6 +726,19 @@ describe("skillDirsIdentical", () => {
     await writeFile(join(b, "SKILL.md"), "# Same");
     await writeFile(join(a, "nested", "ref.md"), "ref");
     await writeFile(join(b, "nested", "ref.md"), "ref");
+
+    await expect(skillDirsIdentical(a, b)).resolves.toBe(true);
+  });
+
+  it("terminates when identical trees contain self-referential symlinks", async () => {
+    const a = join(tempDir, "a");
+    const b = join(tempDir, "b");
+    await mkdir(a, { recursive: true });
+    await mkdir(b, { recursive: true });
+    await writeFile(join(a, "SKILL.md"), "# Same");
+    await writeFile(join(b, "SKILL.md"), "# Same");
+    await createDirSymlink(".", join(a, "self"));
+    await createDirSymlink(".", join(b, "self"));
 
     await expect(skillDirsIdentical(a, b)).resolves.toBe(true);
   });
