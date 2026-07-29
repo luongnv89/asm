@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/davidondrej/skills.git",
   "owner": "davidondrej",
   "repo": "skills",
-  "updatedAt": "2026-07-07T08:55:16.751Z",
-  "skillCount": 31,
+  "updatedAt": "2026-07-29T03:15:05.892Z",
+  "skillCount": 41,
   "skills": [
     {
       "name": "agent-self-scheduling",
@@ -16,10 +16,10 @@
       "installUrl": "github:davidondrej/skills:skills/agent-orchestration/agent-self-scheduling",
       "relPath": "skills/agent-orchestration/agent-self-scheduling",
       "verified": true,
-      "tokenCount": 1376,
+      "tokenCount": 1438,
       "evalSummary": {
-        "overallScore": 63,
-        "grade": "D",
+        "overallScore": 66,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -54,7 +54,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 3,
+            "score": 5,
             "max": 10
           },
           {
@@ -64,7 +64,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.709Z",
+        "evaluatedAt": "2026-07-29T03:15:05.805Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -73,8 +73,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 63,
-          "grade": "D",
+          "overallScore": 66,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -109,7 +109,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 3,
+              "score": 5,
               "max": 10
             },
             {
@@ -119,7 +119,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.709Z",
+          "evaluatedAt": "2026-07-29T03:15:05.805Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,14 +137,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.709Z",
+          "evaluatedAt": "2026-07-29T03:15:05.805Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "anti-sleep",
-      "description": "Keep the user's MacBook awake with macOS caffeinate — prevent sleep, screen dimming, or both, for a set duration or while a process runs. Use when the user says \"don't let my mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", or wants the machine awake overnight / during a long build.",
+      "description": "Keep the user's MacBook awake reliably with macOS caffeinate for a set duration or while a process runs. Use for \"don't let my Mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", overnight work, or long builds. Unlike a normal background job, it survives temporary agent-shell cleanup.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -153,10 +153,10 @@
       "installUrl": "github:davidondrej/skills:skills/ops-and-setup/anti-sleep",
       "relPath": "skills/ops-and-setup/anti-sleep",
       "verified": true,
-      "tokenCount": 995,
+      "tokenCount": 693,
       "evalSummary": {
-        "overallScore": 57,
-        "grade": "D",
+        "overallScore": 69,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -173,25 +173,25 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 3,
+            "score": 7,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 6,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 4,
+            "score": 7,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 3,
             "max": 10
           },
           {
@@ -201,7 +201,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.710Z",
+        "evaluatedAt": "2026-07-29T03:15:05.806Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -210,8 +210,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 57,
-          "grade": "D",
+          "overallScore": 69,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -228,25 +228,25 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 3,
+              "score": 7,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 6,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 4,
+              "score": 7,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 3,
               "max": 10
             },
             {
@@ -256,7 +256,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.710Z",
+          "evaluatedAt": "2026-07-29T03:15:05.806Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,14 +274,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.710Z",
+          "evaluatedAt": "2026-07-29T03:15:05.806Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "brain-to-docs",
-      "description": "Use when the user wants to extract project vision, decisions, and preferences from their head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
+      "description": "Use when the user wants to extract project vision, decisions, and preferences from his head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -338,7 +338,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.711Z",
+        "evaluatedAt": "2026-07-29T03:15:05.807Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -393,7 +393,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.711Z",
+          "evaluatedAt": "2026-07-29T03:15:05.807Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +411,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.711Z",
+          "evaluatedAt": "2026-07-29T03:15:05.807Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -475,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.712Z",
+        "evaluatedAt": "2026-07-29T03:15:05.809Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -530,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.712Z",
+          "evaluatedAt": "2026-07-29T03:15:05.809Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,14 +548,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.712Z",
+          "evaluatedAt": "2026-07-29T03:15:05.809Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "cmux",
-      "description": "MUST be read ANY time you interact with cmux in ANY way — listing/inspecting/creating/closing cmux workspaces, panes, or surfaces; reading or capturing pane/screen output; sending input or keys to a pane/surface; delegating to, polling, or checking on other agents running in cmux panes/surfaces; building or rearranging terminal layout; cmux browser automation; sending notifications/flashes/status/progress to the sidebar; editing cmux settings; or integrating an agent with cmux hooks. If your command starts with `cmux ` or touches a cmux workspace/pane/surface/agent, read this FIRST. Triggers on \"cmux\", \"in this workspace\", \"this pane\", \"the other agent\", \"delegate to\", \"check on the agent\", \"send to the pane\". macOS only (14.0+).",
+      "description": "Control the cmux macOS terminal app (CLI + socket API) — cmux workspaces, panes, surfaces, browser automation, notifications, settings, hooks. MUST be read before running any `cmux` command. Trigger ONLY when the user explicitly says \"cmux\" — a cmux pane, cmux workspace, cmux surface, or an agent running in cmux. Do NOT trigger on generic mentions of \"workspace\", \"pane\", \"the other agent\", or \"delegate\" when cmux is not named — workspaces in tmux, Ghostty, herdr, VS Code, etc. are NOT cmux. macOS only (14.0+).",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -564,9 +564,9 @@
       "installUrl": "github:davidondrej/skills:skills/agent-orchestration/cmux",
       "relPath": "skills/agent-orchestration/cmux",
       "verified": true,
-      "tokenCount": 4061,
+      "tokenCount": 4166,
       "evalSummary": {
-        "overallScore": 66,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -578,7 +578,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 0,
+            "score": 3,
             "max": 10
           },
           {
@@ -612,7 +612,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.714Z",
+        "evaluatedAt": "2026-07-29T03:15:05.811Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -621,7 +621,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 66,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -633,7 +633,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 0,
+              "score": 3,
               "max": 10
             },
             {
@@ -667,7 +667,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.714Z",
+          "evaluatedAt": "2026-07-29T03:15:05.811Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +685,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.714Z",
+          "evaluatedAt": "2026-07-29T03:15:05.811Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -701,7 +701,7 @@
       "installUrl": "github:davidondrej/skills:skills/agent-orchestration/codex-subagent",
       "relPath": "skills/agent-orchestration/codex-subagent",
       "verified": true,
-      "tokenCount": 1177,
+      "tokenCount": 1248,
       "evalSummary": {
         "overallScore": 69,
         "grade": "C",
@@ -749,7 +749,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.716Z",
+        "evaluatedAt": "2026-07-29T03:15:05.815Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -804,7 +804,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.716Z",
+          "evaluatedAt": "2026-07-29T03:15:05.815Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,162 +822,25 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.716Z",
+          "evaluatedAt": "2026-07-29T03:15:05.815Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
-      "name": "copywriting",
-      "description": "How David Ondrej writes. Use EVERY time you write copy or any text on David's behalf — tweets, DMs, YouTube titles and descriptions, GitHub About and READMEs, landing pages, bios, emails, product copy, announcements. Covers his two styles (authentic and formal) and when to use each.",
+      "name": "create-readonly-db-role",
+      "description": "Provision a hardened SELECT-only Postgres role so AI agents can safely read a production database. Works on Supabase and any Postgres. Use when the user wants agents to query prod data, says \"read-only role\", \"safe prod DB access for agents\", or is tired of running SQL by hand for agents. Differentiator: this skill CREATES the role and wiring; day-to-day querying belongs in a project-local skill.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/copywriting",
-      "relPath": "skills/thinking-and-docs/copywriting",
+      "installUrl": "github:davidondrej/skills:skills/ops-and-setup/create-readonly-db-role",
+      "relPath": "skills/ops-and-setup/create-readonly-db-role",
       "verified": true,
-      "tokenCount": 769,
+      "tokenCount": 1621,
       "evalSummary": {
-        "overallScore": 47,
-        "grade": "F",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 2,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 1,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 8,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-07-07T08:55:16.717Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 47,
-          "grade": "F",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 2,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 1,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 8,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:55:16.717Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 69,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 9,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:55:16.717Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "cyber-audit",
-      "description": "Read-only exposure audit of the user's MacBook (and ~/Documents/code projects) for a CVE, breach, malicious package, or other security advisory, then write a structured report to ~/Documents/security-audits/. Use when the user shares a breach/CVE/malware/supply-chain advisory and asks if they're affected, says \"scan my system for X\", \"are we affected by Y\", \"check if I'm vulnerable to Z\", or requests any hack/breach/cyber/vulnerability audit on this MacBook. Output matches the existing audit format in ~/Documents/security-audits/.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:davidondrej/skills:skills/ops-and-setup/cyber-audit",
-      "relPath": "skills/ops-and-setup/cyber-audit",
-      "verified": true,
-      "tokenCount": 1519,
-      "evalSummary": {
-        "overallScore": 61,
+        "overallScore": 63,
         "grade": "D",
         "categories": [
           {
@@ -995,7 +858,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 7,
+            "score": 6,
             "max": 10
           },
           {
@@ -1007,13 +870,13 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 4,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 0,
+            "score": 5,
             "max": 10
           },
           {
@@ -1023,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.718Z",
+        "evaluatedAt": "2026-07-29T03:15:05.816Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1032,7 +895,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 61,
+          "overallScore": 63,
           "grade": "D",
           "categories": [
             {
@@ -1050,7 +913,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 7,
+              "score": 6,
               "max": 10
             },
             {
@@ -1062,7 +925,144 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.816Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.817Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "decisions",
+      "description": "Ask the agent to list all choices it made during the current work that it is not confident of. Manual-only; invoke with /decisions.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/decisions",
+      "relPath": "skills/thinking-and-docs/decisions",
+      "verified": true,
+      "tokenCount": 146,
+      "evalSummary": {
+        "overallScore": 34,
+        "grade": "F",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:15:05.818Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 34,
+          "grade": "F",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
               "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 2,
               "max": 10
             },
             {
@@ -1074,11 +1074,148 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
+              "score": 7,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.818Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.818Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "deep-research",
+      "description": "Run a deep, source-backed research query via DeepAPI (go to deepapi.co to get an API key) POST /v1/research/deep. Builds a rigorous one-paragraph research prompt (per research-prompt rules), fires it, and saves a cited markdown report. Use when the user asks for \"deep research\", \"deepapi research\", \"perplexity deep research\" (legacy trigger), or any deep source-backed research run. Differentiator vs the deepapi skill: this is the full research workflow (prompt + run + report file), not raw endpoint access.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:davidondrej/skills:skills/research-and-web/deep-research",
+      "relPath": "skills/research-and-web/deep-research",
+      "verified": true,
+      "tokenCount": 1124,
+      "evalSummary": {
+        "overallScore": 64,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:15:05.819Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 64,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
               "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.718Z",
+          "evaluatedAt": "2026-07-29T03:15:05.819Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1096,152 +1233,15 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.718Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "deep-research",
-      "description": "Run a deep, source-backed research query via DeepAPI (go to deepapi.co to get an API key) POST /v1/research/deep. Builds a rigorous one-paragraph research prompt (per research-prompt rules), fires it, and saves a cited markdown report. Use when the user asks for \"deep research\", \"deepapi research\", \"perplexity deep research\" (legacy trigger), or any deep source-backed research run. Differentiator vs the deepapi skill: this is the full research workflow (prompt + run + report file), not raw endpoint access.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:davidondrej/skills:skills/research-and-web/deep-research",
-      "relPath": "skills/research-and-web/deep-research",
-      "verified": true,
-      "tokenCount": 1134,
-      "evalSummary": {
-        "overallScore": 61,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 6,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 6,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 4,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-07-07T08:55:16.720Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 61,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 6,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 6,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 4,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:55:16.720Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 0,
-          "grade": "F",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 1,
-              "max": 2
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:55:16.720Z",
+          "evaluatedAt": "2026-07-29T03:15:05.819Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "deepapi",
-      "description": "Use DeepAPI for scraping and safe email with DEEPAPI_API_BASE_URL and DEEPAPI_API_KEY.",
-      "version": "b17ad5148ab7",
+      "description": "Use DeepAPI for all regular web searches (POST /v1/search/web) and for any deep research you perform (POST /v1/research/deep), instead of built-in search or research tools. Use it for all scraping of the web (websites, LinkedIn, GitHub, X/Twitter, YouTube — POST /v1/scrape/*) instead of built-in fetch or browser tools. Platform lookups (GitHub, YouTube, X/Twitter, LinkedIn, Instagram) have dedicated search endpoints — prefer them over web search. Also use it to draft and send safe email, and generate images with DEEPAPI_API_BASE_URL and DEEPAPI_API_KEY.",
+      "version": "5706ff68b88e",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -1249,10 +1249,10 @@
       "installUrl": "github:davidondrej/skills:skills/research-and-web/deepapi",
       "relPath": "skills/research-and-web/deepapi",
       "verified": true,
-      "tokenCount": 7515,
+      "tokenCount": 21572,
       "evalSummary": {
-        "overallScore": 63,
-        "grade": "D",
+        "overallScore": 69,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -1263,7 +1263,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 3,
             "max": 10
           },
           {
@@ -1275,19 +1275,19 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 5,
+            "score": 6,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 10,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 1,
+            "score": 5,
             "max": 10
           },
           {
@@ -1297,8 +1297,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.722Z",
-        "evaluatedVersion": "b17ad5148ab7"
+        "evaluatedAt": "2026-07-29T03:15:05.825Z",
+        "evaluatedVersion": "5706ff68b88e"
       },
       "evalSummaries": {
         "quality": {
@@ -1306,8 +1306,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 63,
-          "grade": "D",
+          "overallScore": 69,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -1318,7 +1318,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 3,
               "max": 10
             },
             {
@@ -1330,19 +1330,19 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 5,
+              "score": 6,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 10,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 1,
+              "score": 5,
               "max": 10
             },
             {
@@ -1352,163 +1352,26 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.722Z",
-          "evaluatedVersion": "b17ad5148ab7"
+          "evaluatedAt": "2026-07-29T03:15:05.826Z",
+          "evaluatedVersion": "5706ff68b88e"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 69,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 9,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:55:16.722Z",
-          "evaluatedVersion": "b17ad5148ab7"
-        }
-      }
-    },
-    {
-      "name": "delegating-to-agents",
-      "description": "How to delegate work to another AI agent (Pi, Codex, Claude Code, Hermes) — picking the right agent, sending prompts to TUI agents, polling progress. Read BEFORE any `cmux send`/`tmux send-keys` to an agent, or whenever delegating, relaying, spawning, or orchestrating agent-to-agent work.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:davidondrej/skills:skills/agent-orchestration/delegating-to-agents",
-      "relPath": "skills/agent-orchestration/delegating-to-agents",
-      "verified": true,
-      "tokenCount": 996,
-      "evalSummary": {
-        "overallScore": 57,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 4,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 4,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-07-07T08:55:16.726Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 57,
+          "overallScore": 62,
           "grade": "D",
           "categories": [
             {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 4,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 4,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:55:16.726Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 69,
-          "grade": "C",
-          "categories": [
-            {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
+              "score": 8,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.726Z",
-          "evaluatedVersion": "0.0.0"
+          "evaluatedAt": "2026-07-29T03:15:05.826Z",
+          "evaluatedVersion": "5706ff68b88e"
         }
       }
     },
@@ -1571,7 +1434,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.728Z",
+        "evaluatedAt": "2026-07-29T03:15:05.836Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1626,7 +1489,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.728Z",
+          "evaluatedAt": "2026-07-29T03:15:05.836Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +1507,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.728Z",
+          "evaluatedAt": "2026-07-29T03:15:05.836Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1660,7 +1523,7 @@
       "installUrl": "github:davidondrej/skills:skills/skill-authoring/effective-agent-skills",
       "relPath": "skills/skill-authoring/effective-agent-skills",
       "verified": true,
-      "tokenCount": 4555,
+      "tokenCount": 4680,
       "evalSummary": {
         "overallScore": 80,
         "grade": "B",
@@ -1708,7 +1571,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.730Z",
+        "evaluatedAt": "2026-07-29T03:15:05.840Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1763,7 +1626,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.730Z",
+          "evaluatedAt": "2026-07-29T03:15:05.840Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +1644,144 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.730Z",
+          "evaluatedAt": "2026-07-29T03:15:05.840Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "fable-review",
+      "description": "Launch a Fable 5 Max 1M subagent to do a deep, neutral senior-developer review of the current work and report its findings back verbatim. Use when the user says \"/fable-review\", \"fable review\", or asks for Fable to review the code. Differentiator: reviewer model is Fable 5 Max 1M — for a GPT reviewer use gpt-review.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:davidondrej/skills:skills/agent-orchestration/fable-review",
+      "relPath": "skills/agent-orchestration/fable-review",
+      "verified": true,
+      "tokenCount": 595,
+      "evalSummary": {
+        "overallScore": 44,
+        "grade": "F",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:15:05.843Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 44,
+          "grade": "F",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.843Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.843Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1845,7 +1845,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.732Z",
+        "evaluatedAt": "2026-07-29T03:15:05.845Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1900,7 +1900,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.732Z",
+          "evaluatedAt": "2026-07-29T03:15:05.845Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1918,7 +1918,144 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.732Z",
+          "evaluatedAt": "2026-07-29T03:15:05.845Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "fireflies-transcript",
+      "description": "Pull raw meeting transcripts from the user''s Fireflies.ai notetaker via its GraphQL API, using the key saved globally on this machine. Use when the user wants a call transcript, meeting notes, \"what was said on the call\", onboarding-call transcripts, or Fireflies data. Differentiator: Fireflies meeting recordings only — for YouTube videos use youtube-transcript.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:davidondrej/skills:skills/research-and-web/fireflies-transcript",
+      "relPath": "skills/research-and-web/fireflies-transcript",
+      "verified": true,
+      "tokenCount": 843,
+      "evalSummary": {
+        "overallScore": 64,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:15:05.846Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 64,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.846Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.846Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1982,7 +2119,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.733Z",
+        "evaluatedAt": "2026-07-29T03:15:05.848Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2037,7 +2174,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.733Z",
+          "evaluatedAt": "2026-07-29T03:15:05.848Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2055,7 +2192,281 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.733Z",
+          "evaluatedAt": "2026-07-29T03:15:05.848Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "git-worktree",
+      "description": "Use git worktrees to run multiple coding agents in parallel on one repo without collisions. Use when starting a task in a shared repo, when the user says \"worktree\", \"parallel agents\", \"one worktree per task\", or when agents keep overwriting each other's changes. Covers creating worktrees, making them as complete as the main checkout (.env files, dependencies, databases, ports), merging back, and cleanup.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:davidondrej/skills:skills/agent-orchestration/git-worktree",
+      "relPath": "skills/agent-orchestration/git-worktree",
+      "verified": true,
+      "tokenCount": 1757,
+      "evalSummary": {
+        "overallScore": 61,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:15:05.849Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 61,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.849Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.849Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "global-agent-guardrails",
+      "description": "One shared denylist of catastrophic shell commands (rm -rf on / or ~, dd/mkfs, sudo rm, fork bombs, curl|sh, git push --force, gh repo delete) enforced as a PreToolUse/pre-exec guard across every AI coding agent on the machine — Cursor, Claude Code, Codex, OpenCode, Pi, Hermes, Grok, Droid, Devin. Use when adding or tuning blocked-command patterns, wiring the guard into a new agent or a new machine, debugging why a command was (or was not) blocked, or when the user mentions command guard, guardrails, dangerous command hook, or PreToolUse safety.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:davidondrej/skills:skills/ops-and-setup/global-agent-guardrails",
+      "relPath": "skills/ops-and-setup/global-agent-guardrails",
+      "verified": true,
+      "tokenCount": 1914,
+      "evalSummary": {
+        "overallScore": 66,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:15:05.851Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 66,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.851Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.851Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2119,7 +2530,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.735Z",
+        "evaluatedAt": "2026-07-29T03:15:05.853Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2174,7 +2585,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.735Z",
+          "evaluatedAt": "2026-07-29T03:15:05.853Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2192,37 +2603,174 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.735Z",
+          "evaluatedAt": "2026-07-29T03:15:05.853Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
-      "name": "grill-me",
-      "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+      "name": "google-safe-browsing",
+      "description": "Prevent and fix Google Safe Browsing \"Dangerous site\" flags. Use when launching a public web app, buying/picking a domain, building a login or signup page, or when any site shows a red \"Dangerous site\" / \"Deceptive site\" warning in Chrome, Brave, Safari, Firefox, or Edge. Triggers on \"dangerous site\", \"deceptive site\", \"site blocked\", \"safe browsing\", \"phishing flag\", \"red warning screen\".",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/grill-me",
-      "relPath": "skills/thinking-and-docs/grill-me",
+      "installUrl": "github:davidondrej/skills:skills/ops-and-setup/google-safe-browsing",
+      "relPath": "skills/ops-and-setup/google-safe-browsing",
       "verified": true,
-      "tokenCount": 205,
+      "tokenCount": 1276,
       "evalSummary": {
-        "overallScore": 43,
-        "grade": "F",
+        "overallScore": 70,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 6,
+            "score": 7,
             "max": 10
           },
           {
             "id": "description",
             "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
             "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:15:05.855Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 70,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.855Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.855Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "gpt-review",
+      "description": "Launch a GPT 5.6 Sol Max subagent to do a deep, neutral senior-developer review of the current work and report its findings back verbatim. Use when the user says \"/gpt-review\", \"gpt review\", or asks for GPT to review the code. Differentiator: reviewer model is GPT 5.6 Sol Max — for a Fable reviewer use fable-review.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:davidondrej/skills:skills/agent-orchestration/gpt-review",
+      "relPath": "skills/agent-orchestration/gpt-review",
+      "verified": true,
+      "tokenCount": 593,
+      "evalSummary": {
+        "overallScore": 41,
+        "grade": "F",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
             "max": 10
           },
           {
@@ -2234,13 +2782,13 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 4,
+            "score": 6,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 5,
+            "score": 2,
             "max": 10
           },
           {
@@ -2252,11 +2800,11 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 7,
+            "score": 8,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.736Z",
+        "evaluatedAt": "2026-07-29T03:15:05.856Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2265,19 +2813,19 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 43,
+          "overallScore": 41,
           "grade": "F",
           "categories": [
             {
               "id": "structure",
               "name": "Structure & completeness",
-              "score": 6,
+              "score": 7,
               "max": 10
             },
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 5,
               "max": 10
             },
             {
@@ -2289,13 +2837,13 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 4,
+              "score": 6,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 5,
+              "score": 2,
               "max": 10
             },
             {
@@ -2307,11 +2855,11 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 7,
+              "score": 8,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.736Z",
+          "evaluatedAt": "2026-07-29T03:15:05.856Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2329,7 +2877,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.736Z",
+          "evaluatedAt": "2026-07-29T03:15:05.856Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2393,7 +2941,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.737Z",
+        "evaluatedAt": "2026-07-29T03:15:05.859Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2448,7 +2996,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.737Z",
+          "evaluatedAt": "2026-07-29T03:15:05.859Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2466,26 +3014,26 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.737Z",
+          "evaluatedAt": "2026-07-29T03:15:05.859Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
-      "name": "interview-style-doc-building",
-      "description": "Use when the user wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
+      "name": "launch-subagent",
+      "description": "Read this BEFORE launching any subagent (Task tool, background agents, parallel agents, best-of-N, delegating work to another agent). Hard model rules for subagents plus consensus principles for using them well. Triggers: launch a subagent, spawn agents, run agents in parallel, delegate to a subagent.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/interview-style-doc-building",
-      "relPath": "skills/thinking-and-docs/interview-style-doc-building",
+      "installUrl": "github:davidondrej/skills:skills/agent-orchestration/launch-subagent",
+      "relPath": "skills/agent-orchestration/launch-subagent",
       "verified": true,
-      "tokenCount": 1286,
+      "tokenCount": 710,
       "evalSummary": {
-        "overallScore": 67,
-        "grade": "C",
+        "overallScore": 56,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -2502,7 +3050,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 6,
+            "score": 5,
             "max": 10
           },
           {
@@ -2520,17 +3068,17 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 0,
             "max": 10
           },
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 10,
+            "score": 8,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.738Z",
+        "evaluatedAt": "2026-07-29T03:15:05.860Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2539,8 +3087,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
-          "grade": "C",
+          "overallScore": 56,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -2557,7 +3105,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 6,
+              "score": 5,
               "max": 10
             },
             {
@@ -2575,154 +3123,17 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:55:16.738Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 77,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 10,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:55:16.738Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "markdown-rendering",
-      "description": "How to reliably open a markdown file in a cmux right pane without it rendering blank. Use whenever opening/showing/rendering a .md file in cmux's right pane via `cmux markdown open`. Covers the move-surface blank-render bug and the only two reliable approaches — open it correctly the first time, or close the existing right pane(s) first then open a fresh right pane.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:davidondrej/skills:skills/agent-orchestration/markdown-rendering",
-      "relPath": "skills/agent-orchestration/markdown-rendering",
-      "verified": true,
-      "tokenCount": 808,
-      "evalSummary": {
-        "overallScore": 47,
-        "grade": "F",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 6,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 2,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-07-07T08:55:16.739Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 47,
-          "grade": "F",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
               "score": 0,
               "max": 10
             },
             {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 6,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 2,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 3,
-              "max": 10
-            },
-            {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 10,
+              "score": 8,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.739Z",
+          "evaluatedAt": "2026-07-29T03:15:05.860Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2740,7 +3151,418 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.739Z",
+          "evaluatedAt": "2026-07-29T03:15:05.860Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "level-up",
+      "description": "Gauge the user''s technical + product knowledge through 7 adaptive questions, log verbatim answers with honest ratings, and grow a learning plan from the gaps found. Use when the user says \"level up\", \"level-up session\", \"quiz me\", \"gauge my knowledge\", or wants a new assessment round. Differentiator: this finds and maps gaps; the `teach` skill delivers lessons on them.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/level-up",
+      "relPath": "skills/thinking-and-docs/level-up",
+      "verified": true,
+      "tokenCount": 842,
+      "evalSummary": {
+        "overallScore": 56,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:15:05.861Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 56,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.861Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 62,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 8,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.861Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "next-decision",
+      "description": "Drill open decisions one at a time — present the most important decision not yet clarified, give the top four choices, state a preference, ask the user. Use when the user says \"next decision\", \"one decision at a time\", or a plan has several unresolved choices. Differentiator: forward-looking; the decisions skill is retrospective (choices already made). Can be invoked with /next-decision.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/next-decision",
+      "relPath": "skills/thinking-and-docs/next-decision",
+      "verified": true,
+      "tokenCount": 257,
+      "evalSummary": {
+        "overallScore": 37,
+        "grade": "F",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:15:05.862Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 37,
+          "grade": "F",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 7,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.862Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.862Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "online-shopping",
+      "description": "Research any online purchase with DeepAPI — fair-price checks, best deals, where to buy, shop trust. Load whenever the user is shopping or buying anything online: mentions buying a product, comparing prices, \"is this a good price\", \"where can I get X\", or attaches a product photo or listing screenshot. Research only — never places orders.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:davidondrej/skills:skills/research-and-web/online-shopping",
+      "relPath": "skills/research-and-web/online-shopping",
+      "verified": true,
+      "tokenCount": 1968,
+      "evalSummary": {
+        "overallScore": 64,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:15:05.863Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 64,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.863Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.863Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2804,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.740Z",
+        "evaluatedAt": "2026-07-29T03:15:05.865Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2859,7 +3681,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.740Z",
+          "evaluatedAt": "2026-07-29T03:15:05.865Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2877,7 +3699,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.740Z",
+          "evaluatedAt": "2026-07-29T03:15:05.865Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2893,7 +3715,7 @@
       "installUrl": "github:davidondrej/skills:skills/research-and-web/pi-web-search",
       "relPath": "skills/research-and-web/pi-web-search",
       "verified": true,
-      "tokenCount": 884,
+      "tokenCount": 920,
       "evalSummary": {
         "overallScore": 59,
         "grade": "D",
@@ -2941,7 +3763,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.741Z",
+        "evaluatedAt": "2026-07-29T03:15:05.866Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2996,7 +3818,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.741Z",
+          "evaluatedAt": "2026-07-29T03:15:05.866Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3014,25 +3836,25 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.741Z",
+          "evaluatedAt": "2026-07-29T03:15:05.866Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
-      "name": "push-skill-to-github",
-      "description": "Commit and push agent-skill changes to the user's private skills GitHub repo (rooted at ~/.agents). Use after creating or updating any skill, when the user says \"push the skill\", \"push skills to github\", \"save the skill to my repo\", or \"update the skills repo\". Handles staging, committing, pushing, and cleaning up the cmux pane used to do it.",
+      "name": "prod-push",
+      "description": "Push to GitHub main and babysit the change until it is verifiably live in production, fixing CI and deploy failures along the way. Use when the user says \"push\", \"push to github\", \"push to prod\", \"ship it\", or \"deploy\". Differentiator: pushing requires the user''s explicit go-ahead; this is the procedure for AFTER the user gives it (this repo''s CI gate + Vercel promotion).",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "installUrl": "github:davidondrej/skills:skills/skill-authoring/push-skill-to-github",
-      "relPath": "skills/skill-authoring/push-skill-to-github",
+      "installUrl": "github:davidondrej/skills:skills/ops-and-setup/prod-push",
+      "relPath": "skills/ops-and-setup/prod-push",
       "verified": true,
-      "tokenCount": 674,
+      "tokenCount": 2633,
       "evalSummary": {
-        "overallScore": 60,
+        "overallScore": 63,
         "grade": "D",
         "categories": [
           {
@@ -3044,41 +3866,41 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 3,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 7,
+            "score": 6,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 5,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 3,
+            "score": 10,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 3,
+            "score": 5,
             "max": 10
           },
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 10,
+            "score": 8,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.742Z",
+        "evaluatedAt": "2026-07-29T03:15:05.868Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3087,7 +3909,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 60,
+          "overallScore": 63,
           "grade": "D",
           "categories": [
             {
@@ -3099,41 +3921,41 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 5,
+              "score": 3,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 7,
+              "score": 6,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 5,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 3,
+              "score": 10,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 3,
+              "score": 5,
               "max": 10
             },
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 10,
+              "score": 8,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.742Z",
+          "evaluatedAt": "2026-07-29T03:15:05.868Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3151,7 +3973,281 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.742Z",
+          "evaluatedAt": "2026-07-29T03:15:05.868Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "prompt-me",
+      "description": "Prompt the user with pointed questions to extract what is in his head about a project — remaining work, what is being avoided, what really matters, what does not. Use when the user says \"prompt me\", \"ask me questions\", or wants the agent to figure out priorities by questioning him.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/prompt-me",
+      "relPath": "skills/thinking-and-docs/prompt-me",
+      "verified": true,
+      "tokenCount": 223,
+      "evalSummary": {
+        "overallScore": 39,
+        "grade": "F",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:15:05.871Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 39,
+          "grade": "F",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.871Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.871Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "push-skill-to-github",
+      "description": "Commit and push agent-skill changes to the user's private skills GitHub repo (rooted at ~/.agents). Use after creating or updating any skill, when the user says \"push the skill\", \"push skills to github\", \"save the skill to my repo\", or \"update the skills repo\". Handles staging, committing, and pushing directly in the current shell — works in any agent, no cmux needed.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:davidondrej/skills:skills/skill-authoring/push-skill-to-github",
+      "relPath": "skills/skill-authoring/push-skill-to-github",
+      "verified": true,
+      "tokenCount": 572,
+      "evalSummary": {
+        "overallScore": 59,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:15:05.872Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 59,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.872Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.872Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3215,7 +4311,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.743Z",
+        "evaluatedAt": "2026-07-29T03:15:05.875Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3270,7 +4366,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.743Z",
+          "evaluatedAt": "2026-07-29T03:15:05.875Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3288,7 +4384,144 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.743Z",
+          "evaluatedAt": "2026-07-29T03:15:05.875Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "remind",
+      "description": "Rewrite the last response simpler and shorter in plain English, prefixed with a 3-5 sentence TLDR of the conversation so far. Manual-only, invoked as /remind.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/remind",
+      "relPath": "skills/thinking-and-docs/remind",
+      "verified": true,
+      "tokenCount": 324,
+      "evalSummary": {
+        "overallScore": 37,
+        "grade": "F",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:15:05.878Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 37,
+          "grade": "F",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 7,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.879Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.879Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3352,7 +4585,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.744Z",
+        "evaluatedAt": "2026-07-29T03:15:05.881Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3407,7 +4640,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.744Z",
+          "evaluatedAt": "2026-07-29T03:15:05.881Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3425,7 +4658,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.744Z",
+          "evaluatedAt": "2026-07-29T03:15:05.881Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3441,7 +4674,7 @@
       "installUrl": "github:davidondrej/skills:skills/agent-orchestration/run-deep-swe",
       "relPath": "skills/agent-orchestration/run-deep-swe",
       "verified": true,
-      "tokenCount": 1176,
+      "tokenCount": 1192,
       "evalSummary": {
         "overallScore": 67,
         "grade": "C",
@@ -3489,7 +4722,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.745Z",
+        "evaluatedAt": "2026-07-29T03:15:05.882Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3544,7 +4777,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.745Z",
+          "evaluatedAt": "2026-07-29T03:15:05.882Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3562,7 +4795,144 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.745Z",
+          "evaluatedAt": "2026-07-29T03:15:05.882Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "save-idea",
+      "description": "Quickly capture a content idea into ~/code/content from any repo or chat. Video ideas go to VIDEO-IDEAS.md; smaller podcast topics, guest ideas, questions, and AI observations go to TOPICS.md. Every entry gets a source line referencing the chat and repo it came from. Use when the user says \"/save-idea\", \"save this idea\", \"video idea\", \"add a topic\", \"write this down for a video/podcast\". Differentiator: appends to the user''s content backlog — not a reminder, task, or general note tool.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/save-idea",
+      "relPath": "skills/thinking-and-docs/save-idea",
+      "verified": true,
+      "tokenCount": 854,
+      "evalSummary": {
+        "overallScore": 54,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:15:05.884Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 54,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.884Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:15:05.884Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3578,7 +4948,7 @@
       "installUrl": "github:davidondrej/skills:skills/ops-and-setup/setup-help",
       "relPath": "skills/ops-and-setup/setup-help",
       "verified": true,
-      "tokenCount": 656,
+      "tokenCount": 760,
       "evalSummary": {
         "overallScore": 56,
         "grade": "D",
@@ -3626,7 +4996,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.746Z",
+        "evaluatedAt": "2026-07-29T03:15:05.885Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3681,7 +5051,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.746Z",
+          "evaluatedAt": "2026-07-29T03:15:05.885Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3699,7 +5069,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.746Z",
+          "evaluatedAt": "2026-07-29T03:15:05.885Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3763,7 +5133,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.747Z",
+        "evaluatedAt": "2026-07-29T03:15:05.886Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3818,7 +5188,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.747Z",
+          "evaluatedAt": "2026-07-29T03:15:05.886Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3836,7 +5206,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.747Z",
+          "evaluatedAt": "2026-07-29T03:15:05.886Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3900,7 +5270,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.748Z",
+        "evaluatedAt": "2026-07-29T03:15:05.888Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3955,7 +5325,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.748Z",
+          "evaluatedAt": "2026-07-29T03:15:05.888Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3973,7 +5343,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.748Z",
+          "evaluatedAt": "2026-07-29T03:15:05.888Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3989,9 +5359,9 @@
       "installUrl": "github:davidondrej/skills:skills/ops-and-setup/vps-server-management",
       "relPath": "skills/ops-and-setup/vps-server-management",
       "verified": true,
-      "tokenCount": 880,
+      "tokenCount": 876,
       "evalSummary": {
-        "overallScore": 59,
+        "overallScore": 57,
         "grade": "D",
         "categories": [
           {
@@ -4009,7 +5379,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 6,
+            "score": 5,
             "max": 10
           },
           {
@@ -4037,7 +5407,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.749Z",
+        "evaluatedAt": "2026-07-29T03:15:05.890Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4046,7 +5416,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 59,
+          "overallScore": 57,
           "grade": "D",
           "categories": [
             {
@@ -4064,7 +5434,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 6,
+              "score": 5,
               "max": 10
             },
             {
@@ -4092,7 +5462,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.749Z",
+          "evaluatedAt": "2026-07-29T03:15:05.890Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4110,7 +5480,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.749Z",
+          "evaluatedAt": "2026-07-29T03:15:05.890Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4126,9 +5496,9 @@
       "installUrl": "github:davidondrej/skills:skills/research-and-web/youtube-transcript",
       "relPath": "skills/research-and-web/youtube-transcript",
       "verified": true,
-      "tokenCount": 1292,
+      "tokenCount": 1266,
       "evalSummary": {
-        "overallScore": 54,
+        "overallScore": 56,
         "grade": "D",
         "categories": [
           {
@@ -4146,7 +5516,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 5,
+            "score": 6,
             "max": 10
           },
           {
@@ -4174,7 +5544,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:55:16.750Z",
+        "evaluatedAt": "2026-07-29T03:15:05.891Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4183,7 +5553,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 54,
+          "overallScore": 56,
           "grade": "D",
           "categories": [
             {
@@ -4201,7 +5571,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 5,
+              "score": 6,
               "max": 10
             },
             {
@@ -4229,7 +5599,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.750Z",
+          "evaluatedAt": "2026-07-29T03:15:05.891Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4247,7 +5617,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:55:16.750Z",
+          "evaluatedAt": "2026-07-29T03:15:05.891Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4259,7 +5629,7 @@
       "name": "davidondrej-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-07-07T08:55:16.751Z",
+      "createdAt": "2026-07-29T03:15:05.892Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4277,15 +5647,21 @@
           "version": "0.0.0"
         },
         {
+          "name": "anti-sleep",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/anti-sleep",
+          "description": "Keep the user's MacBook awake reliably with macOS caffeinate for a set duration or while a process runs. Use for \"don't let my Mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", overnight work, or long builds. Unlike a normal background job, it survives temporary agent-shell cleanup.",
+          "version": "0.0.0"
+        },
+        {
           "name": "brain-to-docs",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/brain-to-docs",
-          "description": "Use when the user wants to extract project vision, decisions, and preferences from their head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
+          "description": "Use when the user wants to extract project vision, decisions, and preferences from his head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
           "version": "0.0.0"
         },
         {
           "name": "cmux",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/cmux",
-          "description": "MUST be read ANY time you interact with cmux in ANY way — listing/inspecting/creating/closing cmux workspaces, panes, or surfaces; reading or capturing pane/screen output; sending input or keys to a pane/surface; delegating to, polling, or checking on other agents running in cmux panes/surfaces; building or rearranging terminal layout; cmux browser automation; sending notifications/flashes/status/progress to the sidebar; editing cmux settings; or integrating an agent with cmux hooks. If your command starts with `cmux ` or touches a cmux workspace/pane/surface/agent, read this FIRST. Triggers on \"cmux\", \"in this workspace\", \"this pane\", \"the other agent\", \"delegate to\", \"check on the agent\", \"send to the pane\". macOS only (14.0+).",
+          "description": "Control the cmux macOS terminal app (CLI + socket API) — cmux workspaces, panes, surfaces, browser automation, notifications, settings, hooks. MUST be read before running any `cmux` command. Trigger ONLY when the user explicitly says \"cmux\" — a cmux pane, cmux workspace, cmux surface, or an agent running in cmux. Do NOT trigger on generic mentions of \"workspace\", \"pane\", \"the other agent\", or \"delegate\" when cmux is not named — workspaces in tmux, Ghostty, herdr, VS Code, etc. are NOT cmux. macOS only (14.0+).",
           "version": "0.0.0"
         },
         {
@@ -4295,15 +5671,15 @@
           "version": "0.0.0"
         },
         {
-          "name": "copywriting",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/copywriting",
-          "description": "How David Ondrej writes. Use EVERY time you write copy or any text on David's behalf — tweets, DMs, YouTube titles and descriptions, GitHub About and READMEs, landing pages, bios, emails, product copy, announcements. Covers his two styles (authentic and formal) and when to use each.",
+          "name": "create-readonly-db-role",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/create-readonly-db-role",
+          "description": "Provision a hardened SELECT-only Postgres role so AI agents can safely read a production database. Works on Supabase and any Postgres. Use when the user wants agents to query prod data, says \"read-only role\", \"safe prod DB access for agents\", or is tired of running SQL by hand for agents. Differentiator: this skill CREATES the role and wiring; day-to-day querying belongs in a project-local skill.",
           "version": "0.0.0"
         },
         {
-          "name": "cyber-audit",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/cyber-audit",
-          "description": "Read-only exposure audit of the user's MacBook (and ~/Documents/code projects) for a CVE, breach, malicious package, or other security advisory, then write a structured report to ~/Documents/security-audits/. Use when the user shares a breach/CVE/malware/supply-chain advisory and asks if they're affected, says \"scan my system for X\", \"are we affected by Y\", \"check if I'm vulnerable to Z\", or requests any hack/breach/cyber/vulnerability audit on this MacBook. Output matches the existing audit format in ~/Documents/security-audits/.",
+          "name": "decisions",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/decisions",
+          "description": "Ask the agent to list all choices it made during the current work that it is not confident of. Manual-only; invoke with /decisions.",
           "version": "0.0.0"
         },
         {
@@ -4315,14 +5691,8 @@
         {
           "name": "deepapi",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/deepapi",
-          "description": "Use DeepAPI for scraping and safe email with DEEPAPI_API_BASE_URL and DEEPAPI_API_KEY.",
-          "version": "b17ad5148ab7"
-        },
-        {
-          "name": "delegating-to-agents",
-          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/delegating-to-agents",
-          "description": "How to delegate work to another AI agent (Pi, Codex, Claude Code, Hermes) — picking the right agent, sending prompts to TUI agents, polling progress. Read BEFORE any `cmux send`/`tmux send-keys` to an agent, or whenever delegating, relaying, spawning, or orchestrating agent-to-agent work.",
-          "version": "0.0.0"
+          "description": "Use DeepAPI for all regular web searches (POST /v1/search/web) and for any deep research you perform (POST /v1/research/deep), instead of built-in search or research tools. Use it for all scraping of the web (websites, LinkedIn, GitHub, X/Twitter, YouTube — POST /v1/scrape/*) instead of built-in fetch or browser tools. Platform lookups (GitHub, YouTube, X/Twitter, LinkedIn, Instagram) have dedicated search endpoints — prefer them over web search. Also use it to draft and send safe email, and generate images with DEEPAPI_API_BASE_URL and DEEPAPI_API_KEY.",
+          "version": "5706ff68b88e"
         },
         {
           "name": "distribute-skill-to-all-agents",
@@ -4337,9 +5707,21 @@
           "version": "0.0.0"
         },
         {
+          "name": "fable-review",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/fable-review",
+          "description": "Launch a Fable 5 Max 1M subagent to do a deep, neutral senior-developer review of the current work and report its findings back verbatim. Use when the user says \"/fable-review\", \"fable review\", or asks for Fable to review the code. Differentiator: reviewer model is Fable 5 Max 1M — for a GPT reviewer use gpt-review.",
+          "version": "0.0.0"
+        },
+        {
           "name": "fable-safe-prompt",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/fable-safe-prompt",
           "description": "Rewrite a user's prompt to reduce the chance it trips Claude Fable 5's server-side safety classifiers (cyber/bio guardrails that force-route to Opus 4.8 or return stop_reason \"refusal\"). Use when the user hands you a prompt that touches cybersecurity, auth, exploits, malware, pentesting, or other dual-use topics and asks to make it \"Fable-safe\", \"guardrail-safe\", \"won't get flagged/refused/downgraded\", or to rewrite it so Fable 5 won't block it.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "fireflies-transcript",
+          "installUrl": "github:davidondrej/skills:skills/research-and-web/fireflies-transcript",
+          "description": "Pull raw meeting transcripts from the user''s Fireflies.ai notetaker via its GraphQL API, using the key saved globally on this machine. Use when the user wants a call transcript, meeting notes, \"what was said on the call\", onboarding-call transcripts, or Fireflies data. Differentiator: Fireflies meeting recordings only — for YouTube videos use youtube-transcript.",
           "version": "0.0.0"
         },
         {
@@ -4349,9 +5731,33 @@
           "version": "0.0.0"
         },
         {
+          "name": "git-worktree",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/git-worktree",
+          "description": "Use git worktrees to run multiple coding agents in parallel on one repo without collisions. Use when starting a task in a shared repo, when the user says \"worktree\", \"parallel agents\", \"one worktree per task\", or when agents keep overwriting each other's changes. Covers creating worktrees, making them as complete as the main checkout (.env files, dependencies, databases, ports), merging back, and cleanup.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "global-agent-guardrails",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/global-agent-guardrails",
+          "description": "One shared denylist of catastrophic shell commands (rm -rf on / or ~, dd/mkfs, sudo rm, fork bombs, curl|sh, git push --force, gh repo delete) enforced as a PreToolUse/pre-exec guard across every AI coding agent on the machine — Cursor, Claude Code, Codex, OpenCode, Pi, Hermes, Grok, Droid, Devin. Use when adding or tuning blocked-command patterns, wiring the guard into a new agent or a new machine, debugging why a command was (or was not) blocked, or when the user mentions command guard, guardrails, dangerous command hook, or PreToolUse safety.",
+          "version": "0.0.0"
+        },
+        {
           "name": "goal-loop",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/goal-loop",
           "description": "Explain and write effective instructions for the `/goal` feature — the persistent self-checking agent loop (plan → act → test → review → iterate), available in agents like Codex, Claude Code, and Hermes Agent. Use when the user mentions `/goal`, \"goal loop\", \"Ralph loop\", wants to kick off a long-running autonomous agent run, asks how to write a goal prompt, or wants a one-paragraph goal instruction drafted.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "google-safe-browsing",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/google-safe-browsing",
+          "description": "Prevent and fix Google Safe Browsing \"Dangerous site\" flags. Use when launching a public web app, buying/picking a domain, building a login or signup page, or when any site shows a red \"Dangerous site\" / \"Deceptive site\" warning in Chrome, Brave, Safari, Firefox, or Edge. Triggers on \"dangerous site\", \"deceptive site\", \"site blocked\", \"safe browsing\", \"phishing flag\", \"red warning screen\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gpt-review",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/gpt-review",
+          "description": "Launch a GPT 5.6 Sol Max subagent to do a deep, neutral senior-developer review of the current work and report its findings back verbatim. Use when the user says \"/gpt-review\", \"gpt review\", or asks for GPT to review the code. Differentiator: reviewer model is GPT 5.6 Sol Max — for a Fable reviewer use fable-review.",
           "version": "0.0.0"
         },
         {
@@ -4361,9 +5767,15 @@
           "version": "0.0.0"
         },
         {
-          "name": "markdown-rendering",
-          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/markdown-rendering",
-          "description": "How to reliably open a markdown file in a cmux right pane without it rendering blank. Use whenever opening/showing/rendering a .md file in cmux's right pane via `cmux markdown open`. Covers the move-surface blank-render bug and the only two reliable approaches — open it correctly the first time, or close the existing right pane(s) first then open a fresh right pane.",
+          "name": "launch-subagent",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/launch-subagent",
+          "description": "Read this BEFORE launching any subagent (Task tool, background agents, parallel agents, best-of-N, delegating work to another agent). Hard model rules for subagents plus consensus principles for using them well. Triggers: launch a subagent, spawn agents, run agents in parallel, delegate to a subagent.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "online-shopping",
+          "installUrl": "github:davidondrej/skills:skills/research-and-web/online-shopping",
+          "description": "Research any online purchase with DeepAPI — fair-price checks, best deals, where to buy, shop trust. Load whenever the user is shopping or buying anything online: mentions buying a product, comparing prices, \"is this a good price\", \"where can I get X\", or attaches a product photo or listing screenshot. Research only — never places orders.",
           "version": "0.0.0"
         },
         {
@@ -4379,9 +5791,27 @@
           "version": "0.0.0"
         },
         {
+          "name": "prod-push",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/prod-push",
+          "description": "Push to GitHub main and babysit the change until it is verifiably live in production, fixing CI and deploy failures along the way. Use when the user says \"push\", \"push to github\", \"push to prod\", \"ship it\", or \"deploy\". Differentiator: pushing requires the user''s explicit go-ahead; this is the procedure for AFTER the user gives it (this repo''s CI gate + Vercel promotion).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "prompt-me",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/prompt-me",
+          "description": "Prompt the user with pointed questions to extract what is in his head about a project — remaining work, what is being avoided, what really matters, what does not. Use when the user says \"prompt me\", \"ask me questions\", or wants the agent to figure out priorities by questioning him.",
+          "version": "0.0.0"
+        },
+        {
           "name": "push-skill-to-github",
           "installUrl": "github:davidondrej/skills:skills/skill-authoring/push-skill-to-github",
-          "description": "Commit and push agent-skill changes to the user's private skills GitHub repo (rooted at ~/.agents). Use after creating or updating any skill, when the user says \"push the skill\", \"push skills to github\", \"save the skill to my repo\", or \"update the skills repo\". Handles staging, committing, pushing, and cleaning up the cmux pane used to do it.",
+          "description": "Commit and push agent-skill changes to the user's private skills GitHub repo (rooted at ~/.agents). Use after creating or updating any skill, when the user says \"push the skill\", \"push skills to github\", \"save the skill to my repo\", or \"update the skills repo\". Handles staging, committing, and pushing directly in the current shell — works in any agent, no cmux needed.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "remind",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/remind",
+          "description": "Rewrite the last response simpler and shorter in plain English, prefixed with a 3-5 sentence TLDR of the conversation so far. Manual-only, invoked as /remind.",
           "version": "0.0.0"
         },
         {
@@ -4394,6 +5824,12 @@
           "name": "run-deep-swe",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/run-deep-swe",
           "description": "Score any AI model on the DeepSWE coding-agent benchmark via the OpenRouter API. Use when the user wants an independent, reproducible coding-agent eval — \"run DeepSWE\", \"benchmark this model on DeepSWE\", \"score model X on the coding benchmark\", \"test a model via OpenRouter on DeepSWE\", or to verify vendor-reported coding scores. Covers setup, the OpenRouter wiring for mini-swe-agent, single-task / subset / full 113-task runs, and leaderboard submission.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "save-idea",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/save-idea",
+          "description": "Quickly capture a content idea into ~/code/content from any repo or chat. Video ideas go to VIDEO-IDEAS.md; smaller podcast topics, guest ideas, questions, and AI observations go to TOPICS.md. Every entry gets a source line referencing the chat and repo it came from. Use when the user says \"/save-idea\", \"save this idea\", \"video idea\", \"add a topic\", \"write this down for a video/podcast\". Differentiator: appends to the user''s content backlog — not a reminder, task, or general note tool.",
           "version": "0.0.0"
         },
         {
@@ -4427,7 +5863,7 @@
       "name": "davidondrej-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-07-07T08:55:16.751Z",
+      "createdAt": "2026-07-29T03:15:05.892Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4441,7 +5877,7 @@
         {
           "name": "brain-to-docs",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/brain-to-docs",
-          "description": "Use when the user wants to extract project vision, decisions, and preferences from their head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
+          "description": "Use when the user wants to extract project vision, decisions, and preferences from his head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
           "version": "0.0.0"
         },
         {
@@ -4451,9 +5887,15 @@
           "version": "0.0.0"
         },
         {
-          "name": "cyber-audit",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/cyber-audit",
-          "description": "Read-only exposure audit of the user's MacBook (and ~/Documents/code projects) for a CVE, breach, malicious package, or other security advisory, then write a structured report to ~/Documents/security-audits/. Use when the user shares a breach/CVE/malware/supply-chain advisory and asks if they're affected, says \"scan my system for X\", \"are we affected by Y\", \"check if I'm vulnerable to Z\", or requests any hack/breach/cyber/vulnerability audit on this MacBook. Output matches the existing audit format in ~/Documents/security-audits/.",
+          "name": "cmux",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/cmux",
+          "description": "Control the cmux macOS terminal app (CLI + socket API) — cmux workspaces, panes, surfaces, browser automation, notifications, settings, hooks. MUST be read before running any `cmux` command. Trigger ONLY when the user explicitly says \"cmux\" — a cmux pane, cmux workspace, cmux surface, or an agent running in cmux. Do NOT trigger on generic mentions of \"workspace\", \"pane\", \"the other agent\", or \"delegate\" when cmux is not named — workspaces in tmux, Ghostty, herdr, VS Code, etc. are NOT cmux. macOS only (14.0+).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "decisions",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/decisions",
+          "description": "Ask the agent to list all choices it made during the current work that it is not confident of. Manual-only; invoke with /decisions.",
           "version": "0.0.0"
         },
         {
@@ -4469,21 +5911,33 @@
           "version": "0.0.0"
         },
         {
-          "name": "grill-me",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/grill-me",
-          "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+          "name": "git-worktree",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/git-worktree",
+          "description": "Use git worktrees to run multiple coding agents in parallel on one repo without collisions. Use when starting a task in a shared repo, when the user says \"worktree\", \"parallel agents\", \"one worktree per task\", or when agents keep overwriting each other's changes. Covers creating worktrees, making them as complete as the main checkout (.env files, dependencies, databases, ports), merging back, and cleanup.",
           "version": "0.0.0"
         },
         {
-          "name": "interview-style-doc-building",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/interview-style-doc-building",
-          "description": "Use when the user wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
+          "name": "launch-subagent",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/launch-subagent",
+          "description": "Read this BEFORE launching any subagent (Task tool, background agents, parallel agents, best-of-N, delegating work to another agent). Hard model rules for subagents plus consensus principles for using them well. Triggers: launch a subagent, spawn agents, run agents in parallel, delegate to a subagent.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "next-decision",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/next-decision",
+          "description": "Drill open decisions one at a time — present the most important decision not yet clarified, give the top four choices, state a preference, ask the user. Use when the user says \"next decision\", \"one decision at a time\", or a plan has several unresolved choices. Differentiator: forward-looking; the decisions skill is retrospective (choices already made). Can be invoked with /next-decision.",
           "version": "0.0.0"
         },
         {
           "name": "pi-web-search",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/pi-web-search",
           "description": "ONLY for Pi Agents — all other agents have their own web tools. How Pi accesses the web via the pi-web-access package — search, fetch URLs/PDFs/YouTube/GitHub. Use whenever a Pi task needs current info, docs, news, prices, or content from a specific URL.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "prod-push",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/prod-push",
+          "description": "Push to GitHub main and babysit the change until it is verifiably live in production, fixing CI and deploy failures along the way. Use when the user says \"push\", \"push to github\", \"push to prod\", \"ship it\", or \"deploy\". Differentiator: pushing requires the user''s explicit go-ahead; this is the procedure for AFTER the user gives it (this repo''s CI gate + Vercel promotion).",
           "version": "0.0.0"
         },
         {
@@ -4496,6 +5950,12 @@
           "name": "run-deep-swe",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/run-deep-swe",
           "description": "Score any AI model on the DeepSWE coding-agent benchmark via the OpenRouter API. Use when the user wants an independent, reproducible coding-agent eval — \"run DeepSWE\", \"benchmark this model on DeepSWE\", \"score model X on the coding benchmark\", \"test a model via OpenRouter on DeepSWE\", or to verify vendor-reported coding scores. Covers setup, the OpenRouter wiring for mini-swe-agent, single-task / subset / full 113-task runs, and leaderboard submission.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "save-idea",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/save-idea",
+          "description": "Quickly capture a content idea into ~/code/content from any repo or chat. Video ideas go to VIDEO-IDEAS.md; smaller podcast topics, guest ideas, questions, and AI observations go to TOPICS.md. Every entry gets a source line referencing the chat and repo it came from. Use when the user says \"/save-idea\", \"save this idea\", \"video idea\", \"add a topic\", \"write this down for a video/podcast\". Differentiator: appends to the user''s content backlog — not a reminder, task, or general note tool.",
           "version": "0.0.0"
         },
         {
@@ -4523,7 +5983,7 @@
       "name": "davidondrej-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-07-07T08:55:16.751Z",
+      "createdAt": "2026-07-29T03:15:05.892Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4543,13 +6003,13 @@
         {
           "name": "anti-sleep",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/anti-sleep",
-          "description": "Keep the user's MacBook awake with macOS caffeinate — prevent sleep, screen dimming, or both, for a set duration or while a process runs. Use when the user says \"don't let my mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", or wants the machine awake overnight / during a long build.",
+          "description": "Keep the user's MacBook awake reliably with macOS caffeinate for a set duration or while a process runs. Use for \"don't let my Mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", overnight work, or long builds. Unlike a normal background job, it survives temporary agent-shell cleanup.",
           "version": "0.0.0"
         },
         {
           "name": "brain-to-docs",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/brain-to-docs",
-          "description": "Use when the user wants to extract project vision, decisions, and preferences from their head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
+          "description": "Use when the user wants to extract project vision, decisions, and preferences from his head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
           "version": "0.0.0"
         },
         {
@@ -4561,19 +6021,13 @@
         {
           "name": "cmux",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/cmux",
-          "description": "MUST be read ANY time you interact with cmux in ANY way — listing/inspecting/creating/closing cmux workspaces, panes, or surfaces; reading or capturing pane/screen output; sending input or keys to a pane/surface; delegating to, polling, or checking on other agents running in cmux panes/surfaces; building or rearranging terminal layout; cmux browser automation; sending notifications/flashes/status/progress to the sidebar; editing cmux settings; or integrating an agent with cmux hooks. If your command starts with `cmux ` or touches a cmux workspace/pane/surface/agent, read this FIRST. Triggers on \"cmux\", \"in this workspace\", \"this pane\", \"the other agent\", \"delegate to\", \"check on the agent\", \"send to the pane\". macOS only (14.0+).",
+          "description": "Control the cmux macOS terminal app (CLI + socket API) — cmux workspaces, panes, surfaces, browser automation, notifications, settings, hooks. MUST be read before running any `cmux` command. Trigger ONLY when the user explicitly says \"cmux\" — a cmux pane, cmux workspace, cmux surface, or an agent running in cmux. Do NOT trigger on generic mentions of \"workspace\", \"pane\", \"the other agent\", or \"delegate\" when cmux is not named — workspaces in tmux, Ghostty, herdr, VS Code, etc. are NOT cmux. macOS only (14.0+).",
           "version": "0.0.0"
         },
         {
           "name": "codex-subagent",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/codex-subagent",
           "description": "Launch OpenAI Codex CLI as a subagent (ChatGPT subscription auth, no API key). Use when delegating a self-contained coding task to Codex from another agent — parallel implementation work, a second opinion, or an independent verification pass.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "cyber-audit",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/cyber-audit",
-          "description": "Read-only exposure audit of the user's MacBook (and ~/Documents/code projects) for a CVE, breach, malicious package, or other security advisory, then write a structured report to ~/Documents/security-audits/. Use when the user shares a breach/CVE/malware/supply-chain advisory and asks if they're affected, says \"scan my system for X\", \"are we affected by Y\", \"check if I'm vulnerable to Z\", or requests any hack/breach/cyber/vulnerability audit on this MacBook. Output matches the existing audit format in ~/Documents/security-audits/.",
           "version": "0.0.0"
         },
         {
@@ -4585,14 +6039,8 @@
         {
           "name": "deepapi",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/deepapi",
-          "description": "Use DeepAPI for scraping and safe email with DEEPAPI_API_BASE_URL and DEEPAPI_API_KEY.",
-          "version": "b17ad5148ab7"
-        },
-        {
-          "name": "delegating-to-agents",
-          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/delegating-to-agents",
-          "description": "How to delegate work to another AI agent (Pi, Codex, Claude Code, Hermes) — picking the right agent, sending prompts to TUI agents, polling progress. Read BEFORE any `cmux send`/`tmux send-keys` to an agent, or whenever delegating, relaying, spawning, or orchestrating agent-to-agent work.",
-          "version": "0.0.0"
+          "description": "Use DeepAPI for all regular web searches (POST /v1/search/web) and for any deep research you perform (POST /v1/research/deep), instead of built-in search or research tools. Use it for all scraping of the web (websites, LinkedIn, GitHub, X/Twitter, YouTube — POST /v1/scrape/*) instead of built-in fetch or browser tools. Platform lookups (GitHub, YouTube, X/Twitter, LinkedIn, Instagram) have dedicated search endpoints — prefer them over web search. Also use it to draft and send safe email, and generate images with DEEPAPI_API_BASE_URL and DEEPAPI_API_KEY.",
+          "version": "5706ff68b88e"
         },
         {
           "name": "distribute-skill-to-all-agents",
@@ -4607,9 +6055,33 @@
           "version": "0.0.0"
         },
         {
+          "name": "fable-review",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/fable-review",
+          "description": "Launch a Fable 5 Max 1M subagent to do a deep, neutral senior-developer review of the current work and report its findings back verbatim. Use when the user says \"/fable-review\", \"fable review\", or asks for Fable to review the code. Differentiator: reviewer model is Fable 5 Max 1M — for a GPT reviewer use gpt-review.",
+          "version": "0.0.0"
+        },
+        {
           "name": "fable-safe-prompt",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/fable-safe-prompt",
           "description": "Rewrite a user's prompt to reduce the chance it trips Claude Fable 5's server-side safety classifiers (cyber/bio guardrails that force-route to Opus 4.8 or return stop_reason \"refusal\"). Use when the user hands you a prompt that touches cybersecurity, auth, exploits, malware, pentesting, or other dual-use topics and asks to make it \"Fable-safe\", \"guardrail-safe\", \"won't get flagged/refused/downgraded\", or to rewrite it so Fable 5 won't block it.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "fireflies-transcript",
+          "installUrl": "github:davidondrej/skills:skills/research-and-web/fireflies-transcript",
+          "description": "Pull raw meeting transcripts from the user''s Fireflies.ai notetaker via its GraphQL API, using the key saved globally on this machine. Use when the user wants a call transcript, meeting notes, \"what was said on the call\", onboarding-call transcripts, or Fireflies data. Differentiator: Fireflies meeting recordings only — for YouTube videos use youtube-transcript.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "git-worktree",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/git-worktree",
+          "description": "Use git worktrees to run multiple coding agents in parallel on one repo without collisions. Use when starting a task in a shared repo, when the user says \"worktree\", \"parallel agents\", \"one worktree per task\", or when agents keep overwriting each other's changes. Covers creating worktrees, making them as complete as the main checkout (.env files, dependencies, databases, ports), merging back, and cleanup.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "global-agent-guardrails",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/global-agent-guardrails",
+          "description": "One shared denylist of catastrophic shell commands (rm -rf on / or ~, dd/mkfs, sudo rm, fork bombs, curl|sh, git push --force, gh repo delete) enforced as a PreToolUse/pre-exec guard across every AI coding agent on the machine — Cursor, Claude Code, Codex, OpenCode, Pi, Hermes, Grok, Droid, Devin. Use when adding or tuning blocked-command patterns, wiring the guard into a new agent or a new machine, debugging why a command was (or was not) blocked, or when the user mentions command guard, guardrails, dangerous command hook, or PreToolUse safety.",
           "version": "0.0.0"
         },
         {
@@ -4619,9 +6091,15 @@
           "version": "0.0.0"
         },
         {
-          "name": "grill-me",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/grill-me",
-          "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+          "name": "google-safe-browsing",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/google-safe-browsing",
+          "description": "Prevent and fix Google Safe Browsing \"Dangerous site\" flags. Use when launching a public web app, buying/picking a domain, building a login or signup page, or when any site shows a red \"Dangerous site\" / \"Deceptive site\" warning in Chrome, Brave, Safari, Firefox, or Edge. Triggers on \"dangerous site\", \"deceptive site\", \"site blocked\", \"safe browsing\", \"phishing flag\", \"red warning screen\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "gpt-review",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/gpt-review",
+          "description": "Launch a GPT 5.6 Sol Max subagent to do a deep, neutral senior-developer review of the current work and report its findings back verbatim. Use when the user says \"/gpt-review\", \"gpt review\", or asks for GPT to review the code. Differentiator: reviewer model is GPT 5.6 Sol Max — for a Fable reviewer use fable-review.",
           "version": "0.0.0"
         },
         {
@@ -4631,15 +6109,21 @@
           "version": "0.0.0"
         },
         {
-          "name": "interview-style-doc-building",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/interview-style-doc-building",
-          "description": "Use when the user wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
+          "name": "online-shopping",
+          "installUrl": "github:davidondrej/skills:skills/research-and-web/online-shopping",
+          "description": "Research any online purchase with DeepAPI — fair-price checks, best deals, where to buy, shop trust. Load whenever the user is shopping or buying anything online: mentions buying a product, comparing prices, \"is this a good price\", \"where can I get X\", or attaches a product photo or listing screenshot. Research only — never places orders.",
           "version": "0.0.0"
         },
         {
           "name": "run-deep-swe",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/run-deep-swe",
           "description": "Score any AI model on the DeepSWE coding-agent benchmark via the OpenRouter API. Use when the user wants an independent, reproducible coding-agent eval — \"run DeepSWE\", \"benchmark this model on DeepSWE\", \"score model X on the coding benchmark\", \"test a model via OpenRouter on DeepSWE\", or to verify vendor-reported coding scores. Covers setup, the OpenRouter wiring for mini-swe-agent, single-task / subset / full 113-task runs, and leaderboard submission.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "save-idea",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/save-idea",
+          "description": "Quickly capture a content idea into ~/code/content from any repo or chat. Video ideas go to VIDEO-IDEAS.md; smaller podcast topics, guest ideas, questions, and AI observations go to TOPICS.md. Every entry gets a source line referencing the chat and repo it came from. Use when the user says \"/save-idea\", \"save this idea\", \"video idea\", \"add a topic\", \"write this down for a video/podcast\". Differentiator: appends to the user''s content backlog — not a reminder, task, or general note tool.",
           "version": "0.0.0"
         },
         {
@@ -4661,7 +6145,7 @@
       "name": "davidondrej-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-07-07T08:55:16.751Z",
+      "createdAt": "2026-07-29T03:15:05.892Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4681,25 +6165,19 @@
         {
           "name": "anti-sleep",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/anti-sleep",
-          "description": "Keep the user's MacBook awake with macOS caffeinate — prevent sleep, screen dimming, or both, for a set duration or while a process runs. Use when the user says \"don't let my mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", or wants the machine awake overnight / during a long build.",
+          "description": "Keep the user's MacBook awake reliably with macOS caffeinate for a set duration or while a process runs. Use for \"don't let my Mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", overnight work, or long builds. Unlike a normal background job, it survives temporary agent-shell cleanup.",
           "version": "0.0.0"
         },
         {
           "name": "brain-to-docs",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/brain-to-docs",
-          "description": "Use when the user wants to extract project vision, decisions, and preferences from their head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
+          "description": "Use when the user wants to extract project vision, decisions, and preferences from his head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
           "version": "0.0.0"
         },
         {
           "name": "cmux",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/cmux",
-          "description": "MUST be read ANY time you interact with cmux in ANY way — listing/inspecting/creating/closing cmux workspaces, panes, or surfaces; reading or capturing pane/screen output; sending input or keys to a pane/surface; delegating to, polling, or checking on other agents running in cmux panes/surfaces; building or rearranging terminal layout; cmux browser automation; sending notifications/flashes/status/progress to the sidebar; editing cmux settings; or integrating an agent with cmux hooks. If your command starts with `cmux ` or touches a cmux workspace/pane/surface/agent, read this FIRST. Triggers on \"cmux\", \"in this workspace\", \"this pane\", \"the other agent\", \"delegate to\", \"check on the agent\", \"send to the pane\". macOS only (14.0+).",
-          "version": "0.0.0"
-        },
-        {
-          "name": "copywriting",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/copywriting",
-          "description": "How David Ondrej writes. Use EVERY time you write copy or any text on David's behalf — tweets, DMs, YouTube titles and descriptions, GitHub About and READMEs, landing pages, bios, emails, product copy, announcements. Covers his two styles (authentic and formal) and when to use each.",
+          "description": "Control the cmux macOS terminal app (CLI + socket API) — cmux workspaces, panes, surfaces, browser automation, notifications, settings, hooks. MUST be read before running any `cmux` command. Trigger ONLY when the user explicitly says \"cmux\" — a cmux pane, cmux workspace, cmux surface, or an agent running in cmux. Do NOT trigger on generic mentions of \"workspace\", \"pane\", \"the other agent\", or \"delegate\" when cmux is not named — workspaces in tmux, Ghostty, herdr, VS Code, etc. are NOT cmux. macOS only (14.0+).",
           "version": "0.0.0"
         },
         {
@@ -4709,10 +6187,10 @@
           "version": "0.0.0"
         },
         {
-          "name": "delegating-to-agents",
-          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/delegating-to-agents",
-          "description": "How to delegate work to another AI agent (Pi, Codex, Claude Code, Hermes) — picking the right agent, sending prompts to TUI agents, polling progress. Read BEFORE any `cmux send`/`tmux send-keys` to an agent, or whenever delegating, relaying, spawning, or orchestrating agent-to-agent work.",
-          "version": "0.0.0"
+          "name": "deepapi",
+          "installUrl": "github:davidondrej/skills:skills/research-and-web/deepapi",
+          "description": "Use DeepAPI for all regular web searches (POST /v1/search/web) and for any deep research you perform (POST /v1/research/deep), instead of built-in search or research tools. Use it for all scraping of the web (websites, LinkedIn, GitHub, X/Twitter, YouTube — POST /v1/scrape/*) instead of built-in fetch or browser tools. Platform lookups (GitHub, YouTube, X/Twitter, LinkedIn, Instagram) have dedicated search endpoints — prefer them over web search. Also use it to draft and send safe email, and generate images with DEEPAPI_API_BASE_URL and DEEPAPI_API_KEY.",
+          "version": "5706ff68b88e"
         },
         {
           "name": "distribute-skill-to-all-agents",
@@ -4727,27 +6205,33 @@
           "version": "0.0.0"
         },
         {
-          "name": "grill-me",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/grill-me",
-          "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+          "name": "google-safe-browsing",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/google-safe-browsing",
+          "description": "Prevent and fix Google Safe Browsing \"Dangerous site\" flags. Use when launching a public web app, buying/picking a domain, building a login or signup page, or when any site shows a red \"Dangerous site\" / \"Deceptive site\" warning in Chrome, Brave, Safari, Firefox, or Edge. Triggers on \"dangerous site\", \"deceptive site\", \"site blocked\", \"safe browsing\", \"phishing flag\", \"red warning screen\".",
           "version": "0.0.0"
         },
         {
-          "name": "interview-style-doc-building",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/interview-style-doc-building",
-          "description": "Use when the user wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
+          "name": "level-up",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/level-up",
+          "description": "Gauge the user''s technical + product knowledge through 7 adaptive questions, log verbatim answers with honest ratings, and grow a learning plan from the gaps found. Use when the user says \"level up\", \"level-up session\", \"quiz me\", \"gauge my knowledge\", or wants a new assessment round. Differentiator: this finds and maps gaps; the `teach` skill delivers lessons on them.",
           "version": "0.0.0"
         },
         {
-          "name": "markdown-rendering",
-          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/markdown-rendering",
-          "description": "How to reliably open a markdown file in a cmux right pane without it rendering blank. Use whenever opening/showing/rendering a .md file in cmux's right pane via `cmux markdown open`. Covers the move-surface blank-render bug and the only two reliable approaches — open it correctly the first time, or close the existing right pane(s) first then open a fresh right pane.",
+          "name": "prod-push",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/prod-push",
+          "description": "Push to GitHub main and babysit the change until it is verifiably live in production, fixing CI and deploy failures along the way. Use when the user says \"push\", \"push to github\", \"push to prod\", \"ship it\", or \"deploy\". Differentiator: pushing requires the user''s explicit go-ahead; this is the procedure for AFTER the user gives it (this repo''s CI gate + Vercel promotion).",
           "version": "0.0.0"
         },
         {
           "name": "push-skill-to-github",
           "installUrl": "github:davidondrej/skills:skills/skill-authoring/push-skill-to-github",
-          "description": "Commit and push agent-skill changes to the user's private skills GitHub repo (rooted at ~/.agents). Use after creating or updating any skill, when the user says \"push the skill\", \"push skills to github\", \"save the skill to my repo\", or \"update the skills repo\". Handles staging, committing, pushing, and cleaning up the cmux pane used to do it.",
+          "description": "Commit and push agent-skill changes to the user's private skills GitHub repo (rooted at ~/.agents). Use after creating or updating any skill, when the user says \"push the skill\", \"push skills to github\", \"save the skill to my repo\", or \"update the skills repo\". Handles staging, committing, and pushing directly in the current shell — works in any agent, no cmux needed.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "save-idea",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/save-idea",
+          "description": "Quickly capture a content idea into ~/code/content from any repo or chat. Video ideas go to VIDEO-IDEAS.md; smaller podcast topics, guest ideas, questions, and AI observations go to TOPICS.md. Every entry gets a source line referencing the chat and repo it came from. Use when the user says \"/save-idea\", \"save this idea\", \"video idea\", \"add a topic\", \"write this down for a video/podcast\". Differentiator: appends to the user''s content backlog — not a reminder, task, or general note tool.",
           "version": "0.0.0"
         }
       ],
@@ -4763,7 +6247,7 @@
       "name": "davidondrej-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-07-07T08:55:16.751Z",
+      "createdAt": "2026-07-29T03:15:05.892Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4781,12 +6265,6 @@
           "version": "0.0.0"
         },
         {
-          "name": "copywriting",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/copywriting",
-          "description": "How David Ondrej writes. Use EVERY time you write copy or any text on David's behalf — tweets, DMs, YouTube titles and descriptions, GitHub About and READMEs, landing pages, bios, emails, product copy, announcements. Covers his two styles (authentic and formal) and when to use each.",
-          "version": "0.0.0"
-        },
-        {
           "name": "distribute-skill-to-all-agents",
           "installUrl": "github:davidondrej/skills:skills/skill-authoring/distribute-skill-to-all-agents",
           "description": "Distribute a skill across the 4 agent skill folders (Codex, Claude Code, Pi, Hermes) so all agents see it. Use when the user says \"distribute this skill\", \"sync skills across agents\", or after creating/updating a skill that should be global. Covers the symlink layout and the ~/.pi/agent/skills trap.",
@@ -4796,6 +6274,12 @@
           "name": "fable-safe-prompt",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/fable-safe-prompt",
           "description": "Rewrite a user's prompt to reduce the chance it trips Claude Fable 5's server-side safety classifiers (cyber/bio guardrails that force-route to Opus 4.8 or return stop_reason \"refusal\"). Use when the user hands you a prompt that touches cybersecurity, auth, exploits, malware, pentesting, or other dual-use topics and asks to make it \"Fable-safe\", \"guardrail-safe\", \"won't get flagged/refused/downgraded\", or to rewrite it so Fable 5 won't block it.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "global-agent-guardrails",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/global-agent-guardrails",
+          "description": "One shared denylist of catastrophic shell commands (rm -rf on / or ~, dd/mkfs, sudo rm, fork bombs, curl|sh, git push --force, gh repo delete) enforced as a PreToolUse/pre-exec guard across every AI coding agent on the machine — Cursor, Claude Code, Codex, OpenCode, Pi, Hermes, Grok, Droid, Devin. Use when adding or tuning blocked-command patterns, wiring the guard into a new agent or a new machine, debugging why a command was (or was not) blocked, or when the user mentions command guard, guardrails, dangerous command hook, or PreToolUse safety.",
           "version": "0.0.0"
         },
         {
@@ -4817,7 +6301,7 @@
       "name": "davidondrej-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-07-07T08:55:16.751Z",
+      "createdAt": "2026-07-29T03:15:05.892Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4829,15 +6313,27 @@
       ],
       "skills": [
         {
-          "name": "copywriting",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/copywriting",
-          "description": "How David Ondrej writes. Use EVERY time you write copy or any text on David's behalf — tweets, DMs, YouTube titles and descriptions, GitHub About and READMEs, landing pages, bios, emails, product copy, announcements. Covers his two styles (authentic and formal) and when to use each.",
+          "name": "create-readonly-db-role",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/create-readonly-db-role",
+          "description": "Provision a hardened SELECT-only Postgres role so AI agents can safely read a production database. Works on Supabase and any Postgres. Use when the user wants agents to query prod data, says \"read-only role\", \"safe prod DB access for agents\", or is tired of running SQL by hand for agents. Differentiator: this skill CREATES the role and wiring; day-to-day querying belongs in a project-local skill.",
           "version": "0.0.0"
         },
         {
-          "name": "interview-style-doc-building",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/interview-style-doc-building",
-          "description": "Use when the user wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
+          "name": "level-up",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/level-up",
+          "description": "Gauge the user''s technical + product knowledge through 7 adaptive questions, log verbatim answers with honest ratings, and grow a learning plan from the gaps found. Use when the user says \"level up\", \"level-up session\", \"quiz me\", \"gauge my knowledge\", or wants a new assessment round. Differentiator: this finds and maps gaps; the `teach` skill delivers lessons on them.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "online-shopping",
+          "installUrl": "github:davidondrej/skills:skills/research-and-web/online-shopping",
+          "description": "Research any online purchase with DeepAPI — fair-price checks, best deals, where to buy, shop trust. Load whenever the user is shopping or buying anything online: mentions buying a product, comparing prices, \"is this a good price\", \"where can I get X\", or attaches a product photo or listing screenshot. Research only — never places orders.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "prod-push",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/prod-push",
+          "description": "Push to GitHub main and babysit the change until it is verifiably live in production, fixing CI and deploy failures along the way. Use when the user says \"push\", \"push to github\", \"push to prod\", \"ship it\", or \"deploy\". Differentiator: pushing requires the user''s explicit go-ahead; this is the procedure for AFTER the user gives it (this repo''s CI gate + Vercel promotion).",
           "version": "0.0.0"
         }
       ],
@@ -4853,7 +6349,7 @@
       "name": "davidondrej-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-07-07T08:55:16.751Z",
+      "createdAt": "2026-07-29T03:15:05.892Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4879,13 +6375,25 @@
         {
           "name": "deepapi",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/deepapi",
-          "description": "Use DeepAPI for scraping and safe email with DEEPAPI_API_BASE_URL and DEEPAPI_API_KEY.",
-          "version": "b17ad5148ab7"
+          "description": "Use DeepAPI for all regular web searches (POST /v1/search/web) and for any deep research you perform (POST /v1/research/deep), instead of built-in search or research tools. Use it for all scraping of the web (websites, LinkedIn, GitHub, X/Twitter, YouTube — POST /v1/scrape/*) instead of built-in fetch or browser tools. Platform lookups (GitHub, YouTube, X/Twitter, LinkedIn, Instagram) have dedicated search endpoints — prefer them over web search. Also use it to draft and send safe email, and generate images with DEEPAPI_API_BASE_URL and DEEPAPI_API_KEY.",
+          "version": "5706ff68b88e"
         },
         {
           "name": "effective-agent-skills",
           "installUrl": "github:davidondrej/skills:skills/skill-authoring/effective-agent-skills",
           "description": "How to write effective agent skills — what to do, what not to do, anatomy, progressive disclosure, design patterns, anti-patterns, testing, security. Read this whenever a skill (Claude Skill, Agent Skill, SKILL.md) is being created, edited, reviewed, or debugged. Use when the user says \"create a skill\", \"new skill\", \"update this skill\", \"improve a skill\", \"why isn't my skill triggering\", or anything else involving authoring or editing SKILL.md files.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "fable-review",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/fable-review",
+          "description": "Launch a Fable 5 Max 1M subagent to do a deep, neutral senior-developer review of the current work and report its findings back verbatim. Use when the user says \"/fable-review\", \"fable review\", or asks for Fable to review the code. Differentiator: reviewer model is Fable 5 Max 1M — for a GPT reviewer use gpt-review.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "fireflies-transcript",
+          "installUrl": "github:davidondrej/skills:skills/research-and-web/fireflies-transcript",
+          "description": "Pull raw meeting transcripts from the user''s Fireflies.ai notetaker via its GraphQL API, using the key saved globally on this machine. Use when the user wants a call transcript, meeting notes, \"what was said on the call\", onboarding-call transcripts, or Fireflies data. Differentiator: Fireflies meeting recordings only — for YouTube videos use youtube-transcript.",
           "version": "0.0.0"
         },
         {
@@ -4895,9 +6403,15 @@
           "version": "0.0.0"
         },
         {
-          "name": "interview-style-doc-building",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/interview-style-doc-building",
-          "description": "Use when the user wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
+          "name": "gpt-review",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/gpt-review",
+          "description": "Launch a GPT 5.6 Sol Max subagent to do a deep, neutral senior-developer review of the current work and report its findings back verbatim. Use when the user says \"/gpt-review\", \"gpt review\", or asks for GPT to review the code. Differentiator: reviewer model is GPT 5.6 Sol Max — for a Fable reviewer use fable-review.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "online-shopping",
+          "installUrl": "github:davidondrej/skills:skills/research-and-web/online-shopping",
+          "description": "Research any online purchase with DeepAPI — fair-price checks, best deals, where to buy, shop trust. Load whenever the user is shopping or buying anything online: mentions buying a product, comparing prices, \"is this a good price\", \"where can I get X\", or attaches a product photo or listing screenshot. Research only — never places orders.",
           "version": "0.0.0"
         },
         {
@@ -4937,7 +6451,7 @@
       "name": "davidondrej-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-07-07T08:55:16.751Z",
+      "createdAt": "2026-07-29T03:15:05.892Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4951,20 +6465,20 @@
         {
           "name": "brain-to-docs",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/brain-to-docs",
-          "description": "Use when the user wants to extract project vision, decisions, and preferences from their head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
+          "description": "Use when the user wants to extract project vision, decisions, and preferences from his head into clear documentation (README + ADRs) through a back-and-forth Q&A loop. Triggers on \"brain-to-docs\", \"build out the docs\", \"extract the vision\", \"let's document this project\".",
           "version": "0.0.0"
         },
         {
-          "name": "copywriting",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/copywriting",
-          "description": "How David Ondrej writes. Use EVERY time you write copy or any text on David's behalf — tweets, DMs, YouTube titles and descriptions, GitHub About and READMEs, landing pages, bios, emails, product copy, announcements. Covers his two styles (authentic and formal) and when to use each.",
+          "name": "decisions",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/decisions",
+          "description": "Ask the agent to list all choices it made during the current work that it is not confident of. Manual-only; invoke with /decisions.",
           "version": "0.0.0"
         },
         {
-          "name": "cyber-audit",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/cyber-audit",
-          "description": "Read-only exposure audit of the user's MacBook (and ~/Documents/code projects) for a CVE, breach, malicious package, or other security advisory, then write a structured report to ~/Documents/security-audits/. Use when the user shares a breach/CVE/malware/supply-chain advisory and asks if they're affected, says \"scan my system for X\", \"are we affected by Y\", \"check if I'm vulnerable to Z\", or requests any hack/breach/cyber/vulnerability audit on this MacBook. Output matches the existing audit format in ~/Documents/security-audits/.",
-          "version": "0.0.0"
+          "name": "deepapi",
+          "installUrl": "github:davidondrej/skills:skills/research-and-web/deepapi",
+          "description": "Use DeepAPI for all regular web searches (POST /v1/search/web) and for any deep research you perform (POST /v1/research/deep), instead of built-in search or research tools. Use it for all scraping of the web (websites, LinkedIn, GitHub, X/Twitter, YouTube — POST /v1/scrape/*) instead of built-in fetch or browser tools. Platform lookups (GitHub, YouTube, X/Twitter, LinkedIn, Instagram) have dedicated search endpoints — prefer them over web search. Also use it to draft and send safe email, and generate images with DEEPAPI_API_BASE_URL and DEEPAPI_API_KEY.",
+          "version": "5706ff68b88e"
         },
         {
           "name": "effective-agent-skills",
@@ -4985,15 +6499,15 @@
           "version": "0.0.0"
         },
         {
-          "name": "goal-loop",
-          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/goal-loop",
-          "description": "Explain and write effective instructions for the `/goal` feature — the persistent self-checking agent loop (plan → act → test → review → iterate), available in agents like Codex, Claude Code, and Hermes Agent. Use when the user mentions `/goal`, \"goal loop\", \"Ralph loop\", wants to kick off a long-running autonomous agent run, asks how to write a goal prompt, or wants a one-paragraph goal instruction drafted.",
+          "name": "git-worktree",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/git-worktree",
+          "description": "Use git worktrees to run multiple coding agents in parallel on one repo without collisions. Use when starting a task in a shared repo, when the user says \"worktree\", \"parallel agents\", \"one worktree per task\", or when agents keep overwriting each other's changes. Covers creating worktrees, making them as complete as the main checkout (.env files, dependencies, databases, ports), merging back, and cleanup.",
           "version": "0.0.0"
         },
         {
-          "name": "grill-me",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/grill-me",
-          "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+          "name": "goal-loop",
+          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/goal-loop",
+          "description": "Explain and write effective instructions for the `/goal` feature — the persistent self-checking agent loop (plan → act → test → review → iterate), available in agents like Codex, Claude Code, and Hermes Agent. Use when the user mentions `/goal`, \"goal loop\", \"Ralph loop\", wants to kick off a long-running autonomous agent run, asks how to write a goal prompt, or wants a one-paragraph goal instruction drafted.",
           "version": "0.0.0"
         },
         {
@@ -5003,9 +6517,15 @@
           "version": "0.0.0"
         },
         {
-          "name": "interview-style-doc-building",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/interview-style-doc-building",
-          "description": "Use when the user wants to build a structured strategic document by answering questions (life priorities, goals docs, framework files, ranked lists, principles, reviews). Interview one question at a time, patch the file after each answer, then re-ask. Not for day planning (use day-plan).",
+          "name": "level-up",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/level-up",
+          "description": "Gauge the user''s technical + product knowledge through 7 adaptive questions, log verbatim answers with honest ratings, and grow a learning plan from the gaps found. Use when the user says \"level up\", \"level-up session\", \"quiz me\", \"gauge my knowledge\", or wants a new assessment round. Differentiator: this finds and maps gaps; the `teach` skill delivers lessons on them.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "next-decision",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/next-decision",
+          "description": "Drill open decisions one at a time — present the most important decision not yet clarified, give the top four choices, state a preference, ask the user. Use when the user says \"next decision\", \"one decision at a time\", or a plan has several unresolved choices. Differentiator: forward-looking; the decisions skill is retrospective (choices already made). Can be invoked with /next-decision.",
           "version": "0.0.0"
         },
         {
@@ -5015,15 +6535,33 @@
           "version": "0.0.0"
         },
         {
+          "name": "prompt-me",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/prompt-me",
+          "description": "Prompt the user with pointed questions to extract what is in his head about a project — remaining work, what is being avoided, what really matters, what does not. Use when the user says \"prompt me\", \"ask me questions\", or wants the agent to figure out priorities by questioning him.",
+          "version": "0.0.0"
+        },
+        {
           "name": "read-all-adrs",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/read-all-adrs",
           "description": "Read every ADR markdown file in the project's docs/adr/ folder so you have full context on past decisions. Use only when the user explicitly calls it.",
           "version": "0.0.0"
         },
         {
+          "name": "remind",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/remind",
+          "description": "Rewrite the last response simpler and shorter in plain English, prefixed with a 3-5 sentence TLDR of the conversation so far. Manual-only, invoked as /remind.",
+          "version": "0.0.0"
+        },
+        {
           "name": "research-prompt",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/research-prompt",
           "description": "Write a single-paragraph Deep Research prompt to hand to a human researcher (or a deep-research AI). Use when the user wants a research brief, a \"deep research prompt\", a one-paragraph task for a researcher, or asks \"what should our researcher look for\". Produces ONE tight paragraph with full context, numbered sub-questions, and per-finding output format.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "save-idea",
+          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/save-idea",
+          "description": "Quickly capture a content idea into ~/code/content from any repo or chat. Video ideas go to VIDEO-IDEAS.md; smaller podcast topics, guest ideas, questions, and AI observations go to TOPICS.md. Every entry gets a source line referencing the chat and repo it came from. Use when the user says \"/save-idea\", \"save this idea\", \"video idea\", \"add a topic\", \"write this down for a video/podcast\". Differentiator: appends to the user''s content backlog — not a reminder, task, or general note tool.",
           "version": "0.0.0"
         },
         {

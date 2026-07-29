@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/coreyhaines31/marketingskills.git",
   "owner": "coreyhaines31",
   "repo": "marketingskills",
-  "updatedAt": "2026-07-07T08:53:52.727Z",
-  "skillCount": 47,
+  "updatedAt": "2026-07-29T03:12:28.271Z",
+  "skillCount": 49,
   "skills": [
     {
       "name": "ab-testing",
@@ -64,7 +64,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.612Z",
+        "evaluatedAt": "2026-07-29T03:12:28.107Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -119,7 +119,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.612Z",
+          "evaluatedAt": "2026-07-29T03:12:28.107Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -137,15 +137,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.612Z",
+          "evaluatedAt": "2026-07-29T03:12:28.107Z",
           "evaluatedVersion": "2.0.0"
         }
       }
     },
     {
       "name": "ad-creative",
-      "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
-      "version": "2.1.0",
+      "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' 'iMessage ad,' 'chat reveal ad,' 'fake DM ad,' 'ChatGPT ad,' 'Apple Notes ad,' 'AirDrop ad,' 'creative strategy,' 'creative roadmap,' 'creative retro,' 'hook writing,' 'creative review page,' 'present ad creative for approval,' 'motion video ad,' 'faceless video ad,' 'animated explainer ad,' 'motion collage ad,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+      "version": "2.8.0",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -153,9 +153,9 @@
       "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
       "relPath": "skills/ad-creative",
       "verified": true,
-      "tokenCount": 4831,
+      "tokenCount": 5727,
       "evalSummary": {
-        "overallScore": 67,
+        "overallScore": 71,
         "grade": "C",
         "categories": [
           {
@@ -179,7 +179,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 8,
             "max": 10
           },
           {
@@ -191,7 +191,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 7,
             "max": 10
           },
           {
@@ -201,8 +201,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.614Z",
-        "evaluatedVersion": "2.1.0"
+        "evaluatedAt": "2026-07-29T03:12:28.110Z",
+        "evaluatedVersion": "2.8.0"
       },
       "evalSummaries": {
         "quality": {
@@ -210,7 +210,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
+          "overallScore": 71,
           "grade": "C",
           "categories": [
             {
@@ -234,7 +234,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 8,
               "max": 10
             },
             {
@@ -246,7 +246,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 7,
               "max": 10
             },
             {
@@ -256,8 +256,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.614Z",
-          "evaluatedVersion": "2.1.0"
+          "evaluatedAt": "2026-07-29T03:12:28.110Z",
+          "evaluatedVersion": "2.8.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -274,8 +274,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.615Z",
-          "evaluatedVersion": "2.1.0"
+          "evaluatedAt": "2026-07-29T03:12:28.110Z",
+          "evaluatedVersion": "2.8.0"
         }
       }
     },
@@ -338,7 +338,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.618Z",
+        "evaluatedAt": "2026-07-29T03:12:28.114Z",
         "evaluatedVersion": "2.2.0"
       },
       "evalSummaries": {
@@ -393,7 +393,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.618Z",
+          "evaluatedAt": "2026-07-29T03:12:28.114Z",
           "evaluatedVersion": "2.2.0"
         },
         "skill-best-practice": {
@@ -411,7 +411,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.618Z",
+          "evaluatedAt": "2026-07-29T03:12:28.114Z",
           "evaluatedVersion": "2.2.0"
         }
       }
@@ -419,7 +419,7 @@
     {
       "name": "ai-seo",
       "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' or 'agent-readable site.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -427,7 +427,7 @@
       "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
       "relPath": "skills/ai-seo",
       "verified": true,
-      "tokenCount": 7441,
+      "tokenCount": 7677,
       "evalSummary": {
         "overallScore": 59,
         "grade": "D",
@@ -475,8 +475,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.622Z",
-        "evaluatedVersion": "2.1.0"
+        "evaluatedAt": "2026-07-29T03:12:28.119Z",
+        "evaluatedVersion": "2.2.0"
       },
       "evalSummaries": {
         "quality": {
@@ -530,8 +530,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.622Z",
-          "evaluatedVersion": "2.1.0"
+          "evaluatedAt": "2026-07-29T03:12:28.119Z",
+          "evaluatedVersion": "2.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -548,15 +548,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.622Z",
-          "evaluatedVersion": "2.1.0"
+          "evaluatedAt": "2026-07-29T03:12:28.119Z",
+          "evaluatedVersion": "2.2.0"
         }
       }
     },
     {
       "name": "analytics",
-      "description": "When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions \"set up tracking,\" \"GA4,\" \"Google Analytics,\" \"conversion tracking,\" \"event tracking,\" \"UTM parameters,\" \"tag manager,\" \"GTM,\" \"analytics implementation,\" \"tracking plan,\" \"how do I measure this,\" \"track conversions,\" \"attribution,\" \"Mixpanel,\" \"Segment,\" \"are my events firing,\" or \"analytics isn't working.\" Use this whenever someone asks how to know if something is working or wants to measure marketing results. For A/B test measurement, see ab-testing.",
-      "version": "2.0.0",
+      "description": "When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions \"set up tracking,\" \"GA4,\" \"Google Analytics,\" \"conversion tracking,\" \"event tracking,\" \"UTM parameters,\" \"tag manager,\" \"GTM,\" \"analytics implementation,\" \"tracking plan,\" \"how do I measure this,\" \"track conversions,\" \"Mixpanel,\" \"Segment,\" \"are my events firing,\" or \"analytics isn't working.\" Use this whenever someone asks how to know if something is working or wants to measure marketing results. For choosing attribution models, comparing multi-touch/MMM/incrementality, or reconciling conflicting numbers across tools, see attribution. For A/B test measurement, see ab-testing.",
+      "version": "2.0.1",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -564,7 +564,7 @@
       "installUrl": "github:coreyhaines31/marketingskills:skills/analytics",
       "relPath": "skills/analytics",
       "verified": true,
-      "tokenCount": 2177,
+      "tokenCount": 2234,
       "evalSummary": {
         "overallScore": 71,
         "grade": "C",
@@ -612,8 +612,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.626Z",
-        "evaluatedVersion": "2.0.0"
+        "evaluatedAt": "2026-07-29T03:12:28.123Z",
+        "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
         "quality": {
@@ -667,8 +667,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.626Z",
-          "evaluatedVersion": "2.0.0"
+          "evaluatedAt": "2026-07-29T03:12:28.123Z",
+          "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -685,8 +685,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.626Z",
-          "evaluatedVersion": "2.0.0"
+          "evaluatedAt": "2026-07-29T03:12:28.124Z",
+          "evaluatedVersion": "2.0.1"
         }
       }
     },
@@ -749,7 +749,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.628Z",
+        "evaluatedAt": "2026-07-29T03:12:28.128Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -804,7 +804,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.628Z",
+          "evaluatedAt": "2026-07-29T03:12:28.129Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -822,8 +822,145 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.628Z",
+          "evaluatedAt": "2026-07-29T03:12:28.129Z",
           "evaluatedVersion": "2.0.0"
+        }
+      }
+    },
+    {
+      "name": "attribution",
+      "description": "When the user wants to figure out which marketing actually drives conversions and revenue, choose or interpret an attribution model, or reconcile conflicting numbers across tools. Also use when the user mentions \"attribution,\" \"attribution model,\" \"first-touch vs last-touch,\" \"multi-touch,\" \"which channel drives revenue,\" \"what's my real CAC,\" \"my dashboards disagree,\" \"Google/Meta says X but GA says Y,\" \"media mix model,\" \"MMM,\" \"incrementality,\" \"geo lift,\" \"holdout test,\" \"how did you hear about us,\" \"self-reported attribution,\" \"dark social,\" or wants to instrument attribution themselves — \"stitch my bookings to their source,\" \"SavvyCal/Calendly attribution,\" \"close the identify gap,\" \"track conversions on a third-party domain,\" \"first-party / self-hosted attribution.\" For event tracking setup and UTMs, see analytics. For ad-platform pixels/CAPI, see ads. For pipeline and CRM revenue reporting, see revops. For the AI-search attribution blind spot, see ai-seo.",
+      "version": "1.1.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:coreyhaines31/marketingskills:skills/attribution",
+      "relPath": "skills/attribution",
+      "verified": true,
+      "tokenCount": 6039,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:12:28.135Z",
+        "evaluatedVersion": "1.1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 67,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:12:28.135Z",
+          "evaluatedVersion": "1.1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:12:28.135Z",
+          "evaluatedVersion": "1.1.0"
         }
       }
     },
@@ -886,7 +1023,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.631Z",
+        "evaluatedAt": "2026-07-29T03:12:28.141Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -941,7 +1078,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.631Z",
+          "evaluatedAt": "2026-07-29T03:12:28.141Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +1096,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.631Z",
+          "evaluatedAt": "2026-07-29T03:12:28.141Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1023,7 +1160,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.634Z",
+        "evaluatedAt": "2026-07-29T03:12:28.145Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1078,7 +1215,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.634Z",
+          "evaluatedAt": "2026-07-29T03:12:28.145Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -1096,7 +1233,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.634Z",
+          "evaluatedAt": "2026-07-29T03:12:28.145Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1160,7 +1297,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.636Z",
+        "evaluatedAt": "2026-07-29T03:12:28.149Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1215,7 +1352,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.636Z",
+          "evaluatedAt": "2026-07-29T03:12:28.149Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1370,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.636Z",
+          "evaluatedAt": "2026-07-29T03:12:28.149Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1297,7 +1434,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.638Z",
+        "evaluatedAt": "2026-07-29T03:12:28.151Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1352,7 +1489,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.638Z",
+          "evaluatedAt": "2026-07-29T03:12:28.151Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1507,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.638Z",
+          "evaluatedAt": "2026-07-29T03:12:28.151Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1434,7 +1571,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.640Z",
+        "evaluatedAt": "2026-07-29T03:12:28.158Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1489,7 +1626,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.640Z",
+          "evaluatedAt": "2026-07-29T03:12:28.158Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1644,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.640Z",
+          "evaluatedAt": "2026-07-29T03:12:28.158Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1515,7 +1652,7 @@
     {
       "name": "competitors",
       "description": "When the user wants to create competitor comparison or alternative pages for SEO and sales enablement. Also use when the user mentions 'alternative page,' 'vs page,' 'competitor comparison,' 'comparison page,' '[Product] vs [Product],' '[Product] alternative,' 'competitive landing pages,' 'how do we compare to X,' 'battle card,' or 'competitor teardown.' Use this for any content that positions your product against competitors. Covers four formats: singular alternative, plural alternatives, you vs competitor, and competitor vs competitor. For sales-specific competitor docs, see sales-enablement.",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -1523,10 +1660,10 @@
       "installUrl": "github:coreyhaines31/marketingskills:skills/competitors",
       "relPath": "skills/competitors",
       "verified": true,
-      "tokenCount": 2156,
+      "tokenCount": 2291,
       "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
+        "overallScore": 69,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -1555,7 +1692,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 4,
+            "score": 7,
             "max": 10
           },
           {
@@ -1571,8 +1708,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.642Z",
-        "evaluatedVersion": "2.0.0"
+        "evaluatedAt": "2026-07-29T03:12:28.161Z",
+        "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
         "quality": {
@@ -1580,8 +1717,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 69,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -1610,7 +1747,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 4,
+              "score": 7,
               "max": 10
             },
             {
@@ -1626,8 +1763,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.642Z",
-          "evaluatedVersion": "2.0.0"
+          "evaluatedAt": "2026-07-29T03:12:28.161Z",
+          "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -1644,8 +1781,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.642Z",
-          "evaluatedVersion": "2.0.0"
+          "evaluatedAt": "2026-07-29T03:12:28.161Z",
+          "evaluatedVersion": "2.0.1"
         }
       }
     },
@@ -1708,7 +1845,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.644Z",
+        "evaluatedAt": "2026-07-29T03:12:28.164Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1763,7 +1900,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.644Z",
+          "evaluatedAt": "2026-07-29T03:12:28.164Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +1918,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.644Z",
+          "evaluatedAt": "2026-07-29T03:12:28.164Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1845,7 +1982,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.647Z",
+        "evaluatedAt": "2026-07-29T03:12:28.167Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1900,7 +2037,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.647Z",
+          "evaluatedAt": "2026-07-29T03:12:28.167Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -1918,7 +2055,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.647Z",
+          "evaluatedAt": "2026-07-29T03:12:28.167Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1982,7 +2119,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.649Z",
+        "evaluatedAt": "2026-07-29T03:12:28.169Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -2037,7 +2174,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.649Z",
+          "evaluatedAt": "2026-07-29T03:12:28.170Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
@@ -2055,7 +2192,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.649Z",
+          "evaluatedAt": "2026-07-29T03:12:28.170Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -2119,7 +2256,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.651Z",
+        "evaluatedAt": "2026-07-29T03:12:28.173Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -2174,7 +2311,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.651Z",
+          "evaluatedAt": "2026-07-29T03:12:28.173Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -2192,7 +2329,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.651Z",
+          "evaluatedAt": "2026-07-29T03:12:28.173Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -2200,7 +2337,7 @@
     {
       "name": "customer-research",
       "description": "When the user wants to conduct, analyze, or synthesize customer research. Use when the user mentions \"customer research,\" \"ICP research,\" \"talk to customers,\" \"analyze transcripts,\" \"customer interviews,\" \"survey analysis,\" \"support ticket analysis,\" \"voice of customer,\" \"VOC,\" \"build personas,\" \"customer personas,\" \"jobs to be done,\" \"JTBD,\" \"what do customers say,\" \"what are customers struggling with,\" \"Reddit mining,\" \"G2 reviews,\" \"review mining,\" \"digital watering holes,\" \"community research,\" \"forum research,\" \"competitor reviews,\" \"customer sentiment,\" or \"find out why customers churn/convert/buy.\" Use for both analyzing existing research assets AND gathering new research from online sources. For writing copy informed by research, see copywriting. For acting on research to improve pages, see cro.",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -2208,7 +2345,7 @@
       "installUrl": "github:coreyhaines31/marketingskills:skills/customer-research",
       "relPath": "skills/customer-research",
       "verified": true,
-      "tokenCount": 3448,
+      "tokenCount": 3699,
       "evalSummary": {
         "overallScore": 60,
         "grade": "D",
@@ -2256,8 +2393,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.653Z",
-        "evaluatedVersion": "2.0.0"
+        "evaluatedAt": "2026-07-29T03:12:28.177Z",
+        "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
         "quality": {
@@ -2311,8 +2448,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.653Z",
-          "evaluatedVersion": "2.0.0"
+          "evaluatedAt": "2026-07-29T03:12:28.177Z",
+          "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -2329,8 +2466,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.653Z",
-          "evaluatedVersion": "2.0.0"
+          "evaluatedAt": "2026-07-29T03:12:28.177Z",
+          "evaluatedVersion": "2.0.1"
         }
       }
     },
@@ -2393,7 +2530,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.656Z",
+        "evaluatedAt": "2026-07-29T03:12:28.181Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -2448,7 +2585,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.656Z",
+          "evaluatedAt": "2026-07-29T03:12:28.181Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -2466,7 +2603,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.656Z",
+          "evaluatedAt": "2026-07-29T03:12:28.181Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -2530,7 +2667,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.659Z",
+        "evaluatedAt": "2026-07-29T03:12:28.185Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -2585,7 +2722,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.659Z",
+          "evaluatedAt": "2026-07-29T03:12:28.185Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -2603,7 +2740,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.659Z",
+          "evaluatedAt": "2026-07-29T03:12:28.185Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -2667,7 +2804,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.661Z",
+        "evaluatedAt": "2026-07-29T03:12:28.188Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -2722,7 +2859,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.661Z",
+          "evaluatedAt": "2026-07-29T03:12:28.188Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -2740,7 +2877,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.661Z",
+          "evaluatedAt": "2026-07-29T03:12:28.188Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -2804,7 +2941,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.663Z",
+        "evaluatedAt": "2026-07-29T03:12:28.191Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -2859,7 +2996,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.663Z",
+          "evaluatedAt": "2026-07-29T03:12:28.191Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
@@ -2877,8 +3014,145 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.663Z",
+          "evaluatedAt": "2026-07-29T03:12:28.191Z",
           "evaluatedVersion": "2.0.1"
+        }
+      }
+    },
+    {
+      "name": "influencer-marketing",
+      "description": "When the user wants to run influencer, creator, or ambassador partnerships to promote their product — finding and vetting partners, structuring deals, briefing creators, disclosure compliance, and measuring ROI. Also use when the user mentions 'influencer marketing,' 'creator partnerships,' 'sponsorships,' 'YouTube sponsorships,' 'podcast sponsorships,' 'brand ambassador,' 'ambassador program,' 'creator program,' 'UGC creators,' 'B2B influencers,' 'thought leader ads,' 'gifting,' 'product seeding,' 'whitelisting creator content,' 'how much to pay an influencer,' or 'FTC disclosure.' For affiliate/referral payout mechanics, see referrals. For community-led advocacy, see community-marketing. For turning creator content into paid ads, see ad-creative.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:coreyhaines31/marketingskills:skills/influencer-marketing",
+      "relPath": "skills/influencer-marketing",
+      "verified": true,
+      "tokenCount": 5049,
+      "evalSummary": {
+        "overallScore": 66,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:12:28.195Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 66,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:12:28.196Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:12:28.196Z",
+          "evaluatedVersion": "1.0.0"
         }
       }
     },
@@ -2941,7 +3215,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.666Z",
+        "evaluatedAt": "2026-07-29T03:12:28.199Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -2996,7 +3270,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.666Z",
+          "evaluatedAt": "2026-07-29T03:12:28.199Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
@@ -3014,7 +3288,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.666Z",
+          "evaluatedAt": "2026-07-29T03:12:28.199Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -3078,7 +3352,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.668Z",
+        "evaluatedAt": "2026-07-29T03:12:28.202Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -3133,7 +3407,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.668Z",
+          "evaluatedAt": "2026-07-29T03:12:28.202Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -3151,7 +3425,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.668Z",
+          "evaluatedAt": "2026-07-29T03:12:28.202Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -3215,7 +3489,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.670Z",
+        "evaluatedAt": "2026-07-29T03:12:28.204Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3270,7 +3544,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.670Z",
+          "evaluatedAt": "2026-07-29T03:12:28.204Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3288,7 +3562,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.670Z",
+          "evaluatedAt": "2026-07-29T03:12:28.204Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3352,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.672Z",
+        "evaluatedAt": "2026-07-29T03:12:28.207Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -3407,7 +3681,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.673Z",
+          "evaluatedAt": "2026-07-29T03:12:28.207Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -3425,7 +3699,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.673Z",
+          "evaluatedAt": "2026-07-29T03:12:28.208Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -3433,7 +3707,7 @@
     {
       "name": "marketing-loops",
       "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -3489,8 +3763,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.674Z",
-        "evaluatedVersion": "1.1.0"
+        "evaluatedAt": "2026-07-29T03:12:28.210Z",
+        "evaluatedVersion": "1.2.0"
       },
       "evalSummaries": {
         "quality": {
@@ -3544,8 +3818,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.674Z",
-          "evaluatedVersion": "1.1.0"
+          "evaluatedAt": "2026-07-29T03:12:28.210Z",
+          "evaluatedVersion": "1.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -3562,8 +3836,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.674Z",
-          "evaluatedVersion": "1.1.0"
+          "evaluatedAt": "2026-07-29T03:12:28.210Z",
+          "evaluatedVersion": "1.2.0"
         }
       }
     },
@@ -3626,7 +3900,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.677Z",
+        "evaluatedAt": "2026-07-29T03:12:28.214Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3681,7 +3955,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.677Z",
+          "evaluatedAt": "2026-07-29T03:12:28.214Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3699,7 +3973,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.677Z",
+          "evaluatedAt": "2026-07-29T03:12:28.214Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3763,7 +4037,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.681Z",
+        "evaluatedAt": "2026-07-29T03:12:28.219Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -3818,7 +4092,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.681Z",
+          "evaluatedAt": "2026-07-29T03:12:28.219Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -3836,7 +4110,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.681Z",
+          "evaluatedAt": "2026-07-29T03:12:28.219Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -3900,7 +4174,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.683Z",
+        "evaluatedAt": "2026-07-29T03:12:28.222Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3955,7 +4229,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.684Z",
+          "evaluatedAt": "2026-07-29T03:12:28.222Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3973,7 +4247,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.683Z",
+          "evaluatedAt": "2026-07-29T03:12:28.222Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4037,7 +4311,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.685Z",
+        "evaluatedAt": "2026-07-29T03:12:28.225Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -4092,7 +4366,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.685Z",
+          "evaluatedAt": "2026-07-29T03:12:28.225Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -4110,7 +4384,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.685Z",
+          "evaluatedAt": "2026-07-29T03:12:28.225Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -4174,7 +4448,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.687Z",
+        "evaluatedAt": "2026-07-29T03:12:28.227Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -4229,7 +4503,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.687Z",
+          "evaluatedAt": "2026-07-29T03:12:28.227Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -4247,7 +4521,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.687Z",
+          "evaluatedAt": "2026-07-29T03:12:28.227Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -4311,7 +4585,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.689Z",
+        "evaluatedAt": "2026-07-29T03:12:28.229Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -4366,7 +4640,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.689Z",
+          "evaluatedAt": "2026-07-29T03:12:28.229Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -4384,15 +4658,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.689Z",
+          "evaluatedAt": "2026-07-29T03:12:28.229Z",
           "evaluatedVersion": "2.0.0"
         }
       }
     },
     {
       "name": "pricing",
-      "description": "When the user wants help with pricing decisions, packaging, or monetization strategy. Also use when the user mentions 'pricing,' 'pricing tiers,' 'freemium,' 'free trial,' 'packaging,' 'price increase,' 'value metric,' 'Van Westendorp,' 'willingness to pay,' 'monetization,' 'how much should I charge,' 'my pricing is wrong,' 'pricing page,' 'annual vs monthly,' 'per seat pricing,' or 'should I offer a free plan.' Use this whenever someone is figuring out what to charge or how to structure their plans. For in-app upgrade screens, see paywalls. For offer construction (bonuses, guarantees, value framing, naming) on services/courses/coaching/high-ticket B2B, see offers.",
-      "version": "2.0.1",
+      "description": "When the user wants help with pricing decisions, packaging, or monetization strategy. Also use when the user mentions 'pricing,' 'pricing tiers,' 'freemium,' 'free trial,' 'packaging,' 'price increase,' 'value metric,' 'Van Westendorp,' 'willingness to pay,' 'monetization,' 'how much should I charge,' 'my pricing is wrong,' 'pricing page,' 'annual vs monthly,' 'per seat pricing,' 'should I offer a free plan,' 'pricing page teardown,' 'pricing page audit,' 'is my pricing page AI-readable,' or 'can AI read my pricing.' Use this whenever someone is figuring out what to charge, how to structure their plans, or wants to audit a pricing page (for humans and for the AI agents that shortlist tools). For in-app upgrade screens, see paywalls. For offer construction (bonuses, guarantees, value framing, naming) on services/courses/coaching/high-ticket B2B, see offers.",
+      "version": "2.1.0",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -4400,9 +4674,9 @@
       "installUrl": "github:coreyhaines31/marketingskills:skills/pricing",
       "relPath": "skills/pricing",
       "verified": true,
-      "tokenCount": 2015,
+      "tokenCount": 2595,
       "evalSummary": {
-        "overallScore": 61,
+        "overallScore": 63,
         "grade": "D",
         "categories": [
           {
@@ -4432,7 +4706,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 3,
+            "score": 4,
             "max": 10
           },
           {
@@ -4448,8 +4722,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.691Z",
-        "evaluatedVersion": "2.0.1"
+        "evaluatedAt": "2026-07-29T03:12:28.232Z",
+        "evaluatedVersion": "2.1.0"
       },
       "evalSummaries": {
         "quality": {
@@ -4457,7 +4731,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 61,
+          "overallScore": 63,
           "grade": "D",
           "categories": [
             {
@@ -4487,7 +4761,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 3,
+              "score": 4,
               "max": 10
             },
             {
@@ -4503,8 +4777,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.691Z",
-          "evaluatedVersion": "2.0.1"
+          "evaluatedAt": "2026-07-29T03:12:28.232Z",
+          "evaluatedVersion": "2.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -4521,15 +4795,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.691Z",
-          "evaluatedVersion": "2.0.1"
+          "evaluatedAt": "2026-07-29T03:12:28.232Z",
+          "evaluatedVersion": "2.1.0"
         }
       }
     },
     {
       "name": "product-marketing",
       "description": "When the user wants to create or update their product marketing context document. Also use when the user mentions 'product context,' 'marketing context,' 'set up context,' 'positioning,' 'who is my target audience,' 'describe my product,' 'ICP,' 'ideal customer profile,' or wants to avoid repeating foundational information across marketing tasks. Use this at the start of any new project before using other marketing skills — it creates `.agents/product-marketing.md` that all other skills reference for product, audience, and positioning context.",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -4537,7 +4811,7 @@
       "installUrl": "github:coreyhaines31/marketingskills:skills/product-marketing",
       "relPath": "skills/product-marketing",
       "verified": true,
-      "tokenCount": 2035,
+      "tokenCount": 2638,
       "evalSummary": {
         "overallScore": 64,
         "grade": "D",
@@ -4585,8 +4859,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.693Z",
-        "evaluatedVersion": "2.0.0"
+        "evaluatedAt": "2026-07-29T03:12:28.234Z",
+        "evaluatedVersion": "2.1.0"
       },
       "evalSummaries": {
         "quality": {
@@ -4640,8 +4914,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.693Z",
-          "evaluatedVersion": "2.0.0"
+          "evaluatedAt": "2026-07-29T03:12:28.234Z",
+          "evaluatedVersion": "2.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -4658,8 +4932,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.693Z",
-          "evaluatedVersion": "2.0.0"
+          "evaluatedAt": "2026-07-29T03:12:28.234Z",
+          "evaluatedVersion": "2.1.0"
         }
       }
     },
@@ -4722,7 +4996,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.695Z",
+        "evaluatedAt": "2026-07-29T03:12:28.236Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -4777,7 +5051,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.695Z",
+          "evaluatedAt": "2026-07-29T03:12:28.236Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -4795,15 +5069,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.695Z",
+          "evaluatedAt": "2026-07-29T03:12:28.236Z",
           "evaluatedVersion": "2.0.0"
         }
       }
     },
     {
       "name": "prospecting",
-      "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" or \"qualified leads.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
-      "version": "1.0.0",
+      "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" \"qualified leads,\" \"find my first customers,\" \"early adopters,\" \"design partners,\" \"beta users,\" or \"who has this problem.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
+      "version": "1.1.0",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -4811,7 +5085,7 @@
       "installUrl": "github:coreyhaines31/marketingskills:skills/prospecting",
       "relPath": "skills/prospecting",
       "verified": true,
-      "tokenCount": 4214,
+      "tokenCount": 4683,
       "evalSummary": {
         "overallScore": 69,
         "grade": "C",
@@ -4859,8 +5133,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.697Z",
-        "evaluatedVersion": "1.0.0"
+        "evaluatedAt": "2026-07-29T03:12:28.238Z",
+        "evaluatedVersion": "1.1.0"
       },
       "evalSummaries": {
         "quality": {
@@ -4914,8 +5188,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.697Z",
-          "evaluatedVersion": "1.0.0"
+          "evaluatedAt": "2026-07-29T03:12:28.239Z",
+          "evaluatedVersion": "1.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -4932,8 +5206,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.697Z",
-          "evaluatedVersion": "1.0.0"
+          "evaluatedAt": "2026-07-29T03:12:28.239Z",
+          "evaluatedVersion": "1.1.0"
         }
       }
     },
@@ -4996,7 +5270,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.699Z",
+        "evaluatedAt": "2026-07-29T03:12:28.242Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -5051,7 +5325,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.699Z",
+          "evaluatedAt": "2026-07-29T03:12:28.242Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -5069,7 +5343,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.699Z",
+          "evaluatedAt": "2026-07-29T03:12:28.242Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -5133,7 +5407,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.701Z",
+        "evaluatedAt": "2026-07-29T03:12:28.245Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -5188,7 +5462,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.701Z",
+          "evaluatedAt": "2026-07-29T03:12:28.245Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -5206,7 +5480,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.701Z",
+          "evaluatedAt": "2026-07-29T03:12:28.245Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -5270,7 +5544,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.703Z",
+        "evaluatedAt": "2026-07-29T03:12:28.247Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -5325,7 +5599,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.703Z",
+          "evaluatedAt": "2026-07-29T03:12:28.247Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -5343,7 +5617,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.703Z",
+          "evaluatedAt": "2026-07-29T03:12:28.247Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -5407,7 +5681,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.705Z",
+        "evaluatedAt": "2026-07-29T03:12:28.250Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -5462,7 +5736,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.705Z",
+          "evaluatedAt": "2026-07-29T03:12:28.250Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
@@ -5480,7 +5754,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.705Z",
+          "evaluatedAt": "2026-07-29T03:12:28.250Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -5544,7 +5818,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.708Z",
+        "evaluatedAt": "2026-07-29T03:12:28.252Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -5599,7 +5873,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.709Z",
+          "evaluatedAt": "2026-07-29T03:12:28.252Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -5617,7 +5891,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.709Z",
+          "evaluatedAt": "2026-07-29T03:12:28.252Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -5681,7 +5955,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.712Z",
+        "evaluatedAt": "2026-07-29T03:12:28.255Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -5736,7 +6010,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.712Z",
+          "evaluatedAt": "2026-07-29T03:12:28.255Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -5754,7 +6028,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.712Z",
+          "evaluatedAt": "2026-07-29T03:12:28.255Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -5818,7 +6092,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.715Z",
+        "evaluatedAt": "2026-07-29T03:12:28.258Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -5873,7 +6147,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.715Z",
+          "evaluatedAt": "2026-07-29T03:12:28.258Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -5891,7 +6165,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.715Z",
+          "evaluatedAt": "2026-07-29T03:12:28.258Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -5955,7 +6229,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.717Z",
+        "evaluatedAt": "2026-07-29T03:12:28.260Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -6010,7 +6284,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.718Z",
+          "evaluatedAt": "2026-07-29T03:12:28.260Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -6028,7 +6302,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.718Z",
+          "evaluatedAt": "2026-07-29T03:12:28.260Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -6092,7 +6366,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.720Z",
+        "evaluatedAt": "2026-07-29T03:12:28.263Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -6147,7 +6421,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.720Z",
+          "evaluatedAt": "2026-07-29T03:12:28.263Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -6165,15 +6439,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.720Z",
+          "evaluatedAt": "2026-07-29T03:12:28.263Z",
           "evaluatedVersion": "1.0.0"
         }
       }
     },
     {
       "name": "social",
-      "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or wants to do social listening and engagement triage. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' 'viral content,' 'what should I post,' 'repurpose this content,' 'tweet ideas,' 'LinkedIn carousel,' 'social media strategy,' 'grow my following,' 'TikTok video,' 'Reels,' 'Shorts,' 'video script,' 'video hook,' 'short-form video,' 'create a reel,' 'social listening,' 'brand mentions,' 'competitor monitoring,' 'top posts to comment on,' or 'find people asking for.' Use this for social media content creation, repurposing, scheduling, short-form video scripting, and social listening. For broader content strategy, see content-strategy. For paid ads, see ad-creative. For earned media, see public-relations.",
-      "version": "2.1.0",
+      "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or wants to do social listening and engagement triage. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' 'viral content,' 'what should I post,' 'repurpose this content,' 'tweet ideas,' 'LinkedIn carousel,' 'social media strategy,' 'grow my following,' 'TikTok video,' 'Reels,' 'Shorts,' 'video script,' 'video hook,' 'short-form video,' 'create a reel,' 'social listening,' 'brand mentions,' 'competitor monitoring,' 'top posts to comment on,' 'find people asking for,' 'carousel,' 'slide-by-slide,' or 'document post.' Use this for social media content creation, repurposing, scheduling, short-form video scripting, and social listening. For broader content strategy, see content-strategy. For paid ads, see ad-creative. For earned media, see public-relations.",
+      "version": "2.2.0",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -6181,7 +6455,7 @@
       "installUrl": "github:coreyhaines31/marketingskills:skills/social",
       "relPath": "skills/social",
       "verified": true,
-      "tokenCount": 4116,
+      "tokenCount": 4205,
       "evalSummary": {
         "overallScore": 64,
         "grade": "D",
@@ -6229,8 +6503,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.723Z",
-        "evaluatedVersion": "2.1.0"
+        "evaluatedAt": "2026-07-29T03:12:28.266Z",
+        "evaluatedVersion": "2.2.0"
       },
       "evalSummaries": {
         "quality": {
@@ -6284,8 +6558,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.723Z",
-          "evaluatedVersion": "2.1.0"
+          "evaluatedAt": "2026-07-29T03:12:28.266Z",
+          "evaluatedVersion": "2.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -6302,15 +6576,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.723Z",
-          "evaluatedVersion": "2.1.0"
+          "evaluatedAt": "2026-07-29T03:12:28.266Z",
+          "evaluatedVersion": "2.2.0"
         }
       }
     },
     {
       "name": "video",
-      "description": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
-      "version": "2.0.1",
+      "description": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' 'copy this edit,' 'match this video style,' 'reverse-engineer this video,' 'edit like this reference,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
+      "version": "2.1.0",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -6318,7 +6592,7 @@
       "installUrl": "github:coreyhaines31/marketingskills:skills/video",
       "relPath": "skills/video",
       "verified": true,
-      "tokenCount": 3884,
+      "tokenCount": 4126,
       "evalSummary": {
         "overallScore": 66,
         "grade": "C",
@@ -6366,8 +6640,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:52.726Z",
-        "evaluatedVersion": "2.0.1"
+        "evaluatedAt": "2026-07-29T03:12:28.268Z",
+        "evaluatedVersion": "2.1.0"
       },
       "evalSummaries": {
         "quality": {
@@ -6421,8 +6695,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.726Z",
-          "evaluatedVersion": "2.0.1"
+          "evaluatedAt": "2026-07-29T03:12:28.269Z",
+          "evaluatedVersion": "2.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -6439,8 +6713,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:52.726Z",
-          "evaluatedVersion": "2.0.1"
+          "evaluatedAt": "2026-07-29T03:12:28.269Z",
+          "evaluatedVersion": "2.1.0"
         }
       }
     }
@@ -6451,7 +6725,7 @@
       "name": "coreyhaines31-marketingskills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-07-07T08:53:52.727Z",
+      "createdAt": "2026-07-29T03:12:28.271Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6471,8 +6745,8 @@
         {
           "name": "ad-creative",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
-          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
-          "version": "2.1.0"
+          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' 'iMessage ad,' 'chat reveal ad,' 'fake DM ad,' 'ChatGPT ad,' 'Apple Notes ad,' 'AirDrop ad,' 'creative strategy,' 'creative roadmap,' 'creative retro,' 'hook writing,' 'creative review page,' 'present ad creative for approval,' 'motion video ad,' 'faceless video ad,' 'animated explainer ad,' 'motion collage ad,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+          "version": "2.8.0"
         },
         {
           "name": "ads",
@@ -6484,19 +6758,25 @@
           "name": "ai-seo",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
           "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' or 'agent-readable site.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
-          "version": "2.1.0"
+          "version": "2.2.0"
         },
         {
           "name": "analytics",
           "installUrl": "github:coreyhaines31/marketingskills:skills/analytics",
-          "description": "When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions \"set up tracking,\" \"GA4,\" \"Google Analytics,\" \"conversion tracking,\" \"event tracking,\" \"UTM parameters,\" \"tag manager,\" \"GTM,\" \"analytics implementation,\" \"tracking plan,\" \"how do I measure this,\" \"track conversions,\" \"attribution,\" \"Mixpanel,\" \"Segment,\" \"are my events firing,\" or \"analytics isn't working.\" Use this whenever someone asks how to know if something is working or wants to measure marketing results. For A/B test measurement, see ab-testing.",
-          "version": "2.0.0"
+          "description": "When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions \"set up tracking,\" \"GA4,\" \"Google Analytics,\" \"conversion tracking,\" \"event tracking,\" \"UTM parameters,\" \"tag manager,\" \"GTM,\" \"analytics implementation,\" \"tracking plan,\" \"how do I measure this,\" \"track conversions,\" \"Mixpanel,\" \"Segment,\" \"are my events firing,\" or \"analytics isn't working.\" Use this whenever someone asks how to know if something is working or wants to measure marketing results. For choosing attribution models, comparing multi-touch/MMM/incrementality, or reconciling conflicting numbers across tools, see attribution. For A/B test measurement, see ab-testing.",
+          "version": "2.0.1"
         },
         {
           "name": "aso",
           "installUrl": "github:coreyhaines31/marketingskills:skills/aso",
           "description": "When the user wants to audit or optimize an App Store or Google Play listing. Also use when the user mentions 'ASO audit,' 'app store optimization,' 'optimize my app listing,' 'improve app visibility,' 'app store ranking,' 'audit my listing,' 'why aren't people downloading my app,' 'improve my app conversion,' 'keyword optimization for app,' or 'compare my app to competitors.' Use when the user shares an App Store or Google Play URL and wants to improve it.",
           "version": "2.0.0"
+        },
+        {
+          "name": "attribution",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/attribution",
+          "description": "When the user wants to figure out which marketing actually drives conversions and revenue, choose or interpret an attribution model, or reconcile conflicting numbers across tools. Also use when the user mentions \"attribution,\" \"attribution model,\" \"first-touch vs last-touch,\" \"multi-touch,\" \"which channel drives revenue,\" \"what's my real CAC,\" \"my dashboards disagree,\" \"Google/Meta says X but GA says Y,\" \"media mix model,\" \"MMM,\" \"incrementality,\" \"geo lift,\" \"holdout test,\" \"how did you hear about us,\" \"self-reported attribution,\" \"dark social,\" or wants to instrument attribution themselves — \"stitch my bookings to their source,\" \"SavvyCal/Calendly attribution,\" \"close the identify gap,\" \"track conversions on a third-party domain,\" \"first-party / self-hosted attribution.\" For event tracking setup and UTMs, see analytics. For ad-platform pixels/CAPI, see ads. For pipeline and CRM revenue reporting, see revops. For the AI-search attribution blind spot, see ai-seo.",
+          "version": "1.1.0"
         },
         {
           "name": "churn-prevention",
@@ -6532,7 +6812,7 @@
           "name": "competitors",
           "installUrl": "github:coreyhaines31/marketingskills:skills/competitors",
           "description": "When the user wants to create competitor comparison or alternative pages for SEO and sales enablement. Also use when the user mentions 'alternative page,' 'vs page,' 'competitor comparison,' 'comparison page,' '[Product] vs [Product],' '[Product] alternative,' 'competitive landing pages,' 'how do we compare to X,' 'battle card,' or 'competitor teardown.' Use this for any content that positions your product against competitors. Covers four formats: singular alternative, plural alternatives, you vs competitor, and competitor vs competitor. For sales-specific competitor docs, see sales-enablement.",
-          "version": "2.0.0"
+          "version": "2.0.1"
         },
         {
           "name": "content-strategy",
@@ -6562,7 +6842,7 @@
           "name": "customer-research",
           "installUrl": "github:coreyhaines31/marketingskills:skills/customer-research",
           "description": "When the user wants to conduct, analyze, or synthesize customer research. Use when the user mentions \"customer research,\" \"ICP research,\" \"talk to customers,\" \"analyze transcripts,\" \"customer interviews,\" \"survey analysis,\" \"support ticket analysis,\" \"voice of customer,\" \"VOC,\" \"build personas,\" \"customer personas,\" \"jobs to be done,\" \"JTBD,\" \"what do customers say,\" \"what are customers struggling with,\" \"Reddit mining,\" \"G2 reviews,\" \"review mining,\" \"digital watering holes,\" \"community research,\" \"forum research,\" \"competitor reviews,\" \"customer sentiment,\" or \"find out why customers churn/convert/buy.\" Use for both analyzing existing research assets AND gathering new research from online sources. For writing copy informed by research, see copywriting. For acting on research to improve pages, see cro.",
-          "version": "2.0.0"
+          "version": "2.0.1"
         },
         {
           "name": "directory-submissions",
@@ -6587,6 +6867,12 @@
           "installUrl": "github:coreyhaines31/marketingskills:skills/image",
           "description": "When the user wants to create, generate, edit, or optimize images for marketing — blog heroes, social graphics, product mockups, profile banners, listing visuals, or brand assets. Also use when the user mentions 'AI image generation,' 'generate an image,' 'create a graphic,' 'product mockup,' 'hero image,' 'social media graphic,' 'banner image,' 'cover photo,' 'profile banner,' 'listing screenshot,' 'Flux,' 'Flux Kontext,' 'Midjourney,' 'DALL-E,' 'GPT Image,' 'ChatGPT Images,' 'Ideogram,' 'Gemini image,' 'Nano Banana,' 'Recraft,' 'Stable Diffusion,' 'Canva,' 'Figma,' 'image optimization,' 'compress images,' 'WebP,' or 'OG image.' Use this for general-purpose marketing image creation and optimization. For paid ad image creative and platform-specific ad specs, see ad-creative. For video production, see video.",
           "version": "2.0.1"
+        },
+        {
+          "name": "influencer-marketing",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/influencer-marketing",
+          "description": "When the user wants to run influencer, creator, or ambassador partnerships to promote their product — finding and vetting partners, structuring deals, briefing creators, disclosure compliance, and measuring ROI. Also use when the user mentions 'influencer marketing,' 'creator partnerships,' 'sponsorships,' 'YouTube sponsorships,' 'podcast sponsorships,' 'brand ambassador,' 'ambassador program,' 'creator program,' 'UGC creators,' 'B2B influencers,' 'thought leader ads,' 'gifting,' 'product seeding,' 'whitelisting creator content,' 'how much to pay an influencer,' or 'FTC disclosure.' For affiliate/referral payout mechanics, see referrals. For community-led advocacy, see community-marketing. For turning creator content into paid ads, see ad-creative.",
+          "version": "1.0.0"
         },
         {
           "name": "launch",
@@ -6616,7 +6902,7 @@
           "name": "marketing-loops",
           "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-loops",
           "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
-          "version": "1.1.0"
+          "version": "1.2.0"
         },
         {
           "name": "marketing-plan",
@@ -6657,14 +6943,14 @@
         {
           "name": "pricing",
           "installUrl": "github:coreyhaines31/marketingskills:skills/pricing",
-          "description": "When the user wants help with pricing decisions, packaging, or monetization strategy. Also use when the user mentions 'pricing,' 'pricing tiers,' 'freemium,' 'free trial,' 'packaging,' 'price increase,' 'value metric,' 'Van Westendorp,' 'willingness to pay,' 'monetization,' 'how much should I charge,' 'my pricing is wrong,' 'pricing page,' 'annual vs monthly,' 'per seat pricing,' or 'should I offer a free plan.' Use this whenever someone is figuring out what to charge or how to structure their plans. For in-app upgrade screens, see paywalls. For offer construction (bonuses, guarantees, value framing, naming) on services/courses/coaching/high-ticket B2B, see offers.",
-          "version": "2.0.1"
+          "description": "When the user wants help with pricing decisions, packaging, or monetization strategy. Also use when the user mentions 'pricing,' 'pricing tiers,' 'freemium,' 'free trial,' 'packaging,' 'price increase,' 'value metric,' 'Van Westendorp,' 'willingness to pay,' 'monetization,' 'how much should I charge,' 'my pricing is wrong,' 'pricing page,' 'annual vs monthly,' 'per seat pricing,' 'should I offer a free plan,' 'pricing page teardown,' 'pricing page audit,' 'is my pricing page AI-readable,' or 'can AI read my pricing.' Use this whenever someone is figuring out what to charge, how to structure their plans, or wants to audit a pricing page (for humans and for the AI agents that shortlist tools). For in-app upgrade screens, see paywalls. For offer construction (bonuses, guarantees, value framing, naming) on services/courses/coaching/high-ticket B2B, see offers.",
+          "version": "2.1.0"
         },
         {
           "name": "product-marketing",
           "installUrl": "github:coreyhaines31/marketingskills:skills/product-marketing",
           "description": "When the user wants to create or update their product marketing context document. Also use when the user mentions 'product context,' 'marketing context,' 'set up context,' 'positioning,' 'who is my target audience,' 'describe my product,' 'ICP,' 'ideal customer profile,' or wants to avoid repeating foundational information across marketing tasks. Use this at the start of any new project before using other marketing skills — it creates `.agents/product-marketing.md` that all other skills reference for product, audience, and positioning context.",
-          "version": "2.0.0"
+          "version": "2.1.0"
         },
         {
           "name": "programmatic-seo",
@@ -6675,8 +6961,8 @@
         {
           "name": "prospecting",
           "installUrl": "github:coreyhaines31/marketingskills:skills/prospecting",
-          "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" or \"qualified leads.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
-          "version": "1.0.0"
+          "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" \"qualified leads,\" \"find my first customers,\" \"early adopters,\" \"design partners,\" \"beta users,\" or \"who has this problem.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
+          "version": "1.1.0"
         },
         {
           "name": "public-relations",
@@ -6735,14 +7021,14 @@
         {
           "name": "social",
           "installUrl": "github:coreyhaines31/marketingskills:skills/social",
-          "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or wants to do social listening and engagement triage. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' 'viral content,' 'what should I post,' 'repurpose this content,' 'tweet ideas,' 'LinkedIn carousel,' 'social media strategy,' 'grow my following,' 'TikTok video,' 'Reels,' 'Shorts,' 'video script,' 'video hook,' 'short-form video,' 'create a reel,' 'social listening,' 'brand mentions,' 'competitor monitoring,' 'top posts to comment on,' or 'find people asking for.' Use this for social media content creation, repurposing, scheduling, short-form video scripting, and social listening. For broader content strategy, see content-strategy. For paid ads, see ad-creative. For earned media, see public-relations.",
-          "version": "2.1.0"
+          "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or wants to do social listening and engagement triage. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' 'viral content,' 'what should I post,' 'repurpose this content,' 'tweet ideas,' 'LinkedIn carousel,' 'social media strategy,' 'grow my following,' 'TikTok video,' 'Reels,' 'Shorts,' 'video script,' 'video hook,' 'short-form video,' 'create a reel,' 'social listening,' 'brand mentions,' 'competitor monitoring,' 'top posts to comment on,' 'find people asking for,' 'carousel,' 'slide-by-slide,' or 'document post.' Use this for social media content creation, repurposing, scheduling, short-form video scripting, and social listening. For broader content strategy, see content-strategy. For paid ads, see ad-creative. For earned media, see public-relations.",
+          "version": "2.2.0"
         },
         {
           "name": "video",
           "installUrl": "github:coreyhaines31/marketingskills:skills/video",
-          "description": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
-          "version": "2.0.1"
+          "description": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' 'copy this edit,' 'match this video style,' 'reverse-engineer this video,' 'edit like this reference,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
+          "version": "2.1.0"
         }
       ],
       "sourceRepo": {
@@ -6757,7 +7043,7 @@
       "name": "coreyhaines31-marketingskills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-07-07T08:53:52.727Z",
+      "createdAt": "2026-07-29T03:12:28.271Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6778,7 +7064,19 @@
           "name": "ai-seo",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
           "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' or 'agent-readable site.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
-          "version": "2.1.0"
+          "version": "2.2.0"
+        },
+        {
+          "name": "analytics",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/analytics",
+          "description": "When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions \"set up tracking,\" \"GA4,\" \"Google Analytics,\" \"conversion tracking,\" \"event tracking,\" \"UTM parameters,\" \"tag manager,\" \"GTM,\" \"analytics implementation,\" \"tracking plan,\" \"how do I measure this,\" \"track conversions,\" \"Mixpanel,\" \"Segment,\" \"are my events firing,\" or \"analytics isn't working.\" Use this whenever someone asks how to know if something is working or wants to measure marketing results. For choosing attribution models, comparing multi-touch/MMM/incrementality, or reconciling conflicting numbers across tools, see attribution. For A/B test measurement, see ab-testing.",
+          "version": "2.0.1"
+        },
+        {
+          "name": "attribution",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/attribution",
+          "description": "When the user wants to figure out which marketing actually drives conversions and revenue, choose or interpret an attribution model, or reconcile conflicting numbers across tools. Also use when the user mentions \"attribution,\" \"attribution model,\" \"first-touch vs last-touch,\" \"multi-touch,\" \"which channel drives revenue,\" \"what's my real CAC,\" \"my dashboards disagree,\" \"Google/Meta says X but GA says Y,\" \"media mix model,\" \"MMM,\" \"incrementality,\" \"geo lift,\" \"holdout test,\" \"how did you hear about us,\" \"self-reported attribution,\" \"dark social,\" or wants to instrument attribution themselves — \"stitch my bookings to their source,\" \"SavvyCal/Calendly attribution,\" \"close the identify gap,\" \"track conversions on a third-party domain,\" \"first-party / self-hosted attribution.\" For event tracking setup and UTMs, see analytics. For ad-platform pixels/CAPI, see ads. For pipeline and CRM revenue reporting, see revops. For the AI-search attribution blind spot, see ai-seo.",
+          "version": "1.1.0"
         },
         {
           "name": "co-marketing",
@@ -6796,7 +7094,7 @@
           "name": "competitors",
           "installUrl": "github:coreyhaines31/marketingskills:skills/competitors",
           "description": "When the user wants to create competitor comparison or alternative pages for SEO and sales enablement. Also use when the user mentions 'alternative page,' 'vs page,' 'competitor comparison,' 'comparison page,' '[Product] vs [Product],' '[Product] alternative,' 'competitive landing pages,' 'how do we compare to X,' 'battle card,' or 'competitor teardown.' Use this for any content that positions your product against competitors. Covers four formats: singular alternative, plural alternatives, you vs competitor, and competitor vs competitor. For sales-specific competitor docs, see sales-enablement.",
-          "version": "2.0.0"
+          "version": "2.0.1"
         },
         {
           "name": "content-strategy",
@@ -6856,7 +7154,7 @@
           "name": "marketing-loops",
           "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-loops",
           "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
-          "version": "1.1.0"
+          "version": "1.2.0"
         },
         {
           "name": "marketing-plan",
@@ -6885,8 +7183,8 @@
         {
           "name": "pricing",
           "installUrl": "github:coreyhaines31/marketingskills:skills/pricing",
-          "description": "When the user wants help with pricing decisions, packaging, or monetization strategy. Also use when the user mentions 'pricing,' 'pricing tiers,' 'freemium,' 'free trial,' 'packaging,' 'price increase,' 'value metric,' 'Van Westendorp,' 'willingness to pay,' 'monetization,' 'how much should I charge,' 'my pricing is wrong,' 'pricing page,' 'annual vs monthly,' 'per seat pricing,' or 'should I offer a free plan.' Use this whenever someone is figuring out what to charge or how to structure their plans. For in-app upgrade screens, see paywalls. For offer construction (bonuses, guarantees, value framing, naming) on services/courses/coaching/high-ticket B2B, see offers.",
-          "version": "2.0.1"
+          "description": "When the user wants help with pricing decisions, packaging, or monetization strategy. Also use when the user mentions 'pricing,' 'pricing tiers,' 'freemium,' 'free trial,' 'packaging,' 'price increase,' 'value metric,' 'Van Westendorp,' 'willingness to pay,' 'monetization,' 'how much should I charge,' 'my pricing is wrong,' 'pricing page,' 'annual vs monthly,' 'per seat pricing,' 'should I offer a free plan,' 'pricing page teardown,' 'pricing page audit,' 'is my pricing page AI-readable,' or 'can AI read my pricing.' Use this whenever someone is figuring out what to charge, how to structure their plans, or wants to audit a pricing page (for humans and for the AI agents that shortlist tools). For in-app upgrade screens, see paywalls. For offer construction (bonuses, guarantees, value framing, naming) on services/courses/coaching/high-ticket B2B, see offers.",
+          "version": "2.1.0"
         },
         {
           "name": "programmatic-seo",
@@ -6897,8 +7195,8 @@
         {
           "name": "prospecting",
           "installUrl": "github:coreyhaines31/marketingskills:skills/prospecting",
-          "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" or \"qualified leads.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
-          "version": "1.0.0"
+          "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" \"qualified leads,\" \"find my first customers,\" \"early adopters,\" \"design partners,\" \"beta users,\" or \"who has this problem.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
+          "version": "1.1.0"
         },
         {
           "name": "public-relations",
@@ -6927,14 +7225,14 @@
         {
           "name": "social",
           "installUrl": "github:coreyhaines31/marketingskills:skills/social",
-          "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or wants to do social listening and engagement triage. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' 'viral content,' 'what should I post,' 'repurpose this content,' 'tweet ideas,' 'LinkedIn carousel,' 'social media strategy,' 'grow my following,' 'TikTok video,' 'Reels,' 'Shorts,' 'video script,' 'video hook,' 'short-form video,' 'create a reel,' 'social listening,' 'brand mentions,' 'competitor monitoring,' 'top posts to comment on,' or 'find people asking for.' Use this for social media content creation, repurposing, scheduling, short-form video scripting, and social listening. For broader content strategy, see content-strategy. For paid ads, see ad-creative. For earned media, see public-relations.",
-          "version": "2.1.0"
+          "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or wants to do social listening and engagement triage. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' 'viral content,' 'what should I post,' 'repurpose this content,' 'tweet ideas,' 'LinkedIn carousel,' 'social media strategy,' 'grow my following,' 'TikTok video,' 'Reels,' 'Shorts,' 'video script,' 'video hook,' 'short-form video,' 'create a reel,' 'social listening,' 'brand mentions,' 'competitor monitoring,' 'top posts to comment on,' 'find people asking for,' 'carousel,' 'slide-by-slide,' or 'document post.' Use this for social media content creation, repurposing, scheduling, short-form video scripting, and social listening. For broader content strategy, see content-strategy. For paid ads, see ad-creative. For earned media, see public-relations.",
+          "version": "2.2.0"
         },
         {
           "name": "video",
           "installUrl": "github:coreyhaines31/marketingskills:skills/video",
-          "description": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
-          "version": "2.0.1"
+          "description": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' 'copy this edit,' 'match this video style,' 'reverse-engineer this video,' 'edit like this reference,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
+          "version": "2.1.0"
         }
       ],
       "sourceRepo": {
@@ -6949,7 +7247,7 @@
       "name": "coreyhaines31-marketingskills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-07-07T08:53:52.727Z",
+      "createdAt": "2026-07-29T03:12:28.271Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6969,8 +7267,8 @@
         {
           "name": "ad-creative",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
-          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
-          "version": "2.1.0"
+          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' 'iMessage ad,' 'chat reveal ad,' 'fake DM ad,' 'ChatGPT ad,' 'Apple Notes ad,' 'AirDrop ad,' 'creative strategy,' 'creative roadmap,' 'creative retro,' 'hook writing,' 'creative review page,' 'present ad creative for approval,' 'motion video ad,' 'faceless video ad,' 'animated explainer ad,' 'motion collage ad,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+          "version": "2.8.0"
         },
         {
           "name": "ads",
@@ -6982,13 +7280,19 @@
           "name": "ai-seo",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
           "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' or 'agent-readable site.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
-          "version": "2.1.0"
+          "version": "2.2.0"
         },
         {
           "name": "analytics",
           "installUrl": "github:coreyhaines31/marketingskills:skills/analytics",
-          "description": "When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions \"set up tracking,\" \"GA4,\" \"Google Analytics,\" \"conversion tracking,\" \"event tracking,\" \"UTM parameters,\" \"tag manager,\" \"GTM,\" \"analytics implementation,\" \"tracking plan,\" \"how do I measure this,\" \"track conversions,\" \"attribution,\" \"Mixpanel,\" \"Segment,\" \"are my events firing,\" or \"analytics isn't working.\" Use this whenever someone asks how to know if something is working or wants to measure marketing results. For A/B test measurement, see ab-testing.",
-          "version": "2.0.0"
+          "description": "When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions \"set up tracking,\" \"GA4,\" \"Google Analytics,\" \"conversion tracking,\" \"event tracking,\" \"UTM parameters,\" \"tag manager,\" \"GTM,\" \"analytics implementation,\" \"tracking plan,\" \"how do I measure this,\" \"track conversions,\" \"Mixpanel,\" \"Segment,\" \"are my events firing,\" or \"analytics isn't working.\" Use this whenever someone asks how to know if something is working or wants to measure marketing results. For choosing attribution models, comparing multi-touch/MMM/incrementality, or reconciling conflicting numbers across tools, see attribution. For A/B test measurement, see ab-testing.",
+          "version": "2.0.1"
+        },
+        {
+          "name": "attribution",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/attribution",
+          "description": "When the user wants to figure out which marketing actually drives conversions and revenue, choose or interpret an attribution model, or reconcile conflicting numbers across tools. Also use when the user mentions \"attribution,\" \"attribution model,\" \"first-touch vs last-touch,\" \"multi-touch,\" \"which channel drives revenue,\" \"what's my real CAC,\" \"my dashboards disagree,\" \"Google/Meta says X but GA says Y,\" \"media mix model,\" \"MMM,\" \"incrementality,\" \"geo lift,\" \"holdout test,\" \"how did you hear about us,\" \"self-reported attribution,\" \"dark social,\" or wants to instrument attribution themselves — \"stitch my bookings to their source,\" \"SavvyCal/Calendly attribution,\" \"close the identify gap,\" \"track conversions on a third-party domain,\" \"first-party / self-hosted attribution.\" For event tracking setup and UTMs, see analytics. For ad-platform pixels/CAPI, see ads. For pipeline and CRM revenue reporting, see revops. For the AI-search attribution blind spot, see ai-seo.",
+          "version": "1.1.0"
         },
         {
           "name": "churn-prevention",
@@ -7012,7 +7316,7 @@
           "name": "customer-research",
           "installUrl": "github:coreyhaines31/marketingskills:skills/customer-research",
           "description": "When the user wants to conduct, analyze, or synthesize customer research. Use when the user mentions \"customer research,\" \"ICP research,\" \"talk to customers,\" \"analyze transcripts,\" \"customer interviews,\" \"survey analysis,\" \"support ticket analysis,\" \"voice of customer,\" \"VOC,\" \"build personas,\" \"customer personas,\" \"jobs to be done,\" \"JTBD,\" \"what do customers say,\" \"what are customers struggling with,\" \"Reddit mining,\" \"G2 reviews,\" \"review mining,\" \"digital watering holes,\" \"community research,\" \"forum research,\" \"competitor reviews,\" \"customer sentiment,\" or \"find out why customers churn/convert/buy.\" Use for both analyzing existing research assets AND gathering new research from online sources. For writing copy informed by research, see copywriting. For acting on research to improve pages, see cro.",
-          "version": "2.0.0"
+          "version": "2.0.1"
         },
         {
           "name": "directory-submissions",
@@ -7036,7 +7340,7 @@
           "name": "marketing-loops",
           "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-loops",
           "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
-          "version": "1.1.0"
+          "version": "1.2.0"
         },
         {
           "name": "marketing-plan",
@@ -7059,8 +7363,8 @@
         {
           "name": "prospecting",
           "installUrl": "github:coreyhaines31/marketingskills:skills/prospecting",
-          "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" or \"qualified leads.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
-          "version": "1.0.0"
+          "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" \"qualified leads,\" \"find my first customers,\" \"early adopters,\" \"design partners,\" \"beta users,\" or \"who has this problem.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
+          "version": "1.1.0"
         },
         {
           "name": "public-relations",
@@ -7105,7 +7409,7 @@
       "name": "coreyhaines31-marketingskills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-07-07T08:53:52.727Z",
+      "createdAt": "2026-07-29T03:12:28.271Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7125,8 +7429,8 @@
         {
           "name": "ad-creative",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
-          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
-          "version": "2.1.0"
+          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' 'iMessage ad,' 'chat reveal ad,' 'fake DM ad,' 'ChatGPT ad,' 'Apple Notes ad,' 'AirDrop ad,' 'creative strategy,' 'creative roadmap,' 'creative retro,' 'hook writing,' 'creative review page,' 'present ad creative for approval,' 'motion video ad,' 'faceless video ad,' 'animated explainer ad,' 'motion collage ad,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+          "version": "2.8.0"
         },
         {
           "name": "ads",
@@ -7156,7 +7460,7 @@
           "name": "competitors",
           "installUrl": "github:coreyhaines31/marketingskills:skills/competitors",
           "description": "When the user wants to create competitor comparison or alternative pages for SEO and sales enablement. Also use when the user mentions 'alternative page,' 'vs page,' 'competitor comparison,' 'comparison page,' '[Product] vs [Product],' '[Product] alternative,' 'competitive landing pages,' 'how do we compare to X,' 'battle card,' or 'competitor teardown.' Use this for any content that positions your product against competitors. Covers four formats: singular alternative, plural alternatives, you vs competitor, and competitor vs competitor. For sales-specific competitor docs, see sales-enablement.",
-          "version": "2.0.0"
+          "version": "2.0.1"
         },
         {
           "name": "copywriting",
@@ -7174,7 +7478,7 @@
           "name": "customer-research",
           "installUrl": "github:coreyhaines31/marketingskills:skills/customer-research",
           "description": "When the user wants to conduct, analyze, or synthesize customer research. Use when the user mentions \"customer research,\" \"ICP research,\" \"talk to customers,\" \"analyze transcripts,\" \"customer interviews,\" \"survey analysis,\" \"support ticket analysis,\" \"voice of customer,\" \"VOC,\" \"build personas,\" \"customer personas,\" \"jobs to be done,\" \"JTBD,\" \"what do customers say,\" \"what are customers struggling with,\" \"Reddit mining,\" \"G2 reviews,\" \"review mining,\" \"digital watering holes,\" \"community research,\" \"forum research,\" \"competitor reviews,\" \"customer sentiment,\" or \"find out why customers churn/convert/buy.\" Use for both analyzing existing research assets AND gathering new research from online sources. For writing copy informed by research, see copywriting. For acting on research to improve pages, see cro.",
-          "version": "2.0.0"
+          "version": "2.0.1"
         },
         {
           "name": "free-tools",
@@ -7187,6 +7491,12 @@
           "installUrl": "github:coreyhaines31/marketingskills:skills/image",
           "description": "When the user wants to create, generate, edit, or optimize images for marketing — blog heroes, social graphics, product mockups, profile banners, listing visuals, or brand assets. Also use when the user mentions 'AI image generation,' 'generate an image,' 'create a graphic,' 'product mockup,' 'hero image,' 'social media graphic,' 'banner image,' 'cover photo,' 'profile banner,' 'listing screenshot,' 'Flux,' 'Flux Kontext,' 'Midjourney,' 'DALL-E,' 'GPT Image,' 'ChatGPT Images,' 'Ideogram,' 'Gemini image,' 'Nano Banana,' 'Recraft,' 'Stable Diffusion,' 'Canva,' 'Figma,' 'image optimization,' 'compress images,' 'WebP,' or 'OG image.' Use this for general-purpose marketing image creation and optimization. For paid ad image creative and platform-specific ad specs, see ad-creative. For video production, see video.",
           "version": "2.0.1"
+        },
+        {
+          "name": "influencer-marketing",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/influencer-marketing",
+          "description": "When the user wants to run influencer, creator, or ambassador partnerships to promote their product — finding and vetting partners, structuring deals, briefing creators, disclosure compliance, and measuring ROI. Also use when the user mentions 'influencer marketing,' 'creator partnerships,' 'sponsorships,' 'YouTube sponsorships,' 'podcast sponsorships,' 'brand ambassador,' 'ambassador program,' 'creator program,' 'UGC creators,' 'B2B influencers,' 'thought leader ads,' 'gifting,' 'product seeding,' 'whitelisting creator content,' 'how much to pay an influencer,' or 'FTC disclosure.' For affiliate/referral payout mechanics, see referrals. For community-led advocacy, see community-marketing. For turning creator content into paid ads, see ad-creative.",
+          "version": "1.0.0"
         },
         {
           "name": "marketing-plan",
@@ -7209,8 +7519,8 @@
         {
           "name": "prospecting",
           "installUrl": "github:coreyhaines31/marketingskills:skills/prospecting",
-          "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" or \"qualified leads.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
-          "version": "1.0.0"
+          "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" \"qualified leads,\" \"find my first customers,\" \"early adopters,\" \"design partners,\" \"beta users,\" or \"who has this problem.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
+          "version": "1.1.0"
         },
         {
           "name": "seo-audit",
@@ -7233,8 +7543,8 @@
         {
           "name": "social",
           "installUrl": "github:coreyhaines31/marketingskills:skills/social",
-          "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or wants to do social listening and engagement triage. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' 'viral content,' 'what should I post,' 'repurpose this content,' 'tweet ideas,' 'LinkedIn carousel,' 'social media strategy,' 'grow my following,' 'TikTok video,' 'Reels,' 'Shorts,' 'video script,' 'video hook,' 'short-form video,' 'create a reel,' 'social listening,' 'brand mentions,' 'competitor monitoring,' 'top posts to comment on,' or 'find people asking for.' Use this for social media content creation, repurposing, scheduling, short-form video scripting, and social listening. For broader content strategy, see content-strategy. For paid ads, see ad-creative. For earned media, see public-relations.",
-          "version": "2.1.0"
+          "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or wants to do social listening and engagement triage. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' 'viral content,' 'what should I post,' 'repurpose this content,' 'tweet ideas,' 'LinkedIn carousel,' 'social media strategy,' 'grow my following,' 'TikTok video,' 'Reels,' 'Shorts,' 'video script,' 'video hook,' 'short-form video,' 'create a reel,' 'social listening,' 'brand mentions,' 'competitor monitoring,' 'top posts to comment on,' 'find people asking for,' 'carousel,' 'slide-by-slide,' or 'document post.' Use this for social media content creation, repurposing, scheduling, short-form video scripting, and social listening. For broader content strategy, see content-strategy. For paid ads, see ad-creative. For earned media, see public-relations.",
+          "version": "2.2.0"
         }
       ],
       "sourceRepo": {
@@ -7249,7 +7559,7 @@
       "name": "coreyhaines31-marketingskills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-07-07T08:53:52.727Z",
+      "createdAt": "2026-07-29T03:12:28.271Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7269,8 +7579,8 @@
         {
           "name": "ad-creative",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
-          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
-          "version": "2.1.0"
+          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' 'iMessage ad,' 'chat reveal ad,' 'fake DM ad,' 'ChatGPT ad,' 'Apple Notes ad,' 'AirDrop ad,' 'creative strategy,' 'creative roadmap,' 'creative retro,' 'hook writing,' 'creative review page,' 'present ad creative for approval,' 'motion video ad,' 'faceless video ad,' 'animated explainer ad,' 'motion collage ad,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+          "version": "2.8.0"
         },
         {
           "name": "ads",
@@ -7282,19 +7592,25 @@
           "name": "ai-seo",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
           "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' or 'agent-readable site.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
-          "version": "2.1.0"
+          "version": "2.2.0"
         },
         {
           "name": "analytics",
           "installUrl": "github:coreyhaines31/marketingskills:skills/analytics",
-          "description": "When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions \"set up tracking,\" \"GA4,\" \"Google Analytics,\" \"conversion tracking,\" \"event tracking,\" \"UTM parameters,\" \"tag manager,\" \"GTM,\" \"analytics implementation,\" \"tracking plan,\" \"how do I measure this,\" \"track conversions,\" \"attribution,\" \"Mixpanel,\" \"Segment,\" \"are my events firing,\" or \"analytics isn't working.\" Use this whenever someone asks how to know if something is working or wants to measure marketing results. For A/B test measurement, see ab-testing.",
-          "version": "2.0.0"
+          "description": "When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions \"set up tracking,\" \"GA4,\" \"Google Analytics,\" \"conversion tracking,\" \"event tracking,\" \"UTM parameters,\" \"tag manager,\" \"GTM,\" \"analytics implementation,\" \"tracking plan,\" \"how do I measure this,\" \"track conversions,\" \"Mixpanel,\" \"Segment,\" \"are my events firing,\" or \"analytics isn't working.\" Use this whenever someone asks how to know if something is working or wants to measure marketing results. For choosing attribution models, comparing multi-touch/MMM/incrementality, or reconciling conflicting numbers across tools, see attribution. For A/B test measurement, see ab-testing.",
+          "version": "2.0.1"
         },
         {
           "name": "aso",
           "installUrl": "github:coreyhaines31/marketingskills:skills/aso",
           "description": "When the user wants to audit or optimize an App Store or Google Play listing. Also use when the user mentions 'ASO audit,' 'app store optimization,' 'optimize my app listing,' 'improve app visibility,' 'app store ranking,' 'audit my listing,' 'why aren't people downloading my app,' 'improve my app conversion,' 'keyword optimization for app,' or 'compare my app to competitors.' Use when the user shares an App Store or Google Play URL and wants to improve it.",
           "version": "2.0.0"
+        },
+        {
+          "name": "attribution",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/attribution",
+          "description": "When the user wants to figure out which marketing actually drives conversions and revenue, choose or interpret an attribution model, or reconcile conflicting numbers across tools. Also use when the user mentions \"attribution,\" \"attribution model,\" \"first-touch vs last-touch,\" \"multi-touch,\" \"which channel drives revenue,\" \"what's my real CAC,\" \"my dashboards disagree,\" \"Google/Meta says X but GA says Y,\" \"media mix model,\" \"MMM,\" \"incrementality,\" \"geo lift,\" \"holdout test,\" \"how did you hear about us,\" \"self-reported attribution,\" \"dark social,\" or wants to instrument attribution themselves — \"stitch my bookings to their source,\" \"SavvyCal/Calendly attribution,\" \"close the identify gap,\" \"track conversions on a third-party domain,\" \"first-party / self-hosted attribution.\" For event tracking setup and UTMs, see analytics. For ad-platform pixels/CAPI, see ads. For pipeline and CRM revenue reporting, see revops. For the AI-search attribution blind spot, see ai-seo.",
+          "version": "1.1.0"
         },
         {
           "name": "churn-prevention",
@@ -7330,7 +7646,7 @@
           "name": "competitors",
           "installUrl": "github:coreyhaines31/marketingskills:skills/competitors",
           "description": "When the user wants to create competitor comparison or alternative pages for SEO and sales enablement. Also use when the user mentions 'alternative page,' 'vs page,' 'competitor comparison,' 'comparison page,' '[Product] vs [Product],' '[Product] alternative,' 'competitive landing pages,' 'how do we compare to X,' 'battle card,' or 'competitor teardown.' Use this for any content that positions your product against competitors. Covers four formats: singular alternative, plural alternatives, you vs competitor, and competitor vs competitor. For sales-specific competitor docs, see sales-enablement.",
-          "version": "2.0.0"
+          "version": "2.0.1"
         },
         {
           "name": "content-strategy",
@@ -7360,7 +7676,7 @@
           "name": "customer-research",
           "installUrl": "github:coreyhaines31/marketingskills:skills/customer-research",
           "description": "When the user wants to conduct, analyze, or synthesize customer research. Use when the user mentions \"customer research,\" \"ICP research,\" \"talk to customers,\" \"analyze transcripts,\" \"customer interviews,\" \"survey analysis,\" \"support ticket analysis,\" \"voice of customer,\" \"VOC,\" \"build personas,\" \"customer personas,\" \"jobs to be done,\" \"JTBD,\" \"what do customers say,\" \"what are customers struggling with,\" \"Reddit mining,\" \"G2 reviews,\" \"review mining,\" \"digital watering holes,\" \"community research,\" \"forum research,\" \"competitor reviews,\" \"customer sentiment,\" or \"find out why customers churn/convert/buy.\" Use for both analyzing existing research assets AND gathering new research from online sources. For writing copy informed by research, see copywriting. For acting on research to improve pages, see cro.",
-          "version": "2.0.0"
+          "version": "2.0.1"
         },
         {
           "name": "directory-submissions",
@@ -7385,6 +7701,12 @@
           "installUrl": "github:coreyhaines31/marketingskills:skills/image",
           "description": "When the user wants to create, generate, edit, or optimize images for marketing — blog heroes, social graphics, product mockups, profile banners, listing visuals, or brand assets. Also use when the user mentions 'AI image generation,' 'generate an image,' 'create a graphic,' 'product mockup,' 'hero image,' 'social media graphic,' 'banner image,' 'cover photo,' 'profile banner,' 'listing screenshot,' 'Flux,' 'Flux Kontext,' 'Midjourney,' 'DALL-E,' 'GPT Image,' 'ChatGPT Images,' 'Ideogram,' 'Gemini image,' 'Nano Banana,' 'Recraft,' 'Stable Diffusion,' 'Canva,' 'Figma,' 'image optimization,' 'compress images,' 'WebP,' or 'OG image.' Use this for general-purpose marketing image creation and optimization. For paid ad image creative and platform-specific ad specs, see ad-creative. For video production, see video.",
           "version": "2.0.1"
+        },
+        {
+          "name": "influencer-marketing",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/influencer-marketing",
+          "description": "When the user wants to run influencer, creator, or ambassador partnerships to promote their product — finding and vetting partners, structuring deals, briefing creators, disclosure compliance, and measuring ROI. Also use when the user mentions 'influencer marketing,' 'creator partnerships,' 'sponsorships,' 'YouTube sponsorships,' 'podcast sponsorships,' 'brand ambassador,' 'ambassador program,' 'creator program,' 'UGC creators,' 'B2B influencers,' 'thought leader ads,' 'gifting,' 'product seeding,' 'whitelisting creator content,' 'how much to pay an influencer,' or 'FTC disclosure.' For affiliate/referral payout mechanics, see referrals. For community-led advocacy, see community-marketing. For turning creator content into paid ads, see ad-creative.",
+          "version": "1.0.0"
         },
         {
           "name": "launch",
@@ -7414,7 +7736,7 @@
           "name": "marketing-loops",
           "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-loops",
           "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
-          "version": "1.1.0"
+          "version": "1.2.0"
         },
         {
           "name": "marketing-plan",
@@ -7455,14 +7777,14 @@
         {
           "name": "pricing",
           "installUrl": "github:coreyhaines31/marketingskills:skills/pricing",
-          "description": "When the user wants help with pricing decisions, packaging, or monetization strategy. Also use when the user mentions 'pricing,' 'pricing tiers,' 'freemium,' 'free trial,' 'packaging,' 'price increase,' 'value metric,' 'Van Westendorp,' 'willingness to pay,' 'monetization,' 'how much should I charge,' 'my pricing is wrong,' 'pricing page,' 'annual vs monthly,' 'per seat pricing,' or 'should I offer a free plan.' Use this whenever someone is figuring out what to charge or how to structure their plans. For in-app upgrade screens, see paywalls. For offer construction (bonuses, guarantees, value framing, naming) on services/courses/coaching/high-ticket B2B, see offers.",
-          "version": "2.0.1"
+          "description": "When the user wants help with pricing decisions, packaging, or monetization strategy. Also use when the user mentions 'pricing,' 'pricing tiers,' 'freemium,' 'free trial,' 'packaging,' 'price increase,' 'value metric,' 'Van Westendorp,' 'willingness to pay,' 'monetization,' 'how much should I charge,' 'my pricing is wrong,' 'pricing page,' 'annual vs monthly,' 'per seat pricing,' 'should I offer a free plan,' 'pricing page teardown,' 'pricing page audit,' 'is my pricing page AI-readable,' or 'can AI read my pricing.' Use this whenever someone is figuring out what to charge, how to structure their plans, or wants to audit a pricing page (for humans and for the AI agents that shortlist tools). For in-app upgrade screens, see paywalls. For offer construction (bonuses, guarantees, value framing, naming) on services/courses/coaching/high-ticket B2B, see offers.",
+          "version": "2.1.0"
         },
         {
           "name": "product-marketing",
           "installUrl": "github:coreyhaines31/marketingskills:skills/product-marketing",
           "description": "When the user wants to create or update their product marketing context document. Also use when the user mentions 'product context,' 'marketing context,' 'set up context,' 'positioning,' 'who is my target audience,' 'describe my product,' 'ICP,' 'ideal customer profile,' or wants to avoid repeating foundational information across marketing tasks. Use this at the start of any new project before using other marketing skills — it creates `.agents/product-marketing.md` that all other skills reference for product, audience, and positioning context.",
-          "version": "2.0.0"
+          "version": "2.1.0"
         },
         {
           "name": "programmatic-seo",
@@ -7473,8 +7795,8 @@
         {
           "name": "prospecting",
           "installUrl": "github:coreyhaines31/marketingskills:skills/prospecting",
-          "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" or \"qualified leads.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
-          "version": "1.0.0"
+          "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" \"qualified leads,\" \"find my first customers,\" \"early adopters,\" \"design partners,\" \"beta users,\" or \"who has this problem.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
+          "version": "1.1.0"
         },
         {
           "name": "public-relations",
@@ -7533,14 +7855,14 @@
         {
           "name": "social",
           "installUrl": "github:coreyhaines31/marketingskills:skills/social",
-          "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or wants to do social listening and engagement triage. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' 'viral content,' 'what should I post,' 'repurpose this content,' 'tweet ideas,' 'LinkedIn carousel,' 'social media strategy,' 'grow my following,' 'TikTok video,' 'Reels,' 'Shorts,' 'video script,' 'video hook,' 'short-form video,' 'create a reel,' 'social listening,' 'brand mentions,' 'competitor monitoring,' 'top posts to comment on,' or 'find people asking for.' Use this for social media content creation, repurposing, scheduling, short-form video scripting, and social listening. For broader content strategy, see content-strategy. For paid ads, see ad-creative. For earned media, see public-relations.",
-          "version": "2.1.0"
+          "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or wants to do social listening and engagement triage. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' 'viral content,' 'what should I post,' 'repurpose this content,' 'tweet ideas,' 'LinkedIn carousel,' 'social media strategy,' 'grow my following,' 'TikTok video,' 'Reels,' 'Shorts,' 'video script,' 'video hook,' 'short-form video,' 'create a reel,' 'social listening,' 'brand mentions,' 'competitor monitoring,' 'top posts to comment on,' 'find people asking for,' 'carousel,' 'slide-by-slide,' or 'document post.' Use this for social media content creation, repurposing, scheduling, short-form video scripting, and social listening. For broader content strategy, see content-strategy. For paid ads, see ad-creative. For earned media, see public-relations.",
+          "version": "2.2.0"
         },
         {
           "name": "video",
           "installUrl": "github:coreyhaines31/marketingskills:skills/video",
-          "description": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
-          "version": "2.0.1"
+          "description": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' 'copy this edit,' 'match this video style,' 'reverse-engineer this video,' 'edit like this reference,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
+          "version": "2.1.0"
         }
       ],
       "sourceRepo": {
@@ -7555,7 +7877,7 @@
       "name": "coreyhaines31-marketingskills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-07-07T08:53:52.727Z",
+      "createdAt": "2026-07-29T03:12:28.271Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7575,8 +7897,8 @@
         {
           "name": "ad-creative",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
-          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
-          "version": "2.1.0"
+          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' 'iMessage ad,' 'chat reveal ad,' 'fake DM ad,' 'ChatGPT ad,' 'Apple Notes ad,' 'AirDrop ad,' 'creative strategy,' 'creative roadmap,' 'creative retro,' 'hook writing,' 'creative review page,' 'present ad creative for approval,' 'motion video ad,' 'faceless video ad,' 'animated explainer ad,' 'motion collage ad,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+          "version": "2.8.0"
         },
         {
           "name": "ads",
@@ -7588,19 +7910,25 @@
           "name": "ai-seo",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
           "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' or 'agent-readable site.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
-          "version": "2.1.0"
+          "version": "2.2.0"
         },
         {
           "name": "analytics",
           "installUrl": "github:coreyhaines31/marketingskills:skills/analytics",
-          "description": "When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions \"set up tracking,\" \"GA4,\" \"Google Analytics,\" \"conversion tracking,\" \"event tracking,\" \"UTM parameters,\" \"tag manager,\" \"GTM,\" \"analytics implementation,\" \"tracking plan,\" \"how do I measure this,\" \"track conversions,\" \"attribution,\" \"Mixpanel,\" \"Segment,\" \"are my events firing,\" or \"analytics isn't working.\" Use this whenever someone asks how to know if something is working or wants to measure marketing results. For A/B test measurement, see ab-testing.",
-          "version": "2.0.0"
+          "description": "When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions \"set up tracking,\" \"GA4,\" \"Google Analytics,\" \"conversion tracking,\" \"event tracking,\" \"UTM parameters,\" \"tag manager,\" \"GTM,\" \"analytics implementation,\" \"tracking plan,\" \"how do I measure this,\" \"track conversions,\" \"Mixpanel,\" \"Segment,\" \"are my events firing,\" or \"analytics isn't working.\" Use this whenever someone asks how to know if something is working or wants to measure marketing results. For choosing attribution models, comparing multi-touch/MMM/incrementality, or reconciling conflicting numbers across tools, see attribution. For A/B test measurement, see ab-testing.",
+          "version": "2.0.1"
         },
         {
           "name": "aso",
           "installUrl": "github:coreyhaines31/marketingskills:skills/aso",
           "description": "When the user wants to audit or optimize an App Store or Google Play listing. Also use when the user mentions 'ASO audit,' 'app store optimization,' 'optimize my app listing,' 'improve app visibility,' 'app store ranking,' 'audit my listing,' 'why aren't people downloading my app,' 'improve my app conversion,' 'keyword optimization for app,' or 'compare my app to competitors.' Use when the user shares an App Store or Google Play URL and wants to improve it.",
           "version": "2.0.0"
+        },
+        {
+          "name": "attribution",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/attribution",
+          "description": "When the user wants to figure out which marketing actually drives conversions and revenue, choose or interpret an attribution model, or reconcile conflicting numbers across tools. Also use when the user mentions \"attribution,\" \"attribution model,\" \"first-touch vs last-touch,\" \"multi-touch,\" \"which channel drives revenue,\" \"what's my real CAC,\" \"my dashboards disagree,\" \"Google/Meta says X but GA says Y,\" \"media mix model,\" \"MMM,\" \"incrementality,\" \"geo lift,\" \"holdout test,\" \"how did you hear about us,\" \"self-reported attribution,\" \"dark social,\" or wants to instrument attribution themselves — \"stitch my bookings to their source,\" \"SavvyCal/Calendly attribution,\" \"close the identify gap,\" \"track conversions on a third-party domain,\" \"first-party / self-hosted attribution.\" For event tracking setup and UTMs, see analytics. For ad-platform pixels/CAPI, see ads. For pipeline and CRM revenue reporting, see revops. For the AI-search attribution blind spot, see ai-seo.",
+          "version": "1.1.0"
         },
         {
           "name": "churn-prevention",
@@ -7636,7 +7964,7 @@
           "name": "competitors",
           "installUrl": "github:coreyhaines31/marketingskills:skills/competitors",
           "description": "When the user wants to create competitor comparison or alternative pages for SEO and sales enablement. Also use when the user mentions 'alternative page,' 'vs page,' 'competitor comparison,' 'comparison page,' '[Product] vs [Product],' '[Product] alternative,' 'competitive landing pages,' 'how do we compare to X,' 'battle card,' or 'competitor teardown.' Use this for any content that positions your product against competitors. Covers four formats: singular alternative, plural alternatives, you vs competitor, and competitor vs competitor. For sales-specific competitor docs, see sales-enablement.",
-          "version": "2.0.0"
+          "version": "2.0.1"
         },
         {
           "name": "content-strategy",
@@ -7666,7 +7994,7 @@
           "name": "customer-research",
           "installUrl": "github:coreyhaines31/marketingskills:skills/customer-research",
           "description": "When the user wants to conduct, analyze, or synthesize customer research. Use when the user mentions \"customer research,\" \"ICP research,\" \"talk to customers,\" \"analyze transcripts,\" \"customer interviews,\" \"survey analysis,\" \"support ticket analysis,\" \"voice of customer,\" \"VOC,\" \"build personas,\" \"customer personas,\" \"jobs to be done,\" \"JTBD,\" \"what do customers say,\" \"what are customers struggling with,\" \"Reddit mining,\" \"G2 reviews,\" \"review mining,\" \"digital watering holes,\" \"community research,\" \"forum research,\" \"competitor reviews,\" \"customer sentiment,\" or \"find out why customers churn/convert/buy.\" Use for both analyzing existing research assets AND gathering new research from online sources. For writing copy informed by research, see copywriting. For acting on research to improve pages, see cro.",
-          "version": "2.0.0"
+          "version": "2.0.1"
         },
         {
           "name": "directory-submissions",
@@ -7691,6 +8019,12 @@
           "installUrl": "github:coreyhaines31/marketingskills:skills/image",
           "description": "When the user wants to create, generate, edit, or optimize images for marketing — blog heroes, social graphics, product mockups, profile banners, listing visuals, or brand assets. Also use when the user mentions 'AI image generation,' 'generate an image,' 'create a graphic,' 'product mockup,' 'hero image,' 'social media graphic,' 'banner image,' 'cover photo,' 'profile banner,' 'listing screenshot,' 'Flux,' 'Flux Kontext,' 'Midjourney,' 'DALL-E,' 'GPT Image,' 'ChatGPT Images,' 'Ideogram,' 'Gemini image,' 'Nano Banana,' 'Recraft,' 'Stable Diffusion,' 'Canva,' 'Figma,' 'image optimization,' 'compress images,' 'WebP,' or 'OG image.' Use this for general-purpose marketing image creation and optimization. For paid ad image creative and platform-specific ad specs, see ad-creative. For video production, see video.",
           "version": "2.0.1"
+        },
+        {
+          "name": "influencer-marketing",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/influencer-marketing",
+          "description": "When the user wants to run influencer, creator, or ambassador partnerships to promote their product — finding and vetting partners, structuring deals, briefing creators, disclosure compliance, and measuring ROI. Also use when the user mentions 'influencer marketing,' 'creator partnerships,' 'sponsorships,' 'YouTube sponsorships,' 'podcast sponsorships,' 'brand ambassador,' 'ambassador program,' 'creator program,' 'UGC creators,' 'B2B influencers,' 'thought leader ads,' 'gifting,' 'product seeding,' 'whitelisting creator content,' 'how much to pay an influencer,' or 'FTC disclosure.' For affiliate/referral payout mechanics, see referrals. For community-led advocacy, see community-marketing. For turning creator content into paid ads, see ad-creative.",
+          "version": "1.0.0"
         },
         {
           "name": "launch",
@@ -7720,7 +8054,7 @@
           "name": "marketing-loops",
           "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-loops",
           "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
-          "version": "1.1.0"
+          "version": "1.2.0"
         },
         {
           "name": "marketing-plan",
@@ -7761,14 +8095,14 @@
         {
           "name": "pricing",
           "installUrl": "github:coreyhaines31/marketingskills:skills/pricing",
-          "description": "When the user wants help with pricing decisions, packaging, or monetization strategy. Also use when the user mentions 'pricing,' 'pricing tiers,' 'freemium,' 'free trial,' 'packaging,' 'price increase,' 'value metric,' 'Van Westendorp,' 'willingness to pay,' 'monetization,' 'how much should I charge,' 'my pricing is wrong,' 'pricing page,' 'annual vs monthly,' 'per seat pricing,' or 'should I offer a free plan.' Use this whenever someone is figuring out what to charge or how to structure their plans. For in-app upgrade screens, see paywalls. For offer construction (bonuses, guarantees, value framing, naming) on services/courses/coaching/high-ticket B2B, see offers.",
-          "version": "2.0.1"
+          "description": "When the user wants help with pricing decisions, packaging, or monetization strategy. Also use when the user mentions 'pricing,' 'pricing tiers,' 'freemium,' 'free trial,' 'packaging,' 'price increase,' 'value metric,' 'Van Westendorp,' 'willingness to pay,' 'monetization,' 'how much should I charge,' 'my pricing is wrong,' 'pricing page,' 'annual vs monthly,' 'per seat pricing,' 'should I offer a free plan,' 'pricing page teardown,' 'pricing page audit,' 'is my pricing page AI-readable,' or 'can AI read my pricing.' Use this whenever someone is figuring out what to charge, how to structure their plans, or wants to audit a pricing page (for humans and for the AI agents that shortlist tools). For in-app upgrade screens, see paywalls. For offer construction (bonuses, guarantees, value framing, naming) on services/courses/coaching/high-ticket B2B, see offers.",
+          "version": "2.1.0"
         },
         {
           "name": "product-marketing",
           "installUrl": "github:coreyhaines31/marketingskills:skills/product-marketing",
           "description": "When the user wants to create or update their product marketing context document. Also use when the user mentions 'product context,' 'marketing context,' 'set up context,' 'positioning,' 'who is my target audience,' 'describe my product,' 'ICP,' 'ideal customer profile,' or wants to avoid repeating foundational information across marketing tasks. Use this at the start of any new project before using other marketing skills — it creates `.agents/product-marketing.md` that all other skills reference for product, audience, and positioning context.",
-          "version": "2.0.0"
+          "version": "2.1.0"
         },
         {
           "name": "programmatic-seo",
@@ -7779,8 +8113,8 @@
         {
           "name": "prospecting",
           "installUrl": "github:coreyhaines31/marketingskills:skills/prospecting",
-          "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" or \"qualified leads.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
-          "version": "1.0.0"
+          "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" \"qualified leads,\" \"find my first customers,\" \"early adopters,\" \"design partners,\" \"beta users,\" or \"who has this problem.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
+          "version": "1.1.0"
         },
         {
           "name": "public-relations",
@@ -7839,14 +8173,14 @@
         {
           "name": "social",
           "installUrl": "github:coreyhaines31/marketingskills:skills/social",
-          "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or wants to do social listening and engagement triage. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' 'viral content,' 'what should I post,' 'repurpose this content,' 'tweet ideas,' 'LinkedIn carousel,' 'social media strategy,' 'grow my following,' 'TikTok video,' 'Reels,' 'Shorts,' 'video script,' 'video hook,' 'short-form video,' 'create a reel,' 'social listening,' 'brand mentions,' 'competitor monitoring,' 'top posts to comment on,' or 'find people asking for.' Use this for social media content creation, repurposing, scheduling, short-form video scripting, and social listening. For broader content strategy, see content-strategy. For paid ads, see ad-creative. For earned media, see public-relations.",
-          "version": "2.1.0"
+          "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or wants to do social listening and engagement triage. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' 'viral content,' 'what should I post,' 'repurpose this content,' 'tweet ideas,' 'LinkedIn carousel,' 'social media strategy,' 'grow my following,' 'TikTok video,' 'Reels,' 'Shorts,' 'video script,' 'video hook,' 'short-form video,' 'create a reel,' 'social listening,' 'brand mentions,' 'competitor monitoring,' 'top posts to comment on,' 'find people asking for,' 'carousel,' 'slide-by-slide,' or 'document post.' Use this for social media content creation, repurposing, scheduling, short-form video scripting, and social listening. For broader content strategy, see content-strategy. For paid ads, see ad-creative. For earned media, see public-relations.",
+          "version": "2.2.0"
         },
         {
           "name": "video",
           "installUrl": "github:coreyhaines31/marketingskills:skills/video",
-          "description": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
-          "version": "2.0.1"
+          "description": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' 'copy this edit,' 'match this video style,' 'reverse-engineer this video,' 'edit like this reference,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
+          "version": "2.1.0"
         }
       ],
       "sourceRepo": {
@@ -7861,7 +8195,7 @@
       "name": "coreyhaines31-marketingskills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-07-07T08:53:52.727Z",
+      "createdAt": "2026-07-29T03:12:28.271Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7873,10 +8207,16 @@
       ],
       "skills": [
         {
+          "name": "ad-creative",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
+          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' 'iMessage ad,' 'chat reveal ad,' 'fake DM ad,' 'ChatGPT ad,' 'Apple Notes ad,' 'AirDrop ad,' 'creative strategy,' 'creative roadmap,' 'creative retro,' 'hook writing,' 'creative review page,' 'present ad creative for approval,' 'motion video ad,' 'faceless video ad,' 'animated explainer ad,' 'motion collage ad,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+          "version": "2.8.0"
+        },
+        {
           "name": "ai-seo",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
           "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' or 'agent-readable site.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
-          "version": "2.1.0"
+          "version": "2.2.0"
         },
         {
           "name": "competitor-profiling",
@@ -7894,7 +8234,7 @@
           "name": "customer-research",
           "installUrl": "github:coreyhaines31/marketingskills:skills/customer-research",
           "description": "When the user wants to conduct, analyze, or synthesize customer research. Use when the user mentions \"customer research,\" \"ICP research,\" \"talk to customers,\" \"analyze transcripts,\" \"customer interviews,\" \"survey analysis,\" \"support ticket analysis,\" \"voice of customer,\" \"VOC,\" \"build personas,\" \"customer personas,\" \"jobs to be done,\" \"JTBD,\" \"what do customers say,\" \"what are customers struggling with,\" \"Reddit mining,\" \"G2 reviews,\" \"review mining,\" \"digital watering holes,\" \"community research,\" \"forum research,\" \"competitor reviews,\" \"customer sentiment,\" or \"find out why customers churn/convert/buy.\" Use for both analyzing existing research assets AND gathering new research from online sources. For writing copy informed by research, see copywriting. For acting on research to improve pages, see cro.",
-          "version": "2.0.0"
+          "version": "2.0.1"
         },
         {
           "name": "directory-submissions",
@@ -7918,13 +8258,13 @@
           "name": "marketing-loops",
           "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-loops",
           "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
-          "version": "1.1.0"
+          "version": "1.2.0"
         },
         {
           "name": "prospecting",
           "installUrl": "github:coreyhaines31/marketingskills:skills/prospecting",
-          "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" or \"qualified leads.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
-          "version": "1.0.0"
+          "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" \"qualified leads,\" \"find my first customers,\" \"early adopters,\" \"design partners,\" \"beta users,\" or \"who has this problem.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
+          "version": "1.1.0"
         },
         {
           "name": "sales-enablement",
@@ -7957,7 +8297,7 @@
       "name": "coreyhaines31-marketingskills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-07-07T08:53:52.727Z",
+      "createdAt": "2026-07-29T03:12:28.271Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7977,14 +8317,14 @@
         {
           "name": "ad-creative",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
-          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
-          "version": "2.1.0"
+          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' 'iMessage ad,' 'chat reveal ad,' 'fake DM ad,' 'ChatGPT ad,' 'Apple Notes ad,' 'AirDrop ad,' 'creative strategy,' 'creative roadmap,' 'creative retro,' 'hook writing,' 'creative review page,' 'present ad creative for approval,' 'motion video ad,' 'faceless video ad,' 'animated explainer ad,' 'motion collage ad,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+          "version": "2.8.0"
         },
         {
           "name": "ai-seo",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
           "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' or 'agent-readable site.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
-          "version": "2.1.0"
+          "version": "2.2.0"
         },
         {
           "name": "cold-email",
@@ -7996,7 +8336,7 @@
           "name": "competitors",
           "installUrl": "github:coreyhaines31/marketingskills:skills/competitors",
           "description": "When the user wants to create competitor comparison or alternative pages for SEO and sales enablement. Also use when the user mentions 'alternative page,' 'vs page,' 'competitor comparison,' 'comparison page,' '[Product] vs [Product],' '[Product] alternative,' 'competitive landing pages,' 'how do we compare to X,' 'battle card,' or 'competitor teardown.' Use this for any content that positions your product against competitors. Covers four formats: singular alternative, plural alternatives, you vs competitor, and competitor vs competitor. For sales-specific competitor docs, see sales-enablement.",
-          "version": "2.0.0"
+          "version": "2.0.1"
         },
         {
           "name": "content-strategy",
@@ -8020,7 +8360,7 @@
           "name": "customer-research",
           "installUrl": "github:coreyhaines31/marketingskills:skills/customer-research",
           "description": "When the user wants to conduct, analyze, or synthesize customer research. Use when the user mentions \"customer research,\" \"ICP research,\" \"talk to customers,\" \"analyze transcripts,\" \"customer interviews,\" \"survey analysis,\" \"support ticket analysis,\" \"voice of customer,\" \"VOC,\" \"build personas,\" \"customer personas,\" \"jobs to be done,\" \"JTBD,\" \"what do customers say,\" \"what are customers struggling with,\" \"Reddit mining,\" \"G2 reviews,\" \"review mining,\" \"digital watering holes,\" \"community research,\" \"forum research,\" \"competitor reviews,\" \"customer sentiment,\" or \"find out why customers churn/convert/buy.\" Use for both analyzing existing research assets AND gathering new research from online sources. For writing copy informed by research, see copywriting. For acting on research to improve pages, see cro.",
-          "version": "2.0.0"
+          "version": "2.0.1"
         },
         {
           "name": "free-tools",
@@ -8033,6 +8373,12 @@
           "installUrl": "github:coreyhaines31/marketingskills:skills/image",
           "description": "When the user wants to create, generate, edit, or optimize images for marketing — blog heroes, social graphics, product mockups, profile banners, listing visuals, or brand assets. Also use when the user mentions 'AI image generation,' 'generate an image,' 'create a graphic,' 'product mockup,' 'hero image,' 'social media graphic,' 'banner image,' 'cover photo,' 'profile banner,' 'listing screenshot,' 'Flux,' 'Flux Kontext,' 'Midjourney,' 'DALL-E,' 'GPT Image,' 'ChatGPT Images,' 'Ideogram,' 'Gemini image,' 'Nano Banana,' 'Recraft,' 'Stable Diffusion,' 'Canva,' 'Figma,' 'image optimization,' 'compress images,' 'WebP,' or 'OG image.' Use this for general-purpose marketing image creation and optimization. For paid ad image creative and platform-specific ad specs, see ad-creative. For video production, see video.",
           "version": "2.0.1"
+        },
+        {
+          "name": "influencer-marketing",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/influencer-marketing",
+          "description": "When the user wants to run influencer, creator, or ambassador partnerships to promote their product — finding and vetting partners, structuring deals, briefing creators, disclosure compliance, and measuring ROI. Also use when the user mentions 'influencer marketing,' 'creator partnerships,' 'sponsorships,' 'YouTube sponsorships,' 'podcast sponsorships,' 'brand ambassador,' 'ambassador program,' 'creator program,' 'UGC creators,' 'B2B influencers,' 'thought leader ads,' 'gifting,' 'product seeding,' 'whitelisting creator content,' 'how much to pay an influencer,' or 'FTC disclosure.' For affiliate/referral payout mechanics, see referrals. For community-led advocacy, see community-marketing. For turning creator content into paid ads, see ad-creative.",
+          "version": "1.0.0"
         },
         {
           "name": "lead-magnets",
@@ -8050,7 +8396,7 @@
           "name": "marketing-loops",
           "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-loops",
           "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
-          "version": "1.1.0"
+          "version": "1.2.0"
         },
         {
           "name": "marketing-psychology",
@@ -8073,8 +8419,8 @@
         {
           "name": "prospecting",
           "installUrl": "github:coreyhaines31/marketingskills:skills/prospecting",
-          "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" or \"qualified leads.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
-          "version": "1.0.0"
+          "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" \"qualified leads,\" \"find my first customers,\" \"early adopters,\" \"design partners,\" \"beta users,\" or \"who has this problem.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
+          "version": "1.1.0"
         },
         {
           "name": "public-relations",
@@ -8097,14 +8443,14 @@
         {
           "name": "social",
           "installUrl": "github:coreyhaines31/marketingskills:skills/social",
-          "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or wants to do social listening and engagement triage. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' 'viral content,' 'what should I post,' 'repurpose this content,' 'tweet ideas,' 'LinkedIn carousel,' 'social media strategy,' 'grow my following,' 'TikTok video,' 'Reels,' 'Shorts,' 'video script,' 'video hook,' 'short-form video,' 'create a reel,' 'social listening,' 'brand mentions,' 'competitor monitoring,' 'top posts to comment on,' or 'find people asking for.' Use this for social media content creation, repurposing, scheduling, short-form video scripting, and social listening. For broader content strategy, see content-strategy. For paid ads, see ad-creative. For earned media, see public-relations.",
-          "version": "2.1.0"
+          "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or wants to do social listening and engagement triage. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' 'viral content,' 'what should I post,' 'repurpose this content,' 'tweet ideas,' 'LinkedIn carousel,' 'social media strategy,' 'grow my following,' 'TikTok video,' 'Reels,' 'Shorts,' 'video script,' 'video hook,' 'short-form video,' 'create a reel,' 'social listening,' 'brand mentions,' 'competitor monitoring,' 'top posts to comment on,' 'find people asking for,' 'carousel,' 'slide-by-slide,' or 'document post.' Use this for social media content creation, repurposing, scheduling, short-form video scripting, and social listening. For broader content strategy, see content-strategy. For paid ads, see ad-creative. For earned media, see public-relations.",
+          "version": "2.2.0"
         },
         {
           "name": "video",
           "installUrl": "github:coreyhaines31/marketingskills:skills/video",
-          "description": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
-          "version": "2.0.1"
+          "description": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' 'copy this edit,' 'match this video style,' 'reverse-engineer this video,' 'edit like this reference,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
+          "version": "2.1.0"
         }
       ],
       "sourceRepo": {

@@ -2,13 +2,13 @@
   "repoUrl": "https://github.com/luongnv89/idd.git",
   "owner": "luongnv89",
   "repo": "idd",
-  "updatedAt": "2026-07-07T08:53:56.470Z",
+  "updatedAt": "2026-07-29T03:12:34.474Z",
   "skillCount": 7,
   "skills": [
     {
       "name": "auto-pilot",
       "description": "Run an autonomous triage-resolve-review-merge loop to auto-pilot the GitHub issue backlog, resolving everything until done with zero prompts. Don't use for single-issue work (/issue-resolver), triage (/issue-triage), or PR review (/issue-pr-review).",
-      "version": "2.4.0",
+      "version": "2.4.1",
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires git and GitHub CLI (gh) with auth and push access. Requires merge permission for auto-merge. Requires issue-triage, issue-resolver, issue-analysis, and issue-pr-review to be installed from the same distribution. Optional: issue-creator for normalizing unstructured issues mid-loop.",
@@ -16,9 +16,9 @@
       "installUrl": "github:luongnv89/idd:skills/auto-pilot",
       "relPath": "skills/auto-pilot",
       "verified": true,
-      "tokenCount": 6004,
+      "tokenCount": 6743,
       "evalSummary": {
-        "overallScore": 97,
+        "overallScore": 93,
         "grade": "A",
         "categories": [
           {
@@ -36,13 +36,13 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 8,
+            "score": 6,
             "max": 10
           },
           {
@@ -64,8 +64,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:56.451Z",
-        "evaluatedVersion": "2.4.0"
+        "evaluatedAt": "2026-07-29T03:12:34.447Z",
+        "evaluatedVersion": "2.4.1"
       },
       "evalSummaries": {
         "quality": {
@@ -73,7 +73,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 97,
+          "overallScore": 93,
           "grade": "A",
           "categories": [
             {
@@ -91,13 +91,13 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 8,
+              "score": 6,
               "max": 10
             },
             {
@@ -119,8 +119,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:56.451Z",
-          "evaluatedVersion": "2.4.0"
+          "evaluatedAt": "2026-07-29T03:12:34.447Z",
+          "evaluatedVersion": "2.4.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -137,15 +137,15 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:56.451Z",
-          "evaluatedVersion": "2.4.0"
+          "evaluatedAt": "2026-07-29T03:12:34.447Z",
+          "evaluatedVersion": "2.4.1"
         }
       }
     },
     {
       "name": "init-gitissue",
       "description": "Generate a .gitissue.yml by auto-detecting a repo's stack, test runner, and size. Use to init, setup, or configure gitissue, or set up IDD. Don't use for editing an existing .gitissue.yml, creating issues (use /issue-creator), or plain git/npm init.",
-      "version": "0.3.5",
+      "version": "0.3.6",
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires git. No GitHub CLI or authentication needed — generates a local config file only.",
@@ -153,7 +153,7 @@
       "installUrl": "github:luongnv89/idd:skills/init-gitissue",
       "relPath": "skills/init-gitissue",
       "verified": true,
-      "tokenCount": 3749,
+      "tokenCount": 4085,
       "evalSummary": {
         "overallScore": 97,
         "grade": "A",
@@ -201,8 +201,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:56.453Z",
-        "evaluatedVersion": "0.3.5"
+        "evaluatedAt": "2026-07-29T03:12:34.450Z",
+        "evaluatedVersion": "0.3.6"
       },
       "evalSummaries": {
         "quality": {
@@ -256,8 +256,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:56.454Z",
-          "evaluatedVersion": "0.3.5"
+          "evaluatedAt": "2026-07-29T03:12:34.450Z",
+          "evaluatedVersion": "0.3.6"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -274,8 +274,8 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:56.454Z",
-          "evaluatedVersion": "0.3.5"
+          "evaluatedAt": "2026-07-29T03:12:34.450Z",
+          "evaluatedVersion": "0.3.6"
         }
       }
     },
@@ -290,7 +290,7 @@
       "installUrl": "github:luongnv89/idd:skills/issue-analysis",
       "relPath": "skills/issue-analysis",
       "verified": true,
-      "tokenCount": 4665,
+      "tokenCount": 4868,
       "evalSummary": {
         "overallScore": 97,
         "grade": "A",
@@ -338,7 +338,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:56.456Z",
+        "evaluatedAt": "2026-07-29T03:12:34.453Z",
         "evaluatedVersion": "0.5.2"
       },
       "evalSummaries": {
@@ -393,7 +393,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:56.456Z",
+          "evaluatedAt": "2026-07-29T03:12:34.453Z",
           "evaluatedVersion": "0.5.2"
         },
         "skill-best-practice": {
@@ -411,7 +411,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:56.456Z",
+          "evaluatedAt": "2026-07-29T03:12:34.453Z",
           "evaluatedVersion": "0.5.2"
         }
       }
@@ -427,9 +427,9 @@
       "installUrl": "github:luongnv89/idd:skills/issue-creator",
       "relPath": "skills/issue-creator",
       "verified": true,
-      "tokenCount": 6074,
+      "tokenCount": 6572,
       "evalSummary": {
-        "overallScore": 97,
+        "overallScore": 93,
         "grade": "A",
         "categories": [
           {
@@ -447,13 +447,13 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 8,
+            "score": 6,
             "max": 10
           },
           {
@@ -475,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:56.459Z",
+        "evaluatedAt": "2026-07-29T03:12:34.457Z",
         "evaluatedVersion": "0.8.0"
       },
       "evalSummaries": {
@@ -484,7 +484,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 97,
+          "overallScore": 93,
           "grade": "A",
           "categories": [
             {
@@ -502,13 +502,13 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 8,
+              "score": 6,
               "max": 10
             },
             {
@@ -530,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:56.459Z",
+          "evaluatedAt": "2026-07-29T03:12:34.457Z",
           "evaluatedVersion": "0.8.0"
         },
         "skill-best-practice": {
@@ -548,7 +548,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:56.459Z",
+          "evaluatedAt": "2026-07-29T03:12:34.457Z",
           "evaluatedVersion": "0.8.0"
         }
       }
@@ -556,7 +556,7 @@
     {
       "name": "issue-pr-review",
       "description": "Review a PR end-to-end with CI checks, fix cycles, and optional auto-merge. Use for PR review, cleanup, or readiness checks. Don't use for creating PRs, raw issue analysis, or non-PR code review.",
-      "version": "2.4.0",
+      "version": "2.5.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires git and GitHub CLI (gh) with authentication. Self-contained — uses shared agents from shared/agents/.",
@@ -564,9 +564,9 @@
       "installUrl": "github:luongnv89/idd:skills/issue-pr-review",
       "relPath": "skills/issue-pr-review",
       "verified": true,
-      "tokenCount": 5799,
+      "tokenCount": 7975,
       "evalSummary": {
-        "overallScore": 96,
+        "overallScore": 91,
         "grade": "A",
         "categories": [
           {
@@ -584,13 +584,13 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 8,
+            "score": 6,
             "max": 10
           },
           {
@@ -612,8 +612,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:56.462Z",
-        "evaluatedVersion": "2.4.0"
+        "evaluatedAt": "2026-07-29T03:12:34.461Z",
+        "evaluatedVersion": "2.5.0"
       },
       "evalSummaries": {
         "quality": {
@@ -621,7 +621,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 96,
+          "overallScore": 91,
           "grade": "A",
           "categories": [
             {
@@ -639,13 +639,13 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 8,
+              "score": 6,
               "max": 10
             },
             {
@@ -667,8 +667,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:56.462Z",
-          "evaluatedVersion": "2.4.0"
+          "evaluatedAt": "2026-07-29T03:12:34.461Z",
+          "evaluatedVersion": "2.5.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -685,15 +685,15 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:56.462Z",
-          "evaluatedVersion": "2.4.0"
+          "evaluatedAt": "2026-07-29T03:12:34.461Z",
+          "evaluatedVersion": "2.5.0"
         }
       }
     },
     {
       "name": "issue-resolver",
       "description": "Create an atomic PR closing a GitHub issue end-to-end via a 6-step pipeline. Use to resolve, fix, or implement issue #N. Don't use for analysis without fixing (/issue-analysis), reviewing a PR (/issue-pr-review), or bulk backlog work (/auto-pilot).",
-      "version": "0.16.1",
+      "version": "0.17.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires git and GitHub CLI (gh) with authentication and push access. Self-contained — uses shared agents from shared/agents/.",
@@ -701,9 +701,9 @@
       "installUrl": "github:luongnv89/idd:skills/issue-resolver",
       "relPath": "skills/issue-resolver",
       "verified": true,
-      "tokenCount": 5956,
+      "tokenCount": 7845,
       "evalSummary": {
-        "overallScore": 96,
+        "overallScore": 93,
         "grade": "A",
         "categories": [
           {
@@ -721,19 +721,19 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 8,
+            "score": 6,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -749,8 +749,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:56.465Z",
-        "evaluatedVersion": "0.16.1"
+        "evaluatedAt": "2026-07-29T03:12:34.467Z",
+        "evaluatedVersion": "0.17.0"
       },
       "evalSummaries": {
         "quality": {
@@ -758,7 +758,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 96,
+          "overallScore": 93,
           "grade": "A",
           "categories": [
             {
@@ -776,19 +776,19 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 8,
+              "score": 6,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 9,
+              "score": 10,
               "max": 10
             },
             {
@@ -804,8 +804,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:56.465Z",
-          "evaluatedVersion": "0.16.1"
+          "evaluatedAt": "2026-07-29T03:12:34.467Z",
+          "evaluatedVersion": "0.17.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -822,8 +822,8 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:56.465Z",
-          "evaluatedVersion": "0.16.1"
+          "evaluatedAt": "2026-07-29T03:12:34.467Z",
+          "evaluatedVersion": "0.17.0"
         }
       }
     },
@@ -838,9 +838,9 @@
       "installUrl": "github:luongnv89/idd:skills/issue-triage",
       "relPath": "skills/issue-triage",
       "verified": true,
-      "tokenCount": 5945,
+      "tokenCount": 6375,
       "evalSummary": {
-        "overallScore": 97,
+        "overallScore": 93,
         "grade": "A",
         "categories": [
           {
@@ -858,13 +858,13 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 8,
+            "score": 6,
             "max": 10
           },
           {
@@ -886,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:56.468Z",
+        "evaluatedAt": "2026-07-29T03:12:34.471Z",
         "evaluatedVersion": "0.5.5"
       },
       "evalSummaries": {
@@ -895,7 +895,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 97,
+          "overallScore": 93,
           "grade": "A",
           "categories": [
             {
@@ -913,13 +913,13 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 8,
+              "score": 6,
               "max": 10
             },
             {
@@ -941,7 +941,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:56.468Z",
+          "evaluatedAt": "2026-07-29T03:12:34.472Z",
           "evaluatedVersion": "0.5.5"
         },
         "skill-best-practice": {
@@ -959,7 +959,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:56.468Z",
+          "evaluatedAt": "2026-07-29T03:12:34.471Z",
           "evaluatedVersion": "0.5.5"
         }
       }
@@ -971,7 +971,7 @@
       "name": "luongnv89-idd-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from luongnv89/idd.",
       "author": "ASM (luongnv89/idd)",
-      "createdAt": "2026-07-07T08:53:56.470Z",
+      "createdAt": "2026-07-29T03:12:34.474Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -986,13 +986,13 @@
           "name": "auto-pilot",
           "installUrl": "github:luongnv89/idd:skills/auto-pilot",
           "description": "Run an autonomous triage-resolve-review-merge loop to auto-pilot the GitHub issue backlog, resolving everything until done with zero prompts. Don't use for single-issue work (/issue-resolver), triage (/issue-triage), or PR review (/issue-pr-review).",
-          "version": "2.4.0"
+          "version": "2.4.1"
         },
         {
           "name": "init-gitissue",
           "installUrl": "github:luongnv89/idd:skills/init-gitissue",
           "description": "Generate a .gitissue.yml by auto-detecting a repo's stack, test runner, and size. Use to init, setup, or configure gitissue, or set up IDD. Don't use for editing an existing .gitissue.yml, creating issues (use /issue-creator), or plain git/npm init.",
-          "version": "0.3.5"
+          "version": "0.3.6"
         },
         {
           "name": "issue-analysis",
@@ -1010,13 +1010,13 @@
           "name": "issue-pr-review",
           "installUrl": "github:luongnv89/idd:skills/issue-pr-review",
           "description": "Review a PR end-to-end with CI checks, fix cycles, and optional auto-merge. Use for PR review, cleanup, or readiness checks. Don't use for creating PRs, raw issue analysis, or non-PR code review.",
-          "version": "2.4.0"
+          "version": "2.5.0"
         },
         {
           "name": "issue-resolver",
           "installUrl": "github:luongnv89/idd:skills/issue-resolver",
           "description": "Create an atomic PR closing a GitHub issue end-to-end via a 6-step pipeline. Use to resolve, fix, or implement issue #N. Don't use for analysis without fixing (/issue-analysis), reviewing a PR (/issue-pr-review), or bulk backlog work (/auto-pilot).",
-          "version": "0.16.1"
+          "version": "0.17.0"
         },
         {
           "name": "issue-triage",
@@ -1037,7 +1037,7 @@
       "name": "luongnv89-idd-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from luongnv89/idd.",
       "author": "ASM (luongnv89/idd)",
-      "createdAt": "2026-07-07T08:53:56.470Z",
+      "createdAt": "2026-07-29T03:12:34.474Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1052,13 +1052,13 @@
           "name": "issue-pr-review",
           "installUrl": "github:luongnv89/idd:skills/issue-pr-review",
           "description": "Review a PR end-to-end with CI checks, fix cycles, and optional auto-merge. Use for PR review, cleanup, or readiness checks. Don't use for creating PRs, raw issue analysis, or non-PR code review.",
-          "version": "2.4.0"
+          "version": "2.5.0"
         },
         {
           "name": "issue-resolver",
           "installUrl": "github:luongnv89/idd:skills/issue-resolver",
           "description": "Create an atomic PR closing a GitHub issue end-to-end via a 6-step pipeline. Use to resolve, fix, or implement issue #N. Don't use for analysis without fixing (/issue-analysis), reviewing a PR (/issue-pr-review), or bulk backlog work (/auto-pilot).",
-          "version": "0.16.1"
+          "version": "0.17.0"
         },
         {
           "name": "issue-triage",
@@ -1079,7 +1079,7 @@
       "name": "luongnv89-idd-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from luongnv89/idd.",
       "author": "ASM (luongnv89/idd)",
-      "createdAt": "2026-07-07T08:53:56.470Z",
+      "createdAt": "2026-07-29T03:12:34.474Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1094,25 +1094,25 @@
           "name": "auto-pilot",
           "installUrl": "github:luongnv89/idd:skills/auto-pilot",
           "description": "Run an autonomous triage-resolve-review-merge loop to auto-pilot the GitHub issue backlog, resolving everything until done with zero prompts. Don't use for single-issue work (/issue-resolver), triage (/issue-triage), or PR review (/issue-pr-review).",
-          "version": "2.4.0"
+          "version": "2.4.1"
         },
         {
           "name": "init-gitissue",
           "installUrl": "github:luongnv89/idd:skills/init-gitissue",
           "description": "Generate a .gitissue.yml by auto-detecting a repo's stack, test runner, and size. Use to init, setup, or configure gitissue, or set up IDD. Don't use for editing an existing .gitissue.yml, creating issues (use /issue-creator), or plain git/npm init.",
-          "version": "0.3.5"
+          "version": "0.3.6"
         },
         {
           "name": "issue-pr-review",
           "installUrl": "github:luongnv89/idd:skills/issue-pr-review",
           "description": "Review a PR end-to-end with CI checks, fix cycles, and optional auto-merge. Use for PR review, cleanup, or readiness checks. Don't use for creating PRs, raw issue analysis, or non-PR code review.",
-          "version": "2.4.0"
+          "version": "2.5.0"
         },
         {
           "name": "issue-resolver",
           "installUrl": "github:luongnv89/idd:skills/issue-resolver",
           "description": "Create an atomic PR closing a GitHub issue end-to-end via a 6-step pipeline. Use to resolve, fix, or implement issue #N. Don't use for analysis without fixing (/issue-analysis), reviewing a PR (/issue-pr-review), or bulk backlog work (/auto-pilot).",
-          "version": "0.16.1"
+          "version": "0.17.0"
         }
       ],
       "sourceRepo": {
@@ -1127,7 +1127,7 @@
       "name": "luongnv89-idd-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from luongnv89/idd.",
       "author": "ASM (luongnv89/idd)",
-      "createdAt": "2026-07-07T08:53:56.470Z",
+      "createdAt": "2026-07-29T03:12:34.474Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1142,7 +1142,7 @@
           "name": "auto-pilot",
           "installUrl": "github:luongnv89/idd:skills/auto-pilot",
           "description": "Run an autonomous triage-resolve-review-merge loop to auto-pilot the GitHub issue backlog, resolving everything until done with zero prompts. Don't use for single-issue work (/issue-resolver), triage (/issue-triage), or PR review (/issue-pr-review).",
-          "version": "2.4.0"
+          "version": "2.4.1"
         },
         {
           "name": "issue-analysis",
@@ -1160,13 +1160,13 @@
           "name": "issue-pr-review",
           "installUrl": "github:luongnv89/idd:skills/issue-pr-review",
           "description": "Review a PR end-to-end with CI checks, fix cycles, and optional auto-merge. Use for PR review, cleanup, or readiness checks. Don't use for creating PRs, raw issue analysis, or non-PR code review.",
-          "version": "2.4.0"
+          "version": "2.5.0"
         },
         {
           "name": "issue-resolver",
           "installUrl": "github:luongnv89/idd:skills/issue-resolver",
           "description": "Create an atomic PR closing a GitHub issue end-to-end via a 6-step pipeline. Use to resolve, fix, or implement issue #N. Don't use for analysis without fixing (/issue-analysis), reviewing a PR (/issue-pr-review), or bulk backlog work (/auto-pilot).",
-          "version": "0.16.1"
+          "version": "0.17.0"
         },
         {
           "name": "issue-triage",

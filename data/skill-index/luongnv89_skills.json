@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/luongnv89/skills.git",
   "owner": "luongnv89",
   "repo": "skills",
-  "updatedAt": "2026-07-07T08:53:55.520Z",
-  "skillCount": 36,
+  "updatedAt": "2026-07-29T03:12:32.908Z",
+  "skillCount": 33,
   "skills": [
     {
       "name": "agent-config",
@@ -64,7 +64,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.463Z",
+        "evaluatedAt": "2026-07-29T03:12:32.839Z",
         "evaluatedVersion": "1.3.1"
       },
       "evalSummaries": {
@@ -119,7 +119,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.463Z",
+          "evaluatedAt": "2026-07-29T03:12:32.839Z",
           "evaluatedVersion": "1.3.1"
         },
         "skill-best-practice": {
@@ -137,15 +137,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.463Z",
+          "evaluatedAt": "2026-07-29T03:12:32.839Z",
           "evaluatedVersion": "1.3.1"
         }
       }
     },
     {
       "name": "appstore-review-checker",
-      "description": "Audit iOS/macOS app projects against Apple App Store Review Guidelines to catch rejection risks before submission, with per-guideline PASS/FAIL/WARNING verdicts and fix suggestions. Don't use for Google Play/Android submissions, general code review, or post-rejection appeal drafting.",
-      "version": "1.2.0",
+      "description": "Audit iOS/macOS apps against App Store Review Guidelines before submission, with evidence-backed verdicts and fixes. Don't use for Google Play, general code review, or rejection appeals.",
+      "version": "1.2.1",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -153,7 +153,7 @@
       "installUrl": "github:luongnv89/skills:skills/appstore-review-checker",
       "relPath": "skills/appstore-review-checker",
       "verified": true,
-      "tokenCount": 2228,
+      "tokenCount": 2208,
       "evalSummary": {
         "overallScore": 97,
         "grade": "A",
@@ -201,8 +201,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.464Z",
-        "evaluatedVersion": "1.2.0"
+        "evaluatedAt": "2026-07-29T03:12:32.841Z",
+        "evaluatedVersion": "1.2.1"
       },
       "evalSummaries": {
         "quality": {
@@ -256,26 +256,26 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.464Z",
-          "evaluatedVersion": "1.2.0"
+          "evaluatedAt": "2026-07-29T03:12:32.841Z",
+          "evaluatedVersion": "1.2.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 93,
+          "overallScore": 100,
           "grade": "A",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 13,
+              "score": 14,
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.464Z",
-          "evaluatedVersion": "1.2.0"
+          "evaluatedAt": "2026-07-29T03:12:32.841Z",
+          "evaluatedVersion": "1.2.1"
         }
       }
     },
@@ -338,7 +338,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.466Z",
+        "evaluatedAt": "2026-07-29T03:12:32.843Z",
         "evaluatedVersion": "1.2.1"
       },
       "evalSummaries": {
@@ -393,7 +393,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.466Z",
+          "evaluatedAt": "2026-07-29T03:12:32.843Z",
           "evaluatedVersion": "1.2.1"
         },
         "skill-best-practice": {
@@ -411,7 +411,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.466Z",
+          "evaluatedAt": "2026-07-29T03:12:32.843Z",
           "evaluatedVersion": "1.2.1"
         }
       }
@@ -475,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.467Z",
+        "evaluatedAt": "2026-07-29T03:12:32.844Z",
         "evaluatedVersion": "1.0.3"
       },
       "evalSummaries": {
@@ -530,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.467Z",
+          "evaluatedAt": "2026-07-29T03:12:32.844Z",
           "evaluatedVersion": "1.0.3"
         },
         "skill-best-practice": {
@@ -548,7 +548,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.467Z",
+          "evaluatedAt": "2026-07-29T03:12:32.844Z",
           "evaluatedVersion": "1.0.3"
         }
       }
@@ -612,7 +612,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.468Z",
+        "evaluatedAt": "2026-07-29T03:12:32.846Z",
         "evaluatedVersion": "1.3.2"
       },
       "evalSummaries": {
@@ -667,7 +667,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.468Z",
+          "evaluatedAt": "2026-07-29T03:12:32.846Z",
           "evaluatedVersion": "1.3.2"
         },
         "skill-best-practice": {
@@ -685,152 +685,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.468Z",
+          "evaluatedAt": "2026-07-29T03:12:32.846Z",
           "evaluatedVersion": "1.3.2"
         }
       }
     },
     {
-      "name": "clean-code",
-      "description": "Audit code against the bbv Clean Code Cheat Sheet and write CLEAN_CODE_AUDIT.md with findings plus a priority-phased plan. User-invoked: use when the user runs /clean-code or requests a clean-code audit. Don't use for general coding, bug-fixing, or PR review.",
-      "version": "1.2.2",
-      "license": "MIT",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:luongnv89/skills:skills/clean-code",
-      "relPath": "skills/clean-code",
-      "verified": true,
-      "tokenCount": 3749,
-      "evalSummary": {
-        "overallScore": 94,
-        "grade": "A",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-07-07T08:53:55.470Z",
-        "evaluatedVersion": "1.2.2"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 94,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:53:55.470Z",
-          "evaluatedVersion": "1.2.2"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 93,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 13,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:53:55.470Z",
-          "evaluatedVersion": "1.2.2"
-        }
-      }
-    },
-    {
       "name": "cli-builder",
-      "description": "Build a production-quality CLI tool for any module or application. Auto-detects language, recommends CLI libraries, and follows a 5-step approval-gated workflow: Analyze, Design, Plan, Execute, Summarize. Don't use for building GUI/TUI apps, web APIs, or authoring one-off shell scripts.",
-      "version": "1.0.4",
+      "description": "Build production-quality CLIs with language detection and a five-step approval-gated workflow. Use when wrapping an existing module or app. Don't use for GUI/TUI apps, web APIs, or one-off shell scripts.",
+      "version": "1.0.5",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -838,7 +701,7 @@
       "installUrl": "github:luongnv89/skills:skills/cli-builder",
       "relPath": "skills/cli-builder",
       "verified": true,
-      "tokenCount": 3075,
+      "tokenCount": 3057,
       "evalSummary": {
         "overallScore": 97,
         "grade": "A",
@@ -886,8 +749,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.472Z",
-        "evaluatedVersion": "1.0.4"
+        "evaluatedAt": "2026-07-29T03:12:32.848Z",
+        "evaluatedVersion": "1.0.5"
       },
       "evalSummaries": {
         "quality": {
@@ -941,145 +804,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.472Z",
-          "evaluatedVersion": "1.0.4"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 93,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 13,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:53:55.472Z",
-          "evaluatedVersion": "1.0.4"
-        }
-      }
-    },
-    {
-      "name": "code-optimizer",
-      "description": "Analyze code for performance bottlenecks, memory leaks, and algorithmic inefficiencies. Use when asked to optimize, find bottlenecks, or improve efficiency. Don't use for bug-hunting code review, security audits, or refactoring without a perf goal.",
-      "version": "1.4.0",
-      "license": "MIT",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:luongnv89/skills:skills/code-optimizer",
-      "relPath": "skills/code-optimizer",
-      "verified": true,
-      "tokenCount": 2365,
-      "evalSummary": {
-        "overallScore": 96,
-        "grade": "A",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-07-07T08:53:55.474Z",
-        "evaluatedVersion": "1.4.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 96,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:53:55.474Z",
-          "evaluatedVersion": "1.4.0"
+          "evaluatedAt": "2026-07-29T03:12:32.848Z",
+          "evaluatedVersion": "1.0.5"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -1096,25 +822,25 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.474Z",
-          "evaluatedVersion": "1.4.0"
+          "evaluatedAt": "2026-07-29T03:12:32.848Z",
+          "evaluatedVersion": "1.0.5"
         }
       }
     },
     {
       "name": "code-review",
-      "description": "Review code changes for bugs, security vulnerabilities, and code quality issues — producing prioritized findings with specific fix suggestions. Don't use for performance tuning, writing new features from scratch, or generating test cases.",
-      "version": "1.2.0",
+      "description": "Review or improve code — one skill, four modes: bug/security review (default), performance, clean-code audit, slop cleanup. Pass mode:review|perf|clean|cleanup or infer. Don't use for writing features or generating tests (use test-coverage).",
+      "version": "2.1.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/code-review",
       "relPath": "skills/code-review",
-      "verified": false,
-      "tokenCount": 3137,
+      "verified": true,
+      "tokenCount": 1868,
       "evalSummary": {
-        "overallScore": 96,
+        "overallScore": 100,
         "grade": "A",
         "categories": [
           {
@@ -1138,13 +864,13 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1160,8 +886,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.475Z",
-        "evaluatedVersion": "1.2.0"
+        "evaluatedAt": "2026-07-29T03:12:32.850Z",
+        "evaluatedVersion": "2.1.0"
       },
       "evalSummaries": {
         "quality": {
@@ -1169,7 +895,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 96,
+          "overallScore": 100,
           "grade": "A",
           "categories": [
             {
@@ -1193,13 +919,13 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 8,
+              "score": 10,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 9,
+              "score": 10,
               "max": 10
             },
             {
@@ -1215,8 +941,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.475Z",
-          "evaluatedVersion": "1.2.0"
+          "evaluatedAt": "2026-07-29T03:12:32.850Z",
+          "evaluatedVersion": "2.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -1233,8 +959,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.475Z",
-          "evaluatedVersion": "1.2.0"
+          "evaluatedAt": "2026-07-29T03:12:32.850Z",
+          "evaluatedVersion": "2.1.0"
         }
       }
     },
@@ -1297,7 +1023,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.477Z",
+        "evaluatedAt": "2026-07-29T03:12:32.851Z",
         "evaluatedVersion": "2.0.3"
       },
       "evalSummaries": {
@@ -1352,7 +1078,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.477Z",
+          "evaluatedAt": "2026-07-29T03:12:32.851Z",
           "evaluatedVersion": "2.0.3"
         },
         "skill-best-practice": {
@@ -1370,297 +1096,23 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.477Z",
+          "evaluatedAt": "2026-07-29T03:12:32.851Z",
           "evaluatedVersion": "2.0.3"
         }
       }
     },
     {
-      "name": "docs-generator",
-      "description": "Generate and restructure project docs into a clear, accessible hierarchy. Use to organize, generate, or restructure a README. Don't use for API reference generation (JSDoc/Sphinx), landing pages, or agent-config files like CLAUDE.md.",
-      "version": "1.2.5",
+      "name": "diagram-generator",
+      "description": "Generate a diagram and route to the right engine — draw.io XML (precise, editable, C4, swimlanes) or Excalidraw JSON (hand-drawn, sketch, wireframes). One entry for flowcharts, architecture, ER, sequence, mind maps. Don't use for Mermaid or slides.",
+      "version": "1.1.2",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "installUrl": "github:luongnv89/skills:skills/docs-generator",
-      "relPath": "skills/docs-generator",
+      "installUrl": "github:luongnv89/skills:skills/diagram-generator",
+      "relPath": "skills/diagram-generator",
       "verified": true,
-      "tokenCount": 2294,
-      "evalSummary": {
-        "overallScore": 97,
-        "grade": "A",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-07-07T08:53:55.478Z",
-        "evaluatedVersion": "1.2.5"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 97,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:53:55.478Z",
-          "evaluatedVersion": "1.2.5"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 100,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 14,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:53:55.478Z",
-          "evaluatedVersion": "1.2.5"
-        }
-      }
-    },
-    {
-      "name": "dont-make-me-think",
-      "description": "Review UI for usability using Steve Krug's principles; produce a scannable report. Use for usability audits, UX review, or UI feedback on screenshots, URLs, or code. Don't use for brand design critique, WCAG audits, or backend/API review.",
-      "version": "1.2.3",
-      "license": "MIT",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:luongnv89/skills:skills/dont-make-me-think",
-      "relPath": "skills/dont-make-me-think",
-      "verified": true,
-      "tokenCount": 3037,
-      "evalSummary": {
-        "overallScore": 97,
-        "grade": "A",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-07-07T08:53:55.480Z",
-        "evaluatedVersion": "1.2.3"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 97,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:53:55.480Z",
-          "evaluatedVersion": "1.2.3"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 100,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 14,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:53:55.480Z",
-          "evaluatedVersion": "1.2.3"
-        }
-      }
-    },
-    {
-      "name": "drawio-generator",
-      "description": "Generate professional diagrams as valid draw.io XML — flowcharts, architecture, C4 models, ER diagrams, sequence diagrams, mind maps, and swimlanes. Don't use for Excalidraw or Mermaid output, hand-drawn sketch styles, or slide decks/presentations.",
-      "version": "1.2.2",
-      "license": "MIT",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:luongnv89/skills:skills/drawio-generator",
-      "relPath": "skills/drawio-generator",
-      "verified": true,
-      "tokenCount": 2622,
+      "tokenCount": 1580,
       "evalSummary": {
         "overallScore": 100,
         "grade": "A",
@@ -1708,8 +1160,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.481Z",
-        "evaluatedVersion": "1.2.2"
+        "evaluatedAt": "2026-07-29T03:12:32.853Z",
+        "evaluatedVersion": "1.1.2"
       },
       "evalSummaries": {
         "quality": {
@@ -1763,8 +1215,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.481Z",
-          "evaluatedVersion": "1.2.2"
+          "evaluatedAt": "2026-07-29T03:12:32.853Z",
+          "evaluatedVersion": "1.1.2"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -1781,25 +1233,25 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.481Z",
-          "evaluatedVersion": "1.2.2"
+          "evaluatedAt": "2026-07-29T03:12:32.853Z",
+          "evaluatedVersion": "1.1.2"
         }
       }
     },
     {
-      "name": "excalidraw-generator",
-      "description": "Generate diagrams as valid Excalidraw JSON — flowcharts, architecture, ER diagrams, mind maps, sequence diagrams, wireframes, C4 models, and more. Don't use for draw.io/Mermaid output, slide decks, or pixel-perfect brand graphics.",
-      "version": "1.3.2",
+      "name": "doc-manager",
+      "description": "Generate or update docs to match the code, citing each claim to path:line and asking on ambiguity; runbook docs also get a check-only validation script. Don't use for API-reference autogen (JSDoc/Sphinx), landing pages, or CLAUDE.md/AGENTS.md.",
+      "version": "2.0.2",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "installUrl": "github:luongnv89/skills:skills/excalidraw-generator",
-      "relPath": "skills/excalidraw-generator",
+      "installUrl": "github:luongnv89/skills:skills/doc-manager",
+      "relPath": "skills/doc-manager",
       "verified": true,
-      "tokenCount": 2415,
+      "tokenCount": 3500,
       "evalSummary": {
-        "overallScore": 97,
+        "overallScore": 96,
         "grade": "A",
         "categories": [
           {
@@ -1823,13 +1275,13 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 10,
+            "score": 8,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1845,7 +1297,144 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.483Z",
+        "evaluatedAt": "2026-07-29T03:12:32.854Z",
+        "evaluatedVersion": "2.0.2"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 96,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:12:32.854Z",
+          "evaluatedVersion": "2.0.2"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 100,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 14,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:12:32.854Z",
+          "evaluatedVersion": "2.0.2"
+        }
+      }
+    },
+    {
+      "name": "dont-make-me-think",
+      "description": "Review UI usability using Steve Krug's principles and produce a scannable report. Use for UX audits of screenshots, URLs, or code. Don't use for brand critique, WCAG audits, or backend/API review.",
+      "version": "1.3.2",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:luongnv89/skills:skills/dont-make-me-think",
+      "relPath": "skills/dont-make-me-think",
+      "verified": true,
+      "tokenCount": 3476,
+      "evalSummary": {
+        "overallScore": 97,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:12:32.862Z",
         "evaluatedVersion": "1.3.2"
       },
       "evalSummaries": {
@@ -1872,19 +1461,19 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 9,
+              "score": 10,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 10,
+              "score": 8,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 9,
+              "score": 10,
               "max": 10
             },
             {
@@ -1900,7 +1489,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.483Z",
+          "evaluatedAt": "2026-07-29T03:12:32.862Z",
           "evaluatedVersion": "1.3.2"
         },
         "skill-best-practice": {
@@ -1918,7 +1507,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.483Z",
+          "evaluatedAt": "2026-07-29T03:12:32.862Z",
           "evaluatedVersion": "1.3.2"
         }
       }
@@ -1926,7 +1515,7 @@
     {
       "name": "fork-upstream-sync",
       "description": "Sync a GitHub fork with upstream while keeping unmerged feature branches and open PRs mergeable. Use for rebase on upstream, PR conflicts, integration main. Don't use for git init, releases, or non-fork repos.",
-      "version": "1.0.3",
+      "version": "1.3.2",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -1934,10 +1523,10 @@
       "installUrl": "github:luongnv89/skills:skills/fork-upstream-sync",
       "relPath": "skills/fork-upstream-sync",
       "verified": true,
-      "tokenCount": 1414,
+      "tokenCount": 1896,
       "evalSummary": {
-        "overallScore": 77,
-        "grade": "C",
+        "overallScore": 97,
+        "grade": "A",
         "categories": [
           {
             "id": "structure",
@@ -1960,19 +1549,19 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 6,
+            "score": 10,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 5,
+            "score": 10,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 10,
             "max": 10
           },
           {
@@ -1982,8 +1571,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.484Z",
-        "evaluatedVersion": "1.0.3"
+        "evaluatedAt": "2026-07-29T03:12:32.865Z",
+        "evaluatedVersion": "1.3.2"
       },
       "evalSummaries": {
         "quality": {
@@ -1991,8 +1580,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 77,
-          "grade": "C",
+          "overallScore": 97,
+          "grade": "A",
           "categories": [
             {
               "id": "structure",
@@ -2015,19 +1604,19 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 6,
+              "score": 10,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 5,
+              "score": 10,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 10,
               "max": 10
             },
             {
@@ -2037,8 +1626,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.484Z",
-          "evaluatedVersion": "1.0.3"
+          "evaluatedAt": "2026-07-29T03:12:32.865Z",
+          "evaluatedVersion": "1.3.2"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -2055,15 +1644,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.484Z",
-          "evaluatedVersion": "1.0.3"
+          "evaluatedAt": "2026-07-29T03:12:32.865Z",
+          "evaluatedVersion": "1.3.2"
         }
       }
     },
     {
       "name": "frontend-design",
-      "description": "Build production-grade frontend interfaces with distinctive aesthetics and working code. Use when asked to create a UI, component, page, or frontend feature. Skip for backend/API work or usability-only audits.",
-      "version": "1.2.3",
+      "description": "Build production-grade frontend interfaces with distinctive aesthetics and working code. Use for UI components, pages, or frontend features. Don't use for backend/API work or usability-only audits.",
+      "version": "1.2.4",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -2071,7 +1660,7 @@
       "installUrl": "github:luongnv89/skills:skills/frontend-design",
       "relPath": "skills/frontend-design",
       "verified": true,
-      "tokenCount": 3206,
+      "tokenCount": 3200,
       "evalSummary": {
         "overallScore": 96,
         "grade": "A",
@@ -2119,8 +1708,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.485Z",
-        "evaluatedVersion": "1.2.3"
+        "evaluatedAt": "2026-07-29T03:12:32.867Z",
+        "evaluatedVersion": "1.2.4"
       },
       "evalSummaries": {
         "quality": {
@@ -2174,8 +1763,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.485Z",
-          "evaluatedVersion": "1.2.3"
+          "evaluatedAt": "2026-07-29T03:12:32.867Z",
+          "evaluatedVersion": "1.2.4"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -2192,8 +1781,145 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.485Z",
-          "evaluatedVersion": "1.2.3"
+          "evaluatedAt": "2026-07-29T03:12:32.867Z",
+          "evaluatedVersion": "1.2.4"
+        }
+      }
+    },
+    {
+      "name": "herdr-agent-comms",
+      "description": "Manage AI agent fleets in Herdr: split root + sub-agents into one tab as a tiled grid, message/wait/read via herdr CLI, steer any pane. Use for Herdr multi-agent fleets. Don't use for tmux, screen, or non-Herdr terminals.",
+      "version": "1.22.2",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires `herdr` on PATH and a running Herdr server (`herdr status`).",
+      "allowedTools": [],
+      "installUrl": "github:luongnv89/skills:skills/herdr-agent-comms",
+      "relPath": "skills/herdr-agent-comms",
+      "verified": true,
+      "tokenCount": 2755,
+      "evalSummary": {
+        "overallScore": 99,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:12:32.869Z",
+        "evaluatedVersion": "1.22.2"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 99,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:12:32.869Z",
+          "evaluatedVersion": "1.22.2"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 100,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 15,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:12:32.869Z",
+          "evaluatedVersion": "1.22.2"
         }
       }
     },
@@ -2256,7 +1982,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.487Z",
+        "evaluatedAt": "2026-07-29T03:12:32.871Z",
         "evaluatedVersion": "1.5.0"
       },
       "evalSummaries": {
@@ -2311,7 +2037,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.488Z",
+          "evaluatedAt": "2026-07-29T03:12:32.871Z",
           "evaluatedVersion": "1.5.0"
         },
         "skill-best-practice": {
@@ -2329,7 +2055,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.488Z",
+          "evaluatedAt": "2026-07-29T03:12:32.871Z",
           "evaluatedVersion": "1.5.0"
         }
       }
@@ -2337,7 +2063,7 @@
     {
       "name": "install-script-generator",
       "description": "Generate cross-platform install scripts for any software or library — a standalone install.sh runnable via a curl/wget one-liner with OS, arch, and package manager detection. Don't use for Dockerfiles, CI/CD pipelines, or one-off shell scripts.",
-      "version": "2.2.0",
+      "version": "2.2.1",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -2393,8 +2119,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.489Z",
-        "evaluatedVersion": "2.2.0"
+        "evaluatedAt": "2026-07-29T03:12:32.873Z",
+        "evaluatedVersion": "2.2.1"
       },
       "evalSummaries": {
         "quality": {
@@ -2448,8 +2174,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.489Z",
-          "evaluatedVersion": "2.2.0"
+          "evaluatedAt": "2026-07-29T03:12:32.873Z",
+          "evaluatedVersion": "2.2.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -2466,15 +2192,152 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.489Z",
-          "evaluatedVersion": "2.2.0"
+          "evaluatedAt": "2026-07-29T03:12:32.873Z",
+          "evaluatedVersion": "2.2.1"
+        }
+      }
+    },
+    {
+      "name": "issue-work-loop",
+      "description": "Run Herdr loops for one open GitHub issue (resolve→review→fix) or an existing PR (review→lazy fixer) until CLEAN. Don't use for plain resolution without review, review-only/no-fix requests, backlog automation, or merging.",
+      "version": "1.3.1",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires herdr, git, gh auth, issue-pr-review and herdr-agent-comms in both modes; issue-resolver is required only in ISSUE mode.",
+      "allowedTools": [],
+      "installUrl": "github:luongnv89/skills:skills/issue-work-loop",
+      "relPath": "skills/issue-work-loop",
+      "verified": true,
+      "tokenCount": 4681,
+      "evalSummary": {
+        "overallScore": 84,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-07-29T03:12:32.875Z",
+        "evaluatedVersion": "1.3.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 84,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:12:32.875Z",
+          "evaluatedVersion": "1.3.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 100,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 15,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-07-29T03:12:32.875Z",
+          "evaluatedVersion": "1.3.1"
         }
       }
     },
     {
       "name": "landing-page-generator",
-      "description": "Generate conversion-focused landing page copy with PAS, AIDA, or StoryBrand. Use when creating sales pages, hero sections, CTAs, or full marketing website copy. Don't use for README rewrites, blog posts, or UX audits.",
-      "version": "1.1.4",
+      "description": "Generate landing pages with PAS, AIDA, or StoryBrand from a product brief or existing README. Use for sales copy, hero sections, CTAs, or README rewrites. Don't use for blog posts, UX audits, or HTML builds.",
+      "version": "1.2.1",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -2482,7 +2345,7 @@
       "installUrl": "github:luongnv89/skills:skills/landing-page-generator",
       "relPath": "skills/landing-page-generator",
       "verified": true,
-      "tokenCount": 1968,
+      "tokenCount": 2306,
       "evalSummary": {
         "overallScore": 99,
         "grade": "A",
@@ -2530,8 +2393,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.490Z",
-        "evaluatedVersion": "1.1.4"
+        "evaluatedAt": "2026-07-29T03:12:32.877Z",
+        "evaluatedVersion": "1.2.1"
       },
       "evalSummaries": {
         "quality": {
@@ -2585,8 +2448,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.490Z",
-          "evaluatedVersion": "1.1.4"
+          "evaluatedAt": "2026-07-29T03:12:32.877Z",
+          "evaluatedVersion": "1.2.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -2603,15 +2466,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.490Z",
-          "evaluatedVersion": "1.1.4"
+          "evaluatedAt": "2026-07-29T03:12:32.877Z",
+          "evaluatedVersion": "1.2.1"
         }
       }
     },
     {
       "name": "logo-designer",
-      "description": "Generate professional SVG logos from project context, producing 7 brand variants (mark, full, wordmark, icon, favicon, white, black) plus a showcase HTML page. Skip for raster-only logos, product illustrations, or full brand-guideline docs.",
-      "version": "1.2.2",
+      "description": "Generate professional SVG logos from project context: 7 brand variants plus a showcase HTML page. Use for product marks, wordmarks, icons, and favicons. Don't use for raster-only logos, illustrations, or full brand guidelines.",
+      "version": "1.2.3",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -2619,7 +2482,7 @@
       "installUrl": "github:luongnv89/skills:skills/logo-designer",
       "relPath": "skills/logo-designer",
       "verified": true,
-      "tokenCount": 2923,
+      "tokenCount": 2919,
       "evalSummary": {
         "overallScore": 99,
         "grade": "A",
@@ -2667,8 +2530,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.492Z",
-        "evaluatedVersion": "1.2.2"
+        "evaluatedAt": "2026-07-29T03:12:32.879Z",
+        "evaluatedVersion": "1.2.3"
       },
       "evalSummaries": {
         "quality": {
@@ -2722,8 +2585,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.492Z",
-          "evaluatedVersion": "1.2.2"
+          "evaluatedAt": "2026-07-29T03:12:32.879Z",
+          "evaluatedVersion": "1.2.3"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -2740,15 +2603,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.492Z",
-          "evaluatedVersion": "1.2.2"
+          "evaluatedAt": "2026-07-29T03:12:32.879Z",
+          "evaluatedVersion": "1.2.3"
         }
       }
     },
     {
       "name": "ollama-optimizer",
       "description": "Optimize Ollama configuration for the current machine's hardware. Use when asked to speed up Ollama, tune local LLM performance, or pick models that fit available GPU/RAM. Don't use for LM Studio, llama.cpp, vLLM, or hosted-API LLM providers.",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -2804,8 +2667,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.494Z",
-        "evaluatedVersion": "1.1.0"
+        "evaluatedAt": "2026-07-29T03:12:32.881Z",
+        "evaluatedVersion": "1.1.1"
       },
       "evalSummaries": {
         "quality": {
@@ -2859,8 +2722,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.494Z",
-          "evaluatedVersion": "1.1.0"
+          "evaluatedAt": "2026-07-29T03:12:32.881Z",
+          "evaluatedVersion": "1.1.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -2877,8 +2740,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.494Z",
-          "evaluatedVersion": "1.1.0"
+          "evaluatedAt": "2026-07-29T03:12:32.881Z",
+          "evaluatedVersion": "1.1.1"
         }
       }
     },
@@ -2941,7 +2804,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.496Z",
+        "evaluatedAt": "2026-07-29T03:12:32.884Z",
         "evaluatedVersion": "1.4.1"
       },
       "evalSummaries": {
@@ -2996,7 +2859,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.496Z",
+          "evaluatedAt": "2026-07-29T03:12:32.884Z",
           "evaluatedVersion": "1.4.1"
         },
         "skill-best-practice": {
@@ -3014,7 +2877,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.496Z",
+          "evaluatedAt": "2026-07-29T03:12:32.884Z",
           "evaluatedVersion": "1.4.1"
         }
       }
@@ -3078,7 +2941,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.498Z",
+        "evaluatedAt": "2026-07-29T03:12:32.886Z",
         "evaluatedVersion": "1.2.1"
       },
       "evalSummaries": {
@@ -3133,7 +2996,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.498Z",
+          "evaluatedAt": "2026-07-29T03:12:32.886Z",
           "evaluatedVersion": "1.2.1"
         },
         "skill-best-practice": {
@@ -3151,7 +3014,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.498Z",
+          "evaluatedAt": "2026-07-29T03:12:32.886Z",
           "evaluatedVersion": "1.2.1"
         }
       }
@@ -3215,7 +3078,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.499Z",
+        "evaluatedAt": "2026-07-29T03:12:32.887Z",
         "evaluatedVersion": "1.3.2"
       },
       "evalSummaries": {
@@ -3270,7 +3133,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.499Z",
+          "evaluatedAt": "2026-07-29T03:12:32.887Z",
           "evaluatedVersion": "1.3.2"
         },
         "skill-best-practice": {
@@ -3288,145 +3151,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.499Z",
+          "evaluatedAt": "2026-07-29T03:12:32.887Z",
           "evaluatedVersion": "1.3.2"
-        }
-      }
-    },
-    {
-      "name": "readme-to-landing-page",
-      "description": "Transform a project README.md into a conversion-optimized landing page using PAS, AIDA, or StoryBrand — hero, value prop, how it works, quick start, CTA in pure markdown. Skip for full HTML sites or general blog copy.",
-      "version": "2.1.1",
-      "license": "MIT",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:luongnv89/skills:skills/readme-to-landing-page",
-      "relPath": "skills/readme-to-landing-page",
-      "verified": true,
-      "tokenCount": 2330,
-      "evalSummary": {
-        "overallScore": 91,
-        "grade": "A",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-07-07T08:53:55.501Z",
-        "evaluatedVersion": "2.1.1"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 91,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:53:55.501Z",
-          "evaluatedVersion": "2.1.1"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 100,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 14,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:53:55.501Z",
-          "evaluatedVersion": "2.1.1"
         }
       }
     },
@@ -3489,7 +3215,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.502Z",
+        "evaluatedAt": "2026-07-29T03:12:32.889Z",
         "evaluatedVersion": "2.6.0"
       },
       "evalSummaries": {
@@ -3544,7 +3270,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.502Z",
+          "evaluatedAt": "2026-07-29T03:12:32.889Z",
           "evaluatedVersion": "2.6.0"
         },
         "skill-best-practice": {
@@ -3562,7 +3288,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.502Z",
+          "evaluatedAt": "2026-07-29T03:12:32.889Z",
           "evaluatedVersion": "2.6.0"
         }
       }
@@ -3626,7 +3352,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.504Z",
+        "evaluatedAt": "2026-07-29T03:12:32.892Z",
         "evaluatedVersion": "1.4.0"
       },
       "evalSummaries": {
@@ -3681,7 +3407,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.504Z",
+          "evaluatedAt": "2026-07-29T03:12:32.892Z",
           "evaluatedVersion": "1.4.0"
         },
         "skill-best-practice": {
@@ -3699,7 +3425,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.504Z",
+          "evaluatedAt": "2026-07-29T03:12:32.892Z",
           "evaluatedVersion": "1.4.0"
         }
       }
@@ -3707,7 +3433,7 @@
     {
       "name": "seo-ai-optimizer",
       "description": "Audit and optimize websites for technical SEO, content SEO, and AI bot accessibility. Fixes meta tags, sitemaps, robots.txt, structured data, llms.txt, and GPTBot/ClaudeBot directives. Not for App Store ASO, paid search, or blog writing.",
-      "version": "1.2.1",
+      "version": "1.2.3",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -3763,8 +3489,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.506Z",
-        "evaluatedVersion": "1.2.1"
+        "evaluatedAt": "2026-07-29T03:12:32.894Z",
+        "evaluatedVersion": "1.2.3"
       },
       "evalSummaries": {
         "quality": {
@@ -3818,8 +3544,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.506Z",
-          "evaluatedVersion": "1.2.1"
+          "evaluatedAt": "2026-07-29T03:12:32.894Z",
+          "evaluatedVersion": "1.2.3"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -3836,145 +3562,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.506Z",
-          "evaluatedVersion": "1.2.1"
-        }
-      }
-    },
-    {
-      "name": "slop-cleanup",
-      "description": "Refactor a codebase to remove AI slop, dead code, weak types, duplication, defensive over-engineering, and legacy cruft using 8 parallel specialized subagents across two cleanup waves. Don't use for adding new features, performance tuning, or security-only audits.",
-      "version": "1.1.2",
-      "license": "MIT",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:luongnv89/skills:skills/slop-cleanup",
-      "relPath": "skills/slop-cleanup",
-      "verified": true,
-      "tokenCount": 4750,
-      "evalSummary": {
-        "overallScore": 96,
-        "grade": "A",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-07-07T08:53:55.507Z",
-        "evaluatedVersion": "1.1.2"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 96,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:53:55.507Z",
-          "evaluatedVersion": "1.1.2"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 93,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 13,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-07-07T08:53:55.507Z",
-          "evaluatedVersion": "1.1.2"
+          "evaluatedAt": "2026-07-29T03:12:32.894Z",
+          "evaluatedVersion": "1.2.3"
         }
       }
     },
@@ -4037,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.509Z",
+        "evaluatedAt": "2026-07-29T03:12:32.896Z",
         "evaluatedVersion": "1.1.2"
       },
       "evalSummaries": {
@@ -4092,7 +3681,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.509Z",
+          "evaluatedAt": "2026-07-29T03:12:32.896Z",
           "evaluatedVersion": "1.1.2"
         },
         "skill-best-practice": {
@@ -4110,7 +3699,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.509Z",
+          "evaluatedAt": "2026-07-29T03:12:32.896Z",
           "evaluatedVersion": "1.1.2"
         }
       }
@@ -4174,7 +3763,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.511Z",
+        "evaluatedAt": "2026-07-29T03:12:32.898Z",
         "evaluatedVersion": "1.4.0"
       },
       "evalSummaries": {
@@ -4229,7 +3818,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.511Z",
+          "evaluatedAt": "2026-07-29T03:12:32.898Z",
           "evaluatedVersion": "1.4.0"
         },
         "skill-best-practice": {
@@ -4247,15 +3836,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.511Z",
+          "evaluatedAt": "2026-07-29T03:12:32.898Z",
           "evaluatedVersion": "1.4.0"
         }
       }
     },
     {
       "name": "tasks-generator",
-      "description": "Generate development tasks from a PRD file with sprint-based planning. Use when users ask to create tasks from PRD, break down the PRD, generate sprint tasks, or want to convert product requirements into actionable development tasks. Creates/updates tasks.md and always reports GitHub links to changed files. Don't use for writing a PRD, authoring a TAD, or executing tasks (see openspec-task-loop).",
-      "version": "1.3.0",
+      "description": "Generate sprint-based development tasks from a PRD. Use when asked to create tasks or break down requirements. Don't use for PRD/TAD authoring or task execution.",
+      "version": "1.3.1",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -4263,9 +3852,9 @@
       "installUrl": "github:luongnv89/skills:skills/tasks-generator",
       "relPath": "skills/tasks-generator",
       "verified": true,
-      "tokenCount": 2944,
+      "tokenCount": 2874,
       "evalSummary": {
-        "overallScore": 93,
+        "overallScore": 96,
         "grade": "A",
         "categories": [
           {
@@ -4277,7 +3866,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
@@ -4311,8 +3900,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.513Z",
-        "evaluatedVersion": "1.3.0"
+        "evaluatedAt": "2026-07-29T03:12:32.900Z",
+        "evaluatedVersion": "1.3.1"
       },
       "evalSummaries": {
         "quality": {
@@ -4320,7 +3909,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 93,
+          "overallScore": 96,
           "grade": "A",
           "categories": [
             {
@@ -4332,7 +3921,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 8,
+              "score": 10,
               "max": 10
             },
             {
@@ -4366,26 +3955,26 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.513Z",
-          "evaluatedVersion": "1.3.0"
+          "evaluatedAt": "2026-07-29T03:12:32.900Z",
+          "evaluatedVersion": "1.3.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 93,
+          "overallScore": 100,
           "grade": "A",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 13,
+              "score": 14,
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.513Z",
-          "evaluatedVersion": "1.3.0"
+          "evaluatedAt": "2026-07-29T03:12:32.900Z",
+          "evaluatedVersion": "1.3.1"
         }
       }
     },
@@ -4448,7 +4037,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.514Z",
+        "evaluatedAt": "2026-07-29T03:12:32.901Z",
         "evaluatedVersion": "1.3.0"
       },
       "evalSummaries": {
@@ -4503,7 +4092,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.514Z",
+          "evaluatedAt": "2026-07-29T03:12:32.901Z",
           "evaluatedVersion": "1.3.0"
         },
         "skill-best-practice": {
@@ -4521,25 +4110,25 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.514Z",
+          "evaluatedAt": "2026-07-29T03:12:32.901Z",
           "evaluatedVersion": "1.3.0"
         }
       }
     },
     {
       "name": "tmux-agent-comms",
-      "description": "Manage AI agents in tmux: spawn, status/inspect, message, read replies, or kill sessions via send-keys/capture-pane. Use to launch fleets or talk to running agents. Don't use for SSH, GNU screen, or GUI apps.",
-      "version": "1.8.1",
+      "description": "Manage AI agents in tmux: spawn sessions, send messages, wait, capture replies, inspect fleets, and tear down safely. Use for tmux-hosted CLI agents. Don't use for SSH, GNU screen, or GUI apps.",
+      "version": "2.1.0",
       "license": "MIT",
       "creator": "",
-      "compatibility": "",
+      "compatibility": "Requires `tmux` on PATH. Optional Python 3 for wait/preflight/broadcast helpers.",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/tmux-agent-comms",
       "relPath": "skills/tmux-agent-comms",
       "verified": true,
-      "tokenCount": 5021,
+      "tokenCount": 2672,
       "evalSummary": {
-        "overallScore": 96,
+        "overallScore": 100,
         "grade": "A",
         "categories": [
           {
@@ -4557,13 +4146,13 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
@@ -4585,8 +4174,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.516Z",
-        "evaluatedVersion": "1.8.1"
+        "evaluatedAt": "2026-07-29T03:12:32.903Z",
+        "evaluatedVersion": "2.1.0"
       },
       "evalSummaries": {
         "quality": {
@@ -4594,7 +4183,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 96,
+          "overallScore": 100,
           "grade": "A",
           "categories": [
             {
@@ -4612,13 +4201,13 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 9,
+              "score": 10,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 8,
+              "score": 10,
               "max": 10
             },
             {
@@ -4640,8 +4229,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.516Z",
-          "evaluatedVersion": "1.8.1"
+          "evaluatedAt": "2026-07-29T03:12:32.903Z",
+          "evaluatedVersion": "2.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -4654,19 +4243,19 @@
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 14,
-              "max": 14
+              "score": 15,
+              "max": 15
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.516Z",
-          "evaluatedVersion": "1.8.1"
+          "evaluatedAt": "2026-07-29T03:12:32.903Z",
+          "evaluatedVersion": "2.1.0"
         }
       }
     },
     {
       "name": "viral-product-evaluator",
       "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-      "version": "1.2.3",
+      "version": "1.2.4",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -4722,8 +4311,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.517Z",
-        "evaluatedVersion": "1.2.3"
+        "evaluatedAt": "2026-07-29T03:12:32.905Z",
+        "evaluatedVersion": "1.2.4"
       },
       "evalSummaries": {
         "quality": {
@@ -4777,8 +4366,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.517Z",
-          "evaluatedVersion": "1.2.3"
+          "evaluatedAt": "2026-07-29T03:12:32.905Z",
+          "evaluatedVersion": "1.2.4"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -4795,15 +4384,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.517Z",
-          "evaluatedVersion": "1.2.3"
+          "evaluatedAt": "2026-07-29T03:12:32.905Z",
+          "evaluatedVersion": "1.2.4"
         }
       }
     },
     {
       "name": "website-cloner",
       "description": "Build an improved website clone from a URL via 6-phase gated workflow (Vite/React/shadcn/Tailwind + GitHub Pages). Use for end-to-end site rebuilds. Don't use for single-phase work.",
-      "version": "1.1.6",
+      "version": "1.2.1",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -4811,9 +4400,9 @@
       "installUrl": "github:luongnv89/skills:skills/website-cloner",
       "relPath": "skills/website-cloner",
       "verified": true,
-      "tokenCount": 3012,
+      "tokenCount": 3585,
       "evalSummary": {
-        "overallScore": 97,
+        "overallScore": 94,
         "grade": "A",
         "categories": [
           {
@@ -4837,7 +4426,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 10,
+            "score": 8,
             "max": 10
           },
           {
@@ -4859,8 +4448,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-07-07T08:53:55.519Z",
-        "evaluatedVersion": "1.1.6"
+        "evaluatedAt": "2026-07-29T03:12:32.907Z",
+        "evaluatedVersion": "1.2.1"
       },
       "evalSummaries": {
         "quality": {
@@ -4868,7 +4457,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 97,
+          "overallScore": 94,
           "grade": "A",
           "categories": [
             {
@@ -4892,7 +4481,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 10,
+              "score": 8,
               "max": 10
             },
             {
@@ -4914,8 +4503,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.519Z",
-          "evaluatedVersion": "1.1.6"
+          "evaluatedAt": "2026-07-29T03:12:32.907Z",
+          "evaluatedVersion": "1.2.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -4932,8 +4521,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-07-07T08:53:55.519Z",
-          "evaluatedVersion": "1.1.6"
+          "evaluatedAt": "2026-07-29T03:12:32.907Z",
+          "evaluatedVersion": "1.2.1"
         }
       }
     }
@@ -4944,7 +4533,7 @@
       "name": "luongnv89-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-07-07T08:53:55.520Z",
+      "createdAt": "2026-07-29T03:12:32.908Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4964,8 +4553,8 @@
         {
           "name": "appstore-review-checker",
           "installUrl": "github:luongnv89/skills:skills/appstore-review-checker",
-          "description": "Audit iOS/macOS app projects against Apple App Store Review Guidelines to catch rejection risks before submission, with per-guideline PASS/FAIL/WARNING verdicts and fix suggestions. Don't use for Google Play/Android submissions, general code review, or post-rejection appeal drafting.",
-          "version": "1.2.0"
+          "description": "Audit iOS/macOS apps against App Store Review Guidelines before submission, with evidence-backed verdicts and fixes. Don't use for Google Play, general code review, or rejection appeals.",
+          "version": "1.2.1"
         },
         {
           "name": "aso-marketing",
@@ -4980,34 +4569,28 @@
           "version": "1.3.2"
         },
         {
-          "name": "clean-code",
-          "installUrl": "github:luongnv89/skills:skills/clean-code",
-          "description": "Audit code against the bbv Clean Code Cheat Sheet and write CLEAN_CODE_AUDIT.md with findings plus a priority-phased plan. User-invoked: use when the user runs /clean-code or requests a clean-code audit. Don't use for general coding, bug-fixing, or PR review.",
-          "version": "1.2.2"
+          "name": "diagram-generator",
+          "installUrl": "github:luongnv89/skills:skills/diagram-generator",
+          "description": "Generate a diagram and route to the right engine — draw.io XML (precise, editable, C4, swimlanes) or Excalidraw JSON (hand-drawn, sketch, wireframes). One entry for flowcharts, architecture, ER, sequence, mind maps. Don't use for Mermaid or slides.",
+          "version": "1.1.2"
         },
         {
-          "name": "docs-generator",
-          "installUrl": "github:luongnv89/skills:skills/docs-generator",
-          "description": "Generate and restructure project docs into a clear, accessible hierarchy. Use to organize, generate, or restructure a README. Don't use for API reference generation (JSDoc/Sphinx), landing pages, or agent-config files like CLAUDE.md.",
-          "version": "1.2.5"
-        },
-        {
-          "name": "drawio-generator",
-          "installUrl": "github:luongnv89/skills:skills/drawio-generator",
-          "description": "Generate professional diagrams as valid draw.io XML — flowcharts, architecture, C4 models, ER diagrams, sequence diagrams, mind maps, and swimlanes. Don't use for Excalidraw or Mermaid output, hand-drawn sketch styles, or slide decks/presentations.",
-          "version": "1.2.2"
-        },
-        {
-          "name": "excalidraw-generator",
-          "installUrl": "github:luongnv89/skills:skills/excalidraw-generator",
-          "description": "Generate diagrams as valid Excalidraw JSON — flowcharts, architecture, ER diagrams, mind maps, sequence diagrams, wireframes, C4 models, and more. Don't use for draw.io/Mermaid output, slide decks, or pixel-perfect brand graphics.",
-          "version": "1.3.2"
+          "name": "doc-manager",
+          "installUrl": "github:luongnv89/skills:skills/doc-manager",
+          "description": "Generate or update docs to match the code, citing each claim to path:line and asking on ambiguity; runbook docs also get a check-only validation script. Don't use for API-reference autogen (JSDoc/Sphinx), landing pages, or CLAUDE.md/AGENTS.md.",
+          "version": "2.0.2"
         },
         {
           "name": "fork-upstream-sync",
           "installUrl": "github:luongnv89/skills:skills/fork-upstream-sync",
           "description": "Sync a GitHub fork with upstream while keeping unmerged feature branches and open PRs mergeable. Use for rebase on upstream, PR conflicts, integration main. Don't use for git init, releases, or non-fork repos.",
-          "version": "1.0.3"
+          "version": "1.3.2"
+        },
+        {
+          "name": "herdr-agent-comms",
+          "installUrl": "github:luongnv89/skills:skills/herdr-agent-comms",
+          "description": "Manage AI agent fleets in Herdr: split root + sub-agents into one tab as a tiled grid, message/wait/read via herdr CLI, steer any pane. Use for Herdr multi-agent fleets. Don't use for tmux, screen, or non-Herdr terminals.",
+          "version": "1.22.2"
         },
         {
           "name": "idea-validator",
@@ -5016,28 +4599,28 @@
           "version": "1.5.0"
         },
         {
+          "name": "issue-work-loop",
+          "installUrl": "github:luongnv89/skills:skills/issue-work-loop",
+          "description": "Run Herdr loops for one open GitHub issue (resolve→review→fix) or an existing PR (review→lazy fixer) until CLEAN. Don't use for plain resolution without review, review-only/no-fix requests, backlog automation, or merging.",
+          "version": "1.3.1"
+        },
+        {
           "name": "landing-page-generator",
           "installUrl": "github:luongnv89/skills:skills/landing-page-generator",
-          "description": "Generate conversion-focused landing page copy with PAS, AIDA, or StoryBrand. Use when creating sales pages, hero sections, CTAs, or full marketing website copy. Don't use for README rewrites, blog posts, or UX audits.",
-          "version": "1.1.4"
+          "description": "Generate landing pages with PAS, AIDA, or StoryBrand from a product brief or existing README. Use for sales copy, hero sections, CTAs, or README rewrites. Don't use for blog posts, UX audits, or HTML builds.",
+          "version": "1.2.1"
         },
         {
           "name": "ollama-optimizer",
           "installUrl": "github:luongnv89/skills:skills/ollama-optimizer",
           "description": "Optimize Ollama configuration for the current machine's hardware. Use when asked to speed up Ollama, tune local LLM performance, or pick models that fit available GPU/RAM. Don't use for LM Studio, llama.cpp, vLLM, or hosted-API LLM providers.",
-          "version": "1.1.0"
+          "version": "1.1.1"
         },
         {
           "name": "opencode-runner",
           "installUrl": "github:luongnv89/skills:skills/opencode-runner",
           "description": "Run coding tasks via opencode using free cloud models. Use when asked to offload work to opencode.ai or run a free model. Don't use for local models (Ollama, LM Studio), Claude/OpenAI calls, or when Claude should do the work itself.",
           "version": "1.4.1"
-        },
-        {
-          "name": "readme-to-landing-page",
-          "installUrl": "github:luongnv89/skills:skills/readme-to-landing-page",
-          "description": "Transform a project README.md into a conversion-optimized landing page using PAS, AIDA, or StoryBrand — hero, value prop, how it works, quick start, CTA in pure markdown. Skip for full HTML sites or general blog copy.",
-          "version": "2.1.1"
         },
         {
           "name": "security-setup",
@@ -5049,13 +4632,7 @@
           "name": "seo-ai-optimizer",
           "installUrl": "github:luongnv89/skills:skills/seo-ai-optimizer",
           "description": "Audit and optimize websites for technical SEO, content SEO, and AI bot accessibility. Fixes meta tags, sitemaps, robots.txt, structured data, llms.txt, and GPTBot/ClaudeBot directives. Not for App Store ASO, paid search, or blog writing.",
-          "version": "1.2.1"
-        },
-        {
-          "name": "slop-cleanup",
-          "installUrl": "github:luongnv89/skills:skills/slop-cleanup",
-          "description": "Refactor a codebase to remove AI slop, dead code, weak types, duplication, defensive over-engineering, and legacy cruft using 8 parallel specialized subagents across two cleanup waves. Don't use for adding new features, performance tuning, or security-only audits.",
-          "version": "1.1.2"
+          "version": "1.2.3"
         },
         {
           "name": "subagent-creator",
@@ -5066,20 +4643,20 @@
         {
           "name": "tmux-agent-comms",
           "installUrl": "github:luongnv89/skills:skills/tmux-agent-comms",
-          "description": "Manage AI agents in tmux: spawn, status/inspect, message, read replies, or kill sessions via send-keys/capture-pane. Use to launch fleets or talk to running agents. Don't use for SSH, GNU screen, or GUI apps.",
-          "version": "1.8.1"
+          "description": "Manage AI agents in tmux: spawn sessions, send messages, wait, capture replies, inspect fleets, and tear down safely. Use for tmux-hosted CLI agents. Don't use for SSH, GNU screen, or GUI apps.",
+          "version": "2.1.0"
         },
         {
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-          "version": "1.2.3"
+          "version": "1.2.4"
         },
         {
           "name": "website-cloner",
           "installUrl": "github:luongnv89/skills:skills/website-cloner",
           "description": "Build an improved website clone from a URL via 6-phase gated workflow (Vite/React/shadcn/Tailwind + GitHub Pages). Use for end-to-end site rebuilds. Don't use for single-phase work.",
-          "version": "1.1.6"
+          "version": "1.2.1"
         }
       ],
       "sourceRepo": {
@@ -5094,7 +4671,7 @@
       "name": "luongnv89-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-07-07T08:53:55.520Z",
+      "createdAt": "2026-07-29T03:12:32.908Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5132,20 +4709,8 @@
         {
           "name": "cli-builder",
           "installUrl": "github:luongnv89/skills:skills/cli-builder",
-          "description": "Build a production-quality CLI tool for any module or application. Auto-detects language, recommends CLI libraries, and follows a 5-step approval-gated workflow: Analyze, Design, Plan, Execute, Summarize. Don't use for building GUI/TUI apps, web APIs, or authoring one-off shell scripts.",
-          "version": "1.0.4"
-        },
-        {
-          "name": "code-optimizer",
-          "installUrl": "github:luongnv89/skills:skills/code-optimizer",
-          "description": "Analyze code for performance bottlenecks, memory leaks, and algorithmic inefficiencies. Use when asked to optimize, find bottlenecks, or improve efficiency. Don't use for bug-hunting code review, security audits, or refactoring without a perf goal.",
-          "version": "1.4.0"
-        },
-        {
-          "name": "code-review",
-          "installUrl": "github:luongnv89/skills:skills/code-review",
-          "description": "Review code changes for bugs, security vulnerabilities, and code quality issues — producing prioritized findings with specific fix suggestions. Don't use for performance tuning, writing new features from scratch, or generating test cases.",
-          "version": "1.2.0"
+          "description": "Build production-quality CLIs with language detection and a five-step approval-gated workflow. Use when wrapping an existing module or app. Don't use for GUI/TUI apps, web APIs, or one-off shell scripts.",
+          "version": "1.0.5"
         },
         {
           "name": "devops-pipeline",
@@ -5154,16 +4719,28 @@
           "version": "2.0.3"
         },
         {
+          "name": "diagram-generator",
+          "installUrl": "github:luongnv89/skills:skills/diagram-generator",
+          "description": "Generate a diagram and route to the right engine — draw.io XML (precise, editable, C4, swimlanes) or Excalidraw JSON (hand-drawn, sketch, wireframes). One entry for flowcharts, architecture, ER, sequence, mind maps. Don't use for Mermaid or slides.",
+          "version": "1.1.2"
+        },
+        {
+          "name": "doc-manager",
+          "installUrl": "github:luongnv89/skills:skills/doc-manager",
+          "description": "Generate or update docs to match the code, citing each claim to path:line and asking on ambiguity; runbook docs also get a check-only validation script. Don't use for API-reference autogen (JSDoc/Sphinx), landing pages, or CLAUDE.md/AGENTS.md.",
+          "version": "2.0.2"
+        },
+        {
           "name": "dont-make-me-think",
           "installUrl": "github:luongnv89/skills:skills/dont-make-me-think",
-          "description": "Review UI for usability using Steve Krug's principles; produce a scannable report. Use for usability audits, UX review, or UI feedback on screenshots, URLs, or code. Don't use for brand design critique, WCAG audits, or backend/API review.",
-          "version": "1.2.3"
+          "description": "Review UI usability using Steve Krug's principles and produce a scannable report. Use for UX audits of screenshots, URLs, or code. Don't use for brand critique, WCAG audits, or backend/API review.",
+          "version": "1.3.2"
         },
         {
           "name": "fork-upstream-sync",
           "installUrl": "github:luongnv89/skills:skills/fork-upstream-sync",
           "description": "Sync a GitHub fork with upstream while keeping unmerged feature branches and open PRs mergeable. Use for rebase on upstream, PR conflicts, integration main. Don't use for git init, releases, or non-fork repos.",
-          "version": "1.0.3"
+          "version": "1.3.2"
         },
         {
           "name": "idea-validator",
@@ -5175,13 +4752,7 @@
           "name": "install-script-generator",
           "installUrl": "github:luongnv89/skills:skills/install-script-generator",
           "description": "Generate cross-platform install scripts for any software or library — a standalone install.sh runnable via a curl/wget one-liner with OS, arch, and package manager detection. Don't use for Dockerfiles, CI/CD pipelines, or one-off shell scripts.",
-          "version": "2.2.0"
-        },
-        {
-          "name": "logo-designer",
-          "installUrl": "github:luongnv89/skills:skills/logo-designer",
-          "description": "Generate professional SVG logos from project context, producing 7 brand variants (mark, full, wordmark, icon, favicon, white, black) plus a showcase HTML page. Skip for raster-only logos, product illustrations, or full brand-guideline docs.",
-          "version": "1.2.2"
+          "version": "2.2.1"
         },
         {
           "name": "opencode-runner",
@@ -5202,12 +4773,6 @@
           "version": "1.4.0"
         },
         {
-          "name": "slop-cleanup",
-          "installUrl": "github:luongnv89/skills:skills/slop-cleanup",
-          "description": "Refactor a codebase to remove AI slop, dead code, weak types, duplication, defensive over-engineering, and legacy cruft using 8 parallel specialized subagents across two cleanup waves. Don't use for adding new features, performance tuning, or security-only audits.",
-          "version": "1.1.2"
-        },
-        {
           "name": "subagent-creator",
           "installUrl": "github:luongnv89/skills:skills/subagent-creator",
           "description": "Create, evaluate, or improve Claude Code subagent files (.claude/agents/*.md) — the frontmatter + system prompt defining a delegatable specialist. Don't use for skills (skill-creator), CLAUDE.md/AGENTS.md (agent-config), or running an agent.",
@@ -5223,13 +4788,13 @@
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-          "version": "1.2.3"
+          "version": "1.2.4"
         },
         {
           "name": "website-cloner",
           "installUrl": "github:luongnv89/skills:skills/website-cloner",
           "description": "Build an improved website clone from a URL via 6-phase gated workflow (Vite/React/shadcn/Tailwind + GitHub Pages). Use for end-to-end site rebuilds. Don't use for single-phase work.",
-          "version": "1.1.6"
+          "version": "1.2.1"
         }
       ],
       "sourceRepo": {
@@ -5244,7 +4809,7 @@
       "name": "luongnv89-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-07-07T08:53:55.520Z",
+      "createdAt": "2026-07-29T03:12:32.908Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5258,8 +4823,8 @@
         {
           "name": "appstore-review-checker",
           "installUrl": "github:luongnv89/skills:skills/appstore-review-checker",
-          "description": "Audit iOS/macOS app projects against Apple App Store Review Guidelines to catch rejection risks before submission, with per-guideline PASS/FAIL/WARNING verdicts and fix suggestions. Don't use for Google Play/Android submissions, general code review, or post-rejection appeal drafting.",
-          "version": "1.2.0"
+          "description": "Audit iOS/macOS apps against App Store Review Guidelines before submission, with evidence-backed verdicts and fixes. Don't use for Google Play, general code review, or rejection appeals.",
+          "version": "1.2.1"
         },
         {
           "name": "auto-push",
@@ -5268,28 +4833,16 @@
           "version": "1.0.3"
         },
         {
-          "name": "clean-code",
-          "installUrl": "github:luongnv89/skills:skills/clean-code",
-          "description": "Audit code against the bbv Clean Code Cheat Sheet and write CLEAN_CODE_AUDIT.md with findings plus a priority-phased plan. User-invoked: use when the user runs /clean-code or requests a clean-code audit. Don't use for general coding, bug-fixing, or PR review.",
-          "version": "1.2.2"
-        },
-        {
           "name": "cli-builder",
           "installUrl": "github:luongnv89/skills:skills/cli-builder",
-          "description": "Build a production-quality CLI tool for any module or application. Auto-detects language, recommends CLI libraries, and follows a 5-step approval-gated workflow: Analyze, Design, Plan, Execute, Summarize. Don't use for building GUI/TUI apps, web APIs, or authoring one-off shell scripts.",
-          "version": "1.0.4"
-        },
-        {
-          "name": "code-optimizer",
-          "installUrl": "github:luongnv89/skills:skills/code-optimizer",
-          "description": "Analyze code for performance bottlenecks, memory leaks, and algorithmic inefficiencies. Use when asked to optimize, find bottlenecks, or improve efficiency. Don't use for bug-hunting code review, security audits, or refactoring without a perf goal.",
-          "version": "1.4.0"
+          "description": "Build production-quality CLIs with language detection and a five-step approval-gated workflow. Use when wrapping an existing module or app. Don't use for GUI/TUI apps, web APIs, or one-off shell scripts.",
+          "version": "1.0.5"
         },
         {
           "name": "code-review",
           "installUrl": "github:luongnv89/skills:skills/code-review",
-          "description": "Review code changes for bugs, security vulnerabilities, and code quality issues — producing prioritized findings with specific fix suggestions. Don't use for performance tuning, writing new features from scratch, or generating test cases.",
-          "version": "1.2.0"
+          "description": "Review or improve code — one skill, four modes: bug/security review (default), performance, clean-code audit, slop cleanup. Pass mode:review|perf|clean|cleanup or infer. Don't use for writing features or generating tests (use test-coverage).",
+          "version": "2.1.0"
         },
         {
           "name": "devops-pipeline",
@@ -5298,40 +4851,52 @@
           "version": "2.0.3"
         },
         {
-          "name": "docs-generator",
-          "installUrl": "github:luongnv89/skills:skills/docs-generator",
-          "description": "Generate and restructure project docs into a clear, accessible hierarchy. Use to organize, generate, or restructure a README. Don't use for API reference generation (JSDoc/Sphinx), landing pages, or agent-config files like CLAUDE.md.",
-          "version": "1.2.5"
+          "name": "diagram-generator",
+          "installUrl": "github:luongnv89/skills:skills/diagram-generator",
+          "description": "Generate a diagram and route to the right engine — draw.io XML (precise, editable, C4, swimlanes) or Excalidraw JSON (hand-drawn, sketch, wireframes). One entry for flowcharts, architecture, ER, sequence, mind maps. Don't use for Mermaid or slides.",
+          "version": "1.1.2"
+        },
+        {
+          "name": "doc-manager",
+          "installUrl": "github:luongnv89/skills:skills/doc-manager",
+          "description": "Generate or update docs to match the code, citing each claim to path:line and asking on ambiguity; runbook docs also get a check-only validation script. Don't use for API-reference autogen (JSDoc/Sphinx), landing pages, or CLAUDE.md/AGENTS.md.",
+          "version": "2.0.2"
         },
         {
           "name": "dont-make-me-think",
           "installUrl": "github:luongnv89/skills:skills/dont-make-me-think",
-          "description": "Review UI for usability using Steve Krug's principles; produce a scannable report. Use for usability audits, UX review, or UI feedback on screenshots, URLs, or code. Don't use for brand design critique, WCAG audits, or backend/API review.",
-          "version": "1.2.3"
-        },
-        {
-          "name": "drawio-generator",
-          "installUrl": "github:luongnv89/skills:skills/drawio-generator",
-          "description": "Generate professional diagrams as valid draw.io XML — flowcharts, architecture, C4 models, ER diagrams, sequence diagrams, mind maps, and swimlanes. Don't use for Excalidraw or Mermaid output, hand-drawn sketch styles, or slide decks/presentations.",
-          "version": "1.2.2"
-        },
-        {
-          "name": "excalidraw-generator",
-          "installUrl": "github:luongnv89/skills:skills/excalidraw-generator",
-          "description": "Generate diagrams as valid Excalidraw JSON — flowcharts, architecture, ER diagrams, mind maps, sequence diagrams, wireframes, C4 models, and more. Don't use for draw.io/Mermaid output, slide decks, or pixel-perfect brand graphics.",
+          "description": "Review UI usability using Steve Krug's principles and produce a scannable report. Use for UX audits of screenshots, URLs, or code. Don't use for brand critique, WCAG audits, or backend/API review.",
           "version": "1.3.2"
         },
         {
           "name": "frontend-design",
           "installUrl": "github:luongnv89/skills:skills/frontend-design",
-          "description": "Build production-grade frontend interfaces with distinctive aesthetics and working code. Use when asked to create a UI, component, page, or frontend feature. Skip for backend/API work or usability-only audits.",
-          "version": "1.2.3"
+          "description": "Build production-grade frontend interfaces with distinctive aesthetics and working code. Use for UI components, pages, or frontend features. Don't use for backend/API work or usability-only audits.",
+          "version": "1.2.4"
+        },
+        {
+          "name": "herdr-agent-comms",
+          "installUrl": "github:luongnv89/skills:skills/herdr-agent-comms",
+          "description": "Manage AI agent fleets in Herdr: split root + sub-agents into one tab as a tiled grid, message/wait/read via herdr CLI, steer any pane. Use for Herdr multi-agent fleets. Don't use for tmux, screen, or non-Herdr terminals.",
+          "version": "1.22.2"
+        },
+        {
+          "name": "issue-work-loop",
+          "installUrl": "github:luongnv89/skills:skills/issue-work-loop",
+          "description": "Run Herdr loops for one open GitHub issue (resolve→review→fix) or an existing PR (review→lazy fixer) until CLEAN. Don't use for plain resolution without review, review-only/no-fix requests, backlog automation, or merging.",
+          "version": "1.3.1"
+        },
+        {
+          "name": "landing-page-generator",
+          "installUrl": "github:luongnv89/skills:skills/landing-page-generator",
+          "description": "Generate landing pages with PAS, AIDA, or StoryBrand from a product brief or existing README. Use for sales copy, hero sections, CTAs, or README rewrites. Don't use for blog posts, UX audits, or HTML builds.",
+          "version": "1.2.1"
         },
         {
           "name": "ollama-optimizer",
           "installUrl": "github:luongnv89/skills:skills/ollama-optimizer",
           "description": "Optimize Ollama configuration for the current machine's hardware. Use when asked to speed up Ollama, tune local LLM performance, or pick models that fit available GPU/RAM. Don't use for LM Studio, llama.cpp, vLLM, or hosted-API LLM providers.",
-          "version": "1.1.0"
+          "version": "1.1.1"
         },
         {
           "name": "opencode-runner",
@@ -5352,12 +4917,6 @@
           "version": "1.4.0"
         },
         {
-          "name": "slop-cleanup",
-          "installUrl": "github:luongnv89/skills:skills/slop-cleanup",
-          "description": "Refactor a codebase to remove AI slop, dead code, weak types, duplication, defensive over-engineering, and legacy cruft using 8 parallel specialized subagents across two cleanup waves. Don't use for adding new features, performance tuning, or security-only audits.",
-          "version": "1.1.2"
-        },
-        {
           "name": "subagent-creator",
           "installUrl": "github:luongnv89/skills:skills/subagent-creator",
           "description": "Create, evaluate, or improve Claude Code subagent files (.claude/agents/*.md) — the frontmatter + system prompt defining a delegatable specialist. Don't use for skills (skill-creator), CLAUDE.md/AGENTS.md (agent-config), or running an agent.",
@@ -5376,16 +4935,22 @@
           "version": "1.3.0"
         },
         {
+          "name": "tmux-agent-comms",
+          "installUrl": "github:luongnv89/skills:skills/tmux-agent-comms",
+          "description": "Manage AI agents in tmux: spawn sessions, send messages, wait, capture replies, inspect fleets, and tear down safely. Use for tmux-hosted CLI agents. Don't use for SSH, GNU screen, or GUI apps.",
+          "version": "2.1.0"
+        },
+        {
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-          "version": "1.2.3"
+          "version": "1.2.4"
         },
         {
           "name": "website-cloner",
           "installUrl": "github:luongnv89/skills:skills/website-cloner",
           "description": "Build an improved website clone from a URL via 6-phase gated workflow (Vite/React/shadcn/Tailwind + GitHub Pages). Use for end-to-end site rebuilds. Don't use for single-phase work.",
-          "version": "1.1.6"
+          "version": "1.2.1"
         }
       ],
       "sourceRepo": {
@@ -5400,7 +4965,7 @@
       "name": "luongnv89-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-07-07T08:53:55.520Z",
+      "createdAt": "2026-07-29T03:12:32.908Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5414,8 +4979,8 @@
         {
           "name": "appstore-review-checker",
           "installUrl": "github:luongnv89/skills:skills/appstore-review-checker",
-          "description": "Audit iOS/macOS app projects against Apple App Store Review Guidelines to catch rejection risks before submission, with per-guideline PASS/FAIL/WARNING verdicts and fix suggestions. Don't use for Google Play/Android submissions, general code review, or post-rejection appeal drafting.",
-          "version": "1.2.0"
+          "description": "Audit iOS/macOS apps against App Store Review Guidelines before submission, with evidence-backed verdicts and fixes. Don't use for Google Play, general code review, or rejection appeals.",
+          "version": "1.2.1"
         },
         {
           "name": "brand-name-checker",
@@ -5426,44 +4991,44 @@
         {
           "name": "cli-builder",
           "installUrl": "github:luongnv89/skills:skills/cli-builder",
-          "description": "Build a production-quality CLI tool for any module or application. Auto-detects language, recommends CLI libraries, and follows a 5-step approval-gated workflow: Analyze, Design, Plan, Execute, Summarize. Don't use for building GUI/TUI apps, web APIs, or authoring one-off shell scripts.",
-          "version": "1.0.4"
+          "description": "Build production-quality CLIs with language detection and a five-step approval-gated workflow. Use when wrapping an existing module or app. Don't use for GUI/TUI apps, web APIs, or one-off shell scripts.",
+          "version": "1.0.5"
         },
         {
-          "name": "docs-generator",
-          "installUrl": "github:luongnv89/skills:skills/docs-generator",
-          "description": "Generate and restructure project docs into a clear, accessible hierarchy. Use to organize, generate, or restructure a README. Don't use for API reference generation (JSDoc/Sphinx), landing pages, or agent-config files like CLAUDE.md.",
-          "version": "1.2.5"
+          "name": "doc-manager",
+          "installUrl": "github:luongnv89/skills:skills/doc-manager",
+          "description": "Generate or update docs to match the code, citing each claim to path:line and asking on ambiguity; runbook docs also get a check-only validation script. Don't use for API-reference autogen (JSDoc/Sphinx), landing pages, or CLAUDE.md/AGENTS.md.",
+          "version": "2.0.2"
         },
         {
           "name": "dont-make-me-think",
           "installUrl": "github:luongnv89/skills:skills/dont-make-me-think",
-          "description": "Review UI for usability using Steve Krug's principles; produce a scannable report. Use for usability audits, UX review, or UI feedback on screenshots, URLs, or code. Don't use for brand design critique, WCAG audits, or backend/API review.",
-          "version": "1.2.3"
-        },
-        {
-          "name": "excalidraw-generator",
-          "installUrl": "github:luongnv89/skills:skills/excalidraw-generator",
-          "description": "Generate diagrams as valid Excalidraw JSON — flowcharts, architecture, ER diagrams, mind maps, sequence diagrams, wireframes, C4 models, and more. Don't use for draw.io/Mermaid output, slide decks, or pixel-perfect brand graphics.",
+          "description": "Review UI usability using Steve Krug's principles and produce a scannable report. Use for UX audits of screenshots, URLs, or code. Don't use for brand critique, WCAG audits, or backend/API review.",
           "version": "1.3.2"
         },
         {
           "name": "frontend-design",
           "installUrl": "github:luongnv89/skills:skills/frontend-design",
-          "description": "Build production-grade frontend interfaces with distinctive aesthetics and working code. Use when asked to create a UI, component, page, or frontend feature. Skip for backend/API work or usability-only audits.",
-          "version": "1.2.3"
+          "description": "Build production-grade frontend interfaces with distinctive aesthetics and working code. Use for UI components, pages, or frontend features. Don't use for backend/API work or usability-only audits.",
+          "version": "1.2.4"
+        },
+        {
+          "name": "herdr-agent-comms",
+          "installUrl": "github:luongnv89/skills:skills/herdr-agent-comms",
+          "description": "Manage AI agent fleets in Herdr: split root + sub-agents into one tab as a tiled grid, message/wait/read via herdr CLI, steer any pane. Use for Herdr multi-agent fleets. Don't use for tmux, screen, or non-Herdr terminals.",
+          "version": "1.22.2"
         },
         {
           "name": "landing-page-generator",
           "installUrl": "github:luongnv89/skills:skills/landing-page-generator",
-          "description": "Generate conversion-focused landing page copy with PAS, AIDA, or StoryBrand. Use when creating sales pages, hero sections, CTAs, or full marketing website copy. Don't use for README rewrites, blog posts, or UX audits.",
-          "version": "1.1.4"
+          "description": "Generate landing pages with PAS, AIDA, or StoryBrand from a product brief or existing README. Use for sales copy, hero sections, CTAs, or README rewrites. Don't use for blog posts, UX audits, or HTML builds.",
+          "version": "1.2.1"
         },
         {
           "name": "logo-designer",
           "installUrl": "github:luongnv89/skills:skills/logo-designer",
-          "description": "Generate professional SVG logos from project context, producing 7 brand variants (mark, full, wordmark, icon, favicon, white, black) plus a showcase HTML page. Skip for raster-only logos, product illustrations, or full brand-guideline docs.",
-          "version": "1.2.2"
+          "description": "Generate professional SVG logos from project context: 7 brand variants plus a showcase HTML page. Use for product marks, wordmarks, icons, and favicons. Don't use for raster-only logos, illustrations, or full brand guidelines.",
+          "version": "1.2.3"
         },
         {
           "name": "oss-ready",
@@ -5478,12 +5043,6 @@
           "version": "1.3.2"
         },
         {
-          "name": "readme-to-landing-page",
-          "installUrl": "github:luongnv89/skills:skills/readme-to-landing-page",
-          "description": "Transform a project README.md into a conversion-optimized landing page using PAS, AIDA, or StoryBrand — hero, value prop, how it works, quick start, CTA in pure markdown. Skip for full HTML sites or general blog copy.",
-          "version": "2.1.1"
-        },
-        {
           "name": "tad-generator",
           "installUrl": "github:luongnv89/skills:skills/tad-generator",
           "description": "Generate a Technical Architecture Document (TAD) from a PRD. Use when asked to design system architecture or define how a product is built. Updates tad.md and reports GitHub links. Don't use for PRD authoring, sprint tasks, or code implementation.",
@@ -5492,8 +5051,8 @@
         {
           "name": "tasks-generator",
           "installUrl": "github:luongnv89/skills:skills/tasks-generator",
-          "description": "Generate development tasks from a PRD file with sprint-based planning. Use when users ask to create tasks from PRD, break down the PRD, generate sprint tasks, or want to convert product requirements into actionable development tasks. Creates/updates tasks.md and always reports GitHub links to changed files. Don't use for writing a PRD, authoring a TAD, or executing tasks (see openspec-task-loop).",
-          "version": "1.3.0"
+          "description": "Generate sprint-based development tasks from a PRD. Use when asked to create tasks or break down requirements. Don't use for PRD/TAD authoring or task execution.",
+          "version": "1.3.1"
         },
         {
           "name": "test-coverage",
@@ -5504,20 +5063,20 @@
         {
           "name": "tmux-agent-comms",
           "installUrl": "github:luongnv89/skills:skills/tmux-agent-comms",
-          "description": "Manage AI agents in tmux: spawn, status/inspect, message, read replies, or kill sessions via send-keys/capture-pane. Use to launch fleets or talk to running agents. Don't use for SSH, GNU screen, or GUI apps.",
-          "version": "1.8.1"
+          "description": "Manage AI agents in tmux: spawn sessions, send messages, wait, capture replies, inspect fleets, and tear down safely. Use for tmux-hosted CLI agents. Don't use for SSH, GNU screen, or GUI apps.",
+          "version": "2.1.0"
         },
         {
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-          "version": "1.2.3"
+          "version": "1.2.4"
         },
         {
           "name": "website-cloner",
           "installUrl": "github:luongnv89/skills:skills/website-cloner",
           "description": "Build an improved website clone from a URL via 6-phase gated workflow (Vite/React/shadcn/Tailwind + GitHub Pages). Use for end-to-end site rebuilds. Don't use for single-phase work.",
-          "version": "1.1.6"
+          "version": "1.2.1"
         }
       ],
       "sourceRepo": {
@@ -5532,7 +5091,7 @@
       "name": "luongnv89-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-07-07T08:53:55.520Z",
+      "createdAt": "2026-07-29T03:12:32.908Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5558,56 +5117,38 @@
         {
           "name": "dont-make-me-think",
           "installUrl": "github:luongnv89/skills:skills/dont-make-me-think",
-          "description": "Review UI for usability using Steve Krug's principles; produce a scannable report. Use for usability audits, UX review, or UI feedback on screenshots, URLs, or code. Don't use for brand design critique, WCAG audits, or backend/API review.",
-          "version": "1.2.3"
-        },
-        {
-          "name": "excalidraw-generator",
-          "installUrl": "github:luongnv89/skills:skills/excalidraw-generator",
-          "description": "Generate diagrams as valid Excalidraw JSON — flowcharts, architecture, ER diagrams, mind maps, sequence diagrams, wireframes, C4 models, and more. Don't use for draw.io/Mermaid output, slide decks, or pixel-perfect brand graphics.",
+          "description": "Review UI usability using Steve Krug's principles and produce a scannable report. Use for UX audits of screenshots, URLs, or code. Don't use for brand critique, WCAG audits, or backend/API review.",
           "version": "1.3.2"
         },
         {
           "name": "install-script-generator",
           "installUrl": "github:luongnv89/skills:skills/install-script-generator",
           "description": "Generate cross-platform install scripts for any software or library — a standalone install.sh runnable via a curl/wget one-liner with OS, arch, and package manager detection. Don't use for Dockerfiles, CI/CD pipelines, or one-off shell scripts.",
-          "version": "2.2.0"
+          "version": "2.2.1"
         },
         {
           "name": "landing-page-generator",
           "installUrl": "github:luongnv89/skills:skills/landing-page-generator",
-          "description": "Generate conversion-focused landing page copy with PAS, AIDA, or StoryBrand. Use when creating sales pages, hero sections, CTAs, or full marketing website copy. Don't use for README rewrites, blog posts, or UX audits.",
-          "version": "1.1.4"
+          "description": "Generate landing pages with PAS, AIDA, or StoryBrand from a product brief or existing README. Use for sales copy, hero sections, CTAs, or README rewrites. Don't use for blog posts, UX audits, or HTML builds.",
+          "version": "1.2.1"
         },
         {
           "name": "logo-designer",
           "installUrl": "github:luongnv89/skills:skills/logo-designer",
-          "description": "Generate professional SVG logos from project context, producing 7 brand variants (mark, full, wordmark, icon, favicon, white, black) plus a showcase HTML page. Skip for raster-only logos, product illustrations, or full brand-guideline docs.",
-          "version": "1.2.2"
-        },
-        {
-          "name": "readme-to-landing-page",
-          "installUrl": "github:luongnv89/skills:skills/readme-to-landing-page",
-          "description": "Transform a project README.md into a conversion-optimized landing page using PAS, AIDA, or StoryBrand — hero, value prop, how it works, quick start, CTA in pure markdown. Skip for full HTML sites or general blog copy.",
-          "version": "2.1.1"
+          "description": "Generate professional SVG logos from project context: 7 brand variants plus a showcase HTML page. Use for product marks, wordmarks, icons, and favicons. Don't use for raster-only logos, illustrations, or full brand guidelines.",
+          "version": "1.2.3"
         },
         {
           "name": "seo-ai-optimizer",
           "installUrl": "github:luongnv89/skills:skills/seo-ai-optimizer",
           "description": "Audit and optimize websites for technical SEO, content SEO, and AI bot accessibility. Fixes meta tags, sitemaps, robots.txt, structured data, llms.txt, and GPTBot/ClaudeBot directives. Not for App Store ASO, paid search, or blog writing.",
-          "version": "1.2.1"
-        },
-        {
-          "name": "slop-cleanup",
-          "installUrl": "github:luongnv89/skills:skills/slop-cleanup",
-          "description": "Refactor a codebase to remove AI slop, dead code, weak types, duplication, defensive over-engineering, and legacy cruft using 8 parallel specialized subagents across two cleanup waves. Don't use for adding new features, performance tuning, or security-only audits.",
-          "version": "1.1.2"
+          "version": "1.2.3"
         },
         {
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-          "version": "1.2.3"
+          "version": "1.2.4"
         }
       ],
       "sourceRepo": {
@@ -5622,7 +5163,7 @@
       "name": "luongnv89-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-07-07T08:53:55.520Z",
+      "createdAt": "2026-07-29T03:12:32.908Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5648,14 +5189,14 @@
         {
           "name": "cli-builder",
           "installUrl": "github:luongnv89/skills:skills/cli-builder",
-          "description": "Build a production-quality CLI tool for any module or application. Auto-detects language, recommends CLI libraries, and follows a 5-step approval-gated workflow: Analyze, Design, Plan, Execute, Summarize. Don't use for building GUI/TUI apps, web APIs, or authoring one-off shell scripts.",
-          "version": "1.0.4"
+          "description": "Build production-quality CLIs with language detection and a five-step approval-gated workflow. Use when wrapping an existing module or app. Don't use for GUI/TUI apps, web APIs, or one-off shell scripts.",
+          "version": "1.0.5"
         },
         {
           "name": "frontend-design",
           "installUrl": "github:luongnv89/skills:skills/frontend-design",
-          "description": "Build production-grade frontend interfaces with distinctive aesthetics and working code. Use when asked to create a UI, component, page, or frontend feature. Skip for backend/API work or usability-only audits.",
-          "version": "1.2.3"
+          "description": "Build production-grade frontend interfaces with distinctive aesthetics and working code. Use for UI components, pages, or frontend features. Don't use for backend/API work or usability-only audits.",
+          "version": "1.2.4"
         },
         {
           "name": "idea-validator",
@@ -5666,14 +5207,14 @@
         {
           "name": "landing-page-generator",
           "installUrl": "github:luongnv89/skills:skills/landing-page-generator",
-          "description": "Generate conversion-focused landing page copy with PAS, AIDA, or StoryBrand. Use when creating sales pages, hero sections, CTAs, or full marketing website copy. Don't use for README rewrites, blog posts, or UX audits.",
-          "version": "1.1.4"
+          "description": "Generate landing pages with PAS, AIDA, or StoryBrand from a product brief or existing README. Use for sales copy, hero sections, CTAs, or README rewrites. Don't use for blog posts, UX audits, or HTML builds.",
+          "version": "1.2.1"
         },
         {
           "name": "logo-designer",
           "installUrl": "github:luongnv89/skills:skills/logo-designer",
-          "description": "Generate professional SVG logos from project context, producing 7 brand variants (mark, full, wordmark, icon, favicon, white, black) plus a showcase HTML page. Skip for raster-only logos, product illustrations, or full brand-guideline docs.",
-          "version": "1.2.2"
+          "description": "Generate professional SVG logos from project context: 7 brand variants plus a showcase HTML page. Use for product marks, wordmarks, icons, and favicons. Don't use for raster-only logos, illustrations, or full brand guidelines.",
+          "version": "1.2.3"
         },
         {
           "name": "prd-generator",
@@ -5696,8 +5237,8 @@
         {
           "name": "tasks-generator",
           "installUrl": "github:luongnv89/skills:skills/tasks-generator",
-          "description": "Generate development tasks from a PRD file with sprint-based planning. Use when users ask to create tasks from PRD, break down the PRD, generate sprint tasks, or want to convert product requirements into actionable development tasks. Creates/updates tasks.md and always reports GitHub links to changed files. Don't use for writing a PRD, authoring a TAD, or executing tasks (see openspec-task-loop).",
-          "version": "1.3.0"
+          "description": "Generate sprint-based development tasks from a PRD. Use when asked to create tasks or break down requirements. Don't use for PRD/TAD authoring or task execution.",
+          "version": "1.3.1"
         },
         {
           "name": "test-coverage",
@@ -5709,7 +5250,7 @@
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-          "version": "1.2.3"
+          "version": "1.2.4"
         }
       ],
       "sourceRepo": {
@@ -5724,7 +5265,7 @@
       "name": "luongnv89-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-07-07T08:53:55.520Z",
+      "createdAt": "2026-07-29T03:12:32.908Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5738,8 +5279,8 @@
         {
           "name": "appstore-review-checker",
           "installUrl": "github:luongnv89/skills:skills/appstore-review-checker",
-          "description": "Audit iOS/macOS app projects against Apple App Store Review Guidelines to catch rejection risks before submission, with per-guideline PASS/FAIL/WARNING verdicts and fix suggestions. Don't use for Google Play/Android submissions, general code review, or post-rejection appeal drafting.",
-          "version": "1.2.0"
+          "description": "Audit iOS/macOS apps against App Store Review Guidelines before submission, with evidence-backed verdicts and fixes. Don't use for Google Play, general code review, or rejection appeals.",
+          "version": "1.2.1"
         },
         {
           "name": "auto-push",
@@ -5748,40 +5289,28 @@
           "version": "1.0.3"
         },
         {
-          "name": "clean-code",
-          "installUrl": "github:luongnv89/skills:skills/clean-code",
-          "description": "Audit code against the bbv Clean Code Cheat Sheet and write CLEAN_CODE_AUDIT.md with findings plus a priority-phased plan. User-invoked: use when the user runs /clean-code or requests a clean-code audit. Don't use for general coding, bug-fixing, or PR review.",
-          "version": "1.2.2"
-        },
-        {
-          "name": "cli-builder",
-          "installUrl": "github:luongnv89/skills:skills/cli-builder",
-          "description": "Build a production-quality CLI tool for any module or application. Auto-detects language, recommends CLI libraries, and follows a 5-step approval-gated workflow: Analyze, Design, Plan, Execute, Summarize. Don't use for building GUI/TUI apps, web APIs, or authoring one-off shell scripts.",
-          "version": "1.0.4"
-        },
-        {
-          "name": "code-optimizer",
-          "installUrl": "github:luongnv89/skills:skills/code-optimizer",
-          "description": "Analyze code for performance bottlenecks, memory leaks, and algorithmic inefficiencies. Use when asked to optimize, find bottlenecks, or improve efficiency. Don't use for bug-hunting code review, security audits, or refactoring without a perf goal.",
-          "version": "1.4.0"
-        },
-        {
           "name": "code-review",
           "installUrl": "github:luongnv89/skills:skills/code-review",
-          "description": "Review code changes for bugs, security vulnerabilities, and code quality issues — producing prioritized findings with specific fix suggestions. Don't use for performance tuning, writing new features from scratch, or generating test cases.",
-          "version": "1.2.0"
+          "description": "Review or improve code — one skill, four modes: bug/security review (default), performance, clean-code audit, slop cleanup. Pass mode:review|perf|clean|cleanup or infer. Don't use for writing features or generating tests (use test-coverage).",
+          "version": "2.1.0"
         },
         {
           "name": "dont-make-me-think",
           "installUrl": "github:luongnv89/skills:skills/dont-make-me-think",
-          "description": "Review UI for usability using Steve Krug's principles; produce a scannable report. Use for usability audits, UX review, or UI feedback on screenshots, URLs, or code. Don't use for brand design critique, WCAG audits, or backend/API review.",
-          "version": "1.2.3"
+          "description": "Review UI usability using Steve Krug's principles and produce a scannable report. Use for UX audits of screenshots, URLs, or code. Don't use for brand critique, WCAG audits, or backend/API review.",
+          "version": "1.3.2"
         },
         {
           "name": "idea-validator",
           "installUrl": "github:luongnv89/skills:skills/idea-validator",
           "description": "Validate app/startup ideas with market, feasibility, commercial, and open-source competitor analysis. Use when asked to evaluate, validate, or score a product idea. Don't use for PRDs, go-to-market plans, or investor decks.",
           "version": "1.5.0"
+        },
+        {
+          "name": "issue-work-loop",
+          "installUrl": "github:luongnv89/skills:skills/issue-work-loop",
+          "description": "Run Herdr loops for one open GitHub issue (resolve→review→fix) or an existing PR (review→lazy fixer) until CLEAN. Don't use for plain resolution without review, review-only/no-fix requests, backlog automation, or merging.",
+          "version": "1.3.1"
         },
         {
           "name": "security-setup",
@@ -5799,7 +5328,7 @@
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-          "version": "1.2.3"
+          "version": "1.2.4"
         }
       ],
       "sourceRepo": {
@@ -5814,7 +5343,7 @@
       "name": "luongnv89-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-07-07T08:53:55.520Z",
+      "createdAt": "2026-07-29T03:12:32.908Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5832,40 +5361,22 @@
           "version": "1.3.1"
         },
         {
-          "name": "appstore-review-checker",
-          "installUrl": "github:luongnv89/skills:skills/appstore-review-checker",
-          "description": "Audit iOS/macOS app projects against Apple App Store Review Guidelines to catch rejection risks before submission, with per-guideline PASS/FAIL/WARNING verdicts and fix suggestions. Don't use for Google Play/Android submissions, general code review, or post-rejection appeal drafting.",
-          "version": "1.2.0"
-        },
-        {
-          "name": "clean-code",
-          "installUrl": "github:luongnv89/skills:skills/clean-code",
-          "description": "Audit code against the bbv Clean Code Cheat Sheet and write CLEAN_CODE_AUDIT.md with findings plus a priority-phased plan. User-invoked: use when the user runs /clean-code or requests a clean-code audit. Don't use for general coding, bug-fixing, or PR review.",
-          "version": "1.2.2"
-        },
-        {
           "name": "code-review",
           "installUrl": "github:luongnv89/skills:skills/code-review",
-          "description": "Review code changes for bugs, security vulnerabilities, and code quality issues — producing prioritized findings with specific fix suggestions. Don't use for performance tuning, writing new features from scratch, or generating test cases.",
-          "version": "1.2.0"
+          "description": "Review or improve code — one skill, four modes: bug/security review (default), performance, clean-code audit, slop cleanup. Pass mode:review|perf|clean|cleanup or infer. Don't use for writing features or generating tests (use test-coverage).",
+          "version": "2.1.0"
         },
         {
-          "name": "docs-generator",
-          "installUrl": "github:luongnv89/skills:skills/docs-generator",
-          "description": "Generate and restructure project docs into a clear, accessible hierarchy. Use to organize, generate, or restructure a README. Don't use for API reference generation (JSDoc/Sphinx), landing pages, or agent-config files like CLAUDE.md.",
-          "version": "1.2.5"
+          "name": "doc-manager",
+          "installUrl": "github:luongnv89/skills:skills/doc-manager",
+          "description": "Generate or update docs to match the code, citing each claim to path:line and asking on ambiguity; runbook docs also get a check-only validation script. Don't use for API-reference autogen (JSDoc/Sphinx), landing pages, or CLAUDE.md/AGENTS.md.",
+          "version": "2.0.2"
         },
         {
           "name": "landing-page-generator",
           "installUrl": "github:luongnv89/skills:skills/landing-page-generator",
-          "description": "Generate conversion-focused landing page copy with PAS, AIDA, or StoryBrand. Use when creating sales pages, hero sections, CTAs, or full marketing website copy. Don't use for README rewrites, blog posts, or UX audits.",
-          "version": "1.1.4"
-        },
-        {
-          "name": "logo-designer",
-          "installUrl": "github:luongnv89/skills:skills/logo-designer",
-          "description": "Generate professional SVG logos from project context, producing 7 brand variants (mark, full, wordmark, icon, favicon, white, black) plus a showcase HTML page. Skip for raster-only logos, product illustrations, or full brand-guideline docs.",
-          "version": "1.2.2"
+          "description": "Generate landing pages with PAS, AIDA, or StoryBrand from a product brief or existing README. Use for sales copy, hero sections, CTAs, or README rewrites. Don't use for blog posts, UX audits, or HTML builds.",
+          "version": "1.2.1"
         },
         {
           "name": "oss-ready",
@@ -5874,28 +5385,16 @@
           "version": "1.2.1"
         },
         {
-          "name": "readme-to-landing-page",
-          "installUrl": "github:luongnv89/skills:skills/readme-to-landing-page",
-          "description": "Transform a project README.md into a conversion-optimized landing page using PAS, AIDA, or StoryBrand — hero, value prop, how it works, quick start, CTA in pure markdown. Skip for full HTML sites or general blog copy.",
-          "version": "2.1.1"
-        },
-        {
           "name": "seo-ai-optimizer",
           "installUrl": "github:luongnv89/skills:skills/seo-ai-optimizer",
           "description": "Audit and optimize websites for technical SEO, content SEO, and AI bot accessibility. Fixes meta tags, sitemaps, robots.txt, structured data, llms.txt, and GPTBot/ClaudeBot directives. Not for App Store ASO, paid search, or blog writing.",
-          "version": "1.2.1"
-        },
-        {
-          "name": "tasks-generator",
-          "installUrl": "github:luongnv89/skills:skills/tasks-generator",
-          "description": "Generate development tasks from a PRD file with sprint-based planning. Use when users ask to create tasks from PRD, break down the PRD, generate sprint tasks, or want to convert product requirements into actionable development tasks. Creates/updates tasks.md and always reports GitHub links to changed files. Don't use for writing a PRD, authoring a TAD, or executing tasks (see openspec-task-loop).",
-          "version": "1.3.0"
+          "version": "1.2.3"
         },
         {
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-          "version": "1.2.3"
+          "version": "1.2.4"
         }
       ],
       "sourceRepo": {
