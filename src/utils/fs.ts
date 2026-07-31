@@ -27,6 +27,23 @@ export async function createDirSymlink(
   }
 }
 
+/**
+ * Normalize a *relative* path for storage in on-disk metadata.
+ *
+ * `path.relative()` returns backslashes on Windows, so persisting its result
+ * verbatim (library manifest `skillPath`, lock entries) writes machine-specific
+ * separators into files that are meant to be portable — a manifest written on
+ * Windows then fails to resolve on POSIX, where `\` is a legal filename char
+ * rather than a separator. Storing POSIX separators is safe in both directions:
+ * `path.join()` on Windows accepts `/` transparently.
+ *
+ * Only for relative paths; absolute Windows paths keep their drive prefix and
+ * are not portable anyway.
+ */
+export function toPortableRelativePath(relPath: string): string {
+  return relPath.split("\\").join("/");
+}
+
 export const BINARY_EXTENSIONS = new Set([
   ".png",
   ".jpg",

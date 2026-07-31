@@ -199,6 +199,7 @@ import {
 } from "./library";
 import { setVerbose } from "./logger";
 import { join as joinPath, resolve, relative as relativePath } from "path";
+import { toPortableRelativePath } from "./utils/fs";
 import type {
   Scope,
   SortBy,
@@ -2739,7 +2740,9 @@ async function installSelectedLibrarySkill(input: {
     : resolutionSource === "registry"
       ? ("registry" as const)
       : ("github" as const);
-  const skillPath = relativePath(scanBaseDir, inspection.plan.sourceDir);
+  const skillPath = toPortableRelativePath(
+    relativePath(scanBaseDir, inspection.plan.sourceDir),
+  );
   const installed = await installLibrarySkill({
     sourceDir: inspection.plan.sourceDir,
     libraryName: inspection.skillName,
@@ -3560,9 +3563,11 @@ async function cmdInstall(args: ParsedArgs) {
               installedAt: new Date().toISOString(),
               provider: inspection.plan.providerName,
               scope: inspection.plan.scope,
-              skillPath: relativePath(
-                inspection.plan.tempDir,
-                inspection.plan.sourceDir,
+              skillPath: toPortableRelativePath(
+                relativePath(
+                  inspection.plan.tempDir,
+                  inspection.plan.sourceDir,
+                ),
               ),
               targetDir: inspection.plan.targetDir,
               sourceType,
