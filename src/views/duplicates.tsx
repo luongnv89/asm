@@ -31,78 +31,84 @@ export function DuplicatesView({ report, onRemove, onClose }: DuplicatesProps) {
   const optionCount =
     phase === "groups" ? groups.length : sortedInstances.length + 1;
 
-  useInput(
-    async (_input, key) => {
-      if (busy) return;
-      if (key.escape) {
-        if (phase === "instances") {
-          setPhase("groups");
-          setCursor(0);
-          setMarkedForRemoval(new Set());
-          return;
-        }
-        onClose();
+  // NOTE: this handler must stay mounted while `busy` — do NOT gate it with
+  // `{ isActive: !busy }`. ink reference-counts raw mode, and the parent App
+  // disables its own `useInput` while the audit view is open. Releasing this
+  // one too would drop the count to zero for the whole duration of the await,
+  // making ink run its full stdin teardown (`setRawMode(false)`, drop the
+  // 'readable' listener, `unref()`). On Windows, re-enabling raw mode after
+  // that teardown has spanned event-loop turns leaves stdin permanently
+  // silent: the process stays alive and idle but never sees another keypress.
+  // The `if (busy) return` guard below is what ignores keys during removal.
+  useInput(async (_input, key) => {
+    if (busy) return;
+    if (key.escape) {
+      if (phase === "instances") {
+        setPhase("groups");
+        setCursor(0);
+        setMarkedForRemoval(new Set());
         return;
       }
-      if (optionCount === 0) return;
-      if (key.upArrow) {
-        setCursor((i) => (i <= 0 ? optionCount - 1 : i - 1));
-        return;
-      }
-      if (key.downArrow) {
-        setCursor((i) => (i >= optionCount - 1 ? 0 : i + 1));
-        return;
-      }
-      if (key.return) {
-        if (phase === "groups") {
-          if (groups[cursor]) {
-            const group = groups[cursor];
-            const sorted = sortInstancesForKeep(group.instances);
-            const preMarked = new Set<string>();
-            for (let i = 1; i < sorted.length; i++) {
-              preMarked.add(sorted[i].path);
-            }
-            setGroupIndex(cursor);
-            setMarkedForRemoval(preMarked);
-            setCursor(0);
-            setPhase("instances");
+      onClose();
+      return;
+    }
+    if (optionCount === 0) return;
+    if (key.upArrow) {
+      setCursor((i) => (i <= 0 ? optionCount - 1 : i - 1));
+      return;
+    }
+    if (key.downArrow) {
+      setCursor((i) => (i >= optionCount - 1 ? 0 : i + 1));
+      return;
+    }
+    if (key.return) {
+      if (phase === "groups") {
+        if (groups[cursor]) {
+          const group = groups[cursor];
+          const sorted = sortInstancesForKeep(group.instances);
+          const preMarked = new Set<string>();
+          for (let i = 1; i < sorted.length; i++) {
+            preMarked.add(sorted[i].path);
           }
-          return;
+          setGroupIndex(cursor);
+          setMarkedForRemoval(preMarked);
+          setCursor(0);
+          setPhase("instances");
         }
-        // Phase: instances
-        if (cursor < sortedInstances.length) {
-          // Toggle checkbox
-          const skillPath = sortedInstances[cursor].path;
-          setMarkedForRemoval((prev) => {
-            const next = new Set(prev);
-            if (next.has(skillPath)) {
-              next.delete(skillPath);
-            } else {
-              // Guard: don't allow marking ALL instances
-              if (next.size >= sortedInstances.length - 1) return prev;
-              next.add(skillPath);
-            }
-            return next;
-          });
-          return;
-        }
-        // Action row → execute removal
-        if (markedForRemoval.size === 0) return;
-        const toRemove = sortedInstances.filter((s) =>
-          markedForRemoval.has(s.path),
-        );
-        const kept = sortedInstances.find((s) => !markedForRemoval.has(s.path));
-        if (!kept) return;
-        setBusy(true);
-        try {
-          await onRemove(toRemove, kept);
-        } finally {
-          setBusy(false);
-        }
+        return;
       }
-    },
-    { isActive: !busy },
-  );
+      // Phase: instances
+      if (cursor < sortedInstances.length) {
+        // Toggle checkbox
+        const skillPath = sortedInstances[cursor].path;
+        setMarkedForRemoval((prev) => {
+          const next = new Set(prev);
+          if (next.has(skillPath)) {
+            next.delete(skillPath);
+          } else {
+            // Guard: don't allow marking ALL instances
+            if (next.size >= sortedInstances.length - 1) return prev;
+            next.add(skillPath);
+          }
+          return next;
+        });
+        return;
+      }
+      // Action row → execute removal
+      if (markedForRemoval.size === 0) return;
+      const toRemove = sortedInstances.filter((s) =>
+        markedForRemoval.has(s.path),
+      );
+      const kept = sortedInstances.find((s) => !markedForRemoval.has(s.path));
+      if (!kept) return;
+      setBusy(true);
+      try {
+        await onRemove(toRemove, kept);
+      } finally {
+        setBusy(false);
+      }
+    }
+  });
 
   return (
     <Box
