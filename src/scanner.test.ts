@@ -1,3 +1,4 @@
+import { createDirSymlink } from "./utils/fs";
 import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
 import { mkdtemp, writeFile, mkdir, rm, symlink, realpath } from "fs/promises";
 import { join } from "path";
@@ -432,7 +433,7 @@ describe("scanAllSkills", () => {
     // Create a separate scan dir with symlink
     const scanDir = join(tempDir, "scan");
     await mkdir(scanDir);
-    await symlink(realDir, join(scanDir, "linked-skill"), "dir");
+    await createDirSymlink(realDir, join(scanDir, "linked-skill"));
 
     const config = {
       ...getDefaultConfig(),
@@ -703,7 +704,7 @@ describe("scanPluginMarketplaces", () => {
 
     // Symlink inside the marketplace pointing at the real skill dir
     const symlinkPath = join(marketplaceDir, "linked-skill");
-    await symlink(realSkillDir, symlinkPath);
+    await createDirSymlink(realSkillDir, symlinkPath);
 
     const skills = await scanPluginMarketplaces(tempDir);
     // The symlinked entry is skipped — result must be empty

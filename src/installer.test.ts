@@ -1,3 +1,4 @@
+import { createDirSymlink } from "./utils/fs";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import {
   mkdtemp,
@@ -9,7 +10,7 @@ import {
   symlink,
 } from "fs/promises";
 import { existsSync } from "fs";
-import { join, relative, basename, dirname } from "path";
+import { join, relative, resolve, isAbsolute, basename, dirname } from "path";
 import { tmpdir } from "os";
 import {
   parseSource,
@@ -1157,14 +1158,20 @@ describe("executeInstallAllProviders", () => {
       const stats = await lstat(linkPath);
       expect(stats.isSymbolicLink()).toBe(true);
 
-      // Verify symlink is relative, not absolute
       const target = await readlink(linkPath);
-      expect(target.startsWith("/")).toBe(false);
-
-      // Verify relative path resolves correctly
       const providerDir = join(tempDir, "providers", name, "skills");
-      const expectedRel = relative(providerDir, plan.targetDir);
-      expect(target).toBe(expectedRel);
+
+      // The link must resolve to the primary install on every platform.
+      expect(resolve(providerDir, target)).toBe(resolve(plan.targetDir));
+
+      // POSIX keeps the target relative so the link survives a moved home.
+      // Windows gets a junction instead, and junction targets are always
+      // absolute — see createDirSymlink in src/utils/fs.ts.
+      if (process.platform === "win32") {
+        expect(isAbsolute(target)).toBe(true);
+      } else {
+        expect(target).toBe(relative(providerDir, plan.targetDir));
+      }
     }
   });
 
@@ -1174,10 +1181,9 @@ describe("executeInstallAllProviders", () => {
     // Pre-create a stale symlink in the claude provider dir
     const claudeDir = join(tempDir, "providers", "claude", "skills");
     await mkdir(claudeDir, { recursive: true });
-    await symlink(
+    await createDirSymlink(
       "/nonexistent/old-target",
       join(claudeDir, "my-skill"),
-      "dir",
     );
 
     const result = await executeInstallAllProviders(plan, providers);
@@ -1185,8 +1191,10 @@ describe("executeInstallAllProviders", () => {
 
     // Symlink should now point to the primary install, not the old target
     const target = await readlink(join(claudeDir, "my-skill"));
-    const expectedRel = relative(claudeDir, plan.targetDir);
-    expect(target).toBe(expectedRel);
+    expect(resolve(claudeDir, target)).toBe(resolve(plan.targetDir));
+    if (process.platform !== "win32") {
+      expect(target).toBe(relative(claudeDir, plan.targetDir));
+    }
   });
 
   test("skips existing real directories instead of deleting them", async () => {
@@ -1373,11 +1381,18 @@ describe("isLocalPath", () => {
 
 // ─── parseLocalSource tests ─────────────────────────────────────────────────
 
+// An absolute path in the platform's own shape: "/…" is not absolute on
+// Windows, where parseLocalSource would resolve it onto the current drive.
+const ABS_SKILL_PATH =
+  process.platform === "win32"
+    ? "C:\\home\\user\\my-skill"
+    : "/home/user/my-skill";
+
 describe("parseLocalSource", () => {
   test("parses absolute path", () => {
-    const result = parseLocalSource("/home/user/my-skill");
+    const result = parseLocalSource(ABS_SKILL_PATH);
     expect(result.isLocal).toBe(true);
-    expect(result.localPath).toBe("/home/user/my-skill");
+    expect(result.localPath).toBe(ABS_SKILL_PATH);
     expect(result.owner).toBe("local");
     expect(result.repo).toBe("my-skill");
     expect(result.ref).toBeNull();
@@ -1391,21 +1406,21 @@ describe("parseLocalSource", () => {
     expect(result.isLocal).toBe(true);
     expect(result.localPath).toBeTruthy();
     // Should resolve to an absolute path
-    expect(result.localPath!.startsWith("/")).toBe(true);
+    expect(isAbsolute(result.localPath!)).toBe(true);
     expect(result.repo).toBe("my-skill");
   });
 
   test("parses parent-relative path", () => {
     const result = parseLocalSource("../sibling-skill");
     expect(result.isLocal).toBe(true);
-    expect(result.localPath!.startsWith("/")).toBe(true);
+    expect(isAbsolute(result.localPath!)).toBe(true);
     expect(result.repo).toBe("sibling-skill");
   });
 
   test("parses tilde path", () => {
     const result = parseLocalSource("~/skills/my-skill");
     expect(result.isLocal).toBe(true);
-    expect(result.localPath!.startsWith("/")).toBe(true);
+    expect(isAbsolute(result.localPath!)).toBe(true);
     expect(result.repo).toBe("my-skill");
     // Should NOT contain tilde in resolved path
     expect(result.localPath).not.toContain("~");
@@ -1550,9 +1565,13 @@ describe("buildRepoUrl", () => {
   });
 
   test("returns local path for local source", () => {
-    const source = parseSource("/home/user/skills/my-skill");
+    const local =
+      process.platform === "win32"
+        ? "C:\\home\\user\\skills\\my-skill"
+        : "/home/user/skills/my-skill";
+    const source = parseSource(local);
     const url = buildRepoUrl(source);
-    expect(url).toBe("/home/user/skills/my-skill");
+    expect(url).toBe(local);
   });
 });
 
@@ -1586,7 +1605,7 @@ describe("buildInstallPlan", () => {
       "global",
     );
     expect(plan.scope).toBe("global");
-    expect(plan.targetDir).toContain(".claude/skills/my-skill");
+    expect(plan.targetDir).toContain(join(".claude", "skills", "my-skill"));
     expect(plan.targetDir).not.toMatch(/^\.\//);
   });
 
@@ -1601,7 +1620,7 @@ describe("buildInstallPlan", () => {
       "project",
     );
     expect(plan.scope).toBe("project");
-    expect(plan.targetDir).toContain(".claude/skills/my-skill");
+    expect(plan.targetDir).toContain(join(".claude", "skills", "my-skill"));
   });
 
   test("defaults to global scope when scope is omitted", () => {
@@ -1647,7 +1666,7 @@ describe("buildInstallPlan scope - target directory resolution", () => {
       "global",
     );
     // Global path should resolve ~ to homedir, resulting in an absolute path
-    expect(plan.targetDir.startsWith("/")).toBe(true);
+    expect(isAbsolute(plan.targetDir)).toBe(true);
     expect(plan.targetDir).toContain("my-skill");
   });
 
@@ -1668,7 +1687,7 @@ describe("buildInstallPlan scope - target directory resolution", () => {
       false,
       "project",
     );
-    expect(plan.targetDir).toContain(".claude/skills/my-skill");
+    expect(plan.targetDir).toContain(join(".claude", "skills", "my-skill"));
   });
 
   test("force flag is preserved in plan", () => {

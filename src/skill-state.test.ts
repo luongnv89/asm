@@ -1,3 +1,4 @@
+import { createDirSymlink } from "./utils/fs";
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import {
   mkdtemp,
@@ -361,7 +362,7 @@ describe("symlinked-sibling topology (real install layout, issue #91)", () => {
     );
     // codex's directory is a relative symlink at the claude copy, exactly as
     // the installer creates it.
-    await symlink(relative(codexProvider, canonicalDir), symlinkDir, "dir");
+    await createDirSymlink(relative(codexProvider, canonicalDir), symlinkDir);
   });
 
   afterEach(async () => {

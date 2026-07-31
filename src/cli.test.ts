@@ -1,3 +1,4 @@
+import { createDirSymlink } from "./utils/fs";
 import { fileURLToPath } from "url";
 import {
   describe,
@@ -3671,7 +3672,7 @@ metadata:
       `---\nname: link-via-symlink\nversion: 1.0.0\n---\n# Body\n`,
     );
     const linkedSrc = join(tempDir, "linked-src");
-    await symlink(realDir, linkedSrc, "dir");
+    await createDirSymlink(realDir, linkedSrc);
     // The link name comes from the source directory basename, not the SKILL.md
     // name field, so the resulting symlink lives under "linked-src".
     const providerLink = join(homedir(), ".claude", "skills", "linked-src");

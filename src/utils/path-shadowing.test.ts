@@ -5,12 +5,21 @@ import { join, delimiter } from "path";
 
 import { detectAsmBinaries, buildShadowingReport } from "./path-shadowing";
 
+// POSIX-only suite. detectAsmBinaries looks for an extensionless `asm` file and
+// gates on the X_OK access bit; on Windows the shim is `asm.cmd`/`asm.ps1` and
+// `access(X_OK)` is a no-op, so the module under test simply does not apply.
+// The fixtures also need a real *file* symlink, which Windows refuses without
+// Developer Mode or elevation — that EPERM used to blow up the beforeAll hook
+// and fail the whole file instead of skipping it.
+const POSIX_ONLY = process.platform !== "win32";
+
 let tmpRoot: string;
 let dirA: string;
 let dirB: string;
 let dirC: string;
 
 beforeAll(async () => {
+  if (!POSIX_ONLY) return;
   tmpRoot = await mkdtemp(join(tmpdir(), "asm-shadow-test-"));
   dirA = join(tmpRoot, "a");
   dirB = join(tmpRoot, "b");
@@ -37,7 +46,7 @@ afterAll(async () => {
   if (tmpRoot) await rm(tmpRoot, { recursive: true, force: true });
 });
 
-describe("detectAsmBinaries", () => {
+describe.skipIf(!POSIX_ONLY)("detectAsmBinaries", () => {
   test("returns empty list when PATH has no asm", async () => {
     const fakeDir = join(tmpRoot, "empty");
     await mkdir(fakeDir);
@@ -82,7 +91,7 @@ describe("detectAsmBinaries", () => {
   });
 });
 
-describe("buildShadowingReport", () => {
+describe.skipIf(!POSIX_ONLY)("buildShadowingReport", () => {
   test("no binaries → resolved null, shadowed empty", async () => {
     const emptyDir = join(tmpRoot, "emptyreport");
     await mkdir(emptyDir);

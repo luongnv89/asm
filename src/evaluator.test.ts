@@ -22,7 +22,7 @@ import {
   type EvalProvenance,
 } from "./evaluator";
 import { mkdtemp, rm, readFile, writeFile, access } from "fs/promises";
-import { join } from "path";
+import { basename, join } from "path";
 import { tmpdir } from "os";
 
 let tempDir: string;
@@ -737,7 +737,7 @@ describe("classifyEvalDirectory", () => {
     const r = await classifyEvalDirectory(root);
     expect(r.kind).toBe("collection");
     expect(r.skillDirs.length).toBe(2);
-    expect(r.skillDirs.map((d) => d.split("/").pop()).sort()).toEqual([
+    expect(r.skillDirs.map((d) => basename(d)).sort()).toEqual([
       "alpha",
       "beta",
     ]);
@@ -761,7 +761,7 @@ describe("classifyEvalDirectory", () => {
     const r = await classifyEvalDirectory(root);
     expect(r.kind).toBe("collection");
     expect(r.skillDirs.length).toBe(1);
-    expect(r.skillDirs[0].endsWith("/real")).toBe(true);
+    expect(basename(r.skillDirs[0]) === "real").toBe(true);
   });
 });
 
@@ -779,7 +779,7 @@ describe("findChildSkillDirs", () => {
     await writeSkillMd(join(root, "a"), MINI_SKILL);
     await writeSkillMd(join(root, "b"), MINI_SKILL);
     const r = await findChildSkillDirs(root);
-    expect(r.map((d) => d.split("/").pop())).toEqual(["a", "b", "c"]);
+    expect(r.map((d) => basename(d))).toEqual(["a", "b", "c"]);
   });
 });
 

@@ -79,9 +79,11 @@ describe("getDefaultConfig", () => {
 });
 
 describe("resolveProviderPath", () => {
+  // Expectations are built with join() rather than "/" templates:
+  // resolveProviderPath returns native separators, i.e. backslashes on Windows.
   it("resolves ~ paths to home directory", () => {
     const result = resolveProviderPath("~/.claude/skills");
-    expect(result).toBe(`${HOME}/.claude/skills`);
+    expect(result).toBe(join(HOME, ".claude", "skills"));
   });
 
   it("preserves absolute paths", () => {
@@ -96,7 +98,7 @@ describe("resolveProviderPath", () => {
 
   it("handles ~/path with deeper nesting", () => {
     const result = resolveProviderPath("~/a/b/c/d");
-    expect(result).toBe(`${HOME}/a/b/c/d`);
+    expect(result).toBe(join(HOME, "a", "b", "c", "d"));
   });
 
   it("handles ~ alone as prefix", () => {
@@ -108,7 +110,9 @@ describe("resolveProviderPath", () => {
 describe("getConfigPath", () => {
   it("returns a path under ~/.config/agent-skill-manager", () => {
     const path = getConfigPath();
-    expect(path).toContain(".config/agent-skill-manager/config.json");
+    expect(path).toContain(
+      join(".config", "agent-skill-manager", "config.json"),
+    );
   });
 });
 
