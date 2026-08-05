@@ -56,6 +56,7 @@ describe("ProfilePage — skill detail links (issue #398)", () => {
       expect(link.getAttribute("href")).toBe(
         `#/skills/${encodeSkillId(skill.id)}`,
       );
+      expect(link.className).toContain("min-h-11");
     }
   });
 });

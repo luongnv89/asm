@@ -231,6 +231,7 @@ describe("Bundle cart flow", () => {
     expect(skillLink?.getAttribute("href")).toBe(
       `#/skills/${encodeSkillId(catalog.skills[0].id)}`,
     );
+    expect(skillLink?.className).toContain("min-h-11");
 
     // Export button is enabled (there's ≥1 skill) but the name is blank,
     // so clicking should show a validation error message

@@ -308,6 +308,7 @@ describe("App smoke", () => {
     expect(skillLink.getAttribute("href")).toBe(
       `#/skills/${encodeSkillId(BUNDLES.bundles[0].skills[0].id)}`,
     );
+    expect(skillLink.className).toContain("min-h-11");
   });
 
   it("root path renders the marketing landing page, not the catalog", async () => {

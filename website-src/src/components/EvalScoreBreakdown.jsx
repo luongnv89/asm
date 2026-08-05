@@ -1,11 +1,11 @@
 import { evalScoreClass } from "../lib/utils.js";
 
 function scoreColor(scoreClass) {
-  if (scoreClass === "eval-a") return "text-emerald-400";
-  if (scoreClass === "eval-b") return "text-lime-400";
-  if (scoreClass === "eval-c") return "text-yellow-400";
-  if (scoreClass === "eval-d") return "text-orange-400";
-  return "text-red-400";
+  if (scoreClass === "eval-a") return "text-emerald-700 dark:text-emerald-400";
+  if (scoreClass === "eval-b") return "text-lime-700 dark:text-lime-400";
+  if (scoreClass === "eval-c") return "text-yellow-700 dark:text-yellow-400";
+  if (scoreClass === "eval-d") return "text-orange-700 dark:text-orange-400";
+  return "text-red-700 dark:text-red-400";
 }
 
 function barColor(scoreClass) {
@@ -40,6 +40,14 @@ export default function EvalScoreBreakdown({ summary }) {
       )}
       {summary.categories?.length > 0 && (
         <table className="w-full text-xs">
+          <caption className="sr-only">Evaluation score breakdown</caption>
+          <thead className="sr-only">
+            <tr>
+              <th scope="col">Category</th>
+              <th scope="col">Percentage</th>
+              <th scope="col">Points</th>
+            </tr>
+          </thead>
           <tbody>
             {summary.categories.map((category) => {
               const percent =
@@ -48,11 +56,18 @@ export default function EvalScoreBreakdown({ summary }) {
                   : 0;
               return (
                 <tr key={category.id}>
-                  <td className="py-1 text-[var(--fg-dim)] pr-2 align-middle">
+                  <th
+                    scope="row"
+                    className="py-1 text-left font-normal text-[var(--fg-dim)] pr-2 align-middle"
+                  >
                     {category.name}
-                  </td>
+                  </th>
                   <td className="w-full align-middle">
-                    <div className="h-1.5 rounded bg-[var(--bg-input)] overflow-hidden">
+                    <span className="sr-only">{percent}%</span>
+                    <div
+                      aria-hidden="true"
+                      className="h-1.5 rounded bg-[var(--bg-input)] overflow-hidden"
+                    >
                       <div
                         className={`h-full ${barColor(evalScoreClass(percent))}`}
                         style={{ width: `${percent}%` }}

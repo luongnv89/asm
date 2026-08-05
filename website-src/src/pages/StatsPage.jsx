@@ -146,7 +146,7 @@ export default function StatsPage() {
                         <div className="min-w-0">
                           <Link
                             to={`/skills/${encodeSkillId(skill.id)}`}
-                            className="block font-medium text-[var(--fg)] hover:text-[var(--brand)] transition-colors truncate"
+                            className="flex min-h-11 items-center -mx-2 px-2 font-medium text-[var(--fg)] hover:text-[var(--brand)] transition-colors truncate"
                           >
                             {skill.name}
                           </Link>
