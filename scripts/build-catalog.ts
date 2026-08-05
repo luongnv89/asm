@@ -689,6 +689,7 @@ for (const s of skills) {
 // ─── Bundles ─────────────────────────────────────────────────────────────────
 
 interface BundleSkill {
+  id?: string;
   name: string;
   installUrl: string;
   description: string;
@@ -730,9 +731,18 @@ const bundleMap = new Map<string, Bundle>();
 for (const bundle of bundles) {
   if (!bundleMap.has(bundle.name)) bundleMap.set(bundle.name, bundle);
 }
-const uniqueBundles = Array.from(bundleMap.values()).sort((a, b) =>
-  a.name.localeCompare(b.name),
+const skillIdByInstallUrl = new Map(
+  skills.map((skill) => [skill.installUrl, skill.id]),
 );
+const uniqueBundles = Array.from(bundleMap.values())
+  .map((bundle) => ({
+    ...bundle,
+    skills: bundle.skills.map((skill) => {
+      const id = skillIdByInstallUrl.get(skill.installUrl);
+      return id ? { ...skill, id } : skill;
+    }),
+  }))
+  .sort((a, b) => a.name.localeCompare(b.name));
 
 const bundlesData: BundlesData = {
   generatedAt: new Date().toISOString(),
@@ -833,7 +843,15 @@ interface AuthorStatsEntry {
   verifiedCount: number;
   totalTokens: number;
   avgEvalScore?: number;
-  topSkills: Array<{ name: string; repo: string }>;
+  topSkills: Array<{ id: string; name: string; repo: string }>;
+}
+
+interface CategoryTopSkill {
+  id: string;
+  name: string;
+  owner: string;
+  repo: string;
+  evalSummary: SkillEvalSummary;
 }
 
 interface IndexStatsEntry {
@@ -841,6 +859,7 @@ interface IndexStatsEntry {
   totalSkills: number;
   totalAuthors: number;
   categoryDistribution: Record<string, number>;
+  categoryTopSkills: Record<string, CategoryTopSkill[]>;
   verifiedCount: number;
   totalTokens: number;
   avgTokensPerSkill: number;
@@ -915,7 +934,11 @@ for (const r of repos) {
     }
     if (s.verified) author.verifiedCount++;
     author.totalTokens += s.tokenCount ?? 0;
-    author.topSkills.push({ name: s.name, repo: `${r.owner}/${r.repo}` });
+    author.topSkills.push({
+      id: s.id,
+      name: s.name,
+      repo: `${r.owner}/${r.repo}`,
+    });
   }
 }
 
@@ -935,11 +958,31 @@ for (const s of skills) {
     indexCatDist[c] = (indexCatDist[c] || 0) + 1;
   }
 }
+const categoryTopSkills: Record<string, CategoryTopSkill[]> = {};
+for (const category of categories) {
+  categoryTopSkills[category] = skills
+    .filter((skill) => skill.categories.includes(category) && skill.evalSummary)
+    .sort(
+      (a, b) =>
+        b.evalSummary!.overallScore - a.evalSummary!.overallScore ||
+        a.id.localeCompare(b.id),
+    )
+    .slice(0, 10)
+    .map((skill) => ({
+      id: skill.id,
+      name: skill.name,
+      owner: skill.owner,
+      repo: skill.repo,
+      evalSummary: skill.evalSummary!,
+    }));
+}
+
 const indexStats: IndexStatsEntry = {
   totalRepos: repos.length,
   totalSkills: skills.length,
   totalAuthors: authorMap.size,
   categoryDistribution: indexCatDist,
+  categoryTopSkills,
   verifiedCount: skills.filter((s) => s.verified).length,
   totalTokens: skills.reduce((sum, s) => sum + (s.tokenCount ?? 0), 0),
   avgTokensPerSkill:

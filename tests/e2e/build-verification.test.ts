@@ -269,6 +269,9 @@ describe("website: token count + eval surfaces", () => {
 const SKILLS_MIN_PATH = join(WEBSITE_DIR, "skills.min.json");
 const SEARCH_IDX_PATH = join(WEBSITE_DIR, "search.idx.json");
 const SKILLS_DETAIL_DIR = join(WEBSITE_DIR, "skills");
+const AUTHOR_STATS_PATH = join(WEBSITE_DIR, "author-stats.json");
+const INDEX_STATS_PATH = join(WEBSITE_DIR, "index-stats.json");
+const BUNDLES_PATH = join(WEBSITE_DIR, "bundles.json");
 
 describe("catalog: split artifacts (issue #214)", () => {
   if (!catalogExists || !existsSync(SKILLS_MIN_PATH)) {
@@ -348,6 +351,8 @@ describe("catalog: split artifacts (issue #214)", () => {
         expect(slim.evalSummary?.overallScore).toBe(
           full.evalSummary.overallScore,
         );
+        expect(slim.evalSummary?.categories).toBeUndefined();
+        expect(slim.evalSummary?.evaluatedAt).toBeUndefined();
       }
     }
   });
@@ -420,6 +425,98 @@ describe("catalog: split artifacts (issue #214)", () => {
     // ever regresses, either the slim shape drifted or catalog.json shrunk
     // for other reasons; either way, worth looking at.
     expect(slimSize).toBeLessThan(catalogSize * 0.75);
+  });
+});
+
+// ─── category rankings + stable skill links (issue #398) ──────────────────
+
+describe("catalog: category rankings and stable skill links (issue #398)", () => {
+  const artifactsExist = [
+    CATALOG_PATH,
+    AUTHOR_STATS_PATH,
+    INDEX_STATS_PATH,
+    BUNDLES_PATH,
+  ].every(existsSync);
+
+  if (!artifactsExist) {
+    test.skip("ranking artifacts not present — run `npx tsx scripts/build-catalog.ts` to generate them", () => {});
+    return;
+  }
+
+  const catalog = JSON.parse(readFileSync(CATALOG_PATH, "utf-8"));
+  const indexStats = JSON.parse(readFileSync(INDEX_STATS_PATH, "utf-8")).stats;
+  const authorStats = JSON.parse(
+    readFileSync(AUTHOR_STATS_PATH, "utf-8"),
+  ).stats;
+  const bundles = JSON.parse(readFileSync(BUNDLES_PATH, "utf-8")).bundles;
+  const catalogById = new Map(
+    catalog.skills.map((skill: any) => [skill.id, skill]),
+  );
+
+  test("emits up to ten deterministically ordered skills for every category", () => {
+    expect(Object.keys(indexStats.categoryTopSkills)).toEqual(
+      catalog.categories,
+    );
+
+    for (const category of catalog.categories) {
+      const expected = catalog.skills
+        .filter(
+          (skill: any) =>
+            skill.categories.includes(category) && skill.evalSummary,
+        )
+        .sort(
+          (a: any, b: any) =>
+            b.evalSummary.overallScore - a.evalSummary.overallScore ||
+            a.id.localeCompare(b.id),
+        )
+        .slice(0, 10)
+        .map((skill: any) => skill.id);
+      const actual = indexStats.categoryTopSkills[category];
+      expect(actual).toHaveLength(expected.length);
+      expect(actual.map((skill: any) => skill.id)).toEqual(expected);
+    }
+  });
+
+  test("every ranked skill resolves and carries its full canonical breakdown", () => {
+    for (const rankedSkills of Object.values(
+      indexStats.categoryTopSkills,
+    ) as any[][]) {
+      for (const rankedSkill of rankedSkills) {
+        const source = catalogById.get(rankedSkill.id) as any;
+        expect(source).toBeDefined();
+        expect(rankedSkill.evalSummary).toEqual(source.evalSummary);
+        expect(rankedSkill.evalSummary.categories.length).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  test("every author top skill carries a catalog-resolvable id", () => {
+    for (const author of authorStats) {
+      for (const skill of author.topSkills) {
+        expect(catalogById.has(skill.id)).toBe(true);
+      }
+    }
+  });
+
+  test("bundle skills receive ids exactly when their install URL resolves", () => {
+    const catalogByInstallUrl = new Map(
+      catalog.skills.map((skill: any) => [skill.installUrl, skill]),
+    );
+    let linked = 0;
+
+    for (const bundle of bundles) {
+      for (const skill of bundle.skills) {
+        const source = catalogByInstallUrl.get(skill.installUrl) as any;
+        if (source) {
+          expect(skill.id).toBe(source.id);
+          linked++;
+        } else {
+          expect(skill.id).toBeUndefined();
+        }
+      }
+    }
+
+    expect(linked).toBeGreaterThan(0);
   });
 });
 
