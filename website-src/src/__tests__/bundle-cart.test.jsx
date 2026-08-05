@@ -49,6 +49,7 @@ import { HashRouter } from "react-router-dom";
 import MiniSearch from "minisearch";
 import App from "../App.jsx";
 import { MINISEARCH_OPTIONS } from "../lib/minisearch-options.js";
+import { encodeSkillId } from "../lib/utils.js";
 
 /**
  * Bundle cart flow (#238). Covers:
@@ -225,6 +226,11 @@ describe("Bundle cart flow", () => {
     // The skill name should appear in the dialog item list
     const withinDialog = dialog.querySelectorAll("li");
     expect(withinDialog.length).toBe(1);
+    const skillLink = dialog.querySelector("a[href*='/skills/']");
+    expect(skillLink?.textContent).toContain("hello-world");
+    expect(skillLink?.getAttribute("href")).toBe(
+      `#/skills/${encodeSkillId(catalog.skills[0].id)}`,
+    );
 
     // Export button is enabled (there's ≥1 skill) but the name is blank,
     // so clicking should show a validation error message

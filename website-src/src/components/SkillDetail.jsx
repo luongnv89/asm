@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { evalScoreClass, formatTokens } from "../lib/utils.js";
+import { formatTokens } from "../lib/utils.js";
 import CopyButton from "./CopyButton.jsx";
+import EvalScoreBreakdown from "./EvalScoreBreakdown.jsx";
 import AddToBundleButton from "./AddToBundleButton.jsx";
 import { Badge } from "./ui/badge.jsx";
 import { Card } from "./ui/card.jsx";
@@ -53,10 +54,6 @@ export default function SkillDetail({ slim }) {
 
   const skill = useMemo(() => detail.data || slim, [detail.data, slim]);
   if (!skill) return null;
-
-  const evalScoreCls = skill.evalSummary
-    ? evalScoreClass(skill.evalSummary.overallScore)
-    : "";
 
   return (
     <div className="flex flex-col gap-4">
@@ -136,78 +133,7 @@ export default function SkillDetail({ slim }) {
           asm eval score
         </h2>
         {skill.evalSummary ? (
-          <div className="flex flex-col gap-3">
-            <div
-              className={
-                "flex items-center gap-3 " +
-                (evalScoreCls === "eval-a"
-                  ? "text-emerald-400"
-                  : evalScoreCls === "eval-b"
-                    ? "text-lime-400"
-                    : evalScoreCls === "eval-c"
-                      ? "text-yellow-400"
-                      : evalScoreCls === "eval-d"
-                        ? "text-orange-400"
-                        : "text-red-400")
-              }
-            >
-              <span className="text-3xl font-semibold">
-                {skill.evalSummary.overallScore}
-                <span className="text-base text-[var(--fg-muted)]">/100</span>
-              </span>
-              <span className="text-sm text-[var(--fg-dim)]">
-                grade {skill.evalSummary.grade}
-              </span>
-            </div>
-            {skill.evalSummary.evaluatedAt && (
-              <div className="text-xs text-[var(--fg-muted)]">
-                Evaluated{" "}
-                {new Date(skill.evalSummary.evaluatedAt).toLocaleDateString()}
-                {skill.evalSummary.evaluatedVersion
-                  ? " · v" + skill.evalSummary.evaluatedVersion
-                  : ""}
-              </div>
-            )}
-            {skill.evalSummary.categories?.length > 0 && (
-              <table className="w-full text-xs">
-                <tbody>
-                  {skill.evalSummary.categories.map((c) => {
-                    const pct =
-                      c.max > 0 ? Math.round((c.score / c.max) * 100) : 0;
-                    const tone = evalScoreClass(pct);
-                    const toneColor =
-                      tone === "eval-a"
-                        ? "bg-emerald-500"
-                        : tone === "eval-b"
-                          ? "bg-lime-500"
-                          : tone === "eval-c"
-                            ? "bg-yellow-500"
-                            : tone === "eval-d"
-                              ? "bg-orange-500"
-                              : "bg-red-500";
-                    return (
-                      <tr key={c.id}>
-                        <td className="py-1 text-[var(--fg-dim)] pr-2 align-middle">
-                          {c.name}
-                        </td>
-                        <td className="w-full align-middle">
-                          <div className="h-1.5 rounded bg-[var(--bg-input)] overflow-hidden">
-                            <div
-                              className={"h-full " + toneColor}
-                              style={{ width: pct + "%" }}
-                            />
-                          </div>
-                        </td>
-                        <td className="pl-2 text-right text-[var(--fg-dim)] whitespace-nowrap align-middle">
-                          {c.score}/{c.max}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            )}
-          </div>
+          <EvalScoreBreakdown summary={skill.evalSummary} />
         ) : (
           <p className="text-xs text-[var(--fg-dim)]">
             No <code>asm eval</code> data is available for this skill yet. Run{" "}

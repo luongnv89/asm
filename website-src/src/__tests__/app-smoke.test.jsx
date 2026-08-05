@@ -23,6 +23,7 @@ import { HashRouter } from "react-router-dom";
 import MiniSearch from "minisearch";
 import App from "../App.jsx";
 import { MINISEARCH_OPTIONS } from "../lib/minisearch-options.js";
+import { encodeSkillId } from "../lib/utils.js";
 
 /**
  * End-to-end smoke tests for the React app.
@@ -120,6 +121,7 @@ const BUNDLES = {
       tags: ["demo"],
       skills: [
         {
+          id: "owner/repo::a::hello-world",
           name: "hello-world",
           installUrl: "github:owner/repo:skills/hello-world",
           description: "A friendly greeting skill.",
@@ -302,6 +304,10 @@ describe("App smoke", () => {
     await waitFor(() => {
       expect(screen.getByText(/asm bundle install starter/)).toBeTruthy();
     });
+    const skillLink = screen.getByRole("link", { name: "hello-world" });
+    expect(skillLink.getAttribute("href")).toBe(
+      `#/skills/${encodeSkillId(BUNDLES.bundles[0].skills[0].id)}`,
+    );
   });
 
   it("root path renders the marketing landing page, not the catalog", async () => {

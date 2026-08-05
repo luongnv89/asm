@@ -4,8 +4,10 @@ import { Eye } from "lucide-react";
 import { useCatalog } from "../hooks/useCatalog.jsx";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
-import CategoryPieChart from "../components/CategoryPieChart";
-import CopyButton from "../components/CopyButton";
+import CategoryPieChart from "../components/CategoryPieChart.jsx";
+import CopyButton from "../components/CopyButton.jsx";
+import EvalScoreBreakdown from "../components/EvalScoreBreakdown.jsx";
+import { encodeSkillId } from "../lib/utils.js";
 
 /**
  * Stats overview page — shows top repos by skill count, top authors,
@@ -82,6 +84,7 @@ export default function StatsPage() {
     }
   }
   const catEntries = Object.entries(catCounts).sort((a, b) => b[1] - a[1]);
+  const categoryTopSkills = Object.entries(idx?.categoryTopSkills || {});
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -110,6 +113,55 @@ export default function StatsPage() {
         <section>
           <SectionTitle>Category Distribution</SectionTitle>
           <CategoryPieChart entries={catEntries} />
+        </section>
+      )}
+
+      {/* Top Skills by Category */}
+      {categoryTopSkills.length > 0 && (
+        <section className="mt-8">
+          <SectionTitle>Top Skills by Category</SectionTitle>
+          <div className="space-y-8">
+            {categoryTopSkills.map(([category, rankedSkills]) => (
+              <section
+                key={category}
+                aria-labelledby={`category-ranking-${category}`}
+              >
+                <h3
+                  id={`category-ranking-${category}`}
+                  className="text-base font-semibold text-[var(--fg)] mb-3"
+                >
+                  {category}
+                </h3>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {rankedSkills.slice(0, 10).map((skill, index) => (
+                    <article
+                      key={skill.id}
+                      aria-label={`${skill.name} score breakdown`}
+                      className="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-4"
+                    >
+                      <div className="flex items-start gap-3 mb-3">
+                        <span className="w-6 text-right font-mono text-[var(--fg-muted)]">
+                          {index + 1}
+                        </span>
+                        <div className="min-w-0">
+                          <Link
+                            to={`/skills/${encodeSkillId(skill.id)}`}
+                            className="block font-medium text-[var(--fg)] hover:text-[var(--brand)] transition-colors truncate"
+                          >
+                            {skill.name}
+                          </Link>
+                          <span className="block text-xs text-[var(--fg-muted)] truncate">
+                            {skill.owner}/{skill.repo}
+                          </span>
+                        </div>
+                      </div>
+                      <EvalScoreBreakdown summary={skill.evalSummary} />
+                    </article>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
         </section>
       )}
 

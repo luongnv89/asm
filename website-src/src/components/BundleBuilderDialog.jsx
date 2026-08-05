@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { X, Download, Github, Trash2, ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useBundleCart } from "../hooks/useBundleCart.jsx";
 import {
   buildBundleJson,
@@ -10,6 +11,7 @@ import {
 import { Button } from "./ui/button.jsx";
 import { Input } from "./ui/input.jsx";
 import { cn } from "../lib/cn.js";
+import { encodeSkillId } from "../lib/utils.js";
 
 /**
  * Bundle builder dialog (#238). Opens from the header cart button
@@ -260,9 +262,13 @@ export default function BundleBuilderDialog({ open, onClose }) {
                   >
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-sm text-[var(--fg)] truncate">
+                        <Link
+                          to={`/skills/${encodeSkillId(sk.id)}`}
+                          className="font-mono text-sm text-[var(--fg)] hover:text-[var(--brand)] transition-colors truncate"
+                          onClick={onClose}
+                        >
                           {sk.name}
-                        </span>
+                        </Link>
                         {sk.owner && sk.repo && (
                           <span className="text-[10px] text-[var(--fg-muted)] truncate">
                             {sk.owner}/{sk.repo}

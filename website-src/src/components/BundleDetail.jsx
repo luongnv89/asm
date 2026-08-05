@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { encodeSkillId } from "../lib/utils.js";
 import CopyButton from "./CopyButton.jsx";
 import { Card } from "./ui/card.jsx";
 import { Badge } from "./ui/badge.jsx";
@@ -63,13 +65,22 @@ export default function BundleDetail({ bundle }) {
                 sk.installUrl && "asm install " + sk.installUrl;
               return (
                 <li
-                  key={sk.name}
+                  key={sk.id || sk.installUrl || sk.name}
                   className="rounded-md border border-[var(--border)] bg-[var(--bg-card)] p-3"
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <span className="font-mono text-sm text-[var(--fg)]">
-                      {sk.name}
-                    </span>
+                    {sk.id ? (
+                      <Link
+                        to={`/skills/${encodeSkillId(sk.id)}`}
+                        className="font-mono text-sm text-[var(--fg)] hover:text-[var(--brand)] transition-colors"
+                      >
+                        {sk.name}
+                      </Link>
+                    ) : (
+                      <span className="font-mono text-sm text-[var(--fg)]">
+                        {sk.name}
+                      </span>
+                    )}
                     {skillInstall && (
                       <CopyButton
                         text={skillInstall}

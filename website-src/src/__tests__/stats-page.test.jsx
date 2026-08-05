@@ -6,6 +6,7 @@ import MiniSearch from "minisearch";
 import StatsPage from "../pages/StatsPage.jsx";
 import { CatalogProvider } from "../hooks/useCatalog.jsx";
 import { MINISEARCH_OPTIONS } from "../lib/minisearch-options.js";
+import { encodeSkillId } from "../lib/utils.js";
 
 const generatedAt = "2026-07-07T00:00:00.000Z";
 
@@ -54,12 +55,35 @@ const authorStats = {
   ],
 };
 
+function rankedSkill(index) {
+  return {
+    id: `alice/repo::skills/ranked-${index}::ranked-${index}`,
+    name: `ranked-${index}`,
+    owner: "alice",
+    repo: "repo",
+    evalSummary: {
+      overallScore: 100 - index,
+      grade: index < 10 ? "A" : "B",
+      evaluatedAt: "2026-07-07T00:00:00.000Z",
+      categories: [
+        { id: "instructions", name: "Instructions", score: 30, max: 30 },
+        { id: "safety", name: "Safety", score: 20, max: 20 },
+      ],
+    },
+  };
+}
+
+const categoryRanking = Array.from({ length: 11 }, (_, index) =>
+  rankedSkill(index),
+);
+
 const indexStats = {
   stats: {
     totalRepos: 2,
     totalSkills: 3,
     totalAuthors: 2,
     verifiedCount: 1,
+    categoryTopSkills: { dev: categoryRanking },
   },
 };
 
@@ -146,8 +170,36 @@ describe("StatsPage — author view and pie chart (issue #351)", () => {
         name: /Category distribution pie chart/i,
       }),
     ).toBeTruthy();
-    expect(screen.getByText("dev")).toBeTruthy();
+    expect(screen.getAllByText("dev").length).toBeGreaterThan(0);
     expect(screen.getByText("docs")).toBeTruthy();
     expect(screen.getByText("testing")).toBeTruthy();
+  });
+
+  it("renders at most ten ranked skills in artifact order with detail links", async () => {
+    renderStatsPage();
+    await screen.findByText("Top Skills by Category");
+
+    const breakdowns = screen.getAllByRole("article", {
+      name: /score breakdown/i,
+    });
+    expect(breakdowns).toHaveLength(10);
+    expect(breakdowns[0].textContent).toContain("ranked-0");
+    expect(breakdowns[9].textContent).toContain("ranked-9");
+    expect(screen.queryByText("ranked-10")).toBeNull();
+
+    const firstLink = screen.getByRole("link", { name: "ranked-0" });
+    expect(firstLink.getAttribute("href")).toBe(
+      `#/skills/${encodeSkillId(categoryRanking[0].id)}`,
+    );
+  });
+
+  it("shows the complete score breakdown for every ranked skill", async () => {
+    renderStatsPage();
+    await screen.findByText("Top Skills by Category");
+
+    expect(screen.getAllByText("Instructions")).toHaveLength(10);
+    expect(screen.getAllByText("Safety")).toHaveLength(10);
+    expect(screen.getAllByText("30/30")).toHaveLength(10);
+    expect(screen.getAllByText("20/20")).toHaveLength(10);
   });
 });
