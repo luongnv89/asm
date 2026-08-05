@@ -155,7 +155,7 @@ export default function ProfilePage() {
                 key={`${s.name}-${s.repo}`}
                 className="grid grid-cols-[1.5rem_minmax(0,1fr)] sm:grid-cols-[1.5rem_minmax(0,1fr)_minmax(6rem,auto)] items-center gap-3 text-sm py-2 border-b border-[var(--border)] last:border-0"
               >
-                <span className="w-6 text-right font-mono text-[var(--fg-muted)]">
+                <span className="w-6 text-right font-mono text-[var(--fg-dim)]">
                   {i + 1}
                 </span>
                 {s.id ? (

@@ -43,7 +43,7 @@ describe("ProfilePage — skill detail links (issue #398)", () => {
   });
 
   it("links every listed skill to its canonically encoded detail route", async () => {
-    render(
+    const { container } = render(
       <HashRouter>
         <Routes>
           <Route path="/profile/:owner" element={<ProfilePage />} />
@@ -59,5 +59,9 @@ describe("ProfilePage — skill detail links (issue #398)", () => {
       expect(link.className).toContain("min-h-11");
       expect(link.className).toContain("min-w-11");
     }
+
+    expect(container.querySelector("span.w-6").className).toContain(
+      "text-[var(--fg-dim)]",
+    );
   });
 });
