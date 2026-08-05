@@ -1,30 +1,30 @@
 {
-  "generatedAt": "2026-07-07T10:41:37.059Z",
+  "generatedAt": "2026-08-05T00:09:55.461Z",
   "stats": [
     {
       "owner": "sickn33",
-      "totalSkills": 1845,
+      "totalSkills": 1919,
       "repos": ["sickn33/antigravity-awesome-skills"],
       "categories": {
-        "general": 245,
-        "ai-agents": 467,
-        "security": 231,
-        "coding": 530,
-        "testing": 335,
-        "backend": 267,
-        "productivity": 323,
-        "frontend": 203,
-        "design": 218,
-        "writing": 229,
-        "marketing": 141,
-        "devops": 126,
-        "git": 58,
-        "mobile": 47,
-        "research": 61,
-        "finance": 60
+        "general": 252,
+        "ai-agents": 496,
+        "security": 240,
+        "coding": 547,
+        "testing": 344,
+        "design": 226,
+        "backend": 280,
+        "productivity": 334,
+        "frontend": 216,
+        "writing": 236,
+        "marketing": 144,
+        "devops": 127,
+        "git": 60,
+        "mobile": 51,
+        "research": 65,
+        "finance": 62
       },
-      "verifiedCount": 1840,
-      "totalTokens": 4611009,
+      "verifiedCount": 1914,
+      "totalTokens": 4809286,
       "topSkills": [
         {
           "name": "zustand-store-ts",
@@ -73,25 +73,25 @@
       "totalSkills": 562,
       "repos": ["GPTomics/bioSkills"],
       "categories": {
-        "ai-agents": 153,
-        "coding": 185,
+        "ai-agents": 169,
+        "coding": 191,
         "general": 51,
-        "testing": 252,
+        "testing": 260,
         "writing": 60,
         "finance": 6,
-        "design": 141,
+        "design": 137,
         "security": 15,
-        "devops": 76,
-        "backend": 93,
-        "git": 28,
-        "productivity": 93,
+        "devops": 77,
+        "backend": 94,
+        "git": 43,
+        "productivity": 95,
         "research": 9,
-        "marketing": 25,
-        "frontend": 39,
+        "marketing": 27,
+        "frontend": 59,
         "mobile": 1
       },
       "verifiedCount": 561,
-      "totalTokens": 2840394,
+      "totalTokens": 2919507,
       "topSkills": [
         { "name": "bioskills", "repo": "GPTomics/bioSkills" },
         { "name": "bio-write-sequences", "repo": "GPTomics/bioSkills" },
@@ -100,6 +100,10 @@
           "repo": "GPTomics/bioSkills"
         },
         { "name": "bio-workflows-tcr-pipeline", "repo": "GPTomics/bioSkills" },
+        {
+          "name": "bio-workflows-splicing-pipeline",
+          "repo": "GPTomics/bioSkills"
+        },
         {
           "name": "bio-workflows-spatial-pipeline",
           "repo": "GPTomics/bioSkills"
@@ -116,37 +120,33 @@
           "name": "bio-workflows-scrnaseq-pipeline",
           "repo": "GPTomics/bioSkills"
         },
-        { "name": "bio-workflows-rnaseq-to-de", "repo": "GPTomics/bioSkills" },
-        {
-          "name": "bio-workflows-riboseq-pipeline",
-          "repo": "GPTomics/bioSkills"
-        }
+        { "name": "bio-workflows-rnaseq-to-de", "repo": "GPTomics/bioSkills" }
       ]
     },
     {
       "owner": "alirezarezvani",
-      "totalSkills": 407,
+      "totalSkills": 414,
       "repos": ["alirezarezvani/claude-skills"],
       "categories": {
-        "security": 101,
+        "security": 102,
         "devops": 57,
         "frontend": 42,
         "design": 97,
         "testing": 123,
-        "writing": 101,
+        "writing": 102,
         "marketing": 85,
-        "ai-agents": 134,
-        "coding": 140,
-        "productivity": 77,
-        "research": 40,
+        "ai-agents": 139,
+        "coding": 144,
+        "productivity": 79,
+        "research": 38,
         "finance": 43,
-        "git": 32,
-        "general": 27,
-        "backend": 47,
+        "git": 35,
+        "general": 28,
+        "backend": 48,
         "mobile": 5
       },
-      "verifiedCount": 405,
-      "totalTokens": 953230,
+      "verifiedCount": 412,
+      "totalTokens": 965589,
       "topSkills": [
         {
           "name": "zero-hallucination-coder",
@@ -165,68 +165,68 @@
     },
     {
       "owner": "github",
-      "totalSkills": 369,
+      "totalSkills": 396,
       "repos": ["github/awesome-copilot"],
       "categories": {
-        "ai-agents": 133,
-        "writing": 56,
-        "security": 42,
-        "frontend": 46,
-        "testing": 96,
-        "design": 44,
-        "coding": 115,
-        "productivity": 61,
-        "backend": 68,
-        "devops": 51,
-        "git": 24,
-        "general": 43,
-        "mobile": 9,
+        "ai-agents": 143,
+        "writing": 64,
+        "security": 48,
+        "frontend": 49,
+        "testing": 103,
+        "marketing": 18,
+        "design": 47,
+        "coding": 119,
+        "productivity": 69,
+        "backend": 70,
+        "devops": 53,
+        "git": 25,
+        "mobile": 10,
+        "general": 47,
         "finance": 11,
-        "research": 9,
-        "marketing": 13
+        "research": 12
       },
-      "verifiedCount": 369,
-      "totalTokens": 907961,
+      "verifiedCount": 396,
+      "totalTokens": 985692,
       "topSkills": [
         { "name": "x-twitter-scraper", "repo": "github/awesome-copilot" },
         {
           "name": "write-coding-standards-from-file",
           "repo": "github/awesome-copilot"
         },
+        { "name": "workshop-create", "repo": "github/awesome-copilot" },
         { "name": "workiq-copilot", "repo": "github/awesome-copilot" },
         { "name": "winui3-migration-guide", "repo": "github/awesome-copilot" },
         { "name": "winmd-api-search", "repo": "github/awesome-copilot" },
         { "name": "what-context-needed", "repo": "github/awesome-copilot" },
+        { "name": "webmcpify", "repo": "github/awesome-copilot" },
         { "name": "webapp-testing", "repo": "github/awesome-copilot" },
-        { "name": "web-design-reviewer", "repo": "github/awesome-copilot" },
-        { "name": "vscode-ext-localization", "repo": "github/awesome-copilot" },
-        { "name": "vscode-ext-commands", "repo": "github/awesome-copilot" }
+        { "name": "web-design-reviewer", "repo": "github/awesome-copilot" }
       ]
     },
     {
       "owner": "affaan-m",
-      "totalSkills": 280,
+      "totalSkills": 284,
       "repos": ["affaan-m/everything-claude-code"],
       "categories": {
-        "security": 47,
-        "design": 36,
-        "ai-agents": 98,
-        "coding": 77,
-        "productivity": 62,
-        "testing": 72,
+        "security": 48,
+        "design": 37,
+        "ai-agents": 99,
+        "coding": 78,
+        "productivity": 63,
+        "testing": 75,
         "finance": 18,
-        "backend": 53,
+        "backend": 54,
         "writing": 30,
         "mobile": 19,
-        "frontend": 34,
-        "devops": 30,
+        "frontend": 35,
+        "devops": 31,
         "git": 18,
         "marketing": 9,
-        "general": 16,
+        "general": 15,
         "research": 19
       },
-      "verifiedCount": 278,
-      "totalTokens": 697215,
+      "verifiedCount": 283,
+      "totalTokens": 704867,
       "topSkills": [
         { "name": "x-api", "repo": "affaan-m/everything-claude-code" },
         {
@@ -254,27 +254,27 @@
     },
     {
       "owner": "K-Dense-AI",
-      "totalSkills": 149,
+      "totalSkills": 158,
       "repos": ["K-Dense-AI/claude-scientific-skills"],
       "categories": {
-        "design": 33,
-        "backend": 28,
-        "coding": 45,
-        "testing": 43,
-        "productivity": 55,
-        "ai-agents": 46,
-        "devops": 22,
-        "git": 5,
-        "research": 30,
-        "general": 11,
-        "writing": 25,
-        "frontend": 13,
-        "marketing": 6,
-        "security": 6,
-        "finance": 2
+        "design": 34,
+        "backend": 30,
+        "coding": 50,
+        "testing": 50,
+        "productivity": 61,
+        "finance": 2,
+        "research": 33,
+        "ai-agents": 49,
+        "devops": 21,
+        "git": 4,
+        "general": 10,
+        "writing": 24,
+        "frontend": 11,
+        "marketing": 8,
+        "security": 28
       },
-      "verifiedCount": 149,
-      "totalTokens": 587725,
+      "verifiedCount": 158,
+      "totalTokens": 475593,
       "topSkills": [
         {
           "name": "zarr-python",
@@ -294,6 +294,10 @@
           "name": "usfiscaldata",
           "repo": "K-Dense-AI/claude-scientific-skills"
         },
+        {
+          "name": "uncertainty-and-units",
+          "repo": "K-Dense-AI/claude-scientific-skills"
+        },
         { "name": "umap-learn", "repo": "K-Dense-AI/claude-scientific-skills" },
         {
           "name": "treatment-plans",
@@ -302,37 +306,35 @@
         {
           "name": "transformers",
           "repo": "K-Dense-AI/claude-scientific-skills"
-        },
-        { "name": "torchdrug", "repo": "K-Dense-AI/claude-scientific-skills" }
+        }
       ]
     },
     {
       "owner": "google",
-      "totalSkills": 69,
+      "totalSkills": 101,
       "repos": ["google/skills"],
       "categories": {
-        "ai-agents": 21,
-        "devops": 24,
-        "writing": 5,
-        "coding": 14,
-        "security": 13,
-        "backend": 25,
-        "finance": 6,
-        "testing": 12,
-        "marketing": 7,
-        "productivity": 9,
-        "design": 9,
-        "mobile": 7,
-        "general": 6,
-        "research": 1,
-        "frontend": 1
+        "ai-agents": 36,
+        "security": 21,
+        "devops": 37,
+        "testing": 18,
+        "writing": 7,
+        "coding": 23,
+        "backend": 40,
+        "finance": 8,
+        "marketing": 11,
+        "productivity": 10,
+        "design": 20,
+        "general": 7,
+        "frontend": 4,
+        "mobile": 9
       },
-      "verifiedCount": 69,
-      "totalTokens": 192618,
+      "verifiedCount": 101,
+      "totalTokens": 307790,
       "topSkills": [
         { "name": "workload-manager-basics", "repo": "google/skills" },
+        { "name": "spanner-basics", "repo": "google/skills" },
         { "name": "ima-sdk-basics", "repo": "google/skills" },
-        { "name": "iam-recommendations-fetcher", "repo": "google/skills" },
         { "name": "google-mobile-ads-rewarded", "repo": "google/skills" },
         { "name": "google-mobile-ads-interstitial", "repo": "google/skills" },
         { "name": "google-mobile-ads-get-started", "repo": "google/skills" },
@@ -368,7 +370,7 @@
         "productivity": 3
       },
       "verifiedCount": 58,
-      "totalTokens": 888726,
+      "totalTokens": 889402,
       "topSkills": [
         { "name": "unfreeze", "repo": "garrytan/gstack" },
         { "name": "sync-gbrain", "repo": "garrytan/gstack" },
@@ -428,28 +430,28 @@
     },
     {
       "owner": "coreyhaines31",
-      "totalSkills": 47,
+      "totalSkills": 49,
       "repos": ["coreyhaines31/marketingskills"],
       "categories": {
-        "design": 8,
-        "testing": 18,
+        "design": 10,
+        "testing": 19,
         "coding": 10,
-        "writing": 23,
-        "marketing": 38,
+        "writing": 24,
+        "marketing": 40,
         "frontend": 6,
-        "ai-agents": 8,
-        "security": 13,
+        "ai-agents": 11,
+        "security": 14,
         "mobile": 1,
-        "finance": 4,
+        "devops": 3,
+        "finance": 5,
         "research": 3,
         "productivity": 7,
         "backend": 3,
-        "general": 2,
-        "git": 1,
-        "devops": 2
+        "general": 1,
+        "git": 1
       },
-      "verifiedCount": 47,
-      "totalTokens": 163799,
+      "verifiedCount": 49,
+      "totalTokens": 178445,
       "topSkills": [
         { "name": "video", "repo": "coreyhaines31/marketingskills" },
         { "name": "social", "repo": "coreyhaines31/marketingskills" },
@@ -467,39 +469,40 @@
       ]
     },
     {
-      "owner": "luongnv89",
+      "owner": "davidondrej",
       "totalSkills": 46,
-      "repos": ["luongnv89/skills", "luongnv89/idd", "luongnv89/asm"],
+      "repos": ["davidondrej/skills"],
       "categories": {
-        "ai-agents": 14,
-        "security": 21,
-        "writing": 11,
-        "coding": 12,
-        "mobile": 3,
-        "marketing": 5,
-        "productivity": 8,
-        "git": 10,
-        "design": 9,
-        "testing": 9,
-        "devops": 4,
-        "frontend": 9,
-        "backend": 4,
-        "finance": 1,
-        "general": 3
+        "ai-agents": 27,
+        "productivity": 11,
+        "coding": 13,
+        "writing": 13,
+        "testing": 10,
+        "backend": 10,
+        "security": 4,
+        "research": 4,
+        "marketing": 1,
+        "frontend": 1,
+        "design": 1,
+        "git": 3,
+        "general": 3,
+        "mobile": 1,
+        "devops": 2,
+        "finance": 1
       },
-      "verifiedCount": 45,
-      "totalTokens": 154852,
+      "verifiedCount": 46,
+      "totalTokens": 82707,
       "topSkills": [
-        { "name": "website-cloner", "repo": "luongnv89/skills" },
-        { "name": "viral-product-evaluator", "repo": "luongnv89/skills" },
-        { "name": "tmux-agent-comms", "repo": "luongnv89/skills" },
-        { "name": "test-coverage", "repo": "luongnv89/skills" },
-        { "name": "tasks-generator", "repo": "luongnv89/skills" },
-        { "name": "tad-generator", "repo": "luongnv89/skills" },
-        { "name": "subagent-creator", "repo": "luongnv89/skills" },
-        { "name": "slop-cleanup", "repo": "luongnv89/skills" },
-        { "name": "skill-creator", "repo": "luongnv89/asm" },
-        { "name": "skill-auto-improver", "repo": "luongnv89/asm" }
+        { "name": "youtube-transcript", "repo": "davidondrej/skills" },
+        { "name": "teach", "repo": "davidondrej/skills" },
+        { "name": "short", "repo": "davidondrej/skills" },
+        { "name": "setup-help", "repo": "davidondrej/skills" },
+        { "name": "save-idea", "repo": "davidondrej/skills" },
+        { "name": "run-deep-swe", "repo": "davidondrej/skills" },
+        { "name": "research-prompt", "repo": "davidondrej/skills" },
+        { "name": "remind", "repo": "davidondrej/skills" },
+        { "name": "read-prod-database", "repo": "davidondrej/skills" },
+        { "name": "read-all-adrs", "repo": "davidondrej/skills" }
       ]
     },
     {
@@ -544,6 +547,76 @@
       ]
     },
     {
+      "owner": "luongnv89",
+      "totalSkills": 43,
+      "repos": ["luongnv89/skills", "luongnv89/idd", "luongnv89/asm"],
+      "categories": {
+        "ai-agents": 12,
+        "security": 17,
+        "writing": 7,
+        "coding": 13,
+        "mobile": 3,
+        "marketing": 3,
+        "productivity": 8,
+        "git": 9,
+        "design": 6,
+        "testing": 7,
+        "devops": 4,
+        "general": 4,
+        "frontend": 8,
+        "backend": 4,
+        "finance": 1
+      },
+      "verifiedCount": 43,
+      "totalTokens": 151210,
+      "topSkills": [
+        { "name": "website-cloner", "repo": "luongnv89/skills" },
+        { "name": "viral-product-evaluator", "repo": "luongnv89/skills" },
+        { "name": "tmux-agent-comms", "repo": "luongnv89/skills" },
+        { "name": "test-coverage", "repo": "luongnv89/skills" },
+        { "name": "tasks-generator", "repo": "luongnv89/skills" },
+        { "name": "tad-generator", "repo": "luongnv89/skills" },
+        { "name": "subagent-creator", "repo": "luongnv89/skills" },
+        { "name": "skill-creator", "repo": "luongnv89/asm" },
+        { "name": "skill-auto-improver", "repo": "luongnv89/asm" },
+        { "name": "seo-ai-optimizer", "repo": "luongnv89/skills" }
+      ]
+    },
+    {
+      "owner": "mattpocock",
+      "totalSkills": 41,
+      "repos": ["mattpocock/skills"],
+      "categories": {
+        "general": 8,
+        "ai-agents": 12,
+        "testing": 11,
+        "git": 5,
+        "design": 6,
+        "backend": 3,
+        "coding": 12,
+        "writing": 5,
+        "frontend": 3,
+        "productivity": 1,
+        "finance": 1,
+        "research": 1,
+        "devops": 2
+      },
+      "verifiedCount": 41,
+      "totalTokens": 51357,
+      "topSkills": [
+        { "name": "writing-shape", "repo": "mattpocock/skills" },
+        { "name": "writing-great-skills", "repo": "mattpocock/skills" },
+        { "name": "writing-fragments", "repo": "mattpocock/skills" },
+        { "name": "writing-beats", "repo": "mattpocock/skills" },
+        { "name": "wizard", "repo": "mattpocock/skills" },
+        { "name": "wayfinder", "repo": "mattpocock/skills" },
+        { "name": "ubiquitous-language", "repo": "mattpocock/skills" },
+        { "name": "triage", "repo": "mattpocock/skills" },
+        { "name": "to-tickets", "repo": "mattpocock/skills" },
+        { "name": "to-spec", "repo": "mattpocock/skills" }
+      ]
+    },
+    {
       "owner": "Eronred",
       "totalSkills": 40,
       "repos": ["Eronred/aso-skills"],
@@ -577,74 +650,6 @@
         { "name": "referral-program", "repo": "Eronred/aso-skills" },
         { "name": "rating-prompt-strategy", "repo": "Eronred/aso-skills" },
         { "name": "press-and-pr", "repo": "Eronred/aso-skills" }
-      ]
-    },
-    {
-      "owner": "mattpocock",
-      "totalSkills": 38,
-      "repos": ["mattpocock/skills"],
-      "categories": {
-        "general": 8,
-        "ai-agents": 12,
-        "testing": 9,
-        "git": 5,
-        "design": 7,
-        "backend": 3,
-        "coding": 12,
-        "writing": 5,
-        "frontend": 3,
-        "productivity": 1,
-        "finance": 2,
-        "research": 2,
-        "devops": 2
-      },
-      "verifiedCount": 38,
-      "totalTokens": 46415,
-      "topSkills": [
-        { "name": "writing-shape", "repo": "mattpocock/skills" },
-        { "name": "writing-great-skills", "repo": "mattpocock/skills" },
-        { "name": "writing-fragments", "repo": "mattpocock/skills" },
-        { "name": "writing-beats", "repo": "mattpocock/skills" },
-        { "name": "wizard", "repo": "mattpocock/skills" },
-        { "name": "wayfinder", "repo": "mattpocock/skills" },
-        { "name": "ubiquitous-language", "repo": "mattpocock/skills" },
-        { "name": "triage", "repo": "mattpocock/skills" },
-        { "name": "to-prd", "repo": "mattpocock/skills" },
-        { "name": "to-issues", "repo": "mattpocock/skills" }
-      ]
-    },
-    {
-      "owner": "davidondrej",
-      "totalSkills": 31,
-      "repos": ["davidondrej/skills"],
-      "categories": {
-        "ai-agents": 18,
-        "productivity": 8,
-        "coding": 7,
-        "writing": 12,
-        "testing": 9,
-        "frontend": 3,
-        "security": 5,
-        "backend": 6,
-        "research": 2,
-        "general": 4,
-        "design": 2,
-        "git": 2,
-        "devops": 1
-      },
-      "verifiedCount": 31,
-      "totalTokens": 49991,
-      "topSkills": [
-        { "name": "youtube-transcript", "repo": "davidondrej/skills" },
-        { "name": "vps-server-management", "repo": "davidondrej/skills" },
-        { "name": "teach", "repo": "davidondrej/skills" },
-        { "name": "short", "repo": "davidondrej/skills" },
-        { "name": "setup-help", "repo": "davidondrej/skills" },
-        { "name": "run-deep-swe", "repo": "davidondrej/skills" },
-        { "name": "research-prompt", "repo": "davidondrej/skills" },
-        { "name": "read-all-adrs", "repo": "davidondrej/skills" },
-        { "name": "push-skill-to-github", "repo": "davidondrej/skills" },
-        { "name": "pi-web-search", "repo": "davidondrej/skills" }
       ]
     },
     {
@@ -709,25 +714,25 @@
     },
     {
       "owner": "bytedance",
-      "totalSkills": 25,
+      "totalSkills": 27,
       "repos": ["bytedance/deer-flow"],
       "categories": {
         "writing": 9,
         "research": 7,
         "backend": 7,
-        "testing": 4,
-        "coding": 4,
+        "testing": 5,
+        "coding": 5,
         "ai-agents": 8,
-        "design": 7,
+        "design": 8,
         "productivity": 5,
         "finance": 2,
         "git": 1,
         "frontend": 2,
-        "devops": 2,
-        "security": 2
+        "security": 3,
+        "devops": 2
       },
-      "verifiedCount": 25,
-      "totalTokens": 76765,
+      "verifiedCount": 27,
+      "totalTokens": 80983,
       "topSkills": [
         { "name": "web-design-guidelines", "repo": "bytedance/deer-flow" },
         { "name": "video-generation", "repo": "bytedance/deer-flow" },
@@ -738,32 +743,33 @@
         },
         { "name": "surprise-me", "repo": "bytedance/deer-flow" },
         { "name": "smoke-test", "repo": "bytedance/deer-flow" },
+        { "name": "skill-reviewer", "repo": "bytedance/deer-flow" },
         { "name": "skill-creator", "repo": "bytedance/deer-flow" },
         { "name": "ppt-generation", "repo": "bytedance/deer-flow" },
-        { "name": "podcast-generation", "repo": "bytedance/deer-flow" },
-        { "name": "newsletter-generation", "repo": "bytedance/deer-flow" }
+        { "name": "podcast-generation", "repo": "bytedance/deer-flow" }
       ]
     },
     {
       "owner": "himself65",
-      "totalSkills": 25,
+      "totalSkills": 26,
       "repos": ["himself65/finance-skills"],
       "categories": {
         "coding": 4,
         "productivity": 2,
         "frontend": 5,
-        "backend": 6,
+        "backend": 7,
         "writing": 7,
         "finance": 17,
         "research": 9,
         "marketing": 5,
         "testing": 8,
-        "ai-agents": 3,
+        "ai-agents": 4,
+        "security": 1,
         "design": 4,
         "general": 1
       },
-      "verifiedCount": 25,
-      "totalTokens": 79827,
+      "verifiedCount": 26,
+      "totalTokens": 82089,
       "topSkills": [
         { "name": "yfinance-data", "repo": "himself65/finance-skills" },
         { "name": "yc-reader", "repo": "himself65/finance-skills" },
@@ -778,13 +784,45 @@
       ]
     },
     {
+      "owner": "heygen-com",
+      "totalSkills": 25,
+      "repos": ["heygen-com/hyperframes"],
+      "categories": {
+        "ai-agents": 2,
+        "writing": 7,
+        "productivity": 7,
+        "frontend": 13,
+        "design": 13,
+        "testing": 7,
+        "security": 6,
+        "backend": 3,
+        "coding": 8,
+        "git": 2,
+        "marketing": 1
+      },
+      "verifiedCount": 25,
+      "totalTokens": 148398,
+      "topSkills": [
+        { "name": "talking-head-recut", "repo": "heygen-com/hyperframes" },
+        { "name": "slideshow", "repo": "heygen-com/hyperframes" },
+        { "name": "seam-craft", "repo": "heygen-com/hyperframes" },
+        { "name": "remotion-to-hyperframes", "repo": "heygen-com/hyperframes" },
+        { "name": "product-launch-video", "repo": "heygen-com/hyperframes" },
+        { "name": "pr-to-video", "repo": "heygen-com/hyperframes" },
+        { "name": "oversized-cursor", "repo": "heygen-com/hyperframes" },
+        { "name": "music-to-video", "repo": "heygen-com/hyperframes" },
+        { "name": "motion-graphics", "repo": "heygen-com/hyperframes" },
+        { "name": "motion-doctrine", "repo": "heygen-com/hyperframes" }
+      ]
+    },
+    {
       "owner": "addyosmani",
       "totalSkills": 24,
       "repos": ["addyosmani/agent-skills"],
       "categories": {
-        "frontend": 2,
+        "frontend": 3,
         "design": 2,
-        "backend": 2,
+        "backend": 3,
         "ai-agents": 5,
         "testing": 9,
         "coding": 10,
@@ -796,7 +834,7 @@
         "security": 3
       },
       "verifiedCount": 24,
-      "totalTokens": 84396,
+      "totalTokens": 88732,
       "topSkills": [
         { "name": "using-agent-skills", "repo": "addyosmani/agent-skills" },
         {
@@ -868,15 +906,15 @@
       "totalSkills": 23,
       "repos": ["rudrankriyam/app-store-connect-cli-skills"],
       "categories": {
-        "ai-agents": 6,
-        "frontend": 2,
-        "backend": 2,
+        "ai-agents": 7,
+        "frontend": 3,
+        "backend": 3,
         "mobile": 23,
         "productivity": 5,
         "security": 5,
         "testing": 7,
         "marketing": 2,
-        "coding": 10,
+        "coding": 11,
         "design": 1,
         "writing": 2,
         "finance": 1,
@@ -884,7 +922,7 @@
         "git": 1
       },
       "verifiedCount": 23,
-      "totalTokens": 36480,
+      "totalTokens": 40651,
       "topSkills": [
         {
           "name": "asc-xcode-build",
@@ -978,40 +1016,6 @@
       ]
     },
     {
-      "owner": "heygen-com",
-      "totalSkills": 20,
-      "repos": ["heygen-com/hyperframes"],
-      "categories": {
-        "design": 10,
-        "backend": 3,
-        "testing": 6,
-        "writing": 7,
-        "research": 1,
-        "ai-agents": 3,
-        "frontend": 10,
-        "coding": 6,
-        "security": 5,
-        "productivity": 5,
-        "devops": 1,
-        "git": 2,
-        "marketing": 1
-      },
-      "verifiedCount": 20,
-      "totalTokens": 118682,
-      "topSkills": [
-        { "name": "website-to-video", "repo": "heygen-com/hyperframes" },
-        { "name": "talking-head-recut", "repo": "heygen-com/hyperframes" },
-        { "name": "slideshow", "repo": "heygen-com/hyperframes" },
-        { "name": "remotion-to-hyperframes", "repo": "heygen-com/hyperframes" },
-        { "name": "product-launch-video", "repo": "heygen-com/hyperframes" },
-        { "name": "pr-to-video", "repo": "heygen-com/hyperframes" },
-        { "name": "music-to-video", "repo": "heygen-com/hyperframes" },
-        { "name": "motion-graphics", "repo": "heygen-com/hyperframes" },
-        { "name": "media-use", "repo": "heygen-com/hyperframes" },
-        { "name": "hyperframes-registry", "repo": "heygen-com/hyperframes" }
-      ]
-    },
-    {
       "owner": "anthropics",
       "totalSkills": 18,
       "repos": ["anthropics/skills"],
@@ -1029,7 +1033,7 @@
         "devops": 1
       },
       "verifiedCount": 18,
-      "totalTokens": 68108,
+      "totalTokens": 66746,
       "topSkills": [
         { "name": "xlsx", "repo": "anthropics/skills" },
         { "name": "webapp-testing", "repo": "anthropics/skills" },
@@ -1129,7 +1133,7 @@
         "devops": 1
       },
       "verifiedCount": 14,
-      "totalTokens": 35818,
+      "totalTokens": 37037,
       "topSkills": [
         { "name": "writing-skills", "repo": "obra/superpowers" },
         { "name": "writing-plans", "repo": "obra/superpowers" },
@@ -1191,10 +1195,11 @@
         "coding": 1,
         "git": 4,
         "ai-agents": 5,
+        "writing": 1,
         "testing": 2
       },
       "verifiedCount": 12,
-      "totalTokens": 25686,
+      "totalTokens": 26400,
       "topSkills": [
         { "name": "what-happened", "repo": "entireio/skills" },
         { "name": "using-entire", "repo": "entireio/skills" },
@@ -1231,7 +1236,7 @@
         "git": 1
       },
       "verifiedCount": 11,
-      "totalTokens": 21422,
+      "totalTokens": 21440,
       "topSkills": [
         {
           "name": "xcode-project-analyzer",
@@ -1300,18 +1305,19 @@
     },
     {
       "owner": "Egonex-AI",
-      "totalSkills": 8,
+      "totalSkills": 9,
       "repos": ["Egonex-AI/Understand-Anything"],
       "categories": {
-        "frontend": 2,
+        "frontend": 3,
         "general": 3,
-        "design": 1,
+        "design": 2,
         "git": 1,
         "testing": 1,
+        "backend": 1,
         "ai-agents": 1
       },
-      "verifiedCount": 8,
-      "totalTokens": 20772,
+      "verifiedCount": 9,
+      "totalTokens": 26161,
       "topSkills": [
         {
           "name": "understand-onboard",
@@ -1321,6 +1327,7 @@
           "name": "understand-knowledge",
           "repo": "Egonex-AI/Understand-Anything"
         },
+        { "name": "understand-figma", "repo": "Egonex-AI/Understand-Anything" },
         {
           "name": "understand-explain",
           "repo": "Egonex-AI/Understand-Anything"
@@ -1365,6 +1372,36 @@
       ]
     },
     {
+      "owner": "emilkowalski",
+      "totalSkills": 8,
+      "repos": ["emilkowalski/skills"],
+      "categories": {
+        "ai-agents": 2,
+        "design": 5,
+        "coding": 3,
+        "mobile": 1,
+        "frontend": 5,
+        "backend": 1,
+        "security": 1,
+        "productivity": 1
+      },
+      "verifiedCount": 8,
+      "totalTokens": 29930,
+      "topSkills": [
+        { "name": "review-animations", "repo": "emilkowalski/skills" },
+        { "name": "prototype", "repo": "emilkowalski/skills" },
+        { "name": "pick-ui-library", "repo": "emilkowalski/skills" },
+        { "name": "improve-animations", "repo": "emilkowalski/skills" },
+        {
+          "name": "find-animation-opportunities",
+          "repo": "emilkowalski/skills"
+        },
+        { "name": "emil-design-eng", "repo": "emilkowalski/skills" },
+        { "name": "apple-design", "repo": "emilkowalski/skills" },
+        { "name": "animation-vocabulary", "repo": "emilkowalski/skills" }
+      ]
+    },
+    {
       "owner": "nextlevelbuilder",
       "totalSkills": 7,
       "repos": ["nextlevelbuilder/ui-ux-pro-max-skill"],
@@ -1372,16 +1409,15 @@
         "frontend": 6,
         "design": 7,
         "marketing": 3,
-        "writing": 3,
-        "backend": 1,
+        "writing": 2,
+        "backend": 2,
         "testing": 2,
         "coding": 3,
         "productivity": 3,
-        "ai-agents": 1,
         "mobile": 1
       },
       "verifiedCount": 7,
-      "totalTokens": 23242,
+      "totalTokens": 13406,
       "topSkills": [
         {
           "name": "ui-ux-pro-max",
@@ -1416,7 +1452,7 @@
         "frontend": 1
       },
       "verifiedCount": 6,
-      "totalTokens": 20843,
+      "totalTokens": 21691,
       "topSkills": [
         { "name": "syndic", "repo": "romainsimon/paperasse" },
         { "name": "notaire", "repo": "romainsimon/paperasse" },
@@ -1452,9 +1488,15 @@
       "owner": "santifer",
       "totalSkills": 5,
       "repos": ["santifer/career-ops"],
-      "categories": { "general": 3, "devops": 1, "backend": 1 },
+      "categories": {
+        "writing": 1,
+        "productivity": 1,
+        "general": 2,
+        "devops": 1,
+        "backend": 1
+      },
       "verifiedCount": 5,
-      "totalTokens": 3241,
+      "totalTokens": 4042,
       "topSkills": [
         { "name": "career-ops-plugin-notion", "repo": "santifer/career-ops" },
         { "name": "career-ops-plugin-gmail", "repo": "santifer/career-ops" },
@@ -1478,7 +1520,7 @@
         "design": 1
       },
       "verifiedCount": 4,
-      "totalTokens": 35518,
+      "totalTokens": 40597,
       "topSkills": [
         {
           "name": "deep-research",
@@ -1574,7 +1616,7 @@
       "repos": ["mvanhorn/last30days-skill"],
       "categories": { "marketing": 1, "research": 1 },
       "verifiedCount": 1,
-      "totalTokens": 56371,
+      "totalTokens": 64476,
       "topSkills": [
         { "name": "last30days", "repo": "mvanhorn/last30days-skill" }
       ]
