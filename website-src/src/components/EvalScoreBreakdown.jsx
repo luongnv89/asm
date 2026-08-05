@@ -26,14 +26,14 @@ export default function EvalScoreBreakdown({ summary }) {
       <div className={`flex items-center gap-3 ${scoreColor(overallTone)}`}>
         <span className="text-3xl font-semibold">
           {summary.overallScore}
-          <span className="text-base text-[var(--fg-muted)]">/100</span>
+          <span className="text-base text-[var(--fg-dim)]">/100</span>
         </span>
         <span className="text-sm text-[var(--fg-dim)]">
           grade {summary.grade}
         </span>
       </div>
       {summary.evaluatedAt && (
-        <div className="text-xs text-[var(--fg-muted)]">
+        <div className="text-xs text-[var(--fg-dim)]">
           Evaluated {new Date(summary.evaluatedAt).toLocaleDateString()}
           {summary.evaluatedVersion ? ` · v${summary.evaluatedVersion}` : ""}
         </div>

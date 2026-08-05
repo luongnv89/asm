@@ -72,7 +72,7 @@ export default function BundleDetail({ bundle }) {
                     {sk.id ? (
                       <Link
                         to={`/skills/${encodeSkillId(sk.id)}`}
-                        className="min-h-11 -m-2 px-2 inline-flex items-center font-mono text-sm text-[var(--fg)] hover:text-[var(--brand)] transition-colors"
+                        className="min-h-11 min-w-11 -m-2 px-2 inline-flex items-center font-mono text-sm text-[var(--fg)] hover:text-[var(--brand)] transition-colors"
                       >
                         {sk.name}
                       </Link>

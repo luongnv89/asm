@@ -264,7 +264,7 @@ export default function BundleBuilderDialog({ open, onClose }) {
                       <div className="flex items-center gap-2">
                         <Link
                           to={`/skills/${encodeSkillId(sk.id)}`}
-                          className="min-h-11 -my-2 -ml-2 px-2 inline-flex items-center font-mono text-sm text-[var(--fg)] hover:text-[var(--brand)] transition-colors truncate"
+                          className="min-h-11 min-w-11 -my-2 -ml-2 px-2 inline-flex items-center font-mono text-sm text-[var(--fg)] hover:text-[var(--brand)] transition-colors truncate"
                           onClick={onClose}
                         >
                           {sk.name}

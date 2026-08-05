@@ -161,7 +161,7 @@ export default function ProfilePage() {
                 {s.id ? (
                   <Link
                     to={`/skills/${encodeSkillId(s.id)}`}
-                    className="min-w-0 min-h-11 -mx-2 px-2 inline-flex items-center font-medium text-[var(--fg)] hover:text-[var(--brand)] transition-colors truncate"
+                    className="min-w-11 min-h-11 -mx-2 px-2 inline-flex items-center font-medium text-[var(--fg)] hover:text-[var(--brand)] transition-colors truncate"
                   >
                     {s.name}
                   </Link>

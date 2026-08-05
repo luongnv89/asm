@@ -140,17 +140,17 @@ export default function StatsPage() {
                       className="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-4"
                     >
                       <div className="flex items-start gap-3 mb-3">
-                        <span className="w-6 text-right font-mono text-[var(--fg-muted)]">
+                        <span className="w-6 text-right font-mono text-[var(--fg-dim)]">
                           {index + 1}
                         </span>
                         <div className="min-w-0">
                           <Link
                             to={`/skills/${encodeSkillId(skill.id)}`}
-                            className="flex min-h-11 items-center -mx-2 px-2 font-medium text-[var(--fg)] hover:text-[var(--brand)] transition-colors truncate"
+                            className="flex min-h-11 min-w-11 items-center -mx-2 px-2 font-medium text-[var(--fg)] hover:text-[var(--brand)] transition-colors truncate"
                           >
                             {skill.name}
                           </Link>
-                          <span className="block text-xs text-[var(--fg-muted)] truncate">
+                          <span className="block text-xs text-[var(--fg-dim)] truncate">
                             {skill.owner}/{skill.repo}
                           </span>
                         </div>
@@ -174,7 +174,7 @@ export default function StatsPage() {
               key={`${r.owner}/${r.repo}`}
               className="grid grid-cols-[1.5rem_minmax(0,1fr)_auto] sm:grid-cols-[1.5rem_minmax(0,1fr)_6rem_auto] items-center gap-3 text-sm py-2 border-b border-[var(--border)] last:border-0"
             >
-              <span className="w-6 text-right font-mono text-[var(--fg-muted)]">
+              <span className="w-6 text-right font-mono text-[var(--fg-dim)]">
                 {i + 1}
               </span>
               <a
@@ -214,7 +214,7 @@ export default function StatsPage() {
               key={a.owner}
               className="grid grid-cols-[1.5rem_minmax(0,1fr)_auto_auto] sm:grid-cols-[1.5rem_minmax(0,1fr)_auto_auto_auto] items-center gap-3 text-sm py-2 border-b border-[var(--border)] last:border-0"
             >
-              <span className="w-6 text-right font-mono text-[var(--fg-muted)]">
+              <span className="w-6 text-right font-mono text-[var(--fg-dim)]">
                 {i + 1}
               </span>
               <Link

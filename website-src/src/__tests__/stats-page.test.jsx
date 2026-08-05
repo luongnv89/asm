@@ -192,6 +192,7 @@ describe("StatsPage — author view and pie chart (issue #351)", () => {
       `#/skills/${encodeSkillId(categoryRanking[0].id)}`,
     );
     expect(firstLink.className).toContain("min-h-11");
+    expect(firstLink.className).toContain("min-w-11");
   });
 
   it("shows the complete score breakdown for every ranked skill", async () => {
@@ -214,6 +215,16 @@ describe("StatsPage — author view and pie chart (issue #351)", () => {
     expect(
       firstBreakdown.querySelectorAll('tbody th[scope="row"]'),
     ).toHaveLength(2);
+
+    const firstArticle = firstBreakdown.closest("article");
+    const scoreSuffix = screen.getAllByText("/100")[0];
+    const evaluatedAt = screen.getAllByText(/^Evaluated /)[0];
+    const ranking = firstArticle.querySelector("div > span");
+    const repository = screen.getAllByText("alice/repo")[0];
+    for (const metadata of [scoreSuffix, evaluatedAt, ranking, repository]) {
+      expect(metadata.className).toContain("text-[var(--fg-dim)]");
+      expect(metadata.className).not.toContain("text-[var(--fg-muted)]");
+    }
 
     const score = firstBreakdown
       .closest("article")
