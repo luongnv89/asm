@@ -31,7 +31,7 @@ npm install -g agent-skill-manager
 Or use the one-command installer:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/luongnv89/agent-skill-manager/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/luongnv89/asm/main/install.sh | bash
 ```
 
 ## Install Script (`install.sh`)
@@ -49,8 +49,8 @@ The install script automates the full setup:
 For development or CI environments:
 
 ```bash
-git clone https://github.com/luongnv89/agent-skill-manager.git
-cd agent-skill-manager
+git clone https://github.com/luongnv89/asm.git
+cd asm
 npm install
 npm start
 ```

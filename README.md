@@ -9,9 +9,9 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/agent-skill-manager"><img src="https://img.shields.io/npm/v/agent-skill-manager.svg" alt="npm version" /></a>
   <a href="https://www.npmjs.com/package/agent-skill-manager"><img src="https://img.shields.io/npm/dm/agent-skill-manager.svg" alt="npm downloads" /></a>
-  <a href="https://github.com/luongnv89/agent-skill-manager/stargazers"><img src="https://img.shields.io/github/stars/luongnv89/agent-skill-manager.svg?style=social" alt="GitHub stars" /></a>
+  <a href="https://github.com/luongnv89/asm/stargazers"><img src="https://img.shields.io/github/stars/luongnv89/asm.svg?style=social" alt="GitHub stars" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="MIT License" /></a>
-  <a href="https://github.com/luongnv89/agent-skill-manager/actions"><img src="https://github.com/luongnv89/agent-skill-manager/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://github.com/luongnv89/asm/actions"><img src="https://github.com/luongnv89/asm/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
   <a href="https://nodejs.org"><img src="https://img.shields.io/badge/Node.js-%E2%89%A5%2018-339933.svg" alt="Node.js" /></a>
 </p>
 
@@ -58,6 +58,13 @@ graph LR
 2. Run commands from your agent, shell, or CI — no prompts when you pass `--yes`.
 3. Parse JSON output to decide what to install, remove, or audit next.
 
+## Screenshots
+
+<p align="center">
+  <img src="assets/screenshots/tui.png" alt="asm TUI — browsing installed skills across providers" width="800" />
+  <br/><em>The optional TUI (<code>asm</code> with no args) — filter, inspect, and audit skills across every provider from one dashboard.</em>
+</p>
+
 ## Features
 
 | Feature                  | What you get                                                        |
@@ -98,7 +105,7 @@ Search installed and catalog skills:
 asm search "code review" --json
 ```
 
-Alternative install: `curl -sSL https://raw.githubusercontent.com/luongnv89/agent-skill-manager/main/install.sh | bash`
+Alternative install: `curl -sSL https://raw.githubusercontent.com/luongnv89/asm/main/install.sh | bash`
 
 Node.js 18+ required. Optional TUI: run `asm` with no arguments.
 
@@ -640,6 +647,27 @@ On first run, config is created at `~/.config/agent-skill-manager/config.json`:
       "enabled": true
     },
     {
+      "name": "opencode",
+      "label": "OpenCode",
+      "global": "~/.config/opencode/skills",
+      "project": ".opencode/skills",
+      "enabled": true
+    },
+    {
+      "name": "pi",
+      "label": "Pi",
+      "global": "~/.pi/skills",
+      "project": ".pi/skills",
+      "enabled": true
+    },
+    {
+      "name": "hermes",
+      "label": "Hermes",
+      "global": "~/.hermes/skills",
+      "project": ".hermes/skills",
+      "enabled": true
+    },
+    {
       "name": "openclaw",
       "label": "OpenClaw",
       "global": "~/.openclaw/skills",
@@ -658,91 +686,84 @@ On first run, config is created at `~/.config/agent-skill-manager/config.json`:
       "label": "Cursor",
       "global": "~/.cursor/rules",
       "project": ".cursor/rules",
-      "enabled": false
-    },
-    {
-      "name": "windsurf",
-      "label": "Windsurf",
-      "global": "~/.windsurf/rules",
-      "project": ".windsurf/rules",
-      "enabled": false
-    },
-    {
-      "name": "cline",
-      "label": "Cline",
-      "global": "~/Documents/Cline/Rules",
-      "project": ".clinerules",
-      "enabled": false
-    },
-    {
-      "name": "roocode",
-      "label": "Roo Code",
-      "global": "~/.roo/rules",
-      "project": ".roo/rules",
-      "enabled": false
-    },
-    {
-      "name": "continue",
-      "label": "Continue",
-      "global": "~/.continue/rules",
-      "project": ".continue/rules",
-      "enabled": false
+      "enabled": true
     },
     {
       "name": "copilot",
       "label": "GitHub Copilot",
       "global": "~/.github/instructions",
       "project": ".github/instructions",
-      "enabled": false
+      "enabled": true
     },
     {
-      "name": "aider",
-      "label": "Aider",
-      "global": "~/.aider/skills",
-      "project": ".aider/skills",
-      "enabled": false
-    },
-    {
-      "name": "opencode",
-      "label": "OpenCode",
-      "global": "~/.config/opencode/skills",
-      "project": ".opencode/skills",
-      "enabled": false
-    },
-    {
-      "name": "zed",
-      "label": "Zed",
-      "global": "~/.config/zed/prompt_overrides",
-      "project": ".zed/rules",
-      "enabled": false
-    },
-    {
-      "name": "augment",
-      "label": "Augment",
-      "global": "~/.augment/rules",
-      "project": ".augment/rules",
-      "enabled": false
-    },
-    {
-      "name": "amp",
-      "label": "Amp",
-      "global": "~/.amp/skills",
-      "project": ".amp/skills",
-      "enabled": false
-    },
-    {
-      "name": "gemini",
-      "label": "Gemini CLI",
-      "global": "~/.gemini/skills",
-      "project": ".gemini/skills",
-      "enabled": false
+      "name": "windsurf",
+      "label": "Windsurf",
+      "global": "~/.windsurf/rules",
+      "project": ".windsurf/rules",
+      "enabled": true
     },
     {
       "name": "antigravity",
       "label": "Google Antigravity",
       "global": "~/.antigravity/skills",
       "project": ".antigravity/skills",
-      "enabled": false
+      "enabled": true
+    },
+    {
+      "name": "gemini",
+      "label": "Gemini CLI",
+      "global": "~/.gemini/skills",
+      "project": ".gemini/skills",
+      "enabled": true
+    },
+    {
+      "name": "cline",
+      "label": "Cline",
+      "global": "~/Documents/Cline/Rules",
+      "project": ".clinerules",
+      "enabled": true
+    },
+    {
+      "name": "roocode",
+      "label": "Roo Code",
+      "global": "~/.roo/rules",
+      "project": ".roo/rules",
+      "enabled": true
+    },
+    {
+      "name": "continue",
+      "label": "Continue",
+      "global": "~/.continue/rules",
+      "project": ".continue/rules",
+      "enabled": true
+    },
+    {
+      "name": "aider",
+      "label": "Aider",
+      "global": "~/.aider/skills",
+      "project": ".aider/skills",
+      "enabled": true
+    },
+    {
+      "name": "zed",
+      "label": "Zed",
+      "global": "~/.config/zed/prompt_overrides",
+      "project": ".zed/rules",
+      "enabled": true
+    },
+    {
+      "name": "augment",
+      "label": "Augment",
+      "global": "~/.augment/rules",
+      "project": ".augment/rules",
+      "enabled": true
+    },
+    {
+      "name": "amp",
+      "label": "Amp",
+      "global": "~/.amp/skills",
+      "project": ".amp/skills",
+      "enabled": true
     }
   ],
   "customPaths": [],
@@ -753,9 +774,9 @@ On first run, config is created at `~/.config/agent-skill-manager/config.json`:
 }
 ```
 
-- Set `"enabled": true` to start scanning a provider
+- All 19 providers are enabled by default
+- Set `"enabled": false` to skip a provider you don't use
 - Add arbitrary directories via `customPaths`
-- Set `"enabled": false` to skip a provider
 - Manage via `asm config show|path|reset|edit` or press `c` in the TUI
 
 </details>
@@ -804,8 +825,8 @@ asm init my-skill -p claude
 <summary><strong>From source</strong></summary>
 
 ```bash
-git clone https://github.com/luongnv89/agent-skill-manager.git
-cd agent-skill-manager
+git clone https://github.com/luongnv89/asm.git
+cd asm
 npm install
 ```
 
@@ -820,7 +841,7 @@ npm start
 Inspect install script before running:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/luongnv89/agent-skill-manager/main/install.sh -o install.sh
+curl -sSL https://raw.githubusercontent.com/luongnv89/asm/main/install.sh -o install.sh
 less install.sh
 bash install.sh
 ```
@@ -831,7 +852,7 @@ bash install.sh
 <summary><strong>Project structure</strong></summary>
 
 ```text
-agent-skill-manager/
+asm/
 ├── bin/                       # CLI entry point
 ├── dist/                      # Built bundle (npm ships this)
 ├── scripts/                   # Build, preindex, catalog
@@ -890,8 +911,8 @@ agent-skill-manager/
 
 | Contributor                                | PRs                                                                                                              |
 | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
-| [@luongnv89](https://github.com/luongnv89) | [38 merged PRs](https://github.com/luongnv89/agent-skill-manager/pulls?q=is%3Apr+is%3Amerged+author%3Aluongnv89) |
-| [@Mordris](https://github.com/Mordris)     | [#111](https://github.com/luongnv89/agent-skill-manager/pull/111)                                                |
+| [@luongnv89](https://github.com/luongnv89) | [38 merged PRs](https://github.com/luongnv89/asm/pulls?q=is%3Apr+is%3Amerged+author%3Aluongnv89) |
+| [@Mordris](https://github.com/Mordris)     | [#111](https://github.com/luongnv89/asm/pull/111)                                                |
 
 ### Dependencies
 

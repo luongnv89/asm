@@ -30,14 +30,13 @@ graph TD
 
 Parses arguments and dispatches to command handlers:
 
-| Command              | Handler          | Description                      |
-| -------------------- | ---------------- | -------------------------------- |
-| `list`               | `cmdList()`      | Scan and display all skills      |
-| `search <query>`     | `cmdSearch()`    | Filter skills by query           |
-| `inspect <name>`     | `cmdInspect()`   | Show detailed skill info         |
-| `uninstall <name>`   | `cmdUninstall()` | Remove a skill with confirmation |
-| `audit [duplicates]` | `cmdAudit()`     | Detect/remove duplicate skills   |
-| `config <sub>`       | `cmdConfig()`    | Manage configuration             |
+Dispatches to ~30 command handlers (`cmd*` functions) covering discovery
+(`list`, `search`, `inspect`), lifecycle (`install`, `uninstall`,
+`disable`/`enable`, `update`, `outdated`), authoring (`init`, `link`, `eval`,
+`publish`), and organization (`audit`, `bundle`, `library`, `stats`,
+`doctor`, `config`, `import`/`export`, `index`). See
+[README § CLI Commands](../README.md#cli-commands) for the full, current
+reference with flags and examples.
 
 Output is routed through `formatter.ts` for consistent table, detail, and JSON formatting.
 
@@ -86,6 +85,25 @@ Each view is an ink/React component:
 | Uninstaller | `uninstaller.ts` | Build removal plans and execute safe deletions                       |
 | Formatter   | `formatter.ts`   | ASCII table, detail view, and JSON output formatting                 |
 | Eval        | `eval/`          | Pluggable skill evaluation framework (see below)                     |
+| Initializer | `initializer.ts` | Scaffold a new skill directory (`asm init`)                          |
+| Linker      | `linker.ts`      | Symlink-based live-reload installs (`asm link`)                      |
+| Installer   | `installer.ts`   | Resolve + fetch + place skills from GitHub/registry/local sources (`asm install`) |
+| Registry    | `registry.ts`    | ASM Registry manifest resolution and commit pinning                  |
+| Publisher   | `publisher.ts`   | `asm publish` — dry-run manifest + PR flow to the registry           |
+| Skill Index | `skill-index.ts` / `ingester.ts` | Catalog ingestion, search, and `asm index` subcommands |
+| Repo Bundles | `repo-bundles.ts` | Bundle inference/records derived from indexed repos                 |
+| Library     | `library.ts`     | Local library lifecycle (`install --library`, `activate`, `deactivate`) |
+| Skill State | `skill-state.ts` | Disable/enable state persisted to `skill-state.json`                 |
+| Importer / Exporter | `importer.ts` / `exporter.ts` | `asm import` / `asm export`                    |
+| Updater     | `updater.ts`     | `asm update` / `asm outdated`                                        |
+| Doctor      | `doctor.ts`      | `asm doctor` environment/PATH-shadowing diagnostics                  |
+| Health      | `health.ts`      | Skill health checks surfaced in `list`/`inspect`                     |
+| Skill Dedupe | `skill-dedupe.ts` | Shared dedup logic used by `auditor.ts` and index ingestion          |
+| Stats       | `stats.ts`       | `asm stats` / `stats repo` / `stats author` / `stats index`          |
+| Verifier    | `verifier.ts`    | Catalog skill verification badge criteria                            |
+| Security Auditor | `security-auditor.ts` | `asm audit security` — pre-install risk scanning                |
+| Logger      | `logger.ts`      | Shared structured logging                                            |
+| Acknowledgements | `acknowledgements.ts` | Contributors/dependencies data for README/website                |
 
 ## Evaluation Framework (`src/eval/`)
 

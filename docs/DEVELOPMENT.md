@@ -9,8 +9,8 @@
 ## Setup
 
 ```bash
-git clone https://github.com/luongnv89/agent-skill-manager.git
-cd agent-skill-manager
+git clone https://github.com/luongnv89/asm.git
+cd asm
 npm install
 ```
 
@@ -24,10 +24,10 @@ npm run dev          # Same as start (alias)
 To test CLI commands during development:
 
 ```bash
-npm run bin/agent-skill-manager.ts list
-npm run bin/agent-skill-manager.ts search "my-skill"
-npm run bin/agent-skill-manager.ts audit --json
-npm run bin/agent-skill-manager.ts --help
+npx tsx bin/agent-skill-manager.ts list
+npx tsx bin/agent-skill-manager.ts search "my-skill"
+npx tsx bin/agent-skill-manager.ts audit --json
+npx tsx bin/agent-skill-manager.ts --help
 ```
 
 ## Testing
@@ -37,17 +37,10 @@ npm test             # Run all tests
 npm run typecheck    # Type-check without emitting
 ```
 
-Test files are co-located with source files using the `*.test.ts` convention:
-
-| Test File                       | Coverage                               |
-| ------------------------------- | -------------------------------------- |
-| `src/cli.test.ts`               | Argument parsing, command dispatch     |
-| `src/config.test.ts`            | Config loading, merging, saving        |
-| `src/scanner.test.ts`           | Directory scanning, filtering, sorting |
-| `src/auditor.test.ts`           | Duplicate detection, instance ranking  |
-| `src/uninstaller.test.ts`       | Removal plan building, file cleanup    |
-| `src/formatter.test.ts`         | Table, detail, and JSON formatting     |
-| `src/utils/frontmatter.test.ts` | YAML frontmatter parsing               |
+Test files are co-located with source files using the `*.test.ts` convention.
+44 `*.test.ts` files live under `src/`, one per module — e.g. `cli.test.ts`,
+`scanner.test.ts`, `installer.test.ts`, `eval/*.test.ts`. Run `npm test` for
+the full, current list.
 
 ## Pre-commit Hooks
 
@@ -74,8 +67,8 @@ Since this is a TUI application, standard `console.log` will interfere with the 
 2. Run tests to isolate logic from the TUI layer
 3. Use CLI commands to test core logic without launching the TUI:
    ```bash
-   npm run bin/agent-skill-manager.ts list --json
-   npm run bin/agent-skill-manager.ts audit --json
+   npx tsx bin/agent-skill-manager.ts list --json
+   npx tsx bin/agent-skill-manager.ts audit --json
    ```
 4. Use the `--help` flag to verify CLI plumbing without launching the TUI
 

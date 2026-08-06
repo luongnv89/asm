@@ -12,8 +12,8 @@ Thanks for your interest in contributing! This guide will help you get started.
 ### Development Setup
 
 ```bash
-git clone https://github.com/luongnv89/agent-skill-manager.git
-cd agent-skill-manager
+git clone https://github.com/luongnv89/asm.git
+cd asm
 npm install
 npm start        # Launch the TUI
 ```
@@ -22,7 +22,7 @@ npm start        # Launch the TUI
 
 ```bash
 npm start        # Launch the interactive TUI
-npm run bin/agent-skill-manager.ts list   # Test CLI commands
+npx tsx bin/agent-skill-manager.ts list   # Test CLI commands
 ```
 
 ### Running Tests
@@ -36,7 +36,7 @@ npm run typecheck    # Type-check without emitting
 
 ### Reporting Bugs
 
-Open a [bug report](https://github.com/luongnv89/agent-skill-manager/issues/new?template=bug_report.md) with:
+Open a [bug report](https://github.com/luongnv89/asm/issues/new?template=bug_report.md) with:
 
 - Steps to reproduce
 - Expected vs. actual behavior
@@ -44,7 +44,7 @@ Open a [bug report](https://github.com/luongnv89/agent-skill-manager/issues/new?
 
 ### Suggesting Features
 
-Open a [feature request](https://github.com/luongnv89/agent-skill-manager/issues/new?template=feature_request.md) describing the problem and your proposed solution.
+Open a [feature request](https://github.com/luongnv89/asm/issues/new?template=feature_request.md) describing the problem and your proposed solution.
 
 ### Submitting Code
 

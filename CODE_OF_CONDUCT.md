@@ -46,7 +46,7 @@ an individual is officially representing the community in public spaces.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the project maintainers via
-[GitHub Issues](https://github.com/luongnv89/agent-skill-manager/issues).
+[GitHub Issues](https://github.com/luongnv89/asm/issues).
 
 All complaints will be reviewed and investigated promptly and fairly.
 
