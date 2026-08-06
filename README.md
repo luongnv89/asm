@@ -909,8 +909,8 @@ asm/
 
 ### Contributors
 
-| Contributor                                | PRs                                                                                                              |
-| ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| Contributor                                | PRs                                                                                              |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------ |
 | [@luongnv89](https://github.com/luongnv89) | [38 merged PRs](https://github.com/luongnv89/asm/pulls?q=is%3Apr+is%3Amerged+author%3Aluongnv89) |
 | [@Mordris](https://github.com/Mordris)     | [#111](https://github.com/luongnv89/asm/pull/111)                                                |
 
