@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-10T00:00:00Z",
+  "updatedAt": "2026-08-06T00:00:00Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -494,6 +494,15 @@
       "repo": "skills",
       "description": "Design-engineering skills — animations, Apple design patterns, and UI craft",
       "maintainer": "@emilkowalski",
+      "enabled": true
+    },
+    {
+      "source": "github:ParthJadhav/app-store-screenshots",
+      "url": "https://github.com/ParthJadhav/app-store-screenshots",
+      "owner": "ParthJadhav",
+      "repo": "app-store-screenshots",
+      "description": "end to end app store screenshot creation using AI",
+      "maintainer": "@ParthJadhav",
       "enabled": true
     }
   ]

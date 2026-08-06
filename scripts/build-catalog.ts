@@ -314,6 +314,8 @@ interface CatalogRepo {
   description: string;
   maintainer: string;
   skillCount: number;
+  /** GitHub star count (best-effort, 0 on failure). */
+  stars?: number;
 }
 
 interface Catalog {
@@ -454,19 +456,49 @@ const categories = Array.from(categorySet).sort((a, b) => {
   return a.localeCompare(b);
 });
 
-// Fetch GitHub star count (best-effort, defaults to 0 on failure)
-let stars = 0;
-try {
-  const res = await fetch("https://api.github.com/repos/luongnv89/asm", {
-    headers: { Accept: "application/vnd.github.v3+json" },
-  });
-  if (res.ok) {
+// ─── Fetch GitHub star counts for every unique repo ──────────────────────────
+// Parallel fetch (best-effort) so the catalog shows how popular each source
+// repo is — a trust signal on the catalog page.
+
+async function fetchStars(owner: string, repo: string): Promise<number> {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
+      headers: { Accept: "application/vnd.github+json" },
+    });
+    if (!res.ok) return 0;
     const data = (await res.json()) as { stargazers_count?: number };
-    stars = data.stargazers_count ?? 0;
+    return data.stargazers_count ?? 0;
+  } catch {
+    return 0;
   }
-} catch {
-  // Non-critical — proceed with 0
 }
+
+// Collect unique (owner, repo) pairs
+const uniqueRepos = new Map<string, { owner: string; repo: string }>();
+for (const r of repos) {
+  const key = r.owner + "/" + r.repo;
+  if (!uniqueRepos.has(key))
+    uniqueRepos.set(key, { owner: r.owner, repo: r.repo });
+}
+
+// Fetch stars in parallel; map back by key
+const starsByRepo = new Map<string, number>();
+const starPromises = Array.from(uniqueRepos.values()).map(async (r) => {
+  const stars = await fetchStars(r.owner, r.repo);
+  starsByRepo.set(r.owner + "/" + r.repo, stars);
+});
+await Promise.all(starPromises);
+
+// Attach star counts to the CatalogRepo entries and compute the ASM repo stars
+let asmStars = 0;
+for (const r of repos) {
+  const key = r.owner + "/" + r.repo;
+  r.stars = starsByRepo.get(key) ?? 0;
+  if (r.owner === "luongnv89" && r.repo === "asm") asmStars = r.stars;
+}
+
+// Fetch GitHub star count (best-effort, defaults to 0 on failure)
+let stars = asmStars;
 
 // Read version from package.json
 const pkgJsonPath = join(root, "package.json");
@@ -540,6 +572,8 @@ interface SkillsMinRow {
   tokenCount?: number;
   /** Slimmed eval summary — only what the card badge needs. */
   evalSummary?: { overallScore: number; grade: "A" | "B" | "C" | "D" | "F" };
+  /** GitHub star count for the source repo (0 when unknown). */
+  stars?: number;
 }
 
 interface SkillsMin {
@@ -557,6 +591,7 @@ interface SkillsMin {
 // rely on deterministic ordering when the backing index drops out of sync.
 const slimSkills: SkillsMinRow[] = skills.map((s) => {
   const slug = slugForId(s.id);
+  const repoKey = s.owner + "/" + s.repo;
   const row: SkillsMinRow = {
     id: s.id,
     detailPath: `skills/${slug}.json`,
@@ -579,6 +614,8 @@ const slimSkills: SkillsMinRow[] = skills.map((s) => {
       grade: s.evalSummary.grade,
     };
   }
+  const repoStars = starsByRepo.get(repoKey);
+  if (typeof repoStars === "number" && repoStars > 0) row.stars = repoStars;
   return row;
 });
 

@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
-import { Wrench } from "lucide-react";
+import { Star, Wrench } from "lucide-react";
 import { Badge } from "./ui/badge.jsx";
 import AddToBundleButton from "./AddToBundleButton.jsx";
 import { cn } from "../lib/cn.js";
@@ -11,6 +11,13 @@ import {
   encodeSkillId,
   skillRelPath,
 } from "../lib/utils.js";
+
+/** Format a star count for display: "1200" → "1.2k". */
+function formatStars(n) {
+  if (typeof n !== "number" || n <= 0) return null;
+  if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "k";
+  return String(n);
+}
 
 /**
  * Compact sidebar row for a skill. Inherits the badge/eval-tone/
@@ -111,6 +118,15 @@ function SkillListItem({
         {typeof skill.tokenCount === "number" && (
           <Badge tone="tokens" title="Estimated tokens in SKILL.md">
             {formatTokens(skill.tokenCount)}
+          </Badge>
+        )}
+        {typeof skill.stars === "number" && skill.stars > 0 && (
+          <Badge
+            tone="tokens"
+            title={`${skill.owner}/${skill.repo} GitHub stars`}
+          >
+            <Star className="h-3 w-3 fill-[var(--fg-dim)]" aria-hidden="true" />
+            {formatStars(skill.stars)}
           </Badge>
         )}
         {usesTools && (
