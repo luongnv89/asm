@@ -99,3 +99,96 @@ describe("SkillListItem — name collision labeling (issue #241)", () => {
     ).toBeNull();
   });
 });
+
+describe("SkillListItem — GitHub star badge (repo trust signal)", () => {
+  afterEach(() => cleanup());
+
+  /**
+   * Helper to find the star badge by its title attribute, which is unique
+   * per skill and never collides with skill name / owner / repo text.
+   */
+  function getStarBadge(container) {
+    return container.querySelector('span[title$="GitHub stars"]');
+  }
+
+  it("renders a star badge when stars is present and > 0", () => {
+    const skillWithStars = { ...baseSkill, stars: 1234 };
+    const { container } = render(
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
+        <SkillListItem
+          skill={skillWithStars}
+          active={false}
+          searchQuery=""
+          searchTerms={null}
+          locationSearch=""
+        />
+      </HashRouter>,
+    );
+    const badge = getStarBadge(container);
+    expect(badge).toBeTruthy();
+    // 1234 -> "1.2k" via formatStars
+    expect(badge.textContent).toContain("1.2k");
+  });
+
+  it("does not render a star badge when stars is 0", () => {
+    const skillNoStars = { ...baseSkill, stars: 0 };
+    const { container } = render(
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
+        <SkillListItem
+          skill={skillNoStars}
+          active={false}
+          searchQuery=""
+          searchTerms={null}
+          locationSearch=""
+        />
+      </HashRouter>,
+    );
+    expect(getStarBadge(container)).toBeNull();
+  });
+
+  it("does not render a star badge when stars is missing", () => {
+    const { container } = renderItem({});
+    expect(getStarBadge(container)).toBeNull();
+
+    // Also test with explicit undefined
+    const skillNoStarsField = { ...baseSkill, stars: undefined };
+    render(
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
+        <SkillListItem
+          skill={skillNoStarsField}
+          active={false}
+          searchQuery=""
+          searchTerms={null}
+          locationSearch=""
+        />
+      </HashRouter>,
+    );
+    expect(getStarBadge(container)).toBeNull();
+  });
+
+  it("displays small star counts without abbreviation", () => {
+    const skillWithStars = { ...baseSkill, stars: 42 };
+    const { container } = render(
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
+        <SkillListItem
+          skill={skillWithStars}
+          active={false}
+          searchQuery=""
+          searchTerms={null}
+          locationSearch=""
+        />
+      </HashRouter>,
+    );
+    const badge = getStarBadge(container);
+    expect(badge).toBeTruthy();
+    expect(badge.textContent).toContain("42");
+  });
+});
