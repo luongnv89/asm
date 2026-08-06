@@ -461,16 +461,30 @@ const categories = Array.from(categorySet).sort((a, b) => {
 // repo is — a trust signal on the catalog page.
 
 async function fetchStars(owner: string, repo: string): Promise<number> {
-  try {
-    const res = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
-      headers: { Accept: "application/vnd.github+json" },
-    });
-    if (!res.ok) return 0;
-    const data = (await res.json()) as { stargazers_count?: number };
-    return data.stargazers_count ?? 0;
-  } catch {
-    return 0;
+  const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+  const headers: Record<string, string> = {
+    Accept: "application/vnd.github+json",
+  };
+  if (token) headers.Authorization = `Bearer ${token}`;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const res = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
+        headers,
+      });
+      if (res.status === 403 || res.status === 429) {
+        await new Promise((resolve) =>
+          setTimeout(resolve, 1000 * (attempt + 1)),
+        );
+        continue;
+      }
+      if (!res.ok) return 0;
+      const data = (await res.json()) as { stargazers_count?: number };
+      return data.stargazers_count ?? 0;
+    } catch {
+      return 0;
+    }
   }
+  return 0;
 }
 
 // Collect unique (owner, repo) pairs
@@ -481,13 +495,20 @@ for (const r of repos) {
     uniqueRepos.set(key, { owner: r.owner, repo: r.repo });
 }
 
-// Fetch stars in parallel; map back by key
+// Fetch stars with bounded concurrency (best-effort, keeps well under rate
+// limits); map back by key
 const starsByRepo = new Map<string, number>();
-const starPromises = Array.from(uniqueRepos.values()).map(async (r) => {
-  const stars = await fetchStars(r.owner, r.repo);
-  starsByRepo.set(r.owner + "/" + r.repo, stars);
-});
-await Promise.all(starPromises);
+const repoEntries = Array.from(uniqueRepos.values());
+const STAR_FETCH_CONCURRENCY = 8;
+for (let i = 0; i < repoEntries.length; i += STAR_FETCH_CONCURRENCY) {
+  const batch = repoEntries.slice(i, i + STAR_FETCH_CONCURRENCY);
+  await Promise.all(
+    batch.map(async (r) => {
+      const stars = await fetchStars(r.owner, r.repo);
+      starsByRepo.set(r.owner + "/" + r.repo, stars);
+    }),
+  );
+}
 
 // Attach star counts to the CatalogRepo entries and compute the ASM repo stars
 let asmStars = 0;
@@ -691,6 +712,8 @@ interface SkillDetail {
   featured?: boolean;
   tokenCount?: number;
   evalSummary?: SkillEvalSummary;
+  /** GitHub star count for the source repo (0 when unknown). */
+  stars?: number;
 }
 
 let detailFilesWritten = 0;
@@ -715,6 +738,8 @@ for (const s of skills) {
   if (s.featured === true) detail.featured = true;
   if (typeof s.tokenCount === "number") detail.tokenCount = s.tokenCount;
   if (s.evalSummary) detail.evalSummary = s.evalSummary;
+  const repoStars = starsByRepo.get(s.owner + "/" + s.repo);
+  if (typeof repoStars === "number" && repoStars > 0) detail.stars = repoStars;
   writeFileSync(
     join(skillsDetailDir, `${slug}.json`),
     JSON.stringify(detail),
