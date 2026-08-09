@@ -6,6 +6,10 @@ const fspMocks = vi.hoisted(() => ({
     realRename: typeof import("fs/promises").rename,
     ...args: Parameters<typeof import("fs/promises").rename>
   ) => Promise<void>),
+  readFileOverride: null as null | ((
+    realReadFile: typeof import("fs/promises").readFile,
+    ...args: Parameters<typeof import("fs/promises").readFile>
+  ) => ReturnType<typeof import("fs/promises").readFile>),
 }));
 vi.mock("fs/promises", async (importOriginal) => {
   const actual = await importOriginal<typeof import("fs/promises")>();
@@ -15,6 +19,10 @@ vi.mock("fs/promises", async (importOriginal) => {
       fspMocks.renameOverride
         ? fspMocks.renameOverride(actual.rename, ...args)
         : actual.rename(...args),
+    readFile: (...args: Parameters<typeof actual.readFile>) =>
+      fspMocks.readFileOverride
+        ? fspMocks.readFileOverride(actual.readFile, ...args)
+        : actual.readFile(...args),
   };
 });
 
@@ -57,10 +65,12 @@ function deferred<T = void>() {
 
 beforeEach(() => {
   fspMocks.renameOverride = null;
+  fspMocks.readFileOverride = null;
 });
 
 afterEach(() => {
   fspMocks.renameOverride = null;
+  fspMocks.readFileOverride = null;
 });
 
 describe("library lock", () => {
@@ -1454,6 +1464,91 @@ describe("updateLibrarySkill", () => {
     await expect(
       readFile(join(outliningLibraryPath, "SKILL.md"), "utf-8"),
     ).resolves.toContain("# New Outline");
+  });
+
+  test("serializes force reinstall with failing update rollback so disk and lock stay aligned", async () => {
+    const reinstallSourceDir = join(tempDir, "reinstall", "brainstorming");
+    await mkdir(reinstallSourceDir, { recursive: true });
+    await writeFile(
+      join(reinstallSourceDir, "SKILL.md"),
+      "---\nname: brainstorming\nversion: 3.0.0\n---\n# Reinstalled Source\n",
+    );
+    await writeFile(
+      join(sourceRoot, "skills", "brainstorming", "SKILL.md"),
+      "---\nname: brainstorming\nversion: 2.0.0\n---\n# Updated Source\n",
+    );
+
+    const updateWriteStarted = deferred<void>();
+    const releaseUpdateWrite = deferred<void>();
+    const installMetadataRead = deferred<void>();
+    let watchInstallRead = false;
+    let installMetadataCaptured = false;
+
+    fspMocks.readFileOverride = async (realReadFile, path, ...rest) => {
+      const result = await realReadFile(path, ...rest);
+      if (
+        watchInstallRead &&
+        !installMetadataCaptured &&
+        String(path).endsWith("SKILL.md")
+      ) {
+        installMetadataCaptured = true;
+        installMetadataRead.resolve();
+      }
+      return result;
+    };
+
+    const updatePromise = updateLibrarySkill(
+      "brainstorming",
+      { skillsDir, lockPath },
+      {
+        writeLibraryLockFn: async () => {
+          updateWriteStarted.resolve();
+          await releaseUpdateWrite.promise;
+          throw new Error("lock write boom");
+        },
+      },
+    );
+    await updateWriteStarted.promise;
+
+    watchInstallRead = true;
+    const reinstallPromise = installLibrarySkill(
+      {
+        sourceDir: reinstallSourceDir,
+        libraryName: "brainstorming",
+        source: `local:${join(tempDir, "reinstall")}`,
+        sourceType: "local",
+        commitHash: "reinstall",
+        ref: null,
+        skillPath: "brainstorming",
+        force: true,
+      },
+      { skillsDir, lockPath },
+    );
+    await installMetadataRead.promise;
+    releaseUpdateWrite.resolve();
+
+    const [updateResult, reinstallResult] = await Promise.all([
+      updatePromise,
+      reinstallPromise,
+    ]);
+
+    expect(updateResult).toEqual({
+      name: "brainstorming",
+      status: "failed",
+      reason:
+        "Updated library copy, but failed to write lock file: lock write boom",
+    });
+    expect(reinstallResult).toMatchObject({
+      name: "brainstorming",
+      version: "3.0.0",
+      libraryPath,
+    });
+    await expect(
+      readFile(join(libraryPath, "SKILL.md"), "utf-8"),
+    ).resolves.toContain("# Reinstalled Source");
+    const lock = await readLibraryLock(lockPath);
+    expect(lock.skills.brainstorming.version).toBe("3.0.0");
+    expect(lock.skills.brainstorming.commitHash).toBe("reinstall");
   });
 
   test("restores old library copy when lock write fails after swap", async () => {

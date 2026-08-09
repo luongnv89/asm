@@ -913,38 +913,53 @@ export async function installLibrarySkill(
   const libraryName = validateSkillDirectoryName(plan.libraryName);
   const libraryPath = join(skillsDir, libraryName);
 
-  if (await pathExists(libraryPath)) {
-    if (!plan.force) {
-      throw new Error(
-        `Library skill already exists: ${libraryPath}. Use --force to overwrite.`,
-      );
-    }
-    await rm(libraryPath, { recursive: true, force: true });
-  }
-
   await mkdir(skillsDir, { recursive: true });
-  await cp(plan.sourceDir, libraryPath, { recursive: true });
-  await rm(join(libraryPath, ".git"), { recursive: true, force: true });
+  const stagedDir = await stageLibraryDirectory(plan.sourceDir, libraryPath);
 
-  const skillMarkdown = await readFile(join(libraryPath, "SKILL.md"), "utf-8");
-  const fm = parseFrontmatter(skillMarkdown);
-  const name = fm.name || libraryName;
-  const version = resolveVersion(fm);
+  try {
+    const skillMarkdown = await readFile(join(stagedDir, "SKILL.md"), "utf-8");
+    const fm = parseFrontmatter(skillMarkdown);
+    const name = fm.name || libraryName;
+    const version = resolveVersion(fm);
 
-  await mutateLibraryLock(lockPath, (lock) => {
-    lock.skills[libraryName] = {
-      name,
-      version,
-      source: plan.source,
-      sourceType: plan.sourceType,
-      commitHash: plan.commitHash,
-      ref: plan.ref,
-      skillPath: plan.skillPath,
-      libraryPath,
-      installedAt: new Date().toISOString(),
-    };
-    return { changed: true };
-  });
+    await withFileMutationLock(lockPath, async () => {
+      const currentLock = await readLibraryLockFile(lockPath);
+      if ((await pathExists(libraryPath)) && !plan.force) {
+        throw new Error(
+          `Library skill already exists: ${libraryPath}. Use --force to overwrite.`,
+        );
+      }
 
-  return { name, version, libraryPath };
+      const updatedLock = {
+        ...currentLock,
+        skills: {
+          ...currentLock.skills,
+          [libraryName]: {
+            name,
+            version,
+            source: plan.source,
+            sourceType: plan.sourceType,
+            commitHash: plan.commitHash,
+            ref: plan.ref,
+            skillPath: plan.skillPath,
+            libraryPath,
+            installedAt: new Date().toISOString(),
+          },
+        },
+      };
+
+      const swapResult = await replaceDirectoryAtomically({
+        stagedDir,
+        targetDir: libraryPath,
+        writeLock: () => persistLibraryLock(updatedLock, lockPath),
+      });
+      if (swapResult) {
+        throw new Error(swapResult.reason ?? "Failed to install library skill");
+      }
+    });
+
+    return { name, version, libraryPath };
+  } finally {
+    await rm(stagedDir, { recursive: true, force: true });
+  }
 }
