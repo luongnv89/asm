@@ -176,9 +176,11 @@ function libraryEntryChangedDuringUpdate(name: string): LibraryUpdateResult {
 }
 
 function nextInstalledAt(previousInstalledAt?: string): string {
-  const installedAt = new Date().toISOString();
-  if (installedAt !== previousInstalledAt) return installedAt;
-  return new Date(Date.parse(installedAt) + 1).toISOString();
+  const previousTime = Date.parse(previousInstalledAt ?? "");
+  const installedAt = Number.isFinite(previousTime)
+    ? Math.max(Date.now(), previousTime + 1)
+    : Date.now();
+  return new Date(installedAt).toISOString();
 }
 
 function librarySourceRoot(entry: LibrarySkillEntry): string | null {

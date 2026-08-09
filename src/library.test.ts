@@ -1564,7 +1564,7 @@ describe("updateLibrarySkill", () => {
   });
 
   test("rejects a stale staged update after force reinstall publishes a new generation with unchanged metadata", async () => {
-    const initialInstalledAt = "2000-01-01T00:00:00.000Z";
+    const initialInstalledAt = "2999-01-01T00:00:00.000Z";
     const initialLock = await readLibraryLock(lockPath);
     initialLock.skills.brainstorming.installedAt = initialInstalledAt;
     await writeLibraryLock(initialLock, lockPath);
@@ -1655,9 +1655,9 @@ describe("updateLibrarySkill", () => {
       "skills/brainstorming",
     );
     expect(finalLock.skills.brainstorming.commitHash).toBe("local");
-    expect(finalLock.skills.brainstorming.installedAt).not.toBe(
-      initialInstalledAt,
-    );
+    expect(
+      Date.parse(finalLock.skills.brainstorming.installedAt),
+    ).toBeGreaterThan(Date.parse(initialInstalledAt));
   });
 
   test("accepts equivalent local source spellings during stale-update revalidation", async () => {
