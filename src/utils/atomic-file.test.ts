@@ -59,7 +59,10 @@ vi.mock("fs/promises", async (importOriginal) => {
 import { mkdtemp, rm } from "fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
-import { writeTextFileAtomically } from "./atomic-file";
+import {
+  AtomicWritePostRenameError,
+  writeTextFileAtomically,
+} from "./atomic-file";
 
 function fsError(code: string, message = code): NodeJS.ErrnoException {
   return Object.assign(new Error(message), { code });
@@ -134,14 +137,50 @@ describe("writeTextFileAtomically", () => {
     ]);
   });
 
-  test("propagates directory sync failures without cleaning up after rename", async () => {
+  test.each([
+    ["open", "directoryOpenError"],
+    ["sync", "directorySyncError"],
+    ["close", "directoryCloseError"],
+  ] as const)(
+    "classifies a directory %s failure as post-rename",
+    async (phase, errorField) => {
+      const cause = fsError("EIO", `directory ${phase} failed`);
+      fspMocks[errorField] = cause;
+
+      const failure = await writeTextFileAtomically(
+        destinationPath,
+        "contents",
+      ).then(
+        () => null,
+        (error: unknown) => error,
+      );
+
+      expect(failure).toBeInstanceOf(AtomicWritePostRenameError);
+      expect(failure).toMatchObject({
+        committed: true,
+        path: destinationPath,
+        cause,
+      });
+      expect(fspMocks.events.indexOf("rename")).toBeGreaterThanOrEqual(0);
+      expect(fspMocks.events.indexOf(`directory-${phase}`)).toBeGreaterThan(
+        fspMocks.events.indexOf("rename"),
+      );
+      expect(fspMocks.events).not.toContain("temp-remove");
+    },
+  );
+
+  test("preserves the directory sync failure when closing also fails", async () => {
     const syncError = fsError("EIO", "directory sync failed");
     fspMocks.directorySyncError = syncError;
     fspMocks.directoryCloseError = fsError("EIO", "directory close failed");
 
-    await expect(
-      writeTextFileAtomically(destinationPath, "contents"),
-    ).rejects.toBe(syncError);
+    const failure = await writeTextFileAtomically(
+      destinationPath,
+      "contents",
+    ).catch((error: unknown) => error);
+
+    expect(failure).toBeInstanceOf(AtomicWritePostRenameError);
+    expect(failure).toMatchObject({ cause: syncError });
     expect(fspMocks.events).toEqual([
       "temp-open",
       "temp-write",
@@ -171,21 +210,5 @@ describe("writeTextFileAtomically", () => {
       writeTextFileAtomically(destinationPath, "contents"),
     ).resolves.toBeUndefined();
     expect(fspMocks.events.slice(-2)).toEqual(["rename", "directory-open"]);
-  });
-
-  test("does not swallow unexpected directory open or close failures", async () => {
-    const openError = fsError("EACCES", "directory open failed");
-    fspMocks.directoryOpenError = openError;
-    await expect(
-      writeTextFileAtomically(destinationPath, "contents"),
-    ).rejects.toBe(openError);
-
-    fspMocks.events = [];
-    fspMocks.directoryOpenError = null;
-    const closeError = fsError("EINVAL", "directory close failed");
-    fspMocks.directoryCloseError = closeError;
-    await expect(
-      writeTextFileAtomically(destinationPath, "contents"),
-    ).rejects.toBe(closeError);
   });
 });

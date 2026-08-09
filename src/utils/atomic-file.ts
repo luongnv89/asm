@@ -19,6 +19,21 @@ function isUnsupportedDirectorySyncError(error: unknown): boolean {
   );
 }
 
+export class AtomicWritePostRenameError extends Error {
+  readonly committed = true as const;
+
+  constructor(
+    readonly path: string,
+    readonly cause: unknown,
+  ) {
+    const detail = cause instanceof Error ? cause.message : String(cause);
+    super(
+      `Atomic write to ${path} was renamed into place, but parent-directory durability could not be confirmed: ${detail}`,
+    );
+    this.name = "AtomicWritePostRenameError";
+  }
+}
+
 async function syncDirectory(path: string): Promise<void> {
   let handle: Awaited<ReturnType<typeof open>>;
   try {
@@ -110,8 +125,12 @@ export async function writeTextFileAtomically(
     throw err;
   }
 
-  // Renaming persists the file contents but not necessarily the directory entry.
-  // Some platforms/filesystems do not support opening or syncing directories;
-  // syncDirectory tolerates only known unsupported-operation errors.
-  await syncDirectory(destinationDir);
+  // Renaming publishes the file contents but does not necessarily make the
+  // directory entry crash-durable. Failures after this commit point must remain
+  // distinguishable from failures that definitely left the destination intact.
+  try {
+    await syncDirectory(destinationDir);
+  } catch (cause) {
+    throw new AtomicWritePostRenameError(destinationPath, cause);
+  }
 }

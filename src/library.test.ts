@@ -2,6 +2,12 @@ import { createDirSymlink } from "./utils/fs";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 
 const fspMocks = vi.hoisted(() => ({
+  openOverride: null as
+    | null
+    | ((
+        realOpen: typeof import("fs/promises").open,
+        ...args: Parameters<typeof import("fs/promises").open>
+      ) => ReturnType<typeof import("fs/promises").open>),
   renameOverride: null as
     | null
     | ((
@@ -25,6 +31,10 @@ vi.mock("fs/promises", async (importOriginal) => {
   const actual = await importOriginal<typeof import("fs/promises")>();
   return {
     ...actual,
+    open: (...args: Parameters<typeof actual.open>) =>
+      fspMocks.openOverride
+        ? fspMocks.openOverride(actual.open, ...args)
+        : actual.open(...args),
     rename: (...args: Parameters<typeof actual.rename>) =>
       fspMocks.renameOverride
         ? fspMocks.renameOverride(actual.rename, ...args)
@@ -55,7 +65,7 @@ import {
   readdir,
 } from "fs/promises";
 import { tmpdir } from "os";
-import { join, relative, resolve } from "path";
+import { dirname, join, relative, resolve } from "path";
 import {
   emptyLibraryLock,
   activateLibrarySkill,
@@ -77,13 +87,43 @@ function deferred<T = void>() {
   return { promise, resolve, reject };
 }
 
+function failDirectoryDurability(
+  directoryPath: string,
+  phase: "open" | "sync" | "close",
+  error: Error,
+): void {
+  fspMocks.openOverride = async (realOpen, ...args) => {
+    if (
+      args[1] !== "r" ||
+      resolve(String(args[0])) !== resolve(directoryPath)
+    ) {
+      return realOpen(...args);
+    }
+    if (phase === "open") throw error;
+
+    const handle = await realOpen(...args);
+    return {
+      sync: async () => {
+        if (phase === "sync") throw error;
+        await handle.sync();
+      },
+      close: async () => {
+        await handle.close();
+        if (phase === "close") throw error;
+      },
+    } as Awaited<ReturnType<typeof realOpen>>;
+  };
+}
+
 beforeEach(() => {
+  fspMocks.openOverride = null;
   fspMocks.renameOverride = null;
   fspMocks.readFileOverride = null;
   fspMocks.cpOverride = null;
 });
 
 afterEach(() => {
+  fspMocks.openOverride = null;
   fspMocks.renameOverride = null;
   fspMocks.readFileOverride = null;
   fspMocks.cpOverride = null;
@@ -253,6 +293,46 @@ describe("installLibrarySkill", () => {
       libraryPath: result.libraryPath,
     });
   });
+
+  test.each(["open", "sync", "close"] as const)(
+    "keeps fresh-install lock metadata and files aligned after directory %s fails post-rename",
+    async (phase) => {
+      failDirectoryDurability(
+        dirname(lockPath),
+        phase,
+        new Error(`directory ${phase} boom`),
+      );
+
+      await expect(
+        installLibrarySkill(
+          {
+            sourceDir,
+            libraryName: "brainstorming",
+            source: "github:obra/superpowers",
+            sourceType: "github",
+            commitHash: "abc123",
+            ref: "main",
+            skillPath: "skills/brainstorming",
+            force: false,
+          },
+          { skillsDir, lockPath },
+        ),
+      ).rejects.toThrow(
+        "Lock metadata and library files were published as the new generation, but parent-directory durability could not be confirmed",
+      );
+
+      const lock = await readLibraryLock(lockPath);
+      expect(lock.skills.brainstorming).toMatchObject({
+        name: "brainstorming",
+        version: "1.0.0",
+        commitHash: "abc123",
+      });
+      await expect(
+        readFile(join(skillsDir, "brainstorming", "SKILL.md"), "utf-8"),
+      ).resolves.toContain("# Body");
+      await expect(readdir(skillsDir)).resolves.toEqual(["brainstorming"]);
+    },
+  );
 
   test("refuses to overwrite an existing library skill without force", async () => {
     await installLibrarySkill(
@@ -1781,6 +1861,41 @@ describe("updateLibrarySkill", () => {
     expect(lock.skills.brainstorming.version).toBe("3.0.0");
     expect(lock.skills.brainstorming.commitHash).toBe("reinstall");
   });
+
+  test.each(["open", "sync", "close"] as const)(
+    "keeps updated lock metadata and files aligned after directory %s fails post-rename",
+    async (phase) => {
+      await writeFile(
+        join(sourceRoot, "skills", "brainstorming", "SKILL.md"),
+        "---\nname: brainstorming\nversion: 2.0.0\n---\n# New Source\n",
+      );
+      failDirectoryDurability(
+        dirname(lockPath),
+        phase,
+        new Error(`directory ${phase} boom`),
+      );
+
+      const result = await updateLibrarySkill("brainstorming", {
+        skillsDir,
+        lockPath,
+      });
+
+      expect(result).toMatchObject({
+        name: "brainstorming",
+        status: "failed",
+        reason: expect.stringContaining(
+          "Lock metadata and library files were published as the new generation, but parent-directory durability could not be confirmed",
+        ),
+      });
+      const lock = await readLibraryLock(lockPath);
+      expect(lock.skills.brainstorming.version).toBe("2.0.0");
+      expect(lock.skills.brainstorming.commitHash).not.toBe("local");
+      await expect(
+        readFile(join(libraryPath, "SKILL.md"), "utf-8"),
+      ).resolves.toContain("# New Source");
+      await expect(readdir(skillsDir)).resolves.toEqual(["brainstorming"]);
+    },
+  );
 
   test("restores old library copy when lock write fails after swap", async () => {
     await writeFile(

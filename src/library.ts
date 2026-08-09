@@ -21,6 +21,7 @@ import { debug } from "./logger";
 import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
 import { createDirSymlink } from "./utils/fs";
 import {
+  AtomicWritePostRenameError,
   withFileMutationLock,
   writeTextFileAtomically,
 } from "./utils/atomic-file";
@@ -486,6 +487,16 @@ async function replaceDirectoryAtomically(input: {
         await input.writeLock();
         return null;
       } catch (err: any) {
+        if (err instanceof AtomicWritePostRenameError) {
+          return {
+            name: "",
+            status: "failed",
+            reason: `Lock metadata and library files were published as the new generation, but parent-directory durability could not be confirmed: ${
+              err.cause instanceof Error ? err.cause.message : String(err.cause)
+            }`,
+          };
+        }
+
         await rm(input.targetDir, { recursive: true, force: true });
         if (backupDir) {
           try {
