@@ -527,6 +527,71 @@ describe("getLatestRemoteCommit", () => {
       await rm(tempDir, { recursive: true, force: true });
     }
   });
+
+  test("prefers a short branch ref over an ambiguous annotated tag", async () => {
+    const tempDir = await mkdtemp(join(tmpdir(), "asm-ambiguous-ref-"));
+    try {
+      const { execFile } = await import("child_process");
+      const { promisify } = await import("util");
+      const exec = promisify(execFile);
+      const { bareRepoPath, commitHash: branchCommit } =
+        await createBareGitRepo(tempDir, "ambiguous-skill", "# Branch");
+      const workDir = join(tempDir, "ambiguous-skill-work");
+
+      await writeFile(join(workDir, "skill.md"), "# Tag\n");
+      await exec("git", ["-C", workDir, "add", "skill.md"]);
+      await exec("git", ["-C", workDir, "commit", "-m", "tag target"]);
+      const { stdout } = await exec("git", [
+        "-C",
+        workDir,
+        "rev-parse",
+        "HEAD",
+      ]);
+      const tagCommit = stdout.trim();
+      await exec("git", [
+        "-C",
+        workDir,
+        "push",
+        `file://${bareRepoPath}`,
+        "HEAD:refs/heads/tag-target",
+      ]);
+      await exec("git", [
+        `--git-dir=${bareRepoPath}`,
+        "update-ref",
+        "refs/heads/shared",
+        branchCommit,
+      ]);
+      await exec("git", [
+        `--git-dir=${bareRepoPath}`,
+        "config",
+        "user.email",
+        "test@test.com",
+      ]);
+      await exec("git", [
+        `--git-dir=${bareRepoPath}`,
+        "config",
+        "user.name",
+        "Test",
+      ]);
+      await exec("git", [
+        `--git-dir=${bareRepoPath}`,
+        "tag",
+        "-a",
+        "shared",
+        tagCommit,
+        "-m",
+        "shared tag",
+      ]);
+
+      const repoUrl = `file://${bareRepoPath}`;
+      expect(await getLatestRemoteCommit(repoUrl, "shared")).toBe(branchCommit);
+      expect(
+        await getLatestRemoteCommit(repoUrl, "refs/tags/shared"),
+      ).toBe(tagCommit);
+    } finally {
+      await rm(tempDir, { recursive: true, force: true });
+    }
+  });
 });
 
 // ─── checkOutdated (pure logic paths) ─────────────────────────────────────
@@ -903,7 +968,7 @@ describe("updateSkill happy path", () => {
     expect(installedContent).toContain("New version");
   });
 
-  test("installs and locks the exact known commit", async () => {
+  test("installs and locks the exact known commit despite a stale OID ref", async () => {
     const { bareRepoPath, commitHash: knownCommit } = await createBareGitRepo(
       tempDir,
       "pinned-skill",
@@ -915,11 +980,13 @@ describe("updateSkill happy path", () => {
     await writeFile(join(installedDir, "skill.md"), "# Old version");
 
     let writtenCommit: string | undefined;
+    const oldCommit = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     const { updateSkill } = await import("./updater");
     const entry: LockEntry = {
       source: `file://${bareRepoPath}`,
-      commitHash: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-      ref: null,
+      commitHash: oldCommit,
+      // Registry locks retain the previously installed OID here; it is not a branch.
+      ref: oldCommit,
       installedAt: "2026-01-01T00:00:00.000Z",
       provider: "claude",
       sourceType: "github",

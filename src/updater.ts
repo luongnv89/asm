@@ -120,12 +120,28 @@ export async function getLatestRemoteCommit(
     }
 
     const { stdout } = await execFileAsync("git", args, { timeout: 10_000 });
-    const lines = stdout.split("\n").filter(Boolean);
-    const resolvedLine = lines.find((line) =>
-      line.split(/\s+/)[1]?.endsWith("^{}"),
+    const advertised = new Map<string, string>();
+    for (const line of stdout.split("\n")) {
+      const [hash, advertisedRef] = line.trim().split(/\s+/);
+      if (
+        advertisedRef &&
+        hash &&
+        /^(?:[0-9a-f]{40}|[0-9a-f]{64})$/.test(hash)
+      ) {
+        advertised.set(advertisedRef, hash);
+      }
+    }
+
+    if (!ref || ref === "HEAD") return advertised.get("HEAD") ?? null;
+    if (ref.startsWith("refs/")) {
+      return advertised.get(`${ref}^{}`) ?? advertised.get(ref) ?? null;
+    }
+    return (
+      advertised.get(`refs/heads/${ref}`) ??
+      advertised.get(`refs/tags/${ref}^{}`) ??
+      advertised.get(`refs/tags/${ref}`) ??
+      null
     );
-    const hash = (resolvedLine ?? lines[0])?.split(/\s+/)[0];
-    return hash && /^(?:[0-9a-f]{40}|[0-9a-f]{64})$/.test(hash) ? hash : null;
   } catch (err) {
     debug(`updater: git ls-remote failed for ${repoUrl}: ${err}`);
     return null;
@@ -410,28 +426,20 @@ export async function updateSkill(
     );
     await mkdir(tempParent, { recursive: true });
 
-    // Step 1: Clone latest version. When checkOutdated already resolved the
-    // commit, avoid checking out a moving ref until the exact OID is pinned.
-    debug(`updater: cloning latest ${name} to ${tempDir}`);
-    const cloneArgs = ["clone", "--depth", "1"];
-    if (pinnedCommit) cloneArgs.push("--no-checkout");
-    if (entry.ref && entry.ref !== "HEAD") {
-      cloneArgs.push("--branch", entry.ref);
-    }
-    cloneArgs.push(cloneUrl, tempDir);
-
-    try {
-      await execFileAsync("git", cloneArgs, { timeout: 60_000 });
-    } catch (cloneErr: any) {
-      return {
-        name,
-        status: "failed",
-        reason: `Clone failed: ${cloneErr.stderr || cloneErr.message}`,
-      };
-    }
-
+    // Step 1: Fetch the exact commit already resolved by checkOutdated. Direct
+    // callers without one retain the existing ref-based shallow clone path.
+    debug(`updater: fetching latest ${name} to ${tempDir}`);
     if (pinnedCommit) {
       try {
+        const initArgs = ["init"];
+        if (pinnedCommit.length === 64) initArgs.push("--object-format=sha256");
+        initArgs.push(tempDir);
+        await execFileAsync("git", initArgs, { timeout: 10_000 });
+        await execFileAsync(
+          "git",
+          ["fetch", "--depth", "1", cloneUrl, pinnedCommit],
+          { cwd: tempDir, timeout: 60_000 },
+        );
         await execFileAsync("git", ["checkout", "--detach", pinnedCommit], {
           cwd: tempDir,
           timeout: 10_000,
@@ -440,30 +448,42 @@ export async function updateSkill(
         return {
           name,
           status: "failed",
-          reason: "Resolved commit is unavailable in the shallow clone",
+          reason: "Resolved commit is unavailable in the shallow fetch",
+        };
+      }
+    } else {
+      const cloneArgs = ["clone", "--depth", "1"];
+      if (entry.ref && entry.ref !== "HEAD") {
+        cloneArgs.push("--branch", entry.ref);
+      }
+      cloneArgs.push(cloneUrl, tempDir);
+
+      try {
+        await execFileAsync("git", cloneArgs, { timeout: 60_000 });
+      } catch (cloneErr: any) {
+        return {
+          name,
+          status: "failed",
+          reason: `Clone failed: ${cloneErr.stderr || cloneErr.message}`,
         };
       }
     }
 
-    // Resolve HEAD locally for direct callers, and verify a pinned checkout
-    // before auditing, installing, or recording it.
-    let newCommit: string | null = null;
-    try {
-      const { stdout } = await execFileAsync("git", ["rev-parse", "HEAD"], {
-        cwd: tempDir,
-        timeout: 5_000,
-      });
-      const checkedOutCommit = stdout.trim().toLowerCase();
-      if (pinnedCommit && checkedOutCommit !== pinnedCommit) {
-        return {
-          name,
-          status: "failed",
-          reason: "Resolved commit checkout mismatch",
-        };
+    // A successful detached checkout is the pinning gate; only direct callers
+    // need to discover the commit selected by their ref-based clone.
+    let newCommit: string;
+    if (pinnedCommit) {
+      newCommit = pinnedCommit;
+    } else {
+      try {
+        const { stdout } = await execFileAsync("git", ["rev-parse", "HEAD"], {
+          cwd: tempDir,
+          timeout: 5_000,
+        });
+        newCommit = stdout.trim().toLowerCase();
+      } catch {
+        return { name, status: "failed", reason: "Could not read new commit" };
       }
-      newCommit = pinnedCommit ?? checkedOutCommit;
-    } catch {
-      return { name, status: "failed", reason: "Could not read new commit" };
     }
 
     // Check if already up to date
