@@ -1,11 +1,29 @@
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
+
+const fspMocks = vi.hoisted(() => ({
+  renameOverride: null as null | ((
+    realRename: typeof import("fs/promises").rename,
+    ...args: Parameters<typeof import("fs/promises").rename>
+  ) => Promise<void>),
+}));
+vi.mock("fs/promises", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("fs/promises")>();
+  return {
+    ...actual,
+    rename: (...args: Parameters<typeof actual.rename>) =>
+      fspMocks.renameOverride
+        ? fspMocks.renameOverride(actual.rename, ...args)
+        : actual.rename(...args),
+  };
+});
+
 import {
   mkdtemp,
   writeFile,
   rm,
   readFile,
   mkdir,
-  appendFile,
+  readdir,
 } from "fs/promises";
 import { execSync } from "child_process";
 import { join } from "path";
@@ -27,12 +45,24 @@ vi.mock("../config", () => ({
 
 let tempDir: string;
 
+function deferred<T = void>() {
+  let resolve!: (value: T | PromiseLike<T>) => void;
+  let reject!: (reason?: unknown) => void;
+  const promise = new Promise<T>((res, rej) => {
+    resolve = res;
+    reject = rej;
+  });
+  return { promise, resolve, reject };
+}
+
 beforeEach(async () => {
   tempDir = await mkdtemp(join(tmpdir(), "lock-test-"));
   mockState.lockPath = join(tempDir, ".skill-lock.json");
+  fspMocks.renameOverride = null;
 });
 
 afterEach(async () => {
+  fspMocks.renameOverride = null;
   await rm(tempDir, { recursive: true, force: true });
 });
 
@@ -175,6 +205,114 @@ describe("writeLockEntry", () => {
     const lock = await readLock();
     expect(lock.skills["my-skill"].commitHash).toBe("new-hash");
     expect(lock.skills["my-skill"].ref).toBe("v2.0");
+  });
+
+  test("preserves the previous lock file when atomic rename fails", async () => {
+    const original = JSON.stringify(
+      {
+        version: 1,
+        skills: {
+          existing: {
+            source: "github:bob/existing",
+            commitHash: "111",
+            ref: "main",
+            installedAt: "2026-03-19T10:00:00Z",
+            provider: "claude",
+          },
+        },
+      },
+      null,
+      2,
+    ) + "\n";
+    await writeFile(mockState.lockPath, original, "utf-8");
+
+    fspMocks.renameOverride = async (_realRename, _from, to) => {
+      if (to === mockState.lockPath) {
+        throw new Error("rename boom");
+      }
+    };
+
+    await expect(
+      writeLockEntry("new-skill", {
+        source: "github:alice/new-skill",
+        commitHash: "222",
+        ref: "v1.0",
+        installedAt: "2026-03-20T12:00:00Z",
+        provider: "codex",
+      }),
+    ).rejects.toThrow("rename boom");
+
+    await expect(readFile(mockState.lockPath, "utf-8")).resolves.toBe(original);
+    await expect(readdir(tempDir)).resolves.toEqual([".skill-lock.json"]);
+  });
+
+  test("serializes overlapping mutations and keeps queued writes recoverable", async () => {
+    const firstRenameStarted = deferred<void>();
+    const releaseFirstRename = deferred<void>();
+    let blockedFirstRename = false;
+
+    fspMocks.renameOverride = async (realRename, from, to) => {
+      if (to === mockState.lockPath && !blockedFirstRename) {
+        blockedFirstRename = true;
+        firstRenameStarted.resolve();
+        await releaseFirstRename.promise;
+      }
+      await realRename(from, to);
+    };
+
+    const firstWrite = writeLockEntry("skill-a", {
+      source: "github:owner/a",
+      commitHash: "aaa",
+      ref: "main",
+      installedAt: "2026-03-20T12:00:00Z",
+      provider: "claude",
+    });
+    await firstRenameStarted.promise;
+
+    const secondWrite = writeLockEntry("skill-b", {
+      source: "github:owner/b",
+      commitHash: "bbb",
+      ref: "main",
+      installedAt: "2026-03-20T12:00:00Z",
+      provider: "codex",
+    });
+
+    releaseFirstRename.resolve();
+    await Promise.all([firstWrite, secondWrite]);
+
+    fspMocks.renameOverride = async (_realRename, _from, to) => {
+      if (to === mockState.lockPath) {
+        throw new Error("rename boom");
+      }
+    };
+    await expect(
+      writeLockEntry("broken", {
+        source: "github:owner/broken",
+        commitHash: "ccc",
+        ref: "main",
+        installedAt: "2026-03-20T12:00:00Z",
+        provider: "claude",
+      }),
+    ).rejects.toThrow("rename boom");
+
+    fspMocks.renameOverride = null;
+    await writeLockEntry("skill-c", {
+      source: "github:owner/c",
+      commitHash: "ddd",
+      ref: "main",
+      installedAt: "2026-03-20T12:00:00Z",
+      provider: "claude",
+    });
+
+    const lock = await readLock();
+    expect(Object.keys(lock.skills).sort()).toEqual([
+      "skill-a",
+      "skill-b",
+      "skill-c",
+    ]);
+    expect(lock.skills["skill-a"].commitHash).toBe("aaa");
+    expect(lock.skills["skill-b"].commitHash).toBe("bbb");
+    expect(lock.skills["skill-c"].commitHash).toBe("ddd");
   });
 });
 
