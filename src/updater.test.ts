@@ -878,7 +878,9 @@ async function createBareGitRepo(
   const bareDir = join(parentDir, `${repoName}.git`);
 
   await mkdir(workDir, { recursive: true });
-  await exec("git", ["init", "--object-format=sha1", workDir]);
+  await exec("git", ["init", workDir], {
+    env: { ...process.env, GIT_DEFAULT_HASH: "sha1" },
+  });
   await exec("git", ["-C", workDir, "config", "user.email", "test@test.com"]);
   await exec("git", ["-C", workDir, "config", "user.name", "Test"]);
   await writeFile(join(workDir, "skill.md"), content);
