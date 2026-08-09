@@ -48,6 +48,48 @@ interface ScanLocation {
   providerLabel: string;
 }
 
+const SCAN_ENTRY_CONCURRENCY = 16;
+const pendingScanEntries: Array<() => void> = [];
+let pendingScanEntryIndex = 0;
+let activeScanEntries = 0;
+
+function drainScanEntries(): void {
+  while (
+    activeScanEntries < SCAN_ENTRY_CONCURRENCY &&
+    pendingScanEntryIndex < pendingScanEntries.length
+  ) {
+    const start = pendingScanEntries[pendingScanEntryIndex++];
+    activeScanEntries++;
+    start();
+  }
+
+  if (pendingScanEntryIndex === pendingScanEntries.length) {
+    pendingScanEntries.length = 0;
+    pendingScanEntryIndex = 0;
+  } else if (
+    pendingScanEntryIndex >= 1024 &&
+    pendingScanEntryIndex * 2 >= pendingScanEntries.length
+  ) {
+    pendingScanEntries.splice(0, pendingScanEntryIndex);
+    pendingScanEntryIndex = 0;
+  }
+}
+
+function withScanEntryLimit<T>(task: () => Promise<T>): Promise<T> {
+  return new Promise<T>((resolveTask, rejectTask) => {
+    pendingScanEntries.push(() => {
+      const completed = Promise.resolve()
+        .then(task)
+        .finally(() => {
+          activeScanEntries--;
+          drainScanEntries();
+        });
+      void completed.then(resolveTask, rejectTask);
+    });
+    drainScanEntries();
+  });
+}
+
 function buildScanLocations(config: AppConfig, scope: Scope): ScanLocation[] {
   const locations: ScanLocation[] = [];
 
@@ -111,8 +153,6 @@ export async function countFiles(dir: string): Promise<number> {
 }
 
 async function scanDirectory(loc: ScanLocation): Promise<SkillInfo[]> {
-  const skills: SkillInfo[] = [];
-
   debug(`scanning: ${loc.dir} (${loc.location})`);
 
   let entries: string[];
@@ -120,77 +160,89 @@ async function scanDirectory(loc: ScanLocation): Promise<SkillInfo[]> {
     entries = await readdir(loc.dir);
   } catch {
     debug(`scanning: ${loc.dir} — not found, skipping`);
-    return skills;
+    return [];
   }
 
-  for (const entry of entries) {
-    const entryPath = join(loc.dir, entry);
+  const results = new Array<SkillInfo | undefined>(entries.length);
+  await Promise.all(
+    entries.map((entry, index) =>
+      withScanEntryLimit(async () => {
+        try {
+          const entryPath = join(loc.dir, entry);
 
-    try {
-      const entryStat = await stat(entryPath);
-      if (!entryStat.isDirectory()) {
-        debug(`  skip: "${entry}" — not a directory`);
-        continue;
-      }
-    } catch {
-      debug(`  skip: "${entry}" — stat failed`);
-      continue;
-    }
+          try {
+            const entryStat = await stat(entryPath);
+            if (!entryStat.isDirectory()) {
+              debug(`  skip: "${entry}" — not a directory`);
+              return;
+            }
+          } catch {
+            debug(`  skip: "${entry}" — stat failed`);
+            return;
+          }
 
-    const skillMdPath = join(entryPath, "SKILL.md");
-    let content: string;
-    try {
-      content = await readFile(skillMdPath, "utf-8");
-    } catch {
-      debug(`  skip: "${entry}" — no SKILL.md`);
-      continue;
-    }
+          const skillMdPath = join(entryPath, "SKILL.md");
+          let content: string;
+          try {
+            content = await readFile(skillMdPath, "utf-8");
+          } catch {
+            debug(`  skip: "${entry}" — no SKILL.md`);
+            return;
+          }
 
-    const fm = parseFrontmatter(content);
+          const fm = parseFrontmatter(content);
 
-    let isSymlink = false;
-    let symlinkTarget: string | null = null;
-    try {
-      const lstats = await lstat(entryPath);
-      if (lstats.isSymbolicLink()) {
-        isSymlink = true;
-        symlinkTarget = await readlink(entryPath);
-      }
-    } catch {
-      // not a symlink
-    }
+          let isSymlink = false;
+          let symlinkTarget: string | null = null;
+          try {
+            const lstats = await lstat(entryPath);
+            if (lstats.isSymbolicLink()) {
+              isSymlink = true;
+              symlinkTarget = await readlink(entryPath);
+            }
+          } catch {
+            // not a symlink
+          }
 
-    const resolvedPath = resolve(entryPath);
-    let resolvedRealPath: string;
-    try {
-      resolvedRealPath = await realpath(entryPath);
-    } catch {
-      resolvedRealPath = resolvedPath;
-    }
+          const resolvedPath = resolve(entryPath);
+          let resolvedRealPath: string;
+          try {
+            resolvedRealPath = await realpath(entryPath);
+          } catch {
+            resolvedRealPath = resolvedPath;
+          }
 
-    skills.push({
-      name: fm.name || entry,
-      version: resolveVersion(fm),
-      description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
-      creator: fm["metadata.creator"] || "",
-      license: (fm.license || "").trim(),
-      compatibility: (fm.compatibility || "").trim(),
-      allowedTools: resolveAllowedTools(fm),
-      effort: fm.effort || fm["metadata.effort"] || undefined,
-      dirName: entry,
-      path: resolvedPath,
-      originalPath: entryPath,
-      location: loc.location,
-      scope: loc.scope,
-      provider: loc.providerName,
-      providerLabel: loc.providerLabel,
-      isSymlink,
-      symlinkTarget,
-      realPath: resolvedRealPath,
-      tokenCount: estimateTokenCount(content),
-    });
-  }
+          results[index] = {
+            name: fm.name || entry,
+            version: resolveVersion(fm),
+            description: (fm.description || "")
+              .replace(/\s*\n\s*/g, " ")
+              .trim(),
+            creator: fm["metadata.creator"] || "",
+            license: (fm.license || "").trim(),
+            compatibility: (fm.compatibility || "").trim(),
+            allowedTools: resolveAllowedTools(fm),
+            effort: fm.effort || fm["metadata.effort"] || undefined,
+            dirName: entry,
+            path: resolvedPath,
+            originalPath: entryPath,
+            location: loc.location,
+            scope: loc.scope,
+            provider: loc.providerName,
+            providerLabel: loc.providerLabel,
+            isSymlink,
+            symlinkTarget,
+            realPath: resolvedRealPath,
+            tokenCount: estimateTokenCount(content),
+          };
+        } catch {
+          debug(`  skip: "${entry}" — scan failed`);
+        }
+      }),
+    ),
+  );
 
+  const skills = results.filter((skill): skill is SkillInfo => skill != null);
   debug(`found ${skills.length} skill(s) in ${loc.dir}`);
   return skills;
 }

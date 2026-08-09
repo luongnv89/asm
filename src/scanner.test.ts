@@ -1,7 +1,87 @@
 import { createDirSymlink } from "./utils/fs";
 import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
-import { mkdtemp, writeFile, mkdir, rm, symlink, realpath } from "fs/promises";
-import { join } from "path";
+
+const scanFsControl = vi.hoisted(() => ({
+  blockedStatPaths: new Set<string>(),
+  statWaiters: new Map<string, () => void>(),
+  completedStatPaths: [] as string[],
+  completedReaddirPaths: new Set<string>(),
+  failingStatPaths: new Set<string>(),
+  failingLstatPaths: new Set<string>(),
+  failingReadlinkPaths: new Set<string>(),
+  failingRealpathPaths: new Set<string>(),
+  invalidReadPaths: new Set<string>(),
+  activeStats: 0,
+  maxActiveStats: 0,
+  startedStats: 0,
+}));
+
+vi.mock("fs/promises", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("fs/promises")>();
+  return {
+    ...actual,
+    readdir: async (...args: Parameters<typeof actual.readdir>) => {
+      const entries = await actual.readdir(...args);
+      scanFsControl.completedReaddirPaths.add(String(args[0]));
+      return entries;
+    },
+    stat: async (...args: Parameters<typeof actual.stat>) => {
+      const path = String(args[0]);
+      if (scanFsControl.failingStatPaths.has(path)) {
+        throw new Error("injected stat failure");
+      }
+      if (scanFsControl.blockedStatPaths.has(path)) {
+        scanFsControl.startedStats++;
+        scanFsControl.activeStats++;
+        scanFsControl.maxActiveStats = Math.max(
+          scanFsControl.maxActiveStats,
+          scanFsControl.activeStats,
+        );
+        await new Promise<void>((resolve) => {
+          scanFsControl.statWaiters.set(path, resolve);
+        });
+        scanFsControl.activeStats--;
+        scanFsControl.completedStatPaths.push(path);
+      }
+      return actual.stat(...args);
+    },
+    lstat: async (...args: Parameters<typeof actual.lstat>) => {
+      if (scanFsControl.failingLstatPaths.has(String(args[0]))) {
+        throw new Error("injected lstat failure");
+      }
+      return actual.lstat(...args);
+    },
+    readlink: async (...args: Parameters<typeof actual.readlink>) => {
+      if (scanFsControl.failingReadlinkPaths.has(String(args[0]))) {
+        throw new Error("injected readlink failure");
+      }
+      return actual.readlink(...args);
+    },
+    realpath: async (...args: Parameters<typeof actual.realpath>) => {
+      if (scanFsControl.failingRealpathPaths.has(String(args[0]))) {
+        throw new Error("injected realpath failure");
+      }
+      return actual.realpath(...args);
+    },
+    readFile: async (...args: Parameters<typeof actual.readFile>) => {
+      if (scanFsControl.invalidReadPaths.has(String(args[0]))) {
+        return undefined as never;
+      }
+      return actual.readFile(...args);
+    },
+  };
+});
+
+import {
+  mkdtemp,
+  writeFile,
+  mkdir,
+  rm,
+  symlink,
+  realpath,
+  readdir,
+} from "fs/promises";
+import { join, resolve } from "path";
 import { tmpdir } from "os";
 import {
   searchSkills,
@@ -15,7 +95,65 @@ import {
 } from "./scanner";
 import { setVerbose } from "./logger";
 import { getDefaultConfig } from "./config";
-import type { SkillInfo } from "./utils/types";
+import type { AppConfig, SkillInfo } from "./utils/types";
+
+function resetScanFsControl(): void {
+  for (const release of scanFsControl.statWaiters.values()) release();
+  scanFsControl.blockedStatPaths.clear();
+  scanFsControl.statWaiters.clear();
+  scanFsControl.completedStatPaths.length = 0;
+  scanFsControl.completedReaddirPaths.clear();
+  scanFsControl.failingStatPaths.clear();
+  scanFsControl.failingLstatPaths.clear();
+  scanFsControl.failingReadlinkPaths.clear();
+  scanFsControl.failingRealpathPaths.clear();
+  scanFsControl.invalidReadPaths.clear();
+  scanFsControl.activeStats = 0;
+  scanFsControl.maxActiveStats = 0;
+  scanFsControl.startedStats = 0;
+}
+
+function releaseBlockedStats(): void {
+  scanFsControl.blockedStatPaths.clear();
+  for (const release of scanFsControl.statWaiters.values()) release();
+  scanFsControl.statWaiters.clear();
+}
+
+async function createSkills(
+  dir: string,
+  names: string[],
+  batchSize = names.length,
+): Promise<void> {
+  for (let start = 0; start < names.length; start += batchSize) {
+    await Promise.all(
+      names.slice(start, start + batchSize).map(async (name) => {
+        const skillDir = join(dir, name);
+        await mkdir(skillDir, { recursive: true });
+        await writeFile(
+          join(skillDir, "SKILL.md"),
+          `---\nname: ${name}\nversion: 1.0.0\n---\n`,
+        );
+      }),
+    );
+  }
+}
+
+function makeScanConfig(
+  dirs: string[],
+  scope: "global" | "project" = "project",
+): AppConfig {
+  return {
+    ...getDefaultConfig(),
+    providers: dirs.map((dir, index) => ({
+      name: `test-${index}`,
+      label: `Test ${index}`,
+      global: scope === "global" ? dir : "/tmp/nonexistent-scanner-global",
+      project: scope === "project" ? dir : "/tmp/nonexistent-scanner-project",
+      enabled: true,
+    })),
+    customPaths: [],
+  };
+}
 
 function makeSkill(overrides: Partial<SkillInfo> = {}): SkillInfo {
   return {
@@ -293,10 +431,12 @@ describe("scanAllSkills", () => {
   let tempDir: string;
 
   beforeEach(async () => {
+    resetScanFsControl();
     tempDir = await mkdtemp(join(tmpdir(), "scanner-scan-"));
   });
 
   afterEach(async () => {
+    resetScanFsControl();
     await rm(tempDir, { recursive: true, force: true });
   });
 
@@ -479,6 +619,197 @@ describe("scanAllSkills", () => {
     expect(found).toBeDefined();
     expect(found!.provider).toBe("custom");
     expect(found!.providerLabel).toBe("My Custom");
+  });
+
+  it("scans multiple entries in parallel", async () => {
+    const names = ["one", "two", "three", "four"];
+    await createSkills(tempDir, names);
+    for (const name of names) {
+      scanFsControl.blockedStatPaths.add(join(tempDir, name));
+    }
+
+    const scanPromise = scanAllSkills(makeScanConfig([tempDir]), "project");
+    let skills: SkillInfo[] = [];
+    try {
+      await vi.waitFor(() => expect(scanFsControl.startedStats).toBe(4));
+      expect(scanFsControl.activeStats).toBe(4);
+      expect(scanFsControl.maxActiveStats).toBe(4);
+    } finally {
+      releaseBlockedStats();
+      skills = await scanPromise;
+    }
+
+    expect(skills).toHaveLength(4);
+  });
+
+  it("shares one concurrency cap across overlapping scans and locations", async () => {
+    const roots = ["a", "b", "c", "d"].map((name) => join(tempDir, name));
+    const names = Array.from({ length: 12 }, (_, index) => `skill-${index}`);
+    for (const root of roots) {
+      await createSkills(root, names);
+      for (const name of names) {
+        scanFsControl.blockedStatPaths.add(join(root, name));
+      }
+    }
+
+    const firstScan = scanAllSkills(
+      makeScanConfig(roots.slice(0, 2)),
+      "project",
+    );
+    const secondScan = scanAllSkills(makeScanConfig(roots.slice(2)), "project");
+    try {
+      await vi.waitFor(() =>
+        expect(
+          roots.every((root) => scanFsControl.completedReaddirPaths.has(root)),
+        ).toBe(true),
+      );
+      await vi.waitFor(() =>
+        expect(scanFsControl.startedStats).toBeGreaterThanOrEqual(16),
+      );
+      expect(scanFsControl.startedStats).toBe(16);
+      expect(scanFsControl.activeStats).toBe(16);
+      expect(scanFsControl.maxActiveStats).toBe(16);
+
+      const [firstBlockedPath, releaseFirst] = scanFsControl.statWaiters
+        .entries()
+        .next().value!;
+      scanFsControl.blockedStatPaths.delete(firstBlockedPath);
+      scanFsControl.statWaiters.delete(firstBlockedPath);
+      releaseFirst();
+      await vi.waitFor(() => expect(scanFsControl.startedStats).toBe(17));
+      expect(scanFsControl.activeStats).toBe(16);
+      expect(scanFsControl.maxActiveStats).toBe(16);
+    } finally {
+      releaseBlockedStats();
+      await Promise.all([firstScan, secondScan]);
+    }
+    expect(scanFsControl.maxActiveStats).toBe(16);
+  });
+
+  it("preserves readdir and provider order despite out-of-order completion", async () => {
+    const firstRoot = join(tempDir, "first");
+    const secondRoot = join(tempDir, "second");
+    await createSkills(firstRoot, ["zeta", "alpha"]);
+    await createSkills(secondRoot, ["delta", "beta"]);
+    const expectedFirst = await readdir(firstRoot);
+    const expectedSecond = await readdir(secondRoot);
+
+    const pluginBase = join(tempDir, "plugins");
+    const duplicateDir = join(pluginBase, "market", "skills", "duplicate");
+    await mkdir(duplicateDir, { recursive: true });
+    await writeFile(
+      join(duplicateDir, "SKILL.md"),
+      `---\nname: ${expectedFirst[0]}\n---\n`,
+    );
+
+    const providerPaths = [firstRoot, secondRoot].flatMap((root) =>
+      root === firstRoot
+        ? expectedFirst.map((entry) => join(root, entry))
+        : expectedSecond.map((entry) => join(root, entry)),
+    );
+    for (const path of providerPaths) {
+      scanFsControl.blockedStatPaths.add(path);
+    }
+
+    const scanPromise = scanAllSkills(
+      makeScanConfig([firstRoot, secondRoot], "global"),
+      "global",
+      pluginBase,
+      join(tempDir, "missing-codex-cache"),
+    );
+    let skills: SkillInfo[] = [];
+    try {
+      await vi.waitFor(() => expect(scanFsControl.startedStats).toBe(4));
+      for (const path of [...providerPaths].reverse()) {
+        scanFsControl.blockedStatPaths.delete(path);
+        const release = scanFsControl.statWaiters.get(path);
+        expect(release).toBeDefined();
+        scanFsControl.statWaiters.delete(path);
+        release!();
+        await vi.waitFor(() =>
+          expect(scanFsControl.completedStatPaths).toContain(path),
+        );
+      }
+    } finally {
+      releaseBlockedStats();
+      skills = await scanPromise;
+    }
+
+    expect(skills.map((skill) => skill.dirName)).toEqual([
+      ...expectedFirst,
+      ...expectedSecond,
+    ]);
+    expect(skills.map((skill) => skill.provider)).toEqual([
+      "test-0",
+      "test-0",
+      "test-1",
+      "test-1",
+    ]);
+    expect(skills.filter((skill) => skill.provider === "plugin")).toEqual([]);
+  });
+
+  it("isolates entry failures and preserves filesystem fallbacks", async () => {
+    const scanRoot = join(tempDir, "inventory");
+    await createSkills(scanRoot, [
+      "good",
+      "lstat-fails",
+      "realpath-fails",
+      "stat-fails",
+      "invalid-content",
+    ]);
+    await mkdir(join(scanRoot, "no-skill"));
+    await writeFile(join(scanRoot, "not-a-directory"), "ignored");
+
+    const symlinkTarget = join(tempDir, "symlink-target");
+    await createSkills(symlinkTarget, ["target"]);
+    const linkedPath = join(scanRoot, "readlink-fails");
+    await symlink(join(symlinkTarget, "target"), linkedPath, "dir");
+
+    const lstatFailurePath = join(scanRoot, "lstat-fails");
+    const realpathFailurePath = join(scanRoot, "realpath-fails");
+    scanFsControl.failingLstatPaths.add(lstatFailurePath);
+    scanFsControl.failingRealpathPaths.add(realpathFailurePath);
+    scanFsControl.failingStatPaths.add(join(scanRoot, "stat-fails"));
+    scanFsControl.failingReadlinkPaths.add(linkedPath);
+    scanFsControl.invalidReadPaths.add(
+      join(scanRoot, "invalid-content", "SKILL.md"),
+    );
+    const expectedOrder = (await readdir(scanRoot)).filter((entry) =>
+      ["good", "lstat-fails", "readlink-fails", "realpath-fails"].includes(
+        entry,
+      ),
+    );
+
+    const skills = await scanAllSkills(makeScanConfig([scanRoot]), "project");
+
+    expect(skills.map((skill) => skill.dirName)).toEqual(expectedOrder);
+    expect(
+      skills.find((skill) => skill.dirName === "lstat-fails"),
+    ).toMatchObject({
+      isSymlink: false,
+      symlinkTarget: null,
+    });
+    expect(
+      skills.find((skill) => skill.dirName === "readlink-fails"),
+    ).toMatchObject({ isSymlink: true, symlinkTarget: null });
+    expect(
+      skills.find((skill) => skill.dirName === "realpath-fails")?.realPath,
+    ).toBe(resolve(realpathFailurePath));
+  });
+
+  it("scans a very large inventory without descriptor exhaustion", async () => {
+    const inventory = join(tempDir, "large");
+    const names = Array.from(
+      { length: 2048 },
+      (_, index) => `skill-${index.toString().padStart(4, "0")}`,
+    );
+    await createSkills(inventory, names, 64);
+    const expectedOrder = await readdir(inventory);
+
+    const skills = await scanAllSkills(makeScanConfig([inventory]), "project");
+
+    expect(skills).toHaveLength(2048);
+    expect(skills.map((skill) => skill.dirName)).toEqual(expectedOrder);
   });
 });
 
