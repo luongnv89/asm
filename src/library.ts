@@ -135,6 +135,28 @@ function libraryUpdateFailure(
   return { name, status: "failed", reason };
 }
 
+function libraryEntryMatchesUpdateSource(
+  currentEntry: LibrarySkillEntry,
+  expectedEntry: LibrarySkillEntry,
+): boolean {
+  return (
+    currentEntry.source === expectedEntry.source &&
+    currentEntry.sourceType === expectedEntry.sourceType &&
+    currentEntry.ref === expectedEntry.ref &&
+    currentEntry.skillPath === expectedEntry.skillPath &&
+    currentEntry.libraryPath === expectedEntry.libraryPath
+  );
+}
+
+function libraryEntryChangedDuringUpdate(
+  name: string,
+): LibraryUpdateResult {
+  return libraryUpdateFailure(
+    name,
+    `Library skill "${name}" changed while update was in progress. Run "asm library update ${name}" again.`,
+  );
+}
+
 function librarySourceRoot(entry: LibrarySkillEntry): string | null {
   if (!entry.source.startsWith("local:")) {
     return null;
@@ -496,6 +518,7 @@ export async function updateLibrarySkill(
   }
 
   const [dirName, entry] = selected;
+  const expectedEntry = { ...entry };
 
   if (!entry.source || !entry.source.trim()) {
     return libraryUpdateFailure(dirName, "Missing update metadata: source");
@@ -648,7 +671,11 @@ export async function updateLibrarySkill(
           );
         }
 
-        if (currentEntry.commitHash === nextCommitHash) {
+        const updateSourceStillMatches = libraryEntryMatchesUpdateSource(
+          currentEntry,
+          expectedEntry,
+        );
+        if (updateSourceStillMatches && currentEntry.commitHash === nextCommitHash) {
           return {
             name: currentEntry.name,
             status: "skipped" as const,
@@ -657,6 +684,13 @@ export async function updateLibrarySkill(
             oldCommit: currentEntry.commitHash,
             newCommit: nextCommitHash,
           };
+        }
+
+        if (
+          !updateSourceStillMatches ||
+          currentEntry.commitHash !== expectedEntry.commitHash
+        ) {
+          return libraryEntryChangedDuringUpdate(dirName);
         }
 
         const updatedLock = {
