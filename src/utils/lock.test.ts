@@ -1,10 +1,12 @@
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 
 const fspMocks = vi.hoisted(() => ({
-  renameOverride: null as null | ((
-    realRename: typeof import("fs/promises").rename,
-    ...args: Parameters<typeof import("fs/promises").rename>
-  ) => Promise<void>),
+  renameOverride: null as
+    | null
+    | ((
+        realRename: typeof import("fs/promises").rename,
+        ...args: Parameters<typeof import("fs/promises").rename>
+      ) => Promise<void>),
 }));
 vi.mock("fs/promises", async (importOriginal) => {
   const actual = await importOriginal<typeof import("fs/promises")>();
@@ -17,14 +19,7 @@ vi.mock("fs/promises", async (importOriginal) => {
   };
 });
 
-import {
-  mkdtemp,
-  writeFile,
-  rm,
-  readFile,
-  mkdir,
-  readdir,
-} from "fs/promises";
+import { mkdtemp, writeFile, rm, readFile, mkdir, readdir } from "fs/promises";
 import { execSync } from "child_process";
 import { join } from "path";
 import { tmpdir } from "os";
@@ -208,22 +203,23 @@ describe("writeLockEntry", () => {
   });
 
   test("preserves the previous lock file when atomic rename fails", async () => {
-    const original = JSON.stringify(
-      {
-        version: 1,
-        skills: {
-          existing: {
-            source: "github:bob/existing",
-            commitHash: "111",
-            ref: "main",
-            installedAt: "2026-03-19T10:00:00Z",
-            provider: "claude",
+    const original =
+      JSON.stringify(
+        {
+          version: 1,
+          skills: {
+            existing: {
+              source: "github:bob/existing",
+              commitHash: "111",
+              ref: "main",
+              installedAt: "2026-03-19T10:00:00Z",
+              provider: "claude",
+            },
           },
         },
-      },
-      null,
-      2,
-    ) + "\n";
+        null,
+        2,
+      ) + "\n";
     await writeFile(mockState.lockPath, original, "utf-8");
 
     fspMocks.renameOverride = async (_realRename, _from, to) => {

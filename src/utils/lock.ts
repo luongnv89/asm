@@ -136,10 +136,7 @@ async function mutateLock<T>(
 }
 
 async function writeLock(lock: LockFile, lockPath: string): Promise<void> {
-  await writeTextFileAtomically(
-    lockPath,
-    JSON.stringify(lock, null, 2) + "\n",
-  );
+  await writeTextFileAtomically(lockPath, JSON.stringify(lock, null, 2) + "\n");
 }
 
 export async function getCommitHash(repoDir: string): Promise<string | null> {

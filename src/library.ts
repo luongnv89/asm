@@ -20,7 +20,10 @@ import { getLibraryLockPath, getLibrarySkillsDir } from "./config";
 import { debug } from "./logger";
 import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
 import { createDirSymlink } from "./utils/fs";
-import { withFileMutationLock, writeTextFileAtomically } from "./utils/atomic-file";
+import {
+  withFileMutationLock,
+  writeTextFileAtomically,
+} from "./utils/atomic-file";
 import { sourceToCloneUrl } from "./updater";
 import type { LibraryLockFile, LibrarySkillEntry } from "./utils/types";
 
@@ -143,7 +146,9 @@ async function libraryEntryMatchesUpdateSource(
   if (currentEntry.sourceType !== expectedEntry.sourceType) {
     return false;
   }
-  if (resolve(currentEntry.libraryPath) !== resolve(expectedEntry.libraryPath)) {
+  if (
+    resolve(currentEntry.libraryPath) !== resolve(expectedEntry.libraryPath)
+  ) {
     return false;
   }
   if (currentEntry.sourceType === "local") {
@@ -162,9 +167,7 @@ async function libraryEntryMatchesUpdateSource(
   );
 }
 
-function libraryEntryChangedDuringUpdate(
-  name: string,
-): LibraryUpdateResult {
+function libraryEntryChangedDuringUpdate(name: string): LibraryUpdateResult {
   return libraryUpdateFailure(
     name,
     `Library skill "${name}" changed while update was in progress. Run "asm library update ${name}" again.`,
@@ -726,7 +729,10 @@ export async function updateLibrarySkill(
         } catch {
           return libraryEntryChangedDuringUpdate(dirName);
         }
-        if (updateSourceStillMatches && currentEntry.commitHash === nextCommitHash) {
+        if (
+          updateSourceStillMatches &&
+          currentEntry.commitHash === nextCommitHash
+        ) {
           return {
             name: currentEntry.name,
             status: "skipped" as const,

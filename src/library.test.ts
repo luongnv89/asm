@@ -2,18 +2,24 @@ import { createDirSymlink } from "./utils/fs";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 
 const fspMocks = vi.hoisted(() => ({
-  renameOverride: null as null | ((
-    realRename: typeof import("fs/promises").rename,
-    ...args: Parameters<typeof import("fs/promises").rename>
-  ) => Promise<void>),
-  readFileOverride: null as null | ((
-    realReadFile: typeof import("fs/promises").readFile,
-    ...args: Parameters<typeof import("fs/promises").readFile>
-  ) => ReturnType<typeof import("fs/promises").readFile>),
-  cpOverride: null as null | ((
-    realCp: typeof import("fs/promises").cp,
-    ...args: Parameters<typeof import("fs/promises").cp>
-  ) => ReturnType<typeof import("fs/promises").cp>),
+  renameOverride: null as
+    | null
+    | ((
+        realRename: typeof import("fs/promises").rename,
+        ...args: Parameters<typeof import("fs/promises").rename>
+      ) => Promise<void>),
+  readFileOverride: null as
+    | null
+    | ((
+        realReadFile: typeof import("fs/promises").readFile,
+        ...args: Parameters<typeof import("fs/promises").readFile>
+      ) => ReturnType<typeof import("fs/promises").readFile>),
+  cpOverride: null as
+    | null
+    | ((
+        realCp: typeof import("fs/promises").cp,
+        ...args: Parameters<typeof import("fs/promises").cp>
+      ) => ReturnType<typeof import("fs/promises").cp>),
 }));
 vi.mock("fs/promises", async (importOriginal) => {
   const actual = await importOriginal<typeof import("fs/promises")>();
@@ -137,26 +143,27 @@ describe("library lock", () => {
   });
 
   test("writeLibraryLock preserves the previous lock when atomic rename fails", async () => {
-    const original = JSON.stringify(
-      {
-        version: 1,
-        skills: {
-          brainstorming: {
-            name: "brainstorming",
-            version: "1.0.0",
-            source: "github:obra/superpowers",
-            sourceType: "github",
-            commitHash: "abc123",
-            ref: "main",
-            skillPath: "skills/brainstorming",
-            libraryPath: join(tempDir, "skills", "brainstorming"),
-            installedAt: "2026-06-18T00:00:00.000Z",
+    const original =
+      JSON.stringify(
+        {
+          version: 1,
+          skills: {
+            brainstorming: {
+              name: "brainstorming",
+              version: "1.0.0",
+              source: "github:obra/superpowers",
+              sourceType: "github",
+              commitHash: "abc123",
+              ref: "main",
+              skillPath: "skills/brainstorming",
+              libraryPath: join(tempDir, "skills", "brainstorming"),
+              installedAt: "2026-06-18T00:00:00.000Z",
+            },
           },
         },
-      },
-      null,
-      2,
-    ) + "\n";
+        null,
+        2,
+      ) + "\n";
     await writeFile(lockPath, original, "utf-8");
 
     fspMocks.renameOverride = async (_realRename, _from, to) => {
@@ -1511,7 +1518,9 @@ describe("updateLibrarySkill", () => {
     await updateStageReady.promise;
 
     let reinstallResult: Awaited<ReturnType<typeof installLibrarySkill>>;
-    let reinstallEntry: Awaited<ReturnType<typeof readLibraryLock>>["skills"][string];
+    let reinstallEntry: Awaited<
+      ReturnType<typeof readLibraryLock>
+    >["skills"][string];
     try {
       reinstallResult = await installLibrarySkill(
         {
@@ -1558,7 +1567,9 @@ describe("updateLibrarySkill", () => {
     });
     const finalLock = await readLibraryLock(lockPath);
     expect(finalLock.skills.brainstorming).toEqual(reinstallEntry);
-    expect(finalLock.skills.brainstorming.source).toBe(`local:${reinstallRoot}`);
+    expect(finalLock.skills.brainstorming.source).toBe(
+      `local:${reinstallRoot}`,
+    );
     expect(finalLock.skills.brainstorming.skillPath).toBe("brainstorming");
   });
 
@@ -1614,9 +1625,13 @@ describe("updateLibrarySkill", () => {
       readFile(join(libraryPath, "SKILL.md"), "utf-8"),
     ).resolves.toContain("# Updated Source");
     const finalLock = await readLibraryLock(lockPath);
-    expect(finalLock.skills.brainstorming.source).toBe(`local:${equivalentSource}`);
+    expect(finalLock.skills.brainstorming.source).toBe(
+      `local:${equivalentSource}`,
+    );
     expect(finalLock.skills.brainstorming.ref).toBe("HEAD");
-    expect(finalLock.skills.brainstorming.skillPath).toBe("skills/brainstorming/.");
+    expect(finalLock.skills.brainstorming.skillPath).toBe(
+      "skills/brainstorming/.",
+    );
   });
 
   test("rejects changed local sources during stale-update revalidation", async () => {
@@ -1677,7 +1692,9 @@ describe("updateLibrarySkill", () => {
       readFile(join(libraryPath, "SKILL.md"), "utf-8"),
     ).resolves.not.toContain("# Updated Source");
     const finalLock = await readLibraryLock(lockPath);
-    expect(finalLock.skills.brainstorming.source).toBe(`local:${movedSourceRoot}`);
+    expect(finalLock.skills.brainstorming.source).toBe(
+      `local:${movedSourceRoot}`,
+    );
   });
 
   test("serializes force reinstall with failing update rollback so disk and lock stay aligned", async () => {
