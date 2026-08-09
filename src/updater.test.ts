@@ -585,9 +585,9 @@ describe("getLatestRemoteCommit", () => {
 
       const repoUrl = `file://${bareRepoPath}`;
       expect(await getLatestRemoteCommit(repoUrl, "shared")).toBe(branchCommit);
-      expect(
-        await getLatestRemoteCommit(repoUrl, "refs/tags/shared"),
-      ).toBe(tagCommit);
+      expect(await getLatestRemoteCommit(repoUrl, "refs/tags/shared")).toBe(
+        tagCommit,
+      );
     } finally {
       await rm(tempDir, { recursive: true, force: true });
     }
