@@ -23,6 +23,47 @@ import { ansi } from "./formatter";
 
 const execFileAsync = promisify(execFile);
 
+// Repository-local Git variables can redirect commands away from their cwd.
+// Keep transport/auth variables intact, but never inherit repository routing.
+const REPOSITORY_LOCAL_GIT_ENV_VARS = [
+  "GIT_DIR",
+  "GIT_WORK_TREE",
+  "GIT_COMMON_DIR",
+  "GIT_INDEX_FILE",
+  "GIT_OBJECT_DIRECTORY",
+  "GIT_ALTERNATE_OBJECT_DIRECTORIES",
+  "GIT_IMPLICIT_WORK_TREE",
+  "GIT_GRAFT_FILE",
+  "GIT_SHALLOW_FILE",
+  "GIT_NO_REPLACE_OBJECTS",
+  "GIT_REPLACE_REF_BASE",
+  "GIT_PREFIX",
+  "GIT_INTERNAL_SUPER_PREFIX",
+  "GIT_CEILING_DIRECTORIES",
+  "GIT_DISCOVERY_ACROSS_FILESYSTEM",
+  "GIT_NAMESPACE",
+  "GIT_QUARANTINE_PATH",
+  "GIT_CONFIG",
+  "GIT_CONFIG_PARAMETERS",
+  "GIT_CONFIG_COUNT",
+] as const;
+
+function createPinnedGitEnv(
+  objectFormat: "sha1" | "sha256",
+): NodeJS.ProcessEnv {
+  const env = { ...process.env };
+  for (const variable of REPOSITORY_LOCAL_GIT_ENV_VARS) {
+    delete env[variable];
+  }
+  for (const variable of Object.keys(env)) {
+    if (/^GIT_CONFIG_(?:KEY|VALUE)_\d+$/.test(variable)) {
+      delete env[variable];
+    }
+  }
+  env.GIT_DEFAULT_HASH = objectFormat;
+  return env;
+}
+
 // ─── Types ──────────────────────────────────────────────────────────────────
 
 export type OutdatedStatus = "outdated" | "up-to-date" | "untracked" | "error";
@@ -432,18 +473,20 @@ export async function updateSkill(
     if (pinnedCommit) {
       try {
         const objectFormat = pinnedCommit.length === 40 ? "sha1" : "sha256";
+        const gitEnv = createPinnedGitEnv(objectFormat);
         await execFileAsync("git", ["init", tempDir], {
           timeout: 10_000,
-          env: { ...process.env, GIT_DEFAULT_HASH: objectFormat },
+          env: gitEnv,
         });
         await execFileAsync(
           "git",
           ["fetch", "--depth", "1", cloneUrl, pinnedCommit],
-          { cwd: tempDir, timeout: 60_000 },
+          { cwd: tempDir, timeout: 60_000, env: gitEnv },
         );
         await execFileAsync("git", ["checkout", "--detach", pinnedCommit], {
           cwd: tempDir,
           timeout: 10_000,
+          env: gitEnv,
         });
       } catch {
         return {

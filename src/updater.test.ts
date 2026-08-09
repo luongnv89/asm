@@ -1023,6 +1023,126 @@ describe("updateSkill happy path", () => {
     );
   });
 
+  test("isolates pinned Git operations from ambient repository routing", async () => {
+    const { execFile } = await import("child_process");
+    const { promisify } = await import("util");
+    const exec = promisify(execFile);
+    const { bareRepoPath, commitHash: knownCommit } = await createBareGitRepo(
+      tempDir,
+      "isolated-pinned-skill",
+      "# Isolated pinned version",
+    );
+
+    const ambientDir = join(tempDir, "ambient-repo");
+    await mkdir(ambientDir, { recursive: true });
+    await exec("git", ["init", ambientDir], {
+      env: { ...process.env, GIT_DEFAULT_HASH: "sha1" },
+    });
+    await exec("git", [
+      "-C",
+      ambientDir,
+      "config",
+      "user.email",
+      "test@test.com",
+    ]);
+    await exec("git", ["-C", ambientDir, "config", "user.name", "Test"]);
+    const sentinelPath = join(ambientDir, "sentinel.txt");
+    const sentinelContent = "ambient repository content\n";
+    await writeFile(sentinelPath, sentinelContent);
+    await exec("git", ["-C", ambientDir, "add", "sentinel.txt"]);
+    await exec("git", ["-C", ambientDir, "commit", "-m", "ambient state"]);
+
+    const ambientHead = (
+      await exec("git", ["-C", ambientDir, "rev-parse", "HEAD"])
+    ).stdout.trim();
+    const ambientBranch = (
+      await exec("git", ["-C", ambientDir, "symbolic-ref", "--short", "HEAD"])
+    ).stdout.trim();
+    const ambientStatus = (
+      await exec("git", [
+        "-C",
+        ambientDir,
+        "status",
+        "--porcelain=v1",
+        "--untracked-files=all",
+      ])
+    ).stdout;
+
+    const skillsDir = join(tempDir, "isolated-pinned-skills");
+    const installedDir = join(skillsDir, "isolated-pinned-skill");
+    await mkdir(installedDir, { recursive: true });
+    await writeFile(join(installedDir, "skill.md"), "# Old version");
+
+    const { updateSkill } = await import("./updater");
+    const entry: LockEntry = {
+      source: `file://${bareRepoPath}`,
+      commitHash: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      ref: null,
+      installedAt: "2026-01-01T00:00:00.000Z",
+      provider: "claude",
+      sourceType: "github",
+    };
+    const routingVariables = ["GIT_DIR", "GIT_WORK_TREE"] as const;
+    const previousValues = new Map(
+      routingVariables.map((variable) => [variable, process.env[variable]]),
+    );
+    let result: Awaited<ReturnType<typeof updateSkill>> | undefined;
+
+    process.env.GIT_DIR = join(ambientDir, ".git");
+    process.env.GIT_WORK_TREE = ambientDir;
+    try {
+      result = await updateSkill(
+        "isolated-pinned-skill",
+        entry,
+        false,
+        {
+          auditFn: async () => ({ verdict: "safe" }),
+          loadConfigFn: async () =>
+            ({ providers: [{ name: "claude", global: skillsDir }] }) as any,
+          resolveProviderPathFn: (p: string) => p,
+          writeLockEntryFn: async () => {},
+        },
+        knownCommit,
+      );
+    } finally {
+      for (const variable of routingVariables) {
+        const previousValue = previousValues.get(variable);
+        if (previousValue === undefined) {
+          delete process.env[variable];
+        } else {
+          process.env[variable] = previousValue;
+        }
+      }
+    }
+
+    expect(result?.status).toBe("updated");
+    expect(await readFile(join(installedDir, "skill.md"), "utf-8")).toBe(
+      "# Isolated pinned version",
+    );
+    expect(
+      (
+        await exec("git", ["-C", ambientDir, "rev-parse", "HEAD"])
+      ).stdout.trim(),
+    ).toBe(ambientHead);
+    expect(
+      (
+        await exec("git", ["-C", ambientDir, "symbolic-ref", "--short", "HEAD"])
+      ).stdout.trim(),
+    ).toBe(ambientBranch);
+    expect(
+      (
+        await exec("git", [
+          "-C",
+          ambientDir,
+          "status",
+          "--porcelain=v1",
+          "--untracked-files=all",
+        ])
+      ).stdout,
+    ).toBe(ambientStatus);
+    expect(await readFile(sentinelPath, "utf-8")).toBe(sentinelContent);
+  });
+
   test("fetches a SHA-1 known commit when GIT_DEFAULT_HASH requests SHA-256", async () => {
     const { bareRepoPath, commitHash: knownCommit } = await createBareGitRepo(
       tempDir,
