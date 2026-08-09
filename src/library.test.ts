@@ -1563,14 +1563,12 @@ describe("updateLibrarySkill", () => {
     ).resolves.toContain("# New Outline");
   });
 
-  test("rejects a stale staged update after force reinstall commits newer metadata", async () => {
-    const reinstallRoot = join(tempDir, "reinstall");
-    const reinstallSourceDir = join(reinstallRoot, "brainstorming");
-    await mkdir(reinstallSourceDir, { recursive: true });
-    await writeFile(
-      join(reinstallSourceDir, "SKILL.md"),
-      "---\nname: brainstorming\nversion: 3.0.0\n---\n# Reinstalled Source\n",
-    );
+  test("rejects a stale staged update after force reinstall publishes a new generation with unchanged metadata", async () => {
+    const initialInstalledAt = "2000-01-01T00:00:00.000Z";
+    const initialLock = await readLibraryLock(lockPath);
+    initialLock.skills.brainstorming.installedAt = initialInstalledAt;
+    await writeLibraryLock(initialLock, lockPath);
+
     await writeFile(
       join(sourceRoot, "skills", "brainstorming", "SKILL.md"),
       "---\nname: brainstorming\nversion: 2.0.0\n---\n# Updated Source\n",
@@ -1597,6 +1595,11 @@ describe("updateLibrarySkill", () => {
     });
     await updateStageReady.promise;
 
+    await writeFile(
+      join(updateSourceDir, "SKILL.md"),
+      "---\nname: brainstorming\nversion: 3.0.0\n---\n# Reinstalled Source\n",
+    );
+
     let reinstallResult: Awaited<ReturnType<typeof installLibrarySkill>>;
     let reinstallEntry: Awaited<
       ReturnType<typeof readLibraryLock>
@@ -1604,13 +1607,13 @@ describe("updateLibrarySkill", () => {
     try {
       reinstallResult = await installLibrarySkill(
         {
-          sourceDir: reinstallSourceDir,
+          sourceDir: updateSourceDir,
           libraryName: "brainstorming",
-          source: `local:${reinstallRoot}`,
+          source: `local:${sourceRoot}`,
           sourceType: "local",
-          commitHash: "reinstall",
+          commitHash: "local",
           ref: null,
-          skillPath: "brainstorming",
+          skillPath: "skills/brainstorming",
           force: true,
         },
         { skillsDir, lockPath },
@@ -1647,10 +1650,14 @@ describe("updateLibrarySkill", () => {
     });
     const finalLock = await readLibraryLock(lockPath);
     expect(finalLock.skills.brainstorming).toEqual(reinstallEntry);
-    expect(finalLock.skills.brainstorming.source).toBe(
-      `local:${reinstallRoot}`,
+    expect(finalLock.skills.brainstorming.source).toBe(`local:${sourceRoot}`);
+    expect(finalLock.skills.brainstorming.skillPath).toBe(
+      "skills/brainstorming",
     );
-    expect(finalLock.skills.brainstorming.skillPath).toBe("brainstorming");
+    expect(finalLock.skills.brainstorming.commitHash).toBe("local");
+    expect(finalLock.skills.brainstorming.installedAt).not.toBe(
+      initialInstalledAt,
+    );
   });
 
   test("accepts equivalent local source spellings during stale-update revalidation", async () => {

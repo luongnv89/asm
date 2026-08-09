@@ -175,6 +175,12 @@ function libraryEntryChangedDuringUpdate(name: string): LibraryUpdateResult {
   );
 }
 
+function nextInstalledAt(previousInstalledAt?: string): string {
+  const installedAt = new Date().toISOString();
+  if (installedAt !== previousInstalledAt) return installedAt;
+  return new Date(Date.parse(installedAt) + 1).toISOString();
+}
+
 function librarySourceRoot(entry: LibrarySkillEntry): string | null {
   if (!entry.source.startsWith("local:")) {
     return null;
@@ -740,7 +746,10 @@ export async function updateLibrarySkill(
         } catch {
           return libraryEntryChangedDuringUpdate(dirName);
         }
+        const installedGenerationStillMatches =
+          currentEntry.installedAt === expectedEntry.installedAt;
         if (
+          installedGenerationStillMatches &&
           updateSourceStillMatches &&
           currentEntry.commitHash === nextCommitHash
         ) {
@@ -755,6 +764,7 @@ export async function updateLibrarySkill(
         }
 
         if (
+          !installedGenerationStillMatches ||
           !updateSourceStillMatches ||
           currentEntry.commitHash !== expectedEntry.commitHash
         ) {
@@ -770,7 +780,7 @@ export async function updateLibrarySkill(
               name: nameFromSource,
               version: versionFromSource,
               commitHash: nextCommitHash,
-              installedAt: new Date().toISOString(),
+              installedAt: nextInstalledAt(currentEntry.installedAt),
             },
           },
         };
@@ -1045,7 +1055,9 @@ export async function installLibrarySkill(
             ref: plan.ref,
             skillPath: plan.skillPath,
             libraryPath,
-            installedAt: new Date().toISOString(),
+            installedAt: nextInstalledAt(
+              currentLock.skills[libraryName]?.installedAt,
+            ),
           },
         },
       };
