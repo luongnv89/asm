@@ -63,6 +63,18 @@ export interface UpdateSummary {
   warnings?: string[];
 }
 
+// Keep resolved OIDs internal so public entries and formatter output retain their
+// existing shape. updateSkills consumes the same entry objects returned below.
+const resolvedLatestCommits = new WeakMap<OutdatedEntry, string>();
+
+function recordResolvedLatestCommit<T extends OutdatedEntry>(
+  entry: T,
+  commit: string,
+): T {
+  resolvedLatestCommits.set(entry, commit);
+  return entry;
+}
+
 // ─── Concurrency Pool ───────────────────────────────────────────────────────
 
 async function poolAll<T, R>(
@@ -101,16 +113,19 @@ export async function getLatestRemoteCommit(
   try {
     const args = ["ls-remote", repoUrl];
     if (ref) {
-      args.push(ref);
+      // Ask for the peeled form too so annotated tags resolve to commits.
+      args.push(ref, `${ref}^{}`);
     } else {
       args.push("HEAD");
     }
 
     const { stdout } = await execFileAsync("git", args, { timeout: 10_000 });
-    const firstLine = stdout.split("\n")[0];
-    if (!firstLine) return null;
-    const hash = firstLine.split(/\s+/)[0];
-    return hash && /^[0-9a-f]{40}$/.test(hash) ? hash : null;
+    const lines = stdout.split("\n").filter(Boolean);
+    const resolvedLine = lines.find((line) =>
+      line.split(/\s+/)[1]?.endsWith("^{}"),
+    );
+    const hash = (resolvedLine ?? lines[0])?.split(/\s+/)[0];
+    return hash && /^(?:[0-9a-f]{40}|[0-9a-f]{64})$/.test(hash) ? hash : null;
   } catch (err) {
     debug(`updater: git ls-remote failed for ${repoUrl}: ${err}`);
     return null;
@@ -253,16 +268,19 @@ export async function checkOutdated(
       );
       if (manifest) {
         const isOutdated = manifest.commit !== entry.commitHash;
-        return {
-          name,
-          installedCommit: shortHash(entry.commitHash),
-          latestCommit: shortHash(manifest.commit),
-          source: entry.source,
-          sourceType,
-          status: isOutdated
-            ? ("outdated" as OutdatedStatus)
-            : ("up-to-date" as OutdatedStatus),
-        };
+        return recordResolvedLatestCommit(
+          {
+            name,
+            installedCommit: shortHash(entry.commitHash),
+            latestCommit: shortHash(manifest.commit),
+            source: entry.source,
+            sourceType,
+            status: isOutdated
+              ? ("outdated" as OutdatedStatus)
+              : ("up-to-date" as OutdatedStatus),
+          },
+          manifest.commit,
+        );
       }
       // Registry skill not found in index — fall through to git ls-remote
     }
@@ -295,16 +313,19 @@ export async function checkOutdated(
     }
 
     const isOutdated = latestCommit !== entry.commitHash;
-    return {
-      name,
-      installedCommit: shortHash(entry.commitHash),
-      latestCommit: shortHash(latestCommit),
-      source: entry.source,
-      sourceType,
-      status: isOutdated
-        ? ("outdated" as OutdatedStatus)
-        : ("up-to-date" as OutdatedStatus),
-    };
+    return recordResolvedLatestCommit(
+      {
+        name,
+        installedCommit: shortHash(entry.commitHash),
+        latestCommit: shortHash(latestCommit),
+        source: entry.source,
+        sourceType,
+        status: isOutdated
+          ? ("outdated" as OutdatedStatus)
+          : ("up-to-date" as OutdatedStatus),
+      },
+      latestCommit,
+    );
   });
 
   return {
@@ -345,12 +366,24 @@ export async function updateSkill(
   entry: LockEntry,
   skipConfirm: boolean,
   _overrides?: _UpdateTestOverrides,
+  knownLatestCommit?: string,
 ): Promise<UpdateResult> {
   const sourceType = resolveSourceType(entry);
 
   // Cannot update local skills
   if (sourceType === "local") {
     return { name, status: "skipped", reason: "Local skill (not updatable)" };
+  }
+
+  let pinnedCommit: string | undefined;
+  if (knownLatestCommit !== undefined) {
+    if (!/^(?:[0-9a-f]{40}|[0-9a-f]{64})$/i.test(knownLatestCommit)) {
+      return { name, status: "failed", reason: "Invalid known commit OID" };
+    }
+    pinnedCommit = knownLatestCommit.toLowerCase();
+    if (pinnedCommit === entry.commitHash.toLowerCase()) {
+      return { name, status: "skipped", reason: "Already up to date" };
+    }
   }
 
   // Need a clone URL
@@ -377,9 +410,11 @@ export async function updateSkill(
     );
     await mkdir(tempParent, { recursive: true });
 
-    // Step 1: Clone latest version
+    // Step 1: Clone latest version. When checkOutdated already resolved the
+    // commit, avoid checking out a moving ref until the exact OID is pinned.
     debug(`updater: cloning latest ${name} to ${tempDir}`);
     const cloneArgs = ["clone", "--depth", "1"];
+    if (pinnedCommit) cloneArgs.push("--no-checkout");
     if (entry.ref && entry.ref !== "HEAD") {
       cloneArgs.push("--branch", entry.ref);
     }
@@ -395,14 +430,38 @@ export async function updateSkill(
       };
     }
 
-    // Get the new commit hash
+    if (pinnedCommit) {
+      try {
+        await execFileAsync("git", ["checkout", "--detach", pinnedCommit], {
+          cwd: tempDir,
+          timeout: 10_000,
+        });
+      } catch {
+        return {
+          name,
+          status: "failed",
+          reason: "Resolved commit is unavailable in the shallow clone",
+        };
+      }
+    }
+
+    // Resolve HEAD locally for direct callers, and verify a pinned checkout
+    // before auditing, installing, or recording it.
     let newCommit: string | null = null;
     try {
       const { stdout } = await execFileAsync("git", ["rev-parse", "HEAD"], {
         cwd: tempDir,
         timeout: 5_000,
       });
-      newCommit = stdout.trim();
+      const checkedOutCommit = stdout.trim().toLowerCase();
+      if (pinnedCommit && checkedOutCommit !== pinnedCommit) {
+        return {
+          name,
+          status: "failed",
+          reason: "Resolved commit checkout mismatch",
+        };
+      }
+      newCommit = pinnedCommit ?? checkedOutCommit;
     } catch {
       return { name, status: "failed", reason: "Could not read new commit" };
     }
@@ -580,12 +639,6 @@ export async function updateSkills(
   const lock = await readLockFn();
   const outdated = await checkOutdatedFn({ lock });
 
-  // TODO: Optimization opportunity — checkOutdated already queries every remote
-  // via git ls-remote to obtain the latest commit hash. updateSkill then queries
-  // the same remotes again via git clone. We could pass the already-known latest
-  // commit from outdated.entries into updateSkill to skip the redundant network
-  // round-trip (e.g. by adding an optional `knownLatestCommit` parameter).
-
   // Filter to outdated skills only
   let toUpdate = outdated.entries.filter((e) => e.status === "outdated");
 
@@ -630,7 +683,13 @@ export async function updateSkills(
     const lockEntry = lock.skills[entry.name];
     if (!lockEntry) continue;
 
-    const result = await updateSkillFn(entry.name, lockEntry, skipConfirm);
+    const result = await updateSkillFn(
+      entry.name,
+      lockEntry,
+      skipConfirm,
+      undefined,
+      resolvedLatestCommits.get(entry),
+    );
     results.push(result);
   }
 
