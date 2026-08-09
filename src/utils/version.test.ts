@@ -34,9 +34,7 @@ describe("version utility", () => {
     const version = await import("./version");
 
     expect(version.getCommitHash()).toBe("bundled123");
-    expect(version.getVersionString()).toBe(
-      `v${version.VERSION} (bundled123)`,
-    );
+    expect(version.getVersionString()).toBe(`v${version.VERSION} (bundled123)`);
     expect(execSyncMock).not.toHaveBeenCalled();
   });
 
