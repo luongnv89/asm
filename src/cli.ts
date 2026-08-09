@@ -186,7 +186,7 @@ import {
   loadAllIndices,
 } from "./skill-index";
 import type { SearchFilters } from "./skill-index";
-import { VERSION_STRING } from "./utils/version";
+import { getVersionString } from "./utils/version";
 import { buildShadowingReport } from "./utils/path-shadowing";
 import { parseEditorCommand } from "./utils/editor";
 import {
@@ -564,7 +564,7 @@ function error(msg: string) {
 // ─── Help text ──────────────────────────────────────────────────────────────
 
 function printMainHelp() {
-  console.log(`${ansi.blueBold("agent-skill-manager")} (${ansi.bold("asm")}) ${VERSION_STRING}
+  console.log(`${ansi.blueBold("agent-skill-manager")} (${ansi.bold("asm")}) ${getVersionString()}
 
 Interactive TUI and CLI for managing installed skills for AI coding agents.
 
@@ -6765,7 +6765,7 @@ export async function runCLI(argv: string[]): Promise<void> {
 
   // --version at top level
   if (args.flags.version) {
-    console.log(`asm ${VERSION_STRING}`);
+    console.log(`asm ${getVersionString()}`);
     const report = await buildShadowingReport();
     if (args.flags.verbose && report.resolved) {
       console.log(`  path: ${report.resolved.path}`);

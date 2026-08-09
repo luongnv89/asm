@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Text } from "ink";
 import { theme } from "../utils/colors";
-import { VERSION_STRING } from "../utils/version";
+import { getVersionString } from "../utils/version";
 
 const KEYBINDINGS: Array<[string, string]> = [
   ["↑ / k", "Move up"],
@@ -44,7 +44,7 @@ export function HelpView() {
         <Text color={theme.fgDim}>Press ? or Esc to close</Text>
       </Box>
       <Box>
-        <Text color={theme.fgDim}>{VERSION_STRING}</Text>
+        <Text color={theme.fgDim}>{getVersionString()}</Text>
       </Box>
     </Box>
   );

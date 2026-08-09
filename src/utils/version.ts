@@ -14,17 +14,35 @@ try {
   // Bundled mode — use build-time injected version
 }
 
-let _commit: string = (process.env.__ASM_COMMIT__ as string) || "unknown";
-try {
-  _commit =
-    execSync("git rev-parse --short HEAD", {
-      encoding: "utf-8",
-      stdio: ["pipe", "pipe", "ignore"],
-    }).trim() || _commit;
-} catch {
-  // Not in a git repo or git not available
-}
+let _commit: string | undefined;
 
 export const VERSION = _version;
-export const COMMIT_HASH = _commit;
-export const VERSION_STRING = `v${VERSION} (${COMMIT_HASH})`;
+
+export function getCommitHash(): string {
+  if (_commit !== undefined) {
+    return _commit;
+  }
+
+  const injectedCommit = process.env.__ASM_COMMIT__;
+  if (injectedCommit !== undefined) {
+    _commit = injectedCommit;
+    return _commit;
+  }
+
+  _commit = "unknown";
+  try {
+    _commit =
+      execSync("git rev-parse --short HEAD", {
+        encoding: "utf-8",
+        stdio: ["pipe", "pipe", "ignore"],
+      }).trim() || _commit;
+  } catch {
+    // Not in a git repo or git not available
+  }
+
+  return _commit;
+}
+
+export function getVersionString(): string {
+  return `v${VERSION} (${getCommitHash()})`;
+}
