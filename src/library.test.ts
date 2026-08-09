@@ -1562,6 +1562,124 @@ describe("updateLibrarySkill", () => {
     expect(finalLock.skills.brainstorming.skillPath).toBe("brainstorming");
   });
 
+  test("accepts equivalent local source spellings during stale-update revalidation", async () => {
+    await writeFile(
+      join(sourceRoot, "skills", "brainstorming", "SKILL.md"),
+      "---\nname: brainstorming\nversion: 2.0.0\n---\n# Updated Source\n",
+    );
+
+    const updateStageReady = deferred<void>();
+    const releaseUpdateStage = deferred<void>();
+    let blockedUpdateStage = false;
+    const updateSourceDir = join(sourceRoot, "skills", "brainstorming");
+
+    fspMocks.cpOverride = async (realCp, from, to, ...rest) => {
+      const result = await realCp(from, to, ...rest);
+      if (!blockedUpdateStage && String(from) === updateSourceDir) {
+        blockedUpdateStage = true;
+        updateStageReady.resolve();
+        await releaseUpdateStage.promise;
+      }
+      return result;
+    };
+
+    const updatePromise = updateLibrarySkill("brainstorming", {
+      skillsDir,
+      lockPath,
+    });
+    await updateStageReady.promise;
+
+    const lock = await readLibraryLock(lockPath);
+    const equivalentSource = sourceRoot.endsWith("/")
+      ? `${sourceRoot}.`
+      : `${sourceRoot}/.`;
+    lock.skills.brainstorming = {
+      ...lock.skills.brainstorming,
+      source: `local:${equivalentSource}`,
+      ref: "HEAD",
+      skillPath: "skills/brainstorming/.",
+    };
+    await writeLibraryLock(lock, lockPath);
+    releaseUpdateStage.resolve();
+
+    const result = await updatePromise;
+
+    expect(result).toMatchObject({
+      name: "brainstorming",
+      status: "updated",
+      oldVersion: "1.0.0",
+      newVersion: "2.0.0",
+    });
+    await expect(
+      readFile(join(libraryPath, "SKILL.md"), "utf-8"),
+    ).resolves.toContain("# Updated Source");
+    const finalLock = await readLibraryLock(lockPath);
+    expect(finalLock.skills.brainstorming.source).toBe(`local:${equivalentSource}`);
+    expect(finalLock.skills.brainstorming.ref).toBe("HEAD");
+    expect(finalLock.skills.brainstorming.skillPath).toBe("skills/brainstorming/.");
+  });
+
+  test("rejects changed local sources during stale-update revalidation", async () => {
+    const movedSourceRoot = join(tempDir, "moved-source");
+    await mkdir(join(movedSourceRoot, "skills", "brainstorming"), {
+      recursive: true,
+    });
+    await writeFile(
+      join(movedSourceRoot, "skills", "brainstorming", "SKILL.md"),
+      "---\nname: brainstorming\nversion: 9.9.0\n---\n# Moved Source\n",
+    );
+    await writeFile(
+      join(sourceRoot, "skills", "brainstorming", "SKILL.md"),
+      "---\nname: brainstorming\nversion: 2.0.0\n---\n# Updated Source\n",
+    );
+
+    const updateStageReady = deferred<void>();
+    const releaseUpdateStage = deferred<void>();
+    let blockedUpdateStage = false;
+    const updateSourceDir = join(sourceRoot, "skills", "brainstorming");
+
+    fspMocks.cpOverride = async (realCp, from, to, ...rest) => {
+      const result = await realCp(from, to, ...rest);
+      if (!blockedUpdateStage && String(from) === updateSourceDir) {
+        blockedUpdateStage = true;
+        updateStageReady.resolve();
+        await releaseUpdateStage.promise;
+      }
+      return result;
+    };
+
+    const updatePromise = updateLibrarySkill("brainstorming", {
+      skillsDir,
+      lockPath,
+    });
+    await updateStageReady.promise;
+
+    const lock = await readLibraryLock(lockPath);
+    lock.skills.brainstorming = {
+      ...lock.skills.brainstorming,
+      source: `local:${movedSourceRoot}`,
+    };
+    await writeLibraryLock(lock, lockPath);
+    releaseUpdateStage.resolve();
+
+    const result = await updatePromise;
+
+    expect(result).toEqual({
+      name: "brainstorming",
+      status: "failed",
+      reason:
+        'Library skill "brainstorming" changed while update was in progress. Run "asm library update brainstorming" again.',
+    });
+    await expect(
+      readFile(join(libraryPath, "SKILL.md"), "utf-8"),
+    ).resolves.toContain("# Old Source");
+    await expect(
+      readFile(join(libraryPath, "SKILL.md"), "utf-8"),
+    ).resolves.not.toContain("# Updated Source");
+    const finalLock = await readLibraryLock(lockPath);
+    expect(finalLock.skills.brainstorming.source).toBe(`local:${movedSourceRoot}`);
+  });
+
   test("serializes force reinstall with failing update rollback so disk and lock stay aligned", async () => {
     const reinstallSourceDir = join(tempDir, "reinstall", "brainstorming");
     await mkdir(reinstallSourceDir, { recursive: true });

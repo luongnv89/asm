@@ -135,16 +135,30 @@ function libraryUpdateFailure(
   return { name, status: "failed", reason };
 }
 
-function libraryEntryMatchesUpdateSource(
+async function libraryEntryMatchesUpdateSource(
   currentEntry: LibrarySkillEntry,
   expectedEntry: LibrarySkillEntry,
-): boolean {
+  expectedLocalSourceIdentity: string | null,
+): Promise<boolean> {
+  if (currentEntry.sourceType !== expectedEntry.sourceType) {
+    return false;
+  }
+  if (resolve(currentEntry.libraryPath) !== resolve(expectedEntry.libraryPath)) {
+    return false;
+  }
+  if (currentEntry.sourceType === "local") {
+    if (!expectedLocalSourceIdentity) {
+      return false;
+    }
+    return (
+      (await resolveLocalSourceIdentity(currentEntry)) ===
+      expectedLocalSourceIdentity
+    );
+  }
   return (
     currentEntry.source === expectedEntry.source &&
-    currentEntry.sourceType === expectedEntry.sourceType &&
     currentEntry.ref === expectedEntry.ref &&
-    currentEntry.skillPath === expectedEntry.skillPath &&
-    currentEntry.libraryPath === expectedEntry.libraryPath
+    currentEntry.skillPath === expectedEntry.skillPath
   );
 }
 
@@ -166,6 +180,33 @@ function librarySourceRoot(entry: LibrarySkillEntry): string | null {
     return null;
   }
   return resolve(basePath);
+}
+
+async function resolveLocalSourceIdentity(
+  entry: LibrarySkillEntry,
+): Promise<string> {
+  const sourceRoot = librarySourceRoot(entry);
+  if (!sourceRoot) {
+    throw new Error("Unsupported library source for update");
+  }
+
+  const sourceDir = resolveContainedPath(
+    sourceRoot,
+    join(sourceRoot, entry.skillPath),
+  );
+  if (!sourceDir) {
+    throw new Error("Invalid update metadata: skillPath escapes source root");
+  }
+
+  const [realSourceRoot, realSourceDir] = await Promise.all([
+    realpath(sourceRoot),
+    realpath(sourceDir),
+  ]);
+  if (!isContainedPath(realSourceRoot, realSourceDir)) {
+    throw new Error("Invalid update metadata: skillPath escapes source root");
+  }
+
+  return realSourceDir;
 }
 
 async function readLibraryLockFile(path: string): Promise<LibraryLockFile> {
@@ -537,6 +578,7 @@ export async function updateLibrarySkill(
   }
 
   let cleanupSourceRoot: string | null = null;
+  let expectedLocalSourceIdentity: string | null = null;
   try {
     let sourceRoot: string;
     let nextCommitHash: string | null = null;
@@ -608,6 +650,9 @@ export async function updateLibrarySkill(
         "Invalid update metadata: skillPath escapes source root",
       );
     }
+    if (entry.sourceType === "local") {
+      expectedLocalSourceIdentity = realSourceDir;
+    }
 
     let sourceMarkdown: string;
     try {
@@ -671,10 +716,16 @@ export async function updateLibrarySkill(
           );
         }
 
-        const updateSourceStillMatches = libraryEntryMatchesUpdateSource(
-          currentEntry,
-          expectedEntry,
-        );
+        let updateSourceStillMatches: boolean;
+        try {
+          updateSourceStillMatches = await libraryEntryMatchesUpdateSource(
+            currentEntry,
+            expectedEntry,
+            expectedLocalSourceIdentity,
+          );
+        } catch {
+          return libraryEntryChangedDuringUpdate(dirName);
+        }
         if (updateSourceStillMatches && currentEntry.commitHash === nextCommitHash) {
           return {
             name: currentEntry.name,
