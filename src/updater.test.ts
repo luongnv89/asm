@@ -878,7 +878,7 @@ async function createBareGitRepo(
   const bareDir = join(parentDir, `${repoName}.git`);
 
   await mkdir(workDir, { recursive: true });
-  await exec("git", ["init", workDir]);
+  await exec("git", ["init", "--object-format=sha1", workDir]);
   await exec("git", ["-C", workDir, "config", "user.email", "test@test.com"]);
   await exec("git", ["-C", workDir, "config", "user.name", "Test"]);
   await writeFile(join(workDir, "skill.md"), content);
@@ -1019,6 +1019,59 @@ describe("updateSkill happy path", () => {
     expect(await readFile(join(installedDir, "skill.md"), "utf-8")).toBe(
       "# Pinned version\nExact content",
     );
+  });
+
+  test("fetches a SHA-1 known commit when GIT_DEFAULT_HASH requests SHA-256", async () => {
+    const { bareRepoPath, commitHash: knownCommit } = await createBareGitRepo(
+      tempDir,
+      "sha1-pinned-skill",
+      "# SHA-1 pinned version",
+    );
+    expect(knownCommit).toMatch(/^[0-9a-f]{40}$/);
+
+    const skillsDir = join(tempDir, "sha1-pinned-skills");
+    const installedDir = join(skillsDir, "sha1-pinned-skill");
+    await mkdir(installedDir, { recursive: true });
+    await writeFile(join(installedDir, "skill.md"), "# Old version");
+
+    const { updateSkill } = await import("./updater");
+    const entry: LockEntry = {
+      source: `file://${bareRepoPath}`,
+      commitHash: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      ref: null,
+      installedAt: "2026-01-01T00:00:00.000Z",
+      provider: "claude",
+      sourceType: "github",
+    };
+    const previousDefaultHash = process.env.GIT_DEFAULT_HASH;
+    process.env.GIT_DEFAULT_HASH = "sha256";
+
+    try {
+      const result = await updateSkill(
+        "sha1-pinned-skill",
+        entry,
+        false,
+        {
+          auditFn: async () => ({ verdict: "safe" }),
+          loadConfigFn: async () =>
+            ({ providers: [{ name: "claude", global: skillsDir }] }) as any,
+          resolveProviderPathFn: (p: string) => p,
+          writeLockEntryFn: async () => {},
+        },
+        knownCommit,
+      );
+
+      expect(result.status).toBe("updated");
+      expect(await readFile(join(installedDir, "skill.md"), "utf-8")).toBe(
+        "# SHA-1 pinned version",
+      );
+    } finally {
+      if (previousDefaultHash === undefined) {
+        delete process.env.GIT_DEFAULT_HASH;
+      } else {
+        process.env.GIT_DEFAULT_HASH = previousDefaultHash;
+      }
+    }
   });
 
   test("does not mutate the installation when the known commit is unavailable", async () => {

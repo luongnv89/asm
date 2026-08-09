@@ -431,9 +431,8 @@ export async function updateSkill(
     debug(`updater: fetching latest ${name} to ${tempDir}`);
     if (pinnedCommit) {
       try {
-        const initArgs = ["init"];
-        if (pinnedCommit.length === 64) initArgs.push("--object-format=sha256");
-        initArgs.push(tempDir);
+        const objectFormat = pinnedCommit.length === 40 ? "sha1" : "sha256";
+        const initArgs = ["init", `--object-format=${objectFormat}`, tempDir];
         await execFileAsync("git", initArgs, { timeout: 10_000 });
         await execFileAsync(
           "git",
