@@ -896,9 +896,11 @@ ${ansi.bold("Examples:")}
 // ─── Command Handlers ───────────────────────────────────────────────────────
 
 async function enrichWithHealth(skills: SkillInfo[]): Promise<void> {
-  for (const skill of skills) {
-    skill.warnings = await checkHealth(skill);
-  }
+  await Promise.all(
+    skills.map(async (skill) => {
+      skill.warnings = await checkHealth(skill);
+    }),
+  );
 }
 
 async function cmdList(args: ParsedArgs) {

@@ -71,10 +71,12 @@ export async function checkHealth(skill: SkillInfo): Promise<SkillWarning[]> {
     });
   }
 
-  // Check SKILL.md content
+  // Check SKILL.md content, reusing the scanner's read when available.
   try {
-    const skillMdPath = join(skill.path, "SKILL.md");
-    const content = await readFile(skillMdPath, "utf-8");
+    const content =
+      skill._skillMdContent !== undefined
+        ? skill._skillMdContent
+        : await readFile(join(skill.path, "SKILL.md"), "utf-8");
     if (!hasBody(content)) {
       warnings.push({
         category: "empty-body",

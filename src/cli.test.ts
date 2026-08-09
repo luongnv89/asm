@@ -719,6 +719,9 @@ describe("CLI integration: list", () => {
       expect(data[0]).toHaveProperty("version");
       expect(data[0]).toHaveProperty("path");
     }
+    for (const skill of data) {
+      expect(skill).not.toHaveProperty("_skillMdContent");
+    }
   });
 
   test("--scope global filters to global only", async () => {

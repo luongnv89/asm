@@ -60,6 +60,78 @@ This skill does something useful.
     expect(warnings).toHaveLength(0);
   });
 
+  it("uses cached scanner content without reading SKILL.md from disk", async () => {
+    const skill = makeSkill({
+      path: join(tempDir, "missing-skill"),
+      _skillMdContent: `---
+name: test-skill
+version: 1.0.0
+description: A test skill
+---
+
+Cached body content.
+`,
+    });
+
+    await expect(checkHealth(skill)).resolves.toEqual([]);
+  });
+
+  it("treats empty cached content as present instead of falling back to disk", async () => {
+    await writeFile(
+      join(tempDir, "SKILL.md"),
+      `---
+name: test-skill
+version: 1.0.0
+description: A test skill
+---
+
+Healthy disk body.
+`,
+    );
+    const skill = makeSkill({ path: tempDir, _skillMdContent: "" });
+
+    await expect(checkHealth(skill)).resolves.toEqual([
+      {
+        category: "empty-body",
+        message: "SKILL.md contains only frontmatter with no body content",
+      },
+    ]);
+  });
+
+  it("produces identical warnings from cached content and disk fallback", async () => {
+    const content = `---
+name: test-skill
+description: Invalid: unquoted value
+---
+`;
+    await writeFile(join(tempDir, "SKILL.md"), content);
+    const overrides = {
+      description: "",
+      version: "0.0.0",
+      fileCount: 600,
+    };
+
+    const diskWarnings = await checkHealth(
+      makeSkill({ path: tempDir, ...overrides }),
+    );
+    const cachedWarnings = await checkHealth(
+      makeSkill({
+        path: join(tempDir, "missing-skill"),
+        _skillMdContent: content,
+        ...overrides,
+      }),
+    );
+
+    expect(cachedWarnings).toEqual(diskWarnings);
+    expect(cachedWarnings.map((warning) => warning.category)).toEqual([
+      "missing-description",
+      "missing-version",
+      "empty-body",
+      "invalid-yaml",
+      "high-file-count",
+    ]);
+  });
+
   it("warns on missing description", async () => {
     await writeFile(
       join(tempDir, "SKILL.md"),

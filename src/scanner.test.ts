@@ -444,10 +444,9 @@ describe("scanAllSkills", () => {
     // Create a fake skill directory
     const skillDir = join(tempDir, "my-skill");
     await mkdir(skillDir, { recursive: true });
-    await writeFile(
-      join(skillDir, "SKILL.md"),
-      "---\nname: My Skill\nversion: 1.0.0\ndescription: A test\n---\nBody",
-    );
+    const skillMdContent =
+      "---\nname: My Skill\nversion: 1.0.0\ndescription: A test\n---\nBody";
+    await writeFile(join(skillDir, "SKILL.md"), skillMdContent);
 
     const config = {
       ...getDefaultConfig(),
@@ -470,6 +469,8 @@ describe("scanAllSkills", () => {
     expect(found!.scope).toBe("global");
     expect(found!.provider).toBe("test");
     expect(found!.isSymlink).toBe(false);
+    expect(found!._skillMdContent).toBe(skillMdContent);
+    expect(JSON.stringify(found)).not.toContain("_skillMdContent");
     // Issue #188: scanner populates tokenCount for installed skills.
     expect(typeof found!.tokenCount).toBe("number");
     expect(found!.tokenCount!).toBeGreaterThan(0);
@@ -660,10 +661,7 @@ describe("scanAllSkills", () => {
     }
     await createSkills(laterRoot, ["responsive"]);
 
-    const stalledScan = scanAllSkills(
-      makeScanConfig(stalledRoots),
-      "project",
-    );
+    const stalledScan = scanAllSkills(makeScanConfig(stalledRoots), "project");
     let laterScan: Promise<SkillInfo[]> | undefined;
     let laterFinished = false;
 
@@ -881,10 +879,9 @@ describe("scanPluginMarketplaces", () => {
     // ~/.claude/plugins/marketplaces/my-marketplace/skills/my-skill/SKILL.md
     const skillDir = join(tempDir, "my-marketplace", "skills", "my-skill");
     await mkdir(skillDir, { recursive: true });
-    await writeFile(
-      join(skillDir, "SKILL.md"),
-      "---\nname: My Skill\nversion: 1.2.0\ndescription: A user-installed skill\n---\nBody",
-    );
+    const skillMdContent =
+      "---\nname: My Skill\nversion: 1.2.0\ndescription: A user-installed skill\n---\nBody";
+    await writeFile(join(skillDir, "SKILL.md"), skillMdContent);
 
     const skills = await scanPluginMarketplaces(tempDir);
     expect(skills).toHaveLength(1);
@@ -897,6 +894,8 @@ describe("scanPluginMarketplaces", () => {
     expect(skill.scope).toBe("global");
     expect(skill.location).toBe("global-plugin-my-marketplace");
     expect(skill.dirName).toBe("my-skill");
+    expect(skill._skillMdContent).toBe(skillMdContent);
+    expect(JSON.stringify(skill)).not.toContain("_skillMdContent");
     // Issue #188: scanPluginMarketplaces populates tokenCount for plugin
     // marketplace skills, matching the parallel scanDirectory codepath so
     // users with Claude plugin-marketplace skills also see Est. Tokens.

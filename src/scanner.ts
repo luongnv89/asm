@@ -247,6 +247,15 @@ export async function countFiles(dir: string): Promise<number> {
   }
 }
 
+/** Retain scanned content without exposing it through JSON output. */
+function cacheSkillMdContent(skill: SkillInfo, content: string): void {
+  Object.defineProperty(skill, "_skillMdContent", {
+    value: content,
+    writable: true,
+    configurable: true,
+  });
+}
+
 async function scanDirectory(
   loc: ScanLocation,
   scheduler: ScanEntryScheduler,
@@ -307,7 +316,7 @@ async function scanDirectory(
         resolvedRealPath = resolvedPath;
       }
 
-      return {
+      const skill: SkillInfo = {
         name: fm.name || entry,
         version: resolveVersion(fm),
         description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
@@ -328,6 +337,8 @@ async function scanDirectory(
         realPath: resolvedRealPath,
         tokenCount: estimateTokenCount(content),
       };
+      cacheSkillMdContent(skill, content);
+      return skill;
     } catch {
       debug(`  skip: "${entry}" — scan failed`);
       return;
@@ -445,7 +456,7 @@ export async function scanPluginMarketplaces(
         resolvedRealPath = resolvedPath;
       }
 
-      skills.push({
+      const skill: SkillInfo = {
         name: fm.name || entry,
         version: resolveVersion(fm),
         description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
@@ -466,7 +477,9 @@ export async function scanPluginMarketplaces(
         realPath: resolvedRealPath,
         marketplace,
         tokenCount: estimateTokenCount(content),
-      });
+      };
+      cacheSkillMdContent(skill, content);
+      skills.push(skill);
     }
   }
 
@@ -757,7 +770,9 @@ export async function scanAllSkills(
   const scheduler = createScanEntryScheduler();
 
   const [providerResults, pluginSkills, codexPluginSkills] = await Promise.all([
-    Promise.all(locations.map((location) => scanDirectory(location, scheduler))),
+    Promise.all(
+      locations.map((location) => scanDirectory(location, scheduler)),
+    ),
     isGlobal
       ? scanPluginMarketplaces(pluginBaseDir)
       : Promise.resolve([] as SkillInfo[]),

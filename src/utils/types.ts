@@ -27,6 +27,11 @@ export interface SkillInfo {
   effort?: string;
   warnings?: SkillWarning[];
   /**
+   * Exact SKILL.md text retained by filesystem scanners for downstream checks.
+   * @internal Consumers should tolerate this cache being absent.
+   */
+  _skillMdContent?: string;
+  /**
    * Estimated token cost for the skill's SKILL.md content.
    * Computed as `words + spaces` (issue #188 heuristic).
    * Always render as `~N tokens` to signal it is an approximation.
