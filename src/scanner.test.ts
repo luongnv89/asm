@@ -642,6 +642,50 @@ describe("scanAllSkills", () => {
     expect(skills).toHaveLength(4);
   });
 
+  it("keeps a stalled scan bounded and lets a later scan make progress", async () => {
+    const stalledRoots = [
+      join(tempDir, "stalled-a"),
+      join(tempDir, "stalled-b"),
+    ];
+    const laterRoot = join(tempDir, "later");
+    const stalledNames = Array.from(
+      { length: 32 },
+      (_, index) => `skill-${index}`,
+    );
+    for (const root of stalledRoots) {
+      await createSkills(root, stalledNames);
+      for (const name of stalledNames) {
+        scanFsControl.blockedStatPaths.add(join(root, name));
+      }
+    }
+    await createSkills(laterRoot, ["responsive"]);
+
+    const stalledScan = scanAllSkills(
+      makeScanConfig(stalledRoots),
+      "project",
+    );
+    let laterScan: Promise<SkillInfo[]> | undefined;
+    let laterFinished = false;
+
+    try {
+      await vi.waitFor(() => expect(scanFsControl.startedStats).toBe(15));
+
+      laterScan = scanAllSkills(makeScanConfig([laterRoot]), "project");
+      void laterScan.then(() => {
+        laterFinished = true;
+      });
+
+      await vi.waitFor(() => expect(laterFinished).toBe(true));
+      await expect(laterScan).resolves.toMatchObject([
+        { dirName: "responsive" },
+      ]);
+      expect(scanFsControl.startedStats).toBe(15);
+    } finally {
+      releaseBlockedStats();
+      await Promise.all([stalledScan, laterScan]);
+    }
+  });
+
   it("shares one concurrency cap across overlapping scans and locations", async () => {
     const roots = ["a", "b", "c", "d"].map((name) => join(tempDir, name));
     const names = Array.from({ length: 12 }, (_, index) => `skill-${index}`);
