@@ -1951,15 +1951,43 @@ export function summariseBatch(items: EvalBatchItem[]): EvalBatchAggregate {
 }
 
 /**
+ * Tagged result from a single worker — captures success or failure so that
+ * one worker's rejection does not abort the entire batch.  The caller
+ * (e.g. ingestRepo) inspects the tag to decide whether to surface the
+ * error or treat it as a known fail-soft outcome.
+ */
+export interface TaggedResult<T> {
+  /** "ok" when the worker returned a value; "err" when it threw. */
+  readonly tag: "ok" | "err";
+  /** Populated when tag is "ok". */
+  readonly value?: T;
+  /** Populated when tag is "err". */
+  readonly error?: unknown;
+}
+
+function taggedOk<T>(value: T): TaggedResult<T> {
+  return { tag: "ok", value };
+}
+
+function taggedErr<T>(error: unknown): TaggedResult<T> {
+  return { tag: "err", error };
+}
+
+/**
  * Run an async task for each input with a bounded concurrency window.
  * Preserves output order (index-indexed results array).
+ *
+ * Each worker is wrapped in a tagged-result so that one worker's
+ * rejection does not abort the entire batch — all workers settle
+ * regardless of individual failures.  The caller receives an array of
+ * TaggedResult<T> and can decide how to handle per-skill errors.
  */
 export async function runWithConcurrency<T, R>(
   inputs: T[],
   limit: number,
   fn: (input: T, index: number) => Promise<R>,
 ): Promise<R[]> {
-  const results: R[] = new Array(inputs.length);
+  const results: TaggedResult<R>[] = new Array(inputs.length);
   let next = 0;
   const boundedLimit = Math.max(1, Math.floor(limit));
   const workers: Promise<void>[] = [];
@@ -1970,13 +1998,42 @@ export async function runWithConcurrency<T, R>(
         while (true) {
           const idx = next++;
           if (idx >= inputs.length) break;
-          results[idx] = await fn(inputs[idx], idx);
+          try {
+            results[idx] = taggedOk(await fn(inputs[idx], idx));
+          } catch (err: unknown) {
+            results[idx] = taggedErr(err);
+          }
         }
       })(),
     );
   }
   await Promise.all(workers);
-  return results;
+
+  // Re-throw only when ALL workers failed — preserves the existing
+  // "first failure wins" behaviour for the common case where every
+  // worker succeeds.  When one or more succeed, return the values
+  // that are available (fail-soft) so that callers like ingestRepo
+  // can still write a partial index instead of losing the entire
+  // clone during cleanup.
+  const errors: unknown[] = [];
+  const values: R[] = new Array(inputs.length);
+  for (let i = 0; i < inputs.length; i++) {
+    const entry = results[i]!;
+    if (entry.tag === "ok") {
+      values[i] = entry.value!;
+    } else {
+      errors.push(entry.error);
+    }
+  }
+
+  if (inputs.length === 0) {
+    return [];
+  }
+  if (errors.length === inputs.length) {
+    // All failed — surface the first error (matches old behaviour).
+    throw errors[0];
+  }
+  return values;
 }
 
 /**
