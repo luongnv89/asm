@@ -187,6 +187,79 @@ describe("App smoke", () => {
     expect(screen.getByText(/Select a skill/i)).toBeTruthy();
   });
 
+  it("parses the search index once and preserves search results", async () => {
+    window.history.replaceState(null, "", "/#/skills");
+    const indexText = buildIndexJson();
+    globalThis.fetch = vi.fn(async (url) => {
+      if (String(url).endsWith("search.idx.json")) {
+        return new Response(indexText);
+      }
+      for (const [suffix, fn] of Object.entries(FETCH_MAP)) {
+        if (String(url).endsWith(suffix)) return fn();
+      }
+      return new Response("not found", { status: 404 });
+    });
+    const parseSpy = vi.spyOn(JSON, "parse");
+
+    render(
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
+        <App />
+      </HashRouter>,
+    );
+    await waitFor(() => expect(screen.getByText("hello-world")).toBeTruthy());
+
+    expect(
+      parseSpy.mock.calls.filter(([value]) => value === indexText),
+    ).toHaveLength(1);
+
+    fireEvent.change(screen.getByRole("searchbox", { name: "Search skills" }), {
+      target: { value: "friendly" },
+    });
+    fireEvent.keyDown(
+      screen.getByRole("searchbox", { name: "Search skills" }),
+      { key: "Enter" },
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("hello-world")).toBeTruthy();
+      expect(screen.queryByText("readme-generator")).toBeNull();
+    });
+  });
+
+  it("reports a catalog and search-index build mismatch", async () => {
+    window.history.replaceState(null, "", "/#/skills");
+    const mismatchedCatalog = {
+      ...catalog,
+      generatedAt: "2026-04-23T00:00:00.000Z",
+    };
+    globalThis.fetch = vi.fn(async (url) => {
+      if (String(url).endsWith("skills.min.json")) {
+        return new Response(JSON.stringify(mismatchedCatalog));
+      }
+      for (const [suffix, fn] of Object.entries(FETCH_MAP)) {
+        if (String(url).endsWith(suffix)) return fn();
+      }
+      return new Response("not found", { status: 404 });
+    });
+
+    render(
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
+        <App />
+      </HashRouter>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Catalog failed to load")).toBeTruthy();
+      expect(
+        screen.getByText("catalog build mismatch — reload the page"),
+      ).toBeTruthy();
+    });
+  });
+
   it("selecting a sidebar row updates the URL and renders detail", async () => {
     window.history.replaceState(null, "", "/#/skills");
     const { container } = render(

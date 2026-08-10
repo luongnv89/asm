@@ -44,15 +44,15 @@ export function CatalogProvider({ children }) {
           skillsRes.json(),
           idxRes.text(),
         ]);
-        const idxMeta = JSON.parse(idxText);
+        const parsedIndex = JSON.parse(idxText);
         if (
           catalog.generatedAt &&
-          idxMeta.generatedAt &&
-          catalog.generatedAt !== idxMeta.generatedAt
+          parsedIndex.generatedAt &&
+          catalog.generatedAt !== parsedIndex.generatedAt
         ) {
           throw new Error("catalog build mismatch — reload the page");
         }
-        const miniSearch = MiniSearch.loadJSON(idxText, MINISEARCH_OPTIONS);
+        const miniSearch = MiniSearch.loadJS(parsedIndex, MINISEARCH_OPTIONS);
         if (cancelled) return;
         setState({ loading: false, error: null, catalog, miniSearch });
       } catch (err) {
