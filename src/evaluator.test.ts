@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach, afterEach } from "vitest";
+import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
 import {
   buildFixPlan,
   evaluateSkillContent,
@@ -943,6 +943,47 @@ describe("runWithConcurrency", () => {
   it("treats limit < 1 as 1", async () => {
     const r = await runWithConcurrency([1, 2, 3], 0, async (x) => x);
     expect(r).toEqual([1, 2, 3]);
+  });
+
+  it("rejects on mapper error, waits for already-started blocked mappers, and does not start queued work", async () => {
+    // Regression guard: runWithConcurrency must re-throw the original error
+    // (not swallow it) and must not start queued work after the first
+    // failure.  Already-started mappers that are blocked on external
+    // synchronisation must still be awaited.
+    function deferred(): { promise: Promise<void>; resolve: () => void } {
+      let resolve!: () => void;
+      const promise = new Promise<void>((done) => {
+        resolve = done;
+      });
+      return { promise, resolve };
+    }
+    const gate = deferred();
+    const started = new Set<number>();
+
+    const mapper = vi.fn(async (n: number): Promise<number> => {
+      started.add(n);
+      if (n === 0) {
+        await new Promise((r) => setTimeout(r, 50));
+        throw new Error("boom from 0");
+      }
+      await gate.promise;
+      return n * 2;
+    });
+
+    const promise = runWithConcurrency([1, 2, 3, 4, 5], 3, mapper);
+
+    // Let worker 0 throw
+    await new Promise((r) => setTimeout(r, 60));
+    expect(started.size).toBeLessThanOrEqual(3);
+
+    // Release blocked mappers
+    gate.resolve();
+
+    // Should reject with the original error
+    await expect(promise).rejects.toThrow("boom from 0");
+
+    // Only the initial batch of 3 started — no queued work after failure
+    expect(started.size).toBeLessThanOrEqual(3);
   });
 });
 

@@ -427,41 +427,6 @@ describe("parallel skill ingestion (issue #372)", () => {
     ).toEqual(sequentialSkills.map(withoutEvaluationTimes));
   });
 
-  it("does not abort sibling workers when one mapper throws (regression)", async () => {
-    // Regression for issue #372: runWithConcurrency must not let a single
-    // worker rejection abort the entire batch.  All workers must settle so
-    // that ingestRepo's finally-block cleanup waits for the shared clone.
-    const batchRoot = join(tempDir, "abort-regression");
-    const skillNames = ["skill-abort-a", "skill-abort-b", "skill-abort-c"];
-    for (const name of skillNames) {
-      await writeIngestSkill(batchRoot, join("skills", name), name);
-    }
-
-    ingestMocks.getEvalProviders.mockReturnValue([]);
-    ingestMocks.cloneToTemp.mockResolvedValueOnce(batchRoot);
-
-    // Inject a mapper that throws on the second skill.  The tagged-result
-    // pattern in runWithConcurrency must catch this so that the other two
-    // workers still finish and the finally-block cleanup runs after all
-    // workers complete.
-    const originalEval = (await import("./evaluator")).runWithConcurrency;
-    // We rely on the existing runWithConcurrency implementation — the test
-    // validates behaviour by checking that ingestRepo resolves successfully
-    // even though one of the three skills has a provider that throws.
-
-    const result = await ingestRepo(`github:issue-372-tests/${repoName}`);
-
-    // ingestRepo should succeed because the mapper catches errors internally
-    // (the provider throw is wrapped).  The important invariant is that
-    // cleanupTemp runs AFTER all workers settle, which is guaranteed by the
-    // tagged-result pattern.
-    expect(result.success).toBe(true);
-    expect(result.repoIndex).not.toBeNull();
-    // All three skills should be present (fail-soft).
-    const names = result.repoIndex!.skills.map((s) => s.name).sort();
-    expect(names).toEqual(skillNames.sort());
-  });
-
   it("isolates a provider failure to its skill", async () => {
     const batchRoot = join(tempDir, "fail-soft");
     const skillNames = ["skill-00", "skill-01", "skill-02"];
