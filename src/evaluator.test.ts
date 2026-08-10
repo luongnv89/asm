@@ -962,9 +962,9 @@ describe("runWithConcurrency", () => {
 
     const mapper = vi.fn(async (n: number): Promise<number> => {
       started.add(n);
-      if (n === 0) {
+      if (n === 1) {
         await new Promise((r) => setTimeout(r, 50));
-        throw new Error("boom from 0");
+        throw new Error("boom from 1");
       }
       await gate.promise;
       return n * 2;
@@ -980,7 +980,7 @@ describe("runWithConcurrency", () => {
     gate.resolve();
 
     // Should reject with the original error
-    await expect(promise).rejects.toThrow("boom from 0");
+    await expect(promise).rejects.toThrow("boom from 1");
 
     // Only the initial batch of 3 started — no queued work after failure
     expect(started.size).toBeLessThanOrEqual(3);
