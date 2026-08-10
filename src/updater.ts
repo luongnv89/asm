@@ -685,10 +685,13 @@ export interface _UpdateSkillsTestOverrides {
     overrides?: _CheckOutdatedTestOverrides,
   ) => Promise<OutdatedSummary>;
   updateSkillFn?: typeof updateSkill;
+  writeLockEntryFn?: typeof writeLockEntry;
 }
 
 /**
- * Update multiple skills sequentially (for safety).
+ * Update multiple skills with bounded concurrency.
+ * Lock-file writes are serialized within this invocation to protect each
+ * writeLockEntry read-modify-write cycle from other workers in the same run.
  */
 export async function updateSkills(
   names: string[] | null,
@@ -741,21 +744,50 @@ export async function updateSkills(
     };
   }
 
-  // Update sequentially for safety
-  const results: UpdateResult[] = [];
-  for (const entry of toUpdate) {
+  const updateEntries = toUpdate.flatMap((entry) => {
     const lockEntry = lock.skills[entry.name];
-    if (!lockEntry) continue;
+    return lockEntry
+      ? [
+          {
+            name: entry.name,
+            lockEntry,
+            knownLatestCommit: resolvedLatestCommits.get(entry),
+          },
+        ]
+      : [];
+  });
 
-    const result = await updateSkillFn(
-      entry.name,
-      lockEntry,
-      skipConfirm,
-      undefined,
-      resolvedLatestCommits.get(entry),
+  const writeLockFn = _overrides?.writeLockEntryFn ?? writeLockEntry;
+  let lockWriteTail: Promise<void> = Promise.resolve();
+  const serializedWriteLockEntry: typeof writeLockEntry = (name, entry) => {
+    const write = lockWriteTail.then(() => writeLockFn(name, entry));
+    lockWriteTail = write.then(
+      () => undefined,
+      () => undefined,
     );
-    results.push(result);
-  }
+    return write;
+  };
+
+  const results = await poolAll(updateEntries, 4, async (entry) => {
+    try {
+      return await updateSkillFn(
+        entry.name,
+        entry.lockEntry,
+        skipConfirm,
+        {
+          writeLockEntryFn: serializedWriteLockEntry,
+        },
+        entry.knownLatestCommit,
+      );
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      return {
+        name: entry.name,
+        status: "failed" as const,
+        reason: `Unexpected update failure: ${message}`,
+      };
+    }
+  });
 
   return {
     results,
