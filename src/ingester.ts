@@ -18,7 +18,7 @@ import {
   mergeRepoBundles,
 } from "./repo-bundles";
 import { estimateTokenCount } from "./utils/token-count";
-import { evaluateSkillContent } from "./evaluator";
+import { evaluateSkillContent, runWithConcurrency } from "./evaluator";
 import { getEvalProviders } from "./eval/builtins";
 import { runProvider } from "./eval/runner";
 import { sortProviderReports, toSkillEvalSummary } from "./eval/summary";
@@ -34,6 +34,8 @@ export interface IngestResult {
   repoIndex: RepoIndex | null;
   error?: string;
 }
+
+const INGEST_SKILL_CONCURRENCY = 8;
 
 export async function ensureIndexDir(): Promise<string> {
   const indexDir = getIndexDir();
@@ -93,121 +95,126 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
       );
     }
 
-    const skills: IndexedSkill[] = [];
-    for (const skill of deduped) {
-      // Read SKILL.md content for verification
-      const skillMdPath = join(tempDir, skill.relPath, "SKILL.md");
-      let skillMdContent = "";
-      try {
-        skillMdContent = await readFile(skillMdPath, "utf-8");
-      } catch {
-        // If we can't read SKILL.md, the skill won't pass verification
-        debug(`ingester: could not read SKILL.md at ${skillMdPath}`);
-      }
-
-      const verification = verifySkill(skill, skillMdContent);
-      if (!verification.verified) {
-        debug(
-          `ingester: ${skill.name} not verified: ${verification.reasons.join(", ")}`,
-        );
-      }
-
-      // Token count: prefer the value populated during discovery; recompute
-      // here as a safe fallback when discovery did not set it (e.g., older
-      // discovery code paths in tests).
-      const tokenCount =
-        typeof skill.tokenCount === "number"
-          ? skill.tokenCount
-          : skillMdContent
-            ? estimateTokenCount(skillMdContent)
-            : undefined;
-
-      // Eval summary — captured at index time so the website + TUI + CLI
-      // inspect surfaces can show "what would I be installing" before the
-      // user runs `asm install`. We intentionally drop findings/suggestions
-      // from the catalog payload to keep catalog.json small.
-      let evalSummary: SkillEvalSummary | undefined;
-      let evalSummaries: IndexedSkill["evalSummaries"] | undefined;
-      if (skillMdContent) {
-        let rootEntries: string[] | undefined;
+    const skillRoot = tempDir;
+    const skills = await runWithConcurrency(
+      deduped,
+      INGEST_SKILL_CONCURRENCY,
+      async (skill): Promise<IndexedSkill> => {
+        // Read SKILL.md content for verification
+        const skillMdPath = join(skillRoot, skill.relPath, "SKILL.md");
+        let skillMdContent = "";
         try {
-          rootEntries = await readdir(join(tempDir, skill.relPath));
+          skillMdContent = await readFile(skillMdPath, "utf-8");
         } catch {
-          rootEntries = undefined;
+          // If we can't read SKILL.md, the skill won't pass verification
+          debug(`ingester: could not read SKILL.md at ${skillMdPath}`);
         }
 
-        try {
-          const report = evaluateSkillContent({
-            content: skillMdContent,
-            skillPath: skill.relPath || skill.name,
-            skillMdPath,
-            rootEntries,
-          });
-          evalSummary = {
-            overallScore: report.overallScore,
-            grade: report.grade,
-            categories: report.categories.map((c) => ({
-              id: c.id,
-              name: c.name,
-              score: c.score,
-              max: c.max,
-            })),
-            evaluatedAt: report.evaluatedAt,
-            evaluatedVersion: skill.version || undefined,
-          };
-        } catch (err) {
-          // Eval is best-effort during indexing — never fail the whole
-          // ingest because one skill produced a malformed evaluator result.
-          debug(`ingester: eval failed for ${skill.name}: ${err}`);
-        }
-
-        try {
-          const ctx = {
-            skillPath: join(tempDir, skill.relPath),
-            skillMdPath,
-          };
-          const providerResults = await Promise.all(
-            sortProviderReports(getEvalProviders()).map(async (provider) => {
-              const applicable = await provider.applicable(ctx, {});
-              if (!applicable.ok) return null;
-              return runProvider(provider, ctx);
-            }),
+        const verification = verifySkill(skill, skillMdContent);
+        if (!verification.verified) {
+          debug(
+            `ingester: ${skill.name} not verified: ${verification.reasons.join(", ")}`,
           );
-          const summaries = providerResults
-            .filter(
-              (result): result is NonNullable<typeof result> => result !== null,
-            )
-            .map((result) =>
-              toSkillEvalSummary(result, skill.version || undefined),
-            );
-          if (summaries.length > 0) {
-            evalSummaries = Object.fromEntries(
-              summaries
-                .filter((summary) => summary.providerId)
-                .map((summary) => [summary.providerId!, summary]),
-            );
-          }
-        } catch (err) {
-          debug(`ingester: provider eval failed for ${skill.name}: ${err}`);
         }
-      }
 
-      skills.push({
-        name: skill.name,
-        description: skill.description,
-        version: skill.version,
-        license: skill.license,
-        creator: skill.creator,
-        compatibility: skill.compatibility,
-        allowedTools: skill.allowedTools,
-        installUrl: buildSkillInstallUrl(source, skill.relPath),
-        relPath: skill.relPath,
-        verified: verification.verified,
-        tokenCount,
-        evalSummary,
-        evalSummaries,
-      });
-    }
+        // Token count: prefer the value populated during discovery; recompute
+        // here as a safe fallback when discovery did not set it (e.g., older
+        // discovery code paths in tests).
+        const tokenCount =
+          typeof skill.tokenCount === "number"
+            ? skill.tokenCount
+            : skillMdContent
+              ? estimateTokenCount(skillMdContent)
+              : undefined;
+
+        // Eval summary — captured at index time so the website + TUI + CLI
+        // inspect surfaces can show "what would I be installing" before the
+        // user runs `asm install`. We intentionally drop findings/suggestions
+        // from the catalog payload to keep catalog.json small.
+        let evalSummary: SkillEvalSummary | undefined;
+        let evalSummaries: IndexedSkill["evalSummaries"] | undefined;
+        if (skillMdContent) {
+          let rootEntries: string[] | undefined;
+          try {
+            rootEntries = await readdir(join(skillRoot, skill.relPath));
+          } catch {
+            rootEntries = undefined;
+          }
+
+          try {
+            const report = evaluateSkillContent({
+              content: skillMdContent,
+              skillPath: skill.relPath || skill.name,
+              skillMdPath,
+              rootEntries,
+            });
+            evalSummary = {
+              overallScore: report.overallScore,
+              grade: report.grade,
+              categories: report.categories.map((c) => ({
+                id: c.id,
+                name: c.name,
+                score: c.score,
+                max: c.max,
+              })),
+              evaluatedAt: report.evaluatedAt,
+              evaluatedVersion: skill.version || undefined,
+            };
+          } catch (err) {
+            // Eval is best-effort during indexing — never fail the whole
+            // ingest because one skill produced a malformed evaluator result.
+            debug(`ingester: eval failed for ${skill.name}: ${err}`);
+          }
+
+          try {
+            const ctx = {
+              skillPath: join(skillRoot, skill.relPath),
+              skillMdPath,
+            };
+            const providerResults = await Promise.all(
+              sortProviderReports(getEvalProviders()).map(async (provider) => {
+                const applicable = await provider.applicable(ctx, {});
+                if (!applicable.ok) return null;
+                return runProvider(provider, ctx);
+              }),
+            );
+            const summaries = providerResults
+              .filter(
+                (result): result is NonNullable<typeof result> =>
+                  result !== null,
+              )
+              .map((result) =>
+                toSkillEvalSummary(result, skill.version || undefined),
+              );
+            if (summaries.length > 0) {
+              evalSummaries = Object.fromEntries(
+                summaries
+                  .filter((summary) => summary.providerId)
+                  .map((summary) => [summary.providerId!, summary]),
+              );
+            }
+          } catch (err) {
+            debug(`ingester: provider eval failed for ${skill.name}: ${err}`);
+          }
+        }
+
+        return {
+          name: skill.name,
+          description: skill.description,
+          version: skill.version,
+          license: skill.license,
+          creator: skill.creator,
+          compatibility: skill.compatibility,
+          allowedTools: skill.allowedTools,
+          installUrl: buildSkillInstallUrl(source, skill.relPath),
+          relPath: skill.relPath,
+          verified: verification.verified,
+          tokenCount,
+          evalSummary,
+          evalSummaries,
+        };
+      },
+    );
 
     const repoIndex: RepoIndex = {
       repoUrl: source.cloneUrl,

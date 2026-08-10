@@ -1,10 +1,11 @@
-import { describe, expect, it, beforeEach, afterEach } from "vitest";
+import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
 import { mkdtemp, writeFile, mkdir, rm, readFile, readdir } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 import {
   buildSkillInstallUrl,
   ensureIndexDir,
+  ingestRepo,
   listIndexedRepos,
   removeRepoIndex,
 } from "./ingester";
@@ -12,6 +13,144 @@ import { getIndexDir } from "./config";
 import { discoverSkills } from "./installer";
 import { dedupeSkillsByName } from "./skill-dedupe";
 import { verifySkill } from "./verifier";
+import type { EvalProvider } from "./eval/types";
+import type { IndexedSkill } from "./utils/types";
+
+const ingestMocks = vi.hoisted(() => ({
+  checkGitAvailable: vi.fn<() => Promise<void>>(() => Promise.resolve()),
+  cloneToTemp: vi.fn<() => Promise<string>>(),
+  cleanupTemp: vi.fn<() => Promise<void>>(() => Promise.resolve()),
+  getEvalProviders: vi.fn<() => EvalProvider[]>(() => []),
+}));
+
+vi.mock("./installer", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("./installer")>();
+  return {
+    ...actual,
+    checkGitAvailable: ingestMocks.checkGitAvailable,
+    cloneToTemp: ingestMocks.cloneToTemp,
+    cleanupTemp: ingestMocks.cleanupTemp,
+  };
+});
+
+vi.mock("./eval/builtins", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("./eval/builtins")>();
+  return {
+    ...actual,
+    getEvalProviders: ingestMocks.getEvalProviders,
+  };
+});
+
+interface Deferred {
+  promise: Promise<void>;
+  resolve: () => void;
+}
+
+function deferred(): Deferred {
+  let resolve!: () => void;
+  const promise = new Promise<void>((done) => {
+    resolve = done;
+  });
+  return { promise, resolve };
+}
+
+function progressTracker() {
+  let value = 0;
+  const waiters: Array<{ target: number; resolve: () => void }> = [];
+  return {
+    advance() {
+      value++;
+      for (const waiter of waiters) {
+        if (value >= waiter.target) waiter.resolve();
+      }
+    },
+    waitFor(target: number): Promise<void> {
+      if (value >= target) return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        const timeout = setTimeout(
+          () => reject(new Error(`Timed out waiting for progress ${target}`)),
+          5_000,
+        );
+        waiters.push({
+          target,
+          resolve: () => {
+            clearTimeout(timeout);
+            resolve();
+          },
+        });
+      });
+    },
+  };
+}
+
+async function writeIngestSkill(
+  root: string,
+  relPath: string,
+  name: string,
+): Promise<void> {
+  const skillDir = join(root, relPath);
+  await mkdir(skillDir, { recursive: true });
+  await writeFile(
+    join(skillDir, "SKILL.md"),
+    `---
+name: ${name}
+description: Evaluate deterministic indexing behavior for concurrency tests
+version: 1.0.0
+license: MIT
+creator: Test Author
+---
+
+# ${name}
+
+## Instructions
+
+Use this skill to validate deterministic indexing output and provider summaries.
+`,
+    "utf-8",
+  );
+}
+
+function createTestProvider(
+  applicable: EvalProvider["applicable"] = async () => ({ ok: true }),
+): EvalProvider {
+  return {
+    id: "test-provider",
+    version: "1.0.0",
+    schemaVersion: 1,
+    description: "Deterministic ingester test provider",
+    applicable,
+    async run(ctx) {
+      const index = Number(ctx.skillPath.match(/(\d+)$/)?.[1] ?? 0);
+      return {
+        providerId: "test-provider",
+        providerVersion: "1.0.0",
+        schemaVersion: 1,
+        score: 80 + index,
+        passed: true,
+        categories: [
+          {
+            id: "determinism",
+            name: "Determinism",
+            score: 1,
+            max: 1,
+          },
+        ],
+        findings: [],
+        startedAt: "",
+        durationMs: 0,
+      };
+    },
+  };
+}
+
+function withoutEvaluationTimes(skill: IndexedSkill): IndexedSkill {
+  const normalized = structuredClone(skill);
+  if (normalized.evalSummary) normalized.evalSummary.evaluatedAt = "<time>";
+  for (const summary of Object.values(normalized.evalSummaries ?? {})) {
+    summary.evaluatedAt = "<time>";
+  }
+  return normalized;
+}
 
 describe("ensureIndexDir", () => {
   it("creates and returns the index directory path", async () => {
@@ -124,6 +263,156 @@ describe("buildSkillInstallUrl", () => {
         "skills/example",
       ),
     ).toBe("github:owner/repo#main:skills/example");
+  });
+});
+
+describe("parallel skill ingestion (issue #372)", () => {
+  let tempDir: string;
+  let repoName: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-ingest-parallel-"));
+    repoName = `parallel-skills-${tempDir.split("-").at(-1)!.toLowerCase()}`;
+    ingestMocks.checkGitAvailable.mockReset();
+    ingestMocks.checkGitAvailable.mockResolvedValue(undefined);
+    ingestMocks.cloneToTemp.mockReset();
+    ingestMocks.cleanupTemp.mockReset();
+    ingestMocks.cleanupTemp.mockResolvedValue(undefined);
+    ingestMocks.getEvalProviders.mockReset();
+    ingestMocks.getEvalProviders.mockReturnValue([]);
+  });
+
+  afterEach(async () => {
+    ingestMocks.getEvalProviders.mockReturnValue([]);
+    await removeRepoIndex("issue-372-tests", repoName);
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  it("bounds overlapping work and preserves sequential content in input order", async () => {
+    const batchRoot = join(tempDir, "batch");
+    const skillNames = Array.from(
+      { length: 10 },
+      (_, index) => `skill-${String(index).padStart(2, "0")}`,
+    );
+    for (const name of skillNames) {
+      await writeIngestSkill(batchRoot, join("skills", name), name);
+    }
+
+    const discovered = await discoverSkills(batchRoot);
+    const { kept: deduped } = dedupeSkillsByName(discovered);
+    const inputOrder = deduped.map((skill) => skill.name);
+
+    ingestMocks.getEvalProviders.mockReturnValue([createTestProvider()]);
+    const sequentialSkills: IndexedSkill[] = [];
+    for (const name of inputOrder) {
+      const singleRoot = join(tempDir, "sequential", name);
+      await writeIngestSkill(singleRoot, join("skills", name), name);
+      ingestMocks.cloneToTemp.mockResolvedValueOnce(singleRoot);
+      const result = await ingestRepo(`github:issue-372-tests/${repoName}`);
+      expect(result.success).toBe(true);
+      sequentialSkills.push(...result.repoIndex!.skills);
+    }
+
+    const gates = new Map(inputOrder.map((name) => [name, deferred()]));
+    const started: string[] = [];
+    const applicabilityCompleted: string[] = [];
+    const startedProgress = progressTracker();
+    const completedProgress = progressTracker();
+    let active = 0;
+    let maxActive = 0;
+    const provider = createTestProvider(async (ctx) => {
+      const name = ctx.skillPath.split(/[\\/]/).at(-1)!;
+      active++;
+      maxActive = Math.max(maxActive, active);
+      started.push(name);
+      startedProgress.advance();
+      try {
+        await gates.get(name)!.promise;
+        return { ok: true };
+      } finally {
+        active--;
+        applicabilityCompleted.push(name);
+        completedProgress.advance();
+      }
+    });
+    ingestMocks.getEvalProviders.mockReturnValue([provider]);
+    ingestMocks.cloneToTemp.mockResolvedValueOnce(batchRoot);
+
+    const concurrentResultPromise = ingestRepo(
+      `github:issue-372-tests/${repoName}`,
+    );
+    let concurrentResult!: Awaited<ReturnType<typeof ingestRepo>>;
+    try {
+      await startedProgress.waitFor(8);
+      expect(active).toBe(8);
+      expect(maxActive).toBeLessThanOrEqual(8);
+
+      const releaseOrder = [
+        ...inputOrder.slice(0, 8).reverse(),
+        ...inputOrder.slice(8).reverse(),
+      ];
+      for (const [index, name] of releaseOrder.entries()) {
+        gates.get(name)!.resolve();
+        await completedProgress.waitFor(index + 1);
+      }
+      expect(applicabilityCompleted).toEqual(releaseOrder);
+      expect(applicabilityCompleted).not.toEqual(inputOrder);
+    } finally {
+      for (const gate of gates.values()) gate.resolve();
+      concurrentResult = await concurrentResultPromise;
+    }
+
+    expect(concurrentResult.success).toBe(true);
+    expect(started).toHaveLength(inputOrder.length);
+    expect(maxActive).toBe(8);
+    expect(
+      concurrentResult.repoIndex!.skills.map((skill) => skill.name),
+    ).toEqual(inputOrder);
+    expect(
+      concurrentResult.repoIndex!.skills.map(withoutEvaluationTimes),
+    ).toEqual(sequentialSkills.map(withoutEvaluationTimes));
+  });
+
+  it("isolates a provider failure to its skill", async () => {
+    const batchRoot = join(tempDir, "fail-soft");
+    const skillNames = ["skill-00", "skill-01", "skill-02"];
+    for (const name of skillNames) {
+      await writeIngestSkill(batchRoot, join("skills", name), name);
+    }
+    const discovered = await discoverSkills(batchRoot);
+    const { kept: deduped } = dedupeSkillsByName(discovered);
+    const inputOrder = deduped.map((skill) => skill.name);
+    const failedName = inputOrder[1];
+    const visited: string[] = [];
+
+    ingestMocks.getEvalProviders.mockReturnValue([
+      createTestProvider(async (ctx) => {
+        const name = ctx.skillPath.split(/[\\/]/).at(-1)!;
+        visited.push(name);
+        if (name === failedName) throw new Error("provider unavailable");
+        return { ok: true };
+      }),
+    ]);
+    ingestMocks.cloneToTemp.mockResolvedValueOnce(batchRoot);
+
+    const result = await ingestRepo(`github:issue-372-tests/${repoName}`);
+
+    expect(result.success).toBe(true);
+    expect(result.repoIndex!.skills.map((skill) => skill.name)).toEqual(
+      inputOrder,
+    );
+    const failedSkill = result.repoIndex!.skills[1];
+    const laterSkill = result.repoIndex!.skills[2];
+    expect(failedSkill.name).toBe(failedName);
+    expect(failedSkill.verified).toBe(true);
+    expect(failedSkill.evalSummary).toBeDefined();
+    expect(failedSkill.evalSummaries).toBeUndefined();
+    expect(laterSkill.evalSummaries?.["test-provider"]).toMatchObject({
+      providerId: "test-provider",
+      passed: true,
+      overallScore: 82,
+    });
+    expect(visited.sort()).toEqual([...inputOrder].sort());
   });
 });
 
