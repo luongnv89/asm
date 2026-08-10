@@ -957,33 +957,78 @@ describe("runWithConcurrency", () => {
       });
       return { promise, resolve };
     }
-    const gate = deferred();
+
+    // Three independent gates for deterministic synchronisation:
+    //   progressGate  — released when the initial 3 workers have all started
+    //   rejectionGate — triggers n=1 to throw (and signals the mapper to fail)
+    //   inFlightGate  — releases the blocked n=2/n=3 mappers
+    const progressGate = deferred();
+    const rejectionGate = deferred();
+    const inFlightGate = deferred();
     const started = new Set<number>();
+    let startedCount = 0;
 
     const mapper = vi.fn(async (n: number): Promise<number> => {
       started.add(n);
+      if (++startedCount === 3) {
+        progressGate.resolve();
+      }
       if (n === 1) {
-        await new Promise((r) => setTimeout(r, 50));
+        // Wait until the test triggers the rejection, then signal and throw.
+        await rejectionGate.promise;
         throw new Error("boom from 1");
       }
-      await gate.promise;
+      // n=2 and n=3 are blocked until the test releases them.
+      await inFlightGate.promise;
       return n * 2;
     });
 
     const promise = runWithConcurrency([1, 2, 3, 4, 5], 3, mapper);
 
-    // Let worker 0 throw
-    await new Promise((r) => setTimeout(r, 60));
-    expect(started.size).toBeLessThanOrEqual(3);
+    // Settlement observer attached immediately so a rejection is captured
+    // synchronously.  Using .then(onSuccess, onFailure) avoids creating a
+    // new rejecting promise (unlike .finally) so the original promise can
+    // still be asserted with expect(...).rejects.
+    let settleObserved = false;
+    let settleError: unknown = undefined;
+    promise.then(
+      () => {},
+      (err) => {
+        settleObserved = true;
+        settleError = err;
+      },
+    );
 
-    // Release blocked mappers
-    gate.resolve();
+    // Wait until all three initial workers have started.
+    await progressGate.promise;
 
-    // Should reject with the original error
+    // Trigger n=1's rejection.
+    rejectionGate.resolve();
+
+    // At this point n=2/n=3 are still blocked on inFlightGate and the
+    // promise is unsettled.
+    expect(started.size).toBe(3);
+    expect(started).toEqual(new Set([1, 2, 3]));
+    expect(settleObserved).toBe(false);
+
+    // Release the blocked mappers.
+    inFlightGate.resolve();
+
+    // Workers n=2/n=3 complete; Promise.all(workers) settles; the function
+    // re-throws the original error.  The settlement observer fires as a
+    // microtask — flush until it has run.
+    await inFlightGate.promise;
+    for (let i = 0; i < 10; i++) await Promise.resolve();
+    expect(settleObserved).toBe(true);
+    expect(settleError).toBeInstanceOf(Error);
+    expect((settleError as Error).message).toBe("boom from 1");
+
+    // Only the initial batch of 3 started — no queued work after failure.
+    expect(started.size).toBe(3);
+    expect(started).toEqual(new Set([1, 2, 3]));
+
+    // The original promise still rejects with the exact error.
     await expect(promise).rejects.toThrow("boom from 1");
-
-    // Only the initial batch of 3 started — no queued work after failure
-    expect(started.size).toBeLessThanOrEqual(3);
   });
 });
 
