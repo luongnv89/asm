@@ -118,6 +118,11 @@ function recordResolvedLatestCommit<T extends OutdatedEntry>(
 
 // ─── Concurrency Pool ───────────────────────────────────────────────────────
 
+function normalizedTargetIdentity(name: string): string {
+  // toLowerCase uses Unicode's locale-independent default case mapping.
+  return name.normalize("NFC").toLowerCase().normalize("NFC");
+}
+
 async function poolAll<T, R>(
   items: T[],
   concurrency: number,
@@ -839,24 +844,36 @@ export async function updateSkills(
     return write;
   };
 
-  const results = await poolAll(updateEntries, 4, async (entry) => {
-    try {
-      return await updateSkillFn(
-        entry.name,
-        entry.lockEntry,
-        skipConfirm,
-        {
-          writeLockEntryFn: serializedWriteLockEntry,
-        },
-        entry.knownLatestCommit,
-      );
-    } catch (err) {
-      const message = err instanceof Error ? err.message : String(err);
-      return {
-        name: entry.name,
-        status: "failed" as const,
-        reason: `Unexpected update failure: ${message}`,
-      };
+  const updateGroups = new Map<
+    string,
+    Array<(typeof updateEntries)[number] & { index: number }>
+  >();
+  updateEntries.forEach((entry, index) => {
+    const identity = normalizedTargetIdentity(entry.name);
+    const group = updateGroups.get(identity) ?? [];
+    group.push({ ...entry, index });
+    updateGroups.set(identity, group);
+  });
+
+  const results: UpdateResult[] = new Array(updateEntries.length);
+  await poolAll([...updateGroups.values()], 4, async (group) => {
+    for (const entry of group) {
+      try {
+        results[entry.index] = await updateSkillFn(
+          entry.name,
+          entry.lockEntry,
+          skipConfirm,
+          { writeLockEntryFn: serializedWriteLockEntry },
+          entry.knownLatestCommit,
+        );
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        results[entry.index] = {
+          name: entry.name,
+          status: "failed",
+          reason: `Unexpected update failure: ${message}`,
+        };
+      }
     }
   });
 

@@ -1867,6 +1867,114 @@ describe("updateSkills orchestrator", () => {
     expect(summary.failedCount).toBe(1);
   });
 
+  test("serializes case-folded and Unicode-normalized target aliases", async () => {
+    const names = ["Foo", "foo", "CAFÉ", "cafe\u0301"];
+    const { lock, outdated } = createUpdateFixture(names);
+    const gates = Object.fromEntries(names.map((name) => [name, deferred()]));
+    const started = Object.fromEntries(names.map((name) => [name, deferred()]));
+    const startedNames: string[] = [];
+    const activeByIdentity = new Map<string, number>();
+    let maxSameIdentityActive = 0;
+
+    const summaryPromise = updateSkills(null, false, {
+      readLockFn: async () => lock,
+      checkOutdatedFn: async () => outdated,
+      updateSkillFn: async (name) => {
+        const identity = name.normalize("NFC").toLowerCase().normalize("NFC");
+        const active = (activeByIdentity.get(identity) ?? 0) + 1;
+        activeByIdentity.set(identity, active);
+        maxSameIdentityActive = Math.max(maxSameIdentityActive, active);
+        startedNames.push(name);
+        started[name].resolve();
+        await gates[name].promise;
+        activeByIdentity.set(identity, active - 1);
+        return { name, status: "updated" };
+      },
+    });
+
+    await Promise.all([started.Foo.promise, started["CAFÉ"].promise]);
+    expect(startedNames).toEqual(["Foo", "CAFÉ"]);
+
+    gates.Foo.resolve();
+    await started.foo.promise;
+    expect(startedNames).toEqual(["Foo", "CAFÉ", "foo"]);
+    gates.foo.resolve();
+
+    gates["CAFÉ"].resolve();
+    await started["cafe\u0301"].promise;
+    expect(startedNames).toEqual(["Foo", "CAFÉ", "foo", "cafe\u0301"]);
+    gates["cafe\u0301"].resolve();
+
+    const summary = await summaryPromise;
+    expect(maxSameIdentityActive).toBe(1);
+    expect(summary.results.map((result) => result.name)).toEqual(names);
+  });
+
+  test("queued aliases do not consume worker slots and results stay ordered", async () => {
+    const names = ["Foo", "Bar", "foo", "Baz", "Qux"];
+    const { lock, outdated } = createUpdateFixture(names);
+    const gates = Object.fromEntries(names.map((name) => [name, deferred()]));
+    const started = Object.fromEntries(names.map((name) => [name, deferred()]));
+    const startedNames: string[] = [];
+    let active = 0;
+    let maxActive = 0;
+    let aliasActive = 0;
+    let maxAliasActive = 0;
+
+    const summaryPromise = updateSkills(null, false, {
+      readLockFn: async () => lock,
+      checkOutdatedFn: async () => outdated,
+      updateSkillFn: async (name) => {
+        active++;
+        maxActive = Math.max(maxActive, active);
+        if (name.toLowerCase() === "foo") {
+          aliasActive++;
+          maxAliasActive = Math.max(maxAliasActive, aliasActive);
+        }
+        startedNames.push(name);
+        started[name].resolve();
+        await gates[name].promise;
+        active--;
+        if (name.toLowerCase() === "foo") aliasActive--;
+        if (name === "Foo") throw new Error("alias worker crashed");
+        if (name === "foo") {
+          return { name, status: "skipped", reason: "Alias checked second" };
+        }
+        return { name, status: "updated" };
+      },
+    });
+
+    await Promise.all(
+      ["Foo", "Bar", "Baz", "Qux"].map((name) => started[name].promise),
+    );
+    expect(startedNames).toEqual(["Foo", "Bar", "Baz", "Qux"]);
+    expect(active).toBe(4);
+    expect(maxActive).toBe(4);
+
+    gates.Foo.resolve();
+    await started.foo.promise;
+    expect(startedNames).toEqual(["Foo", "Bar", "Baz", "Qux", "foo"]);
+    expect(maxAliasActive).toBe(1);
+
+    for (const name of ["Qux", "Bar", "foo", "Baz"]) gates[name].resolve();
+
+    const summary = await summaryPromise;
+    expect(summary.results.map((result) => result.name)).toEqual(names);
+    expect(summary.results.map((result) => result.status)).toEqual([
+      "failed",
+      "updated",
+      "skipped",
+      "updated",
+      "updated",
+    ]);
+    expect(summary.results[0].reason).toBe(
+      "Unexpected update failure: alias worker crashed",
+    );
+    expect(summary.updatedCount).toBe(3);
+    expect(summary.skippedCount).toBe(1);
+    expect(summary.failedCount).toBe(1);
+  });
+
   test("serializes stale-read lock writes to match sequential state", async () => {
     const names = ["skill-a", "skill-b", "skill-c"];
     const { lock, outdated } = createUpdateFixture(names);
