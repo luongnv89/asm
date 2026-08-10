@@ -610,19 +610,59 @@ export async function updateSkill(
       // .git might not exist
     }
 
-    // Verify target exists before swapping
+    let targetExists = true;
     try {
       await access(targetDir);
-    } catch {
-      // Target doesn't exist — just copy
-      const writeLockFn = _overrides?.writeLockEntryFn ?? writeLockEntry;
-      await mkdir(installedPath, { recursive: true });
-      await cp(updateSourceDir, targetDir, { recursive: true });
-      await writeLockFn(name, {
-        ...entry,
-        commitHash: newCommit,
-        installedAt: new Date().toISOString(),
-      });
+    } catch (err: any) {
+      if (err?.code !== "ENOENT") {
+        return {
+          name,
+          status: "failed",
+          reason: `Cannot access installed skill: ${err.message}`,
+        };
+      }
+      targetExists = false;
+    }
+
+    const writeLockFn = _overrides?.writeLockEntryFn ?? writeLockEntry;
+    const updatedEntry = {
+      ...entry,
+      commitHash: newCommit,
+      installedAt: new Date().toISOString(),
+    };
+
+    if (!targetExists) {
+      try {
+        await mkdir(installedPath, { recursive: true });
+        await cp(updateSourceDir, targetDir, { recursive: true });
+      } catch (copyErr: any) {
+        await rm(targetDir, { recursive: true, force: true });
+        return {
+          name,
+          status: "failed",
+          reason: `Atomic swap failed: ${copyErr.message}`,
+        };
+      }
+
+      try {
+        await writeLockFn(name, updatedEntry);
+      } catch (lockErr: any) {
+        try {
+          await rm(targetDir, { recursive: true, force: true });
+        } catch (rollbackErr: any) {
+          return {
+            name,
+            status: "failed",
+            reason: `Lock file update failed: ${lockErr.message}. Removal of the new installation also failed: ${rollbackErr.message}`,
+          };
+        }
+        return {
+          name,
+          status: "failed",
+          reason: `Lock file update failed: ${lockErr.message}`,
+        };
+      }
+
       return {
         name,
         status: "updated",
@@ -632,19 +672,26 @@ export async function updateSkill(
       };
     }
 
-    // Atomic swap: rename old -> backup, move new -> target, remove backup
+    // Keep the old installation until the corresponding lock entry is durable.
     const backupDir = `${targetDir}.bak-${Date.now()}`;
+    let backupCreated = false;
     try {
       await rename(targetDir, backupDir);
+      backupCreated = true;
       await cp(updateSourceDir, targetDir, { recursive: true });
-      await rm(backupDir, { recursive: true, force: true });
     } catch (swapErr: any) {
-      // Rollback: try to restore backup
-      try {
-        await rm(targetDir, { recursive: true, force: true });
-        await rename(backupDir, targetDir);
-      } catch {
-        // Best effort rollback
+      if (backupCreated) {
+        try {
+          await rm(targetDir, { recursive: true, force: true });
+          await rename(backupDir, targetDir);
+          backupCreated = false;
+        } catch (rollbackErr: any) {
+          return {
+            name,
+            status: "failed",
+            reason: `Atomic swap failed: ${swapErr.message}. Restore also failed; backup preserved at ${backupDir}: ${rollbackErr.message}`,
+          };
+        }
       }
       return {
         name,
@@ -653,13 +700,37 @@ export async function updateSkill(
       };
     }
 
-    // Step 4: Update lock file
-    const writeLockFn = _overrides?.writeLockEntryFn ?? writeLockEntry;
-    await writeLockFn(name, {
-      ...entry,
-      commitHash: newCommit,
-      installedAt: new Date().toISOString(),
-    });
+    // Step 4: Update the lock before discarding the previous installation.
+    try {
+      await writeLockFn(name, updatedEntry);
+    } catch (lockErr: any) {
+      try {
+        await rm(targetDir, { recursive: true, force: true });
+        await rename(backupDir, targetDir);
+        backupCreated = false;
+      } catch (rollbackErr: any) {
+        return {
+          name,
+          status: "failed",
+          reason: `Lock file update failed: ${lockErr.message}. Restore also failed; backup preserved at ${backupDir}: ${rollbackErr.message}`,
+        };
+      }
+      return {
+        name,
+        status: "failed",
+        reason: `Lock file update failed: ${lockErr.message}`,
+      };
+    }
+
+    // The target and lock now agree. Backup cleanup is best effort and must not
+    // roll back a successfully persisted update.
+    if (backupCreated) {
+      try {
+        await rm(backupDir, { recursive: true, force: true });
+      } catch (cleanupErr) {
+        debug(`updater: failed to remove backup ${backupDir}: ${cleanupErr}`);
+      }
+    }
 
     return {
       name,

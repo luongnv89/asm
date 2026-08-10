@@ -1,5 +1,13 @@
 import { describe, test, expect, beforeEach, afterEach } from "vitest";
-import { mkdtemp, writeFile, mkdir, rm, readFile } from "fs/promises";
+import {
+  access,
+  mkdtemp,
+  writeFile,
+  mkdir,
+  rm,
+  readFile,
+  readdir,
+} from "fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
 import {
@@ -1243,6 +1251,104 @@ describe("updateSkill happy path", () => {
     expect(await readFile(join(installedDir, "skill.md"), "utf-8")).toBe(
       oldContent,
     );
+  });
+
+  test("restores an existing target when the lock write rejects", async () => {
+    const { bareRepoPath } = await createBareGitRepo(
+      tempDir,
+      "rollback-existing-skill",
+      "# New version\nNew content",
+    );
+    const skillsDir = join(tempDir, "rollback-existing-skills");
+    const installedDir = join(skillsDir, "rollback-existing-skill");
+    await mkdir(installedDir, { recursive: true });
+    await writeFile(
+      join(installedDir, "skill.md"),
+      "# Old version\nOld content",
+    );
+    await writeFile(join(installedDir, "old-only.txt"), "keep me");
+
+    let lockWriteCount = 0;
+    const entry: LockEntry = {
+      source: `file://${bareRepoPath}`,
+      commitHash: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      ref: null,
+      installedAt: "2026-01-01T00:00:00.000Z",
+      provider: "claude",
+      sourceType: "github",
+    };
+
+    const { updateSkill } = await import("./updater");
+    const result = await updateSkill("rollback-existing-skill", entry, false, {
+      auditFn: async () => ({ verdict: "safe" }),
+      loadConfigFn: async () =>
+        ({ providers: [{ name: "claude", global: skillsDir }] }) as any,
+      resolveProviderPathFn: (p: string) => p,
+      writeLockEntryFn: async () => {
+        lockWriteCount++;
+        throw new Error("disk unavailable");
+      },
+    });
+
+    expect(result).toEqual({
+      name: "rollback-existing-skill",
+      status: "failed",
+      reason: "Lock file update failed: disk unavailable",
+    });
+    expect(lockWriteCount).toBe(1);
+    await expect(
+      readFile(join(installedDir, "skill.md"), "utf-8"),
+    ).resolves.toContain("# Old version");
+    await expect(
+      readFile(join(installedDir, "old-only.txt"), "utf-8"),
+    ).resolves.toBe("keep me");
+    expect(
+      (await readdir(skillsDir)).filter((name) => name.includes(".bak-")),
+    ).toEqual([]);
+  });
+
+  test("removes a newly copied target when the lock write rejects", async () => {
+    const { bareRepoPath } = await createBareGitRepo(
+      tempDir,
+      "rollback-absent-skill",
+      "# New version\nNew content",
+    );
+    const skillsDir = join(tempDir, "rollback-absent-skills");
+    const installedDir = join(skillsDir, "rollback-absent-skill");
+    const entry: LockEntry = {
+      source: `file://${bareRepoPath}`,
+      commitHash: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      ref: null,
+      installedAt: "2026-01-01T00:00:00.000Z",
+      provider: "claude",
+      sourceType: "github",
+    };
+
+    let lockWriteCount = 0;
+    const { updateSkill } = await import("./updater");
+    const result = await updateSkill("rollback-absent-skill", entry, false, {
+      auditFn: async () => ({ verdict: "safe" }),
+      loadConfigFn: async () =>
+        ({ providers: [{ name: "claude", global: skillsDir }] }) as any,
+      resolveProviderPathFn: (p: string) => p,
+      writeLockEntryFn: async () => {
+        lockWriteCount++;
+        throw new Error("disk unavailable");
+      },
+    });
+
+    expect(result).toEqual({
+      name: "rollback-absent-skill",
+      status: "failed",
+      reason: "Lock file update failed: disk unavailable",
+    });
+    expect(lockWriteCount).toBe(1);
+    await expect(access(installedDir)).rejects.toMatchObject({
+      code: "ENOENT",
+    });
+    expect(
+      (await readdir(skillsDir)).filter((name) => name.includes(".bak-")),
+    ).toEqual([]);
   });
 
   test("updates nested skills from their recorded skillPath and project scope", async () => {
