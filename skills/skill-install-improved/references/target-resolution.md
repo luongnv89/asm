@@ -99,10 +99,10 @@ find "$WORK" -maxdepth 5 -name "SKILL.md" -type f
 
 Carry these fields forward to the Phase 4 report:
 
-| Field          | Source                                                    |
-| -------------- | --------------------------------------------------------- |
-| `suppliedAs`   | The identifier the user typed, verbatim                   |
-| `resolvedFrom` | `installUrl` (name form), clone URL (repo form), or `n/a` |
-| `upstreamSha`  | `git -C "$SKILL_PATH" rev-parse HEAD`, or `n/a`           |
-| `skillName`    | Frontmatter `name` of the resolved `SKILL.md`             |
-| `skillPath`    | `$SKILL_PATH`                                             |
+| Field          | Source                                                                                                                                               |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `suppliedAs`   | The identifier the user typed, verbatim                                                                                                              |
+| `resolvedFrom` | `installUrl` (name form), clone URL (repo form), or `n/a`                                                                                            |
+| `upstreamSha`  | Repo and name forms: `git -C "$WORK/repo" rev-parse HEAD`. Local path: `git -C "$SRC" rev-parse HEAD` when the source sits in a git repo, else `n/a` |
+| `skillName`    | Frontmatter `name` of the resolved `SKILL.md`                                                                                                        |
+| `skillPath`    | `$SKILL_PATH`                                                                                                                                        |
