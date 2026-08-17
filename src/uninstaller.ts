@@ -442,6 +442,11 @@ export async function executeRemoval(
         continue;
       }
 
+      if (symlinkTo && resolve(dir.path) === resolve(symlinkTo)) {
+        log.push(`Skipped same-path removal: ${dir.path}`);
+        continue;
+      }
+
       if (dir.isSymlink) {
         await rm(dir.path);
         log.push(`Removed symlink: ${dir.path}`);
