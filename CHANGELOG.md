@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- Add the `skill-install-improved` bundled skill — installs an improved variant of one skill instead of the published one: resolves the target by local path, repo, or skill name, runs `skill-auto-improver` on a throwaway `mktemp -d` copy so the user's own files are never modified, installs the improved directory, and reports the before/after scores and the provenance it was improved from ([#418](https://github.com/luongnv89/asm/issues/418)) — @luongnv89
+
 ## v2.15.0 — 2026-07-22
 
 ### Features
