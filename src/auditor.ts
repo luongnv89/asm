@@ -21,10 +21,12 @@ export function detectDuplicates(skills: SkillInfo[]): AuditReport {
         deduped[deduped.indexOf(existing)] = s;
         seenRealPaths.set(s.realPath, s);
       }
-      // Both non-symlinks with same realPath — keep both (different copies)
-      // This shouldn't normally happen but is safe
-      else {
-        deduped.push(s);
+      // Both non-symlinks with the same realPath — one physical install
+      // (e.g. cwd === $HOME so ~/.agents/skills and ./.agents/skills collide).
+      // Prefer global scope; otherwise keep the first seen instance.
+      else if (s.scope === "global" && existing.scope !== "global") {
+        deduped[deduped.indexOf(existing)] = s;
+        seenRealPaths.set(s.realPath, s);
       }
     } else {
       seenRealPaths.set(s.realPath, s);
