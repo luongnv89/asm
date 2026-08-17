@@ -43,6 +43,7 @@ import {
   mkdtemp,
   mkdir,
   writeFile,
+  readFile,
   readlink,
   lstat,
   realpath,
@@ -413,6 +414,56 @@ describe("executeRemoval with symlinkTo", () => {
       } catch (err: any) {
         expect(err.code).toBe("ENOENT");
       }
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("does not delete a directory whose resolved path matches symlinkTo", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-test-samepath-"));
+    try {
+      const keptDir = join(base, "skill");
+      await mkdir(keptDir, { recursive: true });
+      await writeFile(join(keptDir, "SKILL.md"), "kept");
+
+      const plan: RemovalPlan = {
+        directories: [{ path: keptDir, isSymlink: false }],
+        ruleFiles: [],
+        agentsBlocks: [],
+      };
+
+      const log = await executeRemoval(plan, keptDir);
+
+      const stats = await lstat(keptDir);
+      expect(stats.isDirectory()).toBe(true);
+      const content = await readFile(join(keptDir, "SKILL.md"), "utf-8");
+      expect(content).toBe("kept");
+      expect(log.some((l) => /skipped same-path/i.test(l))).toBe(true);
+      expect(log.some((l) => l.startsWith("Removed directory:"))).toBe(false);
+    } finally {
+      await rm(base, { recursive: true, force: true });
+    }
+  });
+
+  it("does not delete when symlinkTo is the same path via a different string", async () => {
+    const base = await mkdtemp(join(tmpdir(), "asm-test-samepath-resolve-"));
+    try {
+      const keptDir = join(base, "skill");
+      await mkdir(keptDir, { recursive: true });
+      await writeFile(join(keptDir, "SKILL.md"), "kept");
+
+      const aliased = join(base, ".", "skill");
+      const plan: RemovalPlan = {
+        directories: [{ path: aliased, isSymlink: false }],
+        ruleFiles: [],
+        agentsBlocks: [],
+      };
+
+      const log = await executeRemoval(plan, keptDir);
+
+      const stats = await lstat(keptDir);
+      expect(stats.isDirectory()).toBe(true);
+      expect(log.some((l) => /skipped same-path/i.test(l))).toBe(true);
     } finally {
       await rm(base, { recursive: true, force: true });
     }
