@@ -337,6 +337,142 @@ describe("detectDuplicates", () => {
     expect(report.duplicateGroups[0].reason).toBe("same-dirName");
     expect(report.duplicateGroups[0].instances).toHaveLength(2);
   });
+
+  it("treats two non-symlink rows with the same realPath as one installation", () => {
+    const shared = "/home/user/.agents/skills/code-review";
+    const skills = [
+      makeSkill({
+        dirName: "code-review",
+        name: "code-review",
+        path: shared,
+        originalPath: shared,
+        realPath: shared,
+        location: "global-agents",
+        scope: "global",
+        provider: "agents",
+        isSymlink: false,
+      }),
+      makeSkill({
+        dirName: "code-review",
+        name: "code-review",
+        path: shared,
+        originalPath: shared,
+        realPath: shared,
+        location: "project-agents",
+        scope: "project",
+        provider: "agents",
+        isSymlink: false,
+      }),
+    ];
+    const report = detectDuplicates(skills);
+    expect(report.duplicateGroups).toHaveLength(0);
+    expect(report.totalSkills).toBe(2);
+  });
+
+  it("does not report the same .agents/skills dir as global and project when cwd is home", () => {
+    const home = "/home/user";
+    const realPath = `${home}/.agents/skills/code-review`;
+    const skills = [
+      makeSkill({
+        dirName: "code-review",
+        name: "code-review",
+        path: `${home}/.agents/skills/code-review`,
+        originalPath: `${home}/.agents/skills/code-review`,
+        realPath,
+        location: "global-agents",
+        scope: "global",
+        provider: "agents",
+        isSymlink: false,
+      }),
+      makeSkill({
+        dirName: "code-review",
+        name: "code-review",
+        path: `${home}/.agents/skills/code-review`,
+        originalPath: "./.agents/skills/code-review",
+        realPath,
+        location: "project-agents",
+        scope: "project",
+        provider: "agents",
+        isSymlink: false,
+      }),
+    ];
+    const report = detectDuplicates(skills);
+    expect(report.duplicateGroups).toHaveLength(0);
+    expect(report.totalDuplicateInstances).toBe(0);
+  });
+
+  it("still groups genuinely separate global and project copies", () => {
+    const skills = [
+      makeSkill({
+        dirName: "code-review",
+        name: "code-review",
+        path: "/home/user/.agents/skills/code-review",
+        realPath: "/home/user/.agents/skills/code-review",
+        location: "global-agents",
+        scope: "global",
+        provider: "agents",
+        isSymlink: false,
+      }),
+      makeSkill({
+        dirName: "code-review",
+        name: "code-review",
+        path: "/project/.agents/skills/code-review",
+        realPath: "/project/.agents/skills/code-review",
+        location: "project-agents",
+        scope: "project",
+        provider: "agents",
+        isSymlink: false,
+      }),
+    ];
+    const report = detectDuplicates(skills);
+    expect(report.duplicateGroups).toHaveLength(1);
+    expect(report.duplicateGroups[0].reason).toBe("same-dirName");
+    expect(report.duplicateGroups[0].instances).toHaveLength(2);
+  });
+
+  it("prefers the global instance when collapsing same-realPath non-symlinks", () => {
+    const shared = "/home/user/.agents/skills/code-review";
+    const other = "/home/user/.codex/skills/code-review";
+    const skills = [
+      makeSkill({
+        dirName: "code-review",
+        name: "code-review",
+        path: shared,
+        realPath: shared,
+        location: "project-agents",
+        scope: "project",
+        provider: "agents",
+        isSymlink: false,
+      }),
+      makeSkill({
+        dirName: "code-review",
+        name: "code-review",
+        path: shared,
+        realPath: shared,
+        location: "global-agents",
+        scope: "global",
+        provider: "agents",
+        isSymlink: false,
+      }),
+      makeSkill({
+        dirName: "code-review",
+        name: "code-review",
+        path: other,
+        realPath: other,
+        location: "global-codex",
+        scope: "global",
+        provider: "codex",
+        isSymlink: false,
+      }),
+    ];
+    const report = detectDuplicates(skills);
+    expect(report.duplicateGroups).toHaveLength(1);
+    expect(report.duplicateGroups[0].instances).toHaveLength(2);
+    const scopes = report.duplicateGroups[0].instances.map((i) => i.location);
+    expect(scopes).toContain("global-agents");
+    expect(scopes).not.toContain("project-agents");
+    expect(scopes).toContain("global-codex");
+  });
 });
 
 describe("sortInstancesForKeep", () => {
