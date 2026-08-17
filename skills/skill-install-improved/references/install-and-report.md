@@ -52,8 +52,8 @@ asm install "$SKILL_PATH" -p "$TOOL" --scope "$SCOPE" --json -y
 
 Two different names are in play and they can disagree:
 
-- The **overwrite decision** matches the frontmatter `name` plus the selected tool. Scope is not part of that match.
-- The **directory deleted** is named after `$SKILL_PATH`'s basename (or `--name <alt>`).
+- The **overwrite decision** matches the frontmatter `name` plus the selected tool. Scope is not part of that match, and `--name` does not suppress it.
+- The **directory deleted** is the _target_ directory: `$SKILL_PATH`'s basename (or `alt`) under the install base for `$TOOL`/`$SCOPE`. That is not necessarily the matched entry's `path`.
 
 1. **Probe first.** Before invoking `asm install`, list what is already installed and look for both names:
 
@@ -64,9 +64,9 @@ Two different names are in play and they can disagree:
    `asm inspect "<dirName>" --json` gives the same detail for a single entry, but it matches on the **directory** name only — use `asm list --json` when you need to match the frontmatter `name`.
 
 2. **Neither name matches.** Nothing is touched. Install and report a clean install.
-3. **Frontmatter `name` matches for the selected tool — confirm, then overwrite.** Name the existing entry's `path` and the source it came from, and get explicit confirmation. Overwriting is the expected outcome (the request was to install the improved variant), but it is destructive and unconditional, so it must be an informed choice made before the command runs.
+3. **Frontmatter `name` matches for the selected tool — confirm, then overwrite.** The matched entry is only the _trigger_; it may sit in a different scope. Confirm the **target** directory instead — derive its base from the `path` of probe entries sharing the same `provider` and `scope`, and state what the probe shows occupying it (`name`, `dirName`, `provider`, `scope`) or that it is free. Name the matched entry separately, as the reason force is set. Overwriting is the expected outcome (the request was to install the improved variant), but it is destructive and unconditional, so it must be an informed choice made before the command runs.
 4. **Only the directory name matches.** No force is planned, so nothing is deleted — but the recursive copy still **merges into** the existing directory: colliding files are overwritten in place and the previous occupant's other files stay behind inside the installed skill. There is no clean-install guarantee anywhere in `asm install`. Confirm this case as well, and check the result for strays.
-5. **Opt-out: `--name <alt>`.** Side-by-side install under a different directory name — check `alt` against the probe too, or it merges into whatever already sits there. Warn before doing it: **both skills then carry the same frontmatter `name` and the same triggers**, so the runtime has two indistinguishable candidates — the duplicate-trigger hazard the ASM auditor reports. Take this path only when the user asks for it.
+5. **Opt-out: `--name <alt>`.** Side-by-side install under directory name `alt`. `--name` does not suppress force, so when the frontmatter `name` already matches, anything occupying `<base>/<alt>` is deleted and replaced, not merged — check `alt` against the probe first. Warn before doing it: **both skills then carry the same frontmatter `name` and the same triggers**, so the runtime has two indistinguishable candidates — the duplicate-trigger hazard the ASM auditor reports. Take this path only when the user asks for it.
 
 The report always states which of these paths was taken and what, if anything, was replaced or merged into.
 
@@ -79,7 +79,7 @@ Print this to the user at the end of Phase 4, before removing `$WORK`.
 ··································································
   Installed to:      <.path from the install --json output — never assumed>
   Tool / scope:      <tool> / <scope>
-  Install path:      clean install | confirmed overwrite of <path> | side-by-side as <alt>
+  Install path:      clean install | confirmed overwrite of <target path> | side-by-side as <alt>
 
   Improved from
     Supplied as:     <what the user typed>

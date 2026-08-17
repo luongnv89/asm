@@ -94,11 +94,11 @@ asm list --json    # probe: is this skill already installed for $TOOL / $SCOPE?
 ```
 
 - **Neither name matches** — install; nothing is touched.
-- **Frontmatter `name` matches for `$TOOL`** — the target directory is deleted and replaced. Name the existing entry's `path` and the source it came from, and get **explicit confirmation before running `asm install`**. There is no failure to fall back on once it is invoked.
+- **Frontmatter `name` matches for `$TOOL`** — force is set, even if that entry sits in another scope. What gets deleted is the **target** directory (`$SKILL_PATH`'s basename, or `alt`, under the install base for `$TOOL`/`$SCOPE`), which need not be the matched entry's `path`. Name that target path and whatever the probe shows there, and get **explicit confirmation before running `asm install`**. There is no failure to fall back on once it is invoked.
 - **Only the directory name matches** — no delete, but the copy still **merges into** the existing directory: colliding files are overwritten and the previous occupant's other files survive inside the installed skill. Confirm this one too.
-- **Opt-out** — `--name <alt>` installs side by side, on request only. Warn first: both then share one frontmatter `name` and identical triggers, the duplicate-trigger hazard the ASM auditor flags.
+- **Opt-out** — `--name <alt>` installs side by side, on request only. It does not suppress force, so anything already at `<base>/<alt>` is deleted and replaced; check `alt` against the probe. Warn first: both then share one frontmatter `name` and identical triggers, the duplicate-trigger hazard the ASM auditor flags.
 
-Two names decide the outcome and they can differ: ASM triggers the overwrite from the frontmatter `name` plus the selected tool (scope is not part of that match), but the directory it deletes is named after `$SKILL_PATH`'s basename. Check the probe output for both.
+Both names come out of the same probe: the frontmatter `name` plus `$TOOL` decides whether force is set, the target directory name decides what is destroyed.
 
 Only once the probe is read and any collision above is confirmed:
 
@@ -178,7 +178,7 @@ Use `√` for pass, `×` for fail, `—` for context. Checks per phase:
 - **Several `SKILL.md` files in a clone** — enumerate and ask. Never batch, never guess.
 - **`asm search` returns nothing, or several equally-plausible matches** — show the candidates and ask; never install the first hit.
 - **Target has no frontmatter** — `asm eval --fix` cannot add it. Report and stop; do not install an unimprovable skill as if it were improved.
-- **Collision is a same-named skill from another source** — the install would silently replace someone else's skill, with no error and no prompt. The probe is the only chance to catch it: name the path and its source, confirm, and offer `--name <alt>` — all before `asm install` runs.
+- **Collision is a same-named skill from another source** — the install would silently replace someone else's skill, with no error and no prompt. The probe is the only chance to catch it: name the target directory and whatever the probe shows there (`name`, `dirName`, `provider`, `scope`), confirm, and offer `--name <alt>` — all before `asm install` runs.
 - **Temp dir removed before harvesting** — the metrics are gone and the before/after criterion cannot be met. Harvest in Phase 2, always before cleanup.
 - **Clone or disk failure mid-resolve** — stop, remove `$WORK`, report. Never install a partial checkout.
 
