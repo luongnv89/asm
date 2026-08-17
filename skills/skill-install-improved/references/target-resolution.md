@@ -30,9 +30,12 @@ SRC="<path the user gave>"
 # A SKILL.md file path folds to its parent directory
 [ -f "$SRC" ] && SRC="$(dirname "$SRC")"
 
-cp -R "$SRC" "$WORK/target"
-SKILL_PATH="$WORK/target"
+# Keep the original directory name — it becomes the installed directory name
+cp -R "$SRC" "$WORK/$(basename "$SRC")"
+SKILL_PATH="$WORK/$(basename "$SRC")"
 ```
+
+`asm install` names the installed directory after `$SKILL_PATH`'s basename, so a generic temp name like `$WORK/target` would install as `target`. Preserve the source directory name for every form.
 
 The copy has no `origin` remote and no history. `skill-auto-improver`'s mandatory repo sync is inapplicable — log the skip and continue.
 
@@ -50,6 +53,8 @@ SKILL_PATH="$WORK/repo/<subpath>"     # or the repo root when the skill is at to
 ```
 
 If the user gave a subpath, use it. If not, run the multi-candidate check below.
+
+**Top-level skill:** `$SKILL_PATH` would then be `$WORK/repo`, and `asm install` would name the installed directory `repo`. Copy the checkout's skill files into `$WORK/<frontmatter name>` and point `$SKILL_PATH` there instead.
 
 Provenance to record: the clone URL, the ref, and `git -C "$WORK/repo" rev-parse HEAD`.
 

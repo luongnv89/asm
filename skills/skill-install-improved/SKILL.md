@@ -29,7 +29,7 @@ Verify each before resolving anything. Stop and tell the user if any fails.
 - `asm` and `git` on PATH
 - Python 3 and `~/.claude/skills/skill-creator/scripts/quick_validate.py` — `skill-auto-improver` requires it
 - Network access to GitHub, for the repo and name forms
-- Write access to the install target (`~/.claude/skills/` global, `.claude/skills/` project)
+- Write access to the install target — the directory for the chosen tool and scope (for `claude`: `~/.claude/skills/` global, `.claude/skills/` project). Other tools install elsewhere; take the real path from `asm list --json` or the install output.
 
 ### The user's own files are never modified (design decision)
 
@@ -41,7 +41,9 @@ Verify each before resolving anything. Stop and tell the user if any fails.
 
 The user identifies **one** target skill, in any of four forms — a local path (`skills/foo`), a local `SKILL.md` file path, a repo (`https://github.com/owner/repo`, `owner/repo`), or a skill name (`code-review`). Phase 0 normalizes all of them to one local directory, `$SKILL_PATH`.
 
-Optional: a `--name <alt>` intent and an install scope. Ask for the scope if the user did not state one; never guess.
+Also needed before Phase 3: the install **scope** (`global` or `project`) and the target **tool** (`-p/--tool` — `claude`, `codex`, `agents`, …). Ask for either one the user did not state; never guess. `asm install` hard-fails without `--tool` in a non-interactive run, and `-y` does not cover it.
+
+Optional: a `--name <alt>` intent.
 
 ## Workflow
 
@@ -85,17 +87,21 @@ Both deletions are confined to the `mktemp -d` copy — confirm `$SKILL_PATH` is
 
 ### Phase 3 — Install the improved directory
 
-`skill-auto-improver` never renames, so the improved variant keeps the original frontmatter `name` and collides with any existing install of the original. Flags and the full collision policy are in `references/install-and-report.md`.
+`skill-auto-improver` never renames, so the improved variant keeps the original frontmatter `name` and collides with any existing install of the original. **`asm install` never refuses on a collision** — it plans the force overwrite itself, and with `-y` it deletes and replaces the target directory with no prompt. `-f` changes nothing here. So probe **before** invoking it. Flags and the full policy are in `references/install-and-report.md`.
 
 ```bash
-asm install "$SKILL_PATH" --scope "$SCOPE" --json -y
+asm list --json    # probe: is this skill already installed for $TOOL / $SCOPE?
+asm install "$SKILL_PATH" -p "$TOOL" --scope "$SCOPE" --json -y
 ```
 
-- **No conflict** — it succeeds; done.
-- **Conflict** — ASM fails with `Skill already exists at: … Use --force to overwrite.` Default to overwriting so the improved variant is the one installed: name the path being replaced, confirm, then re-run with `-f`.
+- **Neither name matches** — install; nothing is touched.
+- **Frontmatter `name` matches for `$TOOL`** — the target directory is deleted and replaced. Name the existing entry's `path` and the source it came from, and get **explicit confirmation before running `asm install`**. There is no failure to fall back on once it is invoked.
+- **Only the directory name matches** — no delete, but the copy still **merges into** the existing directory: colliding files are overwritten and the previous occupant's other files survive inside the installed skill. Confirm this one too.
 - **Opt-out** — `--name <alt>` installs side by side, on request only. Warn first: both then share one frontmatter `name` and identical triggers, the duplicate-trigger hazard the ASM auditor flags.
 
-Install `$SKILL_PATH`, never the original source — that would install the unimproved skill.
+Two names decide the outcome and they can differ: ASM triggers the overwrite from the frontmatter `name` plus the selected tool (scope is not part of that match), but the directory it deletes is named after `$SKILL_PATH`'s basename. Check the probe output for both.
+
+Install `$SKILL_PATH`, never the original source — that would install the unimproved skill. Take the installed path from the install command's own `--json` output (`.path`); never assume `~/.claude/skills/`.
 
 ### Phase 4 — Report, then clean up
 
@@ -120,7 +126,7 @@ Use `√` for pass, `×` for fail, `—` for context. Checks per phase:
 - **Phase 0** — `Form identified`, `Copied to temp`, `SKILL_PATH unambiguous`, `Provenance recorded`
 - **Phase 1** — `Baseline captured`, `Improver ran`, `Repo sync skipped`, `Gates cleared or stop reason known`
 - **Phase 2** — `Metrics harvested`, `.bak removed`, `.asm-improver removed`, `Deletions confined to temp`
-- **Phase 3** — `Conflict checked`, `Install path confirmed`, `Install succeeded`
+- **Phase 3** — `Collision probed before install`, `Overwrite confirmed (if any)`, `Tool and scope supplied`, `Install succeeded`
 - **Phase 4** — `Report printed`, `Provenance shown`, `Temp dir removed`
 
 ## Acceptance Criteria
@@ -132,8 +138,8 @@ Use `√` for pass, `×` for fail, `—` for context. Checks per phase:
 - Several `SKILL.md` candidates and no supplied path → the user was asked, not guessed
 - `skill-auto-improver` ran on `$SKILL_PATH`; `baseline.json`, `iter-N.json`, and `report.md` read before cleanup
 - `SKILL.md.bak` and `.asm-improver/` removed before the install, both deletions confined to `$WORK`
-- `asm install` pointed at `$SKILL_PATH` — the improved directory — never the original source
-- On a conflict the run overwrote after confirmation, or used `--name <alt>` after warning; the report says which
+- `asm install` pointed at `$SKILL_PATH` — the improved directory — never the original source — with both `-p/--tool` and `--scope` supplied
+- A collision was probed for **before** `asm install` ran; on a match the run overwrote only after explicit confirmation, or used `--name <alt>` after warning; the report says which
 - The report names the installed path, says an improved variant was installed, and shows before → after plus provenance
 - `$WORK` removed only after the report is complete
 
@@ -150,8 +156,9 @@ Use `√` for pass, `×` for fail, `—` for context. Checks per phase:
 
 ```
 ◆ Installed an improved variant of `code-review`
-  Installed to:    ~/.claude/skills/code-review
-  Install path:    forced overwrite of ~/.claude/skills/code-review
+  Installed to:    ~/.claude/skills/code-review   (read from install --json .path)
+  Install path:    confirmed overwrite of the previous install at that path
+  Tool / scope:    claude / global
   Supplied as:     code-review
   Resolved from:   github:owner/repo:skills/code-review @ a1b2c3d
   Overall score:   71 (C) → 92 (A)   Min category: 5 → 8
@@ -166,7 +173,7 @@ Use `√` for pass, `×` for fail, `—` for context. Checks per phase:
 - **Several `SKILL.md` files in a clone** — enumerate and ask. Never batch, never guess.
 - **`asm search` returns nothing, or several equally-plausible matches** — show the candidates and ask; never install the first hit.
 - **Target has no frontmatter** — `asm eval --fix` cannot add it. Report and stop; do not install an unimprovable skill as if it were improved.
-- **Conflict is a same-named skill from another source** — the overwrite replaces someone else's skill. Name the path and its source, confirm, and offer `--name <alt>`.
+- **Collision is a same-named skill from another source** — the install would silently replace someone else's skill, with no error and no prompt. The probe is the only chance to catch it: name the path and its source, confirm, and offer `--name <alt>` — all before `asm install` runs.
 - **Temp dir removed before harvesting** — the metrics are gone and the before/after criterion cannot be met. Harvest in Phase 2, always before cleanup.
 - **Clone or disk failure mid-resolve** — stop, remove `$WORK`, report. Never install a partial checkout.
 

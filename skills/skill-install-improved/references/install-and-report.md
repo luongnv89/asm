@@ -30,33 +30,45 @@ rm -rf "$SKILL_PATH/.asm-improver"   # iteration artifacts
 ## Install flags
 
 ```bash
-asm install "$SKILL_PATH" --scope "$SCOPE" --json -y
+asm install "$SKILL_PATH" -p "$TOOL" --scope "$SCOPE" --json -y
 ```
 
-| Flag            | Why                                                                            |
-| --------------- | ------------------------------------------------------------------------------ |
-| `"$SKILL_PATH"` | A **local directory** — the improved copy. Never the remote source.            |
-| `--scope`       | `global` or `project`. Ask if the user did not say; do not guess.              |
-| `--json`        | Machine-readable result, so the outcome is parsed, not scraped.                |
-| `-y`            | The user already approved the install; the improvement was the decision point. |
-| `-f`            | Only on a conflict, per the policy below.                                      |
-| `--name <alt>`  | Only when the user explicitly opts out of overwriting.                         |
+| Flag            | Why                                                                                                                                                       |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `"$SKILL_PATH"` | A **local directory** — the improved copy. Never the remote source.                                                                                       |
+| `-p/--tool`     | `claude`, `codex`, `agents`, … **Required** — without it ASM aborts with `--tool (or --provider) is required in non-interactive mode`. Ask; do not guess. |
+| `--scope`       | `global` or `project`. Ask if the user did not say; do not guess.                                                                                         |
+| `--json`        | Machine-readable result, so the outcome is parsed, not scraped — including `.path`.                                                                       |
+| `-y`            | The user already approved the install; the improvement was the decision point.                                                                            |
+| `--name <alt>`  | Only when the user explicitly opts out of overwriting.                                                                                                    |
+
+`-y` skips the confirmation prompt as well as the install prompt, so nothing in the command asks before replacing an existing skill. `-f` is **not** part of this flow: `asm install` sets force itself whenever the name already exists.
 
 ## Collision policy
 
 `skill-auto-improver` never renames a skill, so the improved variant keeps the original frontmatter `name`. If the original is already installed, the names collide.
 
-1. **Probe.** Run the install without `-f`. No conflict → it succeeds and you are done.
-2. **Conflict.** ASM fails with `Skill already exists at: <path>` / `Use --force to overwrite.` Name that path, and the source the existing install came from, in the output.
-3. **Default: overwrite.** Re-run with `-f`. This is the default because the request was to install the improved variant — leaving the original in place would not satisfy it.
+**`asm install` never refuses on a collision.** When a skill with the same frontmatter `name` is already installed for the selected tool, it plans a force overwrite on the very first invocation: the existing target directory is removed and replaced. With `-y` there is no prompt, no error, and no `Skill already exists` message — that failure only comes from the bundle/import path, never from `asm install`. So the safety gate has to run _before_ the command, not after it.
+
+Two different names are in play and they can disagree:
+
+- The **overwrite decision** matches the frontmatter `name` plus the selected tool. Scope is not part of that match.
+- The **directory deleted** is named after `$SKILL_PATH`'s basename (or `--name <alt>`).
+
+1. **Probe first.** Before invoking `asm install`, list what is already installed and look for both names:
 
    ```bash
-   asm install "$SKILL_PATH" --scope "$SCOPE" --json -y -f
+   asm list --json    # each entry carries name, dirName, path, provider, scope
    ```
 
-4. **Opt-out: `--name <alt>`.** Side-by-side install under a different directory name. Warn before doing it: **both skills then carry the same frontmatter `name` and the same triggers**, so the runtime has two indistinguishable candidates — the duplicate-trigger hazard the ASM auditor reports. Take this path only when the user asks for it.
+   `asm inspect "<dirName>" --json` gives the same detail for a single entry, but it matches on the **directory** name only — use `asm list --json` when you need to match the frontmatter `name`.
 
-The report always states which of the three paths was taken and what, if anything, was replaced.
+2. **Neither name matches.** Nothing is touched. Install and report a clean install.
+3. **Frontmatter `name` matches for the selected tool — confirm, then overwrite.** Name the existing entry's `path` and the source it came from, and get explicit confirmation. Overwriting is the expected outcome (the request was to install the improved variant), but it is destructive and unconditional, so it must be an informed choice made before the command runs.
+4. **Only the directory name matches.** No force is planned, so nothing is deleted — but the recursive copy still **merges into** the existing directory: colliding files are overwritten in place and the previous occupant's other files stay behind inside the installed skill. There is no clean-install guarantee anywhere in `asm install`. Confirm this case as well, and check the result for strays.
+5. **Opt-out: `--name <alt>`.** Side-by-side install under a different directory name — check `alt` against the probe too, or it merges into whatever already sits there. Warn before doing it: **both skills then carry the same frontmatter `name` and the same triggers**, so the runtime has two indistinguishable candidates — the duplicate-trigger hazard the ASM auditor reports. Take this path only when the user asks for it.
+
+The report always states which of these paths was taken and what, if anything, was replaced or merged into.
 
 ## Report template
 
@@ -65,8 +77,9 @@ Print this to the user at the end of Phase 4, before removing `$WORK`.
 ```
 ◆ Installed an improved variant of `<skill-name>`
 ··································································
-  Installed to:      ~/.claude/skills/<dir>
-  Install path:      clean install | forced overwrite of <path> | side-by-side as <alt>
+  Installed to:      <.path from the install --json output — never assumed>
+  Tool / scope:      <tool> / <scope>
+  Install path:      clean install | confirmed overwrite of <path> | side-by-side as <alt>
 
   Improved from
     Supplied as:     <what the user typed>

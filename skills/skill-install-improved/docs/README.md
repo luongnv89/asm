@@ -17,7 +17,7 @@
 - **Provenance in the output.** The report names the identifier you supplied, the resolved install URL or clone URL, and the upstream commit SHA.
 - **Before/after numbers.** Baseline vs final `overallScore` and grade, minimum category score, `metadata.version`, iterations taken, and files changed.
 - **Honest about no-ops.** If the skill already clears the 85/8 floor, it installs the original unchanged and says so instead of faking a delta.
-- **Collision policy is explicit.** Default is a forced overwrite (so the improved variant is the one installed); `--name <alt>` is the documented opt-out, with a warning about duplicate triggers.
+- **Collisions are caught before they happen.** `asm install` overwrites an existing same-named skill unconditionally and without a prompt, so the skill probes `asm list --json` first, names the path that would be replaced, and asks. `--name <alt>` is the documented opt-out, with a warning about duplicate triggers.
 
 ## When to Use
 
@@ -47,9 +47,9 @@ graph TD
     C -- yes --> D["Install original unchanged,<br/>report 'no improvement needed'"]
     C -- no --> E["Phase 2: harvest .asm-improver/<br/>baseline + iter-N + report.md"]
     E --> F["Remove SKILL.md.bak<br/>and .asm-improver/"]
-    F --> G{"Name already<br/>installed?"}
-    G -- no --> H["asm install $SKILL_PATH"]
-    G -- yes --> I["asm install -f<br/>(or --name alt, on request)"]
+    F --> G{"Probe asm list --json:<br/>name already installed?"}
+    G -- no --> H["asm install $SKILL_PATH<br/>-p TOOL --scope SCOPE"]
+    G -- yes --> I["Name the path, confirm the<br/>overwrite (or --name alt), then install"]
     H --> J["Phase 4: report + cleanup"]
     I --> J
     style A fill:#4CAF50,color:#fff
@@ -58,18 +58,19 @@ graph TD
 
 ## What the Report Shows
 
-| Field           | Example                                            |
-| --------------- | -------------------------------------------------- |
-| Installed to    | `~/.claude/skills/code-review`                     |
-| Install path    | forced overwrite of `~/.claude/skills/code-review` |
-| Supplied as     | `code-review`                                      |
-| Resolved from   | `github:owner/repo:skills/code-review`             |
-| Upstream commit | `a1b2c3d`                                          |
-| Overall score   | `71 (C) → 92 (A)`                                  |
-| Min category    | `5 → 8`                                            |
-| Version         | `1.0.0 → 1.3.0`                                    |
-| Iterations      | `3 of 8`                                           |
-| Files changed   | `SKILL.md`, `references/playbook.md`               |
+| Field           | Example                                                        |
+| --------------- | -------------------------------------------------------------- |
+| Installed to    | `~/.claude/skills/code-review` (from install `--json` `.path`) |
+| Tool / scope    | `claude` / `global`                                            |
+| Install path    | confirmed overwrite of `~/.claude/skills/code-review`          |
+| Supplied as     | `code-review`                                                  |
+| Resolved from   | `github:owner/repo:skills/code-review`                         |
+| Upstream commit | `a1b2c3d`                                                      |
+| Overall score   | `71 (C) → 92 (A)`                                              |
+| Min category    | `5 → 8`                                                        |
+| Version         | `1.0.0 → 1.3.0`                                                |
+| Iterations      | `3 of 8`                                                       |
+| Files changed   | `SKILL.md`, `references/playbook.md`                           |
 
 ## Resources
 
