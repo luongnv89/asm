@@ -44,9 +44,10 @@
 graph TD
     A["Phase 0: resolve target<br/>path | repo | name → mktemp copy"] --> B["Phase 1: delegate to<br/>skill-auto-improver"]
     B --> C{"Baseline already<br/>passes 85/8?"}
-    C -- yes --> D["Install original unchanged,<br/>report 'no improvement needed'"]
+    C -- yes --> D["No edits needed —<br/>keep SKILL.md as published"]
     C -- no --> E["Phase 2: harvest .asm-improver/<br/>baseline + iter-N + report.md"]
     E --> F["Remove SKILL.md.bak<br/>and .asm-improver/"]
+    D --> F
     F --> G{"Probe asm list --json:<br/>name already installed?"}
     G -- no --> H["asm install $SKILL_PATH<br/>-p TOOL --scope SCOPE"]
     G -- yes --> I["Name the path, confirm the<br/>overwrite (or --name alt), then install"]

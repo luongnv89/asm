@@ -91,7 +91,6 @@ Both deletions are confined to the `mktemp -d` copy — confirm `$SKILL_PATH` is
 
 ```bash
 asm list --json    # probe: is this skill already installed for $TOOL / $SCOPE?
-asm install "$SKILL_PATH" -p "$TOOL" --scope "$SCOPE" --json -y
 ```
 
 - **Neither name matches** — install; nothing is touched.
@@ -100,6 +99,12 @@ asm install "$SKILL_PATH" -p "$TOOL" --scope "$SCOPE" --json -y
 - **Opt-out** — `--name <alt>` installs side by side, on request only. Warn first: both then share one frontmatter `name` and identical triggers, the duplicate-trigger hazard the ASM auditor flags.
 
 Two names decide the outcome and they can differ: ASM triggers the overwrite from the frontmatter `name` plus the selected tool (scope is not part of that match), but the directory it deletes is named after `$SKILL_PATH`'s basename. Check the probe output for both.
+
+Only once the probe is read and any collision above is confirmed:
+
+```bash
+asm install "$SKILL_PATH" -p "$TOOL" --scope "$SCOPE" --json -y
+```
 
 Install `$SKILL_PATH`, never the original source — that would install the unimproved skill. Take the installed path from the install command's own `--json` output (`.path`); never assume `~/.claude/skills/`.
 
@@ -167,7 +172,7 @@ Use `√` for pass, `×` for fail, `—` for context. Checks per phase:
 
 ## Edge Cases
 
-- **Baseline already passes both gates** — the improver stops without editing. Install the **original, unchanged**, and report plainly that no improvement was needed, naming the baseline score. Never imply a delta that did not happen.
+- **Baseline already passes both gates** — the improver stops without editing. Phase 2's cleanup and Phase 3's probe still run: Phase 0 of the improver writes `.asm-improver/` before it decides no edits are needed, so clean up first, then probe for a collision. Install the **original, unchanged**, and report plainly that no improvement was needed, naming the baseline score. Never imply a delta that did not happen.
 - **Improver ends in BLOCKER** (8 iterations, or stalled) — better than baseline but below the floor. Show the blocker list and ask whether to install the partial result or abort. Never install one silently.
 - **Local-path target** — improved on a copy, so the user's tree is untouched and the repo sync is skipped. Point them at `skill-auto-improver` or `skill-upstream-pr` to persist the change.
 - **Several `SKILL.md` files in a clone** — enumerate and ask. Never batch, never guess.
