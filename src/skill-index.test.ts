@@ -198,6 +198,23 @@ describe("searchSkills with filters", () => {
     const filtered = await searchSkills("code", 100, { missing: ["license"] });
     expect(filtered.length).toBeLessThanOrEqual(allResults.length);
   });
+
+  it("filters by model and user invocability independently", async () => {
+    const modelOnly = await searchSkills("", 100, { modelInvocable: true });
+    expect(modelOnly.length).toBeGreaterThan(0);
+    for (const r of modelOnly) {
+      expect(r.skill.modelInvocable).not.toBe(false);
+    }
+    const both = await searchSkills("", 100, {
+      modelInvocable: true,
+      userInvocable: true,
+    });
+    for (const r of both) {
+      expect(r.skill.modelInvocable).not.toBe(false);
+      expect(r.skill.userInvocable).not.toBe(false);
+    }
+    expect(both.length).toBeLessThanOrEqual(modelOnly.length);
+  });
 });
 
 describe("Index resource integrity", () => {

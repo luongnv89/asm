@@ -104,6 +104,7 @@ describe("formatSkillTable", () => {
     expect(headerLine).toContain("Version");
     expect(headerLine).toContain("Creator");
     expect(headerLine).toContain("Effort");
+    expect(headerLine).toContain("Invoke");
     expect(headerLine).toContain("Tool");
     expect(headerLine).toContain("Scope");
     expect(headerLine).toContain("Type");
@@ -159,6 +160,23 @@ describe("formatSkillDetail", () => {
     expect(output).toContain("File Count: 3");
     expect(output).toContain("Type: directory");
     expect(output).toContain("Description: A test skill");
+    expect(output).toContain("Invocable: both");
+  });
+
+  test("shows model invocability without collapsing to both", async () => {
+    const output = await formatSkillDetail(
+      makeSkill({ modelInvocable: true, userInvocable: false }),
+    );
+    expect(output).toContain("Invocable: model");
+    expect(output).not.toContain("Invocable: both");
+  });
+
+  test("shows user invocability without collapsing to both", async () => {
+    const output = await formatSkillDetail(
+      makeSkill({ modelInvocable: false, userInvocable: true }),
+    );
+    expect(output).toContain("Invocable: user");
+    expect(output).not.toContain("Invocable: both");
   });
 
   test("shows symlink target when symlink", async () => {
@@ -554,9 +572,19 @@ describe("formatGroupedTable", () => {
     expect(output).toContain("Version");
     expect(output).toContain("Creator");
     expect(output).toContain("Effort");
+    expect(output).toContain("Invoke");
     expect(output).toContain("Tools");
     expect(output).toContain("Scope");
     expect(output).toContain("Type");
+    expect(output).toContain("both");
+  });
+
+  test("renders model invocability without collapsing to both", () => {
+    const output = formatGroupedTable([
+      makeSkill({ modelInvocable: true, userInvocable: false }),
+    ]);
+    expect(output).toMatch(/\bmodel\b/);
+    expect(output).not.toMatch(/\bboth\b/);
   });
 
   test("shows footer with counts", () => {

@@ -3,6 +3,10 @@ import {
   parseFrontmatter,
   resolveVersion,
   resolveAllowedTools,
+  resolveModelInvocable,
+  resolveUserInvocable,
+  formatInvocability,
+  matchesInvocabilityFilters,
 } from "./frontmatter";
 
 describe("parseFrontmatter", () => {
@@ -383,5 +387,57 @@ describe("resolveAllowedTools", () => {
     expect(
       resolveAllowedTools({ "allowed-tools": "Bash, Read, Grep" }),
     ).toEqual(["Bash", "Read", "Grep"]);
+  });
+});
+
+describe("invocability frontmatter (#417)", () => {
+  it("defaults model and user invocability to true", () => {
+    expect(resolveModelInvocable({})).toBe(true);
+    expect(resolveUserInvocable({})).toBe(true);
+    expect(formatInvocability(undefined, undefined)).toBe("both");
+  });
+
+  it("treats disable-model-invocation true as model off", () => {
+    expect(
+      resolveModelInvocable({ "disable-model-invocation": "true" }),
+    ).toBe(false);
+    expect(formatInvocability(false, true)).toBe("user");
+  });
+
+  it("treats user-invocable false as user off", () => {
+    expect(resolveUserInvocable({ "user-invocable": "false" })).toBe(false);
+    expect(formatInvocability(true, false)).toBe("model");
+  });
+
+  it("never collapses both into a single-side label", () => {
+    expect(formatInvocability(true, true)).toBe("both");
+    expect(formatInvocability(false, false)).toBe("none");
+  });
+
+  it("filters independently and ANDs when both flags are set", () => {
+    const both = { modelInvocable: true, userInvocable: true };
+    const modelOnly = { modelInvocable: true, userInvocable: false };
+    const userOnly = { modelInvocable: false, userInvocable: true };
+    expect(
+      matchesInvocabilityFilters(modelOnly, { modelInvocable: true }),
+    ).toBe(true);
+    expect(
+      matchesInvocabilityFilters(userOnly, { modelInvocable: true }),
+    ).toBe(false);
+    expect(
+      matchesInvocabilityFilters(userOnly, { userInvocable: true }),
+    ).toBe(true);
+    expect(
+      matchesInvocabilityFilters(modelOnly, {
+        modelInvocable: true,
+        userInvocable: true,
+      }),
+    ).toBe(false);
+    expect(
+      matchesInvocabilityFilters(both, {
+        modelInvocable: true,
+        userInvocable: true,
+      }),
+    ).toBe(true);
   });
 });

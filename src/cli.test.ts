@@ -2658,6 +2658,18 @@ describe("parseArgs: additional flags", () => {
     expect(result.flags.available).toBe(false);
   });
 
+  test("parses independent invocability flags (#417)", () => {
+    const none = parse("list");
+    expect(none.flags.modelInvocable).toBe(false);
+    expect(none.flags.userInvocable).toBe(false);
+    const both = parse("list", "--model-invocable", "--user-invocable");
+    expect(both.flags.modelInvocable).toBe(true);
+    expect(both.flags.userInvocable).toBe(true);
+    const search = parse("search", "q", "--user-invocable");
+    expect(search.flags.userInvocable).toBe(true);
+    expect(search.flags.modelInvocable).toBe(false);
+  });
+
   test("parses --tool as alias for --provider", () => {
     const result = parse("list", "--tool", "claude");
     expect(result.flags.provider).toBe("claude");

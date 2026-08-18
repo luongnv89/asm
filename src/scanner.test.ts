@@ -1149,6 +1149,8 @@ describe("scanPluginMarketplaces", () => {
         "compatibility: Claude 3+",
         "effort: medium",
         "allowed-tools: Bash, Read",
+        "disable-model-invocation: true",
+        "user-invocable: true",
         "---",
         "Body content",
       ].join("\n"),
@@ -1165,6 +1167,8 @@ describe("scanPluginMarketplaces", () => {
     expect(s.effort).toBe("medium");
     expect(s.allowedTools).toContain("Bash");
     expect(s.allowedTools).toContain("Read");
+    expect(s.modelInvocable).toBe(false);
+    expect(s.userInvocable).toBe(true);
   });
 
   it("sets isSymlink=false and symlinkTarget=null for all marketplace skills", async () => {
