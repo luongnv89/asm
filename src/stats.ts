@@ -264,12 +264,12 @@ export function computeTokenBudget(
     });
   }
 
-  const heaviestResident = [...perSkill]
-    .sort(
-      (a, b) =>
-        b.residentTokens - a.residentTokens || a.name.localeCompare(b.name),
-    )
-    .slice(0, limit > 0 ? limit : perSkill.length);
+  const ranked = [...perSkill].sort(
+    (a, b) =>
+      b.residentTokens - a.residentTokens || a.name.localeCompare(b.name),
+  );
+  const cap = limit > 0 ? limit : ranked.length;
+  const heaviestResident = ranked.slice(0, cap);
 
   return {
     totalSkills: skills.length,
@@ -283,6 +283,8 @@ export function computeTokenBudget(
       (a, b) => b.residentTokens - a.residentTokens,
     ),
     heaviestResident,
+    heaviestResidentTotal: perSkill.length,
+    heaviestResidentTruncated: heaviestResident.length < perSkill.length,
   };
 }
 
@@ -408,6 +410,13 @@ export function formatTokenBudgetReport(report: TokenBudgetReport): string {
           ) +
           "  " +
           ansi.dim(`(${skill.provider}, ${skill.scope})`),
+      );
+    }
+    const hidden =
+      report.heaviestResidentTotal - report.heaviestResident.length;
+    if (hidden > 0) {
+      lines.push(
+        ansi.dim(`  … ${hidden} more not shown — use --json for the full list`),
       );
     }
     lines.push("");

@@ -294,7 +294,12 @@ export interface TokenBudgetReport {
   medianResidentTokens: number;
   byProvider: TokenBudgetGroup[];
   byScope: TokenBudgetGroup[];
+  /** Capped list (see HEAVIEST_RESIDENT_LIMIT). */
   heaviestResident: ResidentSkillCost[];
+  /** Full per-skill count before the heaviest-resident cap. */
+  heaviestResidentTotal: number;
+  /** True when heaviestResident is a prefix of the full ranking. */
+  heaviestResidentTruncated: boolean;
 }
 
 // ─── Residency Audit Types (issue #423) ─────────────────────────────────
