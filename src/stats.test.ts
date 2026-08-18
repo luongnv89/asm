@@ -1007,6 +1007,27 @@ describe("formatTokenBudgetReport", () => {
     expect(output).not.toMatch(/\d\s?(KB|MB|GB)/);
   });
 
+  it("right-aligns the heaviest-resident token column", () => {
+    // `~9 tokens` and `~11 tokens` differ in width; left-aligning them makes
+    // the trailing `(provider, scope)` column ragged in a magnitude ranking.
+    const output = formatTokenBudgetReport(
+      computeTokenBudget([
+        makeSkill({
+          name: "big",
+          dirName: "big",
+          description: "one two three four five six",
+        }),
+        makeSkill({
+          name: "small",
+          dirName: "small",
+          description: "one two three four five",
+        }),
+      ]),
+    );
+    expect(output).toContain("big    ~11 tokens");
+    expect(output).toContain("small   ~9 tokens");
+  });
+
   it("handles an empty installed set", () => {
     expect(formatTokenBudgetReport(computeTokenBudget([]))).toContain(
       "No installed skills",

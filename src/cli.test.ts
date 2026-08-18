@@ -1256,8 +1256,15 @@ describe("CLI integration: audit residency (issue #423)", () => {
 
   test("--yes never triggers a removal on the residency path", async () => {
     // `asm audit -y` auto-removes duplicates; residency must stay read-only.
-    const { stdout, exitCode } = await runCLI("audit", "residency", "--yes");
+    // The banner is printed with console.error, so stderr is the stream that
+    // can actually fail this assertion.
+    const { stdout, stderr, exitCode } = await runCLI(
+      "audit",
+      "residency",
+      "--yes",
+    );
     expect(exitCode).toBe(0);
+    expect(stderr).not.toContain("Auto-removing");
     expect(stdout).not.toContain("Auto-removing");
   });
 

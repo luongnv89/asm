@@ -110,7 +110,21 @@ describe("chooseDemotionAction", () => {
       makeInstance({ libraryLinked: true, provider: "codex" }),
     ]);
     expect(action.kind).toBe("disable");
-    expect(action.hint).toContain("--tool");
+    expect(action.command).toBe("asm disable my-skill");
+  });
+
+  it("says the disable covers every place, because it has no --tool switch", () => {
+    // Symlinked siblings share one canonical SKILL.md, so `asm disable` demotes
+    // the whole group; promising a per-tool demotion would be a lie.
+    const action = chooseDemotionAction("my-skill", [
+      makeInstance({ libraryLinked: true, provider: "claude" }),
+      makeInstance({ libraryLinked: true, provider: "codex" }),
+      makeInstance({ libraryLinked: false, provider: "agents" }),
+    ]);
+    expect(action.hint).toBe(
+      "reversible with asm enable; disables it in all 3 places",
+    );
+    expect(action.hint).not.toContain("--tool");
   });
 });
 
@@ -328,7 +342,7 @@ describe("formatResidencyReport", () => {
     expect(output).not.toMatch(/\d\s?(KB|MB|GB)/);
   });
 
-  it("names the unavailable signals rather than hiding them", () => {
+  it("reports an empty installed set instead of an empty table", () => {
     const output = formatResidencyReport(computeResidencyAudit([]));
     expect(output).toContain("No installed skills");
   });

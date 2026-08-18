@@ -113,7 +113,10 @@ export function residencySignals(): ResidencySignal[] {
  * `deactivateLibrarySkill` throws on non-symlinks and on symlinks pointing
  * outside the library, so `asm deactivate` is only safe for a single instance
  * that is a live library symlink. `asm disable` works for every ASM-managed
- * instance and is reversible with `asm enable`, so it is the fallback.
+ * instance and is reversible with `asm enable`, so it is the fallback. It
+ * demotes the whole group at once — `asm install` symlinks siblings to one
+ * canonical `SKILL.md`, so renaming it disables every place the skill is
+ * resident.
  */
 export function chooseDemotionAction(
   dirName: string,
@@ -132,7 +135,7 @@ export function chooseDemotionAction(
     command: `asm disable ${dirName}`,
     hint:
       instances.length > 1
-        ? "reversible with asm enable; add --tool <name> to demote one tool"
+        ? `reversible with asm enable; disables it in all ${instances.length} places`
         : "reversible with asm enable",
   };
 }
@@ -285,12 +288,15 @@ export function formatResidencyReport(
     lines.push(ansi.dim("  Highest resident cost first."));
     lines.push("");
     for (const candidate of shown) {
-      const reasons = candidate.reasons.map((r) => r.detail).join(" · ");
       lines.push(
         `    ${ansi.cyan(candidate.name)}  ` +
           ansi.dim(`${formatTokenCount(candidate.totalResidentTokens)} total`),
       );
-      lines.push(ansi.dim(`      ${reasons}`));
+      // One line per reason: joining them overflows 80 columns and wraps back
+      // to column 0, breaking the hanging indent that ties them to the name.
+      for (const reason of candidate.reasons) {
+        lines.push(ansi.dim(`      ${reason.detail}`));
+      }
       lines.push(
         `      ${ansi.yellow("→")} ${ansi.bold(candidate.action.command)}` +
           ansi.dim(`  (${candidate.action.hint})`),

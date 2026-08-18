@@ -146,15 +146,36 @@ asm stats --tokens --json     # same data for scripts and agents
 ```
 
 ```text
-  Tool           Skills      Resident  Bodies
-  Claude Code        74    ~5k tokens  ~281k tokens
-  Codex              10  ~736 tokens   ~76k tokens
-  ------------------------------------------------
-  Total              84  ~5.7k tokens  ~357k tokens
+  Attention Budget
+  ----------------------------------------
+
+  Resident = frontmatter descriptions, paid on every message.
+  Bodies   = full SKILL.md, paid only when a skill fires.
+
+  Tool         Skills      Resident  Bodies
+  Claude Code      74    ~5k tokens  ~281k tokens
+  Codex            10   ~736 tokens  ~76k tokens
+  ---------------------------------------------
+  Total            84  ~5.7k tokens  ~357k tokens
+
+  By Scope
+  global           71  ~4.9k tokens  ~300k tokens
+  project          13   ~836 tokens  ~57k tokens
 
   Heaviest resident descriptions
-    docx           ~233 tokens  (claude, global)
-    pptx           ~217 tokens  (claude, global)
+    claude-api       ~1.2k tokens  (claude, global)
+    docx              ~233 tokens  (claude, global)
+    pptx              ~217 tokens  (claude, global)
+    code-review       ~198 tokens  (claude, global)
+    frontend-design   ~176 tokens  (claude, project)
+    dataviz           ~164 tokens  (claude, global)
+    skill-creator     ~151 tokens  (claude, global)
+    xlsx              ~143 tokens  (claude, global)
+    pdf               ~138 tokens  (claude, global)
+    release-manager   ~129 tokens  (codex, global)
+
+  Median resident cost: ~48 tokens
+  Run asm audit residency for demotion advice
 ```
 
 ### Residency audit

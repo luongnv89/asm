@@ -391,12 +391,21 @@ export function formatTokenBudgetReport(report: TokenBudgetReport): string {
     const nameWidth = Math.max(
       ...report.heaviestResident.map((s) => s.name.length),
     );
+    // Right-align the token column like the provider/scope tables above, so
+    // mixed widths (`~1.2k tokens` vs `~289 tokens`) stay comparable.
+    const heaviestWidth = Math.max(
+      ...report.heaviestResident.map(
+        (s) => formatTokenCount(s.residentTokens).length,
+      ),
+    );
     for (const skill of report.heaviestResident) {
       lines.push(
         "    " +
           skill.name.padEnd(nameWidth) +
           "  " +
-          ansi.cyan(formatTokenCount(skill.residentTokens)) +
+          ansi.cyan(
+            formatTokenCount(skill.residentTokens).padStart(heaviestWidth),
+          ) +
           "  " +
           ansi.dim(`(${skill.provider}, ${skill.scope})`),
       );
