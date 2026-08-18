@@ -4198,25 +4198,10 @@ async function cmdStats(args: ParsedArgs) {
     return;
   }
 
-  if (allSkills.length === 0) {
-    if (args.flags.machine || args.flags.json) {
-      const empty = {
-        totalSkills: 0,
-        byProvider: {},
-        byScope: { global: 0, project: 0 },
-        totalDiskBytes: 0,
-        duplicateGroups: 0,
-        duplicateInstances: 0,
-        totalResidentTokens: 0,
-        totalBodyTokens: 0,
-      };
-      console.log(
-        args.flags.machine
-          ? formatMachineOutput("stats", empty, startTime)
-          : formatJSON(empty),
-      );
-      return;
-    }
+  // Structured consumers always get a parseable report, even when nothing is
+  // installed; only the human dashboard degrades to a sentence (it charts
+  // maxima that an empty set has none of).
+  if (allSkills.length === 0 && !args.flags.json && !args.flags.machine) {
     console.log("No skills found.");
     return;
   }

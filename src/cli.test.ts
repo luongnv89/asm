@@ -1186,6 +1186,67 @@ describe("CLI integration: stats --tokens (issue #421)", () => {
   });
 });
 
+describe("CLI integration: stats with nothing installed", () => {
+  let emptyHome: string;
+  let emptyCwd: string;
+
+  beforeEach(async () => {
+    emptyHome = await mkdtemp(join(tmpdir(), "asm-empty-home-"));
+    emptyCwd = await mkdtemp(join(tmpdir(), "asm-empty-cwd-"));
+  });
+
+  afterEach(async () => {
+    await rm(emptyHome, { recursive: true, force: true });
+    await rm(emptyCwd, { recursive: true, force: true });
+  });
+
+  const runEmpty = (...args: string[]) =>
+    spawnCollect(["npx", "tsx", CLI_BIN, ...args], {
+      cwd: emptyCwd,
+      env: { ...process.env, HOME: emptyHome, NO_COLOR: "1" },
+    });
+
+  test("--json emits a parseable report, not the human sentence", async () => {
+    const { stdout, exitCode } = await runEmpty("stats", "--json");
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(data.totalSkills).toBe(0);
+    expect(data.totalResidentTokens).toBe(0);
+    expect(data.totalBodyTokens).toBe(0);
+    expect(data).not.toHaveProperty("perSkillDiskBytes");
+  });
+
+  test("--json --verbose keeps perSkillDiskBytes even when empty", async () => {
+    const { stdout, exitCode } = await runEmpty("stats", "--json", "--verbose");
+    expect(exitCode).toBe(0);
+    const start = stdout.indexOf("{");
+    const data = JSON.parse(stdout.slice(start));
+    expect(data).toHaveProperty("perSkillDiskBytes");
+  });
+
+  test("--machine emits the v1 envelope", async () => {
+    const { stdout, exitCode } = await runEmpty("stats", "--machine");
+    expect(exitCode).toBe(0);
+    expect(JSON.parse(stdout).data.totalSkills).toBe(0);
+  });
+
+  test("the human dashboard still degrades to a sentence", async () => {
+    const { stdout, exitCode } = await runEmpty("stats");
+    expect(exitCode).toBe(0);
+    expect(stdout.trim()).toBe("No skills found.");
+  });
+
+  test("--tokens and audit residency both report an empty set", async () => {
+    const budget = await runEmpty("stats", "--tokens");
+    expect(budget.exitCode).toBe(0);
+    expect(budget.stdout).toContain("No installed skills");
+
+    const residency = await runEmpty("audit", "residency");
+    expect(residency.exitCode).toBe(0);
+    expect(residency.stdout).toContain("No installed skills");
+  });
+});
+
 describe("CLI integration: audit residency (issue #423)", () => {
   test("audit residency exits 0 and reports without changing anything", async () => {
     const { stdout, exitCode } = await runCLI("audit", "residency");
