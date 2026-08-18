@@ -6012,6 +6012,29 @@ One line of body text.
     expect(stderr).toContain("escapes the repository");
   });
 
+  test("refuses a `..` hidden in the ref, which resolveSubpath would split out", async () => {
+    // `parseSource` reports subpath: null here — the `..` lives in the ref, and
+    // `resolveSubpath` would later split "main/../../etc" into ref "main" plus
+    // subpath "../../etc", which is then joined onto the temp clone.
+    const { stderr, exitCode } = await runGet(
+      "github:acme/skills#main/../../etc",
+    );
+    expect(exitCode).toBe(1);
+    // Rejected before any network access — neither ls-remote nor clone runs.
+    expect(stderr).not.toContain("Fetching");
+    expect(stderr).toContain("escapes the repository");
+  });
+
+  test("--audit prints the audit report on stderr for a local tier", async () => {
+    // The flag used to be a silent no-op for skills that were never fetched;
+    // it now runs against whatever directory the ladder resolved.
+    const { stdout, stderr, exitCode } = await runGet(skillDir, "--audit");
+    expect(exitCode).toBe(0);
+    expect(stderr).toContain("Security Audit");
+    // The body still owns stdout, byte for byte.
+    expect(stdout).toBe(BODY);
+  });
+
   test("a missing argument exits 2", async () => {
     const { exitCode, stderr } = await runGet();
     expect(exitCode).toBe(2);

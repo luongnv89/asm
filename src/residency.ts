@@ -127,19 +127,18 @@ export function chooseDemotionAction(
   // library skill does not mean losing it — `asm get` still delivers the body
   // on demand, at zero residency, without reinstalling anything.
   //
-  // Only offered when the skill is in the `asm` library. `asm disable` renames
-  // `SKILL.md` to `SKILL.md.disabled`, which hides the skill from the scanner;
-  // for a skill that is not also in the library, `asm get <name>` would then
-  // find nothing locally. Suggesting it there would be advice that breaks the
-  // moment the user follows the primary command.
-  const reference: ResidencyActionReference | null = instances.some(
-    (i) => i.libraryLinked,
-  )
-    ? {
-        command: `asm get ${dirName}`,
-        hint: "read it on demand, zero residency",
-      }
-    : null;
+  // Offered on the `deactivate` path only. `asm deactivate` removes the
+  // provider symlink and leaves the library copy intact, so `asm get` still
+  // resolves it on the library rung. `asm disable` is different: it renames
+  // `SKILL.md` to `SKILL.md.disabled` on the *canonical* directory — which,
+  // for a library-linked skill, is the library copy itself — so after
+  // disabling there is no local `SKILL.md` left for `asm get` to read on any
+  // rung. Advice that breaks the moment the user follows the primary command
+  // is worse than no advice, so the disable path gets the one command alone.
+  const reference: ResidencyActionReference = {
+    command: `asm get ${dirName}`,
+    hint: "read it on demand, zero residency",
+  };
 
   if (instances.length === 1 && instances[0].libraryLinked) {
     const only = instances[0];
@@ -147,7 +146,7 @@ export function chooseDemotionAction(
       kind: "deactivate",
       command: `asm deactivate ${dirName} --provider ${only.provider} --scope ${only.scope}`,
       hint: "keep it in the library, activate when needed",
-      ...(reference ? { reference } : {}),
+      reference,
     };
   }
   return {
@@ -157,7 +156,6 @@ export function chooseDemotionAction(
       instances.length > 1
         ? `reversible with asm enable; disables it in all ${instances.length} places`
         : "reversible with asm enable",
-    ...(reference ? { reference } : {}),
   };
 }
 

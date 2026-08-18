@@ -204,7 +204,12 @@ import {
   updateLibrarySkills,
 } from "./library";
 import { setVerbose } from "./logger";
-import { join as joinPath, resolve, relative as relativePath } from "path";
+import {
+  join as joinPath,
+  resolve,
+  relative as relativePath,
+  sep as pathSep,
+} from "path";
 import { toPortableRelativePath } from "./utils/fs";
 import type {
   Scope,
@@ -1335,8 +1340,16 @@ async function fetchGetFromRemote(
   // The subpath can arrive from catalog data as well as from the command line,
   // and it is joined onto a temp directory — refuse anything that climbs out of
   // it rather than reading a file outside the clone.
+  //
+  // A `..` segment can hide in the ref as well as in the subpath: for
+  // `github:o/r#main/../../x` `parseSource` reports `subpath: null` and
+  // `ref: "main/../../x"`, and `resolveSubpath` later splits that back into
+  // `ref: "main"` + `subpath: "../../x"`. Checking only the parsed subpath
+  // would let that form through, so both are checked.
+  const hasParentSegment = (value: string | null | undefined) =>
+    !!value && value.split(/[/\\]/).includes("..");
   const preParsed = parseSource(sourceInput);
-  if (preParsed.subpath?.split(/[/\\]/).includes("..")) {
+  if (hasParentSegment(preParsed.subpath) || hasParentSegment(preParsed.ref)) {
     throw new Error(
       `Invalid source: the subpath in "${sourceInput}" escapes the repository.`,
     );
@@ -1349,6 +1362,16 @@ async function fetchGetFromRemote(
     false,
   );
   try {
+    // Belt and braces: whatever the parse produced, the directory this command
+    // reads from must sit inside the temp clone. Anything else is an escape.
+    const tempRoot = resolve(remote.tempDir);
+    const readRoot = resolve(remote.rootDir);
+    if (readRoot !== tempRoot && !readRoot.startsWith(tempRoot + pathSep)) {
+      throw new Error(
+        `Invalid source: the subpath in "${sourceInput}" escapes the repository.`,
+      );
+    }
+
     const parsed = parseSource(sourceInput);
     // Keep any explicit ref in the hint — dropping it would suggest commands
     // that silently resolve against the default branch instead.
@@ -4950,6 +4973,8 @@ async function fetchRemoteSkillDir(
   keep: boolean,
 ): Promise<{
   rootDir: string;
+  /** The clone root. `rootDir` is `tempDir` or a directory inside it. */
+  tempDir: string;
   cleanup: () => Promise<void>;
   sourceRef: string;
   commitSha: string | null;
@@ -4997,7 +5022,7 @@ async function fetchRemoteSkillDir(
     await cleanupTemp(tempDir);
   };
 
-  return { rootDir, cleanup, sourceRef, commitSha };
+  return { rootDir, tempDir, cleanup, sourceRef, commitSha };
 }
 
 async function runSingleEval(target: EvalTarget): Promise<{
