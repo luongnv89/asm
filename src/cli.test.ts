@@ -5880,6 +5880,101 @@ One line of body text.
     expect(stderr).toContain("(installed)");
   });
 
+  test("resolves a deactivated library skill the scanner cannot see", async () => {
+    // Tier 2 lives outside every provider directory, so `scanAllSkills` finds
+    // nothing — this rung is the only way `asm get` reaches it, and it is the
+    // population `asm audit residency` points at the reference tier.
+    const libraryDir = join(home, ".config", "agent-skill-manager", "library");
+    const libSkill = join(libraryDir, "skills", "lib-only");
+    await mkdir(libSkill, { recursive: true });
+    await writeFile(join(libSkill, "SKILL.md"), BODY, "utf-8");
+    await writeFile(
+      join(libraryDir, "library-lock.json"),
+      JSON.stringify({
+        version: 1,
+        skills: {
+          "lib-only": {
+            name: "lib-only",
+            version: "1.0.0",
+            source: "github:acme/skills",
+            commitHash: "0123456789abcdef0123456789abcdef01234567",
+            ref: null,
+            skillPath: "lib-only",
+            libraryPath: libSkill,
+            installedAt: "2026-01-01T00:00:00.000Z",
+          },
+        },
+      }),
+      "utf-8",
+    );
+
+    const { stdout, stderr, exitCode } = await runGet("lib-only", "--json");
+    expect(exitCode).toBe(0);
+    expect(stderr).not.toContain("Fetching");
+    const payload = JSON.parse(stdout);
+    expect(payload.tier).toBe("library");
+    expect(payload.source).toBe(libSkill);
+    expect(payload.commit).toBe("0123456789abcdef0123456789abcdef01234567");
+    expect(payload.content).toBe(BODY);
+  });
+
+  test("refuses to guess when two indexed repos publish the same name", async () => {
+    const indexDir = join(
+      home,
+      ".config",
+      "agent-skill-manager",
+      "skill-index",
+    );
+    await mkdir(indexDir, { recursive: true });
+    const entry = (owner: string, repo: string) => ({
+      repoUrl: `https://github.com/${owner}/${repo}`,
+      owner,
+      repo,
+      updatedAt: "2026-01-01T00:00:00.000Z",
+      skillCount: 1,
+      skills: [
+        {
+          name: "collide-422",
+          description: "A name published by two repos.",
+          version: "1.0.0",
+          license: "MIT",
+          creator: "",
+          compatibility: "",
+          allowedTools: [],
+          installUrl: `github:${owner}/${repo}:skills/collide-422`,
+          relPath: "skills/collide-422",
+          tokenCount: 10,
+        },
+      ],
+      bundles: [],
+    });
+    await writeFile(
+      join(indexDir, "acme_skills.json"),
+      JSON.stringify(entry("acme", "skills")),
+      "utf-8",
+    );
+    await writeFile(
+      join(indexDir, "other_pack.json"),
+      JSON.stringify(entry("other", "pack")),
+      "utf-8",
+    );
+
+    const { stderr, exitCode } = await runGet("collide-422");
+    expect(exitCode).toBe(1);
+    // Never a clone: an ambiguous name is reported, not resolved.
+    expect(stderr).not.toContain("Fetching");
+    expect(stderr).toContain("matches 2 indexed skills");
+    expect(stderr).toContain("github:acme/skills:skills/collide-422");
+    expect(stderr).toContain("github:other/pack:skills/collide-422");
+
+    const machine = await runGet("collide-422", "--machine");
+    expect(machine.exitCode).toBe(1);
+    const envelope = JSON.parse(machine.stdout);
+    expect(envelope.status).toBe("error");
+    expect(envelope.error.code).toBe("INVALID_ARGUMENT");
+    expect(envelope.error.details.candidates).toHaveLength(2);
+  });
+
   test("--json emits one object with source, token count and body", async () => {
     const { stdout, exitCode } = await runGet(skillDir, "--json");
     expect(exitCode).toBe(0);
@@ -5905,6 +6000,16 @@ One line of body text.
     expect(envelope.command).toBe("get");
     expect(envelope.status).toBe("ok");
     expect(envelope.data.content).toBe(BODY);
+  });
+
+  test("refuses a subpath that climbs out of the clone", async () => {
+    const { stderr, exitCode } = await runGet(
+      "github:acme/skills:../../../etc",
+    );
+    expect(exitCode).toBe(1);
+    // Rejected before any network access — the clone never starts.
+    expect(stderr).not.toContain("Fetching");
+    expect(stderr).toContain("escapes the repository");
   });
 
   test("a missing argument exits 2", async () => {

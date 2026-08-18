@@ -750,7 +750,8 @@ ${ansi.bold("Options:")}
   --json             Output {name, description, tier, source, commit,
                      tokenCount, security, content} as a JSON object
   --machine          Stable machine-readable v1 envelope
-  --audit            Also print the full security audit report (stderr)
+  --audit            Also print the full security audit report (stderr),
+                     for any resolved skill, not only fetched ones
   -s, --scope <s>    Filter installed lookup: global, project, or both
   --transport <t>    Clone transport for remote sources: auto, https, ssh
   --no-cache         Bypass the registry cache when resolving a name
@@ -1244,6 +1245,11 @@ async function cmdInspect(args: ParsedArgs) {
 interface GetResolution {
   result: GetResult;
   cleanup: (() => Promise<void>) | null;
+  /** Directory the body was read from — still on disk until `cleanup` runs. */
+  dir: string;
+  /** GitHub coordinates, when the body came from a remote source. */
+  owner?: string;
+  repo?: string;
 }
 
 /** A name that resolves to more than one skill — never guessed, always listed. */
@@ -1326,6 +1332,16 @@ async function fetchGetFromRemote(
   sourceInput: string,
   tier: GetTier,
 ): Promise<GetResolution> {
+  // The subpath can arrive from catalog data as well as from the command line,
+  // and it is joined onto a temp directory — refuse anything that climbs out of
+  // it rather than reading a file outside the clone.
+  const preParsed = parseSource(sourceInput);
+  if (preParsed.subpath?.split(/[/\\]/).includes("..")) {
+    throw new Error(
+      `Invalid source: the subpath in "${sourceInput}" escapes the repository.`,
+    );
+  }
+
   process.stderr.write(ansi.dim(`Fetching ${sourceInput}…\n`));
   const remote = await fetchRemoteSkillDir(
     sourceInput,
@@ -1334,7 +1350,11 @@ async function fetchGetFromRemote(
   );
   try {
     const parsed = parseSource(sourceInput);
-    const hintBase = `github:${parsed.owner}/${parsed.repo}`;
+    // Keep any explicit ref in the hint — dropping it would suggest commands
+    // that silently resolve against the default branch instead.
+    const hintBase = `github:${parsed.owner}/${parsed.repo}${
+      parsed.ref ? `#${parsed.ref}` : ""
+    }`;
     const { name, description } = await validateSkillForGet(
       remote.rootDir,
       hintBase,
@@ -1351,16 +1371,6 @@ async function fetchGetFromRemote(
       categories: Array.from(new Set(warnings.map((w) => w.category))).sort(),
     };
 
-    if (args.flags.audit) {
-      const report = await auditSkillSecurity(
-        remote.rootDir,
-        name,
-        parsed.owner,
-        parsed.repo,
-      );
-      process.stderr.write(formatSecurityReport(report) + "\n");
-    }
-
     return {
       result: {
         name,
@@ -1373,6 +1383,9 @@ async function fetchGetFromRemote(
         content,
       },
       cleanup: remote.cleanup,
+      dir: remote.rootDir,
+      owner: parsed.owner,
+      repo: parsed.repo,
     };
   } catch (err) {
     await remote.cleanup();
@@ -1435,6 +1448,7 @@ async function resolveGetTarget(
     return {
       result: localGetResult(content, "local", localPath),
       cleanup: null,
+      dir: localPath,
     };
   }
 
@@ -1457,6 +1471,7 @@ async function resolveGetTarget(
         tokenCount: match.tokenCount,
       }),
       cleanup: null,
+      dir: match.path,
     };
   }
 
@@ -1475,6 +1490,7 @@ async function resolveGetTarget(
         commit: libMatch.commitHash || null,
       }),
       cleanup: null,
+      dir: libMatch.libraryPath,
     };
   }
 
@@ -1548,6 +1564,19 @@ async function cmdGet(args: ParsedArgs) {
     const resolution = await resolveGetTarget(args, target);
     cleanup = resolution.cleanup;
     const result = resolution.result;
+
+    // `--audit` applies to whatever was resolved: a temp clone is still on disk
+    // at this point, and installed/library/local tiers have a real directory
+    // too, so the flag never silently does nothing.
+    if (args.flags.audit) {
+      const report = await auditSkillSecurity(
+        resolution.dir,
+        result.name,
+        resolution.owner,
+        resolution.repo,
+      );
+      process.stderr.write(formatSecurityReport(report) + "\n");
+    }
 
     if (args.flags.machine) {
       process.stdout.write(

@@ -139,17 +139,29 @@ describe("chooseDemotionAction", () => {
     });
   });
 
-  it("offers asm get on the disable path too", () => {
+  it("offers asm get on the disable path when the skill is in the library", () => {
     const action = chooseDemotionAction("my-skill", [
-      makeInstance({ libraryLinked: false }),
+      makeInstance({ libraryLinked: true, provider: "claude" }),
+      makeInstance({ libraryLinked: true, provider: "codex" }),
     ]);
     expect(action.kind).toBe("disable");
     expect(action.reference?.command).toBe("asm get my-skill");
   });
 
-  it("does not replace the primary demotion command", () => {
+  it("does not offer asm get for a skill that is not in the library", () => {
+    // `asm disable` hides SKILL.md from the scanner, and a non-library skill
+    // has no other local copy — the suggestion would break on use.
     const action = chooseDemotionAction("my-skill", [
       makeInstance({ libraryLinked: false }),
+    ]);
+    expect(action.kind).toBe("disable");
+    expect(action.reference).toBeUndefined();
+  });
+
+  it("does not replace the primary demotion command", () => {
+    const action = chooseDemotionAction("my-skill", [
+      makeInstance({ libraryLinked: true, provider: "claude" }),
+      makeInstance({ libraryLinked: true, provider: "codex" }),
     ]);
     expect(action.command).toBe("asm disable my-skill");
   });
@@ -360,12 +372,27 @@ describe("formatResidencyReport", () => {
   it("renders the asm get reference tier next to the demotion command", () => {
     const report = computeResidencyAudit(
       withBaseline(
-        makeSkill({ dirName: "heavy", description: longDescription(200) }),
+        makeSkill({
+          dirName: "heavy",
+          description: longDescription(200),
+          isSymlink: true,
+          realPath: `${LIBRARY}/heavy`,
+        }),
       ),
+      { librarySkillsDir: LIBRARY },
     );
     const output = formatResidencyReport(report);
     expect(output).toContain("asm get heavy");
     expect(output).toContain("read it on demand, zero residency");
+  });
+
+  it("omits the reference line for a skill that is not in the library", () => {
+    const report = computeResidencyAudit(
+      withBaseline(
+        makeSkill({ dirName: "heavy", description: longDescription(200) }),
+      ),
+    );
+    expect(formatResidencyReport(report)).not.toContain("asm get heavy");
   });
 
   it("renders every token figure with the `~` prefix, never as bytes", () => {

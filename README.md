@@ -205,6 +205,10 @@ The advice assumes this demotion ladder:
 Which command a candidate gets depends on how it is installed. `asm deactivate`
 only works on a live symlink into the `asm` library, so it is suggested only
 there; everything else gets `asm disable`, which is universal and reversible.
+Library skills additionally get `asm get <skill>` as a second destination — the
+body is still one command away after demotion. Skills that are not in the
+library do not, because `asm disable` hides `SKILL.md` from the scanner and
+there would be no local copy left for `asm get` to read.
 Skills provided by plugin marketplaces are counted in the totals but never
 listed as candidates — no `asm` command demotes them.
 
