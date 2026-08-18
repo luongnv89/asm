@@ -46,6 +46,7 @@ export function estimateTokenCount(content: string): number {
  *   - estimateTokenCount("hello world") = 3   → "~3 tokens"
  *   - 1234                              → "~1.2k tokens"
  *   - 12_345                            → "~12k tokens"
+ *   - 1_934_000                         → "~1.9M tokens"
  */
 export function formatTokenCount(count: number): string {
   if (!Number.isFinite(count) || count < 0) return "~0 tokens";
@@ -54,5 +55,36 @@ export function formatTokenCount(count: number): string {
     const k = (count / 1000).toFixed(1).replace(/\.0$/, "");
     return `~${k}k tokens`;
   }
-  return `~${Math.round(count / 1000)}k tokens`;
+  if (count < 1_000_000) return `~${Math.round(count / 1000)}k tokens`;
+  const m = (count / 1_000_000).toFixed(1).replace(/\.0$/, "");
+  return `~${m}M tokens`;
+}
+
+/**
+ * Estimated **resident** token cost of an installed skill.
+ *
+ * Resident cost is the part of a skill that an agent pays for on *every*
+ * message: the frontmatter `description`, which is inlined into the system
+ * prompt so the agent can decide whether the skill should fire. It is a
+ * different number from `SkillInfo.tokenCount` — the whole `SKILL.md` body —
+ * which is only paid when the skill actually fires.
+ *
+ * Conflating the two overstates the always-on context budget by an order of
+ * magnitude, so this is the single shared definition: both the
+ * `asm stats --tokens` budget report and the `asm audit residency` report
+ * import it rather than re-deriving it (issues #421, #423).
+ */
+export function residentTokens(skill: { description?: string }): number {
+  return estimateTokenCount(skill.description ?? "");
+}
+
+/**
+ * Estimated **body** token cost of an installed skill — the full `SKILL.md`.
+ *
+ * Prefers the scanner-computed `tokenCount` (issue #188) and falls back to 0
+ * when a caller constructed the record without one.
+ */
+export function bodyTokens(skill: { tokenCount?: number }): number {
+  const n = skill.tokenCount;
+  return typeof n === "number" && Number.isFinite(n) && n > 0 ? n : 0;
 }

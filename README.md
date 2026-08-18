@@ -27,6 +27,7 @@
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | Scattered installs      | Same skill copied into `~/.claude/skills/`, `~/.codex/skills/`, `~/.cursor/rules/` — different versions, no single view | One `asm list` across all 19 providers and scopes                          |
 | No inventory            | `ls` through hidden dirs; no idea what is installed, duplicated, or outdated                                            | `asm search`, `asm inspect`, `asm stats`, `asm audit`                      |
+| Invisible context cost  | Every installed skill's description is resident in the agent's prompt on every message, whether or not it ever fires    | `asm stats --tokens`, `asm audit residency`                                |
 | Risky manual installs   | Clone repos, copy folders, hope `SKILL.md` is valid                                                                     | `asm install` validates frontmatter, scans security, pins registry commits |
 | Agent-unfriendly output | Human-only copy-paste workflows                                                                                         | Structured JSON via `--json`; skip prompts with `--yes`                    |
 | New agent, new chore    | Every tool adds another skill directory to track                                                                        | Add or disable providers in one config file                                |
@@ -67,17 +68,19 @@ graph LR
 
 ## Features
 
-| Feature                  | What you get                                                        |
-| ------------------------ | ------------------------------------------------------------------- |
-| Cross-provider inventory | `asm list --json` — every skill, every agent, one response          |
-| One-command install      | `asm install github:user/repo` or `asm install skill-name`          |
-| Agent-parseable output   | `--json` on list, search, inspect, install, audit                   |
-| Duplicate audit          | `asm audit --yes` removes redundant skills non-interactively        |
-| Security scan            | `asm audit security` before install                                 |
-| Authoring pipeline       | `asm init`, `asm link`, `asm eval`, `asm publish`                   |
-| Bundles                  | `asm bundle install` — curated sets in one pass                     |
-| Local library            | `asm install --library` — install once, `asm activate` per provider |
-| Cross-tool linking       | Reinstall or symlink when a skill already exists in another tool    |
+| Feature                  | What you get                                                         |
+| ------------------------ | -------------------------------------------------------------------- |
+| Cross-provider inventory | `asm list --json` — every skill, every agent, one response           |
+| One-command install      | `asm install github:user/repo` or `asm install skill-name`           |
+| Agent-parseable output   | `--json` on list, search, inspect, install, audit                    |
+| Duplicate audit          | `asm audit --yes` removes redundant skills non-interactively         |
+| Attention budget         | `asm stats --tokens` shows resident vs body token cost per tool      |
+| Residency audit          | `asm audit residency` ranks skills to demote out of resident context |
+| Security scan            | `asm audit security` before install                                  |
+| Authoring pipeline       | `asm init`, `asm link`, `asm eval`, `asm publish`                    |
+| Bundles                  | `asm bundle install` — curated sets in one pass                      |
+| Local library            | `asm install --library` — install once, `asm activate` per provider  |
+| Cross-tool linking       | Reinstall or symlink when a skill already exists in another tool     |
 
 ## Getting started
 
@@ -117,6 +120,8 @@ Node.js 18+ required. Optional TUI: run `asm` with no arguments.
 | Skill metadata for agents  | `asm inspect my-skill --json`                    |
 | Non-interactive install    | `asm install code-review -p claude --yes --json` |
 | Remove duplicates          | `asm audit --yes`                                |
+| See your context cost      | `asm stats --tokens`                             |
+| Find skills to demote      | `asm audit residency`                            |
 | Scan before install        | `asm audit security github:user/repo`            |
 | Scaffold a new skill       | `asm init my-skill -p claude`                    |
 | Live dev via symlink       | `asm link ./my-skill -p claude`                  |
@@ -124,6 +129,66 @@ Node.js 18+ required. Optional TUI: run `asm` with no arguments.
 | Install a bundle           | `asm bundle install frontend-dev --yes`          |
 
 Full command reference, flags, and examples: [CLI Commands](#cli-commands). Catalog UI and bundles: [luongnv.com/asm](https://luongnv.com/asm/).
+
+## Attention budget
+
+Disk is cheap; context is not. Every installed skill's frontmatter
+`description` sits in the agent's system prompt on **every message**, whether or
+not the skill ever fires. The full `SKILL.md` body only costs anything when the
+skill actually fires.
+
+`asm` reports the two separately — token counts are estimates and always render
+with a leading `~`:
+
+```bash
+asm stats --tokens            # resident vs body tokens, per tool and per scope
+asm stats --tokens --json     # same data for scripts and agents
+```
+
+```text
+  Tool           Skills      Resident  Bodies
+  Claude Code        74    ~5k tokens  ~281k tokens
+  Codex              10  ~736 tokens   ~76k tokens
+  ------------------------------------------------
+  Total              84  ~5.7k tokens  ~357k tokens
+
+  Heaviest resident descriptions
+    docx           ~233 tokens  (claude, global)
+    pptx           ~217 tokens  (claude, global)
+```
+
+### Residency audit
+
+`asm audit residency` ranks the installed skills that are not earning their
+resident context and pairs each one with a command that works for how that
+skill is actually installed. It only reports — nothing is deactivated,
+disabled, or removed unless you run one of the suggested commands yourself.
+
+```bash
+asm audit residency
+asm audit residency --json
+```
+
+The advice assumes this demotion ladder:
+
+| Tier                      | `asm` mechanism                           | Residency                    |
+| ------------------------- | ----------------------------------------- | ---------------------------- |
+| Installed (auto-triggers) | provider directory / `asm activate`       | description resident, always |
+| Saved (adapt, no trigger) | `asm install --library` + `asm activate`  | none until activated         |
+| Disabled (kept on disk)   | `asm disable` (reverse with `asm enable`) | none                         |
+
+Which command a candidate gets depends on how it is installed. `asm deactivate`
+only works on a live symlink into the `asm` library, so it is suggested only
+there; everything else gets `asm disable`, which is universal and reversible.
+Skills provided by plugin marketplaces are counted in the totals but never
+listed as candidates — no `asm` command demotes them.
+
+Two of the signals the report would like to use — trigger collision and
+last-used counts — have no data source in `asm` yet. They are listed as
+unavailable rather than silently dropped, so the report still works today.
+
+No network calls, accounts, or telemetry are involved: both reports run
+entirely against your local filesystem.
 
 ## FAQ
 
@@ -406,43 +471,45 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 
 ### Commands
 
-| Command                         | Description                          |
-| ------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `asm list`                      | List all discovered skills           |
-| `asm search <query>`            | Search by name/description/provider  |
-| `asm inspect <skill-name>`      | Show detailed info for a skill       |
-| `asm install <source>`          | Install from GitHub or registry      |
-| `asm publish [path]`            | Publish to ASM Registry              |
-| `asm uninstall <skill-name>`    | Remove a skill                       |
-| `asm init <name>`               | Scaffold a new skill                 |
-| `asm link <path> [<path2> ...]` | Symlink skills for live dev          |
-| `asm audit`                     | Detect duplicate skills              |
-| `asm audit security <name>`     | Security audit                       |
-| `asm eval <skill>`              | Score skill quality                  |
-| `asm eval-providers list`       | List eval providers                  |
-| `asm stats`                     | Aggregate installed skill metrics    |
-| `asm stats repo <repo>`         | Per-repo indexed skill stats         |
-| `asm stats author <owner>`      | Per-author indexed skill stats       |
-| `asm stats index`               | Indexed catalog stats summary        |
-| `asm activate <skill>`          | Link a library skill into a provider |
-| `asm deactivate <skill>`        | Remove a library activation symlink  |
-| `asm library list               | update`                              | Manage centrally installed library skills |
-| `asm export`                    | Export inventory as JSON             |
-| `asm index ingest <repo>`       | Index a skill repo                   |
-| `asm index search <query>`      | Search indexed skills                |
-| `asm index list`                | List indexed repos                   |
-| `asm index remove <owner/repo>` | Remove repo from index               |
-| `asm bundle list`               | List bundles (`--predefined`)        |
-| `asm bundle install <name>`     | Install every skill in a bundle      |
-| `asm bundle create <name>`      | Create bundle from installed skills  |
-| `asm bundle show <name>`        | Show bundle details                  |
-| `asm bundle modify <name>`      | Add/remove skills                    |
-| `asm bundle export <name>`      | Export bundle to JSON                |
-| `asm bundle remove <name>`      | Remove saved bundle                  |
-| `asm config show`               | Print config                         |
-| `asm config path`               | Print config path                    |
-| `asm config reset`              | Reset to defaults                    |
-| `asm config edit`               | Open config in `$EDITOR`             |
+| Command                         | Description                               |
+| ------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| `asm list`                      | List all discovered skills                |
+| `asm search <query>`            | Search by name/description/provider       |
+| `asm inspect <skill-name>`      | Show detailed info for a skill            |
+| `asm install <source>`          | Install from GitHub or registry           |
+| `asm publish [path]`            | Publish to ASM Registry                   |
+| `asm uninstall <skill-name>`    | Remove a skill                            |
+| `asm init <name>`               | Scaffold a new skill                      |
+| `asm link <path> [<path2> ...]` | Symlink skills for live dev               |
+| `asm audit`                     | Detect duplicate skills                   |
+| `asm audit security <name>`     | Security audit                            |
+| `asm audit residency`           | Rank skills that do not earn residency    |
+| `asm eval <skill>`              | Score skill quality                       |
+| `asm eval-providers list`       | List eval providers                       |
+| `asm stats`                     | Aggregate installed skill metrics         |
+| `asm stats --tokens`            | Attention budget: resident vs body tokens |
+| `asm stats repo <repo>`         | Per-repo indexed skill stats              |
+| `asm stats author <owner>`      | Per-author indexed skill stats            |
+| `asm stats index`               | Indexed catalog stats summary             |
+| `asm activate <skill>`          | Link a library skill into a provider      |
+| `asm deactivate <skill>`        | Remove a library activation symlink       |
+| `asm library list               | update`                                   | Manage centrally installed library skills |
+| `asm export`                    | Export inventory as JSON                  |
+| `asm index ingest <repo>`       | Index a skill repo                        |
+| `asm index search <query>`      | Search indexed skills                     |
+| `asm index list`                | List indexed repos                        |
+| `asm index remove <owner/repo>` | Remove repo from index                    |
+| `asm bundle list`               | List bundles (`--predefined`)             |
+| `asm bundle install <name>`     | Install every skill in a bundle           |
+| `asm bundle create <name>`      | Create bundle from installed skills       |
+| `asm bundle show <name>`        | Show bundle details                       |
+| `asm bundle modify <name>`      | Add/remove skills                         |
+| `asm bundle export <name>`      | Export bundle to JSON                     |
+| `asm bundle remove <name>`      | Remove saved bundle                       |
+| `asm config show`               | Print config                              |
+| `asm config path`               | Print config path                         |
+| `asm config reset`              | Reset to defaults                         |
+| `asm config edit`               | Open config in `$EDITOR`                  |
 
 ### Global options
 
@@ -484,6 +551,14 @@ asm audit security github:user/repo
 
 ```bash
 asm audit security --all
+```
+
+```bash
+asm stats --tokens
+```
+
+```bash
+asm audit residency --json
 ```
 
 ```bash

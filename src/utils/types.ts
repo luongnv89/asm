@@ -247,6 +247,135 @@ export interface StatsReport {
   perSkillDiskBytes: Record<string, number>;
   duplicateGroups: number;
   duplicateInstances: number;
+  /**
+   * Estimated tokens the installed set costs on *every* message — the sum of
+   * each skill's frontmatter `description` (issue #421). Distinct from
+   * `totalBodyTokens`, which is only paid when a skill fires.
+   */
+  totalResidentTokens: number;
+  /** Estimated tokens across every installed `SKILL.md` body (issue #421). */
+  totalBodyTokens: number;
+}
+
+/** One provider or scope row of the attention-budget report (issue #421). */
+export interface TokenBudgetGroup {
+  /** Provider name (`claude`, `codex`, …) or scope (`global`, `project`). */
+  key: string;
+  /** Human label for the key (e.g. `Claude Code`). */
+  label: string;
+  skills: number;
+  residentTokens: number;
+  bodyTokens: number;
+}
+
+/** One entry of the "heaviest resident descriptions" ranking (issue #421). */
+export interface ResidentSkillCost {
+  name: string;
+  dirName: string;
+  provider: string;
+  providerLabel: string;
+  scope: "global" | "project";
+  path: string;
+  residentTokens: number;
+  bodyTokens: number;
+}
+
+/**
+ * Attention-budget view over the *installed* set — `asm stats --tokens`.
+ *
+ * Resident cost (frontmatter descriptions, paid every message) is reported
+ * separately from body cost (full `SKILL.md`, paid only when a skill fires).
+ */
+export interface TokenBudgetReport {
+  totalSkills: number;
+  totalResidentTokens: number;
+  totalBodyTokens: number;
+  /** Median resident cost across installed skills — the outlier baseline. */
+  medianResidentTokens: number;
+  byProvider: TokenBudgetGroup[];
+  byScope: TokenBudgetGroup[];
+  heaviestResident: ResidentSkillCost[];
+}
+
+// ─── Residency Audit Types (issue #423) ─────────────────────────────────
+
+/** Why a skill was flagged as a demotion candidate. */
+export type ResidencyReasonId =
+  | "expensive-description"
+  | "redundant-activation";
+
+export interface ResidencyReason {
+  id: ResidencyReasonId;
+  /** One-line human explanation, e.g. `4.1x the median description`. */
+  detail: string;
+}
+
+/**
+ * A signal the residency audit *would* rank on, and whether its data exists.
+ *
+ * Signals whose data source is not implemented yet (trigger collision — #18,
+ * usage counts — #354) are reported as unavailable so the report degrades
+ * instead of failing.
+ */
+export interface ResidencySignal {
+  id: string;
+  label: string;
+  available: boolean;
+  /** Why the signal is unavailable, when it is. */
+  reason?: string;
+}
+
+/** One provider/scope location where a candidate is currently resident. */
+export interface ResidencyInstance {
+  provider: string;
+  providerLabel: string;
+  scope: "global" | "project";
+  path: string;
+  /** True when this instance is a symlink into the ASM library. */
+  libraryLinked: boolean;
+}
+
+/**
+ * The concrete, non-throwing ASM command that demotes a candidate.
+ *
+ * `deactivate` is only ever emitted for a single instance that is a live
+ * symlink into the ASM library — `deactivateLibrarySkill` throws on anything
+ * else. Everything else gets `disable`, which is universal and reversible.
+ */
+export interface ResidencyAction {
+  kind: "deactivate" | "disable";
+  command: string;
+  hint: string;
+}
+
+export interface ResidencyCandidate {
+  name: string;
+  dirName: string;
+  /** Resident tokens this skill costs in each place it is installed. */
+  residentTokens: number;
+  /** `residentTokens` times the number of resident instances. */
+  totalResidentTokens: number;
+  bodyTokens: number;
+  /** Ranking weight — currently `totalResidentTokens`. */
+  score: number;
+  instances: ResidencyInstance[];
+  reasons: ResidencyReason[];
+  action: ResidencyAction;
+}
+
+export interface ResidencyReport {
+  scannedAt: string;
+  totalSkills: number;
+  totalResidentTokens: number;
+  medianResidentTokens: number;
+  /**
+   * Installed skills ASM does not manage (plugin marketplaces / Codex plugin
+   * cache). They still cost residency but no ASM command demotes them, so
+   * they are counted, never listed as candidates.
+   */
+  unmanagedSkills: number;
+  candidates: ResidencyCandidate[];
+  signals: ResidencySignal[];
 }
 
 export interface RemovalPlan {

@@ -103,7 +103,10 @@ import {
   formatRepoStatsReport,
   formatAuthorStatsReport,
   formatIndexStatsReport,
+  computeTokenBudget,
+  formatTokenBudgetReport,
 } from "./stats";
+import { computeResidencyAudit, formatResidencyReport } from "./residency";
 import {
   validateLinkSource,
   createLink,
@@ -315,6 +318,12 @@ interface ParsedArgs {
      * users can inspect what was fetched (issue #193).
      */
     keep: boolean;
+    /**
+     * `asm stats --tokens` — attention-budget view over the installed set:
+     * resident (frontmatter description, paid every message) vs body (full
+     * SKILL.md, paid only when the skill fires) tokens (issue #421).
+     */
+    tokens: boolean;
     /** `asm bundle modify --add <installUrl>` — skill install URL to add (issue #204). */
     add: string | null;
     /** `asm bundle modify --remove <skillName>` — skill name to remove (issue #204). */
@@ -370,6 +379,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       limit: 0,
       concurrency: 0,
       keep: false,
+      tokens: false,
       add: null,
       remove: null,
       description: null,
@@ -479,6 +489,8 @@ export function parseArgs(argv: string[]): ParsedArgs {
       result.flags.concurrency = n;
     } else if (arg === "--keep") {
       result.flags.keep = true;
+    } else if (arg === "--tokens") {
+      result.flags.tokens = true;
     } else if (arg === "--transport" || arg === "-t") {
       i++;
       const val = args[i];
@@ -731,6 +743,7 @@ Detect duplicate skills or run security audits on installed/remote skills.
 ${ansi.bold("Subcommands:")}
   duplicates             Find duplicate skills (default)
   security <name|source> Run security audit on an installed skill or GitHub source
+  residency              Rank installed skills that do not earn their resident context
 
 ${ansi.bold("Options:")}
   --json             Output as JSON
@@ -744,6 +757,8 @@ ${ansi.bold("Examples:")}
   asm audit                                    ${ansi.dim("Find duplicates")}
   asm audit -y                                 ${ansi.dim("Auto-remove duplicates")}
   asm audit --json                             ${ansi.dim("Output as JSON")}
+  asm audit residency                          ${ansi.dim("Rank demotion candidates")}
+  asm audit residency --json                   ${ansi.dim("Residency report as JSON")}
   asm audit security code-review               ${ansi.dim("Audit an installed skill")}
   asm audit security github:user/repo          ${ansi.dim("Audit a remote skill before installing")}
   asm audit security --all                     ${ansi.dim("Audit all installed skills")}
@@ -1814,8 +1829,15 @@ async function cmdAudit(args: ParsedArgs) {
     return;
   }
 
+  if (sub === "residency") {
+    await cmdAuditResidency(args, startTime);
+    return;
+  }
+
   if (sub !== "duplicates") {
-    error(`Unknown audit subcommand: "${sub}". Use: duplicates, security`);
+    error(
+      `Unknown audit subcommand: "${sub}". Use: duplicates, security, residency`,
+    );
     process.exit(2);
   }
 
@@ -1866,6 +1888,44 @@ async function cmdAudit(args: ParsedArgs) {
     }
     console.error(ansi.green("\nDone."));
   }
+}
+
+/**
+ * `asm audit residency` — rank installed skills that are not earning their
+ * resident context and pair each with a command that actually works for how
+ * it is installed (issue #423).
+ *
+ * Read-only by construction: this path never removes, deactivates, or
+ * disables anything, and it deliberately ignores `--yes` — residency is a
+ * user judgement, so demotion only ever happens when the user runs one of the
+ * suggested commands themselves.
+ */
+async function cmdAuditResidency(args: ParsedArgs, startTime: number) {
+  const config = await loadConfig();
+  const allSkills = await scanAllSkills(config, args.flags.scope);
+
+  // Resolve the library's real path so symlinked HOMEs still match; a missing
+  // library just means no instance qualifies for `asm deactivate`.
+  let librarySkillsDir = getLibrarySkillsDir();
+  try {
+    librarySkillsDir = await fsRealpath(librarySkillsDir);
+  } catch {
+    // library not created yet — containment check simply never matches
+  }
+
+  const report = computeResidencyAudit(allSkills, { librarySkillsDir });
+
+  if (args.flags.machine) {
+    console.log(formatMachineOutput("audit residency", report, startTime));
+    return;
+  }
+
+  if (args.flags.json) {
+    console.log(formatJSON(report));
+    return;
+  }
+
+  console.log(formatResidencyReport(report));
 }
 
 async function cmdAuditSecurity(args: ParsedArgs, startTime: number) {
@@ -4068,7 +4128,7 @@ function printStatsHelp() {
   console.log(`${ansi.bold("Usage:")} asm stats [subcommand] [options]
 
 Show aggregate skill metrics with provider distribution charts,
-scope breakdown, disk usage, and duplicate summary.
+scope breakdown, disk usage, resident context cost, and duplicate summary.
 
 ${ansi.bold("Subcommands:")}
   repo <owner/repo>    Show per-repo stats from the skill index
@@ -4076,15 +4136,20 @@ ${ansi.bold("Subcommands:")}
   index                Show index-wide statistics
 
 ${ansi.bold("Options:")}
+  --tokens           Attention budget: resident vs body tokens per tool/scope
   --json             Output as JSON
+  --machine          Output in stable machine-readable v1 envelope format
   -s, --scope <s>    Filter: global, project, or both (default: both)
   --no-color         Disable ANSI colors
   -V, --verbose      Show debug output
 
 ${ansi.bold("Examples:")}
   asm stats                         ${ansi.dim("Show installed skills dashboard")}
+  asm stats --tokens                ${ansi.dim("Resident context cost per tool")}
+  asm stats --tokens --json         ${ansi.dim("Attention budget as JSON")}
   asm stats -s global               ${ansi.dim("Global skills only")}
   asm stats --json                  ${ansi.dim("Output raw data as JSON")}
+  asm stats --machine               ${ansi.dim("Machine-readable v1 envelope output")}
   asm stats repo anthropics/skills  ${ansi.dim("Show indexed repo stats")}
   asm stats author luongnv89        ${ansi.dim("Show indexed author stats")}
   asm stats index                   ${ansi.dim("Show index-wide stats")}`);
@@ -4112,16 +4177,64 @@ async function cmdStats(args: ParsedArgs) {
   }
 
   // Default: installed skills stats (original behavior)
+  const startTime = performance.now();
   const config = await loadConfig();
   const allSkills = await scanAllSkills(config, args.flags.scope);
 
+  // `--tokens` is the attention-budget view (issue #421): the resident cost
+  // of the installed set, which is paid on every message, reported apart from
+  // the body cost, which is only paid when a skill fires.
+  if (args.flags.tokens) {
+    const budget = computeTokenBudget(allSkills);
+    if (args.flags.machine) {
+      console.log(formatMachineOutput("stats tokens", budget, startTime));
+      return;
+    }
+    if (args.flags.json) {
+      console.log(formatJSON(budget));
+      return;
+    }
+    console.log(formatTokenBudgetReport(budget));
+    return;
+  }
+
   if (allSkills.length === 0) {
+    if (args.flags.machine || args.flags.json) {
+      const empty = {
+        totalSkills: 0,
+        byProvider: {},
+        byScope: { global: 0, project: 0 },
+        totalDiskBytes: 0,
+        duplicateGroups: 0,
+        duplicateInstances: 0,
+        totalResidentTokens: 0,
+        totalBodyTokens: 0,
+      };
+      console.log(
+        args.flags.machine
+          ? formatMachineOutput("stats", empty, startTime)
+          : formatJSON(empty),
+      );
+      return;
+    }
     console.log("No skills found.");
     return;
   }
 
   const duplicates = detectDuplicates(allSkills);
   const report = await computeStats(allSkills, duplicates);
+
+  if (args.flags.machine) {
+    const { perSkillDiskBytes: _machineDetail, ...summary } = report;
+    console.log(
+      formatMachineOutput(
+        "stats",
+        args.flags.verbose ? report : summary,
+        startTime,
+      ),
+    );
+    return;
+  }
 
   if (args.flags.json) {
     if (!args.flags.verbose) {

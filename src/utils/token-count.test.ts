@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { estimateTokenCount, formatTokenCount } from "./token-count";
+import {
+  bodyTokens,
+  estimateTokenCount,
+  formatTokenCount,
+  residentTokens,
+} from "./token-count";
 
 describe("estimateTokenCount", () => {
   it("returns 0 for empty string", () => {
@@ -67,5 +72,48 @@ describe("formatTokenCount", () => {
     expect(formatTokenCount(-1)).toBe("~0 tokens");
     expect(formatTokenCount(NaN)).toBe("~0 tokens");
     expect(formatTokenCount(Infinity)).toBe("~0 tokens");
+  });
+});
+
+describe("formatTokenCount — millions", () => {
+  it("formats counts past a million with an M suffix", () => {
+    expect(formatTokenCount(1_000_000)).toBe("~1M tokens");
+    expect(formatTokenCount(1_934_000)).toBe("~1.9M tokens");
+  });
+
+  it("still uses k just below a million", () => {
+    expect(formatTokenCount(999_400)).toBe("~999k tokens");
+  });
+});
+
+describe("residentTokens", () => {
+  it("counts only the frontmatter description", () => {
+    expect(residentTokens({ description: "hello world" })).toBe(3);
+  });
+
+  it("returns 0 for a missing or empty description", () => {
+    expect(residentTokens({})).toBe(0);
+    expect(residentTokens({ description: "" })).toBe(0);
+  });
+
+  it("is independent of the body token count", () => {
+    const skill = { description: "hello world", tokenCount: 9999 } as {
+      description: string;
+      tokenCount: number;
+    };
+    expect(residentTokens(skill)).toBe(3);
+    expect(residentTokens(skill)).not.toBe(skill.tokenCount);
+  });
+});
+
+describe("bodyTokens", () => {
+  it("returns the scanner-computed tokenCount", () => {
+    expect(bodyTokens({ tokenCount: 512 })).toBe(512);
+  });
+
+  it("degrades to 0 when tokenCount is absent or nonsensical", () => {
+    expect(bodyTokens({})).toBe(0);
+    expect(bodyTokens({ tokenCount: -5 })).toBe(0);
+    expect(bodyTokens({ tokenCount: NaN })).toBe(0);
   });
 });
