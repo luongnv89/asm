@@ -315,6 +315,15 @@ describe("buildSkillInstallUrl", () => {
   });
 });
 
+describe("ingestRepo path containment", () => {
+  it("rejects a `..` hidden in the ref before clone", async () => {
+    const result = await ingestRepo("github:acme/skills#main/../../x");
+    expect(result.success).toBe(false);
+    expect(result.error).toMatch(/escapes the repository/);
+    expect(ingestMocks.cloneToTemp).not.toHaveBeenCalled();
+  });
+});
+
 describe("parallel skill ingestion (issue #372)", () => {
   let tempDir: string;
   let repoName: string;

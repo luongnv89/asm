@@ -3166,6 +3166,16 @@ describe("CLI integration: eval", () => {
     expect(parsed.error.code).toBe("SKILL_NOT_FOUND");
   });
 
+  test("eval refuses a `..` hidden in the ref before clone", async () => {
+    const { stderr, exitCode } = await runCLI(
+      "eval",
+      "github:acme/skills#main/../../x",
+    );
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain("escapes the repository");
+    expect(stderr).not.toMatch(/Cloning|Fetching|ls-remote|fatal:/);
+  });
+
   test("eval --fix on github: shorthand is rejected with a clear error", async () => {
     const { stderr, exitCode } = await runCLI(
       "eval",
@@ -4290,6 +4300,28 @@ describe("CLI integration: audit security", () => {
     expect(stderr).toContain("Missing target");
   });
 
+  test("audit security refuses a `..` hidden in the ref before clone", async () => {
+    const { stderr, exitCode } = await runCLI(
+      "audit",
+      "security",
+      "github:acme/skills#main/../../x",
+    );
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain("escapes the repository");
+    expect(stderr).not.toContain("Cloning");
+  });
+
+  test("audit security refuses a subpath that climbs out of the clone", async () => {
+    const { stderr, exitCode } = await runCLI(
+      "audit",
+      "security",
+      "github:acme/skills:../../../etc",
+    );
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain("escapes the repository");
+    expect(stderr).not.toContain("Cloning");
+  });
+
   test("audit security --all exits 0", async () => {
     const { exitCode } = await runCLI("audit", "security", "--all");
     expect(exitCode).toBe(0);
@@ -4494,6 +4526,17 @@ describe("CLI integration: install error paths", () => {
     );
     expect(exitCode).toBe(1);
     expect(stderr).toContain("Error");
+  });
+
+  test("install refuses a `..` hidden in the ref before clone", async () => {
+    const { stderr, exitCode } = await runCLI(
+      "install",
+      "github:acme/skills#main/../../x",
+      "-y",
+    );
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain("escapes the repository");
+    expect(stderr).not.toContain("Cloning repository");
   });
 
   test("install with invalid --transport exits 2", async () => {

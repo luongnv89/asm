@@ -14,6 +14,8 @@ import { join, relative, resolve, isAbsolute, basename, dirname } from "path";
 import { tmpdir } from "os";
 import {
   parseSource,
+  assertNoParentSegments,
+  assertPathInsideRoot,
   isLocalPath,
   isExistingLocalDir,
   parseLocalSource,
@@ -63,6 +65,56 @@ vi.mock("./config", async () => {
 });
 
 // ─── parseSource tests ─────────────────────────────────────────────────────
+
+describe("assertNoParentSegments", () => {
+  test("rejects `..` hidden in the ref (parseSource leaves subpath null)", () => {
+    const source = parseSource("github:acme/skills#main/../../x");
+    expect(source.subpath).toBeNull();
+    expect(source.ref).toBe("main/../../x");
+    expect(() =>
+      assertNoParentSegments(source, "github:acme/skills#main/../../x"),
+    ).toThrow(/escapes the repository/);
+  });
+
+  test("rejects an explicit escaping subpath", () => {
+    const source = parseSource("github:acme/skills:../../../etc");
+    expect(() =>
+      assertNoParentSegments(source, "github:acme/skills:../../../etc"),
+    ).toThrow(/escapes the repository/);
+  });
+
+  test("allows #feature/foo and :skills/review", () => {
+    expect(() =>
+      assertNoParentSegments(
+        parseSource("github:acme/skills#feature/foo"),
+        "github:acme/skills#feature/foo",
+      ),
+    ).not.toThrow();
+    expect(() =>
+      assertNoParentSegments(
+        parseSource("github:acme/skills:skills/review"),
+        "github:acme/skills:skills/review",
+      ),
+    ).not.toThrow();
+  });
+});
+
+describe("assertPathInsideRoot", () => {
+  test("uses a path-separator boundary so a sibling prefix cannot pass", () => {
+    const root = join(tmpdir(), "asm-clone-root");
+    const sibling = `${root}-escape`;
+    expect(() =>
+      assertPathInsideRoot(root, sibling, "github:acme/skills:../x"),
+    ).toThrow(/escapes the repository/);
+  });
+
+  test("allows a nested directory inside the root", () => {
+    const root = join(tmpdir(), "asm-clone-root");
+    expect(() =>
+      assertPathInsideRoot(root, join(root, "skills", "review"), "in"),
+    ).not.toThrow();
+  });
+});
 
 describe("parseSource", () => {
   test("valid source without ref", () => {
