@@ -13,6 +13,11 @@ export interface MachineEnvelopeMeta {
   duration_ms: number;
 }
 
+/**
+ * v1 machine envelope. Envelope keys and `meta` stay snake_case (`asm_version`,
+ * `duration_ms`). Command `data` objects keep TypeScript camelCase — the same
+ * shapes as `--json`. Do not dual-key or rename either side in v1.
+ */
 export interface MachineOutput<T = unknown> {
   version: 1;
   command: string;
