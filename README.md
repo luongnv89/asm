@@ -174,7 +174,7 @@ The advice assumes this demotion ladder:
 | Tier                      | `asm` mechanism                           | Residency                    |
 | ------------------------- | ----------------------------------------- | ---------------------------- |
 | Installed (auto-triggers) | provider directory / `asm activate`       | description resident, always |
-| Saved (adapt, no trigger) | `asm install --library` + `asm activate`  | none until activated         |
+| Saved (adapt, no trigger) | `asm install --library`, `asm deactivate` | none until `asm activate`    |
 | Disabled (kept on disk)   | `asm disable` (reverse with `asm enable`) | none                         |
 
 Which command a candidate gets depends on how it is installed. `asm deactivate`

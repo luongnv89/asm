@@ -351,10 +351,11 @@ export interface ResidencyAction {
 export interface ResidencyCandidate {
   name: string;
   dirName: string;
-  /** Resident tokens this skill costs in each place it is installed. */
+  /** Resident tokens the representative instance costs on every message. */
   residentTokens: number;
-  /** `residentTokens` times the number of resident instances. */
+  /** Resident tokens summed across every place this skill is installed. */
   totalResidentTokens: number;
+  /** Body tokens summed across every place this skill is installed. */
   bodyTokens: number;
   /** Ranking weight — currently `totalResidentTokens`. */
   score: number;

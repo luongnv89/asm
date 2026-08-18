@@ -178,6 +178,11 @@ export function computeResidencyAudit(
   for (const [dirName, group] of groups) {
     const first = group[0];
     const resident = residentTokens(first);
+    // Symlinked siblings share one SKILL.md, but two independently-installed
+    // skills can share a directory name and differ, so sum the group rather
+    // than multiplying the representative's cost.
+    const groupResident = group.reduce((sum, s) => sum + residentTokens(s), 0);
+    const groupBody = group.reduce((sum, s) => sum + bodyTokens(s), 0);
     const instances: ResidencyInstance[] = group.map((s) => ({
       provider: s.provider,
       providerLabel: s.providerLabel || s.provider,
@@ -206,21 +211,20 @@ export function computeResidencyAudit(
       reasons.push({
         id: "redundant-activation",
         detail:
-          `resident in ${instances.length} tools (${summarizeLocations(instances)}) · ` +
+          `resident in ${instances.length} places (${summarizeLocations(instances)}) · ` +
           `each pays ${formatTokenCount(resident)}`,
       });
     }
 
     if (reasons.length === 0) continue;
 
-    const totalResident = resident * instances.length;
     candidates.push({
       name: first.name,
       dirName,
       residentTokens: resident,
-      totalResidentTokens: totalResident,
-      bodyTokens: bodyTokens(first),
-      score: totalResident,
+      totalResidentTokens: groupResident,
+      bodyTokens: groupBody,
+      score: groupResident,
       instances,
       reasons,
       action: chooseDemotionAction(dirName, instances),
