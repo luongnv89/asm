@@ -51,6 +51,9 @@ import {
   isLocalPath,
   isExistingLocalDir,
   sanitizeName,
+  assertNoParentSegments,
+  assertPathInsideRoot,
+  hasParentPathSegment,
   checkGitAvailable,
   cloneToTemp,
   validateSkill,
@@ -204,12 +207,7 @@ import {
   updateLibrarySkills,
 } from "./library";
 import { setVerbose } from "./logger";
-import {
-  join as joinPath,
-  resolve,
-  relative as relativePath,
-  sep as pathSep,
-} from "path";
+import { join as joinPath, resolve, relative as relativePath } from "path";
 import { toPortableRelativePath } from "./utils/fs";
 import type {
   Scope,
@@ -1337,23 +1335,9 @@ async function fetchGetFromRemote(
   sourceInput: string,
   tier: GetTier,
 ): Promise<GetResolution> {
-  // The subpath can arrive from catalog data as well as from the command line,
-  // and it is joined onto a temp directory — refuse anything that climbs out of
-  // it rather than reading a file outside the clone.
-  //
-  // A `..` segment can hide in the ref as well as in the subpath: for
-  // `github:o/r#main/../../x` `parseSource` reports `subpath: null` and
-  // `ref: "main/../../x"`, and `resolveSubpath` later splits that back into
-  // `ref: "main"` + `subpath: "../../x"`. Checking only the parsed subpath
-  // would let that form through, so both are checked.
-  const hasParentSegment = (value: string | null | undefined) =>
-    !!value && value.split(/[/\\]/).includes("..");
-  const preParsed = parseSource(sourceInput);
-  if (hasParentSegment(preParsed.subpath) || hasParentSegment(preParsed.ref)) {
-    throw new Error(
-      `Invalid source: the subpath in "${sourceInput}" escapes the repository.`,
-    );
-  }
+  // Refuse an escaping subpath before announcing a fetch, so the failure costs
+  // no network round-trip and stdout/stderr stay clean.
+  assertNoParentSegments(parseSource(sourceInput), sourceInput);
 
   process.stderr.write(ansi.dim(`Fetching ${sourceInput}…\n`));
   const remote = await fetchRemoteSkillDir(
@@ -1362,16 +1346,6 @@ async function fetchGetFromRemote(
     false,
   );
   try {
-    // Belt and braces: whatever the parse produced, the directory this command
-    // reads from must sit inside the temp clone. Anything else is an escape.
-    const tempRoot = resolve(remote.tempDir);
-    const readRoot = resolve(remote.rootDir);
-    if (readRoot !== tempRoot && !readRoot.startsWith(tempRoot + pathSep)) {
-      throw new Error(
-        `Invalid source: the subpath in "${sourceInput}" escapes the repository.`,
-      );
-    }
-
     const parsed = parseSource(sourceInput);
     // Keep any explicit ref in the hint — dropping it would suggest commands
     // that silently resolve against the default branch instead.
@@ -2508,6 +2482,8 @@ async function cmdAuditSecuritySource(
       );
     }
 
+    assertNoParentSegments(source, target);
+
     await checkGitAvailable();
 
     // Resolve ref/subpath for subfolder URLs
@@ -2521,6 +2497,13 @@ async function cmdAuditSecuritySource(
     const auditDir = source.subpath
       ? joinPath(tempDir, source.subpath)
       : tempDir;
+    try {
+      assertPathInsideRoot(tempDir, auditDir, target);
+    } catch (guardErr) {
+      await cleanupTemp(tempDir);
+      tempDir = null;
+      throw guardErr;
+    }
 
     const { name } = await validateSkill(auditDir);
     const report = await auditSkillSecurity(
@@ -3443,6 +3426,14 @@ async function cmdInstall(args: ParsedArgs) {
     // Step 1: Parse source
     console.info(stepHeader("Parsing source"));
     let source = parseSource(sourceStr);
+    if (!source.isLocal) {
+      assertNoParentSegments(source, sourceStr);
+      if (hasParentPathSegment(args.flags.path)) {
+        throw new Error(
+          `Invalid source: the subpath in "${args.flags.path}" escapes the repository.`,
+        );
+      }
+    }
     const isLocal = !!source.isLocal;
 
     if (isLocal) {
@@ -3622,6 +3613,17 @@ async function cmdInstall(args: ParsedArgs) {
     if (effectivePath) {
       // Case 1: path specified — install specific subdirectory
       const skillDir = joinPath(scanBaseDir, effectivePath);
+      if (!isLocal) {
+        try {
+          assertPathInsideRoot(scanBaseDir, skillDir, sourceStr);
+        } catch (guardErr) {
+          if (tempDir) {
+            await cleanupTemp(tempDir);
+            tempDir = null;
+          }
+          throw guardErr;
+        }
+      }
       let foundSkill = false;
       try {
         await validateSkill(skillDir);
@@ -4988,6 +4990,7 @@ async function fetchRemoteSkillDir(
       `fetchRemoteSkillDir received a local path: "${input}". This is a bug — local paths should use the non-remote branch.`,
     );
   }
+  assertNoParentSegments(source, input);
   source = await resolveSubpath(source);
 
   const tempDir = await cloneToTemp(source, transport);
@@ -4995,6 +4998,13 @@ async function fetchRemoteSkillDir(
   // `source.subpath` may point at a subdirectory inside the repo. Use that as
   // the root when present so the eval pipeline treats the subdir as the skill.
   const rootDir = source.subpath ? joinPath(tempDir, source.subpath) : tempDir;
+
+  try {
+    assertPathInsideRoot(tempDir, rootDir, input);
+  } catch (guardErr) {
+    await cleanupTemp(tempDir);
+    throw guardErr;
+  }
 
   // Commit SHA — best-effort; we do not fail the whole eval if git can't resolve it.
   let commitSha: string | null = null;
@@ -6465,11 +6475,19 @@ async function cmdBundle(args: ParsedArgs) {
             let skillDir: string;
 
             if (!isLocal) {
+              assertNoParentSegments(source, skill.installUrl);
               tempDir = await cloneToTemp(source, args.flags.transport);
               rootDir = tempDir;
               skillDir = source.subpath
                 ? joinPath(tempDir, source.subpath)
                 : tempDir;
+              try {
+                assertPathInsideRoot(tempDir, skillDir, skill.installUrl);
+              } catch (guardErr) {
+                await cleanupTemp(tempDir);
+                tempDir = null;
+                throw guardErr;
+              }
             } else {
               rootDir = source.localPath!;
               skillDir = source.localPath!;

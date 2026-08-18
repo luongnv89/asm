@@ -6,6 +6,7 @@ import {
   cloneToTemp,
   cleanupTemp,
   checkGitAvailable,
+  assertNoParentSegments,
 } from "./installer";
 import { getIndexDir } from "./config";
 import { loadAllIndices } from "./skill-index";
@@ -67,6 +68,12 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
       error:
         "Local paths are not supported for indexing. Use a GitHub source instead.",
     };
+  }
+
+  try {
+    assertNoParentSegments(source, sourceInput);
+  } catch (err: any) {
+    return { success: false, repoIndex: null, error: err.message };
   }
 
   debug(`ingester: cloning ${source.owner}/${source.repo}`);

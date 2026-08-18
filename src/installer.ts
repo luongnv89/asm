@@ -13,7 +13,7 @@ import {
   mkdir,
 } from "fs/promises";
 import { existsSync } from "fs";
-import { join, resolve, relative, basename, dirname } from "path";
+import { join, resolve, relative, basename, dirname, sep } from "path";
 import { homedir } from "os";
 import { tmpdir } from "os";
 import {
@@ -207,6 +207,53 @@ export function parseSource(input: string): ParsedSource {
     `install: parsed source -> owner=${owner} repo=${repo} ref=${ref} subpath=${subpath}`,
   );
   return result;
+}
+
+/**
+ * Reject a source whose subpath would climb out of the clone, before any
+ * network access.
+ *
+ * A `..` segment can hide in the ref as well as in the subpath: for
+ * `github:o/r#main/../../x` `parseSource` reports `subpath: null` and
+ * `ref: "main/../../x"`, and `resolveSubpath` later splits that back into
+ * `ref: "main"` + `subpath: "../../x"`, which is then joined onto the temp
+ * clone. Checking only the parsed subpath would let that form through, so both
+ * are checked. No legitimate git ref contains `..` (`git check-ref-format`
+ * forbids it).
+ */
+export function hasParentPathSegment(
+  value: string | null | undefined,
+): boolean {
+  return !!value && value.split(/[/\\]/).includes("..");
+}
+
+export function assertNoParentSegments(
+  source: { subpath: string | null; ref: string | null },
+  input: string,
+): void {
+  if (
+    hasParentPathSegment(source.subpath) ||
+    hasParentPathSegment(source.ref)
+  ) {
+    throw new Error(
+      `Invalid source: the subpath in "${input}" escapes the repository.`,
+    );
+  }
+}
+
+/** Post-clone containment: resolved candidate must sit inside root (+ sep). */
+export function assertPathInsideRoot(
+  root: string,
+  candidate: string,
+  input: string,
+): void {
+  const cloneRoot = resolve(root);
+  const readRoot = resolve(candidate);
+  if (readRoot !== cloneRoot && !readRoot.startsWith(cloneRoot + sep)) {
+    throw new Error(
+      `Invalid source: the subpath in "${input}" escapes the repository.`,
+    );
+  }
 }
 
 /**
