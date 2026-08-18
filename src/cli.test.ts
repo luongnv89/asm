@@ -5941,6 +5941,10 @@ One line of body text.
 
     await runGet(skillDir);
     await runGet(skillDir, "--json");
+    // Walk the whole ladder — installed, library, index — and fall off the end.
+    // The name is deliberately not a valid bare/scoped registry name, so the
+    // registry rung is never reached and no network call happens.
+    await runGet("NotARealSkill_422");
 
     // Provider directories for the most common agents.
     for (const dir of [

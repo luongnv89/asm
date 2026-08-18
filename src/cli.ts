@@ -1588,10 +1588,10 @@ async function cmdGet(args: ParsedArgs) {
         );
       }
     }
-    if (cleanup) await cleanup();
-    cleanup = null;
-    restoreConsole();
-    process.exit(1);
+    // `process.exitCode` rather than `process.exit()`: under `--machine` the
+    // error envelope has just been written to stdout, and an immediate exit can
+    // truncate a pipe before it flushes. The `finally` below still cleans up.
+    process.exitCode = 1;
   } finally {
     if (cleanup) await cleanup();
     restoreConsole();
