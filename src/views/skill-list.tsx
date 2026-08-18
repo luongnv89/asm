@@ -3,6 +3,7 @@ import { Box, Text } from "ink";
 import { theme } from "../utils/colors";
 import type { SkillInfo } from "../utils/types";
 import { formatTokenCount } from "../utils/token-count";
+import { formatInvocability } from "../utils/frontmatter";
 
 function compactTokens(tokenCount: number | undefined): string {
   if (typeof tokenCount !== "number") return "—";
@@ -11,8 +12,8 @@ function compactTokens(tokenCount: number | undefined): string {
 
 function calcDescWidth(termWidth: number): number {
   // 2(border) + 2(padding) + 4(#) + 24(name) + 8(ver) + 13(creator) + 7(effort)
-  // + 8(tokens) + 12(provider) + 8(scope) + 6(type) + 9(spaces) = 103
-  const fixed = 103;
+  // + 7(invoke) + 8(tokens) + 12(provider) + 8(scope) + 6(type) + 10(spaces) = 111
+  const fixed = 111;
   return Math.max(0, termWidth - fixed);
 }
 
@@ -35,6 +36,7 @@ function formatSkillRow(
   const creator = creatorRaw.length > 12 ? creatorRaw.slice(0, 12) : creatorRaw;
   const effortRaw = skill.effort || "—";
   const effort = effortRaw.length > 6 ? effortRaw.slice(0, 6) : effortRaw;
+  const invoke = formatInvocability(skill.modelInvocable, skill.userInvocable);
   const tokensRaw = compactTokens(skill.tokenCount);
   const tokens = tokensRaw.length > 7 ? tokensRaw.slice(0, 7) : tokensRaw;
   const prov =
@@ -45,7 +47,7 @@ function formatSkillRow(
   const type = skill.isSymlink ? "→link" : " dir ";
   const desc =
     descWidth > 0 ? " " + (skill.description || "").slice(0, descWidth) : "";
-  return `${idx} ${name.padEnd(24)} ${ver.padEnd(8)} ${creator.padEnd(13)} ${effort.padEnd(7)} ${tokens.padEnd(8)} ${prov.padEnd(12)} ${scope.padEnd(8)} ${type.padEnd(6)}${desc}`;
+  return `${idx} ${name.padEnd(24)} ${ver.padEnd(8)} ${creator.padEnd(13)} ${effort.padEnd(7)} ${invoke.padEnd(6)} ${tokens.padEnd(8)} ${prov.padEnd(12)} ${scope.padEnd(8)} ${type.padEnd(6)}${desc}`;
 }
 
 export interface SkillListProps {
@@ -63,7 +65,7 @@ export function SkillListView({
 }: SkillListProps) {
   const descWidth = calcDescWidth(termWidth);
   const descHeader = descWidth > 0 ? " Description" : "";
-  const header = `${"#".padStart(3)} ${"Name".padEnd(26)} ${"Ver".padEnd(8)} ${"Creator".padEnd(13)} ${"Effort".padEnd(7)} ${"Tokens".padEnd(8)} ${"Tool".padEnd(12)} ${"Scope".padEnd(8)} ${"Type".padEnd(6)}${descHeader}`;
+  const header = `${"#".padStart(3)} ${"Name".padEnd(26)} ${"Ver".padEnd(8)} ${"Creator".padEnd(13)} ${"Effort".padEnd(7)} ${"Invoke".padEnd(6)} ${"Tokens".padEnd(8)} ${"Tool".padEnd(12)} ${"Scope".padEnd(8)} ${"Type".padEnd(6)}${descHeader}`;
 
   // Compute scroll window so the cursor stays visible
   const total = skills.length;

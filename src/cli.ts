@@ -7,7 +7,13 @@ import {
   resolveProviderPath,
 } from "./config";
 import { scanAllSkills, searchSkills, sortSkills } from "./scanner";
-import { parseFrontmatter } from "./utils/frontmatter";
+import {
+  parseFrontmatter,
+  resolveModelInvocable,
+  resolveUserInvocable,
+  matchesInvocabilityFilters,
+  formatInvocability,
+} from "./utils/frontmatter";
 import {
   loadSkillState,
   saveSkillState,
@@ -296,6 +302,8 @@ interface ParsedArgs {
     available: boolean;
     has: string[];
     missing: string[];
+    modelInvocable: boolean;
+    userInvocable: boolean;
     dryRun: boolean;
     /** `asm import --diff` — show unified diffs for conflicts. */
     diff: boolean;
@@ -379,6 +387,8 @@ export function parseArgs(argv: string[]): ParsedArgs {
       available: false,
       has: [],
       missing: [],
+      modelInvocable: false,
+      userInvocable: false,
       dryRun: false,
       diff: false,
       machine: false,
@@ -541,6 +551,10 @@ export function parseArgs(argv: string[]): ParsedArgs {
     } else if (arg === "--missing") {
       i++;
       if (args[i]) result.flags.missing.push(args[i]);
+    } else if (arg === "--model-invocable") {
+      result.flags.modelInvocable = true;
+    } else if (arg === "--user-invocable") {
+      result.flags.userInvocable = true;
     } else if (arg === "--add") {
       i++;
       result.flags.add = args[i] || null;
@@ -664,6 +678,8 @@ ${ansi.bold("Options:")}
   --summary            Print only the summary (counts by tool/scope/effort)
   --group-by <axis>    Group rows under headers (axis: tool | scope | effort)
   --limit <N>          Limit rendered rows (0 = no limit)
+  --model-invocable    Only skills the model can invoke
+  --user-invocable     Only skills the user can invoke (slash command)
   --json               Output as JSON array
   --machine            Output in stable machine-readable v1 envelope format
   --no-color           Disable ANSI colors
@@ -697,6 +713,8 @@ ${ansi.bold("Options:")}
   -p, --tool <p>       Filter by tool (claude, codex, openclaw, agents)
   --installed          Show only installed skills
   --available          Show only available (not installed) skills
+  --model-invocable    Only skills the model can invoke
+  --user-invocable     Only skills the user can invoke (slash command)
   --flat               Show one row per tool instance (ungrouped)
   --json               Output as JSON array
   --machine            Output in stable machine-readable v1 envelope format
@@ -1003,6 +1021,14 @@ async function cmdList(args: ParsedArgs) {
   if (args.flags.provider && args.command === "list") {
     allSkills = allSkills.filter((s) => s.provider === args.flags.provider);
   }
+  if (args.flags.modelInvocable || args.flags.userInvocable) {
+    allSkills = allSkills.filter((s) =>
+      matchesInvocabilityFilters(s, {
+        modelInvocable: args.flags.modelInvocable,
+        userInvocable: args.flags.userInvocable,
+      }),
+    );
+  }
 
   await enrichWithHealth(allSkills);
   const sorted = sortSkills(allSkills, args.flags.sort);
@@ -1100,6 +1126,14 @@ async function cmdSearch(args: ParsedArgs) {
     if (args.flags.provider) {
       allSkills = allSkills.filter((s) => s.provider === args.flags.provider);
     }
+    if (args.flags.modelInvocable || args.flags.userInvocable) {
+      allSkills = allSkills.filter((s) =>
+        matchesInvocabilityFilters(s, {
+          modelInvocable: args.flags.modelInvocable,
+          userInvocable: args.flags.userInvocable,
+        }),
+      );
+    }
     const filtered = searchSkills(allSkills, query);
     installedResults = sortSkills(filtered, args.flags.sort);
   }
@@ -1107,7 +1141,16 @@ async function cmdSearch(args: ParsedArgs) {
   // --- Available (index) skills ---
   let indexResults: Awaited<ReturnType<typeof searchIndexSkills>> = [];
   if (showAvailable) {
-    indexResults = await searchIndexSkills(query);
+    indexResults = await searchIndexSkills(
+      query,
+      20,
+      args.flags.modelInvocable || args.flags.userInvocable
+        ? {
+            modelInvocable: args.flags.modelInvocable || undefined,
+            userInvocable: args.flags.userInvocable || undefined,
+          }
+        : undefined,
+    );
     // Deduplicate: remove index results that match an installed skill by name
     if (installedResults.length > 0) {
       const installedNames = new Set(
@@ -1193,6 +1236,10 @@ async function cmdSearch(args: ParsedArgs) {
         verified: r.skill.verified,
         repoLabel: `${r.repo.owner}/${r.repo.repo}`,
         installUrl: r.skill.installUrl,
+        invocability: formatInvocability(
+          r.skill.modelInvocable,
+          r.skill.userInvocable,
+        ),
       })),
       query,
     );
@@ -1945,6 +1992,8 @@ async function reconstructDisabledSkills(
           license: (fm.license || "").trim(),
           compatibility: (fm.compatibility || "").trim(),
           allowedTools: [],
+          modelInvocable: resolveModelInvocable(fm),
+          userInvocable: resolveUserInvocable(fm),
           dirName,
           path: skillDir,
           originalPath: skillDir,
@@ -6006,6 +6055,8 @@ ${ansi.bold("Options:")}
   --json           Output as JSON
   --has <field>    Only show skills that have <field> (license, creator, version)
   --missing <field> Only show skills missing <field> (license, creator, version)
+  --model-invocable Only skills the model can invoke
+  --user-invocable  Only skills the user can invoke
   -y, --yes        Skip confirmation prompts
   --no-color       Disable ANSI colors
   -V, --verbose    Show debug output
@@ -6078,7 +6129,9 @@ async function cmdIndex(args: ParsedArgs) {
       if (
         !query &&
         args.flags.has.length === 0 &&
-        args.flags.missing.length === 0
+        args.flags.missing.length === 0 &&
+        !args.flags.modelInvocable &&
+        !args.flags.userInvocable
       ) {
         error("Missing required argument: <query>");
         console.error(`Run "asm index --help" for usage.`);
@@ -6092,8 +6145,14 @@ async function cmdIndex(args: ParsedArgs) {
       if (args.flags.missing.length > 0) {
         filters.missing = args.flags.missing;
       }
+      if (args.flags.modelInvocable) filters.modelInvocable = true;
+      if (args.flags.userInvocable) filters.userInvocable = true;
 
-      const hasFilters = filters.has || filters.missing;
+      const hasFilters =
+        filters.has ||
+        filters.missing ||
+        filters.modelInvocable ||
+        filters.userInvocable;
       const results = hasFilters
         ? await searchIndexSkills(query || "", 20, filters)
         : await searchIndexSkills(query);

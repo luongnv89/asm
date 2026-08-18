@@ -597,6 +597,8 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 --json                 JSON output
 -s, --scope <scope>    global, project, or both
 --sort <field>         name, version, or location
+--model-invocable      Only skills the model can invoke
+--user-invocable       Only skills the user can invoke
 -y, --yes              Skip confirmations
 --no-color             Disable ANSI colors
 ```
@@ -614,6 +616,12 @@ asm list --summary
 ```bash
 asm list --compact --group-by tool --limit 20
 ```
+
+```bash
+asm list --model-invocable --user-invocable
+```
+
+Listings and `asm inspect` show invocability as `model`, `user`, or `both` (never collapsed). `--model-invocable` and `--user-invocable` are independent; both flags keep skills that match both (typically `both`).
 
 ```bash
 asm search "code review" --json

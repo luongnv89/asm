@@ -1,6 +1,7 @@
 import type { SkillInfo } from "./utils/types";
 import { countFiles } from "./scanner";
 import { formatTokenCount } from "./utils/token-count";
+import { formatInvocability } from "./utils/frontmatter";
 
 // ─── Color helpers ──────────────────────────────────────────────────────────
 
@@ -107,6 +108,7 @@ export function formatSkillTable(skills: SkillInfo[]): string {
     "Version",
     "Creator",
     "Effort",
+    "Invoke",
     "Tool",
     "Scope",
     "Type",
@@ -120,6 +122,7 @@ export function formatSkillTable(skills: SkillInfo[]): string {
     s.version,
     s.creator || "\u2014",
     s.effort || "\u2014",
+    formatInvocability(s.modelInvocable, s.userInvocable),
     s.providerLabel,
     s.scope,
     s.isSymlink ? "symlink" : "directory",
@@ -155,6 +158,7 @@ interface GroupedSkill {
   version: string;
   creator: string;
   effort: string;
+  invoke: string;
   tokens: string;
   providers: Array<{ provider: string; label: string }>;
   scope: "global" | "project" | "mixed";
@@ -190,6 +194,7 @@ function groupSkills(skills: SkillInfo[]): GroupedSkill[] {
       version: ref.version,
       creator: ref.creator || "",
       effort: ref.effort || "",
+      invoke: formatInvocability(ref.modelInvocable, ref.userInvocable),
       tokens:
         typeof ref.tokenCount === "number"
           ? formatTokenCount(ref.tokenCount)
@@ -365,7 +370,8 @@ export function formatCompactTable(skills: SkillInfo[]): string {
     const provPadding = providerW - providerPlain[i].length;
     const prov = providerStrs[i] + " ".repeat(Math.max(0, provPadding));
     const scope = ansi.dim(pad(g.scope, scopeW));
-    const row = `${name}  ${version}  ${prov}  ${scope}`;
+    const invoke = pad(g.invoke, 5);
+    const row = `${name}  ${version}  ${invoke}  ${prov}  ${scope}`;
     lines.push(g.disabled ? ansi.dim(row) : row);
   }
 
@@ -488,6 +494,7 @@ export function formatGroupedTable(skills: SkillInfo[]): string {
     6,
     ...grouped.map((g) => (g.effort || "\u2014").length),
   );
+  const invokeW = Math.max(6, ...grouped.map((g) => g.invoke.length));
   // Tokens column — render `~N tokens` directly (e.g. "~1.2k tokens").
   // Width follows the longest cell; header label fallback `Tokens` is 6.
   const hasAnyTokens = grouped.some((g) => g.tokens.length > 0);
@@ -510,11 +517,11 @@ export function formatGroupedTable(skills: SkillInfo[]): string {
 
   // Header
   const tokensHeader = hasAnyTokens ? `  ${pad("Tokens", tokensW)}` : "";
-  const header = `${pad("Name", nameW)}  ${pad("Version", versionW)}  ${pad("Creator", creatorW)}  ${pad("Effort", effortW)}${tokensHeader}  ${pad("Tools", providerW)}  ${pad("Scope", scopeW)}  ${pad("Type", typeW)}`;
+  const header = `${pad("Name", nameW)}  ${pad("Version", versionW)}  ${pad("Creator", creatorW)}  ${pad("Effort", effortW)}  ${pad("Invoke", invokeW)}${tokensHeader}  ${pad("Tools", providerW)}  ${pad("Scope", scopeW)}  ${pad("Type", typeW)}`;
   lines.push(useColor() ? ansi.bold(header) : header);
   const tokensSep = hasAnyTokens ? `  ${"-".repeat(tokensW)}` : "";
   lines.push(
-    `${"-".repeat(nameW)}  ${"-".repeat(versionW)}  ${"-".repeat(creatorW)}  ${"-".repeat(effortW)}${tokensSep}  ${"-".repeat(providerW)}  ${"-".repeat(scopeW)}  ${"-".repeat(typeW)}`,
+    `${"-".repeat(nameW)}  ${"-".repeat(versionW)}  ${"-".repeat(creatorW)}  ${"-".repeat(effortW)}  ${"-".repeat(invokeW)}${tokensSep}  ${"-".repeat(providerW)}  ${"-".repeat(scopeW)}  ${"-".repeat(typeW)}`,
   );
 
   // Data rows
@@ -543,7 +550,8 @@ export function formatGroupedTable(skills: SkillInfo[]): string {
         ? ` ${ansi.yellow(`(${g.warningCount} warning${g.warningCount > 1 ? "s" : ""})`)}`
         : "";
 
-    const row = `${name}  ${version}  ${creator}  ${effort}${tokensCell}  ${prov}  ${scope}  ${type}${warn}`;
+    const invoke = pad(g.invoke, invokeW);
+    const row = `${name}  ${version}  ${creator}  ${effort}  ${invoke}${tokensCell}  ${prov}  ${scope}  ${type}${warn}`;
     lines.push(g.disabled ? ansi.dim(row) : row);
   }
 
@@ -617,10 +625,11 @@ export function formatSearchResults(
   const pad = (s: string, w: number) => s.padEnd(w);
 
   // Header
-  const header = `${pad("Name", nameW)}  ${pad("Version", versionW)}  ${pad("Creator", creatorW)}  ${pad("Effort", effortW)}  ${pad("Tools", providerW)}  ${pad("Scope", scopeW)}  ${pad("Type", typeW)}`;
+  const invokeW = 6;
+  const header = `${pad("Name", nameW)}  ${pad("Version", versionW)}  ${pad("Creator", creatorW)}  ${pad("Effort", effortW)}  ${pad("Invoke", invokeW)}  ${pad("Tools", providerW)}  ${pad("Scope", scopeW)}  ${pad("Type", typeW)}`;
   lines.push(useColor() ? ansi.bold(header) : header);
   lines.push(
-    `${"-".repeat(nameW)}  ${"-".repeat(versionW)}  ${"-".repeat(creatorW)}  ${"-".repeat(effortW)}  ${"-".repeat(providerW)}  ${"-".repeat(scopeW)}  ${"-".repeat(typeW)}`,
+    `${"-".repeat(nameW)}  ${"-".repeat(versionW)}  ${"-".repeat(creatorW)}  ${"-".repeat(effortW)}  ${"-".repeat(invokeW)}  ${"-".repeat(providerW)}  ${"-".repeat(scopeW)}  ${"-".repeat(typeW)}`,
   );
 
   // Data rows with highlighting
@@ -642,8 +651,9 @@ export function formatSearchResults(
     const scope = pad(g.scope, scopeW);
     const type = pad(g.type, typeW);
 
+    const invoke = pad(g.invoke, invokeW);
     lines.push(
-      `${name}  ${version}  ${creator}  ${effort}  ${prov}  ${scope}  ${type}`,
+      `${name}  ${version}  ${creator}  ${effort}  ${invoke}  ${prov}  ${scope}  ${type}`,
     );
   }
 
@@ -659,6 +669,7 @@ export interface AvailableSkillResult {
   verified?: boolean;
   repoLabel: string;
   installUrl: string;
+  invocability?: string;
 }
 
 export function formatAvailableSearchResults(
@@ -685,8 +696,11 @@ export function formatAvailableSearchResults(
     );
     // Skill name + version + verified badge + repo
     const verifiedTag = result.verified ? ansi.blue(" [verified]") : "";
+    const invokeTag = result.invocability
+      ? ansi.dim(` [${result.invocability}]`)
+      : "";
     lines.push(
-      `  ${ansi.cyan(result.name)} ${ansi.dim(`v${result.version}`)}${verifiedTag} ${ansi.dim(`[${result.repoLabel}]`)}`,
+      `  ${ansi.cyan(result.name)} ${ansi.dim(`v${result.version}`)}${verifiedTag}${invokeTag} ${ansi.dim(`[${result.repoLabel}]`)}`,
     );
     // Description
     for (const dl of wordWrap(result.description, 76)) {
@@ -750,6 +764,12 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
   if (skill.effort) {
     lines.push(label("Effort", colorEffort(skill.effort)));
   }
+  lines.push(
+    label(
+      "Invocable",
+      formatInvocability(skill.modelInvocable, skill.userInvocable),
+    ),
+  );
   lines.push(label("Tool", skill.providerLabel));
   lines.push(label("Scope", skill.scope));
   lines.push(label("Location", skill.location));

@@ -5,6 +5,7 @@ import type { SkillInfo } from "../utils/types";
 import { countFiles } from "../scanner";
 import { wordWrap, HIGH_RISK_TOOLS, MEDIUM_RISK_TOOLS } from "../formatter";
 import { formatTokenCount } from "../utils/token-count";
+import { formatInvocability } from "../utils/frontmatter";
 
 const EFFORT_COLORS: Record<string, string> = {
   low: theme.green,
@@ -117,6 +118,10 @@ export function SkillDetailView({ skill }: SkillDetailProps) {
           valueColor={EFFORT_COLORS[skill.effort.toLowerCase()] || theme.fg}
         />
       )}
+      <Row
+        label="Invocable"
+        value={formatInvocability(skill.modelInvocable, skill.userInvocable)}
+      />
       <Row
         label="Tool"
         value={skill.providerLabel}
