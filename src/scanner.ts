@@ -12,6 +12,8 @@ import {
   parseFrontmatter,
   resolveVersion,
   resolveAllowedTools,
+  resolveModelInvocable,
+  resolveUserInvocable,
 } from "./utils/frontmatter";
 import { estimateTokenCount } from "./utils/token-count";
 import { resolveProviderPath } from "./config";
@@ -324,6 +326,8 @@ async function scanDirectory(
         license: (fm.license || "").trim(),
         compatibility: (fm.compatibility || "").trim(),
         allowedTools: resolveAllowedTools(fm),
+        modelInvocable: resolveModelInvocable(fm),
+        userInvocable: resolveUserInvocable(fm),
         effort: fm.effort || fm["metadata.effort"] || undefined,
         dirName: entry,
         path: resolvedPath,
@@ -464,6 +468,8 @@ export async function scanPluginMarketplaces(
         license: (fm.license || "").trim(),
         compatibility: (fm.compatibility || "").trim(),
         allowedTools: resolveAllowedTools(fm),
+        modelInvocable: resolveModelInvocable(fm),
+        userInvocable: resolveUserInvocable(fm),
         effort: fm.effort || fm["metadata.effort"] || undefined,
         dirName: entry,
         path: resolvedPath,

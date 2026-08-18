@@ -2,6 +2,7 @@ import { readdir, readFile } from "fs/promises";
 import { join } from "path";
 import { getIndexDir, getBundledIndexDir } from "./config";
 import type { RepoIndex, IndexedSkill } from "./utils/types";
+import { matchesInvocabilityFilters } from "./utils/frontmatter";
 
 export interface SearchResult {
   skill: IndexedSkill;
@@ -110,6 +111,8 @@ export async function loadAllIndices(): Promise<RepoIndex[]> {
 export interface SearchFilters {
   has?: string[];
   missing?: string[];
+  modelInvocable?: boolean;
+  userInvocable?: boolean;
 }
 
 const FILTERABLE_FIELDS = ["license", "creator", "version"] as const;
@@ -127,6 +130,7 @@ function getFilterableValue(
 }
 
 function matchesFilters(skill: IndexedSkill, filters: SearchFilters): boolean {
+  if (!matchesInvocabilityFilters(skill, filters)) return false;
   if (filters.has) {
     for (const field of filters.has) {
       if (!isFilterableField(field)) continue;

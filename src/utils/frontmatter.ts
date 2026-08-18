@@ -123,3 +123,53 @@ export function resolveAllowedTools(fm: Record<string, string>): string[] {
     .map((t) => t.trim())
     .filter(Boolean);
 }
+
+function normalizeFmBool(value: string | undefined): string {
+  return (value || "").trim().toLowerCase();
+}
+
+function isTruthyFm(value: string | undefined): boolean {
+  const v = normalizeFmBool(value);
+  return v === "true" || v === "yes" || v === "1";
+}
+
+function isFalsyFm(value: string | undefined): boolean {
+  const v = normalizeFmBool(value);
+  return v === "false" || v === "no" || v === "0";
+}
+
+/** Agent Skills: `disable-model-invocation: true` turns off model invocation. Default on. */
+export function resolveModelInvocable(fm: Record<string, string>): boolean {
+  return !isTruthyFm(fm["disable-model-invocation"]);
+}
+
+/** Agent Skills: `user-invocable: false` turns off slash/user invocation. Default on. */
+export function resolveUserInvocable(fm: Record<string, string>): boolean {
+  if (!("user-invocable" in fm)) return true;
+  return !isFalsyFm(fm["user-invocable"]);
+}
+
+export type InvocabilityLabel = "model" | "user" | "both" | "none";
+
+export function formatInvocability(
+  modelInvocable?: boolean,
+  userInvocable?: boolean,
+): InvocabilityLabel {
+  const model = modelInvocable !== false;
+  const user = userInvocable !== false;
+  if (model && user) return "both";
+  if (model) return "model";
+  if (user) return "user";
+  return "none";
+}
+
+export function matchesInvocabilityFilters(
+  skill: { modelInvocable?: boolean; userInvocable?: boolean },
+  filters: { modelInvocable?: boolean; userInvocable?: boolean },
+): boolean {
+  const model = skill.modelInvocable !== false;
+  const user = skill.userInvocable !== false;
+  if (filters.modelInvocable && !model) return false;
+  if (filters.userInvocable && !user) return false;
+  return true;
+}

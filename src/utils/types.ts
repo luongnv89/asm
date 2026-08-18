@@ -13,6 +13,10 @@ export interface SkillInfo {
   license: string;
   compatibility: string;
   allowedTools: string[];
+  /** Agent Skills model invocation. Default true when omitted. */
+  modelInvocable?: boolean;
+  /** Agent Skills user/slash invocation. Default true when omitted. */
+  userInvocable?: boolean;
   dirName: string;
   path: string;
   originalPath: string;
@@ -531,6 +535,8 @@ export interface DiscoveredSkill {
   creator: string;
   compatibility: string;
   allowedTools: string[];
+  modelInvocable?: boolean;
+  userInvocable?: boolean;
   /**
    * Estimated token count for the SKILL.md content. Populated by
    * `discoverSkills` so downstream consumers (ingester) don't have to
@@ -564,6 +570,8 @@ export interface IndexedSkill {
   creator: string;
   compatibility: string;
   allowedTools: string[];
+  modelInvocable?: boolean;
+  userInvocable?: boolean;
   installUrl: string;
   relPath: string;
   verified?: boolean;

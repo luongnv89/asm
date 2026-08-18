@@ -20,6 +20,8 @@ import {
   parseFrontmatter,
   resolveVersion,
   resolveAllowedTools,
+  resolveModelInvocable,
+  resolveUserInvocable,
 } from "./utils/frontmatter";
 import { estimateTokenCount } from "./utils/token-count";
 import { resolveProviderPath } from "./config";
@@ -522,6 +524,8 @@ export async function discoverSkills(
       creator: (fm["metadata.creator"] || "").trim(),
       compatibility: (fm.compatibility || "").trim(),
       allowedTools: resolveAllowedTools(fm),
+      modelInvocable: resolveModelInvocable(fm),
+      userInvocable: resolveUserInvocable(fm),
       tokenCount: estimateTokenCount(content),
     });
   } catch {
@@ -564,6 +568,8 @@ export async function discoverSkills(
           creator: (fm["metadata.creator"] || "").trim(),
           compatibility: (fm.compatibility || "").trim(),
           allowedTools: resolveAllowedTools(fm),
+          modelInvocable: resolveModelInvocable(fm),
+          userInvocable: resolveUserInvocable(fm),
           tokenCount: estimateTokenCount(content),
         });
         // Don't recurse into directories that have SKILL.md
