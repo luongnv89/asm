@@ -398,9 +398,9 @@ describe("invocability frontmatter (#417)", () => {
   });
 
   it("treats disable-model-invocation true as model off", () => {
-    expect(
-      resolveModelInvocable({ "disable-model-invocation": "true" }),
-    ).toBe(false);
+    expect(resolveModelInvocable({ "disable-model-invocation": "true" })).toBe(
+      false,
+    );
     expect(formatInvocability(false, true)).toBe("user");
   });
 
@@ -421,12 +421,12 @@ describe("invocability frontmatter (#417)", () => {
     expect(
       matchesInvocabilityFilters(modelOnly, { modelInvocable: true }),
     ).toBe(true);
-    expect(
-      matchesInvocabilityFilters(userOnly, { modelInvocable: true }),
-    ).toBe(false);
-    expect(
-      matchesInvocabilityFilters(userOnly, { userInvocable: true }),
-    ).toBe(true);
+    expect(matchesInvocabilityFilters(userOnly, { modelInvocable: true })).toBe(
+      false,
+    );
+    expect(matchesInvocabilityFilters(userOnly, { userInvocable: true })).toBe(
+      true,
+    );
     expect(
       matchesInvocabilityFilters(modelOnly, {
         modelInvocable: true,
