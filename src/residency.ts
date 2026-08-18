@@ -19,6 +19,7 @@ import {
 } from "./utils/token-count";
 import type {
   ResidencyAction,
+  ResidencyActionReference,
   ResidencyCandidate,
   ResidencyInstance,
   ResidencyReason,
@@ -122,12 +123,21 @@ export function chooseDemotionAction(
   dirName: string,
   instances: ResidencyInstance[],
 ): ResidencyAction {
+  // Second demotion destination: the reference tier (issue #422). Demoting a
+  // skill does not mean losing it — `asm get` still delivers the body on
+  // demand, at zero residency, without reinstalling anything.
+  const reference: ResidencyActionReference = {
+    command: `asm get ${dirName}`,
+    hint: "read it on demand, zero residency",
+  };
+
   if (instances.length === 1 && instances[0].libraryLinked) {
     const only = instances[0];
     return {
       kind: "deactivate",
       command: `asm deactivate ${dirName} --provider ${only.provider} --scope ${only.scope}`,
       hint: "keep it in the library, activate when needed",
+      reference,
     };
   }
   return {
@@ -137,6 +147,7 @@ export function chooseDemotionAction(
       instances.length > 1
         ? `reversible with asm enable; disables it in all ${instances.length} places`
         : "reversible with asm enable",
+    reference,
   };
 }
 
@@ -301,6 +312,12 @@ export function formatResidencyReport(
         `      ${ansi.yellow("→")} ${ansi.bold(candidate.action.command)}` +
           ansi.dim(`  (${candidate.action.hint})`),
       );
+      if (candidate.action.reference) {
+        lines.push(
+          `      ${ansi.yellow("→")} ${ansi.bold(candidate.action.reference.command)}` +
+            ansi.dim(`  (${candidate.action.reference.hint})`),
+        );
+      }
       lines.push("");
     }
     const hidden = report.candidates.length - shown.length;

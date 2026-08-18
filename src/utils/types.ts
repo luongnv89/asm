@@ -346,6 +346,18 @@ export interface ResidencyAction {
   kind: "deactivate" | "disable";
   command: string;
   hint: string;
+  /**
+   * Second demotion destination: the reference tier. Present when the skill
+   * can be pulled in on demand with `asm get` instead of staying resident.
+   */
+  reference?: ResidencyActionReference;
+}
+
+/** Zero-residency alternative offered alongside a demotion command (issue #422). */
+export interface ResidencyActionReference {
+  /** `asm get <skill>` — read the body at the point of use, pay no residency. */
+  command: string;
+  hint: string;
 }
 
 export interface ResidencyCandidate {
@@ -726,3 +738,51 @@ export type ViewState =
   | "help"
   | "config"
   | "audit";
+
+// ─── Reference Tier Types (issue #422) ─────────────────────────────────────
+
+/** Which rung of the resolution ladder produced a `asm get` body. */
+export type GetTier =
+  | "installed"
+  | "library"
+  | "index"
+  | "registry"
+  | "remote"
+  | "local";
+
+/**
+ * Security verdict attached to a remotely fetched body. This is the same scan
+ * `asm install` runs before writing anything (`scanForWarnings`), reported
+ * rather than enforced — `asm get` only prints text, it installs nothing.
+ */
+export interface GetSecurityVerdict {
+  /** `high` | `medium` | `safe` — same mapping the install preview uses. */
+  risk: "high" | "medium" | "safe";
+  /** Number of raw warnings the scan produced. */
+  warnings: number;
+  /** Distinct warning categories, e.g. `Shell commands`, `External URLs`. */
+  categories: string[];
+}
+
+/**
+ * Result of resolving a skill for the zero-residency reference tier.
+ *
+ * Assembled field by field — never spread from a `SkillInfo`, whose
+ * `_skillMdContent` cache is deliberately non-enumerable.
+ */
+export interface GetResult {
+  name: string;
+  description: string;
+  /** Which rung of the ladder answered. */
+  tier: GetTier;
+  /** Provenance: an absolute path for local tiers, a `github:` ref for remote. */
+  source: string;
+  /** Resolved commit SHA when the body came from a clone; null otherwise. */
+  commit: string | null;
+  /** Estimated token cost of the body (issue #188 heuristic). */
+  tokenCount: number;
+  /** Present only for remotely fetched bodies. */
+  security: GetSecurityVerdict | null;
+  /** The exact SKILL.md text. */
+  content: string;
+}

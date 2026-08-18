@@ -56,6 +56,7 @@ import {
   validateSkill,
   discoverSkills,
   scanForWarnings,
+  classifyWarningRisk,
   executeInstall,
   executeInstallAllProviders,
   cleanupTemp,
@@ -187,7 +188,9 @@ import {
   getTotalSkillCount,
   getMissingMetadataFields,
   loadAllIndices,
+  resolveIndexedSkillByName,
 } from "./skill-index";
+import { estimateTokenCount, formatTokenCount } from "./utils/token-count";
 import type { SearchFilters } from "./skill-index";
 import { getVersionString } from "./utils/version";
 import { buildShadowingReport } from "./utils/path-shadowing";
@@ -213,6 +216,9 @@ import type {
   RepoStatsReport,
   AuthorStatsReport,
   IndexStatsReport,
+  GetResult,
+  GetSecurityVerdict,
+  GetTier,
 } from "./utils/types";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -336,6 +342,8 @@ interface ParsedArgs {
     tags: string | null;
     /** `asm bundle list --predefined` — show pre-defined bundles shipped with ASM (issue #206). */
     predefined: boolean;
+    /** `asm get --audit` — print the full security audit report for a fetched skill (issue #422). */
+    audit: boolean;
   };
 }
 
@@ -386,6 +394,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       author: null,
       tags: null,
       predefined: false,
+      audit: false,
     },
   };
 
@@ -546,6 +555,8 @@ export function parseArgs(argv: string[]): ParsedArgs {
       result.flags.tags = args[i] || null;
     } else if (arg === "--predefined") {
       result.flags.predefined = true;
+    } else if (arg === "--audit") {
+      result.flags.audit = true;
     } else if (arg.startsWith("-")) {
       error(`Unknown option: ${arg}`);
       console.error(`Run "asm --help" for usage.`);
@@ -588,6 +599,7 @@ ${ansi.bold("Commands:")}
   list                   List all discovered skills
   search <query>         Search skills by name/description/tool
   inspect <skill-name>   Show detailed info for a skill
+  get <skill>            Print a skill's SKILL.md body (installs nothing)
   uninstall <skill-name> Remove a skill (with confirmation)
   disable <target>       Disable skill(s) without uninstalling
   enable <target>        Re-enable disabled skill(s)
@@ -713,6 +725,44 @@ ${ansi.bold("Examples:")}
   asm inspect code-review           ${ansi.dim("Show details for code-review")}
   asm inspect code-review --json    ${ansi.dim("Output as JSON")}
   asm inspect code-review -s global ${ansi.dim("Global installations only")}`);
+}
+
+function printGetHelp() {
+  console.log(`${ansi.bold("Usage:")} asm get <skill> [options]
+
+Resolve a skill and write its SKILL.md body to stdout. Nothing is installed:
+no provider directory, no library entry, no residency in any system prompt.
+Use it to pull a skill in for a single task and pay nothing afterwards.
+
+<skill> is resolved in this order, and the rung that answered is reported:
+  1. installed        a skill already present in one of your agents
+  2. library          a library skill, including deactivated ones
+  3. index            an indexed catalog skill (resolved by exact name)
+  4. registry         the ASM registry, same route as \`asm install <name>\`
+An explicit \`github:owner/repo[#ref][:path]\` shorthand, a GitHub URL, or a
+local path skips the ladder and is fetched directly.
+
+Index, registry and remote sources are fetched into a temp clone, scanned with
+the same pre-install security scan \`asm install\` runs, and deleted. The body
+goes to stdout; provenance and the security verdict go to stderr.
+
+${ansi.bold("Options:")}
+  --json             Output {name, description, tier, source, commit,
+                     tokenCount, security, content} as a JSON object
+  --machine          Stable machine-readable v1 envelope
+  --audit            Also print the full security audit report (stderr)
+  -s, --scope <s>    Filter installed lookup: global, project, or both
+  --transport <t>    Clone transport for remote sources: auto, https, ssh
+  --no-cache         Bypass the registry cache when resolving a name
+  --no-color         Disable ANSI colors
+  -V, --verbose      Show debug output
+
+${ansi.bold("Examples:")}
+  asm get code-review                      ${ansi.dim("Print the body to stdout")}
+  asm get code-review > SKILL.md           ${ansi.dim("Save it without installing")}
+  asm get github:owner/repo:skills/review  ${ansi.dim("Fetch a remote skill")}
+  asm get owner/review --audit             ${ansi.dim("Show the full security audit")}
+  asm get code-review --json               ${ansi.dim("Structured output")}`);
 }
 
 function printUninstallHelp() {
@@ -1179,6 +1229,372 @@ async function cmdInspect(args: ParsedArgs) {
     console.log(formatJSON(matches.length === 1 ? matches[0] : matches));
   } else {
     console.log(await formatSkillInspect(matches));
+  }
+}
+
+// ─── Get: zero-residency reference tier (issue #422) ────────────────────────
+//
+// `asm get` is deliberately the install path minus the write: it resolves a
+// skill through the same ladder `asm install` uses, prints the SKILL.md body
+// to stdout, and touches no provider directory and no library. The body is
+// paid for once, at the point of use, instead of sitting resident in every
+// system prompt.
+
+/** Resolution outcome plus the cleanup hook for any temp clone it created. */
+interface GetResolution {
+  result: GetResult;
+  cleanup: (() => Promise<void>) | null;
+}
+
+/** A name that resolves to more than one skill — never guessed, always listed. */
+class AmbiguousGetError extends Error {
+  candidates: string[];
+  constructor(message: string, candidates: string[]) {
+    super(message);
+    this.name = "AmbiguousGetError";
+    this.candidates = candidates;
+  }
+}
+
+/** Human-readable risk label, matching the `asm install` preview wording. */
+function getRiskLabel(risk: "high" | "medium" | "safe"): string {
+  if (risk === "high") return ansi.red("[!] High Risk");
+  if (risk === "medium") return ansi.yellow("[~] Medium Risk");
+  return ansi.green("[ok] Safe");
+}
+
+/**
+ * Provenance block for the plain (non-JSON) path. Always stderr: stdout
+ * carries the body and nothing else, so `asm get x > SKILL.md` and
+ * `asm get x | agent` both stay clean.
+ */
+function writeGetProvenance(result: GetResult): void {
+  const lines: string[] = [
+    `  ${ansi.bold(result.name)}  ${ansi.dim(formatTokenCount(result.tokenCount))}`,
+    `  ${ansi.dim("source:")} ${result.source}${
+      result.commit ? ` @ ${result.commit.slice(0, 7)}` : ""
+    } ${ansi.dim(`(${result.tier})`)}`,
+  ];
+  if (result.security) {
+    const { risk, warnings, categories } = result.security;
+    const detail = warnings
+      ? ansi.dim(
+          ` (${warnings} warning${warnings === 1 ? "" : "s"}: ${categories.join(", ")})`,
+        )
+      : "";
+    lines.push(`  ${ansi.dim("security:")} ${getRiskLabel(risk)}${detail}`);
+  }
+  lines.push(
+    `  ${ansi.dim("residency:")} ${ansi.dim("none — nothing was installed")}`,
+  );
+  process.stderr.write(lines.join("\n") + "\n\n");
+}
+
+/**
+ * Validate a cloned directory as a single skill, turning the "this repo is a
+ * collection" case into an actionable list of subpaths instead of a bare
+ * "SKILL.md not found".
+ */
+async function validateSkillForGet(
+  rootDir: string,
+  hintBase: string,
+): Promise<{ name: string; description: string }> {
+  try {
+    const { name, description } = await validateSkill(rootDir);
+    return { name, description };
+  } catch (err) {
+    const nested = (await discoverSkills(rootDir)).filter((s) => s.relPath);
+    if (nested.length > 0) {
+      const shown = nested.slice(0, 5);
+      throw new Error(
+        `"${hintBase}" holds ${nested.length} skills, not one. Pick a skill:\n` +
+          shown.map((s) => `    asm get ${hintBase}:${s.relPath}`).join("\n"),
+      );
+    }
+    throw err;
+  }
+}
+
+/**
+ * Clone a remote source into a temp dir, read its body, and run the same
+ * pre-install security scan `asm install` runs. The verdict is *reported*, not
+ * enforced — `asm get` writes nothing, so there is no install to block; the
+ * user sees the risk before they feed the text to an agent.
+ */
+async function fetchGetFromRemote(
+  args: ParsedArgs,
+  sourceInput: string,
+  tier: GetTier,
+): Promise<GetResolution> {
+  process.stderr.write(ansi.dim(`Fetching ${sourceInput}…\n`));
+  const remote = await fetchRemoteSkillDir(
+    sourceInput,
+    args.flags.transport,
+    false,
+  );
+  try {
+    const parsed = parseSource(sourceInput);
+    const hintBase = `github:${parsed.owner}/${parsed.repo}`;
+    const { name, description } = await validateSkillForGet(
+      remote.rootDir,
+      hintBase,
+    );
+    const content = await fsReadFile(
+      joinPath(remote.rootDir, "SKILL.md"),
+      "utf-8",
+    );
+
+    const warnings = await scanForWarnings(remote.rootDir);
+    const security: GetSecurityVerdict = {
+      risk: classifyWarningRisk(warnings),
+      warnings: warnings.length,
+      categories: Array.from(new Set(warnings.map((w) => w.category))).sort(),
+    };
+
+    if (args.flags.audit) {
+      const report = await auditSkillSecurity(
+        remote.rootDir,
+        name,
+        parsed.owner,
+        parsed.repo,
+      );
+      process.stderr.write(formatSecurityReport(report) + "\n");
+    }
+
+    return {
+      result: {
+        name,
+        description,
+        tier,
+        source: remote.sourceRef,
+        commit: remote.commitSha,
+        tokenCount: estimateTokenCount(content),
+        security,
+        content,
+      },
+      cleanup: remote.cleanup,
+    };
+  } catch (err) {
+    await remote.cleanup();
+    throw err;
+  }
+}
+
+/** Build a `GetResult` from a SKILL.md that already sits on this machine. */
+function localGetResult(
+  content: string,
+  tier: GetTier,
+  source: string,
+  overrides: {
+    name?: string;
+    description?: string;
+    commit?: string | null;
+    tokenCount?: number;
+  } = {},
+): GetResult {
+  const fm = parseFrontmatter(content);
+  return {
+    name: overrides.name || fm.name || source.split(/[/\\]/).pop() || source,
+    description:
+      overrides.description ??
+      (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
+    tier,
+    source,
+    commit: overrides.commit ?? null,
+    tokenCount: overrides.tokenCount ?? estimateTokenCount(content),
+    security: null,
+    content,
+  };
+}
+
+/**
+ * The resolution ladder: explicit sources short-circuit, bare names walk
+ * installed → library → index → registry. Cheapest and most local wins, and
+ * whichever rung answered is reported as the `tier` so provenance is visible.
+ */
+async function resolveGetTarget(
+  args: ParsedArgs,
+  target: string,
+): Promise<GetResolution> {
+  // Explicit GitHub shorthand / URL — straight to the remote rung.
+  if (looksLikeGithubInput(target)) {
+    return fetchGetFromRemote(args, target, "remote");
+  }
+
+  // Explicit local path (or a path-shaped input that exists on disk).
+  if (isLocalPath(target) || (await isExistingLocalDir(target))) {
+    const localPath = parseSource(
+      isLocalPath(target) ? target : `./${target}`,
+    ).localPath!;
+    let content: string;
+    try {
+      content = await fsReadFile(joinPath(localPath, "SKILL.md"), "utf-8");
+    } catch {
+      throw new Error(`No SKILL.md found in "${localPath}".`);
+    }
+    return {
+      result: localGetResult(content, "local", localPath),
+      cleanup: null,
+    };
+  }
+
+  // Rung 1 — installed skills. The scanner already retained the body, so a
+  // hit here costs no IO at all.
+  const config = await loadConfig();
+  const installed = await scanAllSkills(config, args.flags.scope);
+  const match =
+    installed.find((s) => s.dirName === target) ??
+    installed.find((s) => s.name === target);
+  if (match) {
+    const content =
+      match._skillMdContent !== undefined
+        ? match._skillMdContent
+        : await fsReadFile(joinPath(match.path, "SKILL.md"), "utf-8");
+    return {
+      result: localGetResult(content, "installed", match.path, {
+        name: match.name,
+        description: match.description,
+        tokenCount: match.tokenCount,
+      }),
+      cleanup: null,
+    };
+  }
+
+  // Rung 2 — the local library. Deactivated library skills are invisible to
+  // the scanner, and they are exactly the population `asm audit residency`
+  // points at the reference tier.
+  const libMatch = findLibrarySkill(await listLibrarySkills(), target);
+  if (libMatch && !libMatch.missing) {
+    const content = await fsReadFile(
+      joinPath(libMatch.libraryPath, "SKILL.md"),
+      "utf-8",
+    );
+    return {
+      result: localGetResult(content, "library", libMatch.libraryPath, {
+        name: libMatch.name,
+        commit: libMatch.commitHash || null,
+      }),
+      cleanup: null,
+    };
+  }
+
+  // Rung 3 — the indexed catalog. `IndexedSkill` carries no body, so a hit
+  // here necessarily degrades into a temp clone.
+  const indexed = await resolveIndexedSkillByName(target);
+  if (indexed.status === "ambiguous") {
+    throw new AmbiguousGetError(
+      `"${target}" matches ${indexed.matches.length} indexed skills.`,
+      indexed.matches.map(
+        (m) => `${m.repo.owner}/${m.repo.repo} — asm get ${m.skill.installUrl}`,
+      ),
+    );
+  }
+  if (indexed.status === "found") {
+    return fetchGetFromRemote(args, indexed.match.skill.installUrl, "index");
+  }
+
+  // Rung 4 — the ASM registry, the same route `asm install <name>` takes.
+  if (isBareOrScopedName(target)) {
+    const { resolved, multipleMatches, suggestions } =
+      await resolveFromRegistry(target, { noCache: args.flags.noCache });
+    if (resolved) {
+      const m = resolved.manifest;
+      const repoPath = m.repository.replace("https://github.com/", "");
+      const ref = m.skill_path
+        ? `github:${repoPath}#${m.commit}:${m.skill_path}`
+        : `github:${repoPath}#${m.commit}`;
+      return fetchGetFromRemote(args, ref, "registry");
+    }
+    if (multipleMatches.length > 0) {
+      throw new AmbiguousGetError(
+        `"${target}" is published by ${multipleMatches.length} authors.`,
+        multipleMatches
+          .slice(0, 5)
+          .map((m) => `${m.author}/${m.name} — asm get ${m.author}/${m.name}`),
+      );
+    }
+    if (suggestions.length > 0) {
+      throw new Error(
+        `Skill "${target}" not found. Did you mean: ${suggestions.join(", ")}?`,
+      );
+    }
+  }
+
+  throw new Error(
+    `Skill "${target}" not found installed, in the library, in the index, or in the registry.`,
+  );
+}
+
+async function cmdGet(args: ParsedArgs) {
+  if (args.flags.help) {
+    printGetHelp();
+    return;
+  }
+
+  const startTime = performance.now();
+  const target = args.subcommand;
+  if (!target) {
+    error("Missing required argument: <skill>");
+    console.error(`Run "asm get --help" for usage.`);
+    process.exit(2);
+  }
+
+  // stdout carries the body (or the JSON object) and nothing else. Redirecting
+  // console output up front means no dependency can leak a line into a piped
+  // body.
+  const restoreConsole = redirectConsoleToStderr();
+  let cleanup: (() => Promise<void>) | null = null;
+  try {
+    const resolution = await resolveGetTarget(args, target);
+    cleanup = resolution.cleanup;
+    const result = resolution.result;
+
+    if (args.flags.machine) {
+      process.stdout.write(
+        formatMachineOutput("get", result, startTime) + "\n",
+      );
+    } else if (args.flags.json) {
+      process.stdout.write(formatJSON(result) + "\n");
+    } else {
+      writeGetProvenance(result);
+      process.stdout.write(result.content);
+      if (!result.content.endsWith("\n")) process.stdout.write("\n");
+    }
+  } catch (err: any) {
+    const message = err?.message || String(err);
+    const candidates =
+      err instanceof AmbiguousGetError ? err.candidates : undefined;
+    if (args.flags.machine) {
+      process.stdout.write(
+        formatMachineError(
+          "get",
+          candidates ? ErrorCodes.INVALID_ARGUMENT : ErrorCodes.SKILL_NOT_FOUND,
+          message,
+          startTime,
+          candidates ? { candidates } : undefined,
+        ) + "\n",
+      );
+    } else {
+      error(message);
+      if (candidates) {
+        for (const c of candidates) {
+          process.stderr.write(`    ${ansi.cyan("•")} ${c}\n`);
+        }
+      } else {
+        process.stderr.write(
+          ansi.dim(
+            `Try ${ansi.bold("asm list")} or ${ansi.bold(`asm search "${target}"`)}.\n`,
+          ),
+        );
+      }
+    }
+    if (cleanup) await cleanup();
+    cleanup = null;
+    restoreConsole();
+    process.exit(1);
+  } finally {
+    if (cleanup) await cleanup();
+    restoreConsole();
   }
 }
 
@@ -2629,18 +3045,13 @@ async function inspectSkillForInstall(
     scope,
   );
 
-  const hasHighRisk = warnings.some((w) =>
-    ["Shell commands", "Code execution", "Credentials"].includes(w.category),
-  );
-  const hasMedRisk = warnings.some((w) =>
-    ["External URLs"].includes(w.category),
-  );
-  const riskLevel = hasHighRisk ? "high" : hasMedRisk ? "medium" : "safe";
-  const riskLabel = hasHighRisk
-    ? ansi.red("[!] High Risk")
-    : hasMedRisk
-      ? ansi.yellow("[~] Medium Risk")
-      : ansi.green("[ok] Safe");
+  const riskLevel = classifyWarningRisk(warnings);
+  const riskLabel =
+    riskLevel === "high"
+      ? ansi.red("[!] High Risk")
+      : riskLevel === "medium"
+        ? ansi.yellow("[~] Medium Risk")
+        : ansi.green("[ok] Safe");
 
   return {
     metadata,
@@ -4499,11 +4910,12 @@ function unwrapRunnerErrorOrThrow(result: {
 }
 
 /**
- * Default fetchRemote adapter used by `cmdEval` — clones a GitHub shorthand or
- * URL into a temp dir via the installer pipeline, resolves any subpath, then
- * hands the root back with a cleanup hook.
+ * Shared remote-acquisition primitive — clones a GitHub shorthand or URL into
+ * a temp dir via the installer pipeline, resolves any subpath, then hands the
+ * root back with a cleanup hook and the provenance (`sourceRef`, `commitSha`)
+ * its callers report. Used by `cmdEval` and by `cmdGet` (issue #422).
  */
-async function fetchRemoteForEval(
+async function fetchRemoteSkillDir(
   input: string,
   transport: TransportMode,
   keep: boolean,
@@ -4519,7 +4931,7 @@ async function fetchRemoteForEval(
     // Defensive: looksLikeGithubInput should have filtered this, but guard
     // against future regressions so the local-path branch is the only entry.
     throw new Error(
-      `fetchRemoteForEval received a local path: "${input}". This is a bug — local paths should use the non-remote branch.`,
+      `fetchRemoteSkillDir received a local path: "${input}". This is a bug — local paths should use the non-remote branch.`,
     );
   }
   source = await resolveSubpath(source);
@@ -4722,7 +5134,7 @@ async function cmdEval(args: ParsedArgs) {
   try {
     resolved = await resolveEvalInput(rawInput, {
       fetchRemote: (input: string) =>
-        fetchRemoteForEval(input, args.flags.transport, args.flags.keep),
+        fetchRemoteSkillDir(input, args.flags.transport, args.flags.keep),
     });
   } catch (err: any) {
     if (args.flags.machine) {
@@ -6917,6 +7329,9 @@ export async function runCLI(argv: string[]): Promise<void> {
     case "inspect":
       await cmdInspect(args);
       break;
+    case "get":
+      await cmdGet(args);
+      break;
     case "uninstall":
       await cmdUninstall(args);
       break;
@@ -7001,6 +7416,7 @@ export function isCLIMode(argv: string[]): boolean {
     "list",
     "search",
     "inspect",
+    "get",
     "uninstall",
     "audit",
     "config",

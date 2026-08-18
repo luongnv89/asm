@@ -4,6 +4,7 @@
 
 ### Features
 
+- Add `asm get <skill>` — a zero-residency reference tier that resolves a skill through the installed / library / index / registry ladder (plus any `asm install` shorthand) and writes its `SKILL.md` body to stdout without installing anything; remote fetches run the same pre-install security scan, reported on stderr and under `--json` ([#422](https://github.com/luongnv89/asm/issues/422)) — @luongnv89
 - Add the `skill-install-improved` bundled skill — installs an improved variant of one skill instead of the published one: resolves the target by local path, repo, or skill name, runs `skill-auto-improver` on a throwaway `mktemp -d` copy so the user's own files are never modified, installs the improved directory, and reports the before/after scores and the provenance it was improved from ([#418](https://github.com/luongnv89/asm/issues/418)) — @luongnv89
 
 ## v2.15.0 — 2026-07-22

@@ -23,6 +23,7 @@ import {
   validateSkill,
   discoverSkills,
   scanForWarnings,
+  classifyWarningRisk,
   resolveProvider,
   executeInstall,
   executeInstallAllProviders,
@@ -2275,5 +2276,44 @@ describe("linkExistingSkill", () => {
         config,
       ),
     ).rejects.toThrow("not found in config");
+  });
+});
+
+// ─── classifyWarningRisk (issue #422) ──────────────────────────────────────
+//
+// `asm get` reports the verdict the install preview would show, so the mapping
+// lives in one place instead of being re-derived per command.
+
+describe("classifyWarningRisk", () => {
+  const w = (category: string) => ({
+    category,
+    file: "SKILL.md",
+    line: 1,
+    match: "x",
+  });
+
+  test("no warnings is safe", () => {
+    expect(classifyWarningRisk([])).toBe("safe");
+  });
+
+  test("external URLs alone are medium risk", () => {
+    expect(classifyWarningRisk([w("External URLs")])).toBe("medium");
+  });
+
+  test.each(["Shell commands", "Code execution", "Credentials"])(
+    "%s is high risk",
+    (category) => {
+      expect(classifyWarningRisk([w(category)])).toBe("high");
+    },
+  );
+
+  test("high risk wins over medium risk", () => {
+    expect(classifyWarningRisk([w("External URLs"), w("Shell commands")])).toBe(
+      "high",
+    );
+  });
+
+  test("an unrecognised category does not raise the verdict", () => {
+    expect(classifyWarningRisk([w("Something else")])).toBe("safe");
   });
 });

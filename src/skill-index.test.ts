@@ -8,7 +8,9 @@ import {
   getTotalSkillCount,
   loadAllIndices,
   getMissingMetadataFields,
+  resolveIndexedSkillByName,
 } from "./skill-index";
+import type { IndexedSkillMatch } from "./skill-index";
 import { getSkillIndexResourcesPath, getBundledIndexDir } from "./config";
 import type { IndexedSkill } from "./utils/types";
 
@@ -255,5 +257,140 @@ describe("Index resource integrity", () => {
         r.repo.owner === "emilkowalski" && r.skill.name === "emil-design-eng",
     );
     expect(emilHits).toHaveLength(1);
+  });
+});
+
+// ─── Exact-name resolution (issue #422) ────────────────────────────────────
+//
+// Every case below injects its own catalog. `loadAllIndices()` merges the
+// bundled index with a user-level one under ~/.config, so a resolver test that
+// reads the ambient catalog would pass or fail depending on whose machine ran
+// it. The injectable parameter exists precisely so these stay hermetic.
+
+function fixtureSkill(name: string, relPath: string): IndexedSkill {
+  return {
+    name,
+    description: `${name} description`,
+    version: "1.0.0",
+    license: "MIT",
+    creator: "",
+    compatibility: "",
+    allowedTools: [],
+    installUrl: `github:acme/skills:${relPath}`,
+    relPath,
+    tokenCount: 100,
+  };
+}
+
+function fixtureCatalog(
+  entries: Array<{
+    owner: string;
+    repo: string;
+    name: string;
+    relPath: string;
+  }>,
+): IndexedSkillMatch[] {
+  return entries.map((e) => ({
+    skill: {
+      ...fixtureSkill(e.name, e.relPath),
+      installUrl: `github:${e.owner}/${e.repo}:${e.relPath}`,
+    },
+    repo: { owner: e.owner, repo: e.repo },
+  }));
+}
+
+describe("resolveIndexedSkillByName (issue #422)", () => {
+  const catalog = fixtureCatalog([
+    {
+      owner: "acme",
+      repo: "skills",
+      name: "code-review",
+      relPath: "skills/code-review",
+    },
+    {
+      owner: "acme",
+      repo: "skills",
+      name: "dataviz",
+      relPath: "skills/dataviz",
+    },
+    {
+      owner: "other",
+      repo: "pack",
+      name: "code-review",
+      relPath: "code-review",
+    },
+  ]);
+
+  it("resolves a unique name to its single catalog entry", async () => {
+    const res = await resolveIndexedSkillByName("dataviz", catalog);
+    expect(res.status).toBe("found");
+    if (res.status !== "found") throw new Error("unreachable");
+    expect(res.match.skill.installUrl).toBe(
+      "github:acme/skills:skills/dataviz",
+    );
+    expect(res.match.repo).toEqual({ owner: "acme", repo: "skills" });
+  });
+
+  it("matches case-insensitively and ignores surrounding whitespace", async () => {
+    const res = await resolveIndexedSkillByName("  DataViz ", catalog);
+    expect(res.status).toBe("found");
+  });
+
+  it("reports a cross-repo collision instead of guessing", async () => {
+    const res = await resolveIndexedSkillByName("code-review", catalog);
+    expect(res.status).toBe("ambiguous");
+    if (res.status !== "ambiguous") throw new Error("unreachable");
+    expect(res.matches).toHaveLength(2);
+    expect(
+      res.matches.map((m) => `${m.repo.owner}/${m.repo.repo}`).sort(),
+    ).toEqual(["acme/skills", "other/pack"]);
+  });
+
+  it("collapses duplicate entries for the same repo and path", async () => {
+    const dupes = fixtureCatalog([
+      {
+        owner: "acme",
+        repo: "skills",
+        name: "dataviz",
+        relPath: "skills/dataviz",
+      },
+      {
+        owner: "acme",
+        repo: "skills",
+        name: "dataviz",
+        relPath: "skills/dataviz",
+      },
+    ]);
+    const res = await resolveIndexedSkillByName("dataviz", dupes);
+    expect(res.status).toBe("found");
+  });
+
+  it("returns none for an unknown name", async () => {
+    expect((await resolveIndexedSkillByName("nope", catalog)).status).toBe(
+      "none",
+    );
+  });
+
+  it("returns none for an empty or whitespace-only name", async () => {
+    expect((await resolveIndexedSkillByName("", catalog)).status).toBe("none");
+    expect((await resolveIndexedSkillByName("   ", catalog)).status).toBe(
+      "none",
+    );
+  });
+
+  it("is exact, not fuzzy — a partial name does not resolve", async () => {
+    expect((await resolveIndexedSkillByName("code", catalog)).status).toBe(
+      "none",
+    );
+    expect((await resolveIndexedSkillByName("data", catalog)).status).toBe(
+      "none",
+    );
+  });
+
+  it("falls back to the real catalog when none is injected", async () => {
+    const res = await resolveIndexedSkillByName(
+      "definitely-not-a-real-skill-name-422",
+    );
+    expect(res.status).toBe("none");
   });
 });

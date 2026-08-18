@@ -5774,3 +5774,188 @@ version: 1.0.0
     }
   });
 });
+
+// ─── asm get: zero-residency reference tier (issue #422) ────────────────────
+
+describe("parseArgs: --audit (issue #422)", () => {
+  const parse = (...args: string[]) =>
+    parseArgs(["node", "script.ts", ...args]);
+
+  test("defaults to false", () => {
+    expect(parse("get", "code-review").flags.audit).toBe(false);
+  });
+
+  test("--audit sets the escalation flag", () => {
+    const args = parse("get", "code-review", "--audit");
+    expect(args.command).toBe("get");
+    expect(args.subcommand).toBe("code-review");
+    expect(args.flags.audit).toBe(true);
+  });
+
+  test("--audit combines with --json and --machine", () => {
+    expect(parse("get", "x", "--audit", "--json").flags).toMatchObject({
+      audit: true,
+      json: true,
+    });
+    expect(parse("get", "x", "--audit", "--machine").flags).toMatchObject({
+      audit: true,
+      machine: true,
+    });
+  });
+});
+
+describe("isCLIMode: get (issue #422)", () => {
+  test("get is a known command, not an unrecognised first arg", () => {
+    expect(isCLIMode(["node", "script.ts", "get"])).toBe(true);
+    expect(isCLIMode(["node", "script.ts", "get", "code-review"])).toBe(true);
+  });
+});
+
+describe("asm get (issue #422)", () => {
+  let home: string;
+  let skillDir: string;
+  const BODY = `---
+name: get-fixture
+description: A fixture skill used by the asm get tests.
+---
+
+# Get fixture
+
+One line of body text.
+`;
+
+  // Every spawn runs against a throwaway HOME so the command can never read —
+  // or write — the developer's real skill directories.
+  async function runGet(
+    ...args: string[]
+  ): Promise<{ stdout: string; stderr: string; exitCode: number }> {
+    const res = await spawnCollect(["npx", "tsx", CLI_BIN, "get", ...args], {
+      env: { ...process.env, HOME: home, NO_COLOR: "1" },
+    });
+    return {
+      stdout: res.stdout,
+      stderr: res.stderr,
+      exitCode: res.exitCode,
+    };
+  }
+
+  beforeEach(async () => {
+    home = await mkdtemp(join(tmpdir(), "asm-get-home-"));
+    skillDir = join(
+      await mkdtemp(join(tmpdir(), "asm-get-src-")),
+      "get-fixture",
+    );
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(join(skillDir, "SKILL.md"), BODY, "utf-8");
+  });
+
+  afterEach(async () => {
+    await rm(home, { recursive: true, force: true });
+    await rm(dirname(skillDir), { recursive: true, force: true });
+  });
+
+  test("writes the SKILL.md body to stdout and nothing else", async () => {
+    const { stdout, exitCode } = await runGet(skillDir);
+    expect(exitCode).toBe(0);
+    expect(stdout).toBe(BODY);
+  });
+
+  test("reports provenance on stderr, never on stdout", async () => {
+    const { stdout, stderr } = await runGet(skillDir);
+    expect(stderr).toContain("get-fixture");
+    expect(stderr).toContain(skillDir);
+    expect(stderr).toContain("residency");
+    expect(stdout).not.toContain("residency");
+    expect(stdout).not.toContain("source:");
+  });
+
+  test("resolves an installed skill by name and reports the installed tier", async () => {
+    const installed = join(home, ".claude", "skills", "get-fixture");
+    await mkdir(installed, { recursive: true });
+    await writeFile(join(installed, "SKILL.md"), BODY, "utf-8");
+
+    const { stdout, stderr, exitCode } = await runGet("get-fixture");
+    expect(exitCode).toBe(0);
+    expect(stdout).toBe(BODY);
+    expect(stderr).toContain("(installed)");
+  });
+
+  test("--json emits one object with source, token count and body", async () => {
+    const { stdout, exitCode } = await runGet(skillDir, "--json");
+    expect(exitCode).toBe(0);
+    const payload = JSON.parse(stdout);
+    expect(payload.name).toBe("get-fixture");
+    expect(payload.description).toBe(
+      "A fixture skill used by the asm get tests.",
+    );
+    expect(payload.tier).toBe("local");
+    expect(payload.source).toBe(skillDir);
+    expect(typeof payload.tokenCount).toBe("number");
+    expect(payload.tokenCount).toBeGreaterThan(0);
+    expect(payload.content).toBe(BODY);
+    // Assembled field by field — the scanner's private cache must never leak.
+    expect(payload).not.toHaveProperty("_skillMdContent");
+  });
+
+  test("--machine wraps the same data in the v1 envelope", async () => {
+    const { stdout, exitCode } = await runGet(skillDir, "--machine");
+    expect(exitCode).toBe(0);
+    const envelope = JSON.parse(stdout);
+    expect(envelope.version).toBe(1);
+    expect(envelope.command).toBe("get");
+    expect(envelope.status).toBe("ok");
+    expect(envelope.data.content).toBe(BODY);
+  });
+
+  test("a missing argument exits 2", async () => {
+    const { exitCode, stderr } = await runGet();
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Missing required argument");
+  });
+
+  test("an unresolvable name exits 1 with a search hint", async () => {
+    // Deliberately not a valid bare/scoped registry name, so the ladder ends
+    // locally and the test never touches the network.
+    const { exitCode, stderr } = await runGet("NotARealSkill_422");
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain("not found");
+    expect(stderr).toContain("asm search");
+  });
+
+  test("--help exits 0 and documents the zero-residency guarantee", async () => {
+    const { stdout, exitCode } = await runGet("--help");
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("asm get <skill>");
+    expect(stdout).toContain("Nothing is installed");
+  });
+
+  test("installs nothing: no provider directory and no library are created", async () => {
+    const exists = async (p: string) => {
+      try {
+        await lstat(p);
+        return true;
+      } catch {
+        return false;
+      }
+    };
+
+    await runGet(skillDir);
+    await runGet(skillDir, "--json");
+
+    // Provider directories for the most common agents.
+    for (const dir of [
+      join(home, ".claude", "skills"),
+      join(home, ".codex", "skills"),
+      join(home, ".cursor", "rules"),
+    ]) {
+      expect(await exists(dir)).toBe(false);
+    }
+    // The `asm` library — tier 2 — must be untouched as well.
+    expect(
+      await exists(join(home, ".config", "agent-skill-manager", "library")),
+    ).toBe(false);
+    // The registry metadata cache is deliberately NOT asserted on: it is
+    // resolution metadata, not an installed skill, and the local path used
+    // here never reaches the registry rung anyway.
+  });
+});

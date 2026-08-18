@@ -356,6 +356,7 @@ describe("Node E2E: per-command --help", () => {
     "list",
     "search",
     "inspect",
+    "get",
     "install",
     "uninstall",
     "audit",

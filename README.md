@@ -23,14 +23,15 @@
 
 ## Problems `asm` solves
 
-| Pain                    | Without `asm`                                                                                                           | With `asm`                                                                 |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| Scattered installs      | Same skill copied into `~/.claude/skills/`, `~/.codex/skills/`, `~/.cursor/rules/` — different versions, no single view | One `asm list` across all 19 providers and scopes                          |
-| No inventory            | `ls` through hidden dirs; no idea what is installed, duplicated, or outdated                                            | `asm search`, `asm inspect`, `asm stats`, `asm audit`                      |
-| Invisible context cost  | Every installed skill's description is resident in the agent's prompt on every message, whether or not it ever fires    | `asm stats --tokens`, `asm audit residency`                                |
-| Risky manual installs   | Clone repos, copy folders, hope `SKILL.md` is valid                                                                     | `asm install` validates frontmatter, scans security, pins registry commits |
-| Agent-unfriendly output | Human-only copy-paste workflows                                                                                         | Structured JSON via `--json`; skip prompts with `--yes`                    |
-| New agent, new chore    | Every tool adds another skill directory to track                                                                        | Add or disable providers in one config file                                |
+| Pain                      | Without `asm`                                                                                                           | With `asm`                                                                 |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Scattered installs        | Same skill copied into `~/.claude/skills/`, `~/.codex/skills/`, `~/.cursor/rules/` — different versions, no single view | One `asm list` across all 19 providers and scopes                          |
+| No inventory              | `ls` through hidden dirs; no idea what is installed, duplicated, or outdated                                            | `asm search`, `asm inspect`, `asm stats`, `asm audit`                      |
+| Invisible context cost    | Every installed skill's description is resident in the agent's prompt on every message, whether or not it ever fires    | `asm stats --tokens`, `asm audit residency`                                |
+| Install just to read once | Installing is the only way to get a skill in front of an agent — and it stays resident forever afterwards               | `asm get <skill>` prints the body and installs nothing                     |
+| Risky manual installs     | Clone repos, copy folders, hope `SKILL.md` is valid                                                                     | `asm install` validates frontmatter, scans security, pins registry commits |
+| Agent-unfriendly output   | Human-only copy-paste workflows                                                                                         | Structured JSON via `--json`; skip prompts with `--yes`                    |
+| New agent, new chore      | Every tool adds another skill directory to track                                                                        | Add or disable providers in one config file                                |
 
 ## At a glance
 
@@ -76,6 +77,7 @@ graph LR
 | Duplicate audit          | `asm audit --yes` removes redundant skills non-interactively         |
 | Attention budget         | `asm stats --tokens` shows resident vs body token cost per tool      |
 | Residency audit          | `asm audit residency` ranks skills to demote out of resident context |
+| Reference tier           | `asm get <skill>` delivers a body once, at zero residency            |
 | Security scan            | `asm audit security` before install                                  |
 | Authoring pipeline       | `asm init`, `asm link`, `asm eval`, `asm publish`                    |
 | Bundles                  | `asm bundle install` — curated sets in one pass                      |
@@ -114,19 +116,20 @@ Node.js 18+ required. Optional TUI: run `asm` with no arguments.
 
 ## Common tasks
 
-| Task                       | Command                                          |
-| -------------------------- | ------------------------------------------------ |
-| Machine-readable inventory | `asm list --json`                                |
-| Skill metadata for agents  | `asm inspect my-skill --json`                    |
-| Non-interactive install    | `asm install code-review -p claude --yes --json` |
-| Remove duplicates          | `asm audit --yes`                                |
-| See your context cost      | `asm stats --tokens`                             |
-| Find skills to demote      | `asm audit residency`                            |
-| Scan before install        | `asm audit security github:user/repo`            |
-| Scaffold a new skill       | `asm init my-skill -p claude`                    |
-| Live dev via symlink       | `asm link ./my-skill -p claude`                  |
-| Publish to registry        | `asm publish ./my-skill --yes`                   |
-| Install a bundle           | `asm bundle install frontend-dev --yes`          |
+| Task                          | Command                                          |
+| ----------------------------- | ------------------------------------------------ |
+| Machine-readable inventory    | `asm list --json`                                |
+| Skill metadata for agents     | `asm inspect my-skill --json`                    |
+| Non-interactive install       | `asm install code-review -p claude --yes --json` |
+| Remove duplicates             | `asm audit --yes`                                |
+| See your context cost         | `asm stats --tokens`                             |
+| Find skills to demote         | `asm audit residency`                            |
+| Use a skill without residency | `asm get code-review`                            |
+| Scan before install           | `asm audit security github:user/repo`            |
+| Scaffold a new skill          | `asm init my-skill -p claude`                    |
+| Live dev via symlink          | `asm link ./my-skill -p claude`                  |
+| Publish to registry           | `asm publish ./my-skill --yes`                   |
+| Install a bundle              | `asm bundle install frontend-dev --yes`          |
 
 Full command reference, flags, and examples: [CLI Commands](#cli-commands). Catalog UI and bundles: [luongnv.com/asm](https://luongnv.com/asm/).
 
@@ -197,6 +200,7 @@ The advice assumes this demotion ladder:
 | Installed (auto-triggers) | provider directory / `asm activate`       | description resident, always |
 | Saved (adapt, no trigger) | `asm install --library`, `asm deactivate` | none until `asm activate`    |
 | Disabled (kept on disk)   | `asm disable` (reverse with `asm enable`) | none                         |
+| Reference (read on use)   | `asm get` — nothing on disk at all        | none                         |
 
 Which command a candidate gets depends on how it is installed. `asm deactivate`
 only works on a live symlink into the `asm` library, so it is suggested only
@@ -210,6 +214,53 @@ unavailable rather than silently dropped, so the report still works today.
 
 No network calls, accounts, or telemetry are involved: both reports run
 entirely against your local filesystem.
+
+### Reference tier: use a skill without installing it
+
+Demoting a skill does not mean losing it. `asm get <skill>` resolves a skill and
+writes its `SKILL.md` body to **stdout** — no provider directory, no library
+entry, no residency. The skill is paid for once, at the point of use, and costs
+nothing afterwards.
+
+```bash
+asm get code-review                       # body to stdout
+asm get code-review > /tmp/SKILL.md       # save it without installing
+asm get github:owner/repo:skills/review   # any `asm install` shorthand
+asm get code-review --json                # name, description, tier, source, tokenCount, security, content
+```
+
+That makes `asm` usable as delivery infrastructure, not only as an installer.
+An agent can pull a skill in for a single task and drop it again:
+
+```bash
+asm get code-review | your-agent --system-prompt-file -
+```
+
+`<skill>` walks a resolution ladder, and the rung that answered is reported as
+the `tier` so provenance is always visible:
+
+| Order | Tier        | Resolves                                              |
+| ----- | ----------- | ----------------------------------------------------- |
+| 1     | `installed` | a skill already installed in one of your agents       |
+| 2     | `library`   | a library skill, **including deactivated ones**       |
+| 3     | `index`     | an indexed catalog skill, matched by exact name       |
+| 4     | `registry`  | the ASM registry — same route as `asm install <name>` |
+
+An explicit `github:owner/repo[#ref][:path]` shorthand, a GitHub URL, or a local
+path skips the ladder. A name that matches more than one indexed repo or
+registry author is never guessed: `asm get` exits non-zero and lists the
+qualified candidates.
+
+The catalog stores metadata, not bodies, so an `index`, `registry` or remote
+`asm get` costs a shallow clone into a temp directory, which is deleted before
+the command returns. Those fetches run the **same pre-install security scan
+`asm install` runs**; the verdict goes to stderr and into `--json` under
+`security`. It reports rather than blocks — `asm get` writes nothing — and
+`--audit` prints the full `asm audit security` report for the fetched skill.
+
+Output discipline: stdout carries the body (or, with `--json`, a single JSON
+object) and nothing else, so piping and redirecting are safe. Provenance,
+progress, and the security verdict go to stderr.
 
 ## FAQ
 
@@ -497,6 +548,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm list`                      | List all discovered skills                |
 | `asm search <query>`            | Search by name/description/provider       |
 | `asm inspect <skill-name>`      | Show detailed info for a skill            |
+| `asm get <skill>`               | Print a skill's body, install nothing     |
 | `asm install <source>`          | Install from GitHub or registry           |
 | `asm publish [path]`            | Publish to ASM Registry                   |
 | `asm uninstall <skill-name>`    | Remove a skill                            |

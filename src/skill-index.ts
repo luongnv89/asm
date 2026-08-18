@@ -203,3 +203,56 @@ export async function getTotalSkillCount(): Promise<number> {
   const indices = await loadAllIndices();
   return indices.reduce((sum, idx) => sum + idx.skillCount, 0);
 }
+
+// ─── Exact-name resolution (issue #422) ────────────────────────────────────
+
+export interface IndexedSkillMatch {
+  skill: IndexedSkill;
+  repo: { owner: string; repo: string };
+}
+
+/**
+ * Outcome of resolving an exact skill name against the indexed catalog.
+ *
+ * `searchSkills` is fuzzy and limit-capped, so it can rank an unrelated skill
+ * first — it can never be the resolution primitive for a command that has to
+ * deliver *the* named skill. This is that primitive: exact, case-insensitive
+ * name equality, with cross-repo collisions surfaced rather than guessed.
+ */
+export type IndexedNameResolution =
+  | { status: "found"; match: IndexedSkillMatch }
+  | { status: "none" }
+  | { status: "ambiguous"; matches: IndexedSkillMatch[] };
+
+/**
+ * Resolve a skill name to a single catalog entry.
+ *
+ * @param name    Exact skill name (compared case-insensitively).
+ * @param catalog Optional pre-loaded catalog. Injecting it keeps callers and
+ *                tests off the ambient user index directory.
+ */
+export async function resolveIndexedSkillByName(
+  name: string,
+  catalog?: IndexedSkillMatch[],
+): Promise<IndexedNameResolution> {
+  const target = name.trim().toLowerCase();
+  if (!target) return { status: "none" };
+
+  const all = catalog ?? (await getAllIndexedSkills());
+  const matches = all.filter((e) => e.skill.name.toLowerCase() === target);
+  if (matches.length === 0) return { status: "none" };
+
+  // Collapse entries that point at the same repo + path: the same skill listed
+  // twice is not a collision the user has to disambiguate.
+  const seen = new Set<string>();
+  const unique: IndexedSkillMatch[] = [];
+  for (const m of matches) {
+    const key = `${m.repo.owner}/${m.repo.repo}:${m.skill.relPath}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    unique.push(m);
+  }
+
+  if (unique.length === 1) return { status: "found", match: unique[0] };
+  return { status: "ambiguous", matches: unique };
+}

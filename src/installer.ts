@@ -608,6 +608,30 @@ export async function scanForWarnings(
   return warnings;
 }
 
+/** Warning categories that make an install a high-risk preview. */
+const HIGH_RISK_WARNING_CATEGORIES = [
+  "Shell commands",
+  "Code execution",
+  "Credentials",
+];
+/** Warning categories that make an install a medium-risk preview. */
+const MEDIUM_RISK_WARNING_CATEGORIES = ["External URLs"];
+
+/**
+ * Collapse raw `scanForWarnings` output into the High / Medium / Safe label
+ * the install preview shows. Single home for the mapping so `asm get` reports
+ * the same verdict `asm install` would (issue #422).
+ */
+export function classifyWarningRisk(
+  warnings: SecurityWarning[],
+): "high" | "medium" | "safe" {
+  if (warnings.some((w) => HIGH_RISK_WARNING_CATEGORIES.includes(w.category)))
+    return "high";
+  if (warnings.some((w) => MEDIUM_RISK_WARNING_CATEGORIES.includes(w.category)))
+    return "medium";
+  return "safe";
+}
+
 export async function executeInstall(
   plan: InstallPlan,
 ): Promise<InstallResult> {

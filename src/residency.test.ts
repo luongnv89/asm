@@ -126,6 +126,33 @@ describe("chooseDemotionAction", () => {
     );
     expect(action.hint).not.toContain("--tool");
   });
+
+  // ─── Reference tier (issue #422) ────────────────────────────────────────
+
+  it("offers asm get as a second demotion destination for a library skill", () => {
+    const action = chooseDemotionAction("my-skill", [
+      makeInstance({ libraryLinked: true }),
+    ]);
+    expect(action.reference).toEqual({
+      command: "asm get my-skill",
+      hint: "read it on demand, zero residency",
+    });
+  });
+
+  it("offers asm get on the disable path too", () => {
+    const action = chooseDemotionAction("my-skill", [
+      makeInstance({ libraryLinked: false }),
+    ]);
+    expect(action.kind).toBe("disable");
+    expect(action.reference?.command).toBe("asm get my-skill");
+  });
+
+  it("does not replace the primary demotion command", () => {
+    const action = chooseDemotionAction("my-skill", [
+      makeInstance({ libraryLinked: false }),
+    ]);
+    expect(action.command).toBe("asm disable my-skill");
+  });
 });
 
 // ─── Audit computation ──────────────────────────────────────────────────────
@@ -328,6 +355,17 @@ describe("formatResidencyReport", () => {
     expect(output).toContain("heavy");
     expect(output).toContain("the median description");
     expect(output).toContain("asm disable heavy");
+  });
+
+  it("renders the asm get reference tier next to the demotion command", () => {
+    const report = computeResidencyAudit(
+      withBaseline(
+        makeSkill({ dirName: "heavy", description: longDescription(200) }),
+      ),
+    );
+    const output = formatResidencyReport(report);
+    expect(output).toContain("asm get heavy");
+    expect(output).toContain("read it on demand, zero residency");
   });
 
   it("renders every token figure with the `~` prefix, never as bytes", () => {
