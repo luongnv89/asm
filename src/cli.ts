@@ -4667,7 +4667,7 @@ async function cmdStats(args: ParsedArgs) {
   // installed; only the human dashboard degrades to a sentence (it charts
   // maxima that an empty set has none of).
   if (allSkills.length === 0 && !args.flags.json && !args.flags.machine) {
-    console.log("No skills found.");
+    console.log("  No installed skills.");
     return;
   }
 
