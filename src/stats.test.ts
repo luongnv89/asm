@@ -973,6 +973,26 @@ describe("computeTokenBudget", () => {
     expect(computeTokenBudget(skills, 2).heaviestResident).toHaveLength(2);
   });
 
+  it("caps heaviestResident at 10 and reports the untruncated total", () => {
+    const skills = Array.from({ length: 11 }, (_, i) =>
+      makeSkill({ name: `s${i}`, dirName: `s${i}`, description: "a b c" }),
+    );
+    const report = computeTokenBudget(skills);
+    expect(report.heaviestResident).toHaveLength(10);
+    expect(report.heaviestResidentTotal).toBe(11);
+    expect(report.heaviestResidentTruncated).toBe(true);
+  });
+
+  it("does not mark an exact-limit list as truncated", () => {
+    const skills = Array.from({ length: 10 }, (_, i) =>
+      makeSkill({ name: `s${i}`, dirName: `s${i}`, description: "a b c" }),
+    );
+    const report = computeTokenBudget(skills);
+    expect(report.heaviestResident).toHaveLength(10);
+    expect(report.heaviestResidentTotal).toBe(10);
+    expect(report.heaviestResidentTruncated).toBe(false);
+  });
+
   it("reports zeroes for an empty installed set", () => {
     const report = computeTokenBudget([]);
     expect(report).toMatchObject({
@@ -980,6 +1000,8 @@ describe("computeTokenBudget", () => {
       totalResidentTokens: 0,
       totalBodyTokens: 0,
       medianResidentTokens: 0,
+      heaviestResidentTotal: 0,
+      heaviestResidentTruncated: false,
     });
     expect(report.heaviestResident).toEqual([]);
   });
@@ -1030,7 +1052,16 @@ describe("formatTokenBudgetReport", () => {
 
   it("handles an empty installed set", () => {
     expect(formatTokenBudgetReport(computeTokenBudget([]))).toContain(
-      "No installed skills",
+      "  No installed skills.",
+    );
+  });
+
+  it("mentions hidden heaviest rows when the list is truncated", () => {
+    const skills = Array.from({ length: 11 }, (_, i) =>
+      makeSkill({ name: `s${i}`, dirName: `s${i}`, description: "a b c" }),
+    );
+    expect(formatTokenBudgetReport(computeTokenBudget(skills))).toContain(
+      "… 1 more not shown — use --json for the full list",
     );
   });
 });

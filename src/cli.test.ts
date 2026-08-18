@@ -1233,7 +1233,7 @@ describe("CLI integration: stats with nothing installed", () => {
   test("the human dashboard still degrades to a sentence", async () => {
     const { stdout, exitCode } = await runEmpty("stats");
     expect(exitCode).toBe(0);
-    expect(stdout.trim()).toBe("No skills found.");
+    expect(stdout.trim()).toBe("No installed skills.");
   });
 
   test("--tokens and audit residency both report an empty set", async () => {
@@ -3692,8 +3692,8 @@ describe("CLI integration: stats", () => {
   test("stats --json returns valid JSON with expected fields", async () => {
     const { stdout, exitCode } = await runCLI("stats", "--json");
     expect(exitCode).toBe(0);
-    // If no skills, stats outputs "No skills found." to stdout
-    if (stdout === "No skills found.") return;
+    // If no skills, the human dashboard degrades to this sentence.
+    if (stdout.trim() === "No installed skills.") return;
     const data = JSON.parse(stdout);
     expect(data).toHaveProperty("totalSkills");
     expect(data).toHaveProperty("byProvider");
@@ -3705,7 +3705,7 @@ describe("CLI integration: stats", () => {
   test("stats --json --verbose includes perSkillDiskBytes", async () => {
     const { stdout, exitCode } = await runCLI("stats", "--json", "--verbose");
     expect(exitCode).toBe(0);
-    if (stdout === "No skills found.") return;
+    if (stdout.trim() === "No installed skills.") return;
     const data = JSON.parse(stdout);
     expect(data).toHaveProperty("perSkillDiskBytes");
   });
@@ -3713,7 +3713,7 @@ describe("CLI integration: stats", () => {
   test("stats --json without verbose omits perSkillDiskBytes", async () => {
     const { stdout, exitCode } = await runCLI("stats", "--json");
     expect(exitCode).toBe(0);
-    if (stdout === "No skills found.") return;
+    if (stdout.trim() === "No installed skills.") return;
     const data = JSON.parse(stdout);
     expect(data).not.toHaveProperty("perSkillDiskBytes");
   });

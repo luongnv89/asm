@@ -113,18 +113,41 @@ describe("chooseDemotionAction", () => {
     expect(action.command).toBe("asm disable my-skill");
   });
 
-  it("says the disable covers every place, because it has no --tool switch", () => {
-    // Symlinked siblings share one canonical SKILL.md, so `asm disable` demotes
-    // the whole group; promising a per-tool demotion would be a lie.
+  it("does not claim a scoped instance count in the disable hint", () => {
+    // Bare `asm disable name` is unscoped. Do not say "all N places" — the
+    // report may already be --scope filtered.
     const action = chooseDemotionAction("my-skill", [
       makeInstance({ libraryLinked: true, provider: "claude" }),
       makeInstance({ libraryLinked: true, provider: "codex" }),
       makeInstance({ libraryLinked: false, provider: "agents" }),
     ]);
     expect(action.hint).toBe(
-      "reversible with asm enable; disables it in all 3 places",
+      "reversible with asm enable; disables every ASM-managed copy of this skill name",
     );
+    expect(action.hint).not.toMatch(/all \d+ places/);
     expect(action.hint).not.toContain("--tool");
+  });
+
+  it("falls back to asm disable when the provider is custom or unknown", () => {
+    const custom = chooseDemotionAction("my-skill", [
+      makeInstance({
+        libraryLinked: true,
+        provider: "custom",
+        scope: "project",
+      }),
+    ]);
+    expect(custom.kind).toBe("disable");
+    expect(custom.command).toBe("asm disable my-skill");
+    expect(custom.reference).toBeUndefined();
+
+    const unknown = chooseDemotionAction("my-skill", [
+      makeInstance({
+        libraryLinked: true,
+        provider: "not-a-provider",
+      }),
+    ]);
+    expect(unknown.kind).toBe("disable");
+    expect(unknown.command).toBe("asm disable my-skill");
   });
 
   // ─── Reference tier (issue #422) ────────────────────────────────────────
