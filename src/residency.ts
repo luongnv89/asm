@@ -10,6 +10,7 @@
  */
 
 import { resolve, sep } from "path";
+import { getDefaultConfig } from "./config";
 import { ansi } from "./formatter";
 import { median } from "./stats";
 import {
@@ -142,21 +143,31 @@ export function chooseDemotionAction(
 
   if (instances.length === 1 && instances[0].libraryLinked) {
     const only = instances[0];
-    return {
-      kind: "deactivate",
-      command: `asm deactivate ${dirName} --provider ${only.provider} --scope ${only.scope}`,
-      hint: "keep it in the library, activate when needed",
-      reference,
-    };
+    // `asm deactivate --provider X` must be a name resolveProvider accepts
+    // (config.providers). customPaths scan as provider "custom", which is not
+    // a valid --provider flag — fall back to disable.
+    if (isResolvableProviderName(only.provider)) {
+      return {
+        kind: "deactivate",
+        command: `asm deactivate ${dirName} --provider ${only.provider} --scope ${only.scope}`,
+        hint: "keep it in the library, activate when needed",
+        reference,
+      };
+    }
   }
   return {
     kind: "disable",
     command: `asm disable ${dirName}`,
     hint:
       instances.length > 1
-        ? `reversible with asm enable; disables it in all ${instances.length} places`
+        ? "reversible with asm enable; disables every ASM-managed copy of this skill name"
         : "reversible with asm enable",
   };
+}
+
+/** Names `resolveProvider` would accept from the default provider table. */
+function isResolvableProviderName(name: string): boolean {
+  return getDefaultConfig().providers.some((p) => p.name === name);
 }
 
 /**
