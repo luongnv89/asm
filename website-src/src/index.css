@@ -1,6 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/*
+ * Dark mode is driven by the `data-theme="dark"` attribute on <html>, not the
+ * `prefers-color-scheme` media query. Tailwind 4's CSS-first config expresses
+ * this as a custom variant so `dark:` utilities target that selector.
+ */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /*
  * Legacy theme variables — keep the dark/light palette from the legacy

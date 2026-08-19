@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { readFileSync } from "node:fs";
@@ -70,7 +71,7 @@ function injectCatalogCounts() {
 export default defineConfig(({ command }) => ({
   root: here,
   base: "./",
-  plugins: [react(), injectCatalogCounts()],
+  plugins: [react(), tailwindcss(), injectCatalogCounts()],
   // Dev server serves the built catalog JSONs (catalog.json, skills.min.json,
   // search.idx.json, bundles.json, skills/*.json) from the sibling `website/`
   // directory so `npm run dev:site` works after a one-time `npm run
