@@ -519,7 +519,7 @@ for (const r of repos) {
 }
 
 // Fetch GitHub star count (best-effort, defaults to 0 on failure)
-let stars = asmStars;
+const stars = asmStars;
 
 // Read version from package.json
 const pkgJsonPath = join(root, "package.json");

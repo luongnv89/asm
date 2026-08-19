@@ -310,8 +310,7 @@ export interface TokenBudgetReport {
 
 /** Why a skill was flagged as a demotion candidate. */
 export type ResidencyReasonId =
-  | "expensive-description"
-  | "redundant-activation";
+  "expensive-description" | "redundant-activation";
 
 export interface ResidencyReason {
   id: ResidencyReasonId;
@@ -745,23 +744,13 @@ export interface PublishResult {
 export type Scope = "global" | "project" | "both";
 export type SortBy = "name" | "version" | "location";
 export type ViewState =
-  | "dashboard"
-  | "detail"
-  | "confirm"
-  | "help"
-  | "config"
-  | "audit";
+  "dashboard" | "detail" | "confirm" | "help" | "config" | "audit";
 
 // ─── Reference Tier Types (issue #422) ─────────────────────────────────────
 
 /** Which rung of the resolution ladder produced a `asm get` body. */
 export type GetTier =
-  | "installed"
-  | "library"
-  | "index"
-  | "registry"
-  | "remote"
-  | "local";
+  "installed" | "library" | "index" | "registry" | "remote" | "local";
 
 /**
  * Security verdict attached to a remotely fetched body. This is the same scan

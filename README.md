@@ -548,46 +548,46 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 
 ### Commands
 
-| Command                         | Description                               |
+| Command | Description |
 | ------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| `asm list`                      | List all discovered skills                |
-| `asm search <query>`            | Search by name/description/provider       |
-| `asm inspect <skill-name>`      | Show detailed info for a skill            |
-| `asm get <skill>`               | Print a skill's body, install nothing     |
-| `asm install <source>`          | Install from GitHub or registry           |
-| `asm publish [path]`            | Publish to ASM Registry                   |
-| `asm uninstall <skill-name>`    | Remove a skill                            |
-| `asm init <name>`               | Scaffold a new skill                      |
-| `asm link <path> [<path2> ...]` | Symlink skills for live dev               |
-| `asm audit`                     | Detect duplicate skills                   |
-| `asm audit security <name>`     | Security audit                            |
-| `asm audit residency`           | Rank skills that do not earn residency    |
-| `asm eval <skill>`              | Score skill quality                       |
-| `asm eval-providers list`       | List eval providers                       |
-| `asm stats`                     | Aggregate installed skill metrics         |
-| `asm stats --tokens`            | Attention budget: resident vs body tokens |
-| `asm stats repo <repo>`         | Per-repo indexed skill stats              |
-| `asm stats author <owner>`      | Per-author indexed skill stats            |
-| `asm stats index`               | Indexed catalog stats summary             |
-| `asm activate <skill>`          | Link a library skill into a provider      |
-| `asm deactivate <skill>`        | Remove a library activation symlink       |
-| `asm library list               | update`                                   | Manage centrally installed library skills |
-| `asm export`                    | Export inventory as JSON                  |
-| `asm index ingest <repo>`       | Index a skill repo                        |
-| `asm index search <query>`      | Search indexed skills                     |
-| `asm index list`                | List indexed repos                        |
-| `asm index remove <owner/repo>` | Remove repo from index                    |
-| `asm bundle list`               | List bundles (`--predefined`)             |
-| `asm bundle install <name>`     | Install every skill in a bundle           |
-| `asm bundle create <name>`      | Create bundle from installed skills       |
-| `asm bundle show <name>`        | Show bundle details                       |
-| `asm bundle modify <name>`      | Add/remove skills                         |
-| `asm bundle export <name>`      | Export bundle to JSON                     |
-| `asm bundle remove <name>`      | Remove saved bundle                       |
-| `asm config show`               | Print config                              |
-| `asm config path`               | Print config path                         |
-| `asm config reset`              | Reset to defaults                         |
-| `asm config edit`               | Open config in `$EDITOR`                  |
+| `asm list` | List all discovered skills |
+| `asm search <query>` | Search by name/description/provider |
+| `asm inspect <skill-name>` | Show detailed info for a skill |
+| `asm get <skill>` | Print a skill's body, install nothing |
+| `asm install <source>` | Install from GitHub or registry |
+| `asm publish [path]` | Publish to ASM Registry |
+| `asm uninstall <skill-name>` | Remove a skill |
+| `asm init <name>` | Scaffold a new skill |
+| `asm link <path> [<path2> ...]` | Symlink skills for live dev |
+| `asm audit` | Detect duplicate skills |
+| `asm audit security <name>` | Security audit |
+| `asm audit residency` | Rank skills that do not earn residency |
+| `asm eval <skill>` | Score skill quality |
+| `asm eval-providers list` | List eval providers |
+| `asm stats` | Aggregate installed skill metrics |
+| `asm stats --tokens` | Attention budget: resident vs body tokens |
+| `asm stats repo <repo>` | Per-repo indexed skill stats |
+| `asm stats author <owner>` | Per-author indexed skill stats |
+| `asm stats index` | Indexed catalog stats summary |
+| `asm activate <skill>` | Link a library skill into a provider |
+| `asm deactivate <skill>` | Remove a library activation symlink |
+| `asm library list               | update` | Manage centrally installed library skills |
+| `asm export` | Export inventory as JSON |
+| `asm index ingest <repo>` | Index a skill repo |
+| `asm index search <query>` | Search indexed skills |
+| `asm index list` | List indexed repos |
+| `asm index remove <owner/repo>` | Remove repo from index |
+| `asm bundle list` | List bundles (`--predefined`) |
+| `asm bundle install <name>` | Install every skill in a bundle |
+| `asm bundle create <name>` | Create bundle from installed skills |
+| `asm bundle show <name>` | Show bundle details |
+| `asm bundle modify <name>` | Add/remove skills |
+| `asm bundle export <name>` | Export bundle to JSON |
+| `asm bundle remove <name>` | Remove saved bundle |
+| `asm config show` | Print config |
+| `asm config path` | Print config path |
+| `asm config reset` | Reset to defaults |
+| `asm config edit` | Open config in `$EDITOR` |
 
 ### Global options
 
