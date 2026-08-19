@@ -44,12 +44,12 @@ state a floor with no ceiling, and `engines` is the one that is correct.
   is the point of the change, then review the diff.
 - **IMPORTANT: `npm run preindex` also rewrites the developer's real
   `~/.config/agent-skill-manager/skill-index/`** — a mutation no git diff shows.
-- **IMPORTANT: the unit suite writes to the real `~/.config/agent-skill-manager/`.**
-  `src/config.ts` derives that path from `homedir()` at module load with no
-  override, so tests mutate developer state and local results are
-  machine-dependent. `CI=true` sandboxes nothing.
-- A local failure in `src/skill-index.test.ts` is usually that non-hermeticity, not
-  the change under review. Confirm against CI before "fixing" it.
+- **Unit tests sandbox user state.** `src/test-setup.ts` (vitest `setupFiles`)
+  sets `HOME`, `USERPROFILE`, and `ASM_CONFIG_DIR` to a temp dir. `getConfigDir()`
+  in `src/config.ts` reads `ASM_CONFIG_DIR` (fallback `~/.config/agent-skill-manager`).
+  Do not remove that setup — without it the suite writes the real user config.
+- **IMPORTANT: `CI=true` does not itself isolate the suite**; hermeticity is the
+  env override + lazy `getConfigDir()`, not the `CI` flag.
 - Never commit `dist/` or `node_modules/`. Most of `website/` is gitignored, but its
   `*-stats.json` and `robots.txt` are tracked — commit those only on a deliberate regeneration.
 - Never delete or rewrite untracked scratch files at the repo root; other sessions

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Bug Fixes
+
+- Make the unit suite hermetic: `getConfigDir()` honors `ASM_CONFIG_DIR`, and vitest sandboxes `HOME`/`USERPROFILE`/`ASM_CONFIG_DIR` so tests no longer read or write `~/.config/agent-skill-manager` ([#436](https://github.com/luongnv89/asm/issues/436))
+
 ### Features
 
 - Add `asm get <skill>` — a zero-residency reference tier that resolves a skill through the installed / library / index / registry ladder (plus any `asm install` shorthand) and writes its `SKILL.md` body to stdout without installing anything; remote fetches run the same pre-install security scan, reported on stderr and under `--json` ([#422](https://github.com/luongnv89/asm/issues/422)) — @luongnv89

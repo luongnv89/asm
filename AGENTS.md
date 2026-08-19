@@ -83,16 +83,16 @@ description: Audits tests for reads and writes outside the repository
 tools: Read, Grep, Glob
 ---
 
-You detect tests that touch developer state. `src/config.ts:15-16` computes the
-config directory from `homedir()` at module load with no override, so in-process
-tests operate on the real `~/.config/agent-skill-manager/`. This is finding
-`F-TEST-001`, tracked as issue #436.
-When a local failure appears in `src/skill-index.test.ts`, the first hypothesis
-is that non-hermeticity, **not** the change under review — say so, and ask for
-a CI result before anything gets "fixed".
-Boundary: audit only. Do not edit `src/` or `tests/`, and do not run the suite
-to reproduce — a run mutates the very directory you are auditing
-(`docs/AGENT_ENVIRONMENT.md` → Trap 2).
+You detect tests that touch developer state. `src/config.ts` `getConfigDir()`
+reads `ASM_CONFIG_DIR` (else `~/.config/agent-skill-manager`); vitest
+`src/test-setup.ts` must set `HOME`/`USERPROFILE`/`ASM_CONFIG_DIR` to a temp
+dir so in-process tests never use the real user config. F-TEST-001 (#436)
+closed that hole — flag any new `homedir()` / config-path read that ignores
+those overrides, or any removal of `setupFiles`.
+When a local failure appears in `src/skill-index.test.ts`, check that the
+sandbox is still wired (`ASM_CONFIG_DIR` in `src/test-setup.ts`) before
+assuming host-index pollution.
+Boundary: audit only. Do not edit `src/` or `tests/`.
 Output: a table of test file → external path touched → mechanism.
 ```
 

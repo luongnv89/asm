@@ -115,44 +115,26 @@ output — no script writes it.
 If you need the catalog regenerated, do it deliberately and review the resulting
 diff. Do not fold it into an unrelated change.
 
-## Trap 2 — the unit suite writes to your real user config
+## Trap 2 — do not remove the unit-suite sandbox
 
-`src/config.ts:15-16` computes `const HOME = homedir()` and then
-`const CONFIG_DIR = join(HOME, ".config", "agent-skill-manager")`, at module
-load, with no environment or dependency-injection override — `src/config.ts`
-contains no `process.env` reference at all. In-process tests therefore operate on
-the real directory. This is finding `F-TEST-001`. (Two partial escape hatches
-exist and cover only their own cases: `src/utils/test-spawn.ts` mirrors a
-caller-redirected `HOME` onto `USERPROFILE` so the sandbox survives on Windows —
-the redirect itself is done by each test that spawns the built CLI — and
-`resolveIndexedSkillByName(name, catalog?)` (`src/skill-index.ts:238-240`) takes
-an optional pre-loaded catalog so its callers can stay off the ambient user
-index. `loadAllIndices()` itself takes no arguments and always reads the real
-user index directory merged over the bundled one.)
+F-TEST-001 (#436) is closed: in-process tests must not read or write the real
+`~/.config/agent-skill-manager/`. Two pieces keep that true:
 
-Observed during the `CI=true npm test` run above, in
-`~/.config/agent-skill-manager/`:
+- `getConfigDir()` in `src/config.ts` reads `process.env.ASM_CONFIG_DIR`, falling
+  back to `join(homedir(), ".config", "agent-skill-manager")`. Bundles and the
+  registry cache default under that directory (or `ASM_REGISTRY_CACHE`).
+- Vitest `setupFiles`: `src/test-setup.ts` points `HOME`, `USERPROFILE`, and
+  `ASM_CONFIG_DIR` at a per-file temp dir _before_ any `src/` import. That also
+  covers leftover `homedir()` sites (scanner, uninstaller, `~` expansion).
 
-```
-config.json                              (rewritten)
-.skill-lock.json                         (rewritten)
-registry-cache.json                      (rewritten)
-.tmp/                                    (touched)
-bundles/__test-modify-add-bundle__.json  (created by a test)
-```
+`src/utils/test-spawn.ts` still mirrors a redirected `HOME` onto `USERPROFILE`
+for spawned CLI processes on Windows. `CI=true` still does not isolate anything
+by itself — the env override does.
 
-Consequences for an agent working here:
-
-- A test run mutates developer state. Back the directory up before running the
-  suite on a machine where that state matters.
-- Local pass/fail is machine-dependent. Reproduce a disagreement in CI, or on a
-  clean `~/.config/agent-skill-manager/`, before believing a local result.
-- `CI=true` does **not** prevent any of this (see above).
-
-This holds until the hermeticity work lands — modernization plan task 0.1,
-tracked as issue #436. After that, the local bar becomes 2100/2100 on a machine
-with a populated `~/.config/agent-skill-manager/`, and a run must leave the
-directory byte-identical.
+A regression looks like a test (or a removed `setupFiles` entry) resolving
+config paths from the host `homedir()` again. Audit with
+`getConfigDir() === process.env.ASM_CONFIG_DIR` and by hashing
+`~/.config/agent-skill-manager` before and after `CI=true npm test`.
 
 ## Pre-commit hooks
 
