@@ -49,8 +49,9 @@ npm install     # or `npm ci` for a lockfile-exact install (what CI uses)
 | `npm run typecheck` | **PASS** (exit 0) — `tsc --noEmit`, no output                                                            | ~2 s      |
 | `npm run lint:site` | **PASS** (exit 0) — eslint over `website-src/src/**/*.{js,jsx}`, no findings                             | ~1 s      |
 
-`git status --porcelain` was unchanged before and after all four — the same three
-untracked files, no tracked modifications. `npm run build` writes only to `dist/`, which is gitignored.
+`git status --porcelain` was unchanged before and after all four — no tracked
+modifications, and the same set of untracked scratch files either side.
+`npm run build` writes only to `dist/`, which is gitignored.
 
 ### Two things `CI=true npm test` is not
 
@@ -67,8 +68,8 @@ untracked files, no tracked modifications. `npm run build` writes only to `dist/
    `website-src/src/__tests__/` (`*.test.js` / `*.test.jsx`). Only the 6 files
    in `tests/e2e/` are excluded. Consequently `npm run test:site`
    (`vitest run website-src/`, those same 11 files) is a **subset** of
-   `npm test`, not a separate leg — and CI has no site-test job because
-   `npx vitest run src/` in the `unit-tests` job already covers it. The genuinely
+   `npm test`, not a separate leg — and CI needs no site-test job, since
+   `npx vitest run src/` in the `unit-tests` job already covers those files. The genuinely
    separate runners are `npm run test:e2e` (`tests/e2e/`) and `npm run test:all`
    (unit + site + build + e2e).
 
@@ -95,11 +96,11 @@ hermeticity.
 Never run these as a casual probe. They are catalog-regeneration steps, not
 build steps, and they overwrite files that are committed:
 
-| Command                        | Rewrites                                                                                                                                                                                                                                                                            |
-| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `npm run preindex`             | the per-repo JSONs under `data/skill-index/` — up to **56 of the 57 tracked files**: it iterates only repos marked `enabled` in `data/skill-index-resources.json` (`scripts/preindex.ts:24-28`), and `github:luongnv89/asm` is disabled, so `luongnv89_asm.json` is never rewritten |
-| `npm run refresh:repo-bundles` | the same directory: it walks **every** `*.json` in `data/skill-index/`, recomputes the `bundles` field, and writes back only the files whose serialization changed (`scripts/refresh-repo-bundles.ts:18-45`)                                                                        |
-| `npm run build:website`        | `scripts/build-catalog.ts` + `vite build`. Tracked outputs: `website/repo-stats.json`, `website/author-stats.json`, `website/index-stats.json` (all three carry a `generatedAt` timestamp, so every run produces a diff), and `website/robots.txt`                                  |
+| Command                        | Rewrites                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run preindex`             | the per-repo JSONs under `data/skill-index/` — up to **56 of the 57 tracked files**: it iterates only repos marked `enabled` in `data/skill-index-resources.json` (`scripts/preindex.ts:24-28`), and `github:luongnv89/asm` is disabled, so `luongnv89_asm.json` is never rewritten. **Also rewrites your real `~/.config/agent-skill-manager/skill-index/`**: `ingestRepo()` writes there first and `preindex` copies the result into `data/` (`scripts/preindex.ts:42-54`). That mutation shows in no git diff — see Trap 2 |
+| `npm run refresh:repo-bundles` | the same directory: it walks **every** `*.json` in `data/skill-index/`, recomputes the `bundles` field, and writes back only the files whose serialization changed (`scripts/refresh-repo-bundles.ts:18-45`)                                                                                                                                                                                                                                                                                                                  |
+| `npm run build:website`        | `scripts/build-catalog.ts` + `vite build`. Tracked outputs: `website/repo-stats.json`, `website/author-stats.json`, `website/index-stats.json` (all three carry a `generatedAt` timestamp, so every run produces a diff), and `website/robots.txt`                                                                                                                                                                                                                                                                            |
 
 Everything else `build:website` emits — `catalog.json`, `skills.min.json`,
 `search.idx.json`, `skills/*.json`, `bundles.json`, `llms.txt`, `sitemap.xml`,
@@ -121,8 +122,9 @@ diff. Do not fold it into an unrelated change.
 load, with no environment or dependency-injection override — `src/config.ts`
 contains no `process.env` reference at all. In-process tests therefore operate on
 the real directory. This is finding `F-TEST-001`. (Two partial escape hatches
-exist and cover only their own cases: `src/utils/test-spawn.ts` redirects
-`HOME`/`USERPROFILE` for tests that spawn the built CLI, and
+exist and cover only their own cases: `src/utils/test-spawn.ts` mirrors a
+caller-redirected `HOME` onto `USERPROFILE` so the sandbox survives on Windows —
+the redirect itself is done by each test that spawns the built CLI — and
 `resolveIndexedSkillByName(name, catalog?)` (`src/skill-index.ts:238-240`) takes
 an optional pre-loaded catalog so its callers can stay off the ambient user
 index. `loadAllIndices()` itself takes no arguments and always reads the real
