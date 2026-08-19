@@ -62,9 +62,10 @@ untracked files, no tracked modifications. `npm run build` writes only to `dist/
 2. **`npm test` is not the whole suite — but it is wider than it looks.** It is
    `vitest run src/`, and that argument is a **substring filter on the relative
    test path**, not a directory. `website-src/src/__tests__/…` contains `src/`,
-   so the site tests match too. The observed `60 passed (60)` is 49 `*.test.ts`
-   files under `src/` plus 11 under `website-src/`. Only the 4 files in
-   `tests/e2e/` are excluded. Consequently `npm run test:site`
+   so the site tests match too. The observed `60 passed (60)` is the 49 test
+   files under `src/` (47 `*.test.ts` plus 2 `*.test.tsx`) and the 11 under
+   `website-src/src/__tests__/` (`*.test.js` / `*.test.jsx`). Only the 6 files
+   in `tests/e2e/` are excluded. Consequently `npm run test:site`
    (`vitest run website-src/`, those same 11 files) is a **subset** of
    `npm test`, not a separate leg — and CI has no site-test job because
    `npx vitest run src/` in the `unit-tests` job already covers it. The genuinely
@@ -121,8 +122,11 @@ load, with no environment or dependency-injection override — `src/config.ts`
 contains no `process.env` reference at all. In-process tests therefore operate on
 the real directory. This is finding `F-TEST-001`. (Two partial escape hatches
 exist and cover only their own cases: `src/utils/test-spawn.ts` redirects
-`HOME`/`USERPROFILE` for tests that spawn the built CLI, and `loadAllIndices()`
-accepts an injectable catalog argument.)
+`HOME`/`USERPROFILE` for tests that spawn the built CLI, and
+`resolveIndexedSkillByName(name, catalog?)` (`src/skill-index.ts:238-240`) takes
+an optional pre-loaded catalog so its callers can stay off the ambient user
+index. `loadAllIndices()` itself takes no arguments and always reads the real
+user index directory merged over the bundled one.)
 
 Observed during the `CI=true npm test` run above, in
 `~/.config/agent-skill-manager/`:
@@ -162,9 +166,14 @@ pre-commit install --hook-type pre-commit --hook-type pre-push
 - **Commit stage:** the upstream `pre-commit-hooks` set (trailing-whitespace,
   end-of-file-fixer, check-yaml, check-json, check-added-large-files), the local
   security check, prettier, `tsc --noEmit`, and `npx vitest run src/`.
-- **Push stage:** `npm run build` and
-  `npx vitest run tests/e2e/node-e2e.test.ts` — plus prettier and `tsc --noEmit`
-  again, because those two declare no `stages:` and so run in every stage.
+- **Push stage:** `npm run build`,
+  `npx vitest run tests/e2e/node-e2e.test.ts` — plus everything above that is
+  not pinned to the commit stage, which is most of it. Only `security-check` and
+  `unit-tests` carry an explicit `stages: [pre-commit]`. prettier and
+  `tsc --noEmit` declare no `stages:` here, and all five upstream hooks also run
+  at push (trailing-whitespace, end-of-file-fixer and check-added-large-files
+  declare `stages: [pre-commit, pre-push, manual]` in the upstream manifest;
+  check-yaml and check-json declare none, which likewise means every stage).
 
 The `unit-tests` hook runs the same non-hermetic suite described above, so on a
 machine with a drifted skill index it can block a commit for a reason unrelated
