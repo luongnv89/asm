@@ -40,7 +40,7 @@ npm install     # or `npm ci` for a lockfile-exact install (what CI uses)
 `postinstall` runs `node scripts/postinstall.cjs`. It short-circuits when
 `ASM_SKIP_POSTINSTALL` or `CI` is set, or when the install is not global.
 
-## The four commands of record
+## Commands of record
 
 | Command             | Observed result                                                                                          | Wall time |
 | ------------------- | -------------------------------------------------------------------------------------------------------- | --------- |
@@ -48,8 +48,9 @@ npm install     # or `npm ci` for a lockfile-exact install (what CI uses)
 | `CI=true npm test`  | **PASS** (exit 0) — Test Files `60 passed (60)`, Tests **`2100 passed (2100)`**, vitest Duration 90.72 s | ~91 s     |
 | `npm run typecheck` | **PASS** (exit 0) — `tsc --noEmit`, no output                                                            | ~2 s      |
 | `npm run lint:site` | **PASS** (exit 0) — eslint over `website-src/src/**/*.{js,jsx}`, no findings                             | ~1 s      |
+| `npm run lint`      | **PASS** (exit 0) — eslint over `src/` via the root flat config (#439)                                   | ~3 s      |
 
-`git status --porcelain` was unchanged before and after all four — no tracked
+`git status --porcelain` was unchanged before and after these commands — no tracked
 modifications, and the same set of untracked scratch files either side.
 `npm run build` writes only to `dist/`, which is gitignored.
 

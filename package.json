@@ -25,6 +25,7 @@
     "preindex": "tsx scripts/preindex.ts",
     "refresh:repo-bundles": "tsx scripts/refresh-repo-bundles.ts",
     "build:website": "tsx scripts/build-catalog.ts && npm run build:site",
+    "lint": "eslint src/",
     "lint:site": "eslint --config website-src/eslint.config.js 'website-src/src/**/*.{js,jsx}'",
     "prepublishOnly": "npm run build",
     "postinstall": "node scripts/postinstall.cjs"
@@ -99,6 +100,7 @@
     "tailwindcss-animate": "^1.0.7",
     "tsx": "^4",
     "typescript": "^5",
+    "typescript-eslint": "^8.67.0",
     "vite": "^6.4.3",
     "vitest": "^2"
   }

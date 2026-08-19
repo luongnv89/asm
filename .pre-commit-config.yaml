@@ -27,6 +27,14 @@ repos:
         files: \.(ts|tsx|js|jsx|json|css|scss|md)$
         exclude: ^(node_modules/|dist/|package-lock\.json)
 
+      - id: lint
+        name: lint
+        entry: npm run lint
+        language: system
+        files: ^src/
+        types: [ts, tsx]
+        pass_filenames: false
+
       - id: typecheck
         name: typecheck
         entry: npx tsc --noEmit

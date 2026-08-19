@@ -35,6 +35,7 @@ npx tsx bin/agent-skill-manager.ts --help
 ```bash
 npm test             # Run all tests
 npm run typecheck    # Type-check without emitting
+npm run lint         # ESLint over src/
 ```
 
 Verified results for `npm run build`, `CI=true npm test`, `npm run typecheck`,
@@ -57,6 +58,7 @@ The project uses [pre-commit](https://pre-commit.com/) with:
 - **check-yaml / check-json** — validates config files
 - **check-added-large-files** — prevents accidental large file commits
 - **prettier** — auto-formats TS, JS, JSON, CSS, and MD files
+- **lint** — runs `npm run lint` (ESLint over `src/`)
 - **typecheck** — runs `tsc --noEmit` on staged TypeScript files
 
 Install hooks locally:

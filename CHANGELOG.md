@@ -4,6 +4,7 @@
 
 ### Infrastructure
 
+- Extend ESLint to `src/` with a root flat config, `npm run lint`, and a failing CI job ([#439](https://github.com/luongnv89/asm/issues/439))
 - Add `@vitest/coverage-v8` and `npm run test:coverage` for `src/`; record the first line/branch baseline in `CLAUDE.md` and bind M3 to `max(60%, baseline + 20pp)` ([#438](https://github.com/luongnv89/asm/issues/438))
 
 ### Bug Fixes

@@ -11,6 +11,7 @@ npm run build        # tsx scripts/build.ts -> dist/ (gitignored)
 CI=true npm test     # unit suite — the command of record
 npm run test:coverage  # v8 coverage for src/ — measurement only, no fail gate
 npm run typecheck    # tsc --noEmit
+npm run lint         # eslint over src/
 npm run lint:site    # eslint over website-src/src
 npm run test:e2e     # tests/e2e/ — NOT covered by `npm test`
 npm start            # run the TUI from source
