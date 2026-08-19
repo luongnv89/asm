@@ -50,7 +50,8 @@ state a floor with no ceiling, and `engines` is the one that is correct.
   machine-dependent. `CI=true` sandboxes nothing.
 - A local failure in `src/skill-index.test.ts` is usually that non-hermeticity, not
   the change under review. Confirm against CI before "fixing" it.
-- Never commit `dist/`, `node_modules/`, or generated website artifacts.
+- Never commit `dist/` or `node_modules/`. Most of `website/` is gitignored, but its
+  `*-stats.json` and `robots.txt` are tracked — commit those only on a deliberate regeneration.
 - Never delete or rewrite untracked scratch files at the repo root; other sessions
   own them.
 - Conventional Commits; branch from `main` as `<type>/<issue>-<description>`; PR
