@@ -818,6 +818,26 @@ describe("effort field display", () => {
     const output = await formatSkillInspect(skills);
     expect(output).not.toContain("Effort:");
   });
+
+  test("formatSkillInspect shows invocability for multi-instance skills", async () => {
+    const skills = [
+      makeSkill({
+        modelInvocable: true,
+        userInvocable: false,
+        providerLabel: "Claude Code",
+      }),
+      makeSkill({
+        modelInvocable: true,
+        userInvocable: false,
+        providerLabel: "Codex",
+        provider: "codex",
+        path: "/other",
+      }),
+    ];
+    const output = await formatSkillInspect(skills);
+    expect(output).toContain("Invocable: model");
+    expect(output).not.toContain("Invocable: both");
+  });
 });
 
 // ─── colorTool / formatAllowedTools ─────────────────────────────────────────

@@ -929,6 +929,12 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
   if (ref.effort) {
     lines.push(label("  Effort", colorEffort(ref.effort)));
   }
+  lines.push(
+    label(
+      "  Invocable",
+      formatInvocability(ref.modelInvocable, ref.userInvocable),
+    ),
+  );
 
   const fileCount = ref.fileCount ?? (await countFiles(ref.path));
   lines.push(label("  File Count", String(fileCount)));

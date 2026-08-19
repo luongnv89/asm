@@ -10,10 +10,16 @@ function compactTokens(tokenCount: number | undefined): string {
   return formatTokenCount(tokenCount).replace(/ tokens$/, "");
 }
 
-function calcDescWidth(termWidth: number): number {
-  // 2(border) + 2(padding) + 4(#) + 24(name) + 8(ver) + 13(creator) + 7(effort)
-  // + 7(invoke) + 8(tokens) + 12(provider) + 8(scope) + 6(type) + 10(spaces) = 111
-  const fixed = 111;
+export function calcDescWidth(termWidth: number): number {
+  // Fixed (non-description) row content, measured empirically from
+  // formatSkillRow with descWidth=0: "{prefix}{idx} {name} {ver} {creator}
+  // {effort} {invoke} {tokens} {prov} {scope} {type}" plus the box's
+  // border/padding and the description's own leading space.
+  //   2(border) + 2(padding) + 2(prefix) + 3(idx) + 24(name) + 8(ver)
+  //   + 11(creator) + 7(effort) + 6(invoke) + 6(tokens) + 12(provider)
+  //   + 7(scope) + 5(type) + 9(spaces between fields) + 1(desc leading space)
+  //   = 105
+  const fixed = 105;
   return Math.max(0, termWidth - fixed);
 }
 
@@ -33,12 +39,12 @@ function formatSkillRow(
   const ver =
     skill.version.length > 7 ? skill.version.slice(0, 7) : skill.version;
   const creatorRaw = skill.creator || "—";
-  const creator = creatorRaw.length > 12 ? creatorRaw.slice(0, 12) : creatorRaw;
+  const creator = creatorRaw.length > 10 ? creatorRaw.slice(0, 10) : creatorRaw;
   const effortRaw = skill.effort || "—";
   const effort = effortRaw.length > 6 ? effortRaw.slice(0, 6) : effortRaw;
   const invoke = formatInvocability(skill.modelInvocable, skill.userInvocable);
   const tokensRaw = compactTokens(skill.tokenCount);
-  const tokens = tokensRaw.length > 7 ? tokensRaw.slice(0, 7) : tokensRaw;
+  const tokens = tokensRaw.length > 5 ? tokensRaw.slice(0, 5) : tokensRaw;
   const prov =
     skill.providerLabel.length > 11
       ? skill.providerLabel.slice(0, 11)
@@ -47,7 +53,7 @@ function formatSkillRow(
   const type = skill.isSymlink ? "→link" : " dir ";
   const desc =
     descWidth > 0 ? " " + (skill.description || "").slice(0, descWidth) : "";
-  return `${idx} ${name.padEnd(24)} ${ver.padEnd(8)} ${creator.padEnd(13)} ${effort.padEnd(7)} ${invoke.padEnd(6)} ${tokens.padEnd(8)} ${prov.padEnd(12)} ${scope.padEnd(8)} ${type.padEnd(6)}${desc}`;
+  return `${idx} ${name.padEnd(24)} ${ver.padEnd(8)} ${creator.padEnd(11)} ${effort.padEnd(7)} ${invoke.padEnd(6)} ${tokens.padEnd(6)} ${prov.padEnd(12)} ${scope.padEnd(7)} ${type.padEnd(5)}${desc}`;
 }
 
 export interface SkillListProps {
@@ -65,7 +71,7 @@ export function SkillListView({
 }: SkillListProps) {
   const descWidth = calcDescWidth(termWidth);
   const descHeader = descWidth > 0 ? " Description" : "";
-  const header = `${"#".padStart(3)} ${"Name".padEnd(26)} ${"Ver".padEnd(8)} ${"Creator".padEnd(13)} ${"Effort".padEnd(7)} ${"Invoke".padEnd(6)} ${"Tokens".padEnd(8)} ${"Tool".padEnd(12)} ${"Scope".padEnd(8)} ${"Type".padEnd(6)}${descHeader}`;
+  const header = `${"#".padStart(3)} ${"Name".padEnd(26)} ${"Ver".padEnd(8)} ${"Creator".padEnd(11)} ${"Effort".padEnd(7)} ${"Invoke".padEnd(6)} ${"Tokens".padEnd(6)} ${"Tool".padEnd(12)} ${"Scope".padEnd(7)} ${"Type".padEnd(5)}${descHeader}`;
 
   // Compute scroll window so the cursor stays visible
   const total = skills.length;
