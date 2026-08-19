@@ -183,7 +183,7 @@ export async function checkNodeVersion(
     });
     const version = stdout.trim().replace(/^v/, "");
     const major = parseInt(version.split(".")[0], 10);
-    if (major >= 18) {
+    if (major >= 22) {
       return {
         name: "Node.js version",
         status: "pass",
@@ -193,7 +193,7 @@ export async function checkNodeVersion(
     return {
       name: "Node.js version",
       status: "fail",
-      message: `${version} (requires >= 18.0)`,
+      message: `${version} (requires >= 22.0)`,
       fix: "Upgrade Node.js: https://nodejs.org",
     };
   } catch {
@@ -201,7 +201,7 @@ export async function checkNodeVersion(
       name: "Node.js version",
       status: "fail",
       message: "node not found",
-      fix: "Install Node.js >= 18: https://nodejs.org",
+      fix: "Install Node.js >= 22: https://nodejs.org",
     };
   }
 }

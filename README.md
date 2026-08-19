@@ -12,7 +12,7 @@
   <a href="https://github.com/luongnv89/asm/stargazers"><img src="https://img.shields.io/github/stars/luongnv89/asm.svg?style=social" alt="GitHub stars" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="MIT License" /></a>
   <a href="https://github.com/luongnv89/asm/actions"><img src="https://github.com/luongnv89/asm/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
-  <a href="https://nodejs.org"><img src="https://img.shields.io/badge/Node.js-%E2%89%A5%2018-339933.svg" alt="Node.js" /></a>
+  <a href="https://nodejs.org"><img src="https://img.shields.io/badge/Node.js-%E2%89%A5%2022-339933.svg" alt="Node.js" /></a>
 </p>
 
 # CLI to install and manage agent skills
@@ -112,7 +112,7 @@ asm search "code review" --json
 
 Alternative install: `curl -sSL https://raw.githubusercontent.com/luongnv89/asm/main/install.sh | bash`
 
-Node.js 18+ required. Optional TUI: run `asm` with no arguments.
+Node.js 22+ required. Optional TUI: run `asm` with no arguments.
 
 ## Common tasks
 
@@ -1034,7 +1034,7 @@ asm/
 <details>
 <summary><strong>Tech stack</strong></summary>
 
-- **Runtime:** Node.js 18+
+- **Runtime:** Node.js 22+
 - **Language:** TypeScript + TSX
 - **Build:** esbuild
 - **TUI:** [Ink](https://github.com/vadimdemedes/ink) + [@inkjs/ui](https://github.com/vadimdemedes/ink-ui)

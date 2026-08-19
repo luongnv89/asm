@@ -37,8 +37,8 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        # Vitest 4 requires Node >=20. Product engines stay >=18 until #444.
-        node-version: [20, 22]
+        # Node 18/20 are EOL; floor is >=22 (see package.json engines / #444).
+        node-version: [22, 24]
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
 
@@ -107,8 +107,8 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        # Vitest 4 requires Node >=20. Product engines stay >=18 until #444.
-        node-version: [20, 22]
+        # Node 18/20 are EOL; floor is >=22 (see package.json engines / #444).
+        node-version: [22, 24]
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
 
@@ -142,8 +142,8 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        # Vitest 4 requires Node >=20. Product engines stay >=18 until #444.
-        node-version: [20, 22]
+        # Node 18/20 are EOL; floor is >=22 (see package.json engines / #444).
+        node-version: [22, 24]
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
 

@@ -96,7 +96,7 @@ describe("checkGhAuthenticated", () => {
 });
 
 describe("checkNodeVersion", () => {
-  test("returns pass for node >= 18", async () => {
+  test("returns pass for node >= 22", async () => {
     const result = await checkNodeVersion();
     expect(result.status).toBe("pass");
     expect(result.name).toBe("Node.js version");
@@ -463,12 +463,21 @@ describe("checkNodeVersion — mocked paths", () => {
     expect(result.message).toContain("requires");
   });
 
-  test("returns pass for node >= 18", async () => {
+  test("returns fail for node 20 (below the raised >= 22 floor)", async () => {
     const result = await checkNodeVersion({
       execFn: mockExec("v20.11.1\n"),
     });
+    expect(result.status).toBe("fail");
+    expect(result.message).toContain("20.11.1");
+    expect(result.message).toContain("requires");
+  });
+
+  test("returns pass for node >= 22", async () => {
+    const result = await checkNodeVersion({
+      execFn: mockExec("v22.11.0\n"),
+    });
     expect(result.status).toBe("pass");
-    expect(result.message).toBe("20.11.1");
+    expect(result.message).toBe("22.11.0");
   });
 });
 
