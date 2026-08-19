@@ -2,7 +2,9 @@ import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
 import {
   getDefaultConfig,
   resolveProviderPath,
+  getConfigDir,
   getConfigPath,
+  getIndexDir,
   loadConfig,
   saveConfig,
   saveSelectedTools,
@@ -113,6 +115,38 @@ describe("getConfigPath", () => {
     expect(path).toContain(
       join(".config", "agent-skill-manager", "config.json"),
     );
+  });
+});
+
+describe("getConfigDir", () => {
+  it("uses ASM_CONFIG_DIR when set", () => {
+    expect(process.env.ASM_CONFIG_DIR).toBeTruthy();
+    expect(getConfigDir()).toBe(process.env.ASM_CONFIG_DIR);
+    expect(getIndexDir()).toBe(
+      join(process.env.ASM_CONFIG_DIR!, "skill-index"),
+    );
+  });
+
+  it("does not resolve to the host ~/.config/agent-skill-manager", () => {
+    const hostHome = process.env.ASM_TEST_HOST_HOME;
+    expect(hostHome).toBeTruthy();
+    expect(getConfigDir()).not.toBe(
+      join(hostHome!, ".config", "agent-skill-manager"),
+    );
+    expect(homedir()).not.toBe(hostHome);
+  });
+
+  it("reads ASM_CONFIG_DIR at call time, not at module load", () => {
+    const previous = process.env.ASM_CONFIG_DIR;
+    const override = join(tmpdir(), "asm-config-override");
+    try {
+      process.env.ASM_CONFIG_DIR = override;
+      expect(getConfigDir()).toBe(override);
+      expect(getConfigPath()).toBe(join(override, "config.json"));
+    } finally {
+      if (previous === undefined) delete process.env.ASM_CONFIG_DIR;
+      else process.env.ASM_CONFIG_DIR = previous;
+    }
   });
 });
 

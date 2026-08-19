@@ -1,8 +1,8 @@
 import { readFile, writeFile, readdir, access, mkdir, rm } from "fs/promises";
 import { join, resolve, dirname } from "path";
-import { homedir } from "os";
 import { fileURLToPath } from "url";
 import { debug } from "./logger";
+import { getConfigDir } from "./config";
 import { readLock } from "./utils/lock";
 import { loadAllIndices } from "./skill-index";
 import { repoBundlesForIndex } from "./repo-bundles";
@@ -17,8 +17,6 @@ import type {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-const BUNDLE_DIR = join(homedir(), ".config", "agent-skill-manager", "bundles");
 
 /**
  * Path to the shipped (predefined) bundles directory bundled with ASM.
@@ -152,11 +150,11 @@ export async function skillInfoToRef(
 // ─── Bundle Storage ────────────────────────────────────────────────────────
 
 export function getBundleDir(): string {
-  return BUNDLE_DIR;
+  return join(getConfigDir(), "bundles");
 }
 
 export async function ensureBundleDir(): Promise<void> {
-  await mkdir(BUNDLE_DIR, { recursive: true });
+  await mkdir(getBundleDir(), { recursive: true });
 }
 
 function sanitizeBundleName(name: string): string {
@@ -180,7 +178,7 @@ function sanitizeBundleName(name: string): string {
 export async function saveBundle(bundle: BundleManifest): Promise<string> {
   await ensureBundleDir();
   const filename = `${sanitizeBundleName(bundle.name)}.json`;
-  const filePath = join(BUNDLE_DIR, filename);
+  const filePath = join(getBundleDir(), filename);
   await writeFile(filePath, JSON.stringify(bundle, null, 2) + "\n", "utf-8");
   debug(`bundle: saved to ${filePath}`);
   return filePath;
@@ -232,7 +230,7 @@ export async function loadBundle(nameOrPath: string): Promise<BundleManifest> {
 
   // Look in the user bundles directory first
   const filename = `${sanitizeBundleName(nameOrPath)}.json`;
-  const filePath = join(BUNDLE_DIR, filename);
+  const filePath = join(getBundleDir(), filename);
 
   try {
     return await readBundleFile(filePath);
@@ -326,21 +324,21 @@ export async function listBundles(): Promise<BundleManifest[]> {
   const bundles: BundleManifest[] = [];
 
   try {
-    await access(BUNDLE_DIR);
+    await access(getBundleDir());
   } catch {
     return bundles;
   }
 
   let entries: string[];
   try {
-    entries = await readdir(BUNDLE_DIR);
+    entries = await readdir(getBundleDir());
   } catch {
     return bundles;
   }
 
   for (const entry of entries) {
     if (!entry.endsWith(".json")) continue;
-    const filePath = join(BUNDLE_DIR, entry);
+    const filePath = join(getBundleDir(), entry);
     try {
       const bundle = await readBundleFile(filePath);
       bundles.push(bundle);
@@ -358,7 +356,7 @@ export async function listBundles(): Promise<BundleManifest[]> {
  */
 export async function removeBundle(name: string): Promise<boolean> {
   const filename = `${sanitizeBundleName(name)}.json`;
-  const filePath = join(BUNDLE_DIR, filename);
+  const filePath = join(getBundleDir(), filename);
 
   try {
     await rm(filePath);

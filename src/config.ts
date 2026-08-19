@@ -12,15 +12,16 @@ import type {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const HOME = homedir();
-const CONFIG_DIR = join(HOME, ".config", "agent-skill-manager");
-const CONFIG_PATH = join(CONFIG_DIR, "config.json");
-const LOCK_PATH = join(CONFIG_DIR, ".skill-lock.json");
-const SKILL_STATE_PATH = join(CONFIG_DIR, "skill-state.json");
-const INDEX_DIR = join(CONFIG_DIR, "skill-index");
-const LIBRARY_DIR = join(CONFIG_DIR, "library");
-const LIBRARY_SKILLS_DIR = join(LIBRARY_DIR, "skills");
-const LIBRARY_LOCK_PATH = join(LIBRARY_DIR, "library-lock.json");
+/**
+ * User-state root (`config.json`, skill-index, bundles, lock, library).
+ * `ASM_CONFIG_DIR` overrides the default `~/.config/agent-skill-manager`
+ * so in-process tests can point at a temp dir. Unset in production.
+ */
+export function getConfigDir(): string {
+  const override = process.env.ASM_CONFIG_DIR;
+  if (override) return override;
+  return join(homedir(), ".config", "agent-skill-manager");
+}
 
 const DEFAULT_PROVIDERS: ProviderConfig[] = [
   // ── Priority providers (ordered by user preference) ──
@@ -174,11 +175,11 @@ export function getDefaultConfig(): AppConfig {
 }
 
 export function getConfigPath(): string {
-  return CONFIG_PATH;
+  return join(getConfigDir(), "config.json");
 }
 
 export function getLockPath(): string {
-  return LOCK_PATH;
+  return join(getConfigDir(), ".skill-lock.json");
 }
 
 /**
@@ -186,23 +187,23 @@ export function getLockPath(): string {
  * disabled (survives across sessions). See `src/skill-state.ts`.
  */
 export function getSkillStatePath(): string {
-  return SKILL_STATE_PATH;
+  return join(getConfigDir(), "skill-state.json");
 }
 
 export function getIndexDir(): string {
-  return INDEX_DIR;
+  return join(getConfigDir(), "skill-index");
 }
 
 export function getLibraryDir(): string {
-  return LIBRARY_DIR;
+  return join(getConfigDir(), "library");
 }
 
 export function getLibrarySkillsDir(): string {
-  return LIBRARY_SKILLS_DIR;
+  return join(getLibraryDir(), "skills");
 }
 
 export function getLibraryLockPath(): string {
-  return LIBRARY_LOCK_PATH;
+  return join(getLibraryDir(), "library-lock.json");
 }
 
 export function getBundledIndexDir(): string {
@@ -223,7 +224,7 @@ export async function loadSkillIndexResources(): Promise<SkillIndexResources> {
 
 export function resolveProviderPath(pathTemplate: string): string {
   if (pathTemplate.startsWith("~/")) {
-    return join(HOME, pathTemplate.slice(2));
+    return join(homedir(), pathTemplate.slice(2));
   }
   if (pathTemplate.startsWith("/")) {
     return pathTemplate;
@@ -273,11 +274,12 @@ function mergeWithDefaults(config: Partial<AppConfig>): AppConfig {
 }
 
 export async function loadConfig(): Promise<AppConfig> {
-  debug(`config: checking ${CONFIG_PATH}`);
+  const configPath = getConfigPath();
+  debug(`config: checking ${configPath}`);
 
   let raw: string;
   try {
-    raw = await readFile(CONFIG_PATH, "utf-8");
+    raw = await readFile(configPath, "utf-8");
   } catch (err: any) {
     if (err?.code === "ENOENT") {
       // Config doesn't exist — silently use defaults
@@ -291,13 +293,13 @@ export async function loadConfig(): Promise<AppConfig> {
 
   try {
     const parsed = JSON.parse(raw);
-    debug(`config: loaded from ${CONFIG_PATH}`);
+    debug(`config: loaded from ${configPath}`);
     return mergeWithDefaults(parsed);
   } catch {
     // Parse error — backup corrupted file before resetting
-    const backupPath = CONFIG_PATH + ".bak";
+    const backupPath = configPath + ".bak";
     debug(`config: parse error, backing up to ${backupPath}`);
-    await copyFile(CONFIG_PATH, backupPath);
+    await copyFile(configPath, backupPath);
     console.error(
       `Warning: Config file was corrupted. Backup saved to ${backupPath}. Using defaults.`,
     );
@@ -308,8 +310,9 @@ export async function loadConfig(): Promise<AppConfig> {
 }
 
 export async function saveConfig(config: AppConfig): Promise<void> {
-  await mkdir(CONFIG_DIR, { recursive: true });
-  await writeFile(CONFIG_PATH, JSON.stringify(config, null, 2) + "\n", "utf-8");
+  const configPath = getConfigPath();
+  await mkdir(getConfigDir(), { recursive: true });
+  await writeFile(configPath, JSON.stringify(config, null, 2) + "\n", "utf-8");
 }
 
 export async function saveSelectedTools(toolNames: string[]): Promise<void> {

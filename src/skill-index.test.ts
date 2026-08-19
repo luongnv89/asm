@@ -11,13 +11,16 @@ import {
   resolveIndexedSkillByName,
 } from "./skill-index";
 import type { IndexedSkillMatch } from "./skill-index";
-import { getSkillIndexResourcesPath, getBundledIndexDir } from "./config";
+import {
+  getSkillIndexResourcesPath,
+  getBundledIndexDir,
+  getIndexDir,
+} from "./config";
 import type { IndexedSkill } from "./utils/types";
 
-// These tests exercise loadAllIndices/searchSkills/etc. against the real
-// bundled index that ships with the package (data/skill-index/).
-// Since we can't easily patch ESM module exports, we test with whatever
-// indices exist in the real config+bundled dirs.
+// These tests exercise loadAllIndices/searchSkills/etc. against the bundled
+// index that ships with the package (data/skill-index/). The user index dir
+// is the vitest sandbox (ASM_CONFIG_DIR), so host ~/.config is not merged.
 
 describe("loadAllIndices", () => {
   it("returns an array", async () => {
@@ -239,6 +242,18 @@ describe("Index resource integrity", () => {
     const indices = await loadAllIndices();
     for (const idx of indices) {
       expect(idx.skillCount).toBeGreaterThan(0);
+    }
+  });
+
+  it("does not merge the host user skill-index over bundled data", () => {
+    const sandbox = process.env.ASM_CONFIG_DIR;
+    expect(sandbox).toBeTruthy();
+    expect(getIndexDir()).toBe(join(sandbox!, "skill-index"));
+    const hostHome = process.env.ASM_TEST_HOST_HOME;
+    if (hostHome) {
+      expect(getIndexDir()).not.toBe(
+        join(hostHome, ".config", "agent-skill-manager", "skill-index"),
+      );
     }
   });
 

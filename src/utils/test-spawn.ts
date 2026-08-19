@@ -72,8 +72,25 @@ function normalizeArgv(argv: readonly string[]): string[] {
  * it) makes the sandbox hold on Windows and changes nothing on POSIX.
  */
 function normalizeEnv<T extends { env?: NodeJS.ProcessEnv }>(opts: T): T {
+  let env = opts.env;
+  if (env) {
+    // Vitest setupFiles sets ASM_CONFIG_DIR for in-process tests. Spawned CLI
+    // helpers copy process.env and then redirect HOME; drop the inherited
+    // sandbox so the child uses $HOME/.config/agent-skill-manager unless the
+    // caller set ASM_CONFIG_DIR itself.
+    const redirectedHome = Boolean(env.HOME && env.HOME !== process.env.HOME);
+    const inheritedSandbox =
+      env.ASM_CONFIG_DIR !== undefined &&
+      env.ASM_CONFIG_DIR === process.env.ASM_CONFIG_DIR;
+    if (redirectedHome && inheritedSandbox) {
+      env = { ...env };
+      delete env.ASM_CONFIG_DIR;
+      opts = { ...opts, env };
+    }
+  }
+
   if (process.platform !== "win32") return opts;
-  const env = opts.env;
+  env = opts.env;
   if (!env?.HOME || env.HOME === process.env.HOME) return opts;
   if (env.USERPROFILE && env.USERPROFILE !== process.env.USERPROFILE) {
     return opts;
