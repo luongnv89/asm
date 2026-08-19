@@ -5,7 +5,7 @@ working in this repository, plus the two traps that are not obvious from
 `package.json`.
 
 Recorded on branch `chore/433-record-the-install-build-and-test`, base commit
-`a46b652`, on 2026-08-19. Every result below was observed by running the command,
+`a46b652`, on 2026-08-19. Every result in the table below was observed by running the command,
 not copied from another document. Re-verify after any dependency or toolchain
 change.
 
@@ -49,8 +49,8 @@ npm install     # or `npm ci` for a lockfile-exact install (what CI uses)
 | `npm run typecheck` | **PASS** (exit 0) — `tsc --noEmit`, no output                                                            | ~2 s      |
 | `npm run lint:site` | **PASS** (exit 0) — eslint over `website-src/src/**/*.{js,jsx}`, no findings                             | ~1 s      |
 
-`git status` was byte-identical before and after all four: none of them modify a
-tracked file. `npm run build` writes only to `dist/`, which is gitignored.
+`git status --porcelain` was unchanged before and after all four — the same three
+untracked files, no tracked modifications. `npm run build` writes only to `dist/`, which is gitignored.
 
 ### Two things `CI=true npm test` is not
 
@@ -59,9 +59,17 @@ tracked file. `npm run build` writes only to `dist/`, which is gitignored.
    `vitest.config.ts` reads it. `CI=true` is the command of record because it
    matches how CI installs, not because it isolates anything. See the user-config
    trap below.
-2. **`npm test` is not the whole suite.** It is `vitest run src/` — unit tests
-   only. The other runners: `npm run test:site` (`website-src/`), `npm run
-test:e2e` (`tests/e2e/`), and `npm run test:all` (unit + site + build + e2e).
+2. **`npm test` is not the whole suite — but it is wider than it looks.** It is
+   `vitest run src/`, and that argument is a **substring filter on the relative
+   test path**, not a directory. `website-src/src/__tests__/…` contains `src/`,
+   so the site tests match too. The observed `60 passed (60)` is 49 `*.test.ts`
+   files under `src/` plus 11 under `website-src/`. Only the 4 files in
+   `tests/e2e/` are excluded. Consequently `npm run test:site`
+   (`vitest run website-src/`, those same 11 files) is a **subset** of
+   `npm test`, not a separate leg — and CI has no site-test job because
+   `npx vitest run src/` in the `unit-tests` job already covers it. The genuinely
+   separate runners are `npm run test:e2e` (`tests/e2e/`) and `npm run test:all`
+   (unit + site + build + e2e).
 
 ### Baseline note
 
@@ -71,21 +79,26 @@ The difference is not a fix — it is the non-hermeticity described below. The t
 that flips (`src/skill-index.test.ts`, "indexes emilkowalski/skills with expected
 skills and install URLs") pins `emilkowalski/skills` to 11 named skills and reads
 the _developer's_ `~/.config/agent-skill-manager/skill-index/` merged over the
-bundled `data/skill-index/`. On this machine that user copy is currently
-byte-identical to the repo's `data/skill-index/emilkowalski_skills.json`, so the
-assertion holds by coincidence. A machine whose ingested index has drifted will
-see 2099/2100. Do not read a local 2100/2100 as evidence of hermeticity.
+bundled `data/skill-index/`. At `ad961d2` both the bundled file and the pin said
+8 skills while this machine's ingested copy said 11, so the assertion failed; the
+base commit `a46b652` (`chore(index): refresh indexed skill sources`) raised both
+to 11, which happens to match what this machine has ingested — `cmp` reports the
+user copy and `data/skill-index/emilkowalski_skills.json` byte-identical. The
+assertion passes by coincidence of state, not because the test stopped reading
+your home directory. A machine whose ingested index has drifted from the bundled
+one will see 2099/2100. Do not read a local 2100/2100 as evidence of
+hermeticity.
 
 ## Trap 1 — scripts that rewrite tracked files
 
 Never run these as a casual probe. They are catalog-regeneration steps, not
 build steps, and they overwrite files that are committed:
 
-| Command                        | Rewrites                                                                                                                                                                                                                                    |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `npm run preindex`             | `data/skill-index/*.json` — **57 tracked files**                                                                                                                                                                                            |
-| `npm run refresh:repo-bundles` | files under `data/skill-index/`                                                                                                                                                                                                             |
-| `npm run build:website`        | `scripts/build-catalog.ts` + `vite build`. Tracked outputs: `website/repo-stats.json`, `website/author-stats.json`, `website/index-stats.json` (each carries a fresh `generatedAt`, so every run produces a diff), and `website/robots.txt` |
+| Command                        | Rewrites                                                                                                                                                                                                                                                                            |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run preindex`             | the per-repo JSONs under `data/skill-index/` — up to **56 of the 57 tracked files**: it iterates only repos marked `enabled` in `data/skill-index-resources.json` (`scripts/preindex.ts:24-28`), and `github:luongnv89/asm` is disabled, so `luongnv89_asm.json` is never rewritten |
+| `npm run refresh:repo-bundles` | the same directory: it walks **every** `*.json` in `data/skill-index/`, recomputes the `bundles` field, and writes back only the files whose serialization changed (`scripts/refresh-repo-bundles.ts:18-45`)                                                                        |
+| `npm run build:website`        | `scripts/build-catalog.ts` + `vite build`. Tracked outputs: `website/repo-stats.json`, `website/author-stats.json`, `website/index-stats.json` (all three carry a `generatedAt` timestamp, so every run produces a diff), and `website/robots.txt`                                  |
 
 Everything else `build:website` emits — `catalog.json`, `skills.min.json`,
 `search.idx.json`, `skills/*.json`, `bundles.json`, `llms.txt`, `sitemap.xml`,
@@ -102,9 +115,14 @@ diff. Do not fold it into an unrelated change.
 
 ## Trap 2 — the unit suite writes to your real user config
 
-`src/config.ts:16` computes `CONFIG_DIR` as `join(homedir(), ".config",
-"agent-skill-manager")` with no environment or dependency-injection override, so
-tests operate on the real directory. This is finding `F-TEST-001`.
+`src/config.ts:15-16` computes `const HOME = homedir()` and then
+`const CONFIG_DIR = join(HOME, ".config", "agent-skill-manager")`, at module
+load, with no environment or dependency-injection override — `src/config.ts`
+contains no `process.env` reference at all. In-process tests therefore operate on
+the real directory. This is finding `F-TEST-001`. (Two partial escape hatches
+exist and cover only their own cases: `src/utils/test-spawn.ts` redirects
+`HOME`/`USERPROFILE` for tests that spawn the built CLI, and `loadAllIndices()`
+accepts an injectable catalog argument.)
 
 Observed during the `CI=true npm test` run above, in
 `~/.config/agent-skill-manager/`:
@@ -132,11 +150,21 @@ directory byte-identical.
 
 ## Pre-commit hooks
 
-`.pre-commit-config.yaml` (install with `pre-commit install`) gates two stages:
+`.pre-commit-config.yaml` defines hooks for two stages, but sets neither
+`default_install_hook_types` nor `default_stages`. A plain `pre-commit install`
+therefore installs the **commit stage only** — the pre-push hooks silently never
+fire. To get both:
 
-- **pre-commit:** local security check, prettier, `tsc --noEmit`, and
-  `npx vitest run src/`.
-- **pre-push:** `npm run build` and `npx vitest run tests/e2e/node-e2e.test.ts`.
+```bash
+pre-commit install --hook-type pre-commit --hook-type pre-push
+```
+
+- **Commit stage:** the upstream `pre-commit-hooks` set (trailing-whitespace,
+  end-of-file-fixer, check-yaml, check-json, check-added-large-files), the local
+  security check, prettier, `tsc --noEmit`, and `npx vitest run src/`.
+- **Push stage:** `npm run build` and
+  `npx vitest run tests/e2e/node-e2e.test.ts` — plus prettier and `tsc --noEmit`
+  again, because those two declare no `stages:` and so run in every stage.
 
 The `unit-tests` hook runs the same non-hermetic suite described above, so on a
 machine with a drifted skill index it can block a commit for a reason unrelated
