@@ -148,22 +148,23 @@ fire. To get both:
 pre-commit install --hook-type pre-commit --hook-type pre-push
 ```
 
-- **Commit stage:** the upstream `pre-commit-hooks` set (trailing-whitespace,
-  end-of-file-fixer, check-yaml, check-json, check-added-large-files), the local
-  security check, prettier, `tsc --noEmit`, and `npx vitest run src/`.
-- **Push stage:** `npm run build`,
-  `npx vitest run tests/e2e/node-e2e.test.ts` — plus everything above that is
-  not pinned to the commit stage, which is most of it. Only `security-check` and
-  `unit-tests` carry an explicit `stages: [pre-commit]`. prettier and
-  `tsc --noEmit` declare no `stages:` here, and all five upstream hooks also run
-  at push (trailing-whitespace, end-of-file-fixer and check-added-large-files
-  declare `stages: [pre-commit, pre-push, manual]` in the upstream manifest;
-  check-yaml and check-json declare none, which likewise means every stage).
+- **Commit stage (fast subset):** the upstream `pre-commit-hooks` set
+  (trailing-whitespace, end-of-file-fixer, check-yaml, check-json,
+  check-added-large-files), the local security check, prettier, `npm run lint`,
+  and `tsc --noEmit`. `security-check`, prettier, `lint`, and `typecheck` are
+  pinned to `stages: [pre-commit]`.
+- **Push stage:** `npx vitest run src/` (`unit-tests`), `npm run build`, and
+  `npx vitest run tests/e2e/node-e2e.test.ts`. Those three local hooks carry
+  `stages: [pre-push]`. The five upstream hooks also run at push
+  (trailing-whitespace, end-of-file-fixer and check-added-large-files declare
+  `stages: [pre-commit, pre-push, manual]` in the upstream manifest; check-yaml
+  and check-json declare none, which likewise means every stage).
 
-The `unit-tests` hook runs the same non-hermetic suite described above, so on a
-machine with a drifted skill index it can block a commit for a reason unrelated
-to the change. Confirm the failure is the known baseline one before working
-around it.
+The `unit-tests` hook runs the same suite described above (`npx vitest run
+src/`). It lives at pre-push so a no-op commit is not gated on the ~91 s run;
+CI remains the enforcing gate. On a machine with a drifted skill index it can
+still block a push for a reason unrelated to the change. Confirm the failure
+is the known baseline one before working around it.
 
 ## See also
 

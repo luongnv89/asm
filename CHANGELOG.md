@@ -4,6 +4,7 @@
 
 ### Infrastructure
 
+- Move the full unit suite from the pre-commit hook to pre-push; keep prettier, lint, typecheck, and the local security check as the fast commit subset ([#440](https://github.com/luongnv89/asm/issues/440))
 - Extend ESLint to `src/` with a root flat config, `npm run lint`, and a failing CI job ([#439](https://github.com/luongnv89/asm/issues/439))
 - Add `@vitest/coverage-v8` and `npm run test:coverage` for `src/`; record the first line/branch baseline in `CLAUDE.md` and bind M3 to `max(60%, baseline + 20pp)` ([#438](https://github.com/luongnv89/asm/issues/438))
 

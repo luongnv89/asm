@@ -57,14 +57,16 @@ The project uses [pre-commit](https://pre-commit.com/) with:
 - **end-of-file-fixer** — ensures files end with a newline
 - **check-yaml / check-json** — validates config files
 - **check-added-large-files** — prevents accidental large file commits
-- **prettier** — auto-formats TS, JS, JSON, CSS, and MD files
-- **lint** — runs `npm run lint` (ESLint over `src/`)
-- **typecheck** — runs `tsc --noEmit` on staged TypeScript files
+- **prettier** — auto-formats TS, JS, JSON, CSS, and MD files (commit)
+- **lint** — runs `npm run lint` (ESLint over `src/`) (commit)
+- **typecheck** — runs `tsc --noEmit` on staged TypeScript files (commit)
+- **unit-tests** — `npx vitest run src/` (push)
+- **build** / **e2e-node** — production build and node e2e (push)
 
-Install hooks locally:
+Install both hook stages; a plain `pre-commit install` skips pre-push:
 
 ```bash
-pre-commit install
+pre-commit install --hook-type pre-commit --hook-type pre-push
 ```
 
 ## Debugging

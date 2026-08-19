@@ -26,6 +26,7 @@ repos:
         types: [text]
         files: \.(ts|tsx|js|jsx|json|css|scss|md)$
         exclude: ^(node_modules/|dist/|package-lock\.json)
+        stages: [pre-commit]
 
       - id: lint
         name: lint
@@ -33,6 +34,7 @@ repos:
         language: system
         files: ^(src/|eslint\.config\.js)
         pass_filenames: false
+        stages: [pre-commit]
 
       - id: typecheck
         name: typecheck
@@ -40,15 +42,16 @@ repos:
         language: system
         types: [ts, tsx]
         pass_filenames: false
+        stages: [pre-commit]
 
+      # ── Push stage ──────────────────────────────────────────────────────────
       - id: unit-tests
         name: unit tests
         entry: npx vitest run src/
         language: system
         pass_filenames: false
-        stages: [pre-commit]
+        stages: [pre-push]
 
-      # ── Push stage ──────────────────────────────────────────────────────────
       - id: build
         name: build
         entry: npm run build
