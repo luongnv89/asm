@@ -2,9 +2,283 @@
   "repoUrl": "https://github.com/rudrankriyam/app-store-connect-cli-skills.git",
   "owner": "rudrankriyam",
   "repo": "app-store-connect-cli-skills",
-  "updatedAt": "2026-08-05T00:03:31.684Z",
-  "skillCount": 23,
+  "updatedAt": "2026-08-19T04:55:32.138Z",
+  "skillCount": 25,
   "skills": [
+    {
+      "name": "asc-ad-hoc-distribution",
+      "description": "Prepare, publish, resume, and verify private iOS release-testing installs with asc distribute. Use when distributing an IPA to registered devices outside TestFlight, reconciling ad hoc profiles, publishing through caller-owned S3-compatible storage, or diagnosing a resumable private distribution run.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-ad-hoc-distribution",
+      "relPath": "skills/asc-ad-hoc-distribution",
+      "verified": true,
+      "tokenCount": 1846,
+      "evalSummary": {
+        "overallScore": 79,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-19T04:55:32.110Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-19T04:55:32.112Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-08-19T04:55:32.112Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "asc-analytics-reports",
+      "description": "Collect, download, and verify App Store Connect Analytics reports with asc. Use when users need to discover analytics report requests, select report instances by processing date or granularity, download every segment, or verify downloaded files against Apple's size and MD5 metadata before analysis.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-analytics-reports",
+      "relPath": "skills/asc-analytics-reports",
+      "verified": true,
+      "tokenCount": 1970,
+      "evalSummary": {
+        "overallScore": 64,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-19T04:55:32.110Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 64,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-19T04:55:32.112Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-08-19T04:55:32.112Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
     {
       "name": "asc-app-create-ui",
       "description": "Create a new App Store Connect app record via browser automation. Use when there is no public API for app creation and you need an agent to drive the New App form.",
@@ -16,7 +290,7 @@
       "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-app-create-ui",
       "relPath": "skills/asc-app-create-ui",
       "verified": true,
-      "tokenCount": 1764,
+      "tokenCount": 1844,
       "evalSummary": {
         "overallScore": 80,
         "grade": "B",
@@ -64,7 +338,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.655Z",
+        "evaluatedAt": "2026-08-19T04:55:32.112Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -119,7 +393,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.655Z",
+          "evaluatedAt": "2026-08-19T04:55:32.112Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,14 +411,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.655Z",
+          "evaluatedAt": "2026-08-19T04:55:32.112Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "asc-apple-ads",
-      "description": "Use when managing Apple Ads with asc, including auth, org lookup, campaigns, ad groups, ads, keywords, reports, raw API calls, and safe live testing.",
+      "description": "Use when managing Apple Ads with asc, including OAuth profiles, ad-account discovery, Platform API v1 campaigns and targeting, reports, assets, recommendations, guarded mutations, raw requests, and Campaign Management API v5 migration.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -153,9 +427,9 @@
       "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-apple-ads",
       "relPath": "skills/asc-apple-ads",
       "verified": true,
-      "tokenCount": 1309,
+      "tokenCount": 3411,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 71,
         "grade": "C",
         "categories": [
           {
@@ -179,7 +453,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 8,
+            "score": 6,
             "max": 10
           },
           {
@@ -201,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.656Z",
+        "evaluatedAt": "2026-08-19T04:55:32.111Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -210,7 +484,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 71,
           "grade": "C",
           "categories": [
             {
@@ -234,7 +508,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 8,
+              "score": 6,
               "max": 10
             },
             {
@@ -256,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.656Z",
+          "evaluatedAt": "2026-08-19T04:55:32.112Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +548,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.656Z",
+          "evaluatedAt": "2026-08-19T04:55:32.112Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -338,7 +612,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.658Z",
+        "evaluatedAt": "2026-08-19T04:55:32.112Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -393,7 +667,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.658Z",
+          "evaluatedAt": "2026-08-19T04:55:32.112Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +685,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.658Z",
+          "evaluatedAt": "2026-08-19T04:55:32.112Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -427,9 +701,9 @@
       "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-build-lifecycle",
       "relPath": "skills/asc-build-lifecycle",
       "verified": true,
-      "tokenCount": 371,
+      "tokenCount": 458,
       "evalSummary": {
-        "overallScore": 56,
+        "overallScore": 59,
         "grade": "D",
         "categories": [
           {
@@ -465,7 +739,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 1,
+            "score": 3,
             "max": 10
           },
           {
@@ -475,7 +749,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.659Z",
+        "evaluatedAt": "2026-08-19T04:55:32.113Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -484,7 +758,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 56,
+          "overallScore": 59,
           "grade": "D",
           "categories": [
             {
@@ -520,7 +794,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 1,
+              "score": 3,
               "max": 10
             },
             {
@@ -530,7 +804,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.659Z",
+          "evaluatedAt": "2026-08-19T04:55:32.113Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +822,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.659Z",
+          "evaluatedAt": "2026-08-19T04:55:32.113Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -564,9 +838,9 @@
       "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-cli-usage",
       "relPath": "skills/asc-cli-usage",
       "verified": true,
-      "tokenCount": 1177,
+      "tokenCount": 1546,
       "evalSummary": {
-        "overallScore": 66,
+        "overallScore": 67,
         "grade": "C",
         "categories": [
           {
@@ -584,7 +858,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 6,
+            "score": 7,
             "max": 10
           },
           {
@@ -612,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.660Z",
+        "evaluatedAt": "2026-08-19T04:55:32.113Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -621,7 +895,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 66,
+          "overallScore": 67,
           "grade": "C",
           "categories": [
             {
@@ -639,7 +913,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 6,
+              "score": 7,
               "max": 10
             },
             {
@@ -667,7 +941,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.660Z",
+          "evaluatedAt": "2026-08-19T04:55:32.113Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +959,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.660Z",
+          "evaluatedAt": "2026-08-19T04:55:32.113Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -749,7 +1023,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.661Z",
+        "evaluatedAt": "2026-08-19T04:55:32.113Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -804,7 +1078,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.661Z",
+          "evaluatedAt": "2026-08-19T04:55:32.113Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +1096,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.661Z",
+          "evaluatedAt": "2026-08-19T04:55:32.113Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -838,7 +1112,7 @@
       "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-id-resolver",
       "relPath": "skills/asc-id-resolver",
       "verified": true,
-      "tokenCount": 853,
+      "tokenCount": 855,
       "evalSummary": {
         "overallScore": 60,
         "grade": "D",
@@ -886,7 +1160,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.662Z",
+        "evaluatedAt": "2026-08-19T04:55:32.118Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -941,7 +1215,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.662Z",
+          "evaluatedAt": "2026-08-19T04:55:32.119Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +1233,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.662Z",
+          "evaluatedAt": "2026-08-19T04:55:32.119Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -975,9 +1249,9 @@
       "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-localize-metadata",
       "relPath": "skills/asc-localize-metadata",
       "verified": true,
-      "tokenCount": 2924,
+      "tokenCount": 2967,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 67,
         "grade": "C",
         "categories": [
           {
@@ -995,7 +1269,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 10,
+            "score": 8,
             "max": 10
           },
           {
@@ -1013,7 +1287,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 3,
             "max": 10
           },
           {
@@ -1023,7 +1297,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.663Z",
+        "evaluatedAt": "2026-08-19T04:55:32.119Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1032,7 +1306,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 67,
           "grade": "C",
           "categories": [
             {
@@ -1050,7 +1324,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 10,
+              "score": 8,
               "max": 10
             },
             {
@@ -1068,7 +1342,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 3,
               "max": 10
             },
             {
@@ -1078,7 +1352,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.663Z",
+          "evaluatedAt": "2026-08-19T04:55:32.119Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1096,7 +1370,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.663Z",
+          "evaluatedAt": "2026-08-19T04:55:32.119Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1112,9 +1386,9 @@
       "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-metadata-sync",
       "relPath": "skills/asc-metadata-sync",
       "verified": true,
-      "tokenCount": 1657,
+      "tokenCount": 1906,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 74,
         "grade": "C",
         "categories": [
           {
@@ -1144,7 +1418,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 6,
+            "score": 7,
             "max": 10
           },
           {
@@ -1160,7 +1434,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.665Z",
+        "evaluatedAt": "2026-08-19T04:55:32.119Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1169,7 +1443,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 74,
           "grade": "C",
           "categories": [
             {
@@ -1199,7 +1473,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 6,
+              "score": 7,
               "max": 10
             },
             {
@@ -1215,7 +1489,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.665Z",
+          "evaluatedAt": "2026-08-19T04:55:32.121Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1507,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.665Z",
+          "evaluatedAt": "2026-08-19T04:55:32.121Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1297,7 +1571,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.666Z",
+        "evaluatedAt": "2026-08-19T04:55:32.121Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1352,7 +1626,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.666Z",
+          "evaluatedAt": "2026-08-19T04:55:32.121Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1644,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.666Z",
+          "evaluatedAt": "2026-08-19T04:55:32.121Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1386,7 +1660,7 @@
       "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-ppp-pricing",
       "relPath": "skills/asc-ppp-pricing",
       "verified": true,
-      "tokenCount": 3647,
+      "tokenCount": 3713,
       "evalSummary": {
         "overallScore": 80,
         "grade": "B",
@@ -1434,7 +1708,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.668Z",
+        "evaluatedAt": "2026-08-19T04:55:32.120Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1489,7 +1763,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.668Z",
+          "evaluatedAt": "2026-08-19T04:55:32.121Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1781,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.668Z",
+          "evaluatedAt": "2026-08-19T04:55:32.121Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1523,9 +1797,9 @@
       "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-release-flow",
       "relPath": "skills/asc-release-flow",
       "verified": true,
-      "tokenCount": 1892,
+      "tokenCount": 2059,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 74,
         "grade": "C",
         "categories": [
           {
@@ -1543,7 +1817,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
@@ -1561,7 +1835,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 1,
+            "score": 3,
             "max": 10
           },
           {
@@ -1571,7 +1845,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.670Z",
+        "evaluatedAt": "2026-08-19T04:55:32.122Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1580,7 +1854,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 74,
           "grade": "C",
           "categories": [
             {
@@ -1598,7 +1872,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
@@ -1616,7 +1890,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 1,
+              "score": 3,
               "max": 10
             },
             {
@@ -1626,7 +1900,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.670Z",
+          "evaluatedAt": "2026-08-19T04:55:32.123Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +1918,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.670Z",
+          "evaluatedAt": "2026-08-19T04:55:32.123Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1708,7 +1982,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.671Z",
+        "evaluatedAt": "2026-08-19T04:55:32.123Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1763,7 +2037,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.671Z",
+          "evaluatedAt": "2026-08-19T04:55:32.123Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +2055,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.671Z",
+          "evaluatedAt": "2026-08-19T04:55:32.123Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1845,7 +2119,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.673Z",
+        "evaluatedAt": "2026-08-19T04:55:32.123Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1900,7 +2174,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.673Z",
+          "evaluatedAt": "2026-08-19T04:55:32.123Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1918,7 +2192,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.673Z",
+          "evaluatedAt": "2026-08-19T04:55:32.123Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1982,7 +2256,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.674Z",
+        "evaluatedAt": "2026-08-19T04:55:32.129Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2037,7 +2311,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.674Z",
+          "evaluatedAt": "2026-08-19T04:55:32.130Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2055,7 +2329,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.674Z",
+          "evaluatedAt": "2026-08-19T04:55:32.130Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2071,9 +2345,9 @@
       "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-signing-setup",
       "relPath": "skills/asc-signing-setup",
       "verified": true,
-      "tokenCount": 1119,
+      "tokenCount": 2383,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 77,
         "grade": "C",
         "categories": [
           {
@@ -2103,13 +2377,13 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 0,
+            "score": 3,
             "max": 10
           },
           {
@@ -2119,7 +2393,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.675Z",
+        "evaluatedAt": "2026-08-19T04:55:32.130Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2128,7 +2402,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 77,
           "grade": "C",
           "categories": [
             {
@@ -2158,13 +2432,13 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 8,
+              "score": 10,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 0,
+              "score": 3,
               "max": 10
             },
             {
@@ -2174,7 +2448,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.675Z",
+          "evaluatedAt": "2026-08-19T04:55:32.130Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2192,7 +2466,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.675Z",
+          "evaluatedAt": "2026-08-19T04:55:32.130Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2256,7 +2530,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.677Z",
+        "evaluatedAt": "2026-08-19T04:55:32.130Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2311,7 +2585,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.677Z",
+          "evaluatedAt": "2026-08-19T04:55:32.131Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2329,7 +2603,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.677Z",
+          "evaluatedAt": "2026-08-19T04:55:32.131Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2393,7 +2667,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.678Z",
+        "evaluatedAt": "2026-08-19T04:55:32.131Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2448,7 +2722,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.678Z",
+          "evaluatedAt": "2026-08-19T04:55:32.131Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2466,7 +2740,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.678Z",
+          "evaluatedAt": "2026-08-19T04:55:32.131Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2482,9 +2756,9 @@
       "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-testflight-orchestration",
       "relPath": "skills/asc-testflight-orchestration",
       "verified": true,
-      "tokenCount": 372,
+      "tokenCount": 565,
       "evalSummary": {
-        "overallScore": 59,
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -2514,7 +2788,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 4,
+            "score": 8,
             "max": 10
           },
           {
@@ -2530,7 +2804,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.680Z",
+        "evaluatedAt": "2026-08-19T04:55:32.131Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2539,7 +2813,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 59,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -2569,7 +2843,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 4,
+              "score": 8,
               "max": 10
             },
             {
@@ -2585,7 +2859,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.680Z",
+          "evaluatedAt": "2026-08-19T04:55:32.131Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2603,7 +2877,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.680Z",
+          "evaluatedAt": "2026-08-19T04:55:32.131Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2667,7 +2941,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.680Z",
+        "evaluatedAt": "2026-08-19T04:55:32.131Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2722,7 +2996,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.680Z",
+          "evaluatedAt": "2026-08-19T04:55:32.133Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2740,7 +3014,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.680Z",
+          "evaluatedAt": "2026-08-19T04:55:32.133Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2804,7 +3078,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.681Z",
+        "evaluatedAt": "2026-08-19T04:55:32.132Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2859,7 +3133,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.681Z",
+          "evaluatedAt": "2026-08-19T04:55:32.133Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2877,7 +3151,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.681Z",
+          "evaluatedAt": "2026-08-19T04:55:32.133Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2893,9 +3167,9 @@
       "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-workflow",
       "relPath": "skills/asc-workflow",
       "verified": true,
-      "tokenCount": 1783,
+      "tokenCount": 2094,
       "evalSummary": {
-        "overallScore": 67,
+        "overallScore": 71,
         "grade": "C",
         "categories": [
           {
@@ -2925,7 +3199,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 6,
+            "score": 9,
             "max": 10
           },
           {
@@ -2941,7 +3215,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.682Z",
+        "evaluatedAt": "2026-08-19T04:55:32.132Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2950,7 +3224,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
+          "overallScore": 71,
           "grade": "C",
           "categories": [
             {
@@ -2980,7 +3254,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 6,
+              "score": 9,
               "max": 10
             },
             {
@@ -2996,7 +3270,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.682Z",
+          "evaluatedAt": "2026-08-19T04:55:32.133Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3014,14 +3288,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.682Z",
+          "evaluatedAt": "2026-08-19T04:55:32.133Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "asc-xcode-build",
-      "description": "Build, archive, generate export options, export, upload, and manage Xcode version/build numbers with the current asc xcode helpers before App Store Connect upload or submission. Use when creating an IPA or PKG for upload.",
+      "description": "Build, archive, generate export options, export, upload, and manage Xcode version/build numbers with the current asc xcode helpers. Use when creating an IPA or PKG for App Store Connect, TestFlight, or registered-device release testing.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -3030,9 +3304,9 @@
       "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-xcode-build",
       "relPath": "skills/asc-xcode-build",
       "verified": true,
-      "tokenCount": 1486,
+      "tokenCount": 2017,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 79,
         "grade": "C",
         "categories": [
           {
@@ -3062,13 +3336,13 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 3,
+            "score": 5,
             "max": 10
           },
           {
@@ -3078,7 +3352,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:31.683Z",
+        "evaluatedAt": "2026-08-19T04:55:32.137Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3087,7 +3361,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 79,
           "grade": "C",
           "categories": [
             {
@@ -3117,13 +3391,13 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 8,
+              "score": 10,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 3,
+              "score": 5,
               "max": 10
             },
             {
@@ -3133,7 +3407,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.684Z",
+          "evaluatedAt": "2026-08-19T04:55:32.137Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3151,7 +3425,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:31.684Z",
+          "evaluatedAt": "2026-08-19T04:55:32.137Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3163,7 +3437,7 @@
       "name": "rudrankriyam-app-store-connect-cli-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from rudrankriyam/app-store-connect-cli-skills.",
       "author": "ASM (rudrankriyam/app-store-connect-cli-skills)",
-      "createdAt": "2026-08-05T00:03:31.684Z",
+      "createdAt": "2026-08-19T04:55:32.138Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3175,6 +3449,12 @@
       ],
       "skills": [
         {
+          "name": "asc-analytics-reports",
+          "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-analytics-reports",
+          "description": "Collect, download, and verify App Store Connect Analytics reports with asc. Use when users need to discover analytics report requests, select report instances by processing date or granularity, download every segment, or verify downloaded files against Apple's size and MD5 metadata before analysis.",
+          "version": "0.0.0"
+        },
+        {
           "name": "asc-app-create-ui",
           "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-app-create-ui",
           "description": "Create a new App Store Connect app record via browser automation. Use when there is no public API for app creation and you need an agent to drive the New App form.",
@@ -3183,7 +3463,7 @@
         {
           "name": "asc-apple-ads",
           "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-apple-ads",
-          "description": "Use when managing Apple Ads with asc, including auth, org lookup, campaigns, ad groups, ads, keywords, reports, raw API calls, and safe live testing.",
+          "description": "Use when managing Apple Ads with asc, including OAuth profiles, ad-account discovery, Platform API v1 campaigns and targeting, reports, assets, recommendations, guarded mutations, raw requests, and Campaign Management API v5 migration.",
           "version": "0.0.0"
         },
         {
@@ -3259,7 +3539,7 @@
       "name": "rudrankriyam-app-store-connect-cli-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from rudrankriyam/app-store-connect-cli-skills.",
       "author": "ASM (rudrankriyam/app-store-connect-cli-skills)",
-      "createdAt": "2026-08-05T00:03:31.684Z",
+      "createdAt": "2026-08-19T04:55:32.138Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3270,6 +3550,12 @@
         "app-store-connect-cli-skills"
       ],
       "skills": [
+        {
+          "name": "asc-ad-hoc-distribution",
+          "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-ad-hoc-distribution",
+          "description": "Prepare, publish, resume, and verify private iOS release-testing installs with asc distribute. Use when distributing an IPA to registered devices outside TestFlight, reconciling ad hoc profiles, publishing through caller-owned S3-compatible storage, or diagnosing a resumable private distribution run.",
+          "version": "0.0.0"
+        },
         {
           "name": "asc-metadata-sync",
           "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-metadata-sync",
@@ -3317,6 +3603,12 @@
           "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-workflow",
           "description": "Define, validate, run, resume, and audit repo-local multi-step automations with current `asc workflow` and `.asc/workflow.json`, including step outputs and safe release/TestFlight workflows.",
           "version": "0.0.0"
+        },
+        {
+          "name": "asc-xcode-build",
+          "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-xcode-build",
+          "description": "Build, archive, generate export options, export, upload, and manage Xcode version/build numbers with the current asc xcode helpers. Use when creating an IPA or PKG for App Store Connect, TestFlight, or registered-device release testing.",
+          "version": "0.0.0"
         }
       ],
       "sourceRepo": {
@@ -3331,7 +3623,7 @@
       "name": "rudrankriyam-app-store-connect-cli-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from rudrankriyam/app-store-connect-cli-skills.",
       "author": "ASM (rudrankriyam/app-store-connect-cli-skills)",
-      "createdAt": "2026-08-05T00:03:31.684Z",
+      "createdAt": "2026-08-19T04:55:32.138Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3343,6 +3635,18 @@
       ],
       "skills": [
         {
+          "name": "asc-ad-hoc-distribution",
+          "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-ad-hoc-distribution",
+          "description": "Prepare, publish, resume, and verify private iOS release-testing installs with asc distribute. Use when distributing an IPA to registered devices outside TestFlight, reconciling ad hoc profiles, publishing through caller-owned S3-compatible storage, or diagnosing a resumable private distribution run.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "asc-analytics-reports",
+          "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-analytics-reports",
+          "description": "Collect, download, and verify App Store Connect Analytics reports with asc. Use when users need to discover analytics report requests, select report instances by processing date or granularity, download every segment, or verify downloaded files against Apple's size and MD5 metadata before analysis.",
+          "version": "0.0.0"
+        },
+        {
           "name": "asc-app-create-ui",
           "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-app-create-ui",
           "description": "Create a new App Store Connect app record via browser automation. Use when there is no public API for app creation and you need an agent to drive the New App form.",
@@ -3351,7 +3655,7 @@
         {
           "name": "asc-apple-ads",
           "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-apple-ads",
-          "description": "Use when managing Apple Ads with asc, including auth, org lookup, campaigns, ad groups, ads, keywords, reports, raw API calls, and safe live testing.",
+          "description": "Use when managing Apple Ads with asc, including OAuth profiles, ad-account discovery, Platform API v1 campaigns and targeting, reports, assets, recommendations, guarded mutations, raw requests, and Campaign Management API v5 migration.",
           "version": "0.0.0"
         },
         {
@@ -3477,7 +3781,7 @@
         {
           "name": "asc-xcode-build",
           "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-xcode-build",
-          "description": "Build, archive, generate export options, export, upload, and manage Xcode version/build numbers with the current asc xcode helpers before App Store Connect upload or submission. Use when creating an IPA or PKG for upload.",
+          "description": "Build, archive, generate export options, export, upload, and manage Xcode version/build numbers with the current asc xcode helpers. Use when creating an IPA or PKG for App Store Connect, TestFlight, or registered-device release testing.",
           "version": "0.0.0"
         }
       ],
@@ -3493,7 +3797,7 @@
       "name": "rudrankriyam-app-store-connect-cli-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from rudrankriyam/app-store-connect-cli-skills.",
       "author": "ASM (rudrankriyam/app-store-connect-cli-skills)",
-      "createdAt": "2026-08-05T00:03:31.684Z",
+      "createdAt": "2026-08-19T04:55:32.138Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3561,7 +3865,7 @@
         {
           "name": "asc-xcode-build",
           "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-xcode-build",
-          "description": "Build, archive, generate export options, export, upload, and manage Xcode version/build numbers with the current asc xcode helpers before App Store Connect upload or submission. Use when creating an IPA or PKG for upload.",
+          "description": "Build, archive, generate export options, export, upload, and manage Xcode version/build numbers with the current asc xcode helpers. Use when creating an IPA or PKG for App Store Connect, TestFlight, or registered-device release testing.",
           "version": "0.0.0"
         }
       ],
@@ -3577,7 +3881,7 @@
       "name": "rudrankriyam-app-store-connect-cli-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from rudrankriyam/app-store-connect-cli-skills.",
       "author": "ASM (rudrankriyam/app-store-connect-cli-skills)",
-      "createdAt": "2026-08-05T00:03:31.684Z",
+      "createdAt": "2026-08-19T04:55:32.138Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3591,7 +3895,7 @@
         {
           "name": "asc-apple-ads",
           "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-apple-ads",
-          "description": "Use when managing Apple Ads with asc, including auth, org lookup, campaigns, ad groups, ads, keywords, reports, raw API calls, and safe live testing.",
+          "description": "Use when managing Apple Ads with asc, including OAuth profiles, ad-account discovery, Platform API v1 campaigns and targeting, reports, assets, recommendations, guarded mutations, raw requests, and Campaign Management API v5 migration.",
           "version": "0.0.0"
         },
         {
@@ -3631,7 +3935,7 @@
       "name": "rudrankriyam-app-store-connect-cli-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from rudrankriyam/app-store-connect-cli-skills.",
       "author": "ASM (rudrankriyam/app-store-connect-cli-skills)",
-      "createdAt": "2026-08-05T00:03:31.684Z",
+      "createdAt": "2026-08-19T04:55:32.138Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3642,6 +3946,12 @@
         "app-store-connect-cli-skills"
       ],
       "skills": [
+        {
+          "name": "asc-ad-hoc-distribution",
+          "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-ad-hoc-distribution",
+          "description": "Prepare, publish, resume, and verify private iOS release-testing installs with asc distribute. Use when distributing an IPA to registered devices outside TestFlight, reconciling ad hoc profiles, publishing through caller-owned S3-compatible storage, or diagnosing a resumable private distribution run.",
+          "version": "0.0.0"
+        },
         {
           "name": "asc-revenuecat-catalog-sync",
           "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-revenuecat-catalog-sync",
@@ -3667,7 +3977,7 @@
       "name": "rudrankriyam-app-store-connect-cli-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from rudrankriyam/app-store-connect-cli-skills.",
       "author": "ASM (rudrankriyam/app-store-connect-cli-skills)",
-      "createdAt": "2026-08-05T00:03:31.684Z",
+      "createdAt": "2026-08-19T04:55:32.138Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3678,6 +3988,18 @@
         "app-store-connect-cli-skills"
       ],
       "skills": [
+        {
+          "name": "asc-ad-hoc-distribution",
+          "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-ad-hoc-distribution",
+          "description": "Prepare, publish, resume, and verify private iOS release-testing installs with asc distribute. Use when distributing an IPA to registered devices outside TestFlight, reconciling ad hoc profiles, publishing through caller-owned S3-compatible storage, or diagnosing a resumable private distribution run.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "asc-analytics-reports",
+          "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-analytics-reports",
+          "description": "Collect, download, and verify App Store Connect Analytics reports with asc. Use when users need to discover analytics report requests, select report instances by processing date or granularity, download every segment, or verify downloaded files against Apple's size and MD5 metadata before analysis.",
+          "version": "0.0.0"
+        },
         {
           "name": "asc-crash-triage",
           "installUrl": "github:rudrankriyam/app-store-connect-cli-skills:skills/asc-crash-triage",
@@ -3715,7 +4037,7 @@
       "name": "rudrankriyam-app-store-connect-cli-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from rudrankriyam/app-store-connect-cli-skills.",
       "author": "ASM (rudrankriyam/app-store-connect-cli-skills)",
-      "createdAt": "2026-08-05T00:03:31.684Z",
+      "createdAt": "2026-08-19T04:55:32.138Z",
       "tags": [
         "repo-derived",
         "inferred",

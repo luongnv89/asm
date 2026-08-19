@@ -2,13 +2,13 @@
   "repoUrl": "https://github.com/luongnv89/idd.git",
   "owner": "luongnv89",
   "repo": "idd",
-  "updatedAt": "2026-08-05T00:03:12.751Z",
+  "updatedAt": "2026-08-19T04:55:19.674Z",
   "skillCount": 7,
   "skills": [
     {
       "name": "auto-pilot",
       "description": "Run an autonomous triage-resolve-review-merge loop to auto-pilot the GitHub issue backlog, resolving everything until done with zero prompts. Don't use for single-issue work (/issue-resolver), triage (/issue-triage), or PR review (/issue-pr-review).",
-      "version": "2.4.1",
+      "version": "2.5.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires git and GitHub CLI (gh) with auth and push access. Requires merge permission for auto-merge. Requires issue-triage, issue-resolver, issue-analysis, and issue-pr-review to be installed from the same distribution. Optional: issue-creator for normalizing unstructured issues mid-loop.",
@@ -16,7 +16,7 @@
       "installUrl": "github:luongnv89/idd:skills/auto-pilot",
       "relPath": "skills/auto-pilot",
       "verified": true,
-      "tokenCount": 6743,
+      "tokenCount": 11518,
       "evalSummary": {
         "overallScore": 93,
         "grade": "A",
@@ -64,8 +64,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:12.730Z",
-        "evaluatedVersion": "2.4.1"
+        "evaluatedAt": "2026-08-19T04:55:19.652Z",
+        "evaluatedVersion": "2.5.0"
       },
       "evalSummaries": {
         "quality": {
@@ -119,8 +119,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:12.730Z",
-          "evaluatedVersion": "2.4.1"
+          "evaluatedAt": "2026-08-19T04:55:19.658Z",
+          "evaluatedVersion": "2.5.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -137,8 +137,8 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:12.730Z",
-          "evaluatedVersion": "2.4.1"
+          "evaluatedAt": "2026-08-19T04:55:19.658Z",
+          "evaluatedVersion": "2.5.0"
         }
       }
     },
@@ -153,7 +153,7 @@
       "installUrl": "github:luongnv89/idd:skills/init-gitissue",
       "relPath": "skills/init-gitissue",
       "verified": true,
-      "tokenCount": 4085,
+      "tokenCount": 5541,
       "evalSummary": {
         "overallScore": 97,
         "grade": "A",
@@ -201,7 +201,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:12.733Z",
+        "evaluatedAt": "2026-08-19T04:55:19.653Z",
         "evaluatedVersion": "0.3.6"
       },
       "evalSummaries": {
@@ -256,7 +256,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:12.733Z",
+          "evaluatedAt": "2026-08-19T04:55:19.661Z",
           "evaluatedVersion": "0.3.6"
         },
         "skill-best-practice": {
@@ -274,7 +274,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:12.733Z",
+          "evaluatedAt": "2026-08-19T04:55:19.661Z",
           "evaluatedVersion": "0.3.6"
         }
       }
@@ -290,7 +290,7 @@
       "installUrl": "github:luongnv89/idd:skills/issue-analysis",
       "relPath": "skills/issue-analysis",
       "verified": true,
-      "tokenCount": 4868,
+      "tokenCount": 6205,
       "evalSummary": {
         "overallScore": 97,
         "grade": "A",
@@ -338,7 +338,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:12.735Z",
+        "evaluatedAt": "2026-08-19T04:55:19.654Z",
         "evaluatedVersion": "0.5.2"
       },
       "evalSummaries": {
@@ -393,7 +393,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:12.735Z",
+          "evaluatedAt": "2026-08-19T04:55:19.661Z",
           "evaluatedVersion": "0.5.2"
         },
         "skill-best-practice": {
@@ -411,7 +411,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:12.735Z",
+          "evaluatedAt": "2026-08-19T04:55:19.661Z",
           "evaluatedVersion": "0.5.2"
         }
       }
@@ -427,7 +427,7 @@
       "installUrl": "github:luongnv89/idd:skills/issue-creator",
       "relPath": "skills/issue-creator",
       "verified": true,
-      "tokenCount": 6572,
+      "tokenCount": 9326,
       "evalSummary": {
         "overallScore": 93,
         "grade": "A",
@@ -475,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:12.738Z",
+        "evaluatedAt": "2026-08-19T04:55:19.660Z",
         "evaluatedVersion": "0.8.0"
       },
       "evalSummaries": {
@@ -530,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:12.738Z",
+          "evaluatedAt": "2026-08-19T04:55:19.661Z",
           "evaluatedVersion": "0.8.0"
         },
         "skill-best-practice": {
@@ -548,7 +548,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:12.738Z",
+          "evaluatedAt": "2026-08-19T04:55:19.661Z",
           "evaluatedVersion": "0.8.0"
         }
       }
@@ -564,7 +564,7 @@
       "installUrl": "github:luongnv89/idd:skills/issue-pr-review",
       "relPath": "skills/issue-pr-review",
       "verified": true,
-      "tokenCount": 7975,
+      "tokenCount": 11912,
       "evalSummary": {
         "overallScore": 91,
         "grade": "A",
@@ -612,7 +612,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:12.742Z",
+        "evaluatedAt": "2026-08-19T04:55:19.656Z",
         "evaluatedVersion": "2.5.0"
       },
       "evalSummaries": {
@@ -667,7 +667,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:12.742Z",
+          "evaluatedAt": "2026-08-19T04:55:19.661Z",
           "evaluatedVersion": "2.5.0"
         },
         "skill-best-practice": {
@@ -685,7 +685,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:12.742Z",
+          "evaluatedAt": "2026-08-19T04:55:19.661Z",
           "evaluatedVersion": "2.5.0"
         }
       }
@@ -701,7 +701,7 @@
       "installUrl": "github:luongnv89/idd:skills/issue-resolver",
       "relPath": "skills/issue-resolver",
       "verified": true,
-      "tokenCount": 7845,
+      "tokenCount": 10712,
       "evalSummary": {
         "overallScore": 93,
         "grade": "A",
@@ -749,7 +749,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:12.746Z",
+        "evaluatedAt": "2026-08-19T04:55:19.658Z",
         "evaluatedVersion": "0.17.0"
       },
       "evalSummaries": {
@@ -804,7 +804,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:12.746Z",
+          "evaluatedAt": "2026-08-19T04:55:19.661Z",
           "evaluatedVersion": "0.17.0"
         },
         "skill-best-practice": {
@@ -822,7 +822,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:12.746Z",
+          "evaluatedAt": "2026-08-19T04:55:19.661Z",
           "evaluatedVersion": "0.17.0"
         }
       }
@@ -838,7 +838,7 @@
       "installUrl": "github:luongnv89/idd:skills/issue-triage",
       "relPath": "skills/issue-triage",
       "verified": true,
-      "tokenCount": 6375,
+      "tokenCount": 7537,
       "evalSummary": {
         "overallScore": 93,
         "grade": "A",
@@ -886,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:03:12.749Z",
+        "evaluatedAt": "2026-08-19T04:55:19.661Z",
         "evaluatedVersion": "0.5.5"
       },
       "evalSummaries": {
@@ -941,7 +941,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:12.749Z",
+          "evaluatedAt": "2026-08-19T04:55:19.661Z",
           "evaluatedVersion": "0.5.5"
         },
         "skill-best-practice": {
@@ -959,7 +959,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-05T00:03:12.749Z",
+          "evaluatedAt": "2026-08-19T04:55:19.661Z",
           "evaluatedVersion": "0.5.5"
         }
       }
@@ -971,7 +971,7 @@
       "name": "luongnv89-idd-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from luongnv89/idd.",
       "author": "ASM (luongnv89/idd)",
-      "createdAt": "2026-08-05T00:03:12.751Z",
+      "createdAt": "2026-08-19T04:55:19.674Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -986,7 +986,7 @@
           "name": "auto-pilot",
           "installUrl": "github:luongnv89/idd:skills/auto-pilot",
           "description": "Run an autonomous triage-resolve-review-merge loop to auto-pilot the GitHub issue backlog, resolving everything until done with zero prompts. Don't use for single-issue work (/issue-resolver), triage (/issue-triage), or PR review (/issue-pr-review).",
-          "version": "2.4.1"
+          "version": "2.5.0"
         },
         {
           "name": "init-gitissue",
@@ -1037,7 +1037,7 @@
       "name": "luongnv89-idd-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from luongnv89/idd.",
       "author": "ASM (luongnv89/idd)",
-      "createdAt": "2026-08-05T00:03:12.751Z",
+      "createdAt": "2026-08-19T04:55:19.674Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1079,7 +1079,7 @@
       "name": "luongnv89-idd-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from luongnv89/idd.",
       "author": "ASM (luongnv89/idd)",
-      "createdAt": "2026-08-05T00:03:12.751Z",
+      "createdAt": "2026-08-19T04:55:19.674Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1094,7 +1094,7 @@
           "name": "auto-pilot",
           "installUrl": "github:luongnv89/idd:skills/auto-pilot",
           "description": "Run an autonomous triage-resolve-review-merge loop to auto-pilot the GitHub issue backlog, resolving everything until done with zero prompts. Don't use for single-issue work (/issue-resolver), triage (/issue-triage), or PR review (/issue-pr-review).",
-          "version": "2.4.1"
+          "version": "2.5.0"
         },
         {
           "name": "init-gitissue",
@@ -1127,7 +1127,7 @@
       "name": "luongnv89-idd-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from luongnv89/idd.",
       "author": "ASM (luongnv89/idd)",
-      "createdAt": "2026-08-05T00:03:12.751Z",
+      "createdAt": "2026-08-19T04:55:19.674Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1142,7 +1142,7 @@
           "name": "auto-pilot",
           "installUrl": "github:luongnv89/idd:skills/auto-pilot",
           "description": "Run an autonomous triage-resolve-review-merge loop to auto-pilot the GitHub issue backlog, resolving everything until done with zero prompts. Don't use for single-issue work (/issue-resolver), triage (/issue-triage), or PR review (/issue-pr-review).",
-          "version": "2.4.1"
+          "version": "2.5.0"
         },
         {
           "name": "issue-analysis",

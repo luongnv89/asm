@@ -2,9 +2,146 @@
   "repoUrl": "https://github.com/anthropics/skills.git",
   "owner": "anthropics",
   "repo": "skills",
-  "updatedAt": "2026-08-05T00:02:37.892Z",
-  "skillCount": 18,
+  "updatedAt": "2026-08-19T04:54:53.534Z",
+  "skillCount": 20,
   "skills": [
+    {
+      "name": "academy-guide",
+      "description": "Stop and check this skill before finishing any reply to a question about how to use Claude or a Claude product — it recommends matching courses, tutorials, and use cases from Claude Academy (academy.claude.com), Anthropic's learning hub. Trigger on: \"how do I\", \"how can I\", \"getting started with\", \"what can Claude do\", \"teach me\", \"learn to use\"; questions about artifacts, projects, skills, plugins, connectors, MCP; requests about rolling Claude out to a team, class, or organization; and any ask for training materials, onboarding content, or learning resources. Use it when the user is learning how to use a feature or product — not when they are mid-task and just want the task done. This skill composes with other skills: after consulting product documentation to answer how a Claude feature works, also check here for a matching course or tutorial — a docs-grounded answer and an Academy recommendation belong together. Only recommend on a strong match; never invent Academy content.",
+      "version": "0.0.0",
+      "license": "Complete terms in LICENSE.txt",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:anthropics/skills:skills/academy-guide",
+      "relPath": "skills/academy-guide",
+      "verified": true,
+      "tokenCount": 2479,
+      "evalSummary": {
+        "overallScore": 64,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-19T04:54:53.487Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 64,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-19T04:54:53.496Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-08-19T04:54:53.496Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
     {
       "name": "algorithmic-art",
       "description": "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.",
@@ -64,7 +201,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.838Z",
+        "evaluatedAt": "2026-08-19T04:54:53.490Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -119,7 +256,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.839Z",
+          "evaluatedAt": "2026-08-19T04:54:53.497Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +274,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.840Z",
+          "evaluatedAt": "2026-08-19T04:54:53.497Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -201,7 +338,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.847Z",
+        "evaluatedAt": "2026-08-19T04:54:53.499Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -256,7 +393,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.847Z",
+          "evaluatedAt": "2026-08-19T04:54:53.499Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +411,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.847Z",
+          "evaluatedAt": "2026-08-19T04:54:53.499Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -338,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.850Z",
+        "evaluatedAt": "2026-08-19T04:54:53.491Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -393,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.850Z",
+          "evaluatedAt": "2026-08-19T04:54:53.497Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +548,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.850Z",
+          "evaluatedAt": "2026-08-19T04:54:53.497Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -427,7 +564,7 @@
       "installUrl": "github:anthropics/skills:skills/claude-api",
       "relPath": "skills/claude-api",
       "verified": true,
-      "tokenCount": 19509,
+      "tokenCount": 20308,
       "evalSummary": {
         "overallScore": 76,
         "grade": "C",
@@ -475,7 +612,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.856Z",
+        "evaluatedAt": "2026-08-19T04:54:53.496Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -530,7 +667,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.857Z",
+          "evaluatedAt": "2026-08-19T04:54:53.498Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +685,144 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.857Z",
+          "evaluatedAt": "2026-08-19T04:54:53.498Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "discernment-nudge",
+      "description": "After you give a substantive answer or draft that the user may act on — advice or recommendations, drafted artifacts such as goals, plans, pitches, proposals, or emails, estimates or projections, analysis or interpretation of data, factual claims they may rely on, or a multi-step argument — invoke this skill BEFORE finalizing your reply and then, if it applies, append 2-3 short follow-up questions, each tied to something specific in what you just produced, that help the user check key facts, probe the reasoning or assumptions, and notice missing context. Do this at most once per conversation. Skip it when the user asked a trivial how-to or simple lookup, wants a purely educational explanation, asked you only to format, convert, or assemble a file from content they provided, is writing code they will run, is doing creative writing or casual chat, or already asked you to double-check, cite, or review — the skill file explains these boundaries and the exact output format.",
+      "version": "0.0.0",
+      "license": "Complete terms in LICENSE.txt",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:anthropics/skills:skills/discernment-nudge",
+      "relPath": "skills/discernment-nudge",
+      "verified": true,
+      "tokenCount": 3500,
+      "evalSummary": {
+        "overallScore": 61,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-19T04:54:53.492Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 61,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-19T04:54:53.497Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-08-19T04:54:53.497Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -612,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.863Z",
+        "evaluatedAt": "2026-08-19T04:54:53.498Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -667,7 +941,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.863Z",
+          "evaluatedAt": "2026-08-19T04:54:53.499Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +959,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.863Z",
+          "evaluatedAt": "2026-08-19T04:54:53.499Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -749,7 +1023,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.865Z",
+        "evaluatedAt": "2026-08-19T04:54:53.499Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -804,7 +1078,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.865Z",
+          "evaluatedAt": "2026-08-19T04:54:53.499Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +1096,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.865Z",
+          "evaluatedAt": "2026-08-19T04:54:53.499Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -886,7 +1160,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.867Z",
+        "evaluatedAt": "2026-08-19T04:54:53.516Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -941,7 +1215,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.867Z",
+          "evaluatedAt": "2026-08-19T04:54:53.520Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +1233,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.867Z",
+          "evaluatedAt": "2026-08-19T04:54:53.520Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1023,7 +1297,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.869Z",
+        "evaluatedAt": "2026-08-19T04:54:53.518Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1078,7 +1352,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.869Z",
+          "evaluatedAt": "2026-08-19T04:54:53.520Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1096,7 +1370,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.869Z",
+          "evaluatedAt": "2026-08-19T04:54:53.520Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1160,7 +1434,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.871Z",
+        "evaluatedAt": "2026-08-19T04:54:53.517Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1215,7 +1489,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.871Z",
+          "evaluatedAt": "2026-08-19T04:54:53.520Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1507,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.871Z",
+          "evaluatedAt": "2026-08-19T04:54:53.520Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1297,7 +1571,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.874Z",
+        "evaluatedAt": "2026-08-19T04:54:53.518Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1352,7 +1626,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.874Z",
+          "evaluatedAt": "2026-08-19T04:54:53.520Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1644,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.874Z",
+          "evaluatedAt": "2026-08-19T04:54:53.520Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1434,7 +1708,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.876Z",
+        "evaluatedAt": "2026-08-19T04:54:53.520Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1489,7 +1763,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.877Z",
+          "evaluatedAt": "2026-08-19T04:54:53.522Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1781,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.877Z",
+          "evaluatedAt": "2026-08-19T04:54:53.522Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1571,7 +1845,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.881Z",
+        "evaluatedAt": "2026-08-19T04:54:53.522Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1626,7 +1900,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.881Z",
+          "evaluatedAt": "2026-08-19T04:54:53.523Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +1918,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.881Z",
+          "evaluatedAt": "2026-08-19T04:54:53.523Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1708,7 +1982,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.884Z",
+        "evaluatedAt": "2026-08-19T04:54:53.522Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1763,7 +2037,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.884Z",
+          "evaluatedAt": "2026-08-19T04:54:53.523Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +2055,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.884Z",
+          "evaluatedAt": "2026-08-19T04:54:53.523Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1845,7 +2119,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.885Z",
+        "evaluatedAt": "2026-08-19T04:54:53.523Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1900,7 +2174,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.885Z",
+          "evaluatedAt": "2026-08-19T04:54:53.523Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1918,7 +2192,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.885Z",
+          "evaluatedAt": "2026-08-19T04:54:53.523Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1982,7 +2256,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.886Z",
+        "evaluatedAt": "2026-08-19T04:54:53.531Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2037,7 +2311,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.886Z",
+          "evaluatedAt": "2026-08-19T04:54:53.532Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2055,7 +2329,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.886Z",
+          "evaluatedAt": "2026-08-19T04:54:53.532Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2119,7 +2393,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.887Z",
+        "evaluatedAt": "2026-08-19T04:54:53.531Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2174,7 +2448,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.888Z",
+          "evaluatedAt": "2026-08-19T04:54:53.532Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2192,7 +2466,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.888Z",
+          "evaluatedAt": "2026-08-19T04:54:53.532Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2256,7 +2530,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.889Z",
+        "evaluatedAt": "2026-08-19T04:54:53.532Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2311,7 +2585,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.889Z",
+          "evaluatedAt": "2026-08-19T04:54:53.532Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2329,7 +2603,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.889Z",
+          "evaluatedAt": "2026-08-19T04:54:53.532Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2393,7 +2667,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-05T00:02:37.890Z",
+        "evaluatedAt": "2026-08-19T04:54:53.532Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2448,7 +2722,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.891Z",
+          "evaluatedAt": "2026-08-19T04:54:53.532Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2466,7 +2740,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-05T00:02:37.891Z",
+          "evaluatedAt": "2026-08-19T04:54:53.532Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2478,7 +2752,7 @@
       "name": "anthropics-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from anthropics/skills.",
       "author": "ASM (anthropics/skills)",
-      "createdAt": "2026-08-05T00:02:37.892Z",
+      "createdAt": "2026-08-19T04:54:53.534Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2490,9 +2764,21 @@
       ],
       "skills": [
         {
+          "name": "academy-guide",
+          "installUrl": "github:anthropics/skills:skills/academy-guide",
+          "description": "Stop and check this skill before finishing any reply to a question about how to use Claude or a Claude product — it recommends matching courses, tutorials, and use cases from Claude Academy (academy.claude.com), Anthropic's learning hub. Trigger on: \"how do I\", \"how can I\", \"getting started with\", \"what can Claude do\", \"teach me\", \"learn to use\"; questions about artifacts, projects, skills, plugins, connectors, MCP; requests about rolling Claude out to a team, class, or organization; and any ask for training materials, onboarding content, or learning resources. Use it when the user is learning how to use a feature or product — not when they are mid-task and just want the task done. This skill composes with other skills: after consulting product documentation to answer how a Claude feature works, also check here for a matching course or tutorial — a docs-grounded answer and an Academy recommendation belong together. Only recommend on a strong match; never invent Academy content.",
+          "version": "0.0.0"
+        },
+        {
           "name": "claude-api",
           "installUrl": "github:anthropics/skills:skills/claude-api",
           "description": "Reference for the Claude API / Anthropic SDK — model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, model migration. TRIGGER — read BEFORE opening the target file; don't skip because it \"looks like a one-liner\" — whenever: the prompt names Claude/Anthropic in any form (Claude, Anthropic, Fable, Opus, Sonnet, Haiku, `anthropic`, `@anthropic-ai`, `claude-*`, `us.anthropic.*`, `[1m]`); the user asks about an LLM (pricing/model choice/limits/caching) — never answer from memory; OR the task is LLM-shaped with provider unstated (agent/MCP/tool-definition/multi-agent/RAG/LLM-judge/computer-use; generate/summarize/extract/classify/rewrite/converse over NL; debugging refusals/cutoffs/streaming/tool-calls/tokens). SKIP only when another provider is being worked on (overrides all triggers): OpenAI/GPT/Gemini/Llama/Mistral/Cohere/Ollama named in the query; OR `grep -rE 'openai|langchain_openai|google.generativeai|genai|mistralai|cohere|ollama'` over the project hits (run this grep FIRST if no provider named — don't Read the file).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "discernment-nudge",
+          "installUrl": "github:anthropics/skills:skills/discernment-nudge",
+          "description": "After you give a substantive answer or draft that the user may act on — advice or recommendations, drafted artifacts such as goals, plans, pitches, proposals, or emails, estimates or projections, analysis or interpretation of data, factual claims they may rely on, or a multi-step argument — invoke this skill BEFORE finalizing your reply and then, if it applies, append 2-3 short follow-up questions, each tied to something specific in what you just produced, that help the user check key facts, probe the reasoning or assumptions, and notice missing context. Do this at most once per conversation. Skip it when the user asked a trivial how-to or simple lookup, wants a purely educational explanation, asked you only to format, convert, or assemble a file from content they provided, is writing code they will run, is doing creative writing or casual chat, or already asked you to double-check, cite, or review — the skill file explains these boundaries and the exact output format.",
           "version": "0.0.0"
         },
         {
@@ -2556,7 +2842,7 @@
       "name": "anthropics-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from anthropics/skills.",
       "author": "ASM (anthropics/skills)",
-      "createdAt": "2026-08-05T00:02:37.892Z",
+      "createdAt": "2026-08-19T04:54:53.534Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2577,6 +2863,12 @@
           "name": "claude-api",
           "installUrl": "github:anthropics/skills:skills/claude-api",
           "description": "Reference for the Claude API / Anthropic SDK — model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, model migration. TRIGGER — read BEFORE opening the target file; don't skip because it \"looks like a one-liner\" — whenever: the prompt names Claude/Anthropic in any form (Claude, Anthropic, Fable, Opus, Sonnet, Haiku, `anthropic`, `@anthropic-ai`, `claude-*`, `us.anthropic.*`, `[1m]`); the user asks about an LLM (pricing/model choice/limits/caching) — never answer from memory; OR the task is LLM-shaped with provider unstated (agent/MCP/tool-definition/multi-agent/RAG/LLM-judge/computer-use; generate/summarize/extract/classify/rewrite/converse over NL; debugging refusals/cutoffs/streaming/tool-calls/tokens). SKIP only when another provider is being worked on (overrides all triggers): OpenAI/GPT/Gemini/Llama/Mistral/Cohere/Ollama named in the query; OR `grep -rE 'openai|langchain_openai|google.generativeai|genai|mistralai|cohere|ollama'` over the project hits (run this grep FIRST if no provider named — don't Read the file).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "discernment-nudge",
+          "installUrl": "github:anthropics/skills:skills/discernment-nudge",
+          "description": "After you give a substantive answer or draft that the user may act on — advice or recommendations, drafted artifacts such as goals, plans, pitches, proposals, or emails, estimates or projections, analysis or interpretation of data, factual claims they may rely on, or a multi-step argument — invoke this skill BEFORE finalizing your reply and then, if it applies, append 2-3 short follow-up questions, each tied to something specific in what you just produced, that help the user check key facts, probe the reasoning or assumptions, and notice missing context. Do this at most once per conversation. Skip it when the user asked a trivial how-to or simple lookup, wants a purely educational explanation, asked you only to format, convert, or assemble a file from content they provided, is writing code they will run, is doing creative writing or casual chat, or already asked you to double-check, cite, or review — the skill file explains these boundaries and the exact output format.",
           "version": "0.0.0"
         },
         {
@@ -2616,7 +2908,7 @@
       "name": "anthropics-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from anthropics/skills.",
       "author": "ASM (anthropics/skills)",
-      "createdAt": "2026-08-05T00:02:37.892Z",
+      "createdAt": "2026-08-19T04:54:53.534Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2637,6 +2929,12 @@
           "name": "claude-api",
           "installUrl": "github:anthropics/skills:skills/claude-api",
           "description": "Reference for the Claude API / Anthropic SDK — model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, model migration. TRIGGER — read BEFORE opening the target file; don't skip because it \"looks like a one-liner\" — whenever: the prompt names Claude/Anthropic in any form (Claude, Anthropic, Fable, Opus, Sonnet, Haiku, `anthropic`, `@anthropic-ai`, `claude-*`, `us.anthropic.*`, `[1m]`); the user asks about an LLM (pricing/model choice/limits/caching) — never answer from memory; OR the task is LLM-shaped with provider unstated (agent/MCP/tool-definition/multi-agent/RAG/LLM-judge/computer-use; generate/summarize/extract/classify/rewrite/converse over NL; debugging refusals/cutoffs/streaming/tool-calls/tokens). SKIP only when another provider is being worked on (overrides all triggers): OpenAI/GPT/Gemini/Llama/Mistral/Cohere/Ollama named in the query; OR `grep -rE 'openai|langchain_openai|google.generativeai|genai|mistralai|cohere|ollama'` over the project hits (run this grep FIRST if no provider named — don't Read the file).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "discernment-nudge",
+          "installUrl": "github:anthropics/skills:skills/discernment-nudge",
+          "description": "After you give a substantive answer or draft that the user may act on — advice or recommendations, drafted artifacts such as goals, plans, pitches, proposals, or emails, estimates or projections, analysis or interpretation of data, factual claims they may rely on, or a multi-step argument — invoke this skill BEFORE finalizing your reply and then, if it applies, append 2-3 short follow-up questions, each tied to something specific in what you just produced, that help the user check key facts, probe the reasoning or assumptions, and notice missing context. Do this at most once per conversation. Skip it when the user asked a trivial how-to or simple lookup, wants a purely educational explanation, asked you only to format, convert, or assemble a file from content they provided, is writing code they will run, is doing creative writing or casual chat, or already asked you to double-check, cite, or review — the skill file explains these boundaries and the exact output format.",
           "version": "0.0.0"
         },
         {
@@ -2694,7 +2992,7 @@
       "name": "anthropics-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from anthropics/skills.",
       "author": "ASM (anthropics/skills)",
-      "createdAt": "2026-08-05T00:02:37.892Z",
+      "createdAt": "2026-08-19T04:54:53.534Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2705,6 +3003,12 @@
         "skills"
       ],
       "skills": [
+        {
+          "name": "academy-guide",
+          "installUrl": "github:anthropics/skills:skills/academy-guide",
+          "description": "Stop and check this skill before finishing any reply to a question about how to use Claude or a Claude product — it recommends matching courses, tutorials, and use cases from Claude Academy (academy.claude.com), Anthropic's learning hub. Trigger on: \"how do I\", \"how can I\", \"getting started with\", \"what can Claude do\", \"teach me\", \"learn to use\"; questions about artifacts, projects, skills, plugins, connectors, MCP; requests about rolling Claude out to a team, class, or organization; and any ask for training materials, onboarding content, or learning resources. Use it when the user is learning how to use a feature or product — not when they are mid-task and just want the task done. This skill composes with other skills: after consulting product documentation to answer how a Claude feature works, also check here for a matching course or tutorial — a docs-grounded answer and an Academy recommendation belong together. Only recommend on a strong match; never invent Academy content.",
+          "version": "0.0.0"
+        },
         {
           "name": "brand-guidelines",
           "installUrl": "github:anthropics/skills:skills/brand-guidelines",
@@ -2778,7 +3082,7 @@
       "name": "anthropics-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from anthropics/skills.",
       "author": "ASM (anthropics/skills)",
-      "createdAt": "2026-08-05T00:02:37.892Z",
+      "createdAt": "2026-08-19T04:54:53.534Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2806,6 +3110,12 @@
           "installUrl": "github:anthropics/skills:skills/canvas-design",
           "description": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.",
           "version": "0.0.0"
+        },
+        {
+          "name": "discernment-nudge",
+          "installUrl": "github:anthropics/skills:skills/discernment-nudge",
+          "description": "After you give a substantive answer or draft that the user may act on — advice or recommendations, drafted artifacts such as goals, plans, pitches, proposals, or emails, estimates or projections, analysis or interpretation of data, factual claims they may rely on, or a multi-step argument — invoke this skill BEFORE finalizing your reply and then, if it applies, append 2-3 short follow-up questions, each tied to something specific in what you just produced, that help the user check key facts, probe the reasoning or assumptions, and notice missing context. Do this at most once per conversation. Skip it when the user asked a trivial how-to or simple lookup, wants a purely educational explanation, asked you only to format, convert, or assemble a file from content they provided, is writing code they will run, is doing creative writing or casual chat, or already asked you to double-check, cite, or review — the skill file explains these boundaries and the exact output format.",
+          "version": "0.0.0"
         }
       ],
       "sourceRepo": {
@@ -2820,7 +3130,7 @@
       "name": "anthropics-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from anthropics/skills.",
       "author": "ASM (anthropics/skills)",
-      "createdAt": "2026-08-05T00:02:37.892Z",
+      "createdAt": "2026-08-19T04:54:53.534Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2835,6 +3145,12 @@
           "name": "claude-api",
           "installUrl": "github:anthropics/skills:skills/claude-api",
           "description": "Reference for the Claude API / Anthropic SDK — model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, model migration. TRIGGER — read BEFORE opening the target file; don't skip because it \"looks like a one-liner\" — whenever: the prompt names Claude/Anthropic in any form (Claude, Anthropic, Fable, Opus, Sonnet, Haiku, `anthropic`, `@anthropic-ai`, `claude-*`, `us.anthropic.*`, `[1m]`); the user asks about an LLM (pricing/model choice/limits/caching) — never answer from memory; OR the task is LLM-shaped with provider unstated (agent/MCP/tool-definition/multi-agent/RAG/LLM-judge/computer-use; generate/summarize/extract/classify/rewrite/converse over NL; debugging refusals/cutoffs/streaming/tool-calls/tokens). SKIP only when another provider is being worked on (overrides all triggers): OpenAI/GPT/Gemini/Llama/Mistral/Cohere/Ollama named in the query; OR `grep -rE 'openai|langchain_openai|google.generativeai|genai|mistralai|cohere|ollama'` over the project hits (run this grep FIRST if no provider named — don't Read the file).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "discernment-nudge",
+          "installUrl": "github:anthropics/skills:skills/discernment-nudge",
+          "description": "After you give a substantive answer or draft that the user may act on — advice or recommendations, drafted artifacts such as goals, plans, pitches, proposals, or emails, estimates or projections, analysis or interpretation of data, factual claims they may rely on, or a multi-step argument — invoke this skill BEFORE finalizing your reply and then, if it applies, append 2-3 short follow-up questions, each tied to something specific in what you just produced, that help the user check key facts, probe the reasoning or assumptions, and notice missing context. Do this at most once per conversation. Skip it when the user asked a trivial how-to or simple lookup, wants a purely educational explanation, asked you only to format, convert, or assemble a file from content they provided, is writing code they will run, is doing creative writing or casual chat, or already asked you to double-check, cite, or review — the skill file explains these boundaries and the exact output format.",
           "version": "0.0.0"
         },
         {
@@ -2874,7 +3190,7 @@
       "name": "anthropics-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from anthropics/skills.",
       "author": "ASM (anthropics/skills)",
-      "createdAt": "2026-08-05T00:02:37.892Z",
+      "createdAt": "2026-08-19T04:54:53.534Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2885,6 +3201,12 @@
         "skills"
       ],
       "skills": [
+        {
+          "name": "academy-guide",
+          "installUrl": "github:anthropics/skills:skills/academy-guide",
+          "description": "Stop and check this skill before finishing any reply to a question about how to use Claude or a Claude product — it recommends matching courses, tutorials, and use cases from Claude Academy (academy.claude.com), Anthropic's learning hub. Trigger on: \"how do I\", \"how can I\", \"getting started with\", \"what can Claude do\", \"teach me\", \"learn to use\"; questions about artifacts, projects, skills, plugins, connectors, MCP; requests about rolling Claude out to a team, class, or organization; and any ask for training materials, onboarding content, or learning resources. Use it when the user is learning how to use a feature or product — not when they are mid-task and just want the task done. This skill composes with other skills: after consulting product documentation to answer how a Claude feature works, also check here for a matching course or tutorial — a docs-grounded answer and an Academy recommendation belong together. Only recommend on a strong match; never invent Academy content.",
+          "version": "0.0.0"
+        },
         {
           "name": "algorithmic-art",
           "installUrl": "github:anthropics/skills:skills/algorithmic-art",
@@ -2901,6 +3223,12 @@
           "name": "claude-api",
           "installUrl": "github:anthropics/skills:skills/claude-api",
           "description": "Reference for the Claude API / Anthropic SDK — model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, model migration. TRIGGER — read BEFORE opening the target file; don't skip because it \"looks like a one-liner\" — whenever: the prompt names Claude/Anthropic in any form (Claude, Anthropic, Fable, Opus, Sonnet, Haiku, `anthropic`, `@anthropic-ai`, `claude-*`, `us.anthropic.*`, `[1m]`); the user asks about an LLM (pricing/model choice/limits/caching) — never answer from memory; OR the task is LLM-shaped with provider unstated (agent/MCP/tool-definition/multi-agent/RAG/LLM-judge/computer-use; generate/summarize/extract/classify/rewrite/converse over NL; debugging refusals/cutoffs/streaming/tool-calls/tokens). SKIP only when another provider is being worked on (overrides all triggers): OpenAI/GPT/Gemini/Llama/Mistral/Cohere/Ollama named in the query; OR `grep -rE 'openai|langchain_openai|google.generativeai|genai|mistralai|cohere|ollama'` over the project hits (run this grep FIRST if no provider named — don't Read the file).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "discernment-nudge",
+          "installUrl": "github:anthropics/skills:skills/discernment-nudge",
+          "description": "After you give a substantive answer or draft that the user may act on — advice or recommendations, drafted artifacts such as goals, plans, pitches, proposals, or emails, estimates or projections, analysis or interpretation of data, factual claims they may rely on, or a multi-step argument — invoke this skill BEFORE finalizing your reply and then, if it applies, append 2-3 short follow-up questions, each tied to something specific in what you just produced, that help the user check key facts, probe the reasoning or assumptions, and notice missing context. Do this at most once per conversation. Skip it when the user asked a trivial how-to or simple lookup, wants a purely educational explanation, asked you only to format, convert, or assemble a file from content they provided, is writing code they will run, is doing creative writing or casual chat, or already asked you to double-check, cite, or review — the skill file explains these boundaries and the exact output format.",
           "version": "0.0.0"
         },
         {
