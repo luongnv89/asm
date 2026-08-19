@@ -2,9 +2,8 @@ import {
   spawnSync as nodeSpawnSync,
   spawn as nodeSpawn,
 } from "node:child_process";
-import { writeFileSync, mkdtempSync, rmSync } from "node:fs";
+import { writeFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
-import { tmpdir } from "node:os";
 import { createRequire } from "node:module";
 import type {
   SpawnSyncOptions,

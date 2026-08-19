@@ -5,7 +5,6 @@ import {
   readdir,
   readFile,
   rm,
-  rename,
   cp,
   access,
   stat,

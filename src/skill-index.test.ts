@@ -1,7 +1,6 @@
-import { describe, expect, it, beforeEach, afterEach } from "vitest";
-import { mkdtemp, writeFile, rm, readdir } from "fs/promises";
+import { describe, expect, it } from "vitest";
+import { readdir } from "fs/promises";
 import { join } from "path";
-import { tmpdir } from "os";
 import {
   searchSkills,
   getAllIndexedSkills,

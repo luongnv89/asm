@@ -30,14 +30,7 @@
  *                          schema. Downstream issues can add it later.
  */
 
-import {
-  readFile,
-  writeFile,
-  stat,
-  copyFile,
-  access,
-  readdir,
-} from "fs/promises";
+import { readFile, writeFile, stat, copyFile, readdir } from "fs/promises";
 import { join, resolve, basename, isAbsolute } from "path";
 import type { ProviderEvalReport } from "./eval/summary";
 import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
@@ -1330,7 +1323,7 @@ function appendFrontmatterKey(
 ): string {
   const existing = new RegExp(`^${key}:\\s*`, "m");
   if (existing.test(fmStr)) return fmStr;
-  const quoted = /[:#{}\[\],&*?|<>=!%@`"']/.test(value)
+  const quoted = /[:#{}[\],&*?|<>=!%@`"']/.test(value)
     ? JSON.stringify(value)
     : value;
   const separator = fmStr.length === 0 || fmStr.endsWith("\n") ? "" : "\n";

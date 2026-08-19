@@ -656,16 +656,12 @@ function formatNumber(n: number): string {
 }
 
 function stripAnsi(s: string): string {
+  // eslint-disable-next-line no-control-regex -- ANSI CSI
   return s.replace(/\x1b\[[0-9;]*m/g, "");
 }
 
 function visibleLength(s: string): number {
   return stripAnsi(s).length;
-}
-
-function padVisible(s: string, width: number): string {
-  const vLen = visibleLength(s);
-  return vLen < width ? s + " ".repeat(width - vLen) : s;
 }
 
 function deduplicateMatches(matches: CodeScanMatch[]): CodeScanMatch[] {

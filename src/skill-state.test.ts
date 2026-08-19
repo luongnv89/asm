@@ -7,7 +7,6 @@ import {
   writeFile,
   readFile,
   access,
-  symlink,
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, relative } from "node:path";
@@ -26,7 +25,7 @@ import {
   disabledFilePath,
 } from "./skill-state";
 import { groupBySource } from "./cli";
-import type { SkillInfo, SkillStateFile } from "./utils/types";
+import type { SkillInfo } from "./utils/types";
 
 type NameDir = { name: string; dirName: string };
 

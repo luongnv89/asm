@@ -60,7 +60,6 @@ import {
   realpath,
   rename,
   rm,
-  symlink,
   writeFile,
   readdir,
 } from "fs/promises";

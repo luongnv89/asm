@@ -5,7 +5,7 @@
  * optionally opens a PR against luongnv89/asm-registry via the gh CLI.
  */
 
-import { readFile, stat, realpath } from "fs/promises";
+import { readFile, realpath } from "fs/promises";
 import { join, resolve, relative } from "path";
 import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
 import { auditSkillSecurity } from "./security-auditor";
@@ -25,14 +25,16 @@ import { runCommand } from "./utils/spawn";
  */
 export function stripControlChars(s: string): string {
   // Remove ANSI escape sequences (CSI, OSC, etc.)
-  // eslint-disable-next-line no-control-regex
   return (
     s
+      // eslint-disable-next-line no-control-regex -- ANSI CSI
       .replace(/\x1b\[[0-9;]*[a-zA-Z]/g, "")
+      // eslint-disable-next-line no-control-regex -- ANSI OSC
       .replace(/\x1b\][^\x07]*\x07/g, "")
+      // eslint-disable-next-line no-control-regex -- remaining ESC
       .replace(/\x1b[^[\]]/g, "")
       // Remove remaining ASCII control characters (0x00-0x1F, 0x7F) except \n and \t
-      // eslint-disable-next-line no-control-regex
+      // eslint-disable-next-line no-control-regex -- ASCII controls
       .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "")
   );
 }

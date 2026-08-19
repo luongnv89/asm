@@ -1,5 +1,5 @@
-import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
-import { mkdtemp, writeFile, readFile, rm, mkdir } from "fs/promises";
+import { describe, expect, it, beforeEach, afterEach } from "vitest";
+import { mkdtemp, writeFile, rm, mkdir } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 import { fetchWithCache } from "./http";

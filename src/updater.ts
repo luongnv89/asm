@@ -14,7 +14,7 @@ import { homedir } from "os";
 import { debug } from "./logger";
 import { readLock, writeLockEntry } from "./utils/lock";
 import { fetchRegistryIndex } from "./registry";
-import type { RegistryManifest, RegistryIndex } from "./registry";
+import type { RegistryIndex } from "./registry";
 import type { LockEntry } from "./utils/types";
 import { auditSkillSecurity } from "./security-auditor";
 import type { SecurityVerdict } from "./utils/types";

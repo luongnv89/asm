@@ -4,7 +4,6 @@ import { mkdtemp, writeFile, mkdir, rm } from "fs/promises";
 import { join, dirname } from "path";
 import { tmpdir } from "os";
 import {
-  analyzeSource,
   scanCode,
   analyzePermissions,
   calculateVerdict,

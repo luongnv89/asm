@@ -1,14 +1,6 @@
 import { createDirSymlink } from "./utils/fs";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
-import {
-  mkdtemp,
-  writeFile,
-  mkdir,
-  rm,
-  readlink,
-  lstat,
-  symlink,
-} from "fs/promises";
+import { mkdtemp, writeFile, mkdir, rm, readlink, lstat } from "fs/promises";
 import { existsSync } from "fs";
 import { join, relative, resolve, isAbsolute, basename, dirname } from "path";
 import { tmpdir } from "os";
@@ -2234,7 +2226,6 @@ describe("linkExistingSkill", () => {
   test("creates a symlink from existing install to target provider", async () => {
     const config = makeConfig();
     const claudeDir = join(tempDir, "claude-skills");
-    const codexDir = join(tempDir, "codex-skills");
     const skillDir = await createSkillInProvider(claudeDir, "code-review");
 
     const targetPath = await linkExistingSkill(
@@ -2257,7 +2248,6 @@ describe("linkExistingSkill", () => {
   test("overwrites existing symlink with force=true", async () => {
     const config = makeConfig();
     const claudeDir = join(tempDir, "claude-skills");
-    const codexDir = join(tempDir, "codex-skills");
     const claudeSkillDir = await createSkillInProvider(
       claudeDir,
       "code-review",
@@ -2295,7 +2285,6 @@ describe("linkExistingSkill", () => {
   test("throws when target exists and force is false", async () => {
     const config = makeConfig();
     const claudeDir = join(tempDir, "claude-skills");
-    const codexDir = join(tempDir, "codex-skills");
     const skillDir = await createSkillInProvider(claudeDir, "code-review");
 
     // First link

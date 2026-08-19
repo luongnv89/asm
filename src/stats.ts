@@ -14,7 +14,6 @@ import type {
   RepoStatsReport,
   AuthorStatsReport,
   IndexStatsReport,
-  IndexedSkill,
   TokenBudgetReport,
   TokenBudgetGroup,
   ResidentSkillCost,
@@ -531,7 +530,7 @@ export function computeAuthorStats(indices: RepoIndex[]): AuthorStatsReport[] {
 
   // Sort top skills by token count (descending) and keep top 10
   const results: AuthorStatsReport[] = [];
-  for (const [owner, author] of authorMap) {
+  for (const [_owner, author] of authorMap) {
     const sortedSkills = author.topSkills
       .sort((a, b) => b.name.localeCompare(a.name))
       .slice(0, 10);

@@ -18,13 +18,8 @@ import {
   formatDoctorJSON,
   formatDoctorMachine,
 } from "./doctor";
-import type {
-  DoctorReport,
-  CheckResult,
-  CheckStatus,
-  _DoctorExecOverrides,
-} from "./doctor";
-import type { AppConfig, LockFile } from "./utils/types";
+import type { DoctorReport, CheckResult, _DoctorExecOverrides } from "./doctor";
+import type { LockFile } from "./utils/types";
 import { getDefaultConfig } from "./config";
 
 function makeReport(overrides: Partial<DoctorReport> = {}): DoctorReport {

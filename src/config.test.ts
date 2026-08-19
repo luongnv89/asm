@@ -13,7 +13,6 @@ import { setVerbose } from "./logger";
 import { homedir } from "os";
 import { resolve, join, dirname } from "path";
 import { writeFile, readFile, rm, mkdir } from "fs/promises";
-import { mkdtempSync } from "fs";
 import { tmpdir } from "os";
 
 const HOME = homedir();
@@ -167,7 +166,9 @@ describe("config backup on corruption", () => {
     // Remove backup if it exists
     try {
       await rm(backupPath);
-    } catch {}
+    } catch {
+      /* ignore missing path */
+    }
   });
 
   afterEach(async () => {
@@ -179,12 +180,16 @@ describe("config backup on corruption", () => {
     } else {
       try {
         await rm(configPath);
-      } catch {}
+      } catch {
+        /* ignore missing path */
+      }
     }
     // Clean up backup
     try {
       await rm(backupPath);
-    } catch {}
+    } catch {
+      /* ignore missing path */
+    }
   });
 
   it("creates .bak and warns on corrupted config", async () => {
@@ -212,7 +217,9 @@ describe("config backup on corruption", () => {
   it("silently creates defaults for missing config", async () => {
     try {
       await rm(configPath);
-    } catch {}
+    } catch {
+      /* ignore missing path */
+    }
 
     const config = await loadConfig();
 
@@ -224,7 +231,9 @@ describe("config backup on corruption", () => {
     try {
       await readFile(backupPath);
       backupExists = true;
-    } catch {}
+    } catch {
+      /* ignore missing path */
+    }
     expect(backupExists).toBe(false);
 
     // Should NOT have warned
@@ -318,7 +327,9 @@ describe("selectedTools preference", () => {
     } else {
       try {
         await rm(configPath);
-      } catch {}
+      } catch {
+        /* ignore missing path */
+      }
     }
   });
 
@@ -387,7 +398,9 @@ describe("mergeWithDefaults priority-order insertion", () => {
     } else {
       try {
         await rm(configPath);
-      } catch {}
+      } catch {
+        /* ignore missing path */
+      }
     }
   });
 

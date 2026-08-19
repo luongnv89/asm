@@ -32,12 +32,10 @@ import {
   executeRemoval,
   getExistingTargets,
   buildRelocationInfo,
-  findRelocationTarget,
 } from "./uninstaller";
 import {
   formatSkillTable,
   formatGroupedTable,
-  formatSkillDetail,
   formatSkillInspect,
   formatSearchResults,
   formatAvailableSearchResults,
@@ -95,7 +93,7 @@ import {
   isScopedName,
   resolveFromRegistry,
 } from "./registry";
-import type { RegistryManifest, ResolutionSource } from "./registry";
+import type { ResolutionSource } from "./registry";
 import { buildManifest } from "./exporter";
 import { readManifestFile, importSkills, renderConflictDiff } from "./importer";
 import type {
@@ -222,9 +220,6 @@ import type {
   SecurityAuditReport,
   AppConfig,
   SkillStateFile,
-  RepoStatsReport,
-  AuthorStatsReport,
-  IndexStatsReport,
   GetResult,
   GetSecurityVerdict,
   GetTier,
@@ -3639,7 +3634,7 @@ async function cmdInstall(args: ParsedArgs) {
     // Step 5: Scan for skills
     console.info(stepHeader("Scanning for skills"));
     const { join: joinPath } = await import("path");
-    let results: InstallResult[] = [];
+    const results: InstallResult[] = [];
 
     // Effective path: explicit --path flag takes precedence over URL-derived subpath
     const effectivePath = args.flags.path || source.subpath;
@@ -7145,25 +7140,6 @@ async function cmdPublish(args: ParsedArgs) {
       );
     }
   } catch (err: any) {
-    const errorResult: import("./utils/types").PublishResult = {
-      success: false,
-      manifest: null,
-      prUrl: null,
-      error: err.message,
-      securityVerdict: "pass",
-      securityReport: {
-        scannedAt: new Date().toISOString(),
-        skillName: "",
-        skillPath: "",
-        source: null,
-        codeScans: [],
-        permissions: [],
-        totalFiles: 0,
-        totalLines: 0,
-        verdict: "safe",
-        verdictReason: "",
-      },
-    };
     if (args.flags.machine) {
       restoreConsole?.();
       console.log(

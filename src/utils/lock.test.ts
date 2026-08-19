@@ -19,7 +19,7 @@ vi.mock("fs/promises", async (importOriginal) => {
   };
 });
 
-import { mkdtemp, writeFile, rm, readFile, mkdir, readdir } from "fs/promises";
+import { mkdtemp, writeFile, rm, readFile, readdir } from "fs/promises";
 import { execSync } from "child_process";
 import { join } from "path";
 import { tmpdir } from "os";

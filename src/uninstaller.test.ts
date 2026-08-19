@@ -1,5 +1,5 @@
 import { createDirSymlink } from "./utils/fs";
-import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 // ─── Module mocks for EXDEV cp fallback test (issue #283) ────────────────────
 // `vi.mock` is hoisted and file-level, so route through `vi.hoisted` so we can
@@ -48,7 +48,6 @@ import {
   lstat,
   realpath,
   rm,
-  symlink,
   readdir,
 } from "fs/promises";
 
@@ -381,7 +380,7 @@ describe("executeRemoval with symlinkTo", () => {
         agentsBlocks: [],
       };
 
-      const log = await executeRemoval(plan, keptDir);
+      await executeRemoval(plan, keptDir);
 
       const stats = await lstat(dupLink);
       expect(stats.isSymbolicLink()).toBe(true);

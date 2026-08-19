@@ -1,7 +1,6 @@
 import { describe, expect, it, beforeEach, afterEach } from "vitest";
-import { mkdtemp, writeFile, mkdir, readdir, rm, readFile } from "fs/promises";
-import { join, resolve, dirname } from "path";
-import { fileURLToPath } from "url";
+import { mkdtemp, writeFile, readdir, rm } from "fs/promises";
+import { join } from "path";
 import { tmpdir } from "os";
 import {
   validateBundle,
@@ -14,13 +13,8 @@ import {
   listPredefinedBundles,
   removeBundle,
   getBundleDir,
-  ensureBundleDir,
 } from "./bundler";
 import type { BundleManifest, BundleSkillRef, SkillInfo } from "./utils/types";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const PREDEFINED_BUNDLE_DIR = resolve(__dirname, "..", "data", "bundles");
 
 // ─── Test Helpers ──────────────────────────────────────────────────────────
 

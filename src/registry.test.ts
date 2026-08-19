@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
 import { mkdtemp, writeFile, mkdir, rm } from "fs/promises";
 import { join } from "path";
-import { tmpdir } from "os";
+import { tmpdir, homedir } from "os";
 import {
   validateManifest,
   levenshtein,
@@ -724,7 +724,7 @@ describe("resolveFromRegistry", () => {
   it("returns empty result when index is null (fetch failure)", async () => {
     // Remove any stale cache so fetchWithCache cannot fall back to it
     const cachePath = join(
-      require("os").homedir(),
+      homedir(),
       ".config",
       "agent-skill-manager",
       "registry-cache.json",

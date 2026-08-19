@@ -154,7 +154,6 @@ describe("runner error wrapping", () => {
   it("wraps non-Error throws with String coercion", async () => {
     const result = await runProvider(
       makeProvider(async () => {
-        // eslint-disable-next-line no-throw-literal
         throw "string error";
       }),
       CTX,

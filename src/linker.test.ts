@@ -5,15 +5,7 @@ import {
   createLink,
   discoverLinkableSkills,
 } from "./linker";
-import {
-  mkdtemp,
-  writeFile,
-  mkdir,
-  rm,
-  lstat,
-  readlink,
-  symlink,
-} from "fs/promises";
+import { mkdtemp, writeFile, mkdir, rm, lstat, readlink } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 

@@ -7,7 +7,6 @@ import {
   beforeEach,
   afterEach,
   beforeAll,
-  afterAll,
 } from "vitest";
 import {
   parseArgs,
@@ -28,7 +27,6 @@ import {
   lstat,
   readlink,
   realpath,
-  symlink,
   chmod,
 } from "fs/promises";
 import { tmpdir, homedir } from "os";
@@ -708,7 +706,7 @@ describe("CLI integration: --machine output", () => {
   });
 
   test("update --machine produces valid v1 envelope", async () => {
-    const { stdout, exitCode } = await runCLI(
+    const { stdout } = await runCLI(
       "update",
       "nonexistent-skill-12345",
       "--machine",
@@ -1096,11 +1094,8 @@ describe("CLI integration: audit", () => {
   });
 
   test("audit duplicates is the default subcommand", async () => {
-    const { stdout: defaultOut, exitCode: code1 } = await runCLI("audit");
-    const { stdout: explicitOut, exitCode: code2 } = await runCLI(
-      "audit",
-      "duplicates",
-    );
+    const { exitCode: code1 } = await runCLI("audit");
+    const { exitCode: code2 } = await runCLI("audit", "duplicates");
     expect(code1).toBe(0);
     expect(code2).toBe(0);
     // Both should produce similar output (may differ in timestamp)
@@ -2589,7 +2584,7 @@ describe("readLine", () => {
 
 describe("CLI integration: verbose flag", () => {
   test("list -V produces verbose output on stderr", async () => {
-    const { stdout, stderr, exitCode } = await runCLI("list", "-V");
+    const { stderr, exitCode } = await runCLI("list", "-V");
     expect(exitCode).toBe(0);
     expect(stderr).toContain("[verbose]");
     expect(stderr).toMatch(/\+\d+ms/);
@@ -4012,7 +4007,7 @@ metadata:
     const linkB = join(providerDir, "test-link-skill-b");
 
     try {
-      const { stdout, stderr, exitCode } = await runCLI(
+      const { stdout, exitCode } = await runCLI(
         "link",
         multiDir,
         "--force",
@@ -5343,7 +5338,7 @@ describe("CLI integration: bundle modify", () => {
     await writeFile(filePath, JSON.stringify(bundleData, null, 2));
 
     try {
-      const { stderr, exitCode } = await runCLI(
+      const { exitCode } = await runCLI(
         "bundle",
         "modify",
         filePath,

@@ -268,24 +268,6 @@ async function persistLibraryLock(
   await writeTextFileAtomically(path, JSON.stringify(lock, null, 2) + "\n");
 }
 
-async function mutateLibraryLock<T>(
-  path: string,
-  mutate: (
-    lock: LibraryLockFile,
-  ) =>
-    | Promise<{ changed: boolean; result?: T }>
-    | { changed: boolean; result?: T },
-): Promise<T | undefined> {
-  return withFileMutationLock(path, async () => {
-    const lock = await readLibraryLockFile(path);
-    const { changed, result } = await mutate(lock);
-    if (changed) {
-      await persistLibraryLock(lock, path);
-    }
-    return result;
-  });
-}
-
 function validateSourceSkillFrontmatter(
   frontmatter: Record<string, string>,
 ): { name: string; version: string } | { reason: string } {
