@@ -37,6 +37,12 @@ npm test             # Run all tests
 npm run typecheck    # Type-check without emitting
 ```
 
+Verified results for `npm run build`, `CI=true npm test`, `npm run typecheck`,
+and `npm run lint:site`, the Node version constraints, and two repo-specific
+traps (scripts that rewrite tracked files; the unit suite writing to your real
+`~/.config/agent-skill-manager/`) are recorded in
+[AGENT_ENVIRONMENT.md](AGENT_ENVIRONMENT.md).
+
 Test files are co-located with source files using the `*.test.ts` convention.
 44 `*.test.ts` files live under `src/`, one per module — e.g. `cli.test.ts`,
 `scanner.test.ts`, `installer.test.ts`, `eval/*.test.ts`. Run `npm test` for
