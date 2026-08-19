@@ -32,8 +32,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Audit dependencies
+      - name: Audit production dependencies
         run: npm audit --audit-level=high --omit=dev
+
+      # Dev-included high audit. Allowlist is exactly GHSA-5xrq-8626-4rwp
+      # (vitest / @vitest/ui 2.x). Expires 2026-09-19 — Task 1.3 / #443.
+      # Removing ASM_AUDIT_ALLOWLIST makes this step fail today.
+      - name: Audit all dependencies
+        env:
+          ASM_AUDIT_ALLOWLIST: GHSA-5xrq-8626-4rwp
+          ASM_AUDIT_ALLOWLIST_EXPIRES: "2026-09-19"
+        run: npx tsx scripts/ci-npm-audit.ts
 
       - name: Run unit tests
         run: npx vitest run src/
