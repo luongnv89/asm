@@ -192,9 +192,11 @@ export async function readBundleFile(
     raw = await readFile(filePath, "utf-8");
   } catch (err: any) {
     if (err?.code === "ENOENT") {
-      throw new Error(`Bundle file not found: ${filePath}`);
+      throw new Error(`Bundle file not found: ${filePath}`, { cause: err });
     }
-    throw new Error(`Failed to read bundle file: ${err.message}`);
+    throw new Error(`Failed to read bundle file: ${err.message}`, {
+      cause: err,
+    });
   }
 
   let data: unknown;
@@ -244,7 +246,9 @@ export async function loadBundle(nameOrPath: string): Promise<BundleManifest> {
         if (predefinedErr?.message?.includes("Bundle file not found")) {
           const repoBundle = await findRepoIndexBundle(nameOrPath);
           if (repoBundle) return repoBundle;
-          throw new Error(`Bundle file not found: ${filePath}`);
+          throw new Error(`Bundle file not found: ${filePath}`, {
+            cause: predefinedErr,
+          });
         }
         throw predefinedErr;
       }

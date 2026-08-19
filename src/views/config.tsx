@@ -28,6 +28,7 @@ export function ConfigView({ config, onClose, onOpenEditor }: ConfigProps) {
 
   // Keep edit state in sync when parent swaps the config identity
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: sync edit state when parent swaps config identity
     setEditConfig(JSON.parse(JSON.stringify(config)));
   }, [config]);
 

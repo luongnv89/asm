@@ -180,6 +180,7 @@ function HeroTerminal({ repoCount }) {
 
   useEffect(() => {
     if (reducedMotion) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: show terminal lines immediately when motion is reduced
       setLinesLive(true);
       return undefined;
     }

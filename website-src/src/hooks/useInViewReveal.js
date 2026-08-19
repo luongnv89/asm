@@ -17,6 +17,7 @@ export function useInViewReveal({
 
   useEffect(() => {
     if (immediate) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: ensure visible when immediate is true after mount
       setVisible(true);
       return undefined;
     }

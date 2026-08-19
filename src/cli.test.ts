@@ -5286,7 +5286,7 @@ describe("CLI integration: bundle modify", () => {
   // remain on developer machines on the next test run.
   beforeAll(async () => {
     const skillsDir = join(homedir(), ".claude", "skills");
-    let entries: string[] = [];
+    let entries: string[];
     try {
       entries = await readdir(skillsDir);
     } catch {

@@ -43,23 +43,27 @@ export default function CategoryPieChart({ entries }) {
   const cx = 80;
   const cy = 80;
   const radius = 70;
-  let angle = 0;
 
-  const slices = entries.map(([label, value], index) => {
-    const sliceAngle = (value / total) * 360;
-    const startAngle = angle;
-    const endAngle = angle + sliceAngle;
-    angle = endAngle;
-    return {
-      label,
-      value,
-      color: SLICE_COLORS[index % SLICE_COLORS.length],
-      path:
-        sliceAngle >= 359.99
-          ? `M ${cx} ${cy - radius} A ${radius} ${radius} 0 1 1 ${cx - 0.01} ${cy - radius} Z`
-          : describeSlice(cx, cy, radius, startAngle, endAngle),
-    };
-  });
+  // Compute slice angles with reduce to avoid mutating a render-phase variable.
+  const slices = entries.reduce(
+    (acc, [label, value], index) => {
+      const sliceAngle = (value / total) * 360;
+      const startAngle = acc.angle;
+      const endAngle = startAngle + sliceAngle;
+      acc.slices.push({
+        label,
+        value,
+        color: SLICE_COLORS[index % SLICE_COLORS.length],
+        path:
+          sliceAngle >= 359.99
+            ? `M ${cx} ${cy - radius} A ${radius} ${radius} 0 1 1 ${cx - 0.01} ${cy - radius} Z`
+            : describeSlice(cx, cy, radius, startAngle, endAngle),
+      });
+      acc.angle = endAngle;
+      return acc;
+    },
+    { slices: [], angle: 0 },
+  ).slices;
 
   return (
     <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">

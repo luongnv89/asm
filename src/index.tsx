@@ -76,6 +76,7 @@ export function App({ initialConfig }: AppProps) {
   // Keep cursor in bounds
   useEffect(() => {
     if (cursor >= filteredSkills.length) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: clamp cursor when the filtered list shrinks
       setCursor(Math.max(0, filteredSkills.length - 1));
     }
   }, [filteredSkills.length, cursor]);
@@ -88,6 +89,7 @@ export function App({ initialConfig }: AppProps) {
   }, [config, scope]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: trigger initial + scope-change scan
     refreshSkills();
   }, [refreshSkills]);
 

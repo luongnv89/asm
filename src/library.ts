@@ -880,6 +880,7 @@ export async function deactivateLibrarySkill(
     if (err?.code === "ENOENT") {
       throw new Error(
         `Skill "${activationName}" is not active for ${input.provider}/${input.scope}.`,
+        { cause: err },
       );
     }
     throw err;

@@ -186,7 +186,7 @@ export async function copyToClipboard(text) {
   try {
     ok = document.execCommand("copy");
   } catch {
-    ok = false;
+    // ok is already false — no reassignment needed
   }
   document.body.removeChild(ta);
   return ok;

@@ -630,7 +630,7 @@ describe("scanAllSkills", () => {
     }
 
     const scanPromise = scanAllSkills(makeScanConfig([tempDir]), "project");
-    let skills: SkillInfo[] = [];
+    let skills: SkillInfo[];
     try {
       await vi.waitFor(() => expect(scanFsControl.startedStats).toBe(4));
       expect(scanFsControl.activeStats).toBe(4);
@@ -759,7 +759,7 @@ describe("scanAllSkills", () => {
       pluginBase,
       join(tempDir, "missing-codex-cache"),
     );
-    let skills: SkillInfo[] = [];
+    let skills: SkillInfo[];
     try {
       await vi.waitFor(() => expect(scanFsControl.startedStats).toBe(4));
       for (const path of [...providerPaths].reverse()) {

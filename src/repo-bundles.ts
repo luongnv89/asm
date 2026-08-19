@@ -441,7 +441,7 @@ async function readBundleCandidates(
   for (const relDir of EXPLICIT_BUNDLE_DIRS) {
     const absDir = join(repoRoot, relDir);
     if (!(await dirExists(absDir))) continue;
-    let entries: string[] = [];
+    let entries: string[];
     try {
       entries = await readdir(absDir);
     } catch {

@@ -34,6 +34,7 @@ export default function SkillDetail({ slim }) {
 
   useEffect(() => {
     if (!slim?.detailPath) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: reset detail state when the selected skill changes
       setDetail({ data: null, loading: false, error: null });
       return;
     }

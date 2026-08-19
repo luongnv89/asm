@@ -1360,6 +1360,7 @@ async function validateSkillForGet(
       throw new Error(
         `"${hintBase}" holds ${nested.length} skills, not one. Pick a skill:\n` +
           shown.map((s) => `    asm get ${hintBase}:${s.relPath}`).join("\n"),
+        { cause: err },
       );
     }
     throw err;
@@ -3492,7 +3493,7 @@ async function cmdInstall(args: ParsedArgs) {
         }
       } catch (err: any) {
         if (err.code === "ENOENT") {
-          throw new Error(`Path does not exist: ${localPath}`);
+          throw new Error(`Path does not exist: ${localPath}`, { cause: err });
         }
         throw err;
       }
@@ -3696,6 +3697,7 @@ async function cmdInstall(args: ParsedArgs) {
           if (statErr && statErr.code === "ENOENT") {
             throw new Error(
               `No SKILL.md found at path "${effectivePath}" in the repository.`,
+              { cause: statErr },
             );
           }
           throw statErr;
@@ -5733,7 +5735,7 @@ async function cmdLink(args: ParsedArgs) {
         }
       } else {
         // Discover skills in the directory
-        let discovered: Awaited<ReturnType<typeof discoverLinkableSkills>> = [];
+        let discovered: Awaited<ReturnType<typeof discoverLinkableSkills>>;
         try {
           discovered = await discoverLinkableSkills(absSourcePath);
         } catch (err: unknown) {

@@ -443,7 +443,7 @@ export async function cloneToTemp(
       return await cloneWithUrl(url, source.ref, tempDir);
     } catch (err: any) {
       await cleanupTemp(tempDir);
-      throw new Error(formatCloneError(err));
+      throw new Error(formatCloneError(err), { cause: err });
     }
   }
 
@@ -453,7 +453,7 @@ export async function cloneToTemp(
   } catch (httpsErr: any) {
     if (!isAuthError(httpsErr)) {
       await cleanupTemp(tempDir);
-      throw new Error(formatCloneError(httpsErr));
+      throw new Error(formatCloneError(httpsErr), { cause: httpsErr });
     }
 
     debug("install: HTTPS clone failed with auth error, retrying with SSH...");
@@ -468,6 +468,7 @@ export async function cloneToTemp(
         `Clone failed with both transports:\n` +
           `  HTTPS: ${formatCloneError(httpsErr)}\n` +
           `  SSH:   ${formatCloneError(sshErr)}`,
+        { cause: sshErr },
       );
     }
   }
@@ -608,6 +609,7 @@ export async function installScriptDependencies(
   } catch (err: any) {
     throw new Error(
       `Installed skill, but failed to install dependencies in scripts/: ${err.stderr || err.message}`,
+      { cause: err },
     );
   }
 }
@@ -708,7 +710,7 @@ export async function executeInstall(
   try {
     await cp(installSource, plan.targetDir, { recursive: true });
   } catch (cpErr: any) {
-    throw new Error(`Failed to install: ${cpErr.message}`);
+    throw new Error(`Failed to install: ${cpErr.message}`, { cause: cpErr });
   }
 
   // Remove .git directory from installed skill (in case it was the root)
@@ -903,7 +905,7 @@ export async function executeNpxSkillsAdd(
     return { stdout: result.stdout, stderr: result.stderr };
   } catch (err: any) {
     const stderr = err.stderr || err.message || "";
-    throw new Error(`npx skills add failed: ${stderr}`);
+    throw new Error(`npx skills add failed: ${stderr}`, { cause: err });
   }
 }
 

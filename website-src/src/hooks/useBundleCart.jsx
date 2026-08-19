@@ -4,7 +4,6 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from "react";
 
@@ -73,10 +72,8 @@ function isValidCartItem(item) {
 }
 
 export function BundleCartProvider({ children }) {
-  const initial = useRef(null);
-  if (initial.current === null) initial.current = loadInitial();
-  const [items, setItems] = useState(initial.current.items);
-  const [meta, setMetaState] = useState(initial.current.meta);
+  const [items, setItems] = useState(() => loadInitial().items);
+  const [meta, setMetaState] = useState(() => loadInitial().meta);
 
   useEffect(() => {
     if (typeof localStorage === "undefined") return;
