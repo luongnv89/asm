@@ -9,6 +9,7 @@ Agent Skills installed for Claude Code, Codex, Gemini, and OpenClaw.
 npm install          # postinstall no-ops when CI or ASM_SKIP_POSTINSTALL is set
 npm run build        # tsx scripts/build.ts -> dist/ (gitignored)
 CI=true npm test     # unit suite — the command of record
+npm run test:coverage  # v8 coverage for src/ — measurement only, no fail gate
 npm run typecheck    # tsc --noEmit
 npm run lint:site    # eslint over website-src/src
 npm run test:e2e     # tests/e2e/ — NOT covered by `npm test`
@@ -19,6 +20,23 @@ npm start            # run the TUI from source
 test path**, not a directory — `website-src/src/__tests__/` matches it too, so
 `npm run test:site` is a subset of `npm test`, not a separate leg. Only
 `tests/e2e/` is excluded. Measured timings and evidence: `docs/AGENT_ENVIRONMENT.md`.
+
+`npm run test:coverage` is `vitest run --coverage src/` with
+`@vitest/coverage-v8` (2.x, matching current vitest). It reports line and
+branch percentages for `src/` product files only (test files excluded). There
+is **no coverage threshold and no CI fail gate** — measurement before
+improvement (F-TEST-003 / #438).
+
+**Coverage baseline** (2026-08-19, `src/`, v8, `CI=true npm run test:coverage`,
+2113 tests):
+
+- Lines: **60.61%** (12598/20783)
+- Branches: **82.52%** (3406/4127)
+
+M3's coverage target is bound to **`max(60%, baseline + 20pp)`**:
+
+- Lines: `max(60%, 80.61%)` = **80.61%**
+- Branches: `max(60%, 102.52%)` = **100%** (formula saturates at 100)
 
 Node and npm must satisfy `package.json` `engines` — node `">=18 <23"`, npm
 `">=9"`. Mind the upper bound: `CONTRIBUTING.md` and `docs/DEVELOPMENT.md` still

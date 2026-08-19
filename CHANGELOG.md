@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Infrastructure
+
+- Add `@vitest/coverage-v8` and `npm run test:coverage` for `src/`; record the first line/branch baseline in `CLAUDE.md` and bind M3 to `max(60%, baseline + 20pp)` ([#438](https://github.com/luongnv89/asm/issues/438))
+
 ### Bug Fixes
 
 - Make the unit suite hermetic: `getConfigDir()` honors `ASM_CONFIG_DIR`, and vitest sandboxes `HOME`/`USERPROFILE`/`ASM_CONFIG_DIR` so tests no longer read or write `~/.config/agent-skill-manager` ([#436](https://github.com/luongnv89/asm/issues/436))
