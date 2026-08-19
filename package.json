@@ -43,6 +43,9 @@
     "react-window": "^2.2.7",
     "yaml": "^2.8.3"
   },
+  "overrides": {
+    "vite": "$vite"
+  },
   "engines": {
     "node": ">=18 <23",
     "npm": ">=9"
@@ -94,7 +97,7 @@
     "tailwindcss-animate": "^1.0.7",
     "tsx": "^4",
     "typescript": "^5",
-    "vite": "^5.4.11",
+    "vite": "^6.4.3",
     "vitest": "^2"
   }
 }
