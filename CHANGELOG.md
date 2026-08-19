@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Security
+
+- Close Wave W1 high advisories already resolved in the lockfile: `postcss` 8.5.26, `brace-expansion` 1.1.18, `js-yaml` 4.3.1, `nanoid` 3.3.18 ([#441](https://github.com/luongnv89/asm/issues/441))
+
 ### Infrastructure
 
 - Move the full unit suite from the pre-commit hook to pre-push; keep prettier, lint, typecheck, and the local security check as the fast commit subset ([#440](https://github.com/luongnv89/asm/issues/440))
