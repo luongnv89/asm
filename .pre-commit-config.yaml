@@ -31,8 +31,7 @@ repos:
         name: lint
         entry: npm run lint
         language: system
-        files: ^src/
-        types: [ts, tsx]
+        files: ^(src/|eslint\.config\.js)
         pass_filenames: false
 
       - id: typecheck
