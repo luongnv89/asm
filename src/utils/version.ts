@@ -1,7 +1,7 @@
 import { readFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
-import { execSync } from "child_process";
+import { spawnSync } from "child_process";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -31,11 +31,12 @@ export function getCommitHash(): string {
 
   _commit = "unknown";
   try {
-    _commit =
-      execSync("git rev-parse --short HEAD", {
-        encoding: "utf-8",
-        stdio: ["pipe", "pipe", "ignore"],
-      }).trim() || _commit;
+    const result = spawnSync("git", ["rev-parse", "--short", "HEAD"], {
+      encoding: "utf-8",
+      stdio: ["pipe", "pipe", "ignore"],
+      timeout: 5000,
+    });
+    _commit = result.stdout?.trim() || _commit;
   } catch {
     // Not in a git repo or git not available
   }
