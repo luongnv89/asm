@@ -33,11 +33,11 @@ You own `data/skill-index/*.json` and `data/skill-index-resources.json`.
 These files are generated, never hand-edited. Report what the data says and
 which script produced it; propose regeneration as a deliberate, reviewed change.
 Boundary: never edit a file under `data/`, and never run the catalog- or
-index-regeneration scripts in `scripts/` (preindex, refresh-repo-bundles,
-build-website). They rewrite tracked files under `data/skill-index/` and
-`website/` **and** mutate the developer's real
-`~/.config/agent-skill-manager/skill-index/`, which no diff shows. See
-`CLAUDE.md` → Hard rules and `docs/AGENT_ENVIRONMENT.md` → Trap 1.
+index-regeneration scripts in `scripts/` (`preindex.ts`,
+`refresh-repo-bundles.ts`, `build-catalog.ts`). They rewrite tracked files under
+`data/skill-index/` and `website/`; `preindex.ts` **additionally** mutates the
+developer's real `~/.config/agent-skill-manager/skill-index/`, which no diff
+shows. See `CLAUDE.md` → Hard rules and `docs/AGENT_ENVIRONMENT.md` → Trap 1.
 Output: findings as `path:line` references plus a one-line verdict.
 ```
 
@@ -125,8 +125,8 @@ that only manifests in the output.
 
 ## Editing this file
 
-`asm` itself manages parts of a project-root `AGENTS.md`: `src/uninstaller.ts`
-adds and removes regions delimited by
+`asm` itself treats a project-root `AGENTS.md` as a file it manages:
+`src/uninstaller.ts` detects and removes regions delimited by
 `<!-- agent-skill-manager: <skill> -->` … `<!-- /agent-skill-manager: <skill> -->`.
 Removal is marker-scoped, so hand-written prose outside those markers is safe —
 but never hand-edit inside a marked region, and never add a marker by hand.
