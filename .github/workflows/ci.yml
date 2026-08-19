@@ -29,6 +29,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Patch TS 6 for typescript-eslint
+        run: node scripts/patch-ts6.cjs
+
       - name: Lint src/
         run: npm run lint
 
@@ -50,6 +53,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Patch TS 6 for typescript-eslint
+        run: node scripts/patch-ts6.cjs
 
       - name: Audit production dependencies
         run: npm audit --audit-level=high --omit=dev
@@ -74,6 +80,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Patch TS 6 for typescript-eslint
+        run: node scripts/patch-ts6.cjs
 
       - name: Build
         run: npm run build
