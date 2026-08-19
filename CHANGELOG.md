@@ -6,6 +6,10 @@
 
 - Close Wave W1 high advisories already resolved in the lockfile: `postcss` 8.5.26, `brace-expansion` 1.1.18, `js-yaml` 4.3.1, `nanoid` 3.3.18 ([#441](https://github.com/luongnv89/asm/issues/441))
 
+### Chores
+
+- Refresh Wave W2 wanted-within-range lockfile versions: `autoprefixer` 10.5.4, `prettier` 3.9.6, `tsx` 4.23.12, `yaml` 2.9.0, `react-window` 2.3.0, `eslint`/`@eslint/js` 9.39.5, `@types/react` 18.3.31 ([#442](https://github.com/luongnv89/asm/issues/442))
+
 ### Infrastructure
 
 - Move the full unit suite from the pre-commit hook to pre-push; keep prettier, lint, typecheck, and the local security check as the fast commit subset ([#440](https://github.com/luongnv89/asm/issues/440))
