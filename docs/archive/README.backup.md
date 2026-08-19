@@ -1,3 +1,5 @@
+<!-- Archived 2026-08-19 — stale duplicate of live README.md / CHANGELOG.md. Kept for history; see README.md and CHANGELOG.md for current facts. -->
+
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/logo/logo-full.svg" />
