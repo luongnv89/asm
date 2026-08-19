@@ -23,10 +23,11 @@ test path**, not a directory — `website-src/src/__tests__/` matches it too, so
 `tests/e2e/` is excluded. Measured timings and evidence: `docs/AGENT_ENVIRONMENT.md`.
 
 `npm run test:coverage` is `vitest run --coverage src/` with
-`@vitest/coverage-v8` (2.x, matching current vitest). It reports line and
+`@vitest/coverage-v8` (4.x, matching current vitest). It reports line and
 branch percentages for `src/` product files only (test files excluded). There
 is **no coverage threshold and no CI fail gate** — measurement before
-improvement (F-TEST-003 / #438).
+improvement (F-TEST-003 / #438). Vitest 4 remaps V8 coverage via AST, so the
+live number may differ from the #438 baseline below; keep `coverage.include`.
 
 **Coverage baseline** (2026-08-19, `src/`, v8, `CI=true npm run test:coverage`,
 2113 tests):

@@ -4,10 +4,12 @@
 
 ### Security
 
+- Bump `vitest`, `@vitest/ui`, and `@vitest/coverage-v8` from 2.1.9 to 4.1.10 to clear `GHSA-5xrq-8626-4rwp`, delete the Task 0.2 CI allowlist for that advisory, and raise `@types/node` to ^20 for Vitest 4's peer ([#443](https://github.com/luongnv89/asm/issues/443))
 - Close Wave W1 high advisories already resolved in the lockfile: `postcss` 8.5.26, `brace-expansion` 1.1.18, `js-yaml` 4.3.1, `nanoid` 3.3.18 ([#441](https://github.com/luongnv89/asm/issues/441))
 
 ### Chores
 
+- Drop Node 18 from CI jobs that invoke vitest (Vitest 4 requires Node >=20); product `engines` stay `>=18` until [#444](https://github.com/luongnv89/asm/issues/444)
 - Refresh Wave W2 wanted-within-range lockfile versions: `autoprefixer` 10.5.4, `prettier` 3.9.6, `tsx` 4.23.12, `yaml` 2.9.0, `react-window` 2.3.0, `eslint`/`@eslint/js` 9.39.5, `@types/react` 18.3.31 ([#442](https://github.com/luongnv89/asm/issues/442))
 
 ### Infrastructure
