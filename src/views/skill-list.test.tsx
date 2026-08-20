@@ -52,6 +52,7 @@ describe("SkillListView row width", () => {
         selectedIndex={0}
         visibleCount={5}
         termWidth={200}
+        hasScanned={true}
       />,
     );
     const frame = lastFrame() ?? "";

@@ -57,6 +57,7 @@ describe("TUI smoke test (issue #224)", () => {
         selectedIndex={0}
         visibleCount={5}
         termWidth={120}
+        hasScanned={true}
       />,
     );
     expect(emptyView.lastFrame() ?? "").toContain("(no skills found)");
@@ -68,6 +69,7 @@ describe("TUI smoke test (issue #224)", () => {
         selectedIndex={0}
         visibleCount={5}
         termWidth={120}
+        hasScanned={true}
       />,
     );
     expect(populatedView.lastFrame() ?? "").toContain("sample-skill");
@@ -98,7 +100,13 @@ describe("TUI smoke test (issue #224)", () => {
   });
 
   test("DashboardFooter mounts", () => {
-    const { lastFrame, unmount } = render(<DashboardFooter />);
+    const { lastFrame, unmount } = render(
+      <DashboardFooter
+        refreshFeedback={false}
+        scanning={false}
+        hasScanned={true}
+      />,
+    );
     expect(lastFrame() ?? "").toContain("Quit");
     unmount();
   });

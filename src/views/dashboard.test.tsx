@@ -83,6 +83,9 @@ describe("DashboardHeader", () => {
         searchQuery=""
         onSearchChange={() => {}}
         onSearchSubmit={() => {}}
+        scanning={false}
+        hasScanned={true}
+        refreshFeedback={false}
       />,
     );
     const frame = collapse(lastFrame() ?? "");
@@ -114,6 +117,9 @@ describe("DashboardHeader", () => {
         searchQuery=""
         onSearchChange={() => {}}
         onSearchSubmit={() => {}}
+        scanning={false}
+        hasScanned={true}
+        refreshFeedback={false}
       />,
     );
     const frame = lastFrame() ?? "";
@@ -134,6 +140,9 @@ describe("DashboardHeader", () => {
         searchQuery=""
         onSearchChange={() => {}}
         onSearchSubmit={() => {}}
+        scanning={false}
+        hasScanned={true}
+        refreshFeedback={false}
       />,
     );
     const frame = lastFrame() ?? "";
@@ -154,6 +163,9 @@ describe("DashboardHeader", () => {
         searchQuery=""
         onSearchChange={() => {}}
         onSearchSubmit={() => {}}
+        scanning={false}
+        hasScanned={true}
+        refreshFeedback={false}
       />,
     );
     expect(lastFrame()).toContain("press / to search...");
@@ -171,6 +183,9 @@ describe("DashboardHeader", () => {
         searchQuery="my-filter"
         onSearchChange={() => {}}
         onSearchSubmit={() => {}}
+        scanning={false}
+        hasScanned={true}
+        refreshFeedback={false}
       />,
     );
     expect(lastFrame()).toContain("my-filter");
@@ -204,6 +219,9 @@ describe("DashboardHeader", () => {
         searchQuery=""
         onSearchChange={() => {}}
         onSearchSubmit={() => {}}
+        scanning={false}
+        hasScanned={true}
+        refreshFeedback={false}
       />,
     );
     const frame = lastFrame() ?? "";
