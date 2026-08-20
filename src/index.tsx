@@ -375,9 +375,6 @@ export function App({ initialConfig }: AppProps) {
               setSearchQuery(v);
               setSearchMode(false);
             }}
-            scanning={scanning}
-            hasScanned={hasScanned}
-            refreshFeedback={refreshFeedback}
           />
           <SkillListView
             skills={filteredSkills}

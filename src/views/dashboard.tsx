@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Text } from "ink";
-import { Spinner, TextInput } from "@inkjs/ui";
+import { TextInput } from "@inkjs/ui";
 import { theme } from "../utils/colors";
 import type { SkillInfo, Scope, SortBy, AppConfig } from "../utils/types";
 
@@ -28,9 +28,6 @@ export interface DashboardHeaderProps {
   searchQuery: string;
   onSearchChange: (value: string) => void;
   onSearchSubmit: (value: string) => void;
-  scanning: boolean;
-  hasScanned: boolean;
-  refreshFeedback: boolean;
 }
 
 export function DashboardHeader({
@@ -43,9 +40,6 @@ export function DashboardHeader({
   searchQuery,
   onSearchChange,
   onSearchSubmit,
-  scanning,
-  hasScanned,
-  refreshFeedback,
 }: DashboardHeaderProps) {
   const total = skills.length;
   const unique = new Set(skills.map((s) => s.dirName)).size;
