@@ -4,6 +4,23 @@ import { getIndexDir, getBundledIndexDir } from "./config";
 import type { RepoIndex, IndexedSkill } from "./utils/types";
 import { matchesInvocabilityFilters } from "./utils/frontmatter";
 
+// ─── Memoization (issue #461) ──────────────────────────────────────────────
+
+let _cachedIndices: RepoIndex[] | null = null;
+let _cachedTotal: number | undefined = undefined;
+let _readFileCount = 0;
+
+/** Reset memoization (for tests). */
+export function _resetMemo(): void {
+  _cachedIndices = null;
+  _readFileCount = 0;
+}
+
+/** Number of times `readFile` has been called (for test assertions). */
+export function _getReadFileCount(): number {
+  return _readFileCount;
+}
+
 export interface SearchResult {
   skill: IndexedSkill;
   repo: { owner: string; repo: string };
@@ -71,6 +88,7 @@ async function loadIndicesFromDir(
     if (!file.endsWith(".json")) continue;
     const filePath = join(dir, file);
     try {
+      _readFileCount++;
       const content = await readFile(filePath, "utf-8");
       const index = JSON.parse(content) as RepoIndex;
       // Backfill license/creator/verified for indices created before these fields existed
@@ -97,8 +115,13 @@ async function loadIndicesFromDir(
  * Load all indices from both bundled (shipped with npm) and user (runtime)
  * directories. User indices take precedence over bundled ones for the same
  * owner/repo — this way `asm index ingest` can refresh bundled data.
+ *
+ * Results are memoized within a process so the ~21 MB / 57-file corpus is
+ * read and parsed only once (issue #461).
  */
 export async function loadAllIndices(): Promise<RepoIndex[]> {
+  if (_cachedIndices !== null) return _cachedIndices;
+
   const bundled = await loadIndicesFromDir(getBundledIndexDir());
   const user = await loadIndicesFromDir(getIndexDir());
 
@@ -108,7 +131,68 @@ export async function loadAllIndices(): Promise<RepoIndex[]> {
     merged.set(key, index);
   }
 
-  return Array.from(merged.values());
+  _cachedIndices = Array.from(merged.values());
+  // Pre-compute the total so getTotalSkillCount() is instant on warm calls.
+  _cachedTotal = _cachedIndices.reduce((s, idx) => s + idx.skillCount, 0);
+  return _cachedIndices;
+}
+
+/** Read only the `skillCount` integer from a single index file. */
+async function readSkillCountFromFile(
+  filePath: string,
+): Promise<number | null> {
+  try {
+    _readFileCount++;
+    const content = await readFile(filePath, "utf-8");
+    // Extract the skillCount value from the JSON without full parsing.
+    // The field appears as "skillCount":<number> at the top level.
+    const m = content.match(/"skillCount"\s*:\s*(\d+)/);
+    return m ? Number(m[1]) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Load the `skillCount` from every index JSON in a directory.
+ * Reads only the integer field — no full JSON parse (issue #462).
+ */
+async function loadSkillCountsFromDir(
+  dir: string,
+): Promise<number> {
+  let total = 0;
+  let files: string[];
+  try {
+    files = await readdir(dir);
+  } catch {
+    return total;
+  }
+
+  for (const file of files) {
+    if (!file.endsWith(".json")) continue;
+    const count = await readSkillCountFromFile(join(dir, file));
+    if (count !== null) total += count;
+  }
+  return total;
+}
+
+/**
+ * Return the total number of skills across all indices.
+ * Uses the memoized corpus data (issue #461) and a lightweight
+ * per-file read for cold starts (issue #462).
+ */
+export async function getTotalSkillCount(): Promise<number> {
+  // Warm path — cached from loadAllIndices()
+  if (_cachedTotal !== undefined) return _cachedTotal;
+
+  // Cold path — read only skillCount from each file (no full parse)
+  const bundled = await loadSkillCountsFromDir(getBundledIndexDir());
+  const user = await loadSkillCountsFromDir(getIndexDir());
+  const total = bundled + user;
+
+  // Cache for subsequent calls
+  _cachedTotal = total;
+  return total;
 }
 
 export interface SearchFilters {
@@ -204,11 +288,6 @@ export async function getAllIndexedSkills(): Promise<
   }
 
   return allSkills;
-}
-
-export async function getTotalSkillCount(): Promise<number> {
-  const indices = await loadAllIndices();
-  return indices.reduce((sum, idx) => sum + idx.skillCount, 0);
 }
 
 // ─── Exact-name resolution (issue #422) ────────────────────────────────────

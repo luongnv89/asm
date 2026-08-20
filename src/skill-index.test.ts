@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, beforeEach, afterEach } from "vitest";
 import { readdir } from "fs/promises";
 import { join } from "path";
 import {
@@ -8,6 +8,8 @@ import {
   loadAllIndices,
   getMissingMetadataFields,
   resolveIndexedSkillByName,
+  _resetMemo,
+  _getReadFileCount,
 } from "./skill-index";
 import type { IndexedSkillMatch } from "./skill-index";
 import {
@@ -22,6 +24,9 @@ import type { IndexedSkill } from "./utils/types";
 // is the vitest sandbox (ASM_CONFIG_DIR), so host ~/.config is not merged.
 
 describe("loadAllIndices", () => {
+  beforeEach(() => _resetMemo());
+  afterEach(() => _resetMemo());
+
   it("returns an array", async () => {
     const indices = await loadAllIndices();
     expect(Array.isArray(indices)).toBe(true);
@@ -35,6 +40,63 @@ describe("loadAllIndices", () => {
       expect(typeof idx.skillCount).toBe("number");
       expect(Array.isArray(idx.skills)).toBe(true);
     }
+  });
+
+  it("second call costs ≤ 5 ms (memoization benchmark)", async () => {
+    // First call — cold, reads and parses the full corpus
+    const t0 = performance.now();
+    await loadAllIndices();
+    const cold = performance.now() - t0;
+
+    // Second call — should hit the cache (no reset)
+    const t1 = performance.now();
+    await loadAllIndices();
+    const warm = performance.now() - t1;
+
+    // Warm call must be dramatically faster than cold
+    expect(warm).toBeLessThanOrEqual(5);
+    expect(warm).toBeLessThan(cold * 0.3);
+  });
+
+  it("corpus is read from disk exactly once per process", async () => {
+    // First call — reads all files
+    await loadAllIndices();
+    const afterFirst = _getReadFileCount();
+
+    // Second call — should not read any files
+    await loadAllIndices();
+    const afterSecond = _getReadFileCount();
+
+    expect(afterSecond).toBe(afterFirst);
+  });
+});
+
+describe("getTotalSkillCount", () => {
+  beforeEach(() => _resetMemo());
+  afterEach(() => _resetMemo());
+
+  it("returns a non-negative number", async () => {
+    const count = await getTotalSkillCount();
+    expect(typeof count).toBe("number");
+    expect(count).toBeGreaterThanOrEqual(0);
+  });
+
+  it("matches sum of all index skill counts", async () => {
+    const indices = await loadAllIndices();
+    const expected = indices.reduce((sum, idx) => sum + idx.skillCount, 0);
+    const actual = await getTotalSkillCount();
+    expect(actual).toBe(expected);
+  });
+
+  it("warm call is instant (cached from loadAllIndices)", async () => {
+    // First call populates the cache
+    await getTotalSkillCount();
+
+    // Second call — should hit the cache
+    const t0 = performance.now();
+    await getTotalSkillCount();
+    const elapsed = performance.now() - t0;
+    expect(elapsed).toBeLessThanOrEqual(5);
   });
 });
 
