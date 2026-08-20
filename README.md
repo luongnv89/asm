@@ -605,6 +605,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 --json                 JSON output
 --machine              Stable machine-readable JSON envelope (v1)
 -s, --scope <scope>    global, project, or both
+-p, --tool <name>      Filter by tool (list, search)
 --sort <field>         name, version, or location
 --flat                 Show one row per tool instance (list, search)
 --model-invocable      Only skills the model can invoke
