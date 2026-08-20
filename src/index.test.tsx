@@ -372,8 +372,8 @@ describe("App container", () => {
 
   it("shows an error panel when scanAllSkills rejects", async () => {
     // Use mockImplementation to return a rejected promise
-    mocks.scanAllSkills.mockImplementation(
-      () => Promise.reject(new Error("provider unreachable")),
+    mocks.scanAllSkills.mockImplementation(() =>
+      Promise.reject(new Error("provider unreachable")),
     );
     const { lastFrame, unmount } = render(<App initialConfig={CONFIG} />);
     // Wait for the async error to propagate through state updates

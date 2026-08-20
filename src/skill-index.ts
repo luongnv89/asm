@@ -158,9 +158,7 @@ async function readSkillCountFromFile(
  * Load the `skillCount` from every index JSON in a directory.
  * Reads only the integer field — no full JSON parse (issue #462).
  */
-async function loadSkillCountsFromDir(
-  dir: string,
-): Promise<number> {
+async function loadSkillCountsFromDir(dir: string): Promise<number> {
   let total = 0;
   let files: string[];
   try {

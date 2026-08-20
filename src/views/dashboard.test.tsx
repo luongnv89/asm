@@ -216,7 +216,11 @@ describe("DashboardHeader", () => {
 describe("DashboardFooter", () => {
   it("renders the keybinding hint line with · separators", () => {
     const { lastFrame } = render(
-      <DashboardFooter refreshFeedback={false} scanning={false} hasScanned={true} />,
+      <DashboardFooter
+        refreshFeedback={false}
+        scanning={false}
+        hasScanned={true}
+      />,
     );
     const frame = lastFrame() ?? "";
     expect(frame).toContain("Navigate");
@@ -236,7 +240,11 @@ describe("DashboardFooter", () => {
 
   it("shows refresh feedback when refreshFeedback is true", () => {
     const { lastFrame } = render(
-      <DashboardFooter refreshFeedback={true} scanning={false} hasScanned={true} />,
+      <DashboardFooter
+        refreshFeedback={true}
+        scanning={false}
+        hasScanned={true}
+      />,
     );
     const frame = lastFrame() ?? "";
     expect(frame).toContain("Updated!");
@@ -244,7 +252,11 @@ describe("DashboardFooter", () => {
 
   it("shows scanning indicator when scanning and not yet scanned", () => {
     const { lastFrame } = render(
-      <DashboardFooter refreshFeedback={false} scanning={true} hasScanned={false} />,
+      <DashboardFooter
+        refreshFeedback={false}
+        scanning={true}
+        hasScanned={false}
+      />,
     );
     const frame = lastFrame() ?? "";
     expect(frame).toContain("Scanning...");

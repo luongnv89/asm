@@ -142,39 +142,19 @@ export function DashboardFooter({
   return (
     <Text color={theme.fgDim}>
       {" "}
-      ↑/↓{" "}
-      <Text color={theme.accent}>Navigate</Text>
+      ↑/↓ <Text color={theme.accent}>Navigate</Text>
       {" · "}
-      Enter{" "}
-      <Text color={theme.accent}>View</Text>
+      Enter <Text color={theme.accent}>View</Text>
+      {" · "}d <Text color={theme.accent}>Uninstall</Text>
+      {" · "}a <Text color={theme.accent}>Audit</Text>
+      {" · "}/ <Text color={theme.accent}>Filter</Text>
       {" · "}
-      d{" "}
-      <Text color={theme.accent}>Uninstall</Text>
-      {" · "}
-      a{" "}
-      <Text color={theme.accent}>Audit</Text>
-      {" · "}
-      /{" "}
-      <Text color={theme.accent}>Filter</Text>
-      {" · "}
-      Tab{" "}
-      <Text color={theme.accent}>Scope</Text>
-      {" · "}
-      s{" "}
-      <Text color={theme.accent}>Sort</Text>
-      {" · "}
-      r{" "}
-      <Text color={theme.accent}>Refresh</Text>
-      {" · "}
-      c{" "}
-      <Text color={theme.accent}>Config</Text>
-      {" · "}
-      q{" "}
-      <Text color={theme.accent}>Quit</Text>
-      {" · "}
-      ?{" "}
-      <Text color={theme.accent}>Help</Text>
-      {" "}
+      Tab <Text color={theme.accent}>Scope</Text>
+      {" · "}s <Text color={theme.accent}>Sort</Text>
+      {" · "}r <Text color={theme.accent}>Refresh</Text>
+      {" · "}c <Text color={theme.accent}>Config</Text>
+      {" · "}q <Text color={theme.accent}>Quit</Text>
+      {" · "}? <Text color={theme.accent}>Help</Text>{" "}
       {scanning && !hasScanned && (
         <Text color={theme.yellow}> (Scanning...)</Text>
       )}
