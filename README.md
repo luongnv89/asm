@@ -565,14 +565,21 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm eval <skill>` | Score skill quality |
 | `asm eval-providers list` | List eval providers |
 | `asm stats` | Aggregate installed skill metrics |
-| `asm stats --tokens` | Attention budget: resident vs body tokens |
 | `asm stats repo <repo>` | Per-repo indexed skill stats |
 | `asm stats author <owner>` | Per-author indexed skill stats |
 | `asm stats index` | Indexed catalog stats summary |
 | `asm activate <skill>` | Link a library skill into a provider |
 | `asm deactivate <skill>` | Remove a library activation symlink |
-| `asm library list               | update` | Manage centrally installed library skills |
+| `asm library` | Manage centrally installed library skills |
+| `asm library list` | List local library skills |
+| `asm library update <skill>` | Update one local library skill |
+| `asm library update --all` | Update all local library skills |
 | `asm export` | Export inventory as JSON |
+| `asm import <file>` | Import skills from exported manifest |
+| `asm outdated` | Show outdated skills |
+| `asm update [name...]` | Update outdated skills |
+| `asm disable <target>` | Disable skill(s) without uninstalling |
+| `asm enable <target>` | Re-enable disabled skill(s) |
 | `asm index ingest <repo>` | Index a skill repo |
 | `asm index search <query>` | Search indexed skills |
 | `asm index list` | List indexed repos |
@@ -588,6 +595,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm config path` | Print config path |
 | `asm config reset` | Reset to defaults |
 | `asm config edit` | Open config in `$EDITOR` |
+| `asm doctor` | Run environment health checks and diagnostics |
 
 ### Global options
 
@@ -595,12 +603,15 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 -h, --help             Show help
 -v, --version          Print version
 --json                 JSON output
+--machine              Stable machine-readable JSON envelope (v1)
 -s, --scope <scope>    global, project, or both
 --sort <field>         name, version, or location
+--flat                 Show one row per tool instance (list, search)
 --model-invocable      Only skills the model can invoke
 --user-invocable       Only skills the user can invoke
 -y, --yes              Skip confirmations
 --no-color             Disable ANSI colors
+-V, --verbose          Show debug output
 ```
 
 ### Examples
