@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { render, Box, useApp, useInput, useStdout } from "ink";
+import { render, Box, Text, useApp, useInput, useStdout } from "ink";
+import { Spinner } from "@inkjs/ui";
 import type {
   SkillInfo,
   Scope,
@@ -25,6 +26,7 @@ import { HelpView } from "./views/help";
 import { ConfigView } from "./views/config";
 import { DuplicatesView } from "./views/duplicates";
 import { parseEditorCommand } from "./utils/editor";
+import { theme } from "./utils/colors";
 
 const EMPTY_AUDIT: AuditReport = {
   scannedAt: "",
@@ -67,6 +69,12 @@ export function App({ initialConfig }: AppProps) {
   const [confirmSkill, setConfirmSkill] = useState<SkillInfo | null>(null);
   const [auditReport, setAuditReport] = useState<AuditReport>(EMPTY_AUDIT);
 
+  // ── TUI state: loading, error, refresh feedback ─────────────────────────
+  const [scanning, setScanning] = useState(false);
+  const [scanError, setScanError] = useState<string | null>(null);
+  const [refreshFeedback, setRefreshFeedback] = useState(false);
+  const [hasScanned, setHasScanned] = useState(false);
+
   // ── Derive filtered list ────────────────────────────────────────────────
   const filteredSkills = useMemo(() => {
     const searched = searchSkills(allSkills, searchQuery);
@@ -83,9 +91,18 @@ export function App({ initialConfig }: AppProps) {
 
   // ── Initial + scope change scan ─────────────────────────────────────────
   const refreshSkills = useCallback(async () => {
-    const skills = await scanAllSkills(config, scope);
-    setAllSkills(skills);
-    setAuditReport(detectDuplicates(skills));
+    setScanning(true);
+    setScanError(null);
+    try {
+      const skills = await scanAllSkills(config, scope);
+      setAllSkills(skills);
+      setAuditReport(detectDuplicates(skills));
+      setHasScanned(true);
+    } catch (err) {
+      setScanError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setScanning(false);
+    }
   }, [config, scope]);
 
   useEffect(() => {
@@ -245,6 +262,9 @@ export function App({ initialConfig }: AppProps) {
         }
         if (input === "r" && !key.ctrl) {
           refreshSkills();
+          // Brief flash: "Updated!" feedback
+          setRefreshFeedback(true);
+          setTimeout(() => setRefreshFeedback(false), 1200);
           return;
         }
         if (input === "c" && !key.ctrl) {
@@ -317,6 +337,31 @@ export function App({ initialConfig }: AppProps) {
     <Box flexDirection="column" width={termWidth} height={termHeight}>
       {view === "dashboard" && (
         <>
+          {scanning && !hasScanned && (
+            <Box
+              flexDirection="column"
+              borderStyle="round"
+              borderColor={theme.border}
+              paddingX={1}
+              paddingY={1}
+            >
+              <Spinner label="Scanning skills..." />
+            </Box>
+          )}
+          {scanError && (
+            <Box
+              flexDirection="column"
+              borderStyle="round"
+              borderColor={theme.red}
+              paddingX={1}
+              paddingY={1}
+            >
+              <Text color={theme.red} bold>
+                Scan failed
+              </Text>
+              <Text color={theme.red}>{scanError}</Text>
+            </Box>
+          )}
           <DashboardHeader
             config={config}
             skills={allSkills}
@@ -330,14 +375,22 @@ export function App({ initialConfig }: AppProps) {
               setSearchQuery(v);
               setSearchMode(false);
             }}
+            scanning={scanning}
+            hasScanned={hasScanned}
+            refreshFeedback={refreshFeedback}
           />
           <SkillListView
             skills={filteredSkills}
             selectedIndex={cursor}
             visibleCount={visibleListRows}
             termWidth={termWidth}
+            hasScanned={hasScanned}
           />
-          <DashboardFooter />
+          <DashboardFooter
+            refreshFeedback={refreshFeedback}
+            scanning={scanning}
+            hasScanned={hasScanned}
+          />
         </>
       )}
       {view === "detail" && selectedSkill && (

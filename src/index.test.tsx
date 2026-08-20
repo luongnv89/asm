@@ -1,5 +1,6 @@
 import React from "react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import { act } from "react";
 import { render } from "ink-testing-library";
 import type { SkillInfo, AppConfig, AuditReport } from "./utils/types";
 
@@ -158,6 +159,9 @@ const tick = () => new Promise<void>((r) => setTimeout(r, 60));
 describe("App container", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Restore the default mock implementation so tests that override it
+    // (mockReturnValue, mockRejectedValue) don't pollute subsequent tests.
+    mocks.scanAllSkills.mockResolvedValue(mocks.SKILLS);
   });
 
   it("renders the dashboard with the scanned skill list on mount", async () => {
@@ -335,6 +339,75 @@ describe("App container", () => {
     stdin.write("r");
     await tick();
     expect(mocks.scanAllSkills.mock.calls.length).toBeGreaterThan(callsBefore);
+    unmount();
+  });
+
+  it("shows a spinner during the first scan and does not render '(no skills found)'", async () => {
+    // Make the mock return a promise that never resolves, so scanning stays true.
+    mocks.scanAllSkills.mockImplementation(
+      () =>
+        new Promise<SkillInfo[]>(() => {
+          // never resolves
+        }),
+    );
+    const { lastFrame, unmount } = render(<App initialConfig={CONFIG} />);
+    await tick();
+    const frame = lastFrame() ?? "";
+    // Spinner should be visible during first scan
+    expect(frame).toContain("Scanning");
+    // '(no skills found)' must NOT appear while scanning
+    expect(frame).not.toContain("no skills found");
+    unmount();
+  });
+
+  it("renders '(no skills found)' only after a scan completes with zero skills", async () => {
+    mocks.scanAllSkills.mockResolvedValue([]);
+    const { lastFrame, unmount } = render(<App initialConfig={CONFIG} />);
+    await tick();
+    // After the promise resolves with [], '(no skills found)' appears
+    const frame = lastFrame() ?? "";
+    expect(frame).toContain("no skills found");
+    unmount();
+  });
+
+  it("shows an error panel when scanAllSkills rejects", async () => {
+    // Use mockImplementation to return a rejected promise
+    mocks.scanAllSkills.mockImplementation(
+      () => Promise.reject(new Error("provider unreachable")),
+    );
+    const { lastFrame, unmount } = render(<App initialConfig={CONFIG} />);
+    // Wait for the async error to propagate through state updates
+    await act(async () => {
+      await tick();
+      await tick();
+      await tick();
+    });
+    const frame = lastFrame() ?? "";
+    expect(frame).toContain("Scan failed");
+    expect(frame).toContain("provider unreachable");
+    // Must NOT show '(no skills found)' on error
+    expect(frame).not.toContain("no skills found");
+    unmount();
+  });
+
+  it("shows 'Updated!' feedback after pressing r", async () => {
+    mocks.scanAllSkills.mockResolvedValue(mocks.SKILLS);
+    const { stdin, lastFrame, unmount } = render(
+      <App initialConfig={CONFIG} />,
+    );
+    await tick();
+    const callsBefore = mocks.scanAllSkills.mock.calls.length;
+    stdin.write("r");
+    // Wait for the async refresh to complete
+    await act(async () => {
+      await tick();
+      await tick();
+    });
+    // Verify the refresh was triggered (scanAllSkills called again)
+    expect(mocks.scanAllSkills.mock.calls.length).toBeGreaterThan(callsBefore);
+    // The footer should contain "Updated!"
+    const frame = lastFrame() ?? "";
+    expect(frame).toContain("Updated!");
     unmount();
   });
 

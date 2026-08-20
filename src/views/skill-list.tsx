@@ -61,6 +61,7 @@ export interface SkillListProps {
   selectedIndex: number;
   visibleCount: number;
   termWidth: number;
+  hasScanned: boolean;
 }
 
 export function SkillListView({
@@ -68,6 +69,7 @@ export function SkillListView({
   selectedIndex,
   visibleCount,
   termWidth,
+  hasScanned,
 }: SkillListProps) {
   const descWidth = calcDescWidth(termWidth);
   const descHeader = descWidth > 0 ? " Description" : "";
@@ -98,7 +100,9 @@ export function SkillListView({
     >
       <Text color={theme.fgDim}> Skills ({total})</Text>
       <Text color={theme.fgDim}>{header}</Text>
-      {total === 0 && <Text color={theme.fgDim}> (no skills found)</Text>}
+      {total === 0 && hasScanned && (
+        <Text color={theme.fgDim}> (no skills found)</Text>
+      )}
       {showTopIndicator && <Text color={theme.fgDim}> ↑ more above</Text>}
       {visible.map((s, i) => {
         const absoluteIndex = start + i;
