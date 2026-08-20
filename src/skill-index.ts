@@ -13,6 +13,7 @@ let _readFileCount = 0;
 /** Reset memoization (for tests). */
 export function _resetMemo(): void {
   _cachedIndices = null;
+  _cachedTotal = undefined;
   _readFileCount = 0;
 }
 
