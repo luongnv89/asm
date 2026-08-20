@@ -87,6 +87,21 @@ Open a [feature request](https://github.com/luongnv89/asm/issues/new?template=fe
 - Use the Vitest (`npm test`)
 - Add tests for new logic, especially in `scanner.ts`, `config.ts`, `uninstaller.ts`, `auditor.ts`, and `cli.ts`
 
+## Pre-commit Hooks
+
+This project uses [pre-commit](https://pre-commit.com/) hooks to enforce code quality and security.
+
+Install them once after cloning:
+
+```bash
+pre-commit install
+```
+
+The hooks include formatting (Prettier), linting, type-checking, and a local security
+scan. The local security hook (`security-check`) is **advisory** — it requires `python3`
+and runs only at commit time. Contributors without `python3`, or those using
+`--no-verify`, bypass it silently. The [CI Security workflow](https://github.com/luongnv89/asm/actions/workflows/security.yml) is the **enforcing** gate; CI will fail the build if the security check does not pass.
+
 ## Pull Request Process
 
 1. Fill out the PR template
