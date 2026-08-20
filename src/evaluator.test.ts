@@ -140,10 +140,10 @@ describe("evaluateSkillContent", () => {
     });
     expect(report.overallScore).toBeGreaterThan(70);
     expect(report.grade).not.toBe("F");
-    expect(report.categories).toHaveLength(7);
+    expect(report.categories).toHaveLength(8);
   });
 
-  it("returns 7 categories with the expected ids", () => {
+  it("returns 8 categories with the expected ids", () => {
     const report = evaluateSkillContent({
       content: HIGH_QUALITY_SKILL,
       skillPath: "/virtual/code-review",
@@ -154,6 +154,7 @@ describe("evaluateSkillContent", () => {
       [
         "context-efficiency",
         "description",
+        "license",
         "naming",
         "prompt-engineering",
         "safety",
@@ -654,7 +655,7 @@ describe("formatters", () => {
     });
     const data = buildEvalMachineData(report);
     expect(data.overall_score).toBe(report.overallScore);
-    expect(data.categories.length).toBe(7);
+    expect(data.categories.length).toBe(8);
     expect(data.fix).toBeNull();
   });
 
@@ -1169,5 +1170,93 @@ describe("buildBatchMachineData", () => {
     expect(data.results[0].label).toBe("x");
     expect(data.results[0].report).not.toBeNull();
     expect(data.results[0].report?.overall_score).toBe(70);
+  });
+});
+
+// ─── License verification (issue #493) ──────────────────────────────────────
+
+describe("license verification", () => {
+  it("reports recognised license when SPDX id is in frontmatter", () => {
+    const report = evaluateSkillContent({
+      content:
+        "---\nname: x\ndescription: Do a thing.\nlicense: MIT\n---\nbody\n",
+      skillPath: "/virtual/x",
+      skillMdPath: "/virtual/x/SKILL.md",
+    });
+    const lic = report.categories.find((c) => c.id === "license")!;
+    expect(lic.score).toBeGreaterThanOrEqual(5);
+    expect(lic.findings.some((f) => /SPDX recognised/i.test(f))).toBe(true);
+  });
+
+  it("reports unrecognised license when frontmatter id is not in SPDX", () => {
+    const report = evaluateSkillContent({
+      content:
+        "---\nname: x\ndescription: Do a thing.\nlicense: Proprietary-1.0\n---\nbody\n",
+      skillPath: "/virtual/x",
+      skillMdPath: "/virtual/x/SKILL.md",
+    });
+    const lic = report.categories.find((c) => c.id === "license")!;
+    expect(lic.score).toBeLessThan(5);
+    expect(lic.findings.some((f) => /not in the SPDX/i.test(f))).toBe(true);
+  });
+
+  it("reports missing when no license field exists", () => {
+    const report = evaluateSkillContent({
+      content:
+        "---\nname: x\ndescription: Do a thing.\n---\nbody\n",
+      skillPath: "/virtual/x",
+      skillMdPath: "/virtual/x/SKILL.md",
+    });
+    const lic = report.categories.find((c) => c.id === "license")!;
+    expect(lic.score).toBe(0);
+    expect(lic.findings.some((f) => /No license declared/i.test(f))).toBe(true);
+  });
+
+  it("reports recognised license with LICENSE file present", async () => {
+    const dir = skillDir("license-file-skill");
+    await writeSkillMd(
+      dir,
+      "---\nname: x\ndescription: Do a thing.\nlicense: Apache-2.0\n---\nbody\n",
+    );
+    await writeSkillMd(dir, "Apache License\n", "LICENSE");
+    const report = await evaluateSkill(dir);
+    const lic = report.categories.find((c) => c.id === "license")!;
+    expect(lic.score).toBeGreaterThanOrEqual(8);
+    expect(lic.findings.some((f) => /LICENSE file present/i.test(f))).toBe(true);
+  });
+
+  it("scores Apache-2.0 as recognised", () => {
+    const report = evaluateSkillContent({
+      content:
+        "---\nname: x\ndescription: Do a thing.\nlicense: Apache-2.0\n---\nbody\n",
+      skillPath: "/virtual/x",
+      skillMdPath: "/virtual/x/SKILL.md",
+    });
+    const lic = report.categories.find((c) => c.id === "license")!;
+    expect(lic.findings.some((f) => /Apache-2.0/i.test(f))).toBe(true);
+  });
+
+  it("scores GPL-3.0-only as recognised", () => {
+    const report = evaluateSkillContent({
+      content:
+        "---\nname: x\ndescription: Do a thing.\nlicense: GPL-3.0-only\n---\nbody\n",
+      skillPath: "/virtual/x",
+      skillMdPath: "/virtual/x/SKILL.md",
+    });
+    const lic = report.categories.find((c) => c.id === "license")!;
+    expect(lic.findings.some((f) => /GPL-3.0-only/i.test(f))).toBe(true);
+  });
+
+  it("reports missing license in findings and suggestions", () => {
+    const report = evaluateSkillContent({
+      content:
+        "---\nname: no-license\ndescription: Do a thing when asked.\n---\nbody text here\n",
+      skillPath: "/virtual/no-license",
+      skillMdPath: "/virtual/no-license/SKILL.md",
+    });
+    const lic = report.categories.find((c) => c.id === "license")!;
+    expect(lic.score).toBe(0);
+    expect(lic.findings.some((f) => /No license declared/i.test(f))).toBe(true);
+    expect(lic.suggestions.some((s) => /license/i.test(s))).toBe(true);
   });
 });

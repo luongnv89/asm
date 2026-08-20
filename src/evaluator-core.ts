@@ -9,14 +9,15 @@
  * produces a structured report with per-category scores, an overall score,
  * and actionable improvement suggestions.
  *
- * Categories (7):
+ * Categories (8):
  *   1. Structure & completeness   — frontmatter + markdown structure
  *   2. Description quality        — specific trigger phrasing, action verbs
  *   3. Prompt engineering         — progressive disclosure, degrees of freedom, examples
  *   4. Context efficiency         — references/templates instead of inline content
  *   5. Safety & guardrails        — error handling, prerequisites, confirmations
  *   6. Testability                — acceptance criteria, edge cases, verifiable outputs
- *   7. Naming & conventions       — naming conventions, imperative mood, consistent labels
+ *   7. License verification       — SPDX licence declared, recognised, or missing
+ *   8. Naming & conventions       — naming conventions, imperative mood, consistent labels
  *
  * Also provides `--fix` / `--fix --dry-run` auto-fix for deterministic
  * frontmatter issues (ordering, version default, author from git, effort
@@ -843,6 +844,178 @@ export function scoreTestability(
     max: 10,
     findings,
     suggestions,
+  };
+}
+
+/** Common SPDX license identifiers recognised by the evaluator. */
+const RECOGNISED_LICENSES = new Set([
+  // Permissive
+  "MIT",
+  "MIT-0",
+  "Apache-2.0",
+  "Apache-2.0 WITH LLVM-exception",
+  "BSD-2-Clause",
+  "BSD-3-Clause",
+  "ISC",
+  "Unlicense",
+  "0BSD",
+  "Zlib",
+  "BSL-1.0",
+  "CC0-1.0",
+  // Copyleft (weak)
+  "LGPL-2.1-only",
+  "LGPL-2.1-or-later",
+  "LGPL-3.0-only",
+  "LGPL-3.0-or-later",
+  "MPL-2.0",
+  "MPL-2.0-no-copyleft-exception",
+  // Copyleft (strong)
+  "GPL-2.0-only",
+  "GPL-2.0-or-later",
+  "GPL-3.0-only",
+  "GPL-3.0-or-later",
+  "AGPL-3.0-only",
+  "AGPL-3.0-or-later",
+  // Other
+  "Artistic-2.0",
+  "EPL-1.0",
+  "EPL-2.0",
+  "CDDL-1.0",
+  "CDDL-1.1",
+  "CPAL-1.0",
+  "ECL-2.0",
+  "EFL-2.0",
+  "Nokia-1.0a",
+  "OFL-1.1",
+  "SIL-OpenFont-1.1",
+  "VSLAM-1.0",
+  "WTFPL",
+  "ZPL-2.1",
+  "NCSA",
+  "PostgreSQL",
+  "X11",
+  "JSON",
+  "CC-BY-4.0",
+  "CC-BY-SA-4.0",
+  "CC-BY-NC-4.0",
+  "CC-BY-NC-SA-4.0",
+  "CC-BY-ND-4.0",
+  "CC-BY-NC-ND-4.0",
+  "Fair",
+  "NTP",
+  "AFL-3.0",
+  "APAFML",
+  "OLDAP-2.8",
+]);
+
+/**
+ * Score whether a skill declares a license and whether that declaration is
+ * a recognised SPDX identifier.
+ *
+ * Scoring:
+ *   10 — recognised SPDX licence declared in frontmatter AND a matching
+ *        LICENSE file present at the skill root.
+ *    5 — recognised SPDX licence declared in frontmatter but no LICENSE file.
+ *    2 — a licence is declared (in frontmatter or LICENSE file) but the
+ *        identifier is not in the SPDX list.
+ *    0 — no licence found at all.
+ *
+ * The scorer also records a `licenseStatus` tag on the result so callers can
+ * surface the position without parsing free-text findings.
+ */
+export interface CategoryResultWithLicense extends CategoryResult {
+  /** Stable tag describing the licence position. */
+  licenseStatus?: "recognised" | "unrecognised" | "missing";
+}
+
+export function scoreLicense(
+  fm: Record<string, string>,
+  body: string,
+  rootEntries?: string[],
+): CategoryResultWithLicense {
+  const findings: string[] = [];
+  const suggestions: string[] = [];
+  let score = 0;
+
+  const fmLicense = (fm.license || "").trim();
+  const hasFmLicense = Boolean(fmLicense);
+
+  // Check for a LICENSE file at the skill root
+  const licenseFile = rootEntries?.find(
+    (e) =>
+      e.toLowerCase() === "license" ||
+      e.toLowerCase() === "license.md" ||
+      e.toLowerCase() === "license.txt",
+  );
+  const hasLicenseFile = Boolean(licenseFile);
+
+  // Classify
+  let licenseStatus: "recognised" | "unrecognised" | "missing" = "missing";
+
+  if (hasFmLicense) {
+    if (RECOGNISED_LICENSES.has(fmLicense)) {
+      licenseStatus = "recognised";
+    } else {
+      licenseStatus = "unrecognised";
+    }
+  } else if (hasLicenseFile) {
+    // License file exists but no frontmatter declaration — treat as
+    // "unrecognised" because we cannot programmatically verify the file
+    // contents without reading it (avoids filesystem reads in the scorer).
+    licenseStatus = "unrecognised";
+  }
+
+  switch (licenseStatus) {
+    case "recognised": {
+      score = hasLicenseFile ? 10 : 5;
+      findings.push(
+        `License declared: \`${fmLicense}\` (SPDX recognised).`,
+      );
+      if (hasLicenseFile) {
+        findings.push(`LICENSE file present at skill root.`);
+      } else {
+        findings.push(
+          `No LICENSE file found — consider adding one for clarity.`,
+        );
+      }
+      break;
+    }
+    case "unrecognised": {
+      score = 2;
+      if (hasFmLicense) {
+        findings.push(`License declared as \`${fmLicense}\` but not in the SPDX list.`);
+      }
+      if (hasLicenseFile && !hasFmLicense) {
+        findings.push(`LICENSE file present but no frontmatter license field.`);
+      }
+      suggestions.push(
+        "Use a standard SPDX licence identifier (e.g. `MIT`, `Apache-2.0`, `GPL-3.0-only`) so tooling can verify redistributability.",
+      );
+      break;
+    }
+    case "missing": {
+      score = 0;
+      findings.push("No license declared.");
+      suggestions.push(
+        "Add a `license` field to frontmatter (e.g. `license: MIT`) so users know the redistribution terms.",
+      );
+      if (hasLicenseFile) {
+        suggestions.push(
+          "A LICENSE file exists — add the corresponding `license:` frontmatter field to match it.",
+        );
+      }
+      break;
+    }
+  }
+
+  return {
+    id: "license",
+    name: "License verification",
+    score: Math.min(10, Math.round(score)),
+    max: 10,
+    findings,
+    suggestions,
+    licenseStatus,
   };
 }
 

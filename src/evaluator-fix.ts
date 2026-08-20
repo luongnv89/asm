@@ -30,6 +30,7 @@ import {
   scoreSafety,
   scoreTestability,
   scoreNaming,
+  scoreLicense,
 } from "./evaluator-core";
 
 // ─── Report aggregator ─────────────────────────────────────────────────────
@@ -59,6 +60,7 @@ export function evaluateSkillContent(args: {
     scoreContextEfficiency(fm, body),
     scoreSafety(fm, body),
     scoreTestability(fm, body),
+    scoreLicense(fm, body, rootEntries),
     scoreNaming(fm, body),
   ];
 
