@@ -342,8 +342,12 @@ export async function executeRemoval(
         // back at fromPath. Unlink it so rename has a clean destination.
         try {
           await unlink(relocation.toPath);
-        } catch (err: any) {
-          if (err.code !== "ENOENT") {
+        } catch (err: unknown) {
+          if (
+            !(err instanceof Error) ||
+            !("code" in err) ||
+            err.code !== "ENOENT"
+          ) {
             // Best-effort: if it's a non-empty dir we can't move over, fall
             // back to a full remove so rename can proceed.
             await rm(relocation.toPath, { recursive: true, force: true });
@@ -352,8 +356,8 @@ export async function executeRemoval(
 
         try {
           await rename(relocation.fromPath, relocation.toPath);
-        } catch (err: any) {
-          if (err.code === "EXDEV") {
+        } catch (err: unknown) {
+          if (err instanceof Error && "code" in err && err.code === "EXDEV") {
             // Cross-device rename — fall back to recursive copy + remove.
             // Rare on a single-user machine but possible when ~/.claude and
             // ~/.codex live on different mounts (NFS, encrypted volumes).
@@ -363,7 +367,7 @@ export async function executeRemoval(
                 recursive: true,
                 preserveTimestamps: true,
               });
-            } catch (cpErr: any) {
+            } catch (cpErr: unknown) {
               // Partial copy at toPath if cp threw mid-way (disk full, perm
               // error on a specific file). Best-effort clean it up so the
               // user isn't left with a half-migrated skill; fromPath is still
@@ -372,9 +376,13 @@ export async function executeRemoval(
               // cp error so the outer catch wraps it as a relocation failure.
               try {
                 await rm(relocation.toPath, { recursive: true, force: true });
-              } catch (cleanupErr: any) {
+              } catch (cleanupErr: unknown) {
+                const msg =
+                  cleanupErr instanceof Error
+                    ? cleanupErr.message
+                    : String(cleanupErr);
                 log.push(
-                  `Failed to clean up partial copy at ${relocation.toPath}: ${cleanupErr.message}`,
+                  `Failed to clean up partial copy at ${relocation.toPath}: ${msg}`,
                 );
               }
               throw cpErr;
@@ -387,16 +395,17 @@ export async function executeRemoval(
         log.push(
           `Relocated real folder: ${relocation.fromPath} -> ${relocation.toPath}`,
         );
-      } catch (err: any) {
+      } catch (err: unknown) {
         // Relocation is load-bearing: if the rename/EXDEV-fallback fails
         // we must NOT continue (repointing surviving symlinks at an empty
         // toPath would dangle them, and the standard removal loop would
         // delete the still-intact source). Push the human-readable log
         // entry so callers can surface it, then throw so cmdUninstall
         // exits non-zero rather than printing "Done."
-        log.push(`Failed to relocate real folder: ${err.message}`);
+        const msg = err instanceof Error ? err.message : String(err);
+        log.push(`Failed to relocate real folder: ${msg}`);
         const wrapped: Error & { log?: string[] } = new Error(
-          `Failed to relocate real folder: ${err.message}`,
+          `Failed to relocate real folder: ${msg}`,
         );
         wrapped.log = log;
         throw wrapped;
@@ -412,17 +421,22 @@ export async function executeRemoval(
       try {
         try {
           await unlink(repointPath);
-        } catch (err: any) {
-          if (err.code !== "ENOENT") {
+        } catch (err: unknown) {
+          if (
+            !(err instanceof Error) ||
+            !("code" in err) ||
+            err.code !== "ENOENT"
+          ) {
             await rm(repointPath, { recursive: true, force: true });
           }
         }
         await mkdir(parentDir, { recursive: true });
         await createDirSymlink(relTarget, repointPath);
         log.push(`Repointed symlink: ${repointPath} -> ${relTarget}`);
-      } catch (err: any) {
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
         log.push(
-          `Failed to repoint symlink ${repointPath} -> ${relTarget}: ${err.message}. To fix manually: ln -sfn ${relocation.toPath} ${repointPath}`,
+          `Failed to repoint symlink ${repointPath} -> ${relTarget}: ${msg}. To fix manually: ln -sfn ${relocation.toPath} ${repointPath}`,
         );
       }
     }
@@ -467,8 +481,9 @@ export async function executeRemoval(
         await createDirSymlink(relTarget, dir.path);
         log.push(`Created symlink: ${dir.path} -> ${relTarget}`);
       }
-    } catch (err: any) {
-      log.push(`Failed to remove ${dir.path}: ${err.message}`);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      log.push(`Failed to remove ${dir.path}: ${msg}`);
     }
   }
 
@@ -485,8 +500,9 @@ export async function executeRemoval(
       try {
         await rm(ruleFile);
         log.push(`Removed rule file: ${ruleFile}`);
-      } catch (err: any) {
-        log.push(`Failed to remove ${ruleFile}: ${err.message}`);
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
+        log.push(`Failed to remove ${ruleFile}: ${msg}`);
       }
     }
   }
@@ -496,8 +512,9 @@ export async function executeRemoval(
     try {
       await removeAgentsMdBlock(block.file, block.skillName);
       log.push(`Cleaned AGENTS.md block in: ${block.file}`);
-    } catch (err: any) {
-      log.push(`Failed to clean AGENTS.md block: ${err.message}`);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      log.push(`Failed to clean AGENTS.md block: ${msg}`);
     }
   }
 

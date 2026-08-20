@@ -15,7 +15,7 @@ export function isVerbose(): boolean {
 export function debug(msg: string): void {
   if (!_verbose) return;
   const elapsed = Math.round(performance.now() - _startTime);
-  const noColor = (globalThis as any).__CLI_NO_COLOR;
+  const noColor = globalThis.__CLI_NO_COLOR;
   const prefix = noColor
     ? `[verbose] +${elapsed}ms`
     : `\x1b[2m[verbose] +${elapsed}ms\x1b[0m`;

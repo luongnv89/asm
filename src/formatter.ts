@@ -7,7 +7,7 @@ import { formatInvocability } from "./utils/frontmatter";
 
 const useColor = (): boolean => {
   if (process.env.NO_COLOR !== undefined) return false;
-  if ((globalThis as any).__CLI_NO_COLOR) return false;
+  if (globalThis.__CLI_NO_COLOR) return false;
   if (!process.stdout.isTTY) return false;
   return true;
 };

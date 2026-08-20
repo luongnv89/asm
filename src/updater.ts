@@ -509,11 +509,12 @@ export async function updateSkill(
 
       try {
         await execFileAsync("git", cloneArgs, { timeout: 60_000 });
-      } catch (cloneErr: any) {
+      } catch (cloneErr: unknown) {
+        const execErr = cloneErr as { stderr?: string; message?: string };
         return {
           name,
           status: "failed",
-          reason: `Clone failed: ${cloneErr.stderr || cloneErr.message}`,
+          reason: `Clone failed: ${execErr.stderr || execErr.message || String(cloneErr)}`,
         };
       }
     }
@@ -580,12 +581,14 @@ export async function updateSkill(
           `updater: security audit ${securityVerdict} for ${name} — proceeding (--yes)`,
         );
       }
-    } catch (auditErr: any) {
-      debug(`updater: security audit failed for ${name}: ${auditErr.message}`);
+    } catch (auditErr: unknown) {
+      const msg =
+        auditErr instanceof Error ? auditErr.message : String(auditErr);
+      debug(`updater: security audit failed for ${name}: ${msg}`);
       return {
         name,
         status: "failed",
-        reason: `Security audit failed — skipping update: ${auditErr.message}`,
+        reason: `Security audit failed — skipping update: ${msg}`,
       };
     }
 
@@ -618,12 +621,17 @@ export async function updateSkill(
     let targetExists = true;
     try {
       await access(targetDir);
-    } catch (err: any) {
-      if (err?.code !== "ENOENT") {
+    } catch (err: unknown) {
+      if (
+        !(err instanceof Error) ||
+        !("code" in err) ||
+        err.code !== "ENOENT"
+      ) {
+        const msg = err instanceof Error ? err.message : String(err);
         return {
           name,
           status: "failed",
-          reason: `Cannot access installed skill: ${err.message}`,
+          reason: `Cannot access installed skill: ${msg}`,
         };
       }
       targetExists = false;
@@ -640,31 +648,41 @@ export async function updateSkill(
       try {
         await mkdir(installedPath, { recursive: true });
         await cp(updateSourceDir, targetDir, { recursive: true });
-      } catch (copyErr: any) {
+      } catch (copyErr: unknown) {
         await rm(targetDir, { recursive: true, force: true });
+        const msg =
+          copyErr instanceof Error ? copyErr.message : String(copyErr);
         return {
           name,
           status: "failed",
-          reason: `Atomic swap failed: ${copyErr.message}`,
+          reason: `Atomic swap failed: ${msg}`,
         };
       }
 
       try {
         await writeLockFn(name, updatedEntry);
-      } catch (lockErr: any) {
+      } catch (lockErr: unknown) {
         try {
           await rm(targetDir, { recursive: true, force: true });
-        } catch (rollbackErr: any) {
+        } catch (rollbackErr: unknown) {
+          const lockMsg =
+            lockErr instanceof Error ? lockErr.message : String(lockErr);
+          const rbMsg =
+            rollbackErr instanceof Error
+              ? rollbackErr.message
+              : String(rollbackErr);
           return {
             name,
             status: "failed",
-            reason: `Lock file update failed: ${lockErr.message}. Removal of the new installation also failed: ${rollbackErr.message}`,
+            reason: `Lock file update failed: ${lockMsg}. Removal of the new installation also failed: ${rbMsg}`,
           };
         }
+        const lockMsg =
+          lockErr instanceof Error ? lockErr.message : String(lockErr);
         return {
           name,
           status: "failed",
-          reason: `Lock file update failed: ${lockErr.message}`,
+          reason: `Lock file update failed: ${lockMsg}`,
         };
       }
 
@@ -684,46 +702,60 @@ export async function updateSkill(
       await rename(targetDir, backupDir);
       backupCreated = true;
       await cp(updateSourceDir, targetDir, { recursive: true });
-    } catch (swapErr: any) {
+    } catch (swapErr: unknown) {
       if (backupCreated) {
         try {
           await rm(targetDir, { recursive: true, force: true });
           await rename(backupDir, targetDir);
           backupCreated = false;
-        } catch (rollbackErr: any) {
+        } catch (rollbackErr: unknown) {
+          const swapMsg =
+            swapErr instanceof Error ? swapErr.message : String(swapErr);
+          const rbMsg =
+            rollbackErr instanceof Error
+              ? rollbackErr.message
+              : String(rollbackErr);
           return {
             name,
             status: "failed",
-            reason: `Atomic swap failed: ${swapErr.message}. Restore also failed; backup preserved at ${backupDir}: ${rollbackErr.message}`,
+            reason: `Atomic swap failed: ${swapMsg}. Restore also failed; backup preserved at ${backupDir}: ${rbMsg}`,
           };
         }
       }
       return {
         name,
         status: "failed",
-        reason: `Atomic swap failed: ${swapErr.message}`,
+        reason: `Atomic swap failed: ${swapErr instanceof Error ? swapErr.message : String(swapErr)}`,
       };
     }
 
     // Step 4: Update the lock before discarding the previous installation.
     try {
       await writeLockFn(name, updatedEntry);
-    } catch (lockErr: any) {
+    } catch (lockErr: unknown) {
       try {
         await rm(targetDir, { recursive: true, force: true });
         await rename(backupDir, targetDir);
         backupCreated = false;
-      } catch (rollbackErr: any) {
+      } catch (rollbackErr: unknown) {
+        const lockMsg =
+          lockErr instanceof Error ? lockErr.message : String(lockErr);
+        const rbMsg =
+          rollbackErr instanceof Error
+            ? rollbackErr.message
+            : String(rollbackErr);
         return {
           name,
           status: "failed",
-          reason: `Lock file update failed: ${lockErr.message}. Restore also failed; backup preserved at ${backupDir}: ${rollbackErr.message}`,
+          reason: `Lock file update failed: ${lockMsg}. Restore also failed; backup preserved at ${backupDir}: ${rbMsg}`,
         };
       }
+      const lockMsg =
+        lockErr instanceof Error ? lockErr.message : String(lockErr);
       return {
         name,
         status: "failed",
-        reason: `Lock file update failed: ${lockErr.message}`,
+        reason: `Lock file update failed: ${lockMsg}`,
       };
     }
 

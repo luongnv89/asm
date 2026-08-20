@@ -376,7 +376,13 @@ export async function checkGitAvailable(): Promise<void> {
   }
 }
 
-export function isAuthError(err: any): boolean {
+interface ExecError {
+  killed?: boolean;
+  stderr?: string;
+  message?: string;
+}
+
+export function isAuthError(err: ExecError): boolean {
   if (err.killed) return false;
   const stderr = (err.stderr || err.message || "").toLowerCase();
   return (
@@ -390,7 +396,7 @@ export function isAuthError(err: any): boolean {
   );
 }
 
-function formatCloneError(err: any): string {
+function formatCloneError(err: ExecError): string {
   return err.killed
     ? "Clone timed out after 60 seconds"
     : `Clone failed: ${err.stderr || err.message}`;
@@ -441,19 +447,22 @@ export async function cloneToTemp(
     const url = transport === "ssh" ? source.sshCloneUrl : source.cloneUrl;
     try {
       return await cloneWithUrl(url, source.ref, tempDir);
-    } catch (err: any) {
+    } catch (err: unknown) {
       await cleanupTemp(tempDir);
-      throw new Error(formatCloneError(err), { cause: err });
+      const execErr = err as ExecError;
+      throw new Error(formatCloneError(execErr), { cause: err });
     }
   }
 
   // Auto mode: try HTTPS first, fallback to SSH on auth errors
   try {
     return await cloneWithUrl(source.cloneUrl, source.ref, tempDir);
-  } catch (httpsErr: any) {
-    if (!isAuthError(httpsErr)) {
+  } catch (httpsErr: unknown) {
+    if (!isAuthError(httpsErr as ExecError)) {
       await cleanupTemp(tempDir);
-      throw new Error(formatCloneError(httpsErr), { cause: httpsErr });
+      throw new Error(formatCloneError(httpsErr as ExecError), {
+        cause: httpsErr,
+      });
     }
 
     debug("install: HTTPS clone failed with auth error, retrying with SSH...");
@@ -462,12 +471,12 @@ export async function cloneToTemp(
     const sshTempDir = await mkdtemp(join(tmpdir(), "asm-install-"));
     try {
       return await cloneWithUrl(source.sshCloneUrl, source.ref, sshTempDir);
-    } catch (sshErr: any) {
+    } catch (sshErr: unknown) {
       await cleanupTemp(sshTempDir);
       throw new Error(
         `Clone failed with both transports:\n` +
-          `  HTTPS: ${formatCloneError(httpsErr)}\n` +
-          `  SSH:   ${formatCloneError(sshErr)}`,
+          `  HTTPS: ${formatCloneError(httpsErr as ExecError)}\n` +
+          `  SSH:   ${formatCloneError(sshErr as ExecError)}`,
         { cause: sshErr },
       );
     }
@@ -606,9 +615,10 @@ export async function installScriptDependencies(
   debug(`install: installing script dependencies in ${scriptsDir}`);
   try {
     await runner("npm", ["install"], { cwd: scriptsDir, timeout: 120_000 });
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const execErr = err as ExecError;
     throw new Error(
-      `Installed skill, but failed to install dependencies in scripts/: ${err.stderr || err.message}`,
+      `Installed skill, but failed to install dependencies in scripts/: ${execErr.stderr || execErr.message}`,
       { cause: err },
     );
   }
@@ -709,8 +719,9 @@ export async function executeInstall(
   // Copy source to target (always copy since sourceDir may be a subdirectory)
   try {
     await cp(installSource, plan.targetDir, { recursive: true });
-  } catch (cpErr: any) {
-    throw new Error(`Failed to install: ${cpErr.message}`, { cause: cpErr });
+  } catch (cpErr: unknown) {
+    const msg = cpErr instanceof Error ? cpErr.message : String(cpErr);
+    throw new Error(`Failed to install: ${msg}`, { cause: cpErr });
   }
 
   // Remove .git directory from installed skill (in case it was the root)
@@ -903,8 +914,9 @@ export async function executeNpxSkillsAdd(
   try {
     const result = await runNpx(args, { timeout: 120_000 });
     return { stdout: result.stdout, stderr: result.stderr };
-  } catch (err: any) {
-    const stderr = err.stderr || err.message || "";
+  } catch (err: unknown) {
+    const execErr = err as ExecError;
+    const stderr = execErr.stderr || execErr.message || "";
     throw new Error(`npx skills add failed: ${stderr}`, { cause: err });
   }
 }
@@ -1055,9 +1067,9 @@ export async function checkConflict(
         `Skill already exists at: ${targetDir}\nUse --force to overwrite.`,
       );
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     // If our own error, re-throw
-    if (err.message?.includes("--force")) throw err;
+    if (err instanceof Error && err.message?.includes("--force")) throw err;
     // Otherwise, directory doesn't exist — no conflict
     debug(`install: target ${targetDir} — no conflict`);
   }

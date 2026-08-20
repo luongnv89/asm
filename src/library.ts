@@ -225,8 +225,8 @@ async function readLibraryLockFile(path: string): Promise<LibraryLockFile> {
   let raw: string;
   try {
     raw = await readFile(path, "utf-8");
-  } catch (err: any) {
-    if (err?.code === "ENOENT") {
+  } catch (err: unknown) {
+    if (err instanceof Error && "code" in err && err.code === "ENOENT") {
       debug("library: lock file not found, returning empty lock");
       return emptyLibraryLock();
     }
@@ -307,8 +307,12 @@ async function realpathDeepestExistingAncestor(path: string): Promise<string> {
   while (true) {
     try {
       return await realpath(current);
-    } catch (err: any) {
-      if (err?.code !== "ENOENT") {
+    } catch (err: unknown) {
+      if (
+        !(err instanceof Error) ||
+        !("code" in err) ||
+        err.code !== "ENOENT"
+      ) {
         throw err;
       }
       const parent = dirname(current);
@@ -390,10 +394,11 @@ async function cloneRemoteLibrarySource(
 
   try {
     await execFileAsync("git", cloneArgs, { timeout: 60_000 });
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const execErr = err as { stderr?: string; message?: string };
     return {
       tempDir,
-      reason: `Clone failed: ${err?.stderr || err?.message || String(err)}`,
+      reason: `Clone failed: ${execErr.stderr || execErr.message || String(err)}`,
     };
   }
 
@@ -413,12 +418,11 @@ async function cloneRemoteLibrarySource(
           cwd: tempDir,
           timeout: 30_000,
         });
-      } catch (err: any) {
+      } catch (err: unknown) {
+        const execErr = err as { stderr?: string; message?: string };
         return {
           tempDir,
-          reason: `Checkout failed for ref ${ref}: ${
-            err?.stderr || err?.message || String(err)
-          }`,
+          reason: `Checkout failed for ref ${ref}: ${execErr.stderr || execErr.message || String(err)}`,
         };
       }
     }
@@ -476,7 +480,7 @@ async function replaceDirectoryAtomically(input: {
       try {
         await input.writeLock();
         return null;
-      } catch (err: any) {
+      } catch (err: unknown) {
         if (err instanceof AtomicWritePostRenameError) {
           return {
             name: "",
@@ -498,7 +502,9 @@ async function replaceDirectoryAtomically(input: {
               name: "",
               status: "failed",
               reason: `Updated library copy, but failed to write lock file: ${
-                err?.message ?? String(err)
+                err instanceof Error
+                  ? (err.message ?? String(err))
+                  : String(err)
               }. Restore of previous library copy also failed; backup preserved at ${backupDir}.`,
             };
           }
@@ -507,11 +513,11 @@ async function replaceDirectoryAtomically(input: {
           name: "",
           status: "failed",
           reason: `Updated library copy, but failed to write lock file: ${
-            err?.message ?? String(err)
+            err instanceof Error ? (err.message ?? String(err)) : String(err)
           }`,
         };
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       if (backupDir) {
         try {
           await rename(backupDir, input.targetDir);
@@ -523,7 +529,7 @@ async function replaceDirectoryAtomically(input: {
       return {
         name: "",
         status: "failed",
-        reason: `Failed to refresh library skill: ${err?.message ?? String(err)}`,
+        reason: `Failed to refresh library skill: ${err instanceof Error ? (err.message ?? String(err)) : String(err)}`,
       };
     }
   } finally {
@@ -640,11 +646,11 @@ export async function updateLibrarySkill(
         realpath(sourceRoot),
         realpath(sourceDir),
       ]);
-    } catch (err: any) {
+    } catch (err: unknown) {
       return libraryUpdateFailure(
         dirName,
         `Unable to read source SKILL.md at ${sourceSkillPath}: ${
-          err?.message ?? String(err)
+          err instanceof Error ? (err.message ?? String(err)) : String(err)
         }`,
       );
     }
@@ -661,11 +667,11 @@ export async function updateLibrarySkill(
     let sourceMarkdown: string;
     try {
       sourceMarkdown = await readFile(sourceSkillPath, "utf-8");
-    } catch (err: any) {
+    } catch (err: unknown) {
       return libraryUpdateFailure(
         dirName,
         `Unable to read source SKILL.md at ${sourceSkillPath}: ${
-          err?.message ?? String(err)
+          err instanceof Error ? (err.message ?? String(err)) : String(err)
         }`,
       );
     }
@@ -859,8 +865,8 @@ async function realpathIfExists(path: string): Promise<{
 }> {
   try {
     return { path: await realpath(path), exists: true };
-  } catch (err: any) {
-    if (err?.code === "ENOENT") {
+  } catch (err: unknown) {
+    if (err instanceof Error && "code" in err && err.code === "ENOENT") {
       return { path: resolve(path), exists: false };
     }
     throw err;
@@ -876,8 +882,8 @@ export async function deactivateLibrarySkill(
   let stat;
   try {
     stat = await lstat(symlinkPath);
-  } catch (err: any) {
-    if (err?.code === "ENOENT") {
+  } catch (err: unknown) {
+    if (err instanceof Error && "code" in err && err.code === "ENOENT") {
       throw new Error(
         `Skill "${activationName}" is not active for ${input.provider}/${input.scope}.`,
         { cause: err },
@@ -945,8 +951,8 @@ export async function activateLibrarySkill(input: {
       );
     }
     await rm(symlinkPath, { force: true });
-  } catch (err: any) {
-    if (err?.code === "ENOENT") {
+  } catch (err: unknown) {
+    if (err instanceof Error && "code" in err && err.code === "ENOENT") {
       // Target does not exist; proceed to create symlink.
     } else {
       throw err;
@@ -962,8 +968,9 @@ async function pathExists(path: string): Promise<boolean> {
   try {
     await access(path);
     return true;
-  } catch (err: any) {
-    if (err?.code === "ENOENT") return false;
+  } catch (err: unknown) {
+    if (err instanceof Error && "code" in err && err.code === "ENOENT")
+      return false;
     throw err;
   }
 }

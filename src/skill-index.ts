@@ -75,11 +75,14 @@ async function loadIndicesFromDir(
       const index = JSON.parse(content) as RepoIndex;
       // Backfill license/creator/verified for indices created before these fields existed
       for (const skill of index.skills) {
-        if (!("license" in skill)) (skill as any).license = "";
-        if (!("creator" in skill)) (skill as any).creator = "";
-        if (!("compatibility" in skill)) (skill as any).compatibility = "";
-        if (!("allowedTools" in skill)) (skill as any).allowedTools = [];
-        if (!("verified" in skill)) (skill as any).verified = false;
+        const s = skill as Partial<IndexedSkill> & Record<string, unknown>;
+        if (!("license" in s) || s.license === undefined) s.license = "";
+        if (!("creator" in s) || s.creator === undefined) s.creator = "";
+        if (!("compatibility" in s) || s.compatibility === undefined)
+          s.compatibility = "";
+        if (!("allowedTools" in s) || s.allowedTools === undefined)
+          s.allowedTools = [];
+        if (!("verified" in s) || s.verified === undefined) s.verified = false;
       }
       indices.set(`${index.owner}/${index.repo}`, index);
     } catch {

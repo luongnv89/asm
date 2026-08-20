@@ -444,7 +444,7 @@ export async function runCLI(argv: string[]): Promise<void> {
 
   // Apply --no-color
   if (args.flags.noColor) {
-    (globalThis as any).__CLI_NO_COLOR = true;
+    globalThis.__CLI_NO_COLOR = true;
   }
 
   // Apply --verbose
