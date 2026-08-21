@@ -224,18 +224,36 @@ export default function CatalogPage() {
             </option>
           ))}
         </select>
-        <select
-          value={sortValue}
-          onChange={(e) => setSort(e.target.value)}
-          aria-label="Sort skills"
-          className="px-2 py-1.5 rounded border border-[var(--border)] bg-[var(--bg-input)] text-[var(--fg)] text-xs flex-1 min-w-[130px]"
-        >
-          <option value="relevance">Sort: relevance</option>
-          <option value="name">Sort: name</option>
-          <option value="grade">Sort: best score</option>
-          <option value="tokens-asc">Sort: smallest first</option>
-          <option value="tokens-desc">Sort: largest first</option>
-        </select>
+        <div className="flex-1 min-w-[130px] flex items-center gap-1.5">
+          <select
+            value={sortValue}
+            onChange={(e) => setSort(e.target.value)}
+            aria-label="Sort skills"
+            className="px-2 py-1.5 rounded border border-[var(--border)] bg-[var(--bg-input)] text-[var(--fg)] text-xs flex-1 min-w-0"
+          >
+            <option value="relevance">Sort: relevance</option>
+            <option value="name">Sort: name</option>
+            <option value="grade">Sort: best score</option>
+            <option value="tokens-asc">Sort: smallest first</option>
+            <option value="tokens-desc">Sort: largest first</option>
+          </select>
+          {/* Contextual hint badge */}
+          {state.searchQuery.trim() ? (
+            <span
+              className="shrink-0 text-[10px] text-[var(--brand)] px-1.5 py-0.5 rounded-full bg-[color-mix(in_srgb,var(--brand)_10%,transparent)]"
+              title="Relevance is recommended when searching"
+            >
+              relevance
+            </span>
+          ) : (
+            <span
+              className="shrink-0 text-[10px] text-[var(--brand)] px-1.5 py-0.5 rounded-full bg-[color-mix(in_srgb,var(--brand)_10%,transparent)]"
+              title="Name sort is the default without search"
+            >
+              name
+            </span>
+          )}
+        </div>
         {hasFilters && (
           <button
             type="button"

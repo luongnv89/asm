@@ -42,7 +42,7 @@ export default function SearchBox({
       <Input
         type="search"
         value={draft}
-        placeholder={placeholder || "Search skills, tags, descriptions…"}
+        placeholder={placeholder || "Search…"}
         disabled={disabled}
         onChange={(e) => onDraftChange(e.target.value)}
         onKeyDown={(e) => {

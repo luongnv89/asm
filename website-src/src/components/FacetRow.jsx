@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { FACET_DEFS } from "../lib/facets.js";
+
+const AUTHOR_MAX_VISIBLE = 10;
 
 /**
  * Collapsible per-facet pill groups. Port of the legacy `#facet-row`.
@@ -60,34 +62,61 @@ export default function FacetRow({ counts, activeFacets, onToggle }) {
             </button>
             {expanded && (
               <div className="flex flex-wrap gap-1">
-                {order.map((v) => {
-                  const on = activeSet.has(v);
-                  const display = (def.display && def.display[v]) || v;
+                {(() => {
+                  const isAuthor = def.key === "author";
+                  const maxVisible = isAuthor ? AUTHOR_MAX_VISIBLE : order.length;
+                  const showAll = !isAuthor || order.length <= maxVisible;
+                  const visibleItems = showAll ? order : order.slice(0, maxVisible);
+                  const remaining = isAuthor && !showAll ? order.length - maxVisible : 0;
+
                   return (
-                    <button
-                      key={v}
-                      type="button"
-                      onClick={() => {
-                        const next = new Set(activeSet);
-                        if (on) next.delete(v);
-                        else next.add(v);
-                        onToggle(def.key, next);
-                      }}
-                      aria-pressed={on}
-                      className={
-                        "inline-flex items-center gap-1 px-2 py-0.5 text-[11px] rounded border transition-colors " +
-                        (on
-                          ? "border-[var(--brand)] text-[var(--brand)] bg-[color-mix(in_srgb,var(--brand)_12%,transparent)]"
-                          : "border-[var(--border)] text-[var(--fg-dim)] hover:text-[var(--fg)] hover:border-[var(--brand)]")
-                      }
-                    >
-                      {display}
-                      <span className="text-[10px] text-[var(--fg-muted)]">
-                        {facetCounts[v] || 0}
-                      </span>
-                    </button>
+                    <>
+                      {visibleItems.map((v) => {
+                        const on = activeSet.has(v);
+                        const display = (def.display && def.display[v]) || v;
+                        return (
+                          <button
+                            key={v}
+                            type="button"
+                            onClick={() => {
+                              const next = new Set(activeSet);
+                              if (on) next.delete(v);
+                              else next.add(v);
+                              onToggle(def.key, next);
+                            }}
+                            aria-pressed={on}
+                            className={
+                              "inline-flex items-center gap-1 px-2 py-0.5 text-[11px] rounded border transition-colors " +
+                              (on
+                                ? "border-[var(--brand)] text-[var(--brand)] bg-[color-mix(in_srgb,var(--brand)_12%,transparent)]"
+                                : "border-[var(--border)] text-[var(--fg-dim)] hover:text-[var(--fg)] hover:border-[var(--brand)]")
+                            }
+                          >
+                            {display}
+                            <span className="text-[10px] text-[var(--fg-muted)]">
+                              {facetCounts[v] || 0}
+                            </span>
+                          </button>
+                        );
+                      })}
+                      {remaining > 0 && (
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const next = new Set(activeSet);
+                              for (const v of order.slice(maxVisible)) next.add(v);
+                              onToggle(def.key, next);
+                            }}
+                            className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] rounded border border-dashed border-[var(--border)] text-[var(--fg-dim)] hover:text-[var(--fg)] hover:border-[var(--brand)] transition-colors"
+                          >
+                            +{remaining} more
+                          </button>
+                        </>
+                      )}
+                    </>
                   );
-                })}
+                })()}
               </div>
             )}
           </div>

@@ -1,6 +1,10 @@
 /**
  * Zero-dependency pie chart for category distribution data.
  * Accepts entries as [label, value] tuples (same shape as StatsPage catEntries).
+ *
+ * Generates a large palette of distinguishable colors using HSL so that
+ * even 50+ categories get unique hues. The hardcoded array serves as a
+ * quick palette for the common case (<10 categories).
  */
 
 const SLICE_COLORS = [
@@ -15,6 +19,19 @@ const SLICE_COLORS = [
   "#f87171",
   "#4ade80",
 ];
+
+/** Generate a distinguishable HSL color by index. */
+function hslColor(index, total) {
+  const hue = (index / Math.max(total, 1)) * 360;
+  // Keep saturation high and lightness in the middle for visibility
+  return `hsl(${hue.toFixed(0)}, 65%, 55%)`;
+}
+
+/** Get the color for slice index, falling back to HSL generation. */
+function getColor(index, total) {
+  if (index < SLICE_COLORS.length) return SLICE_COLORS[index];
+  return hslColor(index, total);
+}
 
 function polarToCartesian(cx, cy, radius, angleDeg) {
   const rad = ((angleDeg - 90) * Math.PI) / 180;
@@ -53,7 +70,7 @@ export default function CategoryPieChart({ entries }) {
       acc.slices.push({
         label,
         value,
-        color: SLICE_COLORS[index % SLICE_COLORS.length],
+        color: getColor(index, entries.length),
         path:
           sliceAngle >= 359.99
             ? `M ${cx} ${cy - radius} A ${radius} ${radius} 0 1 1 ${cx - 0.01} ${cy - radius} Z`
