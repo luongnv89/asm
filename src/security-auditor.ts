@@ -545,6 +545,49 @@ export function calculateVerdict(
 
 // ─── Main Audit Function ────────────────────────────────────────────────────
 
+// Documentation files that should be excluded from security scanning.
+// These files contain examples and instructions that reference commands
+// (curl, exec, bash, etc.) but are not executable source code.
+const DOC_EXTENSIONS = new Set([
+  ".md",
+  ".txt",
+  ".rst",
+  ".adoc",
+  ".markdown",
+]);
+
+// Names of common documentation files to always exclude.
+const DOC_FILENAMES = new Set([
+  "SKILL.md",
+  "README.md",
+  "readme.md",
+  "CHANGELOG.md",
+  "changelog.md",
+  "LICENSE",
+  "LICENSE.md",
+  "LICENSE.txt",
+  "CONTRIBUTING.md",
+  "contributing.md",
+  "CODE_OF_CONDUCT.md",
+  "security.md",
+  "SECURITY.md",
+  "SUPPORT.md",
+  "support.md",
+  "TODO.md",
+  "todo.md",
+  "ROADMAP.md",
+  "roadmap.md",
+]);
+
+function isDocFile(relPath: string): boolean {
+  const basename = relPath.split("/").pop()!;
+  if (DOC_FILENAMES.has(basename)) return true;
+  const ext = basename.includes(".")
+    ? `.${basename.split(".").pop()!.toLowerCase()}`
+    : "";
+  return DOC_EXTENSIONS.has(ext);
+}
+
 export async function auditSkillSecurity(
   skillPath: string,
   skillName: string,
@@ -553,8 +596,9 @@ export async function auditSkillSecurity(
 ): Promise<SecurityAuditReport> {
   debug(`security-audit: scanning ${skillPath}`);
 
-  // Read all files
-  const files = await readFilesRecursive(skillPath);
+  // Read all files, excluding documentation
+  const allFiles = await readFilesRecursive(skillPath);
+  const files = allFiles.filter((f) => !isDocFile(f.relPath));
   const totalLines = files.reduce((sum, f) => sum + f.lineCount, 0);
 
   // Source analysis (if GitHub source available)
