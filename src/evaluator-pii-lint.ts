@@ -39,7 +39,7 @@ const PII_PATTERNS: {
 }[] = [
   {
     category: "email",
-    pattern: /\b[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}\b/gi,
+    pattern: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/gi,
   },
   {
     category: "phone",
