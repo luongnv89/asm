@@ -114,10 +114,15 @@ function escapeHtml(str) {
  * must be rendered via `dangerouslySetInnerHTML`. Safe because escapeHtml()
  * is applied before any replacement, so only `<mark>` tags are introduced.
  *
+ * Regex compilation is memoized by a stable key derived from the token list
+ * so that repeated calls with the same query/terms reuse the compiled RegExp.
+ *
  * @param {string} text Plain text to highlight.
  * @param {string} query Raw search query.
  * @param {string[] | null | undefined} terms Optional MiniSearch term list.
  */
+const regexCache = new Map();
+
 export function highlightMatches(text, query, terms) {
   const escaped = escapeHtml(text);
   let tokens;
@@ -133,10 +138,15 @@ export function highlightMatches(text, query, terms) {
   // Dedupe + sort by length (longest first) so overlapping matches prefer
   // the most specific token, and escape regex metacharacters.
   const uniq = Array.from(new Set(tokens)).sort((a, b) => b.length - a.length);
-  const pattern = uniq
-    .map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
-    .join("|");
-  const re = new RegExp("(" + pattern + ")", "gi");
+  const key = uniq.join("|");
+  let re = regexCache.get(key);
+  if (!re) {
+    const pattern = uniq
+      .map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+      .join("|");
+    re = new RegExp("(" + pattern + ")", "gi");
+    regexCache.set(key, re);
+  }
   const entitySplitRe = /(&(?:#\d+|#x[a-f0-9]+|[a-z0-9]+);)/gi;
   const entityPartRe = /^&(?:#\d+|#x[a-f0-9]+|[a-z0-9]+);$/i;
   return escaped

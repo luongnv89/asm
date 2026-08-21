@@ -12,7 +12,7 @@ import { Button } from "./ui/button.jsx";
  * idle it commits via `onCommit(query)`, which triggers the URL/state
  * update and the MiniSearch re-query.
  */
-const DEBOUNCE_MS = 150;
+const DEBOUNCE_MS = 200;
 
 export default function SearchBox({
   draft,

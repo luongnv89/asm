@@ -325,6 +325,8 @@ interface Catalog {
   totalRepos: number;
   stars: number;
   categories: string[];
+  /** Pre-computed skill count per category — avoids O(n) recompute in the browser. */
+  categoryCounts: Record<string, number>;
   repos: CatalogRepo[];
   skills: CatalogSkill[];
 }
@@ -526,6 +528,14 @@ const pkgJsonPath = join(root, "package.json");
 const pkgVersion =
   JSON.parse(readFileSync(pkgJsonPath, "utf-8")).version || "0.0.0";
 
+// Pre-compute category counts so the frontend doesn't need to iterate 7k+ skills
+const categoryCounts: Record<string, number> = {};
+for (const s of skills) {
+  for (const c of s.categories) {
+    categoryCounts[c] = (categoryCounts[c] || 0) + 1;
+  }
+}
+
 const catalog: Catalog = {
   generatedAt: new Date().toISOString(),
   version: pkgVersion,
@@ -533,6 +543,7 @@ const catalog: Catalog = {
   totalRepos: repos.length,
   stars,
   categories,
+  categoryCounts,
   repos: repos.sort((a, b) => b.skillCount - a.skillCount),
   skills,
 };
@@ -604,6 +615,8 @@ interface SkillsMin {
   totalRepos: number;
   stars: number;
   categories: string[];
+  /** Pre-computed skill count per category — avoids O(n) recompute in the browser. */
+  categoryCounts: Record<string, number>;
   repos: CatalogRepo[];
   skills: SkillsMinRow[];
 }
@@ -647,6 +660,7 @@ const skillsMin: SkillsMin = {
   totalRepos: catalog.totalRepos,
   stars: catalog.stars,
   categories: catalog.categories,
+  categoryCounts: catalog.categoryCounts,
   repos: catalog.repos,
   skills: slimSkills,
 };

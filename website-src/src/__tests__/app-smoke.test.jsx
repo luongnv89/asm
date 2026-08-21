@@ -255,7 +255,9 @@ describe("App smoke", () => {
     await waitFor(() => {
       expect(screen.getByText("Catalog failed to load")).toBeTruthy();
       expect(
-        screen.getByText("catalog build mismatch — reload the page"),
+        screen.getByText(
+          /Catalog and search index are from different builds/i,
+        ),
       ).toBeTruthy();
     });
   });

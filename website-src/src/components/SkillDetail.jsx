@@ -22,9 +22,14 @@ function formatStars(n) {
  * that's in flight the slim row already provides all the fields
  * needed to render a first paint.
  *
+ * In-memory cache (Map) keyed by detailPath eliminates redundant
+ * fetches when navigating between skills and back.
+ *
  * Props:
  *   - slim: the slim row from catalog.skills (required)
  */
+const detailCache = new Map();
+
 export default function SkillDetail({ slim }) {
   const [detail, setDetail] = useState({
     data: null,
@@ -38,14 +43,25 @@ export default function SkillDetail({ slim }) {
       setDetail({ data: null, loading: false, error: null });
       return;
     }
+    const path = slim.detailPath;
+
+    // Check cache first
+    const cached = detailCache.get(path);
+    if (cached) {
+      setDetail({ data: cached, loading: false, error: null });
+      return;
+    }
+
     let cancelled = false;
     setDetail({ data: null, loading: true, error: null });
     (async () => {
       try {
-        const res = await fetch(slim.detailPath);
+        const res = await fetch(path);
         if (!res.ok) throw new Error("HTTP " + res.status);
         const data = await res.json();
         if (cancelled) return;
+        // Store in cache
+        detailCache.set(path, data);
         setDetail({ data, loading: false, error: null });
       } catch (err) {
         if (cancelled) return;

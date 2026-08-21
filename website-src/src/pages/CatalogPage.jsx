@@ -157,8 +157,38 @@ export default function CatalogPage() {
 
   if (loading || !catalog) {
     return (
-      <div className="py-16 text-center text-[var(--fg-dim)]">
-        Loading skill catalog…
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 min-h-[calc(100vh-9rem)]">
+        <div className="flex-1 min-w-0">
+          {/* Skeleton skill list — matches SkillListItem layout */}
+          <div className="space-y-3 p-4" role="status" aria-label="Loading">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div
+                key={i}
+                className="flex items-start gap-3 p-3 rounded-lg border border-[var(--border)] bg-[var(--bg-card)]"
+              >
+                {/* Avatar placeholder */}
+                <div className="w-10 h-10 rounded-full bg-[var(--bg-input)] animate-pulse shrink-0" />
+                <div className="flex-1 min-w-0 space-y-2">
+                  {/* Title placeholder */}
+                  <div className="h-4 bg-[var(--bg-input)] animate-pulse rounded w-3/4" />
+                  {/* Description placeholder */}
+                  <div className="h-3 bg-[var(--bg-input)] animate-pulse rounded w-full" />
+                  <div className="h-3 bg-[var(--bg-input)] animate-pulse rounded w-2/3" />
+                  {/* Badges placeholder */}
+                  <div className="flex gap-1.5 pt-1">
+                    {Array.from({ length: 3 }).map((_, j) => (
+                      <div
+                        key={j}
+                        className="h-5 w-12 bg-[var(--bg-input)] animate-pulse rounded-full"
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <span className="sr-only">Loading skill catalog…</span>
+        </div>
       </div>
     );
   }
@@ -200,7 +230,7 @@ export default function CatalogPage() {
         categories={catalog.categories}
         activeCategories={state.activeCategories}
         totalSkills={catalog.totalSkills}
-        skills={catalog.skills}
+        categoryCounts={catalog.categoryCounts}
         onChange={setActiveCategories}
       />
       {facetCounts && (
