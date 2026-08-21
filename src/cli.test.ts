@@ -4296,6 +4296,26 @@ describe("CLI integration: index", () => {
     const { stdout } = await runCLI("--help");
     expect(stdout).toContain("index");
   });
+
+  test("index overlap exits 0", async () => {
+    const { exitCode } = await runCLI("index", "overlap");
+    expect(exitCode).toBe(0);
+  });
+
+  test("index overlap --json returns valid JSON", async () => {
+    const { stdout, exitCode } = await runCLI("index", "overlap", "--json");
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(typeof data).toBe("object");
+    expect(data).toHaveProperty("groups");
+    expect(data).toHaveProperty("pairs");
+    expect(data).toHaveProperty("totalSkills");
+  });
+
+  test("index overlap --threshold 0.6 exits 0", async () => {
+    const { exitCode } = await runCLI("index", "overlap", "--threshold", "0.6");
+    expect(exitCode).toBe(0);
+  });
 });
 
 // ─── CLI integration: audit security ────────────────────────────────────────

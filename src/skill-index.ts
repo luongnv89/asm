@@ -28,7 +28,7 @@ export interface SearchResult {
   score: number;
 }
 
-function tokenize(text: string): Set<string> {
+export function tokenize(text: string): Set<string> {
   const tokens = new Set<string>();
   const words = text.toLowerCase().split(/[\s\-_.,;:()[\]{}"']+/);
   for (const word of words) {

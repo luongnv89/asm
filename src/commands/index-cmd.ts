@@ -4,8 +4,15 @@ import {
   getTotalSkillCount,
   getMissingMetadataFields,
   searchSkills as searchIndexSkills,
+  getAllIndexedSkills,
 } from "../skill-index";
 import type { SearchFilters } from "../skill-index";
+import {
+  findOverlapPairs,
+  groupOverlaps,
+  MIN_OVERLAP_SCORE,
+  HIGH_CONFIDENCE_THRESHOLD,
+} from "../semantic-overlap";
 
 import { error, readLine } from "./shared";
 import type { ParsedArgs } from "../cli";
@@ -20,6 +27,7 @@ ${ansi.bold("Subcommands:")}
   search <query>   Search indexed skills by name or description
   list             List all indexed repositories
   remove <owner/repo>  Remove a repo from the index
+  overlap          Find semantically overlapping skills in the index
 
 ${ansi.bold("Options:")}
   --json           Output as JSON
@@ -36,6 +44,8 @@ ${ansi.bold("Examples:")}
   asm index search code review                       ${ansi.dim("Search for skills")}
   asm index search marketing --has license           ${ansi.dim("Only with license")}
   asm index search "" --missing creator              ${ansi.dim("Skills missing creator")}
+  asm index overlap                                  ${ansi.dim("Find overlapping skills")}
+  asm index overlap --threshold 0.6                  ${ansi.dim("Custom threshold")}
   asm index list                                    ${ansi.dim("List indexed repos")}
   asm index remove obra/superpowers                 ${ansi.dim("Remove from index")}`);
 }
@@ -49,7 +59,7 @@ export async function cmdIndex(args: ParsedArgs) {
   const subcommand = args.subcommand;
 
   if (!subcommand) {
-    error("Missing subcommand. Use: ingest, search, list, or remove");
+    error("Missing subcommand. Use: ingest, search, overlap, list, or remove");
     console.error(`Run "asm index --help" for usage.`);
     process.exit(2);
   }
@@ -245,6 +255,139 @@ export async function cmdIndex(args: ParsedArgs) {
       } else {
         error(`Repository not found in index: ${owner}/${repo}`);
         process.exit(1);
+      }
+      break;
+    }
+
+    case "overlap": {
+      // Use --threshold flag if provided, otherwise default
+      const threshold = args.flags.threshold ?? MIN_OVERLAP_SCORE;
+      // Cap the number of skills compared to avoid O(n²) on large indexes.
+      // The default limit of 500 still finds meaningful overlaps.
+      const limit = 500;
+
+      const allSkills = await getAllIndexedSkills();
+
+      // Cap to avoid O(n²) comparison on large indexes.
+      const skillsToCompare = allSkills.slice(0, limit);
+
+      if (skillsToCompare.length === 0) {
+        if (args.flags.json) {
+          console.log(formatJSON({ groups: [], pairs: [], totalSkills: 0 }));
+        } else {
+          console.info("No skills indexed. Run `asm index ingest` first.");
+        }
+        return;
+      }
+
+      // Find overlapping pairs
+      const pairs = findOverlapPairs(skillsToCompare, threshold);
+
+      if (pairs.length === 0) {
+        if (args.flags.json) {
+          console.log(
+            formatJSON({
+              groups: [],
+              pairs: [],
+              totalSkills: allSkills.length,
+              threshold,
+              message: `No overlaps found above threshold ${threshold}`,
+            }),
+          );
+        } else {
+          console.info(
+            ansi.green(
+              `No semantic overlaps found above threshold ${threshold} across ${allSkills.length} indexed skills (comparing top ${limit}).`,
+            ),
+          );
+        }
+        return;
+      }
+
+      // Group overlapping skills
+      const groups = groupOverlaps(skillsToCompare, threshold);
+
+      if (args.flags.json) {
+        console.log(
+          formatJSON({
+            groups: groups.map((g) => ({
+              skills: g.skills.map((s) => ({
+                name: s.skill.name,
+                description: s.skill.description,
+                repo: `${s.repo.owner}/${s.repo.repo}`,
+              })),
+              maxScore: g.maxScore,
+              pairCount: g.pairCount,
+            })),
+            pairs: pairs.map((p) => ({
+              skillA: p.skillA.name,
+              skillB: p.skillB.name,
+              repoA: `${p.repoA.owner}/${p.repoA.repo}`,
+              repoB: `${p.repoB.owner}/${p.repoB.repo}`,
+              score: p.score,
+              reason: p.reason,
+            })),
+            totalSkills: allSkills.length,
+            skillsCompared: skillsToCompare.length,
+            threshold,
+            totalOverlappingPairs: pairs.length,
+            totalOverlapGroups: groups.length,
+          }),
+        );
+      } else {
+        console.error(
+          ansi.bold(
+            `Found ${pairs.length} overlapping pair(s) among ${allSkills.length} indexed skills (comparing top ${limit}, threshold: ${threshold}):\n`,
+          ),
+        );
+
+        if (groups.length > 0) {
+          console.error(ansi.yellow(`  ${groups.length} group(s):\n`));
+          for (const group of groups) {
+            console.error(
+              `  ${ansi.bold(`Group (max score: ${group.maxScore.toFixed(3)}, ${group.pairCount} pair(s))`)}\n`,
+            );
+            for (const s of group.skills) {
+              const highConf =
+                s.skill.description === group.skills[0].skill.description
+                  ? ansi.yellow(" [high overlap]")
+                  : "";
+              console.error(
+                `    ${ansi.cyan(s.skill.name)} ${ansi.dim(`[${s.repo.owner}/${s.repo.repo}]`)}${highConf}\n`,
+              );
+              for (const dl of wordWrap(s.skill.description, 72)) {
+                console.error(`      ${dl}`);
+              }
+            }
+            console.error("");
+          }
+        }
+
+        console.error(ansi.yellow(`  ${pairs.length} overlapping pair(s):\n`));
+        for (const pair of pairs.slice(0, 20)) {
+          const confidence =
+            pair.score >= HIGH_CONFIDENCE_THRESHOLD
+              ? ansi.red("HIGH")
+              : pair.score >= MIN_OVERLAP_SCORE
+                ? ansi.yellow("MED")
+                : ansi.dim("LOW");
+          console.error(
+            `  ${confidence} ${pair.score.toFixed(3)}  ${ansi.cyan(pair.skillA.name)} ↔ ${ansi.cyan(pair.skillB.name)}\n`,
+          );
+          console.error(
+            `        ${pair.repoA.owner}/${pair.repoA.repo}  ↔  ${pair.repoB.owner}/${pair.repoB.repo}\n`,
+          );
+          for (const dl of wordWrap(pair.reason, 72)) {
+            console.error(`        ${dl}`);
+          }
+          console.error("");
+        }
+
+        if (pairs.length > 20) {
+          console.error(
+            ansi.dim(`  … and ${pairs.length - 20} more pair(s). Use --json for full list.`),
+          );
+        }
       }
       break;
     }
