@@ -29,7 +29,6 @@ const base = () => ({
   activeRepo: "all",
   activeFacets: emptyFacetState(),
   sort: null,
-  page: 1,
 });
 
 describe("applyFilters", () => {
@@ -220,6 +219,20 @@ describe("anyFilterActive", () => {
   });
   it("returns false when state is clean", () => {
     expect(anyFilterActive(base())).toBe(false);
+  });
+  it("returns true when sort='grade' with no search (non-default)", () => {
+    expect(anyFilterActive({ ...base(), sort: "grade" })).toBe(true);
+  });
+  it("returns false when sort='name' with no search (matches default)", () => {
+    expect(anyFilterActive({ ...base(), sort: "name" })).toBe(false);
+  });
+  it("returns true when sort='relevance' with no search (non-default)", () => {
+    expect(anyFilterActive({ ...base(), sort: "relevance" })).toBe(true);
+  });
+  it("search query short-circuits: sort is ignored when search is active", () => {
+    expect(
+      anyFilterActive({ ...base(), searchQuery: "foo", sort: "relevance" }),
+    ).toBe(true);
   });
 });
 
