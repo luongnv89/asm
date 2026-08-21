@@ -226,7 +226,16 @@ export async function cmdStatsAuthor(args: ParsedArgs) {
 
   if (!author) {
     error(`Author "${owner}" not found in the skill index.`);
-    console.error(ansi.dim(`Run "asm stats index" to see all authors.`));
+    // List top available authors to help the user find the right one
+    const topAuthors = authorStats.slice(0, 10);
+    const authorList = topAuthors
+      .map((a) => `  ${a.owner} (${a.totalSkills} skills)`)
+      .join("\n");
+    console.error(
+      ansi.dim(
+        `Available authors (top 10 by skill count):\n${authorList}`,
+      ),
+    );
     process.exit(1);
   }
 
