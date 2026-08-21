@@ -549,6 +549,7 @@ describe("website: loader uses split artifacts (issue #214)", () => {
 
   test("SkillDetail fetches the per-skill detail on demand", () => {
     expect(detailSrc).toContain("slim.detailPath");
-    expect(detailSrc).toContain("fetch(slim.detailPath)");
+    // Cache-aware: uses `path` variable derived from slim.detailPath
+    expect(detailSrc).toMatch(/detailCache|fetch\(path\)/);
   });
 });
