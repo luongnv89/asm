@@ -548,13 +548,7 @@ export function calculateVerdict(
 // Documentation files that should be excluded from security scanning.
 // These files contain examples and instructions that reference commands
 // (curl, exec, bash, etc.) but are not executable source code.
-const DOC_EXTENSIONS = new Set([
-  ".md",
-  ".txt",
-  ".rst",
-  ".adoc",
-  ".markdown",
-]);
+const DOC_EXTENSIONS = new Set([".md", ".txt", ".rst", ".adoc", ".markdown"]);
 
 // Names of common documentation files to always exclude.
 const DOC_FILENAMES = new Set([

@@ -232,9 +232,7 @@ export async function cmdStatsAuthor(args: ParsedArgs) {
       .map((a) => `  ${a.owner} (${a.totalSkills} skills)`)
       .join("\n");
     console.error(
-      ansi.dim(
-        `Available authors (top 10 by skill count):\n${authorList}`,
-      ),
+      ansi.dim(`Available authors (top 10 by skill count):\n${authorList}`),
     );
     process.exit(1);
   }
