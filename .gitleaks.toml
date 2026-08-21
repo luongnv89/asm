@@ -10,6 +10,7 @@ paths = [
   '''^src/verifier\.test\.ts$''',
   '''^src/security-auditor\.test\.ts$''',
   '''^src/installer\.test\.ts$''',
+  '''^website-src/src/components/Header\.jsx$''',
 ]
 regexes = [
   '''^sk-[a-z0-9]{10,11}$''',
