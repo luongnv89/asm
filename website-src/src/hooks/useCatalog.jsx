@@ -50,7 +50,9 @@ export function CatalogProvider({ children }) {
           parsedIndex.generatedAt &&
           catalog.generatedAt !== parsedIndex.generatedAt
         ) {
-          throw new Error("catalog build mismatch — reload the page");
+          throw new Error(
+            "Catalog and search index are from different builds. Clear your browser cache and reload the page.",
+          );
         }
         const miniSearch = MiniSearch.loadJS(parsedIndex, MINISEARCH_OPTIONS);
         if (cancelled) return;

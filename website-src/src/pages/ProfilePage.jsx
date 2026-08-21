@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import CopyButton from "../components/CopyButton";
+import CopyButton from "../components/CopyButton.jsx";
 import CategoryPieChart from "../components/CategoryPieChart";
 import { Badge } from "../components/ui/badge";
 import { encodeSkillId } from "../lib/utils.js";
@@ -46,9 +46,8 @@ export default function ProfilePage() {
       .then((data) => {
         const found = data?.stats?.find((a) => a.owner === owner);
         setAuthor(found || null);
-        setLoading(false);
       })
-      .catch(() => {
+      .finally(() => {
         setLoading(false);
       });
   }, [owner]);
@@ -69,6 +68,11 @@ export default function ProfilePage() {
         </div>
         <p className="text-[var(--fg-dim)] mb-6">
           No indexed skills found for <strong>{owner}</strong>.
+          {loading === false && (
+            <span className="block mt-2 text-[var(--warn)]">
+              Failed to load profile data. Please try refreshing the page.
+            </span>
+          )}
         </p>
         <Link to="/stats" className="text-[var(--brand)] hover:underline">
           ← Back to Stats

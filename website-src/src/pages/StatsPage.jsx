@@ -53,12 +53,15 @@ export default function StatsPage() {
       fetch("index-stats.json")
         .then((r) => r.json())
         .catch(() => null),
-    ]).then(([rs, as, is]) => {
-      setRepoStats(rs?.stats || []);
-      setAuthorStats(as?.stats || []);
-      setIndexStats(is?.stats || null);
-      setLoading(false);
-    });
+    ])
+      .then(([rs, as, is]) => {
+        setRepoStats(rs?.stats || []);
+        setAuthorStats(as?.stats || []);
+        setIndexStats(is?.stats || null);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   if (loading) {

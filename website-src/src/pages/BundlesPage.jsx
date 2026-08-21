@@ -22,7 +22,7 @@ import { Button } from "../components/ui/button.jsx";
 export default function BundlesPage() {
   const { name: encodedName } = useParams();
   const decodedName = useMemo(
-    () => (encodedName ? decodeURIComponent(encodedName) : null),
+    () => (encodedName ? globalThis.decodeURIComponent(encodedName) : null),
     [encodedName],
   );
   const location = useLocation();
