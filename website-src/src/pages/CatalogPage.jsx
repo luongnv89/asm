@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import { useParams, Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { List, useDynamicRowHeight } from "react-window";
@@ -89,6 +89,22 @@ export default function CatalogPage() {
   } = useCatalogState();
 
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const searchBoxRef = useRef(null);
+
+  // Keyboard shortcut: "/" or Ctrl+K to focus search box
+  useEffect(() => {
+    function handler(e) {
+      const tag = (e.target && e.target.tagName) || "";
+      // Ignore if focused in an input/textarea/contenteditable
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+      if ((e.key === "/" || (e.key === "k" && (e.metaKey || e.ctrlKey))) && !e.altKey && !e.shiftKey) {
+        e.preventDefault();
+        searchBoxRef.current?.focus();
+      }
+    }
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
 
   // Measure each rendered row so skill items with extra badges or a long
   // owner/repo line aren't clipped. `key` changes invalidate the cache
@@ -191,6 +207,7 @@ export default function CatalogPage() {
         </Button>
       </div>
       <SearchBox
+        ref={searchBoxRef}
         draft={searchDraft}
         onDraftChange={setSearchDraft}
         onCommit={setSearchQuery}
@@ -267,7 +284,16 @@ export default function CatalogPage() {
       >
         {filtered.length === 0 ? (
           <div className="py-8 text-center text-[var(--fg-dim)] text-sm">
-            <div className="text-2xl mb-1">✨</div>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              className="w-8 h-8 mx-auto mb-1 text-[var(--fg-muted)]"
+              aria-hidden="true"
+            >
+              <path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z" />
+            </svg>
             <p>No skills match your filters</p>
           </div>
         ) : (

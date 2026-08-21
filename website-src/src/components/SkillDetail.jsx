@@ -1,19 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Star } from "lucide-react";
-import { formatTokens } from "../lib/utils.js";
+import { formatStars, formatTokens } from "../lib/utils.js";
 import CopyButton from "./CopyButton.jsx";
 import EvalScoreBreakdown from "./EvalScoreBreakdown.jsx";
 import AddToBundleButton from "./AddToBundleButton.jsx";
 import { Badge } from "./ui/badge.jsx";
 import { Card } from "./ui/card.jsx";
-
-/** Format a star count for display: "1200" → "1.2k". */
-function formatStars(n) {
-  if (typeof n !== "number" || n <= 0) return null;
-  if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "k";
-  return String(n);
-}
 
 /**
  * Reusable skill detail view. Rendered in the right pane of the

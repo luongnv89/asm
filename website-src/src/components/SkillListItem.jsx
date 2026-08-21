@@ -6,18 +6,12 @@ import AddToBundleButton from "./AddToBundleButton.jsx";
 import { cn } from "../lib/cn.js";
 import {
   evalScoreClass,
+  formatStars,
   formatTokens,
   highlightMatches,
   encodeSkillId,
   skillRelPath,
 } from "../lib/utils.js";
-
-/** Format a star count for display: "1200" → "1.2k". */
-function formatStars(n) {
-  if (typeof n !== "number" || n <= 0) return null;
-  if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "k";
-  return String(n);
-}
 
 /**
  * Compact sidebar row for a skill. Inherits the badge/eval-tone/
@@ -134,7 +128,7 @@ function SkillListItem({
             <Wrench className="h-3 w-3" aria-hidden="true" />
           </Badge>
         )}
-        {skill.categories?.slice(0, 2).map((c) => (
+        {(skill.categories || []).slice(0, 2).map((c) => (
           <Badge key={c} tone="cat">
             {c}
           </Badge>

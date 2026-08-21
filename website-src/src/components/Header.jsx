@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useCatalog } from "../hooks/useCatalog.jsx";
+import { formatStars } from "../lib/utils.js";
 import BundleCartButton from "./BundleCartButton.jsx";
 
 /**
@@ -32,12 +33,6 @@ function applyTheme(next) {
  * from the loaded catalog.
  */
 const REPO_URL = "https://github.com/luongnv89/asm";
-
-function formatStars(n) {
-  if (typeof n !== "number" || n <= 0) return null;
-  if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "k";
-  return String(n);
-}
 
 export default function Header({ onOpenBundleBuilder }) {
   const { catalog } = useCatalog();

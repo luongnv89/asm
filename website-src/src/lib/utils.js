@@ -40,6 +40,14 @@ export function skillRelPath(installUrl) {
   return rest.slice(idx2 + 1);
 }
 
+// Format a star count for display: "1200" → "1.2k". Shared across
+// SkillListItem, SkillDetail, and Header.
+export function formatStars(n) {
+  if (typeof n !== "number" || n <= 0) return null;
+  if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "k";
+  return String(n);
+}
+
 // Format an estimated token count as "~N tokens" / "~1.2k tokens" /
 // "~12k tokens". Mirrors src/utils/token-count.ts:formatTokenCount so the
 // website + CLI agree.
