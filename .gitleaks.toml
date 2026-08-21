@@ -4,11 +4,8 @@ title = "asm gitleaks config"
 [extend]
 useDefault = true
 
-# Allowlist test fixtures that intentionally embed fake API keys to verify
-# ASM's own credential-leak detection. These are not real secrets and live
-# only inside test files. Also allowlist short fake keys used across fixtures.
 [allowlist]
-description = "Test fixtures containing fake credentials used to exercise ASM's security auditor / verifier, plus short fake key patterns."
+description = "Test fixtures containing fake credentials used to exercise ASM's security auditor / verifier, plus known-safe public URLs."
 paths = [
   '''^src/verifier\.test\.ts$''',
   '''^src/security-auditor\.test\.ts$''',
@@ -16,4 +13,5 @@ paths = [
 ]
 regexes = [
   '''^sk-[a-z0-9]{10,11}$''',
+  '''https://api\.github\.com/''',
 ]
