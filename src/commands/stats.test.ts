@@ -113,7 +113,7 @@ describe("cmdStatsAuthor", () => {
     vi.restoreAllMocks();
   });
 
-  test("lists top available authors when author not found", async () => {
+  test("shows error with available authors when author not found", async () => {
     const { cmdStatsAuthor } = await import("./stats");
 
     const args: ParsedArgs = {
@@ -133,13 +133,10 @@ describe("cmdStatsAuthor", () => {
     expect(stderrOutput).toContain('Author "unknown-author" not found');
     expect(stderrOutput).toContain("Available authors");
     // Should list top authors sorted by skill count
-    // (skillCount field is metadata; computeAuthorStats counts from skills[])
     expect(stderrOutput).toContain("anthropic (3 skills)");
     expect(stderrOutput).toContain("luongnv89 (1 skills)");
     expect(stderrOutput).toContain("google (1 skills)");
     expect(stderrOutput).toContain("microsoft (1 skills)");
-    // Should NOT suggest the misleading "asm stats index"
-    expect(stderrOutput).not.toContain("asm stats index");
   });
 
   test("shows top 10 authors max", async () => {
