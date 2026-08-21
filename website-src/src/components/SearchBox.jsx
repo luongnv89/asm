@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, forwardRef } from "react";
 import { Search, X } from "lucide-react";
 import { Input } from "./ui/input.jsx";
 import { Button } from "./ui/button.jsx";
@@ -12,14 +12,15 @@ import { Button } from "./ui/button.jsx";
  * idle it commits via `onCommit(query)`, which triggers the URL/state
  * update and the MiniSearch re-query.
  */
-const DEBOUNCE_MS = 150;
+const DEBOUNCE_MS = 200;
 
-export default function SearchBox({
+const SearchBoxInner = forwardRef(function SearchBox({
   draft,
   onDraftChange,
   onCommit,
   disabled,
   placeholder,
+  inputRef,
 }) {
   const timerRef = useRef(null);
 
@@ -40,9 +41,10 @@ export default function SearchBox({
         className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--fg-muted)]"
       />
       <Input
+        ref={inputRef}
         type="search"
         value={draft}
-        placeholder={placeholder || "Search skills, tags, descriptions…"}
+        placeholder={placeholder || "Search…"}
         disabled={disabled}
         onChange={(e) => onDraftChange(e.target.value)}
         onKeyDown={(e) => {
@@ -74,4 +76,6 @@ export default function SearchBox({
       )}
     </div>
   );
-}
+});
+
+export default SearchBoxInner;

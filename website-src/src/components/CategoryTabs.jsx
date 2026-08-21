@@ -14,15 +14,9 @@ export default function CategoryTabs({
   categories = [],
   activeCategories,
   totalSkills,
-  skills = [],
+  categoryCounts = {},
   onChange,
 }) {
-  const counts = useMemo(() => {
-    const out = {};
-    for (const s of skills)
-      for (const c of s.categories || []) out[c] = (out[c] || 0) + 1;
-    return out;
-  }, [skills]);
 
   const activeInOverflow = useMemo(() => {
     for (const c of activeCategories) {
@@ -64,7 +58,7 @@ export default function CategoryTabs({
         const on = activeCategories.has(cat);
         return (
           <CatButton key={cat} active={on} onClick={() => toggle(cat)}>
-            {cat} <Count>{counts[cat] || 0}</Count>
+            {cat} <Count>{categoryCounts[cat] || 0}</Count>
           </CatButton>
         );
       })}

@@ -51,4 +51,37 @@ describe("minisearch options parity", () => {
       categoriesStr: 1,
     });
   });
+
+  it("JS copy content matches TS source (no silent drift)", () => {
+    // Strip the TS export prefix and trailing semicolon from the source,
+    // then compare the object literal body with the JS file.
+    const tsSrc = readFileSync(
+      resolve(__dirname, "../../../scripts/minisearch-options.ts"),
+      "utf8",
+    );
+    const jsSrc = readFileSync(
+      resolve(__dirname, "../lib/minisearch-options.js"),
+      "utf8",
+    );
+
+    // Extract the object literal from the TS source (between `{` and `};`)
+    const tsMatch = tsSrc.match(/MINISEARCH_OPTIONS\s*=\s*\{([\s\S]*?)\};/);
+    expect(tsMatch).not.toBeNull();
+    const tsBody = tsMatch[1].trim();
+
+    // Extract the object literal from the JS source
+    const jsMatch = jsSrc.match(/MINISEARCH_OPTIONS\s*=\s*\{([\s\S]*?)\};/);
+    expect(jsMatch).not.toBeNull();
+    const jsBody = jsMatch[1].trim();
+
+    // Normalize: strip TS type annotations, trailing commas, and extra whitespace
+    const normalize = (s) =>
+      s
+        .replace(/\s*as\s+string\[\]/g, "") // strip `as string[]` type annotations
+        .replace(/,\s*(\}|\])/g, "$1") // remove trailing commas
+        .replace(/\s+/g, " ")
+        .trim();
+
+    expect(normalize(tsBody)).toBe(normalize(jsBody));
+  });
 });

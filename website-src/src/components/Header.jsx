@@ -1,21 +1,47 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useCatalog } from "../hooks/useCatalog.jsx";
+import { formatStars } from "../lib/utils.js";
 import BundleCartButton from "./BundleCartButton.jsx";
 
 /**
  * Fetch live GitHub star count for the ASM repo.
  * Falls back to the static catalog value if the API call fails.
+ *
+ * Uses a local TTL cache (10 min) keyed by repo name so that page
+ * navigations and re-renders don't hammer the GitHub API.
  */
 const REPO_API = "https://api.github.com/repos/luongnv89/asm";
+const STAR_CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes
 
-async function fetchLiveStars(signal) {
+/** Simple in-process TTL cache for star counts. */
+const starCache = new Map();
+
+/** Clear the star cache — exported for tests. */
+export function clearStarCache() {
+  starCache.clear();
+}
+
+async function fetchLiveStars(signal, repoKey = "luongnv89/asm") {
+  // Check cache first
+  const cached = starCache.get(repoKey);
+  if (cached && Date.now() - cached.ts < STAR_CACHE_TTL_MS) {
+    return cached.value;
+  }
+
   try {
     const res = await fetch(REPO_API, { signal });
-    if (!res.ok) return null;
+    if (!res.ok) {
+      // Still update cache with null so we don't hammer on repeated failures
+      starCache.set(repoKey, { value: null, ts: Date.now() });
+      return null;
+    }
     const data = await res.json();
-    return data.stargazers_count ?? null;
+    const stars = data.stargazers_count ?? null;
+    starCache.set(repoKey, { value: stars, ts: Date.now() });
+    return stars;
   } catch {
+    starCache.set(repoKey, { value: null, ts: Date.now() });
     return null;
   }
 }
@@ -32,12 +58,6 @@ function applyTheme(next) {
  * from the loaded catalog.
  */
 const REPO_URL = "https://github.com/luongnv89/asm";
-
-function formatStars(n) {
-  if (typeof n !== "number" || n <= 0) return null;
-  if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "k";
-  return String(n);
-}
 
 export default function Header({ onOpenBundleBuilder }) {
   const { catalog } = useCatalog();

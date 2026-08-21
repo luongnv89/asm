@@ -19,7 +19,7 @@ vi.mock("../hooks/useCatalog.jsx", () => ({
   useCatalog: () => ({ catalog: mockCatalog }),
 }));
 
-import Header from "../components/Header.jsx";
+import Header, { clearStarCache } from "../components/Header.jsx";
 
 function renderHeader() {
   return render(
@@ -39,6 +39,7 @@ describe("Header — live GitHub star count (issue #308)", () => {
   afterEach(() => {
     cleanup();
     vi.restoreAllMocks();
+    clearStarCache();
   });
 
   it("renders the static catalog star count immediately on mount", () => {

@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useEffect, useMemo, useState, useCallback } from "react";
+import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import BundleListItem from "../components/BundleListItem.jsx";
 import BundleDetail from "../components/BundleDetail.jsx";
@@ -26,14 +26,29 @@ export default function BundlesPage() {
     [encodedName],
   );
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [state, setState] = useState({
     loading: true,
     error: null,
     bundles: [],
   });
-  const [query, setQuery] = useState("");
+
+  // Sync search query to URL params so it survives page refresh
+  const [query, setQuery] = useState(() => searchParams.get("q") || "");
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const updateQuery = useCallback(
+    (next) => {
+      setQuery(next);
+      if (next) {
+        setSearchParams({ q: next });
+      } else {
+        setSearchParams({}, { replace: true });
+      }
+    },
+    [setSearchParams],
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -128,7 +143,7 @@ export default function BundlesPage() {
           type="search"
           value={query}
           placeholder="Search bundles…"
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => updateQuery(e.target.value)}
           aria-label="Search bundles"
           className="h-9"
         />
