@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/twostraws/Swift-Concurrency-Agent-Skill.git",
   "owner": "twostraws",
   "repo": "Swift-Concurrency-Agent-Skill",
-  "updatedAt": "2026-08-19T04:55:25.294Z",
+  "updatedAt": "2026-08-21T09:19:47.997Z",
   "skillCount": 1,
   "skills": [
     {
@@ -13,12 +13,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:twostraws/Swift-Concurrency-Agent-Skill:swift-concurrency-pro",
       "relPath": "swift-concurrency-pro",
       "verified": true,
       "tokenCount": 1497,
       "evalSummary": {
-        "overallScore": 80,
+        "overallScore": 81,
         "grade": "B",
         "categories": [
           {
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:25.294Z",
+        "evaluatedAt": "2026-08-21T09:19:47.992Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -73,7 +93,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 80,
+          "overallScore": 81,
           "grade": "B",
           "categories": [
             {
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:25.294Z",
+          "evaluatedAt": "2026-08-21T09:19:47.992Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:25.294Z",
+          "evaluatedAt": "2026-08-21T09:19:47.992Z",
           "evaluatedVersion": "1.0"
         }
       }

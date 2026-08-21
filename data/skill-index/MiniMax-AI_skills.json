@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/MiniMax-AI/skills.git",
   "owner": "MiniMax-AI",
   "repo": "skills",
-  "updatedAt": "2026-08-19T04:55:21.459Z",
+  "updatedAt": "2026-08-21T09:19:44.252Z",
   "skillCount": 23,
   "skills": [
     {
@@ -13,12 +13,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/android-native-dev",
       "relPath": "skills/android-native-dev",
       "verified": true,
       "tokenCount": 8395,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 8,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.421Z",
+        "evaluatedAt": "2026-08-21T09:19:43.542Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -73,7 +93,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 8,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.426Z",
+          "evaluatedAt": "2026-08-21T09:19:43.543Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.426Z",
+          "evaluatedAt": "2026-08-21T09:19:43.543Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -150,12 +188,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/buddy-sings",
       "relPath": "skills/buddy-sings",
       "verified": true,
       "tokenCount": 5089,
       "evalSummary": {
-        "overallScore": 80,
+        "overallScore": 81,
         "grade": "B",
         "categories": [
           {
@@ -195,13 +235,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.422Z",
+        "evaluatedAt": "2026-08-21T09:19:43.542Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -210,7 +268,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 80,
+          "overallScore": 81,
           "grade": "B",
           "categories": [
             {
@@ -250,13 +308,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.426Z",
+          "evaluatedAt": "2026-08-21T09:19:43.543Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -274,7 +350,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.426Z",
+          "evaluatedAt": "2026-08-21T09:19:43.543Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -287,12 +363,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:plugins/pptx-plugin/skills/color-font-skill",
       "relPath": "plugins/pptx-plugin/skills/color-font-skill",
       "verified": true,
       "tokenCount": 1915,
       "evalSummary": {
-        "overallScore": 50,
+        "overallScore": 55,
         "grade": "D",
         "categories": [
           {
@@ -332,13 +410,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.422Z",
+        "evaluatedAt": "2026-08-21T09:19:43.542Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -347,7 +443,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 50,
+          "overallScore": 55,
           "grade": "D",
           "categories": [
             {
@@ -387,13 +483,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.426Z",
+          "evaluatedAt": "2026-08-21T09:19:43.543Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +525,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.426Z",
+          "evaluatedAt": "2026-08-21T09:19:43.543Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -424,13 +538,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:plugins/pptx-plugin/skills/design-style-skill",
       "relPath": "plugins/pptx-plugin/skills/design-style-skill",
       "verified": true,
       "tokenCount": 1737,
       "evalSummary": {
-        "overallScore": 49,
-        "grade": "F",
+        "overallScore": 54,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -469,13 +585,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.426Z",
+        "evaluatedAt": "2026-08-21T09:19:43.542Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -483,9 +617,9 @@
           "providerId": "quality",
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 49,
-          "grade": "F",
+          "passed": true,
+          "overallScore": 54,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -524,13 +658,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.426Z",
+          "evaluatedAt": "2026-08-21T09:19:43.543Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +700,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.426Z",
+          "evaluatedAt": "2026-08-21T09:19:43.543Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -561,12 +713,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/flutter-dev",
       "relPath": "skills/flutter-dev",
       "verified": true,
       "tokenCount": 1333,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 74,
         "grade": "C",
         "categories": [
           {
@@ -606,13 +760,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.422Z",
+        "evaluatedAt": "2026-08-21T09:19:43.543Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -621,7 +793,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 74,
           "grade": "C",
           "categories": [
             {
@@ -661,13 +833,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.426Z",
+          "evaluatedAt": "2026-08-21T09:19:43.543Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +875,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.426Z",
+          "evaluatedAt": "2026-08-21T09:19:43.543Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -698,12 +888,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/frontend-dev",
       "relPath": "skills/frontend-dev",
       "verified": true,
       "tokenCount": 5907,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -743,13 +935,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 8,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.424Z",
+        "evaluatedAt": "2026-08-21T09:19:43.543Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -758,7 +968,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 73,
           "grade": "C",
           "categories": [
             {
@@ -798,13 +1008,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 8,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.426Z",
+          "evaluatedAt": "2026-08-21T09:19:43.543Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +1050,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.426Z",
+          "evaluatedAt": "2026-08-21T09:19:43.543Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -835,12 +1063,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/fullstack-dev",
       "relPath": "skills/fullstack-dev",
       "verified": true,
       "tokenCount": 9697,
       "evalSummary": {
-        "overallScore": 77,
+        "overallScore": 79,
         "grade": "C",
         "categories": [
           {
@@ -880,13 +1110,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.426Z",
+        "evaluatedAt": "2026-08-21T09:19:43.543Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -935,13 +1183,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.426Z",
+          "evaluatedAt": "2026-08-21T09:19:43.543Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +1225,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.426Z",
+          "evaluatedAt": "2026-08-21T09:19:43.543Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -972,12 +1238,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/gif-sticker-maker",
       "relPath": "skills/gif-sticker-maker",
       "verified": true,
       "tokenCount": 1175,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 77,
         "grade": "C",
         "categories": [
           {
@@ -1017,13 +1285,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.426Z",
+        "evaluatedAt": "2026-08-21T09:19:43.543Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -1032,7 +1318,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 77,
           "grade": "C",
           "categories": [
             {
@@ -1072,13 +1358,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.426Z",
+          "evaluatedAt": "2026-08-21T09:19:43.543Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -1096,7 +1400,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.426Z",
+          "evaluatedAt": "2026-08-21T09:19:43.543Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -1109,12 +1413,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/ios-application-dev",
       "relPath": "skills/ios-application-dev",
       "verified": true,
       "tokenCount": 1941,
       "evalSummary": {
-        "overallScore": 56,
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -1154,13 +1460,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.436Z",
+        "evaluatedAt": "2026-08-21T09:19:43.556Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1169,7 +1493,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 56,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -1209,13 +1533,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.440Z",
+          "evaluatedAt": "2026-08-21T09:19:43.557Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1575,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.440Z",
+          "evaluatedAt": "2026-08-21T09:19:43.557Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1246,13 +1588,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/minimax-docx",
       "relPath": "skills/minimax-docx",
       "verified": true,
       "tokenCount": 3961,
       "evalSummary": {
-        "overallScore": 74,
-        "grade": "C",
+        "overallScore": 82,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
@@ -1291,13 +1635,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 10,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.437Z",
+        "evaluatedAt": "2026-08-21T09:19:43.556Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1306,7 +1668,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 78,
           "grade": "C",
           "categories": [
             {
@@ -1346,13 +1708,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 10,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 6,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.440Z",
+          "evaluatedAt": "2026-08-21T09:19:43.557Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1750,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.440Z",
+          "evaluatedAt": "2026-08-21T09:19:43.557Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1383,12 +1763,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/minimax-music-gen",
       "relPath": "skills/minimax-music-gen",
       "verified": true,
       "tokenCount": 3972,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -1428,13 +1810,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.438Z",
+        "evaluatedAt": "2026-08-21T09:19:43.556Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -1443,7 +1843,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -1483,13 +1883,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.440Z",
+          "evaluatedAt": "2026-08-21T09:19:43.559Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -1507,7 +1925,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.440Z",
+          "evaluatedAt": "2026-08-21T09:19:43.559Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -1520,12 +1938,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/minimax-music-playlist",
       "relPath": "skills/minimax-music-playlist",
       "verified": true,
       "tokenCount": 3667,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 77,
         "grade": "C",
         "categories": [
           {
@@ -1565,13 +1985,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.439Z",
+        "evaluatedAt": "2026-08-21T09:19:43.567Z",
         "evaluatedVersion": "2.0"
       },
       "evalSummaries": {
@@ -1580,7 +2018,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 77,
           "grade": "C",
           "categories": [
             {
@@ -1620,13 +2058,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.441Z",
+          "evaluatedAt": "2026-08-21T09:19:43.567Z",
           "evaluatedVersion": "2.0"
         },
         "skill-best-practice": {
@@ -1644,7 +2100,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.441Z",
+          "evaluatedAt": "2026-08-21T09:19:43.567Z",
           "evaluatedVersion": "2.0"
         }
       }
@@ -1657,13 +2113,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/minimax-pdf",
       "relPath": "skills/minimax-pdf",
       "verified": true,
       "tokenCount": 2494,
       "evalSummary": {
-        "overallScore": 57,
-        "grade": "D",
+        "overallScore": 65,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -1702,13 +2160,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.440Z",
+        "evaluatedAt": "2026-08-21T09:19:43.571Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -1717,7 +2193,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 57,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -1757,13 +2233,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 9,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.441Z",
+          "evaluatedAt": "2026-08-21T09:19:43.571Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -1781,7 +2275,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.441Z",
+          "evaluatedAt": "2026-08-21T09:19:43.571Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -1794,12 +2288,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/minimax-xlsx",
       "relPath": "skills/minimax-xlsx",
       "verified": true,
       "tokenCount": 2272,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
@@ -1839,13 +2335,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 8,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.440Z",
+        "evaluatedAt": "2026-08-21T09:19:43.573Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -1854,7 +2368,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 73,
           "grade": "C",
           "categories": [
             {
@@ -1894,13 +2408,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 8,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.441Z",
+          "evaluatedAt": "2026-08-21T09:19:43.576Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -1918,7 +2450,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.441Z",
+          "evaluatedAt": "2026-08-21T09:19:43.576Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -1931,6 +2463,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/minimax-multimodal-toolkit",
       "relPath": "skills/minimax-multimodal-toolkit",
       "verified": true,
@@ -1976,13 +2510,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 9,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.441Z",
+        "evaluatedAt": "2026-08-21T09:19:43.708Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2031,13 +2583,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 9,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.441Z",
+          "evaluatedAt": "2026-08-21T09:19:43.709Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2055,7 +2625,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.442Z",
+          "evaluatedAt": "2026-08-21T09:19:43.709Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2068,12 +2638,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:plugins/pptx-plugin/skills/ppt-editing-skill",
       "relPath": "plugins/pptx-plugin/skills/ppt-editing-skill",
       "verified": true,
       "tokenCount": 1906,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -2113,13 +2685,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 2,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.441Z",
+        "evaluatedAt": "2026-08-21T09:19:43.709Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2128,7 +2718,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 76,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -2168,13 +2758,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 2,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.442Z",
+          "evaluatedAt": "2026-08-21T09:19:43.709Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2192,7 +2800,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.442Z",
+          "evaluatedAt": "2026-08-21T09:19:43.709Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2205,13 +2813,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:plugins/pptx-plugin/skills/ppt-orchestra-skill",
       "relPath": "plugins/pptx-plugin/skills/ppt-orchestra-skill",
       "verified": true,
       "tokenCount": 1777,
       "evalSummary": {
-        "overallScore": 80,
-        "grade": "B",
+        "overallScore": 78,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -2250,13 +2860,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 2,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.450Z",
+        "evaluatedAt": "2026-08-21T09:19:43.711Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2265,8 +2893,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 80,
-          "grade": "B",
+          "overallScore": 78,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -2305,13 +2933,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 2,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.452Z",
+          "evaluatedAt": "2026-08-21T09:19:43.711Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2329,7 +2975,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.452Z",
+          "evaluatedAt": "2026-08-21T09:19:43.711Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2342,12 +2988,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/pptx-generator",
       "relPath": "skills/pptx-generator",
       "verified": true,
       "tokenCount": 2091,
       "evalSummary": {
-        "overallScore": 77,
+        "overallScore": 79,
         "grade": "C",
         "categories": [
           {
@@ -2387,13 +3035,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.454Z",
+        "evaluatedAt": "2026-08-21T09:19:43.724Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2402,7 +3068,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 77,
+          "overallScore": 79,
           "grade": "C",
           "categories": [
             {
@@ -2442,13 +3108,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.455Z",
+          "evaluatedAt": "2026-08-21T09:19:43.724Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -2466,7 +3150,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.455Z",
+          "evaluatedAt": "2026-08-21T09:19:43.724Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -2479,12 +3163,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:.claude/skills/pr-review",
       "relPath": ".claude/skills/pr-review",
       "verified": true,
       "tokenCount": 656,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 77,
         "grade": "C",
         "categories": [
           {
@@ -2524,13 +3210,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.452Z",
+        "evaluatedAt": "2026-08-21T09:19:43.724Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2539,7 +3243,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 77,
           "grade": "C",
           "categories": [
             {
@@ -2579,13 +3283,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.455Z",
+          "evaluatedAt": "2026-08-21T09:19:43.724Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -2603,7 +3325,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.455Z",
+          "evaluatedAt": "2026-08-21T09:19:43.724Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -2616,13 +3338,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/react-native-dev",
       "relPath": "skills/react-native-dev",
       "verified": true,
       "tokenCount": 1807,
       "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
+        "overallScore": 70,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -2661,13 +3385,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.453Z",
+        "evaluatedAt": "2026-08-21T09:19:43.726Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2676,8 +3418,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 70,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -2716,13 +3458,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.455Z",
+          "evaluatedAt": "2026-08-21T09:19:43.726Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2740,7 +3500,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.455Z",
+          "evaluatedAt": "2026-08-21T09:19:43.726Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2753,12 +3513,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/shader-dev",
       "relPath": "skills/shader-dev",
       "verified": true,
       "tokenCount": 4157,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 78,
         "grade": "C",
         "categories": [
           {
@@ -2798,13 +3560,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.451Z",
+        "evaluatedAt": "2026-08-21T09:19:43.756Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2813,7 +3593,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 76,
+          "overallScore": 78,
           "grade": "C",
           "categories": [
             {
@@ -2853,13 +3633,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.455Z",
+          "evaluatedAt": "2026-08-21T09:19:43.756Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -2877,7 +3675,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.455Z",
+          "evaluatedAt": "2026-08-21T09:19:43.756Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -2890,12 +3688,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:plugins/pptx-plugin/skills/slide-making-skill",
       "relPath": "plugins/pptx-plugin/skills/slide-making-skill",
       "verified": true,
       "tokenCount": 1998,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -2935,13 +3735,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.455Z",
+        "evaluatedAt": "2026-08-21T09:19:43.766Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2950,7 +3768,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -2990,13 +3808,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.455Z",
+          "evaluatedAt": "2026-08-21T09:19:43.766Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3014,7 +3850,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.455Z",
+          "evaluatedAt": "2026-08-21T09:19:43.766Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3027,12 +3863,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/vision-analysis",
       "relPath": "skills/vision-analysis",
       "verified": true,
       "tokenCount": 1510,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -3072,13 +3910,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:21.452Z",
+        "evaluatedAt": "2026-08-21T09:19:43.778Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -3087,7 +3943,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -3127,13 +3983,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.455Z",
+          "evaluatedAt": "2026-08-21T09:19:43.778Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -3151,7 +4025,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:21.455Z",
+          "evaluatedAt": "2026-08-21T09:19:43.778Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -3163,7 +4037,7 @@
       "name": "minimax-ai-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from MiniMax-AI/skills.",
       "author": "ASM (MiniMax-AI/skills)",
-      "createdAt": "2026-08-19T04:55:21.459Z",
+      "createdAt": "2026-08-21T09:19:44.252Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3325,7 +4199,7 @@
       "name": "minimax-ai-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from MiniMax-AI/skills.",
       "author": "ASM (MiniMax-AI/skills)",
-      "createdAt": "2026-08-19T04:55:21.459Z",
+      "createdAt": "2026-08-21T09:19:44.252Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3415,7 +4289,7 @@
       "name": "minimax-ai-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from MiniMax-AI/skills.",
       "author": "ASM (MiniMax-AI/skills)",
-      "createdAt": "2026-08-19T04:55:21.459Z",
+      "createdAt": "2026-08-21T09:19:44.252Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3517,7 +4391,7 @@
       "name": "minimax-ai-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from MiniMax-AI/skills.",
       "author": "ASM (MiniMax-AI/skills)",
-      "createdAt": "2026-08-19T04:55:21.459Z",
+      "createdAt": "2026-08-21T09:19:44.252Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3655,7 +4529,7 @@
       "name": "minimax-ai-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from MiniMax-AI/skills.",
       "author": "ASM (MiniMax-AI/skills)",
-      "createdAt": "2026-08-19T04:55:21.459Z",
+      "createdAt": "2026-08-21T09:19:44.252Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3697,7 +4571,7 @@
       "name": "minimax-ai-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from MiniMax-AI/skills.",
       "author": "ASM (MiniMax-AI/skills)",
-      "createdAt": "2026-08-19T04:55:21.459Z",
+      "createdAt": "2026-08-21T09:19:44.252Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3745,7 +4619,7 @@
       "name": "minimax-ai-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from MiniMax-AI/skills.",
       "author": "ASM (MiniMax-AI/skills)",
-      "createdAt": "2026-08-19T04:55:21.459Z",
+      "createdAt": "2026-08-21T09:19:44.252Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3793,7 +4667,7 @@
       "name": "minimax-ai-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from MiniMax-AI/skills.",
       "author": "ASM (MiniMax-AI/skills)",
-      "createdAt": "2026-08-19T04:55:21.459Z",
+      "createdAt": "2026-08-21T09:19:44.252Z",
       "tags": [
         "repo-derived",
         "inferred",

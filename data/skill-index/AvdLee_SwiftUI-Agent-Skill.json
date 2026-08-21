@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/AvdLee/SwiftUI-Agent-Skill.git",
   "owner": "AvdLee",
   "repo": "SwiftUI-Agent-Skill",
-  "updatedAt": "2026-08-19T04:55:27.490Z",
+  "updatedAt": "2026-08-21T09:19:50.612Z",
   "skillCount": 2,
   "skills": [
     {
@@ -13,12 +13,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:skills/swiftui-expert-skill",
       "relPath": "skills/swiftui-expert-skill",
       "verified": true,
       "tokenCount": 3077,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:27.488Z",
+        "evaluatedAt": "2026-08-21T09:19:50.091Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -73,7 +93,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:27.489Z",
+          "evaluatedAt": "2026-08-21T09:19:50.092Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:27.489Z",
+          "evaluatedAt": "2026-08-21T09:19:50.092Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -150,12 +188,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:.agents/skills/update-swiftui-apis",
       "relPath": ".agents/skills/update-swiftui-apis",
       "verified": true,
       "tokenCount": 1184,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -195,13 +235,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 8,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:27.489Z",
+        "evaluatedAt": "2026-08-21T09:19:50.092Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -210,7 +268,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -250,13 +308,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 8,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:27.489Z",
+          "evaluatedAt": "2026-08-21T09:19:50.092Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +350,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:27.489Z",
+          "evaluatedAt": "2026-08-21T09:19:50.092Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -286,7 +362,7 @@
       "name": "avdlee-swiftui-agent-skill-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from AvdLee/SwiftUI-Agent-Skill.",
       "author": "ASM (AvdLee/SwiftUI-Agent-Skill)",
-      "createdAt": "2026-08-19T04:55:27.490Z",
+      "createdAt": "2026-08-21T09:19:50.612Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -322,7 +398,7 @@
       "name": "avdlee-swiftui-agent-skill-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from AvdLee/SwiftUI-Agent-Skill.",
       "author": "ASM (AvdLee/SwiftUI-Agent-Skill)",
-      "createdAt": "2026-08-19T04:55:27.490Z",
+      "createdAt": "2026-08-21T09:19:50.612Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -358,7 +434,7 @@
       "name": "avdlee-swiftui-agent-skill-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from AvdLee/SwiftUI-Agent-Skill.",
       "author": "ASM (AvdLee/SwiftUI-Agent-Skill)",
-      "createdAt": "2026-08-19T04:55:27.490Z",
+      "createdAt": "2026-08-21T09:19:50.612Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -394,7 +470,7 @@
       "name": "avdlee-swiftui-agent-skill-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from AvdLee/SwiftUI-Agent-Skill.",
       "author": "ASM (AvdLee/SwiftUI-Agent-Skill)",
-      "createdAt": "2026-08-19T04:55:27.490Z",
+      "createdAt": "2026-08-21T09:19:50.612Z",
       "tags": [
         "repo-derived",
         "inferred",

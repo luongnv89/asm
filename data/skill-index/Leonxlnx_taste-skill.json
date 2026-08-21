@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/Leonxlnx/taste-skill.git",
   "owner": "Leonxlnx",
   "repo": "taste-skill",
-  "updatedAt": "2026-08-19T04:55:16.464Z",
+  "updatedAt": "2026-08-21T09:19:37.772Z",
   "skillCount": 13,
   "skills": [
     {
@@ -13,12 +13,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Leonxlnx/taste-skill:skills/brandkit",
       "relPath": "skills/brandkit",
       "verified": true,
       "tokenCount": 4650,
       "evalSummary": {
-        "overallScore": 51,
+        "overallScore": 56,
         "grade": "D",
         "categories": [
           {
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 8,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:16.419Z",
+        "evaluatedAt": "2026-08-21T09:19:37.740Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -73,7 +93,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 51,
+          "overallScore": 56,
           "grade": "D",
           "categories": [
             {
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 8,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.428Z",
+          "evaluatedAt": "2026-08-21T09:19:37.741Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.428Z",
+          "evaluatedAt": "2026-08-21T09:19:37.741Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -150,6 +188,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Leonxlnx/taste-skill:skills/taste-skill",
       "relPath": "skills/taste-skill",
       "verified": true,
@@ -195,13 +235,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 7,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:16.425Z",
+        "evaluatedAt": "2026-08-21T09:19:37.740Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -210,8 +268,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 66,
-          "grade": "C",
+          "overallScore": 64,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -250,13 +308,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 7,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.428Z",
+          "evaluatedAt": "2026-08-21T09:19:37.741Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +350,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.428Z",
+          "evaluatedAt": "2026-08-21T09:19:37.741Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -287,12 +363,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Leonxlnx/taste-skill:skills/taste-skill-v1",
       "relPath": "skills/taste-skill-v1",
       "verified": true,
       "tokenCount": 5731,
       "evalSummary": {
-        "overallScore": 54,
+        "overallScore": 58,
         "grade": "D",
         "categories": [
           {
@@ -332,13 +410,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 7,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:16.427Z",
+        "evaluatedAt": "2026-08-21T09:19:37.740Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -347,7 +443,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 54,
+          "overallScore": 56,
           "grade": "D",
           "categories": [
             {
@@ -387,13 +483,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 7,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.429Z",
+          "evaluatedAt": "2026-08-21T09:19:37.741Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +525,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.429Z",
+          "evaluatedAt": "2026-08-21T09:19:37.741Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -424,12 +538,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Leonxlnx/taste-skill:skills/output-skill",
       "relPath": "skills/output-skill",
       "verified": true,
       "tokenCount": 792,
       "evalSummary": {
-        "overallScore": 57,
+        "overallScore": 60,
         "grade": "D",
         "categories": [
           {
@@ -469,13 +585,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 9,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:16.427Z",
+        "evaluatedAt": "2026-08-21T09:19:37.740Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -484,7 +618,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 57,
+          "overallScore": 60,
           "grade": "D",
           "categories": [
             {
@@ -524,13 +658,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 9,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.429Z",
+          "evaluatedAt": "2026-08-21T09:19:37.741Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +700,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.429Z",
+          "evaluatedAt": "2026-08-21T09:19:37.741Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -561,6 +713,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Leonxlnx/taste-skill:skills/gpt-tasteskill",
       "relPath": "skills/gpt-tasteskill",
       "verified": true,
@@ -606,13 +760,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 7,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:16.428Z",
+        "evaluatedAt": "2026-08-21T09:19:37.740Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -661,13 +833,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 7,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.435Z",
+          "evaluatedAt": "2026-08-21T09:19:37.741Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +875,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.435Z",
+          "evaluatedAt": "2026-08-21T09:19:37.741Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -698,13 +888,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Leonxlnx/taste-skill:skills/soft-skill",
       "relPath": "skills/soft-skill",
       "verified": true,
       "tokenCount": 2845,
       "evalSummary": {
-        "overallScore": 49,
-        "grade": "F",
+        "overallScore": 54,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -743,13 +935,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 7,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:16.429Z",
+        "evaluatedAt": "2026-08-21T09:19:37.741Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -757,9 +967,9 @@
           "providerId": "quality",
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 49,
-          "grade": "F",
+          "passed": true,
+          "overallScore": 54,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -798,13 +1008,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 7,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.435Z",
+          "evaluatedAt": "2026-08-21T09:19:37.741Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +1050,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.435Z",
+          "evaluatedAt": "2026-08-21T09:19:37.741Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -835,12 +1063,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Leonxlnx/taste-skill:skills/image-to-code-skill",
       "relPath": "skills/image-to-code-skill",
       "verified": true,
       "tokenCount": 10712,
       "evalSummary": {
-        "overallScore": 54,
+        "overallScore": 58,
         "grade": "D",
         "categories": [
           {
@@ -880,13 +1110,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 7,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:16.432Z",
+        "evaluatedAt": "2026-08-21T09:19:37.741Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -895,7 +1143,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 54,
+          "overallScore": 58,
           "grade": "D",
           "categories": [
             {
@@ -935,13 +1183,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 7,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.435Z",
+          "evaluatedAt": "2026-08-21T09:19:37.741Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +1225,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.435Z",
+          "evaluatedAt": "2026-08-21T09:19:37.741Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -972,147 +1238,12 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Leonxlnx/taste-skill:skills/imagegen-frontend-mobile",
       "relPath": "skills/imagegen-frontend-mobile",
       "verified": true,
       "tokenCount": 11990,
-      "evalSummary": {
-        "overallScore": 56,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 8,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-08-19T04:55:16.435Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 56,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 8,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-08-19T04:55:16.435Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 69,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 9,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-08-19T04:55:16.435Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "imagegen-frontend-web",
-      "description": "Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a single consistent palette across all images. Optimized for landing pages, marketing sites, and product comps that developers or coding models can accurately recreate.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Leonxlnx/taste-skill:skills/imagegen-frontend-web",
-      "relPath": "skills/imagegen-frontend-web",
-      "verified": true,
-      "tokenCount": 10869,
       "evalSummary": {
         "overallScore": 59,
         "grade": "D",
@@ -1154,13 +1285,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
             "score": 10,
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:16.454Z",
+        "evaluatedAt": "2026-08-21T09:19:37.741Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1209,13 +1358,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
               "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.458Z",
+          "evaluatedAt": "2026-08-21T09:19:37.741Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1400,182 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.458Z",
+          "evaluatedAt": "2026-08-21T09:19:37.741Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "imagegen-frontend-web",
+      "description": "Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a single consistent palette across all images. Optimized for landing pages, marketing sites, and product comps that developers or coding models can accurately recreate.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:Leonxlnx/taste-skill:skills/imagegen-frontend-web",
+      "relPath": "skills/imagegen-frontend-web",
+      "verified": true,
+      "tokenCount": 10869,
+      "evalSummary": {
+        "overallScore": 61,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-21T09:19:37.765Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 61,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:19:37.765Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:19:37.765Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1246,12 +1588,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Leonxlnx/taste-skill:skills/brutalist-skill",
       "relPath": "skills/brutalist-skill",
       "verified": true,
       "tokenCount": 2197,
       "evalSummary": {
-        "overallScore": 54,
+        "overallScore": 58,
         "grade": "D",
         "categories": [
           {
@@ -1291,13 +1635,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 7,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:16.457Z",
+        "evaluatedAt": "2026-08-21T09:19:37.765Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1306,7 +1668,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 54,
+          "overallScore": 58,
           "grade": "D",
           "categories": [
             {
@@ -1346,13 +1708,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 7,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.458Z",
+          "evaluatedAt": "2026-08-21T09:19:37.765Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1750,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.458Z",
+          "evaluatedAt": "2026-08-21T09:19:37.765Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1383,13 +1763,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Leonxlnx/taste-skill:skills/minimalist-skill",
       "relPath": "skills/minimalist-skill",
       "verified": true,
       "tokenCount": 2138,
       "evalSummary": {
-        "overallScore": 47,
-        "grade": "F",
+        "overallScore": 53,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -1428,13 +1810,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 7,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:16.456Z",
+        "evaluatedAt": "2026-08-21T09:19:37.765Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1442,9 +1842,9 @@
           "providerId": "quality",
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 47,
-          "grade": "F",
+          "passed": true,
+          "overallScore": 53,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -1483,13 +1883,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 7,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.458Z",
+          "evaluatedAt": "2026-08-21T09:19:37.765Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1925,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.458Z",
+          "evaluatedAt": "2026-08-21T09:19:37.765Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1520,12 +1938,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Leonxlnx/taste-skill:skills/redesign-skill",
       "relPath": "skills/redesign-skill",
       "verified": true,
       "tokenCount": 4277,
       "evalSummary": {
-        "overallScore": 57,
+        "overallScore": 60,
         "grade": "D",
         "categories": [
           {
@@ -1565,13 +1985,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 9,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:16.455Z",
+        "evaluatedAt": "2026-08-21T09:19:37.765Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1580,7 +2018,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 57,
+          "overallScore": 58,
           "grade": "D",
           "categories": [
             {
@@ -1620,13 +2058,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 9,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.458Z",
+          "evaluatedAt": "2026-08-21T09:19:37.765Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +2100,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.458Z",
+          "evaluatedAt": "2026-08-21T09:19:37.765Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1657,6 +2113,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Leonxlnx/taste-skill:skills/stitch-skill",
       "relPath": "skills/stitch-skill",
       "verified": true,
@@ -1702,13 +2160,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 7,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:16.458Z",
+        "evaluatedAt": "2026-08-21T09:19:37.765Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1717,7 +2193,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
+          "overallScore": 65,
           "grade": "C",
           "categories": [
             {
@@ -1757,13 +2233,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 7,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.458Z",
+          "evaluatedAt": "2026-08-21T09:19:37.765Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +2275,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:16.458Z",
+          "evaluatedAt": "2026-08-21T09:19:37.765Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1793,7 +2287,7 @@
       "name": "leonxlnx-taste-skill-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Leonxlnx/taste-skill.",
       "author": "ASM (Leonxlnx/taste-skill)",
-      "createdAt": "2026-08-19T04:55:16.464Z",
+      "createdAt": "2026-08-21T09:19:37.772Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1883,7 +2377,7 @@
       "name": "leonxlnx-taste-skill-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Leonxlnx/taste-skill.",
       "author": "ASM (Leonxlnx/taste-skill)",
-      "createdAt": "2026-08-19T04:55:16.464Z",
+      "createdAt": "2026-08-21T09:19:37.772Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1931,7 +2425,7 @@
       "name": "leonxlnx-taste-skill-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from Leonxlnx/taste-skill.",
       "author": "ASM (Leonxlnx/taste-skill)",
-      "createdAt": "2026-08-19T04:55:16.464Z",
+      "createdAt": "2026-08-21T09:19:37.772Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1985,7 +2479,7 @@
       "name": "leonxlnx-taste-skill-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Leonxlnx/taste-skill.",
       "author": "ASM (Leonxlnx/taste-skill)",
-      "createdAt": "2026-08-19T04:55:16.464Z",
+      "createdAt": "2026-08-21T09:19:37.772Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2087,7 +2581,7 @@
       "name": "leonxlnx-taste-skill-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from Leonxlnx/taste-skill.",
       "author": "ASM (Leonxlnx/taste-skill)",
-      "createdAt": "2026-08-19T04:55:16.464Z",
+      "createdAt": "2026-08-21T09:19:37.772Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2147,7 +2641,7 @@
       "name": "leonxlnx-taste-skill-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from Leonxlnx/taste-skill.",
       "author": "ASM (Leonxlnx/taste-skill)",
-      "createdAt": "2026-08-19T04:55:16.464Z",
+      "createdAt": "2026-08-21T09:19:37.772Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2183,7 +2677,7 @@
       "name": "leonxlnx-taste-skill-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from Leonxlnx/taste-skill.",
       "author": "ASM (Leonxlnx/taste-skill)",
-      "createdAt": "2026-08-19T04:55:16.464Z",
+      "createdAt": "2026-08-21T09:19:37.772Z",
       "tags": [
         "repo-derived",
         "inferred",

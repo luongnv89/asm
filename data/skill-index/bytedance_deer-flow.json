@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/bytedance/deer-flow.git",
   "owner": "bytedance",
   "repo": "deer-flow",
-  "updatedAt": "2026-08-19T04:55:48.312Z",
+  "updatedAt": "2026-08-21T09:20:21.367Z",
   "skillCount": 27,
   "skills": [
     {
@@ -13,12 +13,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/academic-paper-review",
       "relPath": "skills/public/academic-paper-review",
       "verified": true,
       "tokenCount": 3314,
       "evalSummary": {
-        "overallScore": 59,
+        "overallScore": 61,
         "grade": "D",
         "categories": [
           {
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.267Z",
+        "evaluatedAt": "2026-08-21T09:20:20.632Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -73,7 +93,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 59,
+          "overallScore": 61,
           "grade": "D",
           "categories": [
             {
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.269Z",
+          "evaluatedAt": "2026-08-21T09:20:20.632Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.269Z",
+          "evaluatedAt": "2026-08-21T09:20:20.632Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -150,12 +188,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:.agent/skills/blocking-io-guard",
       "relPath": ".agent/skills/blocking-io-guard",
       "verified": true,
       "tokenCount": 2004,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -195,13 +235,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.269Z",
+        "evaluatedAt": "2026-08-21T09:20:20.632Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -210,7 +268,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 67,
           "grade": "C",
           "categories": [
             {
@@ -250,13 +308,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 7,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.270Z",
+          "evaluatedAt": "2026-08-21T09:20:20.632Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +350,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.270Z",
+          "evaluatedAt": "2026-08-21T09:20:20.632Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -287,12 +363,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/bootstrap",
       "relPath": "skills/public/bootstrap",
       "verified": true,
       "tokenCount": 1486,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -332,13 +410,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.268Z",
+        "evaluatedAt": "2026-08-21T09:20:20.632Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -347,7 +443,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -387,13 +483,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.269Z",
+          "evaluatedAt": "2026-08-21T09:20:20.632Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +525,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.269Z",
+          "evaluatedAt": "2026-08-21T09:20:20.632Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -424,6 +538,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/chart-visualization",
       "relPath": "skills/public/chart-visualization",
       "verified": true,
@@ -469,13 +585,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.268Z",
+        "evaluatedAt": "2026-08-21T09:20:20.632Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -524,13 +658,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.269Z",
+          "evaluatedAt": "2026-08-21T09:20:20.632Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +700,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.269Z",
+          "evaluatedAt": "2026-08-21T09:20:20.632Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -561,12 +713,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/claude-to-deerflow",
       "relPath": "skills/public/claude-to-deerflow",
       "verified": true,
       "tokenCount": 1910,
       "evalSummary": {
-        "overallScore": 57,
+        "overallScore": 60,
         "grade": "D",
         "categories": [
           {
@@ -606,13 +760,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 8,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.269Z",
+        "evaluatedAt": "2026-08-21T09:20:20.632Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -621,7 +793,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 57,
+          "overallScore": 58,
           "grade": "D",
           "categories": [
             {
@@ -661,13 +833,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 8,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 8,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.269Z",
+          "evaluatedAt": "2026-08-21T09:20:20.632Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +875,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.270Z",
+          "evaluatedAt": "2026-08-21T09:20:20.632Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -698,12 +888,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/code-documentation",
       "relPath": "skills/public/code-documentation",
       "verified": true,
       "tokenCount": 3811,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 71,
         "grade": "C",
         "categories": [
           {
@@ -743,13 +935,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.271Z",
+        "evaluatedAt": "2026-08-21T09:20:20.632Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -758,7 +968,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 71,
           "grade": "C",
           "categories": [
             {
@@ -798,13 +1008,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.273Z",
+          "evaluatedAt": "2026-08-21T09:20:20.632Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +1050,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.273Z",
+          "evaluatedAt": "2026-08-21T09:20:20.632Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -835,6 +1063,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/consulting-analysis",
       "relPath": "skills/public/consulting-analysis",
       "verified": true,
@@ -880,13 +1110,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.273Z",
+        "evaluatedAt": "2026-08-21T09:20:20.632Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -935,13 +1183,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.273Z",
+          "evaluatedAt": "2026-08-21T09:20:20.632Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +1225,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.273Z",
+          "evaluatedAt": "2026-08-21T09:20:20.632Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -972,12 +1238,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/data-analysis",
       "relPath": "skills/public/data-analysis",
       "verified": true,
       "tokenCount": 2321,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -1017,13 +1285,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.271Z",
+        "evaluatedAt": "2026-08-21T09:20:20.632Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1032,7 +1318,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -1072,13 +1358,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.273Z",
+          "evaluatedAt": "2026-08-21T09:20:20.632Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1096,7 +1400,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.273Z",
+          "evaluatedAt": "2026-08-21T09:20:20.632Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1109,12 +1413,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/deep-research",
       "relPath": "skills/public/deep-research",
       "verified": true,
       "tokenCount": 2212,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 71,
         "grade": "C",
         "categories": [
           {
@@ -1154,13 +1460,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.281Z",
+        "evaluatedAt": "2026-08-21T09:20:20.666Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1169,7 +1493,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 71,
           "grade": "C",
           "categories": [
             {
@@ -1209,13 +1533,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.283Z",
+          "evaluatedAt": "2026-08-21T09:20:20.667Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1575,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.284Z",
+          "evaluatedAt": "2026-08-21T09:20:20.667Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1246,12 +1588,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:.agent/skills/deerflow-maintainer-orchestrator",
       "relPath": ".agent/skills/deerflow-maintainer-orchestrator",
       "verified": true,
       "tokenCount": 6293,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -1291,13 +1635,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.282Z",
+        "evaluatedAt": "2026-08-21T09:20:20.666Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1306,7 +1668,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -1346,13 +1708,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.284Z",
+          "evaluatedAt": "2026-08-21T09:20:20.668Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1750,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.284Z",
+          "evaluatedAt": "2026-08-21T09:20:20.668Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1383,13 +1763,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:.agent/skills/engineer-system-change",
       "relPath": ".agent/skills/engineer-system-change",
       "verified": true,
       "tokenCount": 2773,
       "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
+        "overallScore": 65,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -1428,13 +1810,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 8,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.283Z",
+        "evaluatedAt": "2026-08-21T09:20:20.667Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1443,8 +1843,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 65,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -1483,13 +1883,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 8,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.284Z",
+          "evaluatedAt": "2026-08-21T09:20:20.668Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1925,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.284Z",
+          "evaluatedAt": "2026-08-21T09:20:20.668Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1520,6 +1938,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/find-skills",
       "relPath": "skills/public/find-skills",
       "verified": true,
@@ -1565,13 +1985,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.283Z",
+        "evaluatedAt": "2026-08-21T09:20:20.678Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1580,7 +2018,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 66,
+          "overallScore": 65,
           "grade": "C",
           "categories": [
             {
@@ -1620,13 +2058,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 9,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.284Z",
+          "evaluatedAt": "2026-08-21T09:20:20.678Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +2100,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.284Z",
+          "evaluatedAt": "2026-08-21T09:20:20.678Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1657,12 +2113,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/frontend-design",
       "relPath": "skills/public/frontend-design",
       "verified": true,
       "tokenCount": 1932,
       "evalSummary": {
-        "overallScore": 67,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -1702,13 +2160,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 2,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.284Z",
+        "evaluatedAt": "2026-08-21T09:20:20.680Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1717,7 +2193,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -1757,13 +2233,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 2,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.284Z",
+          "evaluatedAt": "2026-08-21T09:20:20.681Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +2275,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.284Z",
+          "evaluatedAt": "2026-08-21T09:20:20.681Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1794,13 +2288,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/github-deep-research",
       "relPath": "skills/public/github-deep-research",
       "verified": true,
       "tokenCount": 1278,
       "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
+        "overallScore": 65,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -1839,13 +2335,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.286Z",
+        "evaluatedAt": "2026-08-21T09:20:20.684Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1854,8 +2368,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 65,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -1894,13 +2408,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.286Z",
+          "evaluatedAt": "2026-08-21T09:20:20.686Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1918,7 +2450,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.286Z",
+          "evaluatedAt": "2026-08-21T09:20:20.686Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1931,12 +2463,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/image-generation",
       "relPath": "skills/public/image-generation",
       "verified": true,
       "tokenCount": 2533,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -1976,13 +2510,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.285Z",
+        "evaluatedAt": "2026-08-21T09:20:20.686Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1991,7 +2543,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -2031,13 +2583,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.286Z",
+          "evaluatedAt": "2026-08-21T09:20:20.686Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2055,7 +2625,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.286Z",
+          "evaluatedAt": "2026-08-21T09:20:20.686Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2068,12 +2638,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/music-generation",
       "relPath": "skills/public/music-generation",
       "verified": true,
       "tokenCount": 727,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -2113,13 +2685,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.285Z",
+        "evaluatedAt": "2026-08-21T09:20:20.686Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2128,7 +2718,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -2168,13 +2758,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.286Z",
+          "evaluatedAt": "2026-08-21T09:20:20.686Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2192,7 +2800,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.286Z",
+          "evaluatedAt": "2026-08-21T09:20:20.686Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2205,6 +2813,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/newsletter-generation",
       "relPath": "skills/public/newsletter-generation",
       "verified": true,
@@ -2250,13 +2860,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.293Z",
+        "evaluatedAt": "2026-08-21T09:20:20.717Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2305,13 +2933,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.298Z",
+          "evaluatedAt": "2026-08-21T09:20:20.723Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2329,7 +2975,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.298Z",
+          "evaluatedAt": "2026-08-21T09:20:20.723Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2342,12 +2988,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/podcast-generation",
       "relPath": "skills/public/podcast-generation",
       "verified": true,
       "tokenCount": 2119,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
@@ -2387,13 +3035,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.294Z",
+        "evaluatedAt": "2026-08-21T09:20:20.717Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2402,7 +3068,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 76,
+          "overallScore": 73,
           "grade": "C",
           "categories": [
             {
@@ -2442,13 +3108,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.298Z",
+          "evaluatedAt": "2026-08-21T09:20:20.723Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2466,7 +3150,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.298Z",
+          "evaluatedAt": "2026-08-21T09:20:20.723Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2479,12 +3163,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/ppt-generation",
       "relPath": "skills/public/ppt-generation",
       "verified": true,
       "tokenCount": 7130,
       "evalSummary": {
-        "overallScore": 63,
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -2524,13 +3210,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.295Z",
+        "evaluatedAt": "2026-08-21T09:20:20.723Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2539,7 +3243,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 63,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -2579,13 +3283,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.298Z",
+          "evaluatedAt": "2026-08-21T09:20:20.724Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2603,7 +3325,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.298Z",
+          "evaluatedAt": "2026-08-21T09:20:20.724Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2616,12 +3338,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/skill-creator",
       "relPath": "skills/public/skill-creator",
       "verified": true,
       "tokenCount": 11136,
       "evalSummary": {
-        "overallScore": 86,
+        "overallScore": 82,
         "grade": "B",
         "categories": [
           {
@@ -2661,13 +3385,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 2,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.298Z",
+        "evaluatedAt": "2026-08-21T09:20:20.730Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2676,7 +3418,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 86,
+          "overallScore": 82,
           "grade": "B",
           "categories": [
             {
@@ -2716,13 +3458,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 2,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.299Z",
+          "evaluatedAt": "2026-08-21T09:20:20.734Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2740,7 +3500,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.299Z",
+          "evaluatedAt": "2026-08-21T09:20:20.734Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2753,13 +3513,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/skill-reviewer",
       "relPath": "skills/public/skill-reviewer",
       "verified": true,
       "tokenCount": 1445,
       "evalSummary": {
-        "overallScore": 83,
-        "grade": "B",
+        "overallScore": 78,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -2798,13 +3560,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.298Z",
+        "evaluatedAt": "2026-08-21T09:20:20.757Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2813,8 +3593,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 83,
-          "grade": "B",
+          "overallScore": 78,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -2853,13 +3633,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.299Z",
+          "evaluatedAt": "2026-08-21T09:20:20.758Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2877,7 +3675,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.299Z",
+          "evaluatedAt": "2026-08-21T09:20:20.758Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2890,12 +3688,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:.agent/skills/smoke-test",
       "relPath": ".agent/skills/smoke-test",
       "verified": true,
       "tokenCount": 2955,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
@@ -2935,13 +3735,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.300Z",
+        "evaluatedAt": "2026-08-21T09:20:20.770Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2950,8 +3768,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 76,
-          "grade": "C",
+          "overallScore": 64,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -2990,13 +3808,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 3,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.301Z",
+          "evaluatedAt": "2026-08-21T09:20:20.771Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3014,7 +3850,7 @@
               "max": 2
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.301Z",
+          "evaluatedAt": "2026-08-21T09:20:20.771Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3027,12 +3863,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/surprise-me",
       "relPath": "skills/public/surprise-me",
       "verified": true,
       "tokenCount": 768,
       "evalSummary": {
-        "overallScore": 59,
+        "overallScore": 61,
         "grade": "D",
         "categories": [
           {
@@ -3072,13 +3910,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.300Z",
+        "evaluatedAt": "2026-08-21T09:20:20.772Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3087,7 +3943,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 59,
+          "overallScore": 61,
           "grade": "D",
           "categories": [
             {
@@ -3127,13 +3983,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.301Z",
+          "evaluatedAt": "2026-08-21T09:20:20.772Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3151,7 +4025,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.301Z",
+          "evaluatedAt": "2026-08-21T09:20:20.772Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3164,12 +4038,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/systematic-literature-review",
       "relPath": "skills/public/systematic-literature-review",
       "verified": true,
       "tokenCount": 5299,
       "evalSummary": {
-        "overallScore": 77,
+        "overallScore": 74,
         "grade": "C",
         "categories": [
           {
@@ -3209,13 +4085,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.301Z",
+        "evaluatedAt": "2026-08-21T09:20:20.809Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3224,7 +4118,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 77,
+          "overallScore": 74,
           "grade": "C",
           "categories": [
             {
@@ -3264,13 +4158,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.301Z",
+          "evaluatedAt": "2026-08-21T09:20:20.814Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3288,7 +4200,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.301Z",
+          "evaluatedAt": "2026-08-21T09:20:20.814Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3301,12 +4213,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/vercel-deploy-claimable",
       "relPath": "skills/public/vercel-deploy-claimable",
       "verified": true,
       "tokenCount": 724,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -3346,13 +4260,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 9,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.310Z",
+        "evaluatedAt": "2026-08-21T09:20:20.818Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3361,7 +4293,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 67,
           "grade": "C",
           "categories": [
             {
@@ -3401,13 +4333,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 9,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 9,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.311Z",
+          "evaluatedAt": "2026-08-21T09:20:20.818Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3425,7 +4375,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.311Z",
+          "evaluatedAt": "2026-08-21T09:20:20.818Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3438,12 +4388,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/video-generation",
       "relPath": "skills/public/video-generation",
       "verified": true,
       "tokenCount": 1425,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -3483,13 +4435,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.310Z",
+        "evaluatedAt": "2026-08-21T09:20:20.822Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3498,7 +4468,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -3538,13 +4508,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.311Z",
+          "evaluatedAt": "2026-08-21T09:20:20.823Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3562,7 +4550,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.311Z",
+          "evaluatedAt": "2026-08-21T09:20:20.823Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3575,6 +4563,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:bytedance/deer-flow:skills/public/web-design-guidelines",
       "relPath": "skills/public/web-design-guidelines",
       "verified": true,
@@ -3620,13 +4610,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:48.311Z",
+        "evaluatedAt": "2026-08-21T09:20:20.845Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3675,13 +4683,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.311Z",
+          "evaluatedAt": "2026-08-21T09:20:20.846Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3699,7 +4725,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:48.311Z",
+          "evaluatedAt": "2026-08-21T09:20:20.846Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3711,7 +4737,7 @@
       "name": "bytedance-deer-flow-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from bytedance/deer-flow.",
       "author": "ASM (bytedance/deer-flow)",
-      "createdAt": "2026-08-19T04:55:48.312Z",
+      "createdAt": "2026-08-21T09:20:21.367Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3855,7 +4881,7 @@
       "name": "bytedance-deer-flow-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from bytedance/deer-flow.",
       "author": "ASM (bytedance/deer-flow)",
-      "createdAt": "2026-08-19T04:55:48.312Z",
+      "createdAt": "2026-08-21T09:20:21.367Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3927,7 +4953,7 @@
       "name": "bytedance-deer-flow-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from bytedance/deer-flow.",
       "author": "ASM (bytedance/deer-flow)",
-      "createdAt": "2026-08-19T04:55:48.312Z",
+      "createdAt": "2026-08-21T09:20:21.367Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4041,7 +5067,7 @@
       "name": "bytedance-deer-flow-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from bytedance/deer-flow.",
       "author": "ASM (bytedance/deer-flow)",
-      "createdAt": "2026-08-19T04:55:48.312Z",
+      "createdAt": "2026-08-21T09:20:21.367Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4149,7 +5175,7 @@
       "name": "bytedance-deer-flow-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from bytedance/deer-flow.",
       "author": "ASM (bytedance/deer-flow)",
-      "createdAt": "2026-08-19T04:55:48.312Z",
+      "createdAt": "2026-08-21T09:20:21.367Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4185,7 +5211,7 @@
       "name": "bytedance-deer-flow-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from bytedance/deer-flow.",
       "author": "ASM (bytedance/deer-flow)",
-      "createdAt": "2026-08-19T04:55:48.312Z",
+      "createdAt": "2026-08-21T09:20:21.367Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4245,7 +5271,7 @@
       "name": "bytedance-deer-flow-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from bytedance/deer-flow.",
       "author": "ASM (bytedance/deer-flow)",
-      "createdAt": "2026-08-19T04:55:48.312Z",
+      "createdAt": "2026-08-21T09:20:21.367Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4365,7 +5391,7 @@
       "name": "bytedance-deer-flow-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from bytedance/deer-flow.",
       "author": "ASM (bytedance/deer-flow)",
-      "createdAt": "2026-08-19T04:55:48.312Z",
+      "createdAt": "2026-08-21T09:20:21.367Z",
       "tags": [
         "repo-derived",
         "inferred",

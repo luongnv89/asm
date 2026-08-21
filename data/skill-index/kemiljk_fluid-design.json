@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/kemiljk/fluid-design.git",
   "owner": "kemiljk",
   "repo": "fluid-design",
-  "updatedAt": "2026-08-19T04:55:22.922Z",
+  "updatedAt": "2026-08-21T09:19:45.687Z",
   "skillCount": 1,
   "skills": [
     {
@@ -13,12 +13,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:kemiljk/fluid-design:skills/fluid-design",
       "relPath": "skills/fluid-design",
       "verified": true,
       "tokenCount": 6596,
       "evalSummary": {
-        "overallScore": 51,
+        "overallScore": 61,
         "grade": "D",
         "categories": [
           {
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:22.920Z",
+        "evaluatedAt": "2026-08-21T09:19:45.685Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -73,7 +93,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 51,
+          "overallScore": 61,
           "grade": "D",
           "categories": [
             {
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.920Z",
+          "evaluatedAt": "2026-08-21T09:19:45.685Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.920Z",
+          "evaluatedAt": "2026-08-21T09:19:45.685Z",
           "evaluatedVersion": "0.0.0"
         }
       }

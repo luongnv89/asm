@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/slavingia/skills.git",
   "owner": "slavingia",
   "repo": "skills",
-  "updatedAt": "2026-08-19T04:55:22.185Z",
+  "updatedAt": "2026-08-21T09:19:45.066Z",
   "skillCount": 10,
   "skills": [
     {
@@ -13,12 +13,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:slavingia/skills:skills/company-values",
       "relPath": "skills/company-values",
       "verified": true,
       "tokenCount": 1347,
       "evalSummary": {
-        "overallScore": 60,
+        "overallScore": 62,
         "grade": "D",
         "categories": [
           {
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:22.176Z",
+        "evaluatedAt": "2026-08-21T09:19:45.061Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -73,7 +93,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 60,
+          "overallScore": 62,
           "grade": "D",
           "categories": [
             {
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.178Z",
+          "evaluatedAt": "2026-08-21T09:19:45.061Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.178Z",
+          "evaluatedAt": "2026-08-21T09:19:45.061Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -150,12 +188,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:slavingia/skills:skills/find-community",
       "relPath": "skills/find-community",
       "verified": true,
       "tokenCount": 896,
       "evalSummary": {
-        "overallScore": 50,
+        "overallScore": 55,
         "grade": "D",
         "categories": [
           {
@@ -195,13 +235,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:22.177Z",
+        "evaluatedAt": "2026-08-21T09:19:45.061Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -210,7 +268,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 50,
+          "overallScore": 55,
           "grade": "D",
           "categories": [
             {
@@ -250,13 +308,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.178Z",
+          "evaluatedAt": "2026-08-21T09:19:45.061Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +350,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.178Z",
+          "evaluatedAt": "2026-08-21T09:19:45.061Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -287,6 +363,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:slavingia/skills:skills/first-customers",
       "relPath": "skills/first-customers",
       "verified": true,
@@ -332,13 +410,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:22.177Z",
+        "evaluatedAt": "2026-08-21T09:19:45.061Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -387,13 +483,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.179Z",
+          "evaluatedAt": "2026-08-21T09:19:45.061Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +525,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.179Z",
+          "evaluatedAt": "2026-08-21T09:19:45.061Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -424,13 +538,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:slavingia/skills:skills/grow-sustainably",
       "relPath": "skills/grow-sustainably",
       "verified": true,
       "tokenCount": 1427,
       "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
+        "overallScore": 65,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -469,13 +585,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:22.178Z",
+        "evaluatedAt": "2026-08-21T09:19:45.061Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -484,8 +618,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 65,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -524,13 +658,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.179Z",
+          "evaluatedAt": "2026-08-21T09:19:45.061Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +700,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.179Z",
+          "evaluatedAt": "2026-08-21T09:19:45.061Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -561,6 +713,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:slavingia/skills:skills/marketing-plan",
       "relPath": "skills/marketing-plan",
       "verified": true,
@@ -606,13 +760,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:22.179Z",
+        "evaluatedAt": "2026-08-21T09:19:45.061Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -661,13 +833,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.180Z",
+          "evaluatedAt": "2026-08-21T09:19:45.061Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +875,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.180Z",
+          "evaluatedAt": "2026-08-21T09:19:45.061Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -698,12 +888,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:slavingia/skills:skills/minimalist-review",
       "relPath": "skills/minimalist-review",
       "verified": true,
       "tokenCount": 1130,
       "evalSummary": {
-        "overallScore": 56,
+        "overallScore": 59,
         "grade": "D",
         "categories": [
           {
@@ -743,13 +935,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 8,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:22.178Z",
+        "evaluatedAt": "2026-08-21T09:19:45.061Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -758,7 +968,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 56,
+          "overallScore": 59,
           "grade": "D",
           "categories": [
             {
@@ -798,13 +1008,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 8,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.179Z",
+          "evaluatedAt": "2026-08-21T09:19:45.061Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +1050,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.179Z",
+          "evaluatedAt": "2026-08-21T09:19:45.061Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -835,12 +1063,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:slavingia/skills:skills/mvp",
       "relPath": "skills/mvp",
       "verified": true,
       "tokenCount": 1251,
       "evalSummary": {
-        "overallScore": 53,
+        "overallScore": 57,
         "grade": "D",
         "categories": [
           {
@@ -880,13 +1110,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:22.179Z",
+        "evaluatedAt": "2026-08-21T09:19:45.061Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -895,7 +1143,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 53,
+          "overallScore": 57,
           "grade": "D",
           "categories": [
             {
@@ -935,13 +1183,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.180Z",
+          "evaluatedAt": "2026-08-21T09:19:45.061Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +1225,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.180Z",
+          "evaluatedAt": "2026-08-21T09:19:45.061Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -972,12 +1238,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:slavingia/skills:skills/pricing",
       "relPath": "skills/pricing",
       "verified": true,
       "tokenCount": 1003,
       "evalSummary": {
-        "overallScore": 53,
+        "overallScore": 57,
         "grade": "D",
         "categories": [
           {
@@ -1017,13 +1285,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:22.180Z",
+        "evaluatedAt": "2026-08-21T09:19:45.061Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1032,7 +1318,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 53,
+          "overallScore": 57,
           "grade": "D",
           "categories": [
             {
@@ -1072,13 +1358,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.180Z",
+          "evaluatedAt": "2026-08-21T09:19:45.061Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1096,7 +1400,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.180Z",
+          "evaluatedAt": "2026-08-21T09:19:45.061Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1109,12 +1413,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:slavingia/skills:skills/processize",
       "relPath": "skills/processize",
       "verified": true,
       "tokenCount": 1529,
       "evalSummary": {
-        "overallScore": 59,
+        "overallScore": 61,
         "grade": "D",
         "categories": [
           {
@@ -1154,13 +1460,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:22.184Z",
+        "evaluatedAt": "2026-08-21T09:19:45.065Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1169,7 +1493,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 59,
+          "overallScore": 61,
           "grade": "D",
           "categories": [
             {
@@ -1209,13 +1533,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.184Z",
+          "evaluatedAt": "2026-08-21T09:19:45.065Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1575,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.184Z",
+          "evaluatedAt": "2026-08-21T09:19:45.065Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1246,12 +1588,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:slavingia/skills:skills/validate-idea",
       "relPath": "skills/validate-idea",
       "verified": true,
       "tokenCount": 1015,
       "evalSummary": {
-        "overallScore": 61,
+        "overallScore": 63,
         "grade": "D",
         "categories": [
           {
@@ -1291,13 +1635,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:22.184Z",
+        "evaluatedAt": "2026-08-21T09:19:45.065Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1306,7 +1668,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 61,
+          "overallScore": 63,
           "grade": "D",
           "categories": [
             {
@@ -1346,13 +1708,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.184Z",
+          "evaluatedAt": "2026-08-21T09:19:45.065Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1750,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:22.184Z",
+          "evaluatedAt": "2026-08-21T09:19:45.065Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1382,7 +1762,7 @@
       "name": "slavingia-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from slavingia/skills.",
       "author": "ASM (slavingia/skills)",
-      "createdAt": "2026-08-19T04:55:22.185Z",
+      "createdAt": "2026-08-21T09:19:45.066Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1424,7 +1804,7 @@
       "name": "slavingia-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from slavingia/skills.",
       "author": "ASM (slavingia/skills)",
-      "createdAt": "2026-08-19T04:55:22.185Z",
+      "createdAt": "2026-08-21T09:19:45.066Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1484,7 +1864,7 @@
       "name": "slavingia-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from slavingia/skills.",
       "author": "ASM (slavingia/skills)",
-      "createdAt": "2026-08-19T04:55:22.185Z",
+      "createdAt": "2026-08-21T09:19:45.066Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1532,7 +1912,7 @@
       "name": "slavingia-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from slavingia/skills.",
       "author": "ASM (slavingia/skills)",
-      "createdAt": "2026-08-19T04:55:22.185Z",
+      "createdAt": "2026-08-21T09:19:45.066Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1574,7 +1954,7 @@
       "name": "slavingia-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from slavingia/skills.",
       "author": "ASM (slavingia/skills)",
-      "createdAt": "2026-08-19T04:55:22.185Z",
+      "createdAt": "2026-08-21T09:19:45.066Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1658,7 +2038,7 @@
       "name": "slavingia-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from slavingia/skills.",
       "author": "ASM (slavingia/skills)",
-      "createdAt": "2026-08-19T04:55:22.185Z",
+      "createdAt": "2026-08-21T09:19:45.066Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1700,7 +2080,7 @@
       "name": "slavingia-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from slavingia/skills.",
       "author": "ASM (slavingia/skills)",
-      "createdAt": "2026-08-19T04:55:22.185Z",
+      "createdAt": "2026-08-21T09:19:45.066Z",
       "tags": [
         "repo-derived",
         "inferred",

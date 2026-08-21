@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/twostraws/SwiftData-Agent-Skill.git",
   "owner": "twostraws",
   "repo": "SwiftData-Agent-Skill",
-  "updatedAt": "2026-08-19T04:55:26.683Z",
+  "updatedAt": "2026-08-21T09:19:49.288Z",
   "skillCount": 1,
   "skills": [
     {
@@ -13,12 +13,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:twostraws/SwiftData-Agent-Skill:swiftdata-pro",
       "relPath": "swiftdata-pro",
       "verified": true,
       "tokenCount": 974,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 78,
         "grade": "C",
         "categories": [
           {
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:26.683Z",
+        "evaluatedAt": "2026-08-21T09:19:49.286Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -73,7 +93,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 76,
+          "overallScore": 78,
           "grade": "C",
           "categories": [
             {
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:26.683Z",
+          "evaluatedAt": "2026-08-21T09:19:49.286Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:26.683Z",
+          "evaluatedAt": "2026-08-21T09:19:49.286Z",
           "evaluatedVersion": "1.0"
         }
       }

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/Imbad0202/academic-research-skills.git",
   "owner": "Imbad0202",
   "repo": "academic-research-skills",
-  "updatedAt": "2026-08-19T04:56:12.159Z",
+  "updatedAt": "2026-08-21T09:21:09.589Z",
   "skillCount": 4,
   "skills": [
     {
@@ -13,6 +13,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper",
       "relPath": "skills/academic-paper",
       "verified": true,
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:12.140Z",
+        "evaluatedAt": "2026-08-21T09:21:09.541Z",
         "evaluatedVersion": "3.3.1"
       },
       "evalSummaries": {
@@ -73,8 +93,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 66,
-          "grade": "C",
+          "overallScore": 62,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:12.145Z",
+          "evaluatedAt": "2026-08-21T09:21:09.541Z",
           "evaluatedVersion": "3.3.1"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:12.145Z",
+          "evaluatedAt": "2026-08-21T09:21:09.541Z",
           "evaluatedVersion": "3.3.1"
         }
       }
@@ -150,12 +188,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper-reviewer",
       "relPath": "skills/academic-paper-reviewer",
       "verified": true,
       "tokenCount": 10075,
       "evalSummary": {
-        "overallScore": 61,
+        "overallScore": 63,
         "grade": "D",
         "categories": [
           {
@@ -195,13 +235,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:12.142Z",
+        "evaluatedAt": "2026-08-21T09:21:09.541Z",
         "evaluatedVersion": "1.11.1"
       },
       "evalSummaries": {
@@ -210,7 +268,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 61,
+          "overallScore": 63,
           "grade": "D",
           "categories": [
             {
@@ -250,13 +308,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:12.145Z",
+          "evaluatedAt": "2026-08-21T09:21:09.541Z",
           "evaluatedVersion": "1.11.1"
         },
         "skill-best-practice": {
@@ -274,7 +350,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:12.145Z",
+          "evaluatedAt": "2026-08-21T09:21:09.541Z",
           "evaluatedVersion": "1.11.1"
         }
       }
@@ -287,12 +363,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-pipeline",
       "relPath": "skills/academic-pipeline",
       "verified": true,
       "tokenCount": 13302,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -332,13 +410,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:12.145Z",
+        "evaluatedAt": "2026-08-21T09:21:09.541Z",
         "evaluatedVersion": "3.21.0"
       },
       "evalSummaries": {
@@ -347,7 +443,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -387,13 +483,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:12.148Z",
+          "evaluatedAt": "2026-08-21T09:21:09.541Z",
           "evaluatedVersion": "3.21.0"
         },
         "skill-best-practice": {
@@ -411,7 +525,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:12.148Z",
+          "evaluatedAt": "2026-08-21T09:21:09.541Z",
           "evaluatedVersion": "3.21.0"
         }
       }
@@ -424,12 +538,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Imbad0202/academic-research-skills:skills/deep-research",
       "relPath": "skills/deep-research",
       "verified": true,
       "tokenCount": 9776,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -469,13 +585,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:12.148Z",
+        "evaluatedAt": "2026-08-21T09:21:09.541Z",
         "evaluatedVersion": "2.12.1"
       },
       "evalSummaries": {
@@ -484,7 +618,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -524,13 +658,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:12.148Z",
+          "evaluatedAt": "2026-08-21T09:21:09.541Z",
           "evaluatedVersion": "2.12.1"
         },
         "skill-best-practice": {
@@ -548,7 +700,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:12.148Z",
+          "evaluatedAt": "2026-08-21T09:21:09.541Z",
           "evaluatedVersion": "2.12.1"
         }
       }
@@ -560,7 +712,7 @@
       "name": "imbad0202-academic-research-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-08-19T04:56:12.159Z",
+      "createdAt": "2026-08-21T09:21:09.589Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -602,7 +754,7 @@
       "name": "imbad0202-academic-research-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-08-19T04:56:12.159Z",
+      "createdAt": "2026-08-21T09:21:09.589Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -650,7 +802,7 @@
       "name": "imbad0202-academic-research-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-08-19T04:56:12.159Z",
+      "createdAt": "2026-08-21T09:21:09.589Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -698,7 +850,7 @@
       "name": "imbad0202-academic-research-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-08-19T04:56:12.159Z",
+      "createdAt": "2026-08-21T09:21:09.589Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -740,7 +892,7 @@
       "name": "imbad0202-academic-research-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-08-19T04:56:12.159Z",
+      "createdAt": "2026-08-21T09:21:09.589Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -788,7 +940,7 @@
       "name": "imbad0202-academic-research-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-08-19T04:56:12.159Z",
+      "createdAt": "2026-08-21T09:21:09.589Z",
       "tags": [
         "repo-derived",
         "inferred",

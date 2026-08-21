@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/warpdotdev/oz-skills.git",
   "owner": "warpdotdev",
   "repo": "oz-skills",
-  "updatedAt": "2026-08-19T04:56:39.556Z",
+  "updatedAt": "2026-08-21T09:21:17.978Z",
   "skillCount": 15,
   "skills": [
     {
@@ -13,6 +13,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/analysis-artifacts",
       "relPath": ".agents/skills/analysis-artifacts",
       "verified": true,
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 8,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:39.538Z",
+        "evaluatedAt": "2026-08-21T09:21:17.785Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 8,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.541Z",
+          "evaluatedAt": "2026-08-21T09:21:17.785Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.541Z",
+          "evaluatedAt": "2026-08-21T09:21:17.785Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -150,13 +188,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/ci-fix",
       "relPath": ".agents/skills/ci-fix",
       "verified": true,
       "tokenCount": 844,
       "evalSummary": {
-        "overallScore": 79,
-        "grade": "C",
+        "overallScore": 80,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
@@ -195,13 +235,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 8,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:39.538Z",
+        "evaluatedAt": "2026-08-21T09:21:17.785Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -210,8 +268,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 79,
-          "grade": "C",
+          "overallScore": 80,
+          "grade": "B",
           "categories": [
             {
               "id": "structure",
@@ -250,13 +308,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 8,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.541Z",
+          "evaluatedAt": "2026-08-21T09:21:17.785Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +350,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.541Z",
+          "evaluatedAt": "2026-08-21T09:21:17.785Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -287,12 +363,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/create-pull-request",
       "relPath": ".agents/skills/create-pull-request",
       "verified": true,
       "tokenCount": 3179,
       "evalSummary": {
-        "overallScore": 81,
+        "overallScore": 82,
         "grade": "B",
         "categories": [
           {
@@ -332,13 +410,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:39.539Z",
+        "evaluatedAt": "2026-08-21T09:21:17.785Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -347,7 +443,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 81,
+          "overallScore": 82,
           "grade": "B",
           "categories": [
             {
@@ -387,13 +483,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.541Z",
+          "evaluatedAt": "2026-08-21T09:21:17.785Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +525,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.541Z",
+          "evaluatedAt": "2026-08-21T09:21:17.785Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -424,12 +538,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/dbt-model-index",
       "relPath": ".agents/skills/dbt-model-index",
       "verified": true,
       "tokenCount": 1050,
       "evalSummary": {
-        "overallScore": 53,
+        "overallScore": 57,
         "grade": "D",
         "categories": [
           {
@@ -469,13 +585,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 8,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:39.540Z",
+        "evaluatedAt": "2026-08-21T09:21:17.785Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -484,7 +618,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 53,
+          "overallScore": 57,
           "grade": "D",
           "categories": [
             {
@@ -524,13 +658,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 8,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.541Z",
+          "evaluatedAt": "2026-08-21T09:21:17.785Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +700,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.541Z",
+          "evaluatedAt": "2026-08-21T09:21:17.785Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -561,12 +713,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/docs-update",
       "relPath": ".agents/skills/docs-update",
       "verified": true,
       "tokenCount": 1161,
       "evalSummary": {
-        "overallScore": 77,
+        "overallScore": 79,
         "grade": "C",
         "categories": [
           {
@@ -606,13 +760,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:39.539Z",
+        "evaluatedAt": "2026-08-21T09:21:17.785Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -661,13 +833,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.541Z",
+          "evaluatedAt": "2026-08-21T09:21:17.785Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +875,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.541Z",
+          "evaluatedAt": "2026-08-21T09:21:17.785Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -698,12 +888,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/github-bug-report-triage",
       "relPath": ".agents/skills/github-bug-report-triage",
       "verified": true,
       "tokenCount": 1135,
       "evalSummary": {
-        "overallScore": 86,
+        "overallScore": 85,
         "grade": "B",
         "categories": [
           {
@@ -743,13 +935,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:39.541Z",
+        "evaluatedAt": "2026-08-21T09:21:17.785Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -758,7 +968,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 86,
+          "overallScore": 85,
           "grade": "B",
           "categories": [
             {
@@ -798,13 +1008,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.541Z",
+          "evaluatedAt": "2026-08-21T09:21:17.785Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +1050,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.541Z",
+          "evaluatedAt": "2026-08-21T09:21:17.785Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -835,12 +1063,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/github-issue-dedupe",
       "relPath": ".agents/skills/github-issue-dedupe",
       "verified": true,
       "tokenCount": 966,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -880,13 +1110,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:39.540Z",
+        "evaluatedAt": "2026-08-21T09:21:17.785Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -895,7 +1143,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -935,13 +1183,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.541Z",
+          "evaluatedAt": "2026-08-21T09:21:17.785Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +1225,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.541Z",
+          "evaluatedAt": "2026-08-21T09:21:17.785Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -972,13 +1238,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/mcp-builder",
       "relPath": ".agents/skills/mcp-builder",
       "verified": true,
       "tokenCount": 2144,
       "evalSummary": {
-        "overallScore": 81,
-        "grade": "B",
+        "overallScore": 79,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -1017,13 +1285,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 2,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 8,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:39.541Z",
+        "evaluatedAt": "2026-08-21T09:21:17.785Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1032,8 +1318,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 81,
-          "grade": "B",
+          "overallScore": 79,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -1072,13 +1358,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 2,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 8,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.541Z",
+          "evaluatedAt": "2026-08-21T09:21:17.785Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1096,7 +1400,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.541Z",
+          "evaluatedAt": "2026-08-21T09:21:17.785Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1109,12 +1413,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/scheduler",
       "relPath": ".agents/skills/scheduler",
       "verified": true,
       "tokenCount": 2289,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 76,
         "grade": "C",
         "categories": [
           {
@@ -1154,13 +1460,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:39.546Z",
+        "evaluatedAt": "2026-08-21T09:21:17.794Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1169,7 +1493,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 76,
           "grade": "C",
           "categories": [
             {
@@ -1209,13 +1533,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.549Z",
+          "evaluatedAt": "2026-08-21T09:21:17.794Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1575,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.549Z",
+          "evaluatedAt": "2026-08-21T09:21:17.794Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1246,6 +1588,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/seo-aeo-audit",
       "relPath": ".agents/skills/seo-aeo-audit",
       "verified": true,
@@ -1291,13 +1635,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:39.547Z",
+        "evaluatedAt": "2026-08-21T09:21:17.794Z",
         "evaluatedVersion": "2.0"
       },
       "evalSummaries": {
@@ -1306,7 +1668,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 84,
+          "overallScore": 82,
           "grade": "B",
           "categories": [
             {
@@ -1346,13 +1708,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 8,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.549Z",
+          "evaluatedAt": "2026-08-21T09:21:17.794Z",
           "evaluatedVersion": "2.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1750,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.549Z",
+          "evaluatedAt": "2026-08-21T09:21:17.794Z",
           "evaluatedVersion": "2.0"
         }
       }
@@ -1383,12 +1763,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/slack-qa-investigate",
       "relPath": ".agents/skills/slack-qa-investigate",
       "verified": true,
       "tokenCount": 949,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 74,
         "grade": "C",
         "categories": [
           {
@@ -1428,13 +1810,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:39.546Z",
+        "evaluatedAt": "2026-08-21T09:21:17.794Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1443,7 +1843,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 74,
           "grade": "C",
           "categories": [
             {
@@ -1483,13 +1883,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.549Z",
+          "evaluatedAt": "2026-08-21T09:21:17.794Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1925,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.549Z",
+          "evaluatedAt": "2026-08-21T09:21:17.794Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1520,12 +1938,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/terraform-style-check",
       "relPath": ".agents/skills/terraform-style-check",
       "verified": true,
       "tokenCount": 2093,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 78,
         "grade": "C",
         "categories": [
           {
@@ -1565,13 +1985,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:39.548Z",
+        "evaluatedAt": "2026-08-21T09:21:17.794Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1580,7 +2018,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 76,
+          "overallScore": 78,
           "grade": "C",
           "categories": [
             {
@@ -1620,13 +2058,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.549Z",
+          "evaluatedAt": "2026-08-21T09:21:17.794Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +2100,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.549Z",
+          "evaluatedAt": "2026-08-21T09:21:17.794Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1657,12 +2113,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/web-accessibility-audit",
       "relPath": ".agents/skills/web-accessibility-audit",
       "verified": true,
       "tokenCount": 3095,
       "evalSummary": {
-        "overallScore": 81,
+        "overallScore": 82,
         "grade": "B",
         "categories": [
           {
@@ -1702,13 +2160,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:39.549Z",
+        "evaluatedAt": "2026-08-21T09:21:17.794Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1757,13 +2233,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 9,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.549Z",
+          "evaluatedAt": "2026-08-21T09:21:17.794Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +2275,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.549Z",
+          "evaluatedAt": "2026-08-21T09:21:17.794Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1794,12 +2288,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/web-performance-audit",
       "relPath": ".agents/skills/web-performance-audit",
       "verified": true,
       "tokenCount": 1975,
       "evalSummary": {
-        "overallScore": 81,
+        "overallScore": 82,
         "grade": "B",
         "categories": [
           {
@@ -1839,13 +2335,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:39.549Z",
+        "evaluatedAt": "2026-08-21T09:21:17.795Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1854,7 +2368,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 81,
+          "overallScore": 82,
           "grade": "B",
           "categories": [
             {
@@ -1894,13 +2408,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.550Z",
+          "evaluatedAt": "2026-08-21T09:21:17.796Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1918,7 +2450,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.550Z",
+          "evaluatedAt": "2026-08-21T09:21:17.796Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1931,12 +2463,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/webapp-testing",
       "relPath": ".agents/skills/webapp-testing",
       "verified": true,
       "tokenCount": 1043,
       "evalSummary": {
-        "overallScore": 77,
+        "overallScore": 76,
         "grade": "C",
         "categories": [
           {
@@ -1976,13 +2510,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 2,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:39.550Z",
+        "evaluatedAt": "2026-08-21T09:21:17.800Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1991,7 +2543,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 77,
+          "overallScore": 74,
           "grade": "C",
           "categories": [
             {
@@ -2031,13 +2583,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 2,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.550Z",
+          "evaluatedAt": "2026-08-21T09:21:17.800Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2055,7 +2625,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:39.550Z",
+          "evaluatedAt": "2026-08-21T09:21:17.800Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2067,7 +2637,7 @@
       "name": "warpdotdev-oz-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from warpdotdev/oz-skills.",
       "author": "ASM (warpdotdev/oz-skills)",
-      "createdAt": "2026-08-19T04:56:39.556Z",
+      "createdAt": "2026-08-21T09:21:17.978Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2181,7 +2751,7 @@
       "name": "warpdotdev-oz-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from warpdotdev/oz-skills.",
       "author": "ASM (warpdotdev/oz-skills)",
-      "createdAt": "2026-08-19T04:56:39.556Z",
+      "createdAt": "2026-08-21T09:21:17.978Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2247,7 +2817,7 @@
       "name": "warpdotdev-oz-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from warpdotdev/oz-skills.",
       "author": "ASM (warpdotdev/oz-skills)",
-      "createdAt": "2026-08-19T04:56:39.556Z",
+      "createdAt": "2026-08-21T09:21:17.978Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2319,7 +2889,7 @@
       "name": "warpdotdev-oz-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from warpdotdev/oz-skills.",
       "author": "ASM (warpdotdev/oz-skills)",
-      "createdAt": "2026-08-19T04:56:39.556Z",
+      "createdAt": "2026-08-21T09:21:17.978Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2379,7 +2949,7 @@
       "name": "warpdotdev-oz-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from warpdotdev/oz-skills.",
       "author": "ASM (warpdotdev/oz-skills)",
-      "createdAt": "2026-08-19T04:56:39.556Z",
+      "createdAt": "2026-08-21T09:21:17.978Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2445,7 +3015,7 @@
       "name": "warpdotdev-oz-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from warpdotdev/oz-skills.",
       "author": "ASM (warpdotdev/oz-skills)",
-      "createdAt": "2026-08-19T04:56:39.556Z",
+      "createdAt": "2026-08-21T09:21:17.978Z",
       "tags": [
         "repo-derived",
         "inferred",

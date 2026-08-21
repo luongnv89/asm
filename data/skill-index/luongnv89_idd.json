@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/luongnv89/idd.git",
   "owner": "luongnv89",
   "repo": "idd",
-  "updatedAt": "2026-08-19T04:55:19.674Z",
+  "updatedAt": "2026-08-21T09:19:42.086Z",
   "skillCount": 7,
   "skills": [
     {
@@ -13,12 +13,14 @@
       "creator": "",
       "compatibility": "Requires git and GitHub CLI (gh) with auth and push access. Requires merge permission for auto-merge. Requires issue-triage, issue-resolver, issue-analysis, and issue-pr-review to be installed from the same distribution. Optional: issue-creator for normalizing unstructured issues mid-loop.",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:luongnv89/idd:skills/auto-pilot",
       "relPath": "skills/auto-pilot",
       "verified": true,
-      "tokenCount": 11518,
+      "tokenCount": 11527,
       "evalSummary": {
-        "overallScore": 93,
+        "overallScore": 90,
         "grade": "A",
         "categories": [
           {
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:19.652Z",
+        "evaluatedAt": "2026-08-21T09:19:41.549Z",
         "evaluatedVersion": "2.5.0"
       },
       "evalSummaries": {
@@ -73,8 +93,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 93,
-          "grade": "A",
+          "overallScore": 88,
+          "grade": "B",
           "categories": [
             {
               "id": "structure",
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:19.658Z",
+          "evaluatedAt": "2026-08-21T09:19:41.549Z",
           "evaluatedVersion": "2.5.0"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:19.658Z",
+          "evaluatedAt": "2026-08-21T09:19:41.549Z",
           "evaluatedVersion": "2.5.0"
         }
       }
@@ -150,12 +188,14 @@
       "creator": "",
       "compatibility": "Requires git. No GitHub CLI or authentication needed — generates a local config file only.",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:luongnv89/idd:skills/init-gitissue",
       "relPath": "skills/init-gitissue",
       "verified": true,
-      "tokenCount": 5541,
+      "tokenCount": 5543,
       "evalSummary": {
-        "overallScore": 97,
+        "overallScore": 93,
         "grade": "A",
         "categories": [
           {
@@ -195,13 +235,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:19.653Z",
+        "evaluatedAt": "2026-08-21T09:19:41.549Z",
         "evaluatedVersion": "0.3.6"
       },
       "evalSummaries": {
@@ -210,7 +268,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 97,
+          "overallScore": 93,
           "grade": "A",
           "categories": [
             {
@@ -250,13 +308,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:19.661Z",
+          "evaluatedAt": "2026-08-21T09:19:41.549Z",
           "evaluatedVersion": "0.3.6"
         },
         "skill-best-practice": {
@@ -274,7 +350,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:19.661Z",
+          "evaluatedAt": "2026-08-21T09:19:41.549Z",
           "evaluatedVersion": "0.3.6"
         }
       }
@@ -287,12 +363,14 @@
       "creator": "",
       "compatibility": "Requires git and GitHub CLI (gh) with authentication. View mode (`/issue-analysis N view`) needs only local file access — no gh required.",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:luongnv89/idd:skills/issue-analysis",
       "relPath": "skills/issue-analysis",
       "verified": true,
-      "tokenCount": 6205,
+      "tokenCount": 6207,
       "evalSummary": {
-        "overallScore": 97,
+        "overallScore": 93,
         "grade": "A",
         "categories": [
           {
@@ -332,13 +410,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:19.654Z",
+        "evaluatedAt": "2026-08-21T09:19:41.549Z",
         "evaluatedVersion": "0.5.2"
       },
       "evalSummaries": {
@@ -347,7 +443,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 97,
+          "overallScore": 93,
           "grade": "A",
           "categories": [
             {
@@ -387,13 +483,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:19.661Z",
+          "evaluatedAt": "2026-08-21T09:19:41.549Z",
           "evaluatedVersion": "0.5.2"
         },
         "skill-best-practice": {
@@ -411,7 +525,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:19.661Z",
+          "evaluatedAt": "2026-08-21T09:19:41.549Z",
           "evaluatedVersion": "0.5.2"
         }
       }
@@ -424,12 +538,14 @@
       "creator": "",
       "compatibility": "Requires git and GitHub CLI (gh) with authentication. Run `gh auth status` to verify.",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:luongnv89/idd:skills/issue-creator",
       "relPath": "skills/issue-creator",
       "verified": true,
-      "tokenCount": 9326,
+      "tokenCount": 9328,
       "evalSummary": {
-        "overallScore": 93,
+        "overallScore": 90,
         "grade": "A",
         "categories": [
           {
@@ -469,13 +585,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:19.660Z",
+        "evaluatedAt": "2026-08-21T09:19:41.549Z",
         "evaluatedVersion": "0.8.0"
       },
       "evalSummaries": {
@@ -484,8 +618,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 93,
-          "grade": "A",
+          "overallScore": 88,
+          "grade": "B",
           "categories": [
             {
               "id": "structure",
@@ -524,13 +658,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:19.661Z",
+          "evaluatedAt": "2026-08-21T09:19:41.549Z",
           "evaluatedVersion": "0.8.0"
         },
         "skill-best-practice": {
@@ -548,7 +700,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:19.661Z",
+          "evaluatedAt": "2026-08-21T09:19:41.549Z",
           "evaluatedVersion": "0.8.0"
         }
       }
@@ -561,13 +713,15 @@
       "creator": "",
       "compatibility": "Requires git and GitHub CLI (gh) with authentication. Self-contained — uses shared agents from shared/agents/.",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:luongnv89/idd:skills/issue-pr-review",
       "relPath": "skills/issue-pr-review",
       "verified": true,
-      "tokenCount": 11912,
+      "tokenCount": 12034,
       "evalSummary": {
-        "overallScore": 91,
-        "grade": "A",
+        "overallScore": 89,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
@@ -606,13 +760,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:19.656Z",
+        "evaluatedAt": "2026-08-21T09:19:41.549Z",
         "evaluatedVersion": "2.5.0"
       },
       "evalSummaries": {
@@ -621,8 +793,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 91,
-          "grade": "A",
+          "overallScore": 89,
+          "grade": "B",
           "categories": [
             {
               "id": "structure",
@@ -661,13 +833,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:19.661Z",
+          "evaluatedAt": "2026-08-21T09:19:41.549Z",
           "evaluatedVersion": "2.5.0"
         },
         "skill-best-practice": {
@@ -685,7 +875,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:19.661Z",
+          "evaluatedAt": "2026-08-21T09:19:41.549Z",
           "evaluatedVersion": "2.5.0"
         }
       }
@@ -698,12 +888,14 @@
       "creator": "",
       "compatibility": "Requires git and GitHub CLI (gh) with authentication and push access. Self-contained — uses shared agents from shared/agents/.",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:luongnv89/idd:skills/issue-resolver",
       "relPath": "skills/issue-resolver",
       "verified": true,
-      "tokenCount": 10712,
+      "tokenCount": 10853,
       "evalSummary": {
-        "overallScore": 93,
+        "overallScore": 90,
         "grade": "A",
         "categories": [
           {
@@ -743,13 +935,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:19.658Z",
+        "evaluatedAt": "2026-08-21T09:19:41.549Z",
         "evaluatedVersion": "0.17.0"
       },
       "evalSummaries": {
@@ -758,8 +968,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 93,
-          "grade": "A",
+          "overallScore": 88,
+          "grade": "B",
           "categories": [
             {
               "id": "structure",
@@ -798,13 +1008,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:19.661Z",
+          "evaluatedAt": "2026-08-21T09:19:41.549Z",
           "evaluatedVersion": "0.17.0"
         },
         "skill-best-practice": {
@@ -822,7 +1050,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:19.661Z",
+          "evaluatedAt": "2026-08-21T09:19:41.549Z",
           "evaluatedVersion": "0.17.0"
         }
       }
@@ -835,12 +1063,14 @@
       "creator": "",
       "compatibility": "Requires git and GitHub CLI (gh) with authentication. Default mode (cached view) needs only local file access — no gh required.",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:luongnv89/idd:skills/issue-triage",
       "relPath": "skills/issue-triage",
       "verified": true,
-      "tokenCount": 7537,
+      "tokenCount": 7539,
       "evalSummary": {
-        "overallScore": 93,
+        "overallScore": 90,
         "grade": "A",
         "categories": [
           {
@@ -880,13 +1110,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:19.661Z",
+        "evaluatedAt": "2026-08-21T09:19:41.549Z",
         "evaluatedVersion": "0.5.5"
       },
       "evalSummaries": {
@@ -895,7 +1143,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 93,
+          "overallScore": 90,
           "grade": "A",
           "categories": [
             {
@@ -935,13 +1183,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:19.661Z",
+          "evaluatedAt": "2026-08-21T09:19:41.549Z",
           "evaluatedVersion": "0.5.5"
         },
         "skill-best-practice": {
@@ -959,7 +1225,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:19.661Z",
+          "evaluatedAt": "2026-08-21T09:19:41.549Z",
           "evaluatedVersion": "0.5.5"
         }
       }
@@ -971,7 +1237,7 @@
       "name": "luongnv89-idd-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from luongnv89/idd.",
       "author": "ASM (luongnv89/idd)",
-      "createdAt": "2026-08-19T04:55:19.674Z",
+      "createdAt": "2026-08-21T09:19:42.086Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1037,7 +1303,7 @@
       "name": "luongnv89-idd-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from luongnv89/idd.",
       "author": "ASM (luongnv89/idd)",
-      "createdAt": "2026-08-19T04:55:19.674Z",
+      "createdAt": "2026-08-21T09:19:42.086Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1079,7 +1345,7 @@
       "name": "luongnv89-idd-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from luongnv89/idd.",
       "author": "ASM (luongnv89/idd)",
-      "createdAt": "2026-08-19T04:55:19.674Z",
+      "createdAt": "2026-08-21T09:19:42.086Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1127,7 +1393,7 @@
       "name": "luongnv89-idd-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from luongnv89/idd.",
       "author": "ASM (luongnv89/idd)",
-      "createdAt": "2026-08-19T04:55:19.674Z",
+      "createdAt": "2026-08-21T09:19:42.086Z",
       "tags": [
         "repo-derived",
         "inferred",

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
   "owner": "nextlevelbuilder",
   "repo": "ui-ux-pro-max-skill",
-  "updatedAt": "2026-08-19T04:54:58.695Z",
+  "updatedAt": "2026-08-21T09:19:04.867Z",
   "skillCount": 7,
   "skills": [
     {
@@ -13,12 +13,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/banner-design",
       "relPath": ".claude/skills/banner-design",
       "verified": true,
       "tokenCount": 2267,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 77,
         "grade": "C",
         "categories": [
           {
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:54:58.686Z",
+        "evaluatedAt": "2026-08-21T09:19:03.930Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -73,7 +93,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 77,
           "grade": "C",
           "categories": [
             {
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:54:58.687Z",
+          "evaluatedAt": "2026-08-21T09:19:03.930Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:54:58.687Z",
+          "evaluatedAt": "2026-08-21T09:19:03.930Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -150,12 +188,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/brand",
       "relPath": ".claude/skills/brand",
       "verified": true,
       "tokenCount": 614,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -195,13 +235,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:54:58.686Z",
+        "evaluatedAt": "2026-08-21T09:19:03.930Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -210,7 +268,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -250,13 +308,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:54:58.687Z",
+          "evaluatedAt": "2026-08-21T09:19:03.930Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +350,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:54:58.687Z",
+          "evaluatedAt": "2026-08-21T09:19:03.930Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -287,12 +363,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design",
       "relPath": ".claude/skills/design",
       "verified": true,
       "tokenCount": 2867,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
@@ -332,13 +410,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:54:58.687Z",
+        "evaluatedAt": "2026-08-21T09:19:03.930Z",
         "evaluatedVersion": "2.1.0"
       },
       "evalSummaries": {
@@ -347,7 +443,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 73,
           "grade": "C",
           "categories": [
             {
@@ -387,13 +483,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:54:58.687Z",
+          "evaluatedAt": "2026-08-21T09:19:03.930Z",
           "evaluatedVersion": "2.1.0"
         },
         "skill-best-practice": {
@@ -411,7 +525,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:54:58.687Z",
+          "evaluatedAt": "2026-08-21T09:19:03.930Z",
           "evaluatedVersion": "2.1.0"
         }
       }
@@ -424,12 +538,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design-system",
       "relPath": ".claude/skills/design-system",
       "verified": true,
       "tokenCount": 1648,
       "evalSummary": {
-        "overallScore": 77,
+        "overallScore": 79,
         "grade": "C",
         "categories": [
           {
@@ -469,13 +585,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:54:58.690Z",
+        "evaluatedAt": "2026-08-21T09:19:03.930Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -524,13 +658,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:54:58.690Z",
+          "evaluatedAt": "2026-08-21T09:19:03.930Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +700,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:54:58.690Z",
+          "evaluatedAt": "2026-08-21T09:19:03.930Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -561,12 +713,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/slides",
       "relPath": ".claude/skills/slides",
       "verified": true,
       "tokenCount": 246,
       "evalSummary": {
-        "overallScore": 56,
+        "overallScore": 59,
         "grade": "D",
         "categories": [
           {
@@ -606,13 +760,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:54:58.687Z",
+        "evaluatedAt": "2026-08-21T09:19:03.930Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -621,7 +793,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 56,
+          "overallScore": 59,
           "grade": "D",
           "categories": [
             {
@@ -661,13 +833,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:54:58.687Z",
+          "evaluatedAt": "2026-08-21T09:19:03.930Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +875,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:54:58.687Z",
+          "evaluatedAt": "2026-08-21T09:19:03.930Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -698,13 +888,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/ui-styling",
       "relPath": ".claude/skills/ui-styling",
       "verified": true,
       "tokenCount": 2372,
       "evalSummary": {
-        "overallScore": 77,
-        "grade": "C",
+        "overallScore": 84,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
@@ -743,13 +935,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 10,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:54:58.689Z",
+        "evaluatedAt": "2026-08-21T09:19:03.930Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -758,8 +968,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 77,
-          "grade": "C",
+          "overallScore": 82,
+          "grade": "B",
           "categories": [
             {
               "id": "structure",
@@ -798,13 +1008,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 10,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:54:58.690Z",
+          "evaluatedAt": "2026-08-21T09:19:03.930Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +1050,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:54:58.690Z",
+          "evaluatedAt": "2026-08-21T09:19:03.930Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -835,12 +1063,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/ui-ux-pro-max",
       "relPath": ".claude/skills/ui-ux-pro-max",
       "verified": true,
       "tokenCount": 4088,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -880,13 +1110,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:54:58.688Z",
+        "evaluatedAt": "2026-08-21T09:19:03.930Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -895,7 +1143,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -935,13 +1183,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:54:58.689Z",
+          "evaluatedAt": "2026-08-21T09:19:03.930Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +1225,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:54:58.689Z",
+          "evaluatedAt": "2026-08-21T09:19:03.930Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -971,7 +1237,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-08-19T04:54:58.695Z",
+      "createdAt": "2026-08-21T09:19:04.867Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1037,7 +1303,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-08-19T04:54:58.695Z",
+      "createdAt": "2026-08-21T09:19:04.867Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1085,7 +1351,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-08-19T04:54:58.695Z",
+      "createdAt": "2026-08-21T09:19:04.867Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1151,7 +1417,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-08-19T04:54:58.695Z",
+      "createdAt": "2026-08-21T09:19:04.867Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1217,7 +1483,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-08-19T04:54:58.695Z",
+      "createdAt": "2026-08-21T09:19:04.867Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1283,7 +1549,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-08-19T04:54:58.695Z",
+      "createdAt": "2026-08-21T09:19:04.867Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1319,7 +1585,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-08-19T04:54:58.695Z",
+      "createdAt": "2026-08-21T09:19:04.867Z",
       "tags": [
         "repo-derived",
         "inferred",

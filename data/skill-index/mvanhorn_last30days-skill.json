@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/mvanhorn/last30days-skill.git",
   "owner": "mvanhorn",
   "repo": "last30days-skill",
-  "updatedAt": "2026-08-19T04:55:42.186Z",
+  "updatedAt": "2026-08-21T09:20:13.331Z",
   "skillCount": 1,
   "skills": [
     {
@@ -12,13 +12,21 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Bash", "Read", "Write", "AskUserQuestion", "WebSearch"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "AskUserQuestion",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:mvanhorn/last30days-skill:skills/last30days",
       "relPath": "skills/last30days",
       "verified": true,
       "tokenCount": 66530,
       "evalSummary": {
-        "overallScore": 81,
+        "overallScore": 82,
         "grade": "B",
         "categories": [
           {
@@ -58,13 +66,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:42.172Z",
+        "evaluatedAt": "2026-08-21T09:20:07.897Z",
         "evaluatedVersion": "3.21.1"
       },
       "evalSummaries": {
@@ -73,8 +99,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 81,
-          "grade": "B",
+          "overallScore": 75,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -113,13 +139,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 5,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:42.172Z",
+          "evaluatedAt": "2026-08-21T09:20:07.898Z",
           "evaluatedVersion": "3.21.1"
         },
         "skill-best-practice": {
@@ -137,7 +181,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:42.173Z",
+          "evaluatedAt": "2026-08-21T09:20:07.898Z",
           "evaluatedVersion": "3.21.1"
         }
       }

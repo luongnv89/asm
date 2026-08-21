@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/antonbabenko/terraform-skill.git",
   "owner": "antonbabenko",
   "repo": "terraform-skill",
-  "updatedAt": "2026-08-19T04:56:38.014Z",
+  "updatedAt": "2026-08-21T09:21:16.323Z",
   "skillCount": 1,
   "skills": [
     {
@@ -13,12 +13,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:antonbabenko/terraform-skill:skills/terraform-skill",
       "relPath": "skills/terraform-skill",
       "verified": true,
       "tokenCount": 4997,
       "evalSummary": {
-        "overallScore": 80,
+        "overallScore": 81,
         "grade": "B",
         "categories": [
           {
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:38.013Z",
+        "evaluatedAt": "2026-08-21T09:21:16.317Z",
         "evaluatedVersion": "1.17.1"
       },
       "evalSummaries": {
@@ -73,7 +93,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 80,
+          "overallScore": 81,
           "grade": "B",
           "categories": [
             {
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:38.013Z",
+          "evaluatedAt": "2026-08-21T09:21:16.317Z",
           "evaluatedVersion": "1.17.1"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:38.013Z",
+          "evaluatedAt": "2026-08-21T09:21:16.317Z",
           "evaluatedVersion": "1.17.1"
         }
       }

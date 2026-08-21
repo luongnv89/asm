@@ -2,24 +2,25 @@
   "repoUrl": "https://github.com/luongnv89/asm.git",
   "owner": "luongnv89",
   "repo": "asm",
-  "updatedAt": "2026-06-29T21:39:38.074Z",
-  "skillCount": 3,
+  "updatedAt": "2026-08-21T09:18:55.699Z",
+  "skillCount": 10,
   "skills": [
     {
-      "name": "skill-auto-improver",
-      "description": "Improve a SKILL.md to pass the skill-creator standard (quick_validate, frontmatter audit, ≤500 lines) AND the asm-eval 85/8 floor. Use to level up a skill before publish. Don't use for authoring from scratch, bulk evaluation, or prose rewriting.",
-      "version": "1.0.2",
+      "name": "find-me-skills",
+      "description": "Find Agent Skills for a goal the user cannot name yet, then export an installable bundle. Use when they ask which skills fit a project. Don't use for installing named skills, authoring skills, or catalog maintenance.",
+      "version": "1.2.0",
       "license": "MIT",
-      "creator": "luongnv89",
-      "compatibility": "Claude Code; requires `asm` on PATH and Python 3 for skill-creator's quick_validate.py",
-      "allowedTools": ["Bash", "Read", "Write", "Edit", "Grep", "Glob"],
-      "installUrl": "github:luongnv89/asm:skills/skill-auto-improver",
-      "relPath": "skills/skill-auto-improver",
+      "creator": "",
+      "compatibility": "Claude Code with the `asm` CLI on PATH",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:luongnv89/asm:skills/find-me-skills",
+      "relPath": "skills/find-me-skills",
       "verified": true,
-      "featured": true,
-      "tokenCount": 5435,
+      "tokenCount": 2909,
       "evalSummary": {
-        "overallScore": 97,
+        "overallScore": 95,
         "grade": "A",
         "categories": [
           {
@@ -43,7 +44,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
@@ -59,31 +60,143 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-29T21:39:38.069Z",
-        "evaluatedVersion": "1.0.2"
+        "evaluatedAt": "2026-08-21T09:18:54.710Z",
+        "evaluatedVersion": "1.2.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 95,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.711Z",
+          "evaluatedVersion": "1.2.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 100,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 15,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.711Z",
+          "evaluatedVersion": "1.2.0"
+        }
       }
     },
     {
-      "name": "find-me-skills",
-      "description": "Discover which Agent Skills a user needs for a goal they can't name yet, then export an installable bundle. Use for 'I want to do X but don't know which skills', 'find me skills for', or 'recommend skills for my project'. Don't use for installing an already-named skill, authoring a skill (skill-creator), or maintaining the catalog.",
+      "name": "hello-world",
+      "description": "A minimal test skill that greets the user and demonstrates the ASM publish workflow.",
       "version": "1.0.0",
       "license": "MIT",
-      "creator": "Luong NGUYEN <luongnv89@gmail.com>",
-      "compatibility": "Claude Code with the `asm` CLI on PATH",
+      "creator": "",
+      "compatibility": "Claude Code",
       "allowedTools": [],
-      "installUrl": "github:luongnv89/asm:skills/find-me-skills",
-      "relPath": "skills/find-me-skills",
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:luongnv89/asm:skills/hello-world",
+      "relPath": "skills/hello-world",
       "verified": true,
-      "tokenCount": 3563,
+      "tokenCount": 120,
       "evalSummary": {
-        "overallScore": 81,
-        "grade": "B",
+        "overallScore": 53,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -94,19 +207,376 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 4,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 10,
+            "score": 0,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
             "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-21T09:18:54.699Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 53,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.701Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.701Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "missing-frontmatter",
+      "description": "",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:luongnv89/asm:tests/fixtures/skills/missing-frontmatter",
+      "relPath": "tests/fixtures/skills/missing-frontmatter",
+      "verified": false,
+      "tokenCount": 66,
+      "evalSummary": {
+        "overallScore": 35,
+        "grade": "F",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-21T09:18:54.698Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 35,
+          "grade": "F",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.700Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 0,
+          "grade": "F",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 0,
+              "max": 1
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.701Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "refresh-index",
+      "description": "Re-ingest every already-enabled repo in data/skill-index-resources.json: sync the working tree, run preindex, rebuild the catalog for verification, summarize updated/unchanged/failed/skipped, then gate commit + PR behind explicit confirmation. Use when asked to refresh the index, re-ingest indexed repos, or batch-maintain already-indexed skill sources. Don't use for adding new repos (use skill-index-updater), improving a single skill (use skill-auto-improver), or installing/updating skills on the local machine (use asm install or asm update).",
+      "version": "1.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Claude Code",
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Edit",
+        "Grep",
+        "Glob"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:luongnv89/asm:skills/refresh-index",
+      "relPath": "skills/refresh-index",
+      "verified": true,
+      "tokenCount": 5650,
+      "evalSummary": {
+        "overallScore": 79,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
             "max": 10
           },
           {
@@ -122,30 +592,324 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-29T21:39:38.071Z",
+        "evaluatedAt": "2026-08-21T09:18:54.699Z",
         "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.701Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 93,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 14,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.701Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "skill-auto-improver",
+      "description": "Improve an external, legacy, or drifted SKILL.md to the skill-creator standard — hard validation gates plus an advisory predictability audit. Don't use for authoring from scratch (skill-creator output is already standard), bulk eval, or prose edits.",
+      "version": "1.3.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Claude Code; requires `asm` on PATH and Python 3 for skill-creator's quick_validate.py",
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Edit",
+        "Grep",
+        "Glob"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:luongnv89/asm:skills/skill-auto-improver",
+      "relPath": "skills/skill-auto-improver",
+      "verified": true,
+      "tokenCount": 5902,
+      "evalSummary": {
+        "overallScore": 92,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-21T09:18:54.722Z",
+        "evaluatedVersion": "1.3.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 92,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.722Z",
+          "evaluatedVersion": "1.3.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 100,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 15,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.722Z",
+          "evaluatedVersion": "1.3.0"
+        }
       }
     },
     {
       "name": "skill-creator",
-      "description": "Create, improve, evaluate, and benchmark skills. Use when authoring a new skill, updating an existing one, running evals, or optimizing a skill's description for triggering. Don't use for invoking skills, writing prose, or scaffolding Python projects.",
-      "version": "1.8.0",
+      "description": "Create, improve, evaluate, benchmark skills. Use when authoring a new skill, updating an existing one, running evals, or optimizing a skill's description for triggering. Don't use for invoking skills, writing prose, or scaffolding Python projects.",
+      "version": "1.13.2",
       "license": "MIT",
-      "creator": "Luong NGUYEN",
+      "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:luongnv89/asm:skills/skill-creator",
       "relPath": "skills/skill-creator",
       "verified": true,
-      "tokenCount": 4864,
+      "tokenCount": 5966,
       "evalSummary": {
-        "overallScore": 97,
+        "overallScore": 96,
         "grade": "A",
         "categories": [
           {
@@ -185,15 +949,1104 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 10,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-06-29T21:39:38.073Z",
-        "evaluatedVersion": "1.8.0"
+        "evaluatedAt": "2026-08-21T09:18:55.202Z",
+        "evaluatedVersion": "1.13.2"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 96,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:55.202Z",
+          "evaluatedVersion": "1.13.2"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 100,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 14,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:55.202Z",
+          "evaluatedVersion": "1.13.2"
+        }
       }
+    },
+    {
+      "name": "skill-index-updater",
+      "description": "Add GitHub skill repos to the ASM index: clone, audit, eval, regenerate index, rebuild catalog, open PR. Use when given GitHub URLs to onboard. Don't use for authoring (skill-creator), improving (skill-auto-improver), or install (asm install).",
+      "version": "1.3.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Claude Code",
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Edit",
+        "Grep",
+        "Glob",
+        "WebFetch",
+        "Agent"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:luongnv89/asm:skills/skill-index-updater",
+      "relPath": "skills/skill-index-updater",
+      "verified": false,
+      "tokenCount": 4937,
+      "evalSummary": {
+        "overallScore": 88,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-21T09:18:54.709Z",
+        "evaluatedVersion": "1.3.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 88,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.710Z",
+          "evaluatedVersion": "1.3.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 100,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 15,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.710Z",
+          "evaluatedVersion": "1.3.0"
+        }
+      }
+    },
+    {
+      "name": "skill-install-improved",
+      "description": "Install an improved variant of one named skill: resolve it by local path, repo, or name, run skill-auto-improver on a throwaway copy, then install the improved result. Don't use for improving in place, upstream PRs, or plain asm install.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Claude Code; requires `asm` and `git` on PATH",
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Edit",
+        "Grep",
+        "Glob"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:luongnv89/asm:skills/skill-install-improved",
+      "relPath": "skills/skill-install-improved",
+      "verified": true,
+      "tokenCount": 4181,
+      "evalSummary": {
+        "overallScore": 92,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-21T09:18:54.717Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 92,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.717Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 100,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 15,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.717Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "skill-upstream-pr",
+      "description": "Improve an open-source GitHub skill and open a friendly suggestion PR upstream: fork, run skill-auto-improver, attach asm eval before/after metrics. Don't use for local-only skills, authoring from scratch, bulk repos, or registry publish.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Claude Code",
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Edit",
+        "Grep",
+        "Glob"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:luongnv89/asm:skills/skill-upstream-pr",
+      "relPath": "skills/skill-upstream-pr",
+      "verified": true,
+      "tokenCount": 2962,
+      "evalSummary": {
+        "overallScore": 93,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-21T09:18:54.722Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 93,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.722Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 100,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 15,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.722Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "well-formed",
+      "description": "Review pull request diffs for code smells, style issues, and safety problems before merging.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Claude Code",
+      "allowedTools": [
+        "Read",
+        "Grep"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:luongnv89/asm:tests/fixtures/skills/well-formed",
+      "relPath": "tests/fixtures/skills/well-formed",
+      "verified": true,
+      "tokenCount": 348,
+      "evalSummary": {
+        "overallScore": 89,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-21T09:18:54.718Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 89,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.718Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:18:54.718Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "luongnv89-asm-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from luongnv89/asm.",
+      "author": "ASM (luongnv89/asm)",
+      "createdAt": "2026-08-21T09:18:55.699Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "luongnv89",
+        "asm"
+      ],
+      "skills": [
+        {
+          "name": "find-me-skills",
+          "installUrl": "github:luongnv89/asm:skills/find-me-skills",
+          "description": "Find Agent Skills for a goal the user cannot name yet, then export an installable bundle. Use when they ask which skills fit a project. Don't use for installing named skills, authoring skills, or catalog maintenance.",
+          "version": "1.2.0"
+        },
+        {
+          "name": "refresh-index",
+          "installUrl": "github:luongnv89/asm:skills/refresh-index",
+          "description": "Re-ingest every already-enabled repo in data/skill-index-resources.json: sync the working tree, run preindex, rebuild the catalog for verification, summarize updated/unchanged/failed/skipped, then gate commit + PR behind explicit confirmation. Use when asked to refresh the index, re-ingest indexed repos, or batch-maintain already-indexed skill sources. Don't use for adding new repos (use skill-index-updater), improving a single skill (use skill-auto-improver), or installing/updating skills on the local machine (use asm install or asm update).",
+          "version": "1.0.0"
+        },
+        {
+          "name": "skill-install-improved",
+          "installUrl": "github:luongnv89/asm:skills/skill-install-improved",
+          "description": "Install an improved variant of one named skill: resolve it by local path, repo, or name, run skill-auto-improver on a throwaway copy, then install the improved result. Don't use for improving in place, upstream PRs, or plain asm install.",
+          "version": "1.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "luongnv89",
+        "repo": "asm",
+        "repoUrl": "https://github.com/luongnv89/asm.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "luongnv89-asm-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from luongnv89/asm.",
+      "author": "ASM (luongnv89/asm)",
+      "createdAt": "2026-08-21T09:18:55.699Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "luongnv89",
+        "asm"
+      ],
+      "skills": [
+        {
+          "name": "hello-world",
+          "installUrl": "github:luongnv89/asm:skills/hello-world",
+          "description": "A minimal test skill that greets the user and demonstrates the ASM publish workflow.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "refresh-index",
+          "installUrl": "github:luongnv89/asm:skills/refresh-index",
+          "description": "Re-ingest every already-enabled repo in data/skill-index-resources.json: sync the working tree, run preindex, rebuild the catalog for verification, summarize updated/unchanged/failed/skipped, then gate commit + PR behind explicit confirmation. Use when asked to refresh the index, re-ingest indexed repos, or batch-maintain already-indexed skill sources. Don't use for adding new repos (use skill-index-updater), improving a single skill (use skill-auto-improver), or installing/updating skills on the local machine (use asm install or asm update).",
+          "version": "1.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "luongnv89",
+        "repo": "asm",
+        "repoUrl": "https://github.com/luongnv89/asm.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "luongnv89-asm-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from luongnv89/asm.",
+      "author": "ASM (luongnv89/asm)",
+      "createdAt": "2026-08-21T09:18:55.699Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "luongnv89",
+        "asm"
+      ],
+      "skills": [
+        {
+          "name": "hello-world",
+          "installUrl": "github:luongnv89/asm:skills/hello-world",
+          "description": "A minimal test skill that greets the user and demonstrates the ASM publish workflow.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "missing-frontmatter",
+          "installUrl": "github:luongnv89/asm:tests/fixtures/skills/missing-frontmatter",
+          "version": "0.0.0"
+        },
+        {
+          "name": "refresh-index",
+          "installUrl": "github:luongnv89/asm:skills/refresh-index",
+          "description": "Re-ingest every already-enabled repo in data/skill-index-resources.json: sync the working tree, run preindex, rebuild the catalog for verification, summarize updated/unchanged/failed/skipped, then gate commit + PR behind explicit confirmation. Use when asked to refresh the index, re-ingest indexed repos, or batch-maintain already-indexed skill sources. Don't use for adding new repos (use skill-index-updater), improving a single skill (use skill-auto-improver), or installing/updating skills on the local machine (use asm install or asm update).",
+          "version": "1.0.0"
+        },
+        {
+          "name": "skill-creator",
+          "installUrl": "github:luongnv89/asm:skills/skill-creator",
+          "description": "Create, improve, evaluate, benchmark skills. Use when authoring a new skill, updating an existing one, running evals, or optimizing a skill's description for triggering. Don't use for invoking skills, writing prose, or scaffolding Python projects.",
+          "version": "1.13.2"
+        },
+        {
+          "name": "skill-index-updater",
+          "installUrl": "github:luongnv89/asm:skills/skill-index-updater",
+          "description": "Add GitHub skill repos to the ASM index: clone, audit, eval, regenerate index, rebuild catalog, open PR. Use when given GitHub URLs to onboard. Don't use for authoring (skill-creator), improving (skill-auto-improver), or install (asm install).",
+          "version": "1.3.0"
+        },
+        {
+          "name": "well-formed",
+          "installUrl": "github:luongnv89/asm:tests/fixtures/skills/well-formed",
+          "description": "Review pull request diffs for code smells, style issues, and safety problems before merging.",
+          "version": "1.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "luongnv89",
+        "repo": "asm",
+        "repoUrl": "https://github.com/luongnv89/asm.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "luongnv89-asm-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from luongnv89/asm.",
+      "author": "ASM (luongnv89/asm)",
+      "createdAt": "2026-08-21T09:18:55.699Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "luongnv89",
+        "asm"
+      ],
+      "skills": [
+        {
+          "name": "refresh-index",
+          "installUrl": "github:luongnv89/asm:skills/refresh-index",
+          "description": "Re-ingest every already-enabled repo in data/skill-index-resources.json: sync the working tree, run preindex, rebuild the catalog for verification, summarize updated/unchanged/failed/skipped, then gate commit + PR behind explicit confirmation. Use when asked to refresh the index, re-ingest indexed repos, or batch-maintain already-indexed skill sources. Don't use for adding new repos (use skill-index-updater), improving a single skill (use skill-auto-improver), or installing/updating skills on the local machine (use asm install or asm update).",
+          "version": "1.0.0"
+        },
+        {
+          "name": "skill-index-updater",
+          "installUrl": "github:luongnv89/asm:skills/skill-index-updater",
+          "description": "Add GitHub skill repos to the ASM index: clone, audit, eval, regenerate index, rebuild catalog, open PR. Use when given GitHub URLs to onboard. Don't use for authoring (skill-creator), improving (skill-auto-improver), or install (asm install).",
+          "version": "1.3.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "luongnv89",
+        "repo": "asm",
+        "repoUrl": "https://github.com/luongnv89/asm.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "luongnv89-asm-research",
+      "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from luongnv89/asm.",
+      "author": "ASM (luongnv89/asm)",
+      "createdAt": "2026-08-21T09:18:55.699Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "research",
+        "academic",
+        "analysis",
+        "luongnv89",
+        "asm"
+      ],
+      "skills": [
+        {
+          "name": "refresh-index",
+          "installUrl": "github:luongnv89/asm:skills/refresh-index",
+          "description": "Re-ingest every already-enabled repo in data/skill-index-resources.json: sync the working tree, run preindex, rebuild the catalog for verification, summarize updated/unchanged/failed/skipped, then gate commit + PR behind explicit confirmation. Use when asked to refresh the index, re-ingest indexed repos, or batch-maintain already-indexed skill sources. Don't use for adding new repos (use skill-index-updater), improving a single skill (use skill-auto-improver), or installing/updating skills on the local machine (use asm install or asm update).",
+          "version": "1.0.0"
+        },
+        {
+          "name": "skill-creator",
+          "installUrl": "github:luongnv89/asm:skills/skill-creator",
+          "description": "Create, improve, evaluate, benchmark skills. Use when authoring a new skill, updating an existing one, running evals, or optimizing a skill's description for triggering. Don't use for invoking skills, writing prose, or scaffolding Python projects.",
+          "version": "1.13.2"
+        },
+        {
+          "name": "well-formed",
+          "installUrl": "github:luongnv89/asm:tests/fixtures/skills/well-formed",
+          "description": "Review pull request diffs for code smells, style issues, and safety problems before merging.",
+          "version": "1.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "luongnv89",
+        "repo": "asm",
+        "repoUrl": "https://github.com/luongnv89/asm.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "luongnv89-asm-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from luongnv89/asm.",
+      "author": "ASM (luongnv89/asm)",
+      "createdAt": "2026-08-21T09:18:55.699Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "luongnv89",
+        "asm"
+      ],
+      "skills": [
+        {
+          "name": "skill-creator",
+          "installUrl": "github:luongnv89/asm:skills/skill-creator",
+          "description": "Create, improve, evaluate, benchmark skills. Use when authoring a new skill, updating an existing one, running evals, or optimizing a skill's description for triggering. Don't use for invoking skills, writing prose, or scaffolding Python projects.",
+          "version": "1.13.2"
+        },
+        {
+          "name": "skill-install-improved",
+          "installUrl": "github:luongnv89/asm:skills/skill-install-improved",
+          "description": "Install an improved variant of one named skill: resolve it by local path, repo, or name, run skill-auto-improver on a throwaway copy, then install the improved result. Don't use for improving in place, upstream PRs, or plain asm install.",
+          "version": "1.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "luongnv89",
+        "repo": "asm",
+        "repoUrl": "https://github.com/luongnv89/asm.git"
+      },
+      "inferred": true
     }
   ]
 }

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/romainsimon/paperasse.git",
   "owner": "romainsimon",
   "repo": "paperasse",
-  "updatedAt": "2026-08-19T04:56:41.294Z",
+  "updatedAt": "2026-08-21T09:21:19.899Z",
   "skillCount": 6,
   "skills": [
     {
@@ -13,13 +13,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:romainsimon/paperasse:commissaire-aux-comptes",
       "relPath": "commissaire-aux-comptes",
       "verified": true,
       "tokenCount": 3094,
       "evalSummary": {
-        "overallScore": 47,
-        "grade": "F",
+        "overallScore": 53,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:41.282Z",
+        "evaluatedAt": "2026-08-21T09:21:19.648Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -72,9 +92,9 @@
           "providerId": "quality",
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 47,
-          "grade": "F",
+          "passed": true,
+          "overallScore": 51,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:41.284Z",
+          "evaluatedAt": "2026-08-21T09:21:19.648Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:41.284Z",
+          "evaluatedAt": "2026-08-21T09:21:19.648Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -150,12 +188,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:romainsimon/paperasse:comptable",
       "relPath": "comptable",
       "verified": true,
       "tokenCount": 3816,
       "evalSummary": {
-        "overallScore": 54,
+        "overallScore": 58,
         "grade": "D",
         "categories": [
           {
@@ -195,13 +235,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:41.283Z",
+        "evaluatedAt": "2026-08-21T09:21:19.648Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -210,7 +268,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 54,
+          "overallScore": 56,
           "grade": "D",
           "categories": [
             {
@@ -250,13 +308,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:41.287Z",
+          "evaluatedAt": "2026-08-21T09:21:19.648Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +350,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:41.287Z",
+          "evaluatedAt": "2026-08-21T09:21:19.648Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -287,13 +363,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:romainsimon/paperasse:controleur-fiscal",
       "relPath": "controleur-fiscal",
       "verified": true,
       "tokenCount": 4132,
       "evalSummary": {
-        "overallScore": 43,
-        "grade": "F",
+        "overallScore": 50,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -332,13 +410,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:41.284Z",
+        "evaluatedAt": "2026-08-21T09:21:19.648Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -347,7 +443,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 43,
+          "overallScore": 48,
           "grade": "F",
           "categories": [
             {
@@ -387,13 +483,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:41.287Z",
+          "evaluatedAt": "2026-08-21T09:21:19.648Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +525,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:41.287Z",
+          "evaluatedAt": "2026-08-21T09:21:19.648Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -424,12 +538,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:romainsimon/paperasse:fiscaliste",
       "relPath": "fiscaliste",
       "verified": true,
       "tokenCount": 4969,
       "evalSummary": {
-        "overallScore": 53,
+        "overallScore": 57,
         "grade": "D",
         "categories": [
           {
@@ -469,13 +585,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:41.285Z",
+        "evaluatedAt": "2026-08-21T09:21:19.648Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -484,7 +618,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 53,
+          "overallScore": 57,
           "grade": "D",
           "categories": [
             {
@@ -524,13 +658,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:41.287Z",
+          "evaluatedAt": "2026-08-21T09:21:19.648Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +700,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:41.287Z",
+          "evaluatedAt": "2026-08-21T09:21:19.648Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -561,12 +713,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:romainsimon/paperasse:notaire",
       "relPath": "notaire",
       "verified": true,
       "tokenCount": 2912,
       "evalSummary": {
-        "overallScore": 54,
+        "overallScore": 58,
         "grade": "D",
         "categories": [
           {
@@ -606,13 +760,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:41.286Z",
+        "evaluatedAt": "2026-08-21T09:21:19.648Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -621,7 +793,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 54,
+          "overallScore": 58,
           "grade": "D",
           "categories": [
             {
@@ -661,13 +833,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:41.287Z",
+          "evaluatedAt": "2026-08-21T09:21:19.648Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +875,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:41.287Z",
+          "evaluatedAt": "2026-08-21T09:21:19.648Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -698,12 +888,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:romainsimon/paperasse:syndic",
       "relPath": "syndic",
       "verified": true,
       "tokenCount": 2768,
       "evalSummary": {
-        "overallScore": 56,
+        "overallScore": 59,
         "grade": "D",
         "categories": [
           {
@@ -743,13 +935,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:41.287Z",
+        "evaluatedAt": "2026-08-21T09:21:19.648Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -758,7 +968,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 56,
+          "overallScore": 59,
           "grade": "D",
           "categories": [
             {
@@ -798,13 +1008,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:41.287Z",
+          "evaluatedAt": "2026-08-21T09:21:19.648Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +1050,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:41.287Z",
+          "evaluatedAt": "2026-08-21T09:21:19.648Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -834,7 +1062,7 @@
       "name": "romainsimon-paperasse-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from romainsimon/paperasse.",
       "author": "ASM (romainsimon/paperasse)",
-      "createdAt": "2026-08-19T04:56:41.294Z",
+      "createdAt": "2026-08-21T09:21:19.899Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -894,7 +1122,7 @@
       "name": "romainsimon-paperasse-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from romainsimon/paperasse.",
       "author": "ASM (romainsimon/paperasse)",
-      "createdAt": "2026-08-19T04:56:41.294Z",
+      "createdAt": "2026-08-21T09:21:19.899Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -942,7 +1170,7 @@
       "name": "romainsimon-paperasse-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from romainsimon/paperasse.",
       "author": "ASM (romainsimon/paperasse)",
-      "createdAt": "2026-08-19T04:56:41.294Z",
+      "createdAt": "2026-08-21T09:21:19.899Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -978,7 +1206,7 @@
       "name": "romainsimon-paperasse-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from romainsimon/paperasse.",
       "author": "ASM (romainsimon/paperasse)",
-      "createdAt": "2026-08-19T04:56:41.294Z",
+      "createdAt": "2026-08-21T09:21:19.899Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1032,7 +1260,7 @@
       "name": "romainsimon-paperasse-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from romainsimon/paperasse.",
       "author": "ASM (romainsimon/paperasse)",
-      "createdAt": "2026-08-19T04:56:41.294Z",
+      "createdAt": "2026-08-21T09:21:19.899Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1068,7 +1296,7 @@
       "name": "romainsimon-paperasse-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from romainsimon/paperasse.",
       "author": "ASM (romainsimon/paperasse)",
-      "createdAt": "2026-08-19T04:56:41.294Z",
+      "createdAt": "2026-08-21T09:21:19.899Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1128,7 +1356,7 @@
       "name": "romainsimon-paperasse-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from romainsimon/paperasse.",
       "author": "ASM (romainsimon/paperasse)",
-      "createdAt": "2026-08-19T04:56:41.294Z",
+      "createdAt": "2026-08-21T09:21:19.899Z",
       "tags": [
         "repo-derived",
         "inferred",

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/garrytan/gstack.git",
   "owner": "garrytan",
   "repo": "gstack",
-  "updatedAt": "2026-08-19T04:55:35.533Z",
+  "updatedAt": "2026-08-21T09:19:59.388Z",
   "skillCount": 61,
   "skills": [
     {
@@ -13,13 +13,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:test/fixtures/context-bill/tree-a/alpha",
       "relPath": "test/fixtures/context-bill/tree-a/alpha",
       "verified": true,
       "tokenCount": 174,
       "evalSummary": {
-        "overallScore": 47,
-        "grade": "F",
+        "overallScore": 53,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:34.889Z",
+        "evaluatedAt": "2026-08-21T09:19:57.952Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -72,9 +92,9 @@
           "providerId": "quality",
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 47,
-          "grade": "F",
+          "passed": true,
+          "overallScore": 53,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.903Z",
+          "evaluatedAt": "2026-08-21T09:19:57.959Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.903Z",
+          "evaluatedAt": "2026-08-21T09:19:57.959Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -150,12 +188,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:autoplan",
       "relPath": "autoplan",
       "verified": true,
-      "tokenCount": 27974,
+      "tokenCount": 28238,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -195,13 +235,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:34.894Z",
+        "evaluatedAt": "2026-08-21T09:19:57.959Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -210,7 +268,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -250,13 +308,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.903Z",
+          "evaluatedAt": "2026-08-21T09:19:57.960Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +350,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.903Z",
+          "evaluatedAt": "2026-08-21T09:19:57.960Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -287,147 +363,12 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:benchmark",
       "relPath": "benchmark",
       "verified": true,
-      "tokenCount": 9630,
-      "evalSummary": {
-        "overallScore": 69,
-        "grade": "C",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 4,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 4,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-08-19T04:55:34.903Z",
-        "evaluatedVersion": "1.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 69,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 4,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 4,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-08-19T04:55:34.907Z",
-          "evaluatedVersion": "1.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 69,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 9,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-08-19T04:55:34.907Z",
-          "evaluatedVersion": "1.0.0"
-        }
-      }
-    },
-    {
-      "name": "benchmark-models",
-      "description": "Cross-model benchmark for gstack skills. (gstack)",
-      "version": "1.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:garrytan/gstack:benchmark-models",
-      "relPath": "benchmark-models",
-      "verified": true,
-      "tokenCount": 8476,
+      "tokenCount": 9894,
       "evalSummary": {
         "overallScore": 70,
         "grade": "C",
@@ -441,7 +382,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 4,
             "max": 10
           },
           {
@@ -465,7 +406,13 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
             "max": 10
           },
           {
@@ -473,9 +420,21 @@
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:34.900Z",
+        "evaluatedAt": "2026-08-21T09:19:57.959Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -496,6 +455,181 @@
             {
               "id": "description",
               "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:19:57.960Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:19:57.960Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "benchmark-models",
+      "description": "Cross-model benchmark for gstack skills. (gstack)",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:garrytan/gstack:benchmark-models",
+      "relPath": "benchmark-models",
+      "verified": true,
+      "tokenCount": 8740,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-21T09:19:57.959Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
               "score": 5,
               "max": 10
             },
@@ -520,7 +654,13 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
               "max": 10
             },
             {
@@ -528,9 +668,21 @@
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.907Z",
+          "evaluatedAt": "2026-08-21T09:19:57.960Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +700,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.907Z",
+          "evaluatedAt": "2026-08-21T09:19:57.960Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -561,12 +713,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:test/fixtures/context-bill/tree-a/beta",
       "relPath": "test/fixtures/context-bill/tree-a/beta",
       "verified": true,
       "tokenCount": 52,
       "evalSummary": {
-        "overallScore": 36,
+        "overallScore": 45,
         "grade": "F",
         "categories": [
           {
@@ -606,13 +760,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:34.889Z",
+        "evaluatedAt": "2026-08-21T09:19:57.956Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -621,7 +793,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 36,
+          "overallScore": 45,
           "grade": "F",
           "categories": [
             {
@@ -661,13 +833,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.903Z",
+          "evaluatedAt": "2026-08-21T09:19:57.960Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +875,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.903Z",
+          "evaluatedAt": "2026-08-21T09:19:57.960Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -698,12 +888,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:browse",
       "relPath": "browse",
       "verified": true,
-      "tokenCount": 15838,
+      "tokenCount": 16102,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -739,7 +931,13 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
             "max": 10
           },
           {
@@ -747,9 +945,21 @@
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:34.897Z",
+        "evaluatedAt": "2026-08-21T09:19:57.959Z",
         "evaluatedVersion": "1.1.0"
       },
       "evalSummaries": {
@@ -758,7 +968,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 76,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -794,7 +1004,13 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
               "max": 10
             },
             {
@@ -802,9 +1018,21 @@
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 9,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.903Z",
+          "evaluatedAt": "2026-08-21T09:19:57.960Z",
           "evaluatedVersion": "1.1.0"
         },
         "skill-best-practice": {
@@ -822,7 +1050,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.903Z",
+          "evaluatedAt": "2026-08-21T09:19:57.960Z",
           "evaluatedVersion": "1.1.0"
         }
       }
@@ -835,12 +1063,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:canary",
       "relPath": "canary",
       "verified": true,
-      "tokenCount": 15211,
+      "tokenCount": 15475,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -880,13 +1110,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:34.907Z",
+        "evaluatedAt": "2026-08-21T09:19:57.960Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -895,7 +1143,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -935,13 +1183,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.907Z",
+          "evaluatedAt": "2026-08-21T09:19:57.960Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +1225,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.907Z",
+          "evaluatedAt": "2026-08-21T09:19:57.960Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -972,12 +1238,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:careful",
       "relPath": "careful",
       "verified": true,
       "tokenCount": 1007,
       "evalSummary": {
-        "overallScore": 51,
+        "overallScore": 56,
         "grade": "D",
         "categories": [
           {
@@ -1017,13 +1285,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:34.904Z",
+        "evaluatedAt": "2026-08-21T09:19:57.959Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -1032,7 +1318,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 51,
+          "overallScore": 54,
           "grade": "D",
           "categories": [
             {
@@ -1072,13 +1358,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 8,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.907Z",
+          "evaluatedAt": "2026-08-21T09:19:57.960Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -1096,7 +1400,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.907Z",
+          "evaluatedAt": "2026-08-21T09:19:57.960Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -1109,12 +1413,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:codex",
       "relPath": "codex",
       "verified": true,
-      "tokenCount": 27456,
+      "tokenCount": 27863,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -1154,13 +1460,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:34.953Z",
+        "evaluatedAt": "2026-08-21T09:19:58.026Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1169,7 +1493,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -1209,13 +1533,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.971Z",
+          "evaluatedAt": "2026-08-21T09:19:58.028Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1575,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.971Z",
+          "evaluatedAt": "2026-08-21T09:19:58.028Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1246,12 +1588,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:context-restore",
       "relPath": "context-restore",
       "verified": true,
-      "tokenCount": 14322,
+      "tokenCount": 14586,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -1291,13 +1635,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:34.979Z",
+        "evaluatedAt": "2026-08-21T09:19:58.026Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1306,7 +1668,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -1346,13 +1708,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.984Z",
+          "evaluatedAt": "2026-08-21T09:19:58.027Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1750,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.984Z",
+          "evaluatedAt": "2026-08-21T09:19:58.027Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1383,12 +1763,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:context-save",
       "relPath": "context-save",
       "verified": true,
-      "tokenCount": 14569,
+      "tokenCount": 14833,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -1428,13 +1810,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:34.966Z",
+        "evaluatedAt": "2026-08-21T09:19:58.026Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1443,7 +1843,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -1483,13 +1883,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.979Z",
+          "evaluatedAt": "2026-08-21T09:19:58.028Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1925,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.979Z",
+          "evaluatedAt": "2026-08-21T09:19:58.028Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1520,12 +1938,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:cso",
       "relPath": "cso",
       "verified": true,
-      "tokenCount": 20377,
+      "tokenCount": 20641,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -1565,13 +1985,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:34.958Z",
+        "evaluatedAt": "2026-08-21T09:19:58.027Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1580,7 +2018,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -1620,13 +2058,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.979Z",
+          "evaluatedAt": "2026-08-21T09:19:58.028Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +2100,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.971Z",
+          "evaluatedAt": "2026-08-21T09:19:58.028Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1657,12 +2113,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:design-consultation",
       "relPath": "design-consultation",
       "verified": true,
-      "tokenCount": 18361,
+      "tokenCount": 18625,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -1702,13 +2160,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:34.963Z",
+        "evaluatedAt": "2026-08-21T09:19:58.033Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1717,7 +2193,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -1757,13 +2233,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.979Z",
+          "evaluatedAt": "2026-08-21T09:19:58.033Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +2275,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.979Z",
+          "evaluatedAt": "2026-08-21T09:19:58.033Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1794,12 +2288,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:design-html",
       "relPath": "design-html",
       "verified": true,
-      "tokenCount": 20722,
+      "tokenCount": 20986,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -1839,13 +2335,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:34.971Z",
+        "evaluatedAt": "2026-08-21T09:19:58.067Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1854,7 +2368,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -1894,13 +2408,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.984Z",
+          "evaluatedAt": "2026-08-21T09:19:58.068Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1918,7 +2450,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.984Z",
+          "evaluatedAt": "2026-08-21T09:19:58.068Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1931,12 +2463,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:design-review",
       "relPath": "design-review",
       "verified": true,
-      "tokenCount": 29928,
+      "tokenCount": 30192,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -1976,13 +2510,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:34.976Z",
+        "evaluatedAt": "2026-08-21T09:19:58.079Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1991,7 +2543,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -2031,13 +2583,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.984Z",
+          "evaluatedAt": "2026-08-21T09:19:58.079Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -2055,7 +2625,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.984Z",
+          "evaluatedAt": "2026-08-21T09:19:58.079Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -2068,12 +2638,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:design-shotgun",
       "relPath": "design-shotgun",
       "verified": true,
-      "tokenCount": 19427,
+      "tokenCount": 19691,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -2113,13 +2685,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:34.984Z",
+        "evaluatedAt": "2026-08-21T09:19:58.100Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2128,7 +2718,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -2168,13 +2758,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.988Z",
+          "evaluatedAt": "2026-08-21T09:19:58.101Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2192,7 +2800,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:34.989Z",
+          "evaluatedAt": "2026-08-21T09:19:58.101Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2205,12 +2813,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:devex-review",
       "relPath": "devex-review",
       "verified": true,
-      "tokenCount": 21030,
+      "tokenCount": 21294,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -2250,13 +2860,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.061Z",
+        "evaluatedAt": "2026-08-21T09:19:58.101Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2265,7 +2893,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -2305,13 +2933,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.068Z",
+          "evaluatedAt": "2026-08-21T09:19:58.101Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2329,7 +2975,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.067Z",
+          "evaluatedAt": "2026-08-21T09:19:58.101Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2342,12 +2988,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:diagram",
       "relPath": "diagram",
       "verified": false,
-      "tokenCount": 8465,
+      "tokenCount": 8729,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -2387,13 +3035,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.063Z",
+        "evaluatedAt": "2026-08-21T09:19:58.101Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2402,7 +3068,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -2442,13 +3108,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.067Z",
+          "evaluatedAt": "2026-08-21T09:19:58.101Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2466,7 +3150,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.068Z",
+          "evaluatedAt": "2026-08-21T09:19:58.101Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2479,12 +3163,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:document-generate",
       "relPath": "document-generate",
       "verified": true,
-      "tokenCount": 17460,
+      "tokenCount": 17724,
       "evalSummary": {
-        "overallScore": 87,
+        "overallScore": 81,
         "grade": "B",
         "categories": [
           {
@@ -2524,13 +3210,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.067Z",
+        "evaluatedAt": "2026-08-21T09:19:58.139Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2539,7 +3243,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 87,
+          "overallScore": 81,
           "grade": "B",
           "categories": [
             {
@@ -2579,13 +3283,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.074Z",
+          "evaluatedAt": "2026-08-21T09:19:58.139Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2603,7 +3325,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.074Z",
+          "evaluatedAt": "2026-08-21T09:19:58.139Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2616,12 +3338,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:document-release",
       "relPath": "document-release",
       "verified": true,
-      "tokenCount": 14865,
+      "tokenCount": 15129,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -2661,13 +3385,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.071Z",
+        "evaluatedAt": "2026-08-21T09:19:58.139Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2676,7 +3418,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -2716,13 +3458,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.074Z",
+          "evaluatedAt": "2026-08-21T09:19:58.139Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2740,7 +3500,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.074Z",
+          "evaluatedAt": "2026-08-21T09:19:58.139Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2753,12 +3513,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:freeze",
       "relPath": "freeze",
       "verified": true,
       "tokenCount": 1051,
       "evalSummary": {
-        "overallScore": 61,
+        "overallScore": 63,
         "grade": "D",
         "categories": [
           {
@@ -2798,13 +3560,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.073Z",
+        "evaluatedAt": "2026-08-21T09:19:58.144Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -2813,7 +3593,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 61,
+          "overallScore": 62,
           "grade": "D",
           "categories": [
             {
@@ -2853,13 +3633,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 9,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.074Z",
+          "evaluatedAt": "2026-08-21T09:19:58.146Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -2877,7 +3675,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.074Z",
+          "evaluatedAt": "2026-08-21T09:19:58.146Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -2890,12 +3688,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack",
       "relPath": "",
       "verified": true,
-      "tokenCount": 8203,
+      "tokenCount": 8467,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
@@ -2931,7 +3731,13 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 2,
             "max": 10
           },
           {
@@ -2939,9 +3745,21 @@
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.073Z",
+        "evaluatedAt": "2026-08-21T09:19:58.146Z",
         "evaluatedVersion": "1.2.0"
       },
       "evalSummaries": {
@@ -2950,8 +3768,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
-          "grade": "C",
+          "overallScore": 54,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -2986,7 +3804,13 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 2,
               "max": 10
             },
             {
@@ -2994,9 +3818,21 @@
               "name": "Naming & conventions",
               "score": 9,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 0,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.074Z",
+          "evaluatedAt": "2026-08-21T09:19:58.147Z",
           "evaluatedVersion": "1.2.0"
         },
         "skill-best-practice": {
@@ -3014,7 +3850,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.074Z",
+          "evaluatedAt": "2026-08-21T09:19:58.147Z",
           "evaluatedVersion": "1.2.0"
         }
       }
@@ -3027,12 +3863,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:openclaw/skills/gstack-openclaw-ceo-review",
       "relPath": "openclaw/skills/gstack-openclaw-ceo-review",
       "verified": true,
       "tokenCount": 3087,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -3072,13 +3910,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.074Z",
+        "evaluatedAt": "2026-08-21T09:19:58.147Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3087,7 +3943,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -3127,13 +3983,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.074Z",
+          "evaluatedAt": "2026-08-21T09:19:58.148Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3151,7 +4025,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.074Z",
+          "evaluatedAt": "2026-08-21T09:19:58.148Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3164,13 +4038,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:openclaw/skills/gstack-openclaw-investigate",
       "relPath": "openclaw/skills/gstack-openclaw-investigate",
       "verified": true,
       "tokenCount": 1658,
       "evalSummary": {
-        "overallScore": 80,
-        "grade": "B",
+        "overallScore": 76,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -3209,13 +4085,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.074Z",
+        "evaluatedAt": "2026-08-21T09:19:58.147Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3224,8 +4118,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 80,
-          "grade": "B",
+          "overallScore": 76,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -3264,13 +4158,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.083Z",
+          "evaluatedAt": "2026-08-21T09:19:58.148Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3288,7 +4200,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.083Z",
+          "evaluatedAt": "2026-08-21T09:19:58.148Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3301,12 +4213,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:openclaw/skills/gstack-openclaw-office-hours",
       "relPath": "openclaw/skills/gstack-openclaw-office-hours",
       "verified": true,
       "tokenCount": 5208,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -3346,13 +4260,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.125Z",
+        "evaluatedAt": "2026-08-21T09:19:58.147Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3361,7 +4293,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -3401,13 +4333,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.133Z",
+          "evaluatedAt": "2026-08-21T09:19:58.148Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3425,7 +4375,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.133Z",
+          "evaluatedAt": "2026-08-21T09:19:58.148Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3438,13 +4388,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:openclaw/skills/gstack-openclaw-retro",
       "relPath": "openclaw/skills/gstack-openclaw-retro",
       "verified": true,
       "tokenCount": 2882,
       "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
+        "overallScore": 65,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -3483,13 +4435,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.127Z",
+        "evaluatedAt": "2026-08-21T09:19:58.172Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3498,8 +4468,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 65,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -3538,13 +4508,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.140Z",
+          "evaluatedAt": "2026-08-21T09:19:58.172Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3562,7 +4550,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.140Z",
+          "evaluatedAt": "2026-08-21T09:19:58.172Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3575,10 +4563,12 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:gstack-upgrade",
       "relPath": "gstack-upgrade",
       "verified": true,
-      "tokenCount": 3605,
+      "tokenCount": 3865,
       "evalSummary": {
         "overallScore": 67,
         "grade": "C",
@@ -3620,13 +4610,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.136Z",
+        "evaluatedAt": "2026-08-21T09:19:58.175Z",
         "evaluatedVersion": "1.1.0"
       },
       "evalSummaries": {
@@ -3635,8 +4643,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
-          "grade": "C",
+          "overallScore": 57,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -3675,13 +4683,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 0,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.145Z",
+          "evaluatedAt": "2026-08-21T09:19:58.176Z",
           "evaluatedVersion": "1.1.0"
         },
         "skill-best-practice": {
@@ -3699,7 +4725,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.145Z",
+          "evaluatedAt": "2026-08-21T09:19:58.176Z",
           "evaluatedVersion": "1.1.0"
         }
       }
@@ -3712,12 +4738,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:guard",
       "relPath": "guard",
       "verified": true,
       "tokenCount": 903,
       "evalSummary": {
-        "overallScore": 59,
+        "overallScore": 61,
         "grade": "D",
         "categories": [
           {
@@ -3757,14 +4785,207 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.137Z",
+        "evaluatedAt": "2026-08-21T09:19:58.176Z",
         "evaluatedVersion": "0.1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 61,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:19:58.176Z",
+          "evaluatedVersion": "0.1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:19:58.176Z",
+          "evaluatedVersion": "0.1.0"
+        }
+      }
+    },
+    {
+      "name": "hackernews-frontpage",
+      "description": "Scrape the Hacker News front page (titles, points, comment counts).",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:garrytan/gstack:browser-skills/hackernews-frontpage",
+      "relPath": "browser-skills/hackernews-frontpage",
+      "verified": true,
+      "tokenCount": 400,
+      "evalSummary": {
+        "overallScore": 59,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-21T09:19:58.176Z",
+        "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
         "quality": {
@@ -3790,143 +5011,6 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-08-19T04:55:35.185Z",
-          "evaluatedVersion": "0.1.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 69,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 9,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-08-19T04:55:35.185Z",
-          "evaluatedVersion": "0.1.0"
-        }
-      }
-    },
-    {
-      "name": "hackernews-frontpage",
-      "description": "Scrape the Hacker News front page (titles, points, comment counts).",
-      "version": "1.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:garrytan/gstack:browser-skills/hackernews-frontpage",
-      "relPath": "browser-skills/hackernews-frontpage",
-      "verified": true,
-      "tokenCount": 400,
-      "evalSummary": {
-        "overallScore": 56,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 4,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 4,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 1,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-08-19T04:55:35.136Z",
-        "evaluatedVersion": "1.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 56,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 4,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
               "score": 4,
               "max": 10
             },
@@ -3949,13 +5033,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.145Z",
+          "evaluatedAt": "2026-08-21T09:19:58.176Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3973,7 +5075,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.145Z",
+          "evaluatedAt": "2026-08-21T09:19:58.176Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3986,12 +5088,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:health",
       "relPath": "health",
       "verified": true,
-      "tokenCount": 16029,
+      "tokenCount": 16293,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -4031,13 +5135,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.140Z",
+        "evaluatedAt": "2026-08-21T09:19:58.186Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4046,7 +5168,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -4086,13 +5208,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.185Z",
+          "evaluatedAt": "2026-08-21T09:19:58.187Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4110,7 +5250,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.185Z",
+          "evaluatedAt": "2026-08-21T09:19:58.187Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4123,12 +5263,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:investigate",
       "relPath": "investigate",
       "verified": true,
-      "tokenCount": 16129,
+      "tokenCount": 16393,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
@@ -4168,13 +5310,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.145Z",
+        "evaluatedAt": "2026-08-21T09:19:58.193Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4183,7 +5343,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 76,
+          "overallScore": 73,
           "grade": "C",
           "categories": [
             {
@@ -4223,13 +5383,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.185Z",
+          "evaluatedAt": "2026-08-21T09:19:58.193Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4247,7 +5425,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.185Z",
+          "evaluatedAt": "2026-08-21T09:19:58.193Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4260,12 +5438,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:ios-clean",
       "relPath": "ios-clean",
       "verified": true,
-      "tokenCount": 13506,
+      "tokenCount": 13770,
       "evalSummary": {
-        "overallScore": 79,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -4305,13 +5485,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.185Z",
+        "evaluatedAt": "2026-08-21T09:19:58.225Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4320,7 +5518,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 79,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -4360,13 +5558,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.189Z",
+          "evaluatedAt": "2026-08-21T09:19:58.228Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4384,7 +5600,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.189Z",
+          "evaluatedAt": "2026-08-21T09:19:58.228Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4397,12 +5613,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:ios-design-review",
       "relPath": "ios-design-review",
       "verified": true,
-      "tokenCount": 13720,
+      "tokenCount": 13984,
       "evalSummary": {
-        "overallScore": 79,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -4442,13 +5660,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.264Z",
+        "evaluatedAt": "2026-08-21T09:19:58.251Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4457,7 +5693,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 79,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -4497,13 +5733,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.269Z",
+          "evaluatedAt": "2026-08-21T09:19:58.267Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4521,7 +5775,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.269Z",
+          "evaluatedAt": "2026-08-21T09:19:58.267Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4534,12 +5788,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:ios-fix",
       "relPath": "ios-fix",
       "verified": true,
-      "tokenCount": 13487,
+      "tokenCount": 13751,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -4579,13 +5835,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.268Z",
+        "evaluatedAt": "2026-08-21T09:19:58.291Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4594,7 +5868,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -4634,13 +5908,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.282Z",
+          "evaluatedAt": "2026-08-21T09:19:58.294Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4658,7 +5950,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.282Z",
+          "evaluatedAt": "2026-08-21T09:19:58.295Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4671,12 +5963,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:ios-qa",
       "relPath": "ios-qa",
       "verified": true,
-      "tokenCount": 16075,
+      "tokenCount": 16339,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
@@ -4716,13 +6010,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.272Z",
+        "evaluatedAt": "2026-08-21T09:19:58.302Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4731,7 +6043,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 76,
+          "overallScore": 71,
           "grade": "C",
           "categories": [
             {
@@ -4771,13 +6083,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.290Z",
+          "evaluatedAt": "2026-08-21T09:19:58.302Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4795,7 +6125,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.285Z",
+          "evaluatedAt": "2026-08-21T09:19:58.302Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4808,12 +6138,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:ios-sync",
       "relPath": "ios-sync",
       "verified": true,
-      "tokenCount": 13569,
+      "tokenCount": 13833,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -4853,13 +6185,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.276Z",
+        "evaluatedAt": "2026-08-21T09:19:58.314Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4868,7 +6218,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -4908,13 +6258,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.290Z",
+          "evaluatedAt": "2026-08-21T09:19:58.314Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4932,7 +6300,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.290Z",
+          "evaluatedAt": "2026-08-21T09:19:58.314Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4945,12 +6313,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:land-and-deploy",
       "relPath": "land-and-deploy",
       "verified": true,
-      "tokenCount": 31804,
+      "tokenCount": 32068,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -4990,13 +6360,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.282Z",
+        "evaluatedAt": "2026-08-21T09:19:58.327Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -5005,7 +6393,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -5045,13 +6433,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.303Z",
+          "evaluatedAt": "2026-08-21T09:19:58.327Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -5069,7 +6475,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.303Z",
+          "evaluatedAt": "2026-08-21T09:19:58.327Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -5082,12 +6488,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:landing-report",
       "relPath": "landing-report",
       "verified": true,
-      "tokenCount": 14102,
+      "tokenCount": 14366,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
@@ -5127,13 +6535,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.285Z",
+        "evaluatedAt": "2026-08-21T09:19:58.336Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -5142,7 +6568,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 76,
+          "overallScore": 73,
           "grade": "C",
           "categories": [
             {
@@ -5182,13 +6608,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.303Z",
+          "evaluatedAt": "2026-08-21T09:19:58.337Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -5206,7 +6650,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.303Z",
+          "evaluatedAt": "2026-08-21T09:19:58.337Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -5219,12 +6663,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:learn",
       "relPath": "learn",
       "verified": true,
-      "tokenCount": 13664,
+      "tokenCount": 13928,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 71,
         "grade": "C",
         "categories": [
           {
@@ -5264,13 +6710,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.288Z",
+        "evaluatedAt": "2026-08-21T09:19:58.350Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -5279,7 +6743,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 71,
           "grade": "C",
           "categories": [
             {
@@ -5319,13 +6783,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.303Z",
+          "evaluatedAt": "2026-08-21T09:19:58.350Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -5343,7 +6825,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.303Z",
+          "evaluatedAt": "2026-08-21T09:19:58.350Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -5356,12 +6838,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:make-pdf",
       "relPath": "make-pdf",
       "verified": true,
-      "tokenCount": 10190,
+      "tokenCount": 10454,
       "evalSummary": {
-        "overallScore": 66,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -5397,7 +6881,13 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
             "max": 10
           },
           {
@@ -5405,9 +6895,21 @@
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.290Z",
+        "evaluatedAt": "2026-08-21T09:19:58.370Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -5452,7 +6954,13 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
               "max": 10
             },
             {
@@ -5460,9 +6968,21 @@
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.303Z",
+          "evaluatedAt": "2026-08-21T09:19:58.372Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -5480,7 +7000,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.303Z",
+          "evaluatedAt": "2026-08-21T09:19:58.372Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -5493,12 +7013,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:office-hours",
       "relPath": "office-hours",
       "verified": true,
-      "tokenCount": 27606,
+      "tokenCount": 27870,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -5538,13 +7060,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.357Z",
+        "evaluatedAt": "2026-08-21T09:19:58.380Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -5553,7 +7093,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -5593,13 +7133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.362Z",
+          "evaluatedAt": "2026-08-21T09:19:58.381Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -5617,7 +7175,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.362Z",
+          "evaluatedAt": "2026-08-21T09:19:58.381Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -5630,12 +7188,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:connect-chrome",
       "relPath": "connect-chrome",
       "verified": true,
-      "tokenCount": 9269,
+      "tokenCount": 9533,
       "evalSummary": {
-        "overallScore": 67,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -5671,7 +7231,13 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
             "max": 10
           },
           {
@@ -5679,9 +7245,21 @@
             "name": "Naming & conventions",
             "score": 9,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.361Z",
+        "evaluatedAt": "2026-08-21T09:19:58.394Z",
         "evaluatedVersion": "0.2.0"
       },
       "evalSummaries": {
@@ -5690,7 +7268,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -5726,7 +7304,13 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
               "max": 10
             },
             {
@@ -5734,9 +7318,21 @@
               "name": "Naming & conventions",
               "score": 9,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.371Z",
+          "evaluatedAt": "2026-08-21T09:19:58.394Z",
           "evaluatedVersion": "0.2.0"
         },
         "skill-best-practice": {
@@ -5754,7 +7350,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.372Z",
+          "evaluatedAt": "2026-08-21T09:19:58.394Z",
           "evaluatedVersion": "0.2.0"
         }
       }
@@ -5767,12 +7363,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:pair-agent",
       "relPath": "pair-agent",
       "verified": true,
-      "tokenCount": 15599,
+      "tokenCount": 16588,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -5812,13 +7410,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.366Z",
+        "evaluatedAt": "2026-08-21T09:19:58.407Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -5827,7 +7443,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -5867,13 +7483,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.385Z",
+          "evaluatedAt": "2026-08-21T09:19:58.407Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -5891,7 +7525,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.385Z",
+          "evaluatedAt": "2026-08-21T09:19:58.407Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -5904,12 +7538,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:plan-ceo-review",
       "relPath": "plan-ceo-review",
       "verified": true,
-      "tokenCount": 25341,
+      "tokenCount": 25605,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -5949,13 +7585,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.371Z",
+        "evaluatedAt": "2026-08-21T09:19:58.430Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -5964,7 +7618,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -6004,13 +7658,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.385Z",
+          "evaluatedAt": "2026-08-21T09:19:58.435Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -6028,7 +7700,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.385Z",
+          "evaluatedAt": "2026-08-21T09:19:58.435Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -6041,12 +7713,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:plan-design-review",
       "relPath": "plan-design-review",
       "verified": true,
-      "tokenCount": 24405,
+      "tokenCount": 24669,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -6086,13 +7760,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.377Z",
+        "evaluatedAt": "2026-08-21T09:19:58.446Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -6101,7 +7793,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -6141,13 +7833,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.389Z",
+          "evaluatedAt": "2026-08-21T09:19:58.447Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -6165,7 +7875,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.389Z",
+          "evaluatedAt": "2026-08-21T09:19:58.447Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -6178,12 +7888,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:plan-devex-review",
       "relPath": "plan-devex-review",
       "verified": true,
-      "tokenCount": 22357,
+      "tokenCount": 22621,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -6223,13 +7935,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.382Z",
+        "evaluatedAt": "2026-08-21T09:19:58.456Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -6238,7 +7968,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -6278,13 +8008,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.389Z",
+          "evaluatedAt": "2026-08-21T09:19:58.462Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -6302,7 +8050,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.389Z",
+          "evaluatedAt": "2026-08-21T09:19:58.462Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -6315,12 +8063,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:plan-eng-review",
       "relPath": "plan-eng-review",
       "verified": true,
-      "tokenCount": 18967,
+      "tokenCount": 19231,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -6360,13 +8110,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.385Z",
+        "evaluatedAt": "2026-08-21T09:19:58.476Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -6375,7 +8143,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -6415,13 +8183,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.390Z",
+          "evaluatedAt": "2026-08-21T09:19:58.476Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -6439,7 +8225,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.390Z",
+          "evaluatedAt": "2026-08-21T09:19:58.476Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -6452,12 +8238,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:plan-tune",
       "relPath": "plan-tune",
       "verified": true,
-      "tokenCount": 19747,
+      "tokenCount": 20011,
       "evalSummary": {
-        "overallScore": 79,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -6497,13 +8285,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.389Z",
+        "evaluatedAt": "2026-08-21T09:19:58.503Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -6512,7 +8318,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 79,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -6552,13 +8358,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.391Z",
+          "evaluatedAt": "2026-08-21T09:19:58.504Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -6576,7 +8400,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.391Z",
+          "evaluatedAt": "2026-08-21T09:19:58.504Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -6589,12 +8413,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:qa",
       "relPath": "qa",
       "verified": true,
-      "tokenCount": 24295,
+      "tokenCount": 24559,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -6634,13 +8460,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.435Z",
+        "evaluatedAt": "2026-08-21T09:19:58.511Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -6649,7 +8493,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -6689,13 +8533,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.445Z",
+          "evaluatedAt": "2026-08-21T09:19:58.515Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -6713,7 +8575,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.445Z",
+          "evaluatedAt": "2026-08-21T09:19:58.515Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -6726,12 +8588,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:qa-only",
       "relPath": "qa-only",
       "verified": true,
-      "tokenCount": 17971,
+      "tokenCount": 18235,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -6771,13 +8635,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.439Z",
+        "evaluatedAt": "2026-08-21T09:19:58.541Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -6786,7 +8668,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 66,
           "grade": "C",
           "categories": [
             {
@@ -6826,13 +8708,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.445Z",
+          "evaluatedAt": "2026-08-21T09:19:58.541Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -6850,7 +8750,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.445Z",
+          "evaluatedAt": "2026-08-21T09:19:58.541Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -6863,12 +8763,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:retro",
       "relPath": "retro",
       "verified": true,
-      "tokenCount": 25848,
+      "tokenCount": 26112,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -6908,13 +8810,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.445Z",
+        "evaluatedAt": "2026-08-21T09:19:58.541Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -6923,7 +8843,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -6963,13 +8883,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.454Z",
+          "evaluatedAt": "2026-08-21T09:19:58.541Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -6987,7 +8925,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.454Z",
+          "evaluatedAt": "2026-08-21T09:19:58.541Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -7000,12 +8938,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:review",
       "relPath": "review",
       "verified": true,
-      "tokenCount": 29571,
+      "tokenCount": 29835,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -7045,13 +8985,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.450Z",
+        "evaluatedAt": "2026-08-21T09:19:58.564Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -7060,7 +9018,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -7100,13 +9058,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.458Z",
+          "evaluatedAt": "2026-08-21T09:19:58.564Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -7124,7 +9100,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.458Z",
+          "evaluatedAt": "2026-08-21T09:19:58.564Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -7137,10 +9113,12 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:scrape",
       "relPath": "scrape",
       "verified": true,
-      "tokenCount": 8524,
+      "tokenCount": 8968,
       "evalSummary": {
         "overallScore": 67,
         "grade": "C",
@@ -7182,13 +9160,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.454Z",
+        "evaluatedAt": "2026-08-21T09:19:58.581Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -7237,13 +9233,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.458Z",
+          "evaluatedAt": "2026-08-21T09:19:58.581Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -7261,7 +9275,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.458Z",
+          "evaluatedAt": "2026-08-21T09:19:58.581Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -7274,12 +9288,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:setup-browser-cookies",
       "relPath": "setup-browser-cookies",
       "verified": true,
-      "tokenCount": 7671,
+      "tokenCount": 7935,
       "evalSummary": {
-        "overallScore": 66,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -7315,7 +9331,13 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
             "max": 10
           },
           {
@@ -7323,9 +9345,21 @@
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.452Z",
+        "evaluatedAt": "2026-08-21T09:19:58.581Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -7334,7 +9368,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 66,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -7370,7 +9404,13 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
               "max": 10
             },
             {
@@ -7378,9 +9418,21 @@
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.458Z",
+          "evaluatedAt": "2026-08-21T09:19:58.581Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -7398,7 +9450,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.458Z",
+          "evaluatedAt": "2026-08-21T09:19:58.581Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -7411,13 +9463,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:setup-deploy",
       "relPath": "setup-deploy",
       "verified": true,
-      "tokenCount": 15140,
+      "tokenCount": 15404,
       "evalSummary": {
-        "overallScore": 80,
-        "grade": "B",
+        "overallScore": 76,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -7456,13 +9510,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.458Z",
+        "evaluatedAt": "2026-08-21T09:19:58.589Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -7471,8 +9543,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 80,
-          "grade": "B",
+          "overallScore": 76,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -7511,13 +9583,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.463Z",
+          "evaluatedAt": "2026-08-21T09:19:58.597Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -7535,7 +9625,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.463Z",
+          "evaluatedAt": "2026-08-21T09:19:58.597Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -7548,13 +9638,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:setup-gbrain",
       "relPath": "setup-gbrain",
       "verified": true,
-      "tokenCount": 25360,
+      "tokenCount": 25624,
       "evalSummary": {
-        "overallScore": 83,
-        "grade": "B",
+        "overallScore": 78,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -7593,13 +9685,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.463Z",
+        "evaluatedAt": "2026-08-21T09:19:58.624Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -7608,8 +9718,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 83,
-          "grade": "B",
+          "overallScore": 78,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -7648,13 +9758,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.463Z",
+          "evaluatedAt": "2026-08-21T09:19:58.625Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -7672,7 +9800,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.463Z",
+          "evaluatedAt": "2026-08-21T09:19:58.625Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -7685,12 +9813,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:ship",
       "relPath": "ship",
       "verified": true,
-      "tokenCount": 24516,
+      "tokenCount": 24780,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -7730,13 +9860,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.502Z",
+        "evaluatedAt": "2026-08-21T09:19:58.625Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -7745,7 +9893,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -7785,13 +9933,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.506Z",
+          "evaluatedAt": "2026-08-21T09:19:58.625Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -7809,7 +9975,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.506Z",
+          "evaluatedAt": "2026-08-21T09:19:58.625Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -7822,12 +9988,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:skillify",
       "relPath": "skillify",
       "verified": true,
-      "tokenCount": 16895,
+      "tokenCount": 17375,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -7867,13 +10035,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.506Z",
+        "evaluatedAt": "2026-08-21T09:19:58.640Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -7882,7 +10068,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -7922,13 +10108,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.511Z",
+          "evaluatedAt": "2026-08-21T09:19:58.646Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -7946,7 +10150,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.511Z",
+          "evaluatedAt": "2026-08-21T09:19:58.646Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -7959,12 +10163,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:spec",
       "relPath": "spec",
       "verified": true,
-      "tokenCount": 23184,
+      "tokenCount": 23448,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -8004,13 +10210,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.511Z",
+        "evaluatedAt": "2026-08-21T09:19:58.664Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -8019,7 +10243,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -8059,13 +10283,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.514Z",
+          "evaluatedAt": "2026-08-21T09:19:58.665Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -8083,7 +10325,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.514Z",
+          "evaluatedAt": "2026-08-21T09:19:58.665Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -8096,12 +10338,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:sync-gbrain",
       "relPath": "sync-gbrain",
       "verified": true,
-      "tokenCount": 19023,
+      "tokenCount": 19287,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -8141,13 +10385,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.514Z",
+        "evaluatedAt": "2026-08-21T09:19:58.673Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -8156,7 +10418,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -8196,13 +10458,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.515Z",
+          "evaluatedAt": "2026-08-21T09:19:58.673Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -8220,7 +10500,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.515Z",
+          "evaluatedAt": "2026-08-21T09:19:58.673Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -8233,13 +10513,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:garrytan/gstack:unfreeze",
       "relPath": "unfreeze",
       "verified": true,
       "tokenCount": 370,
       "evalSummary": {
-        "overallScore": 47,
-        "grade": "F",
+        "overallScore": 53,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -8278,13 +10560,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:35.514Z",
+        "evaluatedAt": "2026-08-21T09:19:58.685Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -8292,9 +10592,9 @@
           "providerId": "quality",
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 47,
-          "grade": "F",
+          "passed": true,
+          "overallScore": 53,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -8333,13 +10633,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.515Z",
+          "evaluatedAt": "2026-08-21T09:19:58.687Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -8357,7 +10675,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:35.515Z",
+          "evaluatedAt": "2026-08-21T09:19:58.687Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -8369,7 +10687,7 @@
       "name": "garrytan-gstack-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from garrytan/gstack.",
       "author": "ASM (garrytan/gstack)",
-      "createdAt": "2026-08-19T04:55:35.533Z",
+      "createdAt": "2026-08-21T09:19:59.388Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8489,7 +10807,7 @@
       "name": "garrytan-gstack-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from garrytan/gstack.",
       "author": "ASM (garrytan/gstack)",
-      "createdAt": "2026-08-19T04:55:35.533Z",
+      "createdAt": "2026-08-21T09:19:59.388Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8579,7 +10897,7 @@
       "name": "garrytan-gstack-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from garrytan/gstack.",
       "author": "ASM (garrytan/gstack)",
-      "createdAt": "2026-08-19T04:55:35.533Z",
+      "createdAt": "2026-08-21T09:19:59.388Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8771,7 +11089,7 @@
       "name": "garrytan-gstack-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from garrytan/gstack.",
       "author": "ASM (garrytan/gstack)",
-      "createdAt": "2026-08-19T04:55:35.533Z",
+      "createdAt": "2026-08-21T09:19:59.388Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8873,7 +11191,7 @@
       "name": "garrytan-gstack-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from garrytan/gstack.",
       "author": "ASM (garrytan/gstack)",
-      "createdAt": "2026-08-19T04:55:35.533Z",
+      "createdAt": "2026-08-21T09:19:59.388Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8909,7 +11227,7 @@
       "name": "garrytan-gstack-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from garrytan/gstack.",
       "author": "ASM (garrytan/gstack)",
-      "createdAt": "2026-08-19T04:55:35.533Z",
+      "createdAt": "2026-08-21T09:19:59.388Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8951,7 +11269,7 @@
       "name": "garrytan-gstack-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from garrytan/gstack.",
       "author": "ASM (garrytan/gstack)",
-      "createdAt": "2026-08-19T04:55:35.533Z",
+      "createdAt": "2026-08-21T09:19:59.388Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -9059,7 +11377,7 @@
       "name": "garrytan-gstack-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from garrytan/gstack.",
       "author": "ASM (garrytan/gstack)",
-      "createdAt": "2026-08-19T04:55:35.533Z",
+      "createdAt": "2026-08-21T09:19:59.388Z",
       "tags": [
         "repo-derived",
         "inferred",

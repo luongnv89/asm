@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/kepano/obsidian-skills.git",
   "owner": "kepano",
   "repo": "obsidian-skills",
-  "updatedAt": "2026-08-19T04:55:42.975Z",
+  "updatedAt": "2026-08-21T09:20:13.960Z",
   "skillCount": 5,
   "skills": [
     {
@@ -13,12 +13,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:kepano/obsidian-skills:skills/defuddle",
       "relPath": "skills/defuddle",
       "verified": true,
       "tokenCount": 339,
       "evalSummary": {
-        "overallScore": 54,
+        "overallScore": 58,
         "grade": "D",
         "categories": [
           {
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:42.970Z",
+        "evaluatedAt": "2026-08-21T09:20:13.956Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -73,7 +93,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 54,
+          "overallScore": 58,
           "grade": "D",
           "categories": [
             {
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:42.972Z",
+          "evaluatedAt": "2026-08-21T09:20:13.957Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:42.972Z",
+          "evaluatedAt": "2026-08-21T09:20:13.957Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -150,13 +188,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:kepano/obsidian-skills:skills/json-canvas",
       "relPath": "skills/json-canvas",
       "verified": true,
       "tokenCount": 2344,
       "evalSummary": {
-        "overallScore": 81,
-        "grade": "B",
+        "overallScore": 77,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -195,13 +235,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:42.971Z",
+        "evaluatedAt": "2026-08-21T09:20:13.956Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -210,8 +268,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 81,
-          "grade": "B",
+          "overallScore": 77,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -250,13 +308,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:42.972Z",
+          "evaluatedAt": "2026-08-21T09:20:13.957Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +350,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:42.972Z",
+          "evaluatedAt": "2026-08-21T09:20:13.957Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -287,12 +363,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:kepano/obsidian-skills:skills/obsidian-bases",
       "relPath": "skills/obsidian-bases",
       "verified": true,
       "tokenCount": 4036,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -332,13 +410,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:42.971Z",
+        "evaluatedAt": "2026-08-21T09:20:13.956Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -347,7 +443,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -387,13 +483,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:42.972Z",
+          "evaluatedAt": "2026-08-21T09:20:13.957Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +525,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:42.972Z",
+          "evaluatedAt": "2026-08-21T09:20:13.957Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -424,6 +538,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:kepano/obsidian-skills:skills/obsidian-cli",
       "relPath": "skills/obsidian-cli",
       "verified": true,
@@ -469,13 +585,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:42.972Z",
+        "evaluatedAt": "2026-08-21T09:20:13.956Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -524,13 +658,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:42.972Z",
+          "evaluatedAt": "2026-08-21T09:20:13.957Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +700,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:42.972Z",
+          "evaluatedAt": "2026-08-21T09:20:13.957Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -561,6 +713,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:kepano/obsidian-skills:skills/obsidian-markdown",
       "relPath": "skills/obsidian-markdown",
       "verified": true,
@@ -606,13 +760,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:42.972Z",
+        "evaluatedAt": "2026-08-21T09:20:13.957Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -661,13 +833,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:42.972Z",
+          "evaluatedAt": "2026-08-21T09:20:13.957Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +875,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:42.972Z",
+          "evaluatedAt": "2026-08-21T09:20:13.957Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -697,7 +887,7 @@
       "name": "kepano-obsidian-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from kepano/obsidian-skills.",
       "author": "ASM (kepano/obsidian-skills)",
-      "createdAt": "2026-08-19T04:55:42.975Z",
+      "createdAt": "2026-08-21T09:20:13.960Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -733,7 +923,7 @@
       "name": "kepano-obsidian-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from kepano/obsidian-skills.",
       "author": "ASM (kepano/obsidian-skills)",
-      "createdAt": "2026-08-19T04:55:42.975Z",
+      "createdAt": "2026-08-21T09:20:13.960Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -769,7 +959,7 @@
       "name": "kepano-obsidian-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from kepano/obsidian-skills.",
       "author": "ASM (kepano/obsidian-skills)",
-      "createdAt": "2026-08-19T04:55:42.975Z",
+      "createdAt": "2026-08-21T09:20:13.960Z",
       "tags": [
         "repo-derived",
         "inferred",

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/briiirussell/cybersecurity-skills.git",
   "owner": "briiirussell",
   "repo": "cybersecurity-skills",
-  "updatedAt": "2026-08-19T04:56:42.168Z",
+  "updatedAt": "2026-08-21T09:21:20.750Z",
   "skillCount": 29,
   "skills": [
     {
@@ -12,7 +12,16 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Grep", "Glob", "Bash", "Write", "WebSearch"],
+      "allowedTools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Bash",
+        "Write",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/ai-risk-management",
       "relPath": "skills/ai-risk-management",
       "verified": true,
@@ -58,13 +67,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.116Z",
+        "evaluatedAt": "2026-08-21T09:21:20.694Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -113,13 +140,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.120Z",
+          "evaluatedAt": "2026-08-21T09:21:20.694Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +182,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.120Z",
+          "evaluatedAt": "2026-08-21T09:21:20.694Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -149,14 +194,22 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Grep", "Glob", "Bash", "Write"],
+      "allowedTools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Bash",
+        "Write"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/api-audit",
       "relPath": "skills/api-audit",
       "verified": true,
       "tokenCount": 3032,
       "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
+        "overallScore": 65,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -195,13 +248,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 8,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.117Z",
+        "evaluatedAt": "2026-08-21T09:21:20.694Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -210,8 +281,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 65,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -250,13 +321,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 8,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.120Z",
+          "evaluatedAt": "2026-08-21T09:21:20.694Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +363,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.120Z",
+          "evaluatedAt": "2026-08-21T09:21:20.694Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -286,13 +375,22 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Grep", "Glob", "Bash", "WebSearch", "WebFetch"],
+      "allowedTools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Bash",
+        "WebSearch",
+        "WebFetch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/breach-patterns",
       "relPath": "skills/breach-patterns",
       "verified": true,
       "tokenCount": 4017,
       "evalSummary": {
-        "overallScore": 61,
+        "overallScore": 63,
         "grade": "D",
         "categories": [
           {
@@ -332,13 +430,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.117Z",
+        "evaluatedAt": "2026-08-21T09:21:20.694Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -347,7 +463,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 61,
+          "overallScore": 63,
           "grade": "D",
           "categories": [
             {
@@ -387,13 +503,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.120Z",
+          "evaluatedAt": "2026-08-21T09:21:20.694Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +545,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.120Z",
+          "evaluatedAt": "2026-08-21T09:21:20.694Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -423,7 +557,16 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Bash", "Read", "Write", "Grep", "Glob", "WebSearch"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Grep",
+        "Glob",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/cloud-audit",
       "relPath": "skills/cloud-audit",
       "verified": true,
@@ -469,13 +612,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.118Z",
+        "evaluatedAt": "2026-08-21T09:21:20.694Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -524,13 +685,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.121Z",
+          "evaluatedAt": "2026-08-21T09:21:20.694Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +727,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.121Z",
+          "evaluatedAt": "2026-08-21T09:21:20.694Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -560,13 +739,22 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Bash", "Read", "Write", "Grep", "Glob", "WebSearch"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Grep",
+        "Glob",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/container-audit",
       "relPath": "skills/container-audit",
       "verified": true,
       "tokenCount": 2715,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
@@ -606,13 +794,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.120Z",
+        "evaluatedAt": "2026-08-21T09:21:20.694Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -621,7 +827,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 76,
+          "overallScore": 73,
           "grade": "C",
           "categories": [
             {
@@ -661,13 +867,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.121Z",
+          "evaluatedAt": "2026-08-21T09:21:20.694Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +909,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.121Z",
+          "evaluatedAt": "2026-08-21T09:21:20.694Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -697,13 +921,21 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Grep", "Glob", "Bash", "WebSearch"],
+      "allowedTools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Bash",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/crypto-audit",
       "relPath": "skills/crypto-audit",
       "verified": true,
       "tokenCount": 3028,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -743,13 +975,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.119Z",
+        "evaluatedAt": "2026-08-21T09:21:20.694Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -758,7 +1008,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -798,13 +1048,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.121Z",
+          "evaluatedAt": "2026-08-21T09:21:20.694Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +1090,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.121Z",
+          "evaluatedAt": "2026-08-21T09:21:20.694Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -834,13 +1102,21 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Grep", "Glob", "Bash", "WebSearch"],
+      "allowedTools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Bash",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/csf-mapping",
       "relPath": "skills/csf-mapping",
       "verified": true,
       "tokenCount": 3451,
       "evalSummary": {
-        "overallScore": 63,
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -880,13 +1156,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.119Z",
+        "evaluatedAt": "2026-08-21T09:21:20.694Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -895,7 +1189,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 63,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -935,13 +1229,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.121Z",
+          "evaluatedAt": "2026-08-21T09:21:20.694Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +1271,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.121Z",
+          "evaluatedAt": "2026-08-21T09:21:20.694Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -971,14 +1283,23 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Bash", "Read", "Write", "Grep", "Glob", "WebSearch"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Grep",
+        "Glob",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/dependency-audit",
       "relPath": "skills/dependency-audit",
       "verified": true,
       "tokenCount": 3386,
       "evalSummary": {
-        "overallScore": 84,
-        "grade": "B",
+        "overallScore": 79,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -1017,13 +1338,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.121Z",
+        "evaluatedAt": "2026-08-21T09:21:20.694Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1032,8 +1371,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 84,
-          "grade": "B",
+          "overallScore": 79,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -1072,13 +1411,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.121Z",
+          "evaluatedAt": "2026-08-21T09:21:20.694Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1096,7 +1453,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.121Z",
+          "evaluatedAt": "2026-08-21T09:21:20.694Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1108,14 +1465,22 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Bash", "Read", "Write", "Grep", "Glob"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Grep",
+        "Glob"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/disk-forensics",
       "relPath": "skills/disk-forensics",
       "verified": true,
       "tokenCount": 1669,
       "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
+        "overallScore": 65,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -1154,13 +1519,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.129Z",
+        "evaluatedAt": "2026-08-21T09:21:20.710Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1169,8 +1552,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 65,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -1209,13 +1592,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.133Z",
+          "evaluatedAt": "2026-08-21T09:21:20.712Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1634,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.133Z",
+          "evaluatedAt": "2026-08-21T09:21:20.712Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1245,14 +1646,22 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Grep", "Glob", "Bash", "WebSearch"],
+      "allowedTools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Bash",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/finding-triage",
       "relPath": "skills/finding-triage",
       "verified": true,
       "tokenCount": 3557,
       "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
+        "overallScore": 65,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -1291,13 +1700,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.130Z",
+        "evaluatedAt": "2026-08-21T09:21:20.710Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1306,8 +1733,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 65,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -1346,13 +1773,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.134Z",
+          "evaluatedAt": "2026-08-21T09:21:20.712Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1815,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.134Z",
+          "evaluatedAt": "2026-08-21T09:21:20.712Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1382,13 +1827,22 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Grep", "Glob", "Bash", "Write", "WebSearch"],
+      "allowedTools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Bash",
+        "Write",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/hipaa-audit",
       "relPath": "skills/hipaa-audit",
       "verified": true,
       "tokenCount": 4999,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -1428,13 +1882,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.132Z",
+        "evaluatedAt": "2026-08-21T09:21:20.710Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1443,7 +1915,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -1483,13 +1955,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.134Z",
+          "evaluatedAt": "2026-08-21T09:21:20.712Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1997,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.134Z",
+          "evaluatedAt": "2026-08-21T09:21:20.712Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1519,13 +2009,22 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Bash", "Read", "Write", "Grep", "Glob", "WebSearch"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Grep",
+        "Glob",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/iam-audit",
       "relPath": "skills/iam-audit",
       "verified": true,
       "tokenCount": 3631,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -1565,13 +2064,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.134Z",
+        "evaluatedAt": "2026-08-21T09:21:20.712Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1580,7 +2097,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -1620,13 +2137,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.136Z",
+          "evaluatedAt": "2026-08-21T09:21:20.712Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +2179,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.136Z",
+          "evaluatedAt": "2026-08-21T09:21:20.712Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1656,13 +2191,22 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Bash", "Read", "Write", "Grep", "Glob", "WebSearch"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Grep",
+        "Glob",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/incident-triage",
       "relPath": "skills/incident-triage",
       "verified": true,
       "tokenCount": 1654,
       "evalSummary": {
-        "overallScore": 63,
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -1702,13 +2246,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.130Z",
+        "evaluatedAt": "2026-08-21T09:21:20.710Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1717,7 +2279,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 63,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -1757,13 +2319,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.134Z",
+          "evaluatedAt": "2026-08-21T09:21:20.712Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +2361,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.134Z",
+          "evaluatedAt": "2026-08-21T09:21:20.712Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1793,13 +2373,22 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Bash", "Read", "Write", "Grep", "Glob", "WebSearch"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Grep",
+        "Glob",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/mobile-audit",
       "relPath": "skills/mobile-audit",
       "verified": true,
       "tokenCount": 2888,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -1839,13 +2428,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.132Z",
+        "evaluatedAt": "2026-08-21T09:21:20.712Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1854,7 +2461,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -1894,13 +2501,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.134Z",
+          "evaluatedAt": "2026-08-21T09:21:20.712Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1918,7 +2543,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.134Z",
+          "evaluatedAt": "2026-08-21T09:21:20.712Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1930,13 +2555,21 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Bash", "WebSearch", "WebFetch", "Read", "Write"],
+      "allowedTools": [
+        "Bash",
+        "WebSearch",
+        "WebFetch",
+        "Read",
+        "Write"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/osint-recon",
       "relPath": "skills/osint-recon",
       "verified": true,
       "tokenCount": 1178,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -1976,13 +2609,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.133Z",
+        "evaluatedAt": "2026-08-21T09:21:20.712Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1991,7 +2642,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -2031,13 +2682,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.134Z",
+          "evaluatedAt": "2026-08-21T09:21:20.712Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2055,7 +2724,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.134Z",
+          "evaluatedAt": "2026-08-21T09:21:20.712Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2067,13 +2736,21 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Grep", "Glob", "Bash", "Write"],
+      "allowedTools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Bash",
+        "Write"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/owasp-audit",
       "relPath": "skills/owasp-audit",
       "verified": true,
       "tokenCount": 9434,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -2113,13 +2790,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.136Z",
+        "evaluatedAt": "2026-08-21T09:21:20.712Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2128,7 +2823,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -2168,13 +2863,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.136Z",
+          "evaluatedAt": "2026-08-21T09:21:20.712Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2192,7 +2905,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.136Z",
+          "evaluatedAt": "2026-08-21T09:21:20.712Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2204,13 +2917,22 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Grep", "Glob", "Bash", "Write", "WebSearch"],
+      "allowedTools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Bash",
+        "Write",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/pci-audit",
       "relPath": "skills/pci-audit",
       "verified": true,
       "tokenCount": 4293,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -2250,13 +2972,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.145Z",
+        "evaluatedAt": "2026-08-21T09:21:20.730Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2265,7 +3005,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -2305,13 +3045,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.149Z",
+          "evaluatedAt": "2026-08-21T09:21:20.730Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2329,7 +3087,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.149Z",
+          "evaluatedAt": "2026-08-21T09:21:20.730Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2341,7 +3099,16 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Grep", "Glob", "Bash", "Write", "WebSearch"],
+      "allowedTools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Bash",
+        "Write",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/privacy-engineering",
       "relPath": "skills/privacy-engineering",
       "verified": true,
@@ -2387,13 +3154,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.146Z",
+        "evaluatedAt": "2026-08-21T09:21:20.729Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2442,13 +3227,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.149Z",
+          "evaluatedAt": "2026-08-21T09:21:20.730Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2466,7 +3269,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.149Z",
+          "evaluatedAt": "2026-08-21T09:21:20.730Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2478,13 +3281,22 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Grep", "Glob", "Bash", "Write", "WebSearch"],
+      "allowedTools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Bash",
+        "Write",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/prompt-injection",
       "relPath": "skills/prompt-injection",
       "verified": true,
       "tokenCount": 3857,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 71,
         "grade": "C",
         "categories": [
           {
@@ -2524,13 +3336,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.147Z",
+        "evaluatedAt": "2026-08-21T09:21:20.730Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2539,7 +3369,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 71,
           "grade": "C",
           "categories": [
             {
@@ -2579,13 +3409,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.150Z",
+          "evaluatedAt": "2026-08-21T09:21:20.730Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2603,7 +3451,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.150Z",
+          "evaluatedAt": "2026-08-21T09:21:20.730Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2615,13 +3463,21 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Bash", "Read", "Write", "WebSearch", "WebFetch"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "WebSearch",
+        "WebFetch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/recon",
       "relPath": "skills/recon",
       "verified": true,
       "tokenCount": 1116,
       "evalSummary": {
-        "overallScore": 63,
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -2661,13 +3517,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.148Z",
+        "evaluatedAt": "2026-08-21T09:21:20.729Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2676,7 +3550,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 63,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -2716,13 +3590,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.151Z",
+          "evaluatedAt": "2026-08-21T09:21:20.730Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2740,7 +3632,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.151Z",
+          "evaluatedAt": "2026-08-21T09:21:20.730Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2752,13 +3644,22 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Bash", "Grep", "Glob", "WebSearch"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Bash",
+        "Grep",
+        "Glob",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/red-team-engagement",
       "relPath": "skills/red-team-engagement",
       "verified": true,
       "tokenCount": 4497,
       "evalSummary": {
-        "overallScore": 77,
+        "overallScore": 74,
         "grade": "C",
         "categories": [
           {
@@ -2798,13 +3699,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.149Z",
+        "evaluatedAt": "2026-08-21T09:21:20.729Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2813,7 +3732,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 77,
+          "overallScore": 74,
           "grade": "C",
           "categories": [
             {
@@ -2853,13 +3772,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.151Z",
+          "evaluatedAt": "2026-08-21T09:21:20.730Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2877,7 +3814,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.151Z",
+          "evaluatedAt": "2026-08-21T09:21:20.730Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2889,13 +3826,22 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Bash", "Read", "Write", "Grep", "Glob", "WebSearch"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Grep",
+        "Glob",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/secrets-audit",
       "relPath": "skills/secrets-audit",
       "verified": true,
       "tokenCount": 2966,
       "evalSummary": {
-        "overallScore": 79,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -2935,13 +3881,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.149Z",
+        "evaluatedAt": "2026-08-21T09:21:20.730Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2950,7 +3914,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 79,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -2990,13 +3954,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.151Z",
+          "evaluatedAt": "2026-08-21T09:21:20.730Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3014,7 +3996,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.151Z",
+          "evaluatedAt": "2026-08-21T09:21:20.730Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3026,13 +4008,19 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "WebSearch"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/security-comms",
       "relPath": "skills/security-comms",
       "verified": true,
       "tokenCount": 4344,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
@@ -3072,13 +4060,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.151Z",
+        "evaluatedAt": "2026-08-21T09:21:20.730Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3087,7 +4093,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 76,
+          "overallScore": 73,
           "grade": "C",
           "categories": [
             {
@@ -3127,13 +4133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.151Z",
+          "evaluatedAt": "2026-08-21T09:21:20.730Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3151,7 +4175,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.151Z",
+          "evaluatedAt": "2026-08-21T09:21:20.730Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3163,7 +4187,16 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Bash", "Grep", "Glob", "WebSearch"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Bash",
+        "Grep",
+        "Glob",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/siem-detection",
       "relPath": "skills/siem-detection",
       "verified": true,
@@ -3209,13 +4242,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.152Z",
+        "evaluatedAt": "2026-08-21T09:21:20.730Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3264,13 +4315,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.152Z",
+          "evaluatedAt": "2026-08-21T09:21:20.730Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3288,7 +4357,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.152Z",
+          "evaluatedAt": "2026-08-21T09:21:20.730Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3300,13 +4369,21 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Grep", "Glob", "WebSearch"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Grep",
+        "Glob",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/soc-operations",
       "relPath": "skills/soc-operations",
       "verified": true,
       "tokenCount": 3618,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -3346,13 +4423,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.160Z",
+        "evaluatedAt": "2026-08-21T09:21:20.744Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3361,7 +4456,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -3401,13 +4496,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.163Z",
+          "evaluatedAt": "2026-08-21T09:21:20.744Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3425,7 +4538,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.163Z",
+          "evaluatedAt": "2026-08-21T09:21:20.744Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3437,13 +4550,22 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Bash", "Grep", "Glob", "WebSearch"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Bash",
+        "Grep",
+        "Glob",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/threat-hunting",
       "relPath": "skills/threat-hunting",
       "verified": true,
       "tokenCount": 3126,
       "evalSummary": {
-        "overallScore": 63,
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -3483,13 +4605,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.162Z",
+        "evaluatedAt": "2026-08-21T09:21:20.744Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3498,7 +4638,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 63,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -3538,13 +4678,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.163Z",
+          "evaluatedAt": "2026-08-21T09:21:20.744Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3562,7 +4720,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.163Z",
+          "evaluatedAt": "2026-08-21T09:21:20.744Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3574,13 +4732,21 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Write", "Grep", "Glob", "WebSearch"],
+      "allowedTools": [
+        "Read",
+        "Write",
+        "Grep",
+        "Glob",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/threat-modeling",
       "relPath": "skills/threat-modeling",
       "verified": true,
       "tokenCount": 3276,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -3620,13 +4786,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.164Z",
+        "evaluatedAt": "2026-08-21T09:21:20.744Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3635,7 +4819,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -3675,13 +4859,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.164Z",
+          "evaluatedAt": "2026-08-21T09:21:20.744Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3699,7 +4901,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.164Z",
+          "evaluatedAt": "2026-08-21T09:21:20.744Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3711,13 +4913,22 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Read", "Grep", "Glob", "Bash", "WebSearch", "WebFetch"],
+      "allowedTools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Bash",
+        "WebSearch",
+        "WebFetch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/vuln-research",
       "relPath": "skills/vuln-research",
       "verified": true,
       "tokenCount": 3040,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -3757,13 +4968,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.161Z",
+        "evaluatedAt": "2026-08-21T09:21:20.744Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3772,7 +5001,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -3812,13 +5041,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.163Z",
+          "evaluatedAt": "2026-08-21T09:21:20.744Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3836,7 +5083,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.163Z",
+          "evaluatedAt": "2026-08-21T09:21:20.744Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3848,13 +5095,21 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Bash", "Read", "Write", "WebFetch", "WebSearch"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "WebFetch",
+        "WebSearch"
+      ],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/web-pentest",
       "relPath": "skills/web-pentest",
       "verified": true,
       "tokenCount": 3342,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -3894,13 +5149,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:42.163Z",
+        "evaluatedAt": "2026-08-21T09:21:20.744Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3909,7 +5182,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -3949,13 +5222,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.164Z",
+          "evaluatedAt": "2026-08-21T09:21:20.744Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3973,7 +5264,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:42.164Z",
+          "evaluatedAt": "2026-08-21T09:21:20.744Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3985,7 +5276,7 @@
       "name": "briiirussell-cybersecurity-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-08-19T04:56:42.168Z",
+      "createdAt": "2026-08-21T09:21:20.750Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4135,7 +5426,7 @@
       "name": "briiirussell-cybersecurity-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-08-19T04:56:42.168Z",
+      "createdAt": "2026-08-21T09:21:20.750Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4279,7 +5570,7 @@
       "name": "briiirussell-cybersecurity-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-08-19T04:56:42.168Z",
+      "createdAt": "2026-08-21T09:21:20.750Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4411,7 +5702,7 @@
       "name": "briiirussell-cybersecurity-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-08-19T04:56:42.168Z",
+      "createdAt": "2026-08-21T09:21:20.750Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4513,7 +5804,7 @@
       "name": "briiirussell-cybersecurity-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-08-19T04:56:42.168Z",
+      "createdAt": "2026-08-21T09:21:20.750Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4555,7 +5846,7 @@
       "name": "briiirussell-cybersecurity-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-08-19T04:56:42.168Z",
+      "createdAt": "2026-08-21T09:21:20.750Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4609,7 +5900,7 @@
       "name": "briiirussell-cybersecurity-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-08-19T04:56:42.168Z",
+      "createdAt": "2026-08-21T09:21:20.750Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4717,7 +6008,7 @@
       "name": "briiirussell-cybersecurity-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-08-19T04:56:42.168Z",
+      "createdAt": "2026-08-21T09:21:20.750Z",
       "tags": [
         "repo-derived",
         "inferred",

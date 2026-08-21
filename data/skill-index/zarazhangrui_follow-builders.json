@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/zarazhangrui/follow-builders.git",
   "owner": "zarazhangrui",
   "repo": "follow-builders",
-  "updatedAt": "2026-08-19T04:56:43.691Z",
+  "updatedAt": "2026-08-21T09:21:22.150Z",
   "skillCount": 1,
   "skills": [
     {
@@ -13,12 +13,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:zarazhangrui/follow-builders",
       "relPath": "",
       "verified": true,
       "tokenCount": 5448,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:56:43.689Z",
+        "evaluatedAt": "2026-08-21T09:21:22.144Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -73,7 +93,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 9,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:43.689Z",
+          "evaluatedAt": "2026-08-21T09:21:22.144Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-19T04:56:43.690Z",
+          "evaluatedAt": "2026-08-21T09:21:22.144Z",
           "evaluatedVersion": "0.0.0"
         }
       }

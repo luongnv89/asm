@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/Eronred/aso-skills.git",
   "owner": "Eronred",
   "repo": "aso-skills",
-  "updatedAt": "2026-08-19T04:55:23.804Z",
+  "updatedAt": "2026-08-21T09:19:46.620Z",
   "skillCount": 40,
   "skills": [
     {
@@ -13,12 +13,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/ab-test-store-listing",
       "relPath": "skills/ab-test-store-listing",
       "verified": true,
       "tokenCount": 2263,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -58,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.755Z",
+        "evaluatedAt": "2026-08-21T09:19:46.566Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -73,7 +93,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -113,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.757Z",
+          "evaluatedAt": "2026-08-21T09:19:46.566Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +175,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.757Z",
+          "evaluatedAt": "2026-08-21T09:19:46.566Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -150,6 +188,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/android-aso",
       "relPath": "skills/android-aso",
       "verified": true,
@@ -195,13 +235,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.755Z",
+        "evaluatedAt": "2026-08-21T09:19:46.566Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -250,13 +308,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.757Z",
+          "evaluatedAt": "2026-08-21T09:19:46.566Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +350,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.757Z",
+          "evaluatedAt": "2026-08-21T09:19:46.566Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -287,12 +363,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/app-analytics",
       "relPath": "skills/app-analytics",
       "verified": true,
       "tokenCount": 1939,
       "evalSummary": {
-        "overallScore": 61,
+        "overallScore": 63,
         "grade": "D",
         "categories": [
           {
@@ -332,13 +410,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.756Z",
+        "evaluatedAt": "2026-08-21T09:19:46.566Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -347,7 +443,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 61,
+          "overallScore": 63,
           "grade": "D",
           "categories": [
             {
@@ -387,13 +483,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.757Z",
+          "evaluatedAt": "2026-08-21T09:19:46.566Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +525,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.757Z",
+          "evaluatedAt": "2026-08-21T09:19:46.566Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -424,12 +538,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/app-clips",
       "relPath": "skills/app-clips",
       "verified": true,
       "tokenCount": 1847,
       "evalSummary": {
-        "overallScore": 61,
+        "overallScore": 63,
         "grade": "D",
         "categories": [
           {
@@ -469,13 +585,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.757Z",
+        "evaluatedAt": "2026-08-21T09:19:46.566Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -484,7 +618,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 61,
+          "overallScore": 63,
           "grade": "D",
           "categories": [
             {
@@ -524,13 +658,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.758Z",
+          "evaluatedAt": "2026-08-21T09:19:46.566Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +700,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.758Z",
+          "evaluatedAt": "2026-08-21T09:19:46.566Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -561,13 +713,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/app-icon-optimization",
       "relPath": "skills/app-icon-optimization",
       "verified": true,
       "tokenCount": 1871,
       "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
+        "overallScore": 65,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -606,13 +760,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.757Z",
+        "evaluatedAt": "2026-08-21T09:19:46.566Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -621,8 +793,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 65,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -661,13 +833,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.758Z",
+          "evaluatedAt": "2026-08-21T09:19:46.566Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +875,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.758Z",
+          "evaluatedAt": "2026-08-21T09:19:46.566Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -698,12 +888,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/app-launch",
       "relPath": "skills/app-launch",
       "verified": true,
       "tokenCount": 1796,
       "evalSummary": {
-        "overallScore": 61,
+        "overallScore": 63,
         "grade": "D",
         "categories": [
           {
@@ -743,13 +935,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.756Z",
+        "evaluatedAt": "2026-08-21T09:19:46.566Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -758,7 +968,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 61,
+          "overallScore": 63,
           "grade": "D",
           "categories": [
             {
@@ -798,13 +1008,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.757Z",
+          "evaluatedAt": "2026-08-21T09:19:46.566Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +1050,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.757Z",
+          "evaluatedAt": "2026-08-21T09:19:46.566Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -835,13 +1063,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/app-marketing-context",
       "relPath": "skills/app-marketing-context",
       "verified": true,
       "tokenCount": 1022,
       "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
+        "overallScore": 65,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -880,13 +1110,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.757Z",
+        "evaluatedAt": "2026-08-21T09:19:46.566Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -895,8 +1143,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 65,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -935,13 +1183,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.758Z",
+          "evaluatedAt": "2026-08-21T09:19:46.566Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +1225,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.758Z",
+          "evaluatedAt": "2026-08-21T09:19:46.566Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -972,12 +1238,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/app-preview-video",
       "relPath": "skills/app-preview-video",
       "verified": true,
       "tokenCount": 2071,
       "evalSummary": {
-        "overallScore": 61,
+        "overallScore": 63,
         "grade": "D",
         "categories": [
           {
@@ -1017,13 +1285,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.758Z",
+        "evaluatedAt": "2026-08-21T09:19:46.566Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1032,7 +1318,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 61,
+          "overallScore": 63,
           "grade": "D",
           "categories": [
             {
@@ -1072,13 +1358,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.758Z",
+          "evaluatedAt": "2026-08-21T09:19:46.566Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1096,7 +1400,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.758Z",
+          "evaluatedAt": "2026-08-21T09:19:46.566Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1109,6 +1413,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/app-rejection-recovery",
       "relPath": "skills/app-rejection-recovery",
       "verified": true,
@@ -1154,13 +1460,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.763Z",
+        "evaluatedAt": "2026-08-21T09:19:46.577Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1209,13 +1533,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.765Z",
+          "evaluatedAt": "2026-08-21T09:19:46.578Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1233,7 +1575,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.765Z",
+          "evaluatedAt": "2026-08-21T09:19:46.578Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1246,12 +1588,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/app-store-featured",
       "relPath": "skills/app-store-featured",
       "verified": true,
       "tokenCount": 2311,
       "evalSummary": {
-        "overallScore": 61,
+        "overallScore": 63,
         "grade": "D",
         "categories": [
           {
@@ -1291,13 +1635,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.764Z",
+        "evaluatedAt": "2026-08-21T09:19:46.577Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1306,7 +1668,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 61,
+          "overallScore": 63,
           "grade": "D",
           "categories": [
             {
@@ -1346,13 +1708,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.766Z",
+          "evaluatedAt": "2026-08-21T09:19:46.578Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1750,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.766Z",
+          "evaluatedAt": "2026-08-21T09:19:46.578Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1383,12 +1763,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/apple-search-ads",
       "relPath": "skills/apple-search-ads",
       "verified": true,
       "tokenCount": 2291,
       "evalSummary": {
-        "overallScore": 63,
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -1428,13 +1810,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.764Z",
+        "evaluatedAt": "2026-08-21T09:19:46.577Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1443,7 +1843,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 63,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -1483,13 +1883,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.767Z",
+          "evaluatedAt": "2026-08-21T09:19:46.578Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1925,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.767Z",
+          "evaluatedAt": "2026-08-21T09:19:46.578Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1520,6 +1938,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/asc-metrics",
       "relPath": "skills/asc-metrics",
       "verified": true,
@@ -1565,13 +1985,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.765Z",
+        "evaluatedAt": "2026-08-21T09:19:46.577Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1620,13 +2058,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.767Z",
+          "evaluatedAt": "2026-08-21T09:19:46.578Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +2100,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.767Z",
+          "evaluatedAt": "2026-08-21T09:19:46.578Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1657,12 +2113,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/aso-audit",
       "relPath": "skills/aso-audit",
       "verified": true,
       "tokenCount": 1999,
       "evalSummary": {
-        "overallScore": 57,
+        "overallScore": 60,
         "grade": "D",
         "categories": [
           {
@@ -1702,13 +2160,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 8,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.766Z",
+        "evaluatedAt": "2026-08-21T09:19:46.577Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1717,7 +2193,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 57,
+          "overallScore": 60,
           "grade": "D",
           "categories": [
             {
@@ -1757,13 +2233,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 8,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.768Z",
+          "evaluatedAt": "2026-08-21T09:19:46.578Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +2275,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.768Z",
+          "evaluatedAt": "2026-08-21T09:19:46.578Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1794,12 +2288,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/aso-router",
       "relPath": "skills/aso-router",
       "verified": true,
       "tokenCount": 2927,
       "evalSummary": {
-        "overallScore": 57,
+        "overallScore": 60,
         "grade": "D",
         "categories": [
           {
@@ -1839,13 +2335,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.767Z",
+        "evaluatedAt": "2026-08-21T09:19:46.578Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1854,7 +2368,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 57,
+          "overallScore": 60,
           "grade": "D",
           "categories": [
             {
@@ -1894,13 +2408,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.768Z",
+          "evaluatedAt": "2026-08-21T09:19:46.578Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1918,7 +2450,7 @@
               "max": 2
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.768Z",
+          "evaluatedAt": "2026-08-21T09:19:46.578Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1931,12 +2463,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/attribution-setup",
       "relPath": "skills/attribution-setup",
       "verified": true,
       "tokenCount": 2515,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -1976,13 +2510,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.766Z",
+        "evaluatedAt": "2026-08-21T09:19:46.578Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1991,7 +2543,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -2031,13 +2583,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.768Z",
+          "evaluatedAt": "2026-08-21T09:19:46.578Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2055,7 +2625,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.768Z",
+          "evaluatedAt": "2026-08-21T09:19:46.578Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2068,12 +2638,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/category-positioning",
       "relPath": "skills/category-positioning",
       "verified": true,
       "tokenCount": 2626,
       "evalSummary": {
-        "overallScore": 63,
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -2113,13 +2685,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.768Z",
+        "evaluatedAt": "2026-08-21T09:19:46.578Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2128,7 +2718,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 63,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -2168,13 +2758,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.768Z",
+          "evaluatedAt": "2026-08-21T09:19:46.578Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2192,7 +2800,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.768Z",
+          "evaluatedAt": "2026-08-21T09:19:46.578Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2205,12 +2813,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/competitor-analysis",
       "relPath": "skills/competitor-analysis",
       "verified": true,
       "tokenCount": 1799,
       "evalSummary": {
-        "overallScore": 56,
+        "overallScore": 59,
         "grade": "D",
         "categories": [
           {
@@ -2250,13 +2860,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.775Z",
+        "evaluatedAt": "2026-08-21T09:19:46.594Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2265,7 +2893,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 56,
+          "overallScore": 59,
           "grade": "D",
           "categories": [
             {
@@ -2305,13 +2933,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.776Z",
+          "evaluatedAt": "2026-08-21T09:19:46.594Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2329,7 +2975,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.776Z",
+          "evaluatedAt": "2026-08-21T09:19:46.594Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2342,12 +2988,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/competitor-tracking",
       "relPath": "skills/competitor-tracking",
       "verified": true,
       "tokenCount": 1739,
       "evalSummary": {
-        "overallScore": 57,
+        "overallScore": 60,
         "grade": "D",
         "categories": [
           {
@@ -2387,13 +3035,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.776Z",
+        "evaluatedAt": "2026-08-21T09:19:46.594Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2402,7 +3068,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 57,
+          "overallScore": 60,
           "grade": "D",
           "categories": [
             {
@@ -2442,13 +3108,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.777Z",
+          "evaluatedAt": "2026-08-21T09:19:46.594Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2466,7 +3150,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.777Z",
+          "evaluatedAt": "2026-08-21T09:19:46.594Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2479,6 +3163,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/crash-analytics",
       "relPath": "skills/crash-analytics",
       "verified": true,
@@ -2524,13 +3210,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.776Z",
+        "evaluatedAt": "2026-08-21T09:19:46.594Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2579,13 +3283,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.778Z",
+          "evaluatedAt": "2026-08-21T09:19:46.594Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2603,7 +3325,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.778Z",
+          "evaluatedAt": "2026-08-21T09:19:46.594Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2616,12 +3338,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/creator-ugc-marketing",
       "relPath": "skills/creator-ugc-marketing",
       "verified": true,
       "tokenCount": 2509,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -2661,13 +3385,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.777Z",
+        "evaluatedAt": "2026-08-21T09:19:46.594Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2676,7 +3418,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -2716,13 +3458,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.778Z",
+          "evaluatedAt": "2026-08-21T09:19:46.594Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2740,7 +3500,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.778Z",
+          "evaluatedAt": "2026-08-21T09:19:46.594Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2753,13 +3513,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/custom-product-pages",
       "relPath": "skills/custom-product-pages",
       "verified": true,
       "tokenCount": 2219,
       "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
+        "overallScore": 65,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -2798,13 +3560,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.777Z",
+        "evaluatedAt": "2026-08-21T09:19:46.594Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2813,8 +3593,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 65,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -2853,13 +3633,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.778Z",
+          "evaluatedAt": "2026-08-21T09:19:46.594Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2877,7 +3675,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.778Z",
+          "evaluatedAt": "2026-08-21T09:19:46.594Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2890,12 +3688,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/in-app-events",
       "relPath": "skills/in-app-events",
       "verified": true,
       "tokenCount": 2038,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 68,
         "grade": "C",
         "categories": [
           {
@@ -2935,13 +3735,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.778Z",
+        "evaluatedAt": "2026-08-21T09:19:46.594Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2950,7 +3768,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 68,
           "grade": "C",
           "categories": [
             {
@@ -2990,13 +3808,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.778Z",
+          "evaluatedAt": "2026-08-21T09:19:46.594Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3014,7 +3850,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.778Z",
+          "evaluatedAt": "2026-08-21T09:19:46.594Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3027,12 +3863,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/keyword-research",
       "relPath": "skills/keyword-research",
       "verified": true,
       "tokenCount": 1495,
       "evalSummary": {
-        "overallScore": 56,
+        "overallScore": 59,
         "grade": "D",
         "categories": [
           {
@@ -3072,13 +3910,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.778Z",
+        "evaluatedAt": "2026-08-21T09:19:46.594Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3087,7 +3943,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 56,
+          "overallScore": 59,
           "grade": "D",
           "categories": [
             {
@@ -3127,13 +3983,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.778Z",
+          "evaluatedAt": "2026-08-21T09:19:46.594Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3151,7 +4025,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.778Z",
+          "evaluatedAt": "2026-08-21T09:19:46.594Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3164,421 +4038,12 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/localization",
       "relPath": "skills/localization",
       "verified": true,
       "tokenCount": 1734,
-      "evalSummary": {
-        "overallScore": 63,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-08-19T04:55:23.779Z",
-        "evaluatedVersion": "1.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 63,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-08-19T04:55:23.779Z",
-          "evaluatedVersion": "1.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 79,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 11,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-08-19T04:55:23.779Z",
-          "evaluatedVersion": "1.0.0"
-        }
-      }
-    },
-    {
-      "name": "market-movers",
-      "description": "When the user wants to track App Store chart rank changes, find top gainers and losers, detect breakout apps entering the top 100, or identify apps dropping out of charts. Also use when the user mentions \"chart movers\", \"rank changes\", \"who's rising\", \"who's falling\", \"new chart entries\", \"top gainers\", or \"market shifts\". For broader market overview, see market-pulse. For competitive keyword analysis, see competitor-analysis.",
-      "version": "1.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Eronred/aso-skills:skills/market-movers",
-      "relPath": "skills/market-movers",
-      "verified": true,
-      "tokenCount": 1403,
-      "evalSummary": {
-        "overallScore": 50,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 6,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 1,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-08-19T04:55:23.784Z",
-        "evaluatedVersion": "1.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 50,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 6,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 1,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-08-19T04:55:23.786Z",
-          "evaluatedVersion": "1.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 79,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 11,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-08-19T04:55:23.786Z",
-          "evaluatedVersion": "1.0.0"
-        }
-      }
-    },
-    {
-      "name": "market-pulse",
-      "description": "When the user wants a comprehensive App Store market overview, daily/weekly market briefing, or combined view of chart movements, trending keywords, featured apps, and new releases. Also use when the user mentions \"market overview\", \"what's happening on the App Store\", \"market briefing\", \"weekly report\", \"market trends\", or \"state of the market\". For chart-specific rank changes only, see market-movers. For keyword trends only, see keyword-research.",
-      "version": "1.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Eronred/aso-skills:skills/market-pulse",
-      "relPath": "skills/market-pulse",
-      "verified": true,
-      "tokenCount": 1567,
-      "evalSummary": {
-        "overallScore": 53,
-        "grade": "D",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 6,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 3,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-08-19T04:55:23.785Z",
-        "evaluatedVersion": "1.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 53,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 6,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 3,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-08-19T04:55:23.786Z",
-          "evaluatedVersion": "1.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 79,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 11,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-08-19T04:55:23.786Z",
-          "evaluatedVersion": "1.0.0"
-        }
-      }
-    },
-    {
-      "name": "metadata-optimization",
-      "description": "When the user wants to optimize App Store metadata — title, subtitle, keyword field, or description. Also use when the user mentions \"optimize my title\", \"ASO metadata\", \"keyword field\", \"character limits\", \"app description\", or \"write my subtitle\". For keyword discovery, see keyword-research. For full ASO audits, see aso-audit.",
-      "version": "1.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Eronred/aso-skills:skills/metadata-optimization",
-      "relPath": "skills/metadata-optimization",
-      "verified": true,
-      "tokenCount": 1729,
       "evalSummary": {
         "overallScore": 64,
         "grade": "D",
@@ -3598,25 +4063,31 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 6,
+            "score": 8,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 6,
+            "score": 3,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 1,
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
             "max": 10
           },
           {
@@ -3624,9 +4095,21 @@
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.785Z",
+        "evaluatedAt": "2026-08-21T09:19:46.594Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3653,6 +4136,531 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:19:46.594Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:19:46.594Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "market-movers",
+      "description": "When the user wants to track App Store chart rank changes, find top gainers and losers, detect breakout apps entering the top 100, or identify apps dropping out of charts. Also use when the user mentions \"chart movers\", \"rank changes\", \"who's rising\", \"who's falling\", \"new chart entries\", \"top gainers\", or \"market shifts\". For broader market overview, see market-pulse. For competitive keyword analysis, see competitor-analysis.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:Eronred/aso-skills:skills/market-movers",
+      "relPath": "skills/market-movers",
+      "verified": true,
+      "tokenCount": 1403,
+      "evalSummary": {
+        "overallScore": 55,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-21T09:19:46.603Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 55,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:19:46.604Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:19:46.604Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "market-pulse",
+      "description": "When the user wants a comprehensive App Store market overview, daily/weekly market briefing, or combined view of chart movements, trending keywords, featured apps, and new releases. Also use when the user mentions \"market overview\", \"what's happening on the App Store\", \"market briefing\", \"weekly report\", \"market trends\", or \"state of the market\". For chart-specific rank changes only, see market-movers. For keyword trends only, see keyword-research.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:Eronred/aso-skills:skills/market-pulse",
+      "relPath": "skills/market-pulse",
+      "verified": true,
+      "tokenCount": 1567,
+      "evalSummary": {
+        "overallScore": 57,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-21T09:19:46.603Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 57,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:19:46.604Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-08-21T09:19:46.604Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "metadata-optimization",
+      "description": "When the user wants to optimize App Store metadata — title, subtitle, keyword field, or description. Also use when the user mentions \"optimize my title\", \"ASO metadata\", \"keyword field\", \"character limits\", \"app description\", or \"write my subtitle\". For keyword discovery, see keyword-research. For full ASO audits, see aso-audit.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:Eronred/aso-skills:skills/metadata-optimization",
+      "relPath": "skills/metadata-optimization",
+      "verified": true,
+      "tokenCount": 1729,
+      "evalSummary": {
+        "overallScore": 65,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-21T09:19:46.604Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 65,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
               "score": 6,
               "max": 10
             },
@@ -3675,13 +4683,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.786Z",
+          "evaluatedAt": "2026-08-21T09:19:46.604Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3699,7 +4725,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.786Z",
+          "evaluatedAt": "2026-08-21T09:19:46.604Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3712,12 +4738,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/monetization-strategy",
       "relPath": "skills/monetization-strategy",
       "verified": true,
       "tokenCount": 1962,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -3757,13 +4785,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.786Z",
+        "evaluatedAt": "2026-08-21T09:19:46.604Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3772,7 +4818,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -3812,13 +4858,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.787Z",
+          "evaluatedAt": "2026-08-21T09:19:46.604Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3836,7 +4900,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.787Z",
+          "evaluatedAt": "2026-08-21T09:19:46.604Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3849,6 +4913,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/onboarding-optimization",
       "relPath": "skills/onboarding-optimization",
       "verified": true,
@@ -3894,13 +4960,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.787Z",
+        "evaluatedAt": "2026-08-21T09:19:46.604Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3949,13 +5033,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.788Z",
+          "evaluatedAt": "2026-08-21T09:19:46.604Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3973,7 +5075,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.788Z",
+          "evaluatedAt": "2026-08-21T09:19:46.604Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3986,12 +5088,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/paywall-optimization",
       "relPath": "skills/paywall-optimization",
       "verified": true,
       "tokenCount": 2141,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -4031,13 +5135,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.786Z",
+        "evaluatedAt": "2026-08-21T09:19:46.604Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4046,7 +5168,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -4086,13 +5208,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.787Z",
+          "evaluatedAt": "2026-08-21T09:19:46.604Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4110,7 +5250,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.787Z",
+          "evaluatedAt": "2026-08-21T09:19:46.604Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4123,12 +5263,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/press-and-pr",
       "relPath": "skills/press-and-pr",
       "verified": true,
       "tokenCount": 2205,
       "evalSummary": {
-        "overallScore": 60,
+        "overallScore": 62,
         "grade": "D",
         "categories": [
           {
@@ -4168,13 +5310,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.787Z",
+        "evaluatedAt": "2026-08-21T09:19:46.604Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4223,13 +5383,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.788Z",
+          "evaluatedAt": "2026-08-21T09:19:46.604Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4247,7 +5425,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.788Z",
+          "evaluatedAt": "2026-08-21T09:19:46.604Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4260,12 +5438,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/rating-prompt-strategy",
       "relPath": "skills/rating-prompt-strategy",
       "verified": true,
       "tokenCount": 2032,
       "evalSummary": {
-        "overallScore": 51,
+        "overallScore": 56,
         "grade": "D",
         "categories": [
           {
@@ -4305,13 +5485,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.788Z",
+        "evaluatedAt": "2026-08-21T09:19:46.604Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4320,7 +5518,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 51,
+          "overallScore": 56,
           "grade": "D",
           "categories": [
             {
@@ -4360,13 +5558,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.788Z",
+          "evaluatedAt": "2026-08-21T09:19:46.604Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4384,7 +5600,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.788Z",
+          "evaluatedAt": "2026-08-21T09:19:46.604Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4397,12 +5613,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/referral-program",
       "relPath": "skills/referral-program",
       "verified": true,
       "tokenCount": 2477,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -4442,13 +5660,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.795Z",
+        "evaluatedAt": "2026-08-21T09:19:46.614Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4457,7 +5693,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -4497,13 +5733,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.797Z",
+          "evaluatedAt": "2026-08-21T09:19:46.615Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4521,7 +5775,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.797Z",
+          "evaluatedAt": "2026-08-21T09:19:46.615Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4534,12 +5788,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/retention-optimization",
       "relPath": "skills/retention-optimization",
       "verified": true,
       "tokenCount": 1756,
       "evalSummary": {
-        "overallScore": 63,
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -4579,13 +5835,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.797Z",
+        "evaluatedAt": "2026-08-21T09:19:46.614Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4594,7 +5868,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 63,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -4634,13 +5908,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.798Z",
+          "evaluatedAt": "2026-08-21T09:19:46.615Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4658,7 +5950,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.798Z",
+          "evaluatedAt": "2026-08-21T09:19:46.615Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4671,12 +5963,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/review-management",
       "relPath": "skills/review-management",
       "verified": true,
       "tokenCount": 1774,
       "evalSummary": {
-        "overallScore": 60,
+        "overallScore": 62,
         "grade": "D",
         "categories": [
           {
@@ -4716,13 +6010,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.796Z",
+        "evaluatedAt": "2026-08-21T09:19:46.614Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4731,7 +6043,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 60,
+          "overallScore": 62,
           "grade": "D",
           "categories": [
             {
@@ -4771,13 +6083,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.798Z",
+          "evaluatedAt": "2026-08-21T09:19:46.615Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4795,7 +6125,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.798Z",
+          "evaluatedAt": "2026-08-21T09:19:46.615Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4808,6 +6138,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/screenshot-optimization",
       "relPath": "skills/screenshot-optimization",
       "verified": true,
@@ -4853,13 +6185,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.796Z",
+        "evaluatedAt": "2026-08-21T09:19:46.614Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4908,13 +6258,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.798Z",
+          "evaluatedAt": "2026-08-21T09:19:46.615Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -4932,7 +6300,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.798Z",
+          "evaluatedAt": "2026-08-21T09:19:46.615Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4945,12 +6313,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/seasonal-aso",
       "relPath": "skills/seasonal-aso",
       "verified": true,
       "tokenCount": 1616,
       "evalSummary": {
-        "overallScore": 54,
+        "overallScore": 58,
         "grade": "D",
         "categories": [
           {
@@ -4990,13 +6360,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.797Z",
+        "evaluatedAt": "2026-08-21T09:19:46.615Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -5005,7 +6393,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 54,
+          "overallScore": 58,
           "grade": "D",
           "categories": [
             {
@@ -5045,13 +6433,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.798Z",
+          "evaluatedAt": "2026-08-21T09:19:46.615Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -5069,7 +6475,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.798Z",
+          "evaluatedAt": "2026-08-21T09:19:46.615Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -5082,12 +6488,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/subscription-lifecycle",
       "relPath": "skills/subscription-lifecycle",
       "verified": true,
       "tokenCount": 2552,
       "evalSummary": {
-        "overallScore": 59,
+        "overallScore": 61,
         "grade": "D",
         "categories": [
           {
@@ -5127,13 +6535,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.798Z",
+        "evaluatedAt": "2026-08-21T09:19:46.615Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -5142,7 +6568,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 59,
+          "overallScore": 61,
           "grade": "D",
           "categories": [
             {
@@ -5182,13 +6608,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.798Z",
+          "evaluatedAt": "2026-08-21T09:19:46.615Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -5206,7 +6650,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.798Z",
+          "evaluatedAt": "2026-08-21T09:19:46.615Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -5219,6 +6663,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/ua-campaign",
       "relPath": "skills/ua-campaign",
       "verified": true,
@@ -5264,13 +6710,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.798Z",
+        "evaluatedAt": "2026-08-21T09:19:46.615Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -5319,13 +6783,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.799Z",
+          "evaluatedAt": "2026-08-21T09:19:46.615Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -5343,7 +6825,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.799Z",
+          "evaluatedAt": "2026-08-21T09:19:46.615Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -5356,12 +6838,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
       "installUrl": "github:Eronred/aso-skills:skills/web-to-app-funnel",
       "relPath": "skills/web-to-app-funnel",
       "verified": true,
       "tokenCount": 2771,
       "evalSummary": {
-        "overallScore": 61,
+        "overallScore": 63,
         "grade": "D",
         "categories": [
           {
@@ -5401,13 +6885,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-19T04:55:23.799Z",
+        "evaluatedAt": "2026-08-21T09:19:46.615Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -5416,7 +6918,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 61,
+          "overallScore": 63,
           "grade": "D",
           "categories": [
             {
@@ -5456,13 +6958,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.799Z",
+          "evaluatedAt": "2026-08-21T09:19:46.615Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -5480,7 +7000,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-19T04:55:23.799Z",
+          "evaluatedAt": "2026-08-21T09:19:46.615Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -5492,7 +7012,7 @@
       "name": "eronred-aso-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Eronred/aso-skills.",
       "author": "ASM (Eronred/aso-skills)",
-      "createdAt": "2026-08-19T04:55:23.804Z",
+      "createdAt": "2026-08-21T09:19:46.620Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5696,7 +7216,7 @@
       "name": "eronred-aso-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Eronred/aso-skills.",
       "author": "ASM (Eronred/aso-skills)",
-      "createdAt": "2026-08-19T04:55:23.804Z",
+      "createdAt": "2026-08-21T09:19:46.620Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5816,7 +7336,7 @@
       "name": "eronred-aso-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from Eronred/aso-skills.",
       "author": "ASM (Eronred/aso-skills)",
-      "createdAt": "2026-08-19T04:55:23.804Z",
+      "createdAt": "2026-08-21T09:19:46.620Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5942,7 +7462,7 @@
       "name": "eronred-aso-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Eronred/aso-skills.",
       "author": "ASM (Eronred/aso-skills)",
-      "createdAt": "2026-08-19T04:55:23.804Z",
+      "createdAt": "2026-08-21T09:19:46.620Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6050,7 +7570,7 @@
       "name": "eronred-aso-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from Eronred/aso-skills.",
       "author": "ASM (Eronred/aso-skills)",
-      "createdAt": "2026-08-19T04:55:23.804Z",
+      "createdAt": "2026-08-21T09:19:46.620Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6314,7 +7834,7 @@
       "name": "eronred-aso-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from Eronred/aso-skills.",
       "author": "ASM (Eronred/aso-skills)",
-      "createdAt": "2026-08-19T04:55:23.804Z",
+      "createdAt": "2026-08-21T09:19:46.620Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6518,7 +8038,7 @@
       "name": "eronred-aso-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from Eronred/aso-skills.",
       "author": "ASM (Eronred/aso-skills)",
-      "createdAt": "2026-08-19T04:55:23.804Z",
+      "createdAt": "2026-08-21T09:19:46.620Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6656,7 +8176,7 @@
       "name": "eronred-aso-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from Eronred/aso-skills.",
       "author": "ASM (Eronred/aso-skills)",
-      "createdAt": "2026-08-19T04:55:23.804Z",
+      "createdAt": "2026-08-21T09:19:46.620Z",
       "tags": [
         "repo-derived",
         "inferred",

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/oliver-zehentleitner/keep-the-why.git",
   "owner": "oliver-zehentleitner",
   "repo": "keep-the-why",
-  "updatedAt": "2026-08-20T23:10:12.025Z",
+  "updatedAt": "2026-08-21T09:21:26.229Z",
   "skillCount": 1,
   "skills": [
     {
@@ -20,7 +20,7 @@
       "verified": true,
       "tokenCount": 7181,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -60,13 +60,31 @@
             "max": 10
           },
           {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
             "id": "naming",
             "name": "Naming & conventions",
             "score": 10,
             "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-20T23:10:12.024Z",
+        "evaluatedAt": "2026-08-21T09:21:26.224Z",
         "evaluatedVersion": "0.9.0"
       },
       "evalSummaries": {
@@ -75,7 +93,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 73,
           "grade": "C",
           "categories": [
             {
@@ -115,13 +133,31 @@
               "max": 10
             },
             {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
               "id": "naming",
               "name": "Naming & conventions",
               "score": 10,
               "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-20T23:10:12.024Z",
+          "evaluatedAt": "2026-08-21T09:21:26.224Z",
           "evaluatedVersion": "0.9.0"
         },
         "skill-best-practice": {
@@ -139,7 +175,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-20T23:10:12.024Z",
+          "evaluatedAt": "2026-08-21T09:21:26.224Z",
           "evaluatedVersion": "0.9.0"
         }
       }
