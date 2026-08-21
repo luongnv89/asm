@@ -24,7 +24,7 @@ import { resolve, join, dirname } from "path";
 import { readFile } from "fs/promises";
 import { cloneToTemp, cleanupTemp, parseSource } from "../src/installer";
 import { estimateTokenCount } from "../src/utils/token-count";
-import { evaluateSkillContent } from "../src/evaluator";
+import { evaluateSkillContentSync } from "../src/evaluator";
 import type { RepoIndex, SkillEvalSummary } from "../src/utils/types";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -58,7 +58,7 @@ async function enrichSkill(
 
   let evalSummary: SkillEvalSummary | undefined;
   try {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content,
       skillPath: relPath || "skill",
       skillMdPath,
