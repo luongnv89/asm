@@ -222,9 +222,16 @@ export function groupOverlaps(
     // Merge smaller into larger
     if (ra !== rb) {
       parent.set(rb, ra);
-      const newMax = Math.max(maxScore.get(ra) ?? 0, maxScore.get(rb) ?? 0, score);
+      const newMax = Math.max(
+        maxScore.get(ra) ?? 0,
+        maxScore.get(rb) ?? 0,
+        score,
+      );
       maxScore.set(ra, newMax);
-      pairCount.set(ra, (pairCount.get(ra) ?? 0) + (pairCount.get(rb) ?? 0) + 1);
+      pairCount.set(
+        ra,
+        (pairCount.get(ra) ?? 0) + (pairCount.get(rb) ?? 0) + 1,
+      );
     }
   }
 
@@ -239,11 +246,13 @@ export function groupOverlaps(
   for (const pair of pairs) {
     const i = skills.findIndex(
       (s) =>
-        s.skill.name === pair.skillA.name && s.skill.installUrl === pair.skillA.installUrl,
+        s.skill.name === pair.skillA.name &&
+        s.skill.installUrl === pair.skillA.installUrl,
     );
     const j = skills.findIndex(
       (s) =>
-        s.skill.name === pair.skillB.name && s.skill.installUrl === pair.skillB.installUrl,
+        s.skill.name === pair.skillB.name &&
+        s.skill.installUrl === pair.skillB.installUrl,
     );
     if (i >= 0 && j >= 0) {
       union(i, j, pair.score);
@@ -300,7 +309,10 @@ export function checkCandidateOverlap(
 
   for (const entry of indexedSkills) {
     const score = computeSimilarity(
-      { name: candidate.name, description: candidate.description } as IndexedSkill,
+      {
+        name: candidate.name,
+        description: candidate.description,
+      } as IndexedSkill,
       entry.skill,
     );
     if (score >= threshold) {
@@ -309,7 +321,10 @@ export function checkCandidateOverlap(
         repo: entry.repo,
         score,
         reason: overlapReason(
-          { name: candidate.name, description: candidate.description } as IndexedSkill,
+          {
+            name: candidate.name,
+            description: candidate.description,
+          } as IndexedSkill,
           entry.skill,
           score,
         ),
@@ -322,7 +337,9 @@ export function checkCandidateOverlap(
   return {
     candidate: { name: candidate.name, description: candidate.description },
     overlaps,
-    hasHighConfidenceOverlap: overlaps.some((o) => o.score >= HIGH_CONFIDENCE_THRESHOLD),
+    hasHighConfidenceOverlap: overlaps.some(
+      (o) => o.score >= HIGH_CONFIDENCE_THRESHOLD,
+    ),
   };
 }
 

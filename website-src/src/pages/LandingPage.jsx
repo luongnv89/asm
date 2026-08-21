@@ -84,7 +84,8 @@ function WhatsNew() {
             what&apos;s new · v2.16
           </span>
           <h2 className="lp-section-title">
-            Overlap detection, PII flags, license checks, zero-residency delivery.
+            Overlap detection, PII flags, license checks, zero-residency
+            delivery.
           </h2>
           <p className="lp-lede">
             v2.16 adds semantic overlap detection for indexed skills, PII and

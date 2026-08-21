@@ -68,9 +68,7 @@ const PII_PATTERNS: {
  *
  * Returns a CategoryResult with findings per-file:per-line.
  */
-export async function scorePII(
-  skillPath: string,
-): Promise<CategoryResult> {
+export async function scorePII(skillPath: string): Promise<CategoryResult> {
   const findings: string[] = [];
   const suggestions: string[] = [];
   let score = 10; // start perfect; deduct for each category found
@@ -117,9 +115,7 @@ export async function scorePII(
         if (entry.startsWith(".") || entry === "node_modules") continue;
         await scanDir(full);
       } else if (s.isFile()) {
-        const ext = entry.includes(".")
-          ? "." + entry.split(".").pop()
-          : "";
+        const ext = entry.includes(".") ? "." + entry.split(".").pop() : "";
         if (!textExtensions.has(ext)) continue;
         try {
           const content = await readFile(full, "utf-8");
@@ -271,7 +267,9 @@ async function runLinter(
             pendingLine = parseInt(fileMatch[2], 10);
             continue;
           }
-          const syntaxMatch = line.match(/^\s*(SyntaxError|IndentationError|ImportError|AttributeError|TypeError|ValueError):\s*(.+)$/);
+          const syntaxMatch = line.match(
+            /^\s*(SyntaxError|IndentationError|ImportError|AttributeError|TypeError|ValueError):\s*(.+)$/,
+          );
           if (syntaxMatch) {
             findings.push({
               file: filePath,
@@ -374,9 +372,7 @@ export async function scoreScriptLint(
         if (entry.startsWith(".") || entry === "node_modules") continue;
         await scanDir(full);
       } else if (s.isFile()) {
-        const ext = entry.includes(".")
-          ? "." + entry.split(".").pop()
-          : "";
+        const ext = entry.includes(".") ? "." + entry.split(".").pop() : "";
         if (!SCRIPT_EXTENSIONS.has(ext)) continue;
         const relPath = full.replace(resolved + "/", "");
         const linterResult = await runLinter(full, ext);

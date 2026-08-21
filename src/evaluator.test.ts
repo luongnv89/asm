@@ -1468,11 +1468,7 @@ describe("Script linting (scoreScriptLint)", () => {
       "---\nname: lint-classify\ndescription: Test.\n---\n# Test\n",
       "SKILL.md",
     );
-    await writeSkillMd(
-      dir,
-      "def broken(\n",
-      "broken.py",
-    );
+    await writeSkillMd(dir, "def broken(\n", "broken.py");
     const report = await evaluateSkill(dir);
     const lint = report.categories.find((c) => c.id === "script-lint")!;
     // Score should be less than perfect if errors found

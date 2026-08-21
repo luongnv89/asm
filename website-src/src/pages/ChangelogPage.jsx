@@ -69,13 +69,16 @@ const ENTRIES = [
             hangs on slow operations ({pr(501)})
           </>,
           <>
-            Close two entry-point consistency gaps in CLI command routing ({pr(489)})
+            Close two entry-point consistency gaps in CLI command routing (
+            {pr(489)})
           </>,
           <>
-            Sandbox the unit test suite away from the host config directory ({pr(472)})
+            Sandbox the unit test suite away from the host config directory (
+            {pr(472)})
           </>,
           <>
-            Reject parent segments (<code>../</code>) in remote skill references ({pr(428)})
+            Reject parent segments (<code>../</code>) in remote skill references
+            ({pr(428)})
           </>,
         ],
       },
@@ -84,10 +87,12 @@ const ENTRIES = [
         items: [
           <>
             Parallelize skill updates, ingest pipeline, scanning, and search
-            index parsing for faster operations ({pr(412)}, {pr(413)}, {pr(406)}, {pr(411)})
+            index parsing for faster operations ({pr(412)}, {pr(413)}, {pr(406)}
+            , {pr(411)})
           </>,
           <>
-            Lazy git commit resolution and memoized index loading ({pr(408)}, {pr(498)})
+            Lazy git commit resolution and memoized index loading ({pr(408)},{" "}
+            {pr(498)})
           </>,
         ],
       },
@@ -98,22 +103,20 @@ const ENTRIES = [
             Split <code>src/cli.ts</code> into per-command modules ({pr(488)})
           </>,
           <>
-            Eliminate all <code>any</code> types from untrusted-input handling ({pr(490)})
+            Eliminate all <code>any</code> types from untrusted-input handling (
+            {pr(490)})
           </>,
-          <>
-            Narrow gitleaks allowlist to specific patterns ({pr(499)})
-          </>,
+          <>Narrow gitleaks allowlist to specific patterns ({pr(499)})</>,
         ],
       },
       {
         tag: "docs",
         items: [
           <>
-            Add AGENTS.md and CLAUDE.md subagent definitions for coding agents ({pr(470)}, {pr(468)})
+            Add AGENTS.md and CLAUDE.md subagent definitions for coding agents (
+            {pr(470)}, {pr(468)})
           </>,
-          <>
-            Realign README and CONTRIBUTING with shipped code ({pr(502)})
-          </>,
+          <>Realign README and CONTRIBUTING with shipped code ({pr(502)})</>,
         ],
       },
     ],

@@ -153,8 +153,22 @@ export function evaluateSkillContentSync(args: {
     scoreLicense(fm, body, rootEntries),
     scoreNaming(fm, body),
     // Async-only scorers — placeholder when content-only is the only input.
-    { id: "pii", name: "PII detection", score: 10, max: 10, findings: ["Skipped — content-only evaluation"], suggestions: [] },
-    { id: "script-lint", name: "Script linting", score: 10, max: 10, findings: ["Skipped — content-only evaluation"], suggestions: [] },
+    {
+      id: "pii",
+      name: "PII detection",
+      score: 10,
+      max: 10,
+      findings: ["Skipped — content-only evaluation"],
+      suggestions: [],
+    },
+    {
+      id: "script-lint",
+      name: "Script linting",
+      score: 10,
+      max: 10,
+      findings: ["Skipped — content-only evaluation"],
+      suggestions: [],
+    },
   ];
 
   // Naming bonus
