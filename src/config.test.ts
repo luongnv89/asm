@@ -23,12 +23,12 @@ describe("getDefaultConfig", () => {
     expect(config.version).toBe(1);
   });
 
-  it("returns 19 default providers", () => {
+  it("returns 22 default providers", () => {
     const config = getDefaultConfig();
-    expect(config.providers).toHaveLength(19);
+    expect(config.providers).toHaveLength(22);
   });
 
-  it("includes all 19 default providers in priority order", () => {
+  it("includes all 22 default providers in priority order", () => {
     const config = getDefaultConfig();
     const names = config.providers.map((p) => p.name);
     expect(names).toEqual([
@@ -36,6 +36,9 @@ describe("getDefaultConfig", () => {
       "codex",
       "opencode",
       "pi",
+      "omp",
+      "grok",
+      "reasonix",
       "hermes",
       "openclaw",
       "agents",
@@ -54,9 +57,9 @@ describe("getDefaultConfig", () => {
     ]);
   });
 
-  it("all 19 providers are enabled by default", () => {
+  it("all 22 providers are enabled by default", () => {
     const config = getDefaultConfig();
-    expect(config.providers).toHaveLength(19);
+    expect(config.providers).toHaveLength(22);
     expect(config.providers.every((p) => p.enabled)).toBe(true);
   });
 
@@ -200,7 +203,7 @@ describe("config backup on corruption", () => {
 
     // Should return defaults
     expect(config.version).toBe(1);
-    expect(config.providers).toHaveLength(19);
+    expect(config.providers).toHaveLength(22);
 
     // Should have created backup
     const backup = await readFile(backupPath, "utf-8");
@@ -451,6 +454,58 @@ describe("mergeWithDefaults priority-order insertion", () => {
 
     expect(piIdx).toBeGreaterThan(opencodeIdx);
     expect(piIdx).toBeLessThan(hermesIdx);
+  });
+
+  it("inserts omp, grok, and reasonix between pi and hermes on upgrade", async () => {
+    // Simulate an existing user upgrading from the 19-provider defaults:
+    // their saved config has every current built-in except omp/grok/reasonix.
+    await mkdir(dirname(configPath), { recursive: true });
+    const legacyNames = [
+      "claude",
+      "codex",
+      "opencode",
+      "pi",
+      "hermes",
+      "openclaw",
+      "agents",
+      "cursor",
+      "copilot",
+      "windsurf",
+      "antigravity",
+      "gemini",
+      "cline",
+      "roocode",
+      "continue",
+      "aider",
+      "zed",
+      "augment",
+      "amp",
+    ];
+    const partial = {
+      version: 1,
+      providers: legacyNames.map((name) => ({
+        name,
+        label: name,
+        global: `~/.${name}/skills`,
+        project: `.${name}/skills`,
+        enabled: true,
+      })),
+      preferences: { defaultScope: "both", defaultSort: "name" },
+    };
+    await writeFile(configPath, JSON.stringify(partial), "utf-8");
+
+    const config = await loadConfig();
+    const names = config.providers.map((p) => p.name);
+    const piIdx = names.indexOf("pi");
+    const ompIdx = names.indexOf("omp");
+    const grokIdx = names.indexOf("grok");
+    const reasonixIdx = names.indexOf("reasonix");
+    const hermesIdx = names.indexOf("hermes");
+
+    expect(ompIdx).toBe(piIdx + 1);
+    expect(grokIdx).toBe(piIdx + 2);
+    expect(reasonixIdx).toBe(piIdx + 3);
+    expect(hermesIdx).toBe(piIdx + 4);
   });
 
   it("preserves user-added custom providers in place when adding new defaults", async () => {

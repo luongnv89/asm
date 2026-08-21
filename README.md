@@ -17,7 +17,7 @@
 
 # CLI to install and manage agent skills
 
-**agent-skill-manager** (`asm`) is a scriptable CLI built for AI agents and automation — install, search, audit, and organize skills across Claude Code, Codex, Cursor, and 16 more tools. Every command supports `--json` and `--yes` for non-interactive use. An optional TUI (`asm`) is available for local browsing.
+**agent-skill-manager** (`asm`) is a scriptable CLI built for AI agents and automation — install, search, audit, and organize skills across Claude Code, Codex, Cursor, and 19 more tools. Every command supports `--json` and `--yes` for non-interactive use. An optional TUI (`asm`) is available for local browsing.
 
 [**Get Started**](#getting-started) · [**Browse 4,300+ skills**](https://luongnv.com/asm/#/skills) · [**Full docs**](#documentation)
 
@@ -25,7 +25,7 @@
 
 | Pain                      | Without `asm`                                                                                                           | With `asm`                                                                 |
 | ------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| Scattered installs        | Same skill copied into `~/.claude/skills/`, `~/.codex/skills/`, `~/.cursor/rules/` — different versions, no single view | One `asm list` across all 19 providers and scopes                          |
+| Scattered installs        | Same skill copied into `~/.claude/skills/`, `~/.codex/skills/`, `~/.cursor/rules/` — different versions, no single view | One `asm list` across all 22 providers and scopes                          |
 | No inventory              | `ls` through hidden dirs; no idea what is installed, duplicated, or outdated                                            | `asm search`, `asm inspect`, `asm stats`, `asm audit`                      |
 | Invisible context cost    | Every installed skill's description is resident in the agent's prompt on every message, whether or not it ever fires    | `asm stats --tokens`, `asm audit residency`                                |
 | Install just to read once | Installing is the only way to get a skill in front of an agent — and it stays resident forever afterwards               | `asm get <skill>` prints the body and installs nothing                     |
@@ -38,7 +38,7 @@
 |                     |                                                                                |
 | ------------------- | ------------------------------------------------------------------------------ |
 | **Catalog**         | 4,394 skills from 54 repos — [browse online](https://luongnv.com/asm/#/skills) |
-| **Providers**       | 19 agents (Claude, Codex, Cursor, Windsurf, Copilot, …)                        |
+| **Providers**       | 22 agents (Claude, Codex, Cursor, Windsurf, Copilot, …)                        |
 | **Agent-ready CLI** | `--json`, `--yes`, `--machine` on list, search, install, audit, eval           |
 | **Security**        | Pre-install scan for shell exec, network access, credential exposure           |
 | **License**         | MIT — no accounts, no telemetry                                                |
@@ -276,7 +276,7 @@ MIT licensed. No accounts or paywalls.
 Yes. Commands return structured JSON (`--json`), accept non-interactive flags (`--yes`, `--machine`), and map to discrete actions an agent can chain — list inventory, search catalog, install, audit, uninstall.
 
 **Which agents are supported?**
-19 providers: Claude Code, Codex, OpenClaw, Cursor, Windsurf, Cline, Roo Code, Continue, GitHub Copilot, Aider, OpenCode, Zed, Augment, Amp, Gemini CLI, Google Antigravity, Pi, Hermes, and a generic Agents provider. Disable any via `asm config edit`.
+22 providers: Claude Code, Codex, OpenClaw, Cursor, Windsurf, Cline, Roo Code, Continue, GitHub Copilot, Aider, OpenCode, Zed, Augment, Amp, Gemini CLI, Google Antigravity, Pi, Oh My Pi, Grok CLI, Reasonix, Hermes, and a generic Agents provider. Disable any via `asm config edit`.
 
 **What about the TUI?**
 Run `asm` with no args for an optional local browser. The CLI is the primary interface for scripts, CI, and agent tool calls.
@@ -504,7 +504,7 @@ asm install github:anthropics/skills --all
 <details>
 <summary><strong>Supported agent tools</strong></summary>
 
-19 built-in providers, all enabled by default. Disable via `asm config edit`.
+22 built-in providers, all enabled by default. Disable via `asm config edit`.
 
 | Tool               | Global Path                       | Project Path            |
 | ------------------ | --------------------------------- | ----------------------- |
@@ -526,6 +526,9 @@ asm install github:anthropics/skills --all
 | Gemini CLI         | `~/.gemini/skills/`               | `.gemini/skills/`       |
 | Google Antigravity | `~/.antigravity/skills/`          | `.antigravity/skills/`  |
 | Pi                 | `~/.pi/skills/`                   | `.pi/skills/`           |
+| Oh My Pi           | `~/.omp/agent/skills/`            | `.omp/skills/`          |
+| Grok CLI           | `~/.grok/skills/`                 | `.grok/skills/`         |
+| Reasonix           | `~/.reasonix/skills/`             | `.reasonix/skills/`     |
 | Hermes             | `~/.hermes/skills/`               | `.hermes/skills/`       |
 
 Add custom providers in config.
@@ -834,6 +837,27 @@ On first run, config is created at `~/.config/agent-skill-manager/config.json`:
       "enabled": true
     },
     {
+      "name": "omp",
+      "label": "Oh My Pi",
+      "global": "~/.omp/agent/skills",
+      "project": ".omp/skills",
+      "enabled": true
+    },
+    {
+      "name": "grok",
+      "label": "Grok CLI",
+      "global": "~/.grok/skills",
+      "project": ".grok/skills",
+      "enabled": true
+    },
+    {
+      "name": "reasonix",
+      "label": "Reasonix",
+      "global": "~/.reasonix/skills",
+      "project": ".reasonix/skills",
+      "enabled": true
+    },
+    {
       "name": "hermes",
       "label": "Hermes",
       "global": "~/.hermes/skills",
@@ -947,7 +971,7 @@ On first run, config is created at `~/.config/agent-skill-manager/config.json`:
 }
 ```
 
-- All 19 providers are enabled by default
+- All 22 providers are enabled by default
 - Set `"enabled": false` to skip a provider you don't use
 - Add arbitrary directories via `customPaths`
 - Manage via `asm config show|path|reset|edit` or press `c` in the TUI

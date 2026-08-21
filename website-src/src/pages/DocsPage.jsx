@@ -516,7 +516,7 @@ metadata:
       <section className="doc-section">
         <h2>Supported Agent Tools</h2>
         <p>
-          <code>asm</code> ships with 19 built-in providers, all enabled by
+          <code>asm</code> ships with 22 built-in providers, all enabled by
           default:
         </p>
         <table>
@@ -570,6 +570,17 @@ metadata:
             />
             <ToolRow tool="Pi" g="~/.pi/skills/" p=".pi/skills/" />
             <ToolRow
+              tool="Oh My Pi"
+              g="~/.omp/agent/skills/"
+              p=".omp/skills/"
+            />
+            <ToolRow tool="Grok CLI" g="~/.grok/skills/" p=".grok/skills/" />
+            <ToolRow
+              tool="Reasonix"
+              g="~/.reasonix/skills/"
+              p=".reasonix/skills/"
+            />
+            <ToolRow
               tool="Zed"
               g="~/.config/zed/prompt_overrides/"
               p=".zed/rules/"
@@ -598,7 +609,7 @@ metadata:
         <p>
           Config file is created at{" "}
           <code>~/.config/agent-skill-manager/config.json</code> on first run
-          with 19 default providers.
+          with 22 default providers.
         </p>
         <table>
           <thead>

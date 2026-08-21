@@ -54,6 +54,27 @@ const DEFAULT_PROVIDERS: ProviderConfig[] = [
     enabled: true,
   },
   {
+    name: "omp",
+    label: "Oh My Pi",
+    global: "~/.omp/agent/skills",
+    project: ".omp/skills",
+    enabled: true,
+  },
+  {
+    name: "grok",
+    label: "Grok CLI",
+    global: "~/.grok/skills",
+    project: ".grok/skills",
+    enabled: true,
+  },
+  {
+    name: "reasonix",
+    label: "Reasonix",
+    global: "~/.reasonix/skills",
+    project: ".reasonix/skills",
+    enabled: true,
+  },
+  {
     name: "hermes",
     label: "Hermes",
     global: "~/.hermes/skills",
