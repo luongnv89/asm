@@ -4,6 +4,7 @@ import { cn } from "../../lib/cn.js";
 /**
  * shadcn/ui Badge — JSX port. Extra tone variants cover the legacy badge
  * palette (official / verified / featured / warn / tokens / cat / eval-*).
+ * Accepts both `tone` (primary) and `variant` (shim for compatibility).
  */
 const badgeVariants = cva(
   "inline-flex items-center gap-0.5 rounded border px-2 py-0.5 text-[10px] font-medium transition-colors",
@@ -31,8 +32,16 @@ const badgeVariants = cva(
   },
 );
 
-export function Badge({ className, tone, ...props }) {
-  return <span className={cn(badgeVariants({ tone }), className)} {...props} />;
+export function Badge({ className, tone, variant, ...props }) {
+  // Accept `variant` as an alias for `tone` (StatsPage passes variant="secondary").
+  // "secondary" maps to the default tone since no explicit tone was intended.
+  const resolvedTone = variant === "secondary" ? "default" : tone;
+  return (
+    <span
+      className={cn(badgeVariants({ tone: resolvedTone }), className)}
+      {...props}
+    />
+  );
 }
 
 export { badgeVariants };

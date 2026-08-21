@@ -75,7 +75,7 @@ export default function CatalogPage() {
   );
   const location = useLocation();
 
-  const { loading, error, catalog, miniSearch } = useCatalog();
+  const { loading, error, catalog, miniSearch, searchError } = useCatalog();
   const {
     state,
     searchDraft,
@@ -101,6 +101,7 @@ export default function CatalogPage() {
     if (!catalog || !miniSearch || !state.searchQuery.trim()) {
       return { scoreById: null, terms: null };
     }
+    // If MiniSearch failed to initialize, the above guard catches it.
     const hits = miniSearch.search(state.searchQuery.trim());
     const scoreById = new Map();
     for (const h of hits) {
@@ -151,6 +152,13 @@ export default function CatalogPage() {
           Catalog failed to load
         </h2>
         <p className="text-sm text-[var(--fg-dim)] mt-2">{error}</p>
+        <button
+          type="button"
+          onClick={() => window.location.reload()}
+          className="mt-4 px-3 py-1.5 rounded border border-[var(--border)] bg-transparent text-[var(--fg)] hover:border-[var(--brand)] text-xs"
+        >
+          Reload page
+        </button>
       </div>
     );
   }
@@ -260,6 +268,11 @@ export default function CatalogPage() {
           )}
         </span>
       </div>
+      {searchError && (
+        <div className="mx-3 py-2 px-3 rounded bg-[var(--warn-bg)] border border-[var(--warn)] text-[var(--warn)] text-xs">
+          ⚠ {searchError}
+        </div>
+      )}
       <div
         className="flex-1 min-h-0 pr-1 -mr-1"
         role="list"

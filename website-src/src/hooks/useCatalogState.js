@@ -41,7 +41,6 @@ export function useCatalogState() {
       activeRepo: params.get("repo") || "all",
       activeFacets: facets,
       sort: params.get("sort") || defaultSort(searchQuery),
-      page: parseInt(params.get("page"), 10) || 1,
     };
   }, [params]);
 
@@ -72,7 +71,6 @@ export function useCatalogState() {
         // When search toggles on, reset sort to relevance (matches legacy).
         if (q && !next.get("sort")) next.set("sort", "relevance");
         else if (!q && next.get("sort") === "relevance") next.delete("sort");
-        next.delete("page");
       });
     },
     [update],
@@ -83,7 +81,6 @@ export function useCatalogState() {
       update((next) => {
         if (cats.size > 0) next.set("cat", setToCsv(cats));
         else next.delete("cat");
-        next.delete("page");
       });
     },
     [update],
@@ -94,7 +91,6 @@ export function useCatalogState() {
       update((next) => {
         if (repo && repo !== "all") next.set("repo", repo);
         else next.delete("repo");
-        next.delete("page");
       });
     },
     [update],
@@ -107,7 +103,6 @@ export function useCatalogState() {
       update((next) => {
         if (values.size > 0) next.set(paramKey, setToCsv(values));
         else next.delete(paramKey);
-        next.delete("page");
       });
     },
     [update],
@@ -120,17 +115,6 @@ export function useCatalogState() {
         const def = defaultSort(q);
         if (sort && sort !== def) next.set("sort", sort);
         else next.delete("sort");
-        next.delete("page");
-      });
-    },
-    [update],
-  );
-
-  const setPage = useCallback(
-    (page) => {
-      update((next) => {
-        if (page && page > 1) next.set("page", String(page));
-        else next.delete("page");
       });
     },
     [update],
@@ -139,7 +123,7 @@ export function useCatalogState() {
   const clearAll = useCallback(() => {
     setParams(new URLSearchParams(), { replace: true });
     setSearchDraft("");
-  }, [setParams]);
+  }, [setParams, setSearchDraft]);
 
   return {
     state,
@@ -150,7 +134,6 @@ export function useCatalogState() {
     setActiveRepo,
     setFacet,
     setSort,
-    setPage,
     clearAll,
   };
 }

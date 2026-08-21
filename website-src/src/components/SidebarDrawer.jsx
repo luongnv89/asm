@@ -27,17 +27,21 @@ export default function SidebarDrawer({
   ariaLabel = "Sidebar",
 }) {
   useEffect(() => {
-    if (!open) return;
     const onKey = (e) => {
       if (e.key === "Escape") onClose?.();
     };
     window.addEventListener("keydown", onKey);
     // Prevent body scroll while the drawer is open.
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    if (open) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        window.removeEventListener("keydown", onKey);
+        document.body.style.overflow = prev;
+      };
+    }
     return () => {
       window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
     };
   }, [open, onClose]);
 

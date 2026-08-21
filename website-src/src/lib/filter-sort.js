@@ -162,6 +162,12 @@ export function anyFilterActive(state) {
   for (const k of Object.keys(state.activeFacets)) {
     if (state.activeFacets[k].size > 0) return true;
   }
+  // Check sort state — when sort differs from the search-aware default,
+  // the "Clear all" button should appear (issue #526).
+  const expectedDefault = state.searchQuery && state.searchQuery.trim()
+    ? "relevance"
+    : "name";
+  if (state.sort && state.sort !== expectedDefault) return true;
   return false;
 }
 

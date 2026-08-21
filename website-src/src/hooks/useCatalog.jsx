@@ -7,6 +7,7 @@ const CatalogContext = createContext({
   error: null,
   catalog: null,
   miniSearch: null,
+  searchError: null,
 });
 
 /**
@@ -26,6 +27,7 @@ export function CatalogProvider({ children }) {
     error: null,
     catalog: null,
     miniSearch: null,
+    searchError: null,
   });
 
   useEffect(() => {
@@ -54,7 +56,22 @@ export function CatalogProvider({ children }) {
             "Catalog and search index are from different builds. Clear your browser cache and reload the page.",
           );
         }
-        const miniSearch = MiniSearch.loadJS(parsedIndex, MINISEARCH_OPTIONS);
+        let miniSearch;
+        try {
+          miniSearch = MiniSearch.loadJS(parsedIndex, MINISEARCH_OPTIONS);
+        } catch (loadErr) {
+          // Catalog loaded but MiniSearch failed to initialize
+          // (e.g. corrupted index). Show catalog without search.
+          if (cancelled) return;
+          setState({
+            loading: false,
+            error: null,
+            catalog,
+            miniSearch: null,
+            searchError: "Search index failed to load. The catalog is still available without search.",
+          });
+          return;
+        }
         if (cancelled) return;
         setState({ loading: false, error: null, catalog, miniSearch });
       } catch (err) {
@@ -64,6 +81,7 @@ export function CatalogProvider({ children }) {
           error: err instanceof Error ? err.message : String(err),
           catalog: null,
           miniSearch: null,
+          searchError: null,
         });
       }
     })();
