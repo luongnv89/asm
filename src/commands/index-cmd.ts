@@ -24,7 +24,7 @@ Manage the skill index for searching available skills from indexed repos.
 
 ${ansi.bold("Subcommands:")}
   ingest <repo>     Ingest a skill repository into the index
-  search <query>   Search indexed skills by name or description
+  search <query>    Search indexed skills by name or description
   list             List all indexed repositories
   remove <owner/repo>  Remove a repo from the index
   overlap          Find semantically overlapping skills in the index
@@ -349,7 +349,7 @@ export async function cmdIndex(args: ParsedArgs) {
             );
             for (const s of group.skills) {
               const highConf =
-                s.skill.description === group.skills[0].skill.description
+                group.maxScore >= HIGH_CONFIDENCE_THRESHOLD
                   ? ansi.yellow(" [high overlap]")
                   : "";
               console.error(
@@ -385,7 +385,9 @@ export async function cmdIndex(args: ParsedArgs) {
 
         if (pairs.length > 20) {
           console.error(
-            ansi.dim(`  … and ${pairs.length - 20} more pair(s). Use --json for full list.`),
+            ansi.dim(
+              `  … and ${pairs.length - 20} more pair(s). Use --json for full list.`,
+            ),
           );
         }
       }
