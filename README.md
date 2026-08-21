@@ -37,7 +37,7 @@
 
 |                     |                                                                                |
 | ------------------- | ------------------------------------------------------------------------------ |
-| **Catalog**         | 4,394 skills from 54 repos — [browse online](https://luongnv.com/asm/#/skills) |
+| **Catalog**         | 4,672 skills from 58 repos — [browse online](https://luongnv.com/asm/#/skills) |
 | **Providers**       | 19 agents (Claude, Codex, Cursor, Windsurf, Copilot, …)                        |
 | **Agent-ready CLI** | `--json`, `--yes`, `--machine` on list, search, install, audit, eval           |
 | **Security**        | Pre-install scan for shell exec, network access, credential exposure           |
@@ -584,6 +584,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm index search <query>` | Search indexed skills |
 | `asm index list` | List indexed repos |
 | `asm index remove <owner/repo>` | Remove repo from index |
+| `asm index overlap` | Find semantically overlapping skills in the index |
 | `asm bundle list` | List bundles (`--predefined`) |
 | `asm bundle install <name>` | Install every skill in a bundle |
 | `asm bundle create <name>` | Create bundle from installed skills |
@@ -1100,7 +1101,7 @@ asm/
 
 ## Roadmap
 
-[Project kanban](https://github.com/users/luongnv89/projects/6) · [prd.md](prd.md) · [tasks.md](tasks.md)
+[Project kanban](https://github.com/users/luongnv89/projects/6)
 
 ## Contributing
 

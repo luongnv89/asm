@@ -30,7 +30,7 @@ graph TD
 
 Parses arguments and dispatches to command handlers:
 
-Dispatches to ~30 command handlers (`cmd*` functions) covering discovery
+Dispatches to ~47 command handlers (`cmd*` functions) covering discovery
 (`list`, `search`, `inspect`), lifecycle (`install`, `uninstall`,
 `disable`/`enable`, `update`, `outdated`), authoring (`init`, `link`, `eval`,
 `publish`), and organization (`audit`, `bundle`, `library`, `stats`,

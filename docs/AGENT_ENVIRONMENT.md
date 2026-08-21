@@ -15,16 +15,16 @@ change.
 
 ```json
 "engines": {
-  "node": ">=18 <23",
+  "node": ">=22 <27",
   "npm": ">=9"
 }
 ```
 
-That is the authoritative range: Node **>= 18 and < 23**, npm **>= 9**. Note the
-**upper bound** — Node 23+ is outside the declared range.
+That is the authoritative range: Node **>= 22 and < 27**, npm **>= 9**. Note the
+**upper bound** — Node 27+ is outside the declared range.
 
 - CI (`.github/workflows/ci.yml`) runs unit tests and both e2e jobs on a Node
-  `18, 20, 22` matrix; the `build` job pins Node `22`.
+  `22, 24` matrix; the `build` job pins Node `22`.
 - `docs/DEVELOPMENT.md` says "Node.js >= 18.0.0" with no upper bound. It is
   out of step with `engines`; treat `engines` as correct.
 - **The measurements below were taken on Node `v26.7.0` / npm `11.19.0`** — above
@@ -64,8 +64,8 @@ modifications, and the same set of untracked scratch files either side.
 2. **`npm test` is not the whole suite — but it is wider than it looks.** It is
    `vitest run src/`, and that argument is a **substring filter on the relative
    test path**, not a directory. `website-src/src/__tests__/…` contains `src/`,
-   so the site tests match too. The observed `60 passed (60)` is the 49 test
-   files under `src/` (47 `*.test.ts` plus 2 `*.test.tsx`) and the 11 under
+   so the site tests match too. The observed `60 passed (60)` is the 58 test
+   files under `src/` (50 `*.test.ts` plus 8 `*.test.tsx`) and the 11 under
    `website-src/src/__tests__/` (`*.test.js` / `*.test.jsx`). Only the 6 files
    in `tests/e2e/` are excluded. Consequently `npm run test:site`
    (`vitest run website-src/`, those same 11 files) is a **subset** of

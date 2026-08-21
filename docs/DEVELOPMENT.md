@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) >= 18.0.0 (with npm >= 9)
+- [Node.js](https://nodejs.org/) >= 22 (with npm >= 9) (`package.json:engines`)
 - [Git](https://git-scm.com/)
 - [pre-commit](https://pre-commit.com/) (optional, for git hooks)
 
@@ -45,7 +45,7 @@ traps (scripts that rewrite tracked files; the unit suite writing to your real
 [AGENT_ENVIRONMENT.md](AGENT_ENVIRONMENT.md).
 
 Test files are co-located with source files using the `*.test.ts` convention.
-44 `*.test.ts` files live under `src/`, one per module — e.g. `cli.test.ts`,
+50 `*.test.ts` files live under `src/`, one per module — e.g. `cli.test.ts`,
 `scanner.test.ts`, `installer.test.ts`, `eval/*.test.ts`. Run `npm test` for
 the full, current list.
 
