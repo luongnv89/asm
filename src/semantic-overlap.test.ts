@@ -6,8 +6,6 @@ import {
   checkCandidateOverlap,
   MIN_OVERLAP_SCORE,
   HIGH_CONFIDENCE_THRESHOLD,
-  type OverlapPair,
-  type OverlapGroup,
 } from "./semantic-overlap";
 import type { IndexedSkill } from "./utils/types";
 
@@ -62,16 +60,28 @@ describe("computeSimilarity", () => {
   });
 
   it("returns high score for very similar descriptions", () => {
-    const a = makeSkill("code-review", "Review code for bugs and security issues");
-    const b = makeSkill("code-reviewer", "Review code for bugs and security problems");
+    const a = makeSkill(
+      "code-review",
+      "Review code for bugs and security issues",
+    );
+    const b = makeSkill(
+      "code-reviewer",
+      "Review code for bugs and security problems",
+    );
     const score = computeSimilarity(a, b);
     // Token overlap on "review code for bugs and security" is high
     expect(score).toBeGreaterThan(0.5);
   });
 
   it("returns moderate score for partially overlapping descriptions", () => {
-    const a = makeSkill("security-audit", "Audit code for security vulnerabilities");
-    const b = makeSkill("vulnerability-scanner", "Scan code for security vulnerabilities and bugs");
+    const a = makeSkill(
+      "security-audit",
+      "Audit code for security vulnerabilities",
+    );
+    const b = makeSkill(
+      "vulnerability-scanner",
+      "Scan code for security vulnerabilities and bugs",
+    );
     const score = computeSimilarity(a, b);
     // Some shared tokens (code, security, vulnerabilities, bugs)
     expect(score).toBeGreaterThan(0.2);
@@ -235,15 +245,13 @@ describe("checkCandidateOverlap", () => {
         "owner",
         "repo-a",
       ),
-      makeEntry(
-        "deploy",
-        "Deploy applications to cloud",
-        "owner",
-        "repo-b",
-      ),
+      makeEntry("deploy", "Deploy applications to cloud", "owner", "repo-b"),
     ];
     const result = checkCandidateOverlap(
-      { name: "new-reviewer", description: "Review code for bugs and security issues" },
+      {
+        name: "new-reviewer",
+        description: "Review code for bugs and security issues",
+      },
       indexed,
     );
     expect(result.overlaps.length).toBeGreaterThanOrEqual(1);
@@ -260,7 +268,10 @@ describe("checkCandidateOverlap", () => {
       ),
     ];
     const result = checkCandidateOverlap(
-      { name: "code-review", description: "Review code for bugs and security issues" },
+      {
+        name: "code-review",
+        description: "Review code for bugs and security issues",
+      },
       indexed,
     );
     expect(result.hasHighConfidenceOverlap).toBe(true);
@@ -274,12 +285,7 @@ describe("checkCandidateOverlap", () => {
         "owner",
         "repo-a",
       ),
-      makeEntry(
-        "deploy",
-        "Deploy applications to cloud",
-        "owner",
-        "repo-b",
-      ),
+      makeEntry("deploy", "Deploy applications to cloud", "owner", "repo-b"),
     ];
     const result = checkCandidateOverlap(
       { name: "new-skill", description: "Review code for bugs" },
@@ -307,7 +313,10 @@ describe("checkCandidateOverlap", () => {
   });
 
   it("includes candidate name in result", () => {
-    const indexed: Array<{ skill: IndexedSkill; repo: { owner: string; repo: string } }> = [];
+    const indexed: Array<{
+      skill: IndexedSkill;
+      repo: { owner: string; repo: string };
+    }> = [];
     const result = checkCandidateOverlap(
       { name: "my-candidate", description: "Do something" },
       indexed,
