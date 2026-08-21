@@ -149,7 +149,7 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
           }
 
           try {
-            const report = evaluateSkillContent({
+            const report = await evaluateSkillContent({
               content: skillMdContent,
               skillPath: skill.relPath || skill.name,
               skillMdPath,

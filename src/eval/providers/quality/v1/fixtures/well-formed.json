@@ -2,7 +2,7 @@
   "providerId": "quality",
   "providerVersion": "1.0.0",
   "schemaVersion": 1,
-  "score": 91,
+  "score": 89,
   "passed": true,
   "categories": [
     {
@@ -42,8 +42,26 @@
       "max": 10
     },
     {
+      "id": "license",
+      "name": "License verification",
+      "score": 5,
+      "max": 10
+    },
+    {
       "id": "naming",
       "name": "Naming & conventions",
+      "score": 10,
+      "max": 10
+    },
+    {
+      "id": "pii",
+      "name": "PII detection",
+      "score": 10,
+      "max": 10
+    },
+    {
+      "id": "script-lint",
+      "name": "Script linting",
       "score": 10,
       "max": 10
     }
@@ -139,6 +157,18 @@
         ]
       },
       {
+        "id": "license",
+        "name": "License verification",
+        "score": 5,
+        "max": 10,
+        "findings": [
+          "License declared: `MIT` (SPDX recognised).",
+          "No LICENSE file found — consider adding one for clarity."
+        ],
+        "suggestions": [],
+        "licenseStatus": "recognised"
+      },
+      {
         "id": "naming",
         "name": "Naming & conventions",
         "score": 10,
@@ -150,10 +180,30 @@
           "Directory name matches frontmatter `name`."
         ],
         "suggestions": []
+      },
+      {
+        "id": "pii",
+        "name": "PII detection",
+        "score": 10,
+        "max": 10,
+        "findings": [
+          "No PII detected in skill files."
+        ],
+        "suggestions": []
+      },
+      {
+        "id": "script-lint",
+        "name": "Script linting",
+        "score": 10,
+        "max": 10,
+        "findings": [
+          "No bundled scripts found to lint."
+        ],
+        "suggestions": []
       }
     ],
-    "overallScore": 91,
-    "grade": "A",
+    "overallScore": 89,
+    "grade": "B",
     "topSuggestions": [
       "Add an \"## Acceptance Criteria\" block listing verifiable outputs or checklist items.",
       "Include an \"Expected output\" example so reviewers and the agent can verify correctness."

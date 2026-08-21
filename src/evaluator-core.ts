@@ -968,9 +968,7 @@ export function scoreLicense(
   switch (licenseStatus) {
     case "recognised": {
       score = hasLicenseFile ? 10 : 5;
-      findings.push(
-        `License declared: \`${fmLicense}\` (SPDX recognised).`,
-      );
+      findings.push(`License declared: \`${fmLicense}\` (SPDX recognised).`);
       if (hasLicenseFile) {
         findings.push(`LICENSE file present at skill root.`);
       } else {
@@ -983,7 +981,9 @@ export function scoreLicense(
     case "unrecognised": {
       score = 2;
       if (hasFmLicense) {
-        findings.push(`License declared as \`${fmLicense}\` but not in the SPDX list.`);
+        findings.push(
+          `License declared as \`${fmLicense}\` but not in the SPDX list.`,
+        );
       }
       if (hasLicenseFile && !hasFmLicense) {
         findings.push(`LICENSE file present but no frontmatter license field.`);

@@ -2899,7 +2899,7 @@ describe("CLI integration: eval", () => {
       expect(parsed).toHaveProperty("categories");
       expect(parsed).toHaveProperty("providers");
       expect(Array.isArray(parsed.categories)).toBe(true);
-      expect(parsed.categories.length).toBe(7);
+      expect(parsed.categories.length).toBe(10);
       expect(Array.isArray(parsed.providers)).toBe(true);
       expect(
         parsed.providers.some((p: { id: string }) => p.id === "quality"),

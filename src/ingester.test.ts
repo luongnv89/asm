@@ -814,7 +814,7 @@ ${body}
     // Use the inline path the ingester takes — read content + call
     // evaluator + project the slim shape — to validate the contract
     // without needing a real git clone.
-    const { evaluateSkillContent } = await import("./evaluator");
+    const { evaluateSkillContentSync } = await import("./evaluator");
     const skillDir = join(tempDir, "eval-skill");
     await mkdir(skillDir, { recursive: true });
     const skillMd = `---
@@ -839,7 +839,7 @@ example
     const skillMdPath = join(skillDir, "SKILL.md");
     await writeFile(skillMdPath, skillMd, "utf-8");
 
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content: skillMd,
       skillPath: skillDir,
       skillMdPath,

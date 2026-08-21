@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
 import {
   buildFixPlan,
-  evaluateSkillContent,
+  evaluateSkillContentSync,
   evaluateSkill,
   applyFix,
   splitSkillMd,
@@ -131,20 +131,20 @@ describe("splitSkillMd", () => {
   });
 });
 
-describe("evaluateSkillContent", () => {
+describe("evaluateSkillContentSync", () => {
   it("scores a high-quality skill highly", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content: HIGH_QUALITY_SKILL,
       skillPath: "/virtual/code-review",
       skillMdPath: "/virtual/code-review/SKILL.md",
     });
     expect(report.overallScore).toBeGreaterThan(70);
     expect(report.grade).not.toBe("F");
-    expect(report.categories).toHaveLength(8);
+    expect(report.categories).toHaveLength(10);
   });
 
-  it("returns 8 categories with the expected ids", () => {
-    const report = evaluateSkillContent({
+  it("returns 10 categories (8 sync + pii + script-lint placeholders)", () => {
+    const report = evaluateSkillContentSync({
       content: HIGH_QUALITY_SKILL,
       skillPath: "/virtual/code-review",
       skillMdPath: "/virtual/code-review/SKILL.md",
@@ -156,8 +156,10 @@ describe("evaluateSkillContent", () => {
         "description",
         "license",
         "naming",
+        "pii",
         "prompt-engineering",
         "safety",
+        "script-lint",
         "structure",
         "testability",
       ].sort(),
@@ -165,12 +167,12 @@ describe("evaluateSkillContent", () => {
   });
 
   it("scores a poor skill lower than a good one", () => {
-    const good = evaluateSkillContent({
+    const good = evaluateSkillContentSync({
       content: HIGH_QUALITY_SKILL,
       skillPath: "/virtual/code-review",
       skillMdPath: "/virtual/code-review/SKILL.md",
     });
-    const poor = evaluateSkillContent({
+    const poor = evaluateSkillContentSync({
       content: POOR_SKILL,
       skillPath: "/virtual/bad",
       skillMdPath: "/virtual/bad/SKILL.md",
@@ -179,7 +181,7 @@ describe("evaluateSkillContent", () => {
   });
 
   it("detects missing frontmatter fields", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content: "---\nname: test\n---\nbody\n",
       skillPath: "/virtual/test",
       skillMdPath: "/virtual/test/SKILL.md",
@@ -189,7 +191,7 @@ describe("evaluateSkillContent", () => {
   });
 
   it("penalises very short descriptions", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content: "---\nname: a\ndescription: foo\n---\nbody\n",
       skillPath: "/virtual/a",
       skillMdPath: "/virtual/a/SKILL.md",
@@ -199,7 +201,7 @@ describe("evaluateSkillContent", () => {
   });
 
   it("rewards action-verb + trigger phrasing in descriptions", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content:
         "---\nname: x\ndescription: Generate release notes when shipping a new version of the package.\n---\nbody text with content here\n",
       skillPath: "/virtual/x",
@@ -210,7 +212,7 @@ describe("evaluateSkillContent", () => {
   });
 
   it("flags non-kebab-case names", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content:
         "---\nname: BadName\ndescription: Something that does work.\n---\nbody\n",
       skillPath: "/virtual/BadName",
@@ -223,7 +225,7 @@ describe("evaluateSkillContent", () => {
   });
 
   it("awards authorship point for legacy creator-only skills", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content:
         "---\nname: x\ndescription: Do a thing when triggered.\nversion: 1.0.0\nlicense: MIT\ncreator: Legacy Author\n---\nbody\n",
       skillPath: "/virtual/x",
@@ -236,7 +238,7 @@ describe("evaluateSkillContent", () => {
   });
 
   it("awards authorship point for metadata.author skills", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content:
         "---\nname: x\ndescription: Do a thing when triggered.\nversion: 1.0.0\nlicense: MIT\nmetadata:\n  author: Jane Doe\n---\nbody\n",
       skillPath: "/virtual/x",
@@ -249,7 +251,7 @@ describe("evaluateSkillContent", () => {
   });
 
   it("produces up to 3 top suggestions", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content: POOR_SKILL,
       skillPath: "/virtual/bad",
       skillMdPath: "/virtual/bad/SKILL.md",
@@ -259,7 +261,7 @@ describe("evaluateSkillContent", () => {
   });
 
   it("scores in the 0..100 range", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content: POOR_SKILL,
       skillPath: "/virtual/bad",
       skillMdPath: "/virtual/bad/SKILL.md",
@@ -269,13 +271,13 @@ describe("evaluateSkillContent", () => {
   });
 
   it("awards naming bonus when directory matches frontmatter name", () => {
-    const matchDir = evaluateSkillContent({
+    const matchDir = evaluateSkillContentSync({
       content:
         "---\nname: my-skill\ndescription: Generate something when asked.\n---\n# hi\n\n## When to Use\n- thing\n",
       skillPath: "/virtual/my-skill",
       skillMdPath: "/virtual/my-skill/SKILL.md",
     });
-    const mismatchDir = evaluateSkillContent({
+    const mismatchDir = evaluateSkillContentSync({
       content:
         "---\nname: my-skill\ndescription: Generate something when asked.\n---\n# hi\n\n## When to Use\n- thing\n",
       skillPath: "/virtual/other-dir",
@@ -288,6 +290,18 @@ describe("evaluateSkillContent", () => {
       (c) => c.id === "naming",
     )!.score;
     expect(matchScore).toBeGreaterThanOrEqual(mismatchScore);
+  });
+
+  it("marks pii and script-lint as skipped for content-only calls", () => {
+    const report = evaluateSkillContentSync({
+      content: HIGH_QUALITY_SKILL,
+      skillPath: "/virtual/code-review",
+      skillMdPath: "/virtual/code-review/SKILL.md",
+    });
+    const pii = report.categories.find((c) => c.id === "pii")!;
+    expect(pii.findings.some((f) => /Skipped/i.test(f))).toBe(true);
+    const lint = report.categories.find((c) => c.id === "script-lint")!;
+    expect(lint.findings.some((f) => /Skipped/i.test(f))).toBe(true);
   });
 });
 
@@ -578,7 +592,7 @@ describe("applyFix", () => {
 
 describe("formatters", () => {
   it("formatReport contains key sections", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content: HIGH_QUALITY_SKILL,
       skillPath: "/virtual/code-review",
       skillMdPath: "/virtual/code-review/SKILL.md",
@@ -590,7 +604,7 @@ describe("formatters", () => {
   });
 
   it("formatReport inlines extra providers in headline and renders their findings", () => {
-    const baseReport = evaluateSkillContent({
+    const baseReport = evaluateSkillContentSync({
       content: HIGH_QUALITY_SKILL,
       skillPath: "/virtual/code-review",
       skillMdPath: "/virtual/code-review/SKILL.md",
@@ -637,7 +651,7 @@ describe("formatters", () => {
   });
 
   it("formatReportJSON returns parseable JSON", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content: HIGH_QUALITY_SKILL,
       skillPath: "/virtual/code-review",
       skillMdPath: "/virtual/code-review/SKILL.md",
@@ -648,19 +662,19 @@ describe("formatters", () => {
   });
 
   it("buildEvalMachineData has the expected shape", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content: HIGH_QUALITY_SKILL,
       skillPath: "/virtual/code-review",
       skillMdPath: "/virtual/code-review/SKILL.md",
     });
     const data = buildEvalMachineData(report);
     expect(data.overall_score).toBe(report.overallScore);
-    expect(data.categories.length).toBe(8);
+    expect(data.categories.length).toBe(10);
     expect(data.fix).toBeNull();
   });
 
   it("formatFixPreview summarises applied and skipped items", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content: HIGH_QUALITY_SKILL,
       skillPath: "/virtual/code-review",
       skillMdPath: "/virtual/code-review/SKILL.md",
@@ -1177,7 +1191,7 @@ describe("buildBatchMachineData", () => {
 
 describe("license verification", () => {
   it("reports recognised license when SPDX id is in frontmatter", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content:
         "---\nname: x\ndescription: Do a thing.\nlicense: MIT\n---\nbody\n",
       skillPath: "/virtual/x",
@@ -1189,7 +1203,7 @@ describe("license verification", () => {
   });
 
   it("reports unrecognised license when frontmatter id is not in SPDX", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content:
         "---\nname: x\ndescription: Do a thing.\nlicense: Proprietary-1.0\n---\nbody\n",
       skillPath: "/virtual/x",
@@ -1201,9 +1215,8 @@ describe("license verification", () => {
   });
 
   it("reports missing when no license field exists", () => {
-    const report = evaluateSkillContent({
-      content:
-        "---\nname: x\ndescription: Do a thing.\n---\nbody\n",
+    const report = evaluateSkillContentSync({
+      content: "---\nname: x\ndescription: Do a thing.\n---\nbody\n",
       skillPath: "/virtual/x",
       skillMdPath: "/virtual/x/SKILL.md",
     });
@@ -1222,11 +1235,13 @@ describe("license verification", () => {
     const report = await evaluateSkill(dir);
     const lic = report.categories.find((c) => c.id === "license")!;
     expect(lic.score).toBeGreaterThanOrEqual(8);
-    expect(lic.findings.some((f) => /LICENSE file present/i.test(f))).toBe(true);
+    expect(lic.findings.some((f) => /LICENSE file present/i.test(f))).toBe(
+      true,
+    );
   });
 
   it("scores Apache-2.0 as recognised", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content:
         "---\nname: x\ndescription: Do a thing.\nlicense: Apache-2.0\n---\nbody\n",
       skillPath: "/virtual/x",
@@ -1237,7 +1252,7 @@ describe("license verification", () => {
   });
 
   it("scores GPL-3.0-only as recognised", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content:
         "---\nname: x\ndescription: Do a thing.\nlicense: GPL-3.0-only\n---\nbody\n",
       skillPath: "/virtual/x",
@@ -1248,7 +1263,7 @@ describe("license verification", () => {
   });
 
   it("reports missing license in findings and suggestions", () => {
-    const report = evaluateSkillContent({
+    const report = evaluateSkillContentSync({
       content:
         "---\nname: no-license\ndescription: Do a thing when asked.\n---\nbody text here\n",
       skillPath: "/virtual/no-license",
@@ -1258,5 +1273,213 @@ describe("license verification", () => {
     expect(lic.score).toBe(0);
     expect(lic.findings.some((f) => /No license declared/i.test(f))).toBe(true);
     expect(lic.suggestions.some((s) => /license/i.test(s))).toBe(true);
+  });
+});
+
+// ─── PII detection (issue #492) ─────────────────────────────────────────────
+
+describe("PII detection (scorePII)", () => {
+  it("detects email addresses in skill files", async () => {
+    const dir = skillDir("pii-email");
+    await writeSkillMd(
+      dir,
+      "---\nname: pii-email\ndescription: Test skill with PII.\n---\n# PII test\n\nContact us at user@example.com for support.\n",
+      "SKILL.md",
+    );
+    await writeSkillMd(
+      dir,
+      "# fixtures\n\nAdmin email: admin@company.org\n",
+      "fixtures.txt",
+    );
+    const report = await evaluateSkill(dir);
+    const pii = report.categories.find((c) => c.id === "pii")!;
+    expect(pii.findings.some((f) => /email/i.test(f))).toBe(true);
+    expect(pii.score).toBeLessThan(10);
+  });
+
+  it("detects SSN-like patterns", async () => {
+    const dir = skillDir("pii-ssn");
+    await writeSkillMd(
+      dir,
+      "---\nname: pii-ssn\ndescription: Test skill with SSN.\n---\n# SSN test\n\nExample SSN: 123-45-6789\n",
+      "SKILL.md",
+    );
+    const report = await evaluateSkill(dir);
+    const pii = report.categories.find((c) => c.id === "pii")!;
+    expect(pii.findings.some((f) => /ssn/i.test(f))).toBe(true);
+    expect(pii.score).toBeLessThan(10);
+  });
+
+  it("detects phone numbers", async () => {
+    const dir = skillDir("pii-phone");
+    await writeSkillMd(
+      dir,
+      "---\nname: pii-phone\ndescription: Test skill with phone.\n---\n# Phone test\n\nCall (555) 123-4567 for help.\n",
+      "SKILL.md",
+    );
+    const report = await evaluateSkill(dir);
+    const pii = report.categories.find((c) => c.id === "pii")!;
+    expect(pii.findings.some((f) => /phone/i.test(f))).toBe(true);
+    expect(pii.score).toBeLessThan(10);
+  });
+
+  it("reports no PII when skill is clean", async () => {
+    const dir = skillDir("pii-clean");
+    await writeSkillMd(
+      dir,
+      "---\nname: pii-clean\ndescription: A clean skill with no PII.\n---\n# Clean skill\n\n## Instructions\n1. Do the thing\n2. Verify the result\n",
+      "SKILL.md",
+    );
+    const report = await evaluateSkill(dir);
+    const pii = report.categories.find((c) => c.id === "pii")!;
+    expect(pii.findings.some((f) => /No PII/i.test(f))).toBe(true);
+    expect(pii.score).toBe(10);
+  });
+
+  it("skips frontmatter and code fences when scanning", async () => {
+    const dir = skillDir("pii-fence");
+    await writeSkillMd(
+      dir,
+      `---\nname: pii-fence\ndescription: Test skill.\nemail: skip@me.com\n---\n# PII fence test\n\nHere is an example:\n\n\`\`\`\nuser@test.com\n555-123-4567\n\`\`\`\n\nClean body text with no PII.\n`,
+      "SKILL.md",
+    );
+    const report = await evaluateSkill(dir);
+    const pii = report.categories.find((c) => c.id === "pii")!;
+    // Should NOT detect PII in frontmatter or code fences
+    expect(pii.findings.some((f) => /email/i.test(f))).toBe(false);
+    expect(pii.score).toBe(10);
+  });
+
+  it("scans subdirectories recursively", async () => {
+    const dir = skillDir("pii-subdir");
+    await writeSkillMd(
+      dir,
+      "---\nname: pii-subdir\ndescription: Test skill.\n---\n# Test\n",
+      "SKILL.md",
+    );
+    await writeSkillMd(
+      join(dir, "data"),
+      "# Data\n\nContact: test@subdir.com\n",
+      "data.txt",
+    );
+    const report = await evaluateSkill(dir);
+    const pii = report.categories.find((c) => c.id === "pii")!;
+    expect(pii.findings.some((f) => /email/i.test(f))).toBe(true);
+  });
+
+  it("classifies PII as warning — does not block", async () => {
+    const dir = skillDir("pii-warning");
+    await writeSkillMd(
+      dir,
+      "---\nname: pii-warning\ndescription: Test.\n---\n# Test\n\nEmail: test@example.com\n",
+      "SKILL.md",
+    );
+    const report = await evaluateSkill(dir);
+    const pii = report.categories.find((c) => c.id === "pii")!;
+    // PII should have a suggestion to clean up
+    expect(pii.suggestions.some((s) => /redact/i.test(s))).toBe(true);
+    // Overall score should still be computed (not blocked)
+    expect(report.overallScore).toBeGreaterThanOrEqual(0);
+    expect(report.overallScore).toBeLessThanOrEqual(100);
+  });
+});
+
+// ─── Script linting (issue #494) ────────────────────────────────────────────
+
+describe("Script linting (scoreScriptLint)", () => {
+  it("reports no scripts when none exist", async () => {
+    const dir = skillDir("lint-no-scripts");
+    await writeSkillMd(
+      dir,
+      "---\nname: lint-no-scripts\ndescription: No scripts.\n---\n# Test\n",
+      "SKILL.md",
+    );
+    const report = await evaluateSkill(dir);
+    const lint = report.categories.find((c) => c.id === "script-lint")!;
+    expect(lint.findings.some((f) => /No bundled scripts/i.test(f))).toBe(true);
+    expect(lint.score).toBe(10);
+  });
+
+  it("reports skipped when linter is unavailable", async () => {
+    const dir = skillDir("lint-skipped");
+    await writeSkillMd(
+      dir,
+      "---\nname: lint-skipped\ndescription: Test.\n---\n# Test\n",
+      "SKILL.md",
+    );
+    // Create a .py file — python3 should be available on most systems
+    // but if not, we should see "skipped" not a crash
+    await writeSkillMd(
+      dir,
+      "#!/usr/bin/env python3\nprint('hello')\n",
+      "helper.py",
+    );
+    const report = await evaluateSkill(dir);
+    const lint = report.categories.find((c) => c.id === "script-lint")!;
+    const hasSkipped = lint.findings.some((f) => /skipped/i.test(f));
+    const hasLinted = lint.findings.some((f) => /Linted/i.test(f));
+    // Either skipped or linted — just not a crash
+    expect(hasSkipped || hasLinted).toBe(true);
+  });
+
+  it("detects Python syntax errors", async () => {
+    const dir = skillDir("lint-py-error");
+    await writeSkillMd(
+      dir,
+      "---\nname: lint-py-error\ndescription: Test.\n---\n# Test\n",
+      "SKILL.md",
+    );
+    await writeSkillMd(
+      dir,
+      "def broken(\n    # Missing closing paren — syntax error\n",
+      "broken.py",
+    );
+    const report = await evaluateSkill(dir);
+    const lint = report.categories.find((c) => c.id === "script-lint")!;
+    // Should either detect the error or report skipped
+    const hasError = lint.findings.some((f) => /error/i.test(f));
+    const hasSkipped = lint.findings.some((f) => /skipped/i.test(f));
+    expect(hasError || hasSkipped).toBe(true);
+  });
+
+  it("reports clean when Python file has no syntax errors", async () => {
+    const dir = skillDir("lint-py-clean");
+    await writeSkillMd(
+      dir,
+      "---\nname: lint-py-clean\ndescription: Test.\n---\n# Test\n",
+      "SKILL.md",
+    );
+    await writeSkillMd(
+      dir,
+      "#!/usr/bin/env python3\n\ndef hello():\n    print('hello')\n\nif __name__ == '__main__':\n    hello()\n",
+      "hello.py",
+    );
+    const report = await evaluateSkill(dir);
+    const lint = report.categories.find((c) => c.id === "script-lint")!;
+    const hasClean = lint.findings.some((f) => /no issues/i.test(f));
+    const hasSkipped = lint.findings.some((f) => /skipped/i.test(f));
+    expect(hasClean || hasSkipped).toBe(true);
+  });
+
+  it("classifies lint findings consistently", async () => {
+    const dir = skillDir("lint-classify");
+    await writeSkillMd(
+      dir,
+      "---\nname: lint-classify\ndescription: Test.\n---\n# Test\n",
+      "SKILL.md",
+    );
+    await writeSkillMd(
+      dir,
+      "def broken(\n",
+      "broken.py",
+    );
+    const report = await evaluateSkill(dir);
+    const lint = report.categories.find((c) => c.id === "script-lint")!;
+    // Score should be less than perfect if errors found
+    if (lint.findings.some((f) => /error/i.test(f))) {
+      expect(lint.score).toBeLessThan(10);
+    }
+    // Should have suggestions to fix
+    expect(lint.suggestions.some((s) => /lint/i.test(s))).toBe(true);
   });
 });

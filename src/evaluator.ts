@@ -33,6 +33,7 @@ export {
   type ApplyFixOptions,
   // ── Report + fix pipeline ──
   evaluateSkillContent,
+  evaluateSkillContentSync,
   evaluateSkill,
   buildFixPlan,
   unifiedDiff,

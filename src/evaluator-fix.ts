@@ -32,13 +32,14 @@ import {
   scoreNaming,
   scoreLicense,
 } from "./evaluator-core";
+import { scorePII, scoreScriptLint } from "./evaluator-pii-lint";
 
 // ─── Report aggregator ─────────────────────────────────────────────────────
 
 /**
  * Compute the full evaluation report for a parsed SKILL.md.
  */
-export function evaluateSkillContent(args: {
+export async function evaluateSkillContent(args: {
   content: string;
   skillPath: string;
   skillMdPath: string;
@@ -48,12 +49,13 @@ export function evaluateSkillContent(args: {
    * When omitted (e.g., content-only callers) those checks are skipped.
    */
   rootEntries?: string[];
-}): EvaluationReport {
+}): Promise<EvaluationReport> {
   const { content, skillPath, skillMdPath, rootEntries } = args;
   const fm = parseFrontmatter(content);
   const { rawFrontmatter, body } = splitSkillMd(content);
 
-  const categories: CategoryResult[] = [
+  // Synchronous scorers run immediately; async scorers run in parallel.
+  const syncCategories: CategoryResult[] = [
     scoreStructure(fm, body, rawFrontmatter, rootEntries),
     scoreDescription(fm, body),
     scorePromptEngineering(fm, body),
@@ -62,6 +64,17 @@ export function evaluateSkillContent(args: {
     scoreTestability(fm, body),
     scoreLicense(fm, body, rootEntries),
     scoreNaming(fm, body),
+  ];
+
+  const [piiResult, scriptLintResult] = await Promise.all([
+    scorePII(skillPath),
+    scoreScriptLint(skillPath),
+  ]);
+
+  const categories: CategoryResult[] = [
+    ...syncCategories,
+    piiResult,
+    scriptLintResult,
   ];
 
   // Naming bonus: directory basename matches `name` frontmatter
@@ -86,6 +99,83 @@ export function evaluateSkillContent(args: {
   // Top 3 suggestions: pick from the 3 lowest-scoring categories. Structural
   // warnings that don't move the score (e.g., README-at-root) are promoted
   // first so they always surface in the default CLI output.
+  const topSuggestions: string[] = [];
+  const structure = categories.find((c) => c.id === "structure");
+  if (structure?.suggestions.includes(ROOT_README_SUGGESTION)) {
+    topSuggestions.push(ROOT_README_SUGGESTION);
+  }
+  const sortedByScore = [...categories].sort(
+    (a, b) => a.score / a.max - b.score / b.max,
+  );
+  for (const cat of sortedByScore) {
+    for (const s of cat.suggestions) {
+      if (topSuggestions.length >= 3) break;
+      if (!topSuggestions.includes(s)) topSuggestions.push(s);
+    }
+    if (topSuggestions.length >= 3) break;
+  }
+
+  return {
+    skillPath,
+    skillMdPath,
+    evaluatedAt: new Date().toISOString(),
+    categories,
+    overallScore,
+    grade,
+    topSuggestions,
+    frontmatter: fm,
+  };
+}
+
+/**
+ * Synchronous version of evaluateSkillContent for callers that only have
+ * content (no filesystem access). Uses placeholder results for the
+ * async-only scorers (pii and script-lint) so the overall score is still
+ * computed from the sync categories.
+ */
+export function evaluateSkillContentSync(args: {
+  content: string;
+  skillPath: string;
+  skillMdPath: string;
+  rootEntries?: string[];
+}): EvaluationReport {
+  const { content, skillPath, skillMdPath, rootEntries } = args;
+  const fm = parseFrontmatter(content);
+  const { rawFrontmatter, body } = splitSkillMd(content);
+
+  const categories: CategoryResult[] = [
+    scoreStructure(fm, body, rawFrontmatter, rootEntries),
+    scoreDescription(fm, body),
+    scorePromptEngineering(fm, body),
+    scoreContextEfficiency(fm, body),
+    scoreSafety(fm, body),
+    scoreTestability(fm, body),
+    scoreLicense(fm, body, rootEntries),
+    scoreNaming(fm, body),
+    // Async-only scorers — placeholder when content-only is the only input.
+    { id: "pii", name: "PII detection", score: 10, max: 10, findings: ["Skipped — content-only evaluation"], suggestions: [] },
+    { id: "script-lint", name: "Script linting", score: 10, max: 10, findings: ["Skipped — content-only evaluation"], suggestions: [] },
+  ];
+
+  // Naming bonus
+  if (fm.name && basename(skillPath) === fm.name) {
+    const naming = categories.find((c) => c.id === "naming")!;
+    if (naming.score < naming.max) {
+      naming.score = Math.min(naming.max, naming.score + 1);
+      naming.findings.push("Directory name matches frontmatter `name`.");
+    }
+  }
+
+  const sumScore = categories.reduce((s, c) => s + c.score, 0);
+  const sumMax = categories.reduce((s, c) => s + c.max, 0);
+  const overallScore = Math.round((sumScore / sumMax) * 100);
+
+  let grade: EvaluationReport["grade"] = "F";
+  if (overallScore >= 90) grade = "A";
+  else if (overallScore >= 80) grade = "B";
+  else if (overallScore >= 65) grade = "C";
+  else if (overallScore >= 50) grade = "D";
+
   const topSuggestions: string[] = [];
   const structure = categories.find((c) => c.id === "structure");
   if (structure?.suggestions.includes(ROOT_README_SUGGESTION)) {
@@ -534,7 +624,7 @@ export async function applyFix(
   }
 
   // Re-evaluate using the (possibly modified) content.
-  const report = evaluateSkillContent({
+  const report = await evaluateSkillContent({
     content: options.dryRun ? original : plan.newContent,
     skillPath: resolved,
     skillMdPath,

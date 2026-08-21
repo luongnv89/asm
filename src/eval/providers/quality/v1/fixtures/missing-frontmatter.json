@@ -2,7 +2,7 @@
   "providerId": "quality",
   "providerVersion": "1.0.0",
   "schemaVersion": 1,
-  "score": 21,
+  "score": 35,
   "passed": false,
   "categories": [
     {
@@ -42,9 +42,27 @@
       "max": 10
     },
     {
+      "id": "license",
+      "name": "License verification",
+      "score": 0,
+      "max": 10
+    },
+    {
       "id": "naming",
       "name": "Naming & conventions",
       "score": 5,
+      "max": 10
+    },
+    {
+      "id": "pii",
+      "name": "PII detection",
+      "score": 10,
+      "max": 10
+    },
+    {
+      "id": "script-lint",
+      "name": "Script linting",
+      "score": 10,
       "max": 10
     }
   ],
@@ -151,6 +169,19 @@
         ]
       },
       {
+        "id": "license",
+        "name": "License verification",
+        "score": 0,
+        "max": 10,
+        "findings": [
+          "No license declared."
+        ],
+        "suggestions": [
+          "Add a `license` field to frontmatter (e.g. `license: MIT`) so users know the redistribution terms."
+        ],
+        "licenseStatus": "missing"
+      },
+      {
         "id": "naming",
         "name": "Naming & conventions",
         "score": 5,
@@ -160,9 +191,29 @@
           "Description looks clean (no TODO/FIXME/stray noise)."
         ],
         "suggestions": ["Add a kebab-case `name` (e.g. `my-skill`)."]
+      },
+      {
+        "id": "pii",
+        "name": "PII detection",
+        "score": 10,
+        "max": 10,
+        "findings": [
+          "No PII detected in skill files."
+        ],
+        "suggestions": []
+      },
+      {
+        "id": "script-lint",
+        "name": "Script linting",
+        "score": 10,
+        "max": 10,
+        "findings": [
+          "No bundled scripts found to lint."
+        ],
+        "suggestions": []
       }
     ],
-    "overallScore": 21,
+    "overallScore": 35,
     "grade": "F",
     "topSuggestions": [
       "Write a one-sentence description that says specifically what the skill does and when to use it.",
