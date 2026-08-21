@@ -1,3 +1,80 @@
+## v2.16.0 — 2026-08-01
+
+### Features
+
+- Add semantic overlap detection for indexed skills, enabling deduplication and smarter skill recommendations ([#506](https://github.com/luongnv89/asm/pull/506)) — @luongnv89
+- Add PII detection and script linting to the skill evaluator, flagging sensitive data and unsafe patterns in skill code ([#505](https://github.com/luongnv89/asm/pull/505)) — @luongnv89
+- Add license verification to the skill evaluator, ensuring indexed skills have valid, compatible licenses ([#504](https://github.com/luongnv89/asm/pull/504)) — @luongnv89
+- Add `oliver-zehentleitner/keep-the-why` to the curated skill index ([#503](https://github.com/luongnv89/asm/pull/503)) — @luongnv89
+- Show invocability status and add `--invocable` / `--not-invocable` filters to skill listing commands ([#430](https://github.com/luongnv89/asm/pull/430)) — @luongnv89
+- Add `asm get <skill>` — a zero-residency reference tier that resolves a skill through the installed / library / index / registry ladder and writes its `SKILL.md` body to stdout without installing anything ([#425](https://github.com/luongnv89/asm/pull/425)) — @luongnv89
+- Report and audit the resident context cost (token footprint) of installed skills, helping users understand memory impact ([#424](https://github.com/luongnv89/asm/pull/424)) — @luongnv89
+- Add `skill-install-improved` bundled skill — installs an improved variant of a skill via `skill-auto-improver` on a throwaway copy, reporting before/after scores and provenance ([#419](https://github.com/luongnv89/asm/pull/419)) — @luongnv89
+- Show GitHub star counts per repo on skill detail cards in the catalog ([#402](https://github.com/luongnv89/asm/pull/402)) — @luongnv89
+- Add `ParthJadhav/app-store-screenshots` to the curated skill index ([#401](https://github.com/luongnv89/asm/pull/401)) — @luongnv89
+- Add top skill rankings and individual skill detail links to the catalog ([#400](https://github.com/luongnv89/asm/pull/400)) — @luongnv89
+
+### Bug Fixes
+
+- Add TUI loading, error, and refresh feedback states so the terminal UI no longer hangs silently on slow operations ([#501](https://github.com/luongnv89/asm/pull/501)) — @luongnv89
+- Close two entry-point consistency gaps in the CLI command routing ([#489](https://github.com/luongnv89/asm/pull/489)) — @luongnv89
+- Sandbox the unit test suite away from the host config directory so tests no longer read or write `~/.config/agent-skill-manager` ([#472](https://github.com/luongnv89/asm/pull/472)) — @luongnv89
+- Reject parent segments (`../`) in remote skill references to prevent path traversal ([#428](https://github.com/luongnv89/asm/pull/428)) — @luongnv89
+- Keep same-realpath skills from being force-installed with `audit -y` ([#420](https://github.com/luongnv89/asm/pull/420)) — @luongnv89
+- Keep raw terminal mode held while removing duplicate entries in the TUI ([#396](https://github.com/luongnv89/asm/pull/396)) — @matheussilva421
+
+### Performance Improvements
+
+- Parallelize skill update operations for faster bulk updates ([#412](https://github.com/luongnv89/asm/pull/412)) — @luongnv89
+- Reuse scanned skill content instead of re-reading files on every health check ([#407](https://github.com/luongnv89/asm/pull/407)) — @luongnv89
+- Parallelize the skill ingest pipeline for faster index builds ([#413](https://github.com/luongnv89/asm/pull/413)) — @luongnv89
+- Parse the website search index once on load instead of per-request ([#411](https://github.com/luongnv89/asm/pull/411)) — @luongnv89
+- Avoid duplicate commit resolution in the updater ([#409](https://github.com/luongnv89/asm/pull/409)) — @luongnv89
+- Resolve git commit hashes lazily instead of eagerly ([#408](https://github.com/luongnv89/asm/pull/408)) — @luongnv89
+- Parallelize skill entry scanning for faster catalog generation ([#406](https://github.com/luongnv89/asm/pull/406)) — @luongnv89
+
+### Refactoring
+
+- Narrow the gitleaks allowlist to specific patterns instead of broad exemptions ([#499](https://github.com/luongnv89/asm/pull/499)) — @luongnv89
+- Memoize `loadAllIndices()` and optimize `getTotalSkillCount()` in the skill index layer ([#498](https://github.com/luongnv89/asm/pull/498)) — @luongnv89
+- Split the remaining oversized modules into focused files ([#497](https://github.com/luongnv89/asm/pull/497)) — @luongnv89
+- Eliminate all `any` types from untrusted-input handling, replacing with strict type guards ([#490](https://github.com/luongnv89/asm/pull/490)) — @luongnv89
+- Split `src/cli.ts` into per-command modules for better maintainability ([#488](https://github.com/luongnv89/asm/pull/488)) — @luongnv89
+- Polish token accounting and residency review notes in the stats module ([#429](https://github.com/luongnv89/asm/pull/429)) — @luongnv89
+- Make lock file writes atomic and serialized to prevent corruption ([#410](https://github.com/luongnv89/asm/pull/410)) — @luongnv89
+
+### Documentation
+
+- Realign README and CONTRIBUTING with shipped code, removing stale instructions ([#502](https://github.com/luongnv89/asm/pull/502)) — @luongnv89
+- Document the local pre-commit security hook as an advisory ([#500](https://github.com/luongnv89/asm/pull/500)) — @luongnv89
+- Add AGENTS.md subagent definitions for project coding agents ([#470](https://github.com/luongnv89/asm/pull/470)) — @luongnv89
+- Add CLAUDE.md project context for coding agents covering architecture, commands, and hard rules ([#468](https://github.com/luongnv89/asm/pull/468)) — @luongnv89
+- Record install, build, and test commands that coding agents need ([#467](https://github.com/luongnv89/asm/pull/467)) — @luongnv89
+- Fix stale repo links, refresh architecture and development docs, and polish the README ([#403](https://github.com/luongnv89/asm/pull/403)) — @luongnv89
+
+### Testing
+
+- Add characterization tests for the TUI container and all views ([#487](https://github.com/luongnv89/asm/pull/487)) — @luongnv89
+- Make the test suite pass on Windows, fixing path and mode handling ([#397](https://github.com/luongnv89/asm/pull/397)) — @matheussilva421
+
+### Chores
+
+- **Dependency upgrades** — TypeScript 5 → 7, React 18 → 19, ink 5 → 7, Vite 5 → 8, react-router-dom 6 → 7, ESLint 9 → 10, Tailwind CSS 3 → 4, vitest 2.1.9 → 4.1.10, and raise Node floor to 22 ([#485](https://github.com/luongnv89/asm/pull/485), [#484](https://github.com/luongnv89/asm/pull/484), [#483](https://github.com/luongnv89/asm/pull/483), [#482](https://github.com/luongnv89/asm/pull/482), [#481](https://github.com/luongnv89/asm/pull/481), [#480](https://github.com/luongnv89/asm/pull/480), [#479](https://github.com/luongnv89/asm/pull/479), [#478](https://github.com/luongnv89/asm/pull/478)) — @luongnv89
+- Clear the GHSA-5xrq-8626-4rwp advisory by upgrading vitest and raising `@types/node` to ^20 ([#478](https://github.com/luongnv89/asm/pull/478)) — @luongnv89
+- Batch wave W2 wanted patch/minor dependency updates ([#477](https://github.com/luongnv89/asm/pull/477)) — @luongnv89
+- Record wave W1 security patches in the lockfile ([#476](https://github.com/luongnv89/asm/pull/476)) — @luongnv89
+- Move the full unit test suite from the pre-commit hook to pre-push; keep prettier, lint, typecheck, and local security check as the fast commit subset ([#475](https://github.com/luongnv89/asm/pull/475)) — @luongnv89
+- Extend ESLint to `src/` with a root flat config and a failing CI job ([#474](https://github.com/luongnv89/asm/pull/474)) — @luongnv89
+- Add `@vitest/coverage-v8` and record the first line/branch coverage baseline ([#473](https://github.com/luongnv89/asm/pull/473)) — @luongnv89
+- Add a full high audit with an expiring GHSA allowlist to CI ([#471](https://github.com/luongnv89/asm/pull/471)) — @luongnv89
+- Remove duplicated and stale documentation sources ([#486](https://github.com/luongnv89/asm/pull/486)) — @luongnv89
+- Refresh indexed skill sources (multiple refreshes across the release) ([#495](https://github.com/luongnv89/asm/pull/495), [#431](https://github.com/luongnv89/asm/pull/431), [#399](https://github.com/luongnv89/asm/pull/399), [#395](https://github.com/luongnv89/asm/pull/395)) — @luongnv89
+
+### New Contributors
+
+- @matheussilva421 (Matheus Firmino da Silva) made their first contribution in [#396](https://github.com/luongnv89/asm/pull/396) and [#397](https://github.com/luongnv89/asm/pull/397)
+
+**Full Changelog**: https://github.com/luongnv89/asm/compare/v2.15.0...v2.16.0
 # Changelog
 
 ## Unreleased
@@ -27,7 +104,7 @@
 - Add `asm get <skill>` — a zero-residency reference tier that resolves a skill through the installed / library / index / registry ladder (plus any `asm install` shorthand) and writes its `SKILL.md` body to stdout without installing anything; remote fetches run the same pre-install security scan, reported on stderr and under `--json` ([#422](https://github.com/luongnv89/asm/issues/422)) — @luongnv89
 - Add the `skill-install-improved` bundled skill — installs an improved variant of one skill instead of the published one: resolves the target by local path, repo, or skill name, runs `skill-auto-improver` on a throwaway `mktemp -d` copy so the user's own files are never modified, installs the improved directory, and reports the before/after scores and the provenance it was improved from ([#418](https://github.com/luongnv89/asm/issues/418)) — @luongnv89
 
-## v2.15.0 — 2026-07-22
+## v2.16.0 — 2026-08-21
 
 ### Features
 
@@ -45,7 +122,7 @@
 
 - @yunusemre made their first contribution in [#347](https://github.com/luongnv89/asm/issues/347)
 
-**Full Changelog**: https://github.com/luongnv89/asm/compare/v2.14.0...v2.15.0
+**Full Changelog**: https://github.com/luongnv89/asm/compare/v2.15.0...v2.16.0
 
 ## v2.14.0 — 2026-07-07
 

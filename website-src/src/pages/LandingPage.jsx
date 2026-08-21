@@ -46,49 +46,50 @@ export default function LandingPage() {
   );
 }
 
-/* ─── What's New (v2.14) ───────────────────────────────────────────── */
+/* ─── What's New (v2.16) ───────────────────────────────────────────── */
 
 function WhatsNew() {
   const highlights = [
     {
       tag: "New",
-      head: "Cross-tool skill linking",
-      body: "Installing a skill you already have in another agent? asm detects it and offers Link (symlink) or Reinstall — no duplicate copies.",
+      head: "Semantic overlap detection",
+      body: "Find skills that do substantially the same job — even with different names — using token-based similarity. Surface redundancy for review.",
     },
     {
       tag: "New",
-      head: "Library activation lifecycle",
-      body: "Activate skills from your local library into any provider, update in place, and deactivate without uninstalling the source.",
+      head: "PII detection & script linting",
+      body: "The evaluator now flags sensitive data patterns and unsafe shell scripts in skill code, raising the security bar for indexed skills.",
     },
     {
       tag: "New",
-      head: "Author & repo stats on the web",
-      body: "Explore top repositories, author rankings, and category pie charts on the new Stats page — drill into any author profile.",
+      head: "License verification",
+      body: "Indexed skills are checked for valid, compatible licenses — ensuring your agent skills respect upstream licensing.",
     },
     {
-      tag: "Improved",
-      head: "skill-creator v1.13",
-      body: "Exemplar-driven authoring, adversarial review, eval floor gates, and a predictability rubric raise the bar for publish-ready skills.",
+      tag: "New",
+      head: "Zero-residency skill delivery",
+      body: "asm get <skill> resolves a skill through the installed / library / index / registry ladder and writes its SKILL.md body to stdout — no residency cost.",
     },
   ];
   return (
     <Reveal
       as="section"
       className="flex flex-col gap-8"
-      aria-label="What's new in v2.14"
+      aria-label="What's new in v2.16"
     >
       <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div className="flex flex-col gap-3 max-w-[680px]">
           <span className="lp-kicker">
             <span className="dot" aria-hidden="true" />
-            what&apos;s new · v2.14
+            what&apos;s new · v2.16
           </span>
           <h2 className="lp-section-title">
-            Link once. Activate anywhere. See who ships what.
+            Overlap detection, PII flags, license checks, zero-residency delivery.
           </h2>
           <p className="lp-lede">
-            v2.14 tightens the install loop across agents, adds a full library
-            activation lifecycle, and surfaces catalog intelligence on the web.
+            v2.16 adds semantic overlap detection for indexed skills, PII and
+            script linting to the evaluator, license verification, and a new
+            zero-residency reference tier via `asm get`.
           </p>
         </div>
         <Link

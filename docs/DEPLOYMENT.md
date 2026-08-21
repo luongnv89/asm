@@ -39,7 +39,7 @@ curl -sSL https://raw.githubusercontent.com/luongnv89/asm/main/install.sh | bash
 The install script automates the full setup:
 
 1. Detects OS (Linux, macOS, Windows/WSL) and architecture
-2. Checks for Node.js >= 18.0.0 and npm >= 9.0.0 (instructs you to install them if missing)
+2. Checks for Node.js >= 22 and npm >= 9 (instructs you to install them if missing)
 3. Installs `agent-skill-manager` globally via `npm install -g`
 4. Verifies installation — npm's `bin` field provides both `asm` and `agent-skill-manager`
 5. Warns if a stale `asm` binary on PATH shadows the fresh install
@@ -60,7 +60,7 @@ npm start
 GitHub Actions runs on every push to `main` and on all PRs:
 
 1. Checkout code
-2. Setup Node.js (matrix: 18, 20, 22)
+2. Setup Node.js (matrix: 22, 24)
 3. Install dependencies (`npm ci`)
 4. Audit dependencies (`npm audit --audit-level=high --omit=dev`)
 5. Run unit tests (`npx vitest run src/`)

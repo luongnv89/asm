@@ -27,6 +27,98 @@ function issue(n) {
 
 const ENTRIES = [
   {
+    version: "2.16.0",
+    date: "2026-08-21",
+    sections: [
+      {
+        tag: "added",
+        items: [
+          <>
+            Semantic overlap detection for indexed skills — find skills that do
+            substantially the same job using token-based similarity ({pr(506)})
+          </>,
+          <>
+            PII detection and script linting in the skill evaluator — flag
+            sensitive data and unsafe shell patterns ({pr(505)})
+          </>,
+          <>
+            License verification for indexed skills — ensure valid, compatible
+            licenses ({pr(504)})
+          </>,
+          <>
+            Zero-residency skill delivery via <code>asm get</code> — resolve a
+            skill through the installed / library / index / registry ladder and
+            write its SKILL.md body to stdout without installing ({pr(425)})
+          </>,
+          <>
+            Invocability status and filters — <code>--model-invocable</code> and
+            <code>--user-invocable</code> on list/search commands ({pr(430)})
+          </>,
+          <>
+            Resident context cost reporting — understand the token footprint of
+            installed skills with <code>asm stats --tokens</code> and residency
+            audits ({pr(424)})
+          </>,
+        ],
+      },
+      {
+        tag: "fixed",
+        items: [
+          <>
+            TUI loading, error, and refresh feedback states — no more silent
+            hangs on slow operations ({pr(501)})
+          </>,
+          <>
+            Close two entry-point consistency gaps in CLI command routing ({pr(489)})
+          </>,
+          <>
+            Sandbox the unit test suite away from the host config directory ({pr(472)})
+          </>,
+          <>
+            Reject parent segments (<code>../</code>) in remote skill references ({pr(428)})
+          </>,
+        ],
+      },
+      {
+        tag: "performance",
+        items: [
+          <>
+            Parallelize skill updates, ingest pipeline, scanning, and search
+            index parsing for faster operations ({pr(412)}, {pr(413)}, {pr(406)}, {pr(411)})
+          </>,
+          <>
+            Lazy git commit resolution and memoized index loading ({pr(408)}, {pr(498)})
+          </>,
+        ],
+      },
+      {
+        tag: "refactored",
+        items: [
+          <>
+            Split <code>src/cli.ts</code> into per-command modules ({pr(488)})
+          </>,
+          <>
+            Eliminate all <code>any</code> types from untrusted-input handling ({pr(490)})
+          </>,
+          <>
+            Narrow gitleaks allowlist to specific patterns ({pr(499)})
+          </>,
+        ],
+      },
+      {
+        tag: "docs",
+        items: [
+          <>
+            Add AGENTS.md and CLAUDE.md subagent definitions for coding agents ({pr(470)}, {pr(468)})
+          </>,
+          <>
+            Realign README and CONTRIBUTING with shipped code ({pr(502)})
+          </>,
+        ],
+      },
+    ],
+  },
+  {
     version: "2.14.0",
     date: "2026-07-07",
     sections: [
