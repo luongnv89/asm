@@ -44,7 +44,7 @@ npm install     # or `npm ci` for a lockfile-exact install (what CI uses)
 
 | Command             | Observed result                                                                                          | Wall time |
 | ------------------- | -------------------------------------------------------------------------------------------------------- | --------- |
-| `npm run build`     | **PASS** (exit 0) — `Built agent-skill-manager v2.15.0 (a46b652)`, `9 output(s) in dist/`                | ~1 s      |
+| `npm run build`     | **PASS** (exit 0) — `Built agent-skill-manager v2.16.0 (release-commit-hash)`, `11 output(s) in dist/`  | ~1 s      |
 | `CI=true npm test`  | **PASS** (exit 0) — Test Files `60 passed (60)`, Tests **`2100 passed (2100)`**, vitest Duration 90.72 s | ~91 s     |
 | `npm run typecheck` | **PASS** (exit 0) — `tsc --noEmit`, no output                                                            | ~2 s      |
 | `npm run lint:site` | **PASS** (exit 0) — eslint over `website-src/src/**/*.{js,jsx}`, no findings                             | ~1 s      |
