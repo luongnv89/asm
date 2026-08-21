@@ -1,7 +1,8 @@
 # EPIC: Website Catalog — Bugs, UX & Performance Fixes
 
-**Status:** Open  
+**Status:** ✅ Complete  
 **Created:** 2025-01-XX  
+**Completed:** 2026-08-21  
 **Area:** `website-src/` (static registry site on GitHub Pages)  
 **Parent:** Static Registry Website (TODOS.md Item 5)
 
@@ -71,115 +72,105 @@ The static registry website (`website-src/`) powers the searchable skill catalog
 
 ## Phased Implementation Plan
 
-### Phase 1 — Blockers (fix what's broken)
+### Phase 1 — Blockers (fix what's broken) ✅
 *These issues cause runtime errors or broken user flows. Fix first.*
 
-| Order | Issue | Effort | Rationale |
-|-------|-------|--------|-----------|
-| 1 | **C1** — Missing `decodeURIComponent` import in BundlesPage | 5 min | Causes immediate crash on bundle URL navigation |
-| 2 | **C2** — Import path mismatch in ProfilePage | 5 min | May fail on strict bundler builds |
-| 3 | **M1** — StatsPage loading state never resolves | 10 min | Users see "Loading statistics..." forever |
-| 4 | **M2** — ProfilePage error handling swallows errors | 10 min | Users see "Loading profile..." forever |
-| 5 | **C3** — Improve catalog build mismatch error message | 5 min | User-facing error text improvement |
-
-**Expected PR:** `fix/phase1-blockers`
+| Order | Issue | Effort | Status |
+|-------|-------|--------|--------|
+| 1 | **C1** (#508) — Missing `decodeURIComponent` import in BundlesPage | 5 min | ✅ Merged PR #549 |
+| 2 | **C2** (#521) — Import path mismatch in ProfilePage | 5 min | ✅ Merged PR #549 |
+| 3 | **M1** (#509) — StatsPage loading state never resolves | 10 min | ✅ Merged PR #549 |
+| 4 | **M2** (#520) — ProfilePage error handling swallows errors | 10 min | ✅ Merged PR #549 |
+| 5 | **C3** (#519) — Improve catalog build mismatch error message | 5 min | ✅ Merged PR #549 |
 
 ---
 
-### Phase 2 — Bug Fixes & Data Integrity
+### Phase 2 — Bug Fixes & Data Integrity ✅
 *These are real bugs that affect correctness but don't crash the app.*
 
-| Order | Issue | Effort | Rationale |
-|-------|-------|--------|-----------|
-| 1 | **M4** — `anyFilterActive` doesn't check sort state | 10 min | "Clear all" button missing when sort is changed |
-| 2 | **m9** — `Badge` receives undefined `variant` prop | 5 min | Silent prop mismatch |
-| 3 | **m11** — SidebarDrawer scroll lock doesn't restore on unmount | 10 min | Body stays locked after navigation |
-| 4 | **M5** — Remove dead pagination code from `useCatalogState` | 15 min | Dead code cleanup, simplifies state |
-| 5 | **M7** — Add MiniSearch initialization failure indicator | 15 min | Silent degradation is confusing |
-
-**Expected PR:** `fix/phase2-bugs`
+| Order | Issue | Effort | Status |
+|-------|-------|--------|--------|
+| 1 | **M4** (#526) — `anyFilterActive` doesn't check sort state | 10 min | ✅ Merged PR #550 |
+| 2 | **m9** (#525) — `Badge` receives undefined `variant` prop | 5 min | ✅ Merged PR #550 |
+| 3 | **m11** (#523) — SidebarDrawer scroll lock doesn't restore on unmount | 10 min | ✅ Merged PR #550 |
+| 4 | **M5** (#522) — Remove dead pagination code from `useCatalogState` | 15 min | ✅ Merged PR #550 |
+| 5 | **M7** (#524) — Add MiniSearch initialization failure indicator | 15 min | ✅ Merged PR #550 |
 
 ---
 
-### Phase 3 — Performance
+### Phase 3 — Performance ✅
 *These improve perceived and actual performance.*
 
-| Order | Issue | Effort | Rationale |
-|-------|-------|--------|-----------|
-| 1 | **M3** — In-memory cache for per-skill detail fetches | 20 min | Eliminates redundant network requests |
-| 2 | **M6** — Memoize category tab counts or pre-compute in build | 30 min | O(n) over 7,000 skills on every render |
-| 3 | **m15** — Memoize `highlightMatches` regex compilation | 15 min | 40 regex compilations per render |
-| 4 | **m14** — Tune search debounce from 150ms → 200ms | 5 min | Reduces re-renders during fast typing |
-| 5 | **A1** — Local TTL cache for live GitHub star count | 20 min | Prevents rate-limit exhaustion |
-
-**Expected PR:** `fix/phase3-performance`
+| Order | Issue | Effort | Status |
+|-------|-------|--------|--------|
+| 1 | **M3** (#531) — In-memory cache for per-skill detail fetches | 20 min | ✅ Merged PR #551 |
+| 2 | **M6** (#527) — Memoize category tab counts / pre-compute in build | 30 min | ✅ Merged PR #551 |
+| 3 | **m15** (#529) — Memoize `highlightMatches` regex compilation | 15 min | ✅ Merged PR #551 |
+| 4 | **m14** (#528) — Tune search debounce from 150ms → 200ms | 5 min | ✅ Merged PR #551 |
+| 5 | **A1** (#530) — Local TTL cache for live GitHub star count | 20 min | ✅ Merged PR #551 |
+| 6 | **m8** (#532) — Skeleton loading for catalog list | 30 min | ✅ Merged PR #551 |
 
 ---
 
-### Phase 4 — UX Polish
+### Phase 4 — UX Polish ✅
 *These improve the user experience but are not blockers.*
 
-| Order | Issue | Effort | Rationale |
-|-------|-------|--------|-----------|
-| 1 | **m8** — Skeleton loading for catalog list | 30 min | Better perceived performance |
-| 2 | **m2** — Standardize search placeholder text | 5 min | Consistency fix |
-| 3 | **m3** — Context-aware sort dropdown | 10 min | Better UX when search is active |
-| 4 | **m7** — Sync bundle search to URL params | 10 min | Refresh preserves filter |
-| 5 | **m4** — Truncate author facet list with "show more" | 15 min | Prevents overflow |
-| 6 | **m10** — Extend `CategoryPieChart` color array | 10 min | Prevents color repetition |
-
-**Expected PR:** `fix/phase4-ux-polish`
+| Order | Issue | Effort | Status |
+|-------|-------|--------|--------|
+| 1 | **m4** (#533) — Truncate author facet list with "show more" | 15 min | ✅ Merged PR #552 |
+| 2 | **m7** (#534) — Sync bundle search to URL params | 10 min | ✅ Merged PR #552 |
+| 3 | **m2** (#535) — Standardize search placeholder text | 5 min | ✅ Merged PR #552 |
+| 4 | **m10** (#536) — Extend `CategoryPieChart` color array | 10 min | ✅ Merged PR #552 |
+| 5 | **m3** (#537) — Context-aware sort dropdown | 10 min | ✅ Merged PR #552 |
+| 6 | **m8** (#532) — Skeleton loading for catalog list | 30 min | ✅ Merged PR #551 |
 
 ---
 
-### Phase 5 — Accessibility & Code Quality
+### Phase 5 — Accessibility & Code Quality ✅
 *These improve accessibility and maintainability.*
 
-| Order | Issue | Effort | Rationale |
-|-------|-------|--------|-----------|
-| 1 | **m12** — Add `lang="en"` to `<html>` tag | 2 min | Screen reader & SEO |
-| 2 | **m5** — Keyboard shortcut to focus search box (`/` or `Ctrl+K`) | 15 min | Power user accessibility |
-| 3 | **m1** — Replace sparkle emoji with SVG icon or text fallback | 5 min | Cross-platform consistency |
-| 4 | **m6** — Extract `formatStars` to shared utility | 10 min | DRY, single source of truth |
-| 5 | **m13** — Harmonize `categories` undefined handling | 10 min | Consistent null safety |
-| 6 | **m17** — Add content-parity test for `minisearch-options.js` | 15 min | Prevents sync drift |
-
-**Expected PR:** `fix/phase5-a11y-quality`
+| Order | Issue | Effort | Status |
+|-------|-------|--------|--------|
+| 1 | **m12** (#541) — Add `lang="en"` to `<html>` tag | 2 min | ✅ Already present in index.html |
+| 2 | **m5** (#542) — Keyboard shortcut to focus search box (`/` or `Ctrl+K`) | 15 min | ✅ Merged PR #553 |
+| 3 | **m1** (#539) — Replace sparkle emoji with SVG icon | 5 min | ✅ Merged PR #553 |
+| 4 | **m6** (#540) — Extract `formatStars` to shared utility | 10 min | ✅ Merged PR #553 |
+| 5 | **m13** (#538) — Harmonize `categories` undefined handling | 10 min | ✅ Merged PR #553 |
+| 6 | **m17** (#543) — Add content-parity test for `minisearch-options.js` | 15 min | ✅ Merged PR #553 |
 
 ---
 
-### Phase 6 — Architecture & Future Work
-*These are larger architectural improvements, tracked but not urgent.*
+### Phase 6 — Architecture & Future Work ✅
+*Larger architectural improvements.*
 
-| Order | Issue | Effort | Rationale |
-|-------|-------|--------|-----------|
-| 1 | **A3** — Document CSS custom properties | 20 min | Onboard new contributors |
-| 2 | **A4** — Remove unused `catalog.json` from build output | 10 min | Reduce wasted output |
-| 3 | **A5** — Improve slug collision error message | 10 min | Actionable build errors |
-| 4 | **A2** — Service worker for offline support | 2-3 days | Large feature, deferred |
-
-**Tracked separately** — these are architectural decisions that may warrant their own PRs or RFCs.
+| Order | Issue | Effort | Status |
+|-------|-------|--------|--------|
+| 1 | **A3** (#546) — Document CSS custom properties | 20 min | ✅ Merged PR #554 |
+| 2 | **A4** (#545) — `catalog.json` kept for e2e tests/dev server | 10 min | ✅ Noted as internal-only |
+| 3 | **A5** (#544) — Improve slug collision error message | 10 min | ✅ Merged PR #554 |
+| 4 | **A2** (#547) — Service worker for offline support | 2-3 days | ✅ Merged PR #554 (basic impl) |
 
 ---
 
 ## Summary
 
-| Phase | Issues | Est. Effort | Priority |
-|-------|--------|-------------|----------|
-| Phase 1 — Blockers | 5 | ~35 min | 🔴 Do now |
-| Phase 2 — Bug Fixes | 5 | ~65 min | 🟠 Do next |
-| Phase 3 — Performance | 5 | ~100 min | 🟡 When ready |
-| Phase 4 — UX Polish | 6 | ~85 min | 🟡 When ready |
-| Phase 5 — A11y & Quality | 6 | ~57 min | 🟢 Nice to have |
-| Phase 6 — Architecture | 4 | 2-3 days | 📋 Deferred |
-| **Total** | **32** | **~3.5 hours** | |
+| Phase | Issues | PR | Status |
+|-------|--------|-----|--------|
+| Phase 1 — Blockers | 5 (#508-#511, #519-#521) | #549 | ✅ Merged |
+| Phase 2 — Bug Fixes | 5 (#522-#526) | #550 | ✅ Merged |
+| Phase 3 — Performance | 6 (#527-#532) | #551 | ✅ Merged |
+| Phase 4 — UX Polish | 5 (#533-#537) | #552 | ✅ Merged |
+| Phase 5 — A11y & Quality | 6 (#538-#543) | #553 | ✅ Merged |
+| Phase 6 — Architecture | 4 (#544-#548) | #554 | ✅ Merged |
+| **Total** | **31 issues** | **6 PRs** | **✅ All Complete** |
 
 ---
 
 ## Notes
 
-- All issues were surfaced via code audit of `website-src/`, `scripts/`, and `website/` directories.
+- All 31 issues were surfaced via code audit of `website-src/`, `scripts/`, and `website/` directories.
 - No inline TODO/FIXME comments exist in the codebase — all issues were found through structural analysis.
 - The website is auto-deployed to GitHub Pages via `.github/workflows/deploy-website.yml`.
-- Each phase should be a separate PR for easier review and rollback.
-- After Phase 2 fixes, run `npm run build:website` to verify no regressions before proceeding.
+- All 6 PRs have been merged to `main` and all CI checks pass.
+- One issue (#541 `lang="en"`) was already present in the codebase — no change needed.
+- One issue (#545 `catalog.json`) was kept for e2e tests and dev server — noted as internal-only.
