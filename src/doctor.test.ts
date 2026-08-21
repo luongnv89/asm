@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 
 import {
   checkGitAvailable,
@@ -18,6 +18,7 @@ import {
   formatDoctorJSON,
   formatDoctorMachine,
 } from "./doctor";
+import * as pathShadowing from "./utils/path-shadowing";
 import type { DoctorReport, CheckResult, _DoctorExecOverrides } from "./doctor";
 import type { LockFile } from "./utils/types";
 import { getDefaultConfig } from "./config";
@@ -125,6 +126,19 @@ describe("checkNoPathShadowing", () => {
       expect(result.fix).toBeDefined();
       expect(result.fix!.length).toBeGreaterThan(0);
     }
+  });
+
+  test("fix message names the shadowed and resolved binaries when shadowing", async () => {
+    const resolved = { path: "/opt/real/bin/asm", realPath: "/opt/real/bin/asm" };
+    const shadowed = [{ path: "/home/user/.local/share/mise/shims/asm", realPath: "/home/user/.local/share/mise/shims/asm" }];
+    vi.spyOn(pathShadowing, "buildShadowingReport").mockResolvedValue({ resolved, shadowed });
+    const result = await checkNoPathShadowing();
+    expect(result.status).toBe("warn");
+    expect(result.message).toContain("/opt/real/bin/asm");
+    expect(result.message).toContain("/home/user/.local/share/mise/shims/asm");
+    expect(result.fix).toContain("/home/user/.local/share/mise/shims/asm");
+    expect(result.fix).toContain("/opt/real/bin/asm");
+    expect(result.fix).toContain("npm uninstall -g agent-skill-manager");
   });
 });
 

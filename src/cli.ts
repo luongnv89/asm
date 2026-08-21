@@ -490,7 +490,7 @@ export async function runCLI(argv: string[]): Promise<void> {
       }
       console.error(
         ansi.dim(
-          "  Remove the stale global install (npm uninstall -g agent-skill-manager) and keep only one.",
+          `  Remove the shadowed install at ${report.shadowed[0].path} (e.g. \`npm uninstall -g agent-skill-manager\`) and keep ${report.resolved.path}.`,
         ),
       );
       console.error(

@@ -589,7 +589,7 @@ export async function checkNoPathShadowing(): Promise<CheckResult> {
       name: "No PATH shadowing",
       status: "warn",
       message: `resolved ${resolved.path}, shadowed ${firstShadow}${extra}`,
-      fix: "Remove the duplicate install (`npm uninstall -g agent-skill-manager`) and keep only one.",
+      fix: `Remove the shadowed install at ${firstShadow} (e.g. \`npm uninstall -g agent-skill-manager\`) and keep ${resolved.path}.`,
     };
   } catch (err: any) {
     return {
