@@ -266,8 +266,22 @@ export default function CatalogPage() {
         aria-label="Skill results"
       >
         {filtered.length === 0 ? (
-          <div className="py-8 text-center text-[var(--fg-dim)] text-sm">
-            <div className="text-2xl mb-1">✨</div>
+          <div
+            className="py-8 text-center text-[var(--fg-dim)] text-sm"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              className="w-8 h-8 mx-auto mb-1 text-[var(--fg-muted)]"
+              aria-hidden="true"
+            >
+              <path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z" />
+            </svg>
             <p>No skills match your filters</p>
           </div>
         ) : (

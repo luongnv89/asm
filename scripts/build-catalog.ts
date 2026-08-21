@@ -566,7 +566,9 @@ function slugForId(id: string): string {
   if (prior !== undefined && prior !== id) {
     throw new Error(
       `Slug collision: SHA1(${id}) and SHA1(${prior}) both truncate to ${slug}. ` +
-        `Widen slice in slugForId or disambiguate inputs.`,
+        `To fix: widen the hash slice in slugForId() from 16 to 20+ hex chars, ` +
+        `or disambiguate the inputs (e.g. include relPath in the ID). ` +
+        `Current collision key: ${slug} (16 hex = 64 bits).`,
     );
   }
   seenSlugs.set(slug, id);

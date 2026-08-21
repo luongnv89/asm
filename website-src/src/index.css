@@ -8,11 +8,37 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /*
- * Legacy theme variables — keep the dark/light palette from the legacy
- * `website/index.html` until #228 revisits the visual design. Tailwind
- * utilities reference these via `bg-[var(--bg)]` etc., so components can
- * opt into either raw CSS vars or Tailwind colour tokens.
+ * ─── CSS Custom Properties (Design Tokens) ─────────────────────────────
+ *
+ * All theme colours flow through these variables. Components should
+ * reference them via Tailwind's arbitrary-value syntax, e.g.
+ *   `bg-[var(--bg)]` `text-[var(--brand)]` `border-[var(--border)]`
+ *
+ * Dark theme: data-theme="dark" on <html>  |  Light: data-theme="light"
  */
+
+/* Brand — primary accent (CTAs, links, active states, badges) */
+/* --brand:           bright green (dark) / forest green (light) */
+/* --brand-dim:        slightly darker brand for hover/secondary */
+/* --brand-glow:       rgba brand tint for backgrounds/highlights */
+
+/* Surfaces — background layers (page, cards, inputs, hover) */
+/* --bg:              page background */
+/* --bg-card:         card / panel background */
+/* --bg-hover:        hover state background */
+/* --bg-input:        input / code block background */
+
+/* Borders & focus */
+/* --border:          default border colour */
+/* --border-focus:    focus ring / active border colour */
+
+/* Text — foreground colours (primary, dim, muted, warning) */
+/* --fg:              primary text */
+/* --fg-dim:          secondary text (descriptions, labels) */
+/* --fg-muted:        tertiary text (counts, hints) */
+/* --warn:            warning / caution colour */
+/* --warn-bg:         rgba warning tint for backgrounds */
+
 :root[data-theme="dark"] {
   --brand: #00ff41;
   --brand-dim: #00cc33;
