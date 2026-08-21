@@ -93,6 +93,8 @@ export interface ParsedArgs {
     predefined: boolean;
     /** `asm get --audit` — print the full security audit report for a fetched skill (issue #422). */
     audit: boolean;
+    /** `asm index overlap --threshold <N>` — minimum similarity score (0..1). */
+    threshold: number | null;
   };
 }
 
@@ -320,7 +322,9 @@ export function parseArgs(argv: string[]): ParsedArgs {
       if (!isNaN(n) && n >= 0 && n <= 1) {
         result.flags.threshold = n;
       } else {
-        error(`Invalid --threshold: "${val}". Must be a number between 0 and 1.`);
+        error(
+          `Invalid --threshold: "${val}". Must be a number between 0 and 1.`,
+        );
         process.exit(2);
       }
     } else if (arg.startsWith("-")) {
