@@ -479,6 +479,7 @@ Over **2,800 skills** across curated repositories. Use `asm search <term>` to di
 | Repository                                                                          | Description                                     |  Stars | Skills |
 | ----------------------------------------------------------------------------------- | ----------------------------------------------- | -----: | -----: |
 | [anthropic-skills](https://github.com/anthropics/skills)                            | Official Agent Skills from Anthropic            | 95,957 |     18 |
+| [agent-skills](https://github.com/youdotcom-oss/agent-skills)                       | You.com skills for web search, research & tools |     61 |      5 |
 | [superpowers](https://github.com/obra/superpowers)                                  | Agentic skills framework                        | 89,816 |     14 |
 | [everything-claude-code](https://github.com/affaan-m/everything-claude-code)        | Performance optimization for Claude Code, Codex | 81,392 |    183 |
 | [agency-agents](https://github.com/msitarzewski/agency-agents)                      | Specialized expert agents                       | 50,749 |      — |
@@ -493,6 +494,10 @@ Over **2,800 skills** across curated repositories. Use `asm search <term>` to di
 
 ```bash
 asm install github:anthropics/skills
+```
+
+```bash
+asm install github:youdotcom-oss/agent-skills
 ```
 
 ```bash
