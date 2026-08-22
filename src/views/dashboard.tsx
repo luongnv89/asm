@@ -68,11 +68,13 @@ export function DashboardHeader({
         <Text color={theme.fg}>
           Total: {total} ({unique} unique)
         </Text>
-        <Text color={theme.cyan}>Global: {globalCount}</Text>
-        <Text color={theme.green}>Project: {projectCount}</Text>
-        <Text color={theme.yellow}>Symlinks: {symlinks}</Text>
-        <Text color={theme.accentAlt}>Tools: {providers}</Text>
-        <Text color={theme.orange}>Dupes: {duplicateCount}</Text>
+        <Text color={theme.fg}>Global: {globalCount}</Text>
+        <Text color={theme.fg}>Project: {projectCount}</Text>
+        <Text color={theme.fg}>Symlinks: {symlinks}</Text>
+        <Text color={theme.fg}>Tools: {providers}</Text>
+        <Text color={duplicateCount > 0 ? theme.yellow : theme.fgDim}>
+          Dupes: {duplicateCount > 0 ? `!\u00a0${duplicateCount}` : duplicateCount}
+        </Text>
         <Text color={theme.border}>│</Text>
         <Text color={theme.fgDim}>{buildSortLabel(sort)}</Text>
       </Box>

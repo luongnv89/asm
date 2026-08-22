@@ -651,13 +651,13 @@ const SEVERITY_ORDER: Record<string, number> = {
 function verdictBadge(verdict: SecurityVerdict): string {
   switch (verdict) {
     case "safe":
-      return color.bgGreen(" SAFE ");
+      return color.green("[SAFE]");
     case "caution":
-      return color.bgCyan(" CAUTION ");
+      return color.cyan("[CAUTION]");
     case "warning":
-      return color.bgYellow(" WARNING ");
+      return color.yellow("[WARNING]");
     case "dangerous":
-      return color.bgRed(" DANGEROUS ");
+      return color.red("[!! DANGEROUS]");
   }
 }
 

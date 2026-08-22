@@ -49,8 +49,8 @@ describe("ConfigView", () => {
     expect(frame).toContain("Tools (Enter to toggle, e to edit config file):");
     expect(frame).toContain("Enter Toggle e Edit file Esc Save & close");
     // First provider enabled, second disabled.
-    expect(frame).toContain("✔ ON");
-    expect(frame).toContain("✘ OFF");
+    expect(frame).toContain("on ");
+    expect(frame).toContain("off");
   });
 
   it("shows the project path for the selected (first) row", () => {

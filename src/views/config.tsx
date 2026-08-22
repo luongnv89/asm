@@ -9,7 +9,7 @@ function providerRow(
   globalPath: string,
   enabled: boolean,
 ): string {
-  const status = enabled ? "✔ ON " : "✘ OFF";
+  const status = enabled ? "on " : "off";
   const name = label.length > 14 ? label.slice(0, 14) : label;
   return `${status}  ${name.padEnd(15)} ${globalPath}`;
 }

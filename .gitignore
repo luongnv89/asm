@@ -1,5 +1,6 @@
 node_modules/
 dist/
+.worktrees/
 
 # Temp files from runInlineTs (tests/e2e). Cleaned up by a finally block
 # on success; listing them here keeps a SIGKILL'd test runner from leaving
