@@ -54,8 +54,9 @@ export function DashboardHeader({
     <Box flexDirection="column">
       <Box>
         <Text color={theme.accent} bold>
-          agent-skill-manager
+          asm
         </Text>
+        <Text color={theme.fgDim}>  agent-skill-manager</Text>
       </Box>
 
       <Box
@@ -68,11 +69,11 @@ export function DashboardHeader({
         <Text color={theme.fg}>
           Total: {total} ({unique} unique)
         </Text>
-        <Text color={theme.fg}>Global: {globalCount}</Text>
-        <Text color={theme.fg}>Project: {projectCount}</Text>
-        <Text color={theme.fg}>Symlinks: {symlinks}</Text>
-        <Text color={theme.fg}>Tools: {providers}</Text>
-        <Text color={duplicateCount > 0 ? theme.yellow : theme.fgDim}>
+        <Text color={theme.accent}>Global: {globalCount}</Text>
+        <Text color={theme.green}>Project: {projectCount}</Text>
+        <Text color={theme.yellow}>Symlinks: {symlinks}</Text>
+        <Text color={theme.accentAlt}>Tools: {providers}</Text>
+        <Text color={duplicateCount > 0 ? theme.orange : theme.fgDim}>
           Dupes: {duplicateCount > 0 ? `!\u00a0${duplicateCount}` : duplicateCount}
         </Text>
         <Text color={theme.border}>│</Text>
@@ -112,13 +113,10 @@ export function DashboardHeader({
 
 function ScopeTab({ label, active }: { label: string; active: boolean }) {
   return (
-    <Text
-      color={active ? theme.accent : theme.fgDim}
-      inverse={active}
-      bold={active}
-    >
-      {" "}
-      {label}{" "}
+    <Text color={active ? theme.accent : theme.fgDim} bold={active}>
+      {active ? "[" : " "}
+      {label}
+      {active ? "]" : " "}
     </Text>
   );
 }

@@ -115,3 +115,9 @@ export const theme = {
   borderFocus: roles.accent,
   white: "#FFFFFF",
 } as const;
+
+/** Selected-row style: muted navy wash, light text. Never inverse, never a neon bar. */
+export const selectedFill = {
+  color: theme.fg,
+  backgroundColor: theme.bgAlt,
+} as const;

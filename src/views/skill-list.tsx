@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Text } from "ink";
-import { theme } from "../utils/colors";
+import { selectedFill, theme } from "../utils/colors";
 import type { SkillInfo } from "../utils/types";
 import { formatTokenCount } from "../utils/token-count";
 import { formatInvocability } from "../utils/frontmatter";
@@ -27,7 +27,7 @@ function formatSkillRow(
   index: number,
   skill: SkillInfo,
   descWidth: number,
-): string {
+): { before: string; effortCell: string; after: string; full: string } {
   const idx = String(index).padStart(3);
   const prefix = skill.isSymlink ? "~ " : "  ";
   const nameMax = 24 - prefix.length;
@@ -53,7 +53,30 @@ function formatSkillRow(
   const type = skill.isSymlink ? "→link" : " dir ";
   const desc =
     descWidth > 0 ? " " + (skill.description || "").slice(0, descWidth) : "";
-  return `${idx} ${name.padEnd(24)} ${ver.padEnd(8)} ${creator.padEnd(11)} ${effort.padEnd(7)} ${invoke.padEnd(6)} ${tokens.padEnd(6)} ${prov.padEnd(12)} ${scope.padEnd(7)} ${type.padEnd(5)}${desc}`;
+  const before = `${idx} ${name.padEnd(24)} ${ver.padEnd(8)} ${creator.padEnd(11)} `;
+  const effortCell = effort.padEnd(7);
+  const after = ` ${invoke.padEnd(6)} ${tokens.padEnd(6)} ${prov.padEnd(12)} ${scope.padEnd(7)} ${type.padEnd(5)}${desc}`;
+  return {
+    before,
+    effortCell,
+    after,
+    full: `${before}${effortCell}${after}`,
+  };
+}
+
+function effortColor(effort: string | undefined): string {
+  switch ((effort || "").toLowerCase()) {
+    case "low":
+      return theme.green;
+    case "medium":
+      return theme.yellow;
+    case "high":
+      return theme.red;
+    case "max":
+      return theme.accentAlt;
+    default:
+      return theme.fgDim;
+  }
 }
 
 export interface SkillListProps {
@@ -112,11 +135,14 @@ export function SkillListView({
         return (
           <Text
             key={`${s.path}-${absoluteIndex}`}
-            color={isSelected ? theme.accent : theme.fg}
-            inverse={isSelected}
+            backgroundColor={
+              isSelected ? selectedFill.backgroundColor : undefined
+            }
           >
-            {prefix}
-            {row}
+            <Text color={isSelected ? theme.accent : theme.fgDim}>{prefix}</Text>
+            <Text color={theme.fg}>{row.before}</Text>
+            <Text color={effortColor(s.effort)}>{row.effortCell}</Text>
+            <Text color={theme.fgDim}>{row.after}</Text>
           </Text>
         );
       })}
