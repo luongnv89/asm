@@ -2,6 +2,7 @@ import { createHash } from "crypto";
 import { readFile } from "fs/promises";
 import { join } from "path";
 import { ansi, colorProvider, shortenPath } from "./formatter";
+import { cacheSkillMdContent } from "./scanner";
 import type { SkillInfo, DuplicateGroup, AuditReport } from "./utils/types";
 
 // ─── Detection ─────────────────────────────────────────────────────────────
@@ -90,16 +91,16 @@ export function skillContentFingerprint(skill: SkillInfo): string | null {
 
 /**
  * Fills the scanner's SKILL.md content cache from disk when absent, using
- * the same fallback read as `checkHealth`. Unreadable content leaves the
- * cache unset so fingerprint checks degrade to "unknown" safely.
+ * the same fallback read as `checkHealth` and the scanner's non-enumerable
+ * caching so the refilled cache never leaks into serialized output.
+ * Unreadable content leaves the cache unset so fingerprint checks degrade
+ * to "unknown" safely.
  */
 export async function ensureSkillMdContent(skill: SkillInfo): Promise<void> {
   if (skill._skillMdContent !== undefined) return;
   try {
-    skill._skillMdContent = await readFile(
-      join(skill.path, "SKILL.md"),
-      "utf-8",
-    );
+    const content = await readFile(join(skill.path, "SKILL.md"), "utf-8");
+    cacheSkillMdContent(skill, content);
   } catch {
     // unreadable — leave uncached; fingerprint stays unavailable
   }

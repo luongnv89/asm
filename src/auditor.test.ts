@@ -1,4 +1,7 @@
 import { describe, expect, it, beforeEach, afterEach } from "vitest";
+import { mkdtemp, writeFile, rm } from "fs/promises";
+import { tmpdir } from "os";
+import { join } from "path";
 import {
   detectDuplicates,
   sortInstancesForKeep,
@@ -10,6 +13,7 @@ import {
   distinctVersions,
   extractSkillMdBody,
   skillContentFingerprint,
+  ensureSkillMdContent,
 } from "./auditor";
 import type { SkillInfo } from "./utils/types";
 
@@ -1032,6 +1036,33 @@ describe("skillContentFingerprint (#562)", () => {
 
   it("returns null when the content cache is absent", () => {
     expect(skillContentFingerprint(makeSkill())).toBeNull();
+  });
+});
+
+describe("ensureSkillMdContent (#562)", () => {
+  it("fills the cache non-enumerably so JSON output never leaks it", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "asm-audit-md-"));
+    try {
+      const skill = makeSkill({ path: dir });
+      await writeFile(
+        join(dir, "SKILL.md"),
+        `---\nname: x\n---\n${BODY_A}\n`,
+        "utf-8",
+      );
+      await ensureSkillMdContent(skill);
+      expect(skill._skillMdContent).toContain(BODY_A);
+      // The scanner's private cache must never reach serialized output.
+      expect(JSON.stringify(skill)).not.toContain("_skillMdContent");
+      expect(JSON.stringify(skill)).not.toContain(BODY_A);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  it("leaves the cache unset when SKILL.md is unreadable", async () => {
+    const skill = makeSkill({ path: "/nonexistent/asm-audit-missing" });
+    await ensureSkillMdContent(skill);
+    expect(skillContentFingerprint(skill)).toBeNull();
   });
 });
 

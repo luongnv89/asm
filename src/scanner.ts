@@ -249,8 +249,17 @@ export async function countFiles(dir: string): Promise<number> {
   }
 }
 
-/** Retain scanned content without exposing it through JSON output. */
-function cacheSkillMdContent(skill: SkillInfo, content: string): void {
+/**
+ * Retain scanned content without exposing it through JSON output.
+ * Shared with `auditor.ensureSkillMdContent`, which refills the cache for
+ * rows the scanner built without content (e.g. Codex plugin manifests) —
+ * the non-enumerable definition here is what keeps `_skillMdContent` out
+ * of serialized reports, so writers must go through this helper.
+ */
+export function cacheSkillMdContent(
+  skill: SkillInfo,
+  content: string,
+): void {
   Object.defineProperty(skill, "_skillMdContent", {
     value: content,
     writable: true,
