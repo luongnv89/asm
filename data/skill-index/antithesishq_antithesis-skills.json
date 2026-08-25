@@ -1,0 +1,2567 @@
+{
+  "repoUrl": "https://github.com/antithesishq/antithesis-skills.git",
+  "owner": "antithesishq",
+  "repo": "antithesis-skills",
+  "updatedAt": "2026-08-25T08:20:24.092Z",
+  "skillCount": 12,
+  "skills": [
+    {
+      "name": "antithesis-agent-browser",
+      "description": "Authenticate `agent-browser` against an Antithesis tenant and read data from Antithesis web pages (triage reports, runs page, logs viewer, causality reports). Only invoke this skill when explicitly requested by another skill or the user. Requires interactive browser authentication and is unsuitable for fully headless workflows.",
+      "version": "2026-08-24 d6b507d",
+      "license": "",
+      "creator": "",
+      "compatibility": "agent-browser (https://github.com/vercel-labs/agent-browser) and jq.",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:antithesishq/antithesis-skills:antithesis-agent-browser",
+      "relPath": "antithesis-agent-browser",
+      "verified": true,
+      "tokenCount": 2018,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-25T08:20:23.966Z",
+        "evaluatedVersion": "2026-08-24 d6b507d"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 70,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 9,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:23.968Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        }
+      }
+    },
+    {
+      "name": "antithesis-debug",
+      "description": "Interactively debug an Antithesis test run in the multiverse debugger (MVD): launch a session from a run, open a debugging-session URL, and inspect container filesystem and runtime state from inside the run.",
+      "version": "2026-08-24 d6b507d",
+      "license": "",
+      "creator": "",
+      "compatibility": "Requires agent-browser v0.23.4+ (https://github.com/vercel-labs/agent-browser).",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:antithesishq/antithesis-skills:antithesis-debug",
+      "relPath": "antithesis-debug",
+      "verified": true,
+      "tokenCount": 3857,
+      "evalSummary": {
+        "overallScore": 68,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-25T08:20:23.967Z",
+        "evaluatedVersion": "2026-08-24 d6b507d"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 65,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 9,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 80,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 12,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        }
+      }
+    },
+    {
+      "name": "antithesis-documentation",
+      "description": "Use Antithesis documentation efficiently for product, workflow, and integration questions. Prefer the snouty docs CLI when available, and otherwise request markdown versions of documentation pages directly.",
+      "version": "2026-08-24 d6b507d",
+      "license": "",
+      "creator": "",
+      "compatibility": "Requires snouty (https://github.com/antithesishq/snouty).",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:antithesishq/antithesis-skills:antithesis-documentation",
+      "relPath": "antithesis-documentation",
+      "verified": true,
+      "tokenCount": 1436,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-25T08:20:23.967Z",
+        "evaluatedVersion": "2026-08-24 d6b507d"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 80,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 12,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        }
+      }
+    },
+    {
+      "name": "antithesis-launch",
+      "description": "Launch an Antithesis run with snouty by discovering the harness layout, building the right Docker Compose config, running `snouty validate`, bailing on validation failure, and then submitting `snouty launch` with sane metadata. Use when the user wants to send, submit, or launch an Antithesis run. This skill takes duration in minutes as input.",
+      "version": "2026-08-24 d6b507d",
+      "license": "",
+      "creator": "",
+      "compatibility": "Requires Docker Compose v2, a container engine (docker or podman), and snouty (https://github.com/antithesishq/snouty).",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:antithesishq/antithesis-skills:antithesis-launch",
+      "relPath": "antithesis-launch",
+      "verified": true,
+      "tokenCount": 1454,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-25T08:20:23.967Z",
+        "evaluatedVersion": "2026-08-24 d6b507d"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 67,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        }
+      }
+    },
+    {
+      "name": "antithesis-query-logs",
+      "description": "Search across all timelines in an Antithesis test run to find events, correlate property failures, and answer temporal questions about ordering and causation (e.g., did event A always precede failure B? do failures occur even without a preceding fault?).",
+      "version": "2026-08-24 d6b507d",
+      "license": "",
+      "creator": "",
+      "compatibility": "Requires snouty (https://github.com/antithesishq/snouty) and agent-browser (https://github.com/vercel-labs/agent-browser).",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:antithesishq/antithesis-skills:antithesis-query-logs",
+      "relPath": "antithesis-query-logs",
+      "verified": true,
+      "tokenCount": 2676,
+      "evalSummary": {
+        "overallScore": 76,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-25T08:20:23.967Z",
+        "evaluatedVersion": "2026-08-24 d6b507d"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        }
+      }
+    },
+    {
+      "name": "antithesis-research",
+      "description": "Analyze a codebase to figure out how it should be tested with Antithesis: map the system, identify failure-prone areas and testable properties, and produce the research artifacts needed for workload and environment planning.",
+      "version": "2026-08-24 d6b507d",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:antithesishq/antithesis-skills:antithesis-research",
+      "relPath": "antithesis-research",
+      "verified": true,
+      "tokenCount": 3976,
+      "evalSummary": {
+        "overallScore": 77,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-25T08:20:23.967Z",
+        "evaluatedVersion": "2026-08-24 d6b507d"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        }
+      }
+    },
+    {
+      "name": "antithesis-setup",
+      "description": "Scaffold the Antithesis harness with docker-compose: initialize the working directory, write Dockerfiles and docker-compose.yaml with build directives, and prepare to submit your first Antithesis test run. If the desired setup is Kubernetes, defer to the antithesis-setup-k8s skill.",
+      "version": "2026-08-24 d6b507d",
+      "license": "",
+      "creator": "",
+      "compatibility": "Requires Docker Compose v2, a container engine (docker or podman), and snouty (https://github.com/antithesishq/snouty).",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:antithesishq/antithesis-skills:antithesis-setup",
+      "relPath": "antithesis-setup",
+      "verified": true,
+      "tokenCount": 2531,
+      "evalSummary": {
+        "overallScore": 76,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-25T08:20:23.967Z",
+        "evaluatedVersion": "2026-08-24 d6b507d"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 75,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 9,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:23.970Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:23.970Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        }
+      }
+    },
+    {
+      "name": "antithesis-setup-k8s",
+      "description": "Scaffold the Antithesis harness for customers running Kubernetes:  Convert helm charts, kustomize templates, or raw Kubernetes manifests into a minimized set of manifests for Antithesis. Verify the Kubernetes manifests are in the correct shape with snouty validate and a local cluster deploy. Hands it off to antithesis-launch if the user wants to submit a run. At the end, the user is ready to run antithesis-workload to build tests. If the desired setup is docker-compose, defer to the antithesis-setup skill.",
+      "version": "2026-08-24 d6b507d",
+      "license": "",
+      "creator": "",
+      "compatibility": "Requires snouty (https://github.com/antithesishq/snouty).",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:antithesishq/antithesis-skills:antithesis-setup-k8s",
+      "relPath": "antithesis-setup-k8s",
+      "verified": true,
+      "tokenCount": 1805,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-25T08:20:23.967Z",
+        "evaluatedVersion": "2026-08-24 d6b507d"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        }
+      }
+    },
+    {
+      "name": "antithesis-skills-feedback",
+      "description": "File a bug report or feedback on the Antithesis skills by opening a pre-filled GitHub issue URL (skill name, skill version, agent, short summary). Load when the user wants to report a problem with, or give feedback on, any Antithesis skill. Does not auto-submit — presents the URL for the user to review.",
+      "version": "2026-08-24 d6b507d",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:antithesishq/antithesis-skills:antithesis-skills-feedback",
+      "relPath": "antithesis-skills-feedback",
+      "verified": true,
+      "tokenCount": 1342,
+      "evalSummary": {
+        "overallScore": 59,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-25T08:20:24.014Z",
+        "evaluatedVersion": "2026-08-24 d6b507d"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 59,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:24.018Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:24.018Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        }
+      }
+    },
+    {
+      "name": "antithesis-triage",
+      "description": "Triage Antithesis test reports to understand what happened in a run: look up runs, check status, investigate failed properties (assertions), view metadata, download logs, inspect findings, and examine environmental details. Load after a run completes or when investigating a failure.",
+      "version": "2026-08-24 d6b507d",
+      "license": "",
+      "creator": "",
+      "compatibility": "Requires snouty (https://github.com/antithesishq/snouty), and jq.",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:antithesishq/antithesis-skills:antithesis-triage",
+      "relPath": "antithesis-triage",
+      "verified": true,
+      "tokenCount": 3436,
+      "evalSummary": {
+        "overallScore": 76,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-25T08:20:24.014Z",
+        "evaluatedVersion": "2026-08-24 d6b507d"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:24.018Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:24.018Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        }
+      }
+    },
+    {
+      "name": "antithesis-workload",
+      "description": "Implement Antithesis workloads by turning the property catalog into SDK assertions and test commands, then refine coverage after triage.",
+      "version": "2026-08-24 d6b507d",
+      "license": "",
+      "creator": "",
+      "compatibility": "Requires snouty (https://github.com/antithesishq/snouty).",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:antithesishq/antithesis-skills:antithesis-workload",
+      "relPath": "antithesis-workload",
+      "verified": true,
+      "tokenCount": 4353,
+      "evalSummary": {
+        "overallScore": 72,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-25T08:20:24.034Z",
+        "evaluatedVersion": "2026-08-24 d6b507d"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 72,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:24.034Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 80,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 12,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:24.034Z",
+          "evaluatedVersion": "2026-08-24 d6b507d"
+        }
+      }
+    },
+    {
+      "name": "test:triage",
+      "description": "This skill should be used when the user asks to \"test the triage skill\", \"run triage tests\", \"validate antithesis triage\", \"test:triage\", or \"smoke test triage\". Orchestrates end-to-end testing of the antithesis-triage skill by running real triage operations via sub-agents and reviewing the results for bugs, skill compliance issues, and papercuts.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:antithesishq/antithesis-skills:.claude/skills/test-triage",
+      "relPath": ".claude/skills/test-triage",
+      "verified": true,
+      "tokenCount": 2765,
+      "evalSummary": {
+        "overallScore": 68,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-25T08:20:24.042Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 68,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:24.042Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 54,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 7,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-08-25T08:20:24.042Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "antithesishq-antithesis-skills-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from antithesishq/antithesis-skills.",
+      "author": "ASM (antithesishq/antithesis-skills)",
+      "createdAt": "2026-08-25T08:20:24.092Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "antithesishq",
+        "antithesis-skills"
+      ],
+      "skills": [
+        {
+          "name": "antithesis-agent-browser",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-agent-browser",
+          "description": "Authenticate `agent-browser` against an Antithesis tenant and read data from Antithesis web pages (triage reports, runs page, logs viewer, causality reports). Only invoke this skill when explicitly requested by another skill or the user. Requires interactive browser authentication and is unsuitable for fully headless workflows.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-debug",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-debug",
+          "description": "Interactively debug an Antithesis test run in the multiverse debugger (MVD): launch a session from a run, open a debugging-session URL, and inspect container filesystem and runtime state from inside the run.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-documentation",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-documentation",
+          "description": "Use Antithesis documentation efficiently for product, workflow, and integration questions. Prefer the snouty docs CLI when available, and otherwise request markdown versions of documentation pages directly.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-launch",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-launch",
+          "description": "Launch an Antithesis run with snouty by discovering the harness layout, building the right Docker Compose config, running `snouty validate`, bailing on validation failure, and then submitting `snouty launch` with sane metadata. Use when the user wants to send, submit, or launch an Antithesis run. This skill takes duration in minutes as input.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-query-logs",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-query-logs",
+          "description": "Search across all timelines in an Antithesis test run to find events, correlate property failures, and answer temporal questions about ordering and causation (e.g., did event A always precede failure B? do failures occur even without a preceding fault?).",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-research",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-research",
+          "description": "Analyze a codebase to figure out how it should be tested with Antithesis: map the system, identify failure-prone areas and testable properties, and produce the research artifacts needed for workload and environment planning.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-skills-feedback",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-skills-feedback",
+          "description": "File a bug report or feedback on the Antithesis skills by opening a pre-filled GitHub issue URL (skill name, skill version, agent, short summary). Load when the user wants to report a problem with, or give feedback on, any Antithesis skill. Does not auto-submit — presents the URL for the user to review.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-triage",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-triage",
+          "description": "Triage Antithesis test reports to understand what happened in a run: look up runs, check status, investigate failed properties (assertions), view metadata, download logs, inspect findings, and examine environmental details. Load after a run completes or when investigating a failure.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "test:triage",
+          "installUrl": "github:antithesishq/antithesis-skills:.claude/skills/test-triage",
+          "description": "This skill should be used when the user asks to \"test the triage skill\", \"run triage tests\", \"validate antithesis triage\", \"test:triage\", or \"smoke test triage\". Orchestrates end-to-end testing of the antithesis-triage skill by running real triage operations via sub-agents and reviewing the results for bugs, skill compliance issues, and papercuts.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "antithesishq",
+        "repo": "antithesis-skills",
+        "repoUrl": "https://github.com/antithesishq/antithesis-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "antithesishq-antithesis-skills-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from antithesishq/antithesis-skills.",
+      "author": "ASM (antithesishq/antithesis-skills)",
+      "createdAt": "2026-08-25T08:20:24.092Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "antithesishq",
+        "antithesis-skills"
+      ],
+      "skills": [
+        {
+          "name": "antithesis-agent-browser",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-agent-browser",
+          "description": "Authenticate `agent-browser` against an Antithesis tenant and read data from Antithesis web pages (triage reports, runs page, logs viewer, causality reports). Only invoke this skill when explicitly requested by another skill or the user. Requires interactive browser authentication and is unsuitable for fully headless workflows.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-documentation",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-documentation",
+          "description": "Use Antithesis documentation efficiently for product, workflow, and integration questions. Prefer the snouty docs CLI when available, and otherwise request markdown versions of documentation pages directly.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-launch",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-launch",
+          "description": "Launch an Antithesis run with snouty by discovering the harness layout, building the right Docker Compose config, running `snouty validate`, bailing on validation failure, and then submitting `snouty launch` with sane metadata. Use when the user wants to send, submit, or launch an Antithesis run. This skill takes duration in minutes as input.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-setup",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-setup",
+          "description": "Scaffold the Antithesis harness with docker-compose: initialize the working directory, write Dockerfiles and docker-compose.yaml with build directives, and prepare to submit your first Antithesis test run. If the desired setup is Kubernetes, defer to the antithesis-setup-k8s skill.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-setup-k8s",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-setup-k8s",
+          "description": "Scaffold the Antithesis harness for customers running Kubernetes:  Convert helm charts, kustomize templates, or raw Kubernetes manifests into a minimized set of manifests for Antithesis. Verify the Kubernetes manifests are in the correct shape with snouty validate and a local cluster deploy. Hands it off to antithesis-launch if the user wants to submit a run. At the end, the user is ready to run antithesis-workload to build tests. If the desired setup is docker-compose, defer to the antithesis-setup skill.",
+          "version": "2026-08-24 d6b507d"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "antithesishq",
+        "repo": "antithesis-skills",
+        "repoUrl": "https://github.com/antithesishq/antithesis-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "antithesishq-antithesis-skills-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from antithesishq/antithesis-skills.",
+      "author": "ASM (antithesishq/antithesis-skills)",
+      "createdAt": "2026-08-25T08:20:24.092Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "antithesishq",
+        "antithesis-skills"
+      ],
+      "skills": [
+        {
+          "name": "antithesis-debug",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-debug",
+          "description": "Interactively debug an Antithesis test run in the multiverse debugger (MVD): launch a session from a run, open a debugging-session URL, and inspect container filesystem and runtime state from inside the run.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-documentation",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-documentation",
+          "description": "Use Antithesis documentation efficiently for product, workflow, and integration questions. Prefer the snouty docs CLI when available, and otherwise request markdown versions of documentation pages directly.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-launch",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-launch",
+          "description": "Launch an Antithesis run with snouty by discovering the harness layout, building the right Docker Compose config, running `snouty validate`, bailing on validation failure, and then submitting `snouty launch` with sane metadata. Use when the user wants to send, submit, or launch an Antithesis run. This skill takes duration in minutes as input.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-query-logs",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-query-logs",
+          "description": "Search across all timelines in an Antithesis test run to find events, correlate property failures, and answer temporal questions about ordering and causation (e.g., did event A always precede failure B? do failures occur even without a preceding fault?).",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-research",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-research",
+          "description": "Analyze a codebase to figure out how it should be tested with Antithesis: map the system, identify failure-prone areas and testable properties, and produce the research artifacts needed for workload and environment planning.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-setup",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-setup",
+          "description": "Scaffold the Antithesis harness with docker-compose: initialize the working directory, write Dockerfiles and docker-compose.yaml with build directives, and prepare to submit your first Antithesis test run. If the desired setup is Kubernetes, defer to the antithesis-setup-k8s skill.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-setup-k8s",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-setup-k8s",
+          "description": "Scaffold the Antithesis harness for customers running Kubernetes:  Convert helm charts, kustomize templates, or raw Kubernetes manifests into a minimized set of manifests for Antithesis. Verify the Kubernetes manifests are in the correct shape with snouty validate and a local cluster deploy. Hands it off to antithesis-launch if the user wants to submit a run. At the end, the user is ready to run antithesis-workload to build tests. If the desired setup is docker-compose, defer to the antithesis-setup skill.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-skills-feedback",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-skills-feedback",
+          "description": "File a bug report or feedback on the Antithesis skills by opening a pre-filled GitHub issue URL (skill name, skill version, agent, short summary). Load when the user wants to report a problem with, or give feedback on, any Antithesis skill. Does not auto-submit — presents the URL for the user to review.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-triage",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-triage",
+          "description": "Triage Antithesis test reports to understand what happened in a run: look up runs, check status, investigate failed properties (assertions), view metadata, download logs, inspect findings, and examine environmental details. Load after a run completes or when investigating a failure.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-workload",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-workload",
+          "description": "Implement Antithesis workloads by turning the property catalog into SDK assertions and test commands, then refine coverage after triage.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "test:triage",
+          "installUrl": "github:antithesishq/antithesis-skills:.claude/skills/test-triage",
+          "description": "This skill should be used when the user asks to \"test the triage skill\", \"run triage tests\", \"validate antithesis triage\", \"test:triage\", or \"smoke test triage\". Orchestrates end-to-end testing of the antithesis-triage skill by running real triage operations via sub-agents and reviewing the results for bugs, skill compliance issues, and papercuts.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "antithesishq",
+        "repo": "antithesis-skills",
+        "repoUrl": "https://github.com/antithesishq/antithesis-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "antithesishq-antithesis-skills-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from antithesishq/antithesis-skills.",
+      "author": "ASM (antithesishq/antithesis-skills)",
+      "createdAt": "2026-08-25T08:20:24.092Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "antithesishq",
+        "antithesis-skills"
+      ],
+      "skills": [
+        {
+          "name": "antithesis-agent-browser",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-agent-browser",
+          "description": "Authenticate `agent-browser` against an Antithesis tenant and read data from Antithesis web pages (triage reports, runs page, logs viewer, causality reports). Only invoke this skill when explicitly requested by another skill or the user. Requires interactive browser authentication and is unsuitable for fully headless workflows.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-launch",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-launch",
+          "description": "Launch an Antithesis run with snouty by discovering the harness layout, building the right Docker Compose config, running `snouty validate`, bailing on validation failure, and then submitting `snouty launch` with sane metadata. Use when the user wants to send, submit, or launch an Antithesis run. This skill takes duration in minutes as input.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-setup",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-setup",
+          "description": "Scaffold the Antithesis harness with docker-compose: initialize the working directory, write Dockerfiles and docker-compose.yaml with build directives, and prepare to submit your first Antithesis test run. If the desired setup is Kubernetes, defer to the antithesis-setup-k8s skill.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-setup-k8s",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-setup-k8s",
+          "description": "Scaffold the Antithesis harness for customers running Kubernetes:  Convert helm charts, kustomize templates, or raw Kubernetes manifests into a minimized set of manifests for Antithesis. Verify the Kubernetes manifests are in the correct shape with snouty validate and a local cluster deploy. Hands it off to antithesis-launch if the user wants to submit a run. At the end, the user is ready to run antithesis-workload to build tests. If the desired setup is docker-compose, defer to the antithesis-setup skill.",
+          "version": "2026-08-24 d6b507d"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "antithesishq",
+        "repo": "antithesis-skills",
+        "repoUrl": "https://github.com/antithesishq/antithesis-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "antithesishq-antithesis-skills-product-business",
+      "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from antithesishq/antithesis-skills.",
+      "author": "ASM (antithesishq/antithesis-skills)",
+      "createdAt": "2026-08-25T08:20:24.092Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "product",
+        "business",
+        "planning",
+        "antithesishq",
+        "antithesis-skills"
+      ],
+      "skills": [
+        {
+          "name": "antithesis-documentation",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-documentation",
+          "description": "Use Antithesis documentation efficiently for product, workflow, and integration questions. Prefer the snouty docs CLI when available, and otherwise request markdown versions of documentation pages directly.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-research",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-research",
+          "description": "Analyze a codebase to figure out how it should be tested with Antithesis: map the system, identify failure-prone areas and testable properties, and produce the research artifacts needed for workload and environment planning.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-setup-k8s",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-setup-k8s",
+          "description": "Scaffold the Antithesis harness for customers running Kubernetes:  Convert helm charts, kustomize templates, or raw Kubernetes manifests into a minimized set of manifests for Antithesis. Verify the Kubernetes manifests are in the correct shape with snouty validate and a local cluster deploy. Hands it off to antithesis-launch if the user wants to submit a run. At the end, the user is ready to run antithesis-workload to build tests. If the desired setup is docker-compose, defer to the antithesis-setup skill.",
+          "version": "2026-08-24 d6b507d"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "antithesishq",
+        "repo": "antithesis-skills",
+        "repoUrl": "https://github.com/antithesishq/antithesis-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "antithesishq-antithesis-skills-research",
+      "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from antithesishq/antithesis-skills.",
+      "author": "ASM (antithesishq/antithesis-skills)",
+      "createdAt": "2026-08-25T08:20:24.092Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "research",
+        "academic",
+        "analysis",
+        "antithesishq",
+        "antithesis-skills"
+      ],
+      "skills": [
+        {
+          "name": "antithesis-research",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-research",
+          "description": "Analyze a codebase to figure out how it should be tested with Antithesis: map the system, identify failure-prone areas and testable properties, and produce the research artifacts needed for workload and environment planning.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-setup-k8s",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-setup-k8s",
+          "description": "Scaffold the Antithesis harness for customers running Kubernetes:  Convert helm charts, kustomize templates, or raw Kubernetes manifests into a minimized set of manifests for Antithesis. Verify the Kubernetes manifests are in the correct shape with snouty validate and a local cluster deploy. Hands it off to antithesis-launch if the user wants to submit a run. At the end, the user is ready to run antithesis-workload to build tests. If the desired setup is docker-compose, defer to the antithesis-setup skill.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-skills-feedback",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-skills-feedback",
+          "description": "File a bug report or feedback on the Antithesis skills by opening a pre-filled GitHub issue URL (skill name, skill version, agent, short summary). Load when the user wants to report a problem with, or give feedback on, any Antithesis skill. Does not auto-submit — presents the URL for the user to review.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "test:triage",
+          "installUrl": "github:antithesishq/antithesis-skills:.claude/skills/test-triage",
+          "description": "This skill should be used when the user asks to \"test the triage skill\", \"run triage tests\", \"validate antithesis triage\", \"test:triage\", or \"smoke test triage\". Orchestrates end-to-end testing of the antithesis-triage skill by running real triage operations via sub-agents and reviewing the results for bugs, skill compliance issues, and papercuts.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "antithesishq",
+        "repo": "antithesis-skills",
+        "repoUrl": "https://github.com/antithesishq/antithesis-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "antithesishq-antithesis-skills-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from antithesishq/antithesis-skills.",
+      "author": "ASM (antithesishq/antithesis-skills)",
+      "createdAt": "2026-08-25T08:20:24.092Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "antithesishq",
+        "antithesis-skills"
+      ],
+      "skills": [
+        {
+          "name": "antithesis-agent-browser",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-agent-browser",
+          "description": "Authenticate `agent-browser` against an Antithesis tenant and read data from Antithesis web pages (triage reports, runs page, logs viewer, causality reports). Only invoke this skill when explicitly requested by another skill or the user. Requires interactive browser authentication and is unsuitable for fully headless workflows.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-debug",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-debug",
+          "description": "Interactively debug an Antithesis test run in the multiverse debugger (MVD): launch a session from a run, open a debugging-session URL, and inspect container filesystem and runtime state from inside the run.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-documentation",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-documentation",
+          "description": "Use Antithesis documentation efficiently for product, workflow, and integration questions. Prefer the snouty docs CLI when available, and otherwise request markdown versions of documentation pages directly.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-launch",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-launch",
+          "description": "Launch an Antithesis run with snouty by discovering the harness layout, building the right Docker Compose config, running `snouty validate`, bailing on validation failure, and then submitting `snouty launch` with sane metadata. Use when the user wants to send, submit, or launch an Antithesis run. This skill takes duration in minutes as input.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-query-logs",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-query-logs",
+          "description": "Search across all timelines in an Antithesis test run to find events, correlate property failures, and answer temporal questions about ordering and causation (e.g., did event A always precede failure B? do failures occur even without a preceding fault?).",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-research",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-research",
+          "description": "Analyze a codebase to figure out how it should be tested with Antithesis: map the system, identify failure-prone areas and testable properties, and produce the research artifacts needed for workload and environment planning.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-setup",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-setup",
+          "description": "Scaffold the Antithesis harness with docker-compose: initialize the working directory, write Dockerfiles and docker-compose.yaml with build directives, and prepare to submit your first Antithesis test run. If the desired setup is Kubernetes, defer to the antithesis-setup-k8s skill.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-setup-k8s",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-setup-k8s",
+          "description": "Scaffold the Antithesis harness for customers running Kubernetes:  Convert helm charts, kustomize templates, or raw Kubernetes manifests into a minimized set of manifests for Antithesis. Verify the Kubernetes manifests are in the correct shape with snouty validate and a local cluster deploy. Hands it off to antithesis-launch if the user wants to submit a run. At the end, the user is ready to run antithesis-workload to build tests. If the desired setup is docker-compose, defer to the antithesis-setup skill.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-skills-feedback",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-skills-feedback",
+          "description": "File a bug report or feedback on the Antithesis skills by opening a pre-filled GitHub issue URL (skill name, skill version, agent, short summary). Load when the user wants to report a problem with, or give feedback on, any Antithesis skill. Does not auto-submit — presents the URL for the user to review.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-triage",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-triage",
+          "description": "Triage Antithesis test reports to understand what happened in a run: look up runs, check status, investigate failed properties (assertions), view metadata, download logs, inspect findings, and examine environmental details. Load after a run completes or when investigating a failure.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "antithesis-workload",
+          "installUrl": "github:antithesishq/antithesis-skills:antithesis-workload",
+          "description": "Implement Antithesis workloads by turning the property catalog into SDK assertions and test commands, then refine coverage after triage.",
+          "version": "2026-08-24 d6b507d"
+        },
+        {
+          "name": "test:triage",
+          "installUrl": "github:antithesishq/antithesis-skills:.claude/skills/test-triage",
+          "description": "This skill should be used when the user asks to \"test the triage skill\", \"run triage tests\", \"validate antithesis triage\", \"test:triage\", or \"smoke test triage\". Orchestrates end-to-end testing of the antithesis-triage skill by running real triage operations via sub-agents and reviewing the results for bugs, skill compliance issues, and papercuts.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "antithesishq",
+        "repo": "antithesis-skills",
+        "repoUrl": "https://github.com/antithesishq/antithesis-skills.git"
+      },
+      "inferred": true
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-07T00:00:00Z",
+  "updatedAt": "2026-08-25T00:00:00Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -521,6 +521,15 @@
       "repo": "keep-the-why",
       "description": "Preserves the reasoning behind a codebase — architecture decisions, rejected alternatives, workarounds, incident learnings as versioned Markdown",
       "maintainer": "@oliver-zehentleitner",
+      "enabled": true
+    },
+    {
+      "source": "github:antithesishq/antithesis-skills",
+      "url": "https://github.com/antithesishq/antithesis-skills",
+      "owner": "antithesishq",
+      "repo": "antithesis-skills",
+      "description": "AI Skills for Antithesis Users",
+      "maintainer": "@antithesishq",
       "enabled": true
     }
   ]
