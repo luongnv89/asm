@@ -154,6 +154,26 @@ function weightedOverlapCoefficient(
 }
 
 /**
+ * Combined name+description similarity from precomputed token sets.
+ *
+ * Single source of truth for the 0.6/0.4 description/name blend —
+ * `computeInstalledOverlapScore` (string inputs) and the pairwise loop in
+ * `detectSemanticOverlaps` (precomputed sets) must not drift apart.
+ */
+function combinedScore(
+  descA: Set<string>,
+  nameA: Set<string>,
+  descB: Set<string>,
+  nameB: Set<string>,
+  weights: Map<string, number>,
+): number {
+  return (
+    0.6 * weightedOverlapCoefficient(descA, descB, weights) +
+    0.4 * weightedOverlapCoefficient(nameA, nameB, weights)
+  );
+}
+
+/**
  * Combined name+description similarity between two skills.
  *
  * Mirrors `computeSimilarity` in `semantic-overlap.ts` (description 0.6,
@@ -169,17 +189,13 @@ export function computeInstalledOverlapScore(
   bDescription: string,
   weights: Map<string, number>,
 ): number {
-  const descSim = weightedOverlapCoefficient(
+  return combinedScore(
     descriptionTokens(aDescription),
-    descriptionTokens(bDescription),
-    weights,
-  );
-  const nameSim = weightedOverlapCoefficient(
     nameTokens(aName),
+    descriptionTokens(bDescription),
     nameTokens(bName),
     weights,
   );
-  return 0.6 * descSim + 0.4 * nameSim;
 }
 
 // ─── Reasons ────────────────────────────────────────────────────────────────
@@ -193,6 +209,7 @@ function overlapReason(
   tokensB: Set<string>,
   weights: Map<string, number>,
   score: number,
+  namesOverlap: boolean,
 ): string {
   const shared = [...tokensA]
     .filter((t) => tokensB.has(t))
@@ -201,7 +218,11 @@ function overlapReason(
         (weights.get(y) ?? 1) - (weights.get(x) ?? 1) || x.localeCompare(y),
     );
   if (shared.length === 0) {
-    return "Names and descriptions are near-identical";
+    // No distinctive description terms are shared, so this score is driven
+    // by the name side — say so instead of claiming identical descriptions.
+    return namesOverlap
+      ? "Similar names — descriptions share no distinctive terms"
+      : "Names and descriptions are near-identical";
   }
   const shown = shared.slice(0, 3).join(", ");
   const extra = shared.length > 3 ? ` +${shared.length - 3} more` : "";
@@ -282,10 +303,17 @@ export function detectSemanticOverlaps(
   for (let i = 0; i < compared.length; i++) {
     for (let j = i + 1; j < compared.length; j++) {
       if (isSameIdentity(compared[i], compared[j])) continue;
-      const score =
-        0.6 * weightedOverlapCoefficient(descSets[i], descSets[j], weights) +
-        0.4 * weightedOverlapCoefficient(nameSets[i], nameSets[j], weights);
+      const score = combinedScore(
+        descSets[i],
+        nameSets[i],
+        descSets[j],
+        nameSets[j],
+        weights,
+      );
       if (score >= threshold) {
+        const namesOverlap = [...nameSets[i]].some((t) =>
+          nameSets[j].has(t),
+        );
         pairs.push({
           a: toSide(compared[i]),
           b: toSide(compared[j]),
@@ -296,6 +324,7 @@ export function detectSemanticOverlaps(
             descSets[j],
             weights,
             score,
+            namesOverlap,
           ),
         });
       }

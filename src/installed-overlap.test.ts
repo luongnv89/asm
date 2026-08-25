@@ -401,6 +401,31 @@ describe("detectSemanticOverlaps", () => {
       /kubernetes|deployments|manifests|apply/i,
     );
   });
+
+  it("credits the name side when descriptions share no distinctive terms", () => {
+    const report = detectSemanticOverlaps(
+      [
+        makeSkill({
+          name: "kube-helper",
+          dirName: "kube-helper",
+          path: "/a",
+          realPath: "/a",
+          description: "Manage kubernetes deployments and debug pods.",
+        }),
+        makeSkill({
+          name: "helper-kube",
+          dirName: "helper-kube",
+          path: "/b",
+          realPath: "/b",
+          description: "Cook dinner recipes from pantry ingredients.",
+        }),
+      ],
+      0.01,
+    );
+    expect(report.pairs).toHaveLength(1);
+    expect(report.pairs[0].reason).toMatch(/similar names/i);
+    expect(report.pairs[0].reason).not.toMatch(/near-identical/i);
+  });
 });
 
 describe("formatOverlapReport", () => {
