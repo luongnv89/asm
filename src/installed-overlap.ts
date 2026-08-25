@@ -106,7 +106,7 @@ function nameTokens(name: string): Set<string> {
  * `weight(t) = 1 + ln(N / df(t))` — a term in every description weighs 1,
  * a term unique to one skill weighs `1 + ln(N)`. With fewer than two
  * corpora every df equals N, so all weights collapse to 1 and scoring
- * degrades to plain Jaccard instead of failing.
+ * degrades to unweighted overlap instead of failing.
  */
 export function buildIdfWeights(
   tokenSets: Array<Set<string>>,
