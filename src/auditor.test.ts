@@ -8,6 +8,8 @@ import {
   normalizeSkillKey,
   compareVersions,
   distinctVersions,
+  extractSkillMdBody,
+  skillContentFingerprint,
 } from "./auditor";
 import type { SkillInfo } from "./utils/types";
 
@@ -973,5 +975,234 @@ describe("detectDuplicates version divergence (#567)", () => {
       "Code_Review",
       "code-review",
     ]);
+  });
+});
+
+// ─── content fingerprinting (#562) ─────────────────────────────────────────
+
+const BODY_A = "# Steps\n\nDo the thing.";
+const BODY_B = "# Steps\n\nDo the other thing.";
+const fm = (name: string, body: string): string =>
+  `---\nname: ${name}\ndescription: d\n---\n${body}\n`;
+
+function withContent(overrides: Partial<SkillInfo>): SkillInfo {
+  return makeSkill(overrides);
+}
+
+describe("extractSkillMdBody (#562)", () => {
+  it("returns everything after the closing frontmatter delimiter", () => {
+    expect(extractSkillMdBody(fm("x", BODY_A))).toBe(`${BODY_A}\n`);
+  });
+
+  it("returns whole content when there is no frontmatter", () => {
+    expect(extractSkillMdBody(BODY_A)).toBe(BODY_A);
+  });
+
+  it("treats unterminated frontmatter as plain content", () => {
+    const content = "---\nname: x\nno closing delimiter";
+    expect(extractSkillMdBody(content)).toBe(content);
+  });
+
+  it("tolerates CRLF delimiters", () => {
+    const content = "---\r\nname: x\r\n---\r\nbody\r\n";
+    expect(extractSkillMdBody(content)).toBe("body\r\n");
+  });
+});
+
+describe("skillContentFingerprint (#562)", () => {
+  it("matches renamed copies whose bodies are identical", () => {
+    const a = withContent({
+      dirName: "alpha",
+      path: "/a",
+      _skillMdContent: fm("alpha", BODY_A),
+    });
+    const b = withContent({
+      dirName: "beta",
+      path: "/b",
+      _skillMdContent: fm("beta", BODY_A),
+    });
+    expect(skillContentFingerprint(a)).toBe(skillContentFingerprint(b));
+  });
+
+  it("differs when bodies differ", () => {
+    const a = withContent({ path: "/a", _skillMdContent: fm("x", BODY_A) });
+    const b = withContent({ path: "/b", _skillMdContent: fm("x", BODY_B) });
+    expect(skillContentFingerprint(a)).not.toBe(skillContentFingerprint(b));
+  });
+
+  it("returns null when the content cache is absent", () => {
+    expect(skillContentFingerprint(makeSkill())).toBeNull();
+  });
+});
+
+describe("detectDuplicates content classification (#562)", () => {
+  function sameDirTwoLocations(bodyA: string, bodyB: string) {
+    return [
+      withContent({
+        dirName: "code-review",
+        name: "code-review",
+        path: "/claude/code-review",
+        location: "global-claude",
+        _skillMdContent: fm("code-review", bodyA),
+      }),
+      withContent({
+        dirName: "code-review",
+        name: "code-review",
+        path: "/codex/code-review",
+        location: "global-codex",
+        _skillMdContent: fm("code-review", bodyB),
+      }),
+    ];
+  }
+
+  it("tags a group identical when every member hashes the same", () => {
+    const report = detectDuplicates(sameDirTwoLocations(BODY_A, BODY_A));
+    expect(report.duplicateGroups[0].contentClass).toBe("identical");
+  });
+
+  it("tags a group diverged when any member differs", () => {
+    const report = detectDuplicates(sameDirTwoLocations(BODY_A, BODY_B));
+    expect(report.duplicateGroups[0].contentClass).toBe("diverged");
+  });
+
+  it("omits classification when any instance has no cached content", () => {
+    const skills = sameDirTwoLocations(BODY_A, BODY_B);
+    delete (skills[1] as { _skillMdContent?: string })._skillMdContent;
+    const report = detectDuplicates(skills);
+    expect(report.duplicateGroups[0].contentClass).toBeUndefined();
+  });
+
+  it("classifies independently of version divergence", () => {
+    const skills = sameDirTwoLocations(BODY_A, BODY_A);
+    skills[1].version = "2.0.0";
+    const report = detectDuplicates(skills);
+    expect(report.duplicateGroups[0].versionDivergence).toBe(true);
+    expect(report.duplicateGroups[0].contentClass).toBe("identical");
+  });
+
+  it("shows the classification and force hint in the formatted report", () => {
+    let output = formatAuditReport(detectDuplicates(sameDirTwoLocations(BODY_A, BODY_A)));
+    expect(output).toContain("identical copies");
+
+    output = formatAuditReport(detectDuplicates(sameDirTwoLocations(BODY_A, BODY_B)));
+    expect(output).toContain("diverged copies");
+    expect(output).toContain("--force");
+  });
+
+  it("carries contentClass through the JSON output", () => {
+    const parsed = JSON.parse(
+      formatAuditReportJSON(detectDuplicates(sameDirTwoLocations(BODY_A, BODY_B))),
+    );
+    expect(parsed.duplicateGroups[0].contentClass).toBe("diverged");
+  });
+});
+
+describe("detectDuplicates same-content rule (#562)", () => {
+  function renamedIdenticalPair() {
+    return [
+      withContent({
+        dirName: "alpha-skill",
+        name: "Alpha Skill",
+        path: "/claude/alpha-skill",
+        location: "global-claude",
+        _skillMdContent: fm("Alpha Skill", BODY_A),
+      }),
+      withContent({
+        dirName: "beta-skill",
+        name: "Beta Skill",
+        path: "/codex/beta-skill",
+        location: "global-codex",
+        _skillMdContent: fm("Beta Skill", BODY_A),
+      }),
+    ];
+  }
+
+  it("surfaces different-name skills with byte-identical bodies", () => {
+    const report = detectDuplicates(renamedIdenticalPair());
+    expect(report.duplicateGroups).toHaveLength(1);
+    expect(report.duplicateGroups[0].reason).toBe("same-content");
+    expect(report.duplicateGroups[0].contentClass).toBe("identical");
+    expect(report.totalDuplicateInstances).toBe(2);
+  });
+
+  it("does not group different bodies under different names", () => {
+    const skills = [
+      withContent({
+        dirName: "alpha-skill",
+        name: "Alpha Skill",
+        path: "/a",
+        location: "global-claude",
+        _skillMdContent: fm("Alpha Skill", BODY_A),
+      }),
+      withContent({
+        dirName: "beta-skill",
+        name: "Beta Skill",
+        path: "/b",
+        location: "global-codex",
+        _skillMdContent: fm("Beta Skill", BODY_B),
+      }),
+    ];
+    expect(detectDuplicates(skills).duplicateGroups).toHaveLength(0);
+  });
+
+  it("does not re-group skills already covered by the name rules", () => {
+    const skills = [
+      withContent({
+        dirName: "code-review",
+        name: "code-review",
+        path: "/claude/code-review",
+        location: "global-claude",
+        _skillMdContent: fm("code-review", BODY_A),
+      }),
+      withContent({
+        dirName: "code-review",
+        name: "code-review",
+        path: "/codex/code-review",
+        location: "global-codex",
+        _skillMdContent: fm("code-review", BODY_A),
+      }),
+    ];
+    const report = detectDuplicates(skills);
+    expect(report.duplicateGroups).toHaveLength(1);
+    expect(report.duplicateGroups[0].reason).toBe("same-dirName");
+  });
+
+  it("sorts same-content groups after the name-based rules", () => {
+    const skills = [
+      ...renamedIdenticalPair(),
+      withContent({
+        dirName: "deploy",
+        name: "deploy",
+        path: "/claude/deploy",
+        location: "global-claude",
+        _skillMdContent: fm("deploy", BODY_B),
+      }),
+      withContent({
+        dirName: "deploy",
+        name: "deploy",
+        path: "/codex/deploy",
+        location: "global-codex",
+        _skillMdContent: fm("deploy", BODY_B),
+      }),
+    ];
+    const report = detectDuplicates(skills);
+    expect(report.duplicateGroups.map((g) => g.reason)).toEqual([
+      "same-dirName",
+      "same-content",
+    ]);
+  });
+
+  it("labels the new reason in human output", () => {
+    expect(reasonLabel("same-content")).toBe("identical content");
+    const output = formatAuditReport(detectDuplicates(renamedIdenticalPair()));
+    expect(output).toContain("identical content");
+  });
+
+  it("carries the same-content reason through the JSON output", () => {
+    const parsed = JSON.parse(
+      formatAuditReportJSON(detectDuplicates(renamedIdenticalPair())),
+    );
+    expect(parsed.duplicateGroups[0].reason).toBe("same-content");
+    expect(parsed.duplicateGroups[0].contentClass).toBe("identical");
   });
 });

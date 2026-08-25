@@ -1,3 +1,6 @@
+import { createHash } from "crypto";
+import { readFile } from "fs/promises";
+import { join } from "path";
 import { ansi, colorProvider, shortenPath } from "./formatter";
 import type { SkillInfo, DuplicateGroup, AuditReport } from "./utils/types";
 
@@ -57,6 +60,64 @@ function groupVersionDivergence(instances: SkillInfo[]): boolean {
   return distinctVersions(instances).length >= 2;
 }
 
+// ─── Content fingerprinting (#562) ─────────────────────────────────────────
+
+/**
+ * Returns the SKILL.md body — everything after the closing `---` of the
+ * frontmatter. Content without a frontmatter block is returned whole.
+ * Frontmatter is excluded so renamed copies (whose `name:` differs by
+ * design) still fingerprint identically.
+ */
+export function extractSkillMdBody(content: string): string {
+  const lines = content.split("\n");
+  if (lines.length === 0 || lines[0].trim() !== "---") return content;
+  for (let i = 1; i < lines.length; i++) {
+    if (lines[i].trim() === "---") return lines.slice(i + 1).join("\n");
+  }
+  return content;
+}
+
+/**
+ * Stable sha256 fingerprint of a skill's SKILL.md body (frontmatter
+ * excluded, issue #562). Returns null when the scanner's content cache is
+ * absent — callers should treat null as "unknown", never as "diverged".
+ */
+export function skillContentFingerprint(skill: SkillInfo): string | null {
+  const cached = skill._skillMdContent;
+  if (cached === undefined) return null;
+  return createHash("sha256").update(extractSkillMdBody(cached)).digest("hex");
+}
+
+/**
+ * Fills the scanner's SKILL.md content cache from disk when absent, using
+ * the same fallback read as `checkHealth`. Unreadable content leaves the
+ * cache unset so fingerprint checks degrade to "unknown" safely.
+ */
+export async function ensureSkillMdContent(skill: SkillInfo): Promise<void> {
+  if (skill._skillMdContent !== undefined) return;
+  try {
+    skill._skillMdContent = await readFile(
+      join(skill.path, "SKILL.md"),
+      "utf-8",
+    );
+  } catch {
+    // unreadable — leave uncached; fingerprint stays unavailable
+  }
+}
+
+/**
+ * Classifies a group's instances by body fingerprint. Only fully-fingerprinted
+ * groups get a class; any unknown content yields undefined (never guessed).
+ */
+function classifyContent(
+  fingerprints: (string | null)[],
+): "identical" | "diverged" | undefined {
+  if (fingerprints.length < 2 || fingerprints.some((f) => f === null)) {
+    return undefined;
+  }
+  return new Set(fingerprints).size === 1 ? "identical" : "diverged";
+}
+
 export function detectDuplicates(skills: SkillInfo[]): AuditReport {
   const groups: DuplicateGroup[] = [];
   const coveredPaths = new Set<string>();
@@ -88,6 +149,12 @@ export function detectDuplicates(skills: SkillInfo[]): AuditReport {
     }
   }
 
+  // Content fingerprints for the deduped set (#562). Computed once; groups
+  // classify as identical/diverged only when every member has one.
+  const fingerprints = new Map<SkillInfo, string | null>(
+    deduped.map((s) => [s, skillContentFingerprint(s)]),
+  );
+
   // Rule 1: same dirName across different locations. Grouping keys are
   // normalized (#564) so `Code-Review`, `code_review` and `code review`
   // land in one bucket; the first-seen spelling becomes the display key.
@@ -110,11 +177,15 @@ export function detectDuplicates(skills: SkillInfo[]): AuditReport {
   for (const entry of byDirName.values()) {
     const uniqueLocations = new Set(entry.members.map((m) => m.location));
     if (uniqueLocations.size >= 2) {
+      const contentClass = classifyContent(
+        entry.members.map((m) => fingerprints.get(m) ?? null),
+      );
       groups.push({
         key: entry.key,
         reason: "same-dirName",
         instances: entry.members,
         versionDivergence: groupVersionDivergence(entry.members),
+        ...(contentClass ? { contentClass } : {}),
         ...(entry.variants.size > 1 ? { variants: [...entry.variants] } : {}),
       });
       for (const m of entry.members) coveredPaths.add(m.path);
@@ -154,22 +225,57 @@ export function detectDuplicates(skills: SkillInfo[]): AuditReport {
     if (uncoveredDirNames.size < 2) continue;
 
     const uncoveredVariants = new Set(uncovered.map((m) => m.name));
+    const contentClass = classifyContent(
+      uncovered.map((m) => fingerprints.get(m) ?? null),
+    );
     groups.push({
       key: entry.key,
       reason: "same-frontmatterName",
       instances: uncovered,
       versionDivergence: groupVersionDivergence(uncovered),
+      ...(contentClass ? { contentClass } : {}),
       ...(uncoveredVariants.size > 1
         ? { variants: [...uncoveredVariants] }
         : {}),
     });
   }
 
-  // Sort: same-dirName groups first, then same-frontmatterName; within each,
-  // by normalized key so case/separator variants order deterministically.
+  // Rule 3: byte-identical bodies under different names (#562). Only skills
+  // not already grouped by the name rules participate, so no skill is
+  // reported in overlapping groups. Frontmatter is excluded from the
+  // fingerprint, which is exactly what lets renamed copies match.
+  const byFingerprint = new Map<string, SkillInfo[]>();
+  for (const s of deduped) {
+    if (coveredPaths.has(s.path)) continue;
+    const fp = fingerprints.get(s);
+    if (!fp) continue;
+    const members = byFingerprint.get(fp) ?? [];
+    members.push(s);
+    byFingerprint.set(fp, members);
+  }
+  for (const members of byFingerprint.values()) {
+    if (members.length < 2) continue;
+    if (new Set(members.map((m) => m.dirName)).size < 2) continue;
+    groups.push({
+      key: members[0].dirName,
+      reason: "same-content",
+      instances: members,
+      versionDivergence: groupVersionDivergence(members),
+      contentClass: "identical",
+    });
+  }
+
+  // Sort: same-dirName groups first, then same-frontmatterName, then
+  // same-content; within each, by normalized key so case/separator variants
+  // order deterministically.
+  const reasonRank: Record<DuplicateGroup["reason"], number> = {
+    "same-dirName": 0,
+    "same-frontmatterName": 1,
+    "same-content": 2,
+  };
   groups.sort((a, b) => {
     if (a.reason !== b.reason) {
-      return a.reason === "same-dirName" ? -1 : 1;
+      return reasonRank[a.reason] - reasonRank[b.reason];
     }
     return (
       normalizeSkillKey(a.key).localeCompare(normalizeSkillKey(b.key)) ||
@@ -207,7 +313,9 @@ export function sortInstancesForKeep(instances: SkillInfo[]): SkillInfo[] {
 // ─── Helpers ───────────────────────────────────────────────────────────────
 
 export function reasonLabel(reason: DuplicateGroup["reason"]): string {
-  return reason === "same-dirName" ? "same dirName" : "same name";
+  if (reason === "same-dirName") return "same dirName";
+  if (reason === "same-content") return "identical content";
+  return "same name";
 }
 
 // ─── CLI Formatters ────────────────────────────────────────────────────────
@@ -233,6 +341,16 @@ export function formatAuditReport(report: AuditReport): string {
     if (group.variants && group.variants.length > 1) {
       const spellings = group.variants.map((v) => `"${v}"`).join(", ");
       lines.push(ansi.dim(`     variants: ${spellings}`));
+    }
+    if (group.contentClass === "identical") {
+      lines.push(ansi.green("     ✓ identical copies"));
+    } else if (group.contentClass === "diverged") {
+      lines.push(ansi.yellow("     ⚠ diverged copies"));
+      lines.push(
+        ansi.dim(
+          "     auto-remove keeps every copy here unless you pass --force",
+        ),
+      );
     }
     if (group.versionDivergence) {
       const newestFirst = distinctVersions(group.instances).slice().reverse();

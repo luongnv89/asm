@@ -1135,6 +1135,143 @@ describe("CLI integration: audit", () => {
   });
 });
 
+describe("CLI integration: audit duplicate content + guarded auto-remove (#562/#563/#565)", () => {
+  let home: string;
+  let cwd: string;
+
+  const BODY_A = "# Steps\n\nDo the thing.";
+  const BODY_B = "# Steps\n\nDo the other thing.";
+
+  const globalSkillsDir = () => join(home, ".claude", "skills");
+  const projectSkillsDir = () => join(cwd, ".claude", "skills");
+
+  const writeSkill = async (
+    base: string,
+    dirName: string,
+    body: string,
+    name = dirName,
+  ) => {
+    await mkdir(join(base, dirName), { recursive: true });
+    await writeFile(
+      join(base, dirName, "SKILL.md"),
+      `---\nname: ${name}\nversion: 1.0.0\ndescription: test skill\n---\n${body}\n`,
+    );
+  };
+
+  const isRealDir = async (path: string): Promise<boolean> => {
+    try {
+      return !(await lstat(path)).isSymbolicLink();
+    } catch {
+      return false;
+    }
+  };
+
+  beforeEach(async () => {
+    home = await mkdtemp(join(tmpdir(), "asm-audit-home-"));
+    cwd = await mkdtemp(join(tmpdir(), "asm-audit-cwd-"));
+  });
+
+  afterEach(async () => {
+    await rm(home, { recursive: true, force: true });
+    await rm(cwd, { recursive: true, force: true });
+  });
+
+  function runAudit(...args: string[]) {
+    return spawnCollect(["npx", "tsx", CLI_BIN, ...args], {
+      cwd,
+      env: { ...process.env, HOME: home, NO_COLOR: "1" },
+    });
+  }
+
+  test("--json tags an identical same-dirName group (#562)", async () => {
+    await writeSkill(globalSkillsDir(), "code-review", BODY_A);
+    await writeSkill(projectSkillsDir(), "code-review", BODY_A);
+    const { stdout, exitCode } = await runAudit("audit", "--json");
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(data.duplicateGroups).toHaveLength(1);
+    expect(data.duplicateGroups[0].contentClass).toBe("identical");
+    expect(data.totalDuplicateInstances).toBe(2);
+  });
+
+  test("--json tags a diverged same-dirName group (#562)", async () => {
+    await writeSkill(globalSkillsDir(), "code-review", BODY_A);
+    await writeSkill(projectSkillsDir(), "code-review", BODY_B);
+    const data = JSON.parse((await runAudit("audit", "--json")).stdout);
+    expect(data.duplicateGroups[0].contentClass).toBe("diverged");
+  });
+
+  test("--json surfaces renamed-identical skills as one same-content group (#562)", async () => {
+    await writeSkill(globalSkillsDir(), "alpha-skill", BODY_A, "Alpha Skill");
+    await writeSkill(globalSkillsDir(), "beta-skill", BODY_A, "Beta Skill");
+    const { stdout, exitCode } = await runAudit("audit", "--json");
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(data.duplicateGroups).toHaveLength(1);
+    expect(data.duplicateGroups[0].reason).toBe("same-content");
+    expect(data.duplicateGroups[0].contentClass).toBe("identical");
+  });
+
+  test("-y removes byte-identical duplicates (#563 keeps working)", async () => {
+    await writeSkill(globalSkillsDir(), "code-review", BODY_A);
+    await writeSkill(projectSkillsDir(), "code-review", BODY_A);
+    const { stderr, exitCode } = await runAudit("audit", "-y");
+    expect(exitCode).toBe(0);
+    expect(stderr).toContain("Removed 1 duplicate copy");
+    // The project copy was redundant: gone or repointed at the kept global
+    // install; the global real directory survives.
+    expect(await isRealDir(join(projectSkillsDir(), "code-review"))).toBe(false);
+    expect(await isRealDir(join(globalSkillsDir(), "code-review"))).toBe(true);
+  });
+
+  test("-y skips diverged copies and names the kept copy (#563)", async () => {
+    await writeSkill(globalSkillsDir(), "code-review", BODY_A);
+    await writeSkill(projectSkillsDir(), "code-review", BODY_B);
+    const { stderr, exitCode } = await runAudit("audit", "-y");
+    expect(exitCode).toBe(0);
+    expect(stderr).toContain("Skipping");
+    expect(stderr).toContain("contents differ from the kept copy");
+    expect(stderr).toContain("--force");
+    // Both copies survive: the diverged project skill must not be replaced.
+    expect(await isRealDir(join(globalSkillsDir(), "code-review"))).toBe(true);
+    expect(await isRealDir(join(projectSkillsDir(), "code-review"))).toBe(true);
+  });
+
+  test("--force overrides the diverged-copy guard (#563)", async () => {
+    await writeSkill(globalSkillsDir(), "code-review", BODY_A);
+    await writeSkill(projectSkillsDir(), "code-review", BODY_B);
+    const { stderr, exitCode } = await runAudit("audit", "-y", "--force");
+    expect(exitCode).toBe(0);
+    expect(stderr).not.toContain("Skipping");
+    expect(await isRealDir(join(projectSkillsDir(), "code-review"))).toBe(false);
+    expect(await isRealDir(join(globalSkillsDir(), "code-review"))).toBe(true);
+  });
+
+  test("--machine envelope exposes reason, content class, and totals (#565)", async () => {
+    await writeSkill(globalSkillsDir(), "code-review", BODY_A);
+    await writeSkill(projectSkillsDir(), "code-review", BODY_B);
+    const { stdout, exitCode } = await runAudit("audit", "--machine");
+    expect(exitCode).toBe(0);
+    const envelope = JSON.parse(stdout);
+    expect(envelope.version).toBe(1);
+    expect(envelope.command).toBe("audit duplicates");
+    const group = envelope.data.duplicate_groups[0];
+    expect(group.reason).toBe("same-dirName");
+    expect(group.contentClass).toBe("diverged");
+    expect(group.count).toBe(2);
+    expect(envelope.data.totalDuplicateInstances).toBe(2);
+    // Machine output reports; it must not remove anything even though
+    // --machine implies --yes at the parser level.
+    expect(await isRealDir(join(projectSkillsDir(), "code-review"))).toBe(true);
+  });
+
+  test("audit --help documents --force", async () => {
+    const { stdout, exitCode } = await runAudit("audit", "--help");
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("--force");
+  });
+});
+
 describe("CLI integration: stats --tokens (issue #421)", () => {
   test("--tokens exits 0 and reports the attention budget", async () => {
     const { stdout, exitCode } = await runCLI("stats", "--tokens");

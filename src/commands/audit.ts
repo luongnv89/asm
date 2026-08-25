@@ -2,7 +2,7 @@ import { loadConfig, getLibrarySkillsDir } from "../config";
 import { scanAllSkills } from "../scanner";
 import { realpath as fsRealpath } from "fs/promises";
 import { buildRemovalPlan, executeRemoval } from "../uninstaller";
-import { formatJSON, ansi } from "../formatter";
+import { formatJSON, ansi, shortenPath } from "../formatter";
 import {
   parseSource,
   assertNoParentSegments,
@@ -17,6 +17,8 @@ import { computeResidencyAudit, formatResidencyReport } from "../residency";
 import {
   detectDuplicates,
   sortInstancesForKeep,
+  skillContentFingerprint,
+  ensureSkillMdContent,
   formatAuditReport,
   formatAuditReportJSON,
 } from "../auditor";
@@ -48,6 +50,7 @@ ${ansi.bold("Options:")}
   --json             Output as JSON
   --machine          Output in stable machine-readable v1 envelope format
   -y, --yes          Auto-remove duplicates, keeping one instance per group
+  -f, --force        With -y: remove even diverged (content-differing) copies
   -s, --scope <s>    Filter: global, project, or both (default: both)
   --no-color         Disable ANSI colors
   -V, --verbose      Show debug output
@@ -96,12 +99,17 @@ export async function cmdAudit(args: ParsedArgs) {
   const config = await loadConfig();
   // Always scan all providers regardless of --scope
   const allSkills = await scanAllSkills(config, "both");
+  // Fingerprinting (#562) needs SKILL.md content; the scanner usually caches
+  // it, but reconstructed rows (e.g. disabled skills) may lack it.
+  await Promise.all(allSkills.map(ensureSkillMdContent));
   const report = detectDuplicates(allSkills);
 
   if (args.flags.machine) {
     const data = {
       duplicate_groups: report.duplicateGroups.map((g) => ({
         name: g.key,
+        reason: g.reason,
+        ...(g.contentClass ? { contentClass: g.contentClass } : {}),
         count: g.instances.length,
         instances: g.instances.map((i) => ({
           path: i.path,
@@ -110,6 +118,7 @@ export async function cmdAudit(args: ParsedArgs) {
         })),
       })),
       total_duplicates: report.duplicateGroups.length,
+      totalDuplicateInstances: report.totalDuplicateInstances,
     };
     console.log(formatMachineOutput("audit duplicates", data, startTime));
     return;
@@ -123,22 +132,57 @@ export async function cmdAudit(args: ParsedArgs) {
   console.log(formatAuditReport(report));
 
   if (args.flags.yes && report.duplicateGroups.length > 0) {
-    // Auto-remove all but the first (recommended keep) instance per group
+    // Auto-remove all but the first (recommended keep) instance per group.
+    // Safety guard (#563): an instance is only removed when its content
+    // fingerprint matches the kept copy; diverged or unverifiable copies
+    // are skipped unless --force is given.
     console.error(ansi.bold("\nAuto-removing duplicates..."));
+    let removed = 0;
+    let skipped = 0;
     for (const group of report.duplicateGroups) {
       const sorted = sortInstancesForKeep(group.instances);
-      const keptPath = sorted[0].path;
-      // Keep the first, remove the rest (replace with symlinks)
+      const kept = sorted[0];
+      const keptFingerprint = skillContentFingerprint(kept);
       for (let i = 1; i < sorted.length; i++) {
         const skill = sorted[i];
+        const fingerprint = skillContentFingerprint(skill);
+        const identical =
+          keptFingerprint !== null &&
+          fingerprint !== null &&
+          keptFingerprint === fingerprint;
+        if (!identical && !args.flags.force) {
+          skipped++;
+          const why =
+            keptFingerprint === null || fingerprint === null
+              ? "contents could not be verified"
+              : "contents differ from the kept copy";
+          console.error(
+            ansi.yellow(
+              `  Skipping ${shortenPath(skill.path)} — ${why}. ` +
+                `Kept ${shortenPath(kept.path)}. ` +
+                `Re-run with --force to remove it anyway.`,
+            ),
+          );
+          continue;
+        }
         const plan = buildRemovalPlan(skill, config);
-        const log = await executeRemoval(plan, keptPath);
+        const log = await executeRemoval(plan, kept.path);
         for (const entry of log) {
           console.error(entry);
         }
+        removed++;
       }
     }
-    console.error(ansi.green("\nDone."));
+    if (skipped > 0) {
+      console.error(
+        ansi.yellow(
+          `\n${skipped} duplicate cop${skipped === 1 ? "y" : "ies"} skipped (content differs or could not be verified).`,
+        ),
+      );
+    }
+    console.error(
+      ansi.green(`\nDone. Removed ${removed} duplicate cop${removed === 1 ? "y" : "ies"}.`),
+    );
   }
 }
 

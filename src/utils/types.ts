@@ -434,8 +434,21 @@ export interface RelocationInfo {
 
 export interface DuplicateGroup {
   key: string;
-  reason: "same-dirName" | "same-frontmatterName";
+  /**
+   * Why the group was formed: shared directory name (`same-dirName`),
+   * shared frontmatter name across different directories
+   * (`same-frontmatterName`), or byte-identical SKILL.md bodies under
+   * different names (`same-content`, issue #562).
+   */
+  reason: "same-dirName" | "same-frontmatterName" | "same-content";
   instances: SkillInfo[];
+  /**
+   * Content classification from the group's SKILL.md body fingerprints
+   * (issue #562): `identical` when every instance hashes the same,
+   * `diverged` when any two differ. Absent when any instance's content is
+   * unavailable, so an unknown state is never reported as either class.
+   */
+  contentClass?: "identical" | "diverged";
   /**
    * True when the group's instances carry two or more distinct non-empty
    * `version` strings — likely a shadowed upgrade rather than identical
