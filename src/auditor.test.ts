@@ -680,7 +680,9 @@ describe("normalizeSkillKey", () => {
 
   it("keeps dots and digits so distinct skills stay distinct", () => {
     expect(normalizeSkillKey("skill.v2")).toBe("skill.v2");
-    expect(normalizeSkillKey("skill.v2")).not.toBe(normalizeSkillKey("skill-v2"));
+    expect(normalizeSkillKey("skill.v2")).not.toBe(
+      normalizeSkillKey("skill-v2"),
+    );
     expect(normalizeSkillKey("skill-one")).not.toBe(
       normalizeSkillKey("skillone"),
     );

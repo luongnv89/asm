@@ -235,9 +235,7 @@ export function formatAuditReport(report: AuditReport): string {
       lines.push(ansi.dim(`     variants: ${spellings}`));
     }
     if (group.versionDivergence) {
-      const newestFirst = distinctVersions(group.instances)
-        .slice()
-        .reverse();
+      const newestFirst = distinctVersions(group.instances).slice().reverse();
       lines.push(
         ansi.red(
           `     ⚠ versions differ: ${newestFirst.map((v) => `v${v}`).join(", ")} — possible upgrade/shadow, not identical copies`,
