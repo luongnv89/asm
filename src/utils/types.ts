@@ -399,6 +399,46 @@ export interface ResidencyReport {
   signals: ResidencySignal[];
 }
 
+/** One side of an installed-skill overlap pair (issue #566). */
+export interface OverlapSide {
+  name: string;
+  dirName: string;
+  provider: string;
+  providerLabel: string;
+  scope: "global" | "project";
+  path: string;
+}
+
+/**
+ * A pair of installed skills that do substantially the same job despite
+ * different names (issue #566). Reported read-only — `asm audit overlap`
+ * never removes or disables anything.
+ */
+export interface InstalledOverlapPair {
+  a: OverlapSide;
+  b: OverlapSide;
+  /** Combined name+description similarity, 0..1; higher means more similar. */
+  score: number;
+  /** True when `score` reaches the high-confidence threshold. */
+  highConfidence: boolean;
+  /** One-line human explanation of the overlap. */
+  reason: string;
+}
+
+/** Result of the semantic overlap check over installed skills (issue #566). */
+export interface InstalledOverlapReport {
+  scannedAt: string;
+  totalSkills: number;
+  /**
+   * Distinct skills actually compared: multi-provider copies of one install
+   * (same real path) collapse to a single comparison unit.
+   */
+  comparedSkills: number;
+  /** Ranked most-similar first. */
+  pairs: InstalledOverlapPair[];
+  highConfidenceCount: number;
+}
+
 export interface RemovalPlan {
   directories: Array<{ path: string; isSymlink: boolean }>;
   ruleFiles: string[];

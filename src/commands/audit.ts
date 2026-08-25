@@ -32,6 +32,11 @@ import {
   formatMachineError,
   ErrorCodes,
 } from "../utils/machine";
+import {
+  detectSemanticOverlaps,
+  formatOverlapReport,
+  formatOverlapReportJSON,
+} from "../installed-overlap";
 
 import { formatAuditMachineData, error } from "./shared";
 import type { ParsedArgs } from "../cli";
@@ -43,6 +48,7 @@ Detect duplicate skills or run security audits on installed/remote skills.
 
 ${ansi.bold("Subcommands:")}
   duplicates             Find duplicate skills (default)
+  overlap                Find installed skills that do the same job under different names
   security <name|source> Run security audit on an installed skill or GitHub source
   residency              Rank installed skills that do not earn their resident context
 
@@ -59,6 +65,8 @@ ${ansi.bold("Examples:")}
   asm audit                                    ${ansi.dim("Find duplicates")}
   asm audit -y                                 ${ansi.dim("Auto-remove duplicates")}
   asm audit --json                             ${ansi.dim("Output as JSON")}
+  asm audit overlap                            ${ansi.dim("Find same-job skills under different names")}
+  asm audit overlap --json                     ${ansi.dim("Overlap report as JSON")}
   asm audit residency                          ${ansi.dim("Rank demotion candidates")}
   asm audit residency --json                   ${ansi.dim("Residency report as JSON")}
   asm audit security code-review               ${ansi.dim("Audit an installed skill")}
@@ -89,9 +97,14 @@ export async function cmdAudit(args: ParsedArgs) {
     return;
   }
 
+  if (sub === "overlap") {
+    await cmdAuditOverlap(args, startTime);
+    return;
+  }
+
   if (sub !== "duplicates") {
     error(
-      `Unknown audit subcommand: "${sub}". Use: duplicates, security, residency`,
+      `Unknown audit subcommand: "${sub}". Use: duplicates, overlap, security, residency`,
     );
     process.exit(2);
   }
@@ -225,6 +238,43 @@ export async function cmdAuditResidency(args: ParsedArgs, startTime: number) {
   }
 
   console.log(formatResidencyReport(report));
+}
+
+/**
+ * `asm audit overlap` — surface installed skills that do substantially the
+ * same job under different names (issue #566). The exact-match duplicate
+ * check above only catches identical names; this compares name+description
+ * with boilerplate down-weighted (offline token similarity) and ranks pairs,
+ * flagging high-confidence overlaps. Read-only: it reports and never removes.
+ */
+export async function cmdAuditOverlap(args: ParsedArgs, startTime: number) {
+  const config = await loadConfig();
+  const allSkills = await scanAllSkills(config, "both");
+  const report = detectSemanticOverlaps(allSkills);
+
+  if (args.flags.machine) {
+    const data = {
+      compared_skills: report.comparedSkills,
+      total_overlaps: report.pairs.length,
+      high_confidence_overlaps: report.highConfidenceCount,
+      pairs: report.pairs.map((p) => ({
+        score: Number(p.score.toFixed(4)),
+        high_confidence: p.highConfidence,
+        reason: p.reason,
+        a: { name: p.a.name, provider: p.a.provider, scope: p.a.scope, path: p.a.path },
+        b: { name: p.b.name, provider: p.b.provider, scope: p.b.scope, path: p.b.path },
+      })),
+    };
+    console.log(formatMachineOutput("audit overlap", data, startTime));
+    return;
+  }
+
+  if (args.flags.json) {
+    console.log(formatOverlapReportJSON(report));
+    return;
+  }
+
+  console.log(formatOverlapReport(report));
 }
 
 export async function cmdAuditSecurity(args: ParsedArgs, startTime: number) {

@@ -75,6 +75,7 @@ graph LR
 | One-command install      | `asm install github:user/repo` or `asm install skill-name`           |
 | Agent-parseable output   | `--json` on list, search, inspect, install, audit                    |
 | Duplicate audit          | `asm audit --yes` removes redundant skills non-interactively         |
+| Semantic overlap audit   | `asm audit overlap` finds different-name skills doing the same job   |
 | Attention budget         | `asm stats --tokens` shows resident vs body token cost per tool      |
 | Residency audit          | `asm audit residency` ranks skills to demote out of resident context |
 | Reference tier           | `asm get <skill>` delivers a body once, at zero residency            |
@@ -122,6 +123,7 @@ Node.js 22+ required. Optional TUI: run `asm` with no arguments.
 | Skill metadata for agents     | `asm inspect my-skill --json`                    |
 | Non-interactive install       | `asm install code-review -p claude --yes --json` |
 | Remove duplicates             | `asm audit --yes`                                |
+| Find same-job near-duplicates | `asm audit overlap`                              |
 | See your context cost         | `asm stats --tokens`                             |
 | Find skills to demote         | `asm audit residency`                            |
 | Use a skill without residency | `asm get code-review`                            |

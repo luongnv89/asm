@@ -367,6 +367,14 @@ describe("parseArgs: audit residency (issue #423)", () => {
   });
 });
 
+describe("parseArgs: audit overlap (issue #566)", () => {
+  test("overlap parses as an audit subcommand, not a top-level verb", () => {
+    const args = parseArgs(["node", "cli", "audit", "overlap"]);
+    expect(args.command).toBe("audit");
+    expect(args.subcommand).toBe("overlap");
+  });
+});
+
 describe("isCLIMode", () => {
   const check = (...args: string[]) =>
     isCLIMode(["node", "script.ts", ...args]);
@@ -1380,6 +1388,10 @@ describe("CLI integration: stats with nothing installed", () => {
     const residency = await runEmpty("audit", "residency");
     expect(residency.exitCode).toBe(0);
     expect(residency.stdout).toContain("No installed skills");
+
+    const overlap = await runEmpty("audit", "overlap");
+    expect(overlap.exitCode).toBe(0);
+    expect(overlap.stdout).toContain("No installed skills.");
   });
 });
 
@@ -1449,6 +1461,64 @@ describe("CLI integration: audit residency (issue #423)", () => {
     const { stderr, exitCode } = await runCLI("audit", "bogus");
     expect(exitCode).toBe(2);
     expect(stderr).toContain("residency");
+  });
+});
+
+describe("CLI integration: audit overlap (issue #566)", () => {
+  test("audit overlap exits 0 and reports without changing anything", async () => {
+    const { stdout, exitCode } = await runCLI("audit", "overlap");
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("Semantic Overlap Audit");
+    expect(stdout).toContain("Nothing was changed");
+  });
+
+  test("--yes never triggers a removal on the overlap path", async () => {
+    // The overlap report is advisory; only `audit -y` (duplicates) removes.
+    const { stdout, stderr, exitCode } = await runCLI(
+      "audit",
+      "overlap",
+      "--yes",
+    );
+    expect(exitCode).toBe(0);
+    expect(stderr).not.toContain("Auto-removing");
+    expect(stdout).not.toContain("Auto-removing");
+  });
+
+  test("audit overlap --json has the overlap report shape", async () => {
+    const { stdout, exitCode } = await runCLI("audit", "overlap", "--json");
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(data).toHaveProperty("scannedAt");
+    expect(data).toHaveProperty("totalSkills");
+    expect(data).toHaveProperty("comparedSkills");
+    expect(Array.isArray(data.pairs)).toBe(true);
+    expect(data).toHaveProperty("highConfidenceCount");
+    for (const pair of data.pairs) {
+      expect(typeof pair.score).toBe("number");
+      expect(pair.a).toHaveProperty("name");
+      expect(pair.b).toHaveProperty("path");
+    }
+  });
+
+  test("audit overlap --machine emits the v1 envelope", async () => {
+    const { stdout, exitCode } = await runCLI("audit", "overlap", "--machine");
+    expect(exitCode).toBe(0);
+    const envelope = JSON.parse(stdout);
+    expect(envelope.version).toBe(1);
+    expect(envelope.command).toBe("audit overlap");
+    expect(envelope.data).toHaveProperty("pairs");
+    expect(envelope.data).toHaveProperty("total_overlaps");
+    expect(envelope.data).toHaveProperty("compared_skills");
+  });
+
+  test("audit --help lists the overlap subcommand", async () => {
+    const { stdout } = await runCLI("audit", "--help");
+    expect(stdout).toContain("overlap");
+  });
+
+  test("unknown audit subcommand names overlap too", async () => {
+    const { stderr } = await runCLI("audit", "bogus");
+    expect(stderr).toContain("overlap");
   });
 });
 
