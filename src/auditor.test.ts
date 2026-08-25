@@ -1167,6 +1167,28 @@ describe("detectDuplicates same-content rule (#562)", () => {
     expect(report.duplicateGroups[0].reason).toBe("same-dirName");
   });
 
+  it("does not double-report a same-frontmatterName pair as same-content", () => {
+    const skills = [
+      withContent({
+        dirName: "alpha-skill",
+        name: "review",
+        path: "/claude/alpha-skill",
+        location: "global-claude",
+        _skillMdContent: fm("review", BODY_A),
+      }),
+      withContent({
+        dirName: "beta-skill",
+        name: "review",
+        path: "/codex/beta-skill",
+        location: "global-codex",
+        _skillMdContent: fm("review", BODY_A),
+      }),
+    ];
+    const report = detectDuplicates(skills);
+    expect(report.duplicateGroups).toHaveLength(1);
+    expect(report.duplicateGroups[0].reason).toBe("same-frontmatterName");
+  });
+
   it("sorts same-content groups after the name-based rules", () => {
     const skills = [
       ...renamedIdenticalPair(),

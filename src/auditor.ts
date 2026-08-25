@@ -238,6 +238,8 @@ export function detectDuplicates(skills: SkillInfo[]): AuditReport {
         ? { variants: [...uncoveredVariants] }
         : {}),
     });
+    // Mark grouped instances so Rule 3 never re-reports them (#562).
+    for (const m of uncovered) coveredPaths.add(m.path);
   }
 
   // Rule 3: byte-identical bodies under different names (#562). Only skills
@@ -348,7 +350,7 @@ export function formatAuditReport(report: AuditReport): string {
       lines.push(ansi.yellow("     ⚠ diverged copies"));
       lines.push(
         ansi.dim(
-          "     auto-remove keeps every copy here unless you pass --force",
+          "     auto-remove skips copies that differ unless you pass --force",
         ),
       );
     }
