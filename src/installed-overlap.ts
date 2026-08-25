@@ -189,15 +189,11 @@ export function computeInstalledOverlapScore(
  * can judge the overlap instead of trusting a bare number.
  */
 function overlapReason(
-  aName: string,
-  aDescription: string,
-  bName: string,
-  bDescription: string,
+  tokensA: Set<string>,
+  tokensB: Set<string>,
   weights: Map<string, number>,
   score: number,
 ): string {
-  const tokensA = descriptionTokens(aDescription);
-  const tokensB = descriptionTokens(bDescription);
   const shared = [...tokensA]
     .filter((t) => tokensB.has(t))
     .sort(
@@ -276,33 +272,28 @@ export function detectSemanticOverlaps(
 ): InstalledOverlapReport {
   const compared = dedupeForComparison(skills);
 
-  // Corpus statistics come from descriptions — the one text every skill has.
-  const weights = buildIdfWeights(compared.map((s) => descriptionTokens(s.description)));
+  // Tokenize once per skill; the pairwise loop reuses these sets. Corpus
+  // statistics come from descriptions — the one text every skill has.
+  const descSets = compared.map((s) => descriptionTokens(s.description));
+  const nameSets = compared.map((s) => nameTokens(s.name));
+  const weights = buildIdfWeights(descSets);
 
   const pairs: InstalledOverlapPair[] = [];
   for (let i = 0; i < compared.length; i++) {
     for (let j = i + 1; j < compared.length; j++) {
-      const a = compared[i];
-      const b = compared[j];
-      if (isSameIdentity(a, b)) continue;
-      const score = computeInstalledOverlapScore(
-        a.name,
-        a.description,
-        b.name,
-        b.description,
-        weights,
-      );
+      if (isSameIdentity(compared[i], compared[j])) continue;
+      const score =
+        0.6 * weightedOverlapCoefficient(descSets[i], descSets[j], weights) +
+        0.4 * weightedOverlapCoefficient(nameSets[i], nameSets[j], weights);
       if (score >= threshold) {
         pairs.push({
-          a: toSide(a),
-          b: toSide(b),
+          a: toSide(compared[i]),
+          b: toSide(compared[j]),
           score,
           highConfidence: score >= HIGH_CONFIDENCE_OVERLAP_THRESHOLD,
           reason: overlapReason(
-            a.name,
-            a.description,
-            b.name,
-            b.description,
+            descSets[i],
+            descSets[j],
             weights,
             score,
           ),

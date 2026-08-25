@@ -82,6 +82,7 @@ Each view is an ink/React component:
 | Config              | `config.ts`                          | Load/save config from `~/.config/agent-skill-manager/config.json`                 |
 | Scanner             | `scanner.ts`                         | Walk provider directories, parse SKILL.md frontmatter, filter & sort              |
 | Auditor             | `auditor.ts`                         | Detect duplicate skills, rank instances for keeping, format reports               |
+| Overlap Detector    | `installed-overlap.ts`               | `asm audit overlap` — different-name skills doing the same job (offline)          |
 | Uninstaller         | `uninstaller.ts`                     | Build removal plans and execute safe deletions                                    |
 | Formatter           | `formatter.ts`                       | ASCII table, detail view, and JSON output formatting                              |
 | Eval                | `eval/`                              | Pluggable skill evaluation framework (see below)                                  |
