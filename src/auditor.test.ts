@@ -1081,17 +1081,23 @@ describe("detectDuplicates content classification (#562)", () => {
   });
 
   it("shows the classification and force hint in the formatted report", () => {
-    let output = formatAuditReport(detectDuplicates(sameDirTwoLocations(BODY_A, BODY_A)));
+    let output = formatAuditReport(
+      detectDuplicates(sameDirTwoLocations(BODY_A, BODY_A)),
+    );
     expect(output).toContain("identical copies");
 
-    output = formatAuditReport(detectDuplicates(sameDirTwoLocations(BODY_A, BODY_B)));
+    output = formatAuditReport(
+      detectDuplicates(sameDirTwoLocations(BODY_A, BODY_B)),
+    );
     expect(output).toContain("diverged copies");
     expect(output).toContain("--force");
   });
 
   it("carries contentClass through the JSON output", () => {
     const parsed = JSON.parse(
-      formatAuditReportJSON(detectDuplicates(sameDirTwoLocations(BODY_A, BODY_B))),
+      formatAuditReportJSON(
+        detectDuplicates(sameDirTwoLocations(BODY_A, BODY_B)),
+      ),
     );
     expect(parsed.duplicateGroups[0].contentClass).toBe("diverged");
   });

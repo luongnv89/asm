@@ -181,7 +181,9 @@ export async function cmdAudit(args: ParsedArgs) {
       );
     }
     console.error(
-      ansi.green(`\nDone. Removed ${removed} duplicate cop${removed === 1 ? "y" : "ies"}.`),
+      ansi.green(
+        `\nDone. Removed ${removed} duplicate cop${removed === 1 ? "y" : "ies"}.`,
+      ),
     );
   }
 }

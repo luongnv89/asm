@@ -1220,7 +1220,9 @@ describe("CLI integration: audit duplicate content + guarded auto-remove (#562/#
     expect(stderr).toContain("Removed 1 duplicate copy");
     // The project copy was redundant: gone or repointed at the kept global
     // install; the global real directory survives.
-    expect(await isRealDir(join(projectSkillsDir(), "code-review"))).toBe(false);
+    expect(await isRealDir(join(projectSkillsDir(), "code-review"))).toBe(
+      false,
+    );
     expect(await isRealDir(join(globalSkillsDir(), "code-review"))).toBe(true);
   });
 
@@ -1243,7 +1245,9 @@ describe("CLI integration: audit duplicate content + guarded auto-remove (#562/#
     const { stderr, exitCode } = await runAudit("audit", "-y", "--force");
     expect(exitCode).toBe(0);
     expect(stderr).not.toContain("Skipping");
-    expect(await isRealDir(join(projectSkillsDir(), "code-review"))).toBe(false);
+    expect(await isRealDir(join(projectSkillsDir(), "code-review"))).toBe(
+      false,
+    );
     expect(await isRealDir(join(globalSkillsDir(), "code-review"))).toBe(true);
   });
 
