@@ -436,6 +436,19 @@ export interface DuplicateGroup {
   key: string;
   reason: "same-dirName" | "same-frontmatterName";
   instances: SkillInfo[];
+  /**
+   * True when the group's instances carry two or more distinct non-empty
+   * `version` strings — likely a shadowed upgrade rather than identical
+   * copies (issue #567). Absent/false when all versions match.
+   */
+  versionDivergence?: boolean;
+  /**
+   * The original dirName / frontmatter-name spellings found among the
+   * group's instances, when normalization (#564) folded case or separator
+   * variants into one group. Absent when every instance spells its name
+   * identically.
+   */
+  variants?: string[];
 }
 
 export interface AuditReport {

@@ -3,6 +3,60 @@ import type { SkillInfo, DuplicateGroup, AuditReport } from "./utils/types";
 
 // ─── Detection ─────────────────────────────────────────────────────────────
 
+/**
+ * Normalizes a grouping key so skills differing only by case or by
+ * separator characters (`_`, whitespace vs `-`) group as duplicates
+ * (issue #564). Dots and digits are never folded — `skill.v2` and
+ * `skill-v2` stay distinct.
+ */
+export function normalizeSkillKey(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[_\s]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/**
+ * Compares dotted version strings segment-wise; numeric segments compare
+ * numerically, a missing segment sorts below a present one, and
+ * non-numeric segments fall back to lexical order. Returns <0, 0, or >0.
+ */
+export function compareVersions(a: string, b: string): number {
+  const pa = a.split(".");
+  const pb = b.split(".");
+  const n = Math.max(pa.length, pb.length);
+  for (let i = 0; i < n; i++) {
+    const sa = pa[i] ?? "";
+    const sb = pb[i] ?? "";
+    if (sa === sb) continue;
+    if (sa === "") return -1;
+    if (sb === "") return 1;
+    const na = /^\d+$/.test(sa) ? Number.parseInt(sa, 10) : null;
+    const nb = /^\d+$/.test(sb) ? Number.parseInt(sb, 10) : null;
+    if (na !== null && nb !== null && na !== nb) return na - nb;
+    if (na === null || nb === null) {
+      const cmp = sa.localeCompare(sb);
+      if (cmp !== 0) return cmp;
+    }
+  }
+  return 0;
+}
+
+/** Distinct non-empty versions among instances, ascending (issue #567). */
+export function distinctVersions(instances: SkillInfo[]): string[] {
+  const versions = new Set<string>();
+  for (const s of instances) {
+    const v = (s.version ?? "").trim();
+    if (v) versions.add(v);
+  }
+  return [...versions].sort(compareVersions);
+}
+
+function groupVersionDivergence(instances: SkillInfo[]): boolean {
+  return distinctVersions(instances).length >= 2;
+}
+
 export function detectDuplicates(skills: SkillInfo[]): AuditReport {
   const groups: DuplicateGroup[] = [];
   const coveredPaths = new Set<string>();
@@ -34,32 +88,60 @@ export function detectDuplicates(skills: SkillInfo[]): AuditReport {
     }
   }
 
-  // Rule 1: same dirName across different locations
-  const byDirName = new Map<string, SkillInfo[]>();
+  // Rule 1: same dirName across different locations. Grouping keys are
+  // normalized (#564) so `Code-Review`, `code_review` and `code review`
+  // land in one bucket; the first-seen spelling becomes the display key.
+  const byDirName = new Map<
+    string,
+    { key: string; variants: Set<string>; members: SkillInfo[] }
+  >();
   for (const s of deduped) {
-    const bucket = byDirName.get(s.dirName) ?? [];
-    bucket.push(s);
-    byDirName.set(s.dirName, bucket);
+    const norm = normalizeSkillKey(s.dirName);
+    const entry = byDirName.get(norm) ?? {
+      key: s.dirName,
+      variants: new Set<string>(),
+      members: [],
+    };
+    entry.variants.add(s.dirName);
+    entry.members.push(s);
+    byDirName.set(norm, entry);
   }
 
-  for (const [dirName, members] of byDirName) {
-    const uniqueLocations = new Set(members.map((m) => m.location));
+  for (const entry of byDirName.values()) {
+    const uniqueLocations = new Set(entry.members.map((m) => m.location));
     if (uniqueLocations.size >= 2) {
-      groups.push({ key: dirName, reason: "same-dirName", instances: members });
-      for (const m of members) coveredPaths.add(m.path);
+      groups.push({
+        key: entry.key,
+        reason: "same-dirName",
+        instances: entry.members,
+        versionDivergence: groupVersionDivergence(entry.members),
+        ...(entry.variants.size > 1 ? { variants: [...entry.variants] } : {}),
+      });
+      for (const m of entry.members) coveredPaths.add(m.path);
     }
   }
 
-  // Rule 2: same frontmatter name but different dirName
-  const byName = new Map<string, SkillInfo[]>();
+  // Rule 2: same frontmatter name but different dirName (names normalized
+  // per #564; the dirName-distinctness guard stays on raw spellings).
+  const byName = new Map<
+    string,
+    { key: string; variants: Set<string>; members: SkillInfo[] }
+  >();
   for (const s of deduped) {
     if (!s.name) continue;
-    const bucket = byName.get(s.name) ?? [];
-    bucket.push(s);
-    byName.set(s.name, bucket);
+    const norm = normalizeSkillKey(s.name);
+    const entry = byName.get(norm) ?? {
+      key: s.name,
+      variants: new Set<string>(),
+      members: [],
+    };
+    entry.variants.add(s.name);
+    entry.members.push(s);
+    byName.set(norm, entry);
   }
 
-  for (const [name, members] of byName) {
+  for (const entry of byName.values()) {
+    const members = entry.members;
     const uniqueDirNames = new Set(members.map((m) => m.dirName));
     if (uniqueDirNames.size < 2) continue;
 
@@ -71,19 +153,28 @@ export function detectDuplicates(skills: SkillInfo[]): AuditReport {
     const uncoveredDirNames = new Set(uncovered.map((m) => m.dirName));
     if (uncoveredDirNames.size < 2) continue;
 
+    const uncoveredVariants = new Set(uncovered.map((m) => m.name));
     groups.push({
-      key: name,
+      key: entry.key,
       reason: "same-frontmatterName",
       instances: uncovered,
+      versionDivergence: groupVersionDivergence(uncovered),
+      ...(uncoveredVariants.size > 1
+        ? { variants: [...uncoveredVariants] }
+        : {}),
     });
   }
 
-  // Sort: same-dirName groups first, then same-frontmatterName; within each, by key
+  // Sort: same-dirName groups first, then same-frontmatterName; within each,
+  // by normalized key so case/separator variants order deterministically.
   groups.sort((a, b) => {
     if (a.reason !== b.reason) {
       return a.reason === "same-dirName" ? -1 : 1;
     }
-    return a.key.localeCompare(b.key);
+    return (
+      normalizeSkillKey(a.key).localeCompare(normalizeSkillKey(b.key)) ||
+      a.key.localeCompare(b.key)
+    );
   });
 
   const totalDuplicateInstances = groups.reduce(
@@ -139,14 +230,30 @@ export function formatAuditReport(report: AuditReport): string {
     lines.push(
       `  ${ansi.yellow(`"${group.key}"`)} ${ansi.dim(`(${reasonLabel(group.reason)})`)}`,
     );
+    if (group.variants && group.variants.length > 1) {
+      const spellings = group.variants.map((v) => `"${v}"`).join(", ");
+      lines.push(ansi.dim(`     variants: ${spellings}`));
+    }
+    if (group.versionDivergence) {
+      const newestFirst = distinctVersions(group.instances)
+        .slice()
+        .reverse();
+      lines.push(
+        ansi.red(
+          `     ⚠ versions differ: ${newestFirst.map((v) => `v${v}`).join(", ")} — possible upgrade/shadow, not identical copies`,
+        ),
+      );
+    }
     const sorted = sortInstancesForKeep(group.instances);
     for (let i = 0; i < sorted.length; i++) {
       const s = sorted[i];
       const provider = colorProvider(s.provider, s.providerLabel);
       const keepTag = i === 0 ? ansi.green(" [keep]") : ansi.dim("       ");
       const scope = ansi.dim(`(${s.scope})`);
+      const version = (s.version ?? "").trim();
+      const versionTag = version ? ansi.dim(` (v${version})`) : "";
       lines.push(
-        `   ${keepTag} ${provider} ${scope}  ${ansi.dim(shortenPath(s.path))}`,
+        `   ${keepTag} ${provider} ${scope}${versionTag}  ${ansi.dim(shortenPath(s.path))}`,
       );
     }
     lines.push("");
