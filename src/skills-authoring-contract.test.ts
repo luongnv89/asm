@@ -248,6 +248,13 @@ describe("per-step context delegation (#574)", () => {
     // the system temp root.
     expect(discoveryContract).toContain('"tempRoot"');
     expect(indexUpdaterSkill).toContain('rm -rf "<tempRoot>"');
+    // Regression guard for the bug this restructure fixed: the orchestrator no
+    // longer owns the shell that made the clone, so Cleanup must not go back to
+    // removing its own `$TEMP_DIR`, nor derive the target from `clonePath`.
+    // Matched as the whole `rm -rf` line — the bare `$TEMP_DIR` literal still
+    // appears in the Step 2 and Cleanup prose that explains its absence.
+    expect(indexUpdaterSkill).not.toContain('rm -rf "$TEMP_DIR"');
+    expect(indexUpdaterSkill).not.toMatch(/rm -rf "\$\(dirname/);
     // relPath is pinned to clonePath and to the skill directory, not the
     // SKILL.md file — the index entry and installUrl carry it verbatim.
     expect(discoveryContract).toMatch(
