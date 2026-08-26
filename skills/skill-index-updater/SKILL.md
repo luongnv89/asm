@@ -208,7 +208,7 @@ If `npm run preindex` fails or takes too long, generate the index file manually 
 
 The `installUrl` format matters — it's how `asm install` locates skills. For single-skill repos (SKILL.md at root), omit the path portion. For multi-skill repos, include the relative path to the skill directory.
 
-If you fall back to manual generation, you can populate `tokenCount` and `evalSummary` by calling `asm eval <path> --json` on each skill directory and lifting the `overallScore`, `grade`, `categories`, `evaluatedAt` fields into the skill entry. When `preindex` succeeds, the ingester handles this for you automatically.
+If you fall back to manual generation, you can populate `tokenCount` and `evalSummary` by calling `asm eval <clonePath>/<relPath> --json` on each skill directory — both values come from that repo's Step 2 worker result, and a root-level skill has an empty `relPath`, so its path is just `clonePath` — and lifting the `overallScore`, `grade`, `categories`, `evaluatedAt` fields into the skill entry. When `preindex` succeeds, the ingester handles this for you automatically.
 
 ### Step 8: Rebuild Website Catalog
 

@@ -36,6 +36,10 @@ git clone --depth 1 "https://github.com/<owner>/<repo>.git" "$TEMP_DIR/<repo>"
 find "$TEMP_DIR/<repo>" -maxdepth 5 -name "SKILL.md" -type f
 ```
 
+Each hit is the `SKILL.md` **file**; the skill is its **parent directory**.
+Record that directory, relative to the clone root, as the skill's `relPath` —
+the Output section below pins that value.
+
 3. Parse each file's YAML frontmatter and extract `name` (required),
    `description` (required), `version` (defaults to `"0.0.0"`), `license`,
    `creator`, `compatibility`, and `allowed-tools` / `allowedTools`.
@@ -81,6 +85,16 @@ the paths reach the rest of the pipeline:
   directory; it never derives a path from `clonePath`, because a derived `rm -rf`
   target is one layout change away from the system temp root.
 - `clonePath` is where the Step 3 worker runs `asm eval`.
+
+`relPath` is pinned just as tightly. It is the skill's **directory** — the parent
+of the discovered `SKILL.md`, never the file itself — expressed **relative to
+`clonePath`**, which is the repo root. A root-level `SKILL.md` gives `""`. That
+one value is what the index entry's `relPath` field stores verbatim, what
+`installUrl` appends as `github:{owner}/{repo}:{relPath}` (a root skill omits the
+`:` and the path entirely), and what Step 3 joins with `clonePath` to reach the
+skill on disk. Base it anywhere else — at `tempRoot`, or with the clone directory
+name still prefixed — and `data/skill-index/{owner}_{repo}.json` ships a broken
+`installUrl` that fails `asm install` for every skill in the repo.
 
 ## Constraints
 

@@ -230,7 +230,13 @@ describe("per-step context delegation (#574)", () => {
     expect(indexUpdaterSkill).toMatch(
       /You do NOT read `references\/discovery-contract\.md` yourself/,
     );
-    expect(indexUpdaterSkill).toMatch(/allowed-tools:.*\bAgent\b/);
+    // Step 7's manual-generation fallback is the one place the orchestrator may
+    // run `asm eval` itself. With discovery delegated there is no $TEMP_DIR in
+    // its shell, so the path has to be sourced from the Step 2 worker result.
+    expect(indexUpdaterSkill).toContain(
+      "asm eval <clonePath>/<relPath> --json",
+    );
+    expect(indexUpdaterSkill).toMatch(/Step 2 worker result/);
   });
 
   it("skill-index-updater chains the clone path through the worker contracts", () => {
@@ -242,6 +248,12 @@ describe("per-step context delegation (#574)", () => {
     // the system temp root.
     expect(discoveryContract).toContain('"tempRoot"');
     expect(indexUpdaterSkill).toContain('rm -rf "<tempRoot>"');
+    // relPath is pinned to clonePath and to the skill directory, not the
+    // SKILL.md file — the index entry and installUrl carry it verbatim.
+    expect(discoveryContract).toMatch(
+      /the parent\s+of the discovered `SKILL\.md`/,
+    );
+    expect(discoveryContract).toMatch(/relative to\s+`clonePath`/);
     expect(auditContract).toContain("`clonePath`");
     expect(auditContract).toMatch(/Do not re-clone/i);
     expect(indexUpdaterSkill).toMatch(

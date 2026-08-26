@@ -52,18 +52,20 @@ the conversion report names it and says which test it failed. That is the same
 1. **List what the step touches** — reference files, agent prompts, templates, and
    any procedure still inlined in SKILL.md.
 2. **Move the inlined procedure out** to `references/<topic>.md`, one level deep,
-   kebab-case, and leave a one-line pointer in the step. A step whose procedure sits
-   in SKILL.md has no slice to hand over: the main agent already paid for it.
+   kebab-case, and leave a one-line pointer in the step. Nothing is delegable while
+   its procedure stays in SKILL.md — the main agent has loaded that text before it
+   can dispatch anything, so the handoff buys back no context at all.
 3. **Write the slice as the worker's `Input`** — the existing Role/Context/Task/
    Input/Output/Constraints contract, not a new notation. The `Input` names the
    files by path plus the runtime values the worker cannot derive.
 4. **Pin the `Output`** to a fixed shape (JSON where the main agent merges results),
    so the merge step stays dumb and never re-reads the slice to interpret prose.
 5. **Chain the slices.** Where step N+1 needs something step N produced — a temp
-   clone path, a workspace directory — step N's `Output` must carry it. A step whose
-   `Input` relies on a shell variable set inside an earlier step's inline bash breaks
-   the moment that step becomes a worker: the variable lives in a shell the main
-   agent no longer owns. Check every extracted step for this before you finish.
+   clone path, a workspace directory — step N's `Output` must carry it. An `Input`
+   that resolves through a shell variable an earlier step set in inline bash stops
+   resolving the instant that step is delegated: the worker's shell exits taking the
+   value with it, and no field the main agent can read replaces it. Check every
+   extracted step for this before you finish.
 
 ## The restructure recipe
 
@@ -90,6 +92,11 @@ regress `context-efficiency` or a Gate 1 check before the extraction lands, and 
 loop would revert the conversion halfway through. Mode 2 therefore runs as a single
 deliberate pass, with its gates checked once at the end:
 
+- **Take the baseline first.** Mode 2 is selected _before_ Phase 0, so no earlier run
+  has captured one. Before the first edit, run `python "$QV" "$SKILL_PATH"`,
+  `asm eval "$SKILL_PATH" --json`, and a SKILL.md body line count, and record all
+  three as the conversion report's **Before** column. That same run is how
+  precondition #1 (_clears Gate 1 already_) is verified.
 - Re-run `python "$QV" "$SKILL_PATH"` and `asm eval "$SKILL_PATH" --json`.
 - **Both gates must be no worse than before the conversion.** If either regressed and
   a targeted fix does not recover it, **revert the conversion** and report the
