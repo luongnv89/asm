@@ -20,6 +20,27 @@ const improverChecklist = readRepoFile(
 const improverReport = readRepoFile(
   "skills/skill-auto-improver/references/report-template.md",
 );
+const creatorPatterns = readRepoFile(
+  "skills/skill-creator/references/subagent-patterns.md",
+);
+const creatorRubric = readRepoFile(
+  "skills/skill-creator/references/predictability-rubric.md",
+);
+const improverAudit = readRepoFile(
+  "skills/skill-auto-improver/references/predictability-audit.md",
+);
+const improverConversion = readRepoFile(
+  "skills/skill-auto-improver/references/delegation-conversion.md",
+);
+// Not an authoring skill: kept out of `authoringSkills` so the 500-line and
+// run-stats assertions below do not bind it.
+const indexUpdaterSkill = readRepoFile("skills/skill-index-updater/SKILL.md");
+const discoveryContract = readRepoFile(
+  "skills/skill-index-updater/references/discovery-contract.md",
+);
+const auditContract = readRepoFile(
+  "skills/skill-index-updater/references/audit-eval-contract.md",
+);
 
 const authoringSkills: Array<[string, string]> = [
   ["skill-creator", creatorSkill],
@@ -129,6 +150,105 @@ describe("run stats block (#572)", () => {
     );
     expect(block).toMatch(/every\*\* terminal outcome/);
     expect(block).toContain("BLOCKER");
+  });
+});
+
+describe("per-step context delegation (#574)", () => {
+  it("skill-creator documents the pattern and binds the slice to the Input field", () => {
+    expect(creatorPatterns).toContain("## Per-Step Context Delegation");
+    expect(creatorPatterns).toContain("the slice _is_ the Input");
+    expect(creatorPatterns).toContain("#writing-subagent-prompts");
+    expect(creatorSkill).toContain("Per-Step Context Delegation");
+  });
+
+  it("the predictability rubric carries the delegability sub-check under item 4", () => {
+    expect(creatorRubric).toContain("**Delegability (sub-check).**");
+    expect(creatorRubric).toContain("**Pass bar for the sub-check:**");
+    const item4 = creatorRubric.slice(
+      creatorRubric.indexOf("## 4. "),
+      creatorRubric.indexOf("## 5. "),
+    );
+    expect(item4).toContain("**Delegability (sub-check).**");
+  });
+
+  it("the rubric still has exactly 7 items", () => {
+    expect(creatorRubric.match(/^## \d+\. /gm)).toHaveLength(7);
+  });
+
+  it("the audit row demands a reason and routes remediation to Mode 2", () => {
+    expect(improverAudit).toContain("**Delegability sub-check:**");
+    expect(improverAudit).toContain("step N is not delegable because");
+    expect(improverAudit).toContain(
+      "**A delegability finding routes to Mode 2, never a Mode 1 edit.**",
+    );
+  });
+
+  it("the audit checklist table still has exactly 7 rows", () => {
+    expect(improverAudit.match(/^\| \d+ +\|/gm)).toHaveLength(7);
+  });
+
+  it("skill-auto-improver offers Mode 2 as an opt-in selector, not a gate", () => {
+    expect(improverSkill).toContain("## Two modes");
+    expect(improverSkill).toContain("**Mode 1 — retrofit (default).**");
+    expect(improverSkill).toContain(
+      "**Mode 2 — delegation conversion (opt-in).**",
+    );
+    expect(improverSkill).toContain("references/delegation-conversion.md");
+    // The selector must precede Phase 0, whose early exit would otherwise
+    // swallow a gate-passing Mode 2 candidate.
+    expect(improverSkill.indexOf("## Two modes")).toBeLessThan(
+      improverSkill.indexOf("### Phase 0"),
+    );
+  });
+
+  it("the conversion reference bumps the target MAJOR and says when to skip it", () => {
+    expect(improverConversion).toContain("## Version bump");
+    expect(improverConversion).toMatch(/\*\*MAJOR\*\* bump on the target/);
+    expect(improverConversion).toContain(
+      "## When conversion does not pay for itself",
+    );
+    expect(improverConversion).toMatch(/user has confirmed the restructure/i);
+    expect(improverConversion).toMatch(/outside the Phase 6 loop/i);
+  });
+
+  it.each([
+    ["skill-creator", creatorPatterns],
+    ["skill-auto-improver", improverConversion],
+  ])("%s says when the pattern is not worth applying", (_name, doc) => {
+    expect(doc).toMatch(/single decision/);
+    expect(doc).toMatch(/mid-step|mid-way/);
+    expect(doc).toMatch(/costs more than (it|the slice) saves/);
+  });
+
+  it("skill-index-updater delegates its heavy steps with a named slice each", () => {
+    expect(indexUpdaterSkill).toContain(
+      "Input: `references/discovery-contract.md`",
+    );
+    expect(indexUpdaterSkill).toContain(
+      "Input: `references/audit-eval-contract.md`",
+    );
+    expect(indexUpdaterSkill).toMatch(
+      /You do NOT read `references\/discovery-contract\.md` yourself/,
+    );
+    expect(indexUpdaterSkill).toMatch(/allowed-tools:.*\bAgent\b/);
+  });
+
+  it("skill-index-updater chains the clone path through the worker contracts", () => {
+    // The Step 2 clone used to live in a $TEMP_DIR the main agent owned; with
+    // discovery delegated, clonePath must travel in the worker's Output.
+    expect(discoveryContract).toContain('"clonePath"');
+    expect(auditContract).toContain("`clonePath`");
+    expect(auditContract).toMatch(/Do not re-clone/i);
+    expect(indexUpdaterSkill).toMatch(
+      /## Cleanup[\s\S]*`clonePath` each worker returned/,
+    );
+  });
+
+  it("skill-index-updater degrades gracefully without the Agent tool", () => {
+    expect(indexUpdaterSkill).toContain(
+      "**No Agent tool?** Degrade gracefully",
+    );
+    expect(indexUpdaterSkill).toMatch(/run Steps 2 and 3 inline, in order/);
   });
 });
 
