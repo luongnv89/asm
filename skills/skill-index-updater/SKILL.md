@@ -53,7 +53,7 @@ Normalize all inputs to extract `owner` and `repo`.
 
 Follow these steps in order. Each step has a verification check — do not proceed to the next step if verification fails.
 
-You are the **orchestrator**. Steps 2 and 3 are the heavy ones, and you delegate both: each names the slice of `references/` its worker needs and hands that slice over as the worker's `Input`. You never clone a repo, read a `SKILL.md`, or run `asm eval` yourself, and you never open the two contract files — the workers do.
+You are the **orchestrator**. Steps 2 and 3 are the heavy ones, and you delegate both: each names the slice of `references/` its worker needs and hands that slice over as the worker's `Input`. In those two steps you never clone a repo, read a `SKILL.md`, or run `asm eval` yourself, and you never open the two contract files — the workers do. (Step 7's manual-generation fallback is the one place you may call `asm eval` directly.)
 
 **No Agent tool?** Degrade gracefully: read `references/discovery-contract.md` and `references/audit-eval-contract.md` yourself, run Steps 2 and 3 inline, in order, and say so in the Step 9 summary. The pipeline is identical; only the context cost changes.
 
@@ -82,10 +82,10 @@ If ALL repos are invalid, stop and tell the user.
 Spawn one discovery worker per valid repo, **in the same turn** so they run concurrently. Each worker's contract:
 
 - Input: `references/discovery-contract.md`, plus that repo's `owner` and `repo`
-- Output: the fixed JSON in that contract — `{owner, repo, clonePath, status, error, skills[]}`, one object per repo
+- Output: the fixed JSON in that contract — `{owner, repo, tempRoot, clonePath, status, error, skills[]}`, one object per repo
 - You do NOT read `references/discovery-contract.md` yourself; the worker does
 
-Keep every worker's `clonePath`: Step 3 runs against those clones and Cleanup deletes them. There is no shared `$TEMP_DIR` in your shell — the clones were made in the workers'.
+Keep every worker's `tempRoot` and `clonePath`: Step 3 runs against the clone, Cleanup deletes the `tempRoot`. There is no shared `$TEMP_DIR` in your shell — the clones were made in the workers'.
 
 Report how many skills were found per repo. A repo that comes back `status: "no-skills"` gets flagged — ask the user whether to include it anyway (it might have skills added later). A repo that comes back `status: "clone-failed"` is skipped with its `error` reported; the other repos continue.
 
@@ -314,14 +314,14 @@ Each row names a condition, the step that owns it, and the required response. Wh
 
 ## Cleanup
 
-After completion, delete every clone the Step 2 workers made. Use the `clonePath` each worker returned — the clones live in the workers' temp directories, so there is no `$TEMP_DIR` in your shell to remove:
+After completion, delete every temp directory the Step 2 workers made. Use the `tempRoot` each worker returned verbatim — the clones live in the workers' temp directories, so there is no `$TEMP_DIR` in your shell to remove, and never derive the target from `clonePath`:
 
 ```bash
-# one per repo, from that repo's Step 2 clonePath
-rm -rf "$(dirname "<clonePath>")"
+# one per repo, the tempRoot from that repo's Step 2 result
+rm -rf "<tempRoot>"
 ```
 
 ## References
 
-- `references/discovery-contract.md` — the Step 2 worker's slice: clone, discover, and report every SKILL.md as fixed JSON
+- `references/discovery-contract.md` — the Step 2 worker's slice: clone, discover, and report every SKILL.md as fixed JSON (including the `tempRoot` Cleanup deletes)
 - `references/audit-eval-contract.md` — the Step 3 worker's slice: lightweight audit + `asm eval`, returned as fixed JSON rows

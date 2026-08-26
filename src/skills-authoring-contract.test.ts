@@ -237,10 +237,15 @@ describe("per-step context delegation (#574)", () => {
     // The Step 2 clone used to live in a $TEMP_DIR the main agent owned; with
     // discovery delegated, clonePath must travel in the worker's Output.
     expect(discoveryContract).toContain('"clonePath"');
+    // Cleanup deletes tempRoot verbatim rather than deriving it from
+    // clonePath — a derived `rm -rf` target is one layout change away from
+    // the system temp root.
+    expect(discoveryContract).toContain('"tempRoot"');
+    expect(indexUpdaterSkill).toContain('rm -rf "<tempRoot>"');
     expect(auditContract).toContain("`clonePath`");
     expect(auditContract).toMatch(/Do not re-clone/i);
     expect(indexUpdaterSkill).toMatch(
-      /## Cleanup[\s\S]*`clonePath` each worker returned/,
+      /## Cleanup[\s\S]*`tempRoot` each worker returned verbatim/,
     );
   });
 

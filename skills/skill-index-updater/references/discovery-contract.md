@@ -54,6 +54,7 @@ Return exactly this JSON, and nothing else — no prose, no summary:
 {
   "owner": "...",
   "repo": "...",
+  "tempRoot": "/abs/path/to/temp",
   "clonePath": "/abs/path/to/temp/<repo>",
   "status": "ok | clone-failed | no-skills",
   "error": "message when status is clone-failed, otherwise empty",
@@ -72,10 +73,14 @@ Return exactly this JSON, and nothing else — no prose, no summary:
 }
 ```
 
-`clonePath` is load-bearing: the Step 3 worker runs `asm eval` against it and the
-Cleanup step deletes it. The main agent's shell has no `$TEMP_DIR` — this field is
-the only way the path reaches the rest of the pipeline, so it is always absolute
-and always present, even on a failure.
+Both paths are load-bearing, and both are absolute and always present — even on a
+failure. The main agent's shell has no `$TEMP_DIR`, so these fields are the only way
+the paths reach the rest of the pipeline:
+
+- `tempRoot` is your `mktemp -d` value verbatim. Cleanup deletes exactly this
+  directory; it never derives a path from `clonePath`, because a derived `rm -rf`
+  target is one layout change away from the system temp root.
+- `clonePath` is where the Step 3 worker runs `asm eval`.
 
 ## Constraints
 
