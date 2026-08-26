@@ -22,6 +22,28 @@ The target must clear **two hard gates**, then gets one **advisory** audit:
 
 A skill that scores 92 but fails `quick_validate.py` is not done; one that passes `quick_validate.py` but scores 70 is not done. **Both gates must clear, or the loop reports a blocker** — open predictability findings alone never make one.
 
+## Dependency Preflight (mandatory)
+
+This skill invokes `skill-creator`: it runs that skill's `quick_validate.py` (required — the Gate 1 validator) and reads its `predictability-rubric.md` (fail-soft — Phase 2b). Resolve both once and reuse them **before the repo sync below**, which is the first step that changes anything. The rubric is **fail-soft** — a locally-installed skill-creator may predate the repo and not ship it; a missing file only degrades Phase 2b to a warning and never aborts the run:
+
+```bash
+RUN_STARTED_EPOCH="$(date +%s)"   # anchors the Run stats block below
+QV="$HOME/.claude/skills/skill-creator/scripts/quick_validate.py"
+test -f "$QV" || {
+  echo "Missing required skill: skill-creator" >&2
+  echo "Install it:      asm install skill-creator -p claude --yes" >&2
+  echo "No asm yet:      npm install -g agent-skill-manager" >&2
+  echo "Verify:          asm list -p claude --json | grep 'skill-creator'" >&2
+  exit 1
+}
+RUBRIC="$HOME/.claude/skills/skill-creator/references/predictability-rubric.md"
+test -f "$RUBRIC" || echo "⚠ predictability rubric missing — Phase 2b degraded (gates unaffected)"
+```
+
+`-p claude` is required, not decoration: `asm install` refuses to guess a provider in a non-interactive shell and `--yes` does not cover that choice, so a gate that omits it hands the user a command that errors instead of installing. The verification names the same provider the detection path belongs to, so an install landing under a different tool cannot report success while `$QV` is still missing.
+
+On a miss, stop before the first mutation and print the three commands above — do not continue with a partial run. This is the same gate this skill audits every target for (`references/skill-creator-checklist.md` → _Dependency preflight_).
+
 ## Repo Sync Before Edits (mandatory)
 
 This skill mutates files in a git repo. Before any edit, sync the local branch with the remote:
@@ -50,30 +72,10 @@ Reach for this on an **existing, external, legacy, manually-authored, or drifted
 Verify all of the following before touching any files. Stop and tell the user if any fails.
 
 - `asm` is available on PATH (`command -v asm` or `which asm`)
-- Python 3 is available, and `~/.claude/skills/skill-creator/scripts/quick_validate.py` exists (skill-creator must be installed locally)
+- Python 3 is available; skill-creator's `quick_validate.py` is resolved by _Dependency Preflight (mandatory)_ above, which is the only place that handles a miss
 - The target skill path contains a `SKILL.md` file
 - The working tree has no unrelated uncommitted edits (dirty files get mixed into diffs)
 - You have write access to the skill directory
-
-## Dependency Preflight (mandatory)
-
-This skill invokes `skill-creator`: it runs that skill's `quick_validate.py` (required — the Gate 1 validator) and reads its `predictability-rubric.md` (fail-soft — Phase 2b). Resolve both once and reuse them, **before** Phase 0, the first step that changes anything. The rubric is **fail-soft** — a locally-installed skill-creator may predate the repo and not ship it; a missing file only degrades Phase 2b to a warning and never aborts the run:
-
-```bash
-RUN_STARTED_EPOCH="$(date +%s)"   # anchors the Run stats block below
-QV="$HOME/.claude/skills/skill-creator/scripts/quick_validate.py"
-test -f "$QV" || {
-  echo "Missing required skill: skill-creator" >&2
-  echo "Install it:      asm install skill-creator --yes" >&2
-  echo "No asm yet:      npm install -g agent-skill-manager" >&2
-  echo "Verify:          asm list --json | grep 'skill-creator'" >&2
-  exit 1
-}
-RUBRIC="$HOME/.claude/skills/skill-creator/references/predictability-rubric.md"
-test -f "$RUBRIC" || echo "⚠ predictability rubric missing — Phase 2b degraded (gates unaffected)"
-```
-
-On a miss, stop before the first mutation and print the three commands above — do not continue with a partial run. This is the same gate this skill audits every target for (`references/skill-creator-checklist.md` → _Dependency preflight_).
 
 ## Inputs
 

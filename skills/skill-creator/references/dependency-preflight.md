@@ -34,7 +34,7 @@ work out the fix is worse than no gate — it stops the run and explains nothing
 | Element                 | Requirement                                                                     |
 | ----------------------- | ------------------------------------------------------------------------------- |
 | **Name**                | The missing skill, named exactly as it is installed                             |
-| **Install command**     | The command that installs that skill                                            |
+| **Install command**     | The command that installs that skill, complete enough to run unattended         |
 | **Installer bootstrap** | The command that installs the installer itself, for a user who does not have it |
 | **Verification**        | A command the user runs to confirm the install landed                           |
 
@@ -54,11 +54,11 @@ This skill invokes `<skill-name>`. Verify it is installed **before** the first
 step that changes anything:
 
 ```bash
-asm list --json | grep -q '"<skill-name>"' || {
+asm list -p <tool> --json | grep -q '"<skill-name>"' || {
   echo "Missing required skill: <skill-name>" >&2
-  echo "Install it:      asm install <skill-name> --yes" >&2
+  echo "Install it:      asm install <skill-name> -p <tool> --yes" >&2
   echo "No asm yet:      npm install -g agent-skill-manager" >&2
-  echo "Verify:          asm list --json | grep '<skill-name>'" >&2
+  echo "Verify:          asm list -p <tool> --json | grep '<skill-name>'" >&2
   exit 1
 }
 ```
@@ -67,8 +67,15 @@ If the check fails, stop and print the three commands above — do not continue
 with a partial run.
 ````
 
-Adapt the detection to what the host offers: `asm list --json` where `asm` is on
-PATH, otherwise a path test such as
+Name the provider explicitly (`-p <tool>`, e.g. `claude`): `asm install` refuses
+to guess one in a non-interactive shell and `--yes` does not cover that choice,
+so an install command without it errors instead of installing — the one outcome
+this gate exists to prevent. Use the same `-p` in the detection and the
+verification so an install landing under a different tool cannot report success
+while the dependency is still missing.
+
+Adapt the detection to what the host offers: `asm list -p <tool> --json` where
+`asm` is on PATH, otherwise a path test such as
 `test -f "$HOME/.claude/skills/<skill-name>/SKILL.md"`. The four elements are
 fixed; the mechanics are not.
 

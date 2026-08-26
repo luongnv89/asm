@@ -144,11 +144,11 @@ This skill invokes `<skill-name>`. Verify it is installed **before** the first
 step that changes anything:
 
 ```bash
-asm list --json | grep -q '"<skill-name>"' || {
+asm list -p <tool> --json | grep -q '"<skill-name>"' || {
   echo "Missing required skill: <skill-name>" >&2
-  echo "Install it:      asm install <skill-name> --yes" >&2
+  echo "Install it:      asm install <skill-name> -p <tool> --yes" >&2
   echo "No asm yet:      npm install -g agent-skill-manager" >&2
-  echo "Verify:          asm list --json | grep '<skill-name>'" >&2
+  echo "Verify:          asm list -p <tool> --json | grep '<skill-name>'" >&2
   exit 1
 }
 ```
@@ -156,6 +156,8 @@ asm list --json | grep -q '"<skill-name>"' || {
 If the check fails, stop and print the three commands above — do not continue
 with a partial run.
 ````
+
+`-p <tool>` is part of the install command, not optional polish: `asm install` refuses to guess a provider in a non-interactive shell and `--yes` does not cover that choice, so a gate that omits it prints a command that errors. An install command that cannot run unattended is an incomplete gate and still a Gate 1 finding. Use the same `-p` in the detection and the verification so an install under a different tool cannot report success while the dependency is missing.
 
 Where `asm` is not the target's installer, keep the four elements and swap the mechanics — e.g. `test -f "$HOME/.claude/skills/<skill-name>/SKILL.md"` for detection. Upstream source of the rule: `~/.claude/skills/skill-creator/references/dependency-preflight.md`.
 

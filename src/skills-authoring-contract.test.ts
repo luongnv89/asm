@@ -40,9 +40,9 @@ describe("dependency preflight rule (#571)", () => {
     ["skill-auto-improver checklist", improverChecklist],
   ])("%s documents all four preflight elements", (_name, doc) => {
     expect(doc).toContain("## Dependency Preflight (mandatory)");
-    expect(doc).toContain("asm install <skill-name> --yes");
+    expect(doc).toContain("asm install <skill-name> -p <tool> --yes");
     expect(doc).toContain("npm install -g agent-skill-manager");
-    expect(doc).toMatch(/verif/i);
+    expect(doc).toContain("asm list -p <tool> --json | grep '<skill-name>'");
   });
 
   it("skill-auto-improver reports a missing gate as a Gate 1 finding", () => {
@@ -67,9 +67,13 @@ describe("dependency preflight rule (#571)", () => {
 
   it("skill-auto-improver carries the gate it enforces, for its own skill-creator dependency", () => {
     expect(improverSkill).toContain("## Dependency Preflight (mandatory)");
-    expect(improverSkill).toContain("asm install skill-creator --yes");
+    expect(improverSkill).toContain(
+      "asm install skill-creator -p claude --yes",
+    );
     expect(improverSkill).toContain("npm install -g agent-skill-manager");
-    expect(improverSkill).toContain("asm list --json | grep 'skill-creator'");
+    expect(improverSkill).toContain(
+      "asm list -p claude --json | grep 'skill-creator'",
+    );
   });
 
   it("the report template marks the preflight row conditional", () => {
