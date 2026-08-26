@@ -135,7 +135,7 @@ Per dependency the gate names four things:
 | **Installer bootstrap** | the command that installs the installer itself, for a user who does not have it |
 | **Verification**        | a command that confirms the install landed                                      |
 
-Retrofit template — one entry per dependency, `<skill-name>` replaced:
+Retrofit template — one entry per dependency, with both `<skill-name>` and `<tool>` (the provider it installs for, e.g. `claude`) replaced. An unreplaced `<tool>` is read by the shell as a redirection, not a flag:
 
 ````markdown
 ## Dependency Preflight (mandatory)

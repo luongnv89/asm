@@ -27,7 +27,7 @@ A skill that scores 92 but fails `quick_validate.py` is not done; one that passe
 This skill invokes `skill-creator`: it runs that skill's `quick_validate.py` (required — the Gate 1 validator) and reads its `predictability-rubric.md` (fail-soft — Phase 2b). Resolve both once and reuse them **before the repo sync below**, which is the first step that changes anything. The rubric is **fail-soft** — a locally-installed skill-creator may predate the repo and not ship it; a missing file only degrades Phase 2b to a warning and never aborts the run:
 
 ```bash
-RUN_STARTED_EPOCH="$(date +%s)"   # anchors the Run stats block below
+date +%s >&2                      # anchors the Run stats block below — read it off stderr
 QV="$HOME/.claude/skills/skill-creator/scripts/quick_validate.py"
 test -f "$QV" || {
   echo "Missing required skill: skill-creator" >&2
@@ -254,7 +254,7 @@ Also include: skill path, `metadata.version` baseline → final, files changed, 
 
 Every run that updates a skill closes its summary with a run-stats block — the last thing printed, after the Phase 7 report. It reports what the run **cost**, and never repeats a metric the report already carries (iterations, scores, files changed).
 
-`RUN_STARTED_EPOCH` is captured once in the _Dependency Preflight (mandatory)_ block above; `elapsed` is `now - RUN_STARTED_EPOCH`. A stop before that block ran has no anchor, so `elapsed` prints `n/a`.
+`run_started_epoch` is captured once, by the `date +%s >&2` in the _Dependency Preflight (mandatory)_ block above; read the value off that block's stderr rather than from a shell variable, which need not survive to a later command. `elapsed` is `now - run_started_epoch`. A stop before that block ran has no anchor, so `elapsed` prints `n/a`.
 
 ```
   ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄

@@ -45,7 +45,10 @@ and say what the run does without it.
 ## Template to emit into the authored skill
 
 Copy this into the skill being authored, replacing `<skill-name>` with each real
-dependency. Keep it above the first step that writes, commits, or publishes.
+dependency **and `<tool>` with the provider it installs for** (e.g. `claude`).
+Both placeholders must be substituted — an unreplaced `<tool>` is read by the
+shell as a redirection, not a flag. Keep it above the first step that writes,
+commits, or publishes.
 
 ````markdown
 ## Dependency Preflight (mandatory)
