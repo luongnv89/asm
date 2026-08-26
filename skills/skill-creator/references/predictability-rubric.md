@@ -50,7 +50,11 @@ Anything **branch-specific, long, or not needed on every run** belongs in `refer
 
 Where disclosure decides _how far down_ a piece sits, **co-location** decides _what sits beside it_ once there: keep a concept's definition, its rules, and its caveats under one heading rather than scattered across the file, so reading one part pulls in its neighbours. Scattered rules are how an author edits one occurrence and misses the other — the seed of **duplication** and drift.
 
-**Checkable:** SKILL.md stays under 500 lines; reference files are one level deep and pointed to with clear "read this when X" guidance; each concept's rules and caveats sit together, not scattered.
+**Delegability (sub-check).** Disclosure decides _what the main agent loads_; **per-step context delegation** decides _who loads it_. A step heavy enough to hand off should name the slice of `references/` its worker needs and pass that slice as the worker's `Input` — the existing six-field subagent contract, not a second notation (`subagent-patterns.md` → _Per-Step Context Delegation_). A heavy step that cannot be sliced is a finding, and the finding names **which step and why** it is not delegable: it needs the user mid-step, its output depends on the exact text of the previous step, or its slice is what every run reads anyway.
+
+**Pass bar for the sub-check:** every step whose material is heavy enough to hand off either names its slice or states why it cannot. A skill with no `references/` tree, with one file every run needs, or with no step heavier than a single decision passes by having nothing to slice — do not restructure a small skill to earn this (`subagent-patterns.md` → _When the slice isn't worth it_).
+
+**Checkable:** SKILL.md stays under 500 lines; reference files are one level deep and pointed to with clear "read this when X" guidance; each concept's rules and caveats sit together, not scattered; and each heavy step either names its `references/` slice or says why it is not delegable.
 
 ## 5. Leading words
 

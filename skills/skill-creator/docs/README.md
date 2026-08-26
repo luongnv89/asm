@@ -67,13 +67,15 @@ asm install github:luongnv89/skills:skills/skill-creator
 
 ## Resources
 
-| Path           | Description                                              |
-| -------------- | -------------------------------------------------------- |
-| `scripts/`     | Eval loop, benchmarking, packaging, validation utilities |
-| `references/`  | Evals schema, subagent patterns, workflow patterns       |
-| `eval-viewer/` | Generate/view review pages for eval results              |
-| `agents/`      | Analyzer, comparator, and grader agent prompts           |
-| `assets/`      | Viewer template assets                                   |
+| Path                              | Description                                                                                                    |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `scripts/`                        | Eval loop, benchmarking, packaging, validation utilities                                                       |
+| `references/`                     | Evals schema, subagent patterns, workflow patterns                                                             |
+| `references/subagent-patterns.md` | Subagent architecture, plus per-step context delegation: a step names the `references/` slice its worker needs |
+| `references/exemplars.md`         | Three annotated exemplars; the orchestrator one carries a per-step delegation trace                            |
+| `eval-viewer/`                    | Generate/view review pages for eval results                                                                    |
+| `agents/`                         | Analyzer, comparator, and grader agent prompts                                                                 |
+| `assets/`                         | Viewer template assets                                                                                         |
 
 ## Output
 

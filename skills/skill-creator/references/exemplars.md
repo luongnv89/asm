@@ -176,7 +176,9 @@ metadata:
 # Dependency Audit
 
 You are the orchestrator. You inventory, delegate, merge, and report — you do
-NOT read package metadata files yourself; that's what workers are for.
+NOT read package metadata files yourself, and you do NOT open the `references/`
+or `agents/` files a phase needs. Each phase names the slice its worker gets;
+you hold the step list and the workers' returns, never the tree.
 
 ## Phase 1 — Inventory (you)
 
@@ -188,7 +190,8 @@ into one batch per ecosystem. This is cheap; do it inline.
 Spawn one worker per ecosystem IN THE SAME TURN so they run concurrently.
 Each worker gets the contract in `agents/worker.md`:
 
-- Input: ecosystem name + dependency list
+- Input (slice): `agents/worker.md` + `references/license-policy.md` — the only
+  two files this phase reads; plus the ecosystem name and dependency list
 - Output: JSON array — {name, license, last_release, maintainers, risk, why}
 - A worker that can't resolve a package returns it with risk: "unknown" — it
   never silently drops one.
@@ -208,13 +211,33 @@ Spawn a NEW subagent — never one that produced findings — with
 coverage (every manifest dependency appears), consistency (risk labels match
 the stated criteria), and unsupported claims. Fix what it finds, then report.
 
-If the Agent tool is unavailable, degrade gracefully: do the phases inline
-yourself, in order, and say so in the report.
+- Input (slice): `agents/reviewer.md` + `references/risk-criteria.md`, the
+  merged table, the raw worker outputs
+- Output: {coverage_gaps[], inconsistent[], unsupported[]} — empty arrays on a
+  clean pass
+
+If the Agent tool is unavailable, degrade gracefully: read the named slices
+yourself, do the phases inline, in order, and say so in the report.
 ```
+
+**Delegation trace — what the main agent actually holds:**
+
+| Phase | Worker slice (its `Input`)                           | Main agent keeps            |
+| ----- | ---------------------------------------------------- | --------------------------- |
+| 1     | — inline; listing manifests is cheap                 | the manifest list           |
+| 2     | `agents/worker.md` + `references/license-policy.md`  | the returned JSON arrays    |
+| 3     | — inline merge over returned JSON                    | the merged table            |
+| 4     | `agents/reviewer.md` + `references/risk-criteria.md` | the reviewer's three arrays |
+
+Four bundled files exist; the main agent opens **none** of them. Phases 1 and 3
+stay inline because a slice buys nothing there — `subagent-patterns.md` →
+_When the slice isn't worth it_.
 
 > ✎ The reviewer is **fresh context by construction** — the author of the findings never grades them (self-review blindness is the failure mode this prevents). Its checklist is concrete: coverage, consistency, unsupported claims — not "review the quality". The degradation clause means the skill still works on Claude.ai, single-context.
 
-**Why this skill is great:** clean role boundary; contracts make parallelism safe; the mandatory fresh reviewer catches what the producer can't see; graceful degradation is spelled out instead of assumed.
+**Why this skill is great:** clean role boundary held by per-step slices — the
+orchestrator's context is the step list plus the workers' returns, never the
+`references/` tree; contracts make parallelism safe; the mandatory fresh reviewer catches what the producer can't see; graceful degradation is spelled out instead of assumed.
 
 ---
 

@@ -4,7 +4,7 @@ description: "Create, improve, evaluate, benchmark skills. Use when authoring a 
 license: MIT
 effort: max
 metadata:
-  version: 1.14.0
+  version: 1.15.0
   author: "Luong NGUYEN <luongnv89@gmail.com>"
 ---
 
@@ -141,6 +141,7 @@ Start by understanding the user's intent. The current conversation might already
    - Can parts of the work run in parallel? → Parallel worker subagents
    - Does the skill need independent quality review? → Review loop with fresh subagents
    - Will the skill produce large artifacts that require focused reasoning? → Executor subagent
+   - Does any single step need only a **slice** of `references/` rather than the whole tree? → Per-step context delegation: the step names the slice, the worker receives it as its `Input` (`references/subagent-patterns.md` → _Per-Step Context Delegation_)
      If any apply, design the skill with a main-agent-as-orchestrator architecture so subagents handle the heavy lifting and the main conversation context stays clean.
 6. **Does this skill invoke other skills?** Name every skill it calls, delegates a phase to, or reads. If any exist, the skill you write ships a dependency preflight for them — see _Mandatory Rule for Skills That Invoke Other Skills_ above and `references/dependency-preflight.md`. If none exist, nothing is added.
 7. **Model-invoked or user-invoked?** Decide the _primary_ invocation before drafting — it changes how you write. **Model-invoked** (the default) is a reusable discipline the agent applies when the situation fits; optimize the description for reliable triggering. **User-invoked** (`/skill-name`) is orchestration the user runs deliberately (a pipeline, an expensive or destructive action); the body reads as "the user asked for this, proceed." Weigh the **context-load and cognitive-load** budgets here too. See `references/predictability-rubric.md` for the full tradeoff.
@@ -185,7 +186,7 @@ Read `references/writing-guide.md` for the full guide. It covers:
 The goal of creating a skill here is a **predictable process** — the agent follows the same reliable path every run — and a skill that ships **publish-ready** without later needing a `skill-auto-improver` cleanup pass. Read `references/predictability-rubric.md` for the full standard and its checkable pass/fail bar; the hooks below are the ones you apply _while writing_:
 
 - **Demanding completion criteria.** For step-based workflows, end every major step with a bar the agent can _check_, not vibe — tied to a command, file state, or count. The Step Completion Reports format above is the vehicle (`√/×` checks + a `Result:` line). Strong criteria are what stop the agent declaring success early; this is the difference between a repeatable process and a hopeful one.
-- **Progressive disclosure for non-universal material.** Anything branch-specific, long, or not needed on every run goes to `references/` behind a one-line pointer (mechanics in `references/writing-guide.md` → _Progressive Disclosure_) — keeps context load low and SKILL.md under 500 lines.
+- **Progressive disclosure for non-universal material.** Anything branch-specific, long, or not needed on every run goes to `references/` behind a one-line pointer (mechanics in `references/writing-guide.md` → _Progressive Disclosure_) — keeps context load low and SKILL.md under 500 lines. Its step-level analogue is **per-step context delegation**: a delegable step names the slice of `references/` its worker needs and hands that slice over as the worker's `Input`, so the main agent never holds the whole tree. Not every skill has one — `references/subagent-patterns.md` → _When the slice isn't worth it_ says when to skip it.
 - **Leading words.** Name a recurring concept once with a short load-bearing term ("atomic commit", "fail-soft", "publish-ready") and reuse the term, rather than re-explaining it at each use.
 - **Pruning pass — run before finishing.** Make one explicit pass to cut **duplication** (the same instruction in two places — keep one home, link to it), **stale sediment** (leftover guidance, dead references, obsolete names), **sprawl** (sections grown past their value, prose that should be a table or a leading word), and **no-op instructions** (lines that change nothing the agent does — "be careful", "use good judgment" — replace with a checkable criterion or delete). This pass is what most often separates a skill-creator-authored skill from one that still needs `skill-auto-improver`.
 
@@ -278,7 +279,7 @@ The `references/` directory has additional documentation:
 - `references/exemplars.md` — Three annotated exemplar skills (workflow, knowledge, orchestrator) to imitate.
 - `references/writing-guide.md` — Anatomy, progressive disclosure, writing and workflow patterns, error messages, test cases.
 - `references/schemas.md` — JSON structures for evals.json, misfires.jsonl, grading.json, etc.
-- `references/subagent-patterns.md` — When and how to design skills that use the Agent tool.
+- `references/subagent-patterns.md` — When and how to design skills that use the Agent tool, including per-step context delegation (a step declares its `references/` slice; the worker receives it as `Input`) and when that slice is not worth taking.
 - `references/validation-prompts.md` — The 4 validation phases; 1–3 script the mandatory adversarial review.
 - `references/eval-loop.md` — Full 5-step eval run / grade / viewer flow.
 - `references/iteration.md` — Principles for improving a skill based on feedback; blind comparison.
