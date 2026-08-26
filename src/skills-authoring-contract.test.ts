@@ -65,6 +65,13 @@ describe("dependency preflight rule (#571)", () => {
     );
   });
 
+  it("skill-auto-improver carries the gate it enforces, for its own skill-creator dependency", () => {
+    expect(improverSkill).toContain("## Dependency Preflight (mandatory)");
+    expect(improverSkill).toContain("asm install skill-creator --yes");
+    expect(improverSkill).toContain("npm install -g agent-skill-manager");
+    expect(improverSkill).toContain("asm list --json | grep 'skill-creator'");
+  });
+
   it("the report template marks the preflight row conditional", () => {
     expect(improverReport).toContain("Dependency preflight");
     expect(improverReport).toMatch(/conditional/i);

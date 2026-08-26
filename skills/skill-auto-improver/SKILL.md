@@ -55,15 +55,25 @@ Verify all of the following before touching any files. Stop and tell the user if
 - The working tree has no unrelated uncommitted edits (dirty files get mixed into diffs)
 - You have write access to the skill directory
 
-Resolve skill-creator's validator (required) and rubric (fail-soft) once and reuse them. The rubric is **fail-soft** — a locally-installed skill-creator may predate the repo and not ship it; a missing file only degrades Phase 2b to a warning and never aborts the run:
+## Dependency Preflight (mandatory)
+
+This skill invokes `skill-creator`: it runs that skill's `quick_validate.py` (required — the Gate 1 validator) and reads its `predictability-rubric.md` (fail-soft — Phase 2b). Resolve both once and reuse them, **before** Phase 0, the first step that changes anything. The rubric is **fail-soft** — a locally-installed skill-creator may predate the repo and not ship it; a missing file only degrades Phase 2b to a warning and never aborts the run:
 
 ```bash
 RUN_STARTED_EPOCH="$(date +%s)"   # anchors the Run stats block below
 QV="$HOME/.claude/skills/skill-creator/scripts/quick_validate.py"
-test -f "$QV" || { echo "skill-creator not installed at $QV"; exit 1; }
+test -f "$QV" || {
+  echo "Missing required skill: skill-creator" >&2
+  echo "Install it:      asm install skill-creator --yes" >&2
+  echo "No asm yet:      npm install -g agent-skill-manager" >&2
+  echo "Verify:          asm list --json | grep 'skill-creator'" >&2
+  exit 1
+}
 RUBRIC="$HOME/.claude/skills/skill-creator/references/predictability-rubric.md"
 test -f "$RUBRIC" || echo "⚠ predictability rubric missing — Phase 2b degraded (gates unaffected)"
 ```
+
+On a miss, stop before the first mutation and print the three commands above — do not continue with a partial run. This is the same gate this skill audits every target for (`references/skill-creator-checklist.md` → _Dependency preflight_).
 
 ## Inputs
 
