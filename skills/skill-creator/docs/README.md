@@ -17,6 +17,8 @@
 - Benchmark aggregation, variance analysis, and report tooling
 - Description optimization flow to improve triggering accuracy
 - Dedicated eval viewer and grading agents for structured review
+- Dependency preflight: a skill that invokes other skills ships a gate naming each dependency, how to install it, and how to verify it
+- Run stats on every create/update run: elapsed time, agents, skills, tool calls, plus tokens and cost where the host reports them
 
 ## When to Use
 

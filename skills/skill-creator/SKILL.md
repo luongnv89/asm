@@ -4,7 +4,7 @@ description: "Create, improve, evaluate, benchmark skills. Use when authoring a 
 license: MIT
 effort: max
 metadata:
-  version: 1.13.2
+  version: 1.14.0
   author: "Luong NGUYEN <luongnv89@gmail.com>"
 ---
 
@@ -32,7 +32,7 @@ The skill supports two distinct workflows. **Identify which one the user is on b
 
 If the request is ambiguous ("can you look at this skill?"), assume **Path B** and confirm before interviewing as if it were new. Path B also fires when `/skill-creator` is invoked on a skill directory or file.
 
-Both paths share the mandatory rules below: **Repo Sync Before Edits**, **Version Management**, **YAML Frontmatter Safety**, and **Frontmatter Audit on Review/Evaluation**. Apply them in either path.
+Both paths share the mandatory rules below: **Repo Sync Before Edits**, **Dependency Preflight**, **Version Management**, **YAML Frontmatter Safety**, and **Frontmatter Audit on Review/Evaluation**. Apply them in either path. Both paths also close with the **Run stats** block.
 
 ## Step Completion Reports
 
@@ -54,11 +54,40 @@ Adapt the check names to match what the step actually validates. Use `√` for p
 
 **Intent Capture phase checks:** `Worth building`, `Goal defined`, `Triggers identified`, `Output format agreed`
 
-**Skill Writing phase checks:** `SKILL.md written`, `README generated`, `Subagents designed`, `Predictability pass` (the 7 rubric items from _Make it predictable_ — √ when each is satisfied, × naming the gap), `Adversarial review` (fresh-subagent findings addressed)
+**Skill Writing phase checks:** `SKILL.md written`, `README generated`, `Subagents designed`, `Dependency preflight` (√ when the skill has no skill dependencies, or when it has them and ships a gate for each; × when a dependency is invoked without one), `Predictability pass` (the 7 rubric items from _Make it predictable_ — √ when each is satisfied, × naming the gap), `Adversarial review` (fresh-subagent findings addressed)
 
 **Testing phase checks:** `Evals created`, `Runs completed`, `Viewer launched`
 
 **Iteration phase checks:** `Feedback incorporated`, `Benchmarks improved`, `Description optimized`
+
+## Run stats (mandatory)
+
+Every run that creates or updates a skill closes its summary with a run-stats block — the last thing printed, after the final Step Completion Report. It reports what the run **cost**, and nothing the run already reported.
+
+Capture `run_started_epoch` once at skill start, in the same shell as the skill's first command (`cmd; ec=$?; date +%s >&2; exit "$ec"` — read the epoch off stderr so stdout and the exit code stay intact). A run that already recorded a start time reuses it.
+
+```
+  ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+  Run stats   elapsed 6m 04s · tokens 128,400 · cost $0.42
+              agents 3 · skills 1 · tool calls 47
+```
+
+Fields are fixed and in this order — never reordered, renamed, or added to:
+
+| Field        | Value                                                                                            |
+| ------------ | ------------------------------------------------------------------------------------------------ |
+| `elapsed`    | wall-clock duration, `{H}h {M}m {S}s`; drop zero-valued leading units only (`6m 04s`, `48s`)     |
+| `tokens`     | **conditional** — printed only where the host reported a usage figure, with thousands separators |
+| `cost`       | **conditional** — printed only where the host reported a run cost, as `$0.42`                    |
+| `agents`     | subagents this run spawned                                                                       |
+| `skills`     | other skills this run invoked                                                                    |
+| `tool calls` | tool invocations this run made                                                                   |
+
+- **`tokens` and `cost` are omitted entirely when the host reported no figure** — no dangling `·`, no placeholder. Never estimate one from output length, file sizes, or step counts, and never reconstruct one from host transcripts or logs.
+- **`elapsed`, `agents`, `skills`, and `tool calls` always print.** A value that cannot be determined prints the literal `n/a`; `0` is a determined value and is correct where it is true (a run that spawned no subagents prints `agents 0`).
+- A missing optional figure never suppresses the rest of the block.
+
+Print it on **every** path that finishes a create or update — Path A, Subpath B1, and Subpath B2 — and on every other terminal outcome too: an early stop, a gate that refused to continue, or a failed step. Only a run that produced no output at all has no block. Measuring must not become a measurable share of what it measures: one epoch read at start, one at the end, two lines of output — never a timing call per step or a summarization pass.
 
 ## Communicating with the user
 
@@ -75,6 +104,15 @@ When creating or updating any skill that changes files in a git repository (code
 - If `origin` is missing or conflicts occur: stop and ask the user before continuing.
 
 Do not ship repo-mutating skills without this pre-sync guardrail.
+
+## Mandatory Rule for Skills That Invoke Other Skills
+
+Establish, for every skill you author or retrofit, whether it invokes, delegates to, or reads **another skill**. Ask it as a question in the interview (Capture Intent, question 6) and confirm it against the draft — prose naming `/another-skill`, or a read under `~/.claude/skills/`, is a dependency even when the author said there were none.
+
+- **It does** → the skill you produce ships a `## Dependency Preflight (mandatory)` section, placed above the first step that changes anything. Per dependency it names the skill, the command that installs it, the command that installs the installer itself, and a verification command; on a miss it stops before the first mutation.
+- **It does not** → add nothing. No empty preflight section, no "no dependencies" placeholder.
+
+Read `references/dependency-preflight.md` for the copyable template and the on-miss behavior. `skill-auto-improver` audits for this same rule, so a skill that ships without a required gate comes back as a finding later.
 
 ## Frontmatter rules (mandatory)
 
@@ -104,7 +142,8 @@ Start by understanding the user's intent. The current conversation might already
    - Does the skill need independent quality review? → Review loop with fresh subagents
    - Will the skill produce large artifacts that require focused reasoning? → Executor subagent
      If any apply, design the skill with a main-agent-as-orchestrator architecture so subagents handle the heavy lifting and the main conversation context stays clean.
-6. **Model-invoked or user-invoked?** Decide the _primary_ invocation before drafting — it changes how you write. **Model-invoked** (the default) is a reusable discipline the agent applies when the situation fits; optimize the description for reliable triggering. **User-invoked** (`/skill-name`) is orchestration the user runs deliberately (a pipeline, an expensive or destructive action); the body reads as "the user asked for this, proceed." Weigh the **context-load and cognitive-load** budgets here too. See `references/predictability-rubric.md` for the full tradeoff.
+6. **Does this skill invoke other skills?** Name every skill it calls, delegates a phase to, or reads. If any exist, the skill you write ships a dependency preflight for them — see _Mandatory Rule for Skills That Invoke Other Skills_ above and `references/dependency-preflight.md`. If none exist, nothing is added.
+7. **Model-invoked or user-invoked?** Decide the _primary_ invocation before drafting — it changes how you write. **Model-invoked** (the default) is a reusable discipline the agent applies when the situation fits; optimize the description for reliable triggering. **User-invoked** (`/skill-name`) is orchestration the user runs deliberately (a pipeline, an expensive or destructive action); the body reads as "the user asked for this, proceed." Weigh the **context-load and cognitive-load** budgets here too. See `references/predictability-rubric.md` for the full tradeoff.
 
 ### Interview and Research
 
@@ -181,6 +220,7 @@ Sequence:
    - SKILL.md under 500 lines (split to `references/` if not).
    - Step Completion Reports section present.
    - "Repo Sync Before Edits" section if the skill mutates a git repo.
+   - "Dependency Preflight" section if the skill invokes another skill — and none if it invokes none (`references/dependency-preflight.md`).
    - Bundled scripts print descriptive errors before exiting.
    - Progressive disclosure used appropriately; references one level deep.
 5. Decide fix vs. review-only mode. If fixing, apply edits and **bump `metadata.version`** — patch for frontmatter-only fixes, minor for new sections, major for restructuring. If reviewing only, surface findings as before/after suggestions and don't silently edit.
@@ -232,6 +272,7 @@ The `agents/` directory contains instructions for specialized subagents. Read th
 The `references/` directory has additional documentation:
 
 - `references/frontmatter-rules.md` — Version Management, YAML Safety, and Frontmatter Audit (mandatory).
+- `references/dependency-preflight.md` — The skill-dependency rule: when a preflight gate is required, what it must name, and the template to emit (mandatory).
 - `references/predictability-rubric.md` — The predictability standard a new skill must meet by construction: invocation choice, branch mapping, demanding completion criteria, leading words, the pruning pass, and publish-ready (no auto-improver dependency).
 - `references/description-guide.md` — Pushy + negative-trigger description pattern, one trigger per branch, length budget.
 - `references/exemplars.md` — Three annotated exemplar skills (workflow, knowledge, orchestrator) to imitate.

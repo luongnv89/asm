@@ -34,6 +34,7 @@ Target version: 0.2.0 → 1.0.0
 | SKILL.md body <500 lines             | √ (290)     | √ (290)|
 | docs/README.md AI-skip notice        | √           | √     |
 | Bundled scripts have descriptive errors | n/a      | n/a   |
+| Dependency preflight (invokes 1 skill)  | ×        | √     |
 
 ## Gate 2 — asm-eval categories
 
@@ -69,7 +70,16 @@ Source: Phase 2b audit against skill-creator's predictability rubric. None of th
 - references/examples.md (new)
 - references/prerequisites.md (new)
 - docs/README.md (added AI-skip notice)
+- references/dependency-preflight.md (new — gate for the skill it invokes)
+
+  ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+  Run stats   elapsed 4m 12s · tokens 128,400 · cost $0.42
+              agents 0 · skills 1 · tool calls 63
 ```
+
+The `Dependency preflight` row is **conditional**: it appears only when the target invokes another skill, with the count in the label (`invokes 1 skill`). A target that invokes none reports `n/a` in both columns, and no preflight section is added to it.
+
+The **Run stats** block closes the report and the printed summary at every terminal outcome — PASS, BLOCKER, the Phase 0 early exit, and a failed prerequisite. `elapsed`, `agents`, `skills`, and `tool calls` always print (`n/a` when undetermined); `tokens` and `cost` print only where the host reported a figure and are left out entirely otherwise, never invented and never suppressing the rest of the block. Field definitions live in SKILL.md → _Run stats (mandatory)_.
 
 ## BLOCKER example
 
