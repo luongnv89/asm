@@ -6,7 +6,7 @@ compatibility: "Claude Code; requires `asm` on PATH and Python 3 for skill-creat
 allowed-tools: Bash Read Write Edit Grep Glob
 effort: high
 metadata:
-  version: 1.4.0
+  version: 2.0.0
   author: luongnv89
 ---
 
@@ -21,6 +21,13 @@ The target must clear **two hard gates**, then gets one **advisory** audit:
 3. **Advisory — predictability audit (Phase 2b, not a gate)** — judgment-based findings against skill-creator's rubric, reported separately, **never** blocking.
 
 A skill that scores 92 but fails `quick_validate.py` is not done; one that passes `quick_validate.py` but scores 70 is not done. **Both gates must clear, or the loop reports a blocker** — open predictability findings alone never make one.
+
+## Two modes
+
+Pick one before Phase 0 — they do not share a workflow.
+
+- **Mode 1 — retrofit (default).** Bring the target to the skill-creator standard: the Phase 0–7 loop below, unchanged. Every "improve", "fix", "level up", or "bring up to standard" request is Mode 1.
+- **Mode 2 — delegation conversion (opt-in).** Restructure the target's steps onto **per-step context delegation** — each heavy step names the slice of its own `references/` tree its worker needs and hands it over as the worker's `Input` (skill-creator's `subagent-patterns.md` → _Per-Step Context Delegation_). Runs **outside** the Phase 6 loop, on a target that already clears Gate 1, and only after the user confirms the restructure. A Phase 2b delegability finding routes here — it never starts a conversion by itself. Read `references/delegation-conversion.md` for the whole procedure, including the target's MAJOR bump and when a conversion does not pay for itself.
 
 ## Dependency Preflight (mandatory)
 
@@ -142,7 +149,7 @@ Read the JSON and note:
 - Every `categories[].score` (7 categories, each out of 10)
 - `topSuggestions` (the evaluator's own priorities)
 
-If the baseline already passes **both** gates, stop immediately — print a one-line summary and skip to the final report. Do not "improve" a skill that already passes.
+If the baseline already passes **both** gates, stop immediately — print a one-line summary and skip to the final report. Do not "improve" a skill that already passes (a delegability finding is not a reason to keep going in Mode 1 — offer Mode 2 instead).
 
 ### Phase 1 — Apply deterministic fixes, then normalize frontmatter
 
@@ -191,7 +198,7 @@ Re-run `python "$QV" "$SKILL_PATH"` after every Gate 1 edit. Do not move to Phas
 With Gate 1 clean, audit against skill-creator's rubric **before** Phase 3 so the findings can steer your category edits. Advisory — never gates, never blocks.
 
 1. Confirm `$RUBRIC` resolved (_Dependency Preflight (mandatory)_). If missing, **skip fail-soft** — log `⚠ predictability audit skipped (rubric unavailable)` and move to Phase 3.
-2. Walk `references/predictability-audit.md` — record each of the 7 items as `pass` / `advisory` with a specific note, save to `.asm-improver/predictability-audit.md`.
+2. Walk `references/predictability-audit.md` — record each of the 7 items as `pass` / `advisory` with a specific note, save to `.asm-improver/predictability-audit.md`. Item #4 carries the **delegability sub-check**: a heavy step that names no `references/` slice is an advisory finding naming which step and why it is not delegable, and its remediation is Mode 2 — never a Mode 1 edit.
 
 Act on findings only when _targeted_ (a predictability fix often also lifts an asm-eval category); never bloat to satisfy one. Finding-handling detail and the no-bloat rule live in `references/predictability-audit.md`.
 
@@ -318,7 +325,7 @@ See `references/report-template.md` for the full PASS and BLOCKER report templat
 
 ## Edge Cases
 
-- **Skill already passes both gates**: do not edit it. Still run the Phase 2b predictability audit read-only and report any advisory findings, then stop — passing gates does not guarantee a predictable process, but open findings here never force an edit.
+- **Skill already passes both gates**: do not edit it. Still run the Phase 2b predictability audit read-only and report any advisory findings, then stop — passing gates does not guarantee a predictable process, but open findings here never force an edit. A gate-passing skill with heavy non-delegable steps is a **Mode 2** candidate: offer the conversion, do not edit under Mode 1.
 - **SKILL.md has no frontmatter**: `asm eval --fix` cannot add it. Ask the user whether to scaffold one (using the skill-creator template) or abort.
 - **Iterating regresses either gate**: revert the last edit (`cp SKILL.md.bak SKILL.md` if available, or undo via git) and try a different fix pattern from the playbook.
 - **`asm eval --fix` writes a key `quick_validate.py` rejects**: this is expected — Phase 1's normalization step handles it. Do not skip the normalization.
@@ -335,7 +342,8 @@ See `references/report-template.md` for the full PASS and BLOCKER report templat
 - `references/category-playbook.md` — per-category fix patterns for `asm eval` Gate 2
 - `references/predictability-audit.md` — Phase 2b advisory audit checklist (the rubric's operational checklist, applied to the target skill)
 - `references/cross-gate-tradeoffs.md` — Phase 4 sidebar: the body-length tradeoff between the two gates and the link-out rule
-- `references/report-template.md` — PASS and BLOCKER report layouts
+- `references/delegation-conversion.md` — Mode 2: converting an existing skill onto per-step context delegation (opt-in, user-confirmed, outside the Phase 6 loop)
+- `references/report-template.md` — PASS, BLOCKER, and Mode 2 conversion report layouts
 - `~/.claude/skills/skill-creator/scripts/quick_validate.py` — the Gate 1 mechanical validator
 - `~/.claude/skills/skill-creator/references/frontmatter-rules.md` — upstream source of the audit rules
 - `~/.claude/skills/skill-creator/references/predictability-rubric.md` — upstream source of the Phase 2b audit (fail-soft if absent)

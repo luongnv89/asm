@@ -11,6 +11,7 @@
 
 ## Highlights
 
+- **Two modes.** Mode 1 (default) retrofits a skill to the standard. Mode 2 — opt-in and user-confirmed — converts an existing skill onto per-step context delegation, so each heavy step hands its `references/` slice to a worker instead of the main agent holding the whole tree.
 - **Two gates, both must pass.** Gate 1 = skill-creator standard (publish-blocking). Gate 2 = asm-eval 85/8 quality floor.
 - Deterministic fixes first (`asm eval --fix`), then frontmatter normalization to satisfy `quick_validate.py`, then content fixes by lowest category.
 - One category at a time, re-eval against **both** gates after every edit.
@@ -103,12 +104,13 @@ The loop stops on any of:
 
 ## Resources
 
-| Path                                                                              | Description                                                          |
-| --------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| [SKILL.md](../SKILL.md)                                                           | The agent workflow                                                   |
-| [references/skill-creator-checklist.md](../references/skill-creator-checklist.md) | Gate 1 retrofit playbook (frontmatter, README, scripts, body length) |
-| [references/frontmatter-audit.md](../references/frontmatter-audit.md)             | Full audit checklist + `asm eval --fix` normalization migration      |
-| [references/category-playbook.md](../references/category-playbook.md)             | Per-category fix patterns for Gate 2                                 |
-| [references/report-template.md](../references/report-template.md)                 | PASS and BLOCKER report layouts                                      |
-| `asm eval --help`                                                                 | Evaluator flag reference                                             |
-| `~/.claude/skills/skill-creator/`                                                 | Upstream source of the Gate 1 standard                               |
+| Path                                                                              | Description                                                           |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| [SKILL.md](../SKILL.md)                                                           | The agent workflow                                                    |
+| [references/skill-creator-checklist.md](../references/skill-creator-checklist.md) | Gate 1 retrofit playbook (frontmatter, README, scripts, body length)  |
+| [references/frontmatter-audit.md](../references/frontmatter-audit.md)             | Full audit checklist + `asm eval --fix` normalization migration       |
+| [references/category-playbook.md](../references/category-playbook.md)             | Per-category fix patterns for Gate 2                                  |
+| [references/delegation-conversion.md](../references/delegation-conversion.md)     | Mode 2: converting an existing skill onto per-step context delegation |
+| [references/report-template.md](../references/report-template.md)                 | PASS, BLOCKER, and Mode 2 conversion report layouts                   |
+| `asm eval --help`                                                                 | Evaluator flag reference                                              |
+| `~/.claude/skills/skill-creator/`                                                 | Upstream source of the Gate 1 standard                                |

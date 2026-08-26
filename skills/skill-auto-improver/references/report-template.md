@@ -58,7 +58,7 @@ Source: Phase 2b audit against skill-creator's predictability rubric. None of th
 | 1 | Invocation chosen intentionally      | pass     | model-invoked; description triggers reliably |
 | 2 | Branches mapped before the body      | pass     | create/improve selector at top |
 | 3 | Demanding, checkable completion bars | advisory | step 4 ends on "looks complete" — tie to a count; left as-is to avoid scope creep |
-| 4 | Progressive disclosure               | pass     | long tables already in references/ |
+| 4 | Progressive disclosure + delegability | pass     | long tables already in references/; no step heavy enough to hand a slice to a worker (a delegability finding would read: "step 3 is not delegable because it asks the user mid-step") |
 | 5 | Leading words                        | pass     | — |
 | 6 | No duplication / sprawl / no-ops     | advisory | "be thorough" line in step 2 is a no-op; candidate for a later pass |
 | 7 | Publish-ready                        | pass     | would clear the rubric if re-created |
@@ -80,6 +80,37 @@ Source: Phase 2b audit against skill-creator's predictability rubric. None of th
 The `Dependency preflight` row always appears; its label is **conditional**. A target that invokes another skill carries the count (`invokes 1 skill`); a target that invokes none reads `n/a` in both columns — exactly like the `Bundled scripts` row above it — and no preflight section is added to it.
 
 The **Run stats** block closes the report and the printed summary at every terminal outcome — PASS, BLOCKER, the Phase 0 early exit, and a failed prerequisite. `elapsed`, `agents`, `skills`, and `tool calls` always print (`n/a` when undetermined); `tokens` and `cost` print only where the host reported a figure and are left out entirely otherwise, never invented and never suppressing the rest of the block. Field definitions live in SKILL.md → _Run stats (mandatory)_.
+
+## Mode 2 — conversion report
+
+A **delegation conversion** (SKILL.md → _Two modes_) writes its own report instead of a gate diff — none of the loop's iteration bookkeeping applies to it:
+
+```
+# Delegation conversion report
+
+Skill: skills/my-skill
+Mode: 2 — delegation conversion (user-confirmed)
+Target version: 1.3.0 → 2.0.0   (MAJOR — restructured workflow)
+
+## Steps converted
+
+| Step | Slice handed over as the worker's `Input`             | Verdict                            |
+|------|-------------------------------------------------------|------------------------------------|
+| 2    | references/discovery-contract.md + the repo list      | converted                          |
+| 3    | references/audit-eval-contract.md + the clone path    | converted                          |
+| 5    | —                                                     | left inline — single decision      |
+| 6    | —                                                     | left inline — needs the user mid-step |
+
+## Gate re-check after conversion
+
+| Gate                            | Before     | After      |
+|---------------------------------|------------|------------|
+| Gate 1 (skill-creator standard) | √ pass     | √ pass     |
+| Gate 2 (asm-eval)               | 89 / min 8 | 90 / min 8 |
+| SKILL.md body lines             | 349        | 305        |
+```
+
+Every converted step names its slice; every step left inline names why. Both gates are re-checked **once**, at the end — and a conversion that leaves either gate worse than it found it is **reverted**, with the delegability finding left advisory. `references/delegation-conversion.md` owns that rule and the rest of the procedure.
 
 ## BLOCKER example
 
