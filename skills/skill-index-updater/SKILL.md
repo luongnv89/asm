@@ -314,7 +314,7 @@ Each row names a condition, the step that owns it, and the required response. Wh
 
 ## Cleanup
 
-After completion, delete every temp directory the Step 2 workers made. Use the `tempRoot` each worker returned verbatim — the clones live in the workers' temp directories, so there is no `$TEMP_DIR` in your shell to remove, and never derive the target from `clonePath`:
+After completion, delete every temp directory Step 2 made. When Step 2 was delegated, use the `tempRoot` each worker returned verbatim — the clones live in the workers' temp directories, so there is no `$TEMP_DIR` in your shell to remove. If you ran Step 2 inline because the Agent tool was unavailable, the `mktemp -d` directory is your own: remove that one instead. Either way, never derive the target from `clonePath`:
 
 ```bash
 # one per repo, the tempRoot from that repo's Step 2 result
