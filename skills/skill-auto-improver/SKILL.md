@@ -188,7 +188,7 @@ Re-run `python "$QV" "$SKILL_PATH"` after every Gate 1 edit. Do not move to Phas
 
 With Gate 1 clean, audit against skill-creator's rubric **before** Phase 3 so the findings can steer your category edits. Advisory — never gates, never blocks.
 
-1. Confirm `$RUBRIC` resolved (Prerequisites). If missing, **skip fail-soft** — log `⚠ predictability audit skipped (rubric unavailable)` and move to Phase 3.
+1. Confirm `$RUBRIC` resolved (_Dependency Preflight (mandatory)_). If missing, **skip fail-soft** — log `⚠ predictability audit skipped (rubric unavailable)` and move to Phase 3.
 2. Walk `references/predictability-audit.md` — record each of the 7 items as `pass` / `advisory` with a specific note, save to `.asm-improver/predictability-audit.md`.
 
 Act on findings only when _targeted_ (a predictability fix often also lifts an asm-eval category); never bloat to satisfy one. Finding-handling detail and the no-bloat rule live in `references/predictability-audit.md`.
@@ -252,7 +252,7 @@ Also include: skill path, `metadata.version` baseline → final, files changed, 
 
 Every run that updates a skill closes its summary with a run-stats block — the last thing printed, after the Phase 7 report. It reports what the run **cost**, and never repeats a metric the report already carries (iterations, scores, files changed).
 
-`RUN_STARTED_EPOCH` is captured once in the Prerequisites block above; `elapsed` is `now - RUN_STARTED_EPOCH`.
+`RUN_STARTED_EPOCH` is captured once in the _Dependency Preflight (mandatory)_ block above; `elapsed` is `now - RUN_STARTED_EPOCH`. A stop before that block ran has no anchor, so `elapsed` prints `n/a`.
 
 ```
   ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
