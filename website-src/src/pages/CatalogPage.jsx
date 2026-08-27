@@ -15,6 +15,7 @@ import { decodeSkillId } from "../lib/utils.js";
 import SearchBox from "../components/SearchBox.jsx";
 import CategoryTabs from "../components/CategoryTabs.jsx";
 import FacetRow from "../components/FacetRow.jsx";
+import TagFilter from "../components/TagFilter.jsx";
 import SkillListItem from "../components/SkillListItem.jsx";
 import SkillDetail from "../components/SkillDetail.jsx";
 import SidebarDrawer from "../components/SidebarDrawer.jsx";
@@ -97,7 +98,11 @@ export default function CatalogPage() {
       const tag = (e.target && e.target.tagName) || "";
       // Ignore if focused in an input/textarea/contenteditable
       if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
-      if ((e.key === "/" || (e.key === "k" && (e.metaKey || e.ctrlKey))) && !e.altKey && !e.shiftKey) {
+      if (
+        (e.key === "/" || (e.key === "k" && (e.metaKey || e.ctrlKey))) &&
+        !e.altKey &&
+        !e.shiftKey
+      ) {
         e.preventDefault();
         searchBoxRef.current?.focus();
       }
@@ -259,11 +264,18 @@ export default function CatalogPage() {
         onChange={setActiveCategories}
       />
       {facetCounts && (
-        <FacetRow
-          counts={facetCounts}
-          activeFacets={state.activeFacets}
-          onToggle={setFacet}
-        />
+        <>
+          <FacetRow
+            counts={facetCounts}
+            activeFacets={state.activeFacets}
+            onToggle={setFacet}
+          />
+          <TagFilter
+            counts={facetCounts.tags}
+            activeTags={state.activeFacets.tags}
+            onChange={(tags) => setFacet("tags", tags)}
+          />
+        </>
       )}
       <div className="flex flex-wrap items-center gap-2">
         <select

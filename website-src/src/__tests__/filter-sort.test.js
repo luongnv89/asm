@@ -5,7 +5,7 @@ import {
   buildNameCollisionKeys,
   defaultSort,
 } from "../lib/filter-sort.js";
-import { emptyFacetState } from "../lib/facets.js";
+import { computeFacetCounts, emptyFacetState } from "../lib/facets.js";
 
 const mk = (p) => ({
   id: p.id,
@@ -21,6 +21,7 @@ const mk = (p) => ({
   evalSummary: p.evalSummary,
   featured: !!p.featured,
   allowedTools: p.allowedTools,
+  tags: p.tags,
 });
 
 const base = () => ({
@@ -111,6 +112,27 @@ describe("applyFilters", () => {
     expect(applyFilters(skills, state).map((s) => s.id)).toEqual(["y"]);
   });
 
+  it("filters by one or more tags with AND semantics", () => {
+    const skills = [
+      mk({ id: "both", tags: ["cli", "testing"] }),
+      mk({ id: "cli", tags: ["cli"] }),
+      mk({ id: "legacy" }),
+    ];
+    const oneTag = base();
+    oneTag.activeFacets.tags.add("cli");
+    expect(applyFilters(skills, oneTag).map((skill) => skill.id)).toEqual([
+      "both",
+      "cli",
+    ]);
+
+    const twoTags = base();
+    twoTags.activeFacets.tags.add("CLI");
+    twoTags.activeFacets.tags.add("testing");
+    expect(applyFilters(skills, twoTags).map((skill) => skill.id)).toEqual([
+      "both",
+    ]);
+  });
+
   it("sort: grade — best grade first, tiebreak by score desc then name", () => {
     const skills = [
       mk({ id: "b", name: "b", evalSummary: { grade: "B", overallScore: 81 } }),
@@ -147,6 +169,17 @@ describe("applyFilters", () => {
     ]);
     const out = applyFilters(skills, state, { scoreById });
     expect(out.map((s) => s.id)).toEqual(["gamma", "beta"]);
+  });
+});
+
+describe("computeFacetCounts", () => {
+  it("counts normalized tags once per skill and tolerates missing tags", () => {
+    const counts = computeFacetCounts([
+      mk({ id: "one", tags: ["CLI", "cli", "testing"] }),
+      mk({ id: "two", tags: ["cli"] }),
+      mk({ id: "legacy" }),
+    ]);
+    expect(counts.tags).toEqual({ cli: 2, testing: 1 });
   });
 });
 

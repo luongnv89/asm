@@ -57,6 +57,7 @@ const catalog = {
       license: "MIT",
       version: "1.0.0",
       verified: true,
+      tags: ["cli", "testing"],
       hasTools: false,
       tokenCount: 300,
     },
@@ -72,6 +73,7 @@ const catalog = {
       license: "MIT",
       version: "0.1.0",
       verified: false,
+      tags: ["docs"],
       hasTools: false,
       tokenCount: 500,
     },
@@ -108,6 +110,7 @@ const SKILL_DETAIL = {
   version: "1.0.0",
   verified: true,
   allowedTools: [],
+  tags: ["cli", "testing"],
   tokenCount: 300,
   skillUrl: "https://github.com/owner/repo/blob/main/SKILL.md",
 };
@@ -187,6 +190,31 @@ describe("App smoke", () => {
     expect(screen.getByText(/Select a skill/i)).toBeTruthy();
   });
 
+  it("filters by multiple tags with URL-persisted AND semantics", async () => {
+    window.history.replaceState(null, "", "/#/skills");
+    render(
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
+        <App />
+      </HashRouter>,
+    );
+    await waitFor(() => expect(screen.getByText("hello-world")).toBeTruthy());
+
+    fireEvent.click(screen.getByRole("button", { name: "cli" }));
+    expect(screen.getByText("hello-world")).toBeTruthy();
+    expect(screen.queryByText("readme-generator")).toBeNull();
+
+    fireEvent.click(screen.getByRole("button", { name: "testing" }));
+    await waitFor(() => {
+      const query = window.location.hash.split("?")[1] || "";
+      expect(new URLSearchParams(query).get("tag")).toBe("cli,testing");
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: "docs" }));
+    expect(screen.getByText("No skills match your filters")).toBeTruthy();
+  });
+
   it("parses the search index once and preserves search results", async () => {
     window.history.replaceState(null, "", "/#/skills");
     const indexText = buildIndexJson();
@@ -255,9 +283,7 @@ describe("App smoke", () => {
     await waitFor(() => {
       expect(screen.getByText("Catalog failed to load")).toBeTruthy();
       expect(
-        screen.getByText(
-          /Catalog and search index are from different builds/i,
-        ),
+        screen.getByText(/Catalog and search index are from different builds/i),
       ).toBeTruthy();
     });
   });

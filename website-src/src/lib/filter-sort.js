@@ -63,6 +63,18 @@ export function applyFilters(skills, state, options = {}) {
       (s) => s.owner && state.activeFacets.author.has(s.owner),
     );
   }
+  if (state.activeFacets.tags?.size > 0) {
+    results = results.filter((s) => {
+      const skillTags = new Set(
+        (Array.isArray(s.tags) ? s.tags : []).map((tag) =>
+          String(tag).toLowerCase(),
+        ),
+      );
+      return [...state.activeFacets.tags].every((tag) =>
+        skillTags.has(String(tag).toLowerCase()),
+      );
+    });
+  }
 
   // Featured skills pin to the top of every sort mode (including search
   // relevance). Returns -1/1 when featured differs, 0 otherwise so callers
@@ -164,9 +176,8 @@ export function anyFilterActive(state) {
   }
   // Check sort state — when sort differs from the search-aware default,
   // the "Clear all" button should appear (issue #526).
-  const expectedDefault = state.searchQuery && state.searchQuery.trim()
-    ? "relevance"
-    : "name";
+  const expectedDefault =
+    state.searchQuery && state.searchQuery.trim() ? "relevance" : "name";
   if (state.sort && state.sort !== expectedDefault) return true;
   return false;
 }
