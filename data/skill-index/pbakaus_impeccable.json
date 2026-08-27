@@ -1,74 +1,74 @@
 {
-  "repoUrl": "https://github.com/ayghri/i-have-adhd.git",
-  "owner": "ayghri",
-  "repo": "i-have-adhd",
-  "updatedAt": "2026-08-27T10:21:39.695Z",
+  "repoUrl": "https://github.com/pbakaus/impeccable.git",
+  "owner": "pbakaus",
+  "repo": "impeccable",
+  "updatedAt": "2026-08-27T18:54:23.865Z",
   "skillCount": 1,
   "skills": [
     {
-      "name": "i-have-adhd",
-      "description": "Shape output for a reader with ADHD: lead with the next action, number multi-step work, restate state across turns, suppress tangents, give specific time estimates, make wins visible. Invoke with /i-have-adhd; stays on until \"stop adhd mode\". \u2014 anti-slop",
-      "version": "0.0.0",
-      "license": "MIT",
+      "name": "impeccable",
+      "description": "Use when the user wants to design, redesign, shape, critique, audit, polish, clarify, distill, harden, optimize, adapt, animate, colorize, extract, or otherwise improve a frontend interface. Covers websites, landing pages, dashboards, product UI, app shells, components, forms, settings, onboarding, and empty states. Handles UX review, visual hierarchy, information architecture, cognitive load, accessibility, performance, responsive behavior, theming, anti-patterns, typography, fonts, spacing, layout, alignment, color, motion, micro-interactions, UX copy, error states, edge cases, i18n, and reusable design systems or tokens. Also use for bland designs that need to become bolder or more delightful, loud designs that should become quieter, live browser iteration on UI elements, or ambitious visual effects that should feel technically extraordinary. Not for backend-only or non-UI tasks. \u2014 anti-slop",
+      "version": "4.1.2",
+      "license": "Apache 2.0",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "modelInvocable": false,
+      "modelInvocable": true,
       "userInvocable": true,
-      "installUrl": "github:ayghri/i-have-adhd:skills/i-have-adhd",
-      "relPath": "skills/i-have-adhd",
+      "installUrl": "github:pbakaus/impeccable:.claude/skills/impeccable",
+      "relPath": ".claude/skills/impeccable",
       "verified": true,
-      "tokenCount": 2283,
+      "tokenCount": 2865,
       "evalSummary": {
-        "overallScore": 81,
-        "grade": "B",
+        "overallScore": 72,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 8,
+            "score": 9,
             "max": 10
           },
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 3,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 8,
+            "score": 5,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 10,
+            "score": 7,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 7,
             "max": 10
           },
           {
             "id": "license",
             "name": "License verification",
-            "score": 5,
+            "score": 2,
             "max": 10
           },
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
@@ -84,8 +84,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:39.692Z",
-        "evaluatedVersion": "0.0.0"
+        "evaluatedAt": "2026-08-27T18:54:23.819Z",
+        "evaluatedVersion": "4.1.2"
       },
       "evalSummaries": {
         "quality": {
@@ -93,61 +93,61 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 81,
-          "grade": "B",
+          "overallScore": 70,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
               "name": "Structure & completeness",
-              "score": 8,
+              "score": 9,
               "max": 10
             },
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 3,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 8,
+              "score": 5,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 10,
+              "score": 7,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 7,
               "max": 10
             },
             {
               "id": "license",
               "name": "License verification",
-              "score": 5,
+              "score": 2,
               "max": 10
             },
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 8,
+              "score": 10,
               "max": 10
             },
             {
               "id": "pii",
               "name": "PII detection",
-              "score": 10,
+              "score": 8,
               "max": 10
             },
             {
@@ -157,8 +157,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:39.692Z",
-          "evaluatedVersion": "0.0.0"
+          "evaluatedAt": "2026-08-27T18:54:23.819Z",
+          "evaluatedVersion": "4.1.2"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -175,8 +175,8 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:39.692Z",
-          "evaluatedVersion": "0.0.0"
+          "evaluatedAt": "2026-08-27T18:54:23.819Z",
+          "evaluatedVersion": "4.1.2"
         }
       }
     }

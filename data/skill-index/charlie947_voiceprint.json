@@ -1,74 +1,74 @@
 {
-  "repoUrl": "https://github.com/ayghri/i-have-adhd.git",
-  "owner": "ayghri",
-  "repo": "i-have-adhd",
-  "updatedAt": "2026-08-27T10:21:39.695Z",
+  "repoUrl": "https://github.com/charlie947/voiceprint.git",
+  "owner": "charlie947",
+  "repo": "voiceprint",
+  "updatedAt": "2026-08-27T18:54:32.900Z",
   "skillCount": 1,
   "skills": [
     {
-      "name": "i-have-adhd",
-      "description": "Shape output for a reader with ADHD: lead with the next action, number multi-step work, restate state across turns, suppress tangents, give specific time estimates, make wins visible. Invoke with /i-have-adhd; stays on until \"stop adhd mode\". \u2014 anti-slop",
+      "name": "voiceprint",
+      "description": "Use when writing an article, newsletter, blog post or long social post that must genuinely be the user's own writing. Triggers on \"voiceprint\", \"write this in my voice\", \"turn my recording into an article\", \"cut my transcript down\", \"make this actually mine\", \"write from my video\". Turns the user's own spoken words into a finished piece by cutting, never by composing. \u2014 anti-slop",
       "version": "0.0.0",
-      "license": "MIT",
+      "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "modelInvocable": false,
+      "modelInvocable": true,
       "userInvocable": true,
-      "installUrl": "github:ayghri/i-have-adhd:skills/i-have-adhd",
-      "relPath": "skills/i-have-adhd",
+      "installUrl": "github:charlie947/voiceprint:skill",
+      "relPath": "skill",
       "verified": true,
-      "tokenCount": 2283,
+      "tokenCount": 2322,
       "evalSummary": {
-        "overallScore": 81,
-        "grade": "B",
+        "overallScore": 62,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 8,
+            "score": 7,
             "max": 10
           },
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 3,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 8,
+            "score": 6,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 10,
+            "score": 5,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 3,
             "max": 10
           },
           {
             "id": "license",
             "name": "License verification",
-            "score": 5,
+            "score": 0,
             "max": 10
           },
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 8,
+            "score": 9,
             "max": 10
           },
           {
@@ -84,7 +84,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:39.692Z",
+        "evaluatedAt": "2026-08-27T18:54:32.899Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -93,55 +93,55 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 81,
-          "grade": "B",
+          "overallScore": 62,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
               "name": "Structure & completeness",
-              "score": 8,
+              "score": 7,
               "max": 10
             },
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 3,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 8,
+              "score": 6,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 10,
+              "score": 5,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 3,
               "max": 10
             },
             {
               "id": "license",
               "name": "License verification",
-              "score": 5,
+              "score": 0,
               "max": 10
             },
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 8,
+              "score": 9,
               "max": 10
             },
             {
@@ -157,7 +157,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:39.692Z",
+          "evaluatedAt": "2026-08-27T18:54:32.899Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -165,17 +165,17 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 69,
-          "grade": "C",
+          "overallScore": 62,
+          "grade": "D",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
+              "score": 8,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:39.692Z",
+          "evaluatedAt": "2026-08-27T18:54:32.899Z",
           "evaluatedVersion": "0.0.0"
         }
       }

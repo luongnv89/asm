@@ -567,6 +567,105 @@
       "description": "A skill to stop your coding agent from burying the answer. ADHD-friendly output.",
       "maintainer": "@ayghri",
       "enabled": true
+    },
+    {
+      "source": "github:VoltAgent/awesome-design-md",
+      "url": "https://github.com/VoltAgent/awesome-design-md",
+      "owner": "VoltAgent",
+      "repo": "awesome-design-md",
+      "description": "Awesome design.md \u2014 structured design-system docs for agent-built UIs (anti-slop design skill).",
+      "maintainer": "@VoltAgent",
+      "enabled": true
+    },
+    {
+      "source": "github:pbakaus/impeccable",
+      "url": "https://github.com/pbakaus/impeccable",
+      "owner": "pbakaus",
+      "repo": "impeccable",
+      "description": "impeccable \u2014 anti-slop UI/UX skill for polished, non-templated interfaces.",
+      "maintainer": "@pbakaus",
+      "enabled": true
+    },
+    {
+      "source": "github:blader/humanizer",
+      "url": "https://github.com/blader/humanizer",
+      "owner": "blader",
+      "repo": "humanizer",
+      "description": "humanizer \u2014 removes AI-sounding patterns from generated text (anti-slop writing).",
+      "maintainer": "@blader",
+      "enabled": true
+    },
+    {
+      "source": "github:zarazhangrui/frontend-slides",
+      "url": "https://github.com/zarazhangrui/frontend-slides",
+      "owner": "zarazhangrui",
+      "repo": "frontend-slides",
+      "description": "frontend-slides \u2014 generate clean slide decks without templated look (anti-slop).",
+      "maintainer": "@zarazhangrui",
+      "enabled": true
+    },
+    {
+      "source": "github:google-labs-code/design.md",
+      "url": "https://github.com/google-labs-code/design.md",
+      "owner": "google-labs-code",
+      "repo": "design.md",
+      "description": "design.md \u2014 Google Labs design-system skill for agent-built interfaces (anti-slop).",
+      "maintainer": "@google-labs-code",
+      "enabled": true
+    },
+    {
+      "source": "github:Nutlope/hallmark",
+      "url": "https://github.com/Nutlope/hallmark",
+      "owner": "Nutlope",
+      "repo": "hallmark",
+      "description": "hallmark \u2014 anti-slop skill for distinctive, non-generic output.",
+      "maintainer": "@Nutlope",
+      "enabled": true
+    },
+    {
+      "source": "github:cathrynlavery/diagram-design",
+      "url": "https://github.com/cathrynlavery/diagram-design",
+      "owner": "cathrynlavery",
+      "repo": "diagram-design",
+      "description": "diagram-design \u2014 draws diagrams instead of explaining; clean visual output (anti-slop).",
+      "maintainer": "@cathrynlavery",
+      "enabled": true
+    },
+    {
+      "source": "github:hardikpandya/stop-slop",
+      "url": "https://github.com/hardikpandya/stop-slop",
+      "owner": "hardikpandya",
+      "repo": "stop-slop",
+      "description": "stop-slop \u2014 explicitly anti-AI-slop skill for human-sounding output.",
+      "maintainer": "@hardikpandya",
+      "enabled": true
+    },
+    {
+      "source": "github:tt-a1i/archify",
+      "url": "https://github.com/tt-a1i/archify",
+      "owner": "tt-a1i",
+      "repo": "archify",
+      "description": "archify \u2014 architecture diagramming skill for clean, non-templated visuals (anti-slop).",
+      "maintainer": "@tt-a1i",
+      "enabled": true
+    },
+    {
+      "source": "github:charlie947/answer-first",
+      "url": "https://github.com/charlie947/answer-first",
+      "owner": "charlie947",
+      "repo": "answer-first",
+      "description": "answer-first \u2014 Charlie Hills skill: answer on line one, next step at bottom (anti-slop output structure).",
+      "maintainer": "@charlie947",
+      "enabled": true
+    },
+    {
+      "source": "github:charlie947/voiceprint",
+      "url": "https://github.com/charlie947/voiceprint",
+      "owner": "charlie947",
+      "repo": "voiceprint",
+      "description": "voiceprint \u2014 Charlie Hills skill: preserve a consistent human voice (anti-slop writing).",
+      "maintainer": "@charlie947",
+      "enabled": true
     }
   ]
 }

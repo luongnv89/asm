@@ -1,27 +1,27 @@
 {
-  "repoUrl": "https://github.com/ayghri/i-have-adhd.git",
-  "owner": "ayghri",
-  "repo": "i-have-adhd",
-  "updatedAt": "2026-08-27T10:21:39.695Z",
+  "repoUrl": "https://github.com/hardikpandya/stop-slop.git",
+  "owner": "hardikpandya",
+  "repo": "stop-slop",
+  "updatedAt": "2026-08-27T18:54:29.607Z",
   "skillCount": 1,
   "skills": [
     {
-      "name": "i-have-adhd",
-      "description": "Shape output for a reader with ADHD: lead with the next action, number multi-step work, restate state across turns, suppress tangents, give specific time estimates, make wins visible. Invoke with /i-have-adhd; stays on until \"stop adhd mode\". \u2014 anti-slop",
+      "name": "stop-slop",
+      "description": "Remove AI writing patterns from prose. Use when drafting, editing, or reviewing text to eliminate predictable AI tells. \u2014 anti-slop",
       "version": "0.0.0",
-      "license": "MIT",
+      "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "modelInvocable": false,
+      "modelInvocable": true,
       "userInvocable": true,
-      "installUrl": "github:ayghri/i-have-adhd:skills/i-have-adhd",
-      "relPath": "skills/i-have-adhd",
+      "installUrl": "github:hardikpandya/stop-slop",
+      "relPath": "",
       "verified": true,
-      "tokenCount": 2283,
+      "tokenCount": 680,
       "evalSummary": {
-        "overallScore": 81,
-        "grade": "B",
+        "overallScore": 64,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -32,43 +32,43 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 10,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 8,
+            "score": 3,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 10,
+            "score": 1,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 1,
             "max": 10
           },
           {
             "id": "license",
             "name": "License verification",
-            "score": 5,
+            "score": 2,
             "max": 10
           },
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
@@ -84,7 +84,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:39.692Z",
+        "evaluatedAt": "2026-08-27T18:54:29.605Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -93,8 +93,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 81,
-          "grade": "B",
+          "overallScore": 63,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -105,43 +105,43 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 10,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 8,
+              "score": 3,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 10,
+              "score": 1,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 1,
               "max": 10
             },
             {
               "id": "license",
               "name": "License verification",
-              "score": 5,
+              "score": 2,
               "max": 10
             },
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 8,
+              "score": 9,
               "max": 10
             },
             {
@@ -157,7 +157,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:39.692Z",
+          "evaluatedAt": "2026-08-27T18:54:29.605Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -165,17 +165,17 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 69,
+          "overallScore": 77,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
+              "score": 10,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:39.692Z",
+          "evaluatedAt": "2026-08-27T18:54:29.605Z",
           "evaluatedVersion": "0.0.0"
         }
       }

@@ -1,50 +1,50 @@
 {
-  "repoUrl": "https://github.com/ayghri/i-have-adhd.git",
-  "owner": "ayghri",
-  "repo": "i-have-adhd",
-  "updatedAt": "2026-08-27T10:21:39.695Z",
+  "repoUrl": "https://github.com/cathrynlavery/diagram-design.git",
+  "owner": "cathrynlavery",
+  "repo": "diagram-design",
+  "updatedAt": "2026-08-27T18:54:28.921Z",
   "skillCount": 1,
   "skills": [
     {
-      "name": "i-have-adhd",
-      "description": "Shape output for a reader with ADHD: lead with the next action, number multi-step work, restate state across turns, suppress tangents, give specific time estimates, make wins visible. Invoke with /i-have-adhd; stays on until \"stop adhd mode\". \u2014 anti-slop",
-      "version": "0.0.0",
+      "name": "diagram-design",
+      "description": "Create branded architecture, IT current-state, flowchart, sequence, state machine, ER/data model, timeline, swimlane, quadrant, radar/spider, polar chart (polar/radial lollipop), loop/flywheel, nested, tree, org chart, layer stack, Venn, pyramid/funnel, treemap, bar, line, Gantt and scatter charts, high-level, process, medallion, data flow, DP integration, DP security matrix, Sankey, fishbone, Wardley map, kanban, user journey, deployment, dependency graph, UML class, story map, or database schema diagrams as standalone HTML/SVG/PNG. Redraw .drawio/.drawio.png/.drawio.svg or Mermaid .mmd sources at a chosen size/detail; onboard brand tokens from a website; add semantic patterns, callouts, accessible motion, or sketchy/hand-drawn styling. \u2014 anti-slop",
+      "version": "2.6",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "modelInvocable": false,
+      "modelInvocable": true,
       "userInvocable": true,
-      "installUrl": "github:ayghri/i-have-adhd:skills/i-have-adhd",
-      "relPath": "skills/i-have-adhd",
+      "installUrl": "github:cathrynlavery/diagram-design:skills/diagram-design",
+      "relPath": "skills/diagram-design",
       "verified": true,
-      "tokenCount": 2283,
+      "tokenCount": 11330,
       "evalSummary": {
-        "overallScore": 81,
-        "grade": "B",
+        "overallScore": 75,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 8,
+            "score": 9,
             "max": 10
           },
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 3,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 8,
+            "score": 9,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 10,
+            "score": 6,
             "max": 10
           },
           {
@@ -56,7 +56,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 3,
             "max": 10
           },
           {
@@ -68,7 +68,7 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
@@ -84,8 +84,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:39.692Z",
-        "evaluatedVersion": "0.0.0"
+        "evaluatedAt": "2026-08-27T18:54:28.737Z",
+        "evaluatedVersion": "2.6"
       },
       "evalSummaries": {
         "quality": {
@@ -93,31 +93,31 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 81,
-          "grade": "B",
+          "overallScore": 71,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
               "name": "Structure & completeness",
-              "score": 8,
+              "score": 9,
               "max": 10
             },
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 3,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 8,
+              "score": 9,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 10,
+              "score": 6,
               "max": 10
             },
             {
@@ -129,7 +129,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 3,
               "max": 10
             },
             {
@@ -141,13 +141,13 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 8,
+              "score": 10,
               "max": 10
             },
             {
               "id": "pii",
               "name": "PII detection",
-              "score": 10,
+              "score": 6,
               "max": 10
             },
             {
@@ -157,26 +157,26 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:39.692Z",
-          "evaluatedVersion": "0.0.0"
+          "evaluatedAt": "2026-08-27T18:54:28.737Z",
+          "evaluatedVersion": "2.6"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 69,
+          "overallScore": 71,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
-              "max": 13
+              "score": 10,
+              "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:39.692Z",
-          "evaluatedVersion": "0.0.0"
+          "evaluatedAt": "2026-08-27T18:54:28.737Z",
+          "evaluatedVersion": "2.6"
         }
       }
     }

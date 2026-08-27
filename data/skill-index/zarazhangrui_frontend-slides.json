@@ -1,50 +1,50 @@
 {
-  "repoUrl": "https://github.com/ayghri/i-have-adhd.git",
-  "owner": "ayghri",
-  "repo": "i-have-adhd",
-  "updatedAt": "2026-08-27T10:21:39.695Z",
+  "repoUrl": "https://github.com/zarazhangrui/frontend-slides.git",
+  "owner": "zarazhangrui",
+  "repo": "frontend-slides",
+  "updatedAt": "2026-08-27T18:54:25.518Z",
   "skillCount": 1,
   "skills": [
     {
-      "name": "i-have-adhd",
-      "description": "Shape output for a reader with ADHD: lead with the next action, number multi-step work, restate state across turns, suppress tangents, give specific time estimates, make wins visible. Invoke with /i-have-adhd; stays on until \"stop adhd mode\". \u2014 anti-slop",
+      "name": "frontend-slides",
+      "description": "Create stunning, animation-rich HTML presentations from scratch or by converting PowerPoint files. Use when the user wants to build a presentation, convert a PPT/PPTX to web, or create slides for a talk/pitch. Helps non-designers discover their aesthetic through visual exploration rather than abstract choices. \u2014 anti-slop",
       "version": "0.0.0",
-      "license": "MIT",
+      "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "modelInvocable": false,
+      "modelInvocable": true,
       "userInvocable": true,
-      "installUrl": "github:ayghri/i-have-adhd:skills/i-have-adhd",
-      "relPath": "skills/i-have-adhd",
+      "installUrl": "github:zarazhangrui/frontend-slides",
+      "relPath": "",
       "verified": true,
-      "tokenCount": 2283,
+      "tokenCount": 8591,
       "evalSummary": {
-        "overallScore": 81,
-        "grade": "B",
+        "overallScore": 76,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 8,
+            "score": 7,
             "max": 10
           },
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 8,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 8,
+            "score": 9,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 10,
+            "score": 5,
             "max": 10
           },
           {
@@ -62,13 +62,13 @@
           {
             "id": "license",
             "name": "License verification",
-            "score": 5,
+            "score": 2,
             "max": 10
           },
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
@@ -84,7 +84,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:39.692Z",
+        "evaluatedAt": "2026-08-27T18:54:25.388Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -93,31 +93,31 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 81,
-          "grade": "B",
+          "overallScore": 67,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
               "name": "Structure & completeness",
-              "score": 8,
+              "score": 7,
               "max": 10
             },
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 8,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 8,
+              "score": 9,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 10,
+              "score": 5,
               "max": 10
             },
             {
@@ -135,29 +135,29 @@
             {
               "id": "license",
               "name": "License verification",
-              "score": 5,
+              "score": 2,
               "max": 10
             },
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 8,
+              "score": 9,
               "max": 10
             },
             {
               "id": "pii",
               "name": "PII detection",
-              "score": 10,
+              "score": 6,
               "max": 10
             },
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 10,
+              "score": 6,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:39.692Z",
+          "evaluatedAt": "2026-08-27T18:54:25.388Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -165,17 +165,17 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 69,
-          "grade": "C",
+          "overallScore": 62,
+          "grade": "D",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
+              "score": 8,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:39.692Z",
+          "evaluatedAt": "2026-08-27T18:54:25.388Z",
           "evaluatedVersion": "0.0.0"
         }
       }

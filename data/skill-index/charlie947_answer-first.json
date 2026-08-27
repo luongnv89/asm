@@ -1,74 +1,74 @@
 {
-  "repoUrl": "https://github.com/ayghri/i-have-adhd.git",
-  "owner": "ayghri",
-  "repo": "i-have-adhd",
-  "updatedAt": "2026-08-27T10:21:39.695Z",
+  "repoUrl": "https://github.com/charlie947/answer-first.git",
+  "owner": "charlie947",
+  "repo": "answer-first",
+  "updatedAt": "2026-08-27T18:54:32.205Z",
   "skillCount": 1,
   "skills": [
     {
-      "name": "i-have-adhd",
-      "description": "Shape output for a reader with ADHD: lead with the next action, number multi-step work, restate state across turns, suppress tangents, give specific time estimates, make wins visible. Invoke with /i-have-adhd; stays on until \"stop adhd mode\". \u2014 anti-slop",
+      "name": "answer-first",
+      "description": "Shape every answer so the action comes first. Use when the user asks for output that is short, skimmable, action-led or \"no waffle\", and apply it for the whole conversation once invoked, not just one reply. Triggers on \"answer first\", \"no preamble\", \"no waffle\", \"keep it short\", \"just tell me what to do\", \"cut the fluff\", \"ADHD mode\", or any request to stop burying the answer in paragraph four. \u2014 anti-slop",
       "version": "0.0.0",
-      "license": "MIT",
+      "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "modelInvocable": false,
+      "modelInvocable": true,
       "userInvocable": true,
-      "installUrl": "github:ayghri/i-have-adhd:skills/i-have-adhd",
-      "relPath": "skills/i-have-adhd",
+      "installUrl": "github:charlie947/answer-first:skills/answer-first",
+      "relPath": "skills/answer-first",
       "verified": true,
-      "tokenCount": 2283,
+      "tokenCount": 2136,
       "evalSummary": {
-        "overallScore": 81,
-        "grade": "B",
+        "overallScore": 65,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 8,
+            "score": 7,
             "max": 10
           },
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 3,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 8,
+            "score": 6,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 10,
+            "score": 7,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 3,
             "max": 10
           },
           {
             "id": "license",
             "name": "License verification",
-            "score": 5,
+            "score": 0,
             "max": 10
           },
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
@@ -84,7 +84,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:39.692Z",
+        "evaluatedAt": "2026-08-27T18:54:32.204Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -93,55 +93,55 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 81,
-          "grade": "B",
+          "overallScore": 65,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
               "name": "Structure & completeness",
-              "score": 8,
+              "score": 7,
               "max": 10
             },
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 3,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 8,
+              "score": 6,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 10,
+              "score": 7,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 3,
               "max": 10
             },
             {
               "id": "license",
               "name": "License verification",
-              "score": 5,
+              "score": 0,
               "max": 10
             },
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 8,
+              "score": 10,
               "max": 10
             },
             {
@@ -157,7 +157,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:39.692Z",
+          "evaluatedAt": "2026-08-27T18:54:32.204Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -175,7 +175,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:39.692Z",
+          "evaluatedAt": "2026-08-27T18:54:32.204Z",
           "evaluatedVersion": "0.0.0"
         }
       }

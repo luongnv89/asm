@@ -1,0 +1,891 @@
+{
+  "repoUrl": "https://github.com/google-labs-code/design.md.git",
+  "owner": "google-labs-code",
+  "repo": "design.md",
+  "updatedAt": "2026-08-27T18:54:26.267Z",
+  "skillCount": 4,
+  "skills": [
+    {
+      "name": "agent-dx-cli-scale",
+      "description": "A scoring scale for evaluating how well a CLI is designed for AI agents, based on the \"Rewrite Your CLI for AI Agents\" principles.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google-labs-code/design.md:.agents/skills/agent-dx-cli-scale",
+      "relPath": ".agents/skills/agent-dx-cli-scale",
+      "verified": true,
+      "tokenCount": 4733,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-27T18:54:26.263Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 67,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-27T18:54:26.263Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-08-27T18:54:26.263Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "ink",
+      "description": "Ink terminal renderer for json-render that turns JSON specs into interactive terminal UIs. Use when working with @json-render/ink, building terminal UIs from JSON, creating terminal component catalogs, or rendering AI-generated specs in the terminal.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google-labs-code/design.md:.agents/skills/ink",
+      "relPath": ".agents/skills/ink",
+      "verified": true,
+      "tokenCount": 2729,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-27T18:54:26.263Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-27T18:54:26.263Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-08-27T18:54:26.263Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "tdd-red-green-refactor",
+      "description": "Enforces a disciplined Red-Green-Refactor (TDD) workflow in TypeScript/Node.js.  Use this whenever creating new features, fixing bugs, or migrating logic to ensure  high-quality, verifiable implementations.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google-labs-code/design.md:.agents/skills/tdd",
+      "relPath": ".agents/skills/tdd",
+      "verified": true,
+      "tokenCount": 927,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-27T18:54:26.263Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 67,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-27T18:54:26.263Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-08-27T18:54:26.263Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "typed-service-contracts",
+      "description": "Architecture standard for building robust, type-safe TypeScript services using the \"Spec and Handler\" pattern. Use when building CLIs, libraries, or complex business logic.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google-labs-code/design.md:.agents/skills/typed-service-contracts",
+      "relPath": ".agents/skills/typed-service-contracts",
+      "verified": true,
+      "tokenCount": 1633,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-08-27T18:54:26.263Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-08-27T18:54:26.263Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-08-27T18:54:26.263Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "google-labs-code-design.md-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from google-labs-code/design.md.",
+      "author": "ASM (google-labs-code/design.md)",
+      "createdAt": "2026-08-27T18:54:26.267Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "google-labs-code",
+        "design.md"
+      ],
+      "skills": [
+        {
+          "name": "agent-dx-cli-scale",
+          "installUrl": "github:google-labs-code/design.md:.agents/skills/agent-dx-cli-scale",
+          "description": "A scoring scale for evaluating how well a CLI is designed for AI agents, based on the \"Rewrite Your CLI for AI Agents\" principles.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "ink",
+          "installUrl": "github:google-labs-code/design.md:.agents/skills/ink",
+          "description": "Ink terminal renderer for json-render that turns JSON specs into interactive terminal UIs. Use when working with @json-render/ink, building terminal UIs from JSON, creating terminal component catalogs, or rendering AI-generated specs in the terminal.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "tdd-red-green-refactor",
+          "installUrl": "github:google-labs-code/design.md:.agents/skills/tdd",
+          "description": "Enforces a disciplined Red-Green-Refactor (TDD) workflow in TypeScript/Node.js.  Use this whenever creating new features, fixing bugs, or migrating logic to ensure  high-quality, verifiable implementations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "typed-service-contracts",
+          "installUrl": "github:google-labs-code/design.md:.agents/skills/typed-service-contracts",
+          "description": "Architecture standard for building robust, type-safe TypeScript services using the \"Spec and Handler\" pattern. Use when building CLIs, libraries, or complex business logic.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google-labs-code",
+        "repo": "design.md",
+        "repoUrl": "https://github.com/google-labs-code/design.md.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-labs-code-design.md-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from google-labs-code/design.md.",
+      "author": "ASM (google-labs-code/design.md)",
+      "createdAt": "2026-08-27T18:54:26.267Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "google-labs-code",
+        "design.md"
+      ],
+      "skills": [
+        {
+          "name": "agent-dx-cli-scale",
+          "installUrl": "github:google-labs-code/design.md:.agents/skills/agent-dx-cli-scale",
+          "description": "A scoring scale for evaluating how well a CLI is designed for AI agents, based on the \"Rewrite Your CLI for AI Agents\" principles.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "tdd-red-green-refactor",
+          "installUrl": "github:google-labs-code/design.md:.agents/skills/tdd",
+          "description": "Enforces a disciplined Red-Green-Refactor (TDD) workflow in TypeScript/Node.js.  Use this whenever creating new features, fixing bugs, or migrating logic to ensure  high-quality, verifiable implementations.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google-labs-code",
+        "repo": "design.md",
+        "repoUrl": "https://github.com/google-labs-code/design.md.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-labs-code-design.md-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from google-labs-code/design.md.",
+      "author": "ASM (google-labs-code/design.md)",
+      "createdAt": "2026-08-27T18:54:26.267Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "google-labs-code",
+        "design.md"
+      ],
+      "skills": [
+        {
+          "name": "agent-dx-cli-scale",
+          "installUrl": "github:google-labs-code/design.md:.agents/skills/agent-dx-cli-scale",
+          "description": "A scoring scale for evaluating how well a CLI is designed for AI agents, based on the \"Rewrite Your CLI for AI Agents\" principles.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "ink",
+          "installUrl": "github:google-labs-code/design.md:.agents/skills/ink",
+          "description": "Ink terminal renderer for json-render that turns JSON specs into interactive terminal UIs. Use when working with @json-render/ink, building terminal UIs from JSON, creating terminal component catalogs, or rendering AI-generated specs in the terminal.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "tdd-red-green-refactor",
+          "installUrl": "github:google-labs-code/design.md:.agents/skills/tdd",
+          "description": "Enforces a disciplined Red-Green-Refactor (TDD) workflow in TypeScript/Node.js.  Use this whenever creating new features, fixing bugs, or migrating logic to ensure  high-quality, verifiable implementations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "typed-service-contracts",
+          "installUrl": "github:google-labs-code/design.md:.agents/skills/typed-service-contracts",
+          "description": "Architecture standard for building robust, type-safe TypeScript services using the \"Spec and Handler\" pattern. Use when building CLIs, libraries, or complex business logic.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google-labs-code",
+        "repo": "design.md",
+        "repoUrl": "https://github.com/google-labs-code/design.md.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-labs-code-design.md-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from google-labs-code/design.md.",
+      "author": "ASM (google-labs-code/design.md)",
+      "createdAt": "2026-08-27T18:54:26.267Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "google-labs-code",
+        "design.md"
+      ],
+      "skills": [
+        {
+          "name": "agent-dx-cli-scale",
+          "installUrl": "github:google-labs-code/design.md:.agents/skills/agent-dx-cli-scale",
+          "description": "A scoring scale for evaluating how well a CLI is designed for AI agents, based on the \"Rewrite Your CLI for AI Agents\" principles.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "ink",
+          "installUrl": "github:google-labs-code/design.md:.agents/skills/ink",
+          "description": "Ink terminal renderer for json-render that turns JSON specs into interactive terminal UIs. Use when working with @json-render/ink, building terminal UIs from JSON, creating terminal component catalogs, or rendering AI-generated specs in the terminal.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "tdd-red-green-refactor",
+          "installUrl": "github:google-labs-code/design.md:.agents/skills/tdd",
+          "description": "Enforces a disciplined Red-Green-Refactor (TDD) workflow in TypeScript/Node.js.  Use this whenever creating new features, fixing bugs, or migrating logic to ensure  high-quality, verifiable implementations.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "typed-service-contracts",
+          "installUrl": "github:google-labs-code/design.md:.agents/skills/typed-service-contracts",
+          "description": "Architecture standard for building robust, type-safe TypeScript services using the \"Spec and Handler\" pattern. Use when building CLIs, libraries, or complex business logic.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google-labs-code",
+        "repo": "design.md",
+        "repoUrl": "https://github.com/google-labs-code/design.md.git"
+      },
+      "inferred": true
+    }
+  ]
+}
