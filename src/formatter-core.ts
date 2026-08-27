@@ -770,6 +770,29 @@ export function wordWrap(text: string, maxWidth: number): string[] {
   return lines;
 }
 
+// ─── Tag editing ─────────────────────────────────────────────────────────────
+
+export interface TagUpdateResult {
+  name: string;
+  path: string;
+  tags: string[];
+  changed: boolean;
+}
+
+export function formatTagUpdates(
+  action: "add" | "remove",
+  results: TagUpdateResult[],
+): string {
+  const verb = action === "add" ? "Added tags to" : "Removed tags from";
+  return results
+    .map((result) => {
+      const tags = result.tags.length > 0 ? result.tags.join(", ") : "(none)";
+      const suffix = result.changed ? "" : " (unchanged)";
+      return `${verb} ${ansi.bold(result.name)}: ${tags}${suffix}`;
+    })
+    .join("\n");
+}
+
 // ─── JSON formatter ─────────────────────────────────────────────────────────
 
 export function formatJSON(data: unknown): string {

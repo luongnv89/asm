@@ -10,6 +10,7 @@ import {
   colorProvider,
   colorEffort,
   formatJSON,
+  formatTagUpdates,
   ansi,
   colorTool,
   formatAllowedTools,
@@ -369,6 +370,19 @@ describe("formatSkillInspect", () => {
     ];
     const output = await formatSkillInspect(skills);
     expect(output).not.toContain("Warnings");
+  });
+});
+
+// ─── tag update formatter ──────────────────────────────────────────────────
+
+describe("formatTagUpdates", () => {
+  test("formats changed and unchanged effective tags", () => {
+    expect(
+      formatTagUpdates("add", [
+        { name: "review", path: "/review", tags: ["cli"], changed: true },
+        { name: "test", path: "/test", tags: [], changed: false },
+      ]),
+    ).toBe("Added tags to review: cli\nAdded tags to test: (none) (unchanged)");
   });
 });
 

@@ -3,6 +3,12 @@ import { scanAllSkills, sortSkills } from "../scanner";
 import { matchesInvocabilityFilters } from "../utils/frontmatter";
 import { loadSkillState } from "../skill-state";
 import {
+  applySkillTagState,
+  loadSkillTagState,
+  matchesAllTags,
+  parseTagInputs,
+} from "../skill-tags";
+import {
   formatSkillTable,
   formatGroupedTable,
   formatJSON,
@@ -15,7 +21,7 @@ import {
 } from "../formatter";
 import { formatMachineOutput } from "../utils/machine";
 
-import { enrichWithHealth } from "./shared";
+import { enrichWithHealth, error } from "./shared";
 import { reconstructDisabledSkills } from "./toggle";
 import type { ParsedArgs } from "../cli";
 
@@ -38,6 +44,7 @@ ${ansi.bold("Options:")}
   --limit <N>          Limit rendered rows (0 = no limit)
   --model-invocable    Only skills the model can invoke
   --user-invocable     Only skills the user can invoke (slash command)
+  --tag <tag[,tag]>    Require every tag; repeatable
   --json               Output as JSON array
   --machine            Output in stable machine-readable v1 envelope format
   --no-color           Disable ANSI colors
@@ -54,6 +61,7 @@ ${ansi.bold("Examples:")}
   asm list --limit 20               ${ansi.dim("Show first 20 rows only")}
   asm list -p claude                ${ansi.dim("Only Claude Code skills")}
   asm list -s project               ${ansi.dim("Only project-scoped skills")}
+  asm list --tag cli --tag testing  ${ansi.dim("Require both tags")}
   asm list --sort version           ${ansi.dim("Sort by version")}
   asm list --json                   ${ansi.dim("Output as JSON")}
   asm list --machine                ${ansi.dim("Machine-readable v1 envelope output")}`);
@@ -62,6 +70,15 @@ ${ansi.bold("Examples:")}
 export async function cmdList(args: ParsedArgs) {
   if (args.flags.help) {
     printListHelp();
+    return;
+  }
+
+  const parsedTags = parseTagInputs(args.flags.tagFilters);
+  if (parsedTags.invalid.length > 0) {
+    error(
+      `Invalid tag value(s): ${parsedTags.invalid.map((tag) => JSON.stringify(tag)).join(", ")}.`,
+    );
+    process.exitCode = 2;
     return;
   }
 
@@ -85,6 +102,14 @@ export async function cmdList(args: ParsedArgs) {
     activeKeys,
   );
   allSkills = [...allSkills, ...disabledSkills];
+
+  const tagState = await loadSkillTagState();
+  applySkillTagState(allSkills, tagState);
+  if (parsedTags.tags.length > 0) {
+    allSkills = allSkills.filter((skill) =>
+      matchesAllTags(skill.tags, parsedTags.tags),
+    );
+  }
 
   // Provider filter (for list/search — not for install/init where it means target)
   if (args.flags.provider && args.command === "list") {
@@ -110,6 +135,7 @@ export async function cmdList(args: ParsedArgs) {
       scope: s.scope,
       provider: s.provider,
       path: s.path,
+      tags: s.tags || [],
     }));
     console.log(formatMachineOutput("list", data, startTime));
     return;

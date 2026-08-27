@@ -3,6 +3,7 @@ import { join } from "path";
 import { getIndexDir, getBundledIndexDir } from "./config";
 import type { RepoIndex, IndexedSkill } from "./utils/types";
 import { matchesInvocabilityFilters, normalizeTags } from "./utils/frontmatter";
+import { matchesAllTags } from "./skill-tags";
 
 // ─── Memoization (issue #461) ──────────────────────────────────────────────
 
@@ -236,8 +237,8 @@ function matchesFilters(skill: IndexedSkill, filters: SearchFilters): boolean {
     }
   }
   if (filters.tags && filters.tags.length > 0) {
-    const skillTags = new Set(normalizeTags(skill.tags || []));
-    if (!normalizeTags(filters.tags).every((tag) => skillTags.has(tag))) {
+    const requested = normalizeTags(filters.tags);
+    if (requested.length === 0 || !matchesAllTags(skill.tags, requested)) {
       return false;
     }
   }

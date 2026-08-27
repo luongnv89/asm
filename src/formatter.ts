@@ -29,6 +29,9 @@ export {
   formatSearchResults,
   type AvailableSkillResult,
   formatAvailableSearchResults,
+  // ── Tag editing ──
+  formatTagUpdates,
+  type TagUpdateResult,
   // ── Allowed-tools risk ──
   HIGH_RISK_TOOLS,
   MEDIUM_RISK_TOOLS,

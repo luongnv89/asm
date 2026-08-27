@@ -3,6 +3,7 @@ import { scanAllSkills } from "../scanner";
 import {
   parseFrontmatter,
   resolveModelInvocable,
+  resolveTags,
   resolveUserInvocable,
 } from "../utils/frontmatter";
 import {
@@ -166,6 +167,7 @@ export async function reconstructDisabledSkills(
           license: (fm.license || "").trim(),
           compatibility: (fm.compatibility || "").trim(),
           allowedTools: [],
+          tags: resolveTags(fm),
           modelInvocable: resolveModelInvocable(fm),
           userInvocable: resolveUserInvocable(fm),
           dirName,

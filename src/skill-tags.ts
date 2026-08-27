@@ -2,7 +2,7 @@ import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
 import { getSkillTagsPath } from "./config";
 import { debug } from "./logger";
-import { normalizeTags } from "./utils/frontmatter";
+import { normalizeTag, normalizeTags } from "./utils/frontmatter";
 import type { SkillInfo, SkillTagStateFile } from "./utils/types";
 
 export function emptySkillTagState(): SkillTagStateFile {
@@ -87,6 +87,23 @@ export async function saveSkillTagState(
 
 export function skillTagKey(skill: Pick<SkillInfo, "realPath">): string {
   return skill.realPath;
+}
+
+export function parseTagInputs(inputs: string[]): {
+  tags: string[];
+  invalid: string[];
+} {
+  const values = inputs.flatMap((input) => input.split(","));
+  const invalid = values.filter((value) => normalizeTag(value) === null);
+  return { tags: normalizeTags(values), invalid };
+}
+
+export function matchesAllTags(
+  skillTags: string[] | undefined,
+  requestedTags: string[],
+): boolean {
+  const available = new Set(normalizeTags(skillTags || []));
+  return normalizeTags(requestedTags).every((tag) => available.has(tag));
 }
 
 export function effectiveSkillTags(

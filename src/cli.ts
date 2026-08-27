@@ -42,6 +42,8 @@ export interface ParsedArgs {
     missing: string[];
     modelInvocable: boolean;
     userInvocable: boolean;
+    /** Repeatable/comma-separated tag filters for list and search. */
+    tagFilters: string[];
     dryRun: boolean;
     /** `asm import --diff` — show unified diffs for conflicts. */
     diff: boolean;
@@ -129,6 +131,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       missing: [],
       modelInvocable: false,
       userInvocable: false,
+      tagFilters: [],
       dryRun: false,
       diff: false,
       machine: false,
@@ -296,6 +299,13 @@ export function parseArgs(argv: string[]): ParsedArgs {
       result.flags.modelInvocable = true;
     } else if (arg === "--user-invocable") {
       result.flags.userInvocable = true;
+    } else if (arg === "--tag") {
+      i++;
+      if (!args[i]) {
+        error('Missing value for "--tag".');
+        process.exit(2);
+      }
+      result.flags.tagFilters.push(args[i]);
     } else if (arg === "--add") {
       i++;
       result.flags.add = args[i] || null;
@@ -368,6 +378,7 @@ ${ansi.bold("Usage:")}
 ${ansi.bold("Commands:")}
   list                   List all discovered skills
   search <query>         Search skills by name/description/tool
+  tag add|remove         Edit local tags for an installed skill
   inspect <skill-name>   Show detailed info for a skill
   get <skill>            Print a skill's SKILL.md body (installs nothing)
   uninstall <skill-name> Remove a skill (with confirmation)
@@ -407,6 +418,7 @@ ${ansi.bold("Global Options:")}
   --machine              Stable machine-readable JSON envelope (v1)
   -s, --scope <scope>    Filter: global, project, or both (default: both)
   -p, --tool <name>      Filter by tool (list, search)
+  --tag <tag[,tag]>      Filter by all tags; repeatable (list, search)
   --no-color             Disable ANSI colors
   --sort <field>         Sort by: name, version, or location (default: name)
   --flat                 Show one row per tool instance (list, search)
@@ -417,6 +429,7 @@ ${ansi.bold("Global Options:")}
 // ─── Command handlers ──────────────────────────────────────────────────────
 import { cmdList } from "./commands/list";
 import { cmdSearch } from "./commands/search";
+import { cmdTag } from "./commands/tag";
 import { cmdInspect } from "./commands/inspect";
 import { cmdGet } from "./commands/get";
 import { cmdUninstall } from "./commands/uninstall";
@@ -518,6 +531,9 @@ export async function runCLI(argv: string[]): Promise<void> {
     case "search":
       await cmdSearch(args);
       break;
+    case "tag":
+      await cmdTag(args);
+      break;
     case "inspect":
       await cmdInspect(args);
       break;
@@ -607,6 +623,7 @@ export function isCLIMode(argv: string[]): boolean {
   const commands = [
     "list",
     "search",
+    "tag",
     "inspect",
     "get",
     "uninstall",

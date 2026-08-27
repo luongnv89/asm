@@ -8,6 +8,8 @@ import {
   effectiveSkillTags,
   emptySkillTagState,
   loadSkillTagState,
+  matchesAllTags,
+  parseTagInputs,
   removeSkillTags,
   saveSkillTagState,
 } from "./skill-tags";
@@ -35,6 +37,24 @@ function skill(realPath: string, tags: string[] = []): SkillInfo {
     realPath,
   };
 }
+
+describe("skill tag parsing and filtering", () => {
+  it("accepts repeatable and comma-separated tag values", () => {
+    expect(parseTagInputs(["CLI,testing", "frontend"])).toEqual({
+      tags: ["cli", "testing", "frontend"],
+      invalid: [],
+    });
+  });
+
+  it("reports empty and malformed tag values", () => {
+    expect(parseTagInputs(["cli,,bad tag"]).invalid).toEqual(["", "bad tag"]);
+  });
+
+  it("matches multiple tags with AND semantics", () => {
+    expect(matchesAllTags(["CLI", "testing"], ["cli", "TESTING"])).toBe(true);
+    expect(matchesAllTags(["cli"], ["cli", "testing"])).toBe(false);
+  });
+});
 
 describe("skill tag overlay edits", () => {
   it("merges normalized additions with authoritative frontmatter tags", () => {
