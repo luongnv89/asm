@@ -445,7 +445,7 @@ describe("scanAllSkills", () => {
     const skillDir = join(tempDir, "my-skill");
     await mkdir(skillDir, { recursive: true });
     const skillMdContent =
-      "---\nname: My Skill\nversion: 1.0.0\ndescription: A test\n---\nBody";
+      "---\nname: My Skill\nversion: 1.0.0\ndescription: A test\ntags: [CLI, testing]\n---\nBody";
     await writeFile(join(skillDir, "SKILL.md"), skillMdContent);
 
     const config = {
@@ -468,6 +468,7 @@ describe("scanAllSkills", () => {
     expect(found!.version).toBe("1.0.0");
     expect(found!.scope).toBe("global");
     expect(found!.provider).toBe("test");
+    expect(found!.tags).toEqual(["cli", "testing"]);
     expect(found!.isSymlink).toBe(false);
     expect(found!._skillMdContent).toBe(skillMdContent);
     expect(JSON.stringify(found)).not.toContain("_skillMdContent");
@@ -1149,6 +1150,7 @@ describe("scanPluginMarketplaces", () => {
         "compatibility: Claude 3+",
         "effort: medium",
         "allowed-tools: Bash, Read",
+        "tags: Frontend, accessibility, frontend",
         "disable-model-invocation: true",
         "user-invocable: true",
         "---",
@@ -1167,6 +1169,7 @@ describe("scanPluginMarketplaces", () => {
     expect(s.effort).toBe("medium");
     expect(s.allowedTools).toContain("Bash");
     expect(s.allowedTools).toContain("Read");
+    expect(s.tags).toEqual(["frontend", "accessibility"]);
     expect(s.modelInvocable).toBe(false);
     expect(s.userInvocable).toBe(true);
   });

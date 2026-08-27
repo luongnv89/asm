@@ -14,6 +14,7 @@ import {
   resolveAllowedTools,
   resolveModelInvocable,
   resolveUserInvocable,
+  resolveTags,
 } from "./utils/frontmatter";
 import { estimateTokenCount } from "./utils/token-count";
 import { resolveProviderPath } from "./config";
@@ -256,10 +257,7 @@ export async function countFiles(dir: string): Promise<number> {
  * the non-enumerable definition here is what keeps `_skillMdContent` out
  * of serialized reports, so writers must go through this helper.
  */
-export function cacheSkillMdContent(
-  skill: SkillInfo,
-  content: string,
-): void {
+export function cacheSkillMdContent(skill: SkillInfo, content: string): void {
   Object.defineProperty(skill, "_skillMdContent", {
     value: content,
     writable: true,
@@ -335,6 +333,7 @@ async function scanDirectory(
         license: (fm.license || "").trim(),
         compatibility: (fm.compatibility || "").trim(),
         allowedTools: resolveAllowedTools(fm),
+        tags: resolveTags(fm),
         modelInvocable: resolveModelInvocable(fm),
         userInvocable: resolveUserInvocable(fm),
         effort: fm.effort || fm["metadata.effort"] || undefined,
@@ -477,6 +476,7 @@ export async function scanPluginMarketplaces(
         license: (fm.license || "").trim(),
         compatibility: (fm.compatibility || "").trim(),
         allowedTools: resolveAllowedTools(fm),
+        tags: resolveTags(fm),
         modelInvocable: resolveModelInvocable(fm),
         userInvocable: resolveUserInvocable(fm),
         effort: fm.effort || fm["metadata.effort"] || undefined,

@@ -124,6 +124,42 @@ export function resolveAllowedTools(fm: Record<string, string>): string[] {
     .filter(Boolean);
 }
 
+export function resolveTags(fm: Record<string, string>): string[] {
+  const raw = (fm.tags || "").trim();
+  if (!raw) return [];
+
+  // Support both `tags: cli, testing` and the common inline YAML array form
+  // `tags: [cli, testing]`. The frontmatter reader intentionally returns
+  // strings, so normalize the lightweight array syntax here.
+  const value =
+    raw.startsWith("[") && raw.endsWith("]") ? raw.slice(1, -1) : raw;
+  return normalizeTags(
+    value.split(/[\s,]+/).map((tag) => tag.replace(/^['"]|['"]$/g, "")),
+  );
+}
+
+const TAG_RE = /^[a-z0-9][a-z0-9_-]*$/;
+
+export function normalizeTag(tag: string): string | null {
+  const normalized = tag.trim().toLowerCase();
+  if (!normalized || normalized.length > 32) return null;
+  if (!TAG_RE.test(normalized)) return null;
+  return normalized;
+}
+
+export function normalizeTags(tags: string[]): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const raw of tags) {
+    const n = normalizeTag(raw);
+    if (n && !seen.has(n)) {
+      seen.add(n);
+      out.push(n);
+    }
+  }
+  return out;
+}
+
 function normalizeFmBool(value: string | undefined): string {
   return (value || "").trim().toLowerCase();
 }

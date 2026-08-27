@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach, afterEach } from "vitest";
-import { readdir } from "fs/promises";
+import { mkdir, readdir, rm, writeFile } from "fs/promises";
 import { join } from "path";
 import {
   searchSkills,
@@ -237,6 +237,63 @@ describe("getMissingMetadataFields", () => {
     expect(missing).toContain("version");
     expect(missing).not.toContain("license");
     expect(missing).not.toContain("creator");
+  });
+});
+
+describe("searchSkills with tag filters", () => {
+  const fixturePath = join(getIndexDir(), "issue-584_tag-fixture.json");
+
+  beforeEach(async () => {
+    await mkdir(getIndexDir(), { recursive: true });
+    await writeFile(
+      fixturePath,
+      JSON.stringify({
+        repoUrl: "https://github.com/issue-584/tag-fixture",
+        owner: "issue-584",
+        repo: "tag-fixture",
+        updatedAt: "2026-01-01T00:00:00.000Z",
+        skillCount: 3,
+        skills: [
+          { ...fixtureSkill("tagged-cli", "cli"), tags: ["CLI", "Testing"] },
+          { ...fixtureSkill("tagged-web", "web"), tags: ["frontend"] },
+          fixtureSkill("legacy-untagged", "legacy"),
+        ],
+      }),
+      "utf-8",
+    );
+    _resetMemo();
+  });
+
+  afterEach(async () => {
+    await rm(fixturePath, { force: true });
+    _resetMemo();
+  });
+
+  it("normalizes loaded tags and backfills legacy records", async () => {
+    const fixture = (await loadAllIndices()).find(
+      (index) => index.owner === "issue-584",
+    );
+    expect(fixture?.skills.map((skill) => skill.tags)).toEqual([
+      ["cli", "testing"],
+      ["frontend"],
+      [],
+    ]);
+  });
+
+  it("uses AND semantics for one or more tag filters", async () => {
+    expect(
+      (await searchSkills("tagged", 20, { tags: ["CLI"] })).map(
+        (result) => result.skill.name,
+      ),
+    ).toEqual(["tagged-cli"]);
+    expect(
+      (await searchSkills("tagged", 20, { tags: ["cli", "testing"] })).map(
+        (result) => result.skill.name,
+      ),
+    ).toEqual(["tagged-cli"]);
+    expect(
+      await searchSkills("tagged", 20, { tags: ["cli", "frontend"] }),
+    ).toEqual([]);
   });
 });
 

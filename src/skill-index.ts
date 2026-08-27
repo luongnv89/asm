@@ -2,7 +2,7 @@ import { readdir, readFile } from "fs/promises";
 import { join } from "path";
 import { getIndexDir, getBundledIndexDir } from "./config";
 import type { RepoIndex, IndexedSkill } from "./utils/types";
-import { matchesInvocabilityFilters } from "./utils/frontmatter";
+import { matchesInvocabilityFilters, normalizeTags } from "./utils/frontmatter";
 
 // ─── Memoization (issue #461) ──────────────────────────────────────────────
 
@@ -102,6 +102,11 @@ async function loadIndicesFromDir(
         if (!("allowedTools" in s) || s.allowedTools === undefined)
           s.allowedTools = [];
         if (!("verified" in s) || s.verified === undefined) s.verified = false;
+        s.tags = Array.isArray(s.tags)
+          ? normalizeTags(
+              s.tags.filter((tag): tag is string => typeof tag === "string"),
+            )
+          : [];
       }
       indices.set(`${index.owner}/${index.repo}`, index);
     } catch {
@@ -199,6 +204,7 @@ export interface SearchFilters {
   missing?: string[];
   modelInvocable?: boolean;
   userInvocable?: boolean;
+  tags?: string[];
 }
 
 const FILTERABLE_FIELDS = ["license", "creator", "version"] as const;
@@ -227,6 +233,12 @@ function matchesFilters(skill: IndexedSkill, filters: SearchFilters): boolean {
     for (const field of filters.missing) {
       if (!isFilterableField(field)) continue;
       if (getFilterableValue(skill, field)) return false;
+    }
+  }
+  if (filters.tags && filters.tags.length > 0) {
+    const skillTags = new Set(normalizeTags(skill.tags || []));
+    if (!normalizeTags(filters.tags).every((tag) => skillTags.has(tag))) {
+      return false;
     }
   }
   return true;

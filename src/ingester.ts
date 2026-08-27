@@ -213,6 +213,7 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
           creator: skill.creator,
           compatibility: skill.compatibility,
           allowedTools: skill.allowedTools,
+          tags: skill.tags,
           modelInvocable: skill.modelInvocable !== false,
           userInvocable: skill.userInvocable !== false,
           installUrl: buildSkillInstallUrl(source, skill.relPath),

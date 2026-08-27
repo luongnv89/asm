@@ -605,7 +605,7 @@ describe("discoverSkills", () => {
     await mkdir(join(tempDir, "child"), { recursive: true });
     await writeFile(
       join(tempDir, "SKILL.md"),
-      "---\nname: root-skill\nversion: 1.0.0\ndescription: Root skill\n---\n# Root\n",
+      "---\nname: root-skill\nversion: 1.0.0\ndescription: Root skill\ntags: [CLI, testing]\n---\n# Root\n",
     );
     await writeFile(
       join(tempDir, "child", "SKILL.md"),
@@ -617,7 +617,9 @@ describe("discoverSkills", () => {
     const root = discovered.find((s) => s.relPath === "");
     const child = discovered.find((s) => s.relPath === "child");
     expect(root?.name).toBe("root-skill");
+    expect(root?.tags).toEqual(["cli", "testing"]);
     expect(child?.name).toBe("child-skill");
+    expect(child?.tags).toEqual([]);
   });
 
   test("discovers skills in subdirectories", async () => {

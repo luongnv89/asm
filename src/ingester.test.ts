@@ -114,6 +114,7 @@ description: Evaluate deterministic indexing behavior for concurrency tests
 version: 1.0.0
 license: MIT
 creator: Test Author
+tags: [Testing, concurrency]
 ---
 
 # ${name}
@@ -431,6 +432,11 @@ describe("parallel skill ingestion (issue #372)", () => {
     expect(
       concurrentResult.repoIndex!.skills.map((skill) => skill.name),
     ).toEqual(inputOrder);
+    expect(
+      concurrentResult.repoIndex!.skills.every(
+        (skill) => JSON.stringify(skill.tags) === '["testing","concurrency"]',
+      ),
+    ).toBe(true);
     expect(
       concurrentResult.repoIndex!.skills.map(withoutEvaluationTimes),
     ).toEqual(sequentialSkills.map(withoutEvaluationTimes));

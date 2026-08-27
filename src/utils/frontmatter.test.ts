@@ -3,11 +3,44 @@ import {
   parseFrontmatter,
   resolveVersion,
   resolveAllowedTools,
+  resolveTags,
+  normalizeTag,
+  normalizeTags,
   resolveModelInvocable,
   resolveUserInvocable,
   formatInvocability,
   matchesInvocabilityFilters,
 } from "./frontmatter";
+
+describe("tag normalization", () => {
+  it("parses comma-separated, whitespace-separated, and inline-array tags", () => {
+    expect(resolveTags({ tags: "CLI, Testing cli" })).toEqual([
+      "cli",
+      "testing",
+    ]);
+    expect(resolveTags({ tags: "['frontend', \"accessibility\"]" })).toEqual([
+      "frontend",
+      "accessibility",
+    ]);
+  });
+
+  it("normalizes valid tags and rejects invalid values", () => {
+    expect(normalizeTag(" TypeScript ")).toBe("typescript");
+    expect(normalizeTag("c")).toBe("c");
+    expect(normalizeTag("bad tag")).toBeNull();
+    expect(normalizeTag("!bad")).toBeNull();
+    expect(normalizeTag("x".repeat(33))).toBeNull();
+    expect(normalizeTags(["CLI", "cli", "test_tools", ""])).toEqual([
+      "cli",
+      "test_tools",
+    ]);
+  });
+
+  it("returns an empty list when tags are missing or invalid", () => {
+    expect(resolveTags({})).toEqual([]);
+    expect(resolveTags({ tags: "[!, @]" })).toEqual([]);
+  });
+});
 
 describe("parseFrontmatter", () => {
   it("parses simple key-value pairs", () => {

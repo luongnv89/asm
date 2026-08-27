@@ -13,6 +13,8 @@ export interface SkillInfo {
   license: string;
   compatibility: string;
   allowedTools: string[];
+  /** Free-form tags assigned to the skill. */
+  tags?: string[];
   /** Agent Skills model invocation. Default true when omitted. */
   modelInvocable?: boolean;
   /** Agent Skills user/slash invocation. Default true when omitted. */
@@ -600,6 +602,7 @@ export interface DiscoveredSkill {
   creator: string;
   compatibility: string;
   allowedTools: string[];
+  tags?: string[];
   modelInvocable?: boolean;
   userInvocable?: boolean;
   /**
@@ -635,6 +638,7 @@ export interface IndexedSkill {
   creator: string;
   compatibility: string;
   allowedTools: string[];
+  tags?: string[];
   modelInvocable?: boolean;
   userInvocable?: boolean;
   installUrl: string;

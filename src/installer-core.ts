@@ -25,6 +25,7 @@ import {
   resolveAllowedTools,
   resolveModelInvocable,
   resolveUserInvocable,
+  resolveTags,
 } from "./utils/frontmatter";
 import { estimateTokenCount } from "./utils/token-count";
 import { resolveProviderPath } from "./config";
@@ -535,6 +536,7 @@ export async function discoverSkills(
       creator: (fm["metadata.creator"] || "").trim(),
       compatibility: (fm.compatibility || "").trim(),
       allowedTools: resolveAllowedTools(fm),
+      tags: resolveTags(fm),
       modelInvocable: resolveModelInvocable(fm),
       userInvocable: resolveUserInvocable(fm),
       tokenCount: estimateTokenCount(content),
@@ -579,6 +581,7 @@ export async function discoverSkills(
           creator: (fm["metadata.creator"] || "").trim(),
           compatibility: (fm.compatibility || "").trim(),
           allowedTools: resolveAllowedTools(fm),
+          tags: resolveTags(fm),
           modelInvocable: resolveModelInvocable(fm),
           userInvocable: resolveUserInvocable(fm),
           tokenCount: estimateTokenCount(content),
