@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-25T00:00:00Z",
+  "updatedAt": "2026-08-27T06:41:07Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -60,7 +60,7 @@
       "url": "https://github.com/coreyhaines31/marketingskills",
       "owner": "coreyhaines31",
       "repo": "marketingskills",
-      "description": "Marketing skills — CRO, copywriting, SEO, analytics, growth",
+      "description": "Marketing skills \u2014 CRO, copywriting, SEO, analytics, growth",
       "maintainer": "@coreyhaines31",
       "enabled": true
     },
@@ -69,7 +69,7 @@
       "url": "https://github.com/Leonxlnx/taste-skill",
       "owner": "Leonxlnx",
       "repo": "taste-skill",
-      "description": "Gives your AI good taste — stops generic, boring output",
+      "description": "Gives your AI good taste \u2014 stops generic, boring output",
       "maintainer": "@Leonxlnx",
       "enabled": true
     },
@@ -303,7 +303,7 @@
       "url": "https://github.com/kepano/obsidian-skills",
       "owner": "kepano",
       "repo": "obsidian-skills",
-      "description": "Agent skills for Obsidian — Markdown, Bases, JSON Canvas, and CLI",
+      "description": "Agent skills for Obsidian \u2014 Markdown, Bases, JSON Canvas, and CLI",
       "maintainer": "@kepano",
       "enabled": true
     },
@@ -375,7 +375,7 @@
       "url": "https://github.com/alirezarezvani/claude-skills",
       "owner": "alirezarezvani",
       "repo": "claude-skills",
-      "description": "+192 Claude Code skills & agent plugins for Claude Code, Codex, Gemini CLI, Cursor, and 8 more coding agents — engineering, marketing, product, compliance, C-level advisory.",
+      "description": "+192 Claude Code skills & agent plugins for Claude Code, Codex, Gemini CLI, Cursor, and 8 more coding agents \u2014 engineering, marketing, product, compliance, C-level advisory.",
       "maintainer": "@alirezarezvani",
       "enabled": true
     },
@@ -447,7 +447,7 @@
       "url": "https://github.com/romainsimon/paperasse",
       "owner": "romainsimon",
       "repo": "paperasse",
-      "description": "🇫🇷  Skills pour agents IA spécialisés dans la bureaucratie française : Comptable, Notaire, ...",
+      "description": "\ud83c\uddeb\ud83c\uddf7  Skills pour agents IA sp\u00e9cialis\u00e9s dans la bureaucratie fran\u00e7aise : Comptable, Notaire, ...",
       "maintainer": "@romainsimon",
       "enabled": true
     },
@@ -456,7 +456,7 @@
       "url": "https://github.com/briiirussell/cybersecurity-skills",
       "owner": "briiirussell",
       "repo": "cybersecurity-skills",
-      "description": "37 cybersecurity skills for AI agents — AppSec, audits, incident response, threat modeling, compliance, and more",
+      "description": "37 cybersecurity skills for AI agents \u2014 AppSec, audits, incident response, threat modeling, compliance, and more",
       "maintainer": "@briiirussell",
       "enabled": true
     },
@@ -492,7 +492,7 @@
       "url": "https://github.com/emilkowalski/skills",
       "owner": "emilkowalski",
       "repo": "skills",
-      "description": "Design-engineering skills — animations, Apple design patterns, and UI craft",
+      "description": "Design-engineering skills \u2014 animations, Apple design patterns, and UI craft",
       "maintainer": "@emilkowalski",
       "enabled": true
     },
@@ -510,7 +510,7 @@
       "url": "https://github.com/cloudai-x/threejs-skills",
       "owner": "cloudai-x",
       "repo": "threejs-skills",
-      "description": "Three.js skills for AI agents — animation, geometry, lighting, shaders, materials, and more",
+      "description": "Three.js skills for AI agents \u2014 animation, geometry, lighting, shaders, materials, and more",
       "maintainer": "@cloudai-x",
       "enabled": true
     },
@@ -519,7 +519,7 @@
       "url": "https://github.com/oliver-zehentleitner/keep-the-why",
       "owner": "oliver-zehentleitner",
       "repo": "keep-the-why",
-      "description": "Preserves the reasoning behind a codebase — architecture decisions, rejected alternatives, workarounds, incident learnings as versioned Markdown",
+      "description": "Preserves the reasoning behind a codebase \u2014 architecture decisions, rejected alternatives, workarounds, incident learnings as versioned Markdown",
       "maintainer": "@oliver-zehentleitner",
       "enabled": true
     },
@@ -530,6 +530,42 @@
       "repo": "antithesis-skills",
       "description": "AI Skills for Antithesis Users",
       "maintainer": "@antithesishq",
+      "enabled": true
+    },
+    {
+      "source": "github:multica-ai/andrej-karpathy-skills",
+      "url": "https://github.com/multica-ai/andrej-karpathy-skills",
+      "owner": "multica-ai",
+      "repo": "andrej-karpathy-skills",
+      "description": "A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations on LLM coding pitfalls.",
+      "maintainer": "@multica-ai",
+      "enabled": true
+    },
+    {
+      "source": "github:JuliusBrussee/caveman",
+      "url": "https://github.com/JuliusBrussee/caveman",
+      "owner": "JuliusBrussee",
+      "repo": "caveman",
+      "description": "\ud83e\udea8 why use many token when few token do trick \u2014 Claude Code skill that cuts 65% of tokens by talking like caveman",
+      "maintainer": "@JuliusBrussee",
+      "enabled": true
+    },
+    {
+      "source": "github:ComposioHQ/awesome-claude-skills",
+      "url": "https://github.com/ComposioHQ/awesome-claude-skills",
+      "owner": "ComposioHQ",
+      "repo": "awesome-claude-skills",
+      "description": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows",
+      "maintainer": "@ComposioHQ",
+      "enabled": true
+    },
+    {
+      "source": "github:ayghri/i-have-adhd",
+      "url": "https://github.com/ayghri/i-have-adhd",
+      "owner": "ayghri",
+      "repo": "i-have-adhd",
+      "description": "A skill to stop your coding agent from burying the answer. ADHD-friendly output.",
+      "maintainer": "@ayghri",
       "enabled": true
     }
   ]
