@@ -25,6 +25,7 @@ import {
   repoBundlesForIndex,
   type RepoBundleManifest,
 } from "../src/repo-bundles";
+import { normalizeTags } from "../src/utils/frontmatter";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const indexDir = join(root, "data", "skill-index");
@@ -257,6 +258,7 @@ interface IndexedSkill {
   creator: string;
   compatibility: string;
   allowedTools: string[];
+  tags?: string[];
   installUrl: string;
   relPath: string;
   verified?: boolean;
@@ -284,6 +286,7 @@ interface CatalogSkill {
   creator: string;
   compatibility: string;
   allowedTools: string[];
+  tags: string[];
   installUrl: string;
   skillUrl: string;
   owner: string;
@@ -419,6 +422,7 @@ for (const file of files) {
       creator: skill.creator,
       compatibility: skill.compatibility,
       allowedTools: skill.allowedTools || [],
+      tags: normalizeTags(skill.tags || []),
       installUrl: skill.installUrl,
       skillUrl,
       owner: repoIndex.owner,
@@ -601,6 +605,7 @@ interface SkillsMinRow {
   version: string;
   verified: boolean;
   featured?: boolean;
+  tags: string[];
   /** Derived flag — avoids shipping the full allowedTools array on the list. */
   hasTools: boolean;
   tokenCount?: number;
@@ -640,6 +645,7 @@ const slimSkills: SkillsMinRow[] = skills.map((s) => {
     license: s.license,
     version: s.version,
     verified: s.verified,
+    tags: s.tags,
     hasTools: Array.isArray(s.allowedTools) && s.allowedTools.length > 0,
   };
   if (s.featured === true) row.featured = true;
@@ -686,7 +692,7 @@ miniSearch.addAll(
     id: i,
     name: s.name,
     description: s.description,
-    categoriesStr: (s.categories || []).join(" "),
+    categoriesStr: [...(s.categories || []), ...(s.tags || [])].join(" "),
   })),
 );
 
@@ -719,6 +725,7 @@ interface SkillDetail {
   creator: string;
   compatibility: string;
   allowedTools: string[];
+  tags: string[];
   installUrl: string;
   skillUrl: string;
   owner: string;
@@ -744,6 +751,7 @@ for (const s of skills) {
     creator: s.creator,
     compatibility: s.compatibility,
     allowedTools: s.allowedTools,
+    tags: s.tags,
     installUrl: s.installUrl,
     skillUrl: s.skillUrl,
     owner: s.owner,
