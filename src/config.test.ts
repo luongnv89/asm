@@ -5,6 +5,7 @@ import {
   getConfigDir,
   getConfigPath,
   getIndexDir,
+  getSkillTagsPath,
   loadConfig,
   saveConfig,
   saveSelectedTools,
@@ -142,6 +143,7 @@ describe("getConfigDir", () => {
       process.env.ASM_CONFIG_DIR = override;
       expect(getConfigDir()).toBe(override);
       expect(getConfigPath()).toBe(join(override, "config.json"));
+      expect(getSkillTagsPath()).toBe(join(override, "skill-tags.json"));
     } finally {
       if (previous === undefined) delete process.env.ASM_CONFIG_DIR;
       else process.env.ASM_CONFIG_DIR = previous;

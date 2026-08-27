@@ -190,6 +190,11 @@ export function getSkillStatePath(): string {
   return join(getConfigDir(), "skill-state.json");
 }
 
+/** Local tag additions/removals for installed skills. */
+export function getSkillTagsPath(): string {
+  return join(getConfigDir(), "skill-tags.json");
+}
+
 export function getIndexDir(): string {
   return join(getConfigDir(), "skill-index");
 }

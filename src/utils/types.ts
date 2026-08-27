@@ -86,6 +86,20 @@ export interface SkillStateFile {
   >;
 }
 
+/** Local tag edits keyed by the skill's canonical on-disk directory. */
+export interface SkillTagStateFile {
+  version: 1;
+  skills: Record<
+    string,
+    {
+      /** Tags added locally beyond authoritative SKILL.md frontmatter. */
+      added: string[];
+      /** Frontmatter tags hidden locally without mutating SKILL.md. */
+      removed: string[];
+    }
+  >;
+}
+
 /**
  * Slim, JSON-friendly snapshot of an `asm eval` report for the
  * "before-install" decision surfaces (website cards/modal, TUI detail,
