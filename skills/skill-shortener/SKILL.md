@@ -72,14 +72,15 @@ SNAP=".skill-shortener/snapshot-$RUN_EPOCH"
 mkdir -p "$SNAP" && cp -R "$SKILL_PATH/." "$SNAP/"
 ```
 
-Then sync **only if** the target is in a git repo:
+Then sync **only if** the target directory itself is a git work tree root — `rev-parse --git-dir` succeeds for any nested path inside a larger repo, and must not trigger fetch/pull of that tree:
 
 ```bash
-if git -C "$SKILL_PATH" rev-parse --git-dir >/dev/null 2>&1; then
+toplevel="$(git -C "$SKILL_PATH" rev-parse --show-toplevel 2>/dev/null || true)"
+if [ -n "$toplevel" ] && [ "$(cd "$SKILL_PATH" && pwd -P)" = "$toplevel" ]; then
   branch="$(git -C "$SKILL_PATH" rev-parse --abbrev-ref HEAD)"
   git -C "$SKILL_PATH" fetch origin && git -C "$SKILL_PATH" pull --rebase origin "$branch"
 else
-  echo "note: $SKILL_PATH is not in a git repo — $SNAP is the only undo path"
+  echo "note: $SKILL_PATH is not a git work tree root — $SNAP is the only undo path; skip fetch/pull"
 fi
 ```
 
@@ -99,7 +100,9 @@ Every section of the body gets exactly one, and each has one reference behind it
 
 ### Phase 0 — Baseline
 
-Run the preflight, take the snapshot, sync if applicable, then measure:
+**Mode 2 — skip snapshot and git sync.** Audit-only must not reach `fetch` / `pull --rebase`. Run the preflight and the two `measure_skill.py` commands below, then continue to Phase 1. Do not create `$SNAP` and do not run the repo-sync block.
+
+**Mode 1.** Run the preflight, take the snapshot, sync only when `$SKILL_PATH` is itself the git work tree root (see above), then measure:
 
 ```bash
 python3 "$SS/scripts/measure_skill.py" "$SKILL_PATH" --json --out .skill-shortener/baseline.json
