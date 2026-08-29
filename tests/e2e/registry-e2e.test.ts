@@ -167,6 +167,30 @@ describe("publish: skill at repo root", () => {
     expect(json.security_verdict).toBe("pass");
   });
 
+  test("--dry-run remains JSON when gh is unavailable", async () => {
+    const ghConfigDir = await mkdtemp(join(tmpdir(), "asm-e2e-gh-config-"));
+    try {
+      const { stdout, stderr, exitCode } = await runAsm(
+        ["publish", "--dry-run", repoDir],
+        {
+          env: {
+            GH_CONFIG_DIR: ghConfigDir,
+            GH_TOKEN: "",
+            GITHUB_TOKEN: "",
+            GH_ENTERPRISE_TOKEN: "",
+            GH_PROMPT_DISABLED: "1",
+          },
+        },
+      );
+      expect(exitCode).toBe(0);
+      expect(stderr).toContain("Dry run");
+      expect(stdout).not.toContain("Manifest generated");
+      expect(JSON.parse(stdout).name).toBe("test-skill");
+    } finally {
+      await rm(ghConfigDir, { recursive: true, force: true });
+    }
+  });
+
   test("--dry-run: skill at root has no skill_path", async () => {
     const { stdout, exitCode } = await runAsm([
       "publish",
