@@ -92,6 +92,27 @@ def destinations(entry):
     return [d] if isinstance(d, str) else list(d)
 
 
+def confined_under(skill, rel):
+    """Return the resolved path of `rel` if it stays inside `skill`, else None.
+
+    POSIX `Path / rel` discards the skill root when `rel` is absolute, and
+    `..` segments walk out of it. Both must fail the wiring checks rather
+    than be treated as files under the skill.
+    """
+    if not isinstance(rel, str) or not rel.strip():
+        return None
+    candidate = Path(rel).expanduser()
+    if candidate.is_absolute():
+        return None
+    root = skill.resolve()
+    try:
+        resolved = (skill / candidate).resolve()
+        resolved.relative_to(root)
+    except (OSError, ValueError):
+        return None
+    return resolved
+
+
 def mentioned_paths(text):
     """Every references//scripts//assets//agents/ path the text mentions."""
     # (?<![\w./-]) keeps a path that is part of a longer path - another skill's
@@ -200,8 +221,11 @@ def main():
         if e.get("disposition") != "MOVE":
             continue
         for d in destinations(e):
+            p = confined_under(skill, d)
+            if p is None:
+                missing_dest.append(f"{d} (outside skill)")
+                continue
             all_dest.append(d)
-            p = skill / d
             if not p.is_file():
                 missing_dest.append(f"{d} (missing)")
             elif not p.read_text(encoding="utf-8").strip():
@@ -221,7 +245,10 @@ def main():
     check("pointers state load conditions", not bare, "; ".join(f"{d}: no when/if/before cue" for d in bare[:3]))
 
     # 6. no dangling pointer
-    dangling = sorted(p for p in mentioned_paths(body) if not (skill / p).exists())
+    dangling = sorted(
+        p for p in mentioned_paths(body)
+        if (loc := confined_under(skill, p)) is None or not loc.exists()
+    )
     check("pointers resolve", not dangling,
           "; ".join(dangling[:4]) + " - create the file; write another skill's path in full (~/.claude/skills/<skill>/...); "
           "write an illustrative path as a placeholder (references/<name>.md) so it is not read as a pointer")
@@ -265,7 +292,8 @@ def main():
                 h for h in mentioned_paths(p.read_text(encoding="utf-8"))
                 if h.startswith("references/")
                 and h != p.relative_to(skill).as_posix()
-                and (skill / h).is_file()
+                and (loc := confined_under(skill, h)) is not None
+                and loc.is_file()
             }
             if hits:
                 chains.append(f"{p.relative_to(skill).as_posix()} -> {sorted(hits)[:2]}")
