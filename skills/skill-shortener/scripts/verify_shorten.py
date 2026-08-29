@@ -39,7 +39,14 @@ WORD_CAP = 3000
 DESC_TARGET = 250
 POINTER_DIRS = ("references", "scripts", "assets", "agents")
 ORPHAN_DIRS = ("references", "scripts")  # docs/, evals/, assets/, agents/ are not pointed to line-by-line
-CONDITION_CUES = ("when", "if", "before", "after", "unless", "for ", "on a ", "whenever", "each time")
+# Whole-word cues on the pointer line/header. Trailing spaces used to fake
+# boundaries for "for"/"on a"; \b does that, and the destination path is
+# stripped first so scripts/verify_*.py cannot pass via the "if" in "verify".
+CONDITION_CUES = ("when", "if", "before", "after", "unless", "for", "on a", "whenever", "each time")
+CONDITION_CUE_RE = re.compile(
+    r"\b(?:" + "|".join(re.escape(c) for c in CONDITION_CUES) + r")\b",
+    re.IGNORECASE,
+)
 VALID = {"KEEP", "CUT", "MOVE"}
 
 
@@ -92,6 +99,18 @@ def mentioned_paths(text):
     # as a local pointer.
     pat = rf"(?<![\w./-])(?:{'|'.join(POINTER_DIRS)})/[A-Za-z0-9._\-/]+"
     return {m.rstrip(".,;:)`'\"") for m in re.findall(pat, text)}
+
+
+def text_without_destination(text, destination):
+    """Pointer context with the destination path removed so the path is not cue text."""
+    if not destination:
+        return text
+    return text.replace(destination, "")
+
+
+def has_load_condition_cue(text, destination=""):
+    """True when a CONDITION_CUE appears as a whole word outside `destination`."""
+    return bool(CONDITION_CUE_RE.search(text_without_destination(text, destination)))
 
 
 def lines_mentioning(text, needle):
@@ -197,7 +216,7 @@ def main():
     bare = []
     for d in sorted(set(all_dest)):
         pointer_lines = lines_mentioning(body, d)
-        if pointer_lines and not any(c in ln.lower() for ln in pointer_lines for c in CONDITION_CUES):
+        if pointer_lines and not any(has_load_condition_cue(ln, d) for ln in pointer_lines):
             bare.append(d)
     check("pointers state load conditions", not bare, "; ".join(f"{d}: no when/if/before cue" for d in bare[:3]))
 
