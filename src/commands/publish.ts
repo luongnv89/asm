@@ -116,17 +116,19 @@ export async function cmdPublish(args: ParsedArgs) {
       process.exit(1);
     }
 
+    // Dry run
+    // Keep this branch ahead of the fallback renderer: previewing a manifest
+    // must remain machine-consumable even when gh is unavailable.
+    if (args.flags.dryRun) {
+      console.error(ansi.dim("Dry run — no PR created.\n"));
+      console.log(JSON.stringify(result.manifest, null, 2));
+      return;
+    }
+
     // Fallback path: no gh CLI
     if (result.fallback) {
       console.log(ansi.yellow("Manifest generated (gh CLI unavailable):"));
       console.log(formatFallbackInstructions(result));
-      return;
-    }
-
-    // Dry run
-    if (args.flags.dryRun) {
-      console.error(ansi.dim("Dry run — no PR created.\n"));
-      console.log(JSON.stringify(result.manifest, null, 2));
       return;
     }
 
