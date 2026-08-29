@@ -9,6 +9,7 @@
  */
 import { describe, test, expect, vi, beforeEach } from "vitest";
 import React from "react";
+import { act } from "react";
 import { render } from "ink-testing-library";
 import type { AppConfig, AuditReport, SkillInfo } from "../../src/utils/types";
 
@@ -129,6 +130,26 @@ async function flushMicrotasks(times = 3): Promise<void> {
   }
 }
 
+// Ink delays a standalone Escape briefly while it distinguishes it from an
+// escape sequence. Poll for the resulting frame instead of assuming that a
+// few microtasks are enough for the input parser and React to settle.
+async function expectFrame(
+  lastFrame: () => string | undefined,
+  text: string,
+  timeoutMs = 2000,
+): Promise<string> {
+  const deadline = Date.now() + timeoutMs;
+  let frame = lastFrame() ?? "";
+  while (!frame.includes(text) && Date.now() < deadline) {
+    await act(async () => {
+      await new Promise<void>((resolve) => setTimeout(resolve, 10));
+    });
+    frame = lastFrame() ?? "";
+  }
+  expect(frame).toContain(text);
+  return frame;
+}
+
 describe("TUI integration: view transitions (issue #224)", () => {
   let App: typeof import("../../src/index").App;
 
@@ -168,11 +189,10 @@ describe("TUI integration: view transitions (issue #224)", () => {
     );
     await flushMicrotasks();
     stdin.write("?");
-    await flushMicrotasks();
-    expect(lastFrame() ?? "").toContain("Keyboard Shortcuts");
+    await expectFrame(lastFrame, "Keyboard Shortcuts");
 
     stdin.write("\x1B"); // Esc
-    await flushMicrotasks();
+    await expectFrame(lastFrame, "Navigate");
     expect(lastFrame() ?? "").not.toContain("Keyboard Shortcuts");
     unmount();
   });
@@ -195,14 +215,13 @@ describe("TUI integration: view transitions (issue #224)", () => {
     );
     await flushMicrotasks();
     stdin.write("\r"); // Enter
-    await flushMicrotasks();
-    const detailFrame = lastFrame() ?? "";
+    const detailFrame = await expectFrame(lastFrame, "Esc Back d Uninstall");
     // Detail shows the description + license
     expect(detailFrame).toContain("sample-skill");
     expect(detailFrame).toContain("MIT");
 
     stdin.write("\x1B"); // Esc
-    await flushMicrotasks();
+    await expectFrame(lastFrame, "Navigate");
     const dashFrame = lastFrame() ?? "";
     expect(dashFrame).toContain("Quit"); // Dashboard footer back
     unmount();
@@ -214,18 +233,15 @@ describe("TUI integration: view transitions (issue #224)", () => {
     );
     await flushMicrotasks();
     // Before search mode: prompt text is shown.
-    expect(lastFrame() ?? "").toContain("press / to search");
+    await expectFrame(lastFrame, "press / to search");
 
     stdin.write("/");
-    await flushMicrotasks();
+    const searchFrame = await expectFrame(lastFrame, "type to search");
     // In search mode, the TextInput placeholder swaps in.
-    const searchFrame = lastFrame() ?? "";
-    expect(searchFrame).toContain("type to search");
     expect(searchFrame).not.toContain("press / to search");
 
     stdin.write("\x1B"); // Esc exits search mode + clears query
-    await flushMicrotasks();
-    expect(lastFrame() ?? "").toContain("press / to search");
+    await expectFrame(lastFrame, "press / to search");
     unmount();
   });
 
@@ -235,13 +251,15 @@ describe("TUI integration: view transitions (issue #224)", () => {
     );
     await flushMicrotasks();
     stdin.write("d");
-    await flushMicrotasks();
-    const confirmFrame = lastFrame() ?? "";
+    const confirmFrame = await expectFrame(
+      lastFrame,
+      "Uninstall: sample-skill",
+    );
     expect(confirmFrame).toContain("Uninstall: sample-skill");
     expect(getExistingTargetsMock).toHaveBeenCalled();
 
     stdin.write("\x1B"); // Esc cancels without confirming
-    await flushMicrotasks();
+    await expectFrame(lastFrame, "Navigate");
     expect(lastFrame() ?? "").toContain("Quit"); // back on Dashboard
     expect(executeRemovalMock).not.toHaveBeenCalled();
     unmount();
