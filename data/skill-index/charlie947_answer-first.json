@@ -2,17 +2,18 @@
   "repoUrl": "https://github.com/charlie947/answer-first.git",
   "owner": "charlie947",
   "repo": "answer-first",
-  "updatedAt": "2026-08-27T18:54:32.205Z",
+  "updatedAt": "2026-08-30T22:09:02.804Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "answer-first",
-      "description": "Shape every answer so the action comes first. Use when the user asks for output that is short, skimmable, action-led or \"no waffle\", and apply it for the whole conversation once invoked, not just one reply. Triggers on \"answer first\", \"no preamble\", \"no waffle\", \"keep it short\", \"just tell me what to do\", \"cut the fluff\", \"ADHD mode\", or any request to stop burying the answer in paragraph four. \u2014 anti-slop",
+      "description": "Shape every answer so the action comes first. Use when the user asks for output that is short, skimmable, action-led or \"no waffle\", and apply it for the whole conversation once invoked, not just one reply. Triggers on \"answer first\", \"no preamble\", \"no waffle\", \"keep it short\", \"just tell me what to do\", \"cut the fluff\", \"ADHD mode\", or any request to stop burying the answer in paragraph four.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:charlie947/answer-first:skills/answer-first",
@@ -84,7 +85,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T18:54:32.204Z",
+        "evaluatedAt": "2026-08-30T22:09:02.803Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -157,7 +158,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T18:54:32.204Z",
+          "evaluatedAt": "2026-08-30T22:09:02.803Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -175,7 +176,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T18:54:32.204Z",
+          "evaluatedAt": "2026-08-30T22:09:02.803Z",
           "evaluatedVersion": "0.0.0"
         }
       }

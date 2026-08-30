@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/mvanhorn/last30days-skill.git",
   "owner": "mvanhorn",
   "repo": "last30days-skill",
-  "updatedAt": "2026-08-21T09:20:13.331Z",
+  "updatedAt": "2026-08-30T22:07:14.482Z",
   "skillCount": 1,
   "skills": [
     {
@@ -12,19 +12,14 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Write",
-        "AskUserQuestion",
-        "WebSearch"
-      ],
+      "allowedTools": ["Bash", "Read", "Write", "AskUserQuestion", "WebSearch"],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:mvanhorn/last30days-skill:skills/last30days",
       "relPath": "skills/last30days",
       "verified": true,
-      "tokenCount": 66530,
+      "tokenCount": 66686,
       "evalSummary": {
         "overallScore": 82,
         "grade": "B",
@@ -90,7 +85,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:07.897Z",
+        "evaluatedAt": "2026-08-30T22:07:09.160Z",
         "evaluatedVersion": "3.21.1"
       },
       "evalSummaries": {
@@ -99,8 +94,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 75,
-          "grade": "C",
+          "overallScore": 80,
+          "grade": "B",
           "categories": [
             {
               "id": "structure",
@@ -159,11 +154,11 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 5,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:07.898Z",
+          "evaluatedAt": "2026-08-30T22:07:09.160Z",
           "evaluatedVersion": "3.21.1"
         },
         "skill-best-practice": {
@@ -181,7 +176,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:07.898Z",
+          "evaluatedAt": "2026-08-30T22:07:09.160Z",
           "evaluatedVersion": "3.21.1"
         }
       }

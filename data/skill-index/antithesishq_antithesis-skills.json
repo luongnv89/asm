@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/antithesishq/antithesis-skills.git",
   "owner": "antithesishq",
   "repo": "antithesis-skills",
-  "updatedAt": "2026-08-25T08:20:24.092Z",
+  "updatedAt": "2026-08-30T22:08:46.227Z",
   "skillCount": 12,
   "skills": [
     {
@@ -13,6 +13,7 @@
       "creator": "",
       "compatibility": "agent-browser (https://github.com/vercel-labs/agent-browser) and jq.",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:antithesishq/antithesis-skills:antithesis-agent-browser",
@@ -84,7 +85,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-25T08:20:23.966Z",
+        "evaluatedAt": "2026-08-30T22:08:46.098Z",
         "evaluatedVersion": "2026-08-24 d6b507d"
       },
       "evalSummaries": {
@@ -93,7 +94,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 71,
           "grade": "C",
           "categories": [
             {
@@ -153,11 +154,11 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 9,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:23.968Z",
+          "evaluatedAt": "2026-08-30T22:08:46.099Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         },
         "skill-best-practice": {
@@ -175,7 +176,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedAt": "2026-08-30T22:08:46.099Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         }
       }
@@ -188,6 +189,7 @@
       "creator": "",
       "compatibility": "Requires agent-browser v0.23.4+ (https://github.com/vercel-labs/agent-browser).",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:antithesishq/antithesis-skills:antithesis-debug",
@@ -259,7 +261,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-25T08:20:23.967Z",
+        "evaluatedAt": "2026-08-30T22:08:46.099Z",
         "evaluatedVersion": "2026-08-24 d6b507d"
       },
       "evalSummaries": {
@@ -268,7 +270,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 65,
+          "overallScore": 66,
           "grade": "C",
           "categories": [
             {
@@ -328,11 +330,11 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 9,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedAt": "2026-08-30T22:08:46.099Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         },
         "skill-best-practice": {
@@ -350,7 +352,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedAt": "2026-08-30T22:08:46.099Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         }
       }
@@ -363,6 +365,7 @@
       "creator": "",
       "compatibility": "Requires snouty (https://github.com/antithesishq/snouty).",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:antithesishq/antithesis-skills:antithesis-documentation",
@@ -434,7 +437,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-25T08:20:23.967Z",
+        "evaluatedAt": "2026-08-30T22:08:46.099Z",
         "evaluatedVersion": "2026-08-24 d6b507d"
       },
       "evalSummaries": {
@@ -507,7 +510,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedAt": "2026-08-30T22:08:46.099Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         },
         "skill-best-practice": {
@@ -525,7 +528,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedAt": "2026-08-30T22:08:46.099Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         }
       }
@@ -538,6 +541,7 @@
       "creator": "",
       "compatibility": "Requires Docker Compose v2, a container engine (docker or podman), and snouty (https://github.com/antithesishq/snouty).",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:antithesishq/antithesis-skills:antithesis-launch",
@@ -609,7 +613,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-25T08:20:23.967Z",
+        "evaluatedAt": "2026-08-30T22:08:46.099Z",
         "evaluatedVersion": "2026-08-24 d6b507d"
       },
       "evalSummaries": {
@@ -682,7 +686,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedAt": "2026-08-30T22:08:46.099Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         },
         "skill-best-practice": {
@@ -700,7 +704,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedAt": "2026-08-30T22:08:46.099Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         }
       }
@@ -713,6 +717,7 @@
       "creator": "",
       "compatibility": "Requires snouty (https://github.com/antithesishq/snouty) and agent-browser (https://github.com/vercel-labs/agent-browser).",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:antithesishq/antithesis-skills:antithesis-query-logs",
@@ -784,7 +789,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-25T08:20:23.967Z",
+        "evaluatedAt": "2026-08-30T22:08:46.099Z",
         "evaluatedVersion": "2026-08-24 d6b507d"
       },
       "evalSummaries": {
@@ -857,7 +862,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedAt": "2026-08-30T22:08:46.099Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         },
         "skill-best-practice": {
@@ -875,7 +880,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedAt": "2026-08-30T22:08:46.099Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         }
       }
@@ -888,6 +893,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:antithesishq/antithesis-skills:antithesis-research",
@@ -959,7 +965,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-25T08:20:23.967Z",
+        "evaluatedAt": "2026-08-30T22:08:46.099Z",
         "evaluatedVersion": "2026-08-24 d6b507d"
       },
       "evalSummaries": {
@@ -1032,7 +1038,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedAt": "2026-08-30T22:08:46.099Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         },
         "skill-best-practice": {
@@ -1050,7 +1056,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedAt": "2026-08-30T22:08:46.099Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         }
       }
@@ -1063,6 +1069,7 @@
       "creator": "",
       "compatibility": "Requires Docker Compose v2, a container engine (docker or podman), and snouty (https://github.com/antithesishq/snouty).",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:antithesishq/antithesis-skills:antithesis-setup",
@@ -1134,7 +1141,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-25T08:20:23.967Z",
+        "evaluatedAt": "2026-08-30T22:08:46.099Z",
         "evaluatedVersion": "2026-08-24 d6b507d"
       },
       "evalSummaries": {
@@ -1207,7 +1214,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:23.970Z",
+          "evaluatedAt": "2026-08-30T22:08:46.099Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         },
         "skill-best-practice": {
@@ -1225,7 +1232,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:23.970Z",
+          "evaluatedAt": "2026-08-30T22:08:46.099Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         }
       }
@@ -1238,6 +1245,7 @@
       "creator": "",
       "compatibility": "Requires snouty (https://github.com/antithesishq/snouty).",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:antithesishq/antithesis-skills:antithesis-setup-k8s",
@@ -1309,7 +1317,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-25T08:20:23.967Z",
+        "evaluatedAt": "2026-08-30T22:08:46.099Z",
         "evaluatedVersion": "2026-08-24 d6b507d"
       },
       "evalSummaries": {
@@ -1382,7 +1390,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedAt": "2026-08-30T22:08:46.099Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         },
         "skill-best-practice": {
@@ -1400,7 +1408,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:23.969Z",
+          "evaluatedAt": "2026-08-30T22:08:46.099Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         }
       }
@@ -1413,6 +1421,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:antithesishq/antithesis-skills:antithesis-skills-feedback",
@@ -1484,7 +1493,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-25T08:20:24.014Z",
+        "evaluatedAt": "2026-08-30T22:08:46.118Z",
         "evaluatedVersion": "2026-08-24 d6b507d"
       },
       "evalSummaries": {
@@ -1557,7 +1566,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:24.018Z",
+          "evaluatedAt": "2026-08-30T22:08:46.121Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         },
         "skill-best-practice": {
@@ -1575,7 +1584,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:24.018Z",
+          "evaluatedAt": "2026-08-30T22:08:46.121Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         }
       }
@@ -1588,6 +1597,7 @@
       "creator": "",
       "compatibility": "Requires snouty (https://github.com/antithesishq/snouty), and jq.",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:antithesishq/antithesis-skills:antithesis-triage",
@@ -1659,7 +1669,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-25T08:20:24.014Z",
+        "evaluatedAt": "2026-08-30T22:08:46.118Z",
         "evaluatedVersion": "2026-08-24 d6b507d"
       },
       "evalSummaries": {
@@ -1732,7 +1742,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:24.018Z",
+          "evaluatedAt": "2026-08-30T22:08:46.123Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         },
         "skill-best-practice": {
@@ -1750,7 +1760,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:24.018Z",
+          "evaluatedAt": "2026-08-30T22:08:46.123Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         }
       }
@@ -1763,6 +1773,7 @@
       "creator": "",
       "compatibility": "Requires snouty (https://github.com/antithesishq/snouty).",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:antithesishq/antithesis-skills:antithesis-workload",
@@ -1834,7 +1845,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-25T08:20:24.034Z",
+        "evaluatedAt": "2026-08-30T22:08:46.136Z",
         "evaluatedVersion": "2026-08-24 d6b507d"
       },
       "evalSummaries": {
@@ -1907,7 +1918,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:24.034Z",
+          "evaluatedAt": "2026-08-30T22:08:46.136Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         },
         "skill-best-practice": {
@@ -1925,7 +1936,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:24.034Z",
+          "evaluatedAt": "2026-08-30T22:08:46.136Z",
           "evaluatedVersion": "2026-08-24 d6b507d"
         }
       }
@@ -1938,6 +1949,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:antithesishq/antithesis-skills:.claude/skills/test-triage",
@@ -2009,7 +2021,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-25T08:20:24.042Z",
+        "evaluatedAt": "2026-08-30T22:08:46.145Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2082,7 +2094,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:24.042Z",
+          "evaluatedAt": "2026-08-30T22:08:46.146Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2100,7 +2112,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-25T08:20:24.042Z",
+          "evaluatedAt": "2026-08-30T22:08:46.146Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2112,7 +2124,7 @@
       "name": "antithesishq-antithesis-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from antithesishq/antithesis-skills.",
       "author": "ASM (antithesishq/antithesis-skills)",
-      "createdAt": "2026-08-25T08:20:24.092Z",
+      "createdAt": "2026-08-30T22:08:46.227Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2190,7 +2202,7 @@
       "name": "antithesishq-antithesis-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from antithesishq/antithesis-skills.",
       "author": "ASM (antithesishq/antithesis-skills)",
-      "createdAt": "2026-08-25T08:20:24.092Z",
+      "createdAt": "2026-08-30T22:08:46.227Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2244,7 +2256,7 @@
       "name": "antithesishq-antithesis-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from antithesishq/antithesis-skills.",
       "author": "ASM (antithesishq/antithesis-skills)",
-      "createdAt": "2026-08-25T08:20:24.092Z",
+      "createdAt": "2026-08-30T22:08:46.227Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2334,7 +2346,7 @@
       "name": "antithesishq-antithesis-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from antithesishq/antithesis-skills.",
       "author": "ASM (antithesishq/antithesis-skills)",
-      "createdAt": "2026-08-25T08:20:24.092Z",
+      "createdAt": "2026-08-30T22:08:46.227Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2382,7 +2394,7 @@
       "name": "antithesishq-antithesis-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from antithesishq/antithesis-skills.",
       "author": "ASM (antithesishq/antithesis-skills)",
-      "createdAt": "2026-08-25T08:20:24.092Z",
+      "createdAt": "2026-08-30T22:08:46.227Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2424,7 +2436,7 @@
       "name": "antithesishq-antithesis-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from antithesishq/antithesis-skills.",
       "author": "ASM (antithesishq/antithesis-skills)",
-      "createdAt": "2026-08-25T08:20:24.092Z",
+      "createdAt": "2026-08-30T22:08:46.227Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2472,7 +2484,7 @@
       "name": "antithesishq-antithesis-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from antithesishq/antithesis-skills.",
       "author": "ASM (antithesishq/antithesis-skills)",
-      "createdAt": "2026-08-25T08:20:24.092Z",
+      "createdAt": "2026-08-30T22:08:46.227Z",
       "tags": [
         "repo-derived",
         "inferred",

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/heygen-com/hyperframes.git",
   "owner": "heygen-com",
   "repo": "hyperframes",
-  "updatedAt": "2026-08-21T09:21:13.272Z",
+  "updatedAt": "2026-08-30T22:08:31.549Z",
   "skillCount": 26,
   "skills": [
     {
@@ -13,6 +13,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:.claude/skills/captions-overlay",
@@ -84,7 +85,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.951Z",
+        "evaluatedAt": "2026-08-30T22:08:30.985Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -157,7 +158,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-08-30T22:08:30.986Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -175,7 +176,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-08-30T22:08:30.986Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -188,12 +189,13 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:.claude/skills/changelog-video",
       "relPath": ".claude/skills/changelog-video",
       "verified": true,
-      "tokenCount": 5039,
+      "tokenCount": 5059,
       "evalSummary": {
         "overallScore": 68,
         "grade": "C",
@@ -259,7 +261,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.951Z",
+        "evaluatedAt": "2026-08-30T22:08:30.985Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -332,7 +334,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-08-30T22:08:30.986Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -350,7 +352,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-08-30T22:08:30.986Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -363,6 +365,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:.claude/skills/cut-the-curve",
@@ -434,7 +437,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.951Z",
+        "evaluatedAt": "2026-08-30T22:08:30.985Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -507,7 +510,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-08-30T22:08:30.986Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -525,7 +528,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-08-30T22:08:30.986Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -538,6 +541,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/embedded-captions",
@@ -609,7 +613,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.951Z",
+        "evaluatedAt": "2026-08-30T22:08:30.986Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -618,7 +622,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -678,11 +682,11 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 7,
+              "score": 9,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-08-30T22:08:30.987Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -700,7 +704,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-08-30T22:08:30.987Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -713,6 +717,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/faceless-explainer",
@@ -784,7 +789,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.951Z",
+        "evaluatedAt": "2026-08-30T22:08:30.989Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -857,7 +862,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-08-30T22:08:30.989Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -875,7 +880,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-08-30T22:08:30.989Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -888,6 +893,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/figma",
@@ -959,7 +965,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.951Z",
+        "evaluatedAt": "2026-08-30T22:08:30.986Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1032,7 +1038,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-08-30T22:08:30.987Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1050,7 +1056,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-08-30T22:08:30.987Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1063,6 +1069,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/general-video",
@@ -1134,7 +1141,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.951Z",
+        "evaluatedAt": "2026-08-30T22:08:30.987Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1207,7 +1214,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-08-30T22:08:30.989Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1225,7 +1232,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-08-30T22:08:30.989Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1238,12 +1245,13 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
       "relPath": "skills/hyperframes",
       "verified": true,
-      "tokenCount": 6506,
+      "tokenCount": 6514,
       "evalSummary": {
         "overallScore": 66,
         "grade": "C",
@@ -1309,7 +1317,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.951Z",
+        "evaluatedAt": "2026-08-30T22:08:30.989Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1382,7 +1390,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.952Z",
+          "evaluatedAt": "2026-08-30T22:08:30.989Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1400,7 +1408,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.952Z",
+          "evaluatedAt": "2026-08-30T22:08:30.989Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1413,6 +1421,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-animation",
@@ -1484,7 +1493,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.968Z",
+        "evaluatedAt": "2026-08-30T22:08:31.002Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1557,7 +1566,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.968Z",
+          "evaluatedAt": "2026-08-30T22:08:31.002Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1575,27 +1584,28 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.969Z",
+          "evaluatedAt": "2026-08-30T22:08:31.002Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "hyperframes-audio",
-      "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), or automation envelopes drawn on a track's volume or any effect parameter. Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
+      "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), automation envelopes drawn on a track's volume or any effect parameter, or one submix bus carrying a chain, a fader and an automation clock for several tracks at once (`<hf-audio-group>`). Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-audio",
       "relPath": "skills/hyperframes-audio",
       "verified": true,
-      "tokenCount": 6180,
+      "tokenCount": 8105,
       "evalSummary": {
-        "overallScore": 59,
+        "overallScore": 58,
         "grade": "D",
         "categories": [
           {
@@ -1613,13 +1623,13 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 2,
+            "score": 3,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 5,
             "max": 10
           },
           {
@@ -1659,7 +1669,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.971Z",
+        "evaluatedAt": "2026-08-30T22:08:31.005Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1668,7 +1678,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 57,
+          "overallScore": 56,
           "grade": "D",
           "categories": [
             {
@@ -1686,13 +1696,13 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 2,
+              "score": 3,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 5,
               "max": 10
             },
             {
@@ -1732,7 +1742,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.971Z",
+          "evaluatedAt": "2026-08-30T22:08:31.006Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1740,17 +1750,17 @@
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 77,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 10,
+              "score": 9,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.971Z",
+          "evaluatedAt": "2026-08-30T22:08:31.006Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1763,6 +1773,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-cli",
@@ -1834,7 +1845,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.974Z",
+        "evaluatedAt": "2026-08-30T22:08:31.009Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1907,7 +1918,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.975Z",
+          "evaluatedAt": "2026-08-30T22:08:31.009Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1925,7 +1936,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.975Z",
+          "evaluatedAt": "2026-08-30T22:08:31.009Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1938,14 +1949,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-core",
       "relPath": "skills/hyperframes-core",
       "verified": true,
-      "tokenCount": 4099,
+      "tokenCount": 4842,
       "evalSummary": {
-        "overallScore": 67,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -1981,7 +1993,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 3,
+            "score": 5,
             "max": 10
           },
           {
@@ -2009,7 +2021,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.981Z",
+        "evaluatedAt": "2026-08-30T22:08:31.013Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2018,7 +2030,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -2054,7 +2066,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 3,
+              "score": 5,
               "max": 10
             },
             {
@@ -2082,7 +2094,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.981Z",
+          "evaluatedAt": "2026-08-30T22:08:31.013Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2100,7 +2112,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.981Z",
+          "evaluatedAt": "2026-08-30T22:08:31.013Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2113,6 +2125,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-creative",
@@ -2184,7 +2197,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.992Z",
+        "evaluatedAt": "2026-08-30T22:08:31.021Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2257,7 +2270,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.993Z",
+          "evaluatedAt": "2026-08-30T22:08:31.023Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2275,7 +2288,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.993Z",
+          "evaluatedAt": "2026-08-30T22:08:31.023Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2288,6 +2301,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-keyframes",
@@ -2359,7 +2373,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.993Z",
+        "evaluatedAt": "2026-08-30T22:08:31.023Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2432,7 +2446,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.994Z",
+          "evaluatedAt": "2026-08-30T22:08:31.023Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2450,7 +2464,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.994Z",
+          "evaluatedAt": "2026-08-30T22:08:31.023Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2463,6 +2477,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-registry",
@@ -2534,7 +2549,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.999Z",
+        "evaluatedAt": "2026-08-30T22:08:31.026Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2607,7 +2622,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.999Z",
+          "evaluatedAt": "2026-08-30T22:08:31.026Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2625,7 +2640,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.999Z",
+          "evaluatedAt": "2026-08-30T22:08:31.026Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2638,6 +2653,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/media-use",
@@ -2709,7 +2725,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.006Z",
+        "evaluatedAt": "2026-08-30T22:08:31.031Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2782,7 +2798,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.006Z",
+          "evaluatedAt": "2026-08-30T22:08:31.031Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2800,7 +2816,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.006Z",
+          "evaluatedAt": "2026-08-30T22:08:31.031Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2813,6 +2829,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:.claude/skills/motion-doctrine",
@@ -2884,7 +2901,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.009Z",
+        "evaluatedAt": "2026-08-30T22:08:31.032Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2957,7 +2974,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.009Z",
+          "evaluatedAt": "2026-08-30T22:08:31.032Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2975,7 +2992,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.009Z",
+          "evaluatedAt": "2026-08-30T22:08:31.032Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2988,6 +3005,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/motion-graphics",
@@ -3059,7 +3077,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.012Z",
+        "evaluatedAt": "2026-08-30T22:08:31.035Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3132,7 +3150,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.013Z",
+          "evaluatedAt": "2026-08-30T22:08:31.035Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3150,7 +3168,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.013Z",
+          "evaluatedAt": "2026-08-30T22:08:31.035Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3163,6 +3181,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/music-to-video",
@@ -3234,7 +3253,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.023Z",
+        "evaluatedAt": "2026-08-30T22:08:31.043Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3307,7 +3326,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.023Z",
+          "evaluatedAt": "2026-08-30T22:08:31.043Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3325,7 +3344,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.023Z",
+          "evaluatedAt": "2026-08-30T22:08:31.043Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3338,6 +3357,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:.claude/skills/oversized-cursor",
@@ -3409,7 +3429,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.034Z",
+        "evaluatedAt": "2026-08-30T22:08:31.053Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3482,7 +3502,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.034Z",
+          "evaluatedAt": "2026-08-30T22:08:31.055Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3500,7 +3520,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.034Z",
+          "evaluatedAt": "2026-08-30T22:08:31.055Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3513,6 +3533,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/pr-to-video",
@@ -3584,7 +3605,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.039Z",
+        "evaluatedAt": "2026-08-30T22:08:31.055Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3657,7 +3678,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.040Z",
+          "evaluatedAt": "2026-08-30T22:08:31.055Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3675,7 +3696,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.040Z",
+          "evaluatedAt": "2026-08-30T22:08:31.055Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3688,6 +3709,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/product-launch-video",
@@ -3759,7 +3781,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.048Z",
+        "evaluatedAt": "2026-08-30T22:08:31.066Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3832,7 +3854,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.049Z",
+          "evaluatedAt": "2026-08-30T22:08:31.066Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3850,7 +3872,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.049Z",
+          "evaluatedAt": "2026-08-30T22:08:31.066Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3863,6 +3885,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/remotion-to-hyperframes",
@@ -3934,7 +3957,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.118Z",
+        "evaluatedAt": "2026-08-30T22:08:31.115Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3943,7 +3966,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -4003,11 +4026,11 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 4,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.121Z",
+          "evaluatedAt": "2026-08-30T22:08:31.116Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4025,7 +4048,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.121Z",
+          "evaluatedAt": "2026-08-30T22:08:31.116Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4038,6 +4061,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:.claude/skills/seam-craft",
@@ -4109,7 +4133,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.125Z",
+        "evaluatedAt": "2026-08-30T22:08:31.119Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4182,7 +4206,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.125Z",
+          "evaluatedAt": "2026-08-30T22:08:31.120Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4200,7 +4224,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.125Z",
+          "evaluatedAt": "2026-08-30T22:08:31.120Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4213,6 +4237,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/slideshow",
@@ -4284,7 +4309,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.140Z",
+        "evaluatedAt": "2026-08-30T22:08:31.129Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4357,7 +4382,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.142Z",
+          "evaluatedAt": "2026-08-30T22:08:31.130Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4375,7 +4400,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.142Z",
+          "evaluatedAt": "2026-08-30T22:08:31.130Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4388,6 +4413,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/talking-head-recut",
@@ -4459,7 +4485,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.148Z",
+        "evaluatedAt": "2026-08-30T22:08:31.134Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4532,7 +4558,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.148Z",
+          "evaluatedAt": "2026-08-30T22:08:31.134Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4550,7 +4576,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.148Z",
+          "evaluatedAt": "2026-08-30T22:08:31.134Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4562,7 +4588,7 @@
       "name": "heygen-com-hyperframes-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-08-21T09:21:13.272Z",
+      "createdAt": "2026-08-30T22:08:31.549Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4618,7 +4644,7 @@
         {
           "name": "hyperframes-audio",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-audio",
-          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), or automation envelopes drawn on a track's volume or any effect parameter. Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
+          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), automation envelopes drawn on a track's volume or any effect parameter, or one submix bus carrying a chain, a fader and an automation clock for several tracks at once (`<hf-audio-group>`). Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
           "version": "0.0.0"
         },
         {
@@ -4694,7 +4720,7 @@
       "name": "heygen-com-hyperframes-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-08-21T09:21:13.272Z",
+      "createdAt": "2026-08-30T22:08:31.549Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4744,7 +4770,7 @@
         {
           "name": "hyperframes-audio",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-audio",
-          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), or automation envelopes drawn on a track's volume or any effect parameter. Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
+          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), automation envelopes drawn on a track's volume or any effect parameter, or one submix bus carrying a chain, a fader and an automation clock for several tracks at once (`<hf-audio-group>`). Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
           "version": "0.0.0"
         },
         {
@@ -4820,7 +4846,7 @@
       "name": "heygen-com-hyperframes-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-08-21T09:21:13.272Z",
+      "createdAt": "2026-08-30T22:08:31.549Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4864,7 +4890,7 @@
         {
           "name": "hyperframes-audio",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-audio",
-          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), or automation envelopes drawn on a track's volume or any effect parameter. Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
+          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), automation envelopes drawn on a track's volume or any effect parameter, or one submix bus carrying a chain, a fader and an automation clock for several tracks at once (`<hf-audio-group>`). Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
           "version": "0.0.0"
         },
         {
@@ -4934,7 +4960,7 @@
       "name": "heygen-com-hyperframes-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-08-21T09:21:13.272Z",
+      "createdAt": "2026-08-30T22:08:31.549Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4996,7 +5022,7 @@
         {
           "name": "hyperframes-audio",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-audio",
-          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), or automation envelopes drawn on a track's volume or any effect parameter. Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
+          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), automation envelopes drawn on a track's volume or any effect parameter, or one submix bus carrying a chain, a fader and an automation clock for several tracks at once (`<hf-audio-group>`). Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
           "version": "0.0.0"
         },
         {
@@ -5096,7 +5122,7 @@
       "name": "heygen-com-hyperframes-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-08-21T09:21:13.272Z",
+      "createdAt": "2026-08-30T22:08:31.549Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5128,7 +5154,7 @@
         {
           "name": "hyperframes-audio",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-audio",
-          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), or automation envelopes drawn on a track's volume or any effect parameter. Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
+          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), automation envelopes drawn on a track's volume or any effect parameter, or one submix bus carrying a chain, a fader and an automation clock for several tracks at once (`<hf-audio-group>`). Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
           "version": "0.0.0"
         },
         {
@@ -5186,7 +5212,7 @@
       "name": "heygen-com-hyperframes-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-08-21T09:21:13.272Z",
+      "createdAt": "2026-08-30T22:08:31.549Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5252,7 +5278,7 @@
       "name": "heygen-com-hyperframes-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-08-21T09:21:13.272Z",
+      "createdAt": "2026-08-30T22:08:31.549Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5294,7 +5320,7 @@
       "name": "heygen-com-hyperframes-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-08-21T09:21:13.272Z",
+      "createdAt": "2026-08-30T22:08:31.549Z",
       "tags": [
         "repo-derived",
         "inferred",

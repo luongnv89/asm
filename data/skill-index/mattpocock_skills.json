@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/mattpocock/skills.git",
   "owner": "mattpocock",
   "repo": "skills",
-  "updatedAt": "2026-08-27T10:21:40.486Z",
+  "updatedAt": "2026-08-30T22:06:57.570Z",
   "skillCount": 37,
   "skills": [
     {
@@ -13,6 +13,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/ask-matt",
@@ -84,7 +85,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.403Z",
+        "evaluatedAt": "2026-08-30T22:06:57.420Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -157,7 +158,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.404Z",
+          "evaluatedAt": "2026-08-30T22:06:57.420Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -175,7 +176,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.404Z",
+          "evaluatedAt": "2026-08-30T22:06:57.420Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -188,6 +189,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/in-progress/claude-handoff",
@@ -259,7 +261,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.404Z",
+        "evaluatedAt": "2026-08-30T22:06:57.420Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -332,7 +334,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.404Z",
+          "evaluatedAt": "2026-08-30T22:06:57.421Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -350,7 +352,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.404Z",
+          "evaluatedAt": "2026-08-30T22:06:57.421Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -363,6 +365,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/code-review",
@@ -434,7 +437,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.404Z",
+        "evaluatedAt": "2026-08-30T22:06:57.421Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -507,7 +510,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.404Z",
+          "evaluatedAt": "2026-08-30T22:06:57.422Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -525,7 +528,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.404Z",
+          "evaluatedAt": "2026-08-30T22:06:57.422Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -538,6 +541,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/codebase-design",
@@ -609,7 +613,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.404Z",
+        "evaluatedAt": "2026-08-30T22:06:57.420Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -682,7 +686,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.404Z",
+          "evaluatedAt": "2026-08-30T22:06:57.421Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -700,7 +704,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.404Z",
+          "evaluatedAt": "2026-08-30T22:06:57.421Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -713,6 +717,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/diagnosing-bugs",
@@ -784,7 +789,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.404Z",
+        "evaluatedAt": "2026-08-30T22:06:57.420Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -793,7 +798,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -853,11 +858,11 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 9,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.405Z",
+          "evaluatedAt": "2026-08-30T22:06:57.421Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -875,7 +880,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.405Z",
+          "evaluatedAt": "2026-08-30T22:06:57.421Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -888,6 +893,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/domain-modeling",
@@ -959,7 +965,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.404Z",
+        "evaluatedAt": "2026-08-30T22:06:57.420Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1032,7 +1038,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.405Z",
+          "evaluatedAt": "2026-08-30T22:06:57.421Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1050,7 +1056,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.405Z",
+          "evaluatedAt": "2026-08-30T22:06:57.421Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1063,6 +1069,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/misc/git-guardrails-claude-code",
@@ -1134,7 +1141,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.404Z",
+        "evaluatedAt": "2026-08-30T22:06:57.421Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1143,8 +1150,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 65,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -1203,11 +1210,11 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 9,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.405Z",
+          "evaluatedAt": "2026-08-30T22:06:57.421Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1225,7 +1232,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.405Z",
+          "evaluatedAt": "2026-08-30T22:06:57.421Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1238,6 +1245,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/productivity/grill-me",
@@ -1309,7 +1317,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.404Z",
+        "evaluatedAt": "2026-08-30T22:06:57.421Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1382,7 +1390,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.405Z",
+          "evaluatedAt": "2026-08-30T22:06:57.421Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1400,7 +1408,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.405Z",
+          "evaluatedAt": "2026-08-30T22:06:57.422Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1413,6 +1421,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/grill-with-docs",
@@ -1484,7 +1493,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.423Z",
+        "evaluatedAt": "2026-08-30T22:06:57.433Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1557,7 +1566,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.423Z",
+          "evaluatedAt": "2026-08-30T22:06:57.433Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1575,7 +1584,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.423Z",
+          "evaluatedAt": "2026-08-30T22:06:57.433Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1588,6 +1597,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/productivity/grilling",
@@ -1659,7 +1669,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.423Z",
+        "evaluatedAt": "2026-08-30T22:06:57.433Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1732,7 +1742,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.423Z",
+          "evaluatedAt": "2026-08-30T22:06:57.433Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1750,7 +1760,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.423Z",
+          "evaluatedAt": "2026-08-30T22:06:57.433Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1763,6 +1773,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/productivity/handoff",
@@ -1834,7 +1845,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.423Z",
+        "evaluatedAt": "2026-08-30T22:06:57.433Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1907,7 +1918,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.424Z",
+          "evaluatedAt": "2026-08-30T22:06:57.433Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1925,7 +1936,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.424Z",
+          "evaluatedAt": "2026-08-30T22:06:57.433Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1938,6 +1949,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/implement",
@@ -2009,7 +2021,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.424Z",
+        "evaluatedAt": "2026-08-30T22:06:57.433Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2082,7 +2094,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.425Z",
+          "evaluatedAt": "2026-08-30T22:06:57.433Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2100,7 +2112,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.425Z",
+          "evaluatedAt": "2026-08-30T22:06:57.433Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2113,6 +2125,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/in-progress/implement-spec",
@@ -2184,7 +2197,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.427Z",
+        "evaluatedAt": "2026-08-30T22:06:57.434Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2257,7 +2270,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.427Z",
+          "evaluatedAt": "2026-08-30T22:06:57.435Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2275,7 +2288,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.427Z",
+          "evaluatedAt": "2026-08-30T22:06:57.435Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2288,6 +2301,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/improve-codebase-architecture",
@@ -2359,7 +2373,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.427Z",
+        "evaluatedAt": "2026-08-30T22:06:57.435Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2432,7 +2446,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.427Z",
+          "evaluatedAt": "2026-08-30T22:06:57.435Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2450,7 +2464,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.427Z",
+          "evaluatedAt": "2026-08-30T22:06:57.435Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2463,6 +2477,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/in-progress/loop-me",
@@ -2534,7 +2549,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.428Z",
+        "evaluatedAt": "2026-08-30T22:06:57.438Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2607,7 +2622,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.429Z",
+          "evaluatedAt": "2026-08-30T22:06:57.438Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2625,7 +2640,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.429Z",
+          "evaluatedAt": "2026-08-30T22:06:57.438Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2638,6 +2653,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/misc/migrate-to-shoehorn",
@@ -2709,7 +2725,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.429Z",
+        "evaluatedAt": "2026-08-30T22:06:57.438Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2782,7 +2798,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.429Z",
+          "evaluatedAt": "2026-08-30T22:06:57.438Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2800,7 +2816,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.429Z",
+          "evaluatedAt": "2026-08-30T22:06:57.438Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2813,6 +2829,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/prototype",
@@ -2884,7 +2901,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.436Z",
+        "evaluatedAt": "2026-08-30T22:06:57.438Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2957,7 +2974,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.436Z",
+          "evaluatedAt": "2026-08-30T22:06:57.438Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2975,7 +2992,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.436Z",
+          "evaluatedAt": "2026-08-30T22:06:57.438Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2988,6 +3005,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/research",
@@ -3059,7 +3077,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.436Z",
+        "evaluatedAt": "2026-08-30T22:06:57.438Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3132,7 +3150,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.436Z",
+          "evaluatedAt": "2026-08-30T22:06:57.438Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3150,7 +3168,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.436Z",
+          "evaluatedAt": "2026-08-30T22:06:57.438Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3163,6 +3181,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/resolving-merge-conflicts",
@@ -3234,7 +3253,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.436Z",
+        "evaluatedAt": "2026-08-30T22:06:57.440Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3307,7 +3326,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.436Z",
+          "evaluatedAt": "2026-08-30T22:06:57.440Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3325,7 +3344,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.436Z",
+          "evaluatedAt": "2026-08-30T22:06:57.440Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3338,6 +3357,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/in-progress/retro",
@@ -3409,7 +3429,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.437Z",
+        "evaluatedAt": "2026-08-30T22:06:57.440Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3482,7 +3502,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.438Z",
+          "evaluatedAt": "2026-08-30T22:06:57.441Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3500,7 +3520,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.438Z",
+          "evaluatedAt": "2026-08-30T22:06:57.441Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3513,6 +3533,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/misc/scaffold-exercises",
@@ -3584,7 +3605,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.439Z",
+        "evaluatedAt": "2026-08-30T22:06:57.443Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3657,7 +3678,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.440Z",
+          "evaluatedAt": "2026-08-30T22:06:57.443Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3675,7 +3696,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.440Z",
+          "evaluatedAt": "2026-08-30T22:06:57.443Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3688,6 +3709,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/setup-matt-pocock-skills",
@@ -3759,7 +3781,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.441Z",
+        "evaluatedAt": "2026-08-30T22:06:57.443Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3832,7 +3854,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.442Z",
+          "evaluatedAt": "2026-08-30T22:06:57.443Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3850,7 +3872,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.442Z",
+          "evaluatedAt": "2026-08-30T22:06:57.443Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3863,6 +3885,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/misc/setup-pre-commit",
@@ -3934,7 +3957,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.441Z",
+        "evaluatedAt": "2026-08-30T22:06:57.443Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4007,7 +4030,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.442Z",
+          "evaluatedAt": "2026-08-30T22:06:57.443Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4025,7 +4048,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.442Z",
+          "evaluatedAt": "2026-08-30T22:06:57.443Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4038,6 +4061,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/in-progress/setup-ts-deep-modules",
@@ -4109,7 +4133,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.443Z",
+        "evaluatedAt": "2026-08-30T22:06:57.445Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4182,7 +4206,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.444Z",
+          "evaluatedAt": "2026-08-30T22:06:57.445Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4200,7 +4224,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.444Z",
+          "evaluatedAt": "2026-08-30T22:06:57.445Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4213,6 +4237,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/tdd",
@@ -4284,7 +4309,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.451Z",
+        "evaluatedAt": "2026-08-30T22:06:57.446Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4357,7 +4382,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.451Z",
+          "evaluatedAt": "2026-08-30T22:06:57.446Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4375,7 +4400,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.451Z",
+          "evaluatedAt": "2026-08-30T22:06:57.446Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4388,6 +4413,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/productivity/teach",
@@ -4459,7 +4485,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.451Z",
+        "evaluatedAt": "2026-08-30T22:06:57.447Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4532,7 +4558,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.451Z",
+          "evaluatedAt": "2026-08-30T22:06:57.447Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4550,7 +4576,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.451Z",
+          "evaluatedAt": "2026-08-30T22:06:57.447Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4563,6 +4589,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/productivity/to-questionnaire",
@@ -4634,7 +4661,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.452Z",
+        "evaluatedAt": "2026-08-30T22:06:57.450Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4707,7 +4734,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.453Z",
+          "evaluatedAt": "2026-08-30T22:06:57.450Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4725,7 +4752,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.453Z",
+          "evaluatedAt": "2026-08-30T22:06:57.450Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4738,6 +4765,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/to-spec",
@@ -4809,7 +4837,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.454Z",
+        "evaluatedAt": "2026-08-30T22:06:57.450Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4882,7 +4910,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.455Z",
+          "evaluatedAt": "2026-08-30T22:06:57.450Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4900,7 +4928,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.455Z",
+          "evaluatedAt": "2026-08-30T22:06:57.450Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4913,6 +4941,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/to-tickets",
@@ -4984,7 +5013,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.457Z",
+        "evaluatedAt": "2026-08-30T22:06:57.451Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5057,7 +5086,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.458Z",
+          "evaluatedAt": "2026-08-30T22:06:57.452Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5075,7 +5104,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.459Z",
+          "evaluatedAt": "2026-08-30T22:06:57.452Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5088,6 +5117,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/triage",
@@ -5159,7 +5189,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.458Z",
+        "evaluatedAt": "2026-08-30T22:06:57.453Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5232,7 +5262,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.459Z",
+          "evaluatedAt": "2026-08-30T22:06:57.453Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5250,7 +5280,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.459Z",
+          "evaluatedAt": "2026-08-30T22:06:57.453Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5263,6 +5293,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/productivity/wait-what",
@@ -5334,7 +5365,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.460Z",
+        "evaluatedAt": "2026-08-30T22:06:57.453Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5407,7 +5438,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.461Z",
+          "evaluatedAt": "2026-08-30T22:06:57.453Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5425,7 +5456,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.461Z",
+          "evaluatedAt": "2026-08-30T22:06:57.453Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5438,6 +5469,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/wayfinder",
@@ -5509,7 +5541,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.468Z",
+        "evaluatedAt": "2026-08-30T22:06:57.454Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5582,7 +5614,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.468Z",
+          "evaluatedAt": "2026-08-30T22:06:57.455Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5600,7 +5632,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.468Z",
+          "evaluatedAt": "2026-08-30T22:06:57.455Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5613,6 +5645,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/engineering/wizard",
@@ -5684,7 +5717,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.469Z",
+        "evaluatedAt": "2026-08-30T22:06:57.455Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5757,7 +5790,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.470Z",
+          "evaluatedAt": "2026-08-30T22:06:57.455Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5775,7 +5808,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.470Z",
+          "evaluatedAt": "2026-08-30T22:06:57.455Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5788,6 +5821,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/in-progress/writing-beats",
@@ -5859,7 +5893,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.472Z",
+        "evaluatedAt": "2026-08-30T22:06:57.458Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5932,7 +5966,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.473Z",
+          "evaluatedAt": "2026-08-30T22:06:57.458Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5950,7 +5984,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.473Z",
+          "evaluatedAt": "2026-08-30T22:06:57.458Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5963,6 +5997,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/productivity/writing-for-agents",
@@ -6034,7 +6069,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.472Z",
+        "evaluatedAt": "2026-08-30T22:06:57.458Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6107,7 +6142,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.473Z",
+          "evaluatedAt": "2026-08-30T22:06:57.458Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6125,7 +6160,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.473Z",
+          "evaluatedAt": "2026-08-30T22:06:57.458Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6138,6 +6173,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/in-progress/writing-fragments",
@@ -6209,7 +6245,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.473Z",
+        "evaluatedAt": "2026-08-30T22:06:57.459Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6282,7 +6318,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.473Z",
+          "evaluatedAt": "2026-08-30T22:06:57.459Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6300,7 +6336,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.473Z",
+          "evaluatedAt": "2026-08-30T22:06:57.459Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6313,6 +6349,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:mattpocock/skills:skills/in-progress/writing-shape",
@@ -6384,7 +6421,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T10:21:40.475Z",
+        "evaluatedAt": "2026-08-30T22:06:57.464Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6457,7 +6494,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.476Z",
+          "evaluatedAt": "2026-08-30T22:06:57.464Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6475,7 +6512,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T10:21:40.476Z",
+          "evaluatedAt": "2026-08-30T22:06:57.464Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6487,7 +6524,7 @@
       "name": "mattpocock-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from mattpocock/skills.",
       "author": "ASM (mattpocock/skills)",
-      "createdAt": "2026-08-27T10:21:40.486Z",
+      "createdAt": "2026-08-30T22:06:57.570Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6619,7 +6656,7 @@
       "name": "mattpocock-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from mattpocock/skills.",
       "author": "ASM (mattpocock/skills)",
-      "createdAt": "2026-08-27T10:21:40.486Z",
+      "createdAt": "2026-08-30T22:06:57.570Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6691,7 +6728,7 @@
       "name": "mattpocock-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from mattpocock/skills.",
       "author": "ASM (mattpocock/skills)",
-      "createdAt": "2026-08-27T10:21:40.486Z",
+      "createdAt": "2026-08-30T22:06:57.570Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6811,7 +6848,7 @@
       "name": "mattpocock-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from mattpocock/skills.",
       "author": "ASM (mattpocock/skills)",
-      "createdAt": "2026-08-27T10:21:40.486Z",
+      "createdAt": "2026-08-30T22:06:57.570Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6895,7 +6932,7 @@
       "name": "mattpocock-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from mattpocock/skills.",
       "author": "ASM (mattpocock/skills)",
-      "createdAt": "2026-08-27T10:21:40.486Z",
+      "createdAt": "2026-08-30T22:06:57.570Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6961,7 +6998,7 @@
       "name": "mattpocock-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from mattpocock/skills.",
       "author": "ASM (mattpocock/skills)",
-      "createdAt": "2026-08-27T10:21:40.486Z",
+      "createdAt": "2026-08-30T22:06:57.570Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7003,7 +7040,7 @@
       "name": "mattpocock-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from mattpocock/skills.",
       "author": "ASM (mattpocock/skills)",
-      "createdAt": "2026-08-27T10:21:40.486Z",
+      "createdAt": "2026-08-30T22:06:57.570Z",
       "tags": [
         "repo-derived",
         "inferred",

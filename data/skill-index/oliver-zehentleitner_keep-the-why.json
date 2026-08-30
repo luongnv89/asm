@@ -2,17 +2,18 @@
   "repoUrl": "https://github.com/oliver-zehentleitner/keep-the-why.git",
   "owner": "oliver-zehentleitner",
   "repo": "keep-the-why",
-  "updatedAt": "2026-08-21T09:21:26.229Z",
+  "updatedAt": "2026-08-30T22:08:45.244Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "keep-the-why",
       "description": "Preserves or recovers the reasoning behind a codebase - architectural decisions, rejected alternatives, workarounds, incident learnings, operational constraints, and historical context the code itself cannot explain. Use when implementing or reviewing a non-trivial change involving a design decision, workaround, incident fix, operational constraint, rejected alternative, or changed assumption; when documenting an existing or legacy codebase; during onboarding or a maintainer handover; or when interviewing a developer before their knowledge is lost (e.g. before they leave or retire); or when the user expresses frustration with, or reports a problem with, this skill itself. Identifies what the code cannot explain, asks focused questions instead of generic ones, and maintains concise, topic-based, version-controlled documentation readable by both humans and AI agents.",
-      "version": "0.9.0",
+      "version": "0.9.2",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:oliver-zehentleitner/keep-the-why:skills/keep-the-why",
@@ -84,8 +85,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:26.224Z",
-        "evaluatedVersion": "0.9.0"
+        "evaluatedAt": "2026-08-30T22:08:45.238Z",
+        "evaluatedVersion": "0.9.2"
       },
       "evalSummaries": {
         "quality": {
@@ -157,8 +158,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:26.224Z",
-          "evaluatedVersion": "0.9.0"
+          "evaluatedAt": "2026-08-30T22:08:45.238Z",
+          "evaluatedVersion": "0.9.2"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -175,8 +176,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:26.224Z",
-          "evaluatedVersion": "0.9.0"
+          "evaluatedAt": "2026-08-30T22:08:45.238Z",
+          "evaluatedVersion": "0.9.2"
         }
       }
     }

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/google-labs-code/design.md.git",
   "owner": "google-labs-code",
   "repo": "design.md",
-  "updatedAt": "2026-08-27T18:54:26.267Z",
+  "updatedAt": "2026-08-30T22:08:57.108Z",
   "skillCount": 4,
   "skills": [
     {
@@ -13,6 +13,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:google-labs-code/design.md:.agents/skills/agent-dx-cli-scale",
@@ -84,7 +85,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T18:54:26.263Z",
+        "evaluatedAt": "2026-08-30T22:08:57.105Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -157,7 +158,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T18:54:26.263Z",
+          "evaluatedAt": "2026-08-30T22:08:57.105Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -175,7 +176,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T18:54:26.263Z",
+          "evaluatedAt": "2026-08-30T22:08:57.106Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -188,6 +189,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:google-labs-code/design.md:.agents/skills/ink",
@@ -259,7 +261,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T18:54:26.263Z",
+        "evaluatedAt": "2026-08-30T22:08:57.105Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -332,7 +334,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T18:54:26.263Z",
+          "evaluatedAt": "2026-08-30T22:08:57.106Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -350,7 +352,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T18:54:26.263Z",
+          "evaluatedAt": "2026-08-30T22:08:57.106Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -363,6 +365,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:google-labs-code/design.md:.agents/skills/tdd",
@@ -434,7 +437,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T18:54:26.263Z",
+        "evaluatedAt": "2026-08-30T22:08:57.105Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -507,7 +510,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T18:54:26.263Z",
+          "evaluatedAt": "2026-08-30T22:08:57.106Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -525,7 +528,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T18:54:26.263Z",
+          "evaluatedAt": "2026-08-30T22:08:57.106Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -538,6 +541,7 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:google-labs-code/design.md:.agents/skills/typed-service-contracts",
@@ -609,7 +613,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-27T18:54:26.263Z",
+        "evaluatedAt": "2026-08-30T22:08:57.106Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -682,7 +686,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-27T18:54:26.263Z",
+          "evaluatedAt": "2026-08-30T22:08:57.106Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -700,7 +704,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-27T18:54:26.263Z",
+          "evaluatedAt": "2026-08-30T22:08:57.106Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -712,7 +716,7 @@
       "name": "google-labs-code-design.md-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from google-labs-code/design.md.",
       "author": "ASM (google-labs-code/design.md)",
-      "createdAt": "2026-08-27T18:54:26.267Z",
+      "createdAt": "2026-08-30T22:08:57.108Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -760,7 +764,7 @@
       "name": "google-labs-code-design.md-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from google-labs-code/design.md.",
       "author": "ASM (google-labs-code/design.md)",
-      "createdAt": "2026-08-27T18:54:26.267Z",
+      "createdAt": "2026-08-30T22:08:57.108Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -796,7 +800,7 @@
       "name": "google-labs-code-design.md-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from google-labs-code/design.md.",
       "author": "ASM (google-labs-code/design.md)",
-      "createdAt": "2026-08-27T18:54:26.267Z",
+      "createdAt": "2026-08-30T22:08:57.108Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -844,7 +848,7 @@
       "name": "google-labs-code-design.md-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from google-labs-code/design.md.",
       "author": "ASM (google-labs-code/design.md)",
-      "createdAt": "2026-08-27T18:54:26.267Z",
+      "createdAt": "2026-08-30T22:08:57.108Z",
       "tags": [
         "repo-derived",
         "inferred",
