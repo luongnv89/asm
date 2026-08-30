@@ -50,7 +50,7 @@ If `origin` is missing or rebase conflicts occur, **stop and ask the user** befo
 
 Verify each before any ingest. Stop and tell the user if any fails.
 
-- `node` on PATH (`command -v node`) — Node >= 18 per `package.json` engines
+- `node` on PATH (`command -v node`) — Node >= 22 per `package.json` engines
 - `npm` on PATH (`command -v npm`) — required by `npm run preindex`
 - `asm` on PATH (`command -v asm`) — invoked transitively by the ingester for `asm eval`
 - `gh` on PATH and authenticated (`gh auth status`) — required for PR creation
