@@ -376,9 +376,10 @@ export default function CatalogPage() {
                 aria-label="Sort skills"
                 className="rounded-md border border-[var(--border)] bg-[var(--bg-input)] px-2 py-1.5 text-xs text-[var(--fg)]"
               >
+                <option value="stars">Most popular</option>
                 <option value="relevance">Relevance</option>
-                <option value="name">Name A–Z</option>
                 <option value="grade">Best score</option>
+                <option value="name">Name A–Z</option>
                 <option value="tokens-asc">Smallest first</option>
                 <option value="tokens-desc">Largest first</option>
               </select>

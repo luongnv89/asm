@@ -14,8 +14,11 @@ import {
 /**
  * Product card for a skill in the storefront grid.
  *
- * The tile on top stands in for a product photo: a hatched panel with
- * the skill's initial and a score "sticker". The title is a stretched
+ * The tile on top stands in for a product photo: a hatched panel that
+ * leads with the two numbers a shopper compares first — the asm eval
+ * score (the "price tag") and the source repo's GitHub stars (social
+ * proof). Featured/official flags sit in the tile's top corner. The
+ * title is a stretched
  * link (see `.shop-link::after` in shop.css) so the whole card opens
  * the product page while the cart button stays independently
  * clickable. `locationSearch` is preserved on the link so active
@@ -46,8 +49,7 @@ function SkillCard({
   // (plugin-bundle variants — issue #241) surface the distinguishing
   // relPath so the card is no longer visually identical to its siblings.
   const collisionPath = hasNameCollision ? skillRelPath(skill.installUrl) : "";
-  const initial =
-    (skill.name || "?").replace(/^[^a-z0-9]+/i, "").charAt(0) || "?";
+  const stars = formatStars(skill.stars);
   const tone = hashTone(skill.id || skill.name);
 
   return (
@@ -57,25 +59,39 @@ function SkillCard({
       data-skill-id={skill.id}
     >
       <div className="shop-tile" data-tone={tone}>
-        <span className="shop-initial" aria-hidden="true">
-          {initial}
-        </span>
-        {score ? (
-          <span
-            className="shop-sticker"
-            data-grade={score.grade}
-            title={`asm eval score: ${score.overallScore}/100 (grade ${score.grade})`}
-          >
-            {score.overallScore}
-            <small>/100 · {score.grade}</small>
-          </span>
-        ) : (
-          <span className="shop-sticker" title="No asm eval score yet">
-            <small>not scored</small>
-          </span>
+        {(isFeatured || isOfficial) && (
+          <div className="shop-tile-flags">
+            {isFeatured && <Badge tone="featured">★ featured</Badge>}
+            {isOfficial && <Badge tone="official">official</Badge>}
+          </div>
         )}
-        {isFeatured && <Badge tone="featured">★ featured</Badge>}
-        {isOfficial && <Badge tone="official">official</Badge>}
+        <div className="shop-tile-stats">
+          {score ? (
+            <span
+              className="shop-sticker"
+              data-grade={score.grade}
+              title={`asm eval score: ${score.overallScore}/100 (grade ${score.grade})`}
+            >
+              <b>{score.overallScore}</b>
+              <small>/100 · {score.grade}</small>
+            </span>
+          ) : (
+            <span className="shop-sticker" title="No asm eval score yet">
+              <b aria-hidden="true">–</b>
+              <small>not scored</small>
+            </span>
+          )}
+          {stars && (
+            <span
+              className="shop-stars"
+              title={`${skill.owner}/${skill.repo} GitHub stars`}
+            >
+              <Star aria-hidden="true" />
+              <b>{stars}</b>
+              <small>stars</small>
+            </span>
+          )}
+        </div>
       </div>
 
       <div className="flex flex-1 flex-col gap-1.5 px-3.5 pt-3 pb-3">
@@ -116,18 +132,6 @@ function SkillCard({
           {typeof skill.tokenCount === "number" && (
             <Badge tone="tokens" title="Estimated tokens in SKILL.md">
               {formatTokens(skill.tokenCount)}
-            </Badge>
-          )}
-          {typeof skill.stars === "number" && skill.stars > 0 && (
-            <Badge
-              tone="tokens"
-              title={`${skill.owner}/${skill.repo} GitHub stars`}
-            >
-              <Star
-                className="h-3 w-3 fill-[var(--fg-dim)]"
-                aria-hidden="true"
-              />
-              {formatStars(skill.stars)}
             </Badge>
           )}
           {usesTools && (

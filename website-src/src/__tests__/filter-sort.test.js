@@ -18,6 +18,7 @@ const mk = (p) => ({
   verified: !!p.verified,
   hasTools: !!p.hasTools,
   tokenCount: p.tokenCount,
+  stars: p.stars,
   evalSummary: p.evalSummary,
   featured: !!p.featured,
   allowedTools: p.allowedTools,
@@ -33,12 +34,48 @@ const base = () => ({
 });
 
 describe("applyFilters", () => {
-  it("returns all when no filters active and sorts by name", () => {
+  it("returns all when no filters active and sorts by stars (most popular)", () => {
     const skills = [
-      mk({ id: "b", name: "beta" }),
-      mk({ id: "a", name: "alpha" }),
+      mk({ id: "b", name: "beta", stars: 10 }),
+      mk({ id: "a", name: "alpha", stars: 5 }),
+      mk({ id: "c", name: "charlie", stars: 500 }),
     ];
     const out = applyFilters(skills, base());
+    expect(out.map((s) => s.id)).toEqual(["c", "b", "a"]);
+  });
+
+  it("sort: stars — ties break by score desc, then name; missing stars sink", () => {
+    const skills = [
+      mk({ id: "nostars", name: "aaa" }),
+      mk({
+        id: "low",
+        name: "zzz",
+        stars: 100,
+        evalSummary: { overallScore: 60, grade: "C" },
+      }),
+      mk({
+        id: "high",
+        name: "yyy",
+        stars: 100,
+        evalSummary: { overallScore: 95, grade: "A" },
+      }),
+      mk({
+        id: "same",
+        name: "bbb",
+        stars: 100,
+        evalSummary: { overallScore: 95, grade: "A" },
+      }),
+    ];
+    const out = applyFilters(skills, { ...base(), sort: "stars" });
+    expect(out.map((s) => s.id)).toEqual(["same", "high", "low", "nostars"]);
+  });
+
+  it("sort: name — alphabetical regardless of stars", () => {
+    const skills = [
+      mk({ id: "b", name: "beta", stars: 500 }),
+      mk({ id: "a", name: "alpha", stars: 5 }),
+    ];
+    const out = applyFilters(skills, { ...base(), sort: "name" });
     expect(out.map((s) => s.id)).toEqual(["a", "b"]);
   });
 
@@ -256,8 +293,11 @@ describe("anyFilterActive", () => {
   it("returns true when sort='grade' with no search (non-default)", () => {
     expect(anyFilterActive({ ...base(), sort: "grade" })).toBe(true);
   });
-  it("returns false when sort='name' with no search (matches default)", () => {
-    expect(anyFilterActive({ ...base(), sort: "name" })).toBe(false);
+  it("returns false when sort='stars' with no search (matches default)", () => {
+    expect(anyFilterActive({ ...base(), sort: "stars" })).toBe(false);
+  });
+  it("returns true when sort='name' with no search (non-default)", () => {
+    expect(anyFilterActive({ ...base(), sort: "name" })).toBe(true);
   });
   it("returns true when sort='relevance' with no search (non-default)", () => {
     expect(anyFilterActive({ ...base(), sort: "relevance" })).toBe(true);
@@ -270,8 +310,8 @@ describe("anyFilterActive", () => {
 });
 
 describe("defaultSort", () => {
-  it("is relevance when search active, name otherwise", () => {
-    expect(defaultSort("")).toBe("name");
+  it("is relevance when search active, stars otherwise", () => {
+    expect(defaultSort("")).toBe("stars");
     expect(defaultSort("foo")).toBe("relevance");
   });
 });

@@ -105,6 +105,15 @@ describe("SkillCard — storefront anatomy", () => {
     ).toBeTruthy();
   });
 
+  it("does not render a name initial in the tile (score + stars lead instead)", () => {
+    const { container } = renderCard({ ...baseSkill, stars: 42 });
+    expect(container.querySelector(".shop-initial")).toBeNull();
+    const stats = container.querySelector(".shop-tile .shop-tile-stats");
+    expect(stats).toBeTruthy();
+    expect(stats.querySelector(".shop-sticker")).toBeTruthy();
+    expect(stats.querySelector(".shop-stars")).toBeTruthy();
+  });
+
   it("shows the eval score as the price sticker when present", () => {
     const { container } = renderCard({
       ...baseSkill,
@@ -123,11 +132,11 @@ describe("SkillCard — storefront anatomy", () => {
   });
 });
 
-describe("SkillCard — GitHub star badge (repo trust signal)", () => {
+describe("SkillCard — GitHub star stat in the tile (repo trust signal)", () => {
   afterEach(() => cleanup());
 
   /**
-   * Helper to find the star badge by its title attribute, which is unique
+   * Helper to find the star stat by its title attribute, which is unique
    * per skill and never collides with skill name / owner / repo text.
    */
   function getStarBadge(container) {

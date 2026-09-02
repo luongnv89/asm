@@ -117,16 +117,16 @@
   z-index: 1;
 }
 
-/* The "product photo": a hatched tile with a large serif initial. The
- * hatch direction rotates per card (data-tone 0–3) so a grid of tiles
- * reads as a set rather than a repeat. */
+/* The "product photo": a hatched tile that leads with the two numbers a
+ * shopper compares first — eval score (the price tag) and repo stars
+ * (social proof). The hatch direction rotates per card (data-tone 0–3)
+ * so a grid of tiles reads as a set rather than a repeat. */
 .shop-tile {
   position: relative;
   height: 96px;
   display: flex;
   align-items: flex-end;
-  gap: 6px;
-  padding: 10px 12px;
+  padding: 10px 14px 12px;
   background: color-mix(in srgb, var(--brand) 7%, var(--bg-input));
   border-bottom: 1px solid var(--border);
   overflow: hidden;
@@ -152,48 +152,88 @@
 .shop-tile[data-tone="3"] {
   --shop-hatch: 0deg;
 }
-.shop-initial {
+.shop-tile-flags {
   position: absolute;
-  right: 14px;
-  top: -14px;
-  font-family: "Instrument Serif", var(--shop-serif);
-  font-style: italic;
-  font-size: 92px;
-  line-height: 1;
-  color: color-mix(in srgb, var(--brand) 55%, var(--fg-muted));
-  opacity: 0.45;
-  user-select: none;
-  transition:
-    opacity 240ms ease,
-    transform 320ms var(--shop-ease);
+  top: 10px;
+  left: 14px;
+  display: flex;
+  gap: 4px;
 }
-.shop-card:hover .shop-initial {
-  opacity: 0.8;
+.shop-tile-stats {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+/* Score — the "price tag". Big serif numeral, mono denominator. */
+.shop-sticker {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  min-width: 0;
+  font-family: var(--shop-mono);
+  color: var(--fg);
+  transition: transform 320ms var(--shop-ease);
+}
+.shop-sticker b {
+  font-family: var(--shop-serif);
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  font-variation-settings: "opsz" 144;
+}
+.shop-sticker small {
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+.shop-sticker[data-grade="A"] b {
+  color: var(--brand);
+}
+.shop-sticker[data-grade="B"] b {
+  color: color-mix(in srgb, var(--brand) 55%, var(--fg));
+}
+.shop-sticker:not([data-grade]) b {
+  color: var(--fg-muted);
+  font-weight: 400;
+}
+.shop-card:hover .shop-sticker {
   transform: translateY(-2px);
 }
-/* Score sticker — the "price tag" */
-.shop-sticker {
-  position: relative;
+/* Stars — social proof, right-aligned against the score. */
+.shop-stars {
   display: inline-flex;
   align-items: baseline;
   gap: 4px;
-  padding: 3px 8px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--bg-card);
+  flex-shrink: 0;
   font-family: var(--shop-mono);
-  font-size: 11px;
-  font-weight: 600;
   color: var(--fg);
 }
-.shop-sticker small {
+.shop-stars svg {
+  width: 13px;
+  height: 13px;
+  align-self: center;
+  color: color-mix(in srgb, var(--brand) 70%, var(--fg));
+  fill: currentColor;
+}
+.shop-stars b {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.shop-stars small {
   font-size: 9.5px;
   font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--fg-muted);
-}
-.shop-sticker[data-grade="A"] {
-  border-color: color-mix(in srgb, var(--brand) 60%, var(--border));
-  color: var(--brand);
 }
 
 .shop-name {

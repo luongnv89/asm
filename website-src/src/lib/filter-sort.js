@@ -11,7 +11,7 @@ import { licenseBucket, skillSource } from "./utils.js";
  * @param {Set<string>} state.activeCategories
  * @param {string} state.activeRepo "all" or "owner/repo".
  * @param {Record<string, Set<string>>} state.activeFacets
- * @param {string} state.sort "relevance" | "name" | "grade" | "tokens-asc" | "tokens-desc".
+ * @param {string} state.sort "stars" | "relevance" | "name" | "grade" | "tokens-asc" | "tokens-desc".
  * @param {object | null} options Optional MiniSearch results.
  * @param {Map<string, number> | null} options.scoreById Score per skill id.
  */
@@ -98,13 +98,27 @@ export function applyFilters(skills, state, options = {}) {
     results = scored.map((r) => r.skill);
   }
 
-  const hasSearch = state.searchQuery && state.searchQuery.trim();
-  const sortMode = state.sort || (hasSearch ? "relevance" : "name");
+  const sortMode = state.sort || defaultSort(state.searchQuery);
 
-  if (sortMode === "name" || (sortMode === "relevance" && !scored)) {
+  if (sortMode === "name") {
     results = results.slice().sort((a, b) => {
       const f = featuredFirst(a, b);
       if (f !== 0) return f;
+      return a.name.localeCompare(b.name);
+    });
+  } else if (sortMode === "stars" || (sortMode === "relevance" && !scored)) {
+    // "Most popular": the source repo's GitHub stars, best eval score as
+    // the tiebreak so skills from the same repo still rank meaningfully,
+    // then name. Missing/zero stars sink to the bottom.
+    results = results.slice().sort((a, b) => {
+      const f = featuredFirst(a, b);
+      if (f !== 0) return f;
+      const ast = typeof a.stars === "number" ? a.stars : 0;
+      const bst = typeof b.stars === "number" ? b.stars : 0;
+      if (ast !== bst) return bst - ast;
+      const as = a.evalSummary ? a.evalSummary.overallScore : -1;
+      const bs = b.evalSummary ? b.evalSummary.overallScore : -1;
+      if (as !== bs) return bs - as;
       return a.name.localeCompare(b.name);
     });
   } else if (sortMode === "grade") {
@@ -176,16 +190,14 @@ export function anyFilterActive(state) {
   }
   // Check sort state — when sort differs from the search-aware default,
   // the "Clear all" button should appear (issue #526).
-  const expectedDefault =
-    state.searchQuery && state.searchQuery.trim() ? "relevance" : "name";
-  if (state.sort && state.sort !== expectedDefault) return true;
+  if (state.sort && state.sort !== defaultSort(state.searchQuery)) return true;
   return false;
 }
 
 /**
- * Default sort depends on whether search is active. Preserves legacy UX:
- * no search → alphabetical; search active → relevance scoring.
+ * Default sort depends on whether search is active: no search → most
+ * popular (source-repo GitHub stars); search active → relevance scoring.
  */
 export function defaultSort(searchQuery) {
-  return searchQuery && searchQuery.trim() ? "relevance" : "name";
+  return searchQuery && searchQuery.trim() ? "relevance" : "stars";
 }
