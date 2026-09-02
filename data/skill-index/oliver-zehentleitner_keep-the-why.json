@@ -2,13 +2,13 @@
   "repoUrl": "https://github.com/oliver-zehentleitner/keep-the-why.git",
   "owner": "oliver-zehentleitner",
   "repo": "keep-the-why",
-  "updatedAt": "2026-08-30T22:08:45.244Z",
+  "updatedAt": "2026-09-02T21:57:39.820Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "keep-the-why",
-      "description": "Preserves or recovers the reasoning behind a codebase - architectural decisions, rejected alternatives, workarounds, incident learnings, operational constraints, and historical context the code itself cannot explain. Use when implementing or reviewing a non-trivial change involving a design decision, workaround, incident fix, operational constraint, rejected alternative, or changed assumption; when documenting an existing or legacy codebase; during onboarding or a maintainer handover; or when interviewing a developer before their knowledge is lost (e.g. before they leave or retire); or when the user expresses frustration with, or reports a problem with, this skill itself. Identifies what the code cannot explain, asks focused questions instead of generic ones, and maintains concise, topic-based, version-controlled documentation readable by both humans and AI agents.",
-      "version": "0.9.2",
+      "description": "Extract and preserve the reasoning code cannot explain - decisions, rejected alternatives, workarounds, incidents, and constraints. Not for what changed (see Keep a Changelog) - only why.",
+      "version": "0.10.1",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -19,10 +19,10 @@
       "installUrl": "github:oliver-zehentleitner/keep-the-why:skills/keep-the-why",
       "relPath": "skills/keep-the-why",
       "verified": true,
-      "tokenCount": 7181,
+      "tokenCount": 4953,
       "evalSummary": {
-        "overallScore": 75,
-        "grade": "C",
+        "overallScore": 89,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
@@ -33,19 +33,19 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 3,
+            "score": 10,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 7,
+            "score": 10,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 5,
+            "score": 7,
             "max": 10
           },
           {
@@ -57,7 +57,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 7,
             "max": 10
           },
           {
@@ -85,8 +85,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-30T22:08:45.238Z",
-        "evaluatedVersion": "0.9.2"
+        "evaluatedAt": "2026-09-02T21:57:39.815Z",
+        "evaluatedVersion": "0.10.1"
       },
       "evalSummaries": {
         "quality": {
@@ -94,8 +94,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
-          "grade": "C",
+          "overallScore": 87,
+          "grade": "B",
           "categories": [
             {
               "id": "structure",
@@ -106,19 +106,19 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 3,
+              "score": 10,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 7,
+              "score": 10,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 5,
+              "score": 7,
               "max": 10
             },
             {
@@ -130,7 +130,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 7,
               "max": 10
             },
             {
@@ -158,26 +158,26 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-30T22:08:45.238Z",
-          "evaluatedVersion": "0.9.2"
+          "evaluatedAt": "2026-09-02T21:57:39.815Z",
+          "evaluatedVersion": "0.10.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
           "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 86,
-          "grade": "B",
+          "overallScore": 100,
+          "grade": "A",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 12,
+              "score": 14,
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-30T22:08:45.238Z",
-          "evaluatedVersion": "0.9.2"
+          "evaluatedAt": "2026-09-02T21:57:39.815Z",
+          "evaluatedVersion": "0.10.1"
         }
       }
     }

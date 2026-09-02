@@ -2,13 +2,13 @@
   "repoUrl": "https://github.com/tt-a1i/archify.git",
   "owner": "tt-a1i",
   "repo": "archify",
-  "updatedAt": "2026-08-30T22:09:02.102Z",
+  "updatedAt": "2026-09-02T21:57:56.696Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "archify",
       "description": "Create polished, validated architecture, workflow, sequence, data-flow, and lifecycle/state diagrams as explorable standalone HTML with inline SVG, dark/light themes, optional trace motion, and PNG/JPEG/WebP/SVG/WebM export. Accept plain-language requirements or pasted Mermaid flowchart, sequenceDiagram, and stateDiagram input; inspect repository evidence when the diagram must reflect real code. Use when the user asks to visualize system architecture, infrastructure, cloud/security/network topology, technical workflows, API call sequences, request lifecycles, data pipelines, ETL/ELT, data lineage, state machines, or to convert/beautify Mermaid.",
-      "version": "2.16",
+      "version": "2.17",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -19,7 +19,7 @@
       "installUrl": "github:tt-a1i/archify:archify",
       "relPath": "archify",
       "verified": true,
-      "tokenCount": 4373,
+      "tokenCount": 4448,
       "evalSummary": {
         "overallScore": 83,
         "grade": "B",
@@ -85,8 +85,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-30T22:09:02.008Z",
-        "evaluatedVersion": "2.16"
+        "evaluatedAt": "2026-09-02T21:57:56.606Z",
+        "evaluatedVersion": "2.17"
       },
       "evalSummaries": {
         "quality": {
@@ -158,8 +158,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-30T22:09:02.008Z",
-          "evaluatedVersion": "2.16"
+          "evaluatedAt": "2026-09-02T21:57:56.606Z",
+          "evaluatedVersion": "2.17"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -176,8 +176,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-30T22:09:02.008Z",
-          "evaluatedVersion": "2.16"
+          "evaluatedAt": "2026-09-02T21:57:56.606Z",
+          "evaluatedVersion": "2.17"
         }
       }
     }
