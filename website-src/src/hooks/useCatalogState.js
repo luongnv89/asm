@@ -13,6 +13,11 @@ const FACET_KEYS = [
   "tags",
 ];
 
+function parsePage(raw) {
+  const n = Number.parseInt(raw || "1", 10);
+  return Number.isFinite(n) && n > 1 ? n : 1;
+}
+
 /**
  * React Router's `useSearchParams` keeps the URL query string in sync with
  * state. We mirror the full catalog filter state into the URL so links are
@@ -21,6 +26,11 @@ const FACET_KEYS = [
  *
  * Returns a stable state object + helpers. Each setter updates the URL
  * (which triggers a re-render through useSearchParams).
+ *
+ * `page` is the storefront grid page (1-based, `?page=`). Every filter,
+ * search, or sort change resets it so the user never lands on an empty
+ * page after narrowing results. Page changes push history (not replace)
+ * so the browser back button walks back through pages, as on a shop.
  */
 export function useCatalogState() {
   const [params, setParams] = useSearchParams();
@@ -51,24 +61,22 @@ export function useCatalogState() {
       activeRepo: params.get("repo") || "all",
       activeFacets: facets,
       sort: params.get("sort") || defaultSort(searchQuery),
+      page: parsePage(params.get("page")),
     };
   }, [params]);
 
   const update = useCallback(
-    (patcher) => {
-      setParams(
-        (prev) => {
-          const next = new URLSearchParams(prev);
-          const incoming =
-            typeof patcher === "function" ? patcher(next) : patcher;
-          if (incoming && incoming !== next) {
-            // patcher returned a replacement
-            return incoming;
-          }
-          return next;
-        },
-        { replace: true },
-      );
+    (patcher, opts = { replace: true }) => {
+      setParams((prev) => {
+        const next = new URLSearchParams(prev);
+        const incoming =
+          typeof patcher === "function" ? patcher(next) : patcher;
+        if (incoming && incoming !== next) {
+          // patcher returned a replacement
+          return incoming;
+        }
+        return next;
+      }, opts);
     },
     [setParams],
   );
@@ -76,11 +84,13 @@ export function useCatalogState() {
   const setSearchQuery = useCallback(
     (q) => {
       update((next) => {
+        const prevQ = next.get("q") || "";
         if (q) next.set("q", q);
         else next.delete("q");
         // When search toggles on, reset sort to relevance (matches legacy).
         if (q && !next.get("sort")) next.set("sort", "relevance");
         else if (!q && next.get("sort") === "relevance") next.delete("sort");
+        if (prevQ !== q) next.delete("page");
       });
     },
     [update],
@@ -91,6 +101,7 @@ export function useCatalogState() {
       update((next) => {
         if (cats.size > 0) next.set("cat", setToCsv(cats));
         else next.delete("cat");
+        next.delete("page");
       });
     },
     [update],
@@ -101,6 +112,7 @@ export function useCatalogState() {
       update((next) => {
         if (repo && repo !== "all") next.set("repo", repo);
         else next.delete("repo");
+        next.delete("page");
       });
     },
     [update],
@@ -114,6 +126,7 @@ export function useCatalogState() {
       update((next) => {
         if (values.size > 0) next.set(paramKey, setToCsv(values));
         else next.delete(paramKey);
+        next.delete("page");
       });
     },
     [update],
@@ -126,7 +139,21 @@ export function useCatalogState() {
         const def = defaultSort(q);
         if (sort && sort !== def) next.set("sort", sort);
         else next.delete("sort");
+        next.delete("page");
       });
+    },
+    [update],
+  );
+
+  const setPage = useCallback(
+    (page) => {
+      update(
+        (next) => {
+          if (page > 1) next.set("page", String(page));
+          else next.delete("page");
+        },
+        { replace: false },
+      );
     },
     [update],
   );
@@ -145,6 +172,7 @@ export function useCatalogState() {
     setActiveRepo,
     setFacet,
     setSort,
+    setPage,
     clearAll,
   };
 }

@@ -1,0 +1,499 @@
+/* ─── Shop (skills + bundles storefront) ───────────────────────────── */
+/*
+ * The catalog and bundles pages share one "storefront" vocabulary:
+ * a filter rail, a product grid, a product page with a sticky buy box,
+ * and a slide-over cart. Type pairs the landing page's Fraunces serif
+ * (titles, prices) with JetBrains Mono (kickers, meta, commands). All
+ * colour flows through the existing theme tokens in index.css.
+ */
+.shop {
+  --shop-serif: "Fraunces", "Instrument Serif", ui-serif, Georgia, serif;
+  --shop-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --shop-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  --shop-radius: 12px;
+}
+
+.shop-kicker {
+  font-family: var(--shop-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.shop-kicker .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-glow);
+}
+
+.shop-title {
+  font-family: var(--shop-serif);
+  font-weight: 400;
+  font-size: clamp(34px, 4.6vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--fg);
+  margin: 0;
+  font-variation-settings: "opsz" 120;
+}
+.shop-title em {
+  font-style: italic;
+  color: var(--brand);
+  font-family: "Instrument Serif", var(--shop-serif);
+}
+
+.shop-lede {
+  max-width: 560px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--fg-dim);
+}
+
+.shop-mono {
+  font-family: var(--shop-mono);
+}
+
+/* Section label used inside rails, buy boxes and product pages */
+.shop-label {
+  font-family: var(--shop-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+/* ── Product card ─────────────────────────────────────────────────── */
+.shop-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  border-radius: var(--shop-radius);
+  overflow: hidden;
+  transition:
+    transform 320ms var(--shop-ease),
+    border-color 200ms ease,
+    box-shadow 320ms var(--shop-ease);
+}
+.shop-card:hover,
+.shop-card:focus-within {
+  border-color: var(--brand);
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 40px -26px var(--brand-glow),
+    0 10px 24px -20px rgba(0, 0, 0, 0.6);
+}
+/* Whole-card click target: the title link stretches over the card via a
+ * pseudo element; anything that must stay independently clickable (the
+ * cart button) sits above it with `.shop-above`. */
+.shop-card .shop-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.shop-card .shop-link {
+  color: var(--fg);
+  text-decoration: none;
+  outline: none;
+}
+.shop-card .shop-link:hover {
+  color: var(--brand);
+}
+.shop-card:has(.shop-link:focus-visible) {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+.shop-card .shop-above {
+  position: relative;
+  z-index: 1;
+}
+
+/* The "product photo": a hatched tile with a large serif initial. The
+ * hatch direction rotates per card (data-tone 0–3) so a grid of tiles
+ * reads as a set rather than a repeat. */
+.shop-tile {
+  position: relative;
+  height: 96px;
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  padding: 10px 12px;
+  background: color-mix(in srgb, var(--brand) 7%, var(--bg-input));
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.shop-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    var(--shop-hatch, 135deg),
+    transparent 0 7px,
+    color-mix(in srgb, var(--brand) 9%, transparent) 7px 8px
+  );
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent 90%);
+  pointer-events: none;
+}
+.shop-tile[data-tone="1"] {
+  --shop-hatch: 45deg;
+}
+.shop-tile[data-tone="2"] {
+  --shop-hatch: 90deg;
+}
+.shop-tile[data-tone="3"] {
+  --shop-hatch: 0deg;
+}
+.shop-initial {
+  position: absolute;
+  right: 14px;
+  top: -14px;
+  font-family: "Instrument Serif", var(--shop-serif);
+  font-style: italic;
+  font-size: 92px;
+  line-height: 1;
+  color: color-mix(in srgb, var(--brand) 55%, var(--fg-muted));
+  opacity: 0.45;
+  user-select: none;
+  transition:
+    opacity 240ms ease,
+    transform 320ms var(--shop-ease);
+}
+.shop-card:hover .shop-initial {
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+/* Score sticker — the "price tag" */
+.shop-sticker {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  font-family: var(--shop-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fg);
+}
+.shop-sticker small {
+  font-size: 9.5px;
+  font-weight: 500;
+  color: var(--fg-muted);
+}
+.shop-sticker[data-grade="A"] {
+  border-color: color-mix(in srgb, var(--brand) 60%, var(--border));
+  color: var(--brand);
+}
+
+.shop-name {
+  font-family: var(--shop-mono);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+.shop-meta {
+  font-family: var(--shop-mono);
+  font-size: 10.5px;
+  color: var(--fg-muted);
+}
+.shop-desc {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--fg-dim);
+}
+
+/* Staggered reveal for a freshly rendered grid page */
+@keyframes shop-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.shop-reveal {
+  animation: shop-rise 520ms var(--shop-ease) both;
+  animation-delay: calc(min(var(--i, 0), 12) * 32ms);
+}
+
+/* ── Product page ─────────────────────────────────────────────────── */
+.shop-crumb {
+  font-family: var(--shop-mono);
+  font-size: 11px;
+  color: var(--fg-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.shop-crumb a {
+  color: var(--fg-dim);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.shop-crumb a:hover {
+  color: var(--brand);
+  border-color: var(--brand);
+}
+.shop-product-title {
+  font-family: var(--shop-serif);
+  font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 40px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--fg);
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-variation-settings: "opsz" 96;
+}
+.shop-specs {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  border: 1px solid var(--border);
+  border-radius: var(--shop-radius);
+  overflow: hidden;
+  font-size: 12.5px;
+}
+.shop-specs > dt,
+.shop-specs > dd {
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+.shop-specs > dt:first-of-type,
+.shop-specs > dd:first-of-type {
+  border-top: 0;
+}
+.shop-specs > dt {
+  font-family: var(--shop-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  background: var(--bg-input);
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+.shop-specs > dd {
+  color: var(--fg);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.shop-buybox {
+  position: sticky;
+  top: 5.25rem;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 24px 50px -40px rgba(0, 0, 0, 0.7);
+}
+.shop-price {
+  font-family: var(--shop-serif);
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--fg);
+  font-variation-settings: "opsz" 144;
+}
+.shop-price small {
+  font-family: var(--shop-mono);
+  font-size: 12px;
+  letter-spacing: 0;
+  color: var(--fg-muted);
+  margin-left: 4px;
+}
+.shop-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--shop-mono);
+  font-size: 11.5px;
+  color: var(--fg-dim);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.shop-facts li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed var(--border);
+}
+.shop-facts li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.shop-facts li span:last-child {
+  color: var(--fg);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+/* Terminal command chip (shared by buy boxes and quick start) */
+.shop-cmd {
+  font-family: var(--shop-mono);
+  font-size: 12px;
+  color: var(--fg);
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 6px 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  max-width: 100%;
+  /* Keep a long install command from widening its container; the
+   * <code> scrolls horizontally instead (see below). */
+  contain: inline-size;
+}
+.shop-cmd .prompt {
+  color: var(--brand);
+  user-select: none;
+}
+.shop-cmd code {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+/* Filter rail */
+.shop-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.shop-rail-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.shop-rail-group:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+/* Pagination */
+.shop-pages {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  font-family: var(--shop-mono);
+  font-size: 12px;
+}
+.shop-pages button,
+.shop-pages span.gap {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  color: var(--fg-dim);
+  background: transparent;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease;
+}
+.shop-pages button:hover:not(:disabled) {
+  color: var(--fg);
+  border-color: var(--brand);
+}
+.shop-pages button[aria-current="page"] {
+  color: var(--brand);
+  border-color: var(--brand);
+  background: var(--brand-glow);
+}
+.shop-pages button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.shop-pages button:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* Cart drawer + toast */
+@keyframes shop-slide-in {
+  from {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes shop-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.shop-drawer-scrim {
+  animation: shop-fade-in 200ms ease both;
+}
+.shop-drawer {
+  animation: shop-slide-in 320ms var(--shop-ease) both;
+}
+@keyframes shop-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.shop-toast {
+  animation: shop-toast-in 260ms var(--shop-ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shop-reveal,
+  .shop-drawer,
+  .shop-drawer-scrim,
+  .shop-toast {
+    animation: none;
+  }
+  .shop-card,
+  .shop-initial {
+    transition: none;
+  }
+  .shop-card:hover,
+  .shop-card:focus-within {
+    transform: none;
+  }
+}

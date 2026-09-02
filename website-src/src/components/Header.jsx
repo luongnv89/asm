@@ -129,7 +129,7 @@ export default function Header({ onOpenBundleBuilder }) {
             agent-skill-manager
           </span>
         </Link>
-        <nav className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto ml-1 sm:ml-4 md:flex-none">
+        <nav className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto ml-1 sm:ml-4 lg:flex-none">
           <NavLink to="/skills" className={linkClass}>
             Skills
           </NavLink>

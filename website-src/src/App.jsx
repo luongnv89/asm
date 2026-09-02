@@ -2,7 +2,8 @@ import { useCallback, useState } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
-import BundleBuilderDialog from "./components/BundleBuilderDialog.jsx";
+import CartDrawer from "./components/CartDrawer.jsx";
+import CartToast from "./components/CartToast.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import CatalogPage from "./pages/CatalogPage.jsx";
 import BundlesPage from "./pages/BundlesPage.jsx";
@@ -21,11 +22,10 @@ import { BundleCartProvider } from "./hooks/useBundleCart.jsx";
  * to HashRouter preserves external deep links and avoids the need for
  * server-side rewrites.
  *
- * Routing: `/` renders the marketing `LandingPage`; the catalog now
- * lives at `/skills` and `/skills/:id` (both render `CatalogPage`) —
- * the catalog is always a two-pane layout, and the `:id` in the URL
- * simply selects which skill shows in the detail pane. Same pattern
- * for `/bundles` and `/bundles/:name`.
+ * Routing: `/` renders the marketing `LandingPage`; the catalog lives
+ * at `/skills` (storefront grid) and `/skills/:id` (product page), both
+ * rendered by `CatalogPage`. Same pattern for `/bundles` and
+ * `/bundles/:name`.
  *
  * Legacy deep links: the catalog used to live at `/`, so older shared
  * URLs carry filter query params on the root (e.g. `#/?q=code-review`).
@@ -33,22 +33,22 @@ import { BundleCartProvider } from "./hooks/useBundleCart.jsx";
  * params to `/skills`, preserving the query string so the filters still
  * apply. `/skills/:id` links were already that shape and keep working.
  *
- * Bundle builder (#238): dialog state lives at the app shell so the
- * header cart button (any route) can open it. The `BundleCartProvider`
- * wraps everything so skill-level cart state is shared across pages.
+ * Cart (#238): drawer state lives at the app shell so the header cart
+ * button and the "added to cart" toast (any route) can open it. The
+ * `BundleCartProvider` wraps everything so cart state is shared.
  */
 export default function App() {
-  const [bundleBuilderOpen, setBundleBuilderOpen] = useState(false);
-  // Stable references so the dialog's mount effect (which listens on
+  const [cartOpen, setCartOpen] = useState(false);
+  // Stable references so the drawer's mount effect (which listens on
   // `onClose` in its dep array) doesn't re-fire on every App render and
   // yank focus away from the form the user is typing into.
-  const openBuilder = useCallback(() => setBundleBuilderOpen(true), []);
-  const closeBuilder = useCallback(() => setBundleBuilderOpen(false), []);
+  const openCart = useCallback(() => setCartOpen(true), []);
+  const closeCart = useCallback(() => setCartOpen(false), []);
   return (
     <CatalogProvider>
       <BundleCartProvider>
         <div className="min-h-screen flex flex-col bg-[var(--bg)] text-[var(--fg)]">
-          <Header onOpenBundleBuilder={openBuilder} />
+          <Header onOpenBundleBuilder={openCart} />
           <main className="flex-1 w-full max-w-[1280px] mx-auto px-4 sm:px-6 py-6">
             <Routes>
               <Route path="/" element={<LegacyCatalogRedirect />} />
@@ -64,10 +64,8 @@ export default function App() {
             </Routes>
           </main>
           <Footer />
-          <BundleBuilderDialog
-            open={bundleBuilderOpen}
-            onClose={closeBuilder}
-          />
+          <CartDrawer open={cartOpen} onClose={closeCart} />
+          {!cartOpen && <CartToast onOpenCart={openCart} />}
         </div>
       </BundleCartProvider>
     </CatalogProvider>

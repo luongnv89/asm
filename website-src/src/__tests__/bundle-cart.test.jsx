@@ -158,7 +158,7 @@ describe("Bundle cart flow", () => {
 
     // Find the compact add-to-bundle button on the hello-world row
     const helloAddBtn = screen.getByRole("button", {
-      name: /Add hello-world to bundle/i,
+      name: /Add hello-world to cart/i,
     });
     expect(helloAddBtn).toBeTruthy();
 
@@ -179,7 +179,7 @@ describe("Bundle cart flow", () => {
 
     // Click again to toggle off
     const helloRemoveBtn = screen.getByRole("button", {
-      name: /Remove hello-world from bundle/i,
+      name: /Remove hello-world from cart/i,
     });
     await act(async () => {
       fireEvent.click(helloRemoveBtn);
@@ -205,24 +205,24 @@ describe("Bundle cart flow", () => {
     // Add one skill
     await act(async () => {
       fireEvent.click(
-        screen.getByRole("button", { name: /Add hello-world to bundle/i }),
+        screen.getByRole("button", { name: /Add hello-world to cart/i }),
       );
     });
 
-    // Open the builder via the header cart button
+    // Open the cart drawer via the header cart button
     const cartBtn = screen.getByRole("button", {
-      name: /Open bundle builder/i,
+      name: /Open cart/i,
     });
     await act(async () => {
       fireEvent.click(cartBtn);
     });
 
-    // The dialog renders with the skill visible (labelled by the h2)
+    // The drawer renders with the skill visible (labelled by the h2)
     const dialog = await screen.findByRole("dialog", {
-      name: /Build a bundle/i,
+      name: /Your cart/i,
     });
     expect(dialog).toBeTruthy();
-    expect(screen.getByText(/skills? in this bundle/i)).toBeTruthy();
+    expect(screen.getByText(/skills? in your cart/i)).toBeTruthy();
     // The skill name should appear in the dialog item list
     const withinDialog = dialog.querySelectorAll("li");
     expect(withinDialog.length).toBe(1);
@@ -282,7 +282,7 @@ describe("Bundle cart flow", () => {
     await waitFor(() => expect(screen.getByText("hello-world")).toBeTruthy());
     await act(async () => {
       fireEvent.click(
-        screen.getByRole("button", { name: /Add hello-world to bundle/i }),
+        screen.getByRole("button", { name: /Add hello-world to cart/i }),
       );
     });
     await waitFor(() => {

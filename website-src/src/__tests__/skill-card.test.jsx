@@ -2,12 +2,12 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { cleanup, render, screen } from "@testing-library/react";
 import { HashRouter } from "react-router-dom";
-import SkillListItem from "../components/SkillListItem.jsx";
+import SkillCard from "../components/SkillCard.jsx";
 
 /**
  * Regression tests for issue #241 — when multiple install paths share a
- * (owner, repo, name) tuple (plugin-bundle layouts) the list rows used to
- * look identical. Rendering `hasNameCollision` must surface the
+ * (owner, repo, name) tuple (plugin-bundle layouts) the product cards
+ * used to look identical. Rendering `hasNameCollision` must surface the
  * distinguishing relPath so the user can tell the siblings apart.
  */
 
@@ -26,14 +26,14 @@ const baseSkill = {
   hasTools: false,
 };
 
-function renderItem(props) {
+function renderCard(skill = baseSkill, props = {}) {
   return render(
     <HashRouter
       future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
     >
-      <SkillListItem
-        skill={baseSkill}
-        active={false}
+      <SkillCard
+        skill={skill}
+        index={0}
         searchQuery=""
         searchTerms={null}
         locationSearch=""
@@ -43,18 +43,18 @@ function renderItem(props) {
   );
 }
 
-describe("SkillListItem — name collision labeling (issue #241)", () => {
+describe("SkillCard — name collision labeling (issue #241)", () => {
   afterEach(() => cleanup());
 
   it("does not render the install path when there is no collision", () => {
-    renderItem({ hasNameCollision: false });
+    renderCard(baseSkill, { hasNameCollision: false });
     expect(
       screen.queryByText(/plugins\/antigravity-awesome-skills-claude/),
     ).toBeNull();
   });
 
   it("renders the distinguishing install path when hasNameCollision is true", () => {
-    renderItem({ hasNameCollision: true });
+    renderCard(baseSkill, { hasNameCollision: true });
     expect(
       screen.getByText(
         "plugins/antigravity-awesome-skills-claude/skills/00-andruia-consultant",
@@ -63,7 +63,7 @@ describe("SkillListItem — name collision labeling (issue #241)", () => {
   });
 
   it("yields a different rendered path for each sibling in a collision group", () => {
-    const { unmount } = renderItem({ hasNameCollision: true });
+    const { unmount } = renderCard(baseSkill, { hasNameCollision: true });
     expect(
       screen.getByText(
         "plugins/antigravity-awesome-skills-claude/skills/00-andruia-consultant",
@@ -77,20 +77,7 @@ describe("SkillListItem — name collision labeling (issue #241)", () => {
       installUrl:
         "github:sickn33/antigravity-awesome-skills:skills/00-andruia-consultant",
     };
-    render(
-      <HashRouter
-        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-      >
-        <SkillListItem
-          skill={sibling}
-          active={false}
-          searchQuery=""
-          searchTerms={null}
-          locationSearch=""
-          hasNameCollision={true}
-        />
-      </HashRouter>,
-    );
+    renderCard(sibling, { hasNameCollision: true });
     expect(screen.getByText("skills/00-andruia-consultant")).toBeTruthy();
     expect(
       screen.queryByText(
@@ -100,7 +87,43 @@ describe("SkillListItem — name collision labeling (issue #241)", () => {
   });
 });
 
-describe("SkillListItem — GitHub star badge (repo trust signal)", () => {
+describe("SkillCard — storefront anatomy", () => {
+  afterEach(() => cleanup());
+
+  it("links the title to the product page and preserves the search string", () => {
+    renderCard(baseSkill, { locationSearch: "?cat=general&page=2" });
+    const link = screen.getByRole("link", { name: "00-andruia-consultant" });
+    expect(link.getAttribute("href")).toContain("/skills/");
+    expect(link.getAttribute("href")).toContain("cat=general");
+    expect(link.getAttribute("href")).toContain("page=2");
+  });
+
+  it("renders an add-to-cart button that names the skill", () => {
+    renderCard();
+    expect(
+      screen.getByRole("button", { name: "Add 00-andruia-consultant to cart" }),
+    ).toBeTruthy();
+  });
+
+  it("shows the eval score as the price sticker when present", () => {
+    const { container } = renderCard({
+      ...baseSkill,
+      evalSummary: { overallScore: 91, grade: "A" },
+    });
+    const sticker = container.querySelector(".shop-sticker");
+    expect(sticker).toBeTruthy();
+    expect(sticker.textContent).toContain("91");
+    expect(sticker.getAttribute("data-grade")).toBe("A");
+  });
+
+  it("marks unscored skills instead of hiding the sticker", () => {
+    const { container } = renderCard();
+    const sticker = container.querySelector(".shop-sticker");
+    expect(sticker?.textContent).toContain("not scored");
+  });
+});
+
+describe("SkillCard — GitHub star badge (repo trust signal)", () => {
   afterEach(() => cleanup());
 
   /**
@@ -112,20 +135,7 @@ describe("SkillListItem — GitHub star badge (repo trust signal)", () => {
   }
 
   it("renders a star badge when stars is present and > 0", () => {
-    const skillWithStars = { ...baseSkill, stars: 1234 };
-    const { container } = render(
-      <HashRouter
-        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-      >
-        <SkillListItem
-          skill={skillWithStars}
-          active={false}
-          searchQuery=""
-          searchTerms={null}
-          locationSearch=""
-        />
-      </HashRouter>,
-    );
+    const { container } = renderCard({ ...baseSkill, stars: 1234 });
     const badge = getStarBadge(container);
     expect(badge).toBeTruthy();
     // 1234 -> "1.2k" via formatStars
@@ -133,60 +143,22 @@ describe("SkillListItem — GitHub star badge (repo trust signal)", () => {
   });
 
   it("does not render a star badge when stars is 0", () => {
-    const skillNoStars = { ...baseSkill, stars: 0 };
-    const { container } = render(
-      <HashRouter
-        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-      >
-        <SkillListItem
-          skill={skillNoStars}
-          active={false}
-          searchQuery=""
-          searchTerms={null}
-          locationSearch=""
-        />
-      </HashRouter>,
-    );
+    const { container } = renderCard({ ...baseSkill, stars: 0 });
     expect(getStarBadge(container)).toBeNull();
   });
 
   it("does not render a star badge when stars is missing", () => {
-    const { container } = renderItem({});
+    const { container } = renderCard();
     expect(getStarBadge(container)).toBeNull();
 
     // Also test with explicit undefined
-    const skillNoStarsField = { ...baseSkill, stars: undefined };
-    render(
-      <HashRouter
-        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-      >
-        <SkillListItem
-          skill={skillNoStarsField}
-          active={false}
-          searchQuery=""
-          searchTerms={null}
-          locationSearch=""
-        />
-      </HashRouter>,
-    );
-    expect(getStarBadge(container)).toBeNull();
+    cleanup();
+    const second = renderCard({ ...baseSkill, stars: undefined });
+    expect(getStarBadge(second.container)).toBeNull();
   });
 
   it("displays small star counts without abbreviation", () => {
-    const skillWithStars = { ...baseSkill, stars: 42 };
-    const { container } = render(
-      <HashRouter
-        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-      >
-        <SkillListItem
-          skill={skillWithStars}
-          active={false}
-          searchQuery=""
-          searchTerms={null}
-          locationSearch=""
-        />
-      </HashRouter>,
-    );
+    const { container } = renderCard({ ...baseSkill, stars: 42 });
     const badge = getStarBadge(container);
     expect(badge).toBeTruthy();
     expect(badge.textContent).toContain("42");
