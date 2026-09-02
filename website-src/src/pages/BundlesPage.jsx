@@ -139,7 +139,9 @@ export default function BundlesPage() {
         <nav className="shop-crumb" aria-label="Breadcrumb">
           <Link to={backTo}>Bundles</Link>
           <span aria-hidden="true">/</span>
-          <span className="text-[var(--fg)]">{decodedName}</span>
+          <span className="text-[var(--fg)]" aria-current="page">
+            {decodedName}
+          </span>
           <Link to={backTo} className="ml-auto inline-flex items-center gap-1">
             <ArrowLeft className="h-3 w-3" aria-hidden="true" />
             Back to bundles

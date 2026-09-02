@@ -27,6 +27,7 @@ export default function BundleCartButton({ onOpen }) {
         <span
           className="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-[var(--brand)] text-[var(--bg)] font-mono text-[10px] font-semibold"
           data-testid="bundle-cart-count"
+          aria-hidden="true"
         >
           {count}
         </span>

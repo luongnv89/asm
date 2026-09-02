@@ -229,7 +229,7 @@ export default function CatalogPage() {
             </>
           )}
           <span aria-hidden="true">/</span>
-          <span className="text-[var(--fg)]">
+          <span className="text-[var(--fg)]" aria-current="page">
             {selectedSkill?.name || decodedId}
           </span>
           <Link to={backTo} className="ml-auto inline-flex items-center gap-1">
