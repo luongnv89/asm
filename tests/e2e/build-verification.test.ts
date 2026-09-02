@@ -215,11 +215,11 @@ describe("catalog: preserves all distinct install targets (issue #201)", () => {
 const WEBSITE_SRC_DIR = resolve(ROOT, "website-src", "src");
 
 describe("website: token count + eval surfaces", () => {
-  // Sidebar list item replaced the legacy SkillCard in #228, so tokens +
-  // eval badges now live on SkillListItem. The reusable detail view was
-  // extracted from SkillDetailPage into components/SkillDetail.jsx.
-  const listItemSrc = readFileSync(
-    join(WEBSITE_SRC_DIR, "components", "SkillListItem.jsx"),
+  // Storefront redesign: tokens + eval badges now live on SkillCard
+  // (the eval-score sticker + tokens badge). The reusable detail view
+  // was extracted from SkillDetailPage into components/SkillDetail.jsx.
+  const cardSrc = readFileSync(
+    join(WEBSITE_SRC_DIR, "components", "SkillCard.jsx"),
     "utf-8",
   );
   const detailSrc = readFileSync(
@@ -231,15 +231,16 @@ describe("website: token count + eval surfaces", () => {
     "utf-8",
   );
 
-  test("SkillListItem reads tokenCount and renders a tokens badge", () => {
-    expect(listItemSrc).toContain("formatTokens");
-    expect(listItemSrc).toContain('tone="tokens"');
-    expect(listItemSrc).toContain("skill.tokenCount");
+  test("SkillCard reads tokenCount and renders a tokens badge", () => {
+    expect(cardSrc).toContain("formatTokens");
+    expect(cardSrc).toContain('tone="tokens"');
+    expect(cardSrc).toContain("skill.tokenCount");
   });
 
-  test("SkillListItem reads evalSummary and renders an eval badge", () => {
-    expect(listItemSrc).toContain("skill.evalSummary");
-    expect(listItemSrc).toContain("evalScoreClass");
+  test("SkillCard reads evalSummary and renders an eval sticker", () => {
+    expect(cardSrc).toContain("skill.evalSummary");
+    expect(cardSrc).toContain("asm eval score");
+    expect(cardSrc).toContain("data-grade");
   });
 
   test("SkillDetail renders an eval section with empty-state fallback", () => {
@@ -250,8 +251,8 @@ describe("website: token count + eval surfaces", () => {
     expect(detailSrc).toContain("is available");
   });
 
-  test("SkillDetail exposes Est. Tokens row when tokenCount is present", () => {
-    expect(detailSrc).toContain("Est. Tokens");
+  test("SkillDetail exposes Est. tokens row when tokenCount is present", () => {
+    expect(detailSrc).toContain("Est. tokens");
   });
 
   test("formatTokens always prefixes its output with `~` (approximation)", () => {

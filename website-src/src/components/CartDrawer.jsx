@@ -1,4 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  cloneElement,
+  isValidElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   X,
   Download,
@@ -366,6 +373,20 @@ export default function CartDrawer({ open, onClose }) {
 }
 
 function Field({ id, label, hint, error, required, children }) {
+  const errorId = `${id}-error`;
+  const hintId = `${id}-hint`;
+  const describedBy = error ? errorId : hint ? hintId : undefined;
+  const control = isValidElement(children)
+    ? cloneElement(children, {
+        required: required || children.props.required,
+        "aria-required":
+          required || children.props["aria-required"] || undefined,
+        "aria-describedby": describedBy || children.props["aria-describedby"],
+        ...(children.props["aria-invalid"] === undefined && error !== undefined
+          ? { "aria-invalid": !!error }
+          : null),
+      })
+    : children;
   return (
     <div className="flex flex-col gap-1">
       <label
@@ -379,11 +400,15 @@ function Field({ id, label, hint, error, required, children }) {
           </span>
         )}
       </label>
-      {children}
+      {control}
       {error ? (
-        <p className="text-[11px] text-[var(--warn)]">⚠ {error}</p>
+        <p id={errorId} className="text-[11px] text-[var(--warn)]">
+          ⚠ {error}
+        </p>
       ) : hint ? (
-        <p className="text-[11px] text-[var(--fg-muted)]">{hint}</p>
+        <p id={hintId} className="text-[11px] text-[var(--fg-muted)]">
+          {hint}
+        </p>
       ) : null}
     </div>
   );
