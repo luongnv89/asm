@@ -529,11 +529,13 @@
     animation: none;
   }
   .shop-card,
-  .shop-initial {
+  .shop-initial,
+  .shop-sticker {
     transition: none;
   }
   .shop-card:hover,
-  .shop-card:focus-within {
+  .shop-card:focus-within,
+  .shop-card:hover .shop-sticker {
     transform: none;
   }
 }
