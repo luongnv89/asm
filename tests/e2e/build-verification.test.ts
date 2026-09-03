@@ -554,3 +554,56 @@ describe("website: loader uses split artifacts (issue #214)", () => {
     expect(detailSrc).toMatch(/detailCache|fetch\(path\)/);
   });
 });
+
+// ─── GitHub star counts never publish 0-on-failure (issue #598) ────────────
+// Unauthenticated star fetches were rate-limited (60 req/hour for ~73 repos)
+// and every failure path returned 0, sinking popular repos in the default
+// "Most popular" sort. Guards: token in workflows, null-on-failure plus
+// header-aware retries in the build, and a committed baseline fallback.
+
+describe("catalog: star counts degrade honestly (issue #598)", () => {
+  const buildSrc = readFileSync(
+    join(ROOT, "scripts", "build-catalog.ts"),
+    "utf-8",
+  );
+  // The fetch itself lives in src/repo-stars.ts (unit-tested); the build
+  // script only wires it in.
+  const starsSrc = readFileSync(join(ROOT, "src", "repo-stars.ts"), "utf-8");
+
+  test("build resolves star failures to null, never 0", () => {
+    expect(buildSrc).toContain("STAR_BASELINE_PATH");
+    expect(starsSrc).toContain("Promise<number | null>");
+    expect(starsSrc).not.toMatch(/return 0/);
+  });
+
+  test("build honours retry-after / x-ratelimit-reset", () => {
+    expect(starsSrc).toContain("retry-after");
+    expect(starsSrc).toContain("x-ratelimit-reset");
+  });
+
+  test("build falls back to the committed baseline and fails loudly", () => {
+    expect(buildSrc).toContain("STAR_BASELINE_PATH");
+    expect(buildSrc).toContain("process.exit(1)");
+  });
+
+  test("committed baseline covers a majority of indexed repos", () => {
+    const baseline = JSON.parse(
+      readFileSync(join(ROOT, "data", "repo-stars.json"), "utf-8"),
+    );
+    const indexFiles = readdirSync(DATA_DIR).filter((f) => f.endsWith(".json"));
+    const repos = new Set<string>();
+    for (const file of indexFiles) {
+      const data = JSON.parse(readFileSync(join(DATA_DIR, file), "utf-8"));
+      if (data.skills?.length) repos.add(`${data.owner}/${data.repo}`);
+    }
+    const covered = [...repos].filter((k) => baseline.stars[k] > 0);
+    expect(covered.length / repos.size).toBeGreaterThan(0.5);
+  });
+
+  test("workflows pass GITHUB_TOKEN to the catalog build", () => {
+    for (const wf of ["deploy-website.yml", "ci.yml"]) {
+      const src = readFileSync(join(ROOT, ".github", "workflows", wf), "utf-8");
+      expect(src).toContain("GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}");
+    }
+  });
+});

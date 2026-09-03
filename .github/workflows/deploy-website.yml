@@ -53,6 +53,11 @@ jobs:
 
       - name: Build catalog
         run: npm run build:website
+        # Authenticated star fetch (issue #598): 5,000 req/hour instead of
+        # 60, so all ~73 repos resolve. `contents: read` is enough for the
+        # public repos endpoint.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload website artifact
         if: github.event_name != 'pull_request'

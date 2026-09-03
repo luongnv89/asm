@@ -26,6 +26,15 @@ import {
   type RepoBundleManifest,
 } from "../src/repo-bundles";
 import { normalizeTags } from "../src/utils/frontmatter";
+import {
+  collectRepoStars,
+  exceedsStarFailureThreshold,
+  mergeStarBaseline,
+  parseStarBaseline,
+  resolveRepoStars,
+  STAR_BASELINE_PATH,
+  starTokenFromEnv,
+} from "../src/repo-stars";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const indexDir = join(root, "data", "skill-index");
@@ -317,7 +326,7 @@ interface CatalogRepo {
   description: string;
   maintainer: string;
   skillCount: number;
-  /** GitHub star count (best-effort, 0 on failure). */
+  /** GitHub star count (best-effort, omitted when unknown — issue #598). */
   stars?: number;
 }
 
@@ -463,35 +472,11 @@ const categories = Array.from(categorySet).sort((a, b) => {
 });
 
 // ─── Fetch GitHub star counts for every unique repo ──────────────────────────
-// Parallel fetch (best-effort) so the catalog shows how popular each source
-// repo is — a trust signal on the catalog page.
-
-async function fetchStars(owner: string, repo: string): Promise<number> {
-  const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
-  const headers: Record<string, string> = {
-    Accept: "application/vnd.github+json",
-  };
-  if (token) headers.Authorization = `Bearer ${token}`;
-  for (let attempt = 0; attempt < 2; attempt++) {
-    try {
-      const res = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
-        headers,
-      });
-      if (res.status === 403 || res.status === 429) {
-        await new Promise((resolve) =>
-          setTimeout(resolve, 1000 * (attempt + 1)),
-        );
-        continue;
-      }
-      if (!res.ok) return 0;
-      const data = (await res.json()) as { stargazers_count?: number };
-      return data.stargazers_count ?? 0;
-    } catch {
-      return 0;
-    }
-  }
-  return 0;
-}
+// Best-effort trust signal (issue #598). Failures resolve to `null`
+// (unknown), never `0`, so "unknown" can't sink a repo in the default
+// "Most popular" sort. Unauthenticated callers get 60 req/hour for ~73
+// repos — set GITHUB_TOKEN (5,000/hour) or the tail of the loop is
+// rate-limited; CI passes it via the workflow env (see deploy-website.yml).
 
 // Collect unique (owner, repo) pairs
 const uniqueRepos = new Map<string, { owner: string; repo: string }>();
@@ -500,31 +485,89 @@ for (const r of repos) {
   if (!uniqueRepos.has(key))
     uniqueRepos.set(key, { owner: r.owner, repo: r.repo });
 }
-
-// Fetch stars with bounded concurrency (best-effort, keeps well under rate
-// limits); map back by key
-const starsByRepo = new Map<string, number>();
 const repoEntries = Array.from(uniqueRepos.values());
-const STAR_FETCH_CONCURRENCY = 8;
-for (let i = 0; i < repoEntries.length; i += STAR_FETCH_CONCURRENCY) {
-  const batch = repoEntries.slice(i, i + STAR_FETCH_CONCURRENCY);
-  await Promise.all(
-    batch.map(async (r) => {
-      const stars = await fetchStars(r.owner, r.repo);
-      starsByRepo.set(r.owner + "/" + r.repo, stars);
-    }),
+const repoKeys = repoEntries.map((r) => r.owner + "/" + r.repo);
+
+// Committed baseline: last known values so a rate-limited run degrades to
+// stale data instead of zeros. Refreshed below on every run with fresh
+// successes — commit the result to make it stick (CI deploys never write
+// it back).
+let starBaseline: Record<string, number> = {};
+const starBaselinePath = join(root, STAR_BASELINE_PATH);
+if (existsSync(starBaselinePath)) {
+  try {
+    starBaseline = parseStarBaseline(
+      JSON.parse(readFileSync(starBaselinePath, "utf-8")),
+    );
+  } catch (e) {
+    console.warn(
+      `  stars: ignoring invalid baseline ${STAR_BASELINE_PATH} — ${e}`,
+    );
+  }
+}
+
+const starToken = starTokenFromEnv();
+console.log(
+  `  stars: fetching ${repoKeys.length} repos (${starToken ? "authenticated" : "unauthenticated — set GITHUB_TOKEN to avoid rate limits"})…`,
+);
+const { stars: fetchedStars, failures: starFailures } = await collectRepoStars(
+  repoKeys,
+  { token: starToken },
+);
+const { values: starsByRepo, unknown: unknownStars } = resolveRepoStars(
+  repoKeys,
+  fetchedStars,
+  starBaseline,
+);
+
+for (const key of starFailures) {
+  const fallback = starBaseline[key];
+  console.warn(
+    `  stars: fetch failed for ${key} — ${fallback !== undefined ? `using baseline (${fallback})` : "omitting from output"}`,
   );
 }
 
-// Attach star counts to the CatalogRepo entries and compute the ASM repo stars
+// Refresh the baseline with fresh successes. Skipped when nothing succeeded
+// so offline builds don't churn the timestamp.
+if (fetchedStars.size > 0) {
+  writeFileSync(
+    starBaselinePath,
+    JSON.stringify(
+      {
+        generatedAt: new Date().toISOString(),
+        stars: mergeStarBaseline(starBaseline, fetchedStars),
+      } satisfies { generatedAt: string; stars: Record<string, number> },
+      null,
+      2,
+    ) + "\n",
+    "utf-8",
+  );
+}
+
+// Fail loudly when most repos lack star data so this can't silently
+// regress again — every unknown repo is already logged above.
+if (exceedsStarFailureThreshold(unknownStars.length, repoKeys.length)) {
+  console.error(
+    `  stars: ${unknownStars.length}/${repoKeys.length} repos have unknown star counts — refusing to publish. ` +
+      `Set GITHUB_TOKEN and re-run, or commit an updated ${STAR_BASELINE_PATH}.`,
+  );
+  process.exit(1);
+}
+
+// Attach star counts to the CatalogRepo entries (omitted when unknown) and
+// compute the ASM repo stars
 let asmStars = 0;
 for (const r of repos) {
   const key = r.owner + "/" + r.repo;
-  r.stars = starsByRepo.get(key) ?? 0;
-  if (r.owner === "luongnv89" && r.repo === "asm") asmStars = r.stars;
+  const value = starsByRepo.get(key);
+  if (typeof value === "number") {
+    r.stars = value;
+    if (r.owner === "luongnv89" && r.repo === "asm") asmStars = value;
+  }
 }
 
-// Fetch GitHub star count (best-effort, defaults to 0 on failure)
+// ASM repo star count (best-effort, 0 when unknown — the header falls back
+// to a live fetch at runtime)
 const stars = asmStars;
 
 // Read version from package.json
@@ -611,7 +654,7 @@ interface SkillsMinRow {
   tokenCount?: number;
   /** Slimmed eval summary — only what the card badge needs. */
   evalSummary?: { overallScore: number; grade: "A" | "B" | "C" | "D" | "F" };
-  /** GitHub star count for the source repo (0 when unknown). */
+  /** GitHub star count for the source repo (omitted when unknown). */
   stars?: number;
 }
 
@@ -735,7 +778,7 @@ interface SkillDetail {
   featured?: boolean;
   tokenCount?: number;
   evalSummary?: SkillEvalSummary;
-  /** GitHub star count for the source repo (0 when unknown). */
+  /** GitHub star count for the source repo (omitted when unknown). */
   stars?: number;
 }
 
