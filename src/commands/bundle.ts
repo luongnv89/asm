@@ -10,6 +10,7 @@ import {
   cloneToTemp,
   validateSkill,
   executeInstall,
+  executeInstallAllProviders,
   cleanupTemp,
   resolveProvider,
   buildInstallPlan,
@@ -230,6 +231,13 @@ export async function cmdBundle(args: ParsedArgs) {
         );
       }
 
+      const config = await loadConfig();
+      const { provider, allProviders } = await resolveProvider(
+        config,
+        args.flags.provider,
+        !!process.stdin.isTTY,
+      );
+
       // Confirm
       if (!args.flags.yes && process.stdin.isTTY) {
         process.stderr.write(
@@ -248,13 +256,6 @@ export async function cmdBundle(args: ParsedArgs) {
         status: "installed" | "skipped" | "failed";
         reason?: string;
       }> = [];
-
-      const config = await loadConfig();
-      const { provider } = await resolveProvider(
-        config,
-        args.flags.provider,
-        false, // non-interactive for batch
-      );
 
       const installScope: "global" | "project" =
         args.flags.scope === "global" || args.flags.scope === "project"
@@ -333,7 +334,11 @@ export async function cmdBundle(args: ParsedArgs) {
               throw conflictErr;
             }
 
-            await executeInstall(plan);
+            if (allProviders) {
+              await executeInstallAllProviders(plan, allProviders);
+            } else {
+              await executeInstall(plan);
+            }
             results.push({ name: skill.name, status: "installed" });
             console.error(`    ${ansi.green("+++")} ${skill.name} installed`);
           } finally {
