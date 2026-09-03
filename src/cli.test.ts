@@ -7,6 +7,7 @@ import {
   beforeEach,
   afterEach,
   beforeAll,
+  vi,
 } from "vitest";
 import {
   parseArgs,
@@ -14,6 +15,9 @@ import {
   printImportConflictDiffs,
   promptForImportConflict,
 } from "./cli";
+import { cmdBundle } from "./commands/bundle";
+import * as shared from "./commands/shared";
+import * as checkboxPickerMod from "./utils/checkbox-picker";
 import type { ImportConflict, ImportResult } from "./utils/types";
 import { compareSemver } from "./scanner";
 import { join, dirname } from "path";
@@ -5347,6 +5351,191 @@ describe("CLI integration: bundle", () => {
 
       // Clean up: uninstall the skill
       await runCLI("uninstall", "installable-skill", "--yes");
+    } finally {
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  test("bundle install TTY confirm without --tool does not abort as non-interactive", async () => {
+    const tmpDir = await mkdtemp(join(tmpdir(), "cli-bundle-tty-"));
+    const origIsTTY = process.stdin.isTTY;
+    const readLineSpy = vi.spyOn(shared, "readLine").mockResolvedValue("y");
+    const pickerSpy = vi
+      .spyOn(checkboxPickerMod, "checkboxPicker")
+      .mockResolvedValue([0]);
+    const exitSpy = vi.spyOn(process, "exit").mockImplementation(((
+      code?: number,
+    ) => {
+      throw new Error(`process.exit(${code})`);
+    }) as typeof process.exit);
+    const logs: string[] = [];
+    const logSpy = vi
+      .spyOn(console, "log")
+      .mockImplementation((msg?: unknown) => {
+        logs.push(String(msg ?? ""));
+      });
+    const errSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    Object.defineProperty(process.stdin, "isTTY", {
+      value: true,
+      configurable: true,
+    });
+    try {
+      const skillDir = join(tmpDir, "tty-bundle-skill");
+      await mkdir(skillDir, { recursive: true });
+      await writeFile(
+        join(skillDir, "SKILL.md"),
+        `---\nname: tty-bundle-skill\nversion: 1.0.0\n---\n# TTY Bundle Skill\nA test skill for TTY bundle install.\n`,
+      );
+      const bundlePath = join(tmpDir, "tty-bundle.json");
+      await writeFile(
+        bundlePath,
+        JSON.stringify({
+          version: 1,
+          name: "tty-bundle",
+          description: "TTY bundle install",
+          author: "tester",
+          createdAt: new Date().toISOString(),
+          skills: [
+            {
+              name: "tty-bundle-skill",
+              installUrl: skillDir,
+              description: "TTY Bundle Skill",
+              version: "1.0.0",
+            },
+          ],
+        }),
+      );
+
+      const args = parseArgs([
+        "node",
+        "script.ts",
+        "bundle",
+        "install",
+        bundlePath,
+        "--json",
+        "--force",
+      ]);
+      await cmdBundle(args);
+
+      const jsonOut =
+        logs.find((l) => l.includes("bundleName")) ?? logs.join("");
+      const parsed = JSON.parse(jsonOut);
+      expect(parsed.bundleName).toBe("tty-bundle");
+      expect(parsed.installed).toBe(1);
+      expect(parsed.failed).toBe(0);
+      expect(parsed.results[0].status).toBe("installed");
+      expect(exitSpy).not.toHaveBeenCalled();
+      expect(pickerSpy).toHaveBeenCalled();
+      expect(readLineSpy).toHaveBeenCalled();
+      expect(pickerSpy.mock.invocationCallOrder[0]).toBeLessThan(
+        readLineSpy.mock.invocationCallOrder[0],
+      );
+
+      await runCLI("uninstall", "tty-bundle-skill", "--yes");
+    } finally {
+      Object.defineProperty(process.stdin, "isTTY", {
+        value: origIsTTY,
+        configurable: true,
+      });
+      readLineSpy.mockRestore();
+      pickerSpy.mockRestore();
+      exitSpy.mockRestore();
+      logSpy.mockRestore();
+      errSpy.mockRestore();
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  test("bundle install without --tool in non-TTY requires provider before confirm", async () => {
+    const tmpDir = await mkdtemp(join(tmpdir(), "cli-bundle-nontty-"));
+    try {
+      const skillDir = join(tmpDir, "nontty-skill");
+      await mkdir(skillDir, { recursive: true });
+      await writeFile(
+        join(skillDir, "SKILL.md"),
+        `---\nname: nontty-skill\nversion: 1.0.0\n---\n# Non-TTY Skill\n`,
+      );
+      const bundlePath = join(tmpDir, "nontty-bundle.json");
+      await writeFile(
+        bundlePath,
+        JSON.stringify({
+          version: 1,
+          name: "nontty-bundle",
+          description: "Non-TTY",
+          author: "tester",
+          createdAt: new Date().toISOString(),
+          skills: [
+            {
+              name: "nontty-skill",
+              installUrl: skillDir,
+              description: "Non-TTY Skill",
+              version: "1.0.0",
+            },
+          ],
+        }),
+      );
+
+      const { stderr, exitCode } = await runCLI(
+        "bundle",
+        "install",
+        bundlePath,
+        "--json",
+        "--force",
+      );
+      expect(exitCode).toBe(1);
+      expect(stderr).toContain("--tool (or --provider) is required");
+      expect(stderr).not.toContain("Install all skills from this bundle?");
+    } finally {
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  test("bundle install accepts --tool all", async () => {
+    const tmpDir = await mkdtemp(join(tmpdir(), "cli-bundle-all-"));
+    try {
+      const skillDir = join(tmpDir, "all-tool-skill");
+      await mkdir(skillDir, { recursive: true });
+      await writeFile(
+        join(skillDir, "SKILL.md"),
+        `---\nname: all-tool-skill\nversion: 1.0.0\n---\n# All Tool Skill\n`,
+      );
+      const bundlePath = join(tmpDir, "all-tool-bundle.json");
+      await writeFile(
+        bundlePath,
+        JSON.stringify({
+          version: 1,
+          name: "all-tool-bundle",
+          description: "All-tool bundle",
+          author: "tester",
+          createdAt: new Date().toISOString(),
+          skills: [
+            {
+              name: "all-tool-skill",
+              installUrl: skillDir,
+              description: "All Tool Skill",
+              version: "1.0.0",
+            },
+          ],
+        }),
+      );
+
+      const { stdout, exitCode } = await runCLI(
+        "bundle",
+        "install",
+        bundlePath,
+        "--json",
+        "--force",
+        "--tool",
+        "all",
+      );
+      expect(exitCode).toBe(0);
+      const parsed = JSON.parse(stdout);
+      expect(parsed.bundleName).toBe("all-tool-bundle");
+      expect(parsed.installed).toBe(1);
+      expect(parsed.failed).toBe(0);
+      expect(parsed.results[0].status).toBe("installed");
+
+      await runCLI("uninstall", "all-tool-skill", "--yes");
     } finally {
       await rm(tmpDir, { recursive: true, force: true });
     }
