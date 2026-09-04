@@ -62,9 +62,10 @@ GitHub Actions runs on every push to `main` and on all PRs:
 1. Checkout code
 2. Setup Node.js (matrix: 22, 24)
 3. Install dependencies (`npm ci`)
-4. Audit dependencies (`npm audit --audit-level=high --omit=dev`)
-5. Run unit tests (`npx vitest run src/`)
-6. Build (`npm run build`) and verify the `dist/` entry point
-7. Run Node.js E2E and npm-install E2E suites against the packed tarball
+4. Audit production dependencies (`npx tsx scripts/ci-npm-audit.ts --omit=dev`) — hard-fails on high/critical advisories; skips (exit 0, not a lockfile rebuild) when the npm audit endpoint returns HTTP 400 or is retired
+5. Audit all dependencies (`npx tsx scripts/ci-npm-audit.ts`) — same skip/fail policy, including `devDependencies`
+6. Run unit tests (`npx vitest run src/`)
+7. Build (`npm run build`) and verify the `dist/` entry point
+8. Run Node.js E2E and npm-install E2E suites against the packed tarball
 
 See `.github/workflows/ci.yml` for the full pipeline.
