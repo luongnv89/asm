@@ -1,11 +1,14 @@
 #!/usr/bin/env npx tsx
 /**
- * Fail the CI job on high/critical npm advisories, including devDependencies.
+ * Fail the CI job on high/critical npm advisories.
  *
- * Invokes `npm audit --audit-level=high --json` (no --omit=dev). An optional
- * time-boxed allowlist (ASM_AUDIT_ALLOWLIST + ASM_AUDIT_ALLOWLIST_EXPIRES)
- * may suppress specific GHSA ids. After the expiry date (UTC, inclusive)
- * the allowlist is ignored. An allowlist without an expiry is never honoured.
+ * Invokes `npm audit --audit-level=high --json`. Pass `--omit=dev` to audit
+ * production dependencies only. Registry HTTP 400 / retired `audits/quick`
+ * responses are skipped (exit 0), not treated as lockfile or advisory
+ * failures. An optional time-boxed allowlist (ASM_AUDIT_ALLOWLIST +
+ * ASM_AUDIT_ALLOWLIST_EXPIRES) may suppress specific GHSA ids. After the
+ * expiry date (UTC, inclusive) the allowlist is ignored. An allowlist
+ * without an expiry is never honoured.
  */
 
 import { spawnSync } from "node:child_process";
@@ -13,6 +16,70 @@ import { pathToFileURL } from "node:url";
 
 const GHSA_RE = /GHSA-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}/i;
 const HIGH_SEVS = new Set(["high", "critical"]);
+
+/** Tight markers for a retired / HTTP-400 npm audit registry — not every npm exit 1. */
+const AUDIT_UNAVAILABLE_MARKERS = [
+  "400 Bad Request",
+  "audits/quick",
+  "audit endpoint returned an error",
+  "This endpoint is being retired",
+] as const;
+
+export type NpmAuditSpawnInput = {
+  error?: Error | null;
+  status: number | null;
+  stdout?: string | null;
+  stderr?: string | null;
+};
+
+export type NpmAuditSpawnDecision =
+  | { kind: "unavailable" }
+  | { kind: "report"; report: unknown }
+  | { kind: "spawn-error"; message: string }
+  | { kind: "unreadable" };
+
+export function isNpmAuditUnavailable(
+  stdout: string,
+  stderr: string,
+  status: number | null,
+): boolean {
+  // npm exits 1 on real high/critical advisories — status alone is never a skip.
+  if (status === 0) return false;
+  const haystack = `${stdout}\n${stderr}`;
+  return AUDIT_UNAVAILABLE_MARKERS.some((marker) => haystack.includes(marker));
+}
+
+export function parseNpmAuditOutput(stdout: string): unknown | null {
+  try {
+    return JSON.parse(stdout) as unknown;
+  } catch {
+    return null;
+  }
+}
+
+export function resolveNpmAuditSpawn(
+  result: NpmAuditSpawnInput,
+): NpmAuditSpawnDecision {
+  const stdout = result.stdout ?? "";
+  const stderr = result.stderr ?? "";
+  if (result.error) {
+    return { kind: "spawn-error", message: result.error.message };
+  }
+  if (isNpmAuditUnavailable(stdout, stderr, result.status)) {
+    return { kind: "unavailable" };
+  }
+  const report = parseNpmAuditOutput(stdout);
+  if (report === null) {
+    return { kind: "unreadable" };
+  }
+  return { kind: "report", report };
+}
+
+export function npmAuditCliArgs(argv: string[]): string[] {
+  const args = ["audit", "--audit-level=high", "--json"];
+  if (argv.includes("--omit=dev")) args.push("--omit=dev");
+  return args;
+}
 
 export type Advisory = {
   id: string;
@@ -98,21 +165,26 @@ export function evaluateReport(
 }
 
 function runNpmAudit(): unknown {
-  const result = spawnSync("npm", ["audit", "--audit-level=high", "--json"], {
+  const result = spawnSync("npm", npmAuditCliArgs(process.argv.slice(2)), {
     encoding: "utf8",
     maxBuffer: 20 * 1024 * 1024,
   });
-  if (result.error) {
-    console.error(`npm audit failed to start: ${result.error.message}`);
-    process.exit(2);
-  }
-  const stdout = result.stdout || "";
-  try {
-    return JSON.parse(stdout);
-  } catch {
-    console.error("npm audit --json produced unreadable output");
-    if (result.stderr) console.error(result.stderr);
-    process.exit(2);
+  const decision = resolveNpmAuditSpawn(result);
+  switch (decision.kind) {
+    case "spawn-error":
+      console.error(`npm audit failed to start: ${decision.message}`);
+      process.exit(2);
+    case "unavailable":
+      console.log(
+        "npm audit skipped: registry audit endpoint unavailable (HTTP 400 / retired)",
+      );
+      process.exit(0);
+    case "unreadable":
+      console.error("npm audit --json produced unreadable output");
+      if (result.stderr) console.error(result.stderr);
+      process.exit(2);
+    case "report":
+      return decision.report;
   }
 }
 

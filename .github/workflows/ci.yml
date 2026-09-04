@@ -39,6 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
+      fail-fast: false
       matrix:
         # Node 18/20 are EOL; floor is >=22 (see package.json engines / #444).
         node-version: [22, 24]
@@ -58,7 +59,7 @@ jobs:
         run: node scripts/patch-ts6.cjs
 
       - name: Audit production dependencies
-        run: npm audit --audit-level=high --omit=dev
+        run: npx tsx scripts/ci-npm-audit.ts --omit=dev
 
       - name: Audit all dependencies
         run: npx tsx scripts/ci-npm-audit.ts
