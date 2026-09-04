@@ -241,27 +241,33 @@ export async function cmdBundle(args: ParsedArgs) {
 
       // Interactive skill selection (issue #612): mirror `asm install` —
       // TTY runs pick which bundle entries to install, --yes installs all.
+      // Both pickers dismiss into a friendly abort (not an unhandled throw).
       let skillsToInstall = bundle.skills;
-      if (process.stdin.isTTY && !args.flags.yes && bundle.skills.length > 1) {
-        try {
+      let installScope!: "global" | "project";
+      try {
+        if (
+          process.stdin.isTTY &&
+          !args.flags.yes &&
+          bundle.skills.length > 1
+        ) {
           skillsToInstall = await selectBundleSkills(bundle.skills, {
             isTTY: true,
             yes: false,
           });
-        } catch (err: any) {
-          error(err.message);
-          process.exit(1);
         }
-      }
 
-      // Interactive scope selection (issue #612): explicit --scope wins,
-      // otherwise TTY runs are offered global/project, rest default global.
-      const installScope = await promptInstallScope({
-        scopeFlag: args.flags.scope,
-        provider,
-        isTTY: !!process.stdin.isTTY,
-        yes: !!args.flags.yes,
-      });
+        // Interactive scope selection (issue #612): explicit --scope wins,
+        // otherwise TTY runs are offered global/project, rest default global.
+        installScope = await promptInstallScope({
+          scopeFlag: args.flags.scope,
+          provider,
+          isTTY: !!process.stdin.isTTY,
+          yes: !!args.flags.yes,
+        });
+      } catch (err: any) {
+        error(err.message);
+        process.exit(1);
+      }
 
       // Confirm
       if (!args.flags.yes && process.stdin.isTTY) {

@@ -5822,6 +5822,74 @@ describe("CLI integration: bundle", () => {
     }
   });
 
+  test("bundle install TTY scope dismissal aborts gracefully", async () => {
+    const tmpDir = await mkdtemp(join(tmpdir(), "cli-bundle-scope-abort-"));
+    const origIsTTY = process.stdin.isTTY;
+    const pickerSpy = vi
+      .spyOn(checkboxPickerMod, "checkboxPicker")
+      .mockResolvedValue([]);
+    const exitSpy = vi.spyOn(process, "exit").mockImplementation(((
+      code?: number,
+    ) => {
+      throw new Error(`process.exit(${code})`);
+    }) as typeof process.exit);
+    const errSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+    Object.defineProperty(process.stdin, "isTTY", {
+      value: true,
+      configurable: true,
+    });
+    try {
+      const skillDir = join(tmpDir, "scope-abort-skill");
+      await mkdir(skillDir, { recursive: true });
+      await writeFile(
+        join(skillDir, "SKILL.md"),
+        `---\nname: scope-abort-skill\nversion: 1.0.0\n---\n# Scope Abort Skill\n`,
+      );
+      const bundlePath = join(tmpDir, "scope-abort-bundle.json");
+      await writeFile(
+        bundlePath,
+        JSON.stringify({
+          version: 1,
+          name: "scope-abort-bundle",
+          description: "Scope dismissal",
+          author: "tester",
+          createdAt: new Date().toISOString(),
+          skills: [
+            {
+              name: "scope-abort-skill",
+              installUrl: skillDir,
+            },
+          ],
+        }),
+      );
+
+      const args = parseArgs([
+        "node",
+        "script.ts",
+        "bundle",
+        "install",
+        bundlePath,
+        "--json",
+        "--force",
+        "--tool",
+        "claude",
+      ]);
+      await expect(cmdBundle(args)).rejects.toThrow("process.exit(1)");
+      expect(exitSpy).toHaveBeenCalledWith(1);
+    } finally {
+      Object.defineProperty(process.stdin, "isTTY", {
+        value: origIsTTY,
+        configurable: true,
+      });
+      pickerSpy.mockRestore();
+      exitSpy.mockRestore();
+      errSpy.mockRestore();
+      logSpy.mockRestore();
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
   test("main --help includes bundle in command list", async () => {
     const { stdout, exitCode } = await runCLI("--help");
     expect(exitCode).toBe(0);
