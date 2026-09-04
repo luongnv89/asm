@@ -48,6 +48,7 @@ import { relative as relativePath } from "path";
 import { toPortableRelativePath } from "../utils/fs";
 import { error, readLine } from "./shared";
 import type { ParsedArgs } from "../cli";
+import { promptInstallScope } from "./install-prompts";
 import type { SkillInspection } from "./install-inspect";
 import {
   printInstallHelp,
@@ -306,46 +307,15 @@ export async function cmdInstall(args: ParsedArgs) {
       provider = resolved.provider;
       allProviders = resolved.allProviders;
 
-      // Step 3: Select scope (global or project)
+      // Step 3: Select scope (global or project) — shared preamble (#612)
       console.info(stepHeader("Selecting scope"));
-
-      if (args.flags.scope === "global" || args.flags.scope === "project") {
-        // Explicit --scope flag provided
-        installScope = args.flags.scope;
-        console.info(
-          `  ${ansi.dim(`scope: ${installScope}`)}${installScope === "global" ? ` (${provider.global})` : ` (${provider.project})`}`,
-        );
-      } else if (!process.stdin.isTTY || args.flags.yes) {
-        // Non-interactive mode: default to global
-        installScope = "global";
-        console.info(
-          `  ${ansi.dim(`scope: global (default)`)} (${provider.global})`,
-        );
-      } else {
-        // Interactive: prompt user to choose
-        const scopeItems = [
-          {
-            label: `Global (${provider.global})`,
-            hint: "Available in all projects",
-            checked: true,
-          },
-          {
-            label: `Project (${provider.project})`,
-            hint: "Available only in this project",
-            checked: false,
-          },
-        ];
-        console.info(""); // blank line before picker
-        const scopeIndices = await checkboxPicker({ items: scopeItems });
-        if (scopeIndices.length === 0) {
-          throw new Error("No scope selected. Aborting.");
-        }
-        // Use the first selected scope (single-select behavior)
-        installScope = scopeIndices[0] === 0 ? "global" : "project";
-        console.info(
-          `  Selected: ${ansi.bold(installScope)} ${ansi.dim(`(${installScope === "global" ? provider.global : provider.project})`)}`,
-        );
-      }
+      installScope = await promptInstallScope({
+        scopeFlag: args.flags.scope,
+        provider,
+        isTTY: !!process.stdin.isTTY,
+        yes: !!args.flags.yes,
+        log: (message: string) => console.info(message),
+      });
     }
 
     // Step 4: Clone repository (or read local source)

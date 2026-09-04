@@ -30,6 +30,7 @@ import type { BundleSkillRef } from "../utils/types";
 import { join as joinPath } from "path";
 
 import { error, readLine } from "./shared";
+import { promptInstallScope, selectBundleSkills } from "./install-prompts";
 import type { ParsedArgs } from "../cli";
 
 function printBundleHelp() {
@@ -238,11 +239,37 @@ export async function cmdBundle(args: ParsedArgs) {
         !!process.stdin.isTTY,
       );
 
+      // Interactive skill selection (issue #612): mirror `asm install` —
+      // TTY runs pick which bundle entries to install, --yes installs all.
+      let skillsToInstall = bundle.skills;
+      if (process.stdin.isTTY && !args.flags.yes && bundle.skills.length > 1) {
+        try {
+          skillsToInstall = await selectBundleSkills(bundle.skills, {
+            isTTY: true,
+            yes: false,
+          });
+        } catch (err: any) {
+          error(err.message);
+          process.exit(1);
+        }
+      }
+
+      // Interactive scope selection (issue #612): explicit --scope wins,
+      // otherwise TTY runs are offered global/project, rest default global.
+      const installScope = await promptInstallScope({
+        scopeFlag: args.flags.scope,
+        provider,
+        isTTY: !!process.stdin.isTTY,
+        yes: !!args.flags.yes,
+      });
+
       // Confirm
       if (!args.flags.yes && process.stdin.isTTY) {
-        process.stderr.write(
-          `\n${ansi.bold("Install all skills from this bundle?")} [y/N] `,
-        );
+        const countLabel =
+          skillsToInstall.length === bundle.skills.length
+            ? "all skills from this bundle"
+            : `${skillsToInstall.length} selected skill(s) from this bundle`;
+        process.stderr.write(`\n${ansi.bold(`Install ${countLabel}?`)} [y/N] `);
         const answer = await readLine();
         if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
           console.error("Aborted.");
@@ -250,19 +277,14 @@ export async function cmdBundle(args: ParsedArgs) {
         }
       }
 
-      // Install each skill
+      // Install each selected skill
       const results: Array<{
         name: string;
         status: "installed" | "skipped" | "failed";
         reason?: string;
       }> = [];
 
-      const installScope: "global" | "project" =
-        args.flags.scope === "global" || args.flags.scope === "project"
-          ? args.flags.scope
-          : "global";
-
-      for (const skill of bundle.skills) {
+      for (const skill of skillsToInstall) {
         console.error(`\n  Installing ${ansi.bold(skill.name)}...`);
         try {
           // Check if git is available for remote installs
@@ -370,6 +392,7 @@ export async function cmdBundle(args: ParsedArgs) {
               installed,
               skipped,
               failed,
+              scope: installScope,
               results,
             },
             null,

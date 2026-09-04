@@ -45,6 +45,7 @@ export {
   buildRepoUrl,
   // ── Provider selection ──
   resolveProvider,
+  resolveInstallScope,
   buildInstallPlan,
   checkConflict,
   // ── Cross-tool linking ──
