@@ -3,8 +3,11 @@ import {
   collectHighCriticalAdvisories,
   evaluateReport,
   isAllowlistExpired,
+  isNpmAuditUnavailable,
   parseAllowlist,
+  parseNpmAuditOutput,
   remainingAdvisories,
+  resolveNpmAuditSpawn,
 } from "../scripts/ci-npm-audit.ts";
 
 const VITEST_GHSA = "GHSA-5xrq-8626-4rwp";
@@ -115,5 +118,92 @@ describe("ci-npm-audit allowlist gate", () => {
     expect(parseAllowlist(" GHSA-5xrq-8626-4rwp , ")).toEqual([
       VITEST_GHSA.toUpperCase(),
     ]);
+  });
+});
+
+const RETIRED_STDERR = [
+  "npm error audit endpoint returned an error",
+  "npm error 400 Bad Request - POST https://registry.npmjs.org/-/npm/v1/security/audits/quick",
+  "npm error This endpoint is being retired",
+].join("\n");
+
+describe("ci-npm-audit registry-unavailable skip", () => {
+  it("classifies HTTP 400 Bad Request as unavailable", () => {
+    expect(
+      isNpmAuditUnavailable(
+        "",
+        "400 Bad Request - POST https://registry.npmjs.org/-/npm/v1/security/audits/quick",
+        1,
+      ),
+    ).toBe(true);
+    expect(
+      resolveNpmAuditSpawn({
+        error: null,
+        status: 1,
+        stdout: "",
+        stderr: "400 Bad Request",
+      }),
+    ).toEqual({ kind: "unavailable" });
+  });
+
+  it("classifies the retired audits/quick endpoint as unavailable", () => {
+    expect(isNpmAuditUnavailable("", RETIRED_STDERR, 1)).toBe(true);
+  });
+
+  it("skips non-JSON output when retirement markers are present", () => {
+    expect(parseNpmAuditOutput("not json")).toBeNull();
+    expect(
+      resolveNpmAuditSpawn({
+        error: null,
+        status: 1,
+        stdout: "Invalid package tree",
+        stderr: RETIRED_STDERR,
+      }),
+    ).toEqual({ kind: "unavailable" });
+  });
+
+  it("does not classify a remaining-GHSA JSON report as unavailable", () => {
+    const stdout = JSON.stringify(
+      reportWith([{ id: VITEST_GHSA, severity: "critical", name: "vitest" }]),
+    );
+    expect(isNpmAuditUnavailable(stdout, "", 1)).toBe(false);
+    const decision = resolveNpmAuditSpawn({
+      error: null,
+      status: 1,
+      stdout,
+      stderr: "",
+    });
+    expect(decision.kind).toBe("report");
+    if (decision.kind !== "report") return;
+    expect(evaluateReport(decision.report).remaining.map((a) => a.id)).toEqual([
+      VITEST_GHSA.toUpperCase(),
+    ]);
+  });
+
+  it("keeps local spawn failures as spawn-error (exit 2)", () => {
+    expect(
+      resolveNpmAuditSpawn({
+        error: new Error("spawn npm ENOENT"),
+        status: null,
+        stdout: "",
+        stderr: "",
+      }),
+    ).toEqual({ kind: "spawn-error", message: "spawn npm ENOENT" });
+  });
+
+  it("treats generic unreadable JSON without retirement markers as unreadable", () => {
+    expect(
+      resolveNpmAuditSpawn({
+        error: null,
+        status: 1,
+        stdout: "not json at all",
+        stderr: "something went wrong",
+      }),
+    ).toEqual({ kind: "unreadable" });
+  });
+
+  it("does not skip on npm exit 1 without registry-unavailable markers", () => {
+    expect(isNpmAuditUnavailable("{}", "", 1)).toBe(false);
+    expect(isNpmAuditUnavailable("{}", "", 0)).toBe(false);
   });
 });
