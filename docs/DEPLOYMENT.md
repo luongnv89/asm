@@ -62,9 +62,9 @@ GitHub Actions runs on every push to `main` and on all PRs:
 1. Checkout code
 2. Setup Node.js (matrix: 22, 24)
 3. Install dependencies (`npm ci`)
-4. Audit production dependencies (`npx tsx scripts/ci-npm-audit.ts --omit=dev`) — hard-fails on high/critical advisories; skips (exit 0, not a lockfile rebuild) when the npm audit endpoint returns HTTP 400 or is retired
-5. Audit all dependencies (`npx tsx scripts/ci-npm-audit.ts`) — same skip/fail policy, including `devDependencies`
-6. Run unit tests (`npx vitest run src/`)
+4. Run unit tests (`npx vitest run src/`)
+5. Audit production dependencies (`npx tsx scripts/ci-npm-audit.ts --omit=dev`) in a separate `audit` job (timeout 5 min, per-step 3 min) — hard-fails on high/critical advisories; skips (exit 0, not a lockfile rebuild) when the npm audit endpoint returns HTTP 400, is retired, or hangs past 90s (#608)
+6. Audit all dependencies (`npx tsx scripts/ci-npm-audit.ts`) — same skip/fail policy, including `devDependencies`
 7. Build (`npm run build`) and verify the `dist/` entry point
 8. Run Node.js E2E and npm-install E2E suites against the packed tarball
 

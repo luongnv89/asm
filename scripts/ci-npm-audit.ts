@@ -5,7 +5,9 @@
  * Invokes `npm audit --audit-level=high --json`. Pass `--omit=dev` to audit
  * production dependencies only. Registry HTTP 400 / retired `audits/quick`
  * responses are skipped (exit 0), not treated as lockfile or advisory
- * failures. An optional time-boxed allowlist (ASM_AUDIT_ALLOWLIST +
+ * failures. A hung `npm audit` (retired endpoint never replies — see #608)
+ * is time-boxed by AUDIT_TIMEOUT_MS and skipped the same way. An optional
+ * time-boxed allowlist (ASM_AUDIT_ALLOWLIST +
  * ASM_AUDIT_ALLOWLIST_EXPIRES) may suppress specific GHSA ids. After the
  * expiry date (UTC, inclusive) the allowlist is ignored. An allowlist
  * without an expiry is never honoured.
@@ -25,9 +27,13 @@ const AUDIT_UNAVAILABLE_MARKERS = [
   "This endpoint is being retired",
 ] as const;
 
+/** Hard ceiling for one `npm audit` spawn — the retired endpoint hangs (#608). */
+export const AUDIT_TIMEOUT_MS = 90_000;
+
 export type NpmAuditSpawnInput = {
-  error?: Error | null;
+  error?: (Error & { code?: string }) | null;
   status: number | null;
+  signal?: string | null;
   stdout?: string | null;
   stderr?: string | null;
 };
@@ -57,11 +63,24 @@ export function parseNpmAuditOutput(stdout: string): unknown | null {
   }
 }
 
+export function isNpmAuditTimeout(result: NpmAuditSpawnInput): boolean {
+  const code = (result.error as { code?: string } | null)?.code;
+  if (code === "ETIMEDOUT") return true;
+  // spawnSync with `timeout` kills via SIGTERM; a SIGTERM kill means the
+  // spawn did not exit on its own, so any partial output is untrustworthy
+  // and the hang skips rather than failing the job.
+  if (result.signal === "SIGTERM") return true;
+  return false;
+}
+
 export function resolveNpmAuditSpawn(
   result: NpmAuditSpawnInput,
 ): NpmAuditSpawnDecision {
   const stdout = result.stdout ?? "";
   const stderr = result.stderr ?? "";
+  if (isNpmAuditTimeout(result)) {
+    return { kind: "unavailable" };
+  }
   if (result.error) {
     return { kind: "spawn-error", message: result.error.message };
   }
@@ -168,6 +187,7 @@ function runNpmAudit(): unknown {
   const result = spawnSync("npm", npmAuditCliArgs(process.argv.slice(2)), {
     encoding: "utf8",
     maxBuffer: 20 * 1024 * 1024,
+    timeout: AUDIT_TIMEOUT_MS,
   });
   const decision = resolveNpmAuditSpawn(result);
   switch (decision.kind) {
@@ -175,9 +195,15 @@ function runNpmAudit(): unknown {
       console.error(`npm audit failed to start: ${decision.message}`);
       process.exit(2);
     case "unavailable":
-      console.log(
-        "npm audit skipped: registry audit endpoint unavailable (HTTP 400 / retired)",
-      );
+      if (isNpmAuditTimeout(result)) {
+        console.log(
+          `npm audit skipped: timed out after ${AUDIT_TIMEOUT_MS / 1000}s (retired endpoint hang)`,
+        );
+      } else {
+        console.log(
+          "npm audit skipped: registry audit endpoint unavailable (HTTP 400 / retired)",
+        );
+      }
       process.exit(0);
     case "unreadable":
       console.error("npm audit --json produced unreadable output");

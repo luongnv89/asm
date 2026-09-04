@@ -1,8 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
+  AUDIT_TIMEOUT_MS,
   collectHighCriticalAdvisories,
   evaluateReport,
   isAllowlistExpired,
+  isNpmAuditTimeout,
   isNpmAuditUnavailable,
   parseAllowlist,
   parseNpmAuditOutput,
@@ -205,5 +207,55 @@ describe("ci-npm-audit registry-unavailable skip", () => {
   it("does not skip on npm exit 1 without registry-unavailable markers", () => {
     expect(isNpmAuditUnavailable("{}", "", 1)).toBe(false);
     expect(isNpmAuditUnavailable("{}", "", 0)).toBe(false);
+  });
+});
+
+describe("ci-npm-audit timeout skip (#608)", () => {
+  it("exposes a 90s hard ceiling well under the 10-minute job timeout", () => {
+    expect(AUDIT_TIMEOUT_MS).toBe(90_000);
+    expect(AUDIT_TIMEOUT_MS).toBeLessThan(10 * 60 * 1000);
+  });
+
+  it("classifies a spawnSync ETIMEDOUT as a timeout", () => {
+    const err = new Error("spawnSync npm ETIMEDOUT") as Error & {
+      code?: string;
+    };
+    err.code = "ETIMEDOUT";
+    expect(isNpmAuditTimeout({ error: err, status: null })).toBe(true);
+  });
+
+  it("classifies a SIGTERM kill with no output as a timeout", () => {
+    expect(
+      isNpmAuditTimeout({ error: null, status: null, signal: "SIGTERM" }),
+    ).toBe(true);
+  });
+
+  it("does not classify ordinary failures as timeouts", () => {
+    expect(isNpmAuditTimeout({ error: null, status: 1 })).toBe(false);
+    expect(
+      isNpmAuditTimeout({
+        error: new Error("spawn npm ENOENT"),
+        status: null,
+      }),
+    ).toBe(false);
+  });
+
+  it("resolves a timed-out spawn to unavailable (skip exit 0)", () => {
+    const err = new Error("spawnSync npm ETIMEDOUT") as Error & {
+      code?: string;
+    };
+    err.code = "ETIMEDOUT";
+    expect(
+      resolveNpmAuditSpawn({ error: err, status: null, signal: "SIGTERM" }),
+    ).toEqual({ kind: "unavailable" });
+  });
+
+  it("keeps a real ENOENT spawn failure as spawn-error", () => {
+    expect(
+      resolveNpmAuditSpawn({
+        error: new Error("spawn npm ENOENT"),
+        status: null,
+      }),
+    ).toEqual({ kind: "spawn-error", message: "spawn npm ENOENT" });
   });
 });
