@@ -35,6 +35,7 @@ import {
 } from "fs/promises";
 import { tmpdir, homedir } from "os";
 import { spawnCollect, runInlineTs } from "./utils/test-spawn";
+import { loadConfig, resolveProviderPath } from "./config";
 
 // Helper: path to the CLI entry point
 const CLI_BIN = join(
@@ -5620,6 +5621,203 @@ describe("CLI integration: bundle", () => {
       // Clean up: uninstall the skill
       await runCLI("uninstall", "skip-test-skill", "--yes");
     } finally {
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  test("bundle install TTY selects subset of skills and installs only chosen", async () => {
+    const tmpDir = await mkdtemp(join(tmpdir(), "cli-bundle-select-"));
+    const origIsTTY = process.stdin.isTTY;
+    const readLineSpy = vi.spyOn(shared, "readLine").mockResolvedValue("y");
+    const pickerSpy = vi
+      .spyOn(checkboxPickerMod, "checkboxPicker")
+      .mockImplementation(async (opts) => {
+        const labels = opts.items.map((i) => i.label);
+        // Scope picker offers "Global (...)" — keep global; the skill
+        // picker offers skill names — take the second skill only.
+        if (labels.some((l) => l.startsWith("Global ("))) return [0];
+        return [1];
+      });
+    const exitSpy = vi.spyOn(process, "exit").mockImplementation(((
+      code?: number,
+    ) => {
+      throw new Error(`process.exit(${code})`);
+    }) as typeof process.exit);
+    const logs: string[] = [];
+    const logSpy = vi
+      .spyOn(console, "log")
+      .mockImplementation((msg?: unknown) => {
+        logs.push(String(msg ?? ""));
+      });
+    const errSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    Object.defineProperty(process.stdin, "isTTY", {
+      value: true,
+      configurable: true,
+    });
+    try {
+      for (const name of ["tty-skill-a", "tty-skill-b"]) {
+        const skillDir = join(tmpDir, name);
+        await mkdir(skillDir, { recursive: true });
+        await writeFile(
+          join(skillDir, "SKILL.md"),
+          `---\nname: ${name}\nversion: 1.0.0\n---\n# ${name}\n`,
+        );
+      }
+      const bundlePath = join(tmpDir, "select-bundle.json");
+      await writeFile(
+        bundlePath,
+        JSON.stringify({
+          version: 1,
+          name: "select-bundle",
+          description: "Subset selection",
+          author: "tester",
+          createdAt: new Date().toISOString(),
+          skills: ["tty-skill-a", "tty-skill-b"].map((n) => ({
+            name: n,
+            installUrl: join(tmpDir, n),
+          })),
+        }),
+      );
+
+      const args = parseArgs([
+        "node",
+        "script.ts",
+        "bundle",
+        "install",
+        bundlePath,
+        "--json",
+        "--force",
+        "--tool",
+        "claude",
+      ]);
+      await cmdBundle(args);
+      const jsonOut =
+        logs.find((l) => l.includes("bundleName")) ?? logs.join("");
+      const parsed = JSON.parse(jsonOut);
+      expect(parsed.bundleName).toBe("select-bundle");
+      expect(parsed.total).toBe(1);
+      expect(parsed.installed).toBe(1);
+      expect(parsed.failed).toBe(0);
+      expect(parsed.results).toHaveLength(1);
+      expect(parsed.results[0].name).toBe("tty-skill-b");
+      expect(parsed.results[0].status).toBe("installed");
+      expect(exitSpy).not.toHaveBeenCalled();
+
+      await runCLI("uninstall", "tty-skill-b", "--yes");
+    } finally {
+      Object.defineProperty(process.stdin, "isTTY", {
+        value: origIsTTY,
+        configurable: true,
+      });
+      readLineSpy.mockRestore();
+      pickerSpy.mockRestore();
+      exitSpy.mockRestore();
+      logSpy.mockRestore();
+      errSpy.mockRestore();
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  test("bundle install TTY scope selection installs into project scope", async () => {
+    const tmpDir = await mkdtemp(join(tmpdir(), "cli-bundle-scope-"));
+    const origCwd = process.cwd();
+    const origIsTTY = process.stdin.isTTY;
+    const readLineSpy = vi.spyOn(shared, "readLine").mockResolvedValue("y");
+    const pickerSpy = vi
+      .spyOn(checkboxPickerMod, "checkboxPicker")
+      .mockImplementation(async (opts) => {
+        const labels = opts.items.map((i) => i.label);
+        // Only the scope picker appears (single skill, explicit --tool):
+        // choose the second entry (project).
+        if (labels.some((l) => l.startsWith("Global ("))) return [1];
+        return [0];
+      });
+    const exitSpy = vi.spyOn(process, "exit").mockImplementation(((
+      code?: number,
+    ) => {
+      throw new Error(`process.exit(${code})`);
+    }) as typeof process.exit);
+    const logs: string[] = [];
+    const logSpy = vi
+      .spyOn(console, "log")
+      .mockImplementation((msg?: unknown) => {
+        logs.push(String(msg ?? ""));
+      });
+    const errSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    Object.defineProperty(process.stdin, "isTTY", {
+      value: true,
+      configurable: true,
+    });
+    // Project scope resolves relative paths from cwd — run inside tmpDir so
+    // the install lands under tmpDir and never touches the repo checkout.
+    process.chdir(tmpDir);
+    try {
+      const skillDir = join(tmpDir, "scope-proj-skill");
+      await mkdir(skillDir, { recursive: true });
+      await writeFile(
+        join(skillDir, "SKILL.md"),
+        `---\nname: scope-proj-skill\nversion: 1.0.0\n---\n# Scope Project Skill\n`,
+      );
+      const bundlePath = join(tmpDir, "scope-bundle.json");
+      await writeFile(
+        bundlePath,
+        JSON.stringify({
+          version: 1,
+          name: "scope-bundle",
+          description: "Scope selection",
+          author: "tester",
+          createdAt: new Date().toISOString(),
+          skills: [
+            {
+              name: "scope-proj-skill",
+              installUrl: skillDir,
+            },
+          ],
+        }),
+      );
+
+      const args = parseArgs([
+        "node",
+        "script.ts",
+        "bundle",
+        "install",
+        bundlePath,
+        "--json",
+        "--force",
+        "--tool",
+        "claude",
+      ]);
+      await cmdBundle(args);
+      const jsonOut =
+        logs.find((l) => l.includes("bundleName")) ?? logs.join("");
+      const parsed = JSON.parse(jsonOut);
+      expect(parsed.bundleName).toBe("scope-bundle");
+      expect(parsed.installed).toBe(1);
+      expect(parsed.failed).toBe(0);
+      expect(parsed.scope).toBe("project");
+      expect(exitSpy).not.toHaveBeenCalled();
+
+      const config = await loadConfig();
+      const claude = config.providers.find((p) => p.name === "claude");
+      expect(claude).toBeDefined();
+      const installedMd = join(
+        resolveProviderPath(claude!.project),
+        "scope-proj-skill",
+        "SKILL.md",
+      );
+      const content = await readFile(installedMd, "utf-8");
+      expect(content).toContain("scope-proj-skill");
+    } finally {
+      process.chdir(origCwd);
+      Object.defineProperty(process.stdin, "isTTY", {
+        value: origIsTTY,
+        configurable: true,
+      });
+      readLineSpy.mockRestore();
+      pickerSpy.mockRestore();
+      exitSpy.mockRestore();
+      logSpy.mockRestore();
+      errSpy.mockRestore();
       await rm(tmpDir, { recursive: true, force: true });
     }
   });

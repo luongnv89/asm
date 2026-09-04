@@ -19,6 +19,7 @@ import {
   scanForWarnings,
   classifyWarningRisk,
   resolveProvider,
+  resolveInstallScope,
   executeInstall,
   executeInstallAllProviders,
   buildInstallPlan,
@@ -1117,6 +1118,100 @@ describe("resolveProvider", () => {
     const result = await resolveProvider(config, "claude", false);
     expect(result.provider.name).toBe("claude");
     expect(result.allProviders).toBeNull();
+  });
+});
+
+// ─── resolveInstallScope tests (issue #612) ──────────────────────────────────
+
+describe("resolveInstallScope", () => {
+  beforeEach(() => {
+    mocks.checkboxPicker.mockReset();
+  });
+
+  const claude: ProviderConfig = {
+    name: "claude",
+    label: "Claude Code",
+    global: "~/.claude/skills",
+    project: ".claude/skills",
+    enabled: true,
+  };
+
+  test("explicit global flag wins without prompting", async () => {
+    const scope = await resolveInstallScope({
+      scopeFlag: "global",
+      provider: claude,
+      isTTY: true,
+      yes: false,
+    });
+    expect(scope).toBe("global");
+    expect(mocks.checkboxPicker).not.toHaveBeenCalled();
+  });
+
+  test("explicit project flag wins without prompting", async () => {
+    const scope = await resolveInstallScope({
+      scopeFlag: "project",
+      provider: claude,
+      isTTY: true,
+      yes: false,
+    });
+    expect(scope).toBe("project");
+    expect(mocks.checkboxPicker).not.toHaveBeenCalled();
+  });
+
+  test("non-TTY defaults to global", async () => {
+    const scope = await resolveInstallScope({
+      scopeFlag: "both",
+      provider: claude,
+      isTTY: false,
+      yes: false,
+    });
+    expect(scope).toBe("global");
+    expect(mocks.checkboxPicker).not.toHaveBeenCalled();
+  });
+
+  test("--yes defaults to global", async () => {
+    const scope = await resolveInstallScope({
+      scopeFlag: null,
+      provider: claude,
+      isTTY: true,
+      yes: true,
+    });
+    expect(scope).toBe("global");
+    expect(mocks.checkboxPicker).not.toHaveBeenCalled();
+  });
+
+  test("TTY picker maps first entry to global", async () => {
+    mocks.checkboxPicker.mockResolvedValueOnce([0]);
+    const scope = await resolveInstallScope({
+      scopeFlag: null,
+      provider: claude,
+      isTTY: true,
+      yes: false,
+    });
+    expect(scope).toBe("global");
+  });
+
+  test("TTY picker maps second entry to project", async () => {
+    mocks.checkboxPicker.mockResolvedValueOnce([1]);
+    const scope = await resolveInstallScope({
+      scopeFlag: null,
+      provider: claude,
+      isTTY: true,
+      yes: false,
+    });
+    expect(scope).toBe("project");
+  });
+
+  test("dismissed picker throws", async () => {
+    mocks.checkboxPicker.mockResolvedValueOnce([]);
+    await expect(
+      resolveInstallScope({
+        scopeFlag: null,
+        provider: claude,
+        isTTY: true,
+        yes: false,
+      }),
+    ).rejects.toThrow("No scope selected");
   });
 });
 
