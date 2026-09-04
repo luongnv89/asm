@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-29T16:43:05Z",
+  "updatedAt": "2026-09-04T06:22:53Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -656,6 +656,15 @@
       "repo": "voiceprint",
       "description": "voiceprint \u2014 Charlie Hills skill: preserve a consistent human voice (anti-slop writing).",
       "maintainer": "@charlie947",
+      "enabled": true
+    },
+    {
+      "source": "github:DietrichGebert/ponytail",
+      "url": "https://github.com/DietrichGebert/ponytail",
+      "owner": "DietrichGebert",
+      "repo": "ponytail",
+      "description": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
+      "maintainer": "@DietrichGebert",
       "enabled": true
     }
   ]

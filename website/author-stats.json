@@ -1,30 +1,30 @@
 {
-  "generatedAt": "2026-08-30T22:10:18.494Z",
+  "generatedAt": "2026-09-04T06:23:31.926Z",
   "stats": [
     {
       "owner": "sickn33",
-      "totalSkills": 2011,
+      "totalSkills": 2023,
       "repos": ["sickn33/antigravity-awesome-skills"],
       "categories": {
-        "general": 259,
+        "general": 262,
         "ai-agents": 525,
-        "security": 271,
-        "coding": 575,
-        "testing": 363,
+        "security": 273,
+        "coding": 576,
+        "testing": 365,
         "design": 230,
-        "backend": 291,
-        "productivity": 365,
-        "frontend": 218,
-        "writing": 240,
+        "backend": 293,
+        "productivity": 367,
+        "frontend": 219,
+        "writing": 242,
         "marketing": 147,
         "devops": 131,
         "git": 63,
         "mobile": 53,
         "research": 77,
-        "finance": 64
+        "finance": 65
       },
-      "verifiedCount": 2006,
-      "totalTokens": 5002263,
+      "verifiedCount": 2018,
+      "totalTokens": 5022173,
       "topSkills": [
         {
           "id": "sickn33/antigravity-awesome-skills::skills/zustand-store-ts::zustand-store-ts",
@@ -311,7 +311,7 @@
     },
     {
       "owner": "github",
-      "totalSkills": 417,
+      "totalSkills": 418,
       "repos": ["github/awesome-copilot"],
       "categories": {
         "ai-agents": 147,
@@ -323,7 +323,7 @@
         "design": 54,
         "coding": 125,
         "productivity": 76,
-        "backend": 73,
+        "backend": 74,
         "devops": 58,
         "git": 25,
         "mobile": 13,
@@ -331,8 +331,8 @@
         "finance": 13,
         "research": 13
       },
-      "verifiedCount": 417,
-      "totalTokens": 1050312,
+      "verifiedCount": 418,
+      "totalTokens": 1052411,
       "topSkills": [
         {
           "id": "github/awesome-copilot::skills/x-twitter-scraper::x-twitter-scraper",
@@ -409,7 +409,7 @@
         "research": 17
       },
       "verifiedCount": 287,
-      "totalTokens": 728356,
+      "totalTokens": 728661,
       "topSkills": [
         {
           "id": "affaan-m/everything-claude-code::skills/x-api::x-api",
@@ -485,7 +485,7 @@
         "security": 28
       },
       "verifiedCount": 163,
-      "totalTokens": 497373,
+      "totalTokens": 532093,
       "topSkills": [
         {
           "id": "K-Dense-AI/claude-scientific-skills::skills/zarr-python::zarr-python",
@@ -541,26 +541,26 @@
     },
     {
       "owner": "google",
-      "totalSkills": 127,
+      "totalSkills": 130,
       "repos": ["google/skills"],
       "categories": {
-        "ai-agents": 42,
-        "security": 26,
-        "devops": 45,
-        "testing": 25,
+        "ai-agents": 41,
+        "security": 30,
+        "devops": 48,
+        "testing": 26,
         "writing": 13,
-        "coding": 33,
-        "backend": 48,
+        "coding": 34,
+        "backend": 49,
         "finance": 8,
-        "design": 23,
-        "productivity": 16,
-        "marketing": 13,
+        "design": 24,
+        "productivity": 18,
+        "marketing": 14,
         "general": 10,
         "frontend": 4,
-        "mobile": 12
+        "mobile": 13
       },
-      "verifiedCount": 127,
-      "totalTokens": 393481,
+      "verifiedCount": 130,
+      "totalTokens": 402408,
       "topSkills": [
         {
           "id": "google/skills::skills/cloud/workload-manager-basics::workload-manager-basics",
@@ -615,105 +615,28 @@
       ]
     },
     {
-      "owner": "garrytan",
-      "totalSkills": 61,
-      "repos": ["garrytan/gstack"],
-      "categories": {
-        "general": 21,
-        "devops": 4,
-        "design": 8,
-        "testing": 14,
-        "ai-agents": 5,
-        "coding": 7,
-        "backend": 2,
-        "security": 3,
-        "frontend": 2,
-        "research": 2,
-        "writing": 4,
-        "finance": 2,
-        "marketing": 1,
-        "git": 3,
-        "mobile": 5,
-        "productivity": 3
-      },
-      "verifiedCount": 60,
-      "totalTokens": 639460,
-      "topSkills": [
-        {
-          "id": "garrytan/gstack::unfreeze::unfreeze",
-          "name": "unfreeze",
-          "repo": "garrytan/gstack"
-        },
-        {
-          "id": "garrytan/gstack::sync-gbrain::sync-gbrain",
-          "name": "sync-gbrain",
-          "repo": "garrytan/gstack"
-        },
-        {
-          "id": "garrytan/gstack::spec::spec",
-          "name": "spec",
-          "repo": "garrytan/gstack"
-        },
-        {
-          "id": "garrytan/gstack::skillify::skillify",
-          "name": "skillify",
-          "repo": "garrytan/gstack"
-        },
-        {
-          "id": "garrytan/gstack::ship::ship",
-          "name": "ship",
-          "repo": "garrytan/gstack"
-        },
-        {
-          "id": "garrytan/gstack::setup-gbrain::setup-gbrain",
-          "name": "setup-gbrain",
-          "repo": "garrytan/gstack"
-        },
-        {
-          "id": "garrytan/gstack::setup-deploy::setup-deploy",
-          "name": "setup-deploy",
-          "repo": "garrytan/gstack"
-        },
-        {
-          "id": "garrytan/gstack::setup-browser-cookies::setup-browser-cookies",
-          "name": "setup-browser-cookies",
-          "repo": "garrytan/gstack"
-        },
-        {
-          "id": "garrytan/gstack::scrape::scrape",
-          "name": "scrape",
-          "repo": "garrytan/gstack"
-        },
-        {
-          "id": "garrytan/gstack::review::review",
-          "name": "review",
-          "repo": "garrytan/gstack"
-        }
-      ]
-    },
-    {
       "owner": "davidondrej",
-      "totalSkills": 57,
+      "totalSkills": 62,
       "repos": ["davidondrej/skills"],
       "categories": {
-        "ai-agents": 34,
-        "productivity": 14,
-        "coding": 19,
+        "ai-agents": 37,
+        "writing": 16,
+        "productivity": 15,
+        "coding": 20,
         "git": 6,
-        "testing": 12,
-        "writing": 15,
+        "testing": 14,
         "design": 5,
-        "backend": 11,
+        "backend": 12,
         "security": 4,
         "research": 8,
         "marketing": 4,
         "frontend": 1,
-        "general": 4,
+        "general": 6,
         "mobile": 1,
-        "finance": 1
+        "finance": 2
       },
-      "verifiedCount": 57,
-      "totalTokens": 77993,
+      "verifiedCount": 62,
+      "totalTokens": 99023,
       "topSkills": [
         {
           "id": "davidondrej/skills::skills/research-and-web/youtube-transcript::youtube-transcript",
@@ -768,17 +691,94 @@
       ]
     },
     {
+      "owner": "garrytan",
+      "totalSkills": 61,
+      "repos": ["garrytan/gstack"],
+      "categories": {
+        "general": 21,
+        "devops": 4,
+        "design": 8,
+        "testing": 14,
+        "ai-agents": 5,
+        "coding": 7,
+        "backend": 2,
+        "security": 3,
+        "frontend": 2,
+        "research": 2,
+        "writing": 4,
+        "finance": 2,
+        "marketing": 1,
+        "git": 3,
+        "mobile": 5,
+        "productivity": 3
+      },
+      "verifiedCount": 60,
+      "totalTokens": 655207,
+      "topSkills": [
+        {
+          "id": "garrytan/gstack::unfreeze::unfreeze",
+          "name": "unfreeze",
+          "repo": "garrytan/gstack"
+        },
+        {
+          "id": "garrytan/gstack::sync-gbrain::sync-gbrain",
+          "name": "sync-gbrain",
+          "repo": "garrytan/gstack"
+        },
+        {
+          "id": "garrytan/gstack::spec::spec",
+          "name": "spec",
+          "repo": "garrytan/gstack"
+        },
+        {
+          "id": "garrytan/gstack::skillify::skillify",
+          "name": "skillify",
+          "repo": "garrytan/gstack"
+        },
+        {
+          "id": "garrytan/gstack::ship::ship",
+          "name": "ship",
+          "repo": "garrytan/gstack"
+        },
+        {
+          "id": "garrytan/gstack::setup-gbrain::setup-gbrain",
+          "name": "setup-gbrain",
+          "repo": "garrytan/gstack"
+        },
+        {
+          "id": "garrytan/gstack::setup-deploy::setup-deploy",
+          "name": "setup-deploy",
+          "repo": "garrytan/gstack"
+        },
+        {
+          "id": "garrytan/gstack::setup-browser-cookies::setup-browser-cookies",
+          "name": "setup-browser-cookies",
+          "repo": "garrytan/gstack"
+        },
+        {
+          "id": "garrytan/gstack::scrape::scrape",
+          "name": "scrape",
+          "repo": "garrytan/gstack"
+        },
+        {
+          "id": "garrytan/gstack::review::review",
+          "name": "review",
+          "repo": "garrytan/gstack"
+        }
+      ]
+    },
+    {
       "owner": "luongnv89",
-      "totalSkills": 56,
+      "totalSkills": 57,
       "repos": ["luongnv89/skills", "luongnv89/asm", "luongnv89/idd"],
       "categories": {
-        "ai-agents": 14,
+        "ai-agents": 15,
         "security": 21,
         "writing": 10,
-        "coding": 16,
+        "coding": 17,
         "mobile": 3,
         "marketing": 4,
-        "productivity": 11,
+        "productivity": 12,
         "git": 11,
         "design": 6,
         "testing": 9,
@@ -788,8 +788,8 @@
         "backend": 4,
         "finance": 1
       },
-      "verifiedCount": 55,
-      "totalTokens": 207819,
+      "verifiedCount": 56,
+      "totalTokens": 211831,
       "topSkills": [
         {
           "id": "luongnv89/asm::tests/fixtures/skills/well-formed::well-formed",
@@ -1316,7 +1316,7 @@
         "devops": 2
       },
       "verifiedCount": 27,
-      "totalTokens": 80983,
+      "totalTokens": 81046,
       "topSkills": [
         {
           "id": "bytedance/deer-flow::skills/public/web-design-guidelines::web-design-guidelines",
@@ -1523,7 +1523,7 @@
       "categories": {
         "frontend": 3,
         "design": 2,
-        "backend": 3,
+        "backend": 4,
         "ai-agents": 6,
         "testing": 10,
         "coding": 11,
@@ -1531,11 +1531,11 @@
         "productivity": 6,
         "git": 3,
         "writing": 5,
-        "general": 2,
-        "security": 3
+        "security": 3,
+        "general": 1
       },
       "verifiedCount": 25,
-      "totalTokens": 102935,
+      "totalTokens": 103334,
       "topSkills": [
         {
           "id": "addyosmani/agent-skills::skills/using-agent-skills::using-agent-skills",
@@ -1824,7 +1824,7 @@
         "backend": 2
       },
       "verifiedCount": 20,
-      "totalTokens": 19023,
+      "totalTokens": 19180,
       "topSkills": [
         {
           "id": "JuliusBrussee/caveman::skills/verify-and-stop::verify-and-stop",
@@ -1896,7 +1896,7 @@
         "devops": 1
       },
       "verifiedCount": 20,
-      "totalTokens": 73937,
+      "totalTokens": 77367,
       "topSkills": [
         {
           "id": "anthropics/skills::skills/xlsx::xlsx",
@@ -2398,7 +2398,7 @@
         "testing": 2
       },
       "verifiedCount": 12,
-      "totalTokens": 26924,
+      "totalTokens": 27326,
       "topSkills": [
         {
           "id": "entireio/skills::skills/what-happened::what-happened",
@@ -2781,10 +2781,10 @@
       "totalSkills": 7,
       "repos": ["nextlevelbuilder/ui-ux-pro-max-skill"],
       "categories": {
-        "frontend": 6,
         "design": 7,
         "marketing": 3,
         "writing": 2,
+        "frontend": 5,
         "backend": 1,
         "testing": 3,
         "coding": 3,
@@ -2792,7 +2792,7 @@
         "mobile": 1
       },
       "verifiedCount": 7,
-      "totalTokens": 14119,
+      "totalTokens": 14923,
       "topSkills": [
         {
           "id": "nextlevelbuilder/ui-ux-pro-max-skill::.claude/skills/ui-ux-pro-max::ui-ux-pro-max",
@@ -2828,6 +2828,53 @@
           "id": "nextlevelbuilder/ui-ux-pro-max-skill::.claude/skills/banner-design::banner-design",
           "name": "banner-design",
           "repo": "nextlevelbuilder/ui-ux-pro-max-skill"
+        }
+      ]
+    },
+    {
+      "owner": "DietrichGebert",
+      "totalSkills": 6,
+      "repos": ["DietrichGebert/ponytail"],
+      "categories": {
+        "design": 1,
+        "testing": 3,
+        "coding": 2,
+        "productivity": 1,
+        "security": 1,
+        "general": 2
+      },
+      "verifiedCount": 6,
+      "totalTokens": 4988,
+      "topSkills": [
+        {
+          "id": "DietrichGebert/ponytail::skills/ponytail-review::ponytail-review",
+          "name": "ponytail-review",
+          "repo": "DietrichGebert/ponytail"
+        },
+        {
+          "id": "DietrichGebert/ponytail::skills/ponytail-help::ponytail-help",
+          "name": "ponytail-help",
+          "repo": "DietrichGebert/ponytail"
+        },
+        {
+          "id": "DietrichGebert/ponytail::skills/ponytail-gain::ponytail-gain",
+          "name": "ponytail-gain",
+          "repo": "DietrichGebert/ponytail"
+        },
+        {
+          "id": "DietrichGebert/ponytail::skills/ponytail-debt::ponytail-debt",
+          "name": "ponytail-debt",
+          "repo": "DietrichGebert/ponytail"
+        },
+        {
+          "id": "DietrichGebert/ponytail::skills/ponytail-audit::ponytail-audit",
+          "name": "ponytail-audit",
+          "repo": "DietrichGebert/ponytail"
+        },
+        {
+          "id": "DietrichGebert/ponytail::skills/ponytail::ponytail",
+          "name": "ponytail",
+          "repo": "DietrichGebert/ponytail"
         }
       ]
     },
@@ -2878,6 +2925,52 @@
       ]
     },
     {
+      "owner": "santifer",
+      "totalSkills": 6,
+      "repos": ["santifer/career-ops"],
+      "categories": {
+        "writing": 1,
+        "productivity": 1,
+        "general": 3,
+        "devops": 1,
+        "backend": 1
+      },
+      "verifiedCount": 5,
+      "totalTokens": 8443,
+      "topSkills": [
+        {
+          "id": "santifer/career-ops::plugins/h1b-sponsor::h1b-sponsor",
+          "name": "h1b-sponsor",
+          "repo": "santifer/career-ops"
+        },
+        {
+          "id": "santifer/career-ops::plugins/notion::career-ops-plugin-notion",
+          "name": "career-ops-plugin-notion",
+          "repo": "santifer/career-ops"
+        },
+        {
+          "id": "santifer/career-ops::plugins/gmail::career-ops-plugin-gmail",
+          "name": "career-ops-plugin-gmail",
+          "repo": "santifer/career-ops"
+        },
+        {
+          "id": "santifer/career-ops::plugins/apify::career-ops-plugin-apify",
+          "name": "career-ops-plugin-apify",
+          "repo": "santifer/career-ops"
+        },
+        {
+          "id": "santifer/career-ops::plugins/_template::career-ops-plugin-{{NAME}}",
+          "name": "career-ops-plugin-{{NAME}}",
+          "repo": "santifer/career-ops"
+        },
+        {
+          "id": "santifer/career-ops::.claude/skills/career-ops::career-ops",
+          "name": "career-ops",
+          "repo": "santifer/career-ops"
+        }
+      ]
+    },
+    {
       "owner": "kepano",
       "totalSkills": 5,
       "repos": ["kepano/obsidian-skills"],
@@ -2916,47 +3009,6 @@
           "id": "kepano/obsidian-skills::skills/defuddle::defuddle",
           "name": "defuddle",
           "repo": "kepano/obsidian-skills"
-        }
-      ]
-    },
-    {
-      "owner": "santifer",
-      "totalSkills": 5,
-      "repos": ["santifer/career-ops"],
-      "categories": {
-        "writing": 1,
-        "productivity": 1,
-        "general": 2,
-        "devops": 1,
-        "backend": 1
-      },
-      "verifiedCount": 5,
-      "totalTokens": 4269,
-      "topSkills": [
-        {
-          "id": "santifer/career-ops::plugins/notion::career-ops-plugin-notion",
-          "name": "career-ops-plugin-notion",
-          "repo": "santifer/career-ops"
-        },
-        {
-          "id": "santifer/career-ops::plugins/gmail::career-ops-plugin-gmail",
-          "name": "career-ops-plugin-gmail",
-          "repo": "santifer/career-ops"
-        },
-        {
-          "id": "santifer/career-ops::plugins/apify::career-ops-plugin-apify",
-          "name": "career-ops-plugin-apify",
-          "repo": "santifer/career-ops"
-        },
-        {
-          "id": "santifer/career-ops::plugins/_template::career-ops-plugin-{{NAME}}",
-          "name": "career-ops-plugin-{{NAME}}",
-          "repo": "santifer/career-ops"
-        },
-        {
-          "id": "santifer/career-ops::.claude/skills/career-ops::career-ops",
-          "name": "career-ops",
-          "repo": "santifer/career-ops"
         }
       ]
     },
@@ -3303,7 +3355,7 @@
       "repos": ["mvanhorn/last30days-skill"],
       "categories": { "marketing": 1, "research": 1 },
       "verifiedCount": 1,
-      "totalTokens": 66686,
+      "totalTokens": 69905,
       "topSkills": [
         {
           "id": "mvanhorn/last30days-skill::skills/last30days::last30days",
@@ -3316,9 +3368,9 @@
       "owner": "oliver-zehentleitner",
       "totalSkills": 1,
       "repos": ["oliver-zehentleitner/keep-the-why"],
-      "categories": { "ai-agents": 1, "design": 1, "coding": 1, "writing": 1 },
+      "categories": { "writing": 1 },
       "verifiedCount": 1,
-      "totalTokens": 7181,
+      "totalTokens": 6034,
       "topSkills": [
         {
           "id": "oliver-zehentleitner/keep-the-why::skills/keep-the-why::keep-the-why",
@@ -3340,7 +3392,7 @@
         "productivity": 1
       },
       "verifiedCount": 1,
-      "totalTokens": 2865,
+      "totalTokens": 2877,
       "topSkills": [
         {
           "id": "pbakaus/impeccable::.claude/skills/impeccable::impeccable",
@@ -3363,7 +3415,7 @@
         "productivity": 1
       },
       "verifiedCount": 1,
-      "totalTokens": 4373,
+      "totalTokens": 4448,
       "topSkills": [
         {
           "id": "tt-a1i/archify::archify::archify",
