@@ -67,8 +67,10 @@ describe("computeInstalledOverlapScore", () => {
 
   it("scores identical name+description at 1", () => {
     const score = computeInstalledOverlapScore(
-      "kube-deploy", "Deploy kubernetes manifests",
-      "kube-deploy", "Deploy kubernetes manifests",
+      "kube-deploy",
+      "Deploy kubernetes manifests",
+      "kube-deploy",
+      "Deploy kubernetes manifests",
       weights,
     );
     expect(score).toBe(1);
@@ -76,8 +78,10 @@ describe("computeInstalledOverlapScore", () => {
 
   it("caps different-name identical descriptions at the description weight", () => {
     const score = computeInstalledOverlapScore(
-      "alpha-tools", "Deploy kubernetes manifests",
-      "beta-kit", "Deploy kubernetes manifests",
+      "alpha-tools",
+      "Deploy kubernetes manifests",
+      "beta-kit",
+      "Deploy kubernetes manifests",
       weights,
     );
     expect(score).toBeCloseTo(0.6, 10);
@@ -85,8 +89,10 @@ describe("computeInstalledOverlapScore", () => {
 
   it("scores unrelated descriptions near 0", () => {
     const score = computeInstalledOverlapScore(
-      "a", "Deploy kubernetes manifests",
-      "b", "Build docker images",
+      "a",
+      "Deploy kubernetes manifests",
+      "b",
+      "Build docker images",
       weights,
     );
     expect(score).toBeLessThan(0.2);
@@ -100,8 +106,10 @@ describe("computeInstalledOverlapScore", () => {
       new Set(["use", "this", "skill", "provides", "cooking"]),
     ]);
     const score = computeInstalledOverlapScore(
-      "a", "Use this skill — provides help",
-      "b", "Use this skill — provides help",
+      "a",
+      "Use this skill — provides help",
+      "b",
+      "Use this skill — provides help",
       boilerHeavy,
     );
     // All shared tokens are boilerplate with weight 1; nothing distinctive.
@@ -344,9 +352,9 @@ describe("detectSemanticOverlaps", () => {
     }
     // The paraphrased same-job pair outranks the incidental markdown share.
     const top = report.pairs[0];
-    expect(
-      [top.a.name, top.b.name].sort().join("/"),
-    ).toBe("strong-pair-a/strong-pair-b");
+    expect([top.a.name, top.b.name].sort().join("/")).toBe(
+      "strong-pair-a/strong-pair-b",
+    );
   });
 
   it("respects an explicit threshold", () => {

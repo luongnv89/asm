@@ -59,7 +59,7 @@ export function CatalogProvider({ children }) {
         let miniSearch;
         try {
           miniSearch = MiniSearch.loadJS(parsedIndex, MINISEARCH_OPTIONS);
-        } catch (loadErr) {
+        } catch {
           // Catalog loaded but MiniSearch failed to initialize
           // (e.g. corrupted index). Show catalog without search.
           if (cancelled) return;
@@ -68,7 +68,8 @@ export function CatalogProvider({ children }) {
             error: null,
             catalog,
             miniSearch: null,
-            searchError: "Search index failed to load. The catalog is still available without search.",
+            searchError:
+              "Search index failed to load. The catalog is still available without search.",
           });
           return;
         }

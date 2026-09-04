@@ -17,7 +17,6 @@ export default function CategoryTabs({
   categoryCounts = {},
   onChange,
 }) {
-
   const activeInOverflow = useMemo(() => {
     for (const c of activeCategories) {
       const idx = categories.indexOf(c);

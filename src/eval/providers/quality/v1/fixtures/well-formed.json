@@ -186,9 +186,7 @@
         "name": "PII detection",
         "score": 10,
         "max": 10,
-        "findings": [
-          "No PII detected in skill files."
-        ],
+        "findings": ["No PII detected in skill files."],
         "suggestions": []
       },
       {
@@ -196,9 +194,7 @@
         "name": "Script linting",
         "score": 10,
         "max": 10,
-        "findings": [
-          "No bundled scripts found to lint."
-        ],
+        "findings": ["No bundled scripts found to lint."],
         "suggestions": []
       }
     ],

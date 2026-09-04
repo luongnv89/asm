@@ -261,8 +261,18 @@ export async function cmdAuditOverlap(args: ParsedArgs, startTime: number) {
         score: Number(p.score.toFixed(4)),
         high_confidence: p.highConfidence,
         reason: p.reason,
-        a: { name: p.a.name, provider: p.a.provider, scope: p.a.scope, path: p.a.path },
-        b: { name: p.b.name, provider: p.b.provider, scope: p.b.scope, path: p.b.path },
+        a: {
+          name: p.a.name,
+          provider: p.a.provider,
+          scope: p.a.scope,
+          path: p.a.path,
+        },
+        b: {
+          name: p.b.name,
+          provider: p.b.provider,
+          scope: p.b.scope,
+          path: p.b.path,
+        },
       })),
     };
     console.log(formatMachineOutput("audit overlap", data, startTime));

@@ -79,9 +79,8 @@ export default defineConfig(({ command }) => ({
   // outDir already IS `website/`, and a publicDir copy would try to
   // re-overwrite the catalog JSONs (and every single `skills/*.json`) on
   // every Vite build.
-  publicDir: command === "serve"
-    ? resolve(here, "../website")
-    : resolve(here, "public"),
+  publicDir:
+    command === "serve" ? resolve(here, "../website") : resolve(here, "public"),
   build: {
     outDir: resolve(here, "../website"),
     emptyOutDir: false,

@@ -43,7 +43,9 @@ self.addEventListener("fetch", (event) => {
         .then((response) => {
           // Clone response to cache and return
           const clone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          caches
+            .open(CACHE_NAME)
+            .then((cache) => cache.put(event.request, clone));
           return response;
         })
         .catch(() => caches.match(event.request)),
@@ -54,14 +56,19 @@ self.addEventListener("fetch", (event) => {
   // Everything else — cache-first for static assets
   event.respondWith(
     caches.match(event.request).then((cached) => {
-      return cached || fetch(event.request).then((response) => {
-        // Cache successful responses
-        if (response.ok) {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
-        }
-        return response;
-      });
+      return (
+        cached ||
+        fetch(event.request).then((response) => {
+          // Cache successful responses
+          if (response.ok) {
+            const clone = response.clone();
+            caches
+              .open(CACHE_NAME)
+              .then((cache) => cache.put(event.request, clone));
+          }
+          return response;
+        })
+      );
     }),
   );
 });

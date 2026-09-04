@@ -194,6 +194,7 @@ function runNpmAudit(): unknown {
     case "spawn-error":
       console.error(`npm audit failed to start: ${decision.message}`);
       process.exit(2);
+      break;
     case "unavailable":
       if (isNpmAuditTimeout(result)) {
         console.log(
@@ -205,10 +206,12 @@ function runNpmAudit(): unknown {
         );
       }
       process.exit(0);
+      break;
     case "unreadable":
       console.error("npm audit --json produced unreadable output");
       if (result.stderr) console.error(result.stderr);
       process.exit(2);
+      break;
     case "report":
       return decision.report;
   }

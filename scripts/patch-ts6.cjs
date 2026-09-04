@@ -10,7 +10,13 @@
  * `@typescript/typescript6`. It is idempotent and safe to re-run.
  */
 const { resolve, join } = require("node:path");
-const { symlinkSync, mkdirSync, existsSync, readlinkSync, lstatSync } = require("node:fs");
+const {
+  symlinkSync,
+  mkdirSync,
+  existsSync,
+  readlinkSync,
+  lstatSync,
+} = require("node:fs");
 
 const root = resolve(__dirname, "..");
 const ts6Path = join(root, "node_modules/@typescript/typescript6");
@@ -56,9 +62,18 @@ for (const target of targets) {
   // Remove existing file/dir/symlink
   if (existsSync(linkPath)) {
     try {
-      lstatSync(linkPath).isDirectory() && !readlinkSync(linkPath)
-        ? require("node:fs").rmSync(linkPath, { recursive: true })
-        : require("node:fs").unlinkSync(linkPath);
+      const fs = require("node:fs");
+      let isDir = false;
+      try {
+        isDir = lstatSync(linkPath).isDirectory() && !readlinkSync(linkPath);
+      } catch {
+        isDir = lstatSync(linkPath).isDirectory();
+      }
+      if (isDir) {
+        fs.rmSync(linkPath, { recursive: true });
+      } else {
+        fs.unlinkSync(linkPath);
+      }
     } catch {
       // best effort
     }
@@ -67,4 +82,6 @@ for (const target of targets) {
   patched++;
 }
 
-console.log(`patch-ts6: patched ${patched}/${targets.length} packages to use @typescript/typescript6`);
+console.log(
+  `patch-ts6: patched ${patched}/${targets.length} packages to use @typescript/typescript6`,
+);

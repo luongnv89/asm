@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { FACET_DEFS } from "../lib/facets.js";
 
 const AUTHOR_MAX_VISIBLE = 10;
@@ -64,10 +64,15 @@ export default function FacetRow({ counts, activeFacets, onToggle }) {
               <div className="flex flex-wrap gap-1">
                 {(() => {
                   const isAuthor = def.key === "author";
-                  const maxVisible = isAuthor ? AUTHOR_MAX_VISIBLE : order.length;
+                  const maxVisible = isAuthor
+                    ? AUTHOR_MAX_VISIBLE
+                    : order.length;
                   const showAll = !isAuthor || order.length <= maxVisible;
-                  const visibleItems = showAll ? order : order.slice(0, maxVisible);
-                  const remaining = isAuthor && !showAll ? order.length - maxVisible : 0;
+                  const visibleItems = showAll
+                    ? order
+                    : order.slice(0, maxVisible);
+                  const remaining =
+                    isAuthor && !showAll ? order.length - maxVisible : 0;
 
                   return (
                     <>
@@ -105,7 +110,8 @@ export default function FacetRow({ counts, activeFacets, onToggle }) {
                             type="button"
                             onClick={() => {
                               const next = new Set(activeSet);
-                              for (const v of order.slice(maxVisible)) next.add(v);
+                              for (const v of order.slice(maxVisible))
+                                next.add(v);
                               onToggle(def.key, next);
                             }}
                             className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] rounded border border-dashed border-[var(--border)] text-[var(--fg-dim)] hover:text-[var(--fg)] hover:border-[var(--brand)] transition-colors"
