@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Star, Wrench } from "lucide-react";
 import { Badge } from "./ui/badge.jsx";
 import AddToCartButton from "./AddToCartButton.jsx";
+import { categoryLabel, categoryPageUrl } from "../lib/category-seo.js";
 import {
   formatStars,
   formatTokens,
@@ -141,9 +142,14 @@ function SkillCard({
             </Badge>
           )}
           {(skill.categories || []).slice(0, 2).map((c) => (
-            <Badge key={c} tone="cat">
-              {c}
-            </Badge>
+            <a
+              key={c}
+              href={categoryPageUrl(c)}
+              title={`Browse all ${categoryLabel(c)} skills`}
+              className="no-underline"
+            >
+              <Badge tone="cat">{c}</Badge>
+            </a>
           ))}
         </div>
       </div>

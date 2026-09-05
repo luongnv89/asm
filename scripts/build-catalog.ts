@@ -22,6 +22,12 @@ import { fileURLToPath } from "url";
 import MiniSearch from "minisearch";
 import { MINISEARCH_OPTIONS } from "./minisearch-options";
 import {
+  categoryMeta,
+  renderCategoryPage,
+  renderLlmsCategoryLines,
+  renderSitemapCategoryUrls,
+} from "./category-seo";
+import {
   repoBundlesForIndex,
   type RepoBundleManifest,
 } from "../src/repo-bundles";
@@ -914,12 +920,15 @@ if (existsSync(ogImagePngSrc)) {
 // of sync with the catalog again. index.html counts are injected separately by
 // the Vite `inject-catalog-counts` plugin during `build:site`.
 const seoSrcDir = join(root, "website-src");
+// catalog.generatedAt is an ISO timestamp; sitemap <lastmod> wants YYYY-MM-DD.
+const seoLastmod = catalog.generatedAt.slice(0, 10);
 const seoTokens: Record<string, string> = {
   "{{SKILL_COUNT}}": String(catalog.totalSkills),
   "{{REPO_COUNT}}": String(catalog.totalRepos),
   "{{CATEGORY_COUNT}}": String(categories.length),
-  // catalog.generatedAt is an ISO timestamp; sitemap <lastmod> wants YYYY-MM-DD.
-  "{{LASTMOD}}": catalog.generatedAt.slice(0, 10),
+  "{{LASTMOD}}": seoLastmod,
+  "{{CATEGORY_URLS}}": renderSitemapCategoryUrls(categories, seoLastmod),
+  "{{CATEGORY_LINKS}}": renderLlmsCategoryLines(categories),
 };
 // Each entry renders website-src/<from> → website/<to> with token substitution.
 const seoTemplates: { from: string; to: string }[] = [
@@ -949,6 +958,44 @@ function renderSeoTemplate(from: string, to: string): void {
 }
 for (const { from, to } of seoTemplates) {
   renderSeoTemplate(from, to);
+}
+
+// ─── Static category pages (category SEO) ───────────────────────────────────
+// One crawlable HTML page per category at website/categories/<slug>.html:
+// unique title/description/H1, self-canonical, CollectionPage + ItemList +
+// BreadcrumbList JSON-LD. The SPA keeps its HashRouter — these static pages
+// are the indexable surface crawlers (including no-JS AI crawlers) read.
+// Skills sort best-score-first, same comparator as the related-skills shelf.
+const categoriesDir = join(outDir, "categories");
+mkdirSync(categoriesDir, { recursive: true });
+for (const category of categories) {
+  categoryMeta(category); // validates the slug has a label/description
+  const catSkills = skills
+    .filter((s) => s.categories.includes(category))
+    .sort(
+      (a, b) =>
+        (b.evalSummary?.overallScore ?? -1) -
+          (a.evalSummary?.overallScore ?? -1) || a.name.localeCompare(b.name),
+    )
+    .map((s) => ({
+      id: s.id,
+      name: s.name,
+      description: s.description,
+      owner: s.owner,
+      repo: s.repo,
+      overallScore: s.evalSummary?.overallScore,
+      grade: s.evalSummary?.grade,
+    }));
+  writeFileSync(
+    join(categoriesDir, `${category}.html`),
+    renderCategoryPage({
+      slug: category,
+      skills: catSkills,
+      totalRepos: repos.length,
+      lastmod: seoLastmod,
+    }),
+    "utf-8",
+  );
 }
 
 // ─── Per-Repo and Per-Author Stats (issue #344) ─────────────────────────────
@@ -1164,7 +1211,7 @@ console.log(
 );
 console.log(`    skills/*.json:    ${detailFilesWritten} files`);
 console.log(
-  `  SEO: llms.txt, sitemap.xml, robots.txt, og-image.svg rendered (skills=${catalog.totalSkills}, repos=${catalog.totalRepos}, lastmod=${seoTokens["{{LASTMOD}}"]})`,
+  `  SEO: llms.txt, sitemap.xml, robots.txt, og-image.svg rendered + ${categories.length} category pages (skills=${catalog.totalSkills}, repos=${catalog.totalRepos}, lastmod=${seoTokens["{{LASTMOD}}"]})`,
 );
 
 // Category distribution

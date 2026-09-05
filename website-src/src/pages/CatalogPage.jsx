@@ -3,6 +3,7 @@ import { useParams, Link, useLocation } from "react-router-dom";
 import { ArrowLeft, SlidersHorizontal } from "lucide-react";
 import { useCatalog } from "../hooks/useCatalog.jsx";
 import { useCatalogState } from "../hooks/useCatalogState.js";
+import { categoryLabel, categoryPageUrl } from "../lib/category-seo.js";
 import {
   applyFilters,
   anyFilterActive,
@@ -161,6 +162,45 @@ export default function CatalogPage() {
     },
     [setPage],
   );
+
+  // Per-category document metadata. A single-category ?cat= view gets a
+  // unique title/description and canonicalizes to its indexable static
+  // page — sort/page/search/facet params never reach the canonical (E).
+  // Any other view restores the shell values captured on mount.
+  // Shell head values captured on mount; any non-single-category view
+  // restores them so a stale category title/canonical never lingers.
+  const [initialHead] = useState(() =>
+    typeof document === "undefined"
+      ? null
+      : {
+          title: document.title,
+          description:
+            document
+              .querySelector('meta[name="description"]')
+              ?.getAttribute("content") ?? "",
+          canonical:
+            document
+              .querySelector('link[rel="canonical"]')
+              ?.getAttribute("href") ?? "",
+        },
+  );
+  useEffect(() => {
+    const cats = [...state.activeCategories];
+    const singleCat = cats.length === 1 ? cats[0] : null;
+    if (singleCat) {
+      const label = categoryLabel(singleCat);
+      document.title = `${label} Skills (${filtered.length}) — asm skill catalog`;
+      setMetaTag(
+        "description",
+        `Browse ${filtered.length} free, open-source ${label} skills for AI coding agents — install any of them with a single command.`,
+      );
+      setCanonicalUrl(categoryPageUrl(singleCat));
+    } else if (initialHead) {
+      document.title = initialHead.title;
+      setMetaTag("description", initialHead.description);
+      setCanonicalUrl(initialHead.canonical);
+    }
+  }, [state, filtered.length, initialHead]);
 
   if (error) {
     return (
@@ -448,6 +488,27 @@ export default function CatalogPage() {
       </div>
     </div>
   );
+}
+
+function setMetaTag(name, content) {
+  let el = document.querySelector(`meta[name="${name}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute("name", name);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
+
+function setCanonicalUrl(href) {
+  if (!href) return;
+  let el = document.querySelector('link[rel="canonical"]');
+  if (!el) {
+    el = document.createElement("link");
+    el.setAttribute("rel", "canonical");
+    document.head.appendChild(el);
+  }
+  el.setAttribute("href", href);
 }
 
 function countActiveFilters(state) {

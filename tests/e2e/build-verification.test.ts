@@ -607,3 +607,149 @@ describe("catalog: star counts degrade honestly (issue #598)", () => {
     }
   });
 });
+
+// ─── Category pages SEO ─────────────────────────────────────────────────────
+// The catalog's ?cat= filter views are HashRouter state — invisible to
+// crawlers. `scripts/category-seo.ts` generates one indexable static page
+// per category; the sitemap/llms.txt templates enumerate them; the SPA
+// canonicalizes single-category views to them and links badges at them.
+
+import {
+  CATEGORY_META,
+  SITE_BASE,
+  categoryMeta,
+  categoryPageUrl,
+  renderCategoryPage,
+  renderLlmsCategoryLines,
+  renderSitemapCategoryUrls,
+} from "../../scripts/category-seo";
+
+describe("category SEO: helpers", () => {
+  test("every known category has a label and description", () => {
+    expect(Object.keys(CATEGORY_META).length).toBeGreaterThanOrEqual(16);
+    for (const meta of Object.values(CATEGORY_META)) {
+      expect(meta.label.length).toBeGreaterThan(0);
+      expect(meta.description.length).toBeGreaterThan(0);
+    }
+  });
+
+  test("unknown slugs fall back to a title-case label", () => {
+    expect(categoryMeta("brand-new-cat").label).toBe("Brand New Cat");
+    expect(categoryMeta("devops")).toEqual(CATEGORY_META["devops"]);
+  });
+
+  test("category URLs are real pages, not hash fragments", () => {
+    expect(categoryPageUrl("devops")).toBe(
+      `${SITE_BASE}/categories/devops.html`,
+    );
+    expect(categoryPageUrl("devops")).not.toContain("#");
+  });
+
+  test("rendered page carries unique title, canonical, H1 and JSON-LD", () => {
+    const html = renderCategoryPage({
+      slug: "testing",
+      skills: [
+        {
+          id: "o/r::s",
+          name: "s",
+          description: "d",
+          owner: "o",
+          repo: "r",
+          overallScore: 90,
+          grade: "A",
+        },
+      ],
+      totalRepos: 35,
+      lastmod: "2026-09-05",
+    });
+    expect(html).toContain("<title>Testing Skills (1)");
+    expect(html).toContain(
+      `<link rel="canonical" href="${SITE_BASE}/categories/testing.html" />`,
+    );
+    expect(html).toContain("<h1>Testing Skills</h1>");
+    expect(html).toContain('property="og:image"');
+    expect(html).toContain('"@type": "CollectionPage"');
+    expect(html).toContain('"@type": "ItemList"');
+    expect(html).toContain('"@type": "BreadcrumbList"');
+    expect(html).toContain("o/r");
+    // Visible list and ItemList describe the same skill.
+    expect(html).toContain(`${SITE_BASE}/#/skills/o%2Fr%3A%3As`);
+  });
+
+  test("descriptions are HTML-escaped", () => {
+    const html = renderCategoryPage({
+      slug: "testing",
+      skills: [
+        {
+          id: "a",
+          name: "<b>n</b>",
+          description: 'x "y"',
+          owner: "o",
+          repo: "r",
+        },
+      ],
+      totalRepos: 1,
+      lastmod: "2026-09-05",
+    });
+    // Visible HTML is escaped; JSON-LD keeps the raw string (valid JSON).
+    expect(html).toContain("&lt;b&gt;n&lt;/b&gt;");
+    expect(html).toContain(`"name": ${JSON.stringify("<b>n</b>")}`);
+  });
+
+  test("sitemap snippet lists real URLs with no fragments", () => {
+    const urls = renderSitemapCategoryUrls(["devops", "git"], "2026-09-05");
+    expect(urls).toContain(`${SITE_BASE}/categories/devops.html`);
+    expect(urls).toContain(`${SITE_BASE}/categories/git.html`);
+    expect(urls).not.toContain("#");
+  });
+
+  test("llms lines link every category to its page", () => {
+    const lines = renderLlmsCategoryLines(["devops"]);
+    expect(lines).toContain(`- [DevOps](${SITE_BASE}/categories/devops.html):`);
+  });
+});
+
+describe("category SEO: wiring", () => {
+  const SRC = join(ROOT, "website-src");
+
+  test("sitemap template lists categories, not hash routes", () => {
+    const sitemap = readFileSync(join(SRC, "sitemap.xml"), "utf-8");
+    expect(sitemap).toContain("{{CATEGORY_URLS}}");
+    expect(sitemap).not.toContain("#/");
+  });
+
+  test("llms.txt template renders category links from the catalog", () => {
+    const llms = readFileSync(join(SRC, "llms.txt"), "utf-8");
+    expect(llms).toContain("{{CATEGORY_LINKS}}");
+  });
+
+  test("build renders category tokens and static pages", () => {
+    const buildSrc = readFileSync(
+      join(ROOT, "scripts", "build-catalog.ts"),
+      "utf-8",
+    );
+    expect(buildSrc).toContain("{{CATEGORY_URLS}}");
+    expect(buildSrc).toContain("{{CATEGORY_LINKS}}");
+    expect(buildSrc).toContain("categories");
+    expect(buildSrc).toContain("renderCategoryPage");
+  });
+
+  test("CatalogPage sets per-category title and canonical", () => {
+    const src = readFileSync(
+      join(SRC, "src", "pages", "CatalogPage.jsx"),
+      "utf-8",
+    );
+    expect(src).toContain("categoryPageUrl");
+    expect(src).toContain("document.title");
+    expect(src).toContain('link[rel="canonical"]');
+  });
+
+  test("SkillCard badges link to static category pages", () => {
+    const src = readFileSync(
+      join(SRC, "src", "components", "SkillCard.jsx"),
+      "utf-8",
+    );
+    expect(src).toContain("categoryPageUrl");
+    expect(src).toContain("<a");
+  });
+});
