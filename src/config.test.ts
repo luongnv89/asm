@@ -24,7 +24,7 @@ describe("getDefaultConfig", () => {
     expect(config.version).toBe(1);
   });
 
-  it("returns 19 default providers", () => {
+  it("returns 21 default providers", () => {
     const config = getDefaultConfig();
     expect(config.providers).toHaveLength(21);
   });

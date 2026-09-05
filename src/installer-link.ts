@@ -216,10 +216,11 @@ export async function resolveProvider(
       p.name === "agents"
         ? `most harnesses except Claude Code — ${p.global}`
         : p.global,
-    // First-time setup pre-checks Agents + Claude Code (#617).
+    // First-time setup pre-checks Agents + Claude Code (#617), but never a
+    // provider the user has disabled — a pre-checked row installs on Enter.
     checked: savedSet
       ? savedSet.has(p.name)
-      : p.name === "agents" || p.name === "claude",
+      : p.enabled && (p.name === "agents" || p.name === "claude"),
   }));
 
   const selectedIndices = await checkboxPicker({ items: pickerItems });

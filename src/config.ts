@@ -280,8 +280,9 @@ function mergeWithDefaults(config: Partial<AppConfig>): AppConfig {
 
   // Canonicalize order so DEFAULT_PROVIDERS ordering wins for built-ins (#617).
   // Reordering the defaults must reach users who already have a saved config,
-  // not just fresh installs. A user-added provider keeps its anchor: it stays
-  // just after whichever built-in preceded it in the saved config.
+  // not just fresh installs. A user-added provider sorts just after the
+  // built-in that preceded it at this point, which is after the new defaults
+  // the insertion loop above already slotted in ahead of it.
   const defaultRank = new Map(
     defaults.providers.map((p, i) => [p.name, i] as const),
   );

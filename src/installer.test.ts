@@ -1091,7 +1091,7 @@ describe("resolveProvider", () => {
     expect((capturedItems[2] as { checked: boolean }).checked).toBe(false);
   });
 
-  test("interactive picker: all providers disabled still shows the claude pre-check", async () => {
+  test("interactive picker: all providers disabled shows picker with nothing pre-checked", async () => {
     const allDisabled: ProviderConfig[] = [
       { ...claude, enabled: false },
       { ...codex, enabled: false },
@@ -1109,8 +1109,9 @@ describe("resolveProvider", () => {
     const result = await resolveProvider(config, null, true);
     expect(result.provider.name).toBe("claude");
     expect(capturedItems).toHaveLength(2);
-    // Disabled providers still show; claude keeps its first-run pre-check.
-    expect((capturedItems[0] as { checked: boolean }).checked).toBe(true);
+    // Disabled providers still show, but the first-run pre-check never
+    // ticks one the user turned off (#617).
+    expect((capturedItems[0] as { checked: boolean }).checked).toBe(false);
     expect((capturedItems[1] as { checked: boolean }).checked).toBe(false);
   });
 
