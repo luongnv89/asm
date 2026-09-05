@@ -211,8 +211,15 @@ export async function resolveProvider(
 
   const pickerItems = config.providers.map((p) => ({
     label: `${p.label} (${p.name})`,
-    hint: p.global,
-    checked: savedSet ? savedSet.has(p.name) : p.name === "agents",
+    // The note leads so it survives hint truncation on narrow terminals (#617).
+    hint:
+      p.name === "agents"
+        ? `most harnesses except Claude Code — ${p.global}`
+        : p.global,
+    // First-time setup pre-checks Agents + Claude Code (#617).
+    checked: savedSet
+      ? savedSet.has(p.name)
+      : p.name === "agents" || p.name === "claude",
   }));
 
   const selectedIndices = await checkboxPicker({ items: pickerItems });

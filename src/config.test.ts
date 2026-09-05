@@ -26,20 +26,22 @@ describe("getDefaultConfig", () => {
 
   it("returns 19 default providers", () => {
     const config = getDefaultConfig();
-    expect(config.providers).toHaveLength(19);
+    expect(config.providers).toHaveLength(21);
   });
 
-  it("includes all 19 default providers in priority order", () => {
+  it("includes all 21 default providers in priority order", () => {
     const config = getDefaultConfig();
     const names = config.providers.map((p) => p.name);
     expect(names).toEqual([
+      "agents",
       "claude",
-      "codex",
-      "opencode",
       "pi",
+      "opencode",
+      "codex",
+      "omp",
+      "grok",
       "hermes",
       "openclaw",
-      "agents",
       "cursor",
       "copilot",
       "windsurf",
@@ -55,9 +57,9 @@ describe("getDefaultConfig", () => {
     ]);
   });
 
-  it("all 19 providers are enabled by default", () => {
+  it("all 21 providers are enabled by default", () => {
     const config = getDefaultConfig();
-    expect(config.providers).toHaveLength(19);
+    expect(config.providers).toHaveLength(21);
     expect(config.providers.every((p) => p.enabled)).toBe(true);
   });
 
@@ -76,7 +78,7 @@ describe("getDefaultConfig", () => {
     const a = getDefaultConfig();
     const b = getDefaultConfig();
     a.providers[0].name = "mutated";
-    expect(b.providers[0].name).toBe("claude");
+    expect(b.providers[0].name).toBe("agents");
   });
 });
 
@@ -202,7 +204,7 @@ describe("config backup on corruption", () => {
 
     // Should return defaults
     expect(config.version).toBe(1);
-    expect(config.providers).toHaveLength(19);
+    expect(config.providers).toHaveLength(21);
 
     // Should have created backup
     const backup = await readFile(backupPath, "utf-8");
@@ -446,13 +448,68 @@ describe("mergeWithDefaults priority-order insertion", () => {
 
     const config = await loadConfig();
     const piIdx = config.providers.findIndex((p) => p.name === "pi");
+    const claudeIdx = config.providers.findIndex((p) => p.name === "claude");
     const opencodeIdx = config.providers.findIndex(
       (p) => p.name === "opencode",
     );
-    const hermesIdx = config.providers.findIndex((p) => p.name === "hermes");
 
-    expect(piIdx).toBeGreaterThan(opencodeIdx);
-    expect(piIdx).toBeLessThan(hermesIdx);
+    // Post-#617 canonical slot: pi sits between claude and opencode.
+    expect(piIdx).toBeGreaterThan(claudeIdx);
+    expect(piIdx).toBeLessThan(opencodeIdx);
+  });
+
+  it("canonicalizes a saved config that predates the #617 reorder", async () => {
+    await mkdir(dirname(configPath), { recursive: true });
+    // Pre-#617 saved order: claude first, agents seventh, no omp/grok.
+    const legacyNames = [
+      "claude",
+      "codex",
+      "opencode",
+      "pi",
+      "hermes",
+      "openclaw",
+      "agents",
+      "cursor",
+      "copilot",
+      "windsurf",
+      "antigravity",
+      "gemini",
+      "cline",
+      "roocode",
+      "continue",
+      "aider",
+      "zed",
+      "augment",
+      "amp",
+    ];
+    const partial = {
+      version: 1,
+      providers: legacyNames.map((name) => ({
+        name,
+        label: name,
+        global: `~/.${name}/skills`,
+        project: `.${name}/skills`,
+        enabled: true,
+      })),
+      preferences: { defaultScope: "both", defaultSort: "name" },
+    };
+    await writeFile(configPath, JSON.stringify(partial), "utf-8");
+
+    const config = await loadConfig();
+    const names = config.providers.map((p) => p.name);
+
+    expect(names.slice(0, 7)).toEqual([
+      "agents",
+      "claude",
+      "pi",
+      "opencode",
+      "codex",
+      "omp",
+      "grok",
+    ]);
+    expect(names).toHaveLength(21);
+    // Nothing the user had is dropped by the reorder.
+    for (const name of legacyNames) expect(names).toContain(name);
   });
 
   it("preserves user-added custom providers in place when adding new defaults", async () => {

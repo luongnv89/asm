@@ -376,7 +376,7 @@ function Solution() {
     {
       icon: "05",
       head: "Works with every major agent",
-      body: "19 providers built in: Claude Code, Codex, Cursor, Windsurf, Cline, Roo, Continue, Copilot, Aider, Zed, Gemini CLI, and more. Add custom ones in seconds.",
+      body: "21 providers built in: Agents, Claude Code, Pi, OpenCode, Codex, Oh My Pi, Grok CLI, Cursor, Windsurf, Cline, Gemini CLI, and more. Add custom ones in seconds.",
     },
     {
       icon: "06",

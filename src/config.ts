@@ -24,7 +24,14 @@ export function getConfigDir(): string {
 }
 
 const DEFAULT_PROVIDERS: ProviderConfig[] = [
-  // ── Priority providers (ordered by user preference) ──
+  // ── Priority providers (ordered by user preference, #617) ──
+  {
+    name: "agents",
+    label: "Agents",
+    global: "~/.agents/skills",
+    project: ".agents/skills",
+    enabled: true,
+  },
   {
     name: "claude",
     label: "Claude Code",
@@ -33,10 +40,10 @@ const DEFAULT_PROVIDERS: ProviderConfig[] = [
     enabled: true,
   },
   {
-    name: "codex",
-    label: "Codex",
-    global: "~/.codex/skills",
-    project: ".codex/skills",
+    name: "pi",
+    label: "Pi",
+    global: "~/.pi/skills",
+    project: ".pi/skills",
     enabled: true,
   },
   {
@@ -47,12 +54,27 @@ const DEFAULT_PROVIDERS: ProviderConfig[] = [
     enabled: true,
   },
   {
-    name: "pi",
-    label: "Pi",
-    global: "~/.pi/skills",
-    project: ".pi/skills",
+    name: "codex",
+    label: "Codex",
+    global: "~/.codex/skills",
+    project: ".codex/skills",
     enabled: true,
   },
+  {
+    name: "omp",
+    label: "Oh My Pi",
+    global: "~/.omp/agent/skills",
+    project: ".omp/skills",
+    enabled: true,
+  },
+  {
+    name: "grok",
+    label: "Grok CLI",
+    global: "~/.grok/skills",
+    project: ".grok/skills",
+    enabled: true,
+  },
+  // ── Additional providers ──
   {
     name: "hermes",
     label: "Hermes",
@@ -65,14 +87,6 @@ const DEFAULT_PROVIDERS: ProviderConfig[] = [
     label: "OpenClaw",
     global: "~/.openclaw/skills",
     project: ".openclaw/skills",
-    enabled: true,
-  },
-  // ── Additional providers ──
-  {
-    name: "agents",
-    label: "Agents",
-    global: "~/.agents/skills",
-    project: ".agents/skills",
     enabled: true,
   },
   {
@@ -263,6 +277,27 @@ function mergeWithDefaults(config: Partial<AppConfig>): AppConfig {
     providers.splice(insertAt, 0, { ...defaultProvider });
     existingNames.add(defaultProvider.name);
   }
+
+  // Canonicalize order so DEFAULT_PROVIDERS ordering wins for built-ins (#617).
+  // Reordering the defaults must reach users who already have a saved config,
+  // not just fresh installs. A user-added provider keeps its anchor: it stays
+  // just after whichever built-in preceded it in the saved config.
+  const defaultRank = new Map(
+    defaults.providers.map((p, i) => [p.name, i] as const),
+  );
+  const sortKey = new Map<ProviderConfig, number>();
+  let lastRank = -1;
+  for (const p of providers) {
+    const rank = defaultRank.get(p.name);
+    if (rank === undefined) {
+      sortKey.set(p, lastRank + 0.5);
+    } else {
+      lastRank = rank;
+      sortKey.set(p, rank);
+    }
+  }
+  // Stable sort keeps consecutive user-added providers in their saved order.
+  providers.sort((a, b) => sortKey.get(a)! - sortKey.get(b)!);
 
   return {
     version: config.version ?? defaults.version,

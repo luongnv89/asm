@@ -25,7 +25,7 @@
 
 | Pain                      | Without `asm`                                                                                                           | With `asm`                                                                 |
 | ------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| Scattered installs        | Same skill copied into `~/.claude/skills/`, `~/.codex/skills/`, `~/.cursor/rules/` — different versions, no single view | One `asm list` across all 19 providers and scopes                          |
+| Scattered installs        | Same skill copied into `~/.claude/skills/`, `~/.codex/skills/`, `~/.cursor/rules/` — different versions, no single view | One `asm list` across all 21 providers and scopes                          |
 | No inventory              | `ls` through hidden dirs; no idea what is installed, duplicated, or outdated                                            | `asm search`, `asm inspect`, `asm stats`, `asm audit`                      |
 | Invisible context cost    | Every installed skill's description is resident in the agent's prompt on every message, whether or not it ever fires    | `asm stats --tokens`, `asm audit residency`                                |
 | Install just to read once | Installing is the only way to get a skill in front of an agent — and it stays resident forever afterwards               | `asm get <skill>` prints the body and installs nothing                     |
@@ -281,7 +281,7 @@ MIT licensed. No accounts or paywalls.
 Yes. Commands return structured JSON (`--json`), accept non-interactive flags (`--yes`, `--machine`), and map to discrete actions an agent can chain — list inventory, search catalog, install, audit, uninstall.
 
 **Which agents are supported?**
-19 providers: Claude Code, Codex, OpenClaw, Cursor, Windsurf, Cline, Roo Code, Continue, GitHub Copilot, Aider, OpenCode, Zed, Augment, Amp, Gemini CLI, Google Antigravity, Pi, Hermes, and a generic Agents provider. Disable any via `asm config edit`.
+21 providers: a generic Agents provider (supported by most harnesses except Claude Code), Claude Code, Pi, OpenCode, Codex, Oh My Pi, Grok CLI, Hermes, OpenClaw, Cursor, GitHub Copilot, Windsurf, Google Antigravity, Gemini CLI, Cline, Roo Code, Continue, Aider, Zed, Augment, and Amp. Disable any via `asm config edit`.
 
 **What about the TUI?**
 Run `asm` with no args for an optional local browser. The CLI is the primary interface for scripts, CI, and agent tool calls.
@@ -509,14 +509,16 @@ asm install github:anthropics/skills --all
 <details>
 <summary><strong>Supported agent tools</strong></summary>
 
-19 built-in providers, all enabled by default. Disable via `asm config edit`.
+21 built-in providers, all enabled by default. Disable via `asm config edit`.
 
 | Tool               | Global Path                       | Project Path            |
 | ------------------ | --------------------------------- | ----------------------- |
+| Agents (generic)   | `~/.agents/skills/`               | `.agents/skills/`       |
 | Claude Code        | `~/.claude/skills/`               | `.claude/skills/`       |
 | Codex              | `~/.codex/skills/`                | `.codex/skills/`        |
+| Oh My Pi           | `~/.omp/agent/skills/`            | `.omp/skills/`          |
+| Grok CLI           | `~/.grok/skills/`                 | `.grok/skills/`         |
 | OpenClaw           | `~/.openclaw/skills/`             | `.openclaw/skills/`     |
-| Agents (generic)   | `~/.agents/skills/`               | `.agents/skills/`       |
 | Cursor             | `~/.cursor/rules/`                | `.cursor/rules/`        |
 | Windsurf           | `~/.windsurf/rules/`              | `.windsurf/rules/`      |
 | Cline              | `~/Documents/Cline/Rules/`        | `.clinerules/`          |
@@ -964,7 +966,7 @@ On first run, config is created at `~/.config/agent-skill-manager/config.json`:
 }
 ```
 
-- All 19 providers are enabled by default
+- All 21 providers are enabled by default
 - Set `"enabled": false` to skip a provider you don't use
 - Add arbitrary directories via `customPaths`
 - Manage via `asm config show|path|reset|edit` or press `c` in the TUI
