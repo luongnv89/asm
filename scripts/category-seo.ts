@@ -157,7 +157,7 @@ export function renderCategoryPage(input: CategoryPageInput): string {
       const skillUrl = `${SITE_BASE}/#/skills/${encodeURIComponent(s.id)}`;
       const score =
         s.overallScore !== undefined
-          ? ` · score ${s.overallScore}/100 (grade ${s.grade})`
+          ? ` · score ${escapeHtml(String(s.overallScore ?? ""))}/100 (grade ${escapeHtml(s.grade ?? "")})`
           : "";
       return (
         `      <li><a href="${skillUrl}">${escapeHtml(s.name)}</a>\n` +
