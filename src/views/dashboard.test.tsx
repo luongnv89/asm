@@ -97,9 +97,8 @@ describe("DashboardHeader", () => {
     expect(frame).toContain("Symlinks:");
     expect(frame).toContain("Tools:");
     expect(frame).toContain("Dupes:");
-    // The values column-group renders as "2 1 1 2 1" after the labels (global
-    // 2, project 1, symlinks 1, tools 2, dupes 1).
-    expect(frame).toContain("2 1 1 2 1");
+    // Ink wraps the stats row; dual-encoded dupes land in the values group.
+    expect(frame).toContain("2 1 1 2 ! 1");
   });
 
   it("renders the sort label with the active sort bracketed", () => {
@@ -120,6 +119,7 @@ describe("DashboardHeader", () => {
     // buildSortLabel: "(s) Sort: name  [version]  location"
     expect(frame).toContain("[version]");
     expect(frame).toContain("Sort:");
+    expect(frame).not.toContain("!");
   });
 
   it("highlights the active scope tab and dims the others", () => {

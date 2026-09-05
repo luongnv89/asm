@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Text, useInput } from "ink";
-import { theme } from "../utils/colors";
+import { selectedFill, theme } from "../utils/colors";
 import { getConfigPath } from "../config";
 import type { AppConfig } from "../utils/types";
 
@@ -9,7 +9,7 @@ function providerRow(
   globalPath: string,
   enabled: boolean,
 ): string {
-  const status = enabled ? "✔ ON " : "✘ OFF";
+  const status = enabled ? "on " : "off";
   const name = label.length > 14 ? label.slice(0, 14) : label;
   return `${status}  ${name.padEnd(15)} ${globalPath}`;
 }
@@ -88,11 +88,14 @@ export function ConfigView({ config, onClose, onOpenEditor }: ConfigProps) {
         return (
           <Box flexDirection="column" key={`prov-${p.name}`}>
             <Text
-              color={isSelected ? theme.accent : statusColor}
-              inverse={isSelected}
+              backgroundColor={
+                isSelected ? selectedFill.backgroundColor : undefined
+              }
             >
-              {isSelected ? "❯ " : "  "}
-              {row}
+              <Text color={isSelected ? theme.accent : theme.fgDim}>
+                {isSelected ? "❯ " : "  "}
+              </Text>
+              <Text color={statusColor}>{row}</Text>
             </Text>
             {isSelected && (
               <Text color={theme.fgDim}> Project: {p.project}</Text>
