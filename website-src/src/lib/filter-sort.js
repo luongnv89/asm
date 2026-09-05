@@ -110,6 +110,10 @@ export function applyFilters(skills, state, options = {}) {
     // "Most popular": the source repo's GitHub stars, best eval score as
     // the tiebreak so skills from the same repo still rank meaningfully,
     // then name. Missing/zero stars sink to the bottom.
+    // Diversified by repo (issue #622): skills share their repo's star
+    // count, so a pure stars sort fills the top with one repo
+    // (e.g. obra/superpowers). Round-robin across repos keeps every skill
+    // discoverable (pure reorder, no filtering) while the top mixes repos.
     results = results.slice().sort((a, b) => {
       const f = featuredFirst(a, b);
       if (f !== 0) return f;
@@ -121,6 +125,7 @@ export function applyFilters(skills, state, options = {}) {
       if (as !== bs) return bs - as;
       return a.name.localeCompare(b.name);
     });
+    results = diversifyByRepo(results);
   } else if (sortMode === "grade") {
     const gradeRank = { A: 0, B: 1, C: 2, D: 3, F: 4 };
     results = results.slice().sort((a, b) => {
@@ -155,6 +160,50 @@ export function applyFilters(skills, state, options = {}) {
   }
 
   return results;
+}
+
+/**
+ * Round-robin interleave of a popularity-sorted list across repos.
+ * Featured rows stay pinned on top in their existing order; the rest
+ * interleave one skill per repo per round, preserving within-repo order.
+ * Pure reorder — nothing is filtered, so every skill stays discoverable
+ * via pagination, search, or repo browsing (issue #622).
+ *
+ * @param {object[]} sorted Popularity-sorted rows (featured first).
+ * @returns {object[]}
+ */
+export function diversifyByRepo(sorted) {
+  let split = 0;
+  while (split < sorted.length && sorted[split].featured === true) split++;
+  const featured = sorted.slice(0, split);
+  const rest = sorted.slice(split);
+  if (rest.length < 2) return sorted.slice();
+  const groups = new Map();
+  const repoOrder = [];
+  for (const s of rest) {
+    const key = (s.owner || "") + "/" + (s.repo || "");
+    let g = groups.get(key);
+    if (!g) {
+      g = [];
+      groups.set(key, g);
+      repoOrder.push(key);
+    }
+    g.push(s);
+  }
+  if (repoOrder.length < 2) return sorted.slice();
+  const out = [];
+  for (let i = 0; ; i++) {
+    let pushed = false;
+    for (const key of repoOrder) {
+      const g = groups.get(key);
+      if (i < g.length) {
+        out.push(g[i]);
+        pushed = true;
+      }
+    }
+    if (!pushed) break;
+  }
+  return featured.concat(out);
 }
 
 /**

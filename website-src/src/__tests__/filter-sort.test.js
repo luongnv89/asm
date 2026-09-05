@@ -4,6 +4,7 @@ import {
   anyFilterActive,
   buildNameCollisionKeys,
   defaultSort,
+  diversifyByRepo,
 } from "../lib/filter-sort.js";
 import { computeFacetCounts, emptyFacetState } from "../lib/facets.js";
 
@@ -206,6 +207,71 @@ describe("applyFilters", () => {
     ]);
     const out = applyFilters(skills, state, { scoreById });
     expect(out.map((s) => s.id)).toEqual(["gamma", "beta"]);
+  });
+
+  it("sort: stars — diversifies top across repos, keeps all discoverable (#622)", () => {
+    const skills = [
+      mk({
+        id: "s1",
+        owner: "obra",
+        repo: "superpowers",
+        stars: 10000,
+        evalSummary: { overallScore: 90, grade: "A" },
+      }),
+      mk({
+        id: "s2",
+        owner: "obra",
+        repo: "superpowers",
+        stars: 10000,
+        evalSummary: { overallScore: 85, grade: "A" },
+      }),
+      mk({
+        id: "s3",
+        owner: "obra",
+        repo: "superpowers",
+        stars: 10000,
+        evalSummary: { overallScore: 80, grade: "A" },
+      }),
+      mk({
+        id: "s4",
+        owner: "obra",
+        repo: "superpowers",
+        stars: 10000,
+        evalSummary: { overallScore: 75, grade: "A" },
+      }),
+      mk({
+        id: "o1",
+        owner: "other",
+        repo: "repo-a",
+        stars: 9000,
+        evalSummary: { overallScore: 95, grade: "A" },
+      }),
+      mk({
+        id: "o2",
+        owner: "third",
+        repo: "repo-b",
+        stars: 8000,
+        evalSummary: { overallScore: 95, grade: "A" },
+      }),
+    ];
+    const out = applyFilters(skills, { ...base(), sort: "stars" });
+    // Same set, only reordered — nothing hidden.
+    expect(out.map((s) => s.id).sort()).toEqual(
+      ["s1", "s2", "s3", "s4", "o1", "o2"].sort(),
+    );
+    // Top 3 mix repos instead of one repo filling the top.
+    const top3Repos = new Set(
+      out.slice(0, 3).map((s) => s.owner + "/" + s.repo),
+    );
+    expect(top3Repos.size).toBe(3);
+  });
+
+  it("diversifyByRepo keeps featured pinned and is a pure reorder", () => {
+    const feat = mk({ id: "f", stars: 1, featured: true });
+    const pop = mk({ id: "p", owner: "a", repo: "ra", stars: 9999 });
+    expect(diversifyByRepo([feat, pop]).map((s) => s.id)).toEqual(["f", "p"]);
+    const single = [mk({ id: "a" }), mk({ id: "b" })];
+    expect(diversifyByRepo(single).map((s) => s.id)).toEqual(["a", "b"]);
   });
 });
 
