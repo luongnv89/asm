@@ -110,7 +110,12 @@ function SkillCard({
           className="shop-meta truncate"
           title={`${skill.owner}/${skill.repo}`}
         >
-          {skill.owner}/{skill.repo}
+          <Link
+            to={`/repos/${encodeURIComponent(skill.owner)}/${encodeURIComponent(skill.repo)}`}
+            className="shop-above hover:text-[var(--brand)] hover:underline"
+          >
+            {skill.owner}/{skill.repo}
+          </Link>
         </div>
         {collisionPath && (
           <div

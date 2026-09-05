@@ -133,7 +133,13 @@ export default function SkillDetail({ slim }) {
               rel="noopener noreferrer"
             >
               {skill.owner}/{skill.repo}
-            </a>
+            </a>{" "}
+            <Link
+              to={`/repos/${encodeURIComponent(skill.owner)}/${encodeURIComponent(skill.repo)}`}
+              className="text-[var(--brand)] hover:underline"
+            >
+              (view all skills)
+            </Link>
           </Row>
           {typeof skill.stars === "number" && skill.stars > 0 && (
             <Row label="GitHub" title="Source repository star count">

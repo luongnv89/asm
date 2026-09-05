@@ -11,6 +11,7 @@ import DocsPage from "./pages/DocsPage.jsx";
 import ChangelogPage from "./pages/ChangelogPage.jsx";
 import StatsPage from "./pages/StatsPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
+import RepoPage from "./pages/RepoPage.jsx";
 import { CatalogProvider } from "./hooks/useCatalog.jsx";
 import { BundleCartProvider } from "./hooks/useBundleCart.jsx";
 
@@ -60,6 +61,7 @@ export default function App() {
               <Route path="/changelog" element={<ChangelogPage />} />
               <Route path="/stats" element={<StatsPage />} />
               <Route path="/profile/:owner" element={<ProfilePage />} />
+              <Route path="/repos/:owner/:repo" element={<RepoPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>

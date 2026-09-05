@@ -1,4 +1,5 @@
 import { X } from "lucide-react";
+import { Link } from "react-router-dom";
 import SearchBox from "./SearchBox.jsx";
 import CategoryTabs from "./CategoryTabs.jsx";
 import FacetRow from "./FacetRow.jsx";
@@ -112,6 +113,17 @@ export default function FilterRail({
             </option>
           ))}
         </select>
+        {state.activeRepo && state.activeRepo !== "all" && (
+          <Link
+            to={`/repos/${state.activeRepo
+              .split("/")
+              .map(encodeURIComponent)
+              .join("/")}`}
+            className="text-xs text-[var(--brand)] hover:underline"
+          >
+            View {state.activeRepo} repo page →
+          </Link>
+        )}
       </div>
     </div>
   );

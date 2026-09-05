@@ -180,24 +180,33 @@ export default function StatsPage() {
               <span className="w-6 text-right font-mono text-[var(--fg-dim)]">
                 {i + 1}
               </span>
-              <a
-                href={r.repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to={`/repos/${encodeURIComponent(r.owner)}/${encodeURIComponent(r.repo)}`}
                 className="min-w-0 font-medium text-[var(--fg)] hover:text-[var(--brand)] transition-colors truncate"
                 title={`${r.owner}/${r.repo}`}
               >
                 {r.owner}/{r.repo}
-              </a>
+              </Link>
               <span
                 className="hidden sm:block text-[var(--fg-dim)] text-xs truncate"
                 title={r.description}
               >
                 {r.description?.slice(0, 40)}
               </span>
-              <Badge variant="secondary" className="text-xs">
-                {r.skillCount} skills
-              </Badge>
+              <span className="flex items-center gap-2 justify-self-end">
+                <a
+                  href={r.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-[var(--fg-dim)] hover:text-[var(--brand)] hover:underline"
+                  title={`Open ${r.owner}/${r.repo} on GitHub`}
+                >
+                  GitHub
+                </a>
+                <Badge variant="secondary" className="text-xs">
+                  {r.skillCount} skills
+                </Badge>
+              </span>
             </div>
           ))}
           {repos.length === 0 && (
