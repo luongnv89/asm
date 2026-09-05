@@ -691,9 +691,40 @@ describe("category SEO: helpers", () => {
       totalRepos: 1,
       lastmod: "2026-09-05",
     });
-    // Visible HTML is escaped; JSON-LD keeps the raw string (valid JSON).
+    // Visible HTML is escaped; JSON-LD escapes `<` so `</script>` can
+    // never break out of the block (skill names are untrusted input).
     expect(html).toContain("&lt;b&gt;n&lt;/b&gt;");
-    expect(html).toContain(`"name": ${JSON.stringify("<b>n</b>")}`);
+    expect(html).toContain(
+      `"name": ${JSON.stringify("<b>n</b>").replace(/</g, "\\u003c")}`,
+    );
+    expect(html).not.toContain("</script></script>");
+  });
+
+  test("skill names cannot break out of the JSON-LD script block", () => {
+    const html = renderCategoryPage({
+      slug: "testing",
+      skills: [
+        {
+          id: "a",
+          name: '</script><script>alert("xss")</script>',
+          description: "d",
+          owner: "o",
+          repo: "r",
+        },
+      ],
+      totalRepos: 1,
+      lastmod: "2026-09-05",
+    });
+    const blocks = html.match(
+      /<script type="application\/ld\+json">[\s\S]*?<\/script>/g,
+    );
+    expect(blocks).not.toBeNull();
+    for (const block of blocks ?? []) {
+      expect(block.slice(0, block.lastIndexOf("</script>"))).not.toContain(
+        "</script>",
+      );
+    }
+    expect(html).toContain("\\u003c/script>");
   });
 
   test("sitemap snippet lists real URLs with no fragments", () => {

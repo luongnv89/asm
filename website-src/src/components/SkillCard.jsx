@@ -146,9 +146,9 @@ function SkillCard({
               key={c}
               href={categoryPageUrl(c)}
               title={`Browse all ${categoryLabel(c)} skills`}
-              className="no-underline"
+              className="shop-above no-underline"
             >
-              <Badge tone="cat">{c}</Badge>
+              <Badge tone="cat">{categoryLabel(c)}</Badge>
             </a>
           ))}
         </div>

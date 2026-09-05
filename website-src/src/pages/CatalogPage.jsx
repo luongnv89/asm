@@ -186,7 +186,14 @@ export default function CatalogPage() {
   );
   useEffect(() => {
     const cats = [...state.activeCategories];
-    const singleCat = cats.length === 1 ? cats[0] : null;
+    const unfiltered =
+      !state.searchQuery.trim() &&
+      (!state.activeRepo || state.activeRepo === "all") &&
+      Object.values(state.activeFacets).every((set) => set.size === 0) &&
+      (!state.sort || state.sort === defaultSort(state.searchQuery)) &&
+      state.page === 1;
+    const singleCat =
+      !decodedId && cats.length === 1 && unfiltered ? cats[0] : null;
     if (singleCat) {
       const label = categoryLabel(singleCat);
       document.title = `${label} Skills (${filtered.length}) — asm skill catalog`;
@@ -200,7 +207,13 @@ export default function CatalogPage() {
       setMetaTag("description", initialHead.description);
       setCanonicalUrl(initialHead.canonical);
     }
-  }, [state, filtered.length, initialHead]);
+    return () => {
+      if (!initialHead) return;
+      document.title = initialHead.title;
+      setMetaTag("description", initialHead.description);
+      setCanonicalUrl(initialHead.canonical);
+    };
+  }, [state, filtered.length, initialHead, decodedId]);
 
   if (error) {
     return (

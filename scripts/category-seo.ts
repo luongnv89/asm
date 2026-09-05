@@ -116,6 +116,11 @@ export function escapeHtml(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
+/** JSON-LD stringify: escape `<` so `</script>` can never break out of the block. */
+export function jsonLd(v: unknown): string {
+  return JSON.stringify(v).replace(/</g, "\\u003c");
+}
+
 export interface CategoryPageSkill {
   id: string;
   name: string;
@@ -167,7 +172,7 @@ export function renderCategoryPage(input: CategoryPageInput): string {
       (s, i) => `      {
         "@type": "ListItem",
         "position": ${i + 1},
-        "name": ${JSON.stringify(s.name)},
+        "name": ${jsonLd(s.name)},
         "url": "${SITE_BASE}/#/skills/${encodeURIComponent(s.id)}"
       }`,
     )
@@ -196,8 +201,8 @@ export function renderCategoryPage(input: CategoryPageInput): string {
         "@type": "CollectionPage",
         "@id": "${url}",
         "url": "${url}",
-        "name": ${JSON.stringify(`${label} Skills — asm skill catalog`)},
-        "description": ${JSON.stringify(metaDesc)},
+        "name": ${jsonLd(`${label} Skills — asm skill catalog`)},
+        "description": ${jsonLd(metaDesc)},
         "isPartOf": { "@id": "${SITE_BASE}/#webapp" },
         "mainEntity": {
           "@type": "ItemList",
@@ -215,7 +220,7 @@ ${listItems}
         "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "Home", "item": "${SITE_BASE}/" },
           { "@type": "ListItem", "position": 2, "name": "Skills", "item": "${SITE_BASE}/#/skills" },
-          { "@type": "ListItem", "position": 3, "name": ${JSON.stringify(label)}, "item": "${url}" }
+          { "@type": "ListItem", "position": 3, "name": ${jsonLd(label)}, "item": "${url}" }
         ]
       }
     </script>
