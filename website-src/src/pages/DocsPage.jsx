@@ -809,26 +809,59 @@ metadata:
             </thead>
             <tbody>
               <ToolRow
+                tool="Agents"
+                note="most harnesses except Claude Code"
+                g="~/.agents/skills/"
+                p=".agents/skills/"
+              />
+              <ToolRow
                 tool="Claude Code"
                 g="~/.claude/skills/"
                 p=".claude/skills/"
               />
+              <ToolRow tool="Pi" g="~/.pi/skills/" p=".pi/skills/" />
+              <ToolRow
+                tool="OpenCode"
+                g="~/.config/opencode/skills/"
+                p=".opencode/skills/"
+              />
               <ToolRow tool="Codex" g="~/.codex/skills/" p=".codex/skills/" />
+              <ToolRow
+                tool="Oh My Pi"
+                g="~/.omp/agent/skills/"
+                p=".omp/skills/"
+              />
+              <ToolRow tool="Grok CLI" g="~/.grok/skills/" p=".grok/skills/" />
+              <ToolRow
+                tool="Hermes"
+                g="~/.hermes/skills/"
+                p=".hermes/skills/"
+              />
               <ToolRow
                 tool="OpenClaw"
                 g="~/.openclaw/skills/"
                 p=".openclaw/skills/"
               />
-              <ToolRow
-                tool="Agents"
-                g="~/.agents/skills/"
-                p=".agents/skills/"
-              />
               <ToolRow tool="Cursor" g="~/.cursor/rules/" p=".cursor/rules/" />
+              <ToolRow
+                tool="GitHub Copilot"
+                g="~/.github/instructions/"
+                p=".github/instructions/"
+              />
               <ToolRow
                 tool="Windsurf"
                 g="~/.windsurf/rules/"
                 p=".windsurf/rules/"
+              />
+              <ToolRow
+                tool="Google Antigravity"
+                g="~/.antigravity/skills/"
+                p=".antigravity/skills/"
+              />
+              <ToolRow
+                tool="Gemini CLI"
+                g="~/.gemini/skills/"
+                p=".gemini/skills/"
               />
               <ToolRow
                 tool="Cline"
@@ -841,24 +874,7 @@ metadata:
                 g="~/.continue/rules/"
                 p=".continue/rules/"
               />
-              <ToolRow
-                tool="GitHub Copilot"
-                g="~/.github/instructions/"
-                p=".github/instructions/"
-              />
               <ToolRow tool="Aider" g="~/.aider/skills/" p=".aider/skills/" />
-              <ToolRow
-                tool="OpenCode"
-                g="~/.config/opencode/skills/"
-                p=".opencode/skills/"
-              />
-              <ToolRow tool="Pi" g="~/.pi/skills/" p=".pi/skills/" />
-              <ToolRow
-                tool="Oh My Pi"
-                g="~/.omp/agent/skills/"
-                p=".omp/skills/"
-              />
-              <ToolRow tool="Grok CLI" g="~/.grok/skills/" p=".grok/skills/" />
               <ToolRow
                 tool="Zed"
                 g="~/.config/zed/prompt_overrides/"
@@ -870,21 +886,6 @@ metadata:
                 p=".augment/rules/"
               />
               <ToolRow tool="Amp" g="~/.amp/skills/" p=".amp/skills/" />
-              <ToolRow
-                tool="Gemini CLI"
-                g="~/.gemini/skills/"
-                p=".gemini/skills/"
-              />
-              <ToolRow
-                tool="Google Antigravity"
-                g="~/.antigravity/skills/"
-                p=".antigravity/skills/"
-              />
-              <ToolRow
-                tool="Hermes"
-                g="~/.hermes/skills/"
-                p=".hermes/skills/"
-              />
             </tbody>
           </table>
         </section>
@@ -1733,10 +1734,13 @@ function FieldRow({ name, req, desc }) {
   );
 }
 
-function ToolRow({ tool, g, p }) {
+function ToolRow({ tool, g, p, note }) {
   return (
     <tr>
-      <td>{tool}</td>
+      <td>
+        {tool}
+        {note ? ` — ${note}` : null}
+      </td>
       <td>
         <code>{g}</code>
       </td>

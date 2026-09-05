@@ -965,10 +965,10 @@ describe("resolveProvider", () => {
     expect((capturedItems[0] as { checked: boolean }).checked).toBe(true);
     expect((capturedItems[1] as { checked: boolean }).checked).toBe(true);
     expect((capturedItems[2] as { checked: boolean }).checked).toBe(false);
-    // The agents row leads with the harness-support note so it survives
+    // The agents row leads with the Claude Code exception so it survives
     // hint truncation on a narrow terminal (#617).
     expect((capturedItems[1] as { hint: string }).hint).toBe(
-      "most harnesses except Claude Code — ~/.agents/skills",
+      "except Claude Code; most harnesses — ~/.agents/skills",
     );
     expect((capturedItems[0] as { hint: string }).hint).toBe(
       "~/.claude/skills",

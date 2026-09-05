@@ -118,4 +118,22 @@ describe("DocsPage", () => {
     expect(Element.prototype.scrollIntoView).toHaveBeenCalled();
     expect(window.location.hash).toMatch(/s=eval/);
   });
+
+  it("lists providers in picker order with the Agents harness note", () => {
+    renderDocs();
+    const section = document.getElementById("tools");
+    const names = [...section.querySelectorAll("tbody tr td:first-child")].map(
+      (td) => td.textContent,
+    );
+    expect(names.slice(0, 7)).toEqual([
+      "Agents — most harnesses except Claude Code",
+      "Claude Code",
+      "Pi",
+      "OpenCode",
+      "Codex",
+      "Oh My Pi",
+      "Grok CLI",
+    ]);
+    expect(names).toHaveLength(21);
+  });
 });

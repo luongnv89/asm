@@ -211,10 +211,11 @@ export async function resolveProvider(
 
   const pickerItems = config.providers.map((p) => ({
     label: `${p.label} (${p.name})`,
-    // The note leads so it survives hint truncation on narrow terminals (#617).
+    // The Claude Code exception leads so it survives hint truncation on
+    // narrow terminals (#617) — a 15–25 col hint still names the exception.
     hint:
       p.name === "agents"
-        ? `most harnesses except Claude Code — ${p.global}`
+        ? `except Claude Code; most harnesses — ${p.global}`
         : p.global,
     // First-time setup pre-checks Agents + Claude Code (#617), but never a
     // provider the user has disabled — a pre-checked row installs on Enter.

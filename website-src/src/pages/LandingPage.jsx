@@ -10,7 +10,7 @@ import { prefersReducedMotion } from "../lib/motion.js";
 
 const REPO_URL = "https://github.com/luongnv89/asm";
 const NPM_CMD = "npm install -g agent-skill-manager";
-const PROVIDER_COUNT = 19;
+const PROVIDER_COUNT = 21;
 
 /**
  * Marketing landing page (route `/`). The catalog lives at `/skills`.
