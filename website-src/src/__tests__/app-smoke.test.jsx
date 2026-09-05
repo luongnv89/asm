@@ -140,6 +140,7 @@ const FETCH_MAP = {
   "search.idx.json": () => new Response(buildIndexJson()),
   "bundles.json": () => new Response(JSON.stringify(BUNDLES)),
   "skills/hello.json": () => new Response(JSON.stringify(SKILL_DETAIL)),
+  "repo-stats.json": () => new Response(JSON.stringify({ stats: [] })),
 };
 
 function mockFetch() {
@@ -431,6 +432,28 @@ describe("App smoke", () => {
     expect(
       screen.getByRole("button", { name: /Add hello-world to cart/i }),
     ).toBeTruthy();
+  });
+
+  it("repo route renders the repo detail page with its skills", async () => {
+    window.history.replaceState(null, "", "/#/repos/owner/repo");
+    render(
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
+        <App />
+      </HashRouter>,
+    );
+    // Header from catalog.repos plus both skills in the repo grid.
+    await waitFor(() => {
+      expect(screen.getByRole("heading", { name: "owner/repo" })).toBeTruthy();
+    });
+    expect(screen.getByText("hello-world")).toBeTruthy();
+    expect(screen.getByText("readme-generator")).toBeTruthy();
+    // Skill titles link to the product page.
+    const helloLink = screen.getByRole("link", { name: "hello-world" });
+    expect(helloLink.getAttribute("href")).toContain(
+      `/skills/${encodeSkillId("owner/repo::a::hello-world")}`,
+    );
   });
 
   it("root path renders the marketing landing page, not the catalog", async () => {

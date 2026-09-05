@@ -98,6 +98,16 @@ describe("SkillCard — storefront anatomy", () => {
     expect(link.getAttribute("href")).toContain("page=2");
   });
 
+  it("links the repo label to the repo detail page", () => {
+    renderCard();
+    const link = screen.getByRole("link", {
+      name: "sickn33/antigravity-awesome-skills",
+    });
+    expect(link.getAttribute("href")).toBe(
+      "#/repos/sickn33/antigravity-awesome-skills",
+    );
+  });
+
   it("renders an add-to-cart button that names the skill", () => {
     renderCard();
     expect(
