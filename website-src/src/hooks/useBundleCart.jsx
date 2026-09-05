@@ -6,6 +6,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import { DEFAULT_BUNDLE_META } from "../lib/bundle-export.js";
 
 /**
  * Bundle cart state + localStorage persistence (#238). Mirrors the
@@ -39,7 +40,12 @@ const BundleCartContext = createContext({
   dismissNotice: () => {},
 });
 
-const DEFAULT_META = { name: "", description: "", author: "", tags: "" };
+/**
+ * The checkout form starts pre-filled with the export defaults (#626),
+ * so the bundle can be downloaded as-is. Clearing a field falls back
+ * to the same defaults at export time (see `withBundleDefaults`).
+ */
+const DEFAULT_META = { ...DEFAULT_BUNDLE_META, tags: "" };
 
 function loadInitial() {
   if (typeof localStorage === "undefined") {

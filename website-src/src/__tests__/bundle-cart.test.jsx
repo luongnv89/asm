@@ -234,27 +234,46 @@ describe("Bundle cart flow", () => {
     expect(skillLink?.className).toContain("min-h-11");
     expect(skillLink?.className).toContain("min-w-11");
 
-    // Export button is enabled (there's ≥1 skill) but the name is blank,
-    // so clicking should show a validation error message
+    // Export works with zero input (#626): the checkout form starts
+    // pre-filled with defaults, and clearing every field still exports
+    // a valid bundle built from those defaults.
     const exportBtn = screen.getByRole("button", { name: /Export \.json/i });
     expect(exportBtn.disabled).toBe(false);
-    await act(async () => {
-      fireEvent.click(exportBtn);
-    });
-    await waitFor(() => {
-      expect(screen.getByText(/Bundle name is required/i)).toBeTruthy();
-    });
-
-    // Fill a valid name + description + author (all three required —
-    // mirrors the CLI's validateBundle) and publish. Opens a new tab
-    // so we stub window.open.
-    const openSpy = vi.spyOn(window, "open").mockImplementation(() => null);
     const nameInput = container.querySelector("#bundle-name");
     const descInput = container.querySelector("#bundle-description");
     const authorInput = container.querySelector("#bundle-author");
     expect(nameInput).toBeTruthy();
     expect(descInput).toBeTruthy();
     expect(authorInput).toBeTruthy();
+    // Form starts pre-filled with the export defaults.
+    expect(nameInput.value).toBe("my-bundle");
+    await act(async () => {
+      fireEvent.change(nameInput, { target: { value: "" } });
+      fireEvent.change(descInput, { target: { value: "" } });
+      fireEvent.change(authorInput, { target: { value: "" } });
+    });
+    const createSpy = vi
+      .spyOn(window.URL, "createObjectURL")
+      .mockImplementation(() => "blob:mock");
+    const revokeSpy = vi
+      .spyOn(window.URL, "revokeObjectURL")
+      .mockImplementation(() => {});
+    const clickSpy = vi
+      .spyOn(HTMLAnchorElement.prototype, "click")
+      .mockImplementation(() => {});
+    await act(async () => {
+      fireEvent.click(exportBtn);
+    });
+    await waitFor(() => expect(createSpy).toHaveBeenCalledOnce());
+    expect(clickSpy).toHaveBeenCalledOnce();
+    expect(screen.queryByText(/Bundle name is required/i)).toBeNull();
+    createSpy.mockRestore();
+    revokeSpy.mockRestore();
+    clickSpy.mockRestore();
+
+    // Fill a valid name + description + author and publish. Opens a new
+    // tab so we stub window.open.
+    const openSpy = vi.spyOn(window, "open").mockImplementation(() => null);
     await act(async () => {
       fireEvent.change(nameInput, { target: { value: "my-test-pack" } });
       fireEvent.change(descInput, { target: { value: "A test pack." } });

@@ -273,13 +273,14 @@ export default function CartDrawer({ open, onClose }) {
             </legend>
             <p className="text-xs text-[var(--fg-dim)] -mt-1">
               These become the metadata of the bundle you export or publish.
+              Leave any field blank to use its default — Export works with zero
+              input.
             </p>
             <Field
               id="bundle-name"
               label="Bundle name"
               hint="Short identifier. Letters, digits, '.', '_', '-' (max 64)."
               error={submitted ? errorsByField.name : undefined}
-              required
             >
               <Input
                 id="bundle-name"
@@ -295,7 +296,6 @@ export default function CartDrawer({ open, onClose }) {
               label="Description"
               hint="One or two sentences about what the bundle does."
               error={submitted ? errorsByField.description : undefined}
-              required
             >
               <textarea
                 id="bundle-description"
@@ -311,7 +311,6 @@ export default function CartDrawer({ open, onClose }) {
                 id="bundle-author"
                 label="Author"
                 error={submitted ? errorsByField.author : undefined}
-                required
               >
                 <Input
                   id="bundle-author"
