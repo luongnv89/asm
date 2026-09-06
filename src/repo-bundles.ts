@@ -158,6 +158,30 @@ const GROUPS: BundleGroup[] = [
     ],
   },
   {
+    id: "mobile",
+    title: "Mobile & iOS Skills",
+    description:
+      "iOS, Swift, SwiftUI, Xcode, macOS, and App Store skills.",
+    tags: ["mobile", "ios", "swift"],
+    keywords: [
+      "swift",
+      "swiftui",
+      "uikit",
+      "swiftdata",
+      "coredata",
+      "xcode",
+      "testflight",
+      "macos",
+      "watchos",
+      "appstore",
+      "app store",
+      "mobile",
+      "apple",
+      "iphone",
+      "ipad",
+    ],
+  },
+  {
     id: "devops",
     title: "DevOps Skills",
     description:
