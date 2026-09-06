@@ -197,6 +197,35 @@ describe("repo-derived bundle inference", () => {
     }
   });
 
+  it("infers a game bundle from game development skills", () => {
+    const bundles = inferRepoBundles(
+      repo([
+        skill({
+          name: "threejs-game-director",
+          description: "Entrypoint for building Three.js browser games",
+          installUrl: "github:owner/repo:skills/threejs-game-director",
+          relPath: "skills/threejs-game-director",
+        }),
+        skill({
+          name: "threejs-gameplay-systems",
+          description: "Build playable game systems and levels",
+          installUrl: "github:owner/repo:skills/threejs-gameplay-systems",
+          relPath: "skills/threejs-gameplay-systems",
+        }),
+      ]),
+    );
+
+    const game = bundles.find(
+      (bundle) => bundle.name === "owner-repo-game",
+    );
+    expect(game).toBeDefined();
+    expect(game!.inferred).toBe(true);
+    expect(game!.skills.map((s) => s.name)).toEqual([
+      "threejs-game-director",
+      "threejs-gameplay-systems",
+    ]);
+  });
+
   it("dedupes bundles by name", () => {
     const merged = mergeRepoBundles([
       {
