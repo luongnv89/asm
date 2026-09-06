@@ -50,12 +50,22 @@ ${ansi.bold("Subcommands:")}
   export <name> [file]   Export a bundle to a JSON file
 
 ${ansi.bold("Options:")}
-  -s, --scope <s>      Filter: global, project, or both (default: both)
-  -y, --yes            Skip confirmation prompts
+  -p, --tool <name>    install: target tool (claude, codex, openclaw, agents, all)
+  -s, --scope <s>      install: install scope, global or project (default: global)
+                       create/list: filter by global, project, or both (default: both)
+  -y, --yes            Skip confirmation prompts and the skill/scope pickers
   --json               Output as JSON
   --predefined         Show pre-defined bundles shipped with ASM (for list)
   --no-color           Disable ANSI colors
   -V, --verbose        Show debug output
+
+${ansi.bold("Interactive install:")}
+  ${ansi.dim("`asm bundle install` in a terminal prompts for the tool(s), then which")}
+  ${ansi.dim("bundle skills to install, then the install scope. Any picker can be")}
+  ${ansi.dim("dismissed with Esc to abort. Passing a prompt's own flag skips it:")}
+  ${ansi.dim("-p/--tool for the tool picker, -s/--scope for the scope picker, -y")}
+  ${ansi.dim("for the skill and scope pickers. Outside a terminal there are no")}
+  ${ansi.dim("pickers, and -p/--tool is required unless exactly one tool is enabled.")}
 
 ${ansi.bold("Examples:")}
   asm bundle create my-workflow                ${ansi.dim("Create from installed skills")}
@@ -233,18 +243,33 @@ export async function cmdBundle(args: ParsedArgs) {
       }
 
       const config = await loadConfig();
-      const { provider, allProviders } = await resolveProvider(
-        config,
-        args.flags.provider,
-        !!process.stdin.isTTY,
-      );
 
       // Interactive skill selection (issue #612): mirror `asm install` —
       // TTY runs pick which bundle entries to install, --yes installs all.
-      // Both pickers dismiss into a friendly abort (not an unhandled throw).
+      // The tool picker joins them inside the try (#629) so dismissing any of
+      // the three pickers aborts with a friendly message, not a stack trace.
       let skillsToInstall = bundle.skills;
       let installScope!: "global" | "project";
+      let provider!: Awaited<ReturnType<typeof resolveProvider>>["provider"];
+      let allProviders!: Awaited<
+        ReturnType<typeof resolveProvider>
+      >["allProviders"];
       try {
+        // The tool picker used to render straight after the skill listing with
+        // no heading, reading as a second skill list (#629).
+        if (
+          process.stdin.isTTY &&
+          !args.flags.provider &&
+          config.providers.filter((p) => p.enabled).length > 1
+        ) {
+          console.error(ansi.bold("\nSelect tool(s) to install into:\n"));
+        }
+        ({ provider, allProviders } = await resolveProvider(
+          config,
+          args.flags.provider,
+          !!process.stdin.isTTY,
+        ));
+
         if (
           process.stdin.isTTY &&
           !args.flags.yes &&
