@@ -65,7 +65,7 @@ ${ansi.bold("Interactive install:")}
   ${ansi.dim("dismissed with Esc to abort. Passing a prompt's own flag skips it:")}
   ${ansi.dim("-p/--tool for the tool picker, -s/--scope for the scope picker, -y")}
   ${ansi.dim("for the skill and scope pickers. Outside a terminal there are no")}
-  ${ansi.dim("pickers and -p/--tool is required.")}
+  ${ansi.dim("pickers, and -p/--tool is required unless exactly one tool is enabled.")}
 
 ${ansi.bold("Examples:")}
   asm bundle create my-workflow                ${ansi.dim("Create from installed skills")}

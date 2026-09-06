@@ -102,6 +102,11 @@ describe("bundle help discoverability (#629)", () => {
     expect(help).not.toMatch(/--yes.*all interactive pickers/);
     // Nor does piped input skip them: non-TTY runs require -p/--tool.
     expect(help).not.toMatch(/[Pp]iped input skips/);
+    // But not unconditionally — resolveProvider auto-selects before the
+    // non-TTY throw when exactly one tool is enabled.
+    expect(help).toMatch(
+      /-p\/--tool is required unless exactly one tool is enabled/,
+    );
   });
 });
 
