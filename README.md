@@ -716,6 +716,14 @@ asm bundle install frontend-dev
 asm bundle install ./my-bundle.json
 ```
 
+In a terminal, `asm bundle install` prompts for the tool(s), then which bundle
+skills to install, then the install scope; Esc on any picker aborts. Pass
+`-p/--tool`, `-s/--scope global|project`, or `-y` to skip the matching prompt:
+
+```bash
+asm bundle install frontend-dev --tool claude --scope project --yes
+```
+
 ```bash
 asm bundle create my-workflow
 asm bundle export my-workflow ./my-workflow.json
