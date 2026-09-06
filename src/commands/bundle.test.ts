@@ -155,5 +155,9 @@ describe("bundle install picker dismissal (#629)", () => {
     expect(mocks.resolveProvider.mock.invocationCallOrder[0]).toBeLessThan(
       mocks.promptInstallScope.mock.invocationCallOrder[0],
     );
+    // Without the heading the picker reads as a second skill list — the
+    // original #629 symptom. loadConfig is unmocked, so the default config's
+    // many enabled providers satisfy the `> 1` gate.
+    expect(err.join("\n")).toContain("Select tool(s) to install into:");
   });
 });
