@@ -717,8 +717,10 @@ asm bundle install ./my-bundle.json
 ```
 
 In a terminal, `asm bundle install` prompts for the tool(s), then which bundle
-skills to install, then the install scope; Esc on any picker aborts. Pass
-`-p/--tool`, `-s/--scope global|project`, or `-y` to skip the matching prompt:
+skills to install, then the install scope; Esc on any picker aborts. Pass a
+prompt's own flag to skip it — `-p/--tool` for the tool picker,
+`-s/--scope global|project` for the scope picker, `-y` for the skill and scope
+pickers. Outside a terminal there are no pickers and `-p/--tool` is required:
 
 ```bash
 asm bundle install frontend-dev --tool claude --scope project --yes

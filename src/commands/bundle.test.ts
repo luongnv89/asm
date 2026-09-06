@@ -46,10 +46,9 @@ class ExitError extends Error {
 
 let out: string[];
 let err: string[];
-let ttyDescriptor: PropertyDescriptor | undefined;
+const origIsTTY = process.stdin.isTTY;
 
 function setTTY(value: boolean) {
-  ttyDescriptor ??= Object.getOwnPropertyDescriptor(process.stdin, "isTTY");
   Object.defineProperty(process.stdin, "isTTY", {
     value,
     configurable: true,
@@ -85,10 +84,7 @@ beforeEach(() => {
 afterEach(() => {
   vi.restoreAllMocks();
   vi.clearAllMocks();
-  if (ttyDescriptor) {
-    Object.defineProperty(process.stdin, "isTTY", ttyDescriptor);
-    ttyDescriptor = undefined;
-  }
+  setTTY(origIsTTY);
 });
 
 describe("bundle help discoverability (#629)", () => {
@@ -99,9 +95,13 @@ describe("bundle help discoverability (#629)", () => {
     expect(help).toMatch(/-s, --scope[\s\S]*install scope/);
     // The old text called scope a plain "Filter", hiding the install meaning.
     expect(help).not.toMatch(/-s, --scope <s>\s+Filter:/);
-    expect(help).toMatch(
-      /the tool\(s\), then which bundle skills to install, then/,
-    );
+    expect(help).toContain("Interactive install:");
+    expect(help).toMatch(/prompts for the tool\(s\)/);
+    expect(help).toMatch(/-p\/--tool for the tool picker/);
+    // `-y` does not skip the tool picker — resolveProvider has no `yes` gate.
+    expect(help).not.toMatch(/--yes.*all interactive pickers/);
+    // Nor does piped input skip them: non-TTY runs require -p/--tool.
+    expect(help).not.toMatch(/[Pp]iped input skips/);
   });
 });
 

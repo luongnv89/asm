@@ -53,17 +53,19 @@ ${ansi.bold("Options:")}
   -p, --tool <name>    install: target tool (claude, codex, openclaw, agents, all)
   -s, --scope <s>      install: install scope, global or project (default: global)
                        create/list: filter by global, project, or both (default: both)
-  -y, --yes            Skip confirmation prompts (and all interactive pickers)
+  -y, --yes            Skip confirmation prompts and the skill/scope pickers
   --json               Output as JSON
   --predefined         Show pre-defined bundles shipped with ASM (for list)
   --no-color           Disable ANSI colors
   -V, --verbose        Show debug output
 
 ${ansi.bold("Interactive install:")}
-  ${ansi.dim("`asm bundle install` in a terminal, with no -p/-s/-y flag, prompts for")}
-  ${ansi.dim("the tool(s), then which bundle skills to install, then the install")}
-  ${ansi.dim("scope. Any picker can be dismissed with Esc to abort. Passing the")}
-  ${ansi.dim("matching flag, or piping input, skips that prompt.")}
+  ${ansi.dim("`asm bundle install` in a terminal prompts for the tool(s), then which")}
+  ${ansi.dim("bundle skills to install, then the install scope. Any picker can be")}
+  ${ansi.dim("dismissed with Esc to abort. Passing a prompt's own flag skips it:")}
+  ${ansi.dim("-p/--tool for the tool picker, -s/--scope for the scope picker, -y")}
+  ${ansi.dim("for the skill and scope pickers. Outside a terminal there are no")}
+  ${ansi.dim("pickers and -p/--tool is required.")}
 
 ${ansi.bold("Examples:")}
   asm bundle create my-workflow                ${ansi.dim("Create from installed skills")}
