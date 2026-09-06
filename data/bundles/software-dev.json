@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "name": "software-dev",
+  "description": "Core software development workflow: module design, test-driven implementation, debugging, test coverage, and code review.",
+  "author": "ASM",
+  "createdAt": "2026-09-06T00:00:00.000Z",
+  "tags": ["software", "engineering", "coding", "testing"],
+  "skills": [
+    {
+      "name": "codebase-design",
+      "installUrl": "github:mattpocock/skills:skills/engineering/codebase-design",
+      "description": "Shared vocabulary for designing deep modules and improving module interfaces"
+    },
+    {
+      "name": "tdd",
+      "installUrl": "github:mattpocock/skills:skills/engineering/tdd",
+      "description": "Test-driven development: build features or fix bugs test-first"
+    },
+    {
+      "name": "implement",
+      "installUrl": "github:mattpocock/skills:skills/engineering/implement",
+      "description": "Implement a piece of work based on a spec or set of tickets"
+    },
+    {
+      "name": "diagnosing-bugs",
+      "installUrl": "github:mattpocock/skills:skills/engineering/diagnosing-bugs",
+      "description": "Diagnosis loop for hard bugs and performance regressions"
+    },
+    {
+      "name": "test-coverage",
+      "installUrl": "github:luongnv89/skills:skills/test-coverage",
+      "description": "Generate unit tests for untested branches and edge cases"
+    },
+    {
+      "name": "code-review",
+      "installUrl": "github:luongnv89/skills:skills/code-review",
+      "description": "Review code changes for bugs, security issues, and best practices"
+    }
+  ]
+}
