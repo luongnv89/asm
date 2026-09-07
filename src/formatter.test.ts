@@ -541,6 +541,28 @@ describe("colorProvider", () => {
   });
 });
 
+describe("colorProvider drops per-provider hues", () => {
+  test("does not wrap labels in ANSI when color is on", () => {
+    delete (globalThis as { __CLI_NO_COLOR?: boolean }).__CLI_NO_COLOR;
+    const originalIsTTY = process.stdout.isTTY;
+    Object.defineProperty(process.stdout, "isTTY", {
+      value: true,
+      configurable: true,
+    });
+    process.env.COLORTERM = "truecolor";
+    try {
+      expect(colorProvider("claude", "Claude Code")).toBe("Claude Code");
+      expect(colorProvider("codex", "Codex")).toBe("Codex");
+    } finally {
+      Object.defineProperty(process.stdout, "isTTY", {
+        value: originalIsTTY,
+        configurable: true,
+      });
+      delete process.env.COLORTERM;
+    }
+  });
+});
+
 // ─── formatGroupedTable ───────────────────────────────────────────────────
 
 describe("formatGroupedTable", () => {
@@ -865,10 +887,10 @@ describe("colorTool", () => {
   });
 
   test("returns tool name for high-risk tools (no ANSI in no-color mode)", () => {
-    expect(colorTool("Bash")).toBe("Bash");
-    expect(colorTool("Write")).toBe("Write");
-    expect(colorTool("Edit")).toBe("Edit");
-    expect(colorTool("NotebookEdit")).toBe("NotebookEdit");
+    expect(colorTool("Bash")).toBe("Bash !");
+    expect(colorTool("Write")).toBe("Write !");
+    expect(colorTool("Edit")).toBe("Edit !");
+    expect(colorTool("NotebookEdit")).toBe("NotebookEdit !");
   });
 
   test("returns tool name for medium-risk tools", () => {
@@ -911,7 +933,7 @@ describe("formatAllowedTools", () => {
 
   test("joins tools with double-space separator", () => {
     const result = formatAllowedTools(["Bash", "Read", "Grep"]);
-    expect(result).toBe("Bash  Read  Grep");
+    expect(result).toBe("Bash !  Read  Grep");
   });
 
   test("handles single tool", () => {

@@ -7,38 +7,9 @@ import type { SkillInfo } from "./utils/types";
 
 import { formatTokenCount } from "./utils/token-count";
 import { formatInvocability } from "./utils/frontmatter";
+import { ansi, useColor } from "./utils/colors";
 
-// ─── Color helpers ──────────────────────────────────────────────────────────
-
-export const useColor = (): boolean => {
-  if (process.env.NO_COLOR !== undefined) return false;
-  if (globalThis.__CLI_NO_COLOR) return false;
-  if (!process.stdout.isTTY) return false;
-  return true;
-};
-
-const ansi = {
-  bold: (s: string) => (useColor() ? `\x1b[1m${s}\x1b[0m` : s),
-  cyan: (s: string) => (useColor() ? `\x1b[36m${s}\x1b[0m` : s),
-  green: (s: string) => (useColor() ? `\x1b[32m${s}\x1b[0m` : s),
-  yellow: (s: string) => (useColor() ? `\x1b[33m${s}\x1b[0m` : s),
-  dim: (s: string) => (useColor() ? `\x1b[2m${s}\x1b[0m` : s),
-  white: (s: string) => (useColor() ? `\x1b[37m${s}\x1b[0m` : s),
-  red: (s: string) => (useColor() ? `\x1b[31m${s}\x1b[0m` : s),
-  blue: (s: string) => (useColor() ? `\x1b[34m${s}\x1b[0m` : s),
-  blueBold: (s: string) => (useColor() ? `\x1b[34;1m${s}\x1b[0m` : s),
-  magenta: (s: string) => (useColor() ? `\x1b[35m${s}\x1b[0m` : s),
-  bgDim: (s: string) => (useColor() ? `\x1b[48;5;236m${s}\x1b[0m` : s),
-  bgRed: (s: string) => (useColor() ? `\x1b[41m\x1b[37m\x1b[1m${s}\x1b[0m` : s),
-  bgYellow: (s: string) =>
-    useColor() ? `\x1b[43m\x1b[30m\x1b[1m${s}\x1b[0m` : s,
-  bgGreen: (s: string) =>
-    useColor() ? `\x1b[42m\x1b[30m\x1b[1m${s}\x1b[0m` : s,
-  bgCyan: (s: string) =>
-    useColor() ? `\x1b[46m\x1b[30m\x1b[1m${s}\x1b[0m` : s,
-};
-
-export { ansi };
+export { ansi, useColor };
 
 // ─── Effort colors ─────────────────────────────────────────────────────────
 
@@ -58,37 +29,13 @@ export function colorEffort(effort: string | undefined): string {
   }
 }
 
-// ─── Provider colors ───────────────────────────────────────────────────────
-
-const PROVIDER_COLORS: Record<string, (s: string) => string> = {
-  claude: ansi.blueBold,
-  codex: ansi.cyan,
-  "codex-plugin": ansi.cyan,
-  openclaw: ansi.yellow,
-  agents: ansi.green,
-  custom: ansi.magenta,
-  cursor: ansi.blue,
-  windsurf: ansi.cyan,
-  cline: ansi.green,
-  roocode: ansi.magenta,
-  continue: ansi.yellow,
-  copilot: ansi.white,
-  aider: ansi.red,
-  opencode: ansi.cyan,
-  zed: ansi.blue,
-  augment: ansi.green,
-  amp: ansi.yellow,
-};
-
-export function colorProvider(provider: string, label: string): string {
-  const colorFn = PROVIDER_COLORS[provider] || ansi.dim;
-  return colorFn(label);
+// Provider names are the signal; hue is not used.
+export function colorProvider(_provider: string, label: string): string {
+  return label;
 }
 
-export function providerBadge(provider: string, label: string): string {
-  if (!useColor()) return `[${label}]`;
-  const colorFn = PROVIDER_COLORS[provider] || ansi.dim;
-  return colorFn(`[${label}]`);
+export function providerBadge(_provider: string, label: string): string {
+  return `[${label}]`;
 }
 
 // ─── Path shortening ───────────────────────────────────────────────────────
@@ -728,7 +675,7 @@ export const HIGH_RISK_TOOLS = new Set([
 export const MEDIUM_RISK_TOOLS = new Set(["WebFetch", "WebSearch"]);
 
 export function colorTool(tool: string): string {
-  if (HIGH_RISK_TOOLS.has(tool)) return ansi.red(tool);
+  if (HIGH_RISK_TOOLS.has(tool)) return ansi.red(`${tool} !`);
   if (MEDIUM_RISK_TOOLS.has(tool)) return ansi.yellow(tool);
   return ansi.green(tool);
 }

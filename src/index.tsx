@@ -334,7 +334,12 @@ export function App({ initialConfig }: AppProps) {
   const visibleListRows = Math.max(5, termHeight - chromeRows - 4);
 
   return (
-    <Box flexDirection="column" width={termWidth} height={termHeight}>
+    <Box
+      flexDirection="column"
+      width={termWidth}
+      height={termHeight}
+      backgroundColor={theme.bg}
+    >
       {view === "dashboard" && (
         <>
           {scanning && !hasScanned && (

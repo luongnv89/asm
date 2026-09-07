@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>asm CVD palette preview</title>
+  <style>
+    :root {
+      --fg: #E8E8E8;
+      --dim: #9A9A9A;
+      --border: #6B6B6B;
+      --accent: #56B4E9;
+      --success: #2BC48A;
+      --warning: #E69F00;
+      --danger: #D55E00;
+      --special: #CC79A7;
+      --bg: #111111;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 14px/1.4 ui-monospace, "JetBrains Mono", Menlo, monospace;
+      background: #0b0b0b;
+      color: var(--fg);
+    }
+    header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    h1 { font-size: 16px; margin: 0; color: var(--accent); }
+    .filters button {
+      background: #1a1a1a;
+      color: var(--fg);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      margin-right: 6px;
+      cursor: pointer;
+    }
+    .filters button.active { border-color: var(--accent); color: var(--accent); }
+    main { padding: 24px; display: grid; gap: 24px; }
+    .sim { transition: filter 0.15s; }
+    .swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+    .swatch { width: 120px; }
+    .chip { height: 36px; border: 1px solid var(--border); }
+    .screen {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      white-space: pre;
+    }
+    .title { color: var(--dim); margin-bottom: 8px; }
+    .accent { color: var(--accent); }
+    .success { color: var(--success); }
+    .warning { color: var(--warning); }
+    .danger { color: var(--danger); }
+    .special { color: var(--special); }
+    .dim { color: var(--dim); }
+    .sel { background: var(--accent); color: #111; }
+    .box { border: 1px solid var(--border); padding: 8px; }
+    .box.danger-b { border-color: var(--danger); }
+    .box.accent-b { border-color: var(--accent); }
+  </style>
+  <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute">
+    <filter id="protanopia">
+      <feColorMatrix type="matrix" values="
+        0.567 0.433 0 0 0
+        0.558 0.442 0 0 0
+        0.000 0.242 0.758 0 0
+        0 0 0 1 0"/>
+    </filter>
+    <filter id="deuteranopia">
+      <feColorMatrix type="matrix" values="
+        0.625 0.375 0 0 0
+        0.700 0.300 0 0 0
+        0.000 0.300 0.700 0 0
+        0 0 0 1 0"/>
+    </filter>
+    <filter id="gray">
+      <feColorMatrix type="matrix" values="
+        0.2126 0.7152 0.0722 0 0
+        0.2126 0.7152 0.0722 0 0
+        0.2126 0.7152 0.0722 0 0
+        0 0 0 1 0"/>
+    </filter>
+  </svg>
+</head>
+<body>
+  <header>
+    <h1>asm CVD palette — Okabe–Ito default</h1>
+    <div class="filters">
+      <button class="active" data-f="none">Original</button>
+      <button data-f="url(#protanopia)">Protanopia</button>
+      <button data-f="url(#deuteranopia)">Deuteranopia</button>
+      <button data-f="url(#gray)">Grayscale</button>
+    </div>
+    <span class="dim">Must-have screens. Color is never the only signal.</span>
+  </header>
+  <main class="sim" id="sim">
+    <section>
+      <div class="title">Roles</div>
+      <div class="swatches">
+        <div class="swatch"><div class="chip" style="background:#56B4E9"></div>accent #56B4E9</div>
+        <div class="swatch"><div class="chip" style="background:#2BC48A"></div>success #2BC48A</div>
+        <div class="swatch"><div class="chip" style="background:#E69F00"></div>warning #E69F00</div>
+        <div class="swatch"><div class="chip" style="background:#D55E00"></div>danger #D55E00</div>
+        <div class="swatch"><div class="chip" style="background:#CC79A7"></div>special #CC79A7</div>
+        <div class="swatch"><div class="chip" style="background:#E8E8E8"></div>fg #E8E8E8</div>
+        <div class="swatch"><div class="chip" style="background:#9A9A9A"></div>dim #9A9A9A</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="title">TUI dashboard (rainbow stripped; dupes dual-encoded)</div>
+      <div class="screen">
+<span class="accent"><b>agent-skill-manager</b></span>
+<div class="box">Total: 42 (38 unique)   Global: 30   Project: 12   Symlinks: 4   Tools: 6   <span class="warning">Dupes: ! 3</span></div>
+<span class="accent sel"> Both </span>  <span class="dim">Global</span>  <span class="dim">Project</span>  <span class="dim">— Claude, Codex +4</span>
+<div class="box dim">press / to search...</div>
+<span class="sel">❯ skill-auto-improver     0.3.1   medium   Claude Code</span>
+  skill-creator            1.2.0   <span class="success">low</span>      Codex
+  beads                    1.4.0   <span class="danger">high</span>     Grok CLI
+      </div>
+    </section>
+
+    <section>
+      <div class="title">TUI config (ASCII on/off)</div>
+      <div class="screen box accent-b">
+        <div class="accent"> Configuration </div>
+        <span class="dim">Config: ~/.config/agent-skill-manager/config.json</span>
+        <span class="warning">Tools (Enter to toggle, e to edit config file):</span>
+<span class="sel">❯ on  Claude Code      ~/.claude/skills</span>
+  <span class="success">on </span> Codex            ~/.codex/skills
+  <span class="danger">off</span> Grok CLI         ~/.grok/skills
+      </div>
+    </section>
+
+    <section>
+      <div class="title">TUI uninstall confirm</div>
+      <div class="screen box danger-b">
+        <div class="danger"> Uninstall: old-skill </div>
+        <span class="warning">The following will be removed:</span>
+        <span class="danger">  ~/.claude/skills/old-skill</span>
+        <span class="dim">  Yes, uninstall    Cancel</span>
+      </div>
+    </section>
+
+    <section>
+      <div class="title">CLI asm list (effort words + hue; no provider hues)</div>
+      <div class="screen">
+Name                   Version  Effort   Tool
+skill-auto-improver    0.3.1    <span class="warning">medium</span>   [Claude Code]
+skill-creator          1.2.0    <span class="success">low</span>      [Codex]
+beads                  1.4.0    <span class="danger">high</span>     [Grok CLI]
+eval-max               0.1.0    <span class="special">max</span>      [Oh My Pi]
+      </div>
+    </section>
+
+    <section>
+      <div class="title">CLI tools + security badges (no bg fills)</div>
+      <div class="screen">
+Allowed tools: <span class="danger">Bash !</span>  Read  <span class="warning">WebFetch</span>
+
+  +-- <b>Security Audit</b> --------------------------+
+  |  clean-skill                      <span class="success">[SAFE]</span>|
+  |  risky-skill               <span class="danger">[!! DANGEROUS]</span>|
+  |  noisy-skill                   <span class="warning">[WARNING]</span>|
+  |  odd-skill                      <span class="accent">[CAUTION]</span>|
+      </div>
+    </section>
+  </main>
+  <script>
+    const sim = document.getElementById("sim");
+    document.querySelectorAll(".filters button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filters button").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const f = btn.getAttribute("data-f");
+        sim.style.filter = f === "none" ? "none" : f;
+      });
+    });
+  </script>
+</body>
+</html>

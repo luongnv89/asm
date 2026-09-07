@@ -792,7 +792,8 @@ describe("formatSecurityReport", () => {
 
     expect(output).toContain("Security Audit");
     expect(output).toContain("clean");
-    expect(output).toContain("SAFE");
+    expect(output).toContain("[SAFE]");
+    expect(output).not.toContain(" SAFE ");
     expect(output).toContain("No suspicious patterns");
   });
 

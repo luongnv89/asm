@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { Box, Text, useInput } from "ink";
-import { theme } from "../utils/colors";
+import { selectedFill, theme } from "../utils/colors";
 import { sortInstancesForKeep, reasonLabel } from "../auditor";
 import type { AuditReport, DuplicateGroup, SkillInfo } from "../utils/types";
 
@@ -165,8 +165,10 @@ function GroupsPhase({
         return (
           <Text
             key={`group-${g.key}`}
-            color={isSelected ? theme.accent : theme.fg}
-            inverse={isSelected}
+            color={isSelected ? selectedFill.color : theme.fg}
+            backgroundColor={
+              isSelected ? selectedFill.backgroundColor : undefined
+            }
           >
             {isSelected ? "❯ " : "  "}
             {label}
@@ -207,8 +209,10 @@ function InstancesPhase({
         return (
           <Text
             key={`inst-${s.path}`}
-            color={isSelected ? theme.accent : theme.fg}
-            inverse={isSelected}
+            color={isSelected ? selectedFill.color : theme.fg}
+            backgroundColor={
+              isSelected ? selectedFill.backgroundColor : undefined
+            }
           >
             {isSelected ? "❯ " : "  "}
             {checked} {s.providerLabel}/{s.scope} - {s.path}
@@ -217,8 +221,10 @@ function InstancesPhase({
         );
       })}
       <Text
-        color={cursor === sorted.length ? theme.accent : theme.fgDim}
-        inverse={cursor === sorted.length}
+        color={cursor === sorted.length ? selectedFill.color : theme.fgDim}
+        backgroundColor={
+          cursor === sorted.length ? selectedFill.backgroundColor : undefined
+        }
       >
         {cursor === sorted.length ? "❯ " : "  "}
         {actionLabel}
