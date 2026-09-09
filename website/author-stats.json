@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T06:23:31.926Z",
+  "generatedAt": "2026-09-09T08:23:24.096Z",
   "stats": [
     {
       "owner": "sickn33",
@@ -152,6 +152,83 @@
           "id": "ComposioHQ/awesome-claude-skills::composio-skills/zoho_invoice-automation::zoho_invoice-automation",
           "name": "zoho_invoice-automation",
           "repo": "ComposioHQ/awesome-claude-skills"
+        }
+      ]
+    },
+    {
+      "owner": "affaan-m",
+      "totalSkills": 576,
+      "repos": ["affaan-m/ECC", "affaan-m/everything-claude-code"],
+      "categories": {
+        "security": 98,
+        "frontend": 70,
+        "design": 82,
+        "coding": 202,
+        "ai-agents": 202,
+        "productivity": 128,
+        "testing": 162,
+        "finance": 34,
+        "backend": 110,
+        "writing": 68,
+        "mobile": 38,
+        "devops": 62,
+        "git": 38,
+        "marketing": 18,
+        "general": 26,
+        "research": 34
+      },
+      "verifiedCount": 574,
+      "totalTokens": 1457880,
+      "topSkills": [
+        {
+          "id": "affaan-m/ECC::skills/x-api::x-api",
+          "name": "x-api",
+          "repo": "affaan-m/ECC"
+        },
+        {
+          "id": "affaan-m/everything-claude-code::skills/x-api::x-api",
+          "name": "x-api",
+          "repo": "affaan-m/everything-claude-code"
+        },
+        {
+          "id": "affaan-m/ECC::skills/workspace-surface-audit::workspace-surface-audit",
+          "name": "workspace-surface-audit",
+          "repo": "affaan-m/ECC"
+        },
+        {
+          "id": "affaan-m/everything-claude-code::skills/workspace-surface-audit::workspace-surface-audit",
+          "name": "workspace-surface-audit",
+          "repo": "affaan-m/everything-claude-code"
+        },
+        {
+          "id": "affaan-m/ECC::skills/windows-desktop-e2e::windows-desktop-e2e",
+          "name": "windows-desktop-e2e",
+          "repo": "affaan-m/ECC"
+        },
+        {
+          "id": "affaan-m/everything-claude-code::skills/windows-desktop-e2e::windows-desktop-e2e",
+          "name": "windows-desktop-e2e",
+          "repo": "affaan-m/everything-claude-code"
+        },
+        {
+          "id": "affaan-m/ECC::skills/vue-patterns::vue-patterns",
+          "name": "vue-patterns",
+          "repo": "affaan-m/ECC"
+        },
+        {
+          "id": "affaan-m/everything-claude-code::skills/vue-patterns::vue-patterns",
+          "name": "vue-patterns",
+          "repo": "affaan-m/everything-claude-code"
+        },
+        {
+          "id": "affaan-m/ECC::skills/vite-patterns::vite-patterns",
+          "name": "vite-patterns",
+          "repo": "affaan-m/ECC"
+        },
+        {
+          "id": "affaan-m/everything-claude-code::skills/vite-patterns::vite-patterns",
+          "name": "vite-patterns",
+          "repo": "affaan-m/everything-claude-code"
         }
       ]
     },
@@ -383,83 +460,6 @@
           "id": "github/awesome-copilot::skills/web-design-reviewer::web-design-reviewer",
           "name": "web-design-reviewer",
           "repo": "github/awesome-copilot"
-        }
-      ]
-    },
-    {
-      "owner": "affaan-m",
-      "totalSkills": 288,
-      "repos": ["affaan-m/everything-claude-code"],
-      "categories": {
-        "security": 49,
-        "frontend": 35,
-        "design": 41,
-        "coding": 101,
-        "ai-agents": 101,
-        "productivity": 64,
-        "testing": 81,
-        "finance": 17,
-        "backend": 55,
-        "writing": 34,
-        "mobile": 19,
-        "devops": 31,
-        "git": 19,
-        "marketing": 9,
-        "general": 13,
-        "research": 17
-      },
-      "verifiedCount": 287,
-      "totalTokens": 728661,
-      "topSkills": [
-        {
-          "id": "affaan-m/everything-claude-code::skills/x-api::x-api",
-          "name": "x-api",
-          "repo": "affaan-m/everything-claude-code"
-        },
-        {
-          "id": "affaan-m/everything-claude-code::skills/workspace-surface-audit::workspace-surface-audit",
-          "name": "workspace-surface-audit",
-          "repo": "affaan-m/everything-claude-code"
-        },
-        {
-          "id": "affaan-m/everything-claude-code::skills/windows-desktop-e2e::windows-desktop-e2e",
-          "name": "windows-desktop-e2e",
-          "repo": "affaan-m/everything-claude-code"
-        },
-        {
-          "id": "affaan-m/everything-claude-code::skills/vue-patterns::vue-patterns",
-          "name": "vue-patterns",
-          "repo": "affaan-m/everything-claude-code"
-        },
-        {
-          "id": "affaan-m/everything-claude-code::skills/vite-patterns::vite-patterns",
-          "name": "vite-patterns",
-          "repo": "affaan-m/everything-claude-code"
-        },
-        {
-          "id": "affaan-m/everything-claude-code::skills/visa-doc-translate::visa-doc-translate",
-          "name": "visa-doc-translate",
-          "repo": "affaan-m/everything-claude-code"
-        },
-        {
-          "id": "affaan-m/everything-claude-code::skills/videodb::videodb",
-          "name": "videodb",
-          "repo": "affaan-m/everything-claude-code"
-        },
-        {
-          "id": "affaan-m/everything-claude-code::skills/video-editing::video-editing",
-          "name": "video-editing",
-          "repo": "affaan-m/everything-claude-code"
-        },
-        {
-          "id": "affaan-m/everything-claude-code::skills/verification-loop::verification-loop",
-          "name": "verification-loop",
-          "repo": "affaan-m/everything-claude-code"
-        },
-        {
-          "id": "affaan-m/everything-claude-code::skills/scientific-db-uspto-database::uspto-database",
-          "name": "uspto-database",
-          "repo": "affaan-m/everything-claude-code"
         }
       ]
     },
@@ -1067,6 +1067,80 @@
           "id": "Galaxy-Dawn/claude-scholar::skills/skill-development::skill-development",
           "name": "skill-development",
           "repo": "Galaxy-Dawn/claude-scholar"
+        }
+      ]
+    },
+    {
+      "owner": "openai",
+      "totalSkills": 43,
+      "repos": ["openai/skills"],
+      "categories": {
+        "security": 6,
+        "devops": 7,
+        "testing": 18,
+        "coding": 22,
+        "ai-agents": 10,
+        "frontend": 12,
+        "design": 15,
+        "backend": 8,
+        "writing": 11,
+        "productivity": 12,
+        "git": 3,
+        "general": 4,
+        "research": 2
+      },
+      "verifiedCount": 43,
+      "totalTokens": 111939,
+      "topSkills": [
+        {
+          "id": "openai/skills::skills/.curated/yeet::yeet",
+          "name": "yeet",
+          "repo": "openai/skills"
+        },
+        {
+          "id": "openai/skills::skills/.curated/winui-app::winui-app",
+          "name": "winui-app",
+          "repo": "openai/skills"
+        },
+        {
+          "id": "openai/skills::skills/.curated/vercel-deploy::vercel-deploy",
+          "name": "vercel-deploy",
+          "repo": "openai/skills"
+        },
+        {
+          "id": "openai/skills::skills/.curated/transcribe::transcribe",
+          "name": "transcribe",
+          "repo": "openai/skills"
+        },
+        {
+          "id": "openai/skills::skills/.curated/speech::speech",
+          "name": "speech",
+          "repo": "openai/skills"
+        },
+        {
+          "id": "openai/skills::skills/.system/skill-installer::skill-installer",
+          "name": "skill-installer",
+          "repo": "openai/skills"
+        },
+        {
+          "id": "openai/skills::skills/.system/skill-creator::skill-creator",
+          "name": "skill-creator",
+          "repo": "openai/skills"
+        },
+        {
+          "id": "openai/skills::skills/.curated/sentry::sentry",
+          "name": "sentry",
+          "repo": "openai/skills"
+        },
+        {
+          "id": "openai/skills::skills/.curated/security-threat-model::security-threat-model",
+          "name": "security-threat-model",
+          "repo": "openai/skills"
+        },
+        {
+          "id": "openai/skills::skills/.curated/security-ownership-map::security-ownership-map",
+          "name": "security-ownership-map",
+          "repo": "openai/skills"
         }
       ]
     },
@@ -2715,6 +2789,71 @@
           "id": "Egonex-AI/Understand-Anything::understand-anything-plugin/skills/understand::understand",
           "name": "understand",
           "repo": "Egonex-AI/Understand-Anything"
+        }
+      ]
+    },
+    {
+      "owner": "majidmanzarpour",
+      "totalSkills": 9,
+      "repos": ["majidmanzarpour/threejs-game-skills"],
+      "categories": {
+        "ai-agents": 2,
+        "backend": 2,
+        "coding": 6,
+        "marketing": 3,
+        "devops": 1,
+        "design": 6,
+        "frontend": 3,
+        "mobile": 2,
+        "testing": 1
+      },
+      "verifiedCount": 9,
+      "totalTokens": 13141,
+      "topSkills": [
+        {
+          "id": "majidmanzarpour/threejs-game-skills::skills/threejs-qa-release::threejs-qa-release",
+          "name": "threejs-qa-release",
+          "repo": "majidmanzarpour/threejs-game-skills"
+        },
+        {
+          "id": "majidmanzarpour/threejs-game-skills::skills/threejs-image-generator::threejs-image-generator",
+          "name": "threejs-image-generator",
+          "repo": "majidmanzarpour/threejs-game-skills"
+        },
+        {
+          "id": "majidmanzarpour/threejs-game-skills::skills/threejs-gameplay-systems::threejs-gameplay-systems",
+          "name": "threejs-gameplay-systems",
+          "repo": "majidmanzarpour/threejs-game-skills"
+        },
+        {
+          "id": "majidmanzarpour/threejs-game-skills::skills/threejs-game-ui-designer::threejs-game-ui-designer",
+          "name": "threejs-game-ui-designer",
+          "repo": "majidmanzarpour/threejs-game-skills"
+        },
+        {
+          "id": "majidmanzarpour/threejs-game-skills::skills/threejs-game-director::threejs-game-director",
+          "name": "threejs-game-director",
+          "repo": "majidmanzarpour/threejs-game-skills"
+        },
+        {
+          "id": "majidmanzarpour/threejs-game-skills::skills/threejs-debug-profiler::threejs-debug-profiler",
+          "name": "threejs-debug-profiler",
+          "repo": "majidmanzarpour/threejs-game-skills"
+        },
+        {
+          "id": "majidmanzarpour/threejs-game-skills::skills/threejs-audio-generator::threejs-audio-generator",
+          "name": "threejs-audio-generator",
+          "repo": "majidmanzarpour/threejs-game-skills"
+        },
+        {
+          "id": "majidmanzarpour/threejs-game-skills::skills/threejs-aaa-graphics-builder::threejs-aaa-graphics-builder",
+          "name": "threejs-aaa-graphics-builder",
+          "repo": "majidmanzarpour/threejs-game-skills"
+        },
+        {
+          "id": "majidmanzarpour/threejs-game-skills::skills/threejs-3d-generator::threejs-3d-generator",
+          "name": "threejs-3d-generator",
+          "repo": "majidmanzarpour/threejs-game-skills"
         }
       ]
     },
