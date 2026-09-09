@@ -229,6 +229,11 @@ export function getDependencyLeasesDir(): string {
   return join(getConfigDir(), "dependency-leases");
 }
 
+/** Durable `get --path` copies, isolated from caller-session dependency leases. */
+export function getGetBorrowsDir(): string {
+  return join(getConfigDir(), "get-borrows");
+}
+
 export function getBundledIndexDir(): string {
   // In built dist/: __dirname is dist/, data/ is at ../data/
   // In dev (src/): __dirname is src/, data/ is at ../data/

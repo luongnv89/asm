@@ -32,6 +32,11 @@ export {
   // ── Tag editing ──
   formatTagUpdates,
   type TagUpdateResult,
+  // ── Reference-tier borrows ──
+  formatGetProvenance,
+  formatGetPath,
+  formatGetBorrowCleanup,
+  formatCleanupHelp,
   // ── Temporary dependency leases ──
   formatDependencyDiscovery,
   formatDependencyAcquisition,

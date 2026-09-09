@@ -20,6 +20,7 @@ import {
   type DependencyLeasePaths,
   findAcquiredDependency,
   releaseDependencySession,
+  releaseDependencyByPath,
   withDependencyLeaseSession,
 } from "./dependency-leases";
 
@@ -629,6 +630,76 @@ describe("temporary dependency leases", () => {
     await expect(readFile(acquired.skillMdPath, "utf-8")).resolves.toContain(
       "# Helper",
     );
+  });
+
+  it("rechecks exact path ownership after acquiring the session lock", async () => {
+    const acquired = await acquire("run-path-lock", true);
+    let entered!: () => void;
+    const started = new Promise<void>((resolveStarted) => {
+      entered = resolveStarted;
+    });
+    let proceed!: () => void;
+    const gate = new Promise<void>((resolveGate) => {
+      proceed = resolveGate;
+    });
+    const holding = withDependencyLeaseSession(
+      "run-path-lock",
+      async () => {
+        entered();
+        await gate;
+        const path = statePath("run-path-lock");
+        const state = JSON.parse(await readFile(path, "utf-8"));
+        for (const key of Object.keys(state.acquisitions))
+          state.acquisitions[key].owned = false;
+        await writeFile(path, JSON.stringify(state));
+      },
+      { rootDir },
+    );
+    await started;
+    const releasing = releaseDependencyByPath(acquired.path, { rootDir });
+    proceed();
+    await holding;
+    await expect(releasing).rejects.toThrow("single owned acquisition");
+    await expect(readFile(acquired.skillMdPath, "utf-8")).resolves.toContain(
+      "# Helper",
+    );
+  });
+
+  it("does not release a registered session for a different artifact path", async () => {
+    const acquired = await acquire("run-exact-path", true);
+    await expect(
+      releaseDependencyByPath(
+        join(dirname(acquired.path), "another-artifact"),
+        { rootDir },
+      ),
+    ).resolves.toBeNull();
+    await expect(readFile(acquired.skillMdPath, "utf-8")).resolves.toContain(
+      "# Helper",
+    );
+  });
+
+  it("uses guarded quarantine for path cleanup during an artifact rename race", async () => {
+    const acquired = await acquire("run-path-race", true);
+    let quarantined = "";
+    const released = await releaseDependencyByPath(acquired.path, {
+      rootDir,
+      renameArtifact: async (from, to) => {
+        await rename(from, `${from}.original`);
+        await mkdir(from);
+        await writeFile(join(from, "sentinel"), "preserve replacement");
+        await rename(from, to);
+        quarantined = to;
+      },
+    });
+    expect(released?.errors).toEqual([
+      expect.stringContaining("without an ownership marker"),
+    ]);
+    await expect(
+      readFile(join(quarantined, "sentinel"), "utf-8"),
+    ).resolves.toBe("preserve replacement");
+    await expect(
+      readFile(join(sourceDir, "SKILL.md"), "utf-8"),
+    ).resolves.toContain("# Helper");
   });
 
   it("rejects session identities that could escape the lease root", async () => {

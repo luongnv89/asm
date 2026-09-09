@@ -200,12 +200,12 @@ asm audit residency --json
 
 The advice assumes this demotion ladder:
 
-| Tier                      | `asm` mechanism                           | Residency                    |
-| ------------------------- | ----------------------------------------- | ---------------------------- |
-| Installed (auto-triggers) | provider directory / `asm activate`       | description resident, always |
-| Saved (adapt, no trigger) | `asm install --library`, `asm deactivate` | none until `asm activate`    |
-| Disabled (kept on disk)   | `asm disable` (reverse with `asm enable`) | none                         |
-| Reference (read on use)   | `asm get` — nothing on disk at all        | none                         |
+| Tier                      | `asm` mechanism                            | Residency                    |
+| ------------------------- | ------------------------------------------ | ---------------------------- |
+| Installed (auto-triggers) | provider directory / `asm activate`        | description resident, always |
+| Saved (adapt, no trigger) | `asm install --library`, `asm deactivate`  | none until `asm activate`    |
+| Disabled (kept on disk)   | `asm disable` (reverse with `asm enable`)  | none                         |
+| Reference (read on use)   | default `asm get` — no retained skill copy | none                         |
 
 Which command a candidate gets depends on how it is installed. `asm deactivate`
 only works on a live symlink into the `asm` library, so it is suggested only
@@ -229,8 +229,8 @@ entirely against your local filesystem.
 
 Demoting a skill does not mean losing it. `asm get <skill>` resolves a skill and
 writes its `SKILL.md` body to **stdout** — no provider directory, no library
-entry, no residency. The skill is paid for once, at the point of use, and costs
-nothing afterwards.
+entry, no residency. Default `get` retains no skill copy. With `--path`, it
+instead borrows a full directory on disk until you explicitly clean it up.
 
 ```bash
 asm get code-review                       # body to stdout
@@ -265,12 +265,43 @@ The catalog stores metadata, not bodies, so an `index`, `registry` or remote
 `asm get` costs a shallow clone into a temp directory, which is deleted before
 the command returns. Those fetches run the **same pre-install security scan
 `asm install` runs**; the verdict goes to stderr and into `--json` under
-`security`. It reports rather than blocks — `asm get` writes nothing — and
+`security`. It reports rather than blocks — `asm get` never installs or executes the skill — and
 `--audit` prints the full `asm audit security` report for the fetched skill.
 
 Output discipline: stdout carries the body (or, with `--json`, a single JSON
 object) and nothing else, so piping and redirecting are safe. Provenance,
 progress, and the security verdict go to stderr.
+
+#### Borrow the full skill directory
+
+When a skill needs supporting scripts, templates, references or binary assets:
+
+```bash
+borrowed_path="$(asm get --path code-review)"  # also: asm get code-review --path
+# Read "$borrowed_path/SKILL.md" and its supporting files after get exits.
+asm cleanup "$borrowed_path"                 # caller cleans up when finished
+```
+
+Every source tier is **copied**, including local paths, installed skills and
+library entries. The original is never changed or deleted. The copy lives under
+ASM's config directory in `get-borrows/`, independently of dependency sessions;
+the remote staging clone is still deleted before `get` returns. There is no
+exit-triggered borrow deletion and no `--keep` requirement. `asm install` remains
+the permanent installation workflow.
+
+Plain `--path` stdout is one absolute directory path plus a newline; provenance,
+security and cleanup guidance stay on stderr. `--path --json` (or `--machine`)
+returns `path`, sorted relative `files`, existing provenance/security fields,
+and `cleanup: {command: "asm", args: ["cleanup", path]}` instead of `content`.
+Git internals and ASM ownership metadata are omitted from the file list; `.git`
+is not copied. Executable modes and binary files are preserved. Installed root
+symlinks are resolved before copying; nested symlinks are refused.
+
+`asm cleanup <borrowed-path>` accepts only an exact registered borrow root, not
+an original source, parent, child, or symlink alias. Unknown and repeated cleanup
+are safe no-ops. Missing or mismatched ownership proof refuses deletion and may
+quarantine suspicious replacement content for inspection. Cleanup also supports
+`--json` and `--machine`.
 
 ### Just-in-time optional dependencies
 
