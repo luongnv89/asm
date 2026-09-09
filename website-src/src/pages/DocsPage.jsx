@@ -160,6 +160,10 @@ export default function DocsPage() {
                 desc="List registered eval providers and versions"
               />
               <Row
+                cmd="asm deps discover|acquire|release|cleanup"
+                desc="Manage caller-owned temporary dependency leases"
+              />
+              <Row
                 cmd="asm bundle <subcommand>"
                 desc="Manage skill bundles (create, install, list, show, modify, export, remove)"
               />
@@ -1184,7 +1188,7 @@ asm import skills.json -s global    # Import only global skills`}</CodeBlock>
               />
               <Row
                 cmd="bundle install <name|file>"
-                desc="Install all skills from a saved bundle, pre-defined name, or bundle file"
+                desc="Install all skills from a saved bundle, pre-defined name, or bundle file (interactive tool/scope pickers)"
               />
               <Row cmd="bundle list" desc="List all saved bundles" />
               <Row
@@ -1203,17 +1207,38 @@ asm import skills.json -s global    # Import only global skills`}</CodeBlock>
               <Row cmd="bundle remove <name>" desc="Remove a saved bundle" />
             </tbody>
           </table>
+          <p>
+            ASM ships with seven pre-defined bundles — <code>frontend-dev</code>
+            , <code>devops</code>, <code>content-writing</code>,{" "}
+            <code>ios-release</code>, <code>marketing</code>,{" "}
+            <code>software-dev</code>, and <code>game-dev</code> — installed by
+            name with <code>asm bundle install &lt;name&gt;</code>. In a
+            terminal, <code>bundle install</code> prompts for the target
+            tool(s), the bundle skills to install, and the scope; pass the
+            prompt&apos;s own flag to skip it (<code>-p/--tool</code>,{" "}
+            <code>-s/--scope</code>, <code>-y/--yes</code>). Outside a terminal,{" "}
+            <code>-p/--tool</code> is required unless exactly one tool is
+            enabled.
+          </p>
           <h3>Flags</h3>
           <FlagTable
             rows={[
               [
-                "-s, --scope <s>",
+                "-p, --tool <name>",
                 <>
-                  Filter: <code>global</code>, <code>project</code>, or{" "}
-                  <code>both</code>
+                  (install) Target tool: claude, codex, openclaw, agents, or{" "}
+                  <code>all</code>
                 </>,
               ],
-              ["-y, --yes", "Skip confirmation prompts"],
+              [
+                "-s, --scope <s>",
+                <>
+                  (install) Install scope: <code>global</code> or{" "}
+                  <code>project</code>; otherwise filter <code>global</code>,{" "}
+                  <code>project</code>, or <code>both</code>
+                </>,
+              ],
+              ["-y, --yes", "Skip confirmations and the skill/scope pickers"],
               ["--json", "Output as JSON"],
               [
                 "--predefined",

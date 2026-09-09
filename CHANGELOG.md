@@ -1,3 +1,57 @@
+## v2.19.0 — 2026-09-09
+
+### Features
+
+- Install skill dependencies just-in-time instead of requiring them up front ([#621](https://github.com/luongnv89/asm/issues/621)) ([#651](https://github.com/luongnv89/asm/pull/651)) — @luongnv89
+- Add `openai/skills` and `affaan-m/ECC` to the curated skill index ([#648](https://github.com/luongnv89/asm/issues/648)) ([#649](https://github.com/luongnv89/asm/issues/649)) ([#650](https://github.com/luongnv89/asm/pull/650)) — @luongnv89
+- Track SPA page views and add GoatCounter to the website ([#645](https://github.com/luongnv89/asm/issues/645)) ([#647](https://github.com/luongnv89/asm/pull/647)) — @luongnv89
+- Add Google Analytics tracking to the website ([#645](https://github.com/luongnv89/asm/issues/645)) ([#646](https://github.com/luongnv89/asm/pull/646)) — @luongnv89
+- Add a marketing skill bundle ([#634](https://github.com/luongnv89/asm/issues/634)) ([#640](https://github.com/luongnv89/asm/pull/640)) — @luongnv89
+- Add a software development skill bundle ([#633](https://github.com/luongnv89/asm/issues/633)) ([#639](https://github.com/luongnv89/asm/pull/639)) — @luongnv89
+- Repair the iOS-release bundle skill path and extend bundle matching ([#631](https://github.com/luongnv89/asm/issues/631)) ([#637](https://github.com/luongnv89/asm/pull/637)) — @luongnv89
+- Add a game development skill bundle ([#630](https://github.com/luongnv89/asm/issues/630)) ([#636](https://github.com/luongnv89/asm/pull/636)) — @luongnv89
+- Add one-click bundle download with defaults to the catalog ([#626](https://github.com/luongnv89/asm/issues/626)) ([#628](https://github.com/luongnv89/asm/pull/628)) — @luongnv89
+- Add a repo detail page with skills list to the website ([#623](https://github.com/luongnv89/asm/issues/623)) ([#624](https://github.com/luongnv89/asm/pull/624)) — @luongnv89
+- Add `majidmanzarpour/threejs-game-skills` to the skill index ([#619](https://github.com/luongnv89/asm/issues/619)) ([#620](https://github.com/luongnv89/asm/pull/620)) — @luongnv89
+- Reorder the install provider picker and add Oh My Pi and Grok CLI ([#617](https://github.com/luongnv89/asm/issues/617)) ([#618](https://github.com/luongnv89/asm/pull/618)) — @luongnv89
+- Make static category pages indexable with sitemap and llms.txt wiring ([#615](https://github.com/luongnv89/asm/pull/615)) — @luongnv89
+- Add interactive tool and scope pickers to bundle install ([#612](https://github.com/luongnv89/asm/issues/612)) ([#613](https://github.com/luongnv89/asm/pull/613)) — @luongnv89
+- Add `DietrichGebert/ponytail` to the curated skill index ([#606](https://github.com/luongnv89/asm/pull/606)) — @luongnv89
+- Sort the catalog by popularity and lead cards with score and stars ([#599](https://github.com/luongnv89/asm/pull/599)) — @luongnv89
+- Redesign the skills and bundles catalog as a storefront ([#596](https://github.com/luongnv89/asm/pull/596)) — @luongnv89
+- Refresh the `tt-a1i/archify` skill index ([#589](https://github.com/luongnv89/asm/pull/589)) — @luongnv89
+- Add skill-shortener for progressive-disclosure shrinking of oversized skills ([#586](https://github.com/luongnv89/asm/pull/586)) — @luongnv89
+
+### Bug Fixes
+
+- Make bundle install tool and scope pickers discoverable ([#629](https://github.com/luongnv89/asm/issues/629)) ([#641](https://github.com/luongnv89/asm/pull/641)) — @luongnv89
+- Repair frontend-dev bundle skill references ([#632](https://github.com/luongnv89/asm/issues/632)) ([#638](https://github.com/luongnv89/asm/pull/638)) — @luongnv89
+- Time-box the npm audit and move it out of unit-tests ([#608](https://github.com/luongnv89/asm/issues/608)) ([#610](https://github.com/luongnv89/asm/pull/610)) — @luongnv89
+- Skip the retired npm audit endpoint in unit-tests ([#604](https://github.com/luongnv89/asm/issues/604)) ([#605](https://github.com/luongnv89/asm/pull/605)) — @luongnv89
+- Resolve the provider before the bundle install confirmation ([#602](https://github.com/luongnv89/asm/issues/602)) ([#603](https://github.com/luongnv89/asm/pull/603)) — @luongnv89
+- Stop publishing 0 GitHub stars when catalog fetches fail ([#598](https://github.com/luongnv89/asm/issues/598)) ([#601](https://github.com/luongnv89/asm/pull/601)) — @luongnv89
+
+### Refactoring
+
+- Diversify the popularity sort across catalog repos ([#622](https://github.com/luongnv89/asm/issues/622)) ([#627](https://github.com/luongnv89/asm/pull/627)) — @luongnv89
+- Bring refresh-index to the skill size floor ([#591](https://github.com/luongnv89/asm/issues/591)) ([#592](https://github.com/luongnv89/asm/pull/592)) — @luongnv89
+
+### Testing
+
+- Pin the tool picker heading with a characterization test ([#629](https://github.com/luongnv89/asm/issues/629)) ([#642](https://github.com/luongnv89/asm/pull/642)) — @luongnv89
+
+### Documentation
+
+- Refresh catalog docs with current CLI and in-page navigation
+
+### Other Changes
+
+- Refresh indexed skill sources ([#652](https://github.com/luongnv89/asm/pull/652)) ([#594](https://github.com/luongnv89/asm/pull/594)) ([#593](https://github.com/luongnv89/asm/pull/593)) — @luongnv89
+- Fix prettier and eslint drift ([#609](https://github.com/luongnv89/asm/issues/609)) ([#611](https://github.com/luongnv89/asm/pull/611)) — @luongnv89
+- Refresh indexed skill sources and add gitissue configuration
+
+**Full Changelog**: https://github.com/luongnv89/asm/compare/v2.18.0...v2.19.0
+
 ## v2.18.0 — 2026-08-28
 
 ### Features

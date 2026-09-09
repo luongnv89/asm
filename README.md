@@ -19,7 +19,7 @@
 
 **agent-skill-manager** (`asm`) is a scriptable CLI built for AI agents and automation — install, search, audit, and organize skills across Claude Code, Codex, Cursor, and 18 more tools. Every command supports `--json` and `--yes` for non-interactive use. An optional TUI (`asm`) is available for local browsing.
 
-[**Get Started**](#getting-started) · [**Browse 4,300+ skills**](https://luongnv.com/asm/#/skills) · [**Full docs**](#documentation)
+[**Get Started**](#getting-started) · [**Browse 6,000+ skills**](https://luongnv.com/asm/#/skills) · [**Full docs**](#documentation)
 
 ## Problems `asm` solves
 
@@ -37,7 +37,7 @@
 
 |                     |                                                                                |
 | ------------------- | ------------------------------------------------------------------------------ |
-| **Catalog**         | 4,672 skills from 58 repos — [browse online](https://luongnv.com/asm/#/skills) |
+| **Catalog**         | 6,082 skills from 77 repos — [browse online](https://luongnv.com/asm/#/skills) |
 | **Providers**       | 21 providers (Agents, Claude Code, Pi, OpenCode, Codex, …)                     |
 | **Agent-ready CLI** | `--json`, `--yes`, `--machine` on list, search, install, audit, eval           |
 | **Security**        | Pre-install scan for shell exec, network access, credential exposure           |
@@ -779,6 +779,8 @@ asm bundle export my-workflow ./my-workflow.json
 ```
 
 **iOS/Swift catalog:** ASM indexes public Swift/Apple skill repos. Use `asm bundle install ios-release` or search for `swift`, `swiftui`, `swift testing`, `uikit`, `swiftdata`, `app store connect`.
+
+Pre-defined bundles: `frontend-dev`, `devops`, `content-writing`, `ios-release`, `marketing`, `software-dev`, `game-dev` — full list via `asm bundle list --predefined`.
 
 </details>
 

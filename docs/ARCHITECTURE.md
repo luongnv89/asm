@@ -33,7 +33,7 @@ Parses arguments and dispatches to command handlers:
 Dispatches to ~47 command handlers (`cmd*` functions) covering discovery
 (`list`, `search`, `inspect`, `tag`), lifecycle (`install`, `uninstall`,
 `disable`/`enable`, `update`, `outdated`), authoring (`init`, `link`, `eval`,
-`publish`), and organization (`audit`, `bundle`, `library`, `stats`,
+`publish`), and organization (`audit`, `bundle`, `deps`, `library`, `stats`,
 `doctor`, `config`, `import`/`export`, `index`). See
 [README § CLI Commands](../README.md#cli-commands) for the full, current
 reference with flags and examples.

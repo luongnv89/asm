@@ -27,6 +27,72 @@ function issue(n) {
 
 const ENTRIES = [
   {
+    version: "2.19.0",
+    date: "2026-09-09",
+    sections: [
+      {
+        tag: "added",
+        items: [
+          <>
+            Catalog storefront redesign — skills and bundles list as a browsable
+            shop with card-led layout ({pr(596)}), popularity sort diversified
+            across repos ({pr(599)}, {pr(627)}), and a per-repo detail page
+            listing every indexed skill ({pr(624)})
+          </>,
+          <>
+            Site analytics — Google Analytics ({pr(646)}) and GoatCounter (
+            {pr(647)}) page-view tracking
+          </>,
+          <>
+            SEO — indexable static category pages wired into sitemap and{" "}
+            <code>llms.txt</code> ({pr(615)})
+          </>,
+          <>
+            One-click bundle download with defaults from the catalog ({pr(628)})
+          </>,
+          <>
+            Three new predefined bundles: <code>marketing</code> ({pr(640)}),{" "}
+            <code>software-dev</code> ({pr(639)}), and <code>game-dev</code> (
+            {pr(636)}), plus expanded iOS-release bundle matching and a repaired{" "}
+            <code>frontend-dev</code> bundle path ({pr(637)}, {pr(638)})
+          </>,
+          <>
+            Interactive tool and scope pickers on{" "}
+            <code>asm bundle install</code> ({pr(613)})
+          </>,
+          <>
+            Just-in-time skill dependency install —{" "}
+            <code>asm deps discover|acquire|release|cleanup</code> ( {pr(651)})
+          </>,
+          <>
+            Reordered install provider picker with two new providers: Oh My Pi
+            and Grok CLI ({pr(618)})
+          </>,
+          <>
+            Index additions: <code>openai/skills</code> and{" "}
+            <code>affaan-m/ECC</code> ({pr(650)}),{" "}
+            <code>majidmanzarpour/threejs-game-skills</code> ({pr(620)}),{" "}
+            <code>DietrichGebert/ponytail</code> ({pr(606)})
+          </>,
+        ],
+      },
+      {
+        tag: "fixed",
+        items: [
+          <>
+            Resolve the target provider before <code>asm bundle install</code>{" "}
+            confirmation ({pr(603)})
+          </>,
+          <>
+            Stop publishing <code>0</code> GitHub stars when star fetch fails (
+            {pr(601)})
+          </>,
+          <>Make bundle install tool/scope pickers discoverable ( {pr(641)})</>,
+        ],
+      },
+    ],
+  },
+  {
     version: "2.18.0",
     date: "2026-08-28",
     sections: [

@@ -46,52 +46,52 @@ export default function LandingPage() {
   );
 }
 
-/* ─── What's New (v2.18) ───────────────────────────────────────────── */
+/* ─── What's New (v2.19) ───────────────────────────────────────────── */
 
 function WhatsNew() {
   const highlights = [
     {
       tag: "New",
-      head: "Tag skills, then filter the catalog",
-      body: "Skills can carry tags, and the public catalog AND-filters on them — same idea in the TUI/CLI — so you can slice thousands of entries without guessing names.",
+      head: "Curated skill bundles, one click to install",
+      body: "Skill bundles put hand-picked collections together — marketing, software-dev, iOS, and game dev — and each one is one click away from your machine.",
     },
     {
       tag: "New",
-      head: "Eleven anti-slop skills in the index",
-      body: "Charlie Hills–ranked anti-slop skills are searchable and one asm install away: stop-slop, hallmark, voiceprint, answer-first, and seven more for writing, UI, and diagrams that do not sound templated.",
+      head: "Tune a bundle before you download it",
+      body: "Interactive tool and scope pickers let you shape a bundle — which tools it targets, which scopes it covers — so what lands is exactly what you needed.",
     },
     {
       tag: "New",
-      head: "Four new skill sources",
-      body: "ComposioHQ/awesome-claude-skills, JuliusBrussee/caveman, multica-ai/andrej-karpathy-skills, and ayghri/i-have-adhd join the curated index.",
+      head: "A storefront redesign for the catalog",
+      body: "The catalog now sorts by popularity, gives every source repo a detail page, and tracks analytics — browsing thousands of skills feels like a real shop.",
     },
     {
       tag: "New",
-      head: "Dependency gating and per-step context",
-      body: "skill-creator and skill-auto-improver now refuse a run when a declared skill dependency is missing, print run stats at the end, and can hand each heavy step only the slice of references/ its worker needs.",
+      head: "Static category pages for search engines",
+      body: "Every catalog category gets a fast, indexable static page — so people and AI agents can find your skills right from a search result.",
     },
   ];
   return (
     <Reveal
       as="section"
       className="flex flex-col gap-8"
-      aria-label="What's new in v2.18"
+      aria-label="What's new in v2.19"
     >
       <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div className="flex flex-col gap-3 max-w-[680px]">
           <span className="lp-kicker">
             <span className="dot" aria-hidden="true" />
-            what&apos;s new · v2.18
+            what&apos;s new · v2.19
           </span>
           <h2 className="lp-section-title">
-            Skill tags on the catalog, eleven anti-slop skills, and gated
-            authoring.
+            Skill bundles, a redesigned catalog storefront, and SEO category
+            pages.
           </h2>
           <p className="lp-lede">
-            v2.18 lets you tag skills and AND-filter the catalog by those tags,
-            indexes eleven anti-slop skills plus four new sources, and teaches
-            skill-creator to gate dependencies, print run stats, and delegate
-            per-step context.
+            v2.19 ships curated skill bundles with one-click download and
+            interactive tool/scope pickers, a storefront rebuilt with popularity
+            sort, repo detail pages, and analytics, plus static, indexable
+            category pages.
           </p>
         </div>
         <Link
