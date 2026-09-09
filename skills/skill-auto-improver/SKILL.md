@@ -5,8 +5,10 @@ license: MIT
 compatibility: "Claude Code; requires `asm` on PATH and Python 3 for skill-creator's quick_validate.py"
 allowed-tools: Bash Read Write Edit Grep Glob
 effort: high
+dependencies:
+  - skill-creator
 metadata:
-  version: 2.1.0
+  version: 2.2.0
   author: luongnv89
 ---
 
@@ -31,25 +33,20 @@ Pick one before Phase 0 — they do not share a workflow.
 
 ## Dependency Preflight (mandatory)
 
-This skill invokes `skill-creator`: it runs that skill's `quick_validate.py` (required — the Gate 1 validator) and reads its `predictability-rubric.md` (**fail-soft** — a local copy may predate the rubric, and a missing one only degrades Phase 2b to a warning). Resolve both **before the repo sync below**, the first step that changes anything:
+This skill invokes `skill-creator`, declared in frontmatter `dependencies`: it runs that skill's `quick_validate.py` (required — the Gate 1 validator) and reads its `predictability-rubric.md` (**fail-soft** — a local copy may predate the rubric, and a missing one only degrades Phase 2b to a warning). The main agent supplies `ASM_SKILL_SESSION_ID`, acquires this dependency at first use, and releases that session in its own `finally`/shutdown handling:
 
 ```bash
 date +%s >&2                      # anchors the Run stats block below — read it off stderr
-QV="$HOME/.claude/skills/skill-creator/scripts/quick_validate.py"
-test -f "$QV" || {
-  echo "Missing required skill: skill-creator" >&2
-  echo "Install it:      asm install skill-creator -p claude --yes" >&2
-  echo "No asm yet:      npm install -g agent-skill-manager" >&2
-  echo "Verify:          asm list -p claude --json | grep 'skill-creator'" >&2
-  exit 1
-}
-RUBRIC="$HOME/.claude/skills/skill-creator/references/predictability-rubric.md"
+: "${ASM_SKILL_SESSION_ID:?caller must supply a unique dependency session identity}"
+ACQUISITION="$(asm deps acquire skill-creator --session "$ASM_SKILL_SESSION_ID" --json)"
+SKILL_CREATOR_DIR="$(printf '%s' "$ACQUISITION" | node -e 'let s="";process.stdin.on("data",c=>s+=c).on("end",()=>process.stdout.write(JSON.parse(s).path))')"
+QV="$SKILL_CREATOR_DIR/scripts/quick_validate.py"
+test -f "$QV" || { echo "skill-creator acquisition lacks quick_validate.py" >&2; exit 1; }
+RUBRIC="$SKILL_CREATOR_DIR/references/predictability-rubric.md"
 test -f "$RUBRIC" || echo "⚠ predictability rubric missing — Phase 2b degraded (gates unaffected)"
 ```
 
-`-p claude` is not decoration: `asm install` refuses to guess a provider non-interactively, `--yes` does not cover that choice, and naming the same provider in the verification stops an install under a different tool from reporting success while `$QV` is still missing.
-
-On a miss, stop before the first mutation and print those commands — never continue with a partial run. This is the gate this skill audits every target for (`references/skill-creator-checklist.md` → _Dependency preflight_).
+Use the returned neutral path directly; do not wait for a provider to rescan its catalog. Even on failure, the main agent's `finally` runs `asm deps release --session "$ASM_SKILL_SESSION_ID" --json`. ASM does not supervise this skill. An uncatchable termination requires explicit later recovery with `asm deps cleanup --stale-before <conservative-ISO-cutoff> --dry-run --json`, then without `--dry-run`.
 
 ## Repo Sync Before Edits (mandatory)
 
@@ -105,7 +102,7 @@ A skill passes when **all** of these hold:
 - `metadata.version` is `MAJOR.MINOR.PATCH`; `metadata.author` is present
 - A `docs/README.md`, if present, opens with the AI-skip HTML comment
 - Any bundled script under `scripts/` prints a descriptive error on stderr before exiting
-- **If the target skill invokes another skill**, it carries a dependency preflight naming each dependency, its install command, the command that installs the installer itself, and a verification step (`references/skill-creator-checklist.md` → _Dependency preflight_). A target that invokes none needs no such section — never add an empty one
+- **If the target skill invokes another skill**, it declares frontmatter `dependencies` and carries a caller-owned first-use acquire/release lifecycle (`references/skill-creator-checklist.md` → _Dependency preflight_). A target that invokes none needs neither — never add an empty list or section
 
 This gate is **non-negotiable**: `asm publish` and the catalog rely on it.
 
@@ -163,7 +160,7 @@ Many skills jump 5–15 points here without touching the body, and `quick_valida
 
 `quick_validate.py` and the Frontmatter Audit come first because they gate publish. `references/skill-creator-checklist.md` carries the fix for each failing check — frontmatter, description, body size, the `docs/README.md` AI-skip notice, script stderr, version, and preflight. Work it top to bottom.
 
-One check has no mechanical validator behind it, so look for it deliberately: **Skill invokes another skill with no preflight gate**, or one that never explains installation. Detect it by scanning for `/skill-name` invocations, reads under `~/.claude/skills/` or `~/.agents/skills/`, and phases handed to a named skill; remediate with the checklist's _Dependency preflight_ section.
+One check has no complete mechanical validator behind it, so look for it deliberately: **Skill invokes another skill without dependency metadata and a first-use lease lifecycle**. Detect it by scanning for `/skill-name` invocations, reads under provider skill directories, and phases handed to a named skill; remediate with the checklist's _Dependency preflight_ section.
 
 Re-run `python "$QV" "$SKILL_PATH"` after every Gate 1 edit. Do not enter Phase 2b until Gate 1 is clean.
 

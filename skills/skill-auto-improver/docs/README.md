@@ -18,7 +18,7 @@
 - Hard loop cap (8 iterations) so it never runs unbounded.
 - Bumps the target skill's `metadata.version` once per iteration per skill-creator's Version Management rule.
 - Saves every iteration JSON and gate-summary line to `.asm-improver/` for auditability.
-- Reports a skill that invokes another skill without a dependency preflight gate — and retrofits one that names the dependency, its install command, the installer's own install command, and a verification step.
+- Reports a skill that invokes another skill without dependency metadata and a caller-owned first-use acquire/release lifecycle — and retrofits both.
 - Writes a final before/after report on pass or blocker.
 - Closes every run with a run-stats block: elapsed time, agents, skills, tool calls, plus tokens and cost where the host reports them.
 

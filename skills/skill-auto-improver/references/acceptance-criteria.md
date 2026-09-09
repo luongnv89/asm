@@ -13,7 +13,7 @@
 
 - `asm eval --fix` run (at minimum `--dry-run`), then frontmatter normalized so `quick_validate.py` accepts the result
 - Each Gate 1 check addressed at least once **before** any Gate 2 work
-- A target that invokes another skill ends the run with a dependency preflight naming each dependency, its install command, the command that installs the installer itself, and a verification step; a target that invokes none gains no such section
+- A target that invokes another skill declares it in frontmatter and ends with caller-owned first-use acquire, direct-path use, and idempotent release instructions; a target that invokes none gains no empty dependency list or preflight
 - Each `asm eval` category below 8 addressed at least once
 - Both gates re-evaluated after every iteration
 - The target's `metadata.version` bumped exactly once per iteration that produced edits

@@ -28,67 +28,82 @@ another skill in prose (`/skill-name`), reads a path under `~/.claude/skills/`,
 
 ## What a generated preflight must contain
 
-Four things, per dependency. A gate that detects a miss but leaves the user to
-work out the fix is worse than no gate — it stops the run and explains nothing.
+Declare every optional dependency as a top-level YAML list. Declaration is
+discovery metadata only: installing the parent never installs this list.
 
-| Element                 | Requirement                                                                     |
-| ----------------------- | ------------------------------------------------------------------------------- |
-| **Name**                | The missing skill, named exactly as it is installed                             |
-| **Install command**     | The command that installs that skill, complete enough to run unattended         |
-| **Installer bootstrap** | The command that installs the installer itself, for a user who does not have it |
-| **Verification**        | A command the user runs to confirm the install landed                           |
+```yaml
+dependencies:
+  - skill-creator
+  - github:owner/repo:skills/helper
+```
 
-State the behavior on a miss too: **stop before the first mutation** by default.
+The workflow then names four lifecycle elements:
+
+| Element                   | Requirement                                                                          |
+| ------------------------- | ------------------------------------------------------------------------------------ |
+| **Discovery**             | `asm deps discover <parent> --json` exposes the optional list                        |
+| **First-use acquisition** | acquire only the dependency whose branch is reached, with caller session identity    |
+| **Direct use**            | read the returned canonical `skillMdPath`; do not wait for a provider catalog rescan |
+| **Cleanup**               | release the session in caller-owned `finally`/shutdown handling                      |
+
+Check that `asm` is available before the first mutation. Do not acquire every
+declared dependency during preflight: that recreates the eager-install problem.
 A dependency used by only one optional branch may degrade instead — say which,
 and say what the run does without it.
 
 ## Template to emit into the authored skill
 
-Copy this into the skill being authored, replacing `<skill-name>` with each real
-dependency **and `<tool>` with the provider it installs for** (e.g. `claude`).
-Both placeholders must be substituted — an unreplaced `<tool>` is read by the
-shell as a redirection, not a flag. Keep it above the first step that writes,
+Copy this into the skill being authored, replacing `<parent-skill>` and
+`<skill-name>` with real references. The surrounding main agent supplies a
+unique `<caller-session-id>` and owns the `finally`; ASM does not launch or
+supervise that process. Keep the preflight above the first step that writes,
 commits, or publishes.
 
 ````markdown
 ## Dependency Preflight (mandatory)
 
-This skill invokes `<skill-name>`. Verify it is installed **before** the first
-step that changes anything:
+This skill optionally invokes `<skill-name>`, declared in frontmatter
+`dependencies`. Before the first mutation, verify `asm` is available:
 
 ```bash
-asm list -p <tool> --json | grep -q '"<skill-name>"' || {
-  echo "Missing required skill: <skill-name>" >&2
-  echo "Install it:      asm install <skill-name> -p <tool> --yes" >&2
-  echo "No asm yet:      npm install -g agent-skill-manager" >&2
-  echo "Verify:          asm list -p <tool> --json | grep '<skill-name>'" >&2
+command -v asm >/dev/null || {
+  echo "Missing installer: npm install -g agent-skill-manager" >&2
   exit 1
 }
+asm deps discover <parent-skill> --json
 ```
 
-If the check fails, stop and print the three commands above — do not continue
-with a partial run.
+When execution first reaches the branch that needs `<skill-name>`, the main
+agent runs:
+
+```bash
+asm deps acquire <skill-name> --session <caller-session-id> --json
+```
+
+Use the returned `skillMdPath` immediately. The main agent releases the lease
+from its own `finally`/shutdown handling:
+
+```bash
+asm deps release --session <caller-session-id> --json
+```
+
+Do not acquire the dependency if its branch is not reached.
 ````
 
-Name the provider explicitly (`-p <tool>`, e.g. `claude`): `asm install` refuses
-to guess one in a non-interactive shell and `--yes` does not cover that choice,
-so an install command without it errors instead of installing — the one outcome
-this gate exists to prevent. Use the same `-p` in the detection and the
-verification so an install landing under a different tool cannot report success
-while the dependency is still missing.
-
-Adapt the detection to what the host offers: `asm list -p <tool> --json` where
-`asm` is on PATH, otherwise a path test such as
-`test -f "$HOME/.claude/skills/<skill-name>/SKILL.md"`. The four elements are
-fixed; the mechanics are not.
+Normal errors and catchable signals rely on the caller's `finally`/shutdown
+path. `SIGKILL`, power loss, and similar uncatchable termination can leave
+persistent lease state. A later caller may inspect
+`asm deps cleanup --stale-before <ISO-8601> --dry-run --json`, then repeat
+without `--dry-run`. Age is only a caller-selected recovery policy, not proof
+of agent failure, so choose a cutoff older than the longest expected live run.
 
 ## Author-facing summary
 
 An author following this file without running either skill needs only this:
 
 1. Ask whether the skill invokes another skill.
-2. If it does, emit the template above, one entry per dependency, before the
+2. If it does, add the frontmatter list and emit the template above before the
    first mutating step.
-3. Name the dependency, its install command, the installer's own install
-   command, and a verification command.
+3. Acquire only at first use, consume the returned path directly, and make the
+   caller release its session in `finally`.
 4. If it does not, add nothing.
