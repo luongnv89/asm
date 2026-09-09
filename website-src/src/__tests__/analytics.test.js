@@ -74,6 +74,21 @@ describe("analytics (issue #645)", () => {
       expect(count).toHaveBeenCalledWith({ path: "/asm/docs" });
     });
 
+    it("retries GoatCounter until count.js defines count()", () => {
+      vi.useFakeTimers();
+      const count = vi.fn();
+      const location = { pathname: "/docs", search: "" };
+
+      trackPageView(location);
+      expect(count).not.toHaveBeenCalled();
+
+      window.goatcounter = { count };
+      vi.advanceTimersByTime(100);
+
+      expect(count).toHaveBeenCalledWith({ path: "/asm/docs" });
+      vi.useRealTimers();
+    });
+
     it("swallows provider errors so navigation is never blocked", () => {
       window.gtag = () => {
         throw new Error("gtag blocked");
