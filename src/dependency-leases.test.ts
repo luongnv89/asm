@@ -114,6 +114,7 @@ describe("temporary dependency leases", () => {
 
   it("rolls back an owned artifact when session persistence fails", async () => {
     let writes = 0;
+    let firstStatus: string | undefined;
     await expect(
       acquireDependency(
         {
@@ -133,12 +134,17 @@ describe("temporary dependency leases", () => {
             if (writes === 2) {
               throw new Error("injected persistence failure");
             }
+            const state = JSON.parse(content) as {
+              acquisitions: Record<string, { status: string }>;
+            };
+            firstStatus = Object.values(state.acquisitions)[0]?.status;
             await mkdir(join(rootDir, "sessions"), { recursive: true });
             await writeFile(path, content);
           },
         },
       ),
     ).rejects.toThrow("injected persistence failure");
+    expect(firstStatus).toBe("pending");
 
     const artifacts = await readdir(join(rootDir, "artifacts"), {
       recursive: true,
