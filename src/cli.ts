@@ -30,6 +30,8 @@ export interface ParsedArgs {
     name: string | null;
     force: boolean;
     path: string | null;
+    /** `asm get --path` borrows a full directory; install/init retain string path. */
+    getPath: boolean;
     all: boolean;
     library: boolean;
     verbose: boolean;
@@ -123,6 +125,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       name: null,
       force: false,
       path: null,
+      getPath: false,
       all: false,
       library: false,
       verbose: false,
@@ -212,8 +215,12 @@ export function parseArgs(argv: string[]): ParsedArgs {
     } else if (arg === "--force" || arg === "-f") {
       result.flags.force = true;
     } else if (arg === "--path") {
-      i++;
-      result.flags.path = args[i] || null;
+      if (result.command === "get") {
+        result.flags.getPath = true;
+      } else {
+        i++;
+        result.flags.path = args[i] || null;
+      }
     } else if (arg === "--all") {
       result.flags.all = true;
     } else if (arg === "--library") {
@@ -392,7 +399,8 @@ ${ansi.bold("Commands:")}
   search <query>         Search skills by name/description/tool
   tag add|remove         Edit local tags for an installed skill
   inspect <skill-name>   Show detailed info for a skill
-  get <skill>            Print a skill's SKILL.md body (installs nothing)
+  get <skill>            Print a skill body, or borrow its directory with --path
+  cleanup <path>         Remove an exact directory borrowed by get --path
   deps                   Manage caller-owned temporary dependency leases
   uninstall <skill-name> Remove a skill (with confirmation)
   disable <target>       Disable skill(s) without uninstalling
@@ -445,6 +453,7 @@ import { cmdSearch } from "./commands/search";
 import { cmdTag } from "./commands/tag";
 import { cmdInspect } from "./commands/inspect";
 import { cmdGet } from "./commands/get";
+import { cmdCleanup } from "./commands/cleanup";
 import { cmdDeps } from "./commands/deps";
 import { cmdUninstall } from "./commands/uninstall";
 import { cmdDisable, cmdEnable } from "./commands/toggle";
@@ -554,6 +563,9 @@ export async function runCLI(argv: string[]): Promise<void> {
     case "get":
       await cmdGet(args);
       break;
+    case "cleanup":
+      await cmdCleanup(args);
+      break;
     case "deps":
       await cmdDeps(args);
       break;
@@ -643,6 +655,7 @@ export function isCLIMode(argv: string[]): boolean {
     "tag",
     "inspect",
     "get",
+    "cleanup",
     "deps",
     "uninstall",
     "audit",

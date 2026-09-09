@@ -7,6 +7,9 @@ import type {
   DependencyAcquireResult,
   DependencyReleaseResult,
   DependencyStaleCleanupResult,
+  GetBorrowCleanupResult,
+  GetPathResult,
+  GetResult,
   SkillInfo,
 } from "./utils/types";
 
@@ -796,6 +799,71 @@ export function formatTagUpdates(
       return `${verb} ${ansi.bold(result.name)}: ${tags}${suffix}`;
     })
     .join("\n");
+}
+
+// ─── Reference-tier output ─────────────────────────────────────────────────
+
+export function formatGetProvenance(result: GetResult | GetPathResult): string {
+  const lines = [
+    `  ${ansi.bold(result.name)}  ${ansi.dim(formatTokenCount(result.tokenCount))}`,
+    `  ${ansi.dim("source:")} ${result.source}${result.commit ? ` @ ${result.commit.slice(0, 7)}` : ""} ${ansi.dim(`(${result.tier})`)}`,
+  ];
+  if (result.security) {
+    const { risk, warnings, categories } = result.security;
+    const label =
+      risk === "high"
+        ? ansi.red("[!] High Risk")
+        : risk === "medium"
+          ? ansi.yellow("[~] Medium Risk")
+          : ansi.green("[ok] Safe");
+    const detail = warnings
+      ? ansi.dim(
+          ` (${warnings} warning${warnings === 1 ? "" : "s"}: ${categories.join(", ")})`,
+        )
+      : "";
+    lines.push(`  ${ansi.dim("security:")} ${label}${detail}`);
+  }
+  lines.push(
+    `  ${ansi.dim("residency:")} ${ansi.dim("path" in result ? "none — borrowed copy is not installed" : "none — nothing was installed")}`,
+  );
+  if ("path" in result) {
+    lines.push(
+      `  ${ansi.dim("borrow:")} full copy retained until explicit cleanup`,
+    );
+    // Do not interpolate a filesystem path into pasteable shell syntax. Config
+    // roots may contain quotes, $ or backticks; structured output provides argv.
+    lines.push(
+      `  ${ansi.dim("cleanup:")} run asm cleanup with the exact path printed to stdout.`,
+    );
+  }
+  return lines.join("\n") + "\n\n";
+}
+
+export function formatGetPath(result: GetPathResult): string {
+  return result.path + "\n";
+}
+
+export function formatGetBorrowCleanup(result: GetBorrowCleanupResult): string {
+  switch (result.status) {
+    case "removed":
+      return `Removed borrowed skill: ${result.path}`;
+    case "missing":
+      return `Borrow was already missing: ${result.path}`;
+    case "not-found":
+      return `No registered borrow at this exact path (nothing removed): ${result.path}`;
+    case "refused":
+      return `Borrow cleanup refused: ${result.errors.join("; ")}`;
+  }
+}
+
+export function formatCleanupHelp(): string {
+  return `${ansi.bold("Usage:")} asm cleanup <borrowed-path> [--json | --machine]
+
+Remove only an exact ASM-owned directory returned by asm get --path.
+Original local, installed and library skills are never removed.
+Unknown or already cleaned paths are safe no-ops. Ownership mismatches are
+refused; unsafe replacements are preserved (possibly in quarantine).
+Use the absolute path exactly as returned, not a symlink or parent/child path.`;
 }
 
 // ─── Temporary dependency leases ───────────────────────────────────────────

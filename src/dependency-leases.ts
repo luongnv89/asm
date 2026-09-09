@@ -1014,6 +1014,65 @@ export async function releaseDependencySession(
   );
 }
 
+/**
+ * Release an exact registered artifact from a single-acquisition session.
+ * The path only locates state: persisted acquisition identity plus the existing
+ * guarded release authorize deletion. Markers alone are never authorization.
+ */
+export async function releaseDependencyByPath(
+  artifactPath: string,
+  paths: DependencyLeasePaths = {},
+): Promise<DependencyReleaseResult | null> {
+  if (!isAbsolute(artifactPath) || resolve(artifactPath) !== artifactPath) {
+    return null;
+  }
+  const root = await canonicalLeasesRoot(paths, false);
+  if (!root) return null;
+  const segments = relative(root, artifactPath).split(/[\\/]+/);
+  if (
+    segments.length !== 3 ||
+    segments[0] !== "artifacts" ||
+    !/^[a-f0-9]{64}$/.test(segments[1]) ||
+    join(root, ...segments) !== artifactPath
+  ) {
+    return null;
+  }
+
+  const statePath = join(root, "sessions", `${segments[1]}.json`);
+  return withSessionMutationLock(
+    root,
+    statePath,
+    async () => {
+      let raw: string;
+      try {
+        raw = await readFile(statePath, "utf-8");
+      } catch (err) {
+        if ((err as NodeJS.ErrnoException | null)?.code === "ENOENT")
+          return null;
+        throw err;
+      }
+      const session = parseSession(raw);
+      if (sessionPath(root, session.sessionId) !== statePath) {
+        throw new Error("Dependency lease filename does not match session.");
+      }
+      const acquisitions = Object.values(session.acquisitions);
+      if (!acquisitions.some((entry) => entry?.path === artifactPath))
+        return null;
+      if (
+        acquisitions.length !== 1 ||
+        acquisitions[0].owned !== true ||
+        !acquisitions[0].artifactId
+      ) {
+        throw new Error(
+          "Refusing path cleanup without a single owned acquisition.",
+        );
+      }
+      return releaseDependencySessionUnlocked(root, session.sessionId, paths);
+    },
+    paths,
+  );
+}
+
 async function releaseDependencySessionUnlocked(
   root: string,
   sessionId: string,

@@ -843,7 +843,7 @@ export type GetTier =
 /**
  * Security verdict attached to a remotely fetched body. This is the same scan
  * `asm install` runs before writing anything (`scanForWarnings`), reported
- * rather than enforced — `asm get` only prints text, it installs nothing.
+ * rather than enforced — `asm get` never installs or executes the skill.
  */
 export interface GetSecurityVerdict {
   /** `high` | `medium` | `safe` — same mapping the install preview uses. */
@@ -877,6 +877,22 @@ export interface GetResult {
   security: GetSecurityVerdict | null;
   /** The exact SKILL.md text. */
   content: string;
+}
+
+/** Full-directory reference; the default GetResult/body contract is unchanged. */
+export interface GetPathResult extends Omit<GetResult, "content"> {
+  /** Absolute, canonical ASM-owned copy, usable after `get` exits. */
+  path: string;
+  /** Sorted relative file paths using `/`, excluding ownership metadata/.git. */
+  files: string[];
+  /** Explicit cleanup instruction as argv (no shell interpolation required). */
+  cleanup: { command: "asm"; args: ["cleanup", string] };
+}
+
+export interface GetBorrowCleanupResult {
+  path: string;
+  status: "removed" | "missing" | "not-found" | "refused";
+  errors: string[];
 }
 
 // ─── Temporary Dependency Lease Types (issue #621) ───────────────────────
