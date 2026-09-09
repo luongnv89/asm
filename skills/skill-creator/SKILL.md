@@ -4,7 +4,7 @@ description: "Create, improve, evaluate, benchmark skills. Use when authoring a 
 license: MIT
 effort: max
 metadata:
-  version: 1.16.2
+  version: 1.17.0
   author: "Luong NGUYEN <luongnv89@gmail.com>"
 ---
 
@@ -103,7 +103,7 @@ Do not ship repo-mutating skills without this pre-sync guardrail.
 
 Establish, for every skill you author or retrofit, whether it invokes, delegates to, or reads **another skill**. Ask it in the interview — _Does this skill invoke other skills?_ is Capture Intent question 6 — and confirm the answer against the draft: prose naming `/another-skill`, or a read under `~/.claude/skills/`, is a dependency even when the author said there were none.
 
-- **It does** → the skill you produce ships a `## Dependency Preflight (mandatory)` section, placed above the first step that changes anything. Per dependency it names the skill, the command that installs it, the command that installs the installer itself, and a verification command; on a miss it stops before the first mutation.
+- **It does** → declare each optional dependency in the frontmatter `dependencies` list and ship a `## Dependency Preflight (mandatory)` section above the first step that changes anything. The main agent acquires only a dependency whose branch it reaches with `asm deps acquire ... --session <caller-session-id>`, uses the returned path directly, and releases the session in caller-owned `finally`/shutdown handling.
 - **It does not** → add nothing. No empty preflight section, no "no dependencies" placeholder.
 
 Read `references/dependency-preflight.md` for the copyable template and the on-miss behavior. `skill-auto-improver` audits for this same rule, so a skill that ships without a required gate comes back as a finding later.

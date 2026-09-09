@@ -32,6 +32,11 @@ export {
   // ── Tag editing ──
   formatTagUpdates,
   type TagUpdateResult,
+  // ── Temporary dependency leases ──
+  formatDependencyDiscovery,
+  formatDependencyAcquisition,
+  formatDependencyRelease,
+  formatDependencyStaleCleanup,
   // ── Allowed-tools risk ──
   HIGH_RISK_TOOLS,
   MEDIUM_RISK_TOOLS,

@@ -11,7 +11,7 @@ import type {
 } from "../../../types";
 
 const PROVIDER_ID = "skill-best-practice";
-const PROVIDER_VERSION = "1.1.0";
+const PROVIDER_VERSION = "1.2.0";
 const SCHEMA_VERSION = 1;
 
 const ALLOWED_PROPERTIES = new Set([
@@ -22,6 +22,7 @@ const ALLOWED_PROPERTIES = new Set([
   "metadata",
   "compatibility",
   "effort",
+  "dependencies",
 ]);
 
 // Aligned with skill-creator SKILL.md (v1.7.1) and quick_validate.py.
@@ -292,6 +293,27 @@ async function validate(ctx: SkillContext): Promise<{
       ? "Effort is omitted or uses a supported value."
       : "Effort must be one of: low, medium, high, xhigh, max.",
   );
+
+  const dependencies = frontmatter.dependencies;
+  if (dependencies !== undefined) {
+    const dependenciesValid =
+      Array.isArray(dependencies) &&
+      dependencies.length > 0 &&
+      dependencies.every(
+        (dependency) =>
+          typeof dependency === "string" && dependency.trim().length > 0,
+      );
+    pushCheck(
+      checks,
+      "dependencies-shape",
+      "Dependencies are non-empty skill reference strings",
+      dependenciesValid,
+      "error",
+      dependenciesValid
+        ? "Dependencies are a non-empty YAML sequence of skill reference strings."
+        : "Dependencies must be a non-empty YAML sequence containing only non-empty skill reference strings.",
+    );
+  }
 
   const compatibility = frontmatter.compatibility;
   if (compatibility !== undefined) {

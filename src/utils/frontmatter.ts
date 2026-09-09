@@ -1,3 +1,22 @@
+import { parse as parseYaml } from "yaml";
+
+function parseDependencyScalar(raw: string): string {
+  let parsed: unknown;
+  try {
+    parsed = parseYaml(raw);
+  } catch (err) {
+    throw new Error("Invalid dependencies metadata: malformed YAML scalar.", {
+      cause: err,
+    });
+  }
+  if (typeof parsed !== "string" || !parsed.trim()) {
+    throw new Error(
+      "Invalid dependencies metadata: entries must be non-empty scalar strings.",
+    );
+  }
+  return parsed.trim();
+}
+
 export function parseFrontmatter(content: string): Record<string, string> {
   const result: Record<string, string> = {};
   const lines = content.split("\n");
@@ -56,6 +75,32 @@ export function parseFrontmatter(content: string): Record<string, string> {
 
     // Handle nested sub-keys under a parent (one-level nesting with dot notation)
     if (parentKey !== null) {
+      if (parentKey === "dependencies" && line.trim().startsWith("#")) {
+        continue;
+      }
+      const listMatch = line.match(/^\s+-\s*(.*?)\s*$/);
+      if (listMatch) {
+        if (parentKey === "dependencies") {
+          const dependencies = result[parentKey]
+            ? (JSON.parse(result[parentKey]) as string[])
+            : [];
+          dependencies.push(parseDependencyScalar(listMatch[1]));
+          result[parentKey] = JSON.stringify(dependencies);
+          continue;
+        }
+        const cleaned = listMatch[1].replace(/^["']|["']$/g, "");
+        if (cleaned) {
+          result[parentKey] = result[parentKey]
+            ? `${result[parentKey]}\n${cleaned}`
+            : cleaned;
+        }
+        continue;
+      }
+      if (parentKey === "dependencies" && /^\s+\S/.test(line)) {
+        throw new Error(
+          "Invalid dependencies metadata: use a sequence of scalar strings, not a nested mapping.",
+        );
+      }
       const subMatch = line.match(/^\s+(\w[\w-]*):\s*(.*?)\s*$/);
       if (subMatch) {
         const subKey = subMatch[1];
@@ -80,6 +125,14 @@ export function parseFrontmatter(content: string): Record<string, string> {
       const key = match[1];
       const rawValue = match[2];
 
+      if (
+        key === "dependencies" &&
+        ["|", ">", "|+", ">+", "|-", ">-"].includes(rawValue)
+      ) {
+        throw new Error(
+          "Invalid dependencies metadata: block scalars are unsupported; use a YAML sequence or a delimited scalar.",
+        );
+      }
       if (rawValue === "|" || rawValue === ">") {
         // Multiline block scalar
         currentKey = key;
@@ -122,6 +175,94 @@ export function resolveAllowedTools(fm: Record<string, string>): string[] {
     .split(/[\s,]+/)
     .map((t) => t.trim())
     .filter(Boolean);
+}
+
+/**
+ * Optional skill references acquired by a caller only when a run needs them.
+ *
+ * This intentionally supports only scalar-string YAML block/flow sequences
+ * and legacy comma/whitespace-delimited scalars. Nested collections and
+ * non-string entries are rejected. Entries use the same names and explicit
+ * sources accepted by `asm get` and `asm deps acquire`.
+ */
+export function resolveSkillDependencies(fm: Record<string, string>): string[] {
+  const raw = (fm.dependencies || "").trim();
+  if (!raw) return [];
+
+  let entries: string[];
+  if (raw.startsWith("[")) {
+    let parsed: unknown;
+    try {
+      parsed = parseYaml(raw);
+    } catch (err) {
+      throw new Error(
+        "Invalid dependencies metadata: malformed YAML flow sequence.",
+        { cause: err },
+      );
+    }
+    if (
+      !Array.isArray(parsed) ||
+      parsed.some((entry) => typeof entry !== "string" || !entry.trim())
+    ) {
+      throw new Error(
+        "Invalid dependencies metadata: flow sequences must contain only non-empty strings.",
+      );
+    }
+    entries = parsed;
+  } else {
+    const tokens: string[] = [];
+    let token = "";
+    let quote: "'" | '"' | null = null;
+    let escaped = false;
+    const flush = () => {
+      if (token.trim()) tokens.push(token.trim());
+      token = "";
+    };
+
+    for (let i = 0; i < raw.length; i++) {
+      const char = raw[i];
+      if (quote) {
+        token += char;
+        if (escaped) {
+          escaped = false;
+        } else if (quote === '"' && char === "\\") {
+          escaped = true;
+        } else if (char === quote) {
+          quote = null;
+        }
+        continue;
+      }
+      if (char === "'" || char === '"') {
+        quote = char;
+        token += char;
+      } else if (char === "#" && (i === 0 || /\s/.test(raw[i - 1]))) {
+        while (i + 1 < raw.length && raw[i + 1] !== "\n") i++;
+        flush();
+      } else if (char === "," || /\s/.test(char)) {
+        flush();
+      } else {
+        token += char;
+      }
+    }
+    if (quote) {
+      throw new Error(
+        "Invalid dependencies metadata: unterminated quoted string.",
+      );
+    }
+    flush();
+    entries = tokens.map(parseDependencyScalar);
+  }
+
+  const seen = new Set<string>();
+  const dependencies: string[] = [];
+  for (const entry of entries) {
+    const normalized = entry.trim();
+    if (normalized && !seen.has(normalized)) {
+      seen.add(normalized);
+      dependencies.push(normalized);
+    }
+  }
+  return dependencies;
 }
 
 export function resolveTags(fm: Record<string, string>): string[] {

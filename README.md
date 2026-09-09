@@ -236,7 +236,7 @@ nothing afterwards.
 asm get code-review                       # body to stdout
 asm get code-review > /tmp/SKILL.md       # save it without installing
 asm get github:owner/repo:skills/review   # any `asm install` shorthand
-asm get code-review --json                # name, description, tier, source, tokenCount, security, content
+asm get code-review --json                # includes optional dependencies and exact content
 ```
 
 That makes `asm` usable as delivery infrastructure, not only as an installer.
@@ -271,6 +271,51 @@ the command returns. Those fetches run the **same pre-install security scan
 Output discipline: stdout carries the body (or, with `--json`, a single JSON
 object) and nothing else, so piping and redirecting are safe. Provenance,
 progress, and the security verdict go to stderr.
+
+### Just-in-time optional dependencies
+
+A skill can declare optional skill dependencies without installing them:
+
+```yaml
+dependencies:
+  - code-review
+  - github:owner/repo:skills/helper
+```
+
+Installing the parent does not install this list. The calling agent owns the
+run lifecycle: discover the list, acquire only a dependency that the current
+branch actually reaches, use the returned `skillMdPath` immediately, and
+release the caller-supplied session in its own `finally` or shutdown handler.
+
+```bash
+asm deps discover parent-skill --json
+asm deps acquire code-review --session run-123 --json
+# Read the returned skillMdPath now; no provider catalog rescan is required.
+asm deps release --session run-123 --json
+```
+
+Acquisition records whether the resolved target existed before the run. Remote
+temporary copies live under ASM's config directory and are lease-owned;
+installed, library, and explicit local targets are recorded as pre-existing.
+Release is idempotent, removes only artifacts with matching ASM ownership
+proof, and preserves every pre-existing target.
+
+ASM is a support tool, not a process supervisor: it does not launch the agent,
+run its task, or detect arbitrary caller failure. Normal cleanup therefore
+belongs in the caller's `finally`/shutdown handling. An uncatchable termination
+(for example, power loss or `SIGKILL`) can leave persistent lease state. On a
+later invocation, the caller may classify and recover leases older than an
+explicit, conservatively chosen cutoff:
+
+```bash
+asm deps cleanup --stale-before 2026-09-08T00:00:00Z --dry-run --json
+asm deps cleanup --stale-before 2026-09-08T00:00:00Z --json
+```
+
+Age is a caller-selected recovery policy, not proof that an agent failed. Pick
+a cutoff older than the longest expected live run and inspect `--dry-run`
+output first. ASM returns a neutral canonical path and does not promise that a
+foreign provider will rescan its skill catalog in the middle of a session.
 
 ## FAQ
 
@@ -562,6 +607,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm tag add\|remove` | Edit local tags on an installed skill |
 | `asm inspect <skill-name>` | Show detailed info for a skill |
 | `asm get <skill>` | Print a skill's body, install nothing |
+| `asm deps discover\|acquire\|release\|cleanup` | Manage caller-owned temporary dependency leases |
 | `asm install <source>` | Install from GitHub or registry |
 | `asm publish [path]` | Publish to ASM Registry |
 | `asm uninstall <skill-name>` | Remove a skill |

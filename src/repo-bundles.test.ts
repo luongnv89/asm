@@ -215,9 +215,7 @@ describe("repo-derived bundle inference", () => {
       ]),
     );
 
-    const game = bundles.find(
-      (bundle) => bundle.name === "owner-repo-game",
-    );
+    const game = bundles.find((bundle) => bundle.name === "owner-repo-game");
     expect(game).toBeDefined();
     expect(game!.inferred).toBe(true);
     expect(game!.skills.map((s) => s.name)).toEqual([

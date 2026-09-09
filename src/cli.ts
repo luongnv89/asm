@@ -97,6 +97,10 @@ export interface ParsedArgs {
     audit: boolean;
     /** `asm index overlap --threshold <N>` — minimum similarity score (0..1). */
     threshold: number | null;
+    /** Caller-owned identity for temporary dependency lease operations. */
+    session: string | null;
+    /** Explicit ISO-8601 cutoff for dependency stale-session recovery. */
+    staleBefore: string | null;
   };
 }
 
@@ -152,6 +156,8 @@ export function parseArgs(argv: string[]): ParsedArgs {
       predefined: false,
       audit: false,
       threshold: null,
+      session: null,
+      staleBefore: null,
     },
   };
 
@@ -337,6 +343,12 @@ export function parseArgs(argv: string[]): ParsedArgs {
         );
         process.exit(2);
       }
+    } else if (arg === "--session") {
+      i++;
+      result.flags.session = args[i] || null;
+    } else if (arg === "--stale-before") {
+      i++;
+      result.flags.staleBefore = args[i] || null;
     } else if (arg.startsWith("-")) {
       error(`Unknown option: ${arg}`);
       console.error(`Run "asm --help" for usage.`);
@@ -381,6 +393,7 @@ ${ansi.bold("Commands:")}
   tag add|remove         Edit local tags for an installed skill
   inspect <skill-name>   Show detailed info for a skill
   get <skill>            Print a skill's SKILL.md body (installs nothing)
+  deps                   Manage caller-owned temporary dependency leases
   uninstall <skill-name> Remove a skill (with confirmation)
   disable <target>       Disable skill(s) without uninstalling
   enable <target>        Re-enable disabled skill(s)
@@ -432,6 +445,7 @@ import { cmdSearch } from "./commands/search";
 import { cmdTag } from "./commands/tag";
 import { cmdInspect } from "./commands/inspect";
 import { cmdGet } from "./commands/get";
+import { cmdDeps } from "./commands/deps";
 import { cmdUninstall } from "./commands/uninstall";
 import { cmdDisable, cmdEnable } from "./commands/toggle";
 import { cmdAudit } from "./commands/audit";
@@ -540,6 +554,9 @@ export async function runCLI(argv: string[]): Promise<void> {
     case "get":
       await cmdGet(args);
       break;
+    case "deps":
+      await cmdDeps(args);
+      break;
     case "uninstall":
       await cmdUninstall(args);
       break;
@@ -626,6 +643,7 @@ export function isCLIMode(argv: string[]): boolean {
     "tag",
     "inspect",
     "get",
+    "deps",
     "uninstall",
     "audit",
     "config",

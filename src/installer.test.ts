@@ -1,6 +1,14 @@
 import { createDirSymlink } from "./utils/fs";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
-import { mkdtemp, writeFile, mkdir, rm, readlink, lstat } from "fs/promises";
+import {
+  access,
+  mkdtemp,
+  writeFile,
+  mkdir,
+  rm,
+  readlink,
+  lstat,
+} from "fs/promises";
 import { existsSync } from "fs";
 import { join, relative, resolve, isAbsolute, basename, dirname } from "path";
 import { tmpdir } from "os";
@@ -1961,7 +1969,7 @@ describe("executeInstall", () => {
     await mkdir(sourceDir, { recursive: true });
     await writeFile(
       join(sourceDir, "SKILL.md"),
-      "---\nname: root-skill\nversion: 1.0.0\n---\n# Root\n",
+      "---\nname: root-skill\nversion: 1.0.0\ndependencies:\n  - optional-helper\n---\n# Root\n",
     );
 
     const result = await executeInstall({
@@ -1985,6 +1993,9 @@ describe("executeInstall", () => {
 
     expect(result.success).toBe(true);
     expect(result.name).toBe("root-skill");
+    await expect(
+      access(join(tempDir, "target", "optional-helper", "SKILL.md")),
+    ).rejects.toMatchObject({ code: "ENOENT" });
   });
 });
 

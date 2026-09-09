@@ -148,20 +148,12 @@ const GROUPS: BundleGroup[] = [
     description:
       "Game development, gameplay systems, game UI, 3D assets, and Three.js skills.",
     tags: ["game", "gamedev", "threejs"],
-    keywords: [
-      "game",
-      "playtest",
-      "godot",
-      "unreal",
-      "threejs",
-      "sprite",
-    ],
+    keywords: ["game", "playtest", "godot", "unreal", "threejs", "sprite"],
   },
   {
     id: "mobile",
     title: "Mobile & iOS Skills",
-    description:
-      "iOS, Swift, SwiftUI, Xcode, macOS, and App Store skills.",
+    description: "iOS, Swift, SwiftUI, Xcode, macOS, and App Store skills.",
     tags: ["mobile", "ios", "swift"],
     keywords: [
       "swift",
