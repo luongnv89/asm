@@ -445,7 +445,7 @@ describe("scanAllSkills", () => {
     const skillDir = join(tempDir, "my-skill");
     await mkdir(skillDir, { recursive: true });
     const skillMdContent =
-      "---\nname: My Skill\nversion: 1.0.0\ndescription: A test\ntags: [CLI, testing]\n---\nBody";
+      "---\nname: My Skill\nversion: 1.0.0\ndescription: A test\ntags: [CLI, testing]\ndependencies:\n  - code-review\n  - test-coverage\n---\nBody";
     await writeFile(join(skillDir, "SKILL.md"), skillMdContent);
 
     const config = {
@@ -469,6 +469,7 @@ describe("scanAllSkills", () => {
     expect(found!.scope).toBe("global");
     expect(found!.provider).toBe("test");
     expect(found!.tags).toEqual(["cli", "testing"]);
+    expect(found!.dependencies).toEqual(["code-review", "test-coverage"]);
     expect(found!.isSymlink).toBe(false);
     expect(found!._skillMdContent).toBe(skillMdContent);
     expect(JSON.stringify(found)).not.toContain("_skillMdContent");

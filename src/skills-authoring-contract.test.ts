@@ -13,6 +13,9 @@ const creatorSkill = readRepoFile("skills/skill-creator/SKILL.md");
 const creatorPreflight = readRepoFile(
   "skills/skill-creator/references/dependency-preflight.md",
 );
+const creatorValidator = readRepoFile(
+  "skills/skill-creator/scripts/quick_validate.py",
+);
 const improverSkill = readRepoFile("skills/skill-auto-improver/SKILL.md");
 const improverChecklist = readRepoFile(
   "skills/skill-auto-improver/references/skill-creator-checklist.md",
@@ -61,17 +64,18 @@ describe("dependency preflight rule (#571)", () => {
     ["skill-auto-improver checklist", improverChecklist],
   ])("%s documents all four preflight elements", (_name, doc) => {
     expect(doc).toContain("## Dependency Preflight (mandatory)");
-    expect(doc).toContain("asm install <skill-name> -p <tool> --yes");
-    expect(doc).toContain("npm install -g agent-skill-manager");
-    expect(doc).toContain("asm list -p <tool> --json | grep '<skill-name>'");
+    expect(doc).toContain("dependencies");
+    expect(doc).toContain("asm deps discover");
+    expect(doc).toContain("asm deps acquire");
+    expect(doc).toContain("asm deps release");
   });
 
   it("skill-auto-improver reports a missing gate as a Gate 1 finding", () => {
     expect(improverSkill).toMatch(
-      /If the target skill invokes another skill\*\*, it carries a dependency preflight/,
+      /If the target skill invokes another skill\*\*, it declares frontmatter `dependencies`/,
     );
     expect(improverSkill).toContain(
-      "Skill invokes another skill with no preflight gate",
+      "Skill invokes another skill without dependency metadata and a first-use lease lifecycle",
     );
   });
 
@@ -82,18 +86,22 @@ describe("dependency preflight rule (#571)", () => {
     ["skill-auto-improver checklist", improverChecklist],
   ])("%s leaves a skill with no dependencies untouched", (_name, doc) => {
     expect(doc).toMatch(
-      /empty\s+preflight|no such section|nothing is added|add nothing/i,
+      /empty\s+(preflight|dependency list)|empty list|no such section|nothing is added|add nothing/i,
     );
   });
 
   it("skill-auto-improver carries the gate it enforces, for its own skill-creator dependency", () => {
     expect(improverSkill).toContain("## Dependency Preflight (mandatory)");
-    expect(improverSkill).toContain(
-      "asm install skill-creator -p claude --yes",
-    );
-    expect(improverSkill).toContain("npm install -g agent-skill-manager");
-    expect(improverSkill).toContain(
-      "asm list -p claude --json | grep 'skill-creator'",
+    expect(improverSkill).toMatch(/dependencies:\s*\n\s+- skill-creator/);
+    expect(improverSkill).toContain("asm deps acquire skill-creator");
+    expect(improverSkill).toContain("asm deps release --session");
+    expect(improverSkill).toContain("does not supervise");
+  });
+
+  it("skill-creator validation accepts non-empty dependency lists", () => {
+    expect(creatorValidator).toContain("'dependencies'");
+    expect(creatorValidator).toContain(
+      "Dependencies must be a non-empty YAML list",
     );
   });
 

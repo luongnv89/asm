@@ -6566,6 +6566,9 @@ describe("asm get (issue #422)", () => {
   const BODY = `---
 name: get-fixture
 description: A fixture skill used by the asm get tests.
+dependencies:
+  - code-review
+  - test-coverage
 ---
 
 # Get fixture
@@ -6732,6 +6735,7 @@ One line of body text.
     expect(payload.description).toBe(
       "A fixture skill used by the asm get tests.",
     );
+    expect(payload.dependencies).toEqual(["code-review", "test-coverage"]);
     expect(payload.tier).toBe("local");
     expect(payload.source).toBe(skillDir);
     expect(typeof payload.tokenCount).toBe("number");
@@ -6838,6 +6842,123 @@ One line of body text.
     // The registry metadata cache is deliberately NOT asserted on: it is
     // resolution metadata, not an installed skill, and the local path used
     // here never reaches the registry rung anyway.
+  });
+});
+
+// ─── Caller-owned dependency leases (issue #621) ───────────────────────────
+
+describe("asm deps (issue #621)", () => {
+  let tempDir: string;
+  let sourceDir: string;
+  let configDir: string;
+
+  async function runDeps(...args: string[]) {
+    return spawnCollect(["npx", "tsx", CLI_BIN, "deps", ...args], {
+      env: {
+        ...process.env,
+        HOME: join(tempDir, "home"),
+        USERPROFILE: join(tempDir, "home"),
+        ASM_CONFIG_DIR: configDir,
+        NO_COLOR: "1",
+      },
+    });
+  }
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-deps-cli-"));
+    sourceDir = join(tempDir, "parent");
+    configDir = join(tempDir, "config");
+    await mkdir(sourceDir, { recursive: true });
+    await writeFile(
+      join(sourceDir, "SKILL.md"),
+      "---\nname: parent\ndescription: Parent fixture\ndependencies:\n  - code-review\n  - github:owner/repo:skills/helper\n---\n# Parent\n",
+    );
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  test("parses session lifecycle flags and enters CLI mode", () => {
+    const args = parseArgs([
+      "node",
+      "cli",
+      "deps",
+      "cleanup",
+      "--session",
+      "run-621",
+      "--stale-before",
+      "2026-09-01T00:00:00Z",
+    ]);
+    expect(args.flags.session).toBe("run-621");
+    expect(args.flags.staleBefore).toBe("2026-09-01T00:00:00Z");
+    expect(isCLIMode(["node", "cli", "deps"])).toBe(true);
+  });
+
+  test("discovers optional dependencies without installing them", async () => {
+    const result = await runDeps("discover", sourceDir, "--json");
+    expect(result.exitCode).toBe(0);
+    expect(JSON.parse(result.stdout)).toEqual({
+      name: "parent",
+      source: sourceDir,
+      dependencies: ["code-review", "github:owner/repo:skills/helper"],
+    });
+    await expect(readdir(configDir)).rejects.toMatchObject({ code: "ENOENT" });
+  });
+
+  test("acquires a pre-existing path and preserves it on idempotent release", async () => {
+    const acquired = await runDeps(
+      "acquire",
+      sourceDir,
+      "--session",
+      "run-621",
+      "--json",
+    );
+    expect(acquired.exitCode).toBe(0);
+    const canonicalSourceDir = await realpath(sourceDir);
+    expect(JSON.parse(acquired.stdout)).toMatchObject({
+      sessionId: "run-621",
+      path: canonicalSourceDir,
+      skillMdPath: join(canonicalSourceDir, "SKILL.md"),
+      owned: false,
+      reused: false,
+    });
+
+    const released = await runDeps("release", "--session", "run-621", "--json");
+    expect(released.exitCode).toBe(0);
+    expect(JSON.parse(released.stdout).preserved).toEqual([canonicalSourceDir]);
+    await expect(
+      readFile(join(sourceDir, "SKILL.md"), "utf-8"),
+    ).resolves.toContain("# Parent");
+
+    const repeated = await runDeps("release", "--session", "run-621", "--json");
+    expect(JSON.parse(repeated.stdout).alreadyReleased).toBe(true);
+  });
+
+  test("requires caller identity and an explicit stale cutoff", async () => {
+    const acquire = await runDeps("acquire", sourceDir, "--json");
+    expect(acquire.exitCode).toBe(2);
+    expect(acquire.stderr).toContain("--session");
+
+    const cleanup = await runDeps("cleanup", "--json");
+    expect(cleanup.exitCode).toBe(2);
+    expect(cleanup.stderr).toContain("--stale-before");
+
+    const invalidCutoff = await runDeps(
+      "cleanup",
+      "--stale-before",
+      "not-a-date",
+      "--json",
+    );
+    expect(invalidCutoff.exitCode).toBe(2);
+    expect(invalidCutoff.stderr).toContain("ISO-8601");
+  });
+
+  test("--help documents the caller-owned lifecycle boundary", async () => {
+    const result = await runDeps("--help");
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toContain("asm deps <subcommand>");
+    expect(result.stdout).toContain("does not launch or supervise");
   });
 });
 

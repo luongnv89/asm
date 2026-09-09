@@ -3,6 +3,7 @@ import {
   parseFrontmatter,
   resolveVersion,
   resolveAllowedTools,
+  resolveSkillDependencies,
   resolveTags,
   normalizeTag,
   normalizeTags,
@@ -316,6 +317,21 @@ metadata:
     expect(result["metadata.version"]).toBeUndefined();
     expect(result["metadata.creator"]).toBe("Someone");
   });
+
+  it("parses a YAML block list without consuming the following key", () => {
+    const input = `---
+name: parent
+dependencies:
+  - code-review
+  - "github:owner/repo:skills/helper"
+version: 1.0.0
+---`;
+    const result = parseFrontmatter(input);
+    expect(result.dependencies).toBe(
+      "code-review\ngithub:owner/repo:skills/helper",
+    );
+    expect(result.version).toBe("1.0.0");
+  });
 });
 
 describe("resolveVersion", () => {
@@ -420,6 +436,26 @@ describe("resolveAllowedTools", () => {
     expect(
       resolveAllowedTools({ "allowed-tools": "Bash, Read, Grep" }),
     ).toEqual(["Bash", "Read", "Grep"]);
+  });
+});
+
+describe("resolveSkillDependencies", () => {
+  it("normalizes block and inline list forms and removes duplicates", () => {
+    expect(
+      resolveSkillDependencies({
+        dependencies:
+          "code-review\ngithub:owner/repo:skills/helper\ncode-review",
+      }),
+    ).toEqual(["code-review", "github:owner/repo:skills/helper"]);
+    expect(
+      resolveSkillDependencies({
+        dependencies: "['skill-creator', \"test-coverage\"]",
+      }),
+    ).toEqual(["skill-creator", "test-coverage"]);
+  });
+
+  it("returns an empty list when dependencies are omitted", () => {
+    expect(resolveSkillDependencies({})).toEqual([]);
   });
 });
 

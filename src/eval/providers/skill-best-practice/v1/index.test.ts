@@ -115,6 +115,21 @@ creator: Somebody
     expect(result.findings.some((f) => f.code === "allowed-keys")).toBe(true);
   });
 
+  it("allows optional skill dependency metadata", async () => {
+    const result = await run(
+      `---
+name: dependency-metadata
+description: Validate dependencies when asked. Don't use for unrelated docs.
+dependencies:
+  - code-review
+  - github:owner/repo:skills/helper
+---
+`,
+      "dependency-metadata",
+    );
+    expect(result.findings.some((f) => f.code === "allowed-keys")).toBe(false);
+  });
+
   it("fails on invalid effort values", async () => {
     const result = await runFixture("invalid-effort");
     expect(result.passed).toBe(false);
