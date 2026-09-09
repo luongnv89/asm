@@ -9,12 +9,13 @@ import {
   rm,
   writeFile,
 } from "fs/promises";
-import { join } from "path";
+import { dirname, join } from "path";
 import { tmpdir } from "os";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   acquireDependency,
   cleanupStaleDependencySessions,
+  type DependencyLeasePaths,
   findAcquiredDependency,
   releaseDependencySession,
   withDependencyLeaseSession,
@@ -40,7 +41,12 @@ describe("temporary dependency leases", () => {
     await rm(tempDir, { recursive: true, force: true });
   });
 
-  function acquire(sessionId: string, temporary: boolean, request = "helper") {
+  function acquire(
+    sessionId: string,
+    temporary: boolean,
+    request = "helper",
+    paths: DependencyLeasePaths = {},
+  ) {
     return acquireDependency(
       {
         sessionId,
@@ -52,7 +58,7 @@ describe("temporary dependency leases", () => {
         commit: temporary ? "a".repeat(40) : null,
         temporary,
       },
-      { rootDir },
+      { rootDir, ...paths },
     );
   }
 
@@ -64,6 +70,7 @@ describe("temporary dependency leases", () => {
   async function holdSessionLock(
     sessionId: string,
     pid = process.pid,
+    processStartIdentity: string | null = null,
   ): Promise<string> {
     const lockDir = `${statePath(sessionId)}.lock`;
     const token = "00000000-0000-4000-8000-000000000001";
@@ -74,6 +81,7 @@ describe("temporary dependency leases", () => {
       JSON.stringify({
         version: 1,
         pid,
+        processStartIdentity,
         token,
         acquiredAt: new Date().toISOString(),
         ticket: 1,
@@ -188,6 +196,50 @@ describe("temporary dependency leases", () => {
     await expect(readFile(acquired.skillMdPath, "utf-8")).resolves.toContain(
       "# Helper",
     );
+  });
+
+  it("recovers a reused PID only when process-start identity mismatches", async () => {
+    const staleOwnerPath = await holdSessionLock(
+      "run-reused-pid",
+      4242,
+      "old-process-start",
+    );
+    const acquired = await acquire("run-reused-pid", true, "helper", {
+      lockTimeoutMs: 100,
+      lockRetryMs: 5,
+      lockProcessLiveness: () => "alive",
+      lockProcessStartIdentity: async (pid) =>
+        pid === process.pid ? "current-process-start" : "new-process-start",
+    });
+
+    await expect(readFile(staleOwnerPath, "utf-8")).rejects.toMatchObject({
+      code: "ENOENT",
+    });
+    await expect(readFile(acquired.skillMdPath, "utf-8")).resolves.toContain(
+      "# Helper",
+    );
+  });
+
+  it("does not steal a lock when process identity is unverifiable", async () => {
+    const ownerPath = await holdSessionLock("run-unknown-owner", 4242, null);
+
+    await expect(
+      acquire("run-unknown-owner", true, "helper", {
+        lockTimeoutMs: 40,
+        lockRetryMs: 5,
+        lockProcessLiveness: () => "unknown",
+        lockProcessStartIdentity: async () => null,
+      }),
+    ).rejects.toThrow("Timed out waiting for dependency lease lock");
+    await expect(readFile(ownerPath, "utf-8")).resolves.toContain('"pid":4242');
+  });
+
+  it("keeps the shared lock directory after removing its owned candidate", async () => {
+    await acquire("run-stable-lock-dir", false);
+
+    await expect(
+      readdir(`${statePath("run-stable-lock-dir")}.lock`),
+    ).resolves.toEqual([]);
   });
 
   it("serializes resolution and acquisition against concurrent release", async () => {
@@ -361,7 +413,9 @@ describe("temporary dependency leases", () => {
     const stale = await acquire("run-stale", true, "stale-helper");
     const active = await acquire("run-active", true, "active-helper");
     const sessionsDir = join(rootDir, "sessions");
-    for (const file of await readdir(sessionsDir)) {
+    for (const file of (await readdir(sessionsDir)).filter((entry) =>
+      entry.endsWith(".json"),
+    )) {
       const path = join(sessionsDir, file);
       const state = JSON.parse(await readFile(path, "utf-8"));
       state.updatedAt =
@@ -419,6 +473,30 @@ describe("temporary dependency leases", () => {
     await expect(readFile(acquired.skillMdPath, "utf-8")).resolves.toContain(
       "# Helper",
     );
+  });
+
+  it("ignores a session concurrently removed after stale enumeration", async () => {
+    const acquired = await acquire("run-concurrent-release", true);
+    const lockPath = await holdSessionLock("run-concurrent-release");
+    const cleanup = cleanupStaleDependencySessions(
+      new Date("2999-01-01T00:00:00.000Z"),
+      false,
+      { rootDir },
+    );
+
+    await new Promise((resolveDelay) => setTimeout(resolveDelay, 60));
+    await rm(acquired.path, { recursive: true });
+    await rm(`${acquired.path}.owner.json`);
+    await rm(statePath("run-concurrent-release"));
+    await rm(lockPath);
+
+    await expect(cleanup).resolves.toMatchObject({
+      stale: [],
+      active: [],
+      cleaned: [],
+      errors: [],
+    });
+    await expect(readdir(dirname(acquired.path))).resolves.toEqual([]);
   });
 
   it("supports dry-run stale classification without removing artifacts", async () => {

@@ -1,4 +1,5 @@
 import { createHash, randomUUID } from "crypto";
+import { execFile } from "child_process";
 import {
   access,
   cp,
@@ -10,6 +11,7 @@ import {
   rmdir,
 } from "fs/promises";
 import { basename, dirname, isAbsolute, join, relative, resolve } from "path";
+import { promisify } from "util";
 import { getDependencyLeasesDir } from "./config";
 import {
   AtomicWritePostRenameError,
@@ -28,13 +30,24 @@ import type {
 const SESSION_ID_RE = /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/;
 const LOCK_TOKEN_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-const LOCK_RETRY_MS = 20;
-const LOCK_TIMEOUT_MS = 10_000;
+const DEFAULT_LOCK_RETRY_MS = 100;
+// Remote resolution has individual operations up to 120 seconds. Keep the
+// interprocess wait bounded, but comfortably above a complete resolution.
+const DEFAULT_LOCK_TIMEOUT_MS = 10 * 60_000;
+const execFileAsync = promisify(execFile);
 
 export interface DependencyLeasePaths {
   rootDir?: string;
   /** @internal Test seam for state-persistence failures. */
   writeState?: (path: string, content: string) => Promise<void>;
+  /** @internal Test seam for lock timing. */
+  lockTimeoutMs?: number;
+  /** @internal Test seam for lock timing. */
+  lockRetryMs?: number;
+  /** @internal Test seam for deterministic process-liveness checks. */
+  lockProcessLiveness?: (pid: number) => "alive" | "dead" | "unknown";
+  /** @internal Test seam for deterministic PID-reuse checks. */
+  lockProcessStartIdentity?: (pid: number) => Promise<string | null>;
 }
 
 export interface AcquireDependencyInput {
@@ -93,6 +106,7 @@ function sessionLockPath(statePath: string): string {
 interface SessionLockOwner {
   version: 1;
   pid: number;
+  processStartIdentity: string | null;
   token: string;
   acquiredAt: string;
   ticket: number | null;
@@ -109,6 +123,13 @@ function parseSessionLockOwner(
       owner.version !== 1 ||
       !Number.isSafeInteger(owner.pid) ||
       owner.pid! <= 0 ||
+      !(
+        owner.processStartIdentity === undefined ||
+        owner.processStartIdentity === null ||
+        (typeof owner.processStartIdentity === "string" &&
+          owner.processStartIdentity.length > 0 &&
+          owner.processStartIdentity.length <= 256)
+      ) ||
       owner.token !== expectedToken ||
       !LOCK_TOKEN_RE.test(owner.token) ||
       !Number.isFinite(Date.parse(owner.acquiredAt ?? "")) ||
@@ -119,7 +140,10 @@ function parseSessionLockOwner(
     ) {
       return null;
     }
-    return owner as SessionLockOwner;
+    return {
+      ...(owner as SessionLockOwner),
+      processStartIdentity: owner.processStartIdentity ?? null,
+    };
   } catch {
     return null;
   }
@@ -136,6 +160,32 @@ function processLiveness(pid: number): "alive" | "dead" | "unknown" {
   }
 }
 
+async function processStartIdentity(pid: number): Promise<string | null> {
+  if (!Number.isSafeInteger(pid) || pid <= 0 || process.platform === "win32") {
+    return null;
+  }
+  try {
+    if (process.platform === "linux") {
+      const stat = await readFile(`/proc/${pid}/stat`, "utf-8");
+      const afterCommand = stat.slice(stat.lastIndexOf(")") + 2).split(" ");
+      const startTicks = afterCommand[19];
+      return startTicks ? `linux:${startTicks}` : null;
+    }
+    const { stdout } = await execFileAsync(
+      "ps",
+      ["-o", "lstart=", "-p", String(pid)],
+      {
+        timeout: 2_000,
+        env: { ...process.env, LANG: "C", LC_ALL: "C" },
+      },
+    );
+    const startedAt = stdout.trim();
+    return startedAt ? `ps:${startedAt}` : null;
+  } catch {
+    return null;
+  }
+}
+
 async function writeSessionLockOwner(
   path: string,
   owner: SessionLockOwner,
@@ -143,18 +193,11 @@ async function writeSessionLockOwner(
   await writeTextFileAtomically(path, JSON.stringify(owner, null, 2) + "\n");
 }
 
-async function removeEmptyDirectory(path: string): Promise<void> {
-  try {
-    await rmdir(path);
-  } catch (err) {
-    const code = (err as NodeJS.ErrnoException | null)?.code;
-    if (code !== "ENOENT" && code !== "ENOTEMPTY" && code !== "EEXIST") {
-      throw err;
-    }
-  }
-}
-
-async function readSessionLockCandidates(lockDir: string): Promise<{
+async function readSessionLockCandidates(
+  lockDir: string,
+  ownToken: string,
+  paths: DependencyLeasePaths,
+): Promise<{
   candidates: SessionLockOwner[];
   invalidOwner: boolean;
 }> {
@@ -181,10 +224,24 @@ async function readSessionLockCandidates(lockDir: string): Promise<{
       invalidOwner = true;
       continue;
     }
-    const liveness = processLiveness(candidate.pid);
-    if (liveness === "dead") {
+    if (candidate.token === ownToken) {
+      candidates.push(candidate);
+      continue;
+    }
+
+    const liveness = (paths.lockProcessLiveness ?? processLiveness)(
+      candidate.pid,
+    );
+    const currentStartIdentity = await (
+      paths.lockProcessStartIdentity ?? processStartIdentity
+    )(candidate.pid);
+    const identityMismatch =
+      candidate.processStartIdentity !== null &&
+      currentStartIdentity !== null &&
+      candidate.processStartIdentity !== currentStartIdentity;
+    if (liveness === "dead" || identityMismatch) {
       // Candidate paths contain unguessable tokens and are never reused.
-      // Removing this exact dead owner's file cannot unlink a successor.
+      // Removing this exact confirmed-stale owner cannot unlink a successor.
       await rm(candidatePath, { force: true });
       continue;
     }
@@ -196,6 +253,7 @@ async function readSessionLockCandidates(lockDir: string): Promise<{
 async function withInterprocessSessionLock<T>(
   statePath: string,
   operation: () => Promise<T>,
+  paths: DependencyLeasePaths,
 ): Promise<T> {
   await mkdir(dirname(statePath), { recursive: true });
   const lockDir = sessionLockPath(statePath);
@@ -205,6 +263,9 @@ async function withInterprocessSessionLock<T>(
   const owner: SessionLockOwner = {
     version: 1,
     pid: process.pid,
+    processStartIdentity: await (
+      paths.lockProcessStartIdentity ?? processStartIdentity
+    )(process.pid),
     token,
     acquiredAt: new Date().toISOString(),
     ticket: null,
@@ -212,10 +273,15 @@ async function withInterprocessSessionLock<T>(
   await writeSessionLockOwner(contenderPath, owner);
 
   const startedAt = Date.now();
+  const lockTimeoutMs = paths.lockTimeoutMs ?? DEFAULT_LOCK_TIMEOUT_MS;
+  const lockRetryMs = paths.lockRetryMs ?? DEFAULT_LOCK_RETRY_MS;
   try {
     while (owner.ticket === null) {
-      const { candidates, invalidOwner } =
-        await readSessionLockCandidates(lockDir);
+      const { candidates, invalidOwner } = await readSessionLockCandidates(
+        lockDir,
+        token,
+        paths,
+      );
       if (!invalidOwner) {
         owner.ticket =
           Math.max(0, ...candidates.map((candidate) => candidate.ticket ?? 0)) +
@@ -223,19 +289,22 @@ async function withInterprocessSessionLock<T>(
         await writeSessionLockOwner(contenderPath, owner);
         break;
       }
-      if (Date.now() - startedAt >= LOCK_TIMEOUT_MS) {
+      if (Date.now() - startedAt >= lockTimeoutMs) {
         throw new Error(
           `Timed out waiting for dependency lease lock: ${lockDir}`,
         );
       }
       await new Promise((resolveDelay) =>
-        setTimeout(resolveDelay, LOCK_RETRY_MS),
+        setTimeout(resolveDelay, lockRetryMs),
       );
     }
 
     while (true) {
-      const { candidates, invalidOwner } =
-        await readSessionLockCandidates(lockDir);
+      const { candidates, invalidOwner } = await readSessionLockCandidates(
+        lockDir,
+        token,
+        paths,
+      );
       const blocked = candidates.some(
         (candidate) =>
           candidate.token !== token &&
@@ -245,29 +314,29 @@ async function withInterprocessSessionLock<T>(
               candidate.token.localeCompare(token) < 0)),
       );
       if (!invalidOwner && !blocked) break;
-      if (Date.now() - startedAt >= LOCK_TIMEOUT_MS) {
+      if (Date.now() - startedAt >= lockTimeoutMs) {
         throw new Error(
           `Timed out waiting for dependency lease lock: ${lockDir}`,
         );
       }
       await new Promise((resolveDelay) =>
-        setTimeout(resolveDelay, LOCK_RETRY_MS),
+        setTimeout(resolveDelay, lockRetryMs),
       );
     }
 
     return await operation();
   } finally {
     await rm(contenderPath, { force: true });
-    await removeEmptyDirectory(lockDir);
   }
 }
 
 function withSessionMutationLock<T>(
   statePath: string,
   operation: () => Promise<T>,
+  paths: DependencyLeasePaths,
 ): Promise<T> {
   return withFileMutationLock(statePath, () =>
-    withInterprocessSessionLock(statePath, operation),
+    withInterprocessSessionLock(statePath, operation, paths),
   );
 }
 
@@ -394,19 +463,22 @@ export async function withDependencyLeaseSession<T>(
 ): Promise<T> {
   const validatedSessionId = validateSessionId(sessionId);
   const root = leasesRoot(paths);
-  return withSessionMutationLock(sessionPath(root, validatedSessionId), () =>
-    operation({
-      find: (request) =>
-        findAcquiredDependencyUnlocked(root, validatedSessionId, request),
-      acquire: (input) => {
-        if (validateSessionId(input.sessionId) !== validatedSessionId) {
-          throw new Error(
-            "Dependency acquisition session does not match the locked session.",
-          );
-        }
-        return acquireDependencyUnlocked(input, root, paths);
-      },
-    }),
+  return withSessionMutationLock(
+    sessionPath(root, validatedSessionId),
+    () =>
+      operation({
+        find: (request) =>
+          findAcquiredDependencyUnlocked(root, validatedSessionId, request),
+        acquire: (input) => {
+          if (validateSessionId(input.sessionId) !== validatedSessionId) {
+            throw new Error(
+              "Dependency acquisition session does not match the locked session.",
+            );
+          }
+          return acquireDependencyUnlocked(input, root, paths);
+        },
+      }),
+    paths,
   );
 }
 
@@ -609,8 +681,10 @@ export async function releaseDependencySession(
   const root = leasesRoot(paths);
   const statePath = sessionPath(root, sessionId);
 
-  return withSessionMutationLock(statePath, () =>
-    releaseDependencySessionUnlocked(root, sessionId, paths),
+  return withSessionMutationLock(
+    statePath,
+    () => releaseDependencySessionUnlocked(root, sessionId, paths),
+    paths,
   );
 }
 
@@ -714,39 +788,53 @@ export async function cleanupStaleDependencySessions(
   for (const file of files.filter((entry) => entry.endsWith(".json")).sort()) {
     const statePath = join(root, "sessions", file);
     try {
-      await withSessionMutationLock(statePath, async () => {
-        // Classification happens only after acquiring the same lock used by
-        // acquire/release, so a just-refreshed session cannot be cleaned.
-        const session = parseSession(await readFile(statePath, "utf-8"));
-        if (sessionPath(root, session.sessionId) !== statePath) {
-          throw new Error("Dependency lease filename does not match session.");
-        }
-        const updatedAt = Date.parse(session.updatedAt);
-        if (!Number.isFinite(updatedAt)) {
-          throw new Error("Lease has an invalid updatedAt timestamp.");
-        }
-        if (updatedAt >= staleBefore.getTime()) {
-          result.active.push(session.sessionId);
-          return;
-        }
+      await withSessionMutationLock(
+        statePath,
+        async () => {
+          // Classification happens only after acquiring the same lock used by
+          // acquire/release, so a just-refreshed session cannot be cleaned.
+          let rawSession: string;
+          try {
+            rawSession = await readFile(statePath, "utf-8");
+          } catch (err) {
+            if ((err as NodeJS.ErrnoException | null)?.code === "ENOENT")
+              return;
+            throw err;
+          }
+          const session = parseSession(rawSession);
+          if (sessionPath(root, session.sessionId) !== statePath) {
+            throw new Error(
+              "Dependency lease filename does not match session.",
+            );
+          }
+          const updatedAt = Date.parse(session.updatedAt);
+          if (!Number.isFinite(updatedAt)) {
+            throw new Error("Lease has an invalid updatedAt timestamp.");
+          }
+          if (updatedAt >= staleBefore.getTime()) {
+            result.active.push(session.sessionId);
+            return;
+          }
 
-        result.stale.push(session.sessionId);
-        if (dryRun) return;
+          result.stale.push(session.sessionId);
+          if (dryRun) return;
 
-        const released = await releaseDependencySessionUnlocked(
-          root,
-          session.sessionId,
-          paths,
-        );
-        if (released.errors.length > 0) {
-          result.errors.push({
-            sessionId: session.sessionId,
-            message: released.errors.join("; "),
-          });
-        } else {
-          result.cleaned.push(session.sessionId);
-        }
-      });
+          const released = await releaseDependencySessionUnlocked(
+            root,
+            session.sessionId,
+            paths,
+          );
+          if (released.errors.length > 0) {
+            result.errors.push({
+              sessionId: session.sessionId,
+              message: released.errors.join("; "),
+            });
+          } else {
+            result.cleaned.push(session.sessionId);
+          }
+        },
+        paths,
+      );
     } catch (err) {
       result.errors.push({
         sessionId: basename(file, ".json"),
