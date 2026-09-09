@@ -1,7 +1,15 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) + GoatCounter (issue #645) -->
+    <script>
+      window.goatcounter = { no_onload: true };
+    </script>
+    <script
+      data-goatcounter="https://luongnv89.goatcounter.com/count"
+      async
+      src="//gc.zgo.at/count.js"
+    ></script>
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-33TXRCFMWM"
@@ -12,7 +20,8 @@
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-      gtag("config", "G-33TXRCFMWM");
+      // Virtual page views are sent from usePageTracking on each HashRouter nav.
+      gtag("config", "G-33TXRCFMWM", { send_page_view: false });
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
