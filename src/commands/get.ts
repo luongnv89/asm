@@ -1,6 +1,9 @@
 import { loadConfig } from "../config";
 import { scanAllSkills } from "../scanner";
-import { parseFrontmatter } from "../utils/frontmatter";
+import {
+  parseFrontmatter,
+  resolveSkillDependencies,
+} from "../utils/frontmatter";
 import { readFile as fsReadFile } from "fs/promises";
 import { formatJSON, ansi } from "../formatter";
 import {
@@ -170,6 +173,7 @@ async function fetchGetFromRemote(
       joinPath(remote.rootDir, "SKILL.md"),
       "utf-8",
     );
+    const dependencies = resolveSkillDependencies(parseFrontmatter(content));
 
     const warnings = await scanForWarnings(remote.rootDir);
     const security: GetSecurityVerdict = {
@@ -182,6 +186,7 @@ async function fetchGetFromRemote(
       result: {
         name,
         description,
+        dependencies,
         tier,
         source: remote.sourceRef,
         commit: remote.commitSha,
@@ -219,6 +224,7 @@ function localGetResult(
     description:
       overrides.description ??
       (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
+    dependencies: resolveSkillDependencies(fm),
     tier,
     source,
     commit: overrides.commit ?? null,
@@ -234,7 +240,7 @@ function localGetResult(
  * whichever rung answered is reported as the `tier` so provenance is visible.
  */
 
-async function resolveGetTarget(
+export async function resolveGetTarget(
   args: ParsedArgs,
   target: string,
 ): Promise<GetResolution> {

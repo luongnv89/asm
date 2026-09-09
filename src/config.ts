@@ -225,6 +225,10 @@ export function getLibraryLockPath(): string {
   return join(getLibraryDir(), "library-lock.json");
 }
 
+export function getDependencyLeasesDir(): string {
+  return join(getConfigDir(), "dependency-leases");
+}
+
 export function getBundledIndexDir(): string {
   // In built dist/: __dirname is dist/, data/ is at ../data/
   // In dev (src/): __dirname is src/, data/ is at ../data/

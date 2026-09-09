@@ -56,6 +56,16 @@ export function parseFrontmatter(content: string): Record<string, string> {
 
     // Handle nested sub-keys under a parent (one-level nesting with dot notation)
     if (parentKey !== null) {
+      const listMatch = line.match(/^\s+-\s*(.*?)\s*$/);
+      if (listMatch) {
+        const cleaned = listMatch[1].replace(/^["']|["']$/g, "");
+        if (cleaned) {
+          result[parentKey] = result[parentKey]
+            ? `${result[parentKey]}\n${cleaned}`
+            : cleaned;
+        }
+        continue;
+      }
       const subMatch = line.match(/^\s+(\w[\w-]*):\s*(.*?)\s*$/);
       if (subMatch) {
         const subKey = subMatch[1];
@@ -122,6 +132,31 @@ export function resolveAllowedTools(fm: Record<string, string>): string[] {
     .split(/[\s,]+/)
     .map((t) => t.trim())
     .filter(Boolean);
+}
+
+/**
+ * Optional skill references acquired by a caller only when a run needs them.
+ *
+ * Supports YAML block lists, inline arrays, and comma/whitespace-delimited
+ * values. Entries use the same names and explicit sources accepted by
+ * `asm get` and `asm deps acquire`.
+ */
+export function resolveSkillDependencies(fm: Record<string, string>): string[] {
+  const raw = (fm.dependencies || "").trim();
+  if (!raw) return [];
+
+  const value =
+    raw.startsWith("[") && raw.endsWith("]") ? raw.slice(1, -1) : raw;
+  const seen = new Set<string>();
+  const dependencies: string[] = [];
+  for (const entry of value.split(/[\s,]+/)) {
+    const normalized = entry.trim().replace(/^['"]|['"]$/g, "");
+    if (normalized && !seen.has(normalized)) {
+      seen.add(normalized);
+      dependencies.push(normalized);
+    }
+  }
+  return dependencies;
 }
 
 export function resolveTags(fm: Record<string, string>): string[] {

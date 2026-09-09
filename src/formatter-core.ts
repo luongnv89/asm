@@ -3,7 +3,12 @@
  * Split from formatter.ts (issue #455). Skill detail/inspect rendering lives
  * in `formatter-detail.ts`.
  */
-import type { SkillInfo } from "./utils/types";
+import type {
+  DependencyAcquireResult,
+  DependencyReleaseResult,
+  DependencyStaleCleanupResult,
+  SkillInfo,
+} from "./utils/types";
 
 import { formatTokenCount } from "./utils/token-count";
 import { formatInvocability } from "./utils/frontmatter";
@@ -791,6 +796,56 @@ export function formatTagUpdates(
       return `${verb} ${ansi.bold(result.name)}: ${tags}${suffix}`;
     })
     .join("\n");
+}
+
+// ─── Temporary dependency leases ───────────────────────────────────────────
+
+export function formatDependencyDiscovery(result: {
+  name: string;
+  source: string;
+  dependencies: string[];
+}): string {
+  if (result.dependencies.length === 0) {
+    return `${result.name} declares no optional skill dependencies.`;
+  }
+  return [
+    `${ansi.bold(result.name)} optional dependencies (${result.source}):`,
+    ...result.dependencies.map((dependency) => `  - ${dependency}`),
+  ].join("\n");
+}
+
+export function formatDependencyAcquisition(
+  result: DependencyAcquireResult,
+): string {
+  const status = result.owned ? "lease-owned copy" : "pre-existing target";
+  return `${ansi.green("✓")} ${result.name} ready at ${result.path} (${status}${result.reused ? ", reused" : ""})`;
+}
+
+export function formatDependencyRelease(
+  result: DependencyReleaseResult,
+): string {
+  if (result.alreadyReleased) {
+    return `Session ${result.sessionId} was already released.`;
+  }
+  return [
+    `${ansi.green("✓")} released session ${result.sessionId}`,
+    `  removed: ${result.removed.length}`,
+    `  preserved: ${result.preserved.length}`,
+    `  already missing: ${result.missing.length}`,
+    `  errors: ${result.errors.length}`,
+  ].join("\n");
+}
+
+export function formatDependencyStaleCleanup(
+  result: DependencyStaleCleanupResult,
+): string {
+  return [
+    `${result.dryRun ? "Classified" : "Cleaned"} dependency leases older than ${result.staleBefore}`,
+    `  stale: ${result.stale.length}`,
+    `  active: ${result.active.length}`,
+    `  cleaned: ${result.cleaned.length}`,
+    `  errors: ${result.errors.length}`,
+  ].join("\n");
 }
 
 // ─── JSON formatter ─────────────────────────────────────────────────────────

@@ -15,6 +15,8 @@ export interface SkillInfo {
   allowedTools: string[];
   /** Free-form tags assigned to the skill. */
   tags?: string[];
+  /** Optional skills resolved and acquired by callers at first use. */
+  dependencies?: string[];
   /** Agent Skills model invocation. Default true when omitted. */
   modelInvocable?: boolean;
   /** Agent Skills user/slash invocation. Default true when omitted. */
@@ -617,6 +619,7 @@ export interface DiscoveredSkill {
   compatibility: string;
   allowedTools: string[];
   tags?: string[];
+  dependencies?: string[];
   modelInvocable?: boolean;
   userInvocable?: boolean;
   /**
@@ -653,6 +656,7 @@ export interface IndexedSkill {
   compatibility: string;
   allowedTools: string[];
   tags?: string[];
+  dependencies?: string[];
   modelInvocable?: boolean;
   userInvocable?: boolean;
   installUrl: string;
@@ -859,6 +863,8 @@ export interface GetSecurityVerdict {
 export interface GetResult {
   name: string;
   description: string;
+  /** Optional dependency references declared by this skill. */
+  dependencies: string[];
   /** Which rung of the ladder answered. */
   tier: GetTier;
   /** Provenance: an absolute path for local tiers, a `github:` ref for remote. */
@@ -871,4 +877,59 @@ export interface GetResult {
   security: GetSecurityVerdict | null;
   /** The exact SKILL.md text. */
   content: string;
+}
+
+// ─── Temporary Dependency Lease Types (issue #621) ───────────────────────
+
+export interface DependencyLeaseAcquisition {
+  /** Caller-provided reference used to resolve this skill. */
+  request: string;
+  name: string;
+  /** Canonical directory containing the immediately usable SKILL.md. */
+  path: string;
+  skillMdPath: string;
+  tier: GetTier;
+  source: string;
+  commit: string | null;
+  /** Pending is persisted before copying so hard-interruption recovery is safe. */
+  status: "pending" | "ready";
+  /**
+   * True only when ASM copied this artifact specifically for this lease.
+   * False means the target pre-dated the lease and must be preserved.
+   */
+  owned: boolean;
+  /** Random ownership proof for an ASM-owned artifact; null when pre-existing. */
+  artifactId: string | null;
+  acquiredAt: string;
+}
+
+export interface DependencyLeaseSession {
+  version: 1;
+  sessionId: string;
+  createdAt: string;
+  updatedAt: string;
+  acquisitions: Record<string, DependencyLeaseAcquisition>;
+}
+
+export interface DependencyAcquireResult extends DependencyLeaseAcquisition {
+  sessionId: string;
+  reused: boolean;
+}
+
+export interface DependencyReleaseResult {
+  sessionId: string;
+  alreadyReleased: boolean;
+  removed: string[];
+  preserved: string[];
+  missing: string[];
+  errors: string[];
+}
+
+export interface DependencyStaleCleanupResult {
+  staleBefore: string;
+  dryRun: boolean;
+  stale: string[];
+  active: string[];
+  cleaned: string[];
+  errors: Array<{ sessionId: string; message: string }>;
 }

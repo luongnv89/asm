@@ -11,7 +11,7 @@ import type {
 } from "../../../types";
 
 const PROVIDER_ID = "skill-best-practice";
-const PROVIDER_VERSION = "1.1.0";
+const PROVIDER_VERSION = "1.2.0";
 const SCHEMA_VERSION = 1;
 
 const ALLOWED_PROPERTIES = new Set([
@@ -22,6 +22,7 @@ const ALLOWED_PROPERTIES = new Set([
   "metadata",
   "compatibility",
   "effort",
+  "dependencies",
 ]);
 
 // Aligned with skill-creator SKILL.md (v1.7.1) and quick_validate.py.
