@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/AvdLee/SwiftUI-Agent-Skill.git",
   "owner": "AvdLee",
   "repo": "SwiftUI-Agent-Skill",
-  "updatedAt": "2026-09-04T01:19:22.113Z",
+  "updatedAt": "2026-09-09T12:09:41.474Z",
   "skillCount": 2,
   "skills": [
     {
@@ -14,6 +14,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:skills/swiftui-expert-skill",
@@ -85,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:21.544Z",
+        "evaluatedAt": "2026-09-09T12:09:40.910Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -158,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:21.544Z",
+          "evaluatedAt": "2026-09-09T12:09:40.910Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -176,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:21.544Z",
+          "evaluatedAt": "2026-09-09T12:09:40.911Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -190,6 +191,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:.agents/skills/update-swiftui-apis",
@@ -261,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:21.544Z",
+        "evaluatedAt": "2026-09-09T12:09:40.910Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -334,12 +336,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:21.544Z",
+          "evaluatedAt": "2026-09-09T12:09:40.911Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -352,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:21.544Z",
+          "evaluatedAt": "2026-09-09T12:09:40.911Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -364,7 +366,7 @@
       "name": "avdlee-swiftui-agent-skill-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from AvdLee/SwiftUI-Agent-Skill.",
       "author": "ASM (AvdLee/SwiftUI-Agent-Skill)",
-      "createdAt": "2026-09-04T01:19:22.113Z",
+      "createdAt": "2026-09-09T12:09:41.474Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -400,7 +402,7 @@
       "name": "avdlee-swiftui-agent-skill-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from AvdLee/SwiftUI-Agent-Skill.",
       "author": "ASM (AvdLee/SwiftUI-Agent-Skill)",
-      "createdAt": "2026-09-04T01:19:22.113Z",
+      "createdAt": "2026-09-09T12:09:41.474Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -436,7 +438,7 @@
       "name": "avdlee-swiftui-agent-skill-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from AvdLee/SwiftUI-Agent-Skill.",
       "author": "ASM (AvdLee/SwiftUI-Agent-Skill)",
-      "createdAt": "2026-09-04T01:19:22.113Z",
+      "createdAt": "2026-09-09T12:09:41.474Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -469,10 +471,46 @@
     },
     {
       "version": 1,
+      "name": "avdlee-swiftui-agent-skill-mobile",
+      "description": "iOS, Swift, SwiftUI, Xcode, macOS, and App Store skills. Derived from AvdLee/SwiftUI-Agent-Skill.",
+      "author": "ASM (AvdLee/SwiftUI-Agent-Skill)",
+      "createdAt": "2026-09-09T12:09:41.474Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "mobile",
+        "ios",
+        "swift",
+        "avdlee",
+        "swiftui-agent-skill"
+      ],
+      "skills": [
+        {
+          "name": "swiftui-expert-skill",
+          "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:skills/swiftui-expert-skill",
+          "description": "Use when writing, reviewing, or refactoring SwiftUI code for iOS or macOS, including state management and `@Observable` data flow, view composition and invalidation/performance, lists and `ForEach` identity, environment usage, localization, animations, Liquid Glass adoption, migrating soft-deprecated APIs, or Instruments `.trace` capture/analysis for hangs, hitches, CPU hotspots, or",
+          "version": "0.0.0"
+        },
+        {
+          "name": "update-swiftui-apis",
+          "installUrl": "github:AvdLee/SwiftUI-Agent-Skill:.agents/skills/update-swiftui-apis",
+          "description": "Scan Apple's SwiftUI documentation for deprecated APIs and update the SwiftUI Expert Skill with modern replacements. Use when asked to \"update latest APIs\", \"refresh deprecated SwiftUI APIs\", \"check for new SwiftUI deprecations\", \"scan for API changes\", or after a new iOS/Xcode release. Requires the Sosumi MCP to be available.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "AvdLee",
+        "repo": "SwiftUI-Agent-Skill",
+        "repoUrl": "https://github.com/AvdLee/SwiftUI-Agent-Skill.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
       "name": "avdlee-swiftui-agent-skill-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from AvdLee/SwiftUI-Agent-Skill.",
       "author": "ASM (AvdLee/SwiftUI-Agent-Skill)",
-      "createdAt": "2026-09-04T01:19:22.113Z",
+      "createdAt": "2026-09-09T12:09:41.474Z",
       "tags": [
         "repo-derived",
         "inferred",

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/Imbad0202/academic-research-skills.git",
   "owner": "Imbad0202",
   "repo": "academic-research-skills",
-  "updatedAt": "2026-09-04T01:20:36.374Z",
+  "updatedAt": "2026-09-09T12:10:50.105Z",
   "skillCount": 4,
   "skills": [
     {
@@ -14,12 +14,13 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper",
       "relPath": "skills/academic-paper",
       "verified": true,
-      "tokenCount": 12140,
+      "tokenCount": 12234,
       "evalSummary": {
         "overallScore": 66,
         "grade": "C",
@@ -85,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:20:36.329Z",
+        "evaluatedAt": "2026-09-09T12:10:50.056Z",
         "evaluatedVersion": "3.3.1"
       },
       "evalSummaries": {
@@ -158,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:20:36.329Z",
+          "evaluatedAt": "2026-09-09T12:10:50.056Z",
           "evaluatedVersion": "3.3.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -176,7 +177,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:20:36.329Z",
+          "evaluatedAt": "2026-09-09T12:10:50.056Z",
           "evaluatedVersion": "3.3.1"
         }
       }
@@ -190,6 +191,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper-reviewer",
@@ -261,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:20:36.329Z",
+        "evaluatedAt": "2026-09-09T12:10:50.056Z",
         "evaluatedVersion": "1.11.1"
       },
       "evalSummaries": {
@@ -334,12 +336,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:20:36.329Z",
+          "evaluatedAt": "2026-09-09T12:10:50.056Z",
           "evaluatedVersion": "1.11.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -352,7 +354,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:20:36.329Z",
+          "evaluatedAt": "2026-09-09T12:10:50.056Z",
           "evaluatedVersion": "1.11.1"
         }
       }
@@ -360,12 +362,13 @@
     {
       "name": "academic-pipeline",
       "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory, coverage-bounded integrity checks, two-stage peer review, and auditable quality-assurance artifacts. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow, 연구부터 논문까지, 연구 주제 설정부터 논문 완성까지, 논문 전체 워크플로.",
-      "version": "3.21.1",
+      "version": "3.21.2",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-pipeline",
@@ -437,8 +440,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:20:36.329Z",
-        "evaluatedVersion": "3.21.1"
+        "evaluatedAt": "2026-09-09T12:10:50.056Z",
+        "evaluatedVersion": "3.21.2"
       },
       "evalSummaries": {
         "quality": {
@@ -510,12 +513,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:20:36.329Z",
-          "evaluatedVersion": "3.21.1"
+          "evaluatedAt": "2026-09-09T12:10:50.056Z",
+          "evaluatedVersion": "3.21.2"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 71,
@@ -528,8 +531,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:20:36.329Z",
-          "evaluatedVersion": "3.21.1"
+          "evaluatedAt": "2026-09-09T12:10:50.056Z",
+          "evaluatedVersion": "3.21.2"
         }
       }
     },
@@ -542,12 +545,13 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Imbad0202/academic-research-skills:skills/deep-research",
       "relPath": "skills/deep-research",
       "verified": true,
-      "tokenCount": 9776,
+      "tokenCount": 9808,
       "evalSummary": {
         "overallScore": 68,
         "grade": "C",
@@ -613,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:20:36.329Z",
+        "evaluatedAt": "2026-09-09T12:10:50.056Z",
         "evaluatedVersion": "2.12.1"
       },
       "evalSummaries": {
@@ -686,12 +690,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:20:36.329Z",
+          "evaluatedAt": "2026-09-09T12:10:50.056Z",
           "evaluatedVersion": "2.12.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -704,7 +708,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:20:36.329Z",
+          "evaluatedAt": "2026-09-09T12:10:50.056Z",
           "evaluatedVersion": "2.12.1"
         }
       }
@@ -716,7 +720,7 @@
       "name": "imbad0202-academic-research-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-09-04T01:20:36.374Z",
+      "createdAt": "2026-09-09T12:10:50.105Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -758,7 +762,7 @@
       "name": "imbad0202-academic-research-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-09-04T01:20:36.374Z",
+      "createdAt": "2026-09-09T12:10:50.105Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -785,7 +789,7 @@
           "name": "academic-pipeline",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-pipeline",
           "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory, coverage-bounded integrity checks, two-stage peer review, and auditable quality-assurance artifacts. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow, 연구부터 논문까지, 연구 주제 설정부터 논문 완성까지, 논문 전체 워크플로.",
-          "version": "3.21.1"
+          "version": "3.21.2"
         },
         {
           "name": "deep-research",
@@ -806,7 +810,7 @@
       "name": "imbad0202-academic-research-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-09-04T01:20:36.374Z",
+      "createdAt": "2026-09-09T12:10:50.105Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -833,7 +837,7 @@
           "name": "academic-pipeline",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-pipeline",
           "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory, coverage-bounded integrity checks, two-stage peer review, and auditable quality-assurance artifacts. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow, 연구부터 논문까지, 연구 주제 설정부터 논문 완성까지, 논문 전체 워크플로.",
-          "version": "3.21.1"
+          "version": "3.21.2"
         },
         {
           "name": "deep-research",
@@ -854,7 +858,7 @@
       "name": "imbad0202-academic-research-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-09-04T01:20:36.374Z",
+      "createdAt": "2026-09-09T12:10:50.105Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -896,7 +900,7 @@
       "name": "imbad0202-academic-research-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-09-04T01:20:36.374Z",
+      "createdAt": "2026-09-09T12:10:50.105Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -923,7 +927,7 @@
           "name": "academic-pipeline",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-pipeline",
           "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory, coverage-bounded integrity checks, two-stage peer review, and auditable quality-assurance artifacts. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow, 연구부터 논문까지, 연구 주제 설정부터 논문 완성까지, 논문 전체 워크플로.",
-          "version": "3.21.1"
+          "version": "3.21.2"
         },
         {
           "name": "deep-research",
@@ -944,7 +948,7 @@
       "name": "imbad0202-academic-research-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-09-04T01:20:36.374Z",
+      "createdAt": "2026-09-09T12:10:50.105Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -971,7 +975,7 @@
           "name": "academic-pipeline",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-pipeline",
           "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory, coverage-bounded integrity checks, two-stage peer review, and auditable quality-assurance artifacts. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow, 연구부터 논문까지, 연구 주제 설정부터 논문 완성까지, 논문 전체 워크플로.",
-          "version": "3.21.1"
+          "version": "3.21.2"
         },
         {
           "name": "deep-research",

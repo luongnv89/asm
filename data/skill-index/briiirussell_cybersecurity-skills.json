@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/briiirussell/cybersecurity-skills.git",
   "owner": "briiirussell",
   "repo": "cybersecurity-skills",
-  "updatedAt": "2026-09-04T01:21:10.779Z",
+  "updatedAt": "2026-09-09T12:11:23.157Z",
   "skillCount": 29,
   "skills": [
     {
@@ -14,6 +14,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Grep", "Glob", "Bash", "Write", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/ai-risk-management",
@@ -85,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.721Z",
+        "evaluatedAt": "2026-09-09T12:11:23.098Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -158,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.723Z",
+          "evaluatedAt": "2026-09-09T12:11:23.098Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -176,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.723Z",
+          "evaluatedAt": "2026-09-09T12:11:23.098Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -190,6 +191,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Grep", "Glob", "Bash", "Write"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/api-audit",
@@ -261,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.723Z",
+        "evaluatedAt": "2026-09-09T12:11:23.098Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -334,12 +336,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.723Z",
+          "evaluatedAt": "2026-09-09T12:11:23.098Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -352,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.723Z",
+          "evaluatedAt": "2026-09-09T12:11:23.098Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -366,6 +368,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Grep", "Glob", "Bash", "WebSearch", "WebFetch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/breach-patterns",
@@ -437,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.721Z",
+        "evaluatedAt": "2026-09-09T12:11:23.098Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -510,12 +513,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.723Z",
+          "evaluatedAt": "2026-09-09T12:11:23.098Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -528,7 +531,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.723Z",
+          "evaluatedAt": "2026-09-09T12:11:23.098Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -542,6 +545,7 @@
       "compatibility": "",
       "allowedTools": ["Bash", "Read", "Write", "Grep", "Glob", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/cloud-audit",
@@ -613,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.722Z",
+        "evaluatedAt": "2026-09-09T12:11:23.098Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -686,12 +690,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.723Z",
+          "evaluatedAt": "2026-09-09T12:11:23.100Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -704,7 +708,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.723Z",
+          "evaluatedAt": "2026-09-09T12:11:23.100Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -718,6 +722,7 @@
       "compatibility": "",
       "allowedTools": ["Bash", "Read", "Write", "Grep", "Glob", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/container-audit",
@@ -789,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.723Z",
+        "evaluatedAt": "2026-09-09T12:11:23.098Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -862,12 +867,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.723Z",
+          "evaluatedAt": "2026-09-09T12:11:23.100Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -880,7 +885,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.723Z",
+          "evaluatedAt": "2026-09-09T12:11:23.100Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -894,6 +899,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Grep", "Glob", "Bash", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/crypto-audit",
@@ -965,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.723Z",
+        "evaluatedAt": "2026-09-09T12:11:23.102Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1038,12 +1044,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.723Z",
+          "evaluatedAt": "2026-09-09T12:11:23.102Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1056,7 +1062,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.723Z",
+          "evaluatedAt": "2026-09-09T12:11:23.102Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1070,6 +1076,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Grep", "Glob", "Bash", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/csf-mapping",
@@ -1141,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.723Z",
+        "evaluatedAt": "2026-09-09T12:11:23.101Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1214,12 +1221,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.723Z",
+          "evaluatedAt": "2026-09-09T12:11:23.102Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1232,7 +1239,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.723Z",
+          "evaluatedAt": "2026-09-09T12:11:23.102Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1246,6 +1253,7 @@
       "compatibility": "",
       "allowedTools": ["Bash", "Read", "Write", "Grep", "Glob", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/dependency-audit",
@@ -1317,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.723Z",
+        "evaluatedAt": "2026-09-09T12:11:23.101Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1390,12 +1398,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.723Z",
+          "evaluatedAt": "2026-09-09T12:11:23.102Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1408,7 +1416,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.723Z",
+          "evaluatedAt": "2026-09-09T12:11:23.102Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1422,6 +1430,7 @@
       "compatibility": "",
       "allowedTools": ["Bash", "Read", "Write", "Grep", "Glob"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/disk-forensics",
@@ -1493,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.737Z",
+        "evaluatedAt": "2026-09-09T12:11:23.115Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1566,12 +1575,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.737Z",
+          "evaluatedAt": "2026-09-09T12:11:23.115Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1584,7 +1593,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.737Z",
+          "evaluatedAt": "2026-09-09T12:11:23.115Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1598,6 +1607,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Grep", "Glob", "Bash", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/finding-triage",
@@ -1669,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.737Z",
+        "evaluatedAt": "2026-09-09T12:11:23.115Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1742,12 +1752,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.739Z",
+          "evaluatedAt": "2026-09-09T12:11:23.115Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1760,7 +1770,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.739Z",
+          "evaluatedAt": "2026-09-09T12:11:23.115Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1774,6 +1784,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Grep", "Glob", "Bash", "Write", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/hipaa-audit",
@@ -1845,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.737Z",
+        "evaluatedAt": "2026-09-09T12:11:23.115Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1918,12 +1929,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.739Z",
+          "evaluatedAt": "2026-09-09T12:11:23.115Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1936,7 +1947,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.739Z",
+          "evaluatedAt": "2026-09-09T12:11:23.115Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1950,6 +1961,7 @@
       "compatibility": "",
       "allowedTools": ["Bash", "Read", "Write", "Grep", "Glob", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/iam-audit",
@@ -2021,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.737Z",
+        "evaluatedAt": "2026-09-09T12:11:23.115Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2094,12 +2106,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.739Z",
+          "evaluatedAt": "2026-09-09T12:11:23.116Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2112,7 +2124,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.739Z",
+          "evaluatedAt": "2026-09-09T12:11:23.117Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2126,6 +2138,7 @@
       "compatibility": "",
       "allowedTools": ["Bash", "Read", "Write", "Grep", "Glob", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/incident-triage",
@@ -2197,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.741Z",
+        "evaluatedAt": "2026-09-09T12:11:23.117Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2270,12 +2283,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.741Z",
+          "evaluatedAt": "2026-09-09T12:11:23.119Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2288,7 +2301,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.741Z",
+          "evaluatedAt": "2026-09-09T12:11:23.119Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2302,6 +2315,7 @@
       "compatibility": "",
       "allowedTools": ["Bash", "Read", "Write", "Grep", "Glob", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/mobile-audit",
@@ -2373,7 +2387,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.741Z",
+        "evaluatedAt": "2026-09-09T12:11:23.119Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2446,12 +2460,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.741Z",
+          "evaluatedAt": "2026-09-09T12:11:23.119Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2464,7 +2478,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.741Z",
+          "evaluatedAt": "2026-09-09T12:11:23.119Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2478,6 +2492,7 @@
       "compatibility": "",
       "allowedTools": ["Bash", "WebSearch", "WebFetch", "Read", "Write"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/osint-recon",
@@ -2549,7 +2564,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.741Z",
+        "evaluatedAt": "2026-09-09T12:11:23.119Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2622,12 +2637,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.741Z",
+          "evaluatedAt": "2026-09-09T12:11:23.119Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2640,7 +2655,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.741Z",
+          "evaluatedAt": "2026-09-09T12:11:23.119Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2654,6 +2669,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Grep", "Glob", "Bash", "Write"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/owasp-audit",
@@ -2725,7 +2741,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.741Z",
+        "evaluatedAt": "2026-09-09T12:11:23.119Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2798,12 +2814,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.742Z",
+          "evaluatedAt": "2026-09-09T12:11:23.119Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2816,7 +2832,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.742Z",
+          "evaluatedAt": "2026-09-09T12:11:23.119Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2830,6 +2846,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Grep", "Glob", "Bash", "Write", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/pci-audit",
@@ -2901,7 +2918,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.756Z",
+        "evaluatedAt": "2026-09-09T12:11:23.133Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2974,12 +2991,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.758Z",
+          "evaluatedAt": "2026-09-09T12:11:23.133Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2992,7 +3009,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.758Z",
+          "evaluatedAt": "2026-09-09T12:11:23.133Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3006,6 +3023,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Grep", "Glob", "Bash", "Write", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/privacy-engineering",
@@ -3077,7 +3095,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.756Z",
+        "evaluatedAt": "2026-09-09T12:11:23.133Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3150,12 +3168,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.758Z",
+          "evaluatedAt": "2026-09-09T12:11:23.133Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -3168,7 +3186,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.758Z",
+          "evaluatedAt": "2026-09-09T12:11:23.133Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3182,6 +3200,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Grep", "Glob", "Bash", "Write", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/prompt-injection",
@@ -3253,7 +3272,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.757Z",
+        "evaluatedAt": "2026-09-09T12:11:23.133Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3326,12 +3345,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.758Z",
+          "evaluatedAt": "2026-09-09T12:11:23.133Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -3344,7 +3363,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.758Z",
+          "evaluatedAt": "2026-09-09T12:11:23.133Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3358,6 +3377,7 @@
       "compatibility": "",
       "allowedTools": ["Bash", "Read", "Write", "WebSearch", "WebFetch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/recon",
@@ -3429,7 +3449,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.757Z",
+        "evaluatedAt": "2026-09-09T12:11:23.133Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3502,12 +3522,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.758Z",
+          "evaluatedAt": "2026-09-09T12:11:23.134Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -3520,7 +3540,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.758Z",
+          "evaluatedAt": "2026-09-09T12:11:23.134Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3534,6 +3554,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Write", "Bash", "Grep", "Glob", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/red-team-engagement",
@@ -3605,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.757Z",
+        "evaluatedAt": "2026-09-09T12:11:23.137Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3678,12 +3699,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.758Z",
+          "evaluatedAt": "2026-09-09T12:11:23.137Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -3696,7 +3717,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.758Z",
+          "evaluatedAt": "2026-09-09T12:11:23.137Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3710,6 +3731,7 @@
       "compatibility": "",
       "allowedTools": ["Bash", "Read", "Write", "Grep", "Glob", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/secrets-audit",
@@ -3781,7 +3803,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.758Z",
+        "evaluatedAt": "2026-09-09T12:11:23.137Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3854,12 +3876,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.758Z",
+          "evaluatedAt": "2026-09-09T12:11:23.137Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -3872,7 +3894,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.758Z",
+          "evaluatedAt": "2026-09-09T12:11:23.137Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3886,6 +3908,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Write", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/security-comms",
@@ -3957,7 +3980,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.758Z",
+        "evaluatedAt": "2026-09-09T12:11:23.137Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4030,12 +4053,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.758Z",
+          "evaluatedAt": "2026-09-09T12:11:23.137Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -4048,7 +4071,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.758Z",
+          "evaluatedAt": "2026-09-09T12:11:23.137Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4062,6 +4085,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Write", "Bash", "Grep", "Glob", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/siem-detection",
@@ -4133,7 +4157,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.759Z",
+        "evaluatedAt": "2026-09-09T12:11:23.137Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4206,12 +4230,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.759Z",
+          "evaluatedAt": "2026-09-09T12:11:23.137Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -4224,7 +4248,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.759Z",
+          "evaluatedAt": "2026-09-09T12:11:23.137Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4238,6 +4262,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Write", "Grep", "Glob", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/soc-operations",
@@ -4309,7 +4334,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.772Z",
+        "evaluatedAt": "2026-09-09T12:11:23.149Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4382,12 +4407,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.773Z",
+          "evaluatedAt": "2026-09-09T12:11:23.150Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -4400,7 +4425,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.773Z",
+          "evaluatedAt": "2026-09-09T12:11:23.150Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4414,6 +4439,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Write", "Bash", "Grep", "Glob", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/threat-hunting",
@@ -4485,7 +4511,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.773Z",
+        "evaluatedAt": "2026-09-09T12:11:23.149Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4558,12 +4584,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.773Z",
+          "evaluatedAt": "2026-09-09T12:11:23.150Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -4576,7 +4602,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.773Z",
+          "evaluatedAt": "2026-09-09T12:11:23.150Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4590,6 +4616,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Write", "Grep", "Glob", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/threat-modeling",
@@ -4661,7 +4688,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.773Z",
+        "evaluatedAt": "2026-09-09T12:11:23.150Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4734,12 +4761,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.773Z",
+          "evaluatedAt": "2026-09-09T12:11:23.150Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -4752,7 +4779,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.773Z",
+          "evaluatedAt": "2026-09-09T12:11:23.150Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4766,6 +4793,7 @@
       "compatibility": "",
       "allowedTools": ["Read", "Grep", "Glob", "Bash", "WebSearch", "WebFetch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/vuln-research",
@@ -4837,7 +4865,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.773Z",
+        "evaluatedAt": "2026-09-09T12:11:23.150Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4910,12 +4938,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.773Z",
+          "evaluatedAt": "2026-09-09T12:11:23.151Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -4928,7 +4956,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.773Z",
+          "evaluatedAt": "2026-09-09T12:11:23.151Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4942,6 +4970,7 @@
       "compatibility": "",
       "allowedTools": ["Bash", "Read", "Write", "WebFetch", "WebSearch"],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:briiirussell/cybersecurity-skills:skills/web-pentest",
@@ -5013,7 +5042,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:10.773Z",
+        "evaluatedAt": "2026-09-09T12:11:23.151Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5086,12 +5115,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.773Z",
+          "evaluatedAt": "2026-09-09T12:11:23.151Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -5104,7 +5133,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:10.773Z",
+          "evaluatedAt": "2026-09-09T12:11:23.151Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5116,7 +5145,7 @@
       "name": "briiirussell-cybersecurity-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-09-04T01:21:10.779Z",
+      "createdAt": "2026-09-09T12:11:23.157Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5266,7 +5295,7 @@
       "name": "briiirussell-cybersecurity-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-09-04T01:21:10.779Z",
+      "createdAt": "2026-09-09T12:11:23.157Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5410,7 +5439,7 @@
       "name": "briiirussell-cybersecurity-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-09-04T01:21:10.779Z",
+      "createdAt": "2026-09-09T12:11:23.157Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5542,7 +5571,7 @@
       "name": "briiirussell-cybersecurity-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-09-04T01:21:10.779Z",
+      "createdAt": "2026-09-09T12:11:23.157Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5644,7 +5673,7 @@
       "name": "briiirussell-cybersecurity-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-09-04T01:21:10.779Z",
+      "createdAt": "2026-09-09T12:11:23.157Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5686,7 +5715,7 @@
       "name": "briiirussell-cybersecurity-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-09-04T01:21:10.779Z",
+      "createdAt": "2026-09-09T12:11:23.157Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5740,7 +5769,7 @@
       "name": "briiirussell-cybersecurity-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-09-04T01:21:10.779Z",
+      "createdAt": "2026-09-09T12:11:23.157Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5848,7 +5877,7 @@
       "name": "briiirussell-cybersecurity-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from briiirussell/cybersecurity-skills.",
       "author": "ASM (briiirussell/cybersecurity-skills)",
-      "createdAt": "2026-09-04T01:21:10.779Z",
+      "createdAt": "2026-09-09T12:11:23.157Z",
       "tags": [
         "repo-derived",
         "inferred",

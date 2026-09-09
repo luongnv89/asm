@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/AvdLee/Swift-Testing-Agent-Skill.git",
   "owner": "AvdLee",
   "repo": "Swift-Testing-Agent-Skill",
-  "updatedAt": "2026-09-04T01:19:23.646Z",
+  "updatedAt": "2026-09-09T12:09:43.072Z",
   "skillCount": 1,
   "skills": [
     {
@@ -14,6 +14,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:AvdLee/Swift-Testing-Agent-Skill:swift-testing-expert",
@@ -85,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:23.644Z",
+        "evaluatedAt": "2026-09-09T12:09:43.069Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -158,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:23.644Z",
+          "evaluatedAt": "2026-09-09T12:09:43.069Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -176,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:23.644Z",
+          "evaluatedAt": "2026-09-09T12:09:43.069Z",
           "evaluatedVersion": "0.0.0"
         }
       }

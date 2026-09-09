@@ -2,26 +2,27 @@
   "repoUrl": "https://github.com/blader/humanizer.git",
   "owner": "blader",
   "repo": "humanizer",
-  "updatedAt": "2026-09-04T01:21:25.965Z",
+  "updatedAt": "2026-09-09T12:11:40.362Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "humanizer",
-      "description": "Rewrite AI-sounding text so it reads naturally without changing what it says. Use when editing or reviewing prose for inflated claims, sales language, vague sources, repetitive structure, stock AI words, passive voice, filler, or chatbot artifacts. Based on Wikipedia's \"Signs of AI writing.\"",
-      "version": "2.11.2",
+      "description": "Rewrite AI-sounding text so it reads like the writer without changing what it says. Use when editing or reviewing prose for AI tells: not-X-but-Y contrasts, one-line closers, staged openers, forced triads, dashes everywhere, inflated claims, sales language, stock AI words, bold labels, or filler. Based on Wikipedia's \"Signs of AI writing.\"",
+      "version": "3.0.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:blader/humanizer",
       "relPath": "",
       "verified": true,
-      "tokenCount": 9135,
+      "tokenCount": 8905,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -39,7 +40,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 7,
+            "score": 5,
             "max": 10
           },
           {
@@ -85,8 +86,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:25.914Z",
-        "evaluatedVersion": "2.11.2"
+        "evaluatedAt": "2026-09-09T12:11:40.317Z",
+        "evaluatedVersion": "3.0.0"
       },
       "evalSummaries": {
         "quality": {
@@ -94,7 +95,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 71,
           "grade": "C",
           "categories": [
             {
@@ -112,7 +113,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 7,
+              "score": 5,
               "max": 10
             },
             {
@@ -158,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:25.914Z",
-          "evaluatedVersion": "2.11.2"
+          "evaluatedAt": "2026-09-09T12:11:40.317Z",
+          "evaluatedVersion": "3.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 64,
@@ -176,8 +177,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:25.914Z",
-          "evaluatedVersion": "2.11.2"
+          "evaluatedAt": "2026-09-09T12:11:40.317Z",
+          "evaluatedVersion": "3.0.0"
         }
       }
     }

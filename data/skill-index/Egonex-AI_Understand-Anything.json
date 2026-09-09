@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/Egonex-AI/Understand-Anything.git",
   "owner": "Egonex-AI",
   "repo": "Understand-Anything",
-  "updatedAt": "2026-09-04T01:19:35.075Z",
+  "updatedAt": "2026-09-09T12:09:53.893Z",
   "skillCount": 9,
   "skills": [
     {
@@ -14,14 +14,15 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand",
       "relPath": "understand-anything-plugin/skills/understand",
       "verified": true,
-      "tokenCount": 12638,
+      "tokenCount": 15790,
       "evalSummary": {
-        "overallScore": 75,
+        "overallScore": 77,
         "grade": "C",
         "categories": [
           {
@@ -57,7 +58,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 7,
             "max": 10
           },
           {
@@ -85,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:34.963Z",
+        "evaluatedAt": "2026-09-09T12:09:53.781Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -94,7 +95,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -130,7 +131,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 7,
               "max": 10
             },
             {
@@ -158,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.964Z",
+          "evaluatedAt": "2026-09-09T12:09:53.783Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -176,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.964Z",
+          "evaluatedAt": "2026-09-09T12:09:53.783Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -190,6 +191,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-chat",
@@ -261,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:34.963Z",
+        "evaluatedAt": "2026-09-09T12:09:53.781Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -334,12 +336,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.963Z",
+          "evaluatedAt": "2026-09-09T12:09:53.783Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -352,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.963Z",
+          "evaluatedAt": "2026-09-09T12:09:53.783Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -366,6 +368,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-dashboard",
@@ -437,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:34.963Z",
+        "evaluatedAt": "2026-09-09T12:09:53.781Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -510,12 +513,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.964Z",
+          "evaluatedAt": "2026-09-09T12:09:53.783Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -528,7 +531,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.964Z",
+          "evaluatedAt": "2026-09-09T12:09:53.783Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -542,6 +545,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-diff",
@@ -613,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:34.963Z",
+        "evaluatedAt": "2026-09-09T12:09:53.782Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -686,12 +690,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.964Z",
+          "evaluatedAt": "2026-09-09T12:09:53.783Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -704,7 +708,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.964Z",
+          "evaluatedAt": "2026-09-09T12:09:53.783Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -718,6 +722,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-domain",
@@ -789,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:34.963Z",
+        "evaluatedAt": "2026-09-09T12:09:53.783Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -862,12 +867,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.964Z",
+          "evaluatedAt": "2026-09-09T12:09:53.783Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -880,7 +885,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.964Z",
+          "evaluatedAt": "2026-09-09T12:09:53.783Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -894,6 +899,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-explain",
@@ -965,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:34.964Z",
+        "evaluatedAt": "2026-09-09T12:09:53.783Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1038,12 +1044,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.964Z",
+          "evaluatedAt": "2026-09-09T12:09:53.783Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1056,7 +1062,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.964Z",
+          "evaluatedAt": "2026-09-09T12:09:53.783Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1070,6 +1076,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-figma",
@@ -1141,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:34.964Z",
+        "evaluatedAt": "2026-09-09T12:09:53.783Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1214,12 +1221,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.964Z",
+          "evaluatedAt": "2026-09-09T12:09:53.783Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1232,7 +1239,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.965Z",
+          "evaluatedAt": "2026-09-09T12:09:53.783Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1246,6 +1253,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-knowledge",
@@ -1317,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:34.964Z",
+        "evaluatedAt": "2026-09-09T12:09:53.783Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1390,12 +1398,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.964Z",
+          "evaluatedAt": "2026-09-09T12:09:53.783Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1408,7 +1416,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.964Z",
+          "evaluatedAt": "2026-09-09T12:09:53.783Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1422,6 +1430,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Egonex-AI/Understand-Anything:understand-anything-plugin/skills/understand-onboard",
@@ -1493,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:34.976Z",
+        "evaluatedAt": "2026-09-09T12:09:53.795Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1566,12 +1575,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.976Z",
+          "evaluatedAt": "2026-09-09T12:09:53.795Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -1584,7 +1593,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:34.976Z",
+          "evaluatedAt": "2026-09-09T12:09:53.795Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1596,7 +1605,7 @@
       "name": "egonex-ai-understand-anything-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Egonex-AI/Understand-Anything.",
       "author": "ASM (Egonex-AI/Understand-Anything)",
-      "createdAt": "2026-09-04T01:19:35.075Z",
+      "createdAt": "2026-09-09T12:09:53.893Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1674,7 +1683,7 @@
       "name": "egonex-ai-understand-anything-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Egonex-AI/Understand-Anything.",
       "author": "ASM (Egonex-AI/Understand-Anything)",
-      "createdAt": "2026-09-04T01:19:35.075Z",
+      "createdAt": "2026-09-09T12:09:53.893Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1710,7 +1719,7 @@
       "name": "egonex-ai-understand-anything-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from Egonex-AI/Understand-Anything.",
       "author": "ASM (Egonex-AI/Understand-Anything)",
-      "createdAt": "2026-09-04T01:19:35.075Z",
+      "createdAt": "2026-09-09T12:09:53.893Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1770,7 +1779,7 @@
       "name": "egonex-ai-understand-anything-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Egonex-AI/Understand-Anything.",
       "author": "ASM (Egonex-AI/Understand-Anything)",
-      "createdAt": "2026-09-04T01:19:35.075Z",
+      "createdAt": "2026-09-09T12:09:53.893Z",
       "tags": [
         "repo-derived",
         "inferred",
