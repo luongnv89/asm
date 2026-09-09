@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-04T06:22:53Z",
+  "updatedAt": "2026-09-09T08:22:00Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -674,6 +674,24 @@
       "repo": "threejs-game-skills",
       "description": "Three.js game development skills for AI agents \u2014 gameplay, AAA-style graphics, UI, QA, and asset generation",
       "maintainer": "@majidmanzarpour",
+      "enabled": true
+    },
+    {
+      "source": "github:openai/skills",
+      "url": "https://github.com/openai/skills",
+      "owner": "openai",
+      "repo": "skills",
+      "description": "Skills Catalog for Codex",
+      "maintainer": "@openai",
+      "enabled": true
+    },
+    {
+      "source": "github:affaan-m/ECC",
+      "url": "https://github.com/affaan-m/ECC",
+      "owner": "affaan-m",
+      "repo": "ECC",
+      "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
+      "maintainer": "@affaan-m",
       "enabled": true
     }
   ]
