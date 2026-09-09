@@ -2,6 +2,7 @@ import { createHash, randomUUID } from "crypto";
 import {
   access,
   cp,
+  link,
   mkdir,
   readFile,
   readdir,
@@ -25,6 +26,8 @@ import type {
 } from "./utils/types";
 
 const SESSION_ID_RE = /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/;
+const LOCK_RETRY_MS = 20;
+const LOCK_TIMEOUT_MS = 10_000;
 
 export interface DependencyLeasePaths {
   rootDir?: string;
@@ -79,6 +82,92 @@ function sessionArtifactsDir(root: string, sessionId: string): string {
 
 function ownerMarkerPath(artifactPath: string): string {
   return `${artifactPath}.owner.json`;
+}
+
+function sessionLockPath(statePath: string): string {
+  return `${statePath}.lock`;
+}
+
+async function releaseInterprocessSessionLock(
+  lockPath: string,
+  token: string,
+): Promise<void> {
+  const currentOwner = JSON.parse(await readFile(lockPath, "utf-8")) as {
+    token?: unknown;
+  };
+  if (currentOwner.token !== token) {
+    throw new Error(`Dependency lease lock ownership changed: ${lockPath}`);
+  }
+  await rm(lockPath, { force: true });
+}
+
+async function withInterprocessSessionLock<T>(
+  statePath: string,
+  operation: () => Promise<T>,
+): Promise<T> {
+  await mkdir(dirname(statePath), { recursive: true });
+  const lockPath = sessionLockPath(statePath);
+  const token = randomUUID();
+  const contenderPath = `${lockPath}.${process.pid}.${token}.tmp`;
+  const owner = JSON.stringify(
+    {
+      version: 1,
+      pid: process.pid,
+      token,
+      acquiredAt: new Date().toISOString(),
+    },
+    null,
+    2,
+  );
+  await writeTextFileAtomically(contenderPath, owner + "\n");
+
+  const startedAt = Date.now();
+  let acquired = false;
+  try {
+    while (!acquired) {
+      try {
+        // A hard link publishes the complete owner record and fails atomically
+        // when another process already owns this session's lock.
+        await link(contenderPath, lockPath);
+        acquired = true;
+      } catch (err) {
+        if (!(
+          err instanceof Error &&
+          "code" in err &&
+          (err as NodeJS.ErrnoException).code === "EEXIST"
+        )) {
+          throw err;
+        }
+        if (Date.now() - startedAt >= LOCK_TIMEOUT_MS) {
+          throw new Error(
+            `Timed out waiting for dependency lease lock: ${lockPath}`,
+            { cause: err },
+          );
+        }
+        await new Promise((resolveDelay) =>
+          setTimeout(resolveDelay, LOCK_RETRY_MS),
+        );
+      }
+    }
+
+    await rm(contenderPath, { force: true });
+    try {
+      return await operation();
+    } finally {
+      await releaseInterprocessSessionLock(lockPath, token);
+    }
+  } finally {
+    await rm(contenderPath, { force: true });
+  }
+}
+
+function withSessionMutationLock<T>(
+  statePath: string,
+  operation: () => Promise<T>,
+): Promise<T> {
+  return withFileMutationLock(statePath, () =>
+    withInterprocessSessionLock(statePath, operation),
+  );
 }
 
 function isInside(parent: string, child: string): boolean {
@@ -235,7 +324,7 @@ export async function acquireDependency(
     };
   }
 
-  return withFileMutationLock(statePath, async () => {
+  return withSessionMutationLock(statePath, async () => {
     const current = await readSession(root, sessionId);
     const existing = current?.acquisitions[key];
     if (await usableAcquisition(existing)) {
@@ -374,60 +463,65 @@ export async function releaseDependencySession(
   const root = leasesRoot(paths);
   const statePath = sessionPath(root, sessionId);
 
-  return withFileMutationLock(statePath, async () => {
-    const session = await readSession(root, sessionId);
-    if (!session) {
-      return {
-        sessionId,
-        alreadyReleased: true,
-        removed: [],
-        preserved: [],
-        missing: [],
-        errors: [],
-      };
-    }
+  return withSessionMutationLock(statePath, () =>
+    releaseDependencySessionUnlocked(root, sessionId, paths),
+  );
+}
 
-    const result: DependencyReleaseResult = {
+async function releaseDependencySessionUnlocked(
+  root: string,
+  sessionId: string,
+  paths: DependencyLeasePaths,
+): Promise<DependencyReleaseResult> {
+  const statePath = sessionPath(root, sessionId);
+  const session = await readSession(root, sessionId);
+  if (!session) {
+    return {
       sessionId,
-      alreadyReleased: false,
+      alreadyReleased: true,
       removed: [],
       preserved: [],
       missing: [],
       errors: [],
     };
-    const remaining: Record<string, DependencyLeaseAcquisition> = {};
+  }
 
-    for (const [key, acquisition] of Object.entries(session.acquisitions)) {
-      if (!acquisition.owned) {
-        result.preserved.push(acquisition.path);
-        continue;
-      }
-      try {
-        const status = await removeOwnedAcquisition(
-          root,
-          sessionId,
-          acquisition,
-        );
-        result[status].push(acquisition.path);
-      } catch (err) {
-        result.errors.push(err instanceof Error ? err.message : String(err));
-        remaining[key] = acquisition;
-      }
-    }
+  const result: DependencyReleaseResult = {
+    sessionId,
+    alreadyReleased: false,
+    removed: [],
+    preserved: [],
+    missing: [],
+    errors: [],
+  };
+  const remaining: Record<string, DependencyLeaseAcquisition> = {};
 
-    if (Object.keys(remaining).length === 0) {
-      await rm(statePath, { force: true });
-      await rm(sessionArtifactsDir(root, sessionId), {
-        recursive: true,
-        force: true,
-      });
-    } else {
-      session.updatedAt = new Date().toISOString();
-      session.acquisitions = remaining;
-      await writeSession(root, session, paths);
+  for (const [key, acquisition] of Object.entries(session.acquisitions)) {
+    if (!acquisition.owned) {
+      result.preserved.push(acquisition.path);
+      continue;
     }
-    return result;
-  });
+    try {
+      const status = await removeOwnedAcquisition(root, sessionId, acquisition);
+      result[status].push(acquisition.path);
+    } catch (err) {
+      result.errors.push(err instanceof Error ? err.message : String(err));
+      remaining[key] = acquisition;
+    }
+  }
+
+  if (Object.keys(remaining).length === 0) {
+    await rm(statePath, { force: true });
+    await rm(sessionArtifactsDir(root, sessionId), {
+      recursive: true,
+      force: true,
+    });
+  } else {
+    session.updatedAt = new Date().toISOString();
+    session.acquisitions = remaining;
+    await writeSession(root, session, paths);
+  }
+  return result;
 }
 
 export async function cleanupStaleDependencySessions(
@@ -460,22 +554,29 @@ export async function cleanupStaleDependencySessions(
   }
 
   for (const file of files.filter((entry) => entry.endsWith(".json")).sort()) {
+    const statePath = join(root, "sessions", file);
     try {
-      const session = parseSession(
-        await readFile(join(root, "sessions", file), "utf-8"),
-      );
-      const updatedAt = Date.parse(session.updatedAt);
-      if (!Number.isFinite(updatedAt)) {
-        throw new Error("Lease has an invalid updatedAt timestamp.");
-      }
-      if (updatedAt >= staleBefore.getTime()) {
-        result.active.push(session.sessionId);
-        continue;
-      }
+      await withSessionMutationLock(statePath, async () => {
+        // Classification happens only after acquiring the same lock used by
+        // acquire/release, so a just-refreshed session cannot be cleaned.
+        const session = parseSession(await readFile(statePath, "utf-8"));
+        if (sessionPath(root, session.sessionId) !== statePath) {
+          throw new Error("Dependency lease filename does not match session.");
+        }
+        const updatedAt = Date.parse(session.updatedAt);
+        if (!Number.isFinite(updatedAt)) {
+          throw new Error("Lease has an invalid updatedAt timestamp.");
+        }
+        if (updatedAt >= staleBefore.getTime()) {
+          result.active.push(session.sessionId);
+          return;
+        }
 
-      result.stale.push(session.sessionId);
-      if (!dryRun) {
-        const released = await releaseDependencySession(
+        result.stale.push(session.sessionId);
+        if (dryRun) return;
+
+        const released = await releaseDependencySessionUnlocked(
+          root,
           session.sessionId,
           paths,
         );
@@ -487,7 +588,7 @@ export async function cleanupStaleDependencySessions(
         } else {
           result.cleaned.push(session.sessionId);
         }
-      }
+      });
     } catch (err) {
       result.errors.push({
         sessionId: basename(file, ".json"),

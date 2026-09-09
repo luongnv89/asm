@@ -1,3 +1,4 @@
+import { createHash } from "crypto";
 import {
   mkdir,
   mkdtemp,
@@ -51,6 +52,26 @@ describe("temporary dependency leases", () => {
       },
       { rootDir },
     );
+  }
+
+  function statePath(sessionId: string): string {
+    const key = createHash("sha256").update(sessionId).digest("hex");
+    return join(rootDir, "sessions", `${key}.json`);
+  }
+
+  async function holdSessionLock(sessionId: string): Promise<string> {
+    const lockPath = `${statePath(sessionId)}.lock`;
+    await mkdir(join(rootDir, "sessions"), { recursive: true });
+    await writeFile(
+      lockPath,
+      JSON.stringify({
+        version: 1,
+        pid: process.pid,
+        token: "external-holder",
+        acquiredAt: new Date().toISOString(),
+      }),
+    );
+    return lockPath;
   }
 
   it("copies a temporary dependency into a directly usable owned artifact", async () => {
@@ -110,6 +131,25 @@ describe("temporary dependency leases", () => {
     await expect(
       readFile(join(sourceDir, "SKILL.md"), "utf-8"),
     ).resolves.toContain("# Helper");
+  });
+
+  it("waits for a filesystem lock held outside the in-process queue", async () => {
+    const lockPath = await holdSessionLock("run-contended");
+    const pending = acquire("run-contended", true);
+
+    const earlyResult = await Promise.race([
+      pending.then(() => "completed"),
+      new Promise<"blocked">((resolveBlocked) =>
+        setTimeout(() => resolveBlocked("blocked"), 60),
+      ),
+    ]);
+    expect(earlyResult).toBe("blocked");
+
+    await rm(lockPath, { force: true });
+    const acquired = await pending;
+    await expect(readFile(acquired.skillMdPath, "utf-8")).resolves.toContain(
+      "# Helper",
+    );
   });
 
   it("rolls back an owned artifact when session persistence fails", async () => {
@@ -204,6 +244,36 @@ describe("temporary dependency leases", () => {
       code: "ENOENT",
     });
     await expect(readFile(active.skillMdPath, "utf-8")).resolves.toContain(
+      "# Helper",
+    );
+  });
+
+  it("rechecks updatedAt under the session lock before stale cleanup", async () => {
+    const acquired = await acquire("run-refreshed", true);
+    const path = statePath("run-refreshed");
+    const state = JSON.parse(await readFile(path, "utf-8"));
+    state.updatedAt = "2026-01-01T00:00:00.000Z";
+    await writeFile(path, JSON.stringify(state));
+
+    const lockPath = await holdSessionLock("run-refreshed");
+    const cleanup = cleanupStaleDependencySessions(
+      new Date("2026-06-01T00:00:00.000Z"),
+      false,
+      { rootDir },
+    );
+
+    await new Promise((resolveDelay) => setTimeout(resolveDelay, 60));
+    state.updatedAt = "2026-12-01T00:00:00.000Z";
+    await writeFile(path, JSON.stringify(state));
+    await rm(lockPath, { force: true });
+
+    await expect(cleanup).resolves.toMatchObject({
+      stale: [],
+      active: ["run-refreshed"],
+      cleaned: [],
+      errors: [],
+    });
+    await expect(readFile(acquired.skillMdPath, "utf-8")).resolves.toContain(
       "# Helper",
     );
   });

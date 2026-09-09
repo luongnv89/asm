@@ -100,7 +100,9 @@ metadata:
 
 ## Allowed-key drift
 
-Sometimes a published skill carries fields invented by older tooling: `architecture`, `model`, `category`, `dependencies`. None are in the allowed set. Two options:
+`dependencies` is an allowed top-level key. When present, it must be a non-empty YAML sequence of skill names or explicit source references.
+
+Sometimes a published skill carries fields invented by older tooling, such as `architecture`, `model`, or `category`. Those fields are not in the allowed set. Two options:
 
 - If the field encodes information used at runtime (rare), move it under `metadata:` (any nested keys are accepted)
 - Otherwise, drop it and surface to the user as a finding

@@ -328,9 +328,31 @@ version: 1.0.0
 ---`;
     const result = parseFrontmatter(input);
     expect(result.dependencies).toBe(
-      "code-review\ngithub:owner/repo:skills/helper",
+      '["code-review","github:owner/repo:skills/helper"]',
     );
     expect(result.version).toBe("1.0.0");
+  });
+
+  it("preserves quoted dependency items and removes inline comments", () => {
+    const input = `---
+dependencies:
+  - "github:owner/repo:skills/path with spaces" # optional helper
+  - './local helper'
+---`;
+    expect(resolveSkillDependencies(parseFrontmatter(input))).toEqual([
+      "github:owner/repo:skills/path with spaces",
+      "./local helper",
+    ]);
+  });
+
+  it("rejects unsupported dependency mappings clearly", () => {
+    const input = `---
+dependencies:
+  helper: github:owner/repo
+---`;
+    expect(() => parseFrontmatter(input)).toThrow(
+      "use a sequence of scalar strings",
+    );
   });
 });
 
@@ -452,6 +474,30 @@ describe("resolveSkillDependencies", () => {
         dependencies: "['skill-creator', \"test-coverage\"]",
       }),
     ).toEqual(["skill-creator", "test-coverage"]);
+  });
+
+  it("preserves quoted spaces, commas, and inline comments", () => {
+    expect(
+      resolveSkillDependencies({
+        dependencies:
+          '["./path with spaces", "github:owner/repo:skills/a,b"] # comment',
+      }),
+    ).toEqual(["./path with spaces", "github:owner/repo:skills/a,b"]);
+    expect(
+      resolveSkillDependencies({
+        dependencies:
+          "\"./path with spaces\" # first\n'github:owner/repo:skills/other path' # second",
+      }),
+    ).toEqual(["./path with spaces", "github:owner/repo:skills/other path"]);
+  });
+
+  it("rejects non-string and nested dependency values", () => {
+    expect(() =>
+      resolveSkillDependencies({ dependencies: "[skill, { nested: value }]" }),
+    ).toThrow("only non-empty strings");
+    expect(() =>
+      resolveSkillDependencies({ dependencies: '"unterminated' }),
+    ).toThrow("unterminated quoted string");
   });
 
   it("returns an empty list when dependencies are omitted", () => {
