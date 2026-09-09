@@ -18,6 +18,24 @@ export async function cmdCleanup(args: ParsedArgs): Promise<void> {
     return;
   }
   const startTime = performance.now();
+  if (args.flags.dryRun) {
+    const message =
+      "asm cleanup does not support --dry-run. Re-run without it to remove the borrow, or leave the directory in place.";
+    if (args.flags.machine) {
+      console.log(
+        formatMachineError(
+          "cleanup",
+          ErrorCodes.INVALID_ARGUMENT,
+          message,
+          startTime,
+        ),
+      );
+    } else {
+      error(message);
+    }
+    process.exitCode = 2;
+    return;
+  }
   if (!args.subcommand || args.positional.length) {
     const message =
       "Expected exactly one argument: <borrowed-path>. Run asm cleanup --help for usage.";

@@ -7121,6 +7121,24 @@ describe("asm get --path and cleanup (issue #654)", () => {
       error: { code: "INVALID_ARGUMENT" },
     });
   });
+
+  test("rejects cleanup --dry-run without deleting the borrow", async () => {
+    const got = await run("get", sourceDir, "--path", "--json");
+    expect(got.exitCode, got.stderr).toBe(0);
+    const result = JSON.parse(got.stdout);
+    const refused = await run("cleanup", result.path, "--dry-run");
+    expect(refused.exitCode).toBe(2);
+    expect(refused.stderr).toContain("does not support --dry-run");
+    expect(await readFile(join(result.path, "SKILL.md"), "utf-8")).toBe(body);
+    const machine = await run("cleanup", result.path, "--dry-run", "--machine");
+    expect(machine.exitCode).toBe(2);
+    expect(JSON.parse(machine.stdout)).toMatchObject({
+      status: "error",
+      error: { code: "INVALID_ARGUMENT" },
+    });
+    expect((await run("cleanup", result.path)).exitCode).toBe(0);
+    await expect(lstat(result.path)).rejects.toMatchObject({ code: "ENOENT" });
+  });
 });
 
 // ─── Caller-owned dependency leases (issue #621) ───────────────────────────
