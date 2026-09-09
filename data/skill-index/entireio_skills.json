@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/entireio/skills.git",
   "owner": "entireio",
   "repo": "skills",
-  "updatedAt": "2026-09-04T01:21:08.757Z",
+  "updatedAt": "2026-09-09T12:11:20.898Z",
   "skillCount": 12,
   "skills": [
     {
@@ -14,6 +14,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:entireio/skills:skills/address-findings",
@@ -85,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:08.740Z",
+        "evaluatedAt": "2026-09-09T12:11:20.884Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -158,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.742Z",
+          "evaluatedAt": "2026-09-09T12:11:20.884Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -176,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.742Z",
+          "evaluatedAt": "2026-09-09T12:11:20.884Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -190,6 +191,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:entireio/skills:skills/explain",
@@ -261,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:08.740Z",
+        "evaluatedAt": "2026-09-09T12:11:20.884Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -334,12 +336,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.742Z",
+          "evaluatedAt": "2026-09-09T12:11:20.884Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -352,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.742Z",
+          "evaluatedAt": "2026-09-09T12:11:20.885Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -366,6 +368,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:entireio/skills:skills/recall",
@@ -437,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:08.740Z",
+        "evaluatedAt": "2026-09-09T12:11:20.884Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -510,12 +513,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.742Z",
+          "evaluatedAt": "2026-09-09T12:11:20.886Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -528,7 +531,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.742Z",
+          "evaluatedAt": "2026-09-09T12:11:20.886Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -542,6 +545,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:entireio/skills:skills/replay",
@@ -613,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:08.741Z",
+        "evaluatedAt": "2026-09-09T12:11:20.886Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -686,12 +690,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.742Z",
+          "evaluatedAt": "2026-09-09T12:11:20.886Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -704,7 +708,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.742Z",
+          "evaluatedAt": "2026-09-09T12:11:20.886Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -718,6 +722,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:entireio/skills:skills/review",
@@ -789,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:08.742Z",
+        "evaluatedAt": "2026-09-09T12:11:20.884Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -862,12 +867,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.742Z",
+          "evaluatedAt": "2026-09-09T12:11:20.885Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -880,28 +885,29 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.742Z",
+          "evaluatedAt": "2026-09-09T12:11:20.885Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "search",
-      "description": "Use when the user wants to find prior work, checkpoints, or agent conversations by topic, repo, branch, author, or recent time window, or to search code content across repositories",
+      "description": "Use when the user asks to research, investigate, look into, dig into, or search for anything — a topic, feature, bug, decision, or \"what do we know about X\". Invoke this as the FIRST action on such requests, before Glob, Grep, or Read: the answer is in Entire's recorded history (prompts, transcripts, and decisions, across repos), not in the local files, and a working copy that looks empty or unfamiliar is not a reason to skip it. Also use to find code across repositories (\"where is X implemented in our other repos\"). Not for grepping the current working copy on its own, and not for the current active session.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:entireio/skills:skills/search",
       "relPath": "skills/search",
       "verified": true,
-      "tokenCount": 2144,
+      "tokenCount": 2667,
       "evalSummary": {
-        "overallScore": 66,
+        "overallScore": 67,
         "grade": "C",
         "categories": [
           {
@@ -913,7 +919,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 3,
             "max": 10
           },
           {
@@ -925,13 +931,13 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 10,
             "max": 10
           },
           {
@@ -965,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:08.741Z",
+        "evaluatedAt": "2026-09-09T12:11:20.886Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -974,7 +980,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 66,
+          "overallScore": 67,
           "grade": "C",
           "categories": [
             {
@@ -986,7 +992,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 3,
               "max": 10
             },
             {
@@ -998,13 +1004,13 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 10,
               "max": 10
             },
             {
@@ -1038,25 +1044,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.742Z",
+          "evaluatedAt": "2026-09-09T12:11:20.886Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 77,
-          "grade": "C",
+          "overallScore": 0,
+          "grade": "F",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 10,
-              "max": 13
+              "score": 1,
+              "max": 2
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.742Z",
+          "evaluatedAt": "2026-09-09T12:11:20.886Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1070,6 +1076,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:entireio/skills:skills/session-crosslink",
@@ -1141,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:08.742Z",
+        "evaluatedAt": "2026-09-09T12:11:20.884Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1214,12 +1221,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.742Z",
+          "evaluatedAt": "2026-09-09T12:11:20.885Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -1232,7 +1239,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.742Z",
+          "evaluatedAt": "2026-09-09T12:11:20.886Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1246,6 +1253,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:entireio/skills:skills/session-handoff",
@@ -1317,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:08.742Z",
+        "evaluatedAt": "2026-09-09T12:11:20.884Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1390,12 +1398,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.742Z",
+          "evaluatedAt": "2026-09-09T12:11:20.886Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -1408,7 +1416,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.742Z",
+          "evaluatedAt": "2026-09-09T12:11:20.886Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1422,6 +1430,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:entireio/skills:skills/session-to-skill",
@@ -1493,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:08.753Z",
+        "evaluatedAt": "2026-09-09T12:11:20.894Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1566,12 +1575,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.753Z",
+          "evaluatedAt": "2026-09-09T12:11:20.894Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -1584,7 +1593,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.753Z",
+          "evaluatedAt": "2026-09-09T12:11:20.894Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1598,6 +1607,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:entireio/skills:skills/teach",
@@ -1669,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:08.753Z",
+        "evaluatedAt": "2026-09-09T12:11:20.894Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1742,12 +1752,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.753Z",
+          "evaluatedAt": "2026-09-09T12:11:20.894Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -1760,29 +1770,30 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.753Z",
+          "evaluatedAt": "2026-09-09T12:11:20.894Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "using-entire",
-      "description": "Use for any codebase exploration or understanding task — reads historical intent from Entire checkpoints instead of guessing. Orchestrates other Entire skills to give the agent provenance-backed answers about code.",
+      "description": "Use as the FIRST action on any research, investigation, or codebase-understanding request — \"research X\", \"investigate X\", \"look into X\", \"dig into X\", \"search X\", \"explore X\", \"understand X\", \"why is this like this\" — before Glob, Grep, or Read. Recorded intent lives in Entire checkpoints on the server, not in local files, so an empty or unfamiliar working copy is not a reason to skip it. Routes to the right Entire sub-skill (search, recall, explain, what-happened, replay, teach, review, session-handoff).",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:entireio/skills:skills/using-entire",
       "relPath": "skills/using-entire",
       "verified": true,
-      "tokenCount": 1966,
+      "tokenCount": 2272,
       "evalSummary": {
-        "overallScore": 66,
-        "grade": "C",
+        "overallScore": 63,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -1793,7 +1804,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 3,
             "max": 10
           },
           {
@@ -1811,7 +1822,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 3,
+            "score": 4,
             "max": 10
           },
           {
@@ -1845,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:08.753Z",
+        "evaluatedAt": "2026-09-09T12:11:20.894Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1854,8 +1865,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 66,
-          "grade": "C",
+          "overallScore": 63,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -1866,7 +1877,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 3,
               "max": 10
             },
             {
@@ -1884,7 +1895,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 3,
+              "score": 4,
               "max": 10
             },
             {
@@ -1918,25 +1929,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.753Z",
+          "evaluatedAt": "2026-09-09T12:11:20.894Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 77,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 10,
+              "score": 9,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.753Z",
+          "evaluatedAt": "2026-09-09T12:11:20.894Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1950,6 +1961,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:entireio/skills:skills/what-happened",
@@ -2021,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:08.753Z",
+        "evaluatedAt": "2026-09-09T12:11:20.894Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2094,12 +2106,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.753Z",
+          "evaluatedAt": "2026-09-09T12:11:20.894Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2112,7 +2124,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:08.753Z",
+          "evaluatedAt": "2026-09-09T12:11:20.894Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2124,7 +2136,7 @@
       "name": "entireio-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from entireio/skills.",
       "author": "ASM (entireio/skills)",
-      "createdAt": "2026-09-04T01:21:08.757Z",
+      "createdAt": "2026-09-09T12:11:20.898Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2150,7 +2162,7 @@
         {
           "name": "search",
           "installUrl": "github:entireio/skills:skills/search",
-          "description": "Use when the user wants to find prior work, checkpoints, or agent conversations by topic, repo, branch, author, or recent time window, or to search code content across repositories",
+          "description": "Use when the user asks to research, investigate, look into, dig into, or search for anything — a topic, feature, bug, decision, or \"what do we know about X\". Invoke this as the FIRST action on such requests, before Glob, Grep, or Read: the answer is in Entire's recorded history (prompts, transcripts, and decisions, across repos), not in the local files, and a working copy that looks empty or unfamiliar is not a reason to skip it. Also use to find code across repositories (\"where is X implemented in our other repos\"). Not for grepping the current working copy on its own, and not for the current active session.",
           "version": "0.0.0"
         },
         {
@@ -2174,7 +2186,7 @@
         {
           "name": "using-entire",
           "installUrl": "github:entireio/skills:skills/using-entire",
-          "description": "Use for any codebase exploration or understanding task — reads historical intent from Entire checkpoints instead of guessing. Orchestrates other Entire skills to give the agent provenance-backed answers about code.",
+          "description": "Use as the FIRST action on any research, investigation, or codebase-understanding request — \"research X\", \"investigate X\", \"look into X\", \"dig into X\", \"search X\", \"explore X\", \"understand X\", \"why is this like this\" — before Glob, Grep, or Read. Recorded intent lives in Entire checkpoints on the server, not in local files, so an empty or unfamiliar working copy is not a reason to skip it. Routes to the right Entire sub-skill (search, recall, explain, what-happened, replay, teach, review, session-handoff).",
           "version": "0.0.0"
         },
         {
@@ -2196,7 +2208,7 @@
       "name": "entireio-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from entireio/skills.",
       "author": "ASM (entireio/skills)",
-      "createdAt": "2026-09-04T01:21:08.757Z",
+      "createdAt": "2026-09-09T12:11:20.898Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2207,6 +2219,12 @@
         "skills"
       ],
       "skills": [
+        {
+          "name": "search",
+          "installUrl": "github:entireio/skills:skills/search",
+          "description": "Use when the user asks to research, investigate, look into, dig into, or search for anything — a topic, feature, bug, decision, or \"what do we know about X\". Invoke this as the FIRST action on such requests, before Glob, Grep, or Read: the answer is in Entire's recorded history (prompts, transcripts, and decisions, across repos), not in the local files, and a working copy that looks empty or unfamiliar is not a reason to skip it. Also use to find code across repositories (\"where is X implemented in our other repos\"). Not for grepping the current working copy on its own, and not for the current active session.",
+          "version": "0.0.0"
+        },
         {
           "name": "session-to-skill",
           "installUrl": "github:entireio/skills:skills/session-to-skill",
@@ -2232,7 +2250,7 @@
       "name": "entireio-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from entireio/skills.",
       "author": "ASM (entireio/skills)",
-      "createdAt": "2026-09-04T01:21:08.757Z",
+      "createdAt": "2026-09-09T12:11:20.898Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2264,13 +2282,13 @@
         {
           "name": "search",
           "installUrl": "github:entireio/skills:skills/search",
-          "description": "Use when the user wants to find prior work, checkpoints, or agent conversations by topic, repo, branch, author, or recent time window, or to search code content across repositories",
+          "description": "Use when the user asks to research, investigate, look into, dig into, or search for anything — a topic, feature, bug, decision, or \"what do we know about X\". Invoke this as the FIRST action on such requests, before Glob, Grep, or Read: the answer is in Entire's recorded history (prompts, transcripts, and decisions, across repos), not in the local files, and a working copy that looks empty or unfamiliar is not a reason to skip it. Also use to find code across repositories (\"where is X implemented in our other repos\"). Not for grepping the current working copy on its own, and not for the current active session.",
           "version": "0.0.0"
         },
         {
           "name": "using-entire",
           "installUrl": "github:entireio/skills:skills/using-entire",
-          "description": "Use for any codebase exploration or understanding task — reads historical intent from Entire checkpoints instead of guessing. Orchestrates other Entire skills to give the agent provenance-backed answers about code.",
+          "description": "Use as the FIRST action on any research, investigation, or codebase-understanding request — \"research X\", \"investigate X\", \"look into X\", \"dig into X\", \"search X\", \"explore X\", \"understand X\", \"why is this like this\" — before Glob, Grep, or Read. Recorded intent lives in Entire checkpoints on the server, not in local files, so an empty or unfamiliar working copy is not a reason to skip it. Routes to the right Entire sub-skill (search, recall, explain, what-happened, replay, teach, review, session-handoff).",
           "version": "0.0.0"
         },
         {
@@ -2292,7 +2310,7 @@
       "name": "entireio-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from entireio/skills.",
       "author": "ASM (entireio/skills)",
-      "createdAt": "2026-09-04T01:21:08.757Z",
+      "createdAt": "2026-09-09T12:11:20.898Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2328,7 +2346,7 @@
       "name": "entireio-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from entireio/skills.",
       "author": "ASM (entireio/skills)",
-      "createdAt": "2026-09-04T01:21:08.757Z",
+      "createdAt": "2026-09-09T12:11:20.898Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2342,13 +2360,19 @@
         {
           "name": "search",
           "installUrl": "github:entireio/skills:skills/search",
-          "description": "Use when the user wants to find prior work, checkpoints, or agent conversations by topic, repo, branch, author, or recent time window, or to search code content across repositories",
+          "description": "Use when the user asks to research, investigate, look into, dig into, or search for anything — a topic, feature, bug, decision, or \"what do we know about X\". Invoke this as the FIRST action on such requests, before Glob, Grep, or Read: the answer is in Entire's recorded history (prompts, transcripts, and decisions, across repos), not in the local files, and a working copy that looks empty or unfamiliar is not a reason to skip it. Also use to find code across repositories (\"where is X implemented in our other repos\"). Not for grepping the current working copy on its own, and not for the current active session.",
           "version": "0.0.0"
         },
         {
           "name": "session-crosslink",
           "installUrl": "github:entireio/skills:skills/session-crosslink",
           "description": "Use when an agent session ran outside the repo whose commits should record it — e.g. launched from a higher-level folder, a non-Entire repo, or one repo but editing another — to attach the session to each affected Entire-enabled repo's HEAD commit.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "using-entire",
+          "installUrl": "github:entireio/skills:skills/using-entire",
+          "description": "Use as the FIRST action on any research, investigation, or codebase-understanding request — \"research X\", \"investigate X\", \"look into X\", \"dig into X\", \"search X\", \"explore X\", \"understand X\", \"why is this like this\" — before Glob, Grep, or Read. Recorded intent lives in Entire checkpoints on the server, not in local files, so an empty or unfamiliar working copy is not a reason to skip it. Routes to the right Entire sub-skill (search, recall, explain, what-happened, replay, teach, review, session-handoff).",
           "version": "0.0.0"
         }
       ],
@@ -2364,7 +2388,7 @@
       "name": "entireio-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from entireio/skills.",
       "author": "ASM (entireio/skills)",
-      "createdAt": "2026-09-04T01:21:08.757Z",
+      "createdAt": "2026-09-09T12:11:20.898Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2388,9 +2412,57 @@
           "version": "0.0.0"
         },
         {
+          "name": "search",
+          "installUrl": "github:entireio/skills:skills/search",
+          "description": "Use when the user asks to research, investigate, look into, dig into, or search for anything — a topic, feature, bug, decision, or \"what do we know about X\". Invoke this as the FIRST action on such requests, before Glob, Grep, or Read: the answer is in Entire's recorded history (prompts, transcripts, and decisions, across repos), not in the local files, and a working copy that looks empty or unfamiliar is not a reason to skip it. Also use to find code across repositories (\"where is X implemented in our other repos\"). Not for grepping the current working copy on its own, and not for the current active session.",
+          "version": "0.0.0"
+        },
+        {
           "name": "session-handoff",
           "installUrl": "github:entireio/skills:skills/session-handoff",
           "description": "Use when the user wants to continue work from one agent in another agent, inspect recent sessions, or summarize a saved session or checkpoint for handoff",
+          "version": "0.0.0"
+        },
+        {
+          "name": "using-entire",
+          "installUrl": "github:entireio/skills:skills/using-entire",
+          "description": "Use as the FIRST action on any research, investigation, or codebase-understanding request — \"research X\", \"investigate X\", \"look into X\", \"dig into X\", \"search X\", \"explore X\", \"understand X\", \"why is this like this\" — before Glob, Grep, or Read. Recorded intent lives in Entire checkpoints on the server, not in local files, so an empty or unfamiliar working copy is not a reason to skip it. Routes to the right Entire sub-skill (search, recall, explain, what-happened, replay, teach, review, session-handoff).",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "entireio",
+        "repo": "skills",
+        "repoUrl": "https://github.com/entireio/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "entireio-skills-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from entireio/skills.",
+      "author": "ASM (entireio/skills)",
+      "createdAt": "2026-09-09T12:11:20.898Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "entireio",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "search",
+          "installUrl": "github:entireio/skills:skills/search",
+          "description": "Use when the user asks to research, investigate, look into, dig into, or search for anything — a topic, feature, bug, decision, or \"what do we know about X\". Invoke this as the FIRST action on such requests, before Glob, Grep, or Read: the answer is in Entire's recorded history (prompts, transcripts, and decisions, across repos), not in the local files, and a working copy that looks empty or unfamiliar is not a reason to skip it. Also use to find code across repositories (\"where is X implemented in our other repos\"). Not for grepping the current working copy on its own, and not for the current active session.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "using-entire",
+          "installUrl": "github:entireio/skills:skills/using-entire",
+          "description": "Use as the FIRST action on any research, investigation, or codebase-understanding request — \"research X\", \"investigate X\", \"look into X\", \"dig into X\", \"search X\", \"explore X\", \"understand X\", \"why is this like this\" — before Glob, Grep, or Read. Recorded intent lives in Entire checkpoints on the server, not in local files, so an empty or unfamiliar working copy is not a reason to skip it. Routes to the right Entire sub-skill (search, recall, explain, what-happened, replay, teach, review, session-handoff).",
           "version": "0.0.0"
         }
       ],

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/ayghri/i-have-adhd.git",
   "owner": "ayghri",
   "repo": "i-have-adhd",
-  "updatedAt": "2026-09-04T01:21:23.638Z",
+  "updatedAt": "2026-09-09T12:11:37.437Z",
   "skillCount": 1,
   "skills": [
     {
@@ -14,6 +14,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:ayghri/i-have-adhd:skills/i-have-adhd",
@@ -85,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:23.636Z",
+        "evaluatedAt": "2026-09-09T12:11:37.436Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -158,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:23.636Z",
+          "evaluatedAt": "2026-09-09T12:11:37.436Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -176,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:23.636Z",
+          "evaluatedAt": "2026-09-09T12:11:37.436Z",
           "evaluatedVersion": "0.0.0"
         }
       }

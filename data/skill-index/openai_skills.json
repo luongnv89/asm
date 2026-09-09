@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/openai/skills.git",
   "owner": "openai",
   "repo": "skills",
-  "updatedAt": "2026-09-09T08:22:11.789Z",
+  "updatedAt": "2026-09-09T12:11:52.889Z",
   "skillCount": 43,
   "skills": [
     {
@@ -14,6 +14,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/aspnet-core",
@@ -85,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.000Z",
+        "evaluatedAt": "2026-09-09T12:11:52.123Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -158,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.004Z",
+          "evaluatedAt": "2026-09-09T12:11:52.124Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -176,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.004Z",
+          "evaluatedAt": "2026-09-09T12:11:52.124Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -190,6 +191,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/chatgpt-apps",
@@ -261,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.001Z",
+        "evaluatedAt": "2026-09-09T12:11:52.124Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -334,12 +336,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.005Z",
+          "evaluatedAt": "2026-09-09T12:11:52.124Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -352,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.005Z",
+          "evaluatedAt": "2026-09-09T12:11:52.124Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -366,6 +368,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/cli-creator",
@@ -437,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.001Z",
+        "evaluatedAt": "2026-09-09T12:11:52.123Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -510,12 +513,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.005Z",
+          "evaluatedAt": "2026-09-09T12:11:52.124Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -528,7 +531,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.005Z",
+          "evaluatedAt": "2026-09-09T12:11:52.124Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -542,6 +545,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/cloudflare-deploy",
@@ -613,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.001Z",
+        "evaluatedAt": "2026-09-09T12:11:52.124Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -686,12 +690,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.004Z",
+          "evaluatedAt": "2026-09-09T12:11:52.124Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -704,7 +708,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.005Z",
+          "evaluatedAt": "2026-09-09T12:11:52.124Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -718,6 +722,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/define-goal",
@@ -789,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.005Z",
+        "evaluatedAt": "2026-09-09T12:11:52.124Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -862,12 +867,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.005Z",
+          "evaluatedAt": "2026-09-09T12:11:52.125Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -880,7 +885,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.005Z",
+          "evaluatedAt": "2026-09-09T12:11:52.125Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -894,6 +899,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/figma",
@@ -965,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.004Z",
+        "evaluatedAt": "2026-09-09T12:11:52.124Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1038,12 +1044,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.005Z",
+          "evaluatedAt": "2026-09-09T12:11:52.124Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1056,7 +1062,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.005Z",
+          "evaluatedAt": "2026-09-09T12:11:52.124Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1070,6 +1076,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/figma-code-connect-components",
@@ -1141,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.005Z",
+        "evaluatedAt": "2026-09-09T12:11:52.124Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1214,12 +1221,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.005Z",
+          "evaluatedAt": "2026-09-09T12:11:52.124Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1232,7 +1239,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.005Z",
+          "evaluatedAt": "2026-09-09T12:11:52.124Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1246,6 +1253,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/figma-create-design-system-rules",
@@ -1317,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.005Z",
+        "evaluatedAt": "2026-09-09T12:11:52.124Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1390,12 +1398,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.005Z",
+          "evaluatedAt": "2026-09-09T12:11:52.124Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1408,7 +1416,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.005Z",
+          "evaluatedAt": "2026-09-09T12:11:52.124Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1422,6 +1430,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/figma-create-new-file",
@@ -1493,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.030Z",
+        "evaluatedAt": "2026-09-09T12:11:52.138Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1566,12 +1575,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.030Z",
+          "evaluatedAt": "2026-09-09T12:11:52.138Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1584,7 +1593,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.030Z",
+          "evaluatedAt": "2026-09-09T12:11:52.139Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1598,6 +1607,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/figma-generate-design",
@@ -1669,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.032Z",
+        "evaluatedAt": "2026-09-09T12:11:52.140Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1742,12 +1752,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.033Z",
+          "evaluatedAt": "2026-09-09T12:11:52.140Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1760,7 +1770,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.033Z",
+          "evaluatedAt": "2026-09-09T12:11:52.140Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1774,6 +1784,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/figma-generate-library",
@@ -1845,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.037Z",
+        "evaluatedAt": "2026-09-09T12:11:52.144Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1918,12 +1929,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.037Z",
+          "evaluatedAt": "2026-09-09T12:11:52.144Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1936,7 +1947,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.037Z",
+          "evaluatedAt": "2026-09-09T12:11:52.144Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1950,6 +1961,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/figma-implement-design",
@@ -2021,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.042Z",
+        "evaluatedAt": "2026-09-09T12:11:52.149Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2094,12 +2106,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.043Z",
+          "evaluatedAt": "2026-09-09T12:11:52.149Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2112,7 +2124,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.043Z",
+          "evaluatedAt": "2026-09-09T12:11:52.150Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2126,6 +2138,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/figma-use",
@@ -2197,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.043Z",
+        "evaluatedAt": "2026-09-09T12:11:52.149Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2270,12 +2283,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.044Z",
+          "evaluatedAt": "2026-09-09T12:11:52.150Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2288,7 +2301,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.044Z",
+          "evaluatedAt": "2026-09-09T12:11:52.150Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2302,6 +2315,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/gh-address-comments",
@@ -2373,7 +2387,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.044Z",
+        "evaluatedAt": "2026-09-09T12:11:52.150Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2446,12 +2460,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.044Z",
+          "evaluatedAt": "2026-09-09T12:11:52.150Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -2464,7 +2478,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.044Z",
+          "evaluatedAt": "2026-09-09T12:11:52.150Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2478,6 +2492,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/gh-fix-ci",
@@ -2549,7 +2564,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.052Z",
+        "evaluatedAt": "2026-09-09T12:11:52.155Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2622,12 +2637,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.052Z",
+          "evaluatedAt": "2026-09-09T12:11:52.157Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2640,7 +2655,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.052Z",
+          "evaluatedAt": "2026-09-09T12:11:52.157Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2654,6 +2669,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/hatch-pet",
@@ -2725,7 +2741,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.056Z",
+        "evaluatedAt": "2026-09-09T12:11:52.162Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2798,12 +2814,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.056Z",
+          "evaluatedAt": "2026-09-09T12:11:52.162Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2816,7 +2832,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.056Z",
+          "evaluatedAt": "2026-09-09T12:11:52.162Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2830,6 +2846,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.system/imagegen",
@@ -2901,7 +2918,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.077Z",
+        "evaluatedAt": "2026-09-09T12:11:52.162Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2974,12 +2991,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.077Z",
+          "evaluatedAt": "2026-09-09T12:11:52.162Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2992,7 +3009,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.077Z",
+          "evaluatedAt": "2026-09-09T12:11:52.162Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3006,6 +3023,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/jupyter-notebook",
@@ -3077,7 +3095,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.082Z",
+        "evaluatedAt": "2026-09-09T12:11:52.186Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3150,12 +3168,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.082Z",
+          "evaluatedAt": "2026-09-09T12:11:52.186Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -3168,7 +3186,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.082Z",
+          "evaluatedAt": "2026-09-09T12:11:52.186Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3182,6 +3200,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/linear",
@@ -3253,7 +3272,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.095Z",
+        "evaluatedAt": "2026-09-09T12:11:52.189Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3326,12 +3345,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.095Z",
+          "evaluatedAt": "2026-09-09T12:11:52.189Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -3344,7 +3363,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.095Z",
+          "evaluatedAt": "2026-09-09T12:11:52.189Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3358,6 +3377,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/migrate-to-codex",
@@ -3429,7 +3449,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.099Z",
+        "evaluatedAt": "2026-09-09T12:11:52.196Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3502,12 +3522,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.099Z",
+          "evaluatedAt": "2026-09-09T12:11:52.196Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -3520,7 +3540,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.099Z",
+          "evaluatedAt": "2026-09-09T12:11:52.196Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3534,6 +3554,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/netlify-deploy",
@@ -3605,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.100Z",
+        "evaluatedAt": "2026-09-09T12:11:52.199Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3678,12 +3699,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.101Z",
+          "evaluatedAt": "2026-09-09T12:11:52.199Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -3696,7 +3717,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.101Z",
+          "evaluatedAt": "2026-09-09T12:11:52.199Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3710,6 +3731,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/notion-knowledge-capture",
@@ -3781,7 +3803,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.109Z",
+        "evaluatedAt": "2026-09-09T12:11:52.203Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3854,12 +3876,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.109Z",
+          "evaluatedAt": "2026-09-09T12:11:52.203Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -3872,7 +3894,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.109Z",
+          "evaluatedAt": "2026-09-09T12:11:52.203Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3886,6 +3908,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/notion-meeting-intelligence",
@@ -3957,7 +3980,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.112Z",
+        "evaluatedAt": "2026-09-09T12:11:52.209Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4030,12 +4053,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.112Z",
+          "evaluatedAt": "2026-09-09T12:11:52.209Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -4048,7 +4071,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.112Z",
+          "evaluatedAt": "2026-09-09T12:11:52.209Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4062,6 +4085,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/notion-research-documentation",
@@ -4133,7 +4157,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.121Z",
+        "evaluatedAt": "2026-09-09T12:11:52.215Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4206,12 +4230,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.121Z",
+          "evaluatedAt": "2026-09-09T12:11:52.216Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -4224,7 +4248,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.121Z",
+          "evaluatedAt": "2026-09-09T12:11:52.216Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4238,6 +4262,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/notion-spec-to-implementation",
@@ -4309,7 +4334,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.123Z",
+        "evaluatedAt": "2026-09-09T12:11:52.221Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4382,12 +4407,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.123Z",
+          "evaluatedAt": "2026-09-09T12:11:52.221Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -4400,7 +4425,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.123Z",
+          "evaluatedAt": "2026-09-09T12:11:52.221Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4414,6 +4439,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/openai-docs",
@@ -4485,7 +4511,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.129Z",
+        "evaluatedAt": "2026-09-09T12:11:52.223Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4558,12 +4584,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.129Z",
+          "evaluatedAt": "2026-09-09T12:11:52.223Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -4576,7 +4602,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.129Z",
+          "evaluatedAt": "2026-09-09T12:11:52.223Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4590,6 +4616,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/pdf",
@@ -4661,7 +4688,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.133Z",
+        "evaluatedAt": "2026-09-09T12:11:52.227Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4734,12 +4761,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.133Z",
+          "evaluatedAt": "2026-09-09T12:11:52.227Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -4752,7 +4779,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.133Z",
+          "evaluatedAt": "2026-09-09T12:11:52.227Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4766,6 +4793,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/playwright",
@@ -4837,7 +4865,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.136Z",
+        "evaluatedAt": "2026-09-09T12:11:52.231Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4910,12 +4938,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.136Z",
+          "evaluatedAt": "2026-09-09T12:11:52.231Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -4928,7 +4956,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.136Z",
+          "evaluatedAt": "2026-09-09T12:11:52.231Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4942,6 +4970,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/playwright-interactive",
@@ -5013,7 +5042,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.139Z",
+        "evaluatedAt": "2026-09-09T12:11:52.233Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5086,12 +5115,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.139Z",
+          "evaluatedAt": "2026-09-09T12:11:52.233Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -5104,7 +5133,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.139Z",
+          "evaluatedAt": "2026-09-09T12:11:52.233Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5118,6 +5147,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.system/plugin-creator",
@@ -5189,7 +5219,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.144Z",
+        "evaluatedAt": "2026-09-09T12:11:52.241Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5262,12 +5292,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.144Z",
+          "evaluatedAt": "2026-09-09T12:11:52.241Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -5280,7 +5310,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.144Z",
+          "evaluatedAt": "2026-09-09T12:11:52.241Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5294,6 +5324,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/render-deploy",
@@ -5365,7 +5396,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.144Z",
+        "evaluatedAt": "2026-09-09T12:11:52.243Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5438,12 +5469,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.144Z",
+          "evaluatedAt": "2026-09-09T12:11:52.243Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -5456,7 +5487,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.144Z",
+          "evaluatedAt": "2026-09-09T12:11:52.243Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5470,6 +5501,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/screenshot",
@@ -5541,7 +5573,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.144Z",
+        "evaluatedAt": "2026-09-09T12:11:52.246Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5614,12 +5646,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.144Z",
+          "evaluatedAt": "2026-09-09T12:11:52.246Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -5632,7 +5664,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.144Z",
+          "evaluatedAt": "2026-09-09T12:11:52.246Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5646,6 +5678,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/security-best-practices",
@@ -5717,7 +5750,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.157Z",
+        "evaluatedAt": "2026-09-09T12:11:52.247Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5790,12 +5823,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.158Z",
+          "evaluatedAt": "2026-09-09T12:11:52.247Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -5808,7 +5841,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.158Z",
+          "evaluatedAt": "2026-09-09T12:11:52.247Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5822,6 +5855,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/security-ownership-map",
@@ -5893,7 +5927,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.173Z",
+        "evaluatedAt": "2026-09-09T12:11:52.262Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5966,12 +6000,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.173Z",
+          "evaluatedAt": "2026-09-09T12:11:52.262Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -5984,7 +6018,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.173Z",
+          "evaluatedAt": "2026-09-09T12:11:52.262Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5998,6 +6032,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/security-threat-model",
@@ -6069,7 +6104,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.173Z",
+        "evaluatedAt": "2026-09-09T12:11:52.271Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6142,12 +6177,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.173Z",
+          "evaluatedAt": "2026-09-09T12:11:52.271Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -6160,7 +6195,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.173Z",
+          "evaluatedAt": "2026-09-09T12:11:52.271Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6174,6 +6209,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/sentry",
@@ -6245,7 +6281,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.181Z",
+        "evaluatedAt": "2026-09-09T12:11:52.275Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6318,12 +6354,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.181Z",
+          "evaluatedAt": "2026-09-09T12:11:52.275Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -6336,7 +6372,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.181Z",
+          "evaluatedAt": "2026-09-09T12:11:52.275Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6350,6 +6386,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.system/skill-creator",
@@ -6421,7 +6458,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.185Z",
+        "evaluatedAt": "2026-09-09T12:11:52.279Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6494,12 +6531,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.185Z",
+          "evaluatedAt": "2026-09-09T12:11:52.279Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -6512,7 +6549,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.185Z",
+          "evaluatedAt": "2026-09-09T12:11:52.279Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6526,6 +6563,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.system/skill-installer",
@@ -6597,7 +6635,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.188Z",
+        "evaluatedAt": "2026-09-09T12:11:52.281Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6670,12 +6708,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.188Z",
+          "evaluatedAt": "2026-09-09T12:11:52.281Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -6688,7 +6726,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.188Z",
+          "evaluatedAt": "2026-09-09T12:11:52.281Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6702,6 +6740,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/speech",
@@ -6773,7 +6812,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.213Z",
+        "evaluatedAt": "2026-09-09T12:11:52.301Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6846,12 +6885,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.213Z",
+          "evaluatedAt": "2026-09-09T12:11:52.301Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -6864,7 +6903,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.213Z",
+          "evaluatedAt": "2026-09-09T12:11:52.301Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6878,6 +6917,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/transcribe",
@@ -6949,7 +6989,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.243Z",
+        "evaluatedAt": "2026-09-09T12:11:52.344Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7022,12 +7062,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.244Z",
+          "evaluatedAt": "2026-09-09T12:11:52.344Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -7040,7 +7080,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.244Z",
+          "evaluatedAt": "2026-09-09T12:11:52.344Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7054,6 +7094,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/vercel-deploy",
@@ -7125,7 +7166,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.273Z",
+        "evaluatedAt": "2026-09-09T12:11:52.358Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7198,12 +7239,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.273Z",
+          "evaluatedAt": "2026-09-09T12:11:52.358Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -7216,7 +7257,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.273Z",
+          "evaluatedAt": "2026-09-09T12:11:52.358Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7230,6 +7271,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/winui-app",
@@ -7301,7 +7343,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.279Z",
+        "evaluatedAt": "2026-09-09T12:11:52.402Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7374,12 +7416,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.279Z",
+          "evaluatedAt": "2026-09-09T12:11:52.402Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -7392,7 +7434,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.279Z",
+          "evaluatedAt": "2026-09-09T12:11:52.402Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7406,6 +7448,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:openai/skills:skills/.curated/yeet",
@@ -7477,7 +7520,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T08:22:11.286Z",
+        "evaluatedAt": "2026-09-09T12:11:52.413Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7550,12 +7593,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.286Z",
+          "evaluatedAt": "2026-09-09T12:11:52.413Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -7568,7 +7611,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T08:22:11.286Z",
+          "evaluatedAt": "2026-09-09T12:11:52.413Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7580,7 +7623,7 @@
       "name": "openai-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from openai/skills.",
       "author": "ASM (openai/skills)",
-      "createdAt": "2026-09-09T08:22:11.789Z",
+      "createdAt": "2026-09-09T12:11:52.889Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7862,7 +7905,7 @@
       "name": "openai-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from openai/skills.",
       "author": "ASM (openai/skills)",
-      "createdAt": "2026-09-09T08:22:11.789Z",
+      "createdAt": "2026-09-09T12:11:52.889Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8024,7 +8067,7 @@
       "name": "openai-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from openai/skills.",
       "author": "ASM (openai/skills)",
-      "createdAt": "2026-09-09T08:22:11.789Z",
+      "createdAt": "2026-09-09T12:11:52.889Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8246,7 +8289,7 @@
       "name": "openai-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from openai/skills.",
       "author": "ASM (openai/skills)",
-      "createdAt": "2026-09-09T08:22:11.789Z",
+      "createdAt": "2026-09-09T12:11:52.889Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8420,7 +8463,7 @@
       "name": "openai-skills-game",
       "description": "Game development, gameplay systems, game UI, 3D assets, and Three.js skills. Derived from openai/skills.",
       "author": "ASM (openai/skills)",
-      "createdAt": "2026-09-09T08:22:11.789Z",
+      "createdAt": "2026-09-09T12:11:52.889Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8456,7 +8499,7 @@
       "name": "openai-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from openai/skills.",
       "author": "ASM (openai/skills)",
-      "createdAt": "2026-09-09T08:22:11.789Z",
+      "createdAt": "2026-09-09T12:11:52.889Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8504,7 +8547,7 @@
       "name": "openai-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from openai/skills.",
       "author": "ASM (openai/skills)",
-      "createdAt": "2026-09-09T08:22:11.789Z",
+      "createdAt": "2026-09-09T12:11:52.889Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8576,7 +8619,7 @@
       "name": "openai-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from openai/skills.",
       "author": "ASM (openai/skills)",
-      "createdAt": "2026-09-09T08:22:11.789Z",
+      "createdAt": "2026-09-09T12:11:52.889Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8684,7 +8727,7 @@
       "name": "openai-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from openai/skills.",
       "author": "ASM (openai/skills)",
-      "createdAt": "2026-09-09T08:22:11.789Z",
+      "createdAt": "2026-09-09T12:11:52.889Z",
       "tags": [
         "repo-derived",
         "inferred",

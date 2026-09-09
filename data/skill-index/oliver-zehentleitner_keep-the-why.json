@@ -2,26 +2,27 @@
   "repoUrl": "https://github.com/oliver-zehentleitner/keep-the-why.git",
   "owner": "oliver-zehentleitner",
   "repo": "keep-the-why",
-  "updatedAt": "2026-09-04T01:21:16.601Z",
+  "updatedAt": "2026-09-09T12:11:29.620Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "keep-the-why",
-      "description": "Extract and preserve the reasoning code cannot explain - decisions, rejected alternatives, workarounds, incidents, constraints - plus project setup/decline and maintainer interviews. Not for what changed (see Keep a Changelog) - only why.",
-      "version": "0.11.0",
+      "description": "Extract and preserve the reasoning code cannot explain - decisions, rejected alternatives, workarounds, incidents, constraints - plus project setup and maintainer interviews. Not for what changed (see Keep a Changelog) - only why.",
+      "version": "0.16.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:oliver-zehentleitner/keep-the-why:skills/keep-the-why",
       "relPath": "skills/keep-the-why",
       "verified": true,
-      "tokenCount": 6034,
+      "tokenCount": 7738,
       "evalSummary": {
-        "overallScore": 97,
+        "overallScore": 94,
         "grade": "A",
         "categories": [
           {
@@ -39,13 +40,13 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 5,
             "max": 10
           },
           {
@@ -85,8 +86,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:16.596Z",
-        "evaluatedVersion": "0.11.0"
+        "evaluatedAt": "2026-09-09T12:11:29.614Z",
+        "evaluatedVersion": "0.16.0"
       },
       "evalSummaries": {
         "quality": {
@@ -94,7 +95,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 95,
+          "overallScore": 92,
           "grade": "A",
           "categories": [
             {
@@ -112,13 +113,13 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 5,
               "max": 10
             },
             {
@@ -158,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:16.596Z",
-          "evaluatedVersion": "0.11.0"
+          "evaluatedAt": "2026-09-09T12:11:29.614Z",
+          "evaluatedVersion": "0.16.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 100,
@@ -176,8 +177,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:16.596Z",
-          "evaluatedVersion": "0.11.0"
+          "evaluatedAt": "2026-09-09T12:11:29.614Z",
+          "evaluatedVersion": "0.16.0"
         }
       }
     }

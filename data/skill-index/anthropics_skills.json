@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/anthropics/skills.git",
   "owner": "anthropics",
   "repo": "skills",
-  "updatedAt": "2026-09-04T01:18:30.915Z",
+  "updatedAt": "2026-09-09T12:08:48.815Z",
   "skillCount": 20,
   "skills": [
     {
@@ -14,6 +14,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/academy-guide",
@@ -85,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.848Z",
+        "evaluatedAt": "2026-09-09T12:08:47.764Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -158,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.850Z",
+          "evaluatedAt": "2026-09-09T12:08:47.766Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -176,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.850Z",
+          "evaluatedAt": "2026-09-09T12:08:47.766Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -190,6 +191,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/algorithmic-art",
@@ -261,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.848Z",
+        "evaluatedAt": "2026-09-09T12:08:47.764Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -334,12 +336,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.850Z",
+          "evaluatedAt": "2026-09-09T12:08:47.766Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -352,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.850Z",
+          "evaluatedAt": "2026-09-09T12:08:47.766Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -366,6 +368,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/brand-guidelines",
@@ -437,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.848Z",
+        "evaluatedAt": "2026-09-09T12:08:47.765Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -510,12 +513,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.851Z",
+          "evaluatedAt": "2026-09-09T12:08:47.766Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -528,7 +531,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.851Z",
+          "evaluatedAt": "2026-09-09T12:08:47.766Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -542,6 +545,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/canvas-design",
@@ -613,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.848Z",
+        "evaluatedAt": "2026-09-09T12:08:47.764Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -686,12 +690,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.850Z",
+          "evaluatedAt": "2026-09-09T12:08:47.766Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -704,7 +708,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.850Z",
+          "evaluatedAt": "2026-09-09T12:08:47.766Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -718,6 +722,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/claude-api",
@@ -789,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.855Z",
+        "evaluatedAt": "2026-09-09T12:08:47.771Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -862,12 +867,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.855Z",
+          "evaluatedAt": "2026-09-09T12:08:47.771Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -880,7 +885,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.855Z",
+          "evaluatedAt": "2026-09-09T12:08:47.771Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -894,6 +899,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/discernment-nudge",
@@ -965,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.850Z",
+        "evaluatedAt": "2026-09-09T12:08:47.766Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1038,12 +1044,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.854Z",
+          "evaluatedAt": "2026-09-09T12:08:47.766Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1056,7 +1062,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.854Z",
+          "evaluatedAt": "2026-09-09T12:08:47.766Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1070,6 +1076,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/doc-coauthoring",
@@ -1141,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.854Z",
+        "evaluatedAt": "2026-09-09T12:08:47.766Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1214,12 +1221,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.855Z",
+          "evaluatedAt": "2026-09-09T12:08:47.771Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1232,7 +1239,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.855Z",
+          "evaluatedAt": "2026-09-09T12:08:47.771Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1246,6 +1253,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/docx",
@@ -1317,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.855Z",
+        "evaluatedAt": "2026-09-09T12:08:47.766Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1390,12 +1398,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.855Z",
+          "evaluatedAt": "2026-09-09T12:08:47.771Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1408,7 +1416,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.855Z",
+          "evaluatedAt": "2026-09-09T12:08:47.771Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1422,6 +1430,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/frontend-design",
@@ -1493,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.876Z",
+        "evaluatedAt": "2026-09-09T12:08:47.789Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1566,12 +1575,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.876Z",
+          "evaluatedAt": "2026-09-09T12:08:47.790Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -1584,7 +1593,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.876Z",
+          "evaluatedAt": "2026-09-09T12:08:47.790Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1598,6 +1607,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/internal-comms",
@@ -1669,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.877Z",
+        "evaluatedAt": "2026-09-09T12:08:47.791Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1742,12 +1752,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.878Z",
+          "evaluatedAt": "2026-09-09T12:08:47.791Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1760,7 +1770,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.878Z",
+          "evaluatedAt": "2026-09-09T12:08:47.791Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1774,6 +1784,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/mcp-builder",
@@ -1845,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.878Z",
+        "evaluatedAt": "2026-09-09T12:08:47.791Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1918,12 +1929,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.878Z",
+          "evaluatedAt": "2026-09-09T12:08:47.792Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1936,7 +1947,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.878Z",
+          "evaluatedAt": "2026-09-09T12:08:47.792Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1950,6 +1961,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/pdf",
@@ -2021,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.878Z",
+        "evaluatedAt": "2026-09-09T12:08:47.791Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2094,12 +2106,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.878Z",
+          "evaluatedAt": "2026-09-09T12:08:47.792Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2112,7 +2124,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.878Z",
+          "evaluatedAt": "2026-09-09T12:08:47.792Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2126,6 +2138,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/pptx",
@@ -2197,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.884Z",
+        "evaluatedAt": "2026-09-09T12:08:47.797Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2270,12 +2283,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.884Z",
+          "evaluatedAt": "2026-09-09T12:08:47.798Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2288,7 +2301,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.884Z",
+          "evaluatedAt": "2026-09-09T12:08:47.798Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2302,6 +2315,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/skill-creator",
@@ -2373,7 +2387,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:30.457Z",
+        "evaluatedAt": "2026-09-09T12:08:48.361Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2446,12 +2460,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:30.457Z",
+          "evaluatedAt": "2026-09-09T12:08:48.361Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2464,7 +2478,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:30.457Z",
+          "evaluatedAt": "2026-09-09T12:08:48.361Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2478,6 +2492,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/slack-gif-creator",
@@ -2549,7 +2564,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.903Z",
+        "evaluatedAt": "2026-09-09T12:08:47.817Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2622,12 +2637,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.904Z",
+          "evaluatedAt": "2026-09-09T12:08:47.817Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -2640,7 +2655,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.904Z",
+          "evaluatedAt": "2026-09-09T12:08:47.817Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2654,6 +2669,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:template",
@@ -2725,7 +2741,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.932Z",
+        "evaluatedAt": "2026-09-09T12:08:47.843Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2798,12 +2814,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.932Z",
+          "evaluatedAt": "2026-09-09T12:08:47.843Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2816,7 +2832,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.932Z",
+          "evaluatedAt": "2026-09-09T12:08:47.843Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2830,6 +2846,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/theme-factory",
@@ -2901,7 +2918,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.937Z",
+        "evaluatedAt": "2026-09-09T12:08:47.846Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2974,12 +2991,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.937Z",
+          "evaluatedAt": "2026-09-09T12:08:47.846Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2992,7 +3009,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.937Z",
+          "evaluatedAt": "2026-09-09T12:08:47.846Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3006,6 +3023,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/web-artifacts-builder",
@@ -3077,7 +3095,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.948Z",
+        "evaluatedAt": "2026-09-09T12:08:47.857Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3150,12 +3168,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.948Z",
+          "evaluatedAt": "2026-09-09T12:08:47.859Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -3168,7 +3186,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.948Z",
+          "evaluatedAt": "2026-09-09T12:08:47.859Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3182,6 +3200,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/webapp-testing",
@@ -3253,7 +3272,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.973Z",
+        "evaluatedAt": "2026-09-09T12:08:47.875Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3326,12 +3345,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.973Z",
+          "evaluatedAt": "2026-09-09T12:08:47.875Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -3344,7 +3363,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.973Z",
+          "evaluatedAt": "2026-09-09T12:08:47.875Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3358,6 +3377,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:anthropics/skills:skills/xlsx",
@@ -3429,7 +3449,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:18:29.995Z",
+        "evaluatedAt": "2026-09-09T12:08:47.903Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3502,12 +3522,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.995Z",
+          "evaluatedAt": "2026-09-09T12:08:47.903Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -3520,7 +3540,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:18:29.995Z",
+          "evaluatedAt": "2026-09-09T12:08:47.903Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3532,7 +3552,7 @@
       "name": "anthropics-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from anthropics/skills.",
       "author": "ASM (anthropics/skills)",
-      "createdAt": "2026-09-04T01:18:30.915Z",
+      "createdAt": "2026-09-09T12:08:48.815Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3622,7 +3642,7 @@
       "name": "anthropics-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from anthropics/skills.",
       "author": "ASM (anthropics/skills)",
-      "createdAt": "2026-09-04T01:18:30.915Z",
+      "createdAt": "2026-09-09T12:08:48.815Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3688,7 +3708,7 @@
       "name": "anthropics-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from anthropics/skills.",
       "author": "ASM (anthropics/skills)",
-      "createdAt": "2026-09-04T01:18:30.915Z",
+      "createdAt": "2026-09-09T12:08:48.815Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3772,7 +3792,7 @@
       "name": "anthropics-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from anthropics/skills.",
       "author": "ASM (anthropics/skills)",
-      "createdAt": "2026-09-04T01:18:30.915Z",
+      "createdAt": "2026-09-09T12:08:48.815Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3862,7 +3882,7 @@
       "name": "anthropics-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from anthropics/skills.",
       "author": "ASM (anthropics/skills)",
-      "createdAt": "2026-09-04T01:18:30.915Z",
+      "createdAt": "2026-09-09T12:08:48.815Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3910,7 +3930,7 @@
       "name": "anthropics-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from anthropics/skills.",
       "author": "ASM (anthropics/skills)",
-      "createdAt": "2026-09-04T01:18:30.915Z",
+      "createdAt": "2026-09-09T12:08:48.815Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3970,7 +3990,7 @@
       "name": "anthropics-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from anthropics/skills.",
       "author": "ASM (anthropics/skills)",
-      "createdAt": "2026-09-04T01:18:30.915Z",
+      "createdAt": "2026-09-09T12:08:48.815Z",
       "tags": [
         "repo-derived",
         "inferred",

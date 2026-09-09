@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/warpdotdev/oz-skills.git",
   "owner": "warpdotdev",
   "repo": "oz-skills",
-  "updatedAt": "2026-09-04T01:21:07.850Z",
+  "updatedAt": "2026-09-09T12:11:19.945Z",
   "skillCount": 15,
   "skills": [
     {
@@ -14,6 +14,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/analysis-artifacts",
@@ -85,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:07.651Z",
+        "evaluatedAt": "2026-09-09T12:11:19.751Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -158,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.652Z",
+          "evaluatedAt": "2026-09-09T12:11:19.751Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -176,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.652Z",
+          "evaluatedAt": "2026-09-09T12:11:19.751Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -190,6 +191,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/ci-fix",
@@ -261,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:07.651Z",
+        "evaluatedAt": "2026-09-09T12:11:19.751Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -334,12 +336,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.652Z",
+          "evaluatedAt": "2026-09-09T12:11:19.752Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -352,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.652Z",
+          "evaluatedAt": "2026-09-09T12:11:19.752Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -366,6 +368,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/create-pull-request",
@@ -437,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:07.652Z",
+        "evaluatedAt": "2026-09-09T12:11:19.751Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -510,12 +513,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.653Z",
+          "evaluatedAt": "2026-09-09T12:11:19.752Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -528,7 +531,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.653Z",
+          "evaluatedAt": "2026-09-09T12:11:19.752Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -542,6 +545,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/dbt-model-index",
@@ -613,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:07.652Z",
+        "evaluatedAt": "2026-09-09T12:11:19.751Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -686,12 +690,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.653Z",
+          "evaluatedAt": "2026-09-09T12:11:19.753Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -704,7 +708,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.653Z",
+          "evaluatedAt": "2026-09-09T12:11:19.753Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -718,6 +722,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/docs-update",
@@ -789,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:07.652Z",
+        "evaluatedAt": "2026-09-09T12:11:19.751Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -862,12 +867,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.653Z",
+          "evaluatedAt": "2026-09-09T12:11:19.752Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -880,7 +885,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.653Z",
+          "evaluatedAt": "2026-09-09T12:11:19.752Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -894,6 +899,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/github-bug-report-triage",
@@ -965,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:07.652Z",
+        "evaluatedAt": "2026-09-09T12:11:19.753Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1038,12 +1044,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.653Z",
+          "evaluatedAt": "2026-09-09T12:11:19.753Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -1056,7 +1062,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.653Z",
+          "evaluatedAt": "2026-09-09T12:11:19.753Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1070,6 +1076,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/github-issue-dedupe",
@@ -1141,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:07.653Z",
+        "evaluatedAt": "2026-09-09T12:11:19.753Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1214,12 +1221,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.653Z",
+          "evaluatedAt": "2026-09-09T12:11:19.753Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -1232,7 +1239,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.653Z",
+          "evaluatedAt": "2026-09-09T12:11:19.753Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1246,6 +1253,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/mcp-builder",
@@ -1317,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:07.652Z",
+        "evaluatedAt": "2026-09-09T12:11:19.753Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1390,12 +1398,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.653Z",
+          "evaluatedAt": "2026-09-09T12:11:19.753Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -1408,7 +1416,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.653Z",
+          "evaluatedAt": "2026-09-09T12:11:19.753Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1422,6 +1430,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/scheduler",
@@ -1493,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:07.662Z",
+        "evaluatedAt": "2026-09-09T12:11:19.761Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1566,12 +1575,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.662Z",
+          "evaluatedAt": "2026-09-09T12:11:19.763Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1584,7 +1593,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.662Z",
+          "evaluatedAt": "2026-09-09T12:11:19.763Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1598,6 +1607,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/seo-aeo-audit",
@@ -1669,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:07.662Z",
+        "evaluatedAt": "2026-09-09T12:11:19.763Z",
         "evaluatedVersion": "2.0"
       },
       "evalSummaries": {
@@ -1742,12 +1752,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.662Z",
+          "evaluatedAt": "2026-09-09T12:11:19.763Z",
           "evaluatedVersion": "2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 79,
@@ -1760,7 +1770,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.662Z",
+          "evaluatedAt": "2026-09-09T12:11:19.763Z",
           "evaluatedVersion": "2.0"
         }
       }
@@ -1774,6 +1784,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/slack-qa-investigate",
@@ -1845,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:07.662Z",
+        "evaluatedAt": "2026-09-09T12:11:19.763Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1918,12 +1929,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.662Z",
+          "evaluatedAt": "2026-09-09T12:11:19.763Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -1936,7 +1947,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.662Z",
+          "evaluatedAt": "2026-09-09T12:11:19.763Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1950,6 +1961,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/terraform-style-check",
@@ -2021,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:07.662Z",
+        "evaluatedAt": "2026-09-09T12:11:19.763Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2094,12 +2106,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.662Z",
+          "evaluatedAt": "2026-09-09T12:11:19.763Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -2112,7 +2124,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.662Z",
+          "evaluatedAt": "2026-09-09T12:11:19.763Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2126,6 +2138,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": ["accessibility", "a11y", "wcag", "testing", "auditing"],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/web-accessibility-audit",
@@ -2197,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:07.662Z",
+        "evaluatedAt": "2026-09-09T12:11:19.763Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2270,12 +2283,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.662Z",
+          "evaluatedAt": "2026-09-09T12:11:19.763Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2288,7 +2301,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.662Z",
+          "evaluatedAt": "2026-09-09T12:11:19.763Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2302,6 +2315,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/web-performance-audit",
@@ -2373,7 +2387,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:07.665Z",
+        "evaluatedAt": "2026-09-09T12:11:19.765Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2446,12 +2460,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.667Z",
+          "evaluatedAt": "2026-09-09T12:11:19.767Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -2464,7 +2478,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.667Z",
+          "evaluatedAt": "2026-09-09T12:11:19.767Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2478,6 +2492,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:warpdotdev/oz-skills:.agents/skills/webapp-testing",
@@ -2549,7 +2564,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:07.667Z",
+        "evaluatedAt": "2026-09-09T12:11:19.768Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2622,12 +2637,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.667Z",
+          "evaluatedAt": "2026-09-09T12:11:19.768Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -2640,7 +2655,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:07.667Z",
+          "evaluatedAt": "2026-09-09T12:11:19.768Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2652,7 +2667,7 @@
       "name": "warpdotdev-oz-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from warpdotdev/oz-skills.",
       "author": "ASM (warpdotdev/oz-skills)",
-      "createdAt": "2026-09-04T01:21:07.850Z",
+      "createdAt": "2026-09-09T12:11:19.945Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2766,7 +2781,7 @@
       "name": "warpdotdev-oz-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from warpdotdev/oz-skills.",
       "author": "ASM (warpdotdev/oz-skills)",
-      "createdAt": "2026-09-04T01:21:07.850Z",
+      "createdAt": "2026-09-09T12:11:19.945Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2832,7 +2847,7 @@
       "name": "warpdotdev-oz-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from warpdotdev/oz-skills.",
       "author": "ASM (warpdotdev/oz-skills)",
-      "createdAt": "2026-09-04T01:21:07.850Z",
+      "createdAt": "2026-09-09T12:11:19.945Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2904,7 +2919,7 @@
       "name": "warpdotdev-oz-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from warpdotdev/oz-skills.",
       "author": "ASM (warpdotdev/oz-skills)",
-      "createdAt": "2026-09-04T01:21:07.850Z",
+      "createdAt": "2026-09-09T12:11:19.945Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2964,7 +2979,7 @@
       "name": "warpdotdev-oz-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from warpdotdev/oz-skills.",
       "author": "ASM (warpdotdev/oz-skills)",
-      "createdAt": "2026-09-04T01:21:07.850Z",
+      "createdAt": "2026-09-09T12:11:19.945Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3030,7 +3045,7 @@
       "name": "warpdotdev-oz-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from warpdotdev/oz-skills.",
       "author": "ASM (warpdotdev/oz-skills)",
-      "createdAt": "2026-09-04T01:21:07.850Z",
+      "createdAt": "2026-09-09T12:11:19.945Z",
       "tags": [
         "repo-derived",
         "inferred",

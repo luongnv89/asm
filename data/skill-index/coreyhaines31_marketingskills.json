@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/coreyhaines31/marketingskills.git",
   "owner": "coreyhaines31",
   "repo": "marketingskills",
-  "updatedAt": "2026-09-04T01:19:07.816Z",
+  "updatedAt": "2026-09-09T12:09:26.589Z",
   "skillCount": 50,
   "skills": [
     {
@@ -14,6 +14,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/ab-testing",
@@ -85,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.669Z",
+        "evaluatedAt": "2026-09-09T12:09:26.446Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -158,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.672Z",
+          "evaluatedAt": "2026-09-09T12:09:26.449Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -176,7 +177,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.672Z",
+          "evaluatedAt": "2026-09-09T12:09:26.449Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -190,6 +191,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
@@ -261,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.670Z",
+        "evaluatedAt": "2026-09-09T12:09:26.446Z",
         "evaluatedVersion": "2.8.2"
       },
       "evalSummaries": {
@@ -334,12 +336,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.672Z",
+          "evaluatedAt": "2026-09-09T12:09:26.449Z",
           "evaluatedVersion": "2.8.2"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -352,7 +354,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.672Z",
+          "evaluatedAt": "2026-09-09T12:09:26.449Z",
           "evaluatedVersion": "2.8.2"
         }
       }
@@ -366,6 +368,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/ads",
@@ -437,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.668Z",
+        "evaluatedAt": "2026-09-09T12:09:26.446Z",
         "evaluatedVersion": "2.3.2"
       },
       "evalSummaries": {
@@ -510,12 +513,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.672Z",
+          "evaluatedAt": "2026-09-09T12:09:26.449Z",
           "evaluatedVersion": "2.3.2"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -528,26 +531,27 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.672Z",
+          "evaluatedAt": "2026-09-09T12:09:26.449Z",
           "evaluatedVersion": "2.3.2"
         }
       }
     },
     {
       "name": "ai-seo",
-      "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'llms-full.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' 'agent-readable site,' 'agent readiness,' 'is my site agent-ready,' or 'WebMCP.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
-      "version": "2.4.0",
+      "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'llms-full.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' 'agent-readable site,' 'agent readiness,' 'is my site agent-ready,' 'WebMCP,' 'do listicles still work for AI,' 'ChatGPT stopped citing comparison pages,' or 'AI citation format shift.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
+      "version": "2.5.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
       "relPath": "skills/ai-seo",
       "verified": true,
-      "tokenCount": 7938,
+      "tokenCount": 8228,
       "evalSummary": {
         "overallScore": 61,
         "grade": "D",
@@ -613,8 +617,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.669Z",
-        "evaluatedVersion": "2.4.0"
+        "evaluatedAt": "2026-09-09T12:09:26.451Z",
+        "evaluatedVersion": "2.5.0"
       },
       "evalSummaries": {
         "quality": {
@@ -686,12 +690,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.672Z",
-          "evaluatedVersion": "2.4.0"
+          "evaluatedAt": "2026-09-09T12:09:26.451Z",
+          "evaluatedVersion": "2.5.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -704,8 +708,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.672Z",
-          "evaluatedVersion": "2.4.0"
+          "evaluatedAt": "2026-09-09T12:09:26.451Z",
+          "evaluatedVersion": "2.5.0"
         }
       }
     },
@@ -718,6 +722,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/analytics",
@@ -789,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.672Z",
+        "evaluatedAt": "2026-09-09T12:09:26.446Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -862,12 +867,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.672Z",
+          "evaluatedAt": "2026-09-09T12:09:26.449Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -880,7 +885,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.672Z",
+          "evaluatedAt": "2026-09-09T12:09:26.449Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -894,6 +899,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/aso",
@@ -965,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.672Z",
+        "evaluatedAt": "2026-09-09T12:09:26.449Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -1038,12 +1044,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.673Z",
+          "evaluatedAt": "2026-09-09T12:09:26.449Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -1056,7 +1062,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.673Z",
+          "evaluatedAt": "2026-09-09T12:09:26.449Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -1070,6 +1076,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/attribution",
@@ -1141,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.672Z",
+        "evaluatedAt": "2026-09-09T12:09:26.449Z",
         "evaluatedVersion": "1.1.0"
       },
       "evalSummaries": {
@@ -1214,12 +1221,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.672Z",
+          "evaluatedAt": "2026-09-09T12:09:26.451Z",
           "evaluatedVersion": "1.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -1232,7 +1239,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.672Z",
+          "evaluatedAt": "2026-09-09T12:09:26.451Z",
           "evaluatedVersion": "1.1.0"
         }
       }
@@ -1246,6 +1253,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/churn-prevention",
@@ -1317,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.672Z",
+        "evaluatedAt": "2026-09-09T12:09:26.449Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1390,12 +1398,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.673Z",
+          "evaluatedAt": "2026-09-09T12:09:26.451Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -1408,7 +1416,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.673Z",
+          "evaluatedAt": "2026-09-09T12:09:26.451Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1422,6 +1430,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/co-marketing",
@@ -1493,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.693Z",
+        "evaluatedAt": "2026-09-09T12:09:26.471Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -1566,12 +1575,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.694Z",
+          "evaluatedAt": "2026-09-09T12:09:26.471Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -1584,7 +1593,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.694Z",
+          "evaluatedAt": "2026-09-09T12:09:26.471Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -1598,6 +1607,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/cold-email",
@@ -1669,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.696Z",
+        "evaluatedAt": "2026-09-09T12:09:26.473Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1742,12 +1752,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.696Z",
+          "evaluatedAt": "2026-09-09T12:09:26.474Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -1760,7 +1770,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.696Z",
+          "evaluatedAt": "2026-09-09T12:09:26.474Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1774,6 +1784,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/community-marketing",
@@ -1845,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.696Z",
+        "evaluatedAt": "2026-09-09T12:09:26.474Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -1918,12 +1929,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.696Z",
+          "evaluatedAt": "2026-09-09T12:09:26.475Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -1936,7 +1947,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.696Z",
+          "evaluatedAt": "2026-09-09T12:09:26.475Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -1950,6 +1961,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/competitor-profiling",
@@ -2021,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.701Z",
+        "evaluatedAt": "2026-09-09T12:09:26.477Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -2094,12 +2106,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.702Z",
+          "evaluatedAt": "2026-09-09T12:09:26.478Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -2112,7 +2124,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.702Z",
+          "evaluatedAt": "2026-09-09T12:09:26.478Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -2126,6 +2138,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/competitors",
@@ -2197,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.703Z",
+        "evaluatedAt": "2026-09-09T12:09:26.480Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -2270,12 +2283,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.703Z",
+          "evaluatedAt": "2026-09-09T12:09:26.480Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -2288,7 +2301,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.703Z",
+          "evaluatedAt": "2026-09-09T12:09:26.480Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -2302,6 +2315,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/content-strategy",
@@ -2373,7 +2387,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.708Z",
+        "evaluatedAt": "2026-09-09T12:09:26.487Z",
         "evaluatedVersion": "2.1.1"
       },
       "evalSummaries": {
@@ -2446,12 +2460,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.709Z",
+          "evaluatedAt": "2026-09-09T12:09:26.487Z",
           "evaluatedVersion": "2.1.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -2464,7 +2478,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.709Z",
+          "evaluatedAt": "2026-09-09T12:09:26.487Z",
           "evaluatedVersion": "2.1.1"
         }
       }
@@ -2478,6 +2492,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/copy-editing",
@@ -2549,7 +2564,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.712Z",
+        "evaluatedAt": "2026-09-09T12:09:26.487Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -2622,12 +2637,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.712Z",
+          "evaluatedAt": "2026-09-09T12:09:26.488Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -2640,7 +2655,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.712Z",
+          "evaluatedAt": "2026-09-09T12:09:26.488Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -2654,6 +2669,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/copywriting",
@@ -2725,7 +2741,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.713Z",
+        "evaluatedAt": "2026-09-09T12:09:26.489Z",
         "evaluatedVersion": "2.0.2"
       },
       "evalSummaries": {
@@ -2798,12 +2814,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.714Z",
+          "evaluatedAt": "2026-09-09T12:09:26.490Z",
           "evaluatedVersion": "2.0.2"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -2816,7 +2832,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.714Z",
+          "evaluatedAt": "2026-09-09T12:09:26.490Z",
           "evaluatedVersion": "2.0.2"
         }
       }
@@ -2830,6 +2846,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/cro",
@@ -2901,7 +2918,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.717Z",
+        "evaluatedAt": "2026-09-09T12:09:26.493Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -2974,12 +2991,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.717Z",
+          "evaluatedAt": "2026-09-09T12:09:26.494Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -2992,7 +3009,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.717Z",
+          "evaluatedAt": "2026-09-09T12:09:26.494Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -3006,6 +3023,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/customer-research",
@@ -3077,7 +3095,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.719Z",
+        "evaluatedAt": "2026-09-09T12:09:26.496Z",
         "evaluatedVersion": "2.0.2"
       },
       "evalSummaries": {
@@ -3150,12 +3168,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.720Z",
+          "evaluatedAt": "2026-09-09T12:09:26.496Z",
           "evaluatedVersion": "2.0.2"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -3168,7 +3186,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.720Z",
+          "evaluatedAt": "2026-09-09T12:09:26.496Z",
           "evaluatedVersion": "2.0.2"
         }
       }
@@ -3182,6 +3200,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/directory-submissions",
@@ -3253,7 +3272,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.722Z",
+        "evaluatedAt": "2026-09-09T12:09:26.500Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -3326,12 +3345,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.722Z",
+          "evaluatedAt": "2026-09-09T12:09:26.501Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -3344,7 +3363,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.723Z",
+          "evaluatedAt": "2026-09-09T12:09:26.501Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -3358,6 +3377,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/emails",
@@ -3429,7 +3449,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.726Z",
+        "evaluatedAt": "2026-09-09T12:09:26.501Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -3502,12 +3522,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.726Z",
+          "evaluatedAt": "2026-09-09T12:09:26.502Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -3520,7 +3540,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.726Z",
+          "evaluatedAt": "2026-09-09T12:09:26.502Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -3534,6 +3554,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/events",
@@ -3605,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.726Z",
+        "evaluatedAt": "2026-09-09T12:09:26.502Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3678,12 +3699,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.728Z",
+          "evaluatedAt": "2026-09-09T12:09:26.502Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -3696,7 +3717,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.728Z",
+          "evaluatedAt": "2026-09-09T12:09:26.502Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3710,6 +3731,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/free-tools",
@@ -3781,7 +3803,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.731Z",
+        "evaluatedAt": "2026-09-09T12:09:26.507Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -3854,12 +3876,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.731Z",
+          "evaluatedAt": "2026-09-09T12:09:26.508Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -3872,7 +3894,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.731Z",
+          "evaluatedAt": "2026-09-09T12:09:26.508Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -3886,6 +3908,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/image",
@@ -3957,7 +3980,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.734Z",
+        "evaluatedAt": "2026-09-09T12:09:26.509Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -4030,12 +4053,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.735Z",
+          "evaluatedAt": "2026-09-09T12:09:26.510Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -4048,7 +4071,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.735Z",
+          "evaluatedAt": "2026-09-09T12:09:26.510Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -4062,6 +4085,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/influencer-marketing",
@@ -4133,7 +4157,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.736Z",
+        "evaluatedAt": "2026-09-09T12:09:26.512Z",
         "evaluatedVersion": "1.1.0"
       },
       "evalSummaries": {
@@ -4206,12 +4230,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.736Z",
+          "evaluatedAt": "2026-09-09T12:09:26.512Z",
           "evaluatedVersion": "1.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -4224,7 +4248,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.736Z",
+          "evaluatedAt": "2026-09-09T12:09:26.512Z",
           "evaluatedVersion": "1.1.0"
         }
       }
@@ -4238,6 +4262,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/launch",
@@ -4309,7 +4334,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.741Z",
+        "evaluatedAt": "2026-09-09T12:09:26.515Z",
         "evaluatedVersion": "2.0.2"
       },
       "evalSummaries": {
@@ -4382,12 +4407,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.741Z",
+          "evaluatedAt": "2026-09-09T12:09:26.515Z",
           "evaluatedVersion": "2.0.2"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -4400,7 +4425,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.741Z",
+          "evaluatedAt": "2026-09-09T12:09:26.515Z",
           "evaluatedVersion": "2.0.2"
         }
       }
@@ -4414,6 +4439,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/lead-magnets",
@@ -4485,7 +4511,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.742Z",
+        "evaluatedAt": "2026-09-09T12:09:26.517Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -4558,12 +4584,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.742Z",
+          "evaluatedAt": "2026-09-09T12:09:26.517Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -4576,7 +4602,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.742Z",
+          "evaluatedAt": "2026-09-09T12:09:26.517Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -4590,6 +4616,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-council",
@@ -4661,7 +4688,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.745Z",
+        "evaluatedAt": "2026-09-09T12:09:26.520Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4734,12 +4761,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.746Z",
+          "evaluatedAt": "2026-09-09T12:09:26.521Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -4752,7 +4779,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.746Z",
+          "evaluatedAt": "2026-09-09T12:09:26.521Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4766,6 +4793,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-ideas",
@@ -4837,7 +4865,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.749Z",
+        "evaluatedAt": "2026-09-09T12:09:26.523Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -4910,12 +4938,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.749Z",
+          "evaluatedAt": "2026-09-09T12:09:26.524Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -4928,7 +4956,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.749Z",
+          "evaluatedAt": "2026-09-09T12:09:26.524Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -4942,6 +4970,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-loops",
@@ -5013,7 +5042,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.750Z",
+        "evaluatedAt": "2026-09-09T12:09:26.525Z",
         "evaluatedVersion": "1.2.0"
       },
       "evalSummaries": {
@@ -5086,12 +5115,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.752Z",
+          "evaluatedAt": "2026-09-09T12:09:26.525Z",
           "evaluatedVersion": "1.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -5104,7 +5133,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.752Z",
+          "evaluatedAt": "2026-09-09T12:09:26.525Z",
           "evaluatedVersion": "1.2.0"
         }
       }
@@ -5118,6 +5147,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-plan",
@@ -5189,7 +5219,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.753Z",
+        "evaluatedAt": "2026-09-09T12:09:26.529Z",
         "evaluatedVersion": "1.1.1"
       },
       "evalSummaries": {
@@ -5262,12 +5292,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.754Z",
+          "evaluatedAt": "2026-09-09T12:09:26.530Z",
           "evaluatedVersion": "1.1.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -5280,7 +5310,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.754Z",
+          "evaluatedAt": "2026-09-09T12:09:26.530Z",
           "evaluatedVersion": "1.1.1"
         }
       }
@@ -5294,6 +5324,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-psychology",
@@ -5365,7 +5396,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.754Z",
+        "evaluatedAt": "2026-09-09T12:09:26.530Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -5438,12 +5469,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.755Z",
+          "evaluatedAt": "2026-09-09T12:09:26.530Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -5456,7 +5487,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.755Z",
+          "evaluatedAt": "2026-09-09T12:09:26.530Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -5470,6 +5501,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/offers",
@@ -5541,7 +5573,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.756Z",
+        "evaluatedAt": "2026-09-09T12:09:26.530Z",
         "evaluatedVersion": "1.0.1"
       },
       "evalSummaries": {
@@ -5614,12 +5646,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.756Z",
+          "evaluatedAt": "2026-09-09T12:09:26.531Z",
           "evaluatedVersion": "1.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -5632,7 +5664,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.757Z",
+          "evaluatedAt": "2026-09-09T12:09:26.531Z",
           "evaluatedVersion": "1.0.1"
         }
       }
@@ -5646,6 +5678,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/onboarding",
@@ -5717,7 +5750,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.757Z",
+        "evaluatedAt": "2026-09-09T12:09:26.531Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -5790,12 +5823,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.757Z",
+          "evaluatedAt": "2026-09-09T12:09:26.531Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -5808,7 +5841,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.757Z",
+          "evaluatedAt": "2026-09-09T12:09:26.532Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -5822,6 +5855,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/paywalls",
@@ -5893,7 +5927,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.765Z",
+        "evaluatedAt": "2026-09-09T12:09:26.539Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -5966,12 +6000,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.765Z",
+          "evaluatedAt": "2026-09-09T12:09:26.539Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -5984,7 +6018,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.765Z",
+          "evaluatedAt": "2026-09-09T12:09:26.539Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -5998,6 +6032,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/popups",
@@ -6069,7 +6104,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.768Z",
+        "evaluatedAt": "2026-09-09T12:09:26.544Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -6142,12 +6177,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.768Z",
+          "evaluatedAt": "2026-09-09T12:09:26.544Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -6160,7 +6195,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.768Z",
+          "evaluatedAt": "2026-09-09T12:09:26.544Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -6174,6 +6209,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/pricing",
@@ -6245,7 +6281,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.770Z",
+        "evaluatedAt": "2026-09-09T12:09:26.544Z",
         "evaluatedVersion": "2.1.1"
       },
       "evalSummaries": {
@@ -6318,12 +6354,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.770Z",
+          "evaluatedAt": "2026-09-09T12:09:26.544Z",
           "evaluatedVersion": "2.1.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -6336,7 +6372,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.770Z",
+          "evaluatedAt": "2026-09-09T12:09:26.544Z",
           "evaluatedVersion": "2.1.1"
         }
       }
@@ -6350,6 +6386,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/product-marketing",
@@ -6421,7 +6458,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.776Z",
+        "evaluatedAt": "2026-09-09T12:09:26.550Z",
         "evaluatedVersion": "2.1.0"
       },
       "evalSummaries": {
@@ -6494,12 +6531,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.777Z",
+          "evaluatedAt": "2026-09-09T12:09:26.550Z",
           "evaluatedVersion": "2.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -6512,7 +6549,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.777Z",
+          "evaluatedAt": "2026-09-09T12:09:26.550Z",
           "evaluatedVersion": "2.1.0"
         }
       }
@@ -6526,6 +6563,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/programmatic-seo",
@@ -6597,7 +6635,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.777Z",
+        "evaluatedAt": "2026-09-09T12:09:26.552Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -6670,12 +6708,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.777Z",
+          "evaluatedAt": "2026-09-09T12:09:26.552Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -6688,7 +6726,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.777Z",
+          "evaluatedAt": "2026-09-09T12:09:26.552Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -6702,6 +6740,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/prospecting",
@@ -6773,7 +6812,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.779Z",
+        "evaluatedAt": "2026-09-09T12:09:26.552Z",
         "evaluatedVersion": "1.1.0"
       },
       "evalSummaries": {
@@ -6846,12 +6885,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.779Z",
+          "evaluatedAt": "2026-09-09T12:09:26.553Z",
           "evaluatedVersion": "1.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -6864,7 +6903,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.779Z",
+          "evaluatedAt": "2026-09-09T12:09:26.553Z",
           "evaluatedVersion": "1.1.0"
         }
       }
@@ -6878,6 +6917,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/public-relations",
@@ -6949,7 +6989,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.779Z",
+        "evaluatedAt": "2026-09-09T12:09:26.555Z",
         "evaluatedVersion": "1.1.1"
       },
       "evalSummaries": {
@@ -7022,12 +7062,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.779Z",
+          "evaluatedAt": "2026-09-09T12:09:26.555Z",
           "evaluatedVersion": "1.1.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -7040,7 +7080,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.780Z",
+          "evaluatedAt": "2026-09-09T12:09:26.555Z",
           "evaluatedVersion": "1.1.1"
         }
       }
@@ -7054,6 +7094,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/referrals",
@@ -7125,7 +7166,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.785Z",
+        "evaluatedAt": "2026-09-09T12:09:26.559Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -7198,12 +7239,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.786Z",
+          "evaluatedAt": "2026-09-09T12:09:26.560Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -7216,7 +7257,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.786Z",
+          "evaluatedAt": "2026-09-09T12:09:26.560Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -7230,6 +7271,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/revops",
@@ -7301,7 +7343,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.788Z",
+        "evaluatedAt": "2026-09-09T12:09:26.561Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -7374,12 +7416,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.788Z",
+          "evaluatedAt": "2026-09-09T12:09:26.562Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -7392,7 +7434,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.788Z",
+          "evaluatedAt": "2026-09-09T12:09:26.562Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -7406,6 +7448,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/sales-enablement",
@@ -7477,7 +7520,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.791Z",
+        "evaluatedAt": "2026-09-09T12:09:26.562Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -7550,12 +7593,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.791Z",
+          "evaluatedAt": "2026-09-09T12:09:26.563Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -7568,7 +7611,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.791Z",
+          "evaluatedAt": "2026-09-09T12:09:26.563Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -7582,6 +7625,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/schema",
@@ -7653,7 +7697,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.791Z",
+        "evaluatedAt": "2026-09-09T12:09:26.564Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -7726,12 +7770,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.791Z",
+          "evaluatedAt": "2026-09-09T12:09:26.564Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -7744,7 +7788,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.791Z",
+          "evaluatedAt": "2026-09-09T12:09:26.564Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -7758,6 +7802,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/seo-audit",
@@ -7829,7 +7874,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.793Z",
+        "evaluatedAt": "2026-09-09T12:09:26.568Z",
         "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
@@ -7902,12 +7947,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.793Z",
+          "evaluatedAt": "2026-09-09T12:09:26.568Z",
           "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -7920,7 +7965,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.793Z",
+          "evaluatedAt": "2026-09-09T12:09:26.568Z",
           "evaluatedVersion": "2.0.1"
         }
       }
@@ -7934,6 +7979,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/signup",
@@ -8005,7 +8051,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.798Z",
+        "evaluatedAt": "2026-09-09T12:09:26.570Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -8078,12 +8124,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.799Z",
+          "evaluatedAt": "2026-09-09T12:09:26.571Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -8096,7 +8142,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.799Z",
+          "evaluatedAt": "2026-09-09T12:09:26.571Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -8110,6 +8156,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/site-architecture",
@@ -8181,7 +8228,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.806Z",
+        "evaluatedAt": "2026-09-09T12:09:26.577Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -8254,12 +8301,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.807Z",
+          "evaluatedAt": "2026-09-09T12:09:26.577Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 86,
@@ -8272,7 +8319,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.807Z",
+          "evaluatedAt": "2026-09-09T12:09:26.577Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -8286,6 +8333,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/sms",
@@ -8357,7 +8405,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.807Z",
+        "evaluatedAt": "2026-09-09T12:09:26.577Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -8430,12 +8478,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.807Z",
+          "evaluatedAt": "2026-09-09T12:09:26.578Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -8448,7 +8496,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.807Z",
+          "evaluatedAt": "2026-09-09T12:09:26.579Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -8462,6 +8510,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/social",
@@ -8533,7 +8582,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.807Z",
+        "evaluatedAt": "2026-09-09T12:09:26.579Z",
         "evaluatedVersion": "2.2.0"
       },
       "evalSummaries": {
@@ -8606,12 +8655,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.807Z",
+          "evaluatedAt": "2026-09-09T12:09:26.579Z",
           "evaluatedVersion": "2.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -8624,7 +8673,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.807Z",
+          "evaluatedAt": "2026-09-09T12:09:26.579Z",
           "evaluatedVersion": "2.2.0"
         }
       }
@@ -8638,6 +8687,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:coreyhaines31/marketingskills:skills/video",
@@ -8709,7 +8759,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:19:07.807Z",
+        "evaluatedAt": "2026-09-09T12:09:26.580Z",
         "evaluatedVersion": "2.1.0"
       },
       "evalSummaries": {
@@ -8782,12 +8832,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.807Z",
+          "evaluatedAt": "2026-09-09T12:09:26.580Z",
           "evaluatedVersion": "2.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 79,
@@ -8800,7 +8850,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-04T01:19:07.807Z",
+          "evaluatedAt": "2026-09-09T12:09:26.580Z",
           "evaluatedVersion": "2.1.0"
         }
       }
@@ -8812,7 +8862,7 @@
       "name": "coreyhaines31-marketingskills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-09-04T01:19:07.816Z",
+      "createdAt": "2026-09-09T12:09:26.589Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8844,8 +8894,8 @@
         {
           "name": "ai-seo",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
-          "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'llms-full.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' 'agent-readable site,' 'agent readiness,' 'is my site agent-ready,' or 'WebMCP.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
-          "version": "2.4.0"
+          "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'llms-full.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' 'agent-readable site,' 'agent readiness,' 'is my site agent-ready,' 'WebMCP,' 'do listicles still work for AI,' 'ChatGPT stopped citing comparison pages,' or 'AI citation format shift.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
+          "version": "2.5.0"
         },
         {
           "name": "analytics",
@@ -9136,7 +9186,7 @@
       "name": "coreyhaines31-marketingskills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-09-04T01:19:07.816Z",
+      "createdAt": "2026-09-09T12:09:26.589Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -9156,8 +9206,8 @@
         {
           "name": "ai-seo",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
-          "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'llms-full.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' 'agent-readable site,' 'agent readiness,' 'is my site agent-ready,' or 'WebMCP.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
-          "version": "2.4.0"
+          "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'llms-full.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' 'agent-readable site,' 'agent readiness,' 'is my site agent-ready,' 'WebMCP,' 'do listicles still work for AI,' 'ChatGPT stopped citing comparison pages,' or 'AI citation format shift.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
+          "version": "2.5.0"
         },
         {
           "name": "analytics",
@@ -9346,7 +9396,7 @@
       "name": "coreyhaines31-marketingskills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-09-04T01:19:07.816Z",
+      "createdAt": "2026-09-09T12:09:26.589Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -9378,8 +9428,8 @@
         {
           "name": "ai-seo",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
-          "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'llms-full.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' 'agent-readable site,' 'agent readiness,' 'is my site agent-ready,' or 'WebMCP.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
-          "version": "2.4.0"
+          "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'llms-full.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' 'agent-readable site,' 'agent readiness,' 'is my site agent-ready,' 'WebMCP,' 'do listicles still work for AI,' 'ChatGPT stopped citing comparison pages,' or 'AI citation format shift.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
+          "version": "2.5.0"
         },
         {
           "name": "analytics",
@@ -9508,7 +9558,7 @@
       "name": "coreyhaines31-marketingskills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-09-04T01:19:07.816Z",
+      "createdAt": "2026-09-09T12:09:26.589Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -9658,7 +9708,7 @@
       "name": "coreyhaines31-marketingskills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-09-04T01:19:07.816Z",
+      "createdAt": "2026-09-09T12:09:26.589Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -9690,8 +9740,8 @@
         {
           "name": "ai-seo",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
-          "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'llms-full.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' 'agent-readable site,' 'agent readiness,' 'is my site agent-ready,' or 'WebMCP.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
-          "version": "2.4.0"
+          "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'llms-full.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' 'agent-readable site,' 'agent readiness,' 'is my site agent-ready,' 'WebMCP,' 'do listicles still work for AI,' 'ChatGPT stopped citing comparison pages,' or 'AI citation format shift.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
+          "version": "2.5.0"
         },
         {
           "name": "analytics",
@@ -9979,10 +10029,46 @@
     },
     {
       "version": 1,
+      "name": "coreyhaines31-marketingskills-mobile",
+      "description": "iOS, Swift, SwiftUI, Xcode, macOS, and App Store skills. Derived from coreyhaines31/marketingskills.",
+      "author": "ASM (coreyhaines31/marketingskills)",
+      "createdAt": "2026-09-09T12:09:26.589Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "mobile",
+        "ios",
+        "swift",
+        "coreyhaines31",
+        "marketingskills"
+      ],
+      "skills": [
+        {
+          "name": "ad-creative",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
+          "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'ad templates,' 'iMessage ad,' 'chat reveal ad,' 'ChatGPT ad,' 'Apple Notes ad,' 'AirDrop ad,' 'creative strategy,' 'creative roadmap,' 'creative retro,' 'hook writing,' 'creative review page,' 'present ad creative for approval,' 'motion video ad,' 'faceless video ad,' 'UGC ad,' 'greenscreen ad,' 'TikTok/Reels ad format,' 'which ad format to make,' 'Meta ad format tier list,' or 'creative format taxonomy.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+          "version": "2.8.2"
+        },
+        {
+          "name": "aso",
+          "installUrl": "github:coreyhaines31/marketingskills:skills/aso",
+          "description": "When the user wants to audit or optimize an App Store or Google Play listing. Also use when the user mentions 'ASO audit,' 'app store optimization,' 'optimize my app listing,' 'improve app visibility,' 'app store ranking,' 'audit my listing,' 'why aren't people downloading my app,' 'improve my app conversion,' 'keyword optimization for app,' or 'compare my app to competitors.' Use when the user shares an App Store or Google Play URL and wants to improve it.",
+          "version": "2.0.1"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "coreyhaines31",
+        "repo": "marketingskills",
+        "repoUrl": "https://github.com/coreyhaines31/marketingskills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
       "name": "coreyhaines31-marketingskills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-09-04T01:19:07.816Z",
+      "createdAt": "2026-09-09T12:09:26.589Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -10014,8 +10100,8 @@
         {
           "name": "ai-seo",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
-          "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'llms-full.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' 'agent-readable site,' 'agent readiness,' 'is my site agent-ready,' or 'WebMCP.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
-          "version": "2.4.0"
+          "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'llms-full.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' 'agent-readable site,' 'agent readiness,' 'is my site agent-ready,' 'WebMCP,' 'do listicles still work for AI,' 'ChatGPT stopped citing comparison pages,' or 'AI citation format shift.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
+          "version": "2.5.0"
         },
         {
           "name": "analytics",
@@ -10306,7 +10392,7 @@
       "name": "coreyhaines31-marketingskills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-09-04T01:19:07.816Z",
+      "createdAt": "2026-09-09T12:09:26.589Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -10326,8 +10412,8 @@
         {
           "name": "ai-seo",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
-          "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'llms-full.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' 'agent-readable site,' 'agent readiness,' 'is my site agent-ready,' or 'WebMCP.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
-          "version": "2.4.0"
+          "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'llms-full.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' 'agent-readable site,' 'agent readiness,' 'is my site agent-ready,' 'WebMCP,' 'do listicles still work for AI,' 'ChatGPT stopped citing comparison pages,' or 'AI citation format shift.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
+          "version": "2.5.0"
         },
         {
           "name": "competitor-profiling",
@@ -10408,7 +10494,7 @@
       "name": "coreyhaines31-marketingskills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from coreyhaines31/marketingskills.",
       "author": "ASM (coreyhaines31/marketingskills)",
-      "createdAt": "2026-09-04T01:19:07.816Z",
+      "createdAt": "2026-09-09T12:09:26.589Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -10434,8 +10520,8 @@
         {
           "name": "ai-seo",
           "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
-          "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'llms-full.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' 'agent-readable site,' 'agent readiness,' 'is my site agent-ready,' or 'WebMCP.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
-          "version": "2.4.0"
+          "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'llms-full.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' 'agent-readable site,' 'agent readiness,' 'is my site agent-ready,' 'WebMCP,' 'do listicles still work for AI,' 'ChatGPT stopped citing comparison pages,' or 'AI citation format shift.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
+          "version": "2.5.0"
         },
         {
           "name": "cold-email",

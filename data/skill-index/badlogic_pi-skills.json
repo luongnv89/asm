@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/badlogic/pi-skills.git",
   "owner": "badlogic",
   "repo": "pi-skills",
-  "updatedAt": "2026-09-04T01:21:11.572Z",
+  "updatedAt": "2026-09-09T12:11:23.973Z",
   "skillCount": 8,
   "skills": [
     {
@@ -14,6 +14,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:badlogic/pi-skills:brave-search",
@@ -85,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:11.518Z",
+        "evaluatedAt": "2026-09-09T12:11:23.922Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -158,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:11.518Z",
+          "evaluatedAt": "2026-09-09T12:11:23.922Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -176,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:11.518Z",
+          "evaluatedAt": "2026-09-09T12:11:23.922Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -190,6 +191,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:badlogic/pi-skills:browser-tools",
@@ -261,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:11.518Z",
+        "evaluatedAt": "2026-09-09T12:11:23.922Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -334,12 +336,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:11.518Z",
+          "evaluatedAt": "2026-09-09T12:11:23.922Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -352,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:11.518Z",
+          "evaluatedAt": "2026-09-09T12:11:23.922Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -366,6 +368,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:badlogic/pi-skills:gccli",
@@ -437,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:11.518Z",
+        "evaluatedAt": "2026-09-09T12:11:23.922Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -510,12 +513,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:11.519Z",
+          "evaluatedAt": "2026-09-09T12:11:23.922Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -528,7 +531,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:11.519Z",
+          "evaluatedAt": "2026-09-09T12:11:23.922Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -542,6 +545,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:badlogic/pi-skills:gdcli",
@@ -613,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:11.518Z",
+        "evaluatedAt": "2026-09-09T12:11:23.922Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -686,12 +690,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:11.519Z",
+          "evaluatedAt": "2026-09-09T12:11:23.922Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -704,7 +708,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:11.519Z",
+          "evaluatedAt": "2026-09-09T12:11:23.922Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -718,6 +722,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:badlogic/pi-skills:gmcli",
@@ -789,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:11.519Z",
+        "evaluatedAt": "2026-09-09T12:11:23.922Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -862,12 +867,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:11.519Z",
+          "evaluatedAt": "2026-09-09T12:11:23.922Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -880,7 +885,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:11.519Z",
+          "evaluatedAt": "2026-09-09T12:11:23.922Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -894,6 +899,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:badlogic/pi-skills:transcribe",
@@ -965,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:11.518Z",
+        "evaluatedAt": "2026-09-09T12:11:23.922Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1038,12 +1044,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:11.519Z",
+          "evaluatedAt": "2026-09-09T12:11:23.922Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -1056,7 +1062,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:11.519Z",
+          "evaluatedAt": "2026-09-09T12:11:23.922Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1070,6 +1076,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:badlogic/pi-skills:vscode",
@@ -1141,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:11.519Z",
+        "evaluatedAt": "2026-09-09T12:11:23.922Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1214,12 +1221,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:11.519Z",
+          "evaluatedAt": "2026-09-09T12:11:23.922Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -1232,7 +1239,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:11.519Z",
+          "evaluatedAt": "2026-09-09T12:11:23.922Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1246,6 +1253,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:badlogic/pi-skills:youtube-transcript",
@@ -1317,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-04T01:21:11.519Z",
+        "evaluatedAt": "2026-09-09T12:11:23.922Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1390,12 +1398,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:11.519Z",
+          "evaluatedAt": "2026-09-09T12:11:23.922Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -1408,7 +1416,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-04T01:21:11.519Z",
+          "evaluatedAt": "2026-09-09T12:11:23.922Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1420,7 +1428,7 @@
       "name": "badlogic-pi-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from badlogic/pi-skills.",
       "author": "ASM (badlogic/pi-skills)",
-      "createdAt": "2026-09-04T01:21:11.572Z",
+      "createdAt": "2026-09-09T12:11:23.973Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1468,7 +1476,7 @@
       "name": "badlogic-pi-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from badlogic/pi-skills.",
       "author": "ASM (badlogic/pi-skills)",
-      "createdAt": "2026-09-04T01:21:11.572Z",
+      "createdAt": "2026-09-09T12:11:23.973Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1528,7 +1536,7 @@
       "name": "badlogic-pi-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from badlogic/pi-skills.",
       "author": "ASM (badlogic/pi-skills)",
-      "createdAt": "2026-09-04T01:21:11.572Z",
+      "createdAt": "2026-09-09T12:11:23.973Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1564,7 +1572,7 @@
       "name": "badlogic-pi-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from badlogic/pi-skills.",
       "author": "ASM (badlogic/pi-skills)",
-      "createdAt": "2026-09-04T01:21:11.572Z",
+      "createdAt": "2026-09-09T12:11:23.973Z",
       "tags": [
         "repo-derived",
         "inferred",
