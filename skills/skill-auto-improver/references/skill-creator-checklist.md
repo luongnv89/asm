@@ -15,6 +15,7 @@ Use only these top-level keys. Anything else is rejected by `quick_validate.py`:
 - `metadata` (required when shipping; nest `version`, `author` here)
 - `compatibility` (optional, ≤500 chars)
 - `effort` (optional; one of `low | medium | high | xhigh | max`)
+- `dependencies` (optional; a non-empty YAML sequence of non-empty skill references)
 
 `metadata:` must contain at minimum `version: MAJOR.MINOR.PATCH` and `author: <name>`. If a published skill has neither, add both — start version at `1.0.0` if there was none.
 

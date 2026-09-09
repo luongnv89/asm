@@ -75,6 +75,9 @@ export function parseFrontmatter(content: string): Record<string, string> {
 
     // Handle nested sub-keys under a parent (one-level nesting with dot notation)
     if (parentKey !== null) {
+      if (parentKey === "dependencies" && line.trim().startsWith("#")) {
+        continue;
+      }
       const listMatch = line.match(/^\s+-\s*(.*?)\s*$/);
       if (listMatch) {
         if (parentKey === "dependencies") {

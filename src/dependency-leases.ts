@@ -2,12 +2,12 @@ import { createHash, randomUUID } from "crypto";
 import {
   access,
   cp,
-  link,
   mkdir,
   readFile,
   readdir,
   realpath,
   rm,
+  rmdir,
 } from "fs/promises";
 import { basename, dirname, isAbsolute, join, relative, resolve } from "path";
 import { getDependencyLeasesDir } from "./config";
@@ -26,6 +26,8 @@ import type {
 } from "./utils/types";
 
 const SESSION_ID_RE = /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/;
+const LOCK_TOKEN_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const LOCK_RETRY_MS = 20;
 const LOCK_TIMEOUT_MS = 10_000;
 
@@ -88,17 +90,107 @@ function sessionLockPath(statePath: string): string {
   return `${statePath}.lock`;
 }
 
-async function releaseInterprocessSessionLock(
-  lockPath: string,
-  token: string,
-): Promise<void> {
-  const currentOwner = JSON.parse(await readFile(lockPath, "utf-8")) as {
-    token?: unknown;
-  };
-  if (currentOwner.token !== token) {
-    throw new Error(`Dependency lease lock ownership changed: ${lockPath}`);
+interface SessionLockOwner {
+  version: 1;
+  pid: number;
+  token: string;
+  acquiredAt: string;
+  ticket: number | null;
+}
+
+function parseSessionLockOwner(
+  raw: string,
+  expectedToken: string,
+): SessionLockOwner | null {
+  try {
+    const owner = JSON.parse(raw) as Partial<SessionLockOwner> | null;
+    if (
+      !owner ||
+      owner.version !== 1 ||
+      !Number.isSafeInteger(owner.pid) ||
+      owner.pid! <= 0 ||
+      owner.token !== expectedToken ||
+      !LOCK_TOKEN_RE.test(owner.token) ||
+      !Number.isFinite(Date.parse(owner.acquiredAt ?? "")) ||
+      !(
+        owner.ticket === null ||
+        (Number.isSafeInteger(owner.ticket) && owner.ticket! > 0)
+      )
+    ) {
+      return null;
+    }
+    return owner as SessionLockOwner;
+  } catch {
+    return null;
   }
-  await rm(lockPath, { force: true });
+}
+
+function processLiveness(pid: number): "alive" | "dead" | "unknown" {
+  try {
+    process.kill(pid, 0);
+    return "alive";
+  } catch (err) {
+    const code = (err as NodeJS.ErrnoException | null)?.code;
+    if (code === "ESRCH") return "dead";
+    return "unknown";
+  }
+}
+
+async function writeSessionLockOwner(
+  path: string,
+  owner: SessionLockOwner,
+): Promise<void> {
+  await writeTextFileAtomically(path, JSON.stringify(owner, null, 2) + "\n");
+}
+
+async function removeEmptyDirectory(path: string): Promise<void> {
+  try {
+    await rmdir(path);
+  } catch (err) {
+    const code = (err as NodeJS.ErrnoException | null)?.code;
+    if (code !== "ENOENT" && code !== "ENOTEMPTY" && code !== "EEXIST") {
+      throw err;
+    }
+  }
+}
+
+async function readSessionLockCandidates(lockDir: string): Promise<{
+  candidates: SessionLockOwner[];
+  invalidOwner: boolean;
+}> {
+  const candidates: SessionLockOwner[] = [];
+  let invalidOwner = false;
+
+  for (const file of (await readdir(lockDir))
+    .filter((entry) => entry.endsWith(".json"))
+    .sort()) {
+    const candidateToken = basename(file, ".json");
+    const candidatePath = join(lockDir, file);
+    let candidate: SessionLockOwner | null;
+    try {
+      candidate = parseSessionLockOwner(
+        await readFile(candidatePath, "utf-8"),
+        candidateToken,
+      );
+    } catch (err) {
+      if ((err as NodeJS.ErrnoException | null)?.code === "ENOENT") continue;
+      throw err;
+    }
+
+    if (!candidate) {
+      invalidOwner = true;
+      continue;
+    }
+    const liveness = processLiveness(candidate.pid);
+    if (liveness === "dead") {
+      // Candidate paths contain unguessable tokens and are never reused.
+      // Removing this exact dead owner's file cannot unlink a successor.
+      await rm(candidatePath, { force: true });
+      continue;
+    }
+    candidates.push(candidate);
+  }
+  return { candidates, invalidOwner };
 }
 
 async function withInterprocessSessionLock<T>(
@@ -106,58 +198,67 @@ async function withInterprocessSessionLock<T>(
   operation: () => Promise<T>,
 ): Promise<T> {
   await mkdir(dirname(statePath), { recursive: true });
-  const lockPath = sessionLockPath(statePath);
+  const lockDir = sessionLockPath(statePath);
+  await mkdir(lockDir, { recursive: true });
   const token = randomUUID();
-  const contenderPath = `${lockPath}.${process.pid}.${token}.tmp`;
-  const owner = JSON.stringify(
-    {
-      version: 1,
-      pid: process.pid,
-      token,
-      acquiredAt: new Date().toISOString(),
-    },
-    null,
-    2,
-  );
-  await writeTextFileAtomically(contenderPath, owner + "\n");
+  const contenderPath = join(lockDir, `${token}.json`);
+  const owner: SessionLockOwner = {
+    version: 1,
+    pid: process.pid,
+    token,
+    acquiredAt: new Date().toISOString(),
+    ticket: null,
+  };
+  await writeSessionLockOwner(contenderPath, owner);
 
   const startedAt = Date.now();
-  let acquired = false;
   try {
-    while (!acquired) {
-      try {
-        // A hard link publishes the complete owner record and fails atomically
-        // when another process already owns this session's lock.
-        await link(contenderPath, lockPath);
-        acquired = true;
-      } catch (err) {
-        if (!(
-          err instanceof Error &&
-          "code" in err &&
-          (err as NodeJS.ErrnoException).code === "EEXIST"
-        )) {
-          throw err;
-        }
-        if (Date.now() - startedAt >= LOCK_TIMEOUT_MS) {
-          throw new Error(
-            `Timed out waiting for dependency lease lock: ${lockPath}`,
-            { cause: err },
-          );
-        }
-        await new Promise((resolveDelay) =>
-          setTimeout(resolveDelay, LOCK_RETRY_MS),
+    while (owner.ticket === null) {
+      const { candidates, invalidOwner } =
+        await readSessionLockCandidates(lockDir);
+      if (!invalidOwner) {
+        owner.ticket =
+          Math.max(0, ...candidates.map((candidate) => candidate.ticket ?? 0)) +
+          1;
+        await writeSessionLockOwner(contenderPath, owner);
+        break;
+      }
+      if (Date.now() - startedAt >= LOCK_TIMEOUT_MS) {
+        throw new Error(
+          `Timed out waiting for dependency lease lock: ${lockDir}`,
         );
       }
+      await new Promise((resolveDelay) =>
+        setTimeout(resolveDelay, LOCK_RETRY_MS),
+      );
     }
 
-    await rm(contenderPath, { force: true });
-    try {
-      return await operation();
-    } finally {
-      await releaseInterprocessSessionLock(lockPath, token);
+    while (true) {
+      const { candidates, invalidOwner } =
+        await readSessionLockCandidates(lockDir);
+      const blocked = candidates.some(
+        (candidate) =>
+          candidate.token !== token &&
+          (candidate.ticket === null ||
+            candidate.ticket! < owner.ticket! ||
+            (candidate.ticket === owner.ticket &&
+              candidate.token.localeCompare(token) < 0)),
+      );
+      if (!invalidOwner && !blocked) break;
+      if (Date.now() - startedAt >= LOCK_TIMEOUT_MS) {
+        throw new Error(
+          `Timed out waiting for dependency lease lock: ${lockDir}`,
+        );
+      }
+      await new Promise((resolveDelay) =>
+        setTimeout(resolveDelay, LOCK_RETRY_MS),
+      );
     }
+
+    return await operation();
   } finally {
     await rm(contenderPath, { force: true });
+    await removeEmptyDirectory(lockDir);
   }
 }
 
@@ -257,32 +358,79 @@ async function usableAcquisition(
   }
 }
 
-export async function findAcquiredDependency(
+async function findAcquiredDependencyUnlocked(
+  root: string,
   sessionId: string,
   request: string,
-  paths: DependencyLeasePaths = {},
 ): Promise<DependencyAcquireResult | null> {
   validateSessionId(sessionId);
   const normalizedRequest = request.trim();
   if (!normalizedRequest)
     throw new Error("Dependency reference cannot be empty.");
 
-  const session = await readSession(leasesRoot(paths), sessionId);
+  const session = await readSession(root, sessionId);
   const acquisition = session?.acquisitions[requestKey(normalizedRequest)];
   if (!(await usableAcquisition(acquisition))) return null;
   return { ...acquisition!, sessionId, reused: true };
+}
+
+export async function findAcquiredDependency(
+  sessionId: string,
+  request: string,
+  paths: DependencyLeasePaths = {},
+): Promise<DependencyAcquireResult | null> {
+  return findAcquiredDependencyUnlocked(leasesRoot(paths), sessionId, request);
+}
+
+export interface DependencyLeaseTransaction {
+  find(request: string): Promise<DependencyAcquireResult | null>;
+  acquire(input: AcquireDependencyInput): Promise<DependencyAcquireResult>;
+}
+
+export async function withDependencyLeaseSession<T>(
+  sessionId: string,
+  operation: (transaction: DependencyLeaseTransaction) => Promise<T>,
+  paths: DependencyLeasePaths = {},
+): Promise<T> {
+  const validatedSessionId = validateSessionId(sessionId);
+  const root = leasesRoot(paths);
+  return withSessionMutationLock(sessionPath(root, validatedSessionId), () =>
+    operation({
+      find: (request) =>
+        findAcquiredDependencyUnlocked(root, validatedSessionId, request),
+      acquire: (input) => {
+        if (validateSessionId(input.sessionId) !== validatedSessionId) {
+          throw new Error(
+            "Dependency acquisition session does not match the locked session.",
+          );
+        }
+        return acquireDependencyUnlocked(input, root, paths);
+      },
+    }),
+  );
 }
 
 export async function acquireDependency(
   input: AcquireDependencyInput,
   paths: DependencyLeasePaths = {},
 ): Promise<DependencyAcquireResult> {
+  return withDependencyLeaseSession(
+    input.sessionId,
+    (transaction) => transaction.acquire(input),
+    paths,
+  );
+}
+
+async function acquireDependencyUnlocked(
+  input: AcquireDependencyInput,
+  root: string,
+  paths: DependencyLeasePaths,
+): Promise<DependencyAcquireResult> {
   const sessionId = validateSessionId(input.sessionId);
   const request = input.request.trim();
   if (!request) throw new Error("Dependency reference cannot be empty.");
 
   await access(join(input.sourceDir, "SKILL.md"));
-  const root = leasesRoot(paths);
   const statePath = sessionPath(root, sessionId);
   const now = new Date().toISOString();
   const key = requestKey(request);
@@ -324,74 +472,72 @@ export async function acquireDependency(
     };
   }
 
-  return withSessionMutationLock(statePath, async () => {
-    const current = await readSession(root, sessionId);
-    const existing = current?.acquisitions[key];
-    if (await usableAcquisition(existing)) {
-      return { ...existing!, sessionId, reused: true };
-    }
-    if (existing?.owned) {
-      await removeOwnedAcquisition(root, sessionId, existing);
-    }
+  const current = await readSession(root, sessionId);
+  const existing = current?.acquisitions[key];
+  if (await usableAcquisition(existing)) {
+    return { ...existing!, sessionId, reused: true };
+  }
+  if (existing?.owned) {
+    await removeOwnedAcquisition(root, sessionId, existing);
+  }
 
-    const session = current ?? emptySession(sessionId, now);
-    session.updatedAt = now;
+  const session = current ?? emptySession(sessionId, now);
+  session.updatedAt = now;
+  session.acquisitions[key] = acquisition;
+
+  if (!acquisition.owned) {
+    await writeSession(root, session, paths);
+    return { ...acquisition, sessionId, reused: false };
+  }
+
+  // Publish pending ownership before the first artifact byte. If the process
+  // is killed during the copy, a later release can still prove ownership and
+  // remove the partial target.
+  try {
+    await writeSession(root, session, paths);
+  } catch (err) {
+    if (!(err instanceof AtomicWritePostRenameError)) throw err;
+  }
+
+  try {
+    await mkdir(dirname(acquisition.path), { recursive: true });
+    const marker = {
+      version: 1,
+      sessionId,
+      artifactId: acquisition.artifactId,
+      path: acquisition.path,
+    };
+    await writeTextFileAtomically(
+      ownerMarkerPath(acquisition.path),
+      JSON.stringify(marker, null, 2) + "\n",
+    );
+    await cp(input.sourceDir, acquisition.path, { recursive: true });
+    await rm(join(acquisition.path, ".git"), {
+      recursive: true,
+      force: true,
+    });
+
+    acquisition.status = "ready";
+    session.updatedAt = new Date().toISOString();
     session.acquisitions[key] = acquisition;
-
-    if (!acquisition.owned) {
-      await writeSession(root, session, paths);
-      return { ...acquisition, sessionId, reused: false };
-    }
-
-    // Publish pending ownership before the first artifact byte. If the process
-    // is killed during the copy, a later release can still prove ownership and
-    // remove the partial target.
     try {
       await writeSession(root, session, paths);
     } catch (err) {
       if (!(err instanceof AtomicWritePostRenameError)) throw err;
     }
-
-    try {
-      await mkdir(dirname(acquisition.path), { recursive: true });
-      const marker = {
-        version: 1,
-        sessionId,
-        artifactId: acquisition.artifactId,
-        path: acquisition.path,
-      };
-      await writeTextFileAtomically(
-        ownerMarkerPath(acquisition.path),
-        JSON.stringify(marker, null, 2) + "\n",
-      );
-      await cp(input.sourceDir, acquisition.path, { recursive: true });
-      await rm(join(acquisition.path, ".git"), {
-        recursive: true,
-        force: true,
-      });
-
-      acquisition.status = "ready";
+    return { ...acquisition, sessionId, reused: false };
+  } catch (err) {
+    await rm(acquisition.path, { recursive: true, force: true });
+    await rm(ownerMarkerPath(acquisition.path), { force: true });
+    delete session.acquisitions[key];
+    if (Object.keys(session.acquisitions).length === 0) {
+      await rm(statePath, { force: true });
+    } else {
       session.updatedAt = new Date().toISOString();
-      session.acquisitions[key] = acquisition;
-      try {
-        await writeSession(root, session, paths);
-      } catch (err) {
-        if (!(err instanceof AtomicWritePostRenameError)) throw err;
-      }
-      return { ...acquisition, sessionId, reused: false };
-    } catch (err) {
-      await rm(acquisition.path, { recursive: true, force: true });
-      await rm(ownerMarkerPath(acquisition.path), { force: true });
-      delete session.acquisitions[key];
-      if (Object.keys(session.acquisitions).length === 0) {
-        await rm(statePath, { force: true });
-      } else {
-        session.updatedAt = new Date().toISOString();
-        await writeSession(root, session, paths);
-      }
-      throw err;
+      await writeSession(root, session, paths);
     }
-  });
+    throw err;
+  }
 }
 
 async function removeOwnedAcquisition(
@@ -511,11 +657,23 @@ async function releaseDependencySessionUnlocked(
   }
 
   if (Object.keys(remaining).length === 0) {
-    await rm(statePath, { force: true });
-    await rm(sessionArtifactsDir(root, sessionId), {
-      recursive: true,
-      force: true,
-    });
+    const artifactsDir = sessionArtifactsDir(root, sessionId);
+    try {
+      await rmdir(artifactsDir);
+      await rm(statePath, { force: true });
+    } catch (err) {
+      const code = (err as NodeJS.ErrnoException | null)?.code;
+      if (code === "ENOENT") {
+        await rm(statePath, { force: true });
+      } else {
+        result.errors.push(
+          `Preserved unknown content in dependency lease artifacts directory: ${artifactsDir}`,
+        );
+        session.updatedAt = new Date().toISOString();
+        session.acquisitions = {};
+        await writeSession(root, session, paths);
+      }
+    }
   } else {
     session.updatedAt = new Date().toISOString();
     session.acquisitions = remaining;

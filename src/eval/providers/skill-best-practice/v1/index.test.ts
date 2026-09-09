@@ -128,6 +128,34 @@ dependencies:
       "dependency-metadata",
     );
     expect(result.findings.some((f) => f.code === "allowed-keys")).toBe(false);
+    expect(result.findings.some((f) => f.code === "dependencies-shape")).toBe(
+      false,
+    );
+  });
+
+  it.each([
+    ["a mapping", "dependencies:\n  helper: github:owner/repo"],
+    ["a scalar", "dependencies: code-review"],
+    ["an empty list", "dependencies: []"],
+    ["a nested value", "dependencies:\n  - [code-review]"],
+    ["an empty string", 'dependencies:\n  - ""'],
+  ])("fails when dependencies is %s", async (_label, dependenciesYaml) => {
+    const result = await run(`---
+name: test-skill
+description: Validate dependencies when asked. Don't use for unrelated docs.
+${dependenciesYaml}
+metadata:
+  version: 1.0.0
+  author: Test
+---
+`);
+    expect(result.passed).toBe(false);
+    expect(
+      result.findings.some(
+        (finding) =>
+          finding.code === "dependencies-shape" && finding.severity === "error",
+      ),
+    ).toBe(true);
   });
 
   it("fails on invalid effort values", async () => {

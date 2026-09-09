@@ -1,8 +1,7 @@
 import {
-  acquireDependency,
   cleanupStaleDependencySessions,
-  findAcquiredDependency,
   releaseDependencySession,
+  withDependencyLeaseSession,
 } from "../dependency-leases";
 import {
   ansi,
@@ -88,28 +87,30 @@ async function acquireOneDependency(args: ParsedArgs): Promise<void> {
   const sessionId = requireSession(args);
   if (!request || !sessionId) return;
 
-  const existing = await findAcquiredDependency(sessionId, request);
-  if (existing) {
-    printResult(args, existing, formatDependencyAcquisition(existing));
-    return;
-  }
+  const result = await withDependencyLeaseSession(
+    sessionId,
+    async (transaction) => {
+      const existing = await transaction.find(request);
+      if (existing) return existing;
 
-  const resolution = await resolveGetTarget(args, request);
-  try {
-    const result = await acquireDependency({
-      sessionId,
-      request,
-      name: resolution.result.name,
-      sourceDir: resolution.dir,
-      tier: resolution.result.tier,
-      source: resolution.result.source,
-      commit: resolution.result.commit,
-      temporary: resolution.cleanup !== null,
-    });
-    printResult(args, result, formatDependencyAcquisition(result));
-  } finally {
-    await resolution.cleanup?.();
-  }
+      const resolution = await resolveGetTarget(args, request);
+      try {
+        return await transaction.acquire({
+          sessionId,
+          request,
+          name: resolution.result.name,
+          sourceDir: resolution.dir,
+          tier: resolution.result.tier,
+          source: resolution.result.source,
+          commit: resolution.result.commit,
+          temporary: resolution.cleanup !== null,
+        });
+      } finally {
+        await resolution.cleanup?.();
+      }
+    },
+  );
+  printResult(args, result, formatDependencyAcquisition(result));
 }
 
 async function releaseSession(args: ParsedArgs): Promise<void> {

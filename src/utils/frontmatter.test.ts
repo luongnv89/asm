@@ -345,6 +345,25 @@ dependencies:
     ]);
   });
 
+  it("ignores full-line comments throughout dependency sequences", () => {
+    const input = `---
+dependencies:
+  # before
+  - code-review
+    # between
+  - "github:owner/repo:skills/helper"
+  # after
+metadata:
+  version: 1.0.0
+---`;
+    const result = parseFrontmatter(input);
+    expect(resolveSkillDependencies(result)).toEqual([
+      "code-review",
+      "github:owner/repo:skills/helper",
+    ]);
+    expect(result["metadata.version"]).toBe("1.0.0");
+  });
+
   it("rejects unsupported dependency mappings clearly", () => {
     const input = `---
 dependencies:

@@ -1,4 +1,5 @@
 import { createHash } from "crypto";
+import { spawn } from "child_process";
 import {
   mkdir,
   mkdtemp,
@@ -16,6 +17,7 @@ import {
   cleanupStaleDependencySessions,
   findAcquiredDependency,
   releaseDependencySession,
+  withDependencyLeaseSession,
 } from "./dependency-leases";
 
 describe("temporary dependency leases", () => {
@@ -59,16 +61,22 @@ describe("temporary dependency leases", () => {
     return join(rootDir, "sessions", `${key}.json`);
   }
 
-  async function holdSessionLock(sessionId: string): Promise<string> {
-    const lockPath = `${statePath(sessionId)}.lock`;
-    await mkdir(join(rootDir, "sessions"), { recursive: true });
+  async function holdSessionLock(
+    sessionId: string,
+    pid = process.pid,
+  ): Promise<string> {
+    const lockDir = `${statePath(sessionId)}.lock`;
+    const token = "00000000-0000-4000-8000-000000000001";
+    const lockPath = join(lockDir, `${token}.json`);
+    await mkdir(lockDir, { recursive: true });
     await writeFile(
       lockPath,
       JSON.stringify({
         version: 1,
-        pid: process.pid,
-        token: "external-holder",
+        pid,
+        token,
         acquiredAt: new Date().toISOString(),
+        ticket: 1,
       }),
     );
     return lockPath;
@@ -144,11 +152,121 @@ describe("temporary dependency leases", () => {
       ),
     ]);
     expect(earlyResult).toBe("blocked");
+    await expect(readFile(lockPath, "utf-8")).resolves.toContain(
+      `"pid":${process.pid}`,
+    );
 
     await rm(lockPath, { force: true });
     const acquired = await pending;
     await expect(readFile(acquired.skillMdPath, "utf-8")).resolves.toContain(
       "# Helper",
+    );
+  });
+
+  it("recovers a lock whose owning process was killed", async () => {
+    const child = spawn(process.execPath, [
+      "-e",
+      "setInterval(() => {}, 1000)",
+    ]);
+    await new Promise<void>((resolveSpawn, rejectSpawn) => {
+      child.once("spawn", resolveSpawn);
+      child.once("error", rejectSpawn);
+    });
+    const deadPid = child.pid!;
+    const childExited = new Promise<void>((resolveExit) =>
+      child.once("exit", () => resolveExit()),
+    );
+    child.kill("SIGKILL");
+    await childExited;
+
+    const deadOwnerPath = await holdSessionLock("run-dead-owner", deadPid);
+    const acquired = await acquire("run-dead-owner", true);
+
+    await expect(readFile(deadOwnerPath, "utf-8")).rejects.toMatchObject({
+      code: "ENOENT",
+    });
+    await expect(readFile(acquired.skillMdPath, "utf-8")).resolves.toContain(
+      "# Helper",
+    );
+  });
+
+  it("serializes resolution and acquisition against concurrent release", async () => {
+    let enteredResolution!: () => void;
+    const resolutionStarted = new Promise<void>((resolveStarted) => {
+      enteredResolution = resolveStarted;
+    });
+    let continueResolution!: () => void;
+    const resolutionGate = new Promise<void>((resolveGate) => {
+      continueResolution = resolveGate;
+    });
+
+    const acquiring = withDependencyLeaseSession(
+      "run-acquire-release",
+      async (transaction) => {
+        expect(await transaction.find("helper")).toBeNull();
+        enteredResolution();
+        await resolutionGate;
+        return transaction.acquire({
+          sessionId: "run-acquire-release",
+          request: "helper",
+          name: "helper",
+          sourceDir,
+          tier: "remote",
+          source: "github:owner/repo",
+          commit: "a".repeat(40),
+          temporary: true,
+        });
+      },
+      { rootDir },
+    );
+
+    await resolutionStarted;
+    const releaseScript = `
+      import { releaseDependencySession } from ${JSON.stringify(
+        new URL("./dependency-leases.ts", import.meta.url).href,
+      )};
+      const result = await releaseDependencySession(
+        "run-acquire-release",
+        { rootDir: process.argv[1] },
+      );
+      process.stdout.write(JSON.stringify(result));
+    `;
+    const releaser = spawn(
+      process.execPath,
+      ["--import", "tsx", "--input-type=module", "-e", releaseScript, rootDir],
+      { stdio: ["ignore", "pipe", "pipe"] },
+    );
+    let releaseStdout = "";
+    let releaseStderr = "";
+    releaser.stdout.on("data", (chunk) => {
+      releaseStdout += String(chunk);
+    });
+    releaser.stderr.on("data", (chunk) => {
+      releaseStderr += String(chunk);
+    });
+    const releasing = new Promise<number | null>((resolveExit) =>
+      releaser.once("exit", resolveExit),
+    );
+    await new Promise<void>((resolveSpawn, rejectSpawn) => {
+      releaser.once("spawn", resolveSpawn);
+      releaser.once("error", rejectSpawn);
+    });
+    await expect(
+      Promise.race([
+        releasing.then(() => "released"),
+        new Promise<"blocked">((resolveBlocked) =>
+          setTimeout(() => resolveBlocked("blocked"), 60),
+        ),
+      ]),
+    ).resolves.toBe("blocked");
+
+    continueResolution();
+    const acquired = await acquiring;
+    expect(await releasing, releaseStderr).toBe(0);
+    const released = JSON.parse(releaseStdout);
+    expect(released.removed).toEqual([acquired.path]);
+    await expect(readFile(acquired.skillMdPath, "utf-8")).rejects.toMatchObject(
+      { code: "ENOENT" },
     );
   });
 
@@ -212,6 +330,31 @@ describe("temporary dependency leases", () => {
     await expect(readFile(acquired.skillMdPath, "utf-8")).resolves.toContain(
       "# Helper",
     );
+  });
+
+  it("preserves and reports unknown content in an artifact directory", async () => {
+    const acquired = await acquire("run-unknown-content", true);
+    const artifactsDir = join(acquired.path, "..");
+    const unknownPath = join(artifactsDir, "user-created.txt");
+    await writeFile(unknownPath, "keep me");
+
+    const released = await releaseDependencySession("run-unknown-content", {
+      rootDir,
+    });
+
+    expect(released.removed).toEqual([acquired.path]);
+    expect(released.errors).toEqual([
+      expect.stringContaining("Preserved unknown content"),
+    ]);
+    await expect(readFile(unknownPath, "utf-8")).resolves.toBe("keep me");
+    await expect(
+      readFile(statePath("run-unknown-content"), "utf-8"),
+    ).resolves.toContain('"acquisitions": {}');
+
+    await rm(unknownPath);
+    await expect(
+      releaseDependencySession("run-unknown-content", { rootDir }),
+    ).resolves.toMatchObject({ errors: [] });
   });
 
   it("classifies by an explicit cutoff and cleans only stale sessions", async () => {

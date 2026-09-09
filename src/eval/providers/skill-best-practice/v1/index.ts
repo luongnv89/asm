@@ -294,6 +294,27 @@ async function validate(ctx: SkillContext): Promise<{
       : "Effort must be one of: low, medium, high, xhigh, max.",
   );
 
+  const dependencies = frontmatter.dependencies;
+  if (dependencies !== undefined) {
+    const dependenciesValid =
+      Array.isArray(dependencies) &&
+      dependencies.length > 0 &&
+      dependencies.every(
+        (dependency) =>
+          typeof dependency === "string" && dependency.trim().length > 0,
+      );
+    pushCheck(
+      checks,
+      "dependencies-shape",
+      "Dependencies are non-empty skill reference strings",
+      dependenciesValid,
+      "error",
+      dependenciesValid
+        ? "Dependencies are a non-empty YAML sequence of skill reference strings."
+        : "Dependencies must be a non-empty YAML sequence containing only non-empty skill reference strings.",
+    );
+  }
+
   const compatibility = frontmatter.compatibility;
   if (compatibility !== undefined) {
     const compatibilityValid =
