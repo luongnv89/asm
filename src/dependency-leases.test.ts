@@ -6,7 +6,9 @@ import {
   readFile,
   readdir,
   realpath,
+  rename,
   rm,
+  symlink,
   writeFile,
 } from "fs/promises";
 import { dirname, join } from "path";
@@ -71,9 +73,9 @@ describe("temporary dependency leases", () => {
     sessionId: string,
     pid = process.pid,
     processStartIdentity: string | null = null,
+    token = "00000000-0000-4000-8000-000000000001",
   ): Promise<string> {
     const lockDir = `${statePath(sessionId)}.lock`;
-    const token = "00000000-0000-4000-8000-000000000001";
     const lockPath = join(lockDir, `${token}.json`);
     await mkdir(lockDir, { recursive: true });
     await writeFile(
@@ -103,12 +105,59 @@ describe("temporary dependency leases", () => {
     await expect(readFile(result.skillMdPath, "utf-8")).resolves.toContain(
       "# Helper",
     );
-    expect(result.path.startsWith(rootDir)).toBe(true);
+    expect(result.path.startsWith(await realpath(rootDir))).toBe(true);
 
     const reused = await findAcquiredDependency("run-1", "helper", {
       rootDir,
     });
     expect(reused).toMatchObject({ path: result.path, reused: true });
+  });
+
+  it.each(["sessions", "artifacts"])(
+    "rejects a symlinked managed %s directory without touching its target",
+    async (managedDir) => {
+      const outsideDir = join(tempDir, `outside-${managedDir}`);
+      await mkdir(outsideDir);
+      await writeFile(join(outsideDir, "sentinel.txt"), "unchanged");
+      await mkdir(rootDir, { recursive: true });
+      await symlink(
+        outsideDir,
+        join(rootDir, managedDir),
+        process.platform === "win32" ? "junction" : "dir",
+      );
+
+      await expect(acquire(`run-symlink-${managedDir}`, true)).rejects.toThrow(
+        /symlink|symbolic link/i,
+      );
+      await expect(
+        readFile(join(outsideDir, "sentinel.txt"), "utf-8"),
+      ).resolves.toBe("unchanged");
+      await expect(readdir(outsideDir)).resolves.toEqual(["sentinel.txt"]);
+    },
+  );
+
+  it("rejects a temporary source whose SKILL.md is a symlink", async () => {
+    const outsideSkill = join(tempDir, "outside-skill.md");
+    await writeFile(outsideSkill, "# Outside");
+    await rm(join(sourceDir, "SKILL.md"));
+    await symlink(outsideSkill, join(sourceDir, "SKILL.md"), "file");
+
+    await expect(acquire("run-source-skill-link", true)).rejects.toThrow(
+      "SKILL.md must be a real file",
+    );
+    await expect(readFile(outsideSkill, "utf-8")).resolves.toBe("# Outside");
+  });
+
+  it("rejects nested symlinks in a temporary dependency tree", async () => {
+    const outsideFile = join(tempDir, "outside-nested.txt");
+    await writeFile(outsideFile, "unchanged");
+    await mkdir(join(sourceDir, "nested"));
+    await symlink(outsideFile, join(sourceDir, "nested", "link.txt"), "file");
+
+    await expect(acquire("run-source-nested-link", true)).rejects.toThrow(
+      "contains a symbolic link",
+    );
+    await expect(readFile(outsideFile, "utf-8")).resolves.toBe("unchanged");
   });
 
   it("removes lease-owned artifacts and makes release idempotent", async () => {
@@ -198,20 +247,28 @@ describe("temporary dependency leases", () => {
     );
   });
 
-  it("recovers a reused PID only when process-start identity mismatches", async () => {
+  it("recovers a reused Windows PID using a safe creation-time probe", async () => {
     const staleOwnerPath = await holdSessionLock(
       "run-reused-pid",
       4242,
-      "old-process-start",
+      "windows:111",
     );
+    const probedPids: number[] = [];
     const acquired = await acquire("run-reused-pid", true, "helper", {
       lockTimeoutMs: 100,
       lockRetryMs: 5,
       lockProcessLiveness: () => "alive",
-      lockProcessStartIdentity: async (pid) =>
-        pid === process.pid ? "current-process-start" : "new-process-start",
+      lockPlatform: "win32",
+      lockProcessIdentityCommand: async (file, args) => {
+        expect(file).toBe("powershell.exe");
+        const pid = Number(args.at(-1));
+        expect(Number.isSafeInteger(pid)).toBe(true);
+        probedPids.push(pid);
+        return pid === 4242 ? "222" : "333";
+      },
     });
 
+    expect(probedPids).toContain(4242);
     await expect(readFile(staleOwnerPath, "utf-8")).rejects.toMatchObject({
       code: "ENOENT",
     });
@@ -240,6 +297,35 @@ describe("temporary dependency leases", () => {
     await expect(
       readdir(`${statePath("run-stable-lock-dir")}.lock`),
     ).resolves.toEqual([]);
+  });
+
+  it("enforces one absolute deadline across serial identity probes", async () => {
+    for (let i = 1; i <= 4; i++) {
+      await holdSessionLock(
+        "run-probe-deadline",
+        5000 + i,
+        `owner-${i}`,
+        `00000000-0000-4000-8000-${String(i).padStart(12, "0")}`,
+      );
+    }
+    let probes = 0;
+    const startedAt = Date.now();
+
+    await expect(
+      acquire("run-probe-deadline", true, "helper", {
+        lockTimeoutMs: 45,
+        lockRetryMs: 1,
+        lockProcessLiveness: () => "alive",
+        lockProcessStartIdentity: async () => {
+          probes++;
+          await new Promise((resolveDelay) => setTimeout(resolveDelay, 25));
+          return null;
+        },
+      }),
+    ).rejects.toThrow("Timed out waiting for dependency lease lock");
+
+    expect(probes).toBeLessThan(5);
+    expect(Date.now() - startedAt).toBeLessThan(500);
   });
 
   it("serializes resolution and acquisition against concurrent release", async () => {
@@ -365,7 +451,7 @@ describe("temporary dependency leases", () => {
   it("refuses cleanup when an ownership marker no longer matches", async () => {
     const acquired = await acquire("run-owner-check", true);
     await writeFile(
-      `${acquired.path}.owner.json`,
+      join(acquired.path, `.asm-owner-${acquired.artifactId}.json`),
       JSON.stringify({
         version: 1,
         sessionId: "another-run",
@@ -379,9 +465,40 @@ describe("temporary dependency leases", () => {
     });
     expect(released.errors).toHaveLength(1);
     expect(released.errors[0]).toContain("mismatched ownership");
-    await expect(readFile(acquired.skillMdPath, "utf-8")).resolves.toContain(
-      "# Helper",
+    const artifactsDir = dirname(acquired.path);
+    const quarantined = (await readdir(artifactsDir)).find((entry) =>
+      entry.includes(".quarantine-"),
     );
+    expect(quarantined).toBeDefined();
+    await expect(
+      readFile(join(artifactsDir, quarantined!, "SKILL.md"), "utf-8"),
+    ).resolves.toContain("# Helper");
+  });
+
+  it("preserves replacement content captured by the atomic rename", async () => {
+    const acquired = await acquire("run-replacement-race", true);
+    let quarantinePath = "";
+
+    const released = await releaseDependencySession("run-replacement-race", {
+      rootDir,
+      renameArtifact: async (from, to) => {
+        await rename(from, `${from}.owned-before-race`);
+        await mkdir(from);
+        await writeFile(join(from, "unknown.txt"), "preserve replacement");
+        await rename(from, to);
+        quarantinePath = to;
+      },
+    });
+
+    expect(released.errors).toEqual([
+      expect.stringContaining("without an ownership marker"),
+    ]);
+    await expect(
+      readFile(join(quarantinePath, "unknown.txt"), "utf-8"),
+    ).resolves.toBe("preserve replacement");
+    await expect(
+      readFile(`${acquired.path}.owned-before-race/SKILL.md`, "utf-8"),
+    ).resolves.toContain("# Helper");
   });
 
   it("preserves and reports unknown content in an artifact directory", async () => {
@@ -486,7 +603,6 @@ describe("temporary dependency leases", () => {
 
     await new Promise((resolveDelay) => setTimeout(resolveDelay, 60));
     await rm(acquired.path, { recursive: true });
-    await rm(`${acquired.path}.owner.json`);
     await rm(statePath("run-concurrent-release"));
     await rm(lockPath);
 

@@ -3,10 +3,12 @@ import { execFile } from "child_process";
 import {
   access,
   cp,
+  lstat,
   mkdir,
   readFile,
   readdir,
   realpath,
+  rename,
   rm,
   rmdir,
 } from "fs/promises";
@@ -47,7 +49,20 @@ export interface DependencyLeasePaths {
   /** @internal Test seam for deterministic process-liveness checks. */
   lockProcessLiveness?: (pid: number) => "alive" | "dead" | "unknown";
   /** @internal Test seam for deterministic PID-reuse checks. */
-  lockProcessStartIdentity?: (pid: number) => Promise<string | null>;
+  lockProcessStartIdentity?: (
+    pid: number,
+    timeoutMs: number,
+  ) => Promise<string | null>;
+  /** @internal Test seam for cross-platform process identity commands. */
+  lockProcessIdentityCommand?: (
+    file: string,
+    args: string[],
+    timeoutMs: number,
+  ) => Promise<string | null>;
+  /** @internal Test seam for process identity platform branches. */
+  lockPlatform?: NodeJS.Platform;
+  /** @internal Test seam for artifact rename races. */
+  renameArtifact?: (from: string, to: string) => Promise<void>;
 }
 
 export interface AcquireDependencyInput {
@@ -95,8 +110,8 @@ function sessionArtifactsDir(root: string, sessionId: string): string {
   return join(root, "artifacts", sessionKey(sessionId));
 }
 
-function ownerMarkerPath(artifactPath: string): string {
-  return `${artifactPath}.owner.json`;
+function ownerMarkerPath(artifactPath: string, artifactId: string): string {
+  return join(artifactPath, `.asm-owner-${artifactId}.json`);
 }
 
 function sessionLockPath(statePath: string): string {
@@ -160,29 +175,99 @@ function processLiveness(pid: number): "alive" | "dead" | "unknown" {
   }
 }
 
-async function processStartIdentity(pid: number): Promise<string | null> {
-  if (!Number.isSafeInteger(pid) || pid <= 0 || process.platform === "win32") {
+async function runProcessIdentityCommand(
+  file: string,
+  args: string[],
+  timeoutMs: number,
+): Promise<string | null> {
+  try {
+    const { stdout } = await execFileAsync(file, args, {
+      timeout: Math.max(1, Math.min(2_000, timeoutMs)),
+      env: { ...process.env, LANG: "C", LC_ALL: "C" },
+    });
+    const output = stdout.trim();
+    return output || null;
+  } catch {
     return null;
   }
+}
+
+async function processStartIdentity(
+  pid: number,
+  timeoutMs: number,
+  platform: NodeJS.Platform,
+  command: (
+    file: string,
+    args: string[],
+    timeoutMs: number,
+  ) => Promise<string | null>,
+): Promise<string | null> {
+  if (!Number.isSafeInteger(pid) || pid <= 0 || timeoutMs <= 0) return null;
   try {
-    if (process.platform === "linux") {
+    if (platform === "linux") {
       const stat = await readFile(`/proc/${pid}/stat`, "utf-8");
       const afterCommand = stat.slice(stat.lastIndexOf(")") + 2).split(" ");
       const startTicks = afterCommand[19];
       return startTicks ? `linux:${startTicks}` : null;
     }
-    const { stdout } = await execFileAsync(
+    if (platform === "win32") {
+      const creationTicks = await command(
+        "powershell.exe",
+        [
+          "-NoProfile",
+          "-NonInteractive",
+          "-Command",
+          "$p = Get-Process -Id ([int]$args[0]) -ErrorAction Stop; $p.StartTime.ToUniversalTime().Ticks",
+          String(pid),
+        ],
+        timeoutMs,
+      );
+      return creationTicks && /^\d+$/.test(creationTicks)
+        ? `windows:${creationTicks}`
+        : null;
+    }
+    const startedAt = await command(
       "ps",
       ["-o", "lstart=", "-p", String(pid)],
-      {
-        timeout: 2_000,
-        env: { ...process.env, LANG: "C", LC_ALL: "C" },
-      },
+      timeoutMs,
     );
-    const startedAt = stdout.trim();
     return startedAt ? `ps:${startedAt}` : null;
   } catch {
     return null;
+  }
+}
+
+function lockTimeoutError(lockDir: string): Error {
+  return new Error(`Timed out waiting for dependency lease lock: ${lockDir}`);
+}
+
+async function probeProcessStartIdentity(
+  pid: number,
+  deadline: number,
+  lockDir: string,
+  paths: DependencyLeasePaths,
+): Promise<string | null> {
+  const remaining = deadline - Date.now();
+  if (remaining <= 0) throw lockTimeoutError(lockDir);
+  const provider = paths.lockProcessStartIdentity;
+  const probe = provider
+    ? provider(pid, remaining)
+    : processStartIdentity(
+        pid,
+        remaining,
+        paths.lockPlatform ?? process.platform,
+        paths.lockProcessIdentityCommand ?? runProcessIdentityCommand,
+      );
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      probe,
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(() => reject(lockTimeoutError(lockDir)), remaining);
+      }),
+    ]);
+  } finally {
+    if (timer) clearTimeout(timer);
   }
 }
 
@@ -196,6 +281,7 @@ async function writeSessionLockOwner(
 async function readSessionLockCandidates(
   lockDir: string,
   ownToken: string,
+  deadline: number,
   paths: DependencyLeasePaths,
 ): Promise<{
   candidates: SessionLockOwner[];
@@ -207,10 +293,16 @@ async function readSessionLockCandidates(
   for (const file of (await readdir(lockDir))
     .filter((entry) => entry.endsWith(".json"))
     .sort()) {
+    if (Date.now() >= deadline) throw lockTimeoutError(lockDir);
     const candidateToken = basename(file, ".json");
     const candidatePath = join(lockDir, file);
     let candidate: SessionLockOwner | null;
     try {
+      const candidateEntry = await lstat(candidatePath);
+      if (candidateEntry.isSymbolicLink() || !candidateEntry.isFile()) {
+        invalidOwner = true;
+        continue;
+      }
       candidate = parseSessionLockOwner(
         await readFile(candidatePath, "utf-8"),
         candidateToken,
@@ -232,14 +324,21 @@ async function readSessionLockCandidates(
     const liveness = (paths.lockProcessLiveness ?? processLiveness)(
       candidate.pid,
     );
-    const currentStartIdentity = await (
-      paths.lockProcessStartIdentity ?? processStartIdentity
-    )(candidate.pid);
+    if (liveness === "dead") {
+      await rm(candidatePath, { force: true });
+      continue;
+    }
+    const currentStartIdentity = await probeProcessStartIdentity(
+      candidate.pid,
+      deadline,
+      lockDir,
+      paths,
+    );
     const identityMismatch =
       candidate.processStartIdentity !== null &&
       currentStartIdentity !== null &&
       candidate.processStartIdentity !== currentStartIdentity;
-    if (liveness === "dead" || identityMismatch) {
+    if (identityMismatch) {
       // Candidate paths contain unguessable tokens and are never reused.
       // Removing this exact confirmed-stale owner cannot unlink a successor.
       await rm(candidatePath, { force: true });
@@ -251,35 +350,42 @@ async function readSessionLockCandidates(
 }
 
 async function withInterprocessSessionLock<T>(
+  canonicalRoot: string,
   statePath: string,
   operation: () => Promise<T>,
   paths: DependencyLeasePaths,
 ): Promise<T> {
-  await mkdir(dirname(statePath), { recursive: true });
   const lockDir = sessionLockPath(statePath);
-  await mkdir(lockDir, { recursive: true });
+  await ensureManagedDirectory(canonicalRoot, dirname(statePath));
+  await assertManagedFileOrMissing(canonicalRoot, statePath);
+  await ensureManagedDirectory(canonicalRoot, lockDir);
+  const startedAt = Date.now();
+  const lockTimeoutMs = paths.lockTimeoutMs ?? DEFAULT_LOCK_TIMEOUT_MS;
+  const lockRetryMs = paths.lockRetryMs ?? DEFAULT_LOCK_RETRY_MS;
+  const deadline = startedAt + lockTimeoutMs;
   const token = randomUUID();
   const contenderPath = join(lockDir, `${token}.json`);
   const owner: SessionLockOwner = {
     version: 1,
     pid: process.pid,
-    processStartIdentity: await (
-      paths.lockProcessStartIdentity ?? processStartIdentity
-    )(process.pid),
+    processStartIdentity: await probeProcessStartIdentity(
+      process.pid,
+      deadline,
+      lockDir,
+      paths,
+    ),
     token,
     acquiredAt: new Date().toISOString(),
     ticket: null,
   };
   await writeSessionLockOwner(contenderPath, owner);
 
-  const startedAt = Date.now();
-  const lockTimeoutMs = paths.lockTimeoutMs ?? DEFAULT_LOCK_TIMEOUT_MS;
-  const lockRetryMs = paths.lockRetryMs ?? DEFAULT_LOCK_RETRY_MS;
   try {
     while (owner.ticket === null) {
       const { candidates, invalidOwner } = await readSessionLockCandidates(
         lockDir,
         token,
+        deadline,
         paths,
       );
       if (!invalidOwner) {
@@ -289,13 +395,9 @@ async function withInterprocessSessionLock<T>(
         await writeSessionLockOwner(contenderPath, owner);
         break;
       }
-      if (Date.now() - startedAt >= lockTimeoutMs) {
-        throw new Error(
-          `Timed out waiting for dependency lease lock: ${lockDir}`,
-        );
-      }
+      if (Date.now() >= deadline) throw lockTimeoutError(lockDir);
       await new Promise((resolveDelay) =>
-        setTimeout(resolveDelay, lockRetryMs),
+        setTimeout(resolveDelay, Math.min(lockRetryMs, deadline - Date.now())),
       );
     }
 
@@ -303,6 +405,7 @@ async function withInterprocessSessionLock<T>(
       const { candidates, invalidOwner } = await readSessionLockCandidates(
         lockDir,
         token,
+        deadline,
         paths,
       );
       const blocked = candidates.some(
@@ -314,13 +417,9 @@ async function withInterprocessSessionLock<T>(
               candidate.token.localeCompare(token) < 0)),
       );
       if (!invalidOwner && !blocked) break;
-      if (Date.now() - startedAt >= lockTimeoutMs) {
-        throw new Error(
-          `Timed out waiting for dependency lease lock: ${lockDir}`,
-        );
-      }
+      if (Date.now() >= deadline) throw lockTimeoutError(lockDir);
       await new Promise((resolveDelay) =>
-        setTimeout(resolveDelay, lockRetryMs),
+        setTimeout(resolveDelay, Math.min(lockRetryMs, deadline - Date.now())),
       );
     }
 
@@ -331,18 +430,158 @@ async function withInterprocessSessionLock<T>(
 }
 
 function withSessionMutationLock<T>(
+  canonicalRoot: string,
   statePath: string,
   operation: () => Promise<T>,
   paths: DependencyLeasePaths,
 ): Promise<T> {
   return withFileMutationLock(statePath, () =>
-    withInterprocessSessionLock(statePath, operation, paths),
+    withInterprocessSessionLock(canonicalRoot, statePath, operation, paths),
   );
 }
 
 function isInside(parent: string, child: string): boolean {
   const rel = relative(resolve(parent), resolve(child));
   return rel === "" || (!!rel && !rel.startsWith("..") && !isAbsolute(rel));
+}
+
+async function canonicalLeasesRoot(
+  paths: DependencyLeasePaths,
+  create: boolean,
+): Promise<string | null> {
+  const requestedRoot = leasesRoot(paths);
+  try {
+    if (create) await mkdir(requestedRoot, { recursive: true });
+    const canonicalRoot = await realpath(requestedRoot);
+    const rootStat = await lstat(canonicalRoot);
+    if (!rootStat.isDirectory() || rootStat.isSymbolicLink()) {
+      throw new Error(
+        `Dependency leases root is not a real directory: ${requestedRoot}`,
+      );
+    }
+    return canonicalRoot;
+  } catch (err) {
+    if (!create && (err as NodeJS.ErrnoException | null)?.code === "ENOENT") {
+      return null;
+    }
+    throw err;
+  }
+}
+
+async function ensureManagedDirectory(
+  canonicalRoot: string,
+  target: string,
+): Promise<void> {
+  if (!isInside(canonicalRoot, target)) {
+    throw new Error(`Managed dependency path escapes lease root: ${target}`);
+  }
+  let current = canonicalRoot;
+  const segments = relative(canonicalRoot, target)
+    .split(/[\\/]+/)
+    .filter(Boolean);
+  for (const segment of segments) {
+    current = join(current, segment);
+    try {
+      const entry = await lstat(current);
+      if (entry.isSymbolicLink() || !entry.isDirectory()) {
+        throw new Error(
+          `Refusing symlink or non-directory in managed dependency path: ${current}`,
+        );
+      }
+    } catch (err) {
+      if ((err as NodeJS.ErrnoException | null)?.code !== "ENOENT") throw err;
+      try {
+        await mkdir(current);
+      } catch (mkdirError) {
+        if ((mkdirError as NodeJS.ErrnoException | null)?.code !== "EEXIST") {
+          throw mkdirError;
+        }
+      }
+      const created = await lstat(current);
+      if (created.isSymbolicLink() || !created.isDirectory()) {
+        throw new Error(
+          `Refusing symlink or non-directory in managed dependency path: ${current}`,
+          { cause: err },
+        );
+      }
+    }
+    const canonicalCurrent = await realpath(current);
+    if (!isInside(canonicalRoot, canonicalCurrent)) {
+      throw new Error(
+        `Managed dependency directory resolves outside lease root: ${current}`,
+      );
+    }
+  }
+}
+
+async function assertManagedFileOrMissing(
+  canonicalRoot: string,
+  path: string,
+): Promise<void> {
+  if (!isInside(canonicalRoot, path)) {
+    throw new Error(`Managed dependency file escapes lease root: ${path}`);
+  }
+  const canonicalParent = await realpath(dirname(path));
+  if (!isInside(canonicalRoot, canonicalParent)) {
+    throw new Error(
+      `Managed dependency file parent resolves outside lease root: ${path}`,
+    );
+  }
+  try {
+    const entry = await lstat(path);
+    if (entry.isSymbolicLink() || !entry.isFile()) {
+      throw new Error(
+        `Refusing symlink or non-file in managed dependency path: ${path}`,
+      );
+    }
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException | null)?.code !== "ENOENT") throw err;
+  }
+}
+
+async function assertNoSymlinks(
+  path: string,
+  skipGitDirectories: boolean,
+): Promise<void> {
+  const entry = await lstat(path);
+  if (entry.isSymbolicLink()) {
+    throw new Error(`Dependency tree contains a symbolic link: ${path}`);
+  }
+  if (!entry.isDirectory()) {
+    if (!entry.isFile()) {
+      throw new Error(`Dependency tree contains an unsupported entry: ${path}`);
+    }
+    return;
+  }
+  for (const child of await readdir(path)) {
+    if (skipGitDirectories && child === ".git") continue;
+    await assertNoSymlinks(join(path, child), skipGitDirectories);
+  }
+}
+
+async function validateTemporarySource(sourceDir: string): Promise<string> {
+  const sourceEntry = await lstat(sourceDir);
+  if (sourceEntry.isSymbolicLink() || !sourceEntry.isDirectory()) {
+    throw new Error(
+      `Temporary dependency source must be a real directory: ${sourceDir}`,
+    );
+  }
+  const canonicalSource = await realpath(sourceDir);
+  const skillMdPath = join(sourceDir, "SKILL.md");
+  const skillEntry = await lstat(skillMdPath);
+  if (skillEntry.isSymbolicLink() || !skillEntry.isFile()) {
+    throw new Error(
+      `Temporary dependency SKILL.md must be a real file: ${skillMdPath}`,
+    );
+  }
+  const canonicalSkillMd = await realpath(skillMdPath);
+  if (!isInside(canonicalSource, canonicalSkillMd)) {
+    throw new Error(
+      `Temporary dependency SKILL.md resolves outside its source: ${skillMdPath}`,
+    );
+  }
+  await assertNoSymlinks(canonicalSource, true);
+  return canonicalSource;
 }
 
 function safeArtifactName(name: string): string {
@@ -448,7 +687,9 @@ export async function findAcquiredDependency(
   request: string,
   paths: DependencyLeasePaths = {},
 ): Promise<DependencyAcquireResult | null> {
-  return findAcquiredDependencyUnlocked(leasesRoot(paths), sessionId, request);
+  const root = await canonicalLeasesRoot(paths, false);
+  if (!root) return null;
+  return findAcquiredDependencyUnlocked(root, sessionId, request);
 }
 
 export interface DependencyLeaseTransaction {
@@ -462,8 +703,9 @@ export async function withDependencyLeaseSession<T>(
   paths: DependencyLeasePaths = {},
 ): Promise<T> {
   const validatedSessionId = validateSessionId(sessionId);
-  const root = leasesRoot(paths);
+  const root = (await canonicalLeasesRoot(paths, true))!;
   return withSessionMutationLock(
+    root,
     sessionPath(root, validatedSessionId),
     () =>
       operation({
@@ -502,7 +744,10 @@ async function acquireDependencyUnlocked(
   const request = input.request.trim();
   if (!request) throw new Error("Dependency reference cannot be empty.");
 
-  await access(join(input.sourceDir, "SKILL.md"));
+  const temporarySource = input.temporary
+    ? await validateTemporarySource(input.sourceDir)
+    : null;
+  if (!input.temporary) await access(join(input.sourceDir, "SKILL.md"));
   const statePath = sessionPath(root, sessionId);
   const now = new Date().toISOString();
   const key = requestKey(request);
@@ -550,7 +795,7 @@ async function acquireDependencyUnlocked(
     return { ...existing!, sessionId, reused: true };
   }
   if (existing?.owned) {
-    await removeOwnedAcquisition(root, sessionId, existing);
+    await removeOwnedAcquisition(root, sessionId, existing, paths);
   }
 
   const session = current ?? emptySession(sessionId, now);
@@ -572,7 +817,21 @@ async function acquireDependencyUnlocked(
   }
 
   try {
-    await mkdir(dirname(acquisition.path), { recursive: true });
+    const artifactsDir = sessionArtifactsDir(root, sessionId);
+    await ensureManagedDirectory(root, artifactsDir);
+    const canonicalArtifactParent = await realpath(dirname(acquisition.path));
+    if (!isInside(root, canonicalArtifactParent)) {
+      throw new Error(
+        `Dependency artifact parent resolves outside lease root: ${acquisition.path}`,
+      );
+    }
+    await mkdir(acquisition.path);
+    const artifactEntry = await lstat(acquisition.path);
+    if (artifactEntry.isSymbolicLink() || !artifactEntry.isDirectory()) {
+      throw new Error(
+        `Dependency artifact is not a real directory: ${acquisition.path}`,
+      );
+    }
     const marker = {
       version: 1,
       sessionId,
@@ -580,14 +839,15 @@ async function acquireDependencyUnlocked(
       path: acquisition.path,
     };
     await writeTextFileAtomically(
-      ownerMarkerPath(acquisition.path),
+      ownerMarkerPath(acquisition.path, acquisition.artifactId!),
       JSON.stringify(marker, null, 2) + "\n",
     );
-    await cp(input.sourceDir, acquisition.path, { recursive: true });
-    await rm(join(acquisition.path, ".git"), {
+    await cp(temporarySource!, acquisition.path, {
       recursive: true,
-      force: true,
+      filter: (source) =>
+        source === temporarySource || basename(source) !== ".git",
     });
+    await assertNoSymlinks(acquisition.path, false);
 
     acquisition.status = "ready";
     session.updatedAt = new Date().toISOString();
@@ -599,14 +859,20 @@ async function acquireDependencyUnlocked(
     }
     return { ...acquisition, sessionId, reused: false };
   } catch (err) {
-    await rm(acquisition.path, { recursive: true, force: true });
-    await rm(ownerMarkerPath(acquisition.path), { force: true });
-    delete session.acquisitions[key];
-    if (Object.keys(session.acquisitions).length === 0) {
-      await rm(statePath, { force: true });
-    } else {
-      session.updatedAt = new Date().toISOString();
-      await writeSession(root, session, paths);
+    try {
+      await removeOwnedAcquisition(root, sessionId, acquisition, paths);
+      delete session.acquisitions[key];
+      if (Object.keys(session.acquisitions).length === 0) {
+        await rm(statePath, { force: true });
+      } else {
+        session.updatedAt = new Date().toISOString();
+        await writeSession(root, session, paths);
+      }
+    } catch (cleanupError) {
+      throw new Error(
+        `Dependency acquisition failed (${err instanceof Error ? err.message : String(err)}) and its artifact was preserved because ownership-safe cleanup failed: ${cleanupError instanceof Error ? cleanupError.message : String(cleanupError)}`,
+        { cause: cleanupError },
+      );
     }
     throw err;
   }
@@ -616,6 +882,7 @@ async function removeOwnedAcquisition(
   root: string,
   sessionId: string,
   acquisition: DependencyLeaseAcquisition,
+  paths: DependencyLeasePaths,
 ): Promise<"removed" | "missing"> {
   const artifactsDir = sessionArtifactsDir(root, sessionId);
   if (!isInside(artifactsDir, acquisition.path)) {
@@ -623,24 +890,71 @@ async function removeOwnedAcquisition(
       `Refusing to remove artifact outside its lease: ${acquisition.path}`,
     );
   }
+  if (resolve(dirname(acquisition.path)) !== resolve(artifactsDir)) {
+    throw new Error(
+      `Refusing to remove artifact from an unexpected lease descendant: ${acquisition.path}`,
+    );
+  }
+  if (!acquisition.artifactId) {
+    throw new Error(
+      `Refusing to remove artifact without an ownership identity: ${acquisition.path}`,
+    );
+  }
+  await ensureManagedDirectory(root, artifactsDir);
 
-  let markerRaw: string;
   try {
-    markerRaw = await readFile(ownerMarkerPath(acquisition.path), "utf-8");
-  } catch (err: unknown) {
-    try {
-      await access(acquisition.path);
-    } catch {
+    const entry = await lstat(acquisition.path);
+    if (entry.isSymbolicLink()) {
+      throw new Error(
+        `Refusing to remove symbolic-link artifact: ${acquisition.path}`,
+      );
+    }
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException | null)?.code === "ENOENT") {
       return "missing";
     }
+    throw err;
+  }
+
+  const quarantinePath = join(
+    artifactsDir,
+    `.${basename(acquisition.path)}.quarantine-${randomUUID()}`,
+  );
+  try {
+    await (paths.renameArtifact ?? rename)(acquisition.path, quarantinePath);
+  } catch (err) {
+    const code = (err as NodeJS.ErrnoException | null)?.code;
+    if (code === "ENOENT") return "missing";
+    if (code === "EXDEV") {
+      throw new Error(
+        `Refusing non-atomic cross-device artifact removal: ${acquisition.path}`,
+        { cause: err },
+      );
+    }
+    throw err;
+  }
+
+  const quarantinedEntry = await lstat(quarantinePath);
+  if (quarantinedEntry.isSymbolicLink() || !quarantinedEntry.isDirectory()) {
     throw new Error(
-      `Refusing to remove unowned artifact: ${acquisition.path}`,
-      {
-        cause: err,
-      },
+      `Preserved quarantined replacement that is not an owned directory: ${quarantinePath}`,
     );
   }
 
+  const markerPath = ownerMarkerPath(quarantinePath, acquisition.artifactId);
+  const markerEntry = await lstat(markerPath).catch((err: unknown) => {
+    throw new Error(
+      `Preserved quarantined artifact without an ownership marker: ${quarantinePath}`,
+      { cause: err },
+    );
+  });
+  if (markerEntry.isSymbolicLink() || !markerEntry.isFile()) {
+    throw new Error(
+      `Preserved quarantined artifact with an unsafe ownership marker: ${quarantinePath}`,
+    );
+  }
+
+  let markerRaw: string;
   let marker: {
     version?: number;
     sessionId?: string;
@@ -648,10 +962,11 @@ async function removeOwnedAcquisition(
     path?: string;
   };
   try {
+    markerRaw = await readFile(markerPath, "utf-8");
     marker = JSON.parse(markerRaw);
   } catch (err) {
     throw new Error(
-      `Refusing to remove artifact with invalid ownership marker: ${acquisition.path}`,
+      `Preserved quarantined artifact with invalid ownership marker: ${quarantinePath}`,
       {
         cause: err,
       },
@@ -664,12 +979,12 @@ async function removeOwnedAcquisition(
     resolve(marker.path ?? "") !== resolve(acquisition.path)
   ) {
     throw new Error(
-      `Refusing to remove artifact with mismatched ownership: ${acquisition.path}`,
+      `Preserved quarantined artifact with mismatched ownership: ${quarantinePath}`,
     );
   }
 
-  await rm(acquisition.path, { recursive: true, force: true });
-  await rm(ownerMarkerPath(acquisition.path), { force: true });
+  await assertNoSymlinks(quarantinePath, false);
+  await rm(quarantinePath, { recursive: true });
   return "removed";
 }
 
@@ -678,10 +993,21 @@ export async function releaseDependencySession(
   paths: DependencyLeasePaths = {},
 ): Promise<DependencyReleaseResult> {
   validateSessionId(sessionId);
-  const root = leasesRoot(paths);
+  const root = await canonicalLeasesRoot(paths, false);
+  if (!root) {
+    return {
+      sessionId,
+      alreadyReleased: true,
+      removed: [],
+      preserved: [],
+      missing: [],
+      errors: [],
+    };
+  }
   const statePath = sessionPath(root, sessionId);
 
   return withSessionMutationLock(
+    root,
     statePath,
     () => releaseDependencySessionUnlocked(root, sessionId, paths),
     paths,
@@ -722,7 +1048,12 @@ async function releaseDependencySessionUnlocked(
       continue;
     }
     try {
-      const status = await removeOwnedAcquisition(root, sessionId, acquisition);
+      const status = await removeOwnedAcquisition(
+        root,
+        sessionId,
+        acquisition,
+        paths,
+      );
       result[status].push(acquisition.path);
     } catch (err) {
       result.errors.push(err instanceof Error ? err.message : String(err));
@@ -765,7 +1096,6 @@ export async function cleanupStaleDependencySessions(
     throw new Error("--stale-before must be a valid ISO-8601 timestamp.");
   }
 
-  const root = leasesRoot(paths);
   const result: DependencyStaleCleanupResult = {
     staleBefore: staleBefore.toISOString(),
     dryRun,
@@ -774,6 +1104,8 @@ export async function cleanupStaleDependencySessions(
     cleaned: [],
     errors: [],
   };
+  const root = await canonicalLeasesRoot(paths, false);
+  if (!root) return result;
 
   let files: string[];
   try {
@@ -789,6 +1121,7 @@ export async function cleanupStaleDependencySessions(
     const statePath = join(root, "sessions", file);
     try {
       await withSessionMutationLock(
+        root,
         statePath,
         async () => {
           // Classification happens only after acquiring the same lock used by
