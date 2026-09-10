@@ -1,0 +1,1753 @@
+{
+  "repoUrl": "https://github.com/youdotcom-oss/agent-skills.git",
+  "owner": "youdotcom-oss",
+  "repo": "agent-skills",
+  "updatedAt": "2026-09-02T22:58:36.589Z",
+  "skillCount": 8,
+  "skills": [
+    {
+      "name": "grill-me",
+      "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:youdotcom-oss/agent-skills:.agents/skills/grill-me",
+      "relPath": ".agents/skills/grill-me",
+      "verified": true,
+      "tokenCount": 192,
+      "evalSummary": {
+        "overallScore": 54,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-02T22:58:36.567Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 54,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-02T22:58:36.570Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-02T22:58:36.571Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "karpathy-guidelines",
+      "description": "Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:youdotcom-oss/agent-skills:.agents/skills/karpathy-guidelines",
+      "relPath": ".agents/skills/karpathy-guidelines",
+      "verified": true,
+      "tokenCount": 695,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-02T22:58:36.568Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-02T22:58:36.571Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-02T22:58:36.571Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "tdd",
+      "description": "Use test-driven development for behavior-changing feature or fix work, and whenever the user mentions TDD, test-first, red-green-refactor, tracer bullets, integration tests, or public-interface behavior tests. Skip for docs-only, path-only rename, formatting-only, or purely mechanical chores unless explicitly requested.",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires bun for Plaited repository validation",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:youdotcom-oss/agent-skills:.agents/skills/tdd",
+      "relPath": ".agents/skills/tdd",
+      "verified": true,
+      "tokenCount": 812,
+      "evalSummary": {
+        "overallScore": 78,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-02T22:58:36.568Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 78,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-02T22:58:36.571Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-09-02T22:58:36.571Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "you-discover",
+      "description": "Route You.com integration planning through the you-discover MCP tool, Docs MCP, and direct API options.",
+      "version": "0.3.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires network access. Prefer the standard You.com MCP server exposing `you-discover` and Docs MCP `searchDocs`.",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:youdotcom-oss/agent-skills:skills/you-discover",
+      "relPath": "skills/you-discover",
+      "verified": true,
+      "tokenCount": 1482,
+      "evalSummary": {
+        "overallScore": 77,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-02T22:58:36.568Z",
+        "evaluatedVersion": "0.3.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-02T22:58:36.571Z",
+          "evaluatedVersion": "0.3.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 93,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 14,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-09-02T22:58:36.571Z",
+          "evaluatedVersion": "0.3.0"
+        }
+      }
+    },
+    {
+      "name": "you-finance",
+      "description": "Route finance questions to an existing local script, a new You.com Finance Research API call, or an MCP payment-aware fallback.",
+      "version": "0.3.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires network access and either the You.com Finance Research API with `YDC_API_KEY` or MPP/x402 payment support, or a You.com MCP client that can tolerate long finance responses and keyless MPP/x402 payment challenges.",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:youdotcom-oss/agent-skills:skills/you-finance",
+      "relPath": "skills/you-finance",
+      "verified": true,
+      "tokenCount": 1273,
+      "evalSummary": {
+        "overallScore": 79,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-02T22:58:36.569Z",
+        "evaluatedVersion": "0.3.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-02T22:58:36.571Z",
+          "evaluatedVersion": "0.3.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 93,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 14,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-09-02T22:58:36.571Z",
+          "evaluatedVersion": "0.3.0"
+        }
+      }
+    },
+    {
+      "name": "you-free",
+      "description": "Use the free You.com MCP profile for unauthenticated basic web search with `you-search` only.",
+      "version": "0.1.2",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires network access and the You.com free MCP profile exposing `you-search`. Does not require `YDC_API_KEY` or OAuth.",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:youdotcom-oss/agent-skills:skills/you-free",
+      "relPath": "skills/you-free",
+      "verified": true,
+      "tokenCount": 707,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-02T22:58:36.569Z",
+        "evaluatedVersion": "0.1.2"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-02T22:58:36.571Z",
+          "evaluatedVersion": "0.1.2"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 93,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 14,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-09-02T22:58:36.571Z",
+          "evaluatedVersion": "0.1.2"
+        }
+      }
+    },
+    {
+      "name": "you-research",
+      "description": "Route research tasks between a cost-conscious agentic search workflow, You.com Research API scripts, and managed or payment-aware MCP fallback.",
+      "version": "0.3.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires network access and either You.com MCP tools with `YDC_API_KEY`, OAuth, or payment support, or the You.com Research API with `YDC_API_KEY` or an MPP/x402-capable client.",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:youdotcom-oss/agent-skills:skills/you-research",
+      "relPath": "skills/you-research",
+      "verified": true,
+      "tokenCount": 1256,
+      "evalSummary": {
+        "overallScore": 79,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-02T22:58:36.569Z",
+        "evaluatedVersion": "0.3.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-02T22:58:36.571Z",
+          "evaluatedVersion": "0.3.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 93,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 14,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-09-02T22:58:36.571Z",
+          "evaluatedVersion": "0.3.0"
+        }
+      }
+    },
+    {
+      "name": "you-web",
+      "description": "Use You.com MCP tools for current web search, URL content extraction, cited web synthesis, and x402-aware web access.",
+      "version": "0.3.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires network access and a You.com MCP server exposing `you-search`, `you-contents`, and `you-research`; use `YDC_API_KEY`, OAuth, or an x402-aware client for paid/keyless search and contents retries.",
+      "allowedTools": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:youdotcom-oss/agent-skills:skills/you-web",
+      "relPath": "skills/you-web",
+      "verified": true,
+      "tokenCount": 1123,
+      "evalSummary": {
+        "overallScore": 77,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-02T22:58:36.570Z",
+        "evaluatedVersion": "0.3.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-02T22:58:36.571Z",
+          "evaluatedVersion": "0.3.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 93,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 14,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-09-02T22:58:36.571Z",
+          "evaluatedVersion": "0.3.0"
+        }
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "youdotcom-oss-agent-skills-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from youdotcom-oss/agent-skills.",
+      "author": "ASM (youdotcom-oss/agent-skills)",
+      "createdAt": "2026-09-02T22:58:36.589Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "youdotcom-oss",
+        "agent-skills"
+      ],
+      "skills": [
+        {
+          "name": "grill-me",
+          "installUrl": "github:youdotcom-oss/agent-skills:.agents/skills/grill-me",
+          "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "karpathy-guidelines",
+          "installUrl": "github:youdotcom-oss/agent-skills:.agents/skills/karpathy-guidelines",
+          "description": "Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "tdd",
+          "installUrl": "github:youdotcom-oss/agent-skills:.agents/skills/tdd",
+          "description": "Use test-driven development for behavior-changing feature or fix work, and whenever the user mentions TDD, test-first, red-green-refactor, tracer bullets, integration tests, or public-interface behavior tests. Skip for docs-only, path-only rename, formatting-only, or purely mechanical chores unless explicitly requested.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "you-discover",
+          "installUrl": "github:youdotcom-oss/agent-skills:skills/you-discover",
+          "description": "Route You.com integration planning through the you-discover MCP tool, Docs MCP, and direct API options.",
+          "version": "0.3.0"
+        },
+        {
+          "name": "you-finance",
+          "installUrl": "github:youdotcom-oss/agent-skills:skills/you-finance",
+          "description": "Route finance questions to an existing local script, a new You.com Finance Research API call, or an MCP payment-aware fallback.",
+          "version": "0.3.0"
+        },
+        {
+          "name": "you-free",
+          "installUrl": "github:youdotcom-oss/agent-skills:skills/you-free",
+          "description": "Use the free You.com MCP profile for unauthenticated basic web search with `you-search` only.",
+          "version": "0.1.2"
+        },
+        {
+          "name": "you-research",
+          "installUrl": "github:youdotcom-oss/agent-skills:skills/you-research",
+          "description": "Route research tasks between a cost-conscious agentic search workflow, You.com Research API scripts, and managed or payment-aware MCP fallback.",
+          "version": "0.3.0"
+        },
+        {
+          "name": "you-web",
+          "installUrl": "github:youdotcom-oss/agent-skills:skills/you-web",
+          "description": "Use You.com MCP tools for current web search, URL content extraction, cited web synthesis, and x402-aware web access.",
+          "version": "0.3.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "youdotcom-oss",
+        "repo": "agent-skills",
+        "repoUrl": "https://github.com/youdotcom-oss/agent-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "youdotcom-oss-agent-skills-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from youdotcom-oss/agent-skills.",
+      "author": "ASM (youdotcom-oss/agent-skills)",
+      "createdAt": "2026-09-02T22:58:36.589Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "youdotcom-oss",
+        "agent-skills"
+      ],
+      "skills": [
+        {
+          "name": "grill-me",
+          "installUrl": "github:youdotcom-oss/agent-skills:.agents/skills/grill-me",
+          "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "tdd",
+          "installUrl": "github:youdotcom-oss/agent-skills:.agents/skills/tdd",
+          "description": "Use test-driven development for behavior-changing feature or fix work, and whenever the user mentions TDD, test-first, red-green-refactor, tracer bullets, integration tests, or public-interface behavior tests. Skip for docs-only, path-only rename, formatting-only, or purely mechanical chores unless explicitly requested.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "you-research",
+          "installUrl": "github:youdotcom-oss/agent-skills:skills/you-research",
+          "description": "Route research tasks between a cost-conscious agentic search workflow, You.com Research API scripts, and managed or payment-aware MCP fallback.",
+          "version": "0.3.0"
+        },
+        {
+          "name": "you-web",
+          "installUrl": "github:youdotcom-oss/agent-skills:skills/you-web",
+          "description": "Use You.com MCP tools for current web search, URL content extraction, cited web synthesis, and x402-aware web access.",
+          "version": "0.3.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "youdotcom-oss",
+        "repo": "agent-skills",
+        "repoUrl": "https://github.com/youdotcom-oss/agent-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "youdotcom-oss-agent-skills-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from youdotcom-oss/agent-skills.",
+      "author": "ASM (youdotcom-oss/agent-skills)",
+      "createdAt": "2026-09-02T22:58:36.589Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "youdotcom-oss",
+        "agent-skills"
+      ],
+      "skills": [
+        {
+          "name": "grill-me",
+          "installUrl": "github:youdotcom-oss/agent-skills:.agents/skills/grill-me",
+          "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "karpathy-guidelines",
+          "installUrl": "github:youdotcom-oss/agent-skills:.agents/skills/karpathy-guidelines",
+          "description": "Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "tdd",
+          "installUrl": "github:youdotcom-oss/agent-skills:.agents/skills/tdd",
+          "description": "Use test-driven development for behavior-changing feature or fix work, and whenever the user mentions TDD, test-first, red-green-refactor, tracer bullets, integration tests, or public-interface behavior tests. Skip for docs-only, path-only rename, formatting-only, or purely mechanical chores unless explicitly requested.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "you-discover",
+          "installUrl": "github:youdotcom-oss/agent-skills:skills/you-discover",
+          "description": "Route You.com integration planning through the you-discover MCP tool, Docs MCP, and direct API options.",
+          "version": "0.3.0"
+        },
+        {
+          "name": "you-finance",
+          "installUrl": "github:youdotcom-oss/agent-skills:skills/you-finance",
+          "description": "Route finance questions to an existing local script, a new You.com Finance Research API call, or an MCP payment-aware fallback.",
+          "version": "0.3.0"
+        },
+        {
+          "name": "you-research",
+          "installUrl": "github:youdotcom-oss/agent-skills:skills/you-research",
+          "description": "Route research tasks between a cost-conscious agentic search workflow, You.com Research API scripts, and managed or payment-aware MCP fallback.",
+          "version": "0.3.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "youdotcom-oss",
+        "repo": "agent-skills",
+        "repoUrl": "https://github.com/youdotcom-oss/agent-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "youdotcom-oss-agent-skills-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from youdotcom-oss/agent-skills.",
+      "author": "ASM (youdotcom-oss/agent-skills)",
+      "createdAt": "2026-09-02T22:58:36.589Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "youdotcom-oss",
+        "agent-skills"
+      ],
+      "skills": [
+        {
+          "name": "grill-me",
+          "installUrl": "github:youdotcom-oss/agent-skills:.agents/skills/grill-me",
+          "description": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+          "version": "0.0.0"
+        },
+        {
+          "name": "karpathy-guidelines",
+          "installUrl": "github:youdotcom-oss/agent-skills:.agents/skills/karpathy-guidelines",
+          "description": "Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "youdotcom-oss",
+        "repo": "agent-skills",
+        "repoUrl": "https://github.com/youdotcom-oss/agent-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "youdotcom-oss-agent-skills-product-business",
+      "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from youdotcom-oss/agent-skills.",
+      "author": "ASM (youdotcom-oss/agent-skills)",
+      "createdAt": "2026-09-02T22:58:36.589Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "product",
+        "business",
+        "planning",
+        "youdotcom-oss",
+        "agent-skills"
+      ],
+      "skills": [
+        {
+          "name": "you-discover",
+          "installUrl": "github:youdotcom-oss/agent-skills:skills/you-discover",
+          "description": "Route You.com integration planning through the you-discover MCP tool, Docs MCP, and direct API options.",
+          "version": "0.3.0"
+        },
+        {
+          "name": "you-finance",
+          "installUrl": "github:youdotcom-oss/agent-skills:skills/you-finance",
+          "description": "Route finance questions to an existing local script, a new You.com Finance Research API call, or an MCP payment-aware fallback.",
+          "version": "0.3.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "youdotcom-oss",
+        "repo": "agent-skills",
+        "repoUrl": "https://github.com/youdotcom-oss/agent-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "youdotcom-oss-agent-skills-research",
+      "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from youdotcom-oss/agent-skills.",
+      "author": "ASM (youdotcom-oss/agent-skills)",
+      "createdAt": "2026-09-02T22:58:36.589Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "research",
+        "academic",
+        "analysis",
+        "youdotcom-oss",
+        "agent-skills"
+      ],
+      "skills": [
+        {
+          "name": "karpathy-guidelines",
+          "installUrl": "github:youdotcom-oss/agent-skills:.agents/skills/karpathy-guidelines",
+          "description": "Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "you-finance",
+          "installUrl": "github:youdotcom-oss/agent-skills:skills/you-finance",
+          "description": "Route finance questions to an existing local script, a new You.com Finance Research API call, or an MCP payment-aware fallback.",
+          "version": "0.3.0"
+        },
+        {
+          "name": "you-research",
+          "installUrl": "github:youdotcom-oss/agent-skills:skills/you-research",
+          "description": "Route research tasks between a cost-conscious agentic search workflow, You.com Research API scripts, and managed or payment-aware MCP fallback.",
+          "version": "0.3.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "youdotcom-oss",
+        "repo": "agent-skills",
+        "repoUrl": "https://github.com/youdotcom-oss/agent-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "youdotcom-oss-agent-skills-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from youdotcom-oss/agent-skills.",
+      "author": "ASM (youdotcom-oss/agent-skills)",
+      "createdAt": "2026-09-02T22:58:36.589Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "youdotcom-oss",
+        "agent-skills"
+      ],
+      "skills": [
+        {
+          "name": "karpathy-guidelines",
+          "installUrl": "github:youdotcom-oss/agent-skills:.agents/skills/karpathy-guidelines",
+          "description": "Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "tdd",
+          "installUrl": "github:youdotcom-oss/agent-skills:.agents/skills/tdd",
+          "description": "Use test-driven development for behavior-changing feature or fix work, and whenever the user mentions TDD, test-first, red-green-refactor, tracer bullets, integration tests, or public-interface behavior tests. Skip for docs-only, path-only rename, formatting-only, or purely mechanical chores unless explicitly requested.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "you-discover",
+          "installUrl": "github:youdotcom-oss/agent-skills:skills/you-discover",
+          "description": "Route You.com integration planning through the you-discover MCP tool, Docs MCP, and direct API options.",
+          "version": "0.3.0"
+        },
+        {
+          "name": "you-web",
+          "installUrl": "github:youdotcom-oss/agent-skills:skills/you-web",
+          "description": "Use You.com MCP tools for current web search, URL content extraction, cited web synthesis, and x402-aware web access.",
+          "version": "0.3.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "youdotcom-oss",
+        "repo": "agent-skills",
+        "repoUrl": "https://github.com/youdotcom-oss/agent-skills.git"
+      },
+      "inferred": true
+    }
+  ]
+}
