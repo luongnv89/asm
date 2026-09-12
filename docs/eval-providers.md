@@ -5,7 +5,7 @@
 This doc covers:
 
 - How providers work and why they're versioned on two axes
-- How to pin a provider version
+- How `asm eval` selects providers
 - A checklist for adding a new provider
 
 ## How providers work
@@ -66,22 +66,16 @@ asm eval-providers list
 
 Shows id, version, schemaVersion, description, and any `requires` tags. `--json` emits a machine-readable array of the same records.
 
-## Pinning a provider version
+## Provider selection
 
-Via `~/.asm/config.yml`:
+`asm eval` is zero-config: it runs every registered provider whose
+`applicable()` check passes (`src/commands/eval.ts`). No config file or CLI
+flag selects or pins a subset.
 
-```yaml
-eval:
-  defaults:
-    threshold: 70
-    timeoutMs: 60000
-  providers:
-    quality:
-      version: "^1.0.0" # pin the range
-      threshold: 80
-```
-
-The `version` key is a semver range that future CLI upgrades honor. Today `asm eval` picks the highest version in range; explicit pinning is what keeps CI stable when a new provider version ships.
+Version _resolution_ still lives in the registry — `resolve(id, semverRange)`
+returns the highest registered version matching a range
+(`src/eval/registry.ts:200`) — so multiple versions of a provider can coexist
+and programmatic consumers can ask for a range.
 
 ### Output modes
 

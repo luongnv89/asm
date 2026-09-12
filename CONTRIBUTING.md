@@ -6,7 +6,7 @@ Thanks for your interest in contributing! This guide will help you get started.
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) >= 22 (with npm >= 9)
+- [Node.js](https://nodejs.org/) >= 22 and < 27 (with npm >= 9)
 - [Git](https://git-scm.com/)
 
 ### Development Setup
