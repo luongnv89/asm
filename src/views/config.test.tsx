@@ -40,14 +40,22 @@ describe("ConfigView", () => {
   it("renders the configuration panel with each provider row and its status", () => {
     const config = makeConfig();
     const { lastFrame } = render(
-      <ConfigView config={config} onClose={vi.fn()} onOpenEditor={vi.fn()} />,
+      <ConfigView
+        config={config}
+        onClose={vi.fn()}
+        onDiscard={vi.fn()}
+        onOpenEditor={vi.fn()}
+      />,
     );
     const frame = lastFrame() ?? "";
     expect(frame).toContain("Configuration");
     expect(frame).toContain("Claude Code");
     expect(frame).toContain("Codex");
-    expect(frame).toContain("Tools (Enter to toggle, e to edit config file):");
-    expect(frame).toContain("Enter Toggle e Edit file Esc Save & close");
+    expect(frame).toContain("Tools (Enter to toggle, e to edit file & exit):");
+    // The footer can wrap at the 72-col box width — assert fragments.
+    expect(frame).toContain("Edit file & exit");
+    expect(frame).toContain("Discard");
+    expect(frame).toContain("Save");
     // First provider enabled, second disabled.
     expect(frame).toContain("✔ ON");
     expect(frame).toContain("✘ OFF");
@@ -58,6 +66,7 @@ describe("ConfigView", () => {
       <ConfigView
         config={makeConfig()}
         onClose={vi.fn()}
+        onDiscard={vi.fn()}
         onOpenEditor={vi.fn()}
       />,
     );
@@ -69,7 +78,12 @@ describe("ConfigView", () => {
       customPaths: [{ path: "/custom/x", label: "Custom X", scope: "global" }],
     });
     const { lastFrame } = render(
-      <ConfigView config={config} onClose={vi.fn()} onOpenEditor={vi.fn()} />,
+      <ConfigView
+        config={config}
+        onClose={vi.fn()}
+        onDiscard={vi.fn()}
+        onOpenEditor={vi.fn()}
+      />,
     );
     const frame = lastFrame() ?? "";
     expect(frame).toContain("Custom Paths:");
@@ -80,7 +94,12 @@ describe("ConfigView", () => {
     const onClose = vi.fn();
     const config = makeConfig();
     const { stdin, unmount } = render(
-      <ConfigView config={config} onClose={onClose} onOpenEditor={vi.fn()} />,
+      <ConfigView
+        config={config}
+        onClose={onClose}
+        onDiscard={vi.fn()}
+        onOpenEditor={vi.fn()}
+      />,
     );
     await tick();
     // First provider starts ON; Enter flips it OFF.
@@ -102,6 +121,7 @@ describe("ConfigView", () => {
       <ConfigView
         config={makeConfig()}
         onClose={onClose}
+        onDiscard={vi.fn()}
         onOpenEditor={vi.fn()}
       />,
     );
@@ -120,6 +140,7 @@ describe("ConfigView", () => {
       <ConfigView
         config={makeConfig()}
         onClose={vi.fn()}
+        onDiscard={vi.fn()}
         onOpenEditor={vi.fn()}
       />,
     );
@@ -137,6 +158,7 @@ describe("ConfigView", () => {
       <ConfigView
         config={makeConfig()}
         onClose={vi.fn()}
+        onDiscard={vi.fn()}
         onOpenEditor={onOpenEditor}
       />,
     );
@@ -147,12 +169,59 @@ describe("ConfigView", () => {
     unmount();
   });
 
+  it("q discards in-session toggles — onDiscard fires, onClose does not", async () => {
+    const onClose = vi.fn();
+    const onDiscard = vi.fn();
+    const { stdin, unmount } = render(
+      <ConfigView
+        config={makeConfig()}
+        onClose={onClose}
+        onDiscard={onDiscard}
+        onOpenEditor={vi.fn()}
+      />,
+    );
+    await tick();
+    // Flip the first provider OFF, then discard — the save path never runs.
+    stdin.write(ENTER);
+    await tick();
+    stdin.write("q");
+    await tick();
+    expect(onDiscard).toHaveBeenCalledTimes(1);
+    expect(onDiscard).toHaveBeenCalledWith();
+    expect(onClose).not.toHaveBeenCalled();
+    unmount();
+  });
+
+  it("Esc still saves after a toggle — onClose receives the edited config", async () => {
+    const onClose = vi.fn();
+    const onDiscard = vi.fn();
+    const { stdin, unmount } = render(
+      <ConfigView
+        config={makeConfig()}
+        onClose={onClose}
+        onDiscard={onDiscard}
+        onOpenEditor={vi.fn()}
+      />,
+    );
+    await tick();
+    stdin.write(ENTER);
+    await tick();
+    stdin.write(ESC);
+    await tick();
+    expect(onClose).toHaveBeenCalledTimes(1);
+    const emitted = onClose.mock.calls[0][0] as AppConfig;
+    expect(emitted.providers[0].enabled).toBe(false);
+    expect(onDiscard).not.toHaveBeenCalled();
+    unmount();
+  });
+
   it("passes the current edit state to onClose on Esc", async () => {
     const onClose = vi.fn();
     const { stdin, unmount } = render(
       <ConfigView
         config={makeConfig()}
         onClose={onClose}
+        onDiscard={vi.fn()}
         onOpenEditor={vi.fn()}
       />,
     );
