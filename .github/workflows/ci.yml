@@ -32,6 +32,9 @@ jobs:
       - name: Patch TS 6 for typescript-eslint
         run: node scripts/patch-ts6.cjs
 
+      - name: Verify TS 6 patch applied
+        run: node scripts/patch-ts6.cjs --check
+
       - name: Lint src/
         run: npm run lint
 
@@ -58,6 +61,9 @@ jobs:
       - name: Patch TS 6 for typescript-eslint
         run: node scripts/patch-ts6.cjs
 
+      - name: Verify TS 6 patch applied
+        run: node scripts/patch-ts6.cjs --check
+
       - name: Run unit tests
         run: npx vitest run src/
 
@@ -81,6 +87,9 @@ jobs:
 
       - name: Patch TS 6 for typescript-eslint
         run: node scripts/patch-ts6.cjs
+
+      - name: Verify TS 6 patch applied
+        run: node scripts/patch-ts6.cjs --check
 
       - name: Audit production dependencies
         timeout-minutes: 3
@@ -107,6 +116,9 @@ jobs:
 
       - name: Patch TS 6 for typescript-eslint
         run: node scripts/patch-ts6.cjs
+
+      - name: Verify TS 6 patch applied
+        run: node scripts/patch-ts6.cjs --check
 
       - name: Build
         run: npm run build
