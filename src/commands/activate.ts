@@ -81,12 +81,19 @@ export async function cmdActivate(args: ParsedArgs) {
     args.flags.provider,
     process.stdin.isTTY,
   );
-  const scope = await resolveInstallScope({
-    scopeFlag: args.flags.scope,
-    provider,
-    isTTY: !!process.stdin.isTTY,
-    yes: args.flags.yes,
-  });
+  let scope: "global" | "project";
+  try {
+    scope = await resolveInstallScope({
+      scopeFlag: args.flags.scope,
+      provider,
+      isTTY: !!process.stdin.isTTY,
+      yes: args.flags.yes,
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    error(message);
+    process.exit(1);
+  }
   const targetTemplate =
     scope === "global" ? provider.global : provider.project;
   const targetDir = resolveProviderPath(targetTemplate);
@@ -142,14 +149,13 @@ export async function cmdDeactivate(args: ParsedArgs) {
     process.exit(2);
   }
 
-  const scope = await resolveInstallScope({
-    scopeFlag: args.flags.scope,
-    provider,
-    isTTY: !!process.stdin.isTTY,
-    yes: args.flags.yes,
-  });
-
   try {
+    const scope = await resolveInstallScope({
+      scopeFlag: args.flags.scope,
+      provider,
+      isTTY: !!process.stdin.isTTY,
+      yes: args.flags.yes,
+    });
     const targetTemplate =
       scope === "global" ? provider.global : provider.project;
     const targetDir = resolveProviderPath(targetTemplate);

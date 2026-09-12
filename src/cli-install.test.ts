@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach, afterEach } from "vitest";
+import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { fileURLToPath } from "url";
 import { join, dirname } from "path";
 import {
@@ -15,6 +15,7 @@ import {
 import { tmpdir } from "os";
 import { runInlineTs } from "./utils/test-spawn";
 import { runCLI, runCliInProcess, CLI_BIN } from "./cli-test-harness";
+import * as checkboxPickerMod from "./utils/checkbox-picker";
 
 // `asm install` CLI tests — split from cli.test.ts (issue #678).
 // ─── CLI integration: install ──────────────────────────────────────────────
@@ -749,6 +750,172 @@ describe("CLI integration: install --library", () => {
     expect(res.stderr).toContain("Unknown provider");
     expect(res.stdout).toBe("");
     expect(res.stderr).not.toMatch(/\n\s+at\s+/);
+  });
+
+  // Dismissing the interactive scope picker (Esc, or Enter with nothing
+  // checked) makes resolveInstallScope throw. Like `asm install`, activate
+  // and deactivate must render that as a clean "Error:" line — not a
+  // "Fatal error:" stack dump from the bin-level catch.
+  test("activate exits 1 cleanly when the scope picker is dismissed", async () => {
+    const homeDir = join(tempDir, "home");
+    const projectDir = join(tempDir, "project");
+    await mkdir(projectDir, { recursive: true });
+
+    const librarySkillDir = join(
+      homeDir,
+      ".config",
+      "agent-skill-manager",
+      "library",
+      "skills",
+      "brainstorming",
+    );
+    await mkdir(librarySkillDir, { recursive: true });
+    await writeFile(
+      join(librarySkillDir, "SKILL.md"),
+      "---\nname: brainstorming\nversion: 1.0.0\n---\n# Brainstorming\n",
+    );
+    await writeFile(
+      join(
+        homeDir,
+        ".config",
+        "agent-skill-manager",
+        "library",
+        "library-lock.json",
+      ),
+      JSON.stringify(
+        {
+          version: 1,
+          skills: {
+            brainstorming: {
+              name: "brainstorming",
+              version: "1.0.0",
+              source: "local:/existing",
+              sourceType: "local",
+              commitHash: "unknown",
+              ref: "main",
+              skillPath: "brainstorming",
+              libraryPath: librarySkillDir,
+              installedAt: "2026-01-01T00:00:00.000Z",
+            },
+          },
+        },
+        null,
+        2,
+      ) + "\n",
+    );
+
+    const origIsTTY = process.stdin.isTTY;
+    const pickerSpy = vi
+      .spyOn(checkboxPickerMod, "checkboxPicker")
+      .mockResolvedValue([]);
+    Object.defineProperty(process.stdin, "isTTY", {
+      value: true,
+      configurable: true,
+    });
+    try {
+      const res = await runCliInProcess(
+        ["npx", "tsx", CLI_BIN, "activate", "brainstorming", "-p", "codex"],
+        {
+          cwd: projectDir,
+          env: { ...process.env, HOME: homeDir, NO_COLOR: "1" },
+        },
+      );
+
+      expect(pickerSpy).toHaveBeenCalled();
+      expect(res.exitCode).toBe(1);
+      expect(res.stderr).toContain("No scope selected. Aborting.");
+      expect(res.stderr).not.toContain("Fatal error");
+      expect(res.stderr).not.toMatch(/\n\s+at\s+/);
+    } finally {
+      Object.defineProperty(process.stdin, "isTTY", {
+        value: origIsTTY,
+        configurable: true,
+      });
+      pickerSpy.mockRestore();
+    }
+  });
+
+  test("deactivate exits 1 cleanly when the scope picker is dismissed", async () => {
+    const homeDir = join(tempDir, "home");
+    const projectDir = join(tempDir, "project");
+    await mkdir(projectDir, { recursive: true });
+
+    const origIsTTY = process.stdin.isTTY;
+    const pickerSpy = vi
+      .spyOn(checkboxPickerMod, "checkboxPicker")
+      .mockResolvedValue([]);
+    Object.defineProperty(process.stdin, "isTTY", {
+      value: true,
+      configurable: true,
+    });
+    try {
+      const res = await runCliInProcess(
+        ["npx", "tsx", CLI_BIN, "deactivate", "brainstorming", "-p", "codex"],
+        {
+          cwd: projectDir,
+          env: { ...process.env, HOME: homeDir, NO_COLOR: "1" },
+        },
+      );
+
+      expect(pickerSpy).toHaveBeenCalled();
+      expect(res.exitCode).toBe(1);
+      expect(res.stderr).toContain("No scope selected. Aborting.");
+      expect(res.stderr).not.toContain("Fatal error");
+      expect(res.stderr).not.toMatch(/\n\s+at\s+/);
+    } finally {
+      Object.defineProperty(process.stdin, "isTTY", {
+        value: origIsTTY,
+        configurable: true,
+      });
+      pickerSpy.mockRestore();
+    }
+  });
+
+  test("deactivate --json emits a structured error when the scope picker is dismissed", async () => {
+    const homeDir = join(tempDir, "home");
+    const projectDir = join(tempDir, "project");
+    await mkdir(projectDir, { recursive: true });
+
+    const origIsTTY = process.stdin.isTTY;
+    const pickerSpy = vi
+      .spyOn(checkboxPickerMod, "checkboxPicker")
+      .mockResolvedValue([]);
+    Object.defineProperty(process.stdin, "isTTY", {
+      value: true,
+      configurable: true,
+    });
+    try {
+      const res = await runCliInProcess(
+        [
+          "npx",
+          "tsx",
+          CLI_BIN,
+          "deactivate",
+          "brainstorming",
+          "-p",
+          "codex",
+          "--json",
+        ],
+        {
+          cwd: projectDir,
+          env: { ...process.env, HOME: homeDir, NO_COLOR: "1" },
+        },
+      );
+
+      expect(pickerSpy).toHaveBeenCalled();
+      expect(res.exitCode).toBe(1);
+      expect(JSON.parse(res.stdout)).toEqual({
+        error: "No scope selected. Aborting.",
+      });
+      expect(res.stderr).not.toContain("Fatal error");
+      expect(res.stderr).not.toMatch(/\n\s+at\s+/);
+    } finally {
+      Object.defineProperty(process.stdin, "isTTY", {
+        value: origIsTTY,
+        configurable: true,
+      });
+      pickerSpy.mockRestore();
+    }
   });
 
   test("does not overwrite an existing library skill when only provider install exists", async () => {
