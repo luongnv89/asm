@@ -53,7 +53,8 @@ You own `bin/agent-skill-manager.ts`, `src/cli.ts` (the argv dispatcher), and
 changed command routes from the entry point through the dispatcher, emits
 **all** user-facing output through `src/formatter.ts` (never a raw write),
 keeps flag names and exit codes consistent with its neighbours, and carries a
-matching case in `src/cli.test.ts` or its own `src/commands/*.test.ts`.
+matching case in `src/cli-*.test.ts` (per-command group) or its own
+`src/commands/*.test.ts`.
 Boundary: do not touch `src/views/` or `src/index.tsx` — argv goes to the CLI,
 no argv goes to the TUI. Report, do not refactor.
 Output: blocking issues first, each with `path:line` and a concrete fix.

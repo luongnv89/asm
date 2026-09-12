@@ -45,8 +45,9 @@ traps (scripts that rewrite tracked files; the unit suite writing to your real
 [AGENT_ENVIRONMENT.md](AGENT_ENVIRONMENT.md).
 
 Test files are co-located with source files using the `*.test.ts` convention
-(`*.test.tsx` for views), one per module — e.g. `cli.test.ts`,
-`scanner.test.ts`, `installer.test.ts`, `eval/*.test.ts`. Run `npm test` for
+(`*.test.tsx` for views), one per module — e.g. `cli.test.ts` (dispatcher)
+plus one `cli-<group>.test.ts` per command cluster, `scanner.test.ts`,
+`installer.test.ts`, `eval/*.test.ts`. Run `npm test` for
 the full, current list.
 
 ## Pre-commit Hooks
