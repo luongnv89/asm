@@ -11,6 +11,13 @@
  * ASM_AUDIT_ALLOWLIST_EXPIRES) may suppress specific GHSA ids. After the
  * expiry date (UTC, inclusive) the allowlist is ignored. An allowlist
  * without an expiry is never honoured.
+ *
+ * The severity floor is deliberate: this gate covers high/critical only.
+ * Moderate and low advisories are owned by Renovate — `renovate.json`
+ * sets `osvVulnerabilityAlerts: true`, so OSV alerts raise
+ * `security`-labeled update PRs at every severity — and are never
+ * tracked or gated here. Decision record:
+ * `docs/security/moderate-advisory-policy.md` (#661).
  */
 
 import { spawnSync } from "node:child_process";
