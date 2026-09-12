@@ -2,6 +2,16 @@
  * `asm install` command body.
  * Split from commands/install.ts (issue #455); helpers live in
  * `install-inspect.ts`.
+ *
+ * Note (#677): this file stays above the ~700-line guideline on purpose.
+ * `cmdInstall` is a single sequential pipeline — registry resolution,
+ * source parsing, provider/scope selection, clone/discovery, and install —
+ * whose steps share mutable locals (`scanBaseDir`, `effectivePath`,
+ * `cleanup`, `stepHeader`, …). Extracting step bodies would require
+ * threading that state through new signatures — a behaviour-risking
+ * restructure, not a mechanical extraction. All reusable helpers already
+ * live in `install-inspect.ts` / `install-prompts.ts`; the remainder here
+ * is one cohesive flow and is intentionally left unsplit.
  */
 
 import { loadConfig, getLibrarySkillsDir } from "../config";
