@@ -27,18 +27,28 @@ test path**, not a directory — `website-src/src/__tests__/` matches it too, so
 branch percentages for `src/` product files only (test files excluded). There
 is **no coverage threshold and no CI fail gate** — measurement before
 improvement (F-TEST-003 / #438). Vitest 5 remaps V8 coverage via AST, so the
-live number may differ from the #438 baseline below; keep `coverage.include`.
+denominators below are not comparable to the vitest-4 #438 baseline; keep
+`coverage.include`.
 
-**Coverage baseline** (2026-08-19, `src/`, v8, `CI=true npm run test:coverage`,
-2113 tests):
+**Coverage baseline** (2026-09-12, `src/`, v8, `CI=true npm run test:coverage`,
+2800 tests):
 
-- Lines: **60.61%** (12598/20783)
-- Branches: **82.52%** (3406/4127)
+- Lines: **82.69%** (8740/10569)
+- Branches: **73.74%** (5393/7313)
+
+`src/commands/` measures **63.74%** lines (#673): `cli.test.ts` dispatches
+`runCLI()` in-process instead of spawning `tsx` children that v8 could not
+attribute (the layer previously read 10.53%). Still subprocess-bound by
+design: the `runInlineTs` readLine tests (stdin pipes need a real child), the
+cross-process borrow-lock test under `asm get --path`, and one `bundle export`
+no-overwrite case whose `process.exit` sits inside a `catch` that would
+swallow the in-process sentinel. `toggle.ts` (disable/enable) stays low
+because nothing exercises it — a real gap, not an attribution artifact.
 
 M3's coverage target is bound to **`max(60%, baseline + 20pp)`**:
 
-- Lines: `max(60%, 80.61%)` = **80.61%**
-- Branches: `max(60%, 102.52%)` = **100%** (formula saturates at 100)
+- Lines: `max(60%, 102.69%)` = **100%** (formula saturates at 100)
+- Branches: `max(60%, 93.74%)` = **93.74%**
 
 Node and npm must satisfy `package.json` `engines` — node `">=22 <27"`, npm
 `">=9"`.

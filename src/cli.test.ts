@@ -14,6 +14,7 @@ import {
   isCLIMode,
   printImportConflictDiffs,
   promptForImportConflict,
+  runCLI as dispatchCLI,
 } from "./cli";
 import { cmdBundle } from "./commands/bundle";
 import * as shared from "./commands/shared";
@@ -34,10 +35,15 @@ import {
   chmod,
 } from "fs/promises";
 import { tmpdir, homedir } from "os";
+import { format } from "node:util";
 import { spawnCollect, runInlineTs } from "./utils/test-spawn";
 import { loadConfig, resolveProviderPath } from "./config";
+import { setVerbose } from "./logger";
+import { _resetMemo } from "./skill-index";
 
-// Helper: path to the CLI entry point
+// Helper: path to the CLI entry point — kept for tests that still spawn the
+// real binary (see the readLine describe; runInlineTs needs a real child
+// process because it pipes stdin, which cannot be faked in-process).
 const CLI_BIN = join(
   dirname(fileURLToPath(import.meta.url)),
   "..",
@@ -45,13 +51,198 @@ const CLI_BIN = join(
   "agent-skill-manager.ts",
 );
 
-// Helper: run CLI as subprocess, returns { stdout, stderr, exitCode }
+/**
+ * In-process CLI runner — the coverage-visible equivalent of spawning
+ * `npx tsx bin/agent-skill-manager.ts …` (issue #673).
+ *
+ * v8 coverage cannot attribute lines executed inside a spawned tsx child, so
+ * `src/commands/` reported ~10% despite the suite exercising it. Dispatching
+ * `runCLI()` from src/cli.ts in-process — with stdout/stderr, process.exit,
+ * env, and cwd virtualised for the duration of the call — makes the same
+ * assertions count toward coverage. The command graph is import-safe: this
+ * file already imports ./cli (and transitively every cmd* module) at the top.
+ *
+ * Semantics preserved from the spawn path:
+ *  - NO_COLOR=1 applies to every call (the old helpers always passed it).
+ *  - A HOME override additionally mirrors USERPROFILE and drops the inherited
+ *    ASM_CONFIG_DIR sandbox unless the caller set it explicitly — the same
+ *    rules test-spawn's normalizeEnv() applied to spawned children, so a
+ *    fake HOME keeps its own ~/.config/agent-skill-manager.
+ *  - process.exit() throws a CliExit sentinel carrying the exit code; any
+ *    other throw is reported like the bin wrapper does
+ *    ("Fatal error: …" on stderr, exit code 1).
+ *  - Per-process globals a subprocess never shared are reset after the call:
+ *    __CLI_NO_COLOR, the logger verbose flag, and the skill-index memo.
+ *  - stdout/stderr capture both console.* calls and direct
+ *    process.stdout/stderr.write() writes, in order, into per-stream buffers.
+ */
+class CliExit extends Error {
+  constructor(public readonly code: number) {
+    super(`process.exit(${code})`);
+  }
+}
+
+interface CliRunResult {
+  stdout: string;
+  stderr: string;
+  exitCode: number;
+}
+
+/**
+ * Accepts either a plain arg list (`["list", "--json"]`) or the historical
+ * spawn argv (`["npx", "tsx", CLI_BIN, "list", …]` /
+ * `[<tsx-bin-shim>, CLI_BIN, …]`) — the latter keeps converted call sites
+ * byte-identical apart from the callee name.
+ */
+function normalizeCliArgv(argv: string[]): string[] {
+  const binIdx = argv.indexOf(CLI_BIN);
+  return binIdx >= 0 ? argv.slice(binIdx + 1) : argv;
+}
+
+/**
+ * Accepts either a small env delta (`{ HOME: dir }`) or the historical
+ * full-env object (`{ ...process.env, HOME: dir, NO_COLOR: "1" }`); the
+ * latter is reduced to just the keys that differ from the ambient env,
+ * which is exactly what the spawn actually changed for the child.
+ */
+function normalizeCliEnv(
+  env: NodeJS.ProcessEnv | undefined,
+): NodeJS.ProcessEnv {
+  const delta: NodeJS.ProcessEnv = { NO_COLOR: "1" };
+  for (const [key, value] of Object.entries(env ?? {})) {
+    if (value !== process.env[key]) delta[key] = value;
+  }
+  return delta;
+}
+
+async function runCliInProcess(
+  argv: string[],
+  opts: { env?: NodeJS.ProcessEnv; cwd?: string } = {},
+): Promise<CliRunResult> {
+  const args = normalizeCliArgv(argv);
+  const stdoutChunks: string[] = [];
+  const stderrChunks: string[] = [];
+  const asText = (chunk: unknown): string =>
+    typeof chunk === "string"
+      ? chunk
+      : Buffer.from(chunk as Uint8Array).toString("utf8");
+  const writeSpyImpl = (chunks: string[]) =>
+    ((chunk: unknown, encOrCb?: unknown, cb?: unknown) => {
+      chunks.push(asText(chunk));
+      const done =
+        typeof encOrCb === "function"
+          ? encOrCb
+          : typeof cb === "function"
+            ? cb
+            : undefined;
+      if (done) (done as (err?: Error | null) => void)();
+      return true;
+    }) as typeof process.stdout.write;
+
+  let exitCode = 0;
+  let exitThrew = false;
+
+  // Env delta — NO_COLOR always; a HOME override mirrors USERPROFILE and
+  // drops the inherited ASM_CONFIG_DIR sandbox (normalizeEnv parity) so the
+  // redirected home keeps its own config dir.
+  const envDelta = normalizeCliEnv(opts.env);
+  if (envDelta.HOME !== undefined && envDelta.USERPROFILE === undefined) {
+    envDelta.USERPROFILE = envDelta.HOME;
+  }
+  const dropConfigDir =
+    envDelta.HOME !== undefined && envDelta.ASM_CONFIG_DIR === undefined;
+  const envKeys = new Set(Object.keys(envDelta));
+  if (dropConfigDir) envKeys.add("ASM_CONFIG_DIR");
+  const savedEnv = new Map<string, string | undefined>();
+
+  const savedNoColor = globalThis.__CLI_NO_COLOR;
+  const savedExitCodeProp = process.exitCode;
+  let savedCwd: string | null = null;
+
+  const spies = [
+    vi
+      .spyOn(process.stdout, "write")
+      .mockImplementation(writeSpyImpl(stdoutChunks)),
+    vi
+      .spyOn(process.stderr, "write")
+      .mockImplementation(writeSpyImpl(stderrChunks)),
+    vi.spyOn(console, "log").mockImplementation((...a: unknown[]) => {
+      stdoutChunks.push(`${format(...a)}\n`);
+    }),
+    vi.spyOn(console, "info").mockImplementation((...a: unknown[]) => {
+      stdoutChunks.push(`${format(...a)}\n`);
+    }),
+    vi.spyOn(console, "debug").mockImplementation((...a: unknown[]) => {
+      stdoutChunks.push(`${format(...a)}\n`);
+    }),
+    vi.spyOn(console, "warn").mockImplementation((...a: unknown[]) => {
+      stderrChunks.push(`${format(...a)}\n`);
+    }),
+    vi.spyOn(console, "error").mockImplementation((...a: unknown[]) => {
+      stderrChunks.push(`${format(...a)}\n`);
+    }),
+    vi.spyOn(process, "exit").mockImplementation(((code?: number) => {
+      exitCode = code ?? 0;
+      exitThrew = true;
+      throw new CliExit(exitCode);
+    }) as typeof process.exit),
+  ];
+
+  try {
+    for (const key of envKeys) savedEnv.set(key, process.env[key]);
+    for (const [key, value] of Object.entries(envDelta)) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+    if (dropConfigDir) delete process.env.ASM_CONFIG_DIR;
+    process.exitCode = undefined;
+    savedCwd = process.cwd();
+    if (opts.cwd) process.chdir(opts.cwd);
+
+    _resetMemo();
+    await dispatchCLI(["node", "asm", ...args]);
+  } catch (err) {
+    if (!(err instanceof CliExit)) {
+      // Mirror bin/agent-skill-manager.ts's catch-all.
+      stderrChunks.push(`${format("Fatal error:", err)}\n`);
+      if (exitCode === 0) exitCode = 1;
+    }
+  } finally {
+    for (const spy of spies) spy.mockRestore();
+    for (const [key, value] of savedEnv) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+    if (savedCwd !== null && opts.cwd) {
+      try {
+        process.chdir(savedCwd);
+      } catch {
+        // savedCwd deleted mid-call — nothing sane to restore to.
+      }
+    }
+    globalThis.__CLI_NO_COLOR = savedNoColor;
+    // Commands also signal failure via `process.exitCode = N` (no throw) —
+    // e.g. get.ts under --machine, deps.ts, cleanup.ts. A subprocess exits
+    // with it; here it must be read, then restored, per call.
+    if (!exitThrew && typeof process.exitCode === "number") {
+      exitCode = process.exitCode;
+    }
+    process.exitCode = savedExitCodeProp;
+    setVerbose(false);
+  }
+
+  return {
+    stdout: stdoutChunks.join(""),
+    stderr: stderrChunks.join(""),
+    exitCode,
+  };
+}
+
+// Helper: run the CLI in-process, returns { stdout, stderr, exitCode }.
 async function runCLI(
   ...args: string[]
 ): Promise<{ stdout: string; stderr: string; exitCode: number }> {
-  const res = await spawnCollect(["npx", "tsx", CLI_BIN, ...args], {
-    env: { ...process.env, NO_COLOR: "1" },
-  });
+  const res = await runCliInProcess(args);
   return {
     stdout: res.stdout.trim(),
     stderr: res.stderr.trim(),
@@ -1202,7 +1393,7 @@ describe("CLI integration: audit duplicate content + guarded auto-remove (#562/#
   });
 
   function runAudit(...args: string[]) {
-    return spawnCollect(["npx", "tsx", CLI_BIN, ...args], {
+    return runCliInProcess(["npx", "tsx", CLI_BIN, ...args], {
       cwd,
       env: { ...process.env, HOME: home, NO_COLOR: "1" },
     });
@@ -1362,7 +1553,7 @@ describe("CLI integration: stats with nothing installed", () => {
   });
 
   const runEmpty = (...args: string[]) =>
-    spawnCollect(["npx", "tsx", CLI_BIN, ...args], {
+    runCliInProcess(["npx", "tsx", CLI_BIN, ...args], {
       cwd: emptyCwd,
       env: { ...process.env, HOME: emptyHome, NO_COLOR: "1" },
     });
@@ -1849,7 +2040,7 @@ describe("CLI integration: install --library", () => {
     );
 
     const homeDir = join(tempDir, "home");
-    const res = await spawnCollect(
+    const res = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -1914,7 +2105,7 @@ describe("CLI integration: install --library", () => {
     );
 
     const homeDir = join(tempDir, "home");
-    await spawnCollect(
+    await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -1931,7 +2122,7 @@ describe("CLI integration: install --library", () => {
       },
     );
 
-    const res = await spawnCollect(
+    const res = await runCliInProcess(
       ["npx", "tsx", CLI_BIN, "library", "list", "--json"],
       {
         env: { ...process.env, HOME: homeDir, NO_COLOR: "1" },
@@ -1960,7 +2151,7 @@ describe("CLI integration: install --library", () => {
     );
 
     const homeDir = join(tempDir, "home");
-    const installRes = await spawnCollect(
+    const installRes = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -1981,7 +2172,7 @@ describe("CLI integration: install --library", () => {
       "---\nname: brainstorming\nversion: 2.0.0\n---\n# New\n",
     );
 
-    const updateRes = await spawnCollect(
+    const updateRes = await runCliInProcess(
       ["npx", "tsx", CLI_BIN, "library", "update", "brainstorming", "--json"],
       { env: { ...process.env, HOME: homeDir, NO_COLOR: "1" } },
     );
@@ -2019,7 +2210,7 @@ describe("CLI integration: install --library", () => {
     );
 
     const homeDir = join(tempDir, "home-root-library");
-    const installRes = await spawnCollect(
+    const installRes = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -2055,7 +2246,7 @@ describe("CLI integration: install --library", () => {
       "---\nname: root-skill\nversion: 2.0.0\n---\n# New Root\n",
     );
 
-    const updateRes = await spawnCollect(
+    const updateRes = await runCliInProcess(
       ["npx", "tsx", CLI_BIN, "library", "update", "root-skill", "--json"],
       { env: { ...process.env, HOME: homeDir, NO_COLOR: "1" } },
     );
@@ -2086,7 +2277,7 @@ describe("CLI integration: install --library", () => {
 
   test("library update unknown skill suggests library list and exits 1 with JSON summary", async () => {
     const homeDir = join(tempDir, "home");
-    const res = await spawnCollect(
+    const res = await runCliInProcess(
       ["npx", "tsx", CLI_BIN, "library", "update", "missing", "--json"],
       { env: { ...process.env, HOME: homeDir, NO_COLOR: "1" } },
     );
@@ -2115,7 +2306,7 @@ describe("CLI integration: install --library", () => {
     );
 
     const homeDir = join(tempDir, "home");
-    const installRes = await spawnCollect(
+    const installRes = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -2137,7 +2328,7 @@ describe("CLI integration: install --library", () => {
     );
     await rm(join(source, "skills", "bad", "SKILL.md"), { force: true });
 
-    const updateRes = await spawnCollect(
+    const updateRes = await runCliInProcess(
       ["npx", "tsx", CLI_BIN, "library", "update", "--all", "--json"],
       { env: { ...process.env, HOME: homeDir, NO_COLOR: "1" } },
     );
@@ -2164,7 +2355,7 @@ describe("CLI integration: install --library", () => {
     );
 
     const homeDir = join(tempDir, "home");
-    const installRes = await spawnCollect(
+    const installRes = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -2183,7 +2374,7 @@ describe("CLI integration: install --library", () => {
 
     const projectDir = join(tempDir, "project");
     await mkdir(projectDir, { recursive: true });
-    const activateRes = await spawnCollect(
+    const activateRes = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -2224,7 +2415,7 @@ describe("CLI integration: install --library", () => {
     const projectDir = join(tempDir, "project");
     await mkdir(projectDir, { recursive: true });
 
-    const res = await spawnCollect(
+    const res = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -2257,7 +2448,7 @@ describe("CLI integration: install --library", () => {
     );
 
     const homeDir = join(tempDir, "home");
-    const installRes = await spawnCollect(
+    const installRes = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -2278,7 +2469,7 @@ describe("CLI integration: install --library", () => {
     const targetPath = join(projectDir, ".codex", "skills", "brainstorming");
     await mkdir(targetPath, { recursive: true });
 
-    const res = await spawnCollect(
+    const res = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -2311,7 +2502,7 @@ describe("CLI integration: install --library", () => {
     );
 
     const homeDir = join(tempDir, "home");
-    const installRes = await spawnCollect(
+    const installRes = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -2330,7 +2521,7 @@ describe("CLI integration: install --library", () => {
 
     const projectDir = join(tempDir, "project");
     await mkdir(projectDir, { recursive: true });
-    const activateRes = await spawnCollect(
+    const activateRes = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -2360,7 +2551,7 @@ describe("CLI integration: install --library", () => {
       "brainstorming",
     );
 
-    const deactivateRes = await spawnCollect(
+    const deactivateRes = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -2410,7 +2601,7 @@ describe("CLI integration: install --library", () => {
     const targetPath = join(projectDir, ".codex", "skills", "brainstorming");
     await mkdir(targetPath, { recursive: true });
 
-    const res = await spawnCollect(
+    const res = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -2439,7 +2630,7 @@ describe("CLI integration: install --library", () => {
     const projectDir = join(tempDir, "project");
     await mkdir(projectDir, { recursive: true });
 
-    const res = await spawnCollect(
+    const res = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -2467,7 +2658,7 @@ describe("CLI integration: install --library", () => {
     const projectDir = join(tempDir, "project");
     await mkdir(projectDir, { recursive: true });
 
-    const res = await spawnCollect(
+    const res = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -2498,7 +2689,7 @@ describe("CLI integration: install --library", () => {
     const projectDir = join(tempDir, "project");
     await mkdir(projectDir, { recursive: true });
 
-    const res = await spawnCollect(
+    const res = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -2585,7 +2776,7 @@ describe("CLI integration: install --library", () => {
       `---\nname: foo\nversion: 2.0.0\n---\n# New source\n`,
     );
 
-    const res = await spawnCollect(
+    const res = await runCliInProcess(
       [
         "npx",
         "tsx",
@@ -2639,7 +2830,7 @@ describe("CLI integration: install --library", () => {
     );
     await chmod(fakeNpx, 0o755);
 
-    const res = await spawnCollect(
+    const res = await runCliInProcess(
       [
         process.env.npm_node_execpath || process.execPath,
         "--import",
@@ -3769,7 +3960,7 @@ describe("CLI integration: import", () => {
       }),
     );
 
-    const result = await spawnCollect(
+    const result = await runCliInProcess(
       [
         join(process.cwd(), "node_modules", ".bin", "tsx"),
         CLI_BIN,
@@ -4821,7 +5012,7 @@ describe("CLI integration: install --path/--all subpath discovery", () => {
     home: string,
     ...args: string[]
   ): Promise<{ stdout: string; stderr: string; exitCode: number }> {
-    const res = await spawnCollect(["npx", "tsx", CLI_BIN, ...args], {
+    const res = await runCliInProcess(["npx", "tsx", CLI_BIN, ...args], {
       env: { ...process.env, NO_COLOR: "1", HOME: home },
     });
     return {
@@ -6391,12 +6582,17 @@ version: 1.0.0
       // Create an existing file
       await writeFile(outputFile, "existing content");
 
-      // Export without --force should fail (no TTY)
-      const { stderr, exitCode } = await runCLI(
-        "bundle",
-        "export",
-        bundleName,
-        outputFile,
+      // Export without --force should fail (no TTY). This must spawn: the
+      // command calls process.exit(1) inside a try/catch that also covers the
+      // fs access check, so the in-process sentinel throw would be swallowed
+      // by that catch and the file would be overwritten (bundle.ts).
+      const {
+        stdout: _o,
+        stderr,
+        exitCode,
+      } = await spawnCollect(
+        ["npx", "tsx", CLI_BIN, "bundle", "export", bundleName, outputFile],
+        { env: { ...process.env, NO_COLOR: "1" } },
       );
       expect(exitCode).toBe(1);
       expect(stderr).toContain("already exists");
@@ -6581,7 +6777,7 @@ One line of body text.
   async function runGet(
     ...args: string[]
   ): Promise<{ stdout: string; stderr: string; exitCode: number }> {
-    const res = await spawnCollect(["npx", "tsx", CLI_BIN, "get", ...args], {
+    const res = await runCliInProcess(["npx", "tsx", CLI_BIN, "get", ...args], {
       env: { ...process.env, HOME: home, NO_COLOR: "1" },
     });
     return {
@@ -6889,8 +7085,23 @@ describe("asm get --path and cleanup (issue #654)", () => {
     "---\nname: borrow-fixture\ndescription: Full skill fixture\n---\n# Borrow fixture\n";
   const binary = Buffer.from([0, 255, 128, 1]);
 
-  async function run(...args: string[]) {
+  // Cross-process borrow-lock tests (the concurrency case below) still need
+  // real spawned children — one process cannot hold two OS-level borrowers.
+  function runSpawned(...args: string[]) {
     return spawnCollect(["npx", "tsx", CLI_BIN, ...args], {
+      cwd: tempDir,
+      env: {
+        ...process.env,
+        HOME: home,
+        USERPROFILE: home,
+        ASM_CONFIG_DIR: configDir,
+        NO_COLOR: "1",
+      },
+    });
+  }
+
+  async function run(...args: string[]) {
+    return runCliInProcess(["npx", "tsx", CLI_BIN, ...args], {
       cwd: tempDir,
       env: {
         ...process.env,
@@ -7043,15 +7254,15 @@ describe("asm get --path and cleanup (issue #654)", () => {
 
   test("isolates concurrent subprocess borrows and serializes cross-process cleanup", async () => {
     const gets = await Promise.all([
-      run("get", sourceDir, "--path"),
-      run("get", sourceDir, "--path"),
+      runSpawned("get", sourceDir, "--path"),
+      runSpawned("get", sourceDir, "--path"),
     ]);
     expect(gets.map((r) => r.exitCode)).toEqual([0, 0]);
     const [one, two] = gets.map((r) => r.stdout.trim());
     expect(one).not.toBe(two);
     const cleanups = await Promise.all([
-      run("cleanup", one, "--json"),
-      run("cleanup", one, "--json"),
+      runSpawned("cleanup", one, "--json"),
+      runSpawned("cleanup", one, "--json"),
     ]);
     expect(cleanups.map((r) => r.exitCode)).toEqual([0, 0]);
     expect(cleanups.map((r) => JSON.parse(r.stdout).status).sort()).toEqual([
@@ -7149,7 +7360,7 @@ describe("asm deps (issue #621)", () => {
   let configDir: string;
 
   async function runDeps(...args: string[]) {
-    return spawnCollect(["npx", "tsx", CLI_BIN, "deps", ...args], {
+    return runCliInProcess(["npx", "tsx", CLI_BIN, "deps", ...args], {
       env: {
         ...process.env,
         HOME: join(tempDir, "home"),
