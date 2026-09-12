@@ -24,7 +24,7 @@ That is the authoritative range: Node **>= 22 and < 27**, npm **>= 9**. Note the
 **upper bound** — Node 27+ is outside the declared range.
 
 - CI (`.github/workflows/ci.yml`) runs unit tests and both e2e jobs on a Node
-  `22, 24` matrix; the `build` job pins Node `22`.
+  `22, 24, 26` matrix; the `build` job pins Node `22`.
 - `docs/DEVELOPMENT.md` and `CONTRIBUTING.md` state the same bounded range.
   If they ever diverge from `engines`, treat `engines` as correct.
 - **The measurements below were taken on Node `v26.7.0` / npm `11.19.0`** —

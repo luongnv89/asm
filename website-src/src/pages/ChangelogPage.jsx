@@ -27,6 +27,113 @@ function issue(n) {
 
 const ENTRIES = [
   {
+    version: "2.20.0",
+    date: "2026-09-12",
+    sections: [
+      {
+        tag: "added",
+        items: [
+          <>
+            Persistent full-directory borrowing on <code>asm get --path</code> —
+            ephemeral callers now receive the whole skill directory (supporting
+            scripts, templates, references, and binary assets) instead of just
+            the SKILL.md body, with explicit cleanup via the new{" "}
+            <code>asm cleanup &lt;borrowed-path&gt;</code> command that only
+            removes ASM-owned borrows ({issue(654)}, {pr(655)})
+          </>,
+          <>
+            TUI message-honesty pass — a search-emptied list now says{" "}
+            <code>no matches for &quot;&lt;query&gt;&quot;</code> instead of the
+            misleading <code>(no skills found)</code>, the <code>?</code> help
+            panel gains a legend explaining the <code>~</code> /{" "}
+            <code>→link</code> / <code>dir</code> and invoke glyphs,{" "}
+            <code>q</code> in the config view now discards unsaved toggles (
+            <code>Esc</code> still saves and closes), and the editor key is
+            labeled honestly as <code>Edit file & exit</code> ({issue(679)},{" "}
+            {pr(701)})
+          </>,
+        ],
+      },
+      {
+        tag: "performance",
+        items: [
+          <>
+            O(1) realPath dedupe in the auditor and four-way concurrent{" "}
+            <code>asm library update --all</code> ({issue(680)}, {pr(704)})
+          </>,
+        ],
+      },
+      {
+        tag: "fixed",
+        items: [
+          <>
+            Parse shellcheck&apos;s <code>json1</code> report from stdout in the
+            evaluator — findings were read from stderr, so every shell-script
+            lint result collapsed into a generic exit-code warning and
+            file/line/severity never surfaced ({issue(663)}, {pr(688)})
+          </>,
+          <>
+            Verify security-workflow tool downloads — gitleaks and trivy
+            tarballs now pass a pinned SHA256 check before extraction and
+            semgrep is pinned with a Renovate bump path ({issue(665)}, {pr(689)}
+            )
+          </>,
+          <>
+            Turn the load-bearing <code>patch-ts6.cjs</code> workaround&apos;s
+            silent skip into a loud failure via a new <code>--check</code>{" "}
+            tripwire across all CI call sites — its eventual removal is tracked
+            in {issue(699)} ({issue(676)}, {pr(700)})
+          </>,
+          <>
+            Run the three orphaned e2e files — registry plus both TUI suites —
+            in the <code>e2e-node</code> CI leg so they no longer only run
+            locally ({issue(660)}, {pr(684)})
+          </>,
+        ],
+      },
+      {
+        tag: "changed",
+        items: [
+          <>
+            Eliminate every <code>any</code> from product source — 53 sites
+            across 26 files, mostly <code>catch</code> bindings now narrowed
+            through a shared <code>errorMessage(err: unknown)</code> helper (
+            {issue(675)}, {pr(698)})
+          </>,
+          <>
+            Split the six &gt;900-line modules into focused units behind
+            behavior-preserving facades, and split the 7,567-line{" "}
+            <code>cli.test.ts</code> into per-command groups ({issue(677)},{" "}
+            {pr(703)}, {issue(678)}, {pr(702)})
+          </>,
+          <>
+            Make the CLI commands layer coverage-visible and re-baseline, and
+            cover evaluator batch-fix and detail-failure paths ({issue(673)},{" "}
+            {pr(695)}, {issue(674)}, {pr(697)})
+          </>,
+          <>
+            Add Node 26 to all CI test matrices and bump dependencies — vitest
+            4→5 (clearing GHSA-82fw-gwwq-j7x9), @vitejs/plugin-react 4→6,
+            globals v17, lucide-react v1, jsdom v30, tailwind-merge v3 (
+            {issue(666)}, {pr(691)}, {issue(662)}, {pr(687)}, {issue(664)},{" "}
+            {pr(690)})
+          </>,
+        ],
+      },
+      {
+        tag: "docs",
+        items: [
+          <>
+            Sync docs with shipped code — ARCHITECTURE.md aligned to the{" "}
+            <code>commands/</code> layout, stale agent-docs and recorded
+            environment facts corrected, CI moderate-advisory policy documented
+            ({pr(682)}, {pr(683)}, {pr(685)}, {pr(686)})
+          </>,
+        ],
+      },
+    ],
+  },
+  {
     version: "2.19.0",
     date: "2026-09-09",
     sections: [

@@ -1,3 +1,51 @@
+## v2.20.0 — 2026-09-12
+
+### Features
+
+- TUI message honesty: filtered-empty lists name the search query, the `?` help view gains a legend for `~`, `→link`/`dir`, and `Invoke` glyphs, `q` in the config view discards changes instead of saving, and the editor key is honestly labeled `Edit file & exit` ([#679](https://github.com/luongnv89/asm/issues/679)) ([#701](https://github.com/luongnv89/asm/pull/701)) — @luongnv89
+- Borrow full skill directories with `asm get --path` — supporting scripts, templates, references, and binary assets come along via a dedicated get-borrows lease — plus `asm cleanup <borrowed-path>` for explicit, ASM-owned-only cleanup ([#654](https://github.com/luongnv89/asm/issues/654)) ([#655](https://github.com/luongnv89/asm/pull/655)) — @luongnv89
+
+### Bug Fixes
+
+- Add a `patch-ts6.cjs --check` tripwire after each CI patch step so silent TypeScript 6 symlink failure fails loudly, with removal tracked in [#699](https://github.com/luongnv89/asm/issues/699) ([#676](https://github.com/luongnv89/asm/issues/676)) ([#700](https://github.com/luongnv89/asm/pull/700)) — @luongnv89
+- Verify security-workflow tool downloads: gitleaks and trivy tarballs pass a pinned SHA256 gate before extraction, and semgrep is pinned to `==1.177.0` under a Renovate customManager ([#665](https://github.com/luongnv89/asm/issues/665)) ([#689](https://github.com/luongnv89/asm/pull/689)) — @luongnv89
+- Parse shellcheck's `--format=json1` report from stdout instead of stderr so structured lint findings surface instead of collapsing into a generic "Linter exited with code" warning ([#663](https://github.com/luongnv89/asm/issues/663)) ([#688](https://github.com/luongnv89/asm/pull/688)) — @luongnv89
+
+### Performance Improvements
+
+- Make auditor realPath dedupe O(1) via an index map instead of O(n²) `indexOf` scans, and run `asm library update --all` through a 4-wide worker pool ([#680](https://github.com/luongnv89/asm/issues/680)) ([#704](https://github.com/luongnv89/asm/pull/704)) — @luongnv89
+
+### Refactoring
+
+- Split the six >900-line modules — `formatter-core`, `stats`, `security-auditor`, `evaluator-core`, `dependency-leases` — into focused siblings behind facade re-exports; `commands/install-run.ts` stays whole with a documented cohesion rationale ([#677](https://github.com/luongnv89/asm/issues/677)) ([#703](https://github.com/luongnv89/asm/pull/703)) — @luongnv89
+- Eliminate every `any` in `src/` product source — 53 sites across 26 files — via a shared `errorMessage(err: unknown)` helper and explicit narrowing ([#675](https://github.com/luongnv89/asm/issues/675)) ([#698](https://github.com/luongnv89/asm/pull/698)) — @luongnv89
+
+### Testing
+
+- Split the 7,567-line `cli.test.ts` into 15 per-command `cli-<group>.test.ts` files mirroring `src/commands/`, with the shared in-process harness extracted to `cli-test-harness.ts` ([#678](https://github.com/luongnv89/asm/issues/678)) ([#702](https://github.com/luongnv89/asm/pull/702)) — @luongnv89
+- Cover `evaluator-batch`, `evaluator-fix`, and `formatter-detail` failure paths with 86 new tests, bringing all three modules to 100% statement coverage ([#674](https://github.com/luongnv89/asm/issues/674)) ([#697](https://github.com/luongnv89/asm/pull/697)) — @luongnv89
+- Convert CLI command dispatch from tsx subprocesses to in-process `runCLI()` calls, lifting `src/commands/` coverage from 10.53% to 63.74% and re-baselining `CLAUDE.md` ([#673](https://github.com/luongnv89/asm/issues/673)) ([#695](https://github.com/luongnv89/asm/pull/695)) — @luongnv89
+- Run the orphaned `registry-e2e`, `tui-smoke`, and `tui-integration` files in the `e2e-node` CI leg so every e2e file runs in CI ([#660](https://github.com/luongnv89/asm/issues/660)) ([#684](https://github.com/luongnv89/asm/pull/684)) — @luongnv89
+
+### Documentation
+
+- Document the moderate-advisory policy — Renovate `osvVulnerabilityAlerts` owns moderate/low advisories while CI gates on high/critical — in the audit script header and `docs/security/moderate-advisory-policy.md` ([#661](https://github.com/luongnv89/asm/issues/661)) ([#686](https://github.com/luongnv89/asm/pull/686)) — @luongnv89
+- Align `ARCHITECTURE.md` with the `src/commands/` dispatcher layout and reconcile stale claims across `docs/` ([#681](https://github.com/luongnv89/asm/issues/681)) ([#685](https://github.com/luongnv89/asm/pull/685)) — @luongnv89
+- Correct stale `cli.ts` and `engines` claims in `CLAUDE.md` and repoint `AGENTS.md`'s cli-surface-reviewer at `src/commands/` ([#658](https://github.com/luongnv89/asm/issues/658)) ([#659](https://github.com/luongnv89/asm/issues/659)) ([#683](https://github.com/luongnv89/asm/pull/683)) — @luongnv89
+- Refresh recorded environment facts — node `>=22 <27`, npm `>=9` — in `CLAUDE.md` and `docs/AGENT_ENVIRONMENT.md` ([#657](https://github.com/luongnv89/asm/issues/657)) ([#682](https://github.com/luongnv89/asm/pull/682)) — @luongnv89
+
+### Chores
+
+- Bump `lucide-react` 0.468 → 1.41 (brand icons were dropped, so the `Github` icon moves to a local `icons.jsx`) and `jsdom` 25 → 30 ([#671](https://github.com/luongnv89/asm/issues/671)) ([#672](https://github.com/luongnv89/asm/issues/672)) ([#696](https://github.com/luongnv89/asm/pull/696)) — @luongnv89
+- Bump `globals` 15 → 17 and `tailwind-merge` 2 → 3 ([#667](https://github.com/luongnv89/asm/issues/667)) ([#668](https://github.com/luongnv89/asm/issues/668)) ([#694](https://github.com/luongnv89/asm/pull/694)) — @luongnv89
+- Bump `vitest`, `@vitest/coverage-v8`, and `@vitest/ui` 4 → 5 — await newly-failing unawaited async assertions and drop the dead `esbuild.jsx` config block ([#670](https://github.com/luongnv89/asm/issues/670)) ([#693](https://github.com/luongnv89/asm/pull/693)) — @luongnv89
+- Bump `@vitejs/plugin-react` 4 → 6 ([#669](https://github.com/luongnv89/asm/issues/669)) ([#692](https://github.com/luongnv89/asm/pull/692)) — @luongnv89
+- Add Node 26 to the `unit-tests`, `e2e-node`, and `e2e-npm-install` CI matrices so CI covers the full `engines` range ([#666](https://github.com/luongnv89/asm/issues/666)) ([#691](https://github.com/luongnv89/asm/pull/691)) — @luongnv89
+- Bump 8 devDependencies to their latest in-major versions — `@testing-library/react`, `@types/node`, `@types/react-dom`, `eslint`, `react-router-dom`, `tsx`, `typescript-eslint`, `vite` ([#664](https://github.com/luongnv89/asm/issues/664)) ([#690](https://github.com/luongnv89/asm/pull/690)) — @luongnv89
+- Bump the vitest group to 4.1.11 to clear the GHSA-82fw-gwwq-j7x9 advisory ([#662](https://github.com/luongnv89/asm/issues/662)) ([#687](https://github.com/luongnv89/asm/pull/687)) — @luongnv89
+
+**Full Changelog**: https://github.com/luongnv89/asm/compare/v2.19.0...v2.20.0
+
 ## v2.19.0 — 2026-09-09
 
 ### Features

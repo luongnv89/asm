@@ -60,7 +60,7 @@ npm start
 GitHub Actions runs on every push to `main` and on all PRs:
 
 1. Checkout code
-2. Setup Node.js (matrix: 22, 24)
+2. Setup Node.js (matrix: 22, 24, 26)
 3. Install dependencies (`npm ci`)
 4. Run unit tests (`npx vitest run src/`)
 5. Audit production dependencies (`npx tsx scripts/ci-npm-audit.ts --omit=dev`) in a separate `audit` job (timeout 5 min, per-step 3 min) — hard-fails on high/critical advisories; skips (exit 0, not a lockfile rebuild) when the npm audit endpoint returns HTTP 400, is retired, or hangs past 90s (#608)

@@ -637,7 +637,8 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | `asm search <query>` | Search by name/description/provider |
 | `asm tag add\|remove` | Edit local tags on an installed skill |
 | `asm inspect <skill-name>` | Show detailed info for a skill |
-| `asm get <skill>` | Print a skill's body, install nothing |
+| `asm get <skill>` | Print a skill's body, install nothing — `--path` borrows the full directory |
+| `asm cleanup <path>` | Remove a directory borrowed by `asm get --path` |
 | `asm deps discover\|acquire\|release\|cleanup` | Manage caller-owned temporary dependency leases |
 | `asm install <source>` | Install from GitHub or registry |
 | `asm publish [path]` | Publish to ASM Registry |

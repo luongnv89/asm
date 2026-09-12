@@ -134,7 +134,7 @@ Providers register unconditionally. Environment checks (binary present, API key 
 ### 5. Add tests and docs
 
 - Unit tests co-located at `index.test.ts`.
-- An integration test in `src/cli.test.ts` (if the provider needs CLI plumbing).
+- An integration test in `src/cli-eval.test.ts` (if the provider needs CLI plumbing).
 - A short paragraph in `docs/eval-providers.md` and an entry in `docs/ARCHITECTURE.md`.
 
 ## See also
