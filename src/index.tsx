@@ -429,6 +429,14 @@ export function App({ initialConfig }: AppProps) {
 export async function main() {
   const config = await loadConfig();
 
+  if (!process.stdin.isTTY) {
+    console.error(
+      'asm: the interactive TUI requires a terminal (stdin is not a TTY). Run "asm --help" for CLI usage.',
+    );
+    process.exitCode = 1;
+    return;
+  }
+
   // Match the opentui `useAlternateScreen: true` behavior — draw the TUI in
   // the alternate screen buffer so the dashboard doesn't pollute the user's
   // shell scrollback after quit. The escape constants are module-scoped so

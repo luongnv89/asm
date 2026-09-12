@@ -89,10 +89,15 @@ export async function cmdTag(args: ParsedArgs): Promise<void> {
       action === "add"
         ? addSkillTags(state, key, skill.tags, parsedTags.tags)
         : removeSkillTags(state, key, skill.tags, parsedTags.tags);
+    const applied =
+      action === "add"
+        ? tags.filter((tag) => !before.includes(tag))
+        : before.filter((tag) => !tags.includes(tag));
     results.push({
       name: skill.name,
       path: skill.realPath,
       tags,
+      applied,
       changed: JSON.stringify(before) !== JSON.stringify(tags),
     });
   }

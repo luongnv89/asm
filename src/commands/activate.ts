@@ -1,6 +1,7 @@
 import { loadConfig, resolveProviderPath } from "../config";
 import { ansi } from "../formatter";
 import { resolveProvider } from "../installer";
+import { resolveInstallScope } from "../installer-link";
 import type { ProviderConfig } from "../utils/types";
 import {
   activateLibrarySkill,
@@ -19,7 +20,7 @@ Link a centrally installed library skill into a provider skill folder.
 
 ${ansi.bold("Options:")}
   -p, --tool <name>      Provider to activate into (e.g., claude, codex)
-  -s, --scope <scope>    Activation scope: global or project
+  -s, --scope <scope>    Activation scope: global or project (default: prompt)
   --name <name>          Link name to create (default: library directory name)
   -f, --force            Replace an existing target
   --json                 Output as JSON object
@@ -37,7 +38,7 @@ Remove a centrally activated library skill from a provider skill folder.
 
 ${ansi.bold("Options:")}
   -p, --tool <name>      Provider to deactivate from (e.g., claude, codex)
-  -s, --scope <scope>    Activation scope: global or project
+  -s, --scope <scope>    Deactivation scope: global or project (default: prompt)
   --json                 Output as JSON object
   -V, --verbose          Show debug output
 
@@ -61,11 +62,6 @@ export async function cmdActivate(args: ParsedArgs) {
     process.exit(2);
   }
 
-  if (args.flags.scope === "both") {
-    error("Activation requires --scope global or --scope project.");
-    process.exit(2);
-  }
-
   const rows = await listLibrarySkills();
   const skill = findLibrarySkill(rows, skillName);
   if (!skill) {
@@ -85,8 +81,21 @@ export async function cmdActivate(args: ParsedArgs) {
     args.flags.provider,
     process.stdin.isTTY,
   );
+  let scope: "global" | "project";
+  try {
+    scope = await resolveInstallScope({
+      scopeFlag: args.flags.scope,
+      provider,
+      isTTY: !!process.stdin.isTTY,
+      yes: args.flags.yes,
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    error(message);
+    process.exit(1);
+  }
   const targetTemplate =
-    args.flags.scope === "global" ? provider.global : provider.project;
+    scope === "global" ? provider.global : provider.project;
   const targetDir = resolveProviderPath(targetTemplate);
   const activationName = args.flags.name || skill.dirName;
   const result = await activateLibrarySkill({
@@ -100,7 +109,7 @@ export async function cmdActivate(args: ParsedArgs) {
     name: activationName,
     skill: skill.dirName,
     provider: provider.name,
-    scope: args.flags.scope,
+    scope,
     path: result.symlinkPath,
     target: result.targetPath,
   };
@@ -111,7 +120,7 @@ export async function cmdActivate(args: ParsedArgs) {
   }
 
   console.log(
-    `${ansi.green("✓")} activated ${activationName} (${provider.name}/${args.flags.scope}) -> ${result.targetPath}`,
+    `${ansi.green("✓")} activated ${activationName} (${provider.name}/${scope}) -> ${result.targetPath}`,
   );
 }
 
@@ -128,11 +137,6 @@ export async function cmdDeactivate(args: ParsedArgs) {
     process.exit(2);
   }
 
-  if (args.flags.scope === "both") {
-    error("Deactivation requires --scope global or --scope project.");
-    process.exit(2);
-  }
-
   const config = await loadConfig();
   let provider: ProviderConfig;
   try {
@@ -146,14 +150,20 @@ export async function cmdDeactivate(args: ParsedArgs) {
   }
 
   try {
+    const scope = await resolveInstallScope({
+      scopeFlag: args.flags.scope,
+      provider,
+      isTTY: !!process.stdin.isTTY,
+      yes: args.flags.yes,
+    });
     const targetTemplate =
-      args.flags.scope === "global" ? provider.global : provider.project;
+      scope === "global" ? provider.global : provider.project;
     const targetDir = resolveProviderPath(targetTemplate);
     const result = await deactivateLibrarySkill({
       targetDir,
       activationName: skillName,
       provider: provider.name,
-      scope: args.flags.scope,
+      scope,
     });
 
     if (args.flags.json) {

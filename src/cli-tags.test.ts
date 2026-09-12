@@ -44,6 +44,7 @@ describe("CLI integration: local skill tags", () => {
       "testing",
       "automation",
     ]);
+    expect(JSON.parse(added.stdout)[0].applied).toEqual(["automation"]);
 
     const removed = await runCLI(
       "tag",
@@ -54,7 +55,24 @@ describe("CLI integration: local skill tags", () => {
     );
     expect(removed.exitCode).toBe(0);
     expect(JSON.parse(removed.stdout)[0].tags).toEqual(["cli", "automation"]);
+    expect(JSON.parse(removed.stdout)[0].applied).toEqual(["testing"]);
     expect(await readFile(join(skillDir, "SKILL.md"), "utf-8")).toBe(before);
+  });
+
+  test("inspect --json reflects local tag edits", async () => {
+    const added = await runCLI("tag", "add", skillName, "automation", "--json");
+    expect(added.exitCode).toBe(0);
+
+    const inspected = await runCLI("inspect", skillName, "--json");
+    expect(inspected.exitCode).toBe(0);
+    const data = JSON.parse(inspected.stdout);
+    const skill = Array.isArray(data) ? data[0] : data;
+    expect(skill.tags).toEqual(["cli", "testing", "automation"]);
+
+    const inspectedText = await runCLI("inspect", skillName);
+    expect(inspectedText.exitCode).toBe(0);
+    expect(inspectedText.stdout).toContain("Tags:");
+    expect(inspectedText.stdout).toContain("automation");
   });
 
   test("list and search accept repeatable AND tag filters", async () => {

@@ -379,10 +379,41 @@ describe("formatTagUpdates", () => {
   test("formats changed and unchanged effective tags", () => {
     expect(
       formatTagUpdates("add", [
-        { name: "review", path: "/review", tags: ["cli"], changed: true },
-        { name: "test", path: "/test", tags: [], changed: false },
+        {
+          name: "review",
+          path: "/review",
+          tags: ["cli"],
+          applied: ["cli"],
+          changed: true,
+        },
+        {
+          name: "test",
+          path: "/test",
+          tags: [],
+          applied: [],
+          changed: false,
+        },
       ]),
     ).toBe("Added tags to review: cli\nAdded tags to test: (none) (unchanged)");
+  });
+
+  test("remove shows the removed tags and the remaining set", () => {
+    expect(
+      formatTagUpdates("remove", [
+        {
+          name: "s",
+          path: "/s",
+          tags: ["testing"],
+          applied: ["e2e"],
+          changed: true,
+        },
+      ]),
+    ).toBe("Removed tags from s: e2e — now: testing");
+    expect(
+      formatTagUpdates("remove", [
+        { name: "s", path: "/s", tags: [], applied: [], changed: false },
+      ]),
+    ).toBe("Removed tags from s: (none) (unchanged)");
   });
 });
 
