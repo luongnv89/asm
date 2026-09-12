@@ -1,14 +1,14 @@
 /**
- * Direct-import tests for `formatter-core.ts` internals.
+ * Direct-import tests for `formatter-colors.ts` internals.
  *
  * The #455 split newly exported `useColor`, `providerBadge`, and
- * `toolRiskWarning` from `formatter-core.ts` for cross-module wiring, but they
+ * `toolRiskWarning` from `formatter-core.ts` (now `formatter-colors.ts`, #677) for cross-module wiring, but they
  * are deliberately NOT re-exported through the `./formatter` facade, so
  * `formatter.test.ts` cannot reach them. These tests import them directly.
  */
 import { describe, it, expect, afterEach } from "vitest";
 
-import { useColor, providerBadge, toolRiskWarning } from "./formatter-core";
+import { useColor, providerBadge, toolRiskWarning } from "./formatter-colors";
 
 const ORIG_NO_COLOR = process.env.NO_COLOR;
 const ORIG_IS_TTY = process.stdout.isTTY;
