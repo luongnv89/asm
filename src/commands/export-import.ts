@@ -14,6 +14,7 @@ import type {
 } from "../utils/types";
 
 import { error, readLine } from "./shared";
+import { errorMessage } from "../utils/errors";
 import type { ParsedArgs } from "../cli";
 
 function printExportHelp() {
@@ -182,8 +183,8 @@ export async function cmdImport(args: ParsedArgs) {
   let manifest;
   try {
     manifest = await readManifestFile(absPath);
-  } catch (err: any) {
-    error(err.message);
+  } catch (err) {
+    error(errorMessage(err));
     process.exit(1);
   }
 

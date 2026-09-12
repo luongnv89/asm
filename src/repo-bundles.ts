@@ -359,7 +359,7 @@ function normalizeExplicitBundle(
   relPath: string,
 ): RepoBundleManifest | null {
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
-  const obj = raw as Record<string, any>;
+  const obj = raw as Record<string, unknown>;
   const rawSkills = Array.isArray(obj.skills) ? obj.skills : [];
   if (rawSkills.length === 0) return null;
 
@@ -373,7 +373,7 @@ function normalizeExplicitBundle(
         }
         if (!entry || typeof entry !== "object" || Array.isArray(entry))
           return null;
-        const skill = entry as Record<string, any>;
+        const skill = entry as Record<string, unknown>;
         const name = typeof skill.name === "string" ? skill.name : "";
         if (!name) return null;
         const match = byName.get(name);
@@ -507,8 +507,10 @@ export async function discoverExplicitRepoBundles(
   const candidates = await readBundleCandidates(repoRoot);
 
   for (const candidate of candidates) {
-    const data = candidate.data as any;
-    const bundleInputs = Array.isArray(data?.bundles) ? data.bundles : [data];
+    const data = candidate.data as { bundles?: unknown } | null;
+    const bundleInputs: unknown[] = Array.isArray(data?.bundles)
+      ? data.bundles
+      : [data];
     for (const input of bundleInputs) {
       const bundle = normalizeExplicitBundle(
         input,

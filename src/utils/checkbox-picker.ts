@@ -260,7 +260,7 @@ export async function checkboxPicker(
 
   const output = process.stderr;
   const input = process.stdin;
-  const width = (output as any).columns || 80;
+  const width = output.columns || 80;
 
   // Enable raw mode
   if (typeof input.setRawMode === "function") {

@@ -46,6 +46,7 @@ import {
 } from "../utils/machine";
 import { relative as relativePath } from "path";
 import { toPortableRelativePath } from "../utils/fs";
+import { errorMessage } from "../utils/errors";
 import { error, readLine } from "./shared";
 import type { ParsedArgs } from "../cli";
 import { promptInstallScope } from "./install-prompts";
@@ -232,8 +233,8 @@ export async function cmdInstall(args: ParsedArgs) {
         if (!stats.isDirectory()) {
           throw new Error(`Path is not a directory: ${localPath}`);
         }
-      } catch (err: any) {
-        if (err.code === "ENOENT") {
+      } catch (err) {
+        if ((err as NodeJS.ErrnoException | null)?.code === "ENOENT") {
           throw new Error(`Path does not exist: ${localPath}`, { cause: err });
         }
         throw err;
@@ -403,8 +404,8 @@ export async function cmdInstall(args: ParsedArgs) {
               `No SKILL.md found at path "${effectivePath}" in the repository.`,
             );
           }
-        } catch (statErr: any) {
-          if (statErr && statErr.code === "ENOENT") {
+        } catch (statErr) {
+          if ((statErr as NodeJS.ErrnoException | null)?.code === "ENOENT") {
             throw new Error(
               `No SKILL.md found at path "${effectivePath}" in the repository.`,
               { cause: statErr },
@@ -796,13 +797,14 @@ export async function cmdInstall(args: ParsedArgs) {
           } catch {
             // Lock write failure is non-fatal
           }
-        } catch (linkErr: any) {
+        } catch (linkErr) {
+          const linkMessage = errorMessage(linkErr);
           failures.push({
             name: inspection.metadata.name,
-            error: linkErr.message,
+            error: linkMessage,
           });
           console.error(
-            `${progress}${ansi.red("✗")} ${ansi.bold(inspection.metadata.name)} — ${ansi.red(linkErr.message)}`,
+            `${progress}${ansi.red("✗")} ${ansi.bold(inspection.metadata.name)} — ${ansi.red(linkMessage)}`,
           );
         }
         continue;
@@ -862,13 +864,14 @@ export async function cmdInstall(args: ParsedArgs) {
             // Lock write failure is non-fatal
           }
         }
-      } catch (installErr: any) {
+      } catch (installErr) {
+        const installMessage = errorMessage(installErr);
         failures.push({
           name: inspection.metadata.name,
-          error: installErr.message,
+          error: installMessage,
         });
         console.error(
-          `${progress}${ansi.red("✗")} ${ansi.bold(inspection.metadata.name)} — ${ansi.red(installErr.message)}`,
+          `${progress}${ansi.red("✗")} ${ansi.bold(inspection.metadata.name)} — ${ansi.red(installMessage)}`,
         );
       }
     }
@@ -926,10 +929,13 @@ export async function cmdInstall(args: ParsedArgs) {
         `\n${ansi.green(`Done! Installed ${results.length} skill(s) successfully.`)}`,
       );
     }
-  } catch (err: any) {
+  } catch (err) {
     // Remove signal handlers
     process.removeListener("SIGINT", cleanup);
     process.removeListener("SIGTERM", cleanup);
+
+    const message = errorMessage(err);
+    const duplicates = (err as { duplicates?: unknown } | null)?.duplicates;
 
     if (args.flags.machine) {
       restoreConsole?.();
@@ -937,22 +943,22 @@ export async function cmdInstall(args: ParsedArgs) {
         formatMachineError(
           "install",
           ErrorCodes.INSTALL_FAILED,
-          err.message,
+          message,
           startTime,
-          err?.duplicates ? { duplicates: err.duplicates } : undefined,
+          duplicates ? { duplicates } : undefined,
         ),
       );
     } else if (args.flags.json) {
       const payload: Record<string, unknown> = {
         success: false,
-        error: err.message,
+        error: message,
       };
-      if (err?.duplicates) {
-        payload.duplicates = err.duplicates;
+      if (duplicates) {
+        payload.duplicates = duplicates;
       }
       console.log(JSON.stringify(payload, null, 2));
     } else {
-      error(err.message);
+      error(message);
     }
     process.exit(1);
   } finally {

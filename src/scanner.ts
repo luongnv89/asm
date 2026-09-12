@@ -244,7 +244,7 @@ function buildScanLocations(config: AppConfig, scope: Scope): ScanLocation[] {
 
 export async function countFiles(dir: string): Promise<number> {
   try {
-    const entries = await readdir(dir, { recursive: true } as any);
+    const entries = await readdir(dir, { recursive: true });
     return entries.length;
   } catch {
     return 0;

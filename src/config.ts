@@ -330,8 +330,8 @@ export async function loadConfig(): Promise<AppConfig> {
   let raw: string;
   try {
     raw = await readFile(configPath, "utf-8");
-  } catch (err: any) {
-    if (err?.code === "ENOENT") {
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException | null)?.code === "ENOENT") {
       // Config doesn't exist — silently use defaults
       debug("config: using defaults (file not found)");
       const config = getDefaultConfig();

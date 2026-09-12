@@ -139,7 +139,7 @@ export async function cmdDeactivate(args: ParsedArgs) {
     provider = (
       await resolveProvider(config, args.flags.provider, process.stdin.isTTY)
     ).provider;
-  } catch (err: any) {
+  } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     error(message);
     process.exit(2);
@@ -164,7 +164,7 @@ export async function cmdDeactivate(args: ParsedArgs) {
     console.log(
       `${ansi.green("✓")} deactivated ${result.name} (${result.provider}/${result.scope}) -> ${result.target}`,
     );
-  } catch (err: any) {
+  } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     if (args.flags.json) {
       console.log(JSON.stringify({ error: message }, null, 2));

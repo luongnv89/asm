@@ -10,6 +10,7 @@ import type {
   SecurityAuditReport,
   SecurityVerdict,
 } from "./utils/types";
+import { errorMessage } from "./utils/errors";
 
 // ─── Code Scan Patterns ─────────────────────────────────────────────────────
 
@@ -318,8 +319,8 @@ export async function analyzeSource(
     debug(
       `security-audit: source analysis for ${owner} -> repos=${result.publicRepos}, org=${result.isOrganization}, age=${result.accountAge}`,
     );
-  } catch (err: any) {
-    result.fetchError = err.message || "Failed to fetch GitHub profile";
+  } catch (err) {
+    result.fetchError = errorMessage(err) || "Failed to fetch GitHub profile";
     debug(`security-audit: source analysis failed -> ${result.fetchError}`);
   }
 
