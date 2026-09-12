@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) >= 22 (with npm >= 9) (`package.json:engines`)
+- [Node.js](https://nodejs.org/) >= 22 and < 27 (with npm >= 9) (`package.json:engines`)
 - [Git](https://git-scm.com/)
 - [pre-commit](https://pre-commit.com/) (optional, for git hooks)
 
@@ -44,8 +44,8 @@ traps (scripts that rewrite tracked files; the unit suite writing to your real
 `~/.config/agent-skill-manager/`) are recorded in
 [AGENT_ENVIRONMENT.md](AGENT_ENVIRONMENT.md).
 
-Test files are co-located with source files using the `*.test.ts` convention.
-50 `*.test.ts` files live under `src/`, one per module — e.g. `cli.test.ts`,
+Test files are co-located with source files using the `*.test.ts` convention
+(`*.test.tsx` for views), one per module — e.g. `cli.test.ts`,
 `scanner.test.ts`, `installer.test.ts`, `eval/*.test.ts`. Run `npm test` for
 the full, current list.
 
