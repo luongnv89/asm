@@ -410,6 +410,86 @@ describe("detectDuplicates", () => {
     expect(report.totalDuplicateInstances).toBe(0);
   });
 
+  it("keeps the preferred winner at the first-seen slot across ≥3 same-realPath entries", () => {
+    // Regression guard for the O(1) dedupe map (#680): three skills share one
+    // realPath, interleaved with unique entries. The last preference-winner
+    // (global-scope, non-symlink) must win and stay at the first-seen slot.
+    const shared = "/home/user/.agents/skills/code-review";
+    const skills = [
+      makeSkill({
+        dirName: "code-review",
+        name: "code-review",
+        path: "/home/user/.claude/skills/code-review",
+        realPath: shared,
+        location: "global-claude",
+        provider: "claude",
+        isSymlink: true,
+        symlinkTarget: "../../.agents/skills/code-review",
+      }),
+      makeSkill({
+        dirName: "uniq-one",
+        name: "uniq-one",
+        path: "/home/user/.agents/skills/uniq-one",
+        realPath: "/home/user/.agents/skills/uniq-one",
+        location: "global-agents",
+      }),
+      makeSkill({
+        dirName: "code-review",
+        name: "code-review",
+        path: "/home/user/.agents/skills/code-review",
+        realPath: shared,
+        location: "project-agents",
+        scope: "project",
+        provider: "agents",
+        isSymlink: false,
+      }),
+      makeSkill({
+        dirName: "uniq-two",
+        name: "uniq-two",
+        path: "/home/user/.agents/skills/uniq-two",
+        realPath: "/home/user/.agents/skills/uniq-two",
+        location: "global-agents",
+      }),
+      makeSkill({
+        dirName: "code-review",
+        name: "code-review",
+        path: shared,
+        originalPath: shared,
+        realPath: shared,
+        location: "global-agents",
+        scope: "global",
+        provider: "agents",
+        isSymlink: false,
+      }),
+      // Same dirName but a different realPath — forces a Rule-1 group so the
+      // dedupe winner is observable in `instances`.
+      makeSkill({
+        dirName: "code-review",
+        name: "code-review",
+        path: "/work/repo/.agents/skills/code-review",
+        realPath: "/work/repo/.agents/skills/code-review",
+        location: "project-agents",
+        scope: "project",
+        provider: "agents",
+        isSymlink: false,
+      }),
+    ];
+    const report = detectDuplicates(skills);
+    const group = report.duplicateGroups.find(
+      (g) => g.key === "code-review" && g.reason === "same-dirName",
+    );
+    expect(group).toBeDefined();
+    // Winner is the global-scope non-symlink, holding the first-seen slot.
+    expect(group!.instances.map((i) => i.path)).toEqual([
+      "/home/user/.agents/skills/code-review",
+      "/work/repo/.agents/skills/code-review",
+    ]);
+    // The three same-realPath rows collapsed into one instance.
+    expect(group!.instances.filter((i) => i.realPath === shared)).toHaveLength(
+      1,
+    );
+  });
+
   it("still groups genuinely separate global and project copies", () => {
     const skills = [
       makeSkill({
