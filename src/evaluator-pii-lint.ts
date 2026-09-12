@@ -239,7 +239,7 @@ interface LintFinding {
  * Run a linter on a single script file and return structured findings.
  * Returns null when the linter is unavailable.
  */
-async function runLinter(
+export async function runLinter(
   filePath: string,
   ext: string,
 ): Promise<LintFinding[] | null> {
@@ -283,9 +283,14 @@ async function runLinter(
         return findings;
       }
 
-      // Shellcheck JSON output
+      // Shellcheck JSON output — shellcheck --format=json1 emits the report
+      // on stdout as {"comments": [...]} (the legacy json format is a bare
+      // array); runCommand keeps stdout and stderr separate.
       try {
-        const issues = JSON.parse(result.stderr);
+        const parsed: unknown = JSON.parse(result.stdout);
+        const issues = Array.isArray(parsed)
+          ? parsed
+          : (parsed as { comments?: unknown }).comments;
         const findings: LintFinding[] = [];
         if (Array.isArray(issues)) {
           for (const issue of issues) {
@@ -313,7 +318,7 @@ async function runLinter(
             file: filePath,
             line: 0,
             severity: "warning",
-            message: `Linter exited with code ${result.exitCode}: ${result.stderr.slice(0, 200)}`,
+            message: `Linter exited with code ${result.exitCode}: ${(result.stderr || result.stdout).slice(0, 200)}`,
           },
         ];
       }
