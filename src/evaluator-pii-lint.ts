@@ -284,9 +284,13 @@ export async function runLinter(
       }
 
       // Shellcheck JSON output — shellcheck --format=json1 emits the report
-      // on stdout; runCommand keeps stdout and stderr separate.
+      // on stdout as {"comments": [...]} (the legacy json format is a bare
+      // array); runCommand keeps stdout and stderr separate.
       try {
-        const issues = JSON.parse(result.stdout);
+        const parsed: unknown = JSON.parse(result.stdout);
+        const issues = Array.isArray(parsed)
+          ? parsed
+          : (parsed as { comments?: unknown }).comments;
         const findings: LintFinding[] = [];
         if (Array.isArray(issues)) {
           for (const issue of issues) {

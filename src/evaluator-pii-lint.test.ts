@@ -53,9 +53,11 @@ describe("runLinter", () => {
         message: "Not following: file not specified.",
       },
     ];
+    // shellcheck --format=json1 wraps the comments array in an object:
+    // {"comments": [...]} — a bare array is the legacy --format=json shape.
     runCommandMock.mockResolvedValue({
       exitCode: 1,
-      stdout: JSON.stringify(payload),
+      stdout: JSON.stringify({ comments: payload }),
       stderr: "",
     });
 
@@ -96,7 +98,7 @@ describe("runLinter", () => {
     ];
     runCommandMock.mockResolvedValue({
       exitCode: 1,
-      stdout: JSON.stringify(payload),
+      stdout: JSON.stringify({ comments: payload }),
       stderr: "",
     });
 
