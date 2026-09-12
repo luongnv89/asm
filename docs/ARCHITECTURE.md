@@ -178,13 +178,16 @@ flowchart LR
 
 ## State Management
 
-Application state is held in module-level variables in `src/index.tsx`:
+Application state lives in React hooks inside the root component in
+`src/index.tsx` (`useState`, with `filteredSkills` derived via `useMemo`):
 
 - `allSkills` / `filteredSkills` — current skill data
-- `currentScope` / `currentSort` / `searchQuery` — filter state
-- `viewState` — which overlay is active (`dashboard`, `detail`, `confirm`, `config`, `help`, `duplicates`)
+- `scope` / `sort` / `searchQuery` — filter state
+- `view` — the active overlay (`ViewState`: `dashboard`, `detail`, `confirm`,
+  `help`, `config`, `audit`; the `audit` state renders `duplicates.tsx`)
 
-State transitions are driven by keyboard events and propagated to views via update functions.
+State transitions are driven by keyboard events (`useInput`) and propagated to
+views via props and callback setters.
 
 ## Duplicate Detection (`src/auditor.ts`)
 
