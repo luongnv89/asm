@@ -62,6 +62,7 @@ export interface SkillListProps {
   visibleCount: number;
   termWidth: number;
   hasScanned: boolean;
+  searchQuery: string;
 }
 
 export function SkillListView({
@@ -70,6 +71,7 @@ export function SkillListView({
   visibleCount,
   termWidth,
   hasScanned,
+  searchQuery,
 }: SkillListProps) {
   const descWidth = calcDescWidth(termWidth);
   const descHeader = descWidth > 0 ? " Description" : "";
@@ -101,7 +103,12 @@ export function SkillListView({
       <Text color={theme.fgDim}> Skills ({total})</Text>
       <Text color={theme.fgDim}>{header}</Text>
       {total === 0 && hasScanned && (
-        <Text color={theme.fgDim}> (no skills found)</Text>
+        <Text color={theme.fgDim}>
+          {" "}
+          {searchQuery
+            ? `no matches for "${searchQuery}"`
+            : "(no skills found)"}
+        </Text>
       )}
       {showTopIndicator && <Text color={theme.fgDim}> ↑ more above</Text>}
       {visible.map((s, i) => {

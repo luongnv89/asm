@@ -58,6 +58,7 @@ describe("TUI smoke test (issue #224)", () => {
         visibleCount={5}
         termWidth={120}
         hasScanned={true}
+        searchQuery=""
       />,
     );
     expect(emptyView.lastFrame() ?? "").toContain("(no skills found)");
@@ -70,6 +71,7 @@ describe("TUI smoke test (issue #224)", () => {
         visibleCount={5}
         termWidth={120}
         hasScanned={true}
+        searchQuery=""
       />,
     );
     expect(populatedView.lastFrame() ?? "").toContain("sample-skill");

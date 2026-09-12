@@ -53,12 +53,43 @@ describe("SkillListView row width", () => {
         visibleCount={5}
         termWidth={200}
         hasScanned={true}
+        searchQuery=""
       />,
     );
     const frame = lastFrame() ?? "";
     expect(frame).toContain("Invoke");
     // formatInvocability("model", true, false) === "model".
     expect(frame).toContain("model");
+    unmount();
+  });
+});
+
+describe("SkillListView empty state", () => {
+  const renderEmpty = (searchQuery: string) =>
+    render(
+      <SkillListView
+        skills={[]}
+        selectedIndex={0}
+        visibleCount={5}
+        termWidth={200}
+        hasScanned={true}
+        searchQuery={searchQuery}
+      />,
+    );
+
+  it("names the query when a search filter emptied the list", () => {
+    const { lastFrame, unmount } = renderEmpty("foobar");
+    const frame = lastFrame() ?? "";
+    expect(frame).toContain('no matches for "foobar"');
+    expect(frame).not.toContain("(no skills found)");
+    unmount();
+  });
+
+  it("keeps the empty-install message when no query is active", () => {
+    const { lastFrame, unmount } = renderEmpty("");
+    const frame = lastFrame() ?? "";
+    expect(frame).toContain("(no skills found)");
+    expect(frame).not.toContain("no matches for");
     unmount();
   });
 });

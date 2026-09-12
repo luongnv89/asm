@@ -171,6 +171,11 @@ export function App({ initialConfig }: AppProps) {
     // config identity, so no manual rescan is required here.
   }, []);
 
+  const handleConfigDiscard = useCallback(() => {
+    // q in the config view: drop in-session toggles — nothing is persisted.
+    setView("dashboard");
+  }, []);
+
   const handleConfigEditor = useCallback(async () => {
     // Exit the ink app to hand the terminal to $EDITOR, then let the process
     // die so the user re-runs asm with the updated config.
@@ -382,6 +387,7 @@ export function App({ initialConfig }: AppProps) {
             visibleCount={visibleListRows}
             termWidth={termWidth}
             hasScanned={hasScanned}
+            searchQuery={searchQuery}
           />
           <DashboardFooter
             refreshFeedback={refreshFeedback}
@@ -405,6 +411,7 @@ export function App({ initialConfig }: AppProps) {
         <ConfigView
           config={config}
           onClose={handleConfigClose}
+          onDiscard={handleConfigDiscard}
           onOpenEditor={handleConfigEditor}
         />
       )}
