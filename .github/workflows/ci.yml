@@ -170,7 +170,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Node.js E2E tests
-        run: npx vitest run tests/e2e/node-e2e.test.ts tests/e2e/build-verification.test.ts
+        # registry-e2e resolves via an injected ASM_REGISTRY_CACHE (no network
+        # needed for resolution); the tui-* files render via ink-testing-library
+        # on virtual stdin/stdout, so no TTY is required (#660).
+        run: npx vitest run tests/e2e/node-e2e.test.ts tests/e2e/build-verification.test.ts tests/e2e/registry-e2e.test.ts tests/e2e/tui-smoke.test.tsx tests/e2e/tui-integration.test.tsx
 
   e2e-npm-install:
     needs: build
