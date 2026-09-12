@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/kepano/obsidian-skills.git",
   "owner": "kepano",
   "repo": "obsidian-skills",
-  "updatedAt": "2026-09-09T12:10:04.747Z",
-  "skillCount": 5,
+  "updatedAt": "2026-09-12T21:40:22.603Z",
+  "skillCount": 6,
   "skills": [
     {
       "name": "defuddle",
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T12:10:04.739Z",
+        "evaluatedAt": "2026-09-12T21:40:22.597Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T12:10:04.741Z",
+          "evaluatedAt": "2026-09-12T21:40:22.597Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T12:10:04.741Z",
+          "evaluatedAt": "2026-09-12T21:40:22.597Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -263,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T12:10:04.741Z",
+        "evaluatedAt": "2026-09-12T21:40:22.597Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -336,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T12:10:04.741Z",
+          "evaluatedAt": "2026-09-12T21:40:22.597Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -354,7 +354,184 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T12:10:04.741Z",
+          "evaluatedAt": "2026-09-12T21:40:22.598Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "knap",
+      "description": "Render Markdown from templates and structured data using Knap CLI. Use when the user asks to apply a Knap template, turn JSON or CSV data into notes, batch-generate Markdown files, or format Defuddle output into a note.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:kepano/obsidian-skills:skills/knap",
+      "relPath": "skills/knap",
+      "verified": true,
+      "tokenCount": 1142,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-12T21:40:22.597Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-12T21:40:22.598Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-12T21:40:22.598Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -440,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T12:10:04.741Z",
+        "evaluatedAt": "2026-09-12T21:40:22.597Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -513,7 +690,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T12:10:04.741Z",
+          "evaluatedAt": "2026-09-12T21:40:22.598Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -531,7 +708,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T12:10:04.741Z",
+          "evaluatedAt": "2026-09-12T21:40:22.598Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -617,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T12:10:04.741Z",
+        "evaluatedAt": "2026-09-12T21:40:22.597Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -690,7 +867,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T12:10:04.741Z",
+          "evaluatedAt": "2026-09-12T21:40:22.598Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -708,7 +885,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T12:10:04.741Z",
+          "evaluatedAt": "2026-09-12T21:40:22.598Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -794,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-09T12:10:04.741Z",
+        "evaluatedAt": "2026-09-12T21:40:22.597Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -867,7 +1044,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-09T12:10:04.741Z",
+          "evaluatedAt": "2026-09-12T21:40:22.598Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -885,7 +1062,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-09T12:10:04.741Z",
+          "evaluatedAt": "2026-09-12T21:40:22.598Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -894,10 +1071,46 @@
   "bundles": [
     {
       "version": 1,
+      "name": "kepano-obsidian-skills-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from kepano/obsidian-skills.",
+      "author": "ASM (kepano/obsidian-skills)",
+      "createdAt": "2026-09-12T21:40:22.603Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "kepano",
+        "obsidian-skills"
+      ],
+      "skills": [
+        {
+          "name": "knap",
+          "installUrl": "github:kepano/obsidian-skills:skills/knap",
+          "description": "Render Markdown from templates and structured data using Knap CLI. Use when the user asks to apply a Knap template, turn JSON or CSV data into notes, batch-generate Markdown files, or format Defuddle output into a note.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "obsidian-bases",
+          "installUrl": "github:kepano/obsidian-skills:skills/obsidian-bases",
+          "description": "Create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries. Use when working with .base files, creating database-like views of notes, or when the user mentions Bases, table views, card views, filters, or formulas in Obsidian.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "kepano",
+        "repo": "obsidian-skills",
+        "repoUrl": "https://github.com/kepano/obsidian-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
       "name": "kepano-obsidian-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from kepano/obsidian-skills.",
       "author": "ASM (kepano/obsidian-skills)",
-      "createdAt": "2026-09-09T12:10:04.747Z",
+      "createdAt": "2026-09-12T21:40:22.603Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -912,6 +1125,12 @@
           "name": "defuddle",
           "installUrl": "github:kepano/obsidian-skills:skills/defuddle",
           "description": "Extract clean markdown content from web pages using Defuddle CLI, removing clutter and navigation to save tokens. Use instead of WebFetch when the user provides a URL to read or analyze, for online documentation, articles, blog posts, or any standard web page. Do NOT use for URLs ending in .md — those are already markdown, use WebFetch directly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "knap",
+          "installUrl": "github:kepano/obsidian-skills:skills/knap",
+          "description": "Render Markdown from templates and structured data using Knap CLI. Use when the user asks to apply a Knap template, turn JSON or CSV data into notes, batch-generate Markdown files, or format Defuddle output into a note.",
           "version": "0.0.0"
         },
         {
@@ -933,7 +1152,7 @@
       "name": "kepano-obsidian-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from kepano/obsidian-skills.",
       "author": "ASM (kepano/obsidian-skills)",
-      "createdAt": "2026-09-09T12:10:04.747Z",
+      "createdAt": "2026-09-12T21:40:22.603Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -969,7 +1188,7 @@
       "name": "kepano-obsidian-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from kepano/obsidian-skills.",
       "author": "ASM (kepano/obsidian-skills)",
-      "createdAt": "2026-09-09T12:10:04.747Z",
+      "createdAt": "2026-09-12T21:40:22.603Z",
       "tags": [
         "repo-derived",
         "inferred",
