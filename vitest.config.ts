@@ -21,7 +21,4 @@ export default defineConfig({
       reporter: ["text", "text-summary"],
     },
   },
-  esbuild: {
-    jsx: "automatic",
-  },
 });
