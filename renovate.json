@@ -16,5 +16,16 @@
       "matchManagers": ["github-actions"],
       "pinDigests": true
     }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^\\.github/workflows/security\\.yml$"],
+      "matchStrings": [
+        "# renovate: datasource=pypi depName=semgrep\\s+python -m pip install \"?semgrep==(?<currentValue>[^\"'\\s]+)"
+      ],
+      "datasourceTemplate": "pypi",
+      "depNameTemplate": "semgrep"
+    }
   ]
 }
