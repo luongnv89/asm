@@ -36,8 +36,9 @@ denominators below are not comparable to the vitest-4 #438 baseline; keep
 - Lines: **82.69%** (8740/10569)
 - Branches: **73.74%** (5393/7313)
 
-`src/commands/` measures **63.74%** lines (#673): `cli.test.ts` dispatches
-`runCLI()` in-process instead of spawning `tsx` children that v8 could not
+`src/commands/` measures **63.74%** lines (#673): `src/cli-*.test.ts` dispatches
+`runCLI()` in-process via `src/cli-test-harness.ts` instead of spawning `tsx`
+children that v8 could not
 attribute (the layer previously read 10.53%). Still subprocess-bound by
 design: the `runInlineTs` readLine tests (stdin pipes need a real child), the
 cross-process borrow-lock test under `asm get --path`, and one `bundle export`
