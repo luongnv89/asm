@@ -125,27 +125,26 @@ export function detectDuplicates(skills: SkillInfo[]): AuditReport {
 
   // Deduplicate skills that resolve to the same real path (e.g. symlinks).
   // Keep the non-symlink (real directory) when possible; otherwise keep the first.
-  const seenRealPaths = new Map<string, SkillInfo>();
+  const seenIndexByRealPath = new Map<string, number>();
   const deduped: SkillInfo[] = [];
   for (const s of skills) {
-    const existing = seenRealPaths.get(s.realPath);
-    if (existing) {
+    const existingIndex = seenIndexByRealPath.get(s.realPath);
+    if (existingIndex !== undefined) {
+      const existing = deduped[existingIndex];
       // Prefer the non-symlink entry
       if (s.isSymlink) continue;
       // Current is not a symlink but existing is — replace it
       if (existing.isSymlink) {
-        deduped[deduped.indexOf(existing)] = s;
-        seenRealPaths.set(s.realPath, s);
+        deduped[existingIndex] = s;
       }
       // Both non-symlinks with the same realPath — one physical install
       // (e.g. cwd === $HOME so ~/.agents/skills and ./.agents/skills collide).
       // Prefer global scope; otherwise keep the first seen instance.
       else if (s.scope === "global" && existing.scope !== "global") {
-        deduped[deduped.indexOf(existing)] = s;
-        seenRealPaths.set(s.realPath, s);
+        deduped[existingIndex] = s;
       }
     } else {
-      seenRealPaths.set(s.realPath, s);
+      seenIndexByRealPath.set(s.realPath, deduped.length);
       deduped.push(s);
     }
   }
