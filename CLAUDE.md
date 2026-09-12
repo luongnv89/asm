@@ -41,13 +41,13 @@ M3's coverage target is bound to **`max(60%, baseline + 20pp)`**:
 - Branches: `max(60%, 102.52%)` = **100%** (formula saturates at 100)
 
 Node and npm must satisfy `package.json` `engines` — node `">=22 <27"`, npm
-`">=9"`. Mind the upper bound: `CONTRIBUTING.md` and `docs/DEVELOPMENT.md` still
-state a floor with no ceiling, and `engines` is the one that is correct.
+`">=9"`.
 
 ## Architecture map
 
 - `bin/agent-skill-manager.ts` — entry point: args go to `src/cli.ts`, none to the TUI.
-- `src/cli.ts` — ~30 `cmd*` handlers, all output through `src/formatter.ts`.
+- `src/cli.ts` — argv dispatcher routing to the `cmd*` handler modules in
+  `src/commands/`; all output through `src/formatter.ts`.
 - `src/index.tsx` + `src/views/` — the ink/React TUI.
 - `src/*.ts` — one module per domain (scanner, installer, auditor, skill-index, …),
   each with its `*.test.ts` beside it.
