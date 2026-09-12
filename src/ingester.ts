@@ -19,6 +19,7 @@ import {
   mergeRepoBundles,
 } from "./repo-bundles";
 import { estimateTokenCount } from "./utils/token-count";
+import { errorMessage } from "./utils/errors";
 import { evaluateSkillContent, runWithConcurrency } from "./evaluator";
 import { getEvalProviders } from "./eval/builtins";
 import { runProvider } from "./eval/runner";
@@ -57,8 +58,8 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
   let source: ParsedSource;
   try {
     source = parseSource(sourceInput);
-  } catch (err: any) {
-    return { success: false, repoIndex: null, error: err.message };
+  } catch (err) {
+    return { success: false, repoIndex: null, error: errorMessage(err) };
   }
 
   if (source.isLocal) {
@@ -72,8 +73,8 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
 
   try {
     assertNoParentSegments(source, sourceInput);
-  } catch (err: any) {
-    return { success: false, repoIndex: null, error: err.message };
+  } catch (err) {
+    return { success: false, repoIndex: null, error: errorMessage(err) };
   }
 
   debug(`ingester: cloning ${source.owner}/${source.repo}`);
@@ -251,8 +252,8 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
     debug(`ingester: wrote index to ${outputFile}`);
 
     return { success: true, repoIndex };
-  } catch (err: any) {
-    return { success: false, repoIndex: null, error: err.message };
+  } catch (err) {
+    return { success: false, repoIndex: null, error: errorMessage(err) };
   } finally {
     if (tempDir) {
       await cleanupTemp(tempDir);

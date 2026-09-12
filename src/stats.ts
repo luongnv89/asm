@@ -22,7 +22,7 @@ import type {
 export async function dirSize(dirPath: string): Promise<number> {
   let total = 0;
   try {
-    const entries = await readdir(dirPath, { recursive: true } as any);
+    const entries = await readdir(dirPath, { recursive: true });
     const statPromises = entries.map(async (entry) => {
       try {
         const s = await stat(join(dirPath, entry));

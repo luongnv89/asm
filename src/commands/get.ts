@@ -36,6 +36,7 @@ import { estimateTokenCount } from "../utils/token-count";
 import { findLibrarySkill, listLibrarySkills } from "../library";
 import { join as joinPath } from "path";
 import type { GetResult, GetSecurityVerdict, GetTier } from "../utils/types";
+import { errorMessage } from "../utils/errors";
 
 import { error } from "./shared";
 import type { ParsedArgs } from "../cli";
@@ -391,8 +392,8 @@ export async function cmdGet(args: ParsedArgs) {
       process.stdout.write(result.content);
       if (!result.content.endsWith("\n")) process.stdout.write("\n");
     }
-  } catch (err: any) {
-    const message = err?.message || String(err);
+  } catch (err) {
+    const message = errorMessage(err) || String(err);
     const candidates =
       err instanceof AmbiguousGetError ? err.candidates : undefined;
     if (args.flags.machine) {

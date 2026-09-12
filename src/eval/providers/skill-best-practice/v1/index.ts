@@ -9,6 +9,7 @@ import type {
   Finding,
   SkillContext,
 } from "../../../types";
+import { errorMessage } from "../../../../utils/errors";
 
 const PROVIDER_ID = "skill-best-practice";
 const PROVIDER_VERSION = "1.2.0";
@@ -142,14 +143,14 @@ async function validate(ctx: SkillContext): Promise<{
   let parsed: unknown;
   try {
     parsed = parseYaml(frontmatterBlock);
-  } catch (err: any) {
+  } catch (err) {
     pushCheck(
       checks,
       "invalid-yaml",
       "Frontmatter parses as YAML",
       false,
       "error",
-      `Invalid YAML in frontmatter: ${err?.message ?? String(err)}`,
+      `Invalid YAML in frontmatter: ${errorMessage(err)}`,
     );
     const raw = buildRaw(ctx, checks, null);
     return {

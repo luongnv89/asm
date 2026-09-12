@@ -13,6 +13,7 @@ import { resolve } from "path";
 import type { Scope } from "../utils/types";
 
 import { error, readLine } from "./shared";
+import { errorMessage } from "../utils/errors";
 import type { ParsedArgs } from "../cli";
 
 function printUninstallHelp() {
@@ -118,16 +119,17 @@ export async function cmdUninstall(args: ParsedArgs) {
       undefined,
       relocationInfo?.needed ? relocationInfo : undefined,
     );
-  } catch (err: any) {
+  } catch (err) {
     // executeRemoval throws when a relocation rename/EXDEV-fallback fails.
     // Surface any partial log entries (including the failure message it
     // pushed before throwing) so the user sees what happened, then exit
     // non-zero — don't print "Done." for a half-finished uninstall.
-    const partialLog: string[] = Array.isArray(err?.log) ? err.log : [];
+    const rawLog = (err as { log?: unknown } | null)?.log;
+    const partialLog: string[] = Array.isArray(rawLog) ? rawLog : [];
     for (const entry of partialLog) {
       console.error(entry);
     }
-    error(err?.message || "Uninstall failed.");
+    error(errorMessage(err) || "Uninstall failed.");
     process.exit(1);
   }
   for (const entry of log) {

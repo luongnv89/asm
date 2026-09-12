@@ -8,6 +8,7 @@ import {
 } from "../utils/machine";
 
 import { error } from "./shared";
+import { errorMessage } from "../utils/errors";
 import type { ParsedArgs } from "../cli";
 
 function printPublishHelp() {
@@ -146,14 +147,15 @@ export async function cmdPublish(args: ParsedArgs) {
         ansi.dim("The registry maintainers will review your submission."),
       );
     }
-  } catch (err: any) {
+  } catch (err) {
+    const message = errorMessage(err);
     if (args.flags.machine) {
       restoreConsole?.();
       console.log(
         formatMachineError(
           "publish",
           ErrorCodes.PUBLISH_FAILED,
-          err.message,
+          message,
           startTime,
         ),
       );
@@ -166,7 +168,7 @@ export async function cmdPublish(args: ParsedArgs) {
             success: false,
             manifest: null,
             pr_url: null,
-            error: err.message,
+            error: message,
             security_verdict: null,
           },
           null,
@@ -175,7 +177,7 @@ export async function cmdPublish(args: ParsedArgs) {
       );
       process.exit(1);
     }
-    error(err.message);
+    error(message);
     process.exit(1);
   }
 }

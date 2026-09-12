@@ -37,6 +37,7 @@ import {
   formatOverlapReport,
   formatOverlapReportJSON,
 } from "../installed-overlap";
+import { errorMessage } from "../utils/errors";
 
 import { formatAuditMachineData, error } from "./shared";
 import type { ParsedArgs } from "../cli";
@@ -443,19 +444,20 @@ export async function cmdAuditSecuritySource(
     } else {
       console.log(formatSecurityReport(report));
     }
-  } catch (err: any) {
+  } catch (err) {
+    const message = errorMessage(err);
     if (args.flags.machine) {
       console.log(
         formatMachineError(
           "audit security",
           ErrorCodes.AUDIT_FAILED,
-          err.message,
+          message,
           startTime,
         ),
       );
       process.exit(1);
     }
-    error(err.message);
+    error(message);
     process.exit(1);
   } finally {
     if (tempDir) {

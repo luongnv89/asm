@@ -14,6 +14,7 @@ import {
 } from "../utils/machine";
 
 import { error } from "./shared";
+import { errorMessage } from "../utils/errors";
 import type { ParsedArgs } from "../cli";
 
 function printOutdatedHelp() {
@@ -72,20 +73,21 @@ export async function cmdOutdated(args: ParsedArgs) {
     if (summary.outdatedCount > 0) {
       process.exitCode = 1;
     }
-  } catch (err: any) {
+  } catch (err) {
+    const message = errorMessage(err);
     if (args.flags.machine) {
       restoreConsole?.();
       console.log(
         formatMachineError(
           "outdated",
           ErrorCodes.UNKNOWN_ERROR,
-          err.message,
+          message,
           startTime,
         ),
       );
       process.exit(1);
     }
-    error(err.message);
+    error(message);
     process.exit(1);
   }
 }
@@ -218,20 +220,21 @@ export async function cmdUpdate(args: ParsedArgs) {
     if (summary.failedCount > 0) {
       process.exitCode = 1;
     }
-  } catch (err: any) {
+  } catch (err) {
+    const message = errorMessage(err);
     if (args.flags.machine) {
       restoreConsole?.();
       console.log(
         formatMachineError(
           "update",
           ErrorCodes.UNKNOWN_ERROR,
-          err.message,
+          message,
           startTime,
         ),
       );
       process.exit(1);
     }
-    error(err.message);
+    error(message);
     process.exit(1);
   }
 }

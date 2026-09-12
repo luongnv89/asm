@@ -27,6 +27,7 @@ import {
   removeBundle,
 } from "../bundler";
 import type { BundleSkillRef } from "../utils/types";
+import { errorMessage } from "../utils/errors";
 import { join as joinPath } from "path";
 
 import { error, readLine } from "./shared";
@@ -221,8 +222,8 @@ export async function cmdBundle(args: ParsedArgs) {
       let bundle;
       try {
         bundle = await loadBundle(nameOrPath);
-      } catch (err: any) {
-        error(err.message);
+      } catch (err) {
+        error(errorMessage(err));
         process.exit(1);
       }
 
@@ -289,8 +290,8 @@ export async function cmdBundle(args: ParsedArgs) {
           isTTY: !!process.stdin.isTTY,
           yes: !!args.flags.yes,
         });
-      } catch (err: any) {
-        error(err.message);
+      } catch (err) {
+        error(errorMessage(err));
         process.exit(1);
       }
 
@@ -372,8 +373,8 @@ export async function cmdBundle(args: ParsedArgs) {
             // Check if skill already exists; skip unless --force
             try {
               await checkConflict(plan.targetDir, plan.force);
-            } catch (conflictErr: any) {
-              if (conflictErr.message?.includes("--force")) {
+            } catch (conflictErr) {
+              if (errorMessage(conflictErr).includes("--force")) {
                 results.push({
                   name: skill.name,
                   status: "skipped",
@@ -399,13 +400,14 @@ export async function cmdBundle(args: ParsedArgs) {
               await cleanupTemp(tempDir);
             }
           }
-        } catch (err: any) {
+        } catch (err) {
+          const reason = errorMessage(err);
           results.push({
             name: skill.name,
             status: "failed",
-            reason: err.message,
+            reason,
           });
-          console.error(`    ${ansi.red("!!!")} ${skill.name}: ${err.message}`);
+          console.error(`    ${ansi.red("!!!")} ${skill.name}: ${reason}`);
         }
       }
 
@@ -537,8 +539,8 @@ export async function cmdBundle(args: ParsedArgs) {
       let bundle;
       try {
         bundle = await loadBundle(nameOrPath);
-      } catch (err: any) {
-        error(err.message);
+      } catch (err) {
+        error(errorMessage(err));
         process.exit(1);
       }
 
@@ -593,8 +595,8 @@ export async function cmdBundle(args: ParsedArgs) {
       let removed: boolean;
       try {
         removed = await removeBundle(bundleName);
-      } catch (err: any) {
-        error(err.message);
+      } catch (err) {
+        error(errorMessage(err));
         process.exit(1);
       }
 
@@ -620,8 +622,8 @@ export async function cmdBundle(args: ParsedArgs) {
       let bundle: import("../utils/types").BundleManifest;
       try {
         bundle = await loadBundle(bundleName);
-      } catch (err: any) {
-        error(err.message);
+      } catch (err) {
+        error(errorMessage(err));
         process.exit(1);
       }
 
@@ -772,8 +774,8 @@ export async function cmdBundle(args: ParsedArgs) {
       let bundle: import("../utils/types").BundleManifest;
       try {
         bundle = await loadBundle(bundleName);
-      } catch (err: any) {
-        error(err.message);
+      } catch (err) {
+        error(errorMessage(err));
         process.exit(1);
       }
 

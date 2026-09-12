@@ -39,8 +39,9 @@ export async function loadSkillTagState(
   let raw: string;
   try {
     raw = await readFile(statePath, "utf-8");
-  } catch (error: any) {
-    if (error?.code === "ENOENT") return emptySkillTagState();
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException | null)?.code === "ENOENT")
+      return emptySkillTagState();
     throw error;
   }
 

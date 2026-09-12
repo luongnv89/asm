@@ -83,8 +83,8 @@ async function readLockFile(lockPath: string): Promise<LockFile> {
   let raw: string;
   try {
     raw = await readFile(lockPath, "utf-8");
-  } catch (err: any) {
-    if (err?.code === "ENOENT") {
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException | null)?.code === "ENOENT") {
       debug("lock: file not found, returning empty lock");
       return createEmptyLock();
     }
