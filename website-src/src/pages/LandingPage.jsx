@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Github } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { Github } from "../components/icons.jsx";
 import { useCatalog } from "../hooks/useCatalog.jsx";
 import CopyButton from "../components/CopyButton.jsx";
 import Reveal from "../components/Reveal.jsx";

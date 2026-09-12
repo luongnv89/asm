@@ -6,14 +6,8 @@ import {
   useRef,
   useState,
 } from "react";
-import {
-  X,
-  Download,
-  Github,
-  Trash2,
-  ExternalLink,
-  ShoppingCart,
-} from "lucide-react";
+import { X, Download, Trash2, ExternalLink, ShoppingCart } from "lucide-react";
+import { Github } from "./icons.jsx";
 import { Link } from "react-router-dom";
 import { useBundleCart } from "../hooks/useBundleCart.jsx";
 import {
