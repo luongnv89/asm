@@ -21,6 +21,8 @@ export interface TagUpdateResult {
   name: string;
   path: string;
   tags: string[];
+  /** Tags this call actually added/removed (diff of before vs after). */
+  applied: string[];
   changed: boolean;
 }
 
@@ -31,9 +33,14 @@ export function formatTagUpdates(
   const verb = action === "add" ? "Added tags to" : "Removed tags from";
   return results
     .map((result) => {
-      const tags = result.tags.length > 0 ? result.tags.join(", ") : "(none)";
+      const applied =
+        result.applied.length > 0 ? result.applied.join(", ") : "(none)";
+      const remaining =
+        action === "remove" && result.changed
+          ? ` — now: ${result.tags.length > 0 ? result.tags.join(", ") : "(none)"}`
+          : "";
       const suffix = result.changed ? "" : " (unchanged)";
-      return `${verb} ${ansi.bold(result.name)}: ${tags}${suffix}`;
+      return `${verb} ${ansi.bold(result.name)}: ${applied}${remaining}${suffix}`;
     })
     .join("\n");
 }

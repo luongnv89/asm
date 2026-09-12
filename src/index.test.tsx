@@ -1,5 +1,5 @@
 import React from "react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { act } from "react";
 import { render } from "ink-testing-library";
 import type { SkillInfo, AppConfig, AuditReport } from "./utils/types";
@@ -494,6 +494,48 @@ describe("App container", () => {
 // waitUntilExit resolves immediately, exercising the bootstrap + restore path
 // without spawning a real interactive terminal.
 describe("main()", () => {
+  // main() refuses to start the TUI when stdin is not a TTY; vitest workers
+  // have no TTY, so the bootstrap tests must stub it.
+  const origStdinTTY = process.stdin.isTTY;
+  beforeEach(() => {
+    Object.defineProperty(process.stdin, "isTTY", {
+      value: true,
+      configurable: true,
+    });
+  });
+  afterEach(() => {
+    Object.defineProperty(process.stdin, "isTTY", {
+      value: origStdinTTY,
+      configurable: true,
+    });
+  });
+
+  it("refuses to start the TUI when stdin is not a TTY", async () => {
+    Object.defineProperty(process.stdin, "isTTY", {
+      value: false,
+      configurable: true,
+    });
+    const { main } = await import("./index");
+    const writeSpy = vi
+      .spyOn(process.stdout, "write")
+      .mockImplementation(() => true);
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const prevExitCode = process.exitCode;
+    process.exitCode = undefined;
+
+    await main();
+
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("requires a terminal"),
+    );
+    expect(writeSpy).not.toHaveBeenCalledWith("\u001b[?1049h");
+    expect(process.exitCode).toBe(1);
+
+    process.exitCode = prevExitCode;
+    writeSpy.mockRestore();
+    errorSpy.mockRestore();
+  });
+
   it("loads config, renders the app, and restores the alt-screen buffer on exit", async () => {
     const { main } = await import("./index");
     const writeSpy = vi
