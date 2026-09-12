@@ -40,7 +40,7 @@ M3's coverage target is bound to **`max(60%, baseline + 20pp)`**:
 - Lines: `max(60%, 80.61%)` = **80.61%**
 - Branches: `max(60%, 102.52%)` = **100%** (formula saturates at 100)
 
-Node and npm must satisfy `package.json` `engines` — node `">=18 <23"`, npm
+Node and npm must satisfy `package.json` `engines` — node `">=22 <27"`, npm
 `">=9"`. Mind the upper bound: `CONTRIBUTING.md` and `docs/DEVELOPMENT.md` still
 state a floor with no ceiling, and `engines` is the one that is correct.
 
