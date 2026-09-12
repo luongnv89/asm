@@ -176,16 +176,16 @@ export {
   formatSkillTable,
   formatCompactTable,
   shortenPath,
-  GroupByAxis,
   formatGroupedTable,
   applyListLimit,
   formatGroupByTable,
   LARGE_LIST_THRESHOLD,
   formatListSummary,
 } from "./formatter-table";
+export type { GroupByAxis } from "./formatter-table";
 export {
   formatAvailableSearchResults,
-  AvailableSkillResult,
   wordWrap,
   formatSearchResults,
 } from "./formatter-search";
+export type { AvailableSkillResult } from "./formatter-search";
