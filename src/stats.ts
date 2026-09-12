@@ -7,6 +7,7 @@ import {
   residentTokens,
 } from "./utils/token-count";
 import type { SkillInfo, AuditReport, StatsReport } from "./utils/types";
+import { bar } from "./stats-index";
 
 export async function dirSize(dirPath: string): Promise<number> {
   let total = 0;
@@ -79,18 +80,6 @@ export function formatHumanSize(bytes: number): string {
   if (bytes < 1024 * 1024 * 1024)
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
-}
-
-// ─── Bar chart helper ───────────────────────────────────────────────────────
-
-export function bar(
-  value: number,
-  maxValue: number,
-  maxWidth: number = 20,
-): string {
-  const filled = Math.round((value / maxValue) * maxWidth);
-  const empty = maxWidth - filled;
-  return ansi.green("#".repeat(filled)) + ansi.dim("-".repeat(empty));
 }
 
 // ─── Provider label mapping ─────────────────────────────────────────────────

@@ -6,8 +6,19 @@ import type {
   AuthorStatsReport,
   IndexStatsReport,
 } from "./utils/types";
-import { bar } from "./stats";
 // Split from stats.ts (issue #677).
+
+// ─── Bar chart helper ───────────────────────────────────────────────────────
+
+export function bar(
+  value: number,
+  maxValue: number,
+  maxWidth: number = 20,
+): string {
+  const filled = Math.round((value / maxValue) * maxWidth);
+  const empty = maxWidth - filled;
+  return ansi.green("#".repeat(filled)) + ansi.dim("-".repeat(empty));
+}
 
 // ─── Per-Repo Stats ─────────────────────────────────────────────────────────
 

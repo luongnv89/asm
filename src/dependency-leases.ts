@@ -23,8 +23,6 @@ import type {
   DependencyStaleCleanupResult,
 } from "./utils/types";
 import {
-  DependencyLeasePaths,
-  AcquireDependencyInput,
   validateSessionId,
   requestKey,
   sessionPath,
@@ -43,6 +41,10 @@ import {
   writeSession,
   usableAcquisition,
   findAcquiredDependencyUnlocked,
+} from "./dependency-leases-store";
+import type {
+  DependencyLeasePaths,
+  AcquireDependencyInput,
 } from "./dependency-leases-store";
 
 export interface DependencyLeaseTransaction {
