@@ -1,26 +1,26 @@
 {
-  "generatedAt": "2026-09-09T08:23:24.097Z",
+  "generatedAt": "2026-09-13T05:18:33.244Z",
   "stats": {
     "totalRepos": 77,
-    "totalSkills": 6082,
+    "totalSkills": 6115,
     "totalAuthors": 65,
     "categoryDistribution": {
-      "ai-agents": 2285,
+      "ai-agents": 2283,
       "productivity": 1829,
-      "general": 540,
-      "security": 766,
-      "coding": 1598,
-      "testing": 1354,
-      "design": 843,
-      "backend": 834,
+      "general": 556,
+      "security": 770,
+      "coding": 1597,
+      "testing": 1346,
+      "design": 847,
+      "backend": 832,
       "frontend": 613,
-      "devops": 513,
-      "writing": 824,
-      "marketing": 494,
-      "mobile": 219,
-      "research": 295,
-      "git": 274,
-      "finance": 239
+      "devops": 516,
+      "writing": 823,
+      "marketing": 486,
+      "mobile": 217,
+      "research": 291,
+      "git": 275,
+      "finance": 241
     },
     "categoryTopSkills": {
       "ai-agents": [
@@ -89,8 +89,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:28.469Z",
-            "evaluatedVersion": "1.16.2"
+            "evaluatedAt": "2026-09-12T21:38:45.846Z",
+            "evaluatedVersion": "1.17.0"
           }
         },
         {
@@ -158,7 +158,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:27.930Z",
+            "evaluatedAt": "2026-09-12T21:38:45.178Z",
             "evaluatedVersion": "1.2.1"
           }
         },
@@ -227,7 +227,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
+            "evaluatedAt": "2026-09-12T21:39:47.503Z",
             "evaluatedVersion": "1.4.1"
           }
         },
@@ -296,8 +296,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.369Z",
-            "evaluatedVersion": "1.4.2"
+            "evaluatedAt": "2026-09-12T21:39:47.584Z",
+            "evaluatedVersion": "1.5.0"
           }
         },
         {
@@ -365,8 +365,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.500Z",
-            "evaluatedVersion": "2.3.0"
+            "evaluatedAt": "2026-09-12T21:39:47.697Z",
+            "evaluatedVersion": "2.3.1"
           }
         },
         {
@@ -434,8 +434,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:27.951Z",
-            "evaluatedVersion": "2.1.0"
+            "evaluatedAt": "2026-09-12T21:38:45.204Z",
+            "evaluatedVersion": "2.2.0"
           }
         },
         {
@@ -503,13 +503,13 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.306Z",
+            "evaluatedAt": "2026-09-12T21:39:47.529Z",
             "evaluatedVersion": "2.0.3"
           }
         },
         {
-          "id": "luongnv89/skills::skills/herdr-agent-comms::herdr-agent-comms",
-          "name": "herdr-agent-comms",
+          "id": "luongnv89/skills::skills/herdr-agent::herdr-agent",
+          "name": "herdr-agent",
           "owner": "luongnv89",
           "repo": "skills",
           "evalSummary": {
@@ -572,8 +572,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.320Z",
-            "evaluatedVersion": "1.23.0"
+            "evaluatedAt": "2026-09-12T21:39:47.545Z",
+            "evaluatedVersion": "3.0.0"
+          }
+        },
+        {
+          "id": "luongnv89/skills::skills/website-agent-readiness::website-agent-readiness",
+          "name": "website-agent-readiness",
+          "owner": "luongnv89",
+          "repo": "skills",
+          "evalSummary": {
+            "overallScore": 92,
+            "grade": "A",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:47.705Z",
+            "evaluatedVersion": "1.2.0"
           }
         },
         {
@@ -641,77 +710,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.354Z",
-            "evaluatedVersion": "1.1.2"
-          }
-        },
-        {
-          "id": "luongnv89/skills::skills/opencode-handoff::opencode-handoff",
-          "name": "opencode-handoff",
-          "owner": "luongnv89",
-          "repo": "skills",
-          "evalSummary": {
-            "overallScore": 91,
-            "grade": "A",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:19:11.357Z",
-            "evaluatedVersion": "1.0.4"
+            "evaluatedAt": "2026-09-12T21:39:47.574Z",
+            "evaluatedVersion": "1.2.0"
           }
         }
       ],
@@ -781,7 +781,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.313Z",
+            "evaluatedAt": "2026-09-12T21:39:47.535Z",
             "evaluatedVersion": "1.4.1"
           }
         },
@@ -850,7 +850,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.306Z",
+            "evaluatedAt": "2026-09-12T21:39:47.529Z",
             "evaluatedVersion": "2.0.3"
           }
         },
@@ -919,7 +919,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.317Z",
+            "evaluatedAt": "2026-09-12T21:39:47.539Z",
             "evaluatedVersion": "1.2.5"
           }
         },
@@ -988,8 +988,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.354Z",
-            "evaluatedVersion": "1.1.2"
+            "evaluatedAt": "2026-09-12T21:39:47.574Z",
+            "evaluatedVersion": "1.2.0"
           }
         },
         {
@@ -1057,8 +1057,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:20:15.565Z",
+            "evaluatedAt": "2026-09-12T21:40:47.265Z",
             "evaluatedVersion": "2.2"
+          }
+        },
+        {
+          "id": "sickn33/antigravity-awesome-skills::skills/newman-cicd-integration::newman-cicd-integration",
+          "name": "newman-cicd-integration",
+          "owner": "sickn33",
+          "repo": "antigravity-awesome-skills",
+          "evalSummary": {
+            "overallScore": 88,
+            "grade": "B",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 7,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:23.594Z",
+            "evaluatedVersion": "0.0.0"
           }
         },
         {
@@ -1126,13 +1195,82 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:10.123Z",
+            "evaluatedAt": "2026-09-12T21:39:46.274Z",
             "evaluatedVersion": "1.0"
           }
         },
         {
-          "id": "sickn33/antigravity-awesome-skills::skills/postman-newman-automation::postman-newman-automation",
-          "name": "postman-newman-automation",
+          "id": "github/awesome-copilot::skills/docs-sync-audit::docs-sync-audit",
+          "name": "docs-sync-audit",
+          "owner": "github",
+          "repo": "awesome-copilot",
+          "evalSummary": {
+            "overallScore": 87,
+            "grade": "B",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 6,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:40:55.239Z",
+            "evaluatedVersion": "0.0.0"
+          }
+        },
+        {
+          "id": "sickn33/antigravity-awesome-skills::skills/gemini-interactions-api::gemini-interactions-api",
+          "name": "gemini-interactions-api",
           "owner": "sickn33",
           "repo": "antigravity-awesome-skills",
           "evalSummary": {
@@ -1154,19 +1292,19 @@
               {
                 "id": "prompt-engineering",
                 "name": "Prompt engineering",
-                "score": 10,
+                "score": 9,
                 "max": 10
               },
               {
                 "id": "context-efficiency",
                 "name": "Context efficiency",
-                "score": 10,
+                "score": 8,
                 "max": 10
               },
               {
                 "id": "safety",
                 "name": "Safety & guardrails",
-                "score": 7,
+                "score": 10,
                 "max": 10
               },
               {
@@ -1195,7 +1333,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:50.305Z",
+            "evaluatedAt": "2026-09-12T21:39:21.817Z",
             "evaluatedVersion": "0.0.0"
           }
         },
@@ -1264,146 +1402,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:20:14.816Z",
+            "evaluatedAt": "2026-09-12T21:40:46.533Z",
             "evaluatedVersion": "1.2"
-          }
-        },
-        {
-          "id": "sickn33/antigravity-awesome-skills::skills/cohesivity::cohesivity",
-          "name": "cohesivity",
-          "owner": "sickn33",
-          "repo": "antigravity-awesome-skills",
-          "evalSummary": {
-            "overallScore": 86,
-            "grade": "B",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:18:47.521Z",
-            "evaluatedVersion": "0.0.0"
-          }
-        },
-        {
-          "id": "sickn33/antigravity-awesome-skills::skills/ejentum-reasoning-harness::ejentum-reasoning-harness",
-          "name": "ejentum-reasoning-harness",
-          "owner": "sickn33",
-          "repo": "antigravity-awesome-skills",
-          "evalSummary": {
-            "overallScore": 86,
-            "grade": "B",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:18:48.035Z",
-            "evaluatedVersion": "0.0.0"
           }
         }
       ],
@@ -1473,8 +1473,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:28.469Z",
-            "evaluatedVersion": "1.16.2"
+            "evaluatedAt": "2026-09-12T21:38:45.846Z",
+            "evaluatedVersion": "1.17.0"
           }
         },
         {
@@ -1542,7 +1542,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
+            "evaluatedAt": "2026-09-12T21:39:47.503Z",
             "evaluatedVersion": "1.0.4"
           }
         },
@@ -1611,7 +1611,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.344Z",
+            "evaluatedAt": "2026-09-12T21:39:47.565Z",
             "evaluatedVersion": "1.2.1"
           }
         },
@@ -1680,7 +1680,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.280Z",
+            "evaluatedAt": "2026-09-12T21:39:47.503Z",
             "evaluatedVersion": "1.2.2"
           }
         },
@@ -1749,8 +1749,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.280Z",
-            "evaluatedVersion": "1.0.5"
+            "evaluatedAt": "2026-09-12T21:39:47.506Z",
+            "evaluatedVersion": "1.1.0"
           }
         },
         {
@@ -1818,8 +1818,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.500Z",
-            "evaluatedVersion": "2.3.0"
+            "evaluatedAt": "2026-09-12T21:39:47.697Z",
+            "evaluatedVersion": "2.3.1"
+          }
+        },
+        {
+          "id": "luongnv89/skills::skills/viral-product-evaluator::viral-product-evaluator",
+          "name": "viral-product-evaluator",
+          "owner": "luongnv89",
+          "repo": "skills",
+          "evalSummary": {
+            "overallScore": 93,
+            "grade": "A",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:47.701Z",
+            "evaluatedVersion": "1.3.0"
           }
         },
         {
@@ -1887,7 +1956,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:28.101Z",
+            "evaluatedAt": "2026-09-12T21:38:45.387Z",
             "evaluatedVersion": "1.0.0"
           }
         },
@@ -1956,13 +2025,13 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.317Z",
+            "evaluatedAt": "2026-09-12T21:39:47.539Z",
             "evaluatedVersion": "1.2.5"
           }
         },
         {
-          "id": "luongnv89/skills::skills/herdr-agent-comms::herdr-agent-comms",
-          "name": "herdr-agent-comms",
+          "id": "luongnv89/skills::skills/herdr-agent::herdr-agent",
+          "name": "herdr-agent",
           "owner": "luongnv89",
           "repo": "skills",
           "evalSummary": {
@@ -2025,77 +2094,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.320Z",
-            "evaluatedVersion": "1.23.0"
-          }
-        },
-        {
-          "id": "luongnv89/skills::skills/plan-to-issues::plan-to-issues",
-          "name": "plan-to-issues",
-          "owner": "luongnv89",
-          "repo": "skills",
-          "evalSummary": {
-            "overallScore": 92,
-            "grade": "A",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:19:11.381Z",
-            "evaluatedVersion": "2.0.4"
+            "evaluatedAt": "2026-09-12T21:39:47.545Z",
+            "evaluatedVersion": "3.0.0"
           }
         }
       ],
@@ -2165,8 +2165,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
-            "evaluatedVersion": "1.3.2"
+            "evaluatedAt": "2026-09-12T21:39:47.505Z",
+            "evaluatedVersion": "1.4.0"
           }
         },
         {
@@ -2234,7 +2234,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.344Z",
+            "evaluatedAt": "2026-09-12T21:39:47.565Z",
             "evaluatedVersion": "1.2.1"
           }
         },
@@ -2303,77 +2303,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.352Z",
+            "evaluatedAt": "2026-09-12T21:39:47.573Z",
             "evaluatedVersion": "1.2.4"
-          }
-        },
-        {
-          "id": "luongnv89/skills::skills/tad-generator::tad-generator",
-          "name": "tad-generator",
-          "owner": "luongnv89",
-          "repo": "skills",
-          "evalSummary": {
-            "overallScore": 94,
-            "grade": "A",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:19:11.490Z",
-            "evaluatedVersion": "1.4.0"
           }
         },
         {
@@ -2441,7 +2372,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.313Z",
+            "evaluatedAt": "2026-09-12T21:39:47.535Z",
             "evaluatedVersion": "1.4.1"
           }
         },
@@ -2510,8 +2441,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.317Z",
+            "evaluatedAt": "2026-09-12T21:39:47.539Z",
             "evaluatedVersion": "1.2.5"
+          }
+        },
+        {
+          "id": "luongnv89/skills::skills/tad-generator::tad-generator",
+          "name": "tad-generator",
+          "owner": "luongnv89",
+          "repo": "skills",
+          "evalSummary": {
+            "overallScore": 92,
+            "grade": "A",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:47.686Z",
+            "evaluatedVersion": "1.5.0"
           }
         },
         {
@@ -2579,8 +2579,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:20:17.629Z",
+            "evaluatedAt": "2026-09-12T21:40:49.665Z",
             "evaluatedVersion": "2.1"
+          }
+        },
+        {
+          "id": "sickn33/antigravity-awesome-skills::skills/api-designer::api-designer",
+          "name": "api-designer",
+          "owner": "sickn33",
+          "repo": "antigravity-awesome-skills",
+          "evalSummary": {
+            "overallScore": 86,
+            "grade": "B",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 7,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 7,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:20.352Z",
+            "evaluatedVersion": "0.0.0"
           }
         },
         {
@@ -2648,7 +2717,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:51.200Z",
+            "evaluatedAt": "2026-09-12T21:39:25.385Z",
             "evaluatedVersion": "0.0.0"
           }
         },
@@ -2717,150 +2786,12 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:20:24.428Z",
-            "evaluatedVersion": "0.0.0"
-          }
-        },
-        {
-          "id": "sickn33/antigravity-awesome-skills::skills/supabase::supabase",
-          "name": "supabase",
-          "owner": "sickn33",
-          "repo": "antigravity-awesome-skills",
-          "evalSummary": {
-            "overallScore": 85,
-            "grade": "B",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:18:51.309Z",
+            "evaluatedAt": "2026-09-12T21:40:54.958Z",
             "evaluatedVersion": "0.0.0"
           }
         }
       ],
       "devops": [
-        {
-          "id": "luongnv89/idd::skills/issue-resolver::issue-resolver",
-          "name": "issue-resolver",
-          "owner": "luongnv89",
-          "repo": "idd",
-          "evalSummary": {
-            "overallScore": 93,
-            "grade": "A",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:19:13.126Z",
-            "evaluatedVersion": "0.18.0"
-          }
-        },
         {
           "id": "luongnv89/skills::skills/install-script-generator::install-script-generator",
           "name": "install-script-generator",
@@ -2926,8 +2857,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.334Z",
-            "evaluatedVersion": "2.2.2"
+            "evaluatedAt": "2026-09-12T21:39:47.552Z",
+            "evaluatedVersion": "2.2.3"
           }
         },
         {
@@ -2995,8 +2926,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.375Z",
-            "evaluatedVersion": "3.0.0"
+            "evaluatedAt": "2026-09-12T21:39:47.592Z",
+            "evaluatedVersion": "3.0.1"
           }
         },
         {
@@ -3064,7 +2995,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.428Z",
+            "evaluatedAt": "2026-09-12T21:39:47.624Z",
             "evaluatedVersion": "1.4.0"
           }
         },
@@ -3133,7 +3064,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.298Z",
+            "evaluatedAt": "2026-09-12T21:39:47.523Z",
             "evaluatedVersion": "2.2.1"
           }
         },
@@ -3202,8 +3133,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.295Z",
+            "evaluatedAt": "2026-09-12T21:39:47.517Z",
             "evaluatedVersion": "0.9.0"
+          }
+        },
+        {
+          "id": "luongnv89/idd::skills/issue-resolver::issue-resolver",
+          "name": "issue-resolver",
+          "owner": "luongnv89",
+          "repo": "idd",
+          "evalSummary": {
+            "overallScore": 90,
+            "grade": "A",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 6,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:49.541Z",
+            "evaluatedVersion": "0.19.0"
           }
         },
         {
@@ -3271,8 +3271,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:10.087Z",
+            "evaluatedAt": "2026-09-12T21:39:46.244Z",
             "evaluatedVersion": "1.0"
+          }
+        },
+        {
+          "id": "sickn33/antigravity-awesome-skills::skills/newman-cicd-integration::newman-cicd-integration",
+          "name": "newman-cicd-integration",
+          "owner": "sickn33",
+          "repo": "antigravity-awesome-skills",
+          "evalSummary": {
+            "overallScore": 88,
+            "grade": "B",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 7,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:23.594Z",
+            "evaluatedVersion": "0.0.0"
           }
         },
         {
@@ -3340,7 +3409,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:50.305Z",
+            "evaluatedAt": "2026-09-12T21:39:24.332Z",
             "evaluatedVersion": "0.0.0"
           }
         },
@@ -3409,77 +3478,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:51.021Z",
+            "evaluatedAt": "2026-09-12T21:39:25.163Z",
             "evaluatedVersion": "0.0.0"
-          }
-        },
-        {
-          "id": "K-Dense-AI/claude-scientific-skills::skills/latchbio-integration::latchbio-integration",
-          "name": "latchbio-integration",
-          "owner": "K-Dense-AI",
-          "repo": "claude-scientific-skills",
-          "evalSummary": {
-            "overallScore": 86,
-            "grade": "B",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:20:15.428Z",
-            "evaluatedVersion": "2.1"
           }
         }
       ],
@@ -3549,7 +3549,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.330Z",
+            "evaluatedAt": "2026-09-12T21:39:47.551Z",
             "evaluatedVersion": "1.5.0"
           }
         },
@@ -3618,7 +3618,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:20:24.878Z",
+            "evaluatedAt": "2026-09-12T21:40:55.506Z",
             "evaluatedVersion": "0.0.0"
           }
         },
@@ -3687,7 +3687,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:49.653Z",
+            "evaluatedAt": "2026-09-12T21:39:23.431Z",
             "evaluatedVersion": "0.0.0"
           }
         },
@@ -3756,7 +3756,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:10.120Z",
+            "evaluatedAt": "2026-09-12T21:39:46.273Z",
             "evaluatedVersion": "1.0"
           }
         },
@@ -3825,8 +3825,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:10.085Z",
+            "evaluatedAt": "2026-09-12T21:39:46.242Z",
             "evaluatedVersion": "1.0"
+          }
+        },
+        {
+          "id": "sickn33/antigravity-awesome-skills::skills/bug-hunt-swarm::bug-hunt-swarm",
+          "name": "bug-hunt-swarm",
+          "owner": "sickn33",
+          "repo": "antigravity-awesome-skills",
+          "evalSummary": {
+            "overallScore": 83,
+            "grade": "B",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 7,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 7,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 7,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:20.862Z",
+            "evaluatedVersion": "0.0.0"
           }
         },
         {
@@ -3894,77 +3963,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:10.123Z",
+            "evaluatedAt": "2026-09-12T21:39:46.275Z",
             "evaluatedVersion": "1.0"
-          }
-        },
-        {
-          "id": "sickn33/antigravity-awesome-skills::skills/aws-cost-operations::aws-cost-operations",
-          "name": "aws-cost-operations",
-          "owner": "sickn33",
-          "repo": "antigravity-awesome-skills",
-          "evalSummary": {
-            "overallScore": 82,
-            "grade": "B",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:18:46.977Z",
-            "evaluatedVersion": "0.0.0"
           }
         },
         {
@@ -4032,7 +4032,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:50.605Z",
+            "evaluatedAt": "2026-09-12T21:39:24.692Z",
             "evaluatedVersion": "0.0.0"
           }
         },
@@ -4101,35 +4101,35 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:51.406Z",
+            "evaluatedAt": "2026-09-12T21:39:25.622Z",
             "evaluatedVersion": "0.0.0"
           }
         },
         {
-          "id": "sickn33/antigravity-awesome-skills::skills/usage-based-pricing::usage-based-pricing",
-          "name": "usage-based-pricing",
-          "owner": "sickn33",
-          "repo": "antigravity-awesome-skills",
+          "id": "K-Dense-AI/claude-scientific-skills::skills/analytical-method-validation::analytical-method-validation",
+          "name": "analytical-method-validation",
+          "owner": "K-Dense-AI",
+          "repo": "claude-scientific-skills",
           "evalSummary": {
-            "overallScore": 81,
+            "overallScore": 80,
             "grade": "B",
             "categories": [
               {
                 "id": "structure",
                 "name": "Structure & completeness",
-                "score": 8,
+                "score": 9,
                 "max": 10
               },
               {
                 "id": "description",
                 "name": "Description quality",
-                "score": 7,
+                "score": 6,
                 "max": 10
               },
               {
                 "id": "prompt-engineering",
                 "name": "Prompt engineering",
-                "score": 10,
+                "score": 9,
                 "max": 10
               },
               {
@@ -4141,13 +4141,13 @@
               {
                 "id": "safety",
                 "name": "Safety & guardrails",
-                "score": 7,
+                "score": 9,
                 "max": 10
               },
               {
                 "id": "testability",
                 "name": "Testability",
-                "score": 7,
+                "score": 5,
                 "max": 10
               },
               {
@@ -4170,8 +4170,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:51.880Z",
-            "evaluatedVersion": "0.0.0"
+            "evaluatedAt": "2026-09-12T21:40:46.016Z",
+            "evaluatedVersion": "1.1"
           }
         }
       ],
@@ -4241,7 +4241,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.344Z",
+            "evaluatedAt": "2026-09-12T21:39:47.565Z",
             "evaluatedVersion": "1.2.1"
           }
         },
@@ -4310,77 +4310,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.352Z",
+            "evaluatedAt": "2026-09-12T21:39:47.573Z",
             "evaluatedVersion": "1.2.4"
-          }
-        },
-        {
-          "id": "luongnv89/skills::skills/tad-generator::tad-generator",
-          "name": "tad-generator",
-          "owner": "luongnv89",
-          "repo": "skills",
-          "evalSummary": {
-            "overallScore": 94,
-            "grade": "A",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:19:11.490Z",
-            "evaluatedVersion": "1.4.0"
           }
         },
         {
@@ -4448,8 +4379,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.313Z",
+            "evaluatedAt": "2026-09-12T21:39:47.535Z",
             "evaluatedVersion": "1.4.1"
+          }
+        },
+        {
+          "id": "luongnv89/skills::skills/viral-product-evaluator::viral-product-evaluator",
+          "name": "viral-product-evaluator",
+          "owner": "luongnv89",
+          "repo": "skills",
+          "evalSummary": {
+            "overallScore": 93,
+            "grade": "A",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:47.701Z",
+            "evaluatedVersion": "1.3.0"
           }
         },
         {
@@ -4517,7 +4517,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.306Z",
+            "evaluatedAt": "2026-09-12T21:39:47.529Z",
             "evaluatedVersion": "2.0.3"
           }
         },
@@ -4586,13 +4586,13 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.317Z",
+            "evaluatedAt": "2026-09-12T21:39:47.539Z",
             "evaluatedVersion": "1.2.5"
           }
         },
         {
-          "id": "luongnv89/skills::skills/viral-product-evaluator::viral-product-evaluator",
-          "name": "viral-product-evaluator",
+          "id": "luongnv89/skills::skills/tad-generator::tad-generator",
+          "name": "tad-generator",
           "owner": "luongnv89",
           "repo": "skills",
           "evalSummary": {
@@ -4614,13 +4614,13 @@
               {
                 "id": "prompt-engineering",
                 "name": "Prompt engineering",
-                "score": 9,
+                "score": 10,
                 "max": 10
               },
               {
                 "id": "context-efficiency",
                 "name": "Context efficiency",
-                "score": 9,
+                "score": 8,
                 "max": 10
               },
               {
@@ -4655,8 +4655,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.502Z",
-            "evaluatedVersion": "1.2.4"
+            "evaluatedAt": "2026-09-12T21:39:47.686Z",
+            "evaluatedVersion": "1.5.0"
           }
         },
         {
@@ -4724,7 +4724,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
+            "evaluatedAt": "2026-09-12T21:39:47.505Z",
             "evaluatedVersion": "1.3.0"
           }
         },
@@ -4793,29 +4793,29 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.509Z",
+            "evaluatedAt": "2026-09-12T21:39:47.710Z",
             "evaluatedVersion": "1.2.1"
           }
         },
         {
-          "id": "Affitor/affiliate-skills::skills/distribution/github-pages-deployer::github-pages-deployer",
-          "name": "github-pages-deployer",
-          "owner": "Affitor",
-          "repo": "affiliate-skills",
+          "id": "sickn33/antigravity-awesome-skills::skills/wjttc-builder::wjttc-builder",
+          "name": "wjttc-builder",
+          "owner": "sickn33",
+          "repo": "antigravity-awesome-skills",
           "evalSummary": {
-            "overallScore": 89,
-            "grade": "B",
+            "overallScore": 90,
+            "grade": "A",
             "categories": [
               {
                 "id": "structure",
                 "name": "Structure & completeness",
-                "score": 10,
+                "score": 8,
                 "max": 10
               },
               {
                 "id": "description",
                 "name": "Description quality",
-                "score": 6,
+                "score": 10,
                 "max": 10
               },
               {
@@ -4827,7 +4827,7 @@
               {
                 "id": "context-efficiency",
                 "name": "Context efficiency",
-                "score": 8,
+                "score": 7,
                 "max": 10
               },
               {
@@ -4839,13 +4839,13 @@
               {
                 "id": "testability",
                 "name": "Testability",
-                "score": 5,
+                "score": 10,
                 "max": 10
               },
               {
                 "id": "license",
                 "name": "License verification",
-                "score": 10,
+                "score": 5,
                 "max": 10
               },
               {
@@ -4862,8 +4862,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:10.087Z",
-            "evaluatedVersion": "1.0"
+            "evaluatedAt": "2026-09-12T21:39:26.656Z",
+            "evaluatedVersion": "0.0.0"
           }
         }
       ],
@@ -4933,7 +4933,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
+            "evaluatedAt": "2026-09-12T21:39:47.503Z",
             "evaluatedVersion": "1.0.4"
           }
         },
@@ -5002,7 +5002,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:13.123Z",
+            "evaluatedAt": "2026-09-12T21:39:49.539Z",
             "evaluatedVersion": "0.3.7"
           }
         },
@@ -5071,7 +5071,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.313Z",
+            "evaluatedAt": "2026-09-12T21:39:47.536Z",
             "evaluatedVersion": "1.3.3"
           }
         },
@@ -5140,7 +5140,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.408Z",
+            "evaluatedAt": "2026-09-12T21:39:47.618Z",
             "evaluatedVersion": "2.6.1"
           }
         },
@@ -5209,7 +5209,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.428Z",
+            "evaluatedAt": "2026-09-12T21:39:47.624Z",
             "evaluatedVersion": "1.4.0"
           }
         },
@@ -5278,7 +5278,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.495Z",
+            "evaluatedAt": "2026-09-12T21:39:47.695Z",
             "evaluatedVersion": "1.3.1"
           }
         },
@@ -5347,7 +5347,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.298Z",
+            "evaluatedAt": "2026-09-12T21:39:47.523Z",
             "evaluatedVersion": "2.2.1"
           }
         },
@@ -5416,7 +5416,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
+            "evaluatedAt": "2026-09-12T21:39:47.505Z",
             "evaluatedVersion": "1.3.0"
           }
         },
@@ -5485,8 +5485,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:13.126Z",
-            "evaluatedVersion": "2.6.0"
+            "evaluatedAt": "2026-09-12T21:39:49.541Z",
+            "evaluatedVersion": "2.7.0"
           }
         },
         {
@@ -5554,7 +5554,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:13.126Z",
+            "evaluatedAt": "2026-09-12T21:39:49.541Z",
             "evaluatedVersion": "2.7.0"
           }
         }
@@ -5625,8 +5625,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
-            "evaluatedVersion": "1.2.2"
+            "evaluatedAt": "2026-09-12T21:39:47.503Z",
+            "evaluatedVersion": "1.3.0"
           }
         },
         {
@@ -5635,7 +5635,7 @@
           "owner": "luongnv89",
           "repo": "skills",
           "evalSummary": {
-            "overallScore": 92,
+            "overallScore": 93,
             "grade": "A",
             "categories": [
               {
@@ -5653,7 +5653,7 @@
               {
                 "id": "prompt-engineering",
                 "name": "Prompt engineering",
-                "score": 9,
+                "score": 10,
                 "max": 10
               },
               {
@@ -5694,8 +5694,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.502Z",
-            "evaluatedVersion": "1.2.4"
+            "evaluatedAt": "2026-09-12T21:39:47.701Z",
+            "evaluatedVersion": "1.3.0"
+          }
+        },
+        {
+          "id": "luongnv89/skills::skills/website-agent-readiness::website-agent-readiness",
+          "name": "website-agent-readiness",
+          "owner": "luongnv89",
+          "repo": "skills",
+          "evalSummary": {
+            "overallScore": 92,
+            "grade": "A",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:47.705Z",
+            "evaluatedVersion": "1.2.0"
           }
         },
         {
@@ -5763,7 +5832,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.461Z",
+            "evaluatedAt": "2026-09-12T21:39:47.661Z",
             "evaluatedVersion": "1.3.1"
           }
         },
@@ -5832,7 +5901,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:10.101Z",
+            "evaluatedAt": "2026-09-12T21:39:46.257Z",
             "evaluatedVersion": "1.0"
           }
         },
@@ -5901,7 +5970,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:10.106Z",
+            "evaluatedAt": "2026-09-12T21:39:46.262Z",
             "evaluatedVersion": "1.0"
           }
         },
@@ -5970,7 +6039,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:10.087Z",
+            "evaluatedAt": "2026-09-12T21:39:46.244Z",
             "evaluatedVersion": "1.0"
           }
         },
@@ -6039,7 +6108,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:20:24.878Z",
+            "evaluatedAt": "2026-09-12T21:40:55.506Z",
             "evaluatedVersion": "0.0.0"
           }
         },
@@ -6108,7 +6177,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:10.137Z",
+            "evaluatedAt": "2026-09-12T21:39:46.290Z",
             "evaluatedVersion": "1.0"
           }
         },
@@ -6177,76 +6246,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:10.057Z",
-            "evaluatedVersion": "1.0"
-          }
-        },
-        {
-          "id": "Affitor/affiliate-skills::skills/meta/skill-finder::skill-finder",
-          "name": "skill-finder",
-          "owner": "Affitor",
-          "repo": "affiliate-skills",
-          "evalSummary": {
-            "overallScore": 88,
-            "grade": "B",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 3,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:19:10.141Z",
+            "evaluatedAt": "2026-09-12T21:39:46.217Z",
             "evaluatedVersion": "1.0"
           }
         }
@@ -6317,8 +6317,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
-            "evaluatedVersion": "1.2.2"
+            "evaluatedAt": "2026-09-12T21:39:47.503Z",
+            "evaluatedVersion": "1.3.0"
           }
         },
         {
@@ -6386,7 +6386,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.280Z",
+            "evaluatedAt": "2026-09-12T21:39:47.503Z",
             "evaluatedVersion": "1.2.2"
           }
         },
@@ -6455,8 +6455,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.461Z",
+            "evaluatedAt": "2026-09-12T21:39:47.661Z",
             "evaluatedVersion": "1.3.1"
+          }
+        },
+        {
+          "id": "sickn33/antigravity-awesome-skills::skills/swiftui-expert-skill::swiftui-expert-skill",
+          "name": "swiftui-expert-skill",
+          "owner": "sickn33",
+          "repo": "antigravity-awesome-skills",
+          "evalSummary": {
+            "overallScore": 86,
+            "grade": "B",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 7,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 7,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:25.548Z",
+            "evaluatedVersion": "0.0.0"
           }
         },
         {
@@ -6524,8 +6593,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:20.044Z",
+            "evaluatedAt": "2026-09-12T21:39:56.659Z",
             "evaluatedVersion": "1.0"
+          }
+        },
+        {
+          "id": "sickn33/antigravity-awesome-skills::skills/appium-skill::appium-skill",
+          "name": "appium-skill",
+          "owner": "sickn33",
+          "repo": "antigravity-awesome-skills",
+          "evalSummary": {
+            "overallScore": 84,
+            "grade": "B",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 7,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:20.436Z",
+            "evaluatedVersion": "0.0.0"
           }
         },
         {
@@ -6593,7 +6731,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:48.928Z",
+            "evaluatedAt": "2026-09-12T21:39:22.367Z",
             "evaluatedVersion": "0.0.0"
           }
         },
@@ -6662,13 +6800,13 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:50.400Z",
+            "evaluatedAt": "2026-09-12T21:39:24.435Z",
             "evaluatedVersion": "0.0.0"
           }
         },
         {
-          "id": "sickn33/antigravity-awesome-skills::skills/swiftui-expert-skill::swiftui-expert-skill",
-          "name": "swiftui-expert-skill",
+          "id": "sickn33/antigravity-awesome-skills::skills/update-swiftui-apis::update-swiftui-apis",
+          "name": "update-swiftui-apis",
           "owner": "sickn33",
           "repo": "antigravity-awesome-skills",
           "evalSummary": {
@@ -6684,145 +6822,7 @@
               {
                 "id": "description",
                 "name": "Description quality",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
                 "score": 10,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:18:51.343Z",
-            "evaluatedVersion": "0.0.0"
-          }
-        },
-        {
-          "id": "sickn33/antigravity-awesome-skills::skills/appium-skill::appium-skill",
-          "name": "appium-skill",
-          "owner": "sickn33",
-          "repo": "antigravity-awesome-skills",
-          "evalSummary": {
-            "overallScore": 82,
-            "grade": "B",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:18:46.874Z",
-            "evaluatedVersion": "0.0.0"
-          }
-        },
-        {
-          "id": "sickn33/antigravity-awesome-skills::skills/update-swiftui-apis::update-swiftui-apis",
-          "name": "update-swiftui-apis",
-          "owner": "sickn33",
-          "repo": "antigravity-awesome-skills",
-          "evalSummary": {
-            "overallScore": 81,
-            "grade": "B",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 8,
                 "max": 10
               },
               {
@@ -6869,7 +6869,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:51.856Z",
+            "evaluatedAt": "2026-09-12T21:39:26.094Z",
             "evaluatedVersion": "0.0.0"
           }
         },
@@ -6938,7 +6938,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:19.314Z",
+            "evaluatedAt": "2026-09-12T21:39:55.941Z",
             "evaluatedVersion": "1.0"
           }
         }
@@ -7009,77 +7009,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
-            "evaluatedVersion": "1.2.2"
-          }
-        },
-        {
-          "id": "luongnv89/skills::skills/tad-generator::tad-generator",
-          "name": "tad-generator",
-          "owner": "luongnv89",
-          "repo": "skills",
-          "evalSummary": {
-            "overallScore": 94,
-            "grade": "A",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:19:11.490Z",
-            "evaluatedVersion": "1.4.0"
+            "evaluatedAt": "2026-09-12T21:39:47.503Z",
+            "evaluatedVersion": "1.3.0"
           }
         },
         {
@@ -7147,8 +7078,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.280Z",
-            "evaluatedVersion": "1.0.5"
+            "evaluatedAt": "2026-09-12T21:39:47.506Z",
+            "evaluatedVersion": "1.1.0"
           }
         },
         {
@@ -7216,8 +7147,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.369Z",
-            "evaluatedVersion": "1.4.2"
+            "evaluatedAt": "2026-09-12T21:39:47.584Z",
+            "evaluatedVersion": "1.5.0"
           }
         },
         {
@@ -7285,8 +7216,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.394Z",
+            "evaluatedAt": "2026-09-12T21:39:47.606Z",
             "evaluatedVersion": "1.4.0"
+          }
+        },
+        {
+          "id": "luongnv89/skills::skills/issue-work-loop::issue-work-loop",
+          "name": "issue-work-loop",
+          "owner": "luongnv89",
+          "repo": "skills",
+          "evalSummary": {
+            "overallScore": 92,
+            "grade": "A",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:47.558Z",
+            "evaluatedVersion": "1.4.1"
           }
         },
         {
@@ -7354,8 +7354,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.381Z",
+            "evaluatedAt": "2026-09-12T21:39:47.597Z",
             "evaluatedVersion": "2.0.4"
+          }
+        },
+        {
+          "id": "luongnv89/skills::skills/tad-generator::tad-generator",
+          "name": "tad-generator",
+          "owner": "luongnv89",
+          "repo": "skills",
+          "evalSummary": {
+            "overallScore": 92,
+            "grade": "A",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:47.686Z",
+            "evaluatedVersion": "1.5.0"
           }
         },
         {
@@ -7423,7 +7492,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.492Z",
+            "evaluatedAt": "2026-09-12T21:39:47.694Z",
             "evaluatedVersion": "1.3.2"
           }
         },
@@ -7492,7 +7561,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
+            "evaluatedAt": "2026-09-12T21:39:47.505Z",
             "evaluatedVersion": "1.3.0"
           }
         },
@@ -7561,77 +7630,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.357Z",
-            "evaluatedVersion": "1.0.4"
-          }
-        },
-        {
-          "id": "luongnv89/skills::skills/website-cloner::website-cloner",
-          "name": "website-cloner",
-          "owner": "luongnv89",
-          "repo": "skills",
-          "evalSummary": {
-            "overallScore": 91,
-            "grade": "A",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:19:11.509Z",
-            "evaluatedVersion": "1.2.1"
+            "evaluatedAt": "2026-09-12T21:39:47.578Z",
+            "evaluatedVersion": "1.0.5"
           }
         }
       ],
@@ -7701,7 +7701,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:47.546Z",
+            "evaluatedAt": "2026-09-12T21:39:21.079Z",
             "evaluatedVersion": "0.2.0"
           }
         },
@@ -7770,7 +7770,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:51.888Z",
+            "evaluatedAt": "2026-09-12T21:39:26.122Z",
             "evaluatedVersion": "0.0.0"
           }
         },
@@ -7839,7 +7839,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:10.122Z",
+            "evaluatedAt": "2026-09-12T21:39:46.274Z",
             "evaluatedVersion": "1.0"
           }
         },
@@ -7908,7 +7908,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:51.331Z",
+            "evaluatedAt": "2026-09-12T21:39:25.529Z",
             "evaluatedVersion": "0.0.0"
           }
         },
@@ -7977,7 +7977,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:10.044Z",
+            "evaluatedAt": "2026-09-12T21:39:46.200Z",
             "evaluatedVersion": "1.0"
           }
         },
@@ -8046,7 +8046,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:20:16.127Z",
+            "evaluatedAt": "2026-09-12T21:40:47.834Z",
             "evaluatedVersion": "2.2"
           }
         },
@@ -8115,7 +8115,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:47.892Z",
+            "evaluatedAt": "2026-09-12T21:39:21.400Z",
             "evaluatedVersion": "0.0.0"
           }
         },
@@ -8184,7 +8184,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:46.598Z",
+            "evaluatedAt": "2026-09-12T21:40:23.790Z",
             "evaluatedVersion": "1.0.0"
           }
         },
@@ -8253,7 +8253,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:20:17.196Z",
+            "evaluatedAt": "2026-09-12T21:40:49.005Z",
             "evaluatedVersion": "2.2"
           }
         },
@@ -8322,7 +8322,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:50.042Z",
+            "evaluatedAt": "2026-09-12T21:39:23.954Z",
             "evaluatedVersion": "0.0.0"
           }
         }
@@ -8393,8 +8393,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:28.469Z",
-            "evaluatedVersion": "1.16.2"
+            "evaluatedAt": "2026-09-12T21:38:45.846Z",
+            "evaluatedVersion": "1.17.0"
           }
         },
         {
@@ -8462,7 +8462,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:27.930Z",
+            "evaluatedAt": "2026-09-12T21:38:45.178Z",
             "evaluatedVersion": "1.2.1"
           }
         },
@@ -8531,7 +8531,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
+            "evaluatedAt": "2026-09-12T21:39:47.505Z",
             "evaluatedVersion": "2.1.1"
           }
         },
@@ -8600,8 +8600,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
-            "evaluatedVersion": "1.2.2"
+            "evaluatedAt": "2026-09-12T21:39:47.503Z",
+            "evaluatedVersion": "1.3.0"
           }
         },
         {
@@ -8669,7 +8669,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.344Z",
+            "evaluatedAt": "2026-09-12T21:39:47.565Z",
             "evaluatedVersion": "1.2.1"
           }
         },
@@ -8738,77 +8738,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.381Z",
-            "evaluatedVersion": "1.2.2"
-          }
-        },
-        {
-          "id": "luongnv89/skills::skills/tad-generator::tad-generator",
-          "name": "tad-generator",
-          "owner": "luongnv89",
-          "repo": "skills",
-          "evalSummary": {
-            "overallScore": 94,
-            "grade": "A",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:19:11.490Z",
-            "evaluatedVersion": "1.4.0"
+            "evaluatedAt": "2026-09-12T21:39:47.593Z",
+            "evaluatedVersion": "1.3.0"
           }
         },
         {
@@ -8876,7 +8807,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:27.946Z",
+            "evaluatedAt": "2026-09-12T21:38:45.197Z",
             "evaluatedVersion": "1.0.0"
           }
         },
@@ -8945,7 +8876,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
+            "evaluatedAt": "2026-09-12T21:39:47.503Z",
             "evaluatedVersion": "1.4.1"
           }
         },
@@ -9014,8 +8945,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.280Z",
+            "evaluatedAt": "2026-09-12T21:39:47.503Z",
             "evaluatedVersion": "1.2.2"
+          }
+        },
+        {
+          "id": "luongnv89/skills::skills/dont-make-me-think::dont-make-me-think",
+          "name": "dont-make-me-think",
+          "owner": "luongnv89",
+          "repo": "skills",
+          "evalSummary": {
+            "overallScore": 93,
+            "grade": "A",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:47.535Z",
+            "evaluatedVersion": "1.4.1"
           }
         }
       ],
@@ -9085,8 +9085,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:28.469Z",
-            "evaluatedVersion": "1.16.2"
+            "evaluatedAt": "2026-09-12T21:38:45.846Z",
+            "evaluatedVersion": "1.17.0"
           }
         },
         {
@@ -9154,7 +9154,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
+            "evaluatedAt": "2026-09-12T21:39:47.505Z",
             "evaluatedVersion": "2.1.1"
           }
         },
@@ -9223,7 +9223,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:13.123Z",
+            "evaluatedAt": "2026-09-12T21:39:49.539Z",
             "evaluatedVersion": "0.3.7"
           }
         },
@@ -9292,7 +9292,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.495Z",
+            "evaluatedAt": "2026-09-12T21:39:47.695Z",
             "evaluatedVersion": "1.3.1"
           }
         },
@@ -9361,8 +9361,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.500Z",
-            "evaluatedVersion": "2.3.0"
+            "evaluatedAt": "2026-09-12T21:39:47.697Z",
+            "evaluatedVersion": "2.3.1"
           }
         },
         {
@@ -9430,7 +9430,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.298Z",
+            "evaluatedAt": "2026-09-12T21:39:47.523Z",
             "evaluatedVersion": "2.2.1"
           }
         },
@@ -9499,8 +9499,146 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
+            "evaluatedAt": "2026-09-12T21:39:47.505Z",
             "evaluatedVersion": "1.3.0"
+          }
+        },
+        {
+          "id": "sickn33/antigravity-awesome-skills::skills/break-ai-fix-loops::break-ai-fix-loops",
+          "name": "break-ai-fix-loops",
+          "owner": "sickn33",
+          "repo": "antigravity-awesome-skills",
+          "evalSummary": {
+            "overallScore": 90,
+            "grade": "A",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 4,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:20.833Z",
+            "evaluatedVersion": "0.0.0"
+          }
+        },
+        {
+          "id": "sickn33/antigravity-awesome-skills::skills/wjttc-builder::wjttc-builder",
+          "name": "wjttc-builder",
+          "owner": "sickn33",
+          "repo": "antigravity-awesome-skills",
+          "evalSummary": {
+            "overallScore": 90,
+            "grade": "A",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 7,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:26.656Z",
+            "evaluatedVersion": "0.0.0"
           }
         },
         {
@@ -9568,219 +9706,12 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:20:24.878Z",
+            "evaluatedAt": "2026-09-12T21:40:55.506Z",
             "evaluatedVersion": "0.0.0"
-          }
-        },
-        {
-          "id": "sickn33/antigravity-awesome-skills::skills/spec-driven-development::spec-driven-development",
-          "name": "spec-driven-development",
-          "owner": "sickn33",
-          "repo": "antigravity-awesome-skills",
-          "evalSummary": {
-            "overallScore": 89,
-            "grade": "B",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:18:51.193Z",
-            "evaluatedVersion": "0.0.0"
-          }
-        },
-        {
-          "id": "sickn33/antigravity-awesome-skills::skills/agents-generator::agents-generator",
-          "name": "agents-generator",
-          "owner": "sickn33",
-          "repo": "antigravity-awesome-skills",
-          "evalSummary": {
-            "overallScore": 88,
-            "grade": "B",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:18:46.644Z",
-            "evaluatedVersion": "1.2.3"
           }
         }
       ],
       "writing": [
-        {
-          "id": "oliver-zehentleitner/keep-the-why::skills/keep-the-why::keep-the-why",
-          "name": "keep-the-why",
-          "owner": "oliver-zehentleitner",
-          "repo": "keep-the-why",
-          "evalSummary": {
-            "overallScore": 97,
-            "grade": "A",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:21:16.596Z",
-            "evaluatedVersion": "0.11.0"
-          }
-        },
         {
           "id": "luongnv89/skills::skills/landing-page-generator::landing-page-generator",
           "name": "landing-page-generator",
@@ -9846,7 +9777,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.344Z",
+            "evaluatedAt": "2026-09-12T21:39:47.565Z",
             "evaluatedVersion": "1.2.1"
           }
         },
@@ -9915,8 +9846,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.381Z",
-            "evaluatedVersion": "1.2.2"
+            "evaluatedAt": "2026-09-12T21:39:47.593Z",
+            "evaluatedVersion": "1.3.0"
           }
         },
         {
@@ -9984,7 +9915,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
+            "evaluatedAt": "2026-09-12T21:39:47.503Z",
             "evaluatedVersion": "1.4.1"
           }
         },
@@ -10053,8 +9984,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.408Z",
+            "evaluatedAt": "2026-09-12T21:39:47.618Z",
             "evaluatedVersion": "2.6.1"
+          }
+        },
+        {
+          "id": "luongnv89/skills::skills/viral-product-evaluator::viral-product-evaluator",
+          "name": "viral-product-evaluator",
+          "owner": "luongnv89",
+          "repo": "skills",
+          "evalSummary": {
+            "overallScore": 93,
+            "grade": "A",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:47.701Z",
+            "evaluatedVersion": "1.3.0"
           }
         },
         {
@@ -10122,7 +10122,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:27.935Z",
+            "evaluatedAt": "2026-09-12T21:38:45.185Z",
             "evaluatedVersion": "1.0.0"
           }
         },
@@ -10191,13 +10191,13 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.306Z",
+            "evaluatedAt": "2026-09-12T21:39:47.529Z",
             "evaluatedVersion": "2.0.3"
           }
         },
         {
-          "id": "luongnv89/skills::skills/viral-product-evaluator::viral-product-evaluator",
-          "name": "viral-product-evaluator",
+          "id": "luongnv89/skills::skills/website-agent-readiness::website-agent-readiness",
+          "name": "website-agent-readiness",
           "owner": "luongnv89",
           "repo": "skills",
           "evalSummary": {
@@ -10219,13 +10219,13 @@
               {
                 "id": "prompt-engineering",
                 "name": "Prompt engineering",
-                "score": 9,
+                "score": 10,
                 "max": 10
               },
               {
                 "id": "context-efficiency",
                 "name": "Context efficiency",
-                "score": 9,
+                "score": 8,
                 "max": 10
               },
               {
@@ -10260,8 +10260,77 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.502Z",
-            "evaluatedVersion": "1.2.4"
+            "evaluatedAt": "2026-09-12T21:39:47.705Z",
+            "evaluatedVersion": "1.2.0"
+          }
+        },
+        {
+          "id": "oliver-zehentleitner/keep-the-why::skills/keep-the-why::keep-the-why",
+          "name": "keep-the-why",
+          "owner": "oliver-zehentleitner",
+          "repo": "keep-the-why",
+          "evalSummary": {
+            "overallScore": 92,
+            "grade": "A",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 9,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:41:58.974Z",
+            "evaluatedVersion": "0.16.2"
           }
         },
         {
@@ -10329,77 +10398,8 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.281Z",
+            "evaluatedAt": "2026-09-12T21:39:47.505Z",
             "evaluatedVersion": "1.3.0"
-          }
-        },
-        {
-          "id": "luongnv89/skills::skills/seo-ai-optimizer::seo-ai-optimizer",
-          "name": "seo-ai-optimizer",
-          "owner": "luongnv89",
-          "repo": "skills",
-          "evalSummary": {
-            "overallScore": 91,
-            "grade": "A",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 9,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:19:11.461Z",
-            "evaluatedVersion": "1.3.1"
           }
         }
       ],
@@ -10469,7 +10469,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:27.939Z",
+            "evaluatedAt": "2026-09-12T21:38:45.190Z",
             "evaluatedVersion": "1.1.0"
           }
         },
@@ -10538,7 +10538,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:11.303Z",
+            "evaluatedAt": "2026-09-12T21:39:47.526Z",
             "evaluatedVersion": "1.1.2"
           }
         },
@@ -10607,7 +10607,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:13.123Z",
+            "evaluatedAt": "2026-09-12T21:39:49.541Z",
             "evaluatedVersion": "0.6.0"
           }
         },
@@ -10676,7 +10676,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:13.126Z",
+            "evaluatedAt": "2026-09-12T21:39:49.539Z",
             "evaluatedVersion": "0.9.0"
           }
         },
@@ -10745,7 +10745,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:19:13.126Z",
+            "evaluatedAt": "2026-09-12T21:39:49.541Z",
             "evaluatedVersion": "0.6.0"
           }
         },
@@ -10814,7 +10814,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:48.172Z",
+            "evaluatedAt": "2026-09-12T21:39:21.662Z",
             "evaluatedVersion": "0.0.0"
           }
         },
@@ -10883,76 +10883,7 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:47.837Z",
-            "evaluatedVersion": "0.0.0"
-          }
-        },
-        {
-          "id": "sickn33/antigravity-awesome-skills::skills/developer-onboarding::developer-onboarding",
-          "name": "developer-onboarding",
-          "owner": "sickn33",
-          "repo": "antigravity-awesome-skills",
-          "evalSummary": {
-            "overallScore": 88,
-            "grade": "B",
-            "categories": [
-              {
-                "id": "structure",
-                "name": "Structure & completeness",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "description",
-                "name": "Description quality",
-                "score": 7,
-                "max": 10
-              },
-              {
-                "id": "prompt-engineering",
-                "name": "Prompt engineering",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "context-efficiency",
-                "name": "Context efficiency",
-                "score": 8,
-                "max": 10
-              },
-              {
-                "id": "safety",
-                "name": "Safety & guardrails",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "testability",
-                "name": "Testability",
-                "score": 10,
-                "max": 10
-              },
-              {
-                "id": "license",
-                "name": "License verification",
-                "score": 5,
-                "max": 10
-              },
-              {
-                "id": "naming",
-                "name": "Naming & conventions",
-                "score": 10,
-                "max": 10
-              },
-              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
-              {
-                "id": "script-lint",
-                "name": "Script linting",
-                "score": 10,
-                "max": 10
-              }
-            ],
-            "evaluatedAt": "2026-09-04T01:18:47.891Z",
+            "evaluatedAt": "2026-09-12T21:39:21.351Z",
             "evaluatedVersion": "0.0.0"
           }
         },
@@ -11021,7 +10952,76 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:47.657Z",
+            "evaluatedAt": "2026-09-12T21:39:21.174Z",
+            "evaluatedVersion": "0.0.0"
+          }
+        },
+        {
+          "id": "sickn33/antigravity-awesome-skills::skills/logic-review::logic-review",
+          "name": "logic-review",
+          "owner": "sickn33",
+          "repo": "antigravity-awesome-skills",
+          "evalSummary": {
+            "overallScore": 86,
+            "grade": "B",
+            "categories": [
+              {
+                "id": "structure",
+                "name": "Structure & completeness",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "description",
+                "name": "Description quality",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "prompt-engineering",
+                "name": "Prompt engineering",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "context-efficiency",
+                "name": "Context efficiency",
+                "score": 8,
+                "max": 10
+              },
+              {
+                "id": "safety",
+                "name": "Safety & guardrails",
+                "score": 10,
+                "max": 10
+              },
+              {
+                "id": "testability",
+                "name": "Testability",
+                "score": 7,
+                "max": 10
+              },
+              {
+                "id": "license",
+                "name": "License verification",
+                "score": 5,
+                "max": 10
+              },
+              {
+                "id": "naming",
+                "name": "Naming & conventions",
+                "score": 10,
+                "max": 10
+              },
+              { "id": "pii", "name": "PII detection", "score": 10, "max": 10 },
+              {
+                "id": "script-lint",
+                "name": "Script linting",
+                "score": 10,
+                "max": 10
+              }
+            ],
+            "evaluatedAt": "2026-09-12T21:39:22.832Z",
             "evaluatedVersion": "0.0.0"
           }
         },
@@ -11090,14 +11090,14 @@
                 "max": 10
               }
             ],
-            "evaluatedAt": "2026-09-04T01:18:47.557Z",
+            "evaluatedAt": "2026-09-12T21:39:21.090Z",
             "evaluatedVersion": "0.0.0"
           }
         }
       ]
     },
-    "verifiedCount": 6070,
-    "totalTokens": 16334182,
-    "avgTokensPerSkill": 2686
+    "verifiedCount": 6104,
+    "totalTokens": 15371543,
+    "avgTokensPerSkill": 2514
   }
 }
