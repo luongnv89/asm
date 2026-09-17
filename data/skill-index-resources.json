@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-17T00:00:00Z",
+  "updatedAt": "2026-09-17T11:27:38Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -701,6 +701,15 @@
       "repo": "skills",
       "description": "Agent skills for building with TypeSafe's System One API",
       "maintainer": "@typesafe-ai",
+      "enabled": true
+    },
+    {
+      "source": "github:Tencent/BrowserSkill",
+      "url": "https://github.com/Tencent/BrowserSkill",
+      "owner": "Tencent",
+      "repo": "BrowserSkill",
+      "description": "Let AI agents use your real, logged-in browser without interrupting your work. CLI + extension for browser automation across any shell-capable AI agent.",
+      "maintainer": "@Tencent",
       "enabled": true
     }
   ]
