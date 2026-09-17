@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-09T08:22:00Z",
+  "updatedAt": "2026-09-17T00:00:00Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -692,6 +692,15 @@
       "repo": "ECC",
       "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
       "maintainer": "@affaan-m",
+      "enabled": true
+    },
+    {
+      "source": "github:typesafe-ai/skills",
+      "url": "https://github.com/typesafe-ai/skills",
+      "owner": "typesafe-ai",
+      "repo": "skills",
+      "description": "Agent skills for building with TypeSafe's System One API",
+      "maintainer": "@typesafe-ai",
       "enabled": true
     }
   ]
