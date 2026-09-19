@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/tt-a1i/archify.git",
   "owner": "tt-a1i",
   "repo": "archify",
-  "updatedAt": "2026-09-12T21:42:16.305Z",
-  "skillCount": 1,
+  "updatedAt": "2026-09-19T14:50:53.210Z",
+  "skillCount": 2,
   "skills": [
     {
       "name": "archify",
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-12T21:42:16.202Z",
+        "evaluatedAt": "2026-09-19T14:50:53.008Z",
         "evaluatedVersion": "2.17"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-12T21:42:16.202Z",
+          "evaluatedAt": "2026-09-19T14:50:53.009Z",
           "evaluatedVersion": "2.17"
         },
         "skill-best-practice": {
@@ -177,11 +177,297 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-12T21:42:16.202Z",
+          "evaluatedAt": "2026-09-19T14:50:53.009Z",
           "evaluatedVersion": "2.17"
+        }
+      }
+    },
+    {
+      "name": "archify-review",
+      "description": "Review Archify issues, PRs, or code through value, cost, and impact to support evidence-based maintenance decisions. Use for issue triage, change reviews, and code quality assessments.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:tt-a1i/archify:.agents/skills/archify-review",
+      "relPath": ".agents/skills/archify-review",
+      "verified": true,
+      "tokenCount": 417,
+      "evalSummary": {
+        "overallScore": 66,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-19T14:50:53.008Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 66,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-19T14:50:53.009Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-19T14:50:53.009Z",
+          "evaluatedVersion": "0.0.0"
         }
       }
     }
   ],
-  "bundles": []
+  "bundles": [
+    {
+      "version": 1,
+      "name": "tt-a1i-archify-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from tt-a1i/archify.",
+      "author": "ASM (tt-a1i/archify)",
+      "createdAt": "2026-09-19T14:50:53.210Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "tt-a1i",
+        "archify"
+      ],
+      "skills": [
+        {
+          "name": "archify",
+          "installUrl": "github:tt-a1i/archify:archify",
+          "description": "Create polished, validated architecture, workflow, sequence, data-flow, and lifecycle/state diagrams as explorable standalone HTML with inline SVG, dark/light themes, optional trace motion, and PNG/JPEG/WebP/SVG/WebM export. Accept plain-language requirements or pasted Mermaid flowchart, sequenceDiagram, and stateDiagram input; inspect repository evidence when the diagram must reflect real code. Use when the user asks to visualize system architecture, infrastructure, cloud/security/network topology, technical workflows, API call sequences, request lifecycles, data pipelines, ETL/ELT, data lineage, state machines, or to convert/beautify Mermaid.",
+          "version": "2.17"
+        },
+        {
+          "name": "archify-review",
+          "installUrl": "github:tt-a1i/archify:.agents/skills/archify-review",
+          "description": "Review Archify issues, PRs, or code through value, cost, and impact to support evidence-based maintenance decisions. Use for issue triage, change reviews, and code quality assessments.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "tt-a1i",
+        "repo": "archify",
+        "repoUrl": "https://github.com/tt-a1i/archify.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "tt-a1i-archify-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from tt-a1i/archify.",
+      "author": "ASM (tt-a1i/archify)",
+      "createdAt": "2026-09-19T14:50:53.210Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "tt-a1i",
+        "archify"
+      ],
+      "skills": [
+        {
+          "name": "archify",
+          "installUrl": "github:tt-a1i/archify:archify",
+          "description": "Create polished, validated architecture, workflow, sequence, data-flow, and lifecycle/state diagrams as explorable standalone HTML with inline SVG, dark/light themes, optional trace motion, and PNG/JPEG/WebP/SVG/WebM export. Accept plain-language requirements or pasted Mermaid flowchart, sequenceDiagram, and stateDiagram input; inspect repository evidence when the diagram must reflect real code. Use when the user asks to visualize system architecture, infrastructure, cloud/security/network topology, technical workflows, API call sequences, request lifecycles, data pipelines, ETL/ELT, data lineage, state machines, or to convert/beautify Mermaid.",
+          "version": "2.17"
+        },
+        {
+          "name": "archify-review",
+          "installUrl": "github:tt-a1i/archify:.agents/skills/archify-review",
+          "description": "Review Archify issues, PRs, or code through value, cost, and impact to support evidence-based maintenance decisions. Use for issue triage, change reviews, and code quality assessments.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "tt-a1i",
+        "repo": "archify",
+        "repoUrl": "https://github.com/tt-a1i/archify.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "tt-a1i-archify-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from tt-a1i/archify.",
+      "author": "ASM (tt-a1i/archify)",
+      "createdAt": "2026-09-19T14:50:53.210Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "tt-a1i",
+        "archify"
+      ],
+      "skills": [
+        {
+          "name": "archify",
+          "installUrl": "github:tt-a1i/archify:archify",
+          "description": "Create polished, validated architecture, workflow, sequence, data-flow, and lifecycle/state diagrams as explorable standalone HTML with inline SVG, dark/light themes, optional trace motion, and PNG/JPEG/WebP/SVG/WebM export. Accept plain-language requirements or pasted Mermaid flowchart, sequenceDiagram, and stateDiagram input; inspect repository evidence when the diagram must reflect real code. Use when the user asks to visualize system architecture, infrastructure, cloud/security/network topology, technical workflows, API call sequences, request lifecycles, data pipelines, ETL/ELT, data lineage, state machines, or to convert/beautify Mermaid.",
+          "version": "2.17"
+        },
+        {
+          "name": "archify-review",
+          "installUrl": "github:tt-a1i/archify:.agents/skills/archify-review",
+          "description": "Review Archify issues, PRs, or code through value, cost, and impact to support evidence-based maintenance decisions. Use for issue triage, change reviews, and code quality assessments.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "tt-a1i",
+        "repo": "archify",
+        "repoUrl": "https://github.com/tt-a1i/archify.git"
+      },
+      "inferred": true
+    }
+  ]
 }
