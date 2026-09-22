@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/K-Dense-AI/claude-scientific-skills.git",
   "owner": "K-Dense-AI",
   "repo": "claude-scientific-skills",
-  "updatedAt": "2026-09-19T14:49:24.301Z",
+  "updatedAt": "2026-09-22T12:22:03.182Z",
   "skillCount": 166,
   "skills": [
     {
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:50.775Z",
+        "evaluatedAt": "2026-09-22T12:21:58.307Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.775Z",
+          "evaluatedAt": "2026-09-22T12:21:58.310Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.775Z",
+          "evaluatedAt": "2026-09-22T12:21:58.310Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -189,12 +189,7 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and the aeon package (uv pip install). Optional aeon[all_extras] for deep learning and extended dependencies.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -268,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:50.775Z",
+        "evaluatedAt": "2026-09-22T12:21:58.308Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -341,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.775Z",
+          "evaluatedAt": "2026-09-22T12:21:58.310Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -359,7 +354,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.775Z",
+          "evaluatedAt": "2026-09-22T12:21:58.310Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -371,12 +366,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Python 3.10+ with the alphagenome package (0.9.0 or later for the Atlas client; brings numpy, pandas, anndata, grpcio). Network access to gdmscience.googleapis.com:443 and a free non-commercial AlphaGenome API key in ALPHAGENOME_API_KEY (ALPHA_GENOME_API_KEY also read). Human data is GRCh38 only; mouse is mm10 (model only).",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -450,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:50.775Z",
+        "evaluatedAt": "2026-09-22T12:21:58.310Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -523,7 +513,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.775Z",
+          "evaluatedAt": "2026-09-22T12:21:58.310Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -541,7 +531,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.775Z",
+          "evaluatedAt": "2026-09-22T12:21:58.310Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -553,12 +543,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.11+. Scripts use only the standard library - no numpy, scipy, or network access. Statistical distributions are computed from first principles so results are reproducible in any conforming interpreter.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -632,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:50.775Z",
+        "evaluatedAt": "2026-09-22T12:21:58.310Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -705,7 +690,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.775Z",
+          "evaluatedAt": "2026-09-22T12:21:58.310Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -723,7 +708,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.776Z",
+          "evaluatedAt": "2026-09-22T12:21:58.310Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -735,12 +720,7 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.11+ and uv. Examples target AnnData 0.12.16, with experimental APIs clearly marked where used.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -814,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:50.775Z",
+        "evaluatedAt": "2026-09-22T12:21:58.308Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -887,7 +867,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.776Z",
+          "evaluatedAt": "2026-09-22T12:21:58.310Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -905,7 +885,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.776Z",
+          "evaluatedAt": "2026-09-22T12:21:58.310Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -917,13 +897,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Agent"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Agent"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -997,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:50.775Z",
+        "evaluatedAt": "2026-09-22T12:21:58.308Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -1070,7 +1044,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.776Z",
+          "evaluatedAt": "2026-09-22T12:21:58.310Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -1088,7 +1062,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.776Z",
+          "evaluatedAt": "2026-09-22T12:21:58.310Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -1174,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:50.775Z",
+        "evaluatedAt": "2026-09-22T12:21:58.310Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -1247,7 +1221,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.776Z",
+          "evaluatedAt": "2026-09-22T12:21:58.310Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -1265,7 +1239,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.776Z",
+          "evaluatedAt": "2026-09-22T12:21:58.310Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -1351,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:50.775Z",
+        "evaluatedAt": "2026-09-22T12:21:58.310Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -1424,7 +1398,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.776Z",
+          "evaluatedAt": "2026-09-22T12:21:58.310Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -1442,7 +1416,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.776Z",
+          "evaluatedAt": "2026-09-22T12:21:58.310Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -1454,12 +1428,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -1533,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:50.833Z",
+        "evaluatedAt": "2026-09-22T12:21:58.330Z",
         "evaluatedVersion": "1.4"
       },
       "evalSummaries": {
@@ -1606,7 +1575,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.834Z",
+          "evaluatedAt": "2026-09-22T12:21:58.332Z",
           "evaluatedVersion": "1.4"
         },
         "skill-best-practice": {
@@ -1624,7 +1593,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.834Z",
+          "evaluatedAt": "2026-09-22T12:21:58.332Z",
           "evaluatedVersion": "1.4"
         }
       }
@@ -1636,12 +1605,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires a Benchling account, tenant URL, and API key or OAuth app credentials. Install benchling-sdk with uv pip install.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -1715,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:50.884Z",
+        "evaluatedAt": "2026-09-22T12:21:58.341Z",
         "evaluatedVersion": "1.5"
       },
       "evalSummaries": {
@@ -1788,7 +1752,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.887Z",
+          "evaluatedAt": "2026-09-22T12:21:58.341Z",
           "evaluatedVersion": "1.5"
         },
         "skill-best-practice": {
@@ -1806,7 +1770,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.887Z",
+          "evaluatedAt": "2026-09-22T12:21:58.341Z",
           "evaluatedVersion": "1.5"
         }
       }
@@ -1892,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:50.901Z",
+        "evaluatedAt": "2026-09-22T12:21:58.344Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -1965,7 +1929,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.901Z",
+          "evaluatedAt": "2026-09-22T12:21:58.344Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -1983,7 +1947,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.901Z",
+          "evaluatedAt": "2026-09-22T12:21:58.344Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -2069,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:50.905Z",
+        "evaluatedAt": "2026-09-22T12:21:58.349Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -2142,7 +2106,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.906Z",
+          "evaluatedAt": "2026-09-22T12:21:58.349Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -2160,7 +2124,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.906Z",
+          "evaluatedAt": "2026-09-22T12:21:58.349Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -2172,12 +2136,7 @@
       "license": "Biopython License Agreement",
       "creator": "",
       "compatibility": "Requires Python 3.10+, NumPy, and Biopython. Entrez and web BLAST examples require network access; local BLAST/MUSCLE examples require those command-line tools installed separately.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -2251,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:50.947Z",
+        "evaluatedAt": "2026-09-22T12:21:58.351Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -2324,7 +2283,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.947Z",
+          "evaluatedAt": "2026-09-22T12:21:58.352Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -2342,7 +2301,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.947Z",
+          "evaluatedAt": "2026-09-22T12:21:58.352Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -2354,12 +2313,7 @@
       "license": "GPLv3 license",
       "creator": "",
       "compatibility": "Requires Python 3.9–3.12 and internet access to 40+ bioinformatics web APIs. NCBI BLAST requires a contact email (`NCBI_EMAIL` env var or explicit parameter).",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -2433,7 +2387,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:50.947Z",
+        "evaluatedAt": "2026-09-22T12:21:58.356Z",
         "evaluatedVersion": "1.4"
       },
       "evalSummaries": {
@@ -2506,7 +2460,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.948Z",
+          "evaluatedAt": "2026-09-22T12:21:58.357Z",
           "evaluatedVersion": "1.4"
         },
         "skill-best-practice": {
@@ -2524,7 +2478,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.948Z",
+          "evaluatedAt": "2026-09-22T12:21:58.357Z",
           "evaluatedVersion": "1.4"
         }
       }
@@ -2610,7 +2564,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:50.964Z",
+        "evaluatedAt": "2026-09-22T12:21:58.383Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -2683,7 +2637,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.967Z",
+          "evaluatedAt": "2026-09-22T12:21:58.383Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -2701,7 +2655,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:50.967Z",
+          "evaluatedAt": "2026-09-22T12:21:58.383Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -2713,12 +2667,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python >=3.10,<3.13. Examples target cellxgene-census 1.17.x and the 2025-11-08 stable LTS Census; spatial workflows need the spatial extra and TileDB-SOMA >=1.15.5. No authentication is required for public Census data.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -2792,7 +2741,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:51.057Z",
+        "evaluatedAt": "2026-09-22T12:21:58.387Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -2865,7 +2814,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.065Z",
+          "evaluatedAt": "2026-09-22T12:21:58.387Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -2883,7 +2832,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.065Z",
+          "evaluatedAt": "2026-09-22T12:21:58.387Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -2895,12 +2844,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -2974,7 +2918,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:51.140Z",
+        "evaluatedAt": "2026-09-22T12:21:58.394Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -3047,7 +2991,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.141Z",
+          "evaluatedAt": "2026-09-22T12:21:58.394Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -3065,7 +3009,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.141Z",
+          "evaluatedAt": "2026-09-22T12:21:58.394Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -3158,7 +3102,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:51.154Z",
+        "evaluatedAt": "2026-09-22T12:21:58.400Z",
         "evaluatedVersion": "2.1"
       },
       "evalSummaries": {
@@ -3231,7 +3175,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.154Z",
+          "evaluatedAt": "2026-09-22T12:21:58.400Z",
           "evaluatedVersion": "2.1"
         },
         "skill-best-practice": {
@@ -3249,7 +3193,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.154Z",
+          "evaluatedAt": "2026-09-22T12:21:58.400Z",
           "evaluatedVersion": "2.1"
         }
       }
@@ -3335,7 +3279,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:51.160Z",
+        "evaluatedAt": "2026-09-22T12:21:58.407Z",
         "evaluatedVersion": "2.2"
       },
       "evalSummaries": {
@@ -3408,7 +3352,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.167Z",
+          "evaluatedAt": "2026-09-22T12:21:58.407Z",
           "evaluatedVersion": "2.2"
         },
         "skill-best-practice": {
@@ -3426,7 +3370,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.169Z",
+          "evaluatedAt": "2026-09-22T12:21:58.407Z",
           "evaluatedVersion": "2.2"
         }
       }
@@ -3512,7 +3456,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:51.270Z",
+        "evaluatedAt": "2026-09-22T12:21:58.410Z",
         "evaluatedVersion": "2.1"
       },
       "evalSummaries": {
@@ -3585,7 +3529,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.272Z",
+          "evaluatedAt": "2026-09-22T12:21:58.410Z",
           "evaluatedVersion": "2.1"
         },
         "skill-best-practice": {
@@ -3603,7 +3547,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.272Z",
+          "evaluatedAt": "2026-09-22T12:21:58.410Z",
           "evaluatedVersion": "2.1"
         }
       }
@@ -3615,12 +3559,7 @@
       "license": "GPL-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.9+ (cobra 0.30+ dropped 3.8). Install with uv pip install. GLPK (swiglpk) is the default solver; CPLEX/Gurobi optional. load_model fetches from bundled data, BiGG, or BioModels (network required for remote models).",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -3694,7 +3633,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:51.490Z",
+        "evaluatedAt": "2026-09-22T12:21:58.499Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -3767,7 +3706,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.490Z",
+          "evaluatedAt": "2026-09-22T12:21:58.499Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -3785,7 +3724,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.490Z",
+          "evaluatedAt": "2026-09-22T12:21:58.499Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -3797,10 +3736,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write"
-      ],
+      "allowedTools": ["Read", "Write"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -3874,7 +3810,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:51.511Z",
+        "evaluatedAt": "2026-09-22T12:21:58.504Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -3947,7 +3883,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.511Z",
+          "evaluatedAt": "2026-09-22T12:21:58.504Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -3965,7 +3901,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.513Z",
+          "evaluatedAt": "2026-09-22T12:21:58.504Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -3977,12 +3913,7 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and dask 2025.1+. DataFrame workflows need pandas 2+ and PyArrow 16+. Cloud paths (s3://, gcs://) need s3fs or gcsfs. Cluster deployment uses dask.distributed (included with dask[complete]).",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -4056,7 +3987,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:51.546Z",
+        "evaluatedAt": "2026-09-22T12:21:58.508Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -4129,7 +4060,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.546Z",
+          "evaluatedAt": "2026-09-22T12:21:58.508Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -4147,7 +4078,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.546Z",
+          "evaluatedAt": "2026-09-22T12:21:58.508Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -4159,10 +4090,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -4236,7 +4164,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:51.561Z",
+        "evaluatedAt": "2026-09-22T12:21:58.516Z",
         "evaluatedVersion": "1.6"
       },
       "evalSummaries": {
@@ -4309,7 +4237,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.561Z",
+          "evaluatedAt": "2026-09-22T12:21:58.516Z",
           "evaluatedVersion": "1.6"
         },
         "skill-best-practice": {
@@ -4327,7 +4255,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.561Z",
+          "evaluatedAt": "2026-09-22T12:21:58.516Z",
           "evaluatedVersion": "1.6"
         }
       }
@@ -4339,12 +4267,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Needs datalad 1.6.x on Python 3.10+, plus git and git-annex 10.x. git-annex is not written in Python but installs as a prebuilt wheel from PyPI (`uv pip install git-annex`), from a system package manager, or from conda-forge. Container-based provenance also needs datalad-container (1.2.x) and Singularity/Apptainer or Docker. clone, get, and push need network access; credentialed remotes read secrets from the system keyring or from DATALAD_CREDENTIAL_<NAME>_<COMPONENT> environment variables.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -4418,7 +4341,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:51.621Z",
+        "evaluatedAt": "2026-09-22T12:21:58.537Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -4491,7 +4414,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.622Z",
+          "evaluatedAt": "2026-09-22T12:21:58.538Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -4509,7 +4432,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.622Z",
+          "evaluatedAt": "2026-09-22T12:21:58.538Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -4521,12 +4444,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.8+ and datamol (uv pip install). RDKit is installed automatically as a datamol dependency (since 0.12.2). Optional s3fs/gcsfs for cloud I/O via fsspec.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -4600,7 +4518,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:51.670Z",
+        "evaluatedAt": "2026-09-22T12:21:58.544Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -4673,7 +4591,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.670Z",
+          "evaluatedAt": "2026-09-22T12:21:58.544Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -4691,7 +4609,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.670Z",
+          "evaluatedAt": "2026-09-22T12:21:58.544Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -4703,12 +4621,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python 3.7–3.11 (PyPI 2.8.0 caps at <3.12). Install PyTorch, TensorFlow, or JAX before the matching deepchem extra. RDKit is a core dependency.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -4782,7 +4695,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:51.725Z",
+        "evaluatedAt": "2026-09-22T12:21:58.551Z",
         "evaluatedVersion": "1.5"
       },
       "evalSummaries": {
@@ -4855,7 +4768,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.728Z",
+          "evaluatedAt": "2026-09-22T12:21:58.552Z",
           "evaluatedVersion": "1.5"
         },
         "skill-best-practice": {
@@ -4873,7 +4786,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.730Z",
+          "evaluatedAt": "2026-09-22T12:21:58.551Z",
           "evaluatedVersion": "1.5"
         }
       }
@@ -4885,12 +4798,7 @@
       "license": "PolyForm-Noncommercial-1.0.0",
       "creator": "",
       "compatibility": "Needs deepspotm 1.0.0 from PyPI (Python 3.10 to 3.13) plus PyTorch. Weights at ratschlab/DeepSpotM on Hugging Face are gated and licensed CC-BY-NC-SA-4.0, so request access on the model page and then run huggingface-cli login. A CUDA GPU speeds up batched inference.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -4964,7 +4872,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:51.795Z",
+        "evaluatedAt": "2026-09-22T12:21:58.567Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -5037,7 +4945,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.795Z",
+          "evaluatedAt": "2026-09-22T12:21:58.567Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -5055,7 +4963,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.795Z",
+          "evaluatedAt": "2026-09-22T12:21:58.567Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -5067,12 +4975,7 @@
       "license": "BSD license",
       "creator": "",
       "compatibility": "Requires Python >3.8 and deepTools 3.5.6-compatible dependencies. The upstream project recommends conda/bioconda for full dependency resolution; repo examples use uv with pinned PyPI installs for reproducible command-line workflows.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -5146,7 +5049,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:51.828Z",
+        "evaluatedAt": "2026-09-22T12:21:58.572Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -5219,7 +5122,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.828Z",
+          "evaluatedAt": "2026-09-22T12:21:58.572Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -5237,7 +5140,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.828Z",
+          "evaluatedAt": "2026-09-22T12:21:58.572Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -5323,7 +5226,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:51.989Z",
+        "evaluatedAt": "2026-09-22T12:21:58.582Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -5396,7 +5299,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.991Z",
+          "evaluatedAt": "2026-09-22T12:21:58.582Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -5414,7 +5317,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:51.991Z",
+          "evaluatedAt": "2026-09-22T12:21:58.582Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -5426,10 +5329,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write"
-      ],
+      "allowedTools": ["Read", "Write"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -5503,7 +5403,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:52.016Z",
+        "evaluatedAt": "2026-09-22T12:21:58.587Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -5576,7 +5476,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:52.016Z",
+          "evaluatedAt": "2026-09-22T12:21:58.587Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -5594,7 +5494,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:52.016Z",
+          "evaluatedAt": "2026-09-22T12:21:58.587Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -5606,14 +5506,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires the DiffDock repository, Python 3.9 environment from upstream environment.yml or the official Docker image, RDKit, PyTorch/PyG, and optional CUDA GPU acceleration. Current guidance targets DiffDock v1.1.3 / DiffDock-L.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Glob",
-        "Grep"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -5687,7 +5580,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:52.057Z",
+        "evaluatedAt": "2026-09-22T12:21:58.591Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -5760,7 +5653,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:52.057Z",
+          "evaluatedAt": "2026-09-22T12:21:58.591Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -5778,7 +5671,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:52.057Z",
+          "evaluatedAt": "2026-09-22T12:21:58.591Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -5864,7 +5757,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:52.258Z",
+        "evaluatedAt": "2026-09-22T12:21:58.683Z",
         "evaluatedVersion": "2.1"
       },
       "evalSummaries": {
@@ -5937,7 +5830,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:52.258Z",
+          "evaluatedAt": "2026-09-22T12:21:58.683Z",
           "evaluatedVersion": "2.1"
         },
         "skill-best-practice": {
@@ -5955,7 +5848,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:52.258Z",
+          "evaluatedAt": "2026-09-22T12:21:58.683Z",
           "evaluatedVersion": "2.1"
         }
       }
@@ -6041,7 +5934,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:52.398Z",
+        "evaluatedAt": "2026-09-22T12:21:58.712Z",
         "evaluatedVersion": "2.1"
       },
       "evalSummaries": {
@@ -6114,7 +6007,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:52.398Z",
+          "evaluatedAt": "2026-09-22T12:21:58.712Z",
           "evaluatedVersion": "2.1"
         },
         "skill-best-practice": {
@@ -6132,7 +6025,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:52.398Z",
+          "evaluatedAt": "2026-09-22T12:21:58.712Z",
           "evaluatedVersion": "2.1"
         }
       }
@@ -6218,7 +6111,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:52.481Z",
+        "evaluatedAt": "2026-09-22T12:21:58.746Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -6291,7 +6184,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:52.482Z",
+          "evaluatedAt": "2026-09-22T12:21:58.748Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -6309,7 +6202,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:52.482Z",
+          "evaluatedAt": "2026-09-22T12:21:58.748Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -6321,13 +6214,7 @@
       "license": "GPL-3.0-or-later",
       "creator": "",
       "compatibility": "Bundled scripts require Python 3.10+ and ete4 4.4.0 (upstream ete4 supports Python >=3.7). Taxonomy setup and SmartView exploration need network access; static SmartView PNG rendering needs ete4[render-sm], and Qt PDF/SVG rendering needs ete4[treeview].",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Python"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Python"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -6401,7 +6288,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:52.523Z",
+        "evaluatedAt": "2026-09-22T12:21:58.754Z",
         "evaluatedVersion": "2.1"
       },
       "evalSummaries": {
@@ -6474,7 +6361,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:52.523Z",
+          "evaluatedAt": "2026-09-22T12:21:58.754Z",
           "evaluatedVersion": "2.1"
         },
         "skill-best-practice": {
@@ -6492,7 +6379,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:52.523Z",
+          "evaluatedAt": "2026-09-22T12:21:58.754Z",
           "evaluatedVersion": "2.1"
         }
       }
@@ -6578,7 +6465,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:52.663Z",
+        "evaluatedAt": "2026-09-22T12:21:58.759Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -6651,7 +6538,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:52.665Z",
+          "evaluatedAt": "2026-09-22T12:21:58.759Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -6669,7 +6556,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:52.665Z",
+          "evaluatedAt": "2026-09-22T12:21:58.759Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -6681,12 +6568,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python >=3.10. Scripts use numpy, pandas, and pyDOE3 (DOE matrices). Install with uv as shown below.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -6760,7 +6642,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:52.852Z",
+        "evaluatedAt": "2026-09-22T12:21:58.796Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -6833,7 +6715,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:52.853Z",
+          "evaluatedAt": "2026-09-22T12:21:58.798Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -6851,7 +6733,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:52.853Z",
+          "evaluatedAt": "2026-09-22T12:21:58.798Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -6863,13 +6745,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Bundled core CLIs require Python 3.11+ and are local/network-free; the complete pinned optional snapshot requires Python 3.12+, uv, and format-specific libraries listed below.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Glob"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Glob"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -6943,7 +6819,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:53.052Z",
+        "evaluatedAt": "2026-09-22T12:21:58.827Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -7016,7 +6892,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.052Z",
+          "evaluatedAt": "2026-09-22T12:21:58.827Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -7034,7 +6910,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.052Z",
+          "evaluatedAt": "2026-09-22T12:21:58.827Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -7046,11 +6922,7 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.9-3.13, uv, and FlowIO 1.4.0. NumPy is installed with FlowIO; pandas is optional for DataFrame workflows. Runtime parsing is local and needs no credentials or network access.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -7124,7 +6996,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:53.112Z",
+        "evaluatedAt": "2026-09-22T12:21:58.828Z",
         "evaluatedVersion": "2.1"
       },
       "evalSummaries": {
@@ -7197,7 +7069,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.112Z",
+          "evaluatedAt": "2026-09-22T12:21:58.829Z",
           "evaluatedVersion": "2.1"
         },
         "skill-best-practice": {
@@ -7215,7 +7087,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.112Z",
+          "evaluatedAt": "2026-09-22T12:21:58.829Z",
           "evaluatedVersion": "2.1"
         }
       }
@@ -7227,13 +7099,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Bundled CLIs require Python 3.11+ and use the standard library; HDF5/netCDF4 metadata tools lazily use h5py when available. Simulation examples target fluidsim 0.9.0, fluidfft 0.4.5, and pyFFTW 0.15.1. MPI/native FFT use requires a site-compatible MPI implementation, development headers, FFTW/PFFT/P3DFFT libraries, compilers, and an approved scheduler workflow. No GPU backend is assumed.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Bash",
-        "Glob",
-        "Python"
-      ],
+      "allowedTools": ["Read", "Write", "Bash", "Glob", "Python"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -7307,7 +7173,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:53.149Z",
+        "evaluatedAt": "2026-09-22T12:21:58.847Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -7380,7 +7246,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.149Z",
+          "evaluatedAt": "2026-09-22T12:21:58.847Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -7398,7 +7264,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.149Z",
+          "evaluatedAt": "2026-09-22T12:21:58.847Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -7484,7 +7350,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:53.196Z",
+        "evaluatedAt": "2026-09-22T12:21:58.863Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -7557,7 +7423,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.196Z",
+          "evaluatedAt": "2026-09-22T12:21:58.864Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -7575,7 +7441,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.196Z",
+          "evaluatedAt": "2026-09-22T12:21:58.864Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -7587,12 +7453,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.9+ and network access to openrouter.ai. The bundled script uses only the standard library. Image generation requires the OPENROUTER_API_KEY credential and bills per request; listing models, inspecting a model, and --dry-run do not. Targets the OpenRouter Image API (POST /api/v1/images) as verified on 2026-07-31.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -7666,7 +7527,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:53.206Z",
+        "evaluatedAt": "2026-09-22T12:21:58.868Z",
         "evaluatedVersion": "3.1"
       },
       "evalSummaries": {
@@ -7739,7 +7600,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.206Z",
+          "evaluatedAt": "2026-09-22T12:21:58.868Z",
           "evaluatedVersion": "3.1"
         },
         "skill-best-practice": {
@@ -7757,7 +7618,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.206Z",
+          "evaluatedAt": "2026-09-22T12:21:58.868Z",
           "evaluatedVersion": "3.1"
         }
       }
@@ -7769,13 +7630,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and uv. Guidance targets geniml 0.8.4 with gtars 0.9.2; ML workflows need the pinned ml extra and compatible native wheels. Bundled planners and inspectors are dependency-free, local-only, and make no network requests.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Glob"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Glob"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -7849,7 +7704,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:53.289Z",
+        "evaluatedAt": "2026-09-22T12:21:58.872Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -7922,7 +7777,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.291Z",
+          "evaluatedAt": "2026-09-22T12:21:58.875Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -7940,7 +7795,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.291Z",
+          "evaluatedAt": "2026-09-22T12:21:58.875Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -7952,12 +7807,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.11+. Scripts use only the standard library - no third-party packages and no network access. Variant normalisation needs a reference FASTA, and uses its .fai index when one is present.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -8031,7 +7881,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:53.406Z",
+        "evaluatedAt": "2026-09-22T12:21:58.887Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -8104,7 +7954,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.411Z",
+          "evaluatedAt": "2026-09-22T12:21:58.887Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -8122,7 +7972,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.414Z",
+          "evaluatedAt": "2026-09-22T12:21:58.887Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -8208,7 +8058,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:53.429Z",
+        "evaluatedAt": "2026-09-22T12:21:58.891Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -8281,7 +8131,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.429Z",
+          "evaluatedAt": "2026-09-22T12:21:58.891Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -8299,7 +8149,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.429Z",
+          "evaluatedAt": "2026-09-22T12:21:58.891Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -8385,7 +8235,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:53.523Z",
+        "evaluatedAt": "2026-09-22T12:21:58.902Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -8458,7 +8308,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.524Z",
+          "evaluatedAt": "2026-09-22T12:21:58.902Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -8476,7 +8326,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.524Z",
+          "evaluatedAt": "2026-09-22T12:21:58.902Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -8488,13 +8338,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and uv. Bundled CLIs are local-only; runtime analysis requires the pinned GeoPandas stack below.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Bash",
-        "Glob",
-        "Grep"
-      ],
+      "allowedTools": ["Read", "Write", "Bash", "Glob", "Grep"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -8568,7 +8412,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:53.545Z",
+        "evaluatedAt": "2026-09-22T12:21:58.911Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -8641,7 +8485,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.546Z",
+          "evaluatedAt": "2026-09-22T12:21:58.911Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -8659,7 +8503,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.546Z",
+          "evaluatedAt": "2026-09-22T12:21:58.911Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -8745,7 +8589,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:53.554Z",
+        "evaluatedAt": "2026-09-22T12:21:58.917Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -8818,7 +8662,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.562Z",
+          "evaluatedAt": "2026-09-22T12:21:58.917Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -8836,7 +8680,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.562Z",
+          "evaluatedAt": "2026-09-22T12:21:58.917Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -8848,12 +8692,7 @@
       "license": "BSD-2-Clause license",
       "creator": "",
       "compatibility": "Requires Python >=3.8 and gget 0.30.5-compatible APIs. Optional setup modules may install scientific dependencies that lag the newest Python releases; use Python 3.9 or 3.10 if `gget setup cellxgene` or `gget setup alphafold` fails.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -8927,7 +8766,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:53.698Z",
+        "evaluatedAt": "2026-09-22T12:21:58.929Z",
         "evaluatedVersion": "1.5"
       },
       "evalSummaries": {
@@ -9000,7 +8839,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.698Z",
+          "evaluatedAt": "2026-09-22T12:21:58.929Z",
           "evaluatedVersion": "1.5"
         },
         "skill-best-practice": {
@@ -9018,7 +8857,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:53.698Z",
+          "evaluatedAt": "2026-09-22T12:21:58.930Z",
           "evaluatedVersion": "1.5"
         }
       }
@@ -9030,9 +8869,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read"
-      ],
+      "allowedTools": ["Read"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -9106,7 +8943,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:54.861Z",
+        "evaluatedAt": "2026-09-22T12:21:59.109Z",
         "evaluatedVersion": "2.1"
       },
       "evalSummaries": {
@@ -9179,7 +9016,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:54.861Z",
+          "evaluatedAt": "2026-09-22T12:21:59.109Z",
           "evaluatedVersion": "2.1"
         },
         "skill-best-practice": {
@@ -9197,7 +9034,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:54.863Z",
+          "evaluatedAt": "2026-09-22T12:21:59.109Z",
           "evaluatedVersion": "2.1"
         }
       }
@@ -9283,7 +9120,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:54.968Z",
+        "evaluatedAt": "2026-09-22T12:21:59.124Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -9356,7 +9193,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:54.968Z",
+          "evaluatedAt": "2026-09-22T12:21:59.124Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -9374,7 +9211,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:54.968Z",
+          "evaluatedAt": "2026-09-22T12:21:59.124Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -9386,13 +9223,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Python bindings require Python 3.10+ and gtars 0.9.2. The Rust meta-crate and gtars-cli are 0.9.0 and require a Rust toolchain supporting Edition 2024; upstream declares no rust-version. Bundled audit CLIs use only Python 3.10+ standard library and are local/network-free. Remote constructors, pretrained tokenizers, refget, and BEDbase caching require explicit network and storage approval.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Glob"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Glob"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -9466,7 +9297,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:54.994Z",
+        "evaluatedAt": "2026-09-22T12:21:59.134Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -9539,7 +9370,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:54.994Z",
+          "evaluatedAt": "2026-09-22T12:21:59.134Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -9557,7 +9388,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:54.994Z",
+          "evaluatedAt": "2026-09-22T12:21:59.134Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -9643,7 +9474,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:55.014Z",
+        "evaluatedAt": "2026-09-22T12:21:59.171Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -9716,7 +9547,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:55.014Z",
+          "evaluatedAt": "2026-09-22T12:21:59.171Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -9734,7 +9565,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:55.014Z",
+          "evaluatedAt": "2026-09-22T12:21:59.171Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -9820,7 +9651,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:55.287Z",
+        "evaluatedAt": "2026-09-22T12:21:59.183Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -9893,7 +9724,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:55.287Z",
+          "evaluatedAt": "2026-09-22T12:21:59.183Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -9911,7 +9742,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:55.287Z",
+          "evaluatedAt": "2026-09-22T12:21:59.183Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -9923,14 +9754,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and uv for the pinned upstream package. Bundled local audit tools use only the Python standard library for JSON; YAML input requires exactly PyYAML 6.0.2. Actual HypoGeniC runs may require a separately approved LLM provider, credentials, Redis, local model resources, and network access.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Glob",
-        "Grep"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -10004,7 +9828,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:55.679Z",
+        "evaluatedAt": "2026-09-22T12:21:59.212Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -10077,7 +9901,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:55.681Z",
+          "evaluatedAt": "2026-09-22T12:21:59.212Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -10095,7 +9919,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:55.682Z",
+          "evaluatedAt": "2026-09-22T12:21:59.212Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -10181,7 +10005,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:55.894Z",
+        "evaluatedAt": "2026-09-22T12:21:59.258Z",
         "evaluatedVersion": "2.2"
       },
       "evalSummaries": {
@@ -10254,7 +10078,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:55.895Z",
+          "evaluatedAt": "2026-09-22T12:21:59.258Z",
           "evaluatedVersion": "2.2"
         },
         "skill-best-practice": {
@@ -10272,7 +10096,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:55.895Z",
+          "evaluatedAt": "2026-09-22T12:21:59.258Z",
           "evaluatedVersion": "2.2"
         }
       }
@@ -10358,7 +10182,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:55.939Z",
+        "evaluatedAt": "2026-09-22T12:21:59.356Z",
         "evaluatedVersion": "1.5"
       },
       "evalSummaries": {
@@ -10431,7 +10255,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:55.947Z",
+          "evaluatedAt": "2026-09-22T12:21:59.357Z",
           "evaluatedVersion": "1.5"
         },
         "skill-best-practice": {
@@ -10449,7 +10273,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:55.947Z",
+          "evaluatedAt": "2026-09-22T12:21:59.357Z",
           "evaluatedVersion": "1.5"
         }
       }
@@ -10461,12 +10285,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -10540,7 +10359,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:56.443Z",
+        "evaluatedAt": "2026-09-22T12:21:59.359Z",
         "evaluatedVersion": "1.7"
       },
       "evalSummaries": {
@@ -10613,7 +10432,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:56.461Z",
+          "evaluatedAt": "2026-09-22T12:21:59.359Z",
           "evaluatedVersion": "1.7"
         },
         "skill-best-practice": {
@@ -10631,7 +10450,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:56.461Z",
+          "evaluatedAt": "2026-09-22T12:21:59.359Z",
           "evaluatedVersion": "1.7"
         }
       }
@@ -10643,12 +10462,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Python 3.11+; bundled CLIs use only the standard library and bounded local JSON/Markdown files, with no network access or credentials.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Bash",
-        "Glob"
-      ],
+      "allowedTools": ["Read", "Write", "Bash", "Glob"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -10722,7 +10536,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:56.581Z",
+        "evaluatedAt": "2026-09-22T12:21:59.391Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -10795,7 +10609,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:56.581Z",
+          "evaluatedAt": "2026-09-22T12:21:59.391Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -10813,7 +10627,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:56.581Z",
+          "evaluatedAt": "2026-09-22T12:21:59.391Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -10825,14 +10639,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Python 3.10-3.14 with build123d 0.11.1 and matplotlib for snapshots. Geometry commands require build123d; the standards lookup and the interface check run on the standard library alone. No network access needed.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Glob",
-        "Grep"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -10906,7 +10713,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:56.895Z",
+        "evaluatedAt": "2026-09-22T12:21:59.446Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -10979,7 +10786,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:56.895Z",
+          "evaluatedAt": "2026-09-22T12:21:59.447Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -10997,7 +10804,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:56.895Z",
+          "evaluatedAt": "2026-09-22T12:21:59.447Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -11083,7 +10890,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:57.066Z",
+        "evaluatedAt": "2026-09-22T12:21:59.507Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -11156,7 +10963,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:57.066Z",
+          "evaluatedAt": "2026-09-22T12:21:59.507Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -11174,7 +10981,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:57.066Z",
+          "evaluatedAt": "2026-09-22T12:21:59.507Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -11260,7 +11067,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:57.161Z",
+        "evaluatedAt": "2026-09-22T12:21:59.625Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -11333,7 +11140,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:57.162Z",
+          "evaluatedAt": "2026-09-22T12:21:59.625Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -11351,7 +11158,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:57.162Z",
+          "evaluatedAt": "2026-09-22T12:21:59.625Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -11363,12 +11170,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires network access and a Latch account. The current stable SDK requires Python 3.9+; Python 3.12 is recommended. Uses uv for installation. Docker is needed for local image builds, while remote registration is the CLI default.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -11442,7 +11244,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:57.201Z",
+        "evaluatedAt": "2026-09-22T12:21:59.632Z",
         "evaluatedVersion": "2.1"
       },
       "evalSummaries": {
@@ -11515,7 +11317,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:57.201Z",
+          "evaluatedAt": "2026-09-22T12:21:59.632Z",
           "evaluatedVersion": "2.1"
         },
         "skill-best-practice": {
@@ -11533,7 +11335,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:57.201Z",
+          "evaluatedAt": "2026-09-22T12:21:59.632Z",
           "evaluatedVersion": "2.1"
         }
       }
@@ -11545,12 +11347,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -11624,7 +11421,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:57.471Z",
+        "evaluatedAt": "2026-09-22T12:21:59.644Z",
         "evaluatedVersion": "1.7"
       },
       "evalSummaries": {
@@ -11697,7 +11494,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:57.471Z",
+          "evaluatedAt": "2026-09-22T12:21:59.645Z",
           "evaluatedVersion": "1.7"
         },
         "skill-best-practice": {
@@ -11715,7 +11512,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:57.471Z",
+          "evaluatedAt": "2026-09-22T12:21:59.645Z",
           "evaluatedVersion": "1.7"
         }
       }
@@ -11727,12 +11524,7 @@
       "license": "Apache-2.0",
       "creator": "",
       "compatibility": "Python 3.10+. Optional LibreOffice (Office formats) and ImageMagick (images). Bundled Tesseract for OCR. All processing is local — no cloud API required.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -11806,7 +11598,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:57.621Z",
+        "evaluatedAt": "2026-09-22T12:21:59.676Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -11879,7 +11671,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:57.621Z",
+          "evaluatedAt": "2026-09-22T12:21:59.676Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -11897,7 +11689,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:57.621Z",
+          "evaluatedAt": "2026-09-22T12:21:59.676Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -11909,12 +11701,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -11988,7 +11775,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:57.923Z",
+        "evaluatedAt": "2026-09-22T12:21:59.686Z",
         "evaluatedVersion": "1.8"
       },
       "evalSummaries": {
@@ -12061,7 +11848,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:57.923Z",
+          "evaluatedAt": "2026-09-22T12:21:59.686Z",
           "evaluatedVersion": "1.8"
         },
         "skill-best-practice": {
@@ -12079,7 +11866,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:57.923Z",
+          "evaluatedAt": "2026-09-22T12:21:59.687Z",
           "evaluatedVersion": "1.8"
         }
       }
@@ -12091,12 +11878,7 @@
       "license": "Apache-2.0",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -12170,7 +11952,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:57.994Z",
+        "evaluatedAt": "2026-09-22T12:21:59.694Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -12243,7 +12025,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:57.995Z",
+          "evaluatedAt": "2026-09-22T12:21:59.695Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -12261,7 +12043,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:57.995Z",
+          "evaluatedAt": "2026-09-22T12:21:59.695Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -12347,7 +12129,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:57.994Z",
+        "evaluatedAt": "2026-09-22T12:21:59.703Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -12420,7 +12202,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:57.995Z",
+          "evaluatedAt": "2026-09-22T12:21:59.703Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -12438,7 +12220,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:57.995Z",
+          "evaluatedAt": "2026-09-22T12:21:59.703Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -12524,7 +12306,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:58.040Z",
+        "evaluatedAt": "2026-09-22T12:21:59.720Z",
         "evaluatedVersion": "2.2"
       },
       "evalSummaries": {
@@ -12597,7 +12379,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.044Z",
+          "evaluatedAt": "2026-09-22T12:21:59.720Z",
           "evaluatedVersion": "2.2"
         },
         "skill-best-practice": {
@@ -12615,7 +12397,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.044Z",
+          "evaluatedAt": "2026-09-22T12:21:59.720Z",
           "evaluatedVersion": "2.2"
         }
       }
@@ -12627,12 +12409,7 @@
       "license": "Apache-2.0",
       "creator": "",
       "compatibility": "Requires Python >=3.10,<3.15, uv, and matchms 0.33.1. Local file workflows need no credentials; metabolomics-USI loading requires network access.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -12706,7 +12483,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:58.156Z",
+        "evaluatedAt": "2026-09-22T12:21:59.737Z",
         "evaluatedVersion": "2.1"
       },
       "evalSummaries": {
@@ -12779,7 +12556,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.205Z",
+          "evaluatedAt": "2026-09-22T12:21:59.737Z",
           "evaluatedVersion": "2.1"
         },
         "skill-best-practice": {
@@ -12797,7 +12574,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.205Z",
+          "evaluatedAt": "2026-09-22T12:21:59.737Z",
           "evaluatedVersion": "2.1"
         }
       }
@@ -12809,13 +12586,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Documentation is pinned where noted to proprietary MATLAB R2026a and free GNU Octave 11.3.0. Bundled Python CLIs require Python 3.11+ and run locally without MATLAB or Octave; optional MAT inventory uses scipy and/or h5py.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Bash",
-        "Glob",
-        "Python"
-      ],
+      "allowedTools": ["Read", "Write", "Bash", "Glob", "Python"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -12889,7 +12660,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:58.398Z",
+        "evaluatedAt": "2026-09-22T12:21:59.751Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -12962,7 +12733,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.398Z",
+          "evaluatedAt": "2026-09-22T12:21:59.751Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -12980,7 +12751,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.399Z",
+          "evaluatedAt": "2026-09-22T12:21:59.751Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -12992,11 +12763,7 @@
       "license": "https://github.com/matplotlib/matplotlib/tree/main/LICENSE",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and Matplotlib 3.10.x. Use `uv add matplotlib` in projects; interactive Jupyter widgets require `ipympl`.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -13070,7 +12837,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:58.552Z",
+        "evaluatedAt": "2026-09-22T12:21:59.799Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -13143,7 +12910,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.552Z",
+          "evaluatedAt": "2026-09-22T12:21:59.799Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -13161,7 +12928,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.552Z",
+          "evaluatedAt": "2026-09-22T12:21:59.799Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -13173,12 +12940,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.9+ and datamol (installed with medchem). Optional Lilly demerit filter requires separate `lilly-medchem-rules` conda package.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -13252,7 +13014,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:58.785Z",
+        "evaluatedAt": "2026-09-22T12:21:59.817Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -13325,7 +13087,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.785Z",
+          "evaluatedAt": "2026-09-22T12:21:59.818Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -13343,7 +13105,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.785Z",
+          "evaluatedAt": "2026-09-22T12:21:59.818Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -13429,7 +13191,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:58.902Z",
+        "evaluatedAt": "2026-09-22T12:21:59.888Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -13502,7 +13264,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.902Z",
+          "evaluatedAt": "2026-09-22T12:21:59.888Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -13520,7 +13282,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.902Z",
+          "evaluatedAt": "2026-09-22T12:21:59.888Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -13606,7 +13368,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:58.940Z",
+        "evaluatedAt": "2026-09-22T12:21:59.894Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -13679,7 +13441,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.940Z",
+          "evaluatedAt": "2026-09-22T12:21:59.894Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -13697,7 +13459,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.940Z",
+          "evaluatedAt": "2026-09-22T12:21:59.894Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -13709,12 +13471,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.9–3.10 (molfeat 0.11.0 does not support 3.11+). Requires datamol, PyTorch, and optional extras for GNN/transformer models.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -13788,7 +13545,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:58.962Z",
+        "evaluatedAt": "2026-09-22T12:21:59.901Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -13861,7 +13618,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.962Z",
+          "evaluatedAt": "2026-09-22T12:21:59.902Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -13879,7 +13636,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.962Z",
+          "evaluatedAt": "2026-09-22T12:21:59.902Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -13891,10 +13648,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and outbound HTTPS access to arax.transltr.io. The client uses only the Python standard library and needs no API key. Queries and caller metadata may be publicly visible; never submit sensitive or patient-specific content.",
-      "allowedTools": [
-        "Read",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -13968,7 +13722,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:58.983Z",
+        "evaluatedAt": "2026-09-22T12:21:59.909Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -14041,7 +13795,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.984Z",
+          "evaluatedAt": "2026-09-22T12:21:59.909Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -14059,7 +13813,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.984Z",
+          "evaluatedAt": "2026-09-22T12:21:59.910Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -14145,7 +13899,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:58.993Z",
+        "evaluatedAt": "2026-09-22T12:21:59.911Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -14218,7 +13972,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.996Z",
+          "evaluatedAt": "2026-09-22T12:21:59.911Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -14236,7 +13990,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:58.996Z",
+          "evaluatedAt": "2026-09-22T12:21:59.911Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -14248,13 +14002,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Python 3.10+ and uv; pinned workflows use NeuroKit2 0.2.13. Core processing needs NumPy, SciPy, pandas, scikit-learn, matplotlib, PyWavelets, requests, and setuptools; selected EEG, cvxEDA, plotting, file-format, and RQA features need separately locked optional packages.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Glob"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Glob"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -14328,7 +14076,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:59.079Z",
+        "evaluatedAt": "2026-09-22T12:21:59.921Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -14401,7 +14149,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:59.080Z",
+          "evaluatedAt": "2026-09-22T12:21:59.921Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -14419,7 +14167,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:59.080Z",
+          "evaluatedAt": "2026-09-22T12:21:59.921Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -14505,7 +14253,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:59.131Z",
+        "evaluatedAt": "2026-09-22T12:21:59.927Z",
         "evaluatedVersion": "2.4"
       },
       "evalSummaries": {
@@ -14578,7 +14326,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:59.132Z",
+          "evaluatedAt": "2026-09-22T12:21:59.927Z",
           "evaluatedVersion": "2.4"
         },
         "skill-best-practice": {
@@ -14596,7 +14344,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:59.132Z",
+          "evaluatedAt": "2026-09-22T12:21:59.927Z",
           "evaluatedVersion": "2.4"
         }
       }
@@ -14682,7 +14430,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:59.171Z",
+        "evaluatedAt": "2026-09-22T12:21:59.934Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -14755,7 +14503,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:59.171Z",
+          "evaluatedAt": "2026-09-22T12:21:59.934Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -14773,7 +14521,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:59.171Z",
+          "evaluatedAt": "2026-09-22T12:21:59.934Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -14859,7 +14607,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:59.263Z",
+        "evaluatedAt": "2026-09-22T12:21:59.948Z",
         "evaluatedVersion": "1.4"
       },
       "evalSummaries": {
@@ -14932,7 +14680,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:59.271Z",
+          "evaluatedAt": "2026-09-22T12:21:59.949Z",
           "evaluatedVersion": "1.4"
         },
         "skill-best-practice": {
@@ -14950,7 +14698,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:59.271Z",
+          "evaluatedAt": "2026-09-22T12:21:59.949Z",
           "evaluatedVersion": "1.4"
         }
       }
@@ -14962,10 +14710,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python >=3.11. Variant and sample queries require outbound network access to the public 1000 Genomes query endpoint over TLS; the sample/population metadata commands run fully offline over a data file bundled in the skill. No credentials, API keys, or environment variables are used.",
-      "allowedTools": [
-        "Write",
-        "Bash"
-      ],
+      "allowedTools": ["Write", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -15039,7 +14784,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:59.271Z",
+        "evaluatedAt": "2026-09-22T12:21:59.983Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -15112,7 +14857,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:59.275Z",
+          "evaluatedAt": "2026-09-22T12:21:59.983Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -15130,7 +14875,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:59.275Z",
+          "evaluatedAt": "2026-09-22T12:21:59.983Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -15142,12 +14887,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.11+. Scripts use only the standard library - no third-party packages. Needs network access to https://www.ebi.ac.uk/ols4, https://bioregistry.io, https://resolver.api.identifiers.org, and https://www.ebi.ac.uk/spot/zooma (all public, no API key).",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -15221,7 +14961,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:59.489Z",
+        "evaluatedAt": "2026-09-22T12:22:00.015Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -15294,7 +15034,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:59.491Z",
+          "evaluatedAt": "2026-09-22T12:22:00.015Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -15312,7 +15052,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:59.492Z",
+          "evaluatedAt": "2026-09-22T12:22:00.015Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -15398,7 +15138,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:59.707Z",
+        "evaluatedAt": "2026-09-22T12:22:00.033Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -15471,7 +15211,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:59.707Z",
+          "evaluatedAt": "2026-09-22T12:22:00.033Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -15489,7 +15229,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:59.707Z",
+          "evaluatedAt": "2026-09-22T12:22:00.033Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -15501,12 +15241,7 @@
       "license": "BSD-3-Clause",
       "creator": "",
       "compatibility": "Requires Python 3.10+ with openpiv installed (uv pip install openpiv). numpy, scipy, scikit-image, and matplotlib arrive as dependencies. No network access needed after install.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -15580,7 +15315,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:48:59.965Z",
+        "evaluatedAt": "2026-09-22T12:22:00.126Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -15653,7 +15388,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:59.966Z",
+          "evaluatedAt": "2026-09-22T12:22:00.126Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -15671,7 +15406,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:48:59.966Z",
+          "evaluatedAt": "2026-09-22T12:22:00.126Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -15683,12 +15418,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and uv for local simulation. Flex examples target opentrons 9.1.1 and API 2.29; the separate OT-2 line targets API 2.28 and uses opentrons 9.0.0 as its local compatibility simulator. Physical execution requires compatible hardware, current robot software, and the appropriate Opentrons App.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -15762,7 +15492,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:00.699Z",
+        "evaluatedAt": "2026-09-22T12:22:00.215Z",
         "evaluatedVersion": "2.1"
       },
       "evalSummaries": {
@@ -15835,7 +15565,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:00.699Z",
+          "evaluatedAt": "2026-09-22T12:22:00.215Z",
           "evaluatedVersion": "2.1"
         },
         "skill-best-practice": {
@@ -15853,7 +15583,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:00.700Z",
+          "evaluatedAt": "2026-09-22T12:22:00.216Z",
           "evaluatedVersion": "2.1"
         }
       }
@@ -15939,7 +15669,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:00.865Z",
+        "evaluatedAt": "2026-09-22T12:22:00.231Z",
         "evaluatedVersion": "1.4"
       },
       "evalSummaries": {
@@ -16012,7 +15742,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:00.865Z",
+          "evaluatedAt": "2026-09-22T12:22:00.231Z",
           "evaluatedVersion": "1.4"
         },
         "skill-best-practice": {
@@ -16030,7 +15760,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:00.865Z",
+          "evaluatedAt": "2026-09-22T12:22:00.231Z",
           "evaluatedVersion": "1.4"
         }
       }
@@ -16116,7 +15846,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:01.004Z",
+        "evaluatedAt": "2026-09-22T12:22:00.244Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -16189,7 +15919,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.007Z",
+          "evaluatedAt": "2026-09-22T12:22:00.244Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -16207,7 +15937,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.007Z",
+          "evaluatedAt": "2026-09-22T12:22:00.244Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -16219,10 +15949,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Needs network access and curl. The bundled scripts require Python 3.11+ and use only the standard library. No credentials are required; NCBI_API_KEY, S2_API_KEY, CORE_API_KEY, and OPENALEX_API_KEY raise rate limits or unlock full text where noted.",
-      "allowedTools": [
-        "Read",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -16296,7 +16023,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:01.080Z",
+        "evaluatedAt": "2026-09-22T12:22:00.255Z",
         "evaluatedVersion": "2.2"
       },
       "evalSummaries": {
@@ -16369,7 +16096,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.080Z",
+          "evaluatedAt": "2026-09-22T12:22:00.255Z",
           "evaluatedVersion": "2.2"
         },
         "skill-best-practice": {
@@ -16387,7 +16114,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.080Z",
+          "evaluatedAt": "2026-09-22T12:22:00.255Z",
           "evaluatedVersion": "2.2"
         }
       }
@@ -16399,11 +16126,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires macOS or Linux with a POSIX shell and network access; the native installer does not support Windows (use the hosted MCP server there). Installs a self-contained CLI under ~/.paperclip — no Python environment of your own is needed. Authenticate with a PAPERCLIP_API_KEY exported from a .env file or the environment; browser OAuth is an interactive fallback the user must run. Verified against paperclip 0.7.14 and 0.7.15.",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Write"
-      ],
+      "allowedTools": ["Bash", "Read", "Write"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -16477,7 +16200,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:01.300Z",
+        "evaluatedAt": "2026-09-22T12:22:00.264Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -16550,7 +16273,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.300Z",
+          "evaluatedAt": "2026-09-22T12:22:00.266Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -16568,7 +16291,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.300Z",
+          "evaluatedAt": "2026-09-22T12:22:00.266Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -16654,7 +16377,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:01.332Z",
+        "evaluatedAt": "2026-09-22T12:22:00.277Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -16727,7 +16450,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.332Z",
+          "evaluatedAt": "2026-09-22T12:22:00.277Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -16745,7 +16468,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.332Z",
+          "evaluatedAt": "2026-09-22T12:22:00.277Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -16831,7 +16554,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:01.337Z",
+        "evaluatedAt": "2026-09-22T12:22:00.279Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -16904,7 +16627,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.337Z",
+          "evaluatedAt": "2026-09-22T12:22:00.279Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -16922,7 +16645,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.337Z",
+          "evaluatedAt": "2026-09-22T12:22:00.279Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -16934,13 +16657,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "PathML 3.0.5 is the latest PyPI release and targets Python 3.10-3.12; installation needs uv plus platform libraries for OpenSlide, BLAS/LAPACK, and Java/Bio-Formats. Bundled Python 3.10+ CLIs are local, bounded, dependency-free, and network-free.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Glob"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Glob"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -17014,7 +16731,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:01.346Z",
+        "evaluatedAt": "2026-09-22T12:22:00.284Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -17087,7 +16804,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.346Z",
+          "evaluatedAt": "2026-09-22T12:22:00.284Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -17105,7 +16822,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.346Z",
+          "evaluatedAt": "2026-09-22T12:22:00.284Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -17117,12 +16834,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.11+. Scripts use only the standard library - no third-party packages. Needs network access to the public GenSpectrum LAPIS instances (lapis.cov-spectrum.org, lapis.genspectrum.org, lapis.pathoplexus.org) and to raw.githubusercontent.com for pango-designation. No API key.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -17196,7 +16908,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:01.355Z",
+        "evaluatedAt": "2026-09-22T12:22:00.303Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -17269,7 +16981,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.356Z",
+          "evaluatedAt": "2026-09-22T12:22:00.303Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -17287,7 +16999,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.356Z",
+          "evaluatedAt": "2026-09-22T12:22:00.303Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -17373,7 +17085,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:01.407Z",
+        "evaluatedAt": "2026-09-22T12:22:00.341Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -17446,7 +17158,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.408Z",
+          "evaluatedAt": "2026-09-22T12:22:00.341Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -17464,7 +17176,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.408Z",
+          "evaluatedAt": "2026-09-22T12:22:00.341Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -17550,7 +17262,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:01.522Z",
+        "evaluatedAt": "2026-09-22T12:22:00.351Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -17623,7 +17335,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.525Z",
+          "evaluatedAt": "2026-09-22T12:22:00.351Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -17641,7 +17353,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.525Z",
+          "evaluatedAt": "2026-09-22T12:22:00.351Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -17727,7 +17439,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:01.722Z",
+        "evaluatedAt": "2026-09-22T12:22:00.367Z",
         "evaluatedVersion": "2.2"
       },
       "evalSummaries": {
@@ -17800,7 +17512,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.724Z",
+          "evaluatedAt": "2026-09-22T12:22:00.367Z",
           "evaluatedVersion": "2.2"
         },
         "skill-best-practice": {
@@ -17818,7 +17530,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.724Z",
+          "evaluatedAt": "2026-09-22T12:22:00.367Z",
           "evaluatedVersion": "2.2"
         }
       }
@@ -17830,11 +17542,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Bash",
-        "Python"
-      ],
+      "allowedTools": ["Read", "Bash", "Python"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -17908,7 +17616,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:01.760Z",
+        "evaluatedAt": "2026-09-22T12:22:00.400Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -17981,7 +17689,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.760Z",
+          "evaluatedAt": "2026-09-22T12:22:00.400Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -17999,7 +17707,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.760Z",
+          "evaluatedAt": "2026-09-22T12:22:00.400Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -18085,7 +17793,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:01.800Z",
+        "evaluatedAt": "2026-09-22T12:22:00.409Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -18158,7 +17866,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.801Z",
+          "evaluatedAt": "2026-09-22T12:22:00.409Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -18176,7 +17884,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.801Z",
+          "evaluatedAt": "2026-09-22T12:22:00.409Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -18262,7 +17970,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:01.923Z",
+        "evaluatedAt": "2026-09-22T12:22:00.420Z",
         "evaluatedVersion": "1.4"
       },
       "evalSummaries": {
@@ -18335,7 +18043,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.923Z",
+          "evaluatedAt": "2026-09-22T12:22:00.420Z",
           "evaluatedVersion": "1.4"
         },
         "skill-best-practice": {
@@ -18353,7 +18061,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:01.923Z",
+          "evaluatedAt": "2026-09-22T12:22:00.420Z",
           "evaluatedVersion": "1.4"
         }
       }
@@ -18365,12 +18073,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.11+ with numpy and scipy. No network access and no proprietary software. The estimation tools this skill orients you towards (NONMEM, Monolix, Phoenix, Simcyp, GastroPlus) are licensed separately and are never invoked by these scripts.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -18444,7 +18147,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:02.061Z",
+        "evaluatedAt": "2026-09-22T12:22:00.437Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -18517,7 +18220,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:02.061Z",
+          "evaluatedAt": "2026-09-22T12:22:00.437Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -18535,7 +18238,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:02.061Z",
+          "evaluatedAt": "2026-09-22T12:22:00.437Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -18547,9 +18250,7 @@
       "license": "https://github.com/pola-rs/polars/blob/main/LICENSE",
       "creator": "",
       "compatibility": "Requires Python 3.10+ for polars 1.41.x. Install with uv pip install; optional extras enable Excel, database, cloud, pandas/NumPy, and GPU integrations.",
-      "allowedTools": [
-        "Read"
-      ],
+      "allowedTools": ["Read"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -18623,7 +18324,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:02.245Z",
+        "evaluatedAt": "2026-09-22T12:22:00.468Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -18696,7 +18397,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:02.269Z",
+          "evaluatedAt": "2026-09-22T12:22:00.468Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -18714,7 +18415,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:02.269Z",
+          "evaluatedAt": "2026-09-22T12:22:00.468Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -18726,12 +18427,7 @@
       "license": "Apache-2.0",
       "creator": "",
       "compatibility": "Requires Python 3.11–3.14 and polars-bio (uv pip install). Cloud I/O uses standard AWS/GCS/Azure SDK env vars when paths use s3://, gs://, or az:// URIs.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -18805,7 +18501,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:02.364Z",
+        "evaluatedAt": "2026-09-22T12:22:00.480Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -18878,7 +18574,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:02.364Z",
+          "evaluatedAt": "2026-09-22T12:22:00.480Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -18896,7 +18592,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:02.369Z",
+          "evaluatedAt": "2026-09-22T12:22:00.480Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -18982,7 +18678,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:02.463Z",
+        "evaluatedAt": "2026-09-22T12:22:00.486Z",
         "evaluatedVersion": "2.1"
       },
       "evalSummaries": {
@@ -19055,7 +18751,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:02.463Z",
+          "evaluatedAt": "2026-09-22T12:22:00.486Z",
           "evaluatedVersion": "2.1"
         },
         "skill-best-practice": {
@@ -19073,7 +18769,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:02.463Z",
+          "evaluatedAt": "2026-09-22T12:22:00.486Z",
           "evaluatedVersion": "2.1"
         }
       }
@@ -19085,14 +18781,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.10+, uv, and exact generation pins python-pptx 1.0.2, Pillow 12.3.0, and lxml 6.1.1. Validation and PPTX ZIP/XML inspection are local and network-free; final PowerPoint, accessibility, PDF, printer, and author review are manual.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Bash",
-        "Glob",
-        "Grep",
-        "Python"
-      ],
+      "allowedTools": ["Read", "Write", "Bash", "Glob", "Grep", "Python"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -19166,7 +18855,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:02.614Z",
+        "evaluatedAt": "2026-09-22T12:22:00.523Z",
         "evaluatedVersion": "2.2"
       },
       "evalSummaries": {
@@ -19239,7 +18928,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:02.614Z",
+          "evaluatedAt": "2026-09-22T12:22:00.523Z",
           "evaluatedVersion": "2.2"
         },
         "skill-best-practice": {
@@ -19257,7 +18946,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:02.614Z",
+          "evaluatedAt": "2026-09-22T12:22:00.523Z",
           "evaluatedVersion": "2.2"
         }
       }
@@ -19343,7 +19032,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:02.733Z",
+        "evaluatedAt": "2026-09-22T12:22:00.538Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -19416,7 +19105,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:02.734Z",
+          "evaluatedAt": "2026-09-22T12:22:00.538Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -19434,7 +19123,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:02.734Z",
+          "evaluatedAt": "2026-09-22T12:22:00.538Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -19446,11 +19135,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Bundled CLIs require Python 3.11+ and use only the standard library. Offline validation and planning need no credentials or network. REST reads require HTTPS access to official protocols.io hosts and usually a named bearer token; network access is disabled unless --execute is supplied. The scripts never load .env files or execute mutations.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Python"
-      ],
+      "allowedTools": ["Read", "Write", "Python"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -19524,7 +19209,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:02.745Z",
+        "evaluatedAt": "2026-09-22T12:22:00.574Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -19597,7 +19282,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:02.748Z",
+          "evaluatedAt": "2026-09-22T12:22:00.574Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -19615,7 +19300,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:02.749Z",
+          "evaluatedAt": "2026-09-22T12:22:00.574Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -19627,12 +19312,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Bundled CLIs require Python 3.10+ and use only the standard library. Published pufferlib 3.0.0 supports Python >=3.9 but ships as a native-code source archive; current 4.0 source requires Python >=3.10, Torch >=2.9, and an audited CPU/CUDA toolchain. Network, GPU, native builds, environment plug-ins, assets, checkpoints, and external logging are never required by the bundled CLIs.",
-      "allowedTools": [
-        "Read",
-        "Bash",
-        "Grep",
-        "Python"
-      ],
+      "allowedTools": ["Read", "Bash", "Grep", "Python"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -19706,7 +19386,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:02.780Z",
+        "evaluatedAt": "2026-09-22T12:22:00.597Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -19779,7 +19459,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:02.789Z",
+          "evaluatedAt": "2026-09-22T12:22:00.597Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -19797,7 +19477,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:02.789Z",
+          "evaluatedAt": "2026-09-22T12:22:00.597Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -19809,12 +19489,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python >=3.11 and PyDESeq2 0.5.4-compatible dependencies. Examples target PyDESeq2 0.5.x, formulaic design strings, explicit contrasts, and uv-based installs.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -19888,7 +19563,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:03.089Z",
+        "evaluatedAt": "2026-09-22T12:22:00.617Z",
         "evaluatedVersion": "1.4"
       },
       "evalSummaries": {
@@ -19961,7 +19636,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:03.089Z",
+          "evaluatedAt": "2026-09-22T12:22:00.617Z",
           "evaluatedVersion": "1.4"
         },
         "skill-best-practice": {
@@ -19979,7 +19654,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:03.089Z",
+          "evaluatedAt": "2026-09-22T12:22:00.617Z",
           "evaluatedVersion": "1.4"
         }
       }
@@ -20065,7 +19740,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:03.926Z",
+        "evaluatedAt": "2026-09-22T12:22:00.680Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -20138,7 +19813,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:03.926Z",
+          "evaluatedAt": "2026-09-22T12:22:00.680Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -20156,7 +19831,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:03.926Z",
+          "evaluatedAt": "2026-09-22T12:22:00.680Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -20242,7 +19917,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:04.050Z",
+        "evaluatedAt": "2026-09-22T12:22:00.799Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -20315,7 +19990,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:04.059Z",
+          "evaluatedAt": "2026-09-22T12:22:00.799Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -20333,7 +20008,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:04.059Z",
+          "evaluatedAt": "2026-09-22T12:22:00.799Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -20345,12 +20020,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Verified against PyLabRobot 0.2.1 on Python 3.9+. Bundled planning CLIs require only Python 3.11+ and make no serial, USB, or network connections. Physical devices need model-specific extras, configuration, calibration, and trained operator approval.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -20424,7 +20094,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:04.544Z",
+        "evaluatedAt": "2026-09-22T12:22:00.833Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -20497,7 +20167,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:04.545Z",
+          "evaluatedAt": "2026-09-22T12:22:00.833Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -20515,7 +20185,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:04.545Z",
+          "evaluatedAt": "2026-09-22T12:22:00.833Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -20527,13 +20197,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Python 3.11+ with uv. The verified snapshot uses pymatgen 2026.5.4, pymatgen-core 2026.7.16, and mp-api 0.46.4. Bundled help and planning CLIs use only the standard library; local scientific execution lazily requires the pinned pymatgen packages. Materials Project access additionally requires explicit network approval and the single named secret MP_API_KEY.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Bash",
-        "Glob",
-        "Python"
-      ],
+      "allowedTools": ["Read", "Write", "Bash", "Glob", "Python"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -20607,7 +20271,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:04.855Z",
+        "evaluatedAt": "2026-09-22T12:22:00.855Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -20680,7 +20344,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:04.856Z",
+          "evaluatedAt": "2026-09-22T12:22:00.855Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -20698,7 +20362,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:04.856Z",
+          "evaluatedAt": "2026-09-22T12:22:00.855Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -20710,12 +20374,7 @@
       "license": "Apache License, Version 2.0",
       "creator": "",
       "compatibility": "Requires Python 3.12+ and PyMC 6.0.1-compatible dependencies. Install reproducible environments with `uv pip install \"pymc[nutpie]==6.0.1\"`; optional NumPyro or BlackJAX samplers require separately pinned JAX-compatible dependencies.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -20789,7 +20448,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:06.070Z",
+        "evaluatedAt": "2026-09-22T12:22:00.966Z",
         "evaluatedVersion": "1.4"
       },
       "evalSummaries": {
@@ -20862,7 +20521,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:06.072Z",
+          "evaluatedAt": "2026-09-22T12:22:00.966Z",
           "evaluatedVersion": "1.4"
         },
         "skill-best-practice": {
@@ -20880,7 +20539,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:06.072Z",
+          "evaluatedAt": "2026-09-22T12:22:00.966Z",
           "evaluatedVersion": "1.4"
         }
       }
@@ -20892,12 +20551,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and pymoo (uv pip install). Optional matplotlib for visualization plots; optional autograd for gradient-based features; optional joblib for JoblibParallelization.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -20971,7 +20625,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:06.775Z",
+        "evaluatedAt": "2026-09-22T12:22:01.203Z",
         "evaluatedVersion": "1.4"
       },
       "evalSummaries": {
@@ -21044,7 +20698,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:06.778Z",
+          "evaluatedAt": "2026-09-22T12:22:01.205Z",
           "evaluatedVersion": "1.4"
         },
         "skill-best-practice": {
@@ -21062,7 +20716,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:06.778Z",
+          "evaluatedAt": "2026-09-22T12:22:01.205Z",
           "evaluatedVersion": "1.4"
         }
       }
@@ -21074,12 +20728,7 @@
       "license": "3 clause BSD license",
       "creator": "",
       "compatibility": "Requires Python 3.9+ and uv. Examples and scripts target pyOpenMS 3.5.0.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -21153,7 +20802,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:06.986Z",
+        "evaluatedAt": "2026-09-22T12:22:01.274Z",
         "evaluatedVersion": "2.1"
       },
       "evalSummaries": {
@@ -21226,7 +20875,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:06.994Z",
+          "evaluatedAt": "2026-09-22T12:22:01.275Z",
           "evaluatedVersion": "2.1"
         },
         "skill-best-practice": {
@@ -21244,7 +20893,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:06.989Z",
+          "evaluatedAt": "2026-09-22T12:22:01.275Z",
           "evaluatedVersion": "2.1"
         }
       }
@@ -21256,12 +20905,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.8–3.14 and pysam 0.24.0. Bundled scripts use local files. CRAM decoding may require the matching reference FASTA or an explicitly configured REF_PATH/REF_CACHE.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -21335,7 +20979,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:07.320Z",
+        "evaluatedAt": "2026-09-22T12:22:01.295Z",
         "evaluatedVersion": "2.1"
       },
       "evalSummaries": {
@@ -21408,7 +21052,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:07.320Z",
+          "evaluatedAt": "2026-09-22T12:22:01.297Z",
           "evaluatedVersion": "2.1"
         },
         "skill-best-practice": {
@@ -21426,7 +21070,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:07.320Z",
+          "evaluatedAt": "2026-09-22T12:22:01.297Z",
           "evaluatedVersion": "2.1"
         }
       }
@@ -21438,12 +21082,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires uv, CPython 3.11, PyTDC 1.1.15, and setuptools 80.9.0 for its legacy pkg_resources runtime import. Dataset, benchmark, checkpoint, and remote-oracle operations require network/storage review and explicit user approval.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -21517,7 +21156,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:08.017Z",
+        "evaluatedAt": "2026-09-22T12:22:01.410Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -21590,7 +21229,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:08.017Z",
+          "evaluatedAt": "2026-09-22T12:22:01.410Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -21608,7 +21247,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:08.017Z",
+          "evaluatedAt": "2026-09-22T12:22:01.411Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -21620,12 +21259,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and lightning 2.6+ (or pytorch-lightning 2.6+). GPU training needs CUDA-capable PyTorch. Optional loggers (wandb, mlflow, comet-ml) and DeepSpeed require separate installs.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -21699,7 +21333,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:08.676Z",
+        "evaluatedAt": "2026-09-22T12:22:01.457Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -21772,7 +21406,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:08.679Z",
+          "evaluatedAt": "2026-09-22T12:22:01.457Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -21790,7 +21424,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:08.679Z",
+          "evaluatedAt": "2026-09-22T12:22:01.457Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -21802,12 +21436,7 @@
       "license": "MIT License",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and pyzotero 1.13+. Web API access needs a Zotero API key. Optional CLI and MCP extras require Zotero 7 with local API access enabled.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -21881,7 +21510,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:08.836Z",
+        "evaluatedAt": "2026-09-22T12:22:01.503Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -21954,7 +21583,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:08.839Z",
+          "evaluatedAt": "2026-09-22T12:22:01.503Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -21972,7 +21601,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:08.839Z",
+          "evaluatedAt": "2026-09-22T12:22:01.503Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -22058,7 +21687,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:09.326Z",
+        "evaluatedAt": "2026-09-22T12:22:01.534Z",
         "evaluatedVersion": "2.1"
       },
       "evalSummaries": {
@@ -22131,7 +21760,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:09.326Z",
+          "evaluatedAt": "2026-09-22T12:22:01.534Z",
           "evaluatedVersion": "2.1"
         },
         "skill-best-practice": {
@@ -22149,7 +21778,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:09.326Z",
+          "evaluatedAt": "2026-09-22T12:22:01.534Z",
           "evaluatedVersion": "2.1"
         }
       }
@@ -22235,7 +21864,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:09.940Z",
+        "evaluatedAt": "2026-09-22T12:22:01.578Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -22308,7 +21937,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:09.953Z",
+          "evaluatedAt": "2026-09-22T12:22:01.579Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -22326,7 +21955,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:09.953Z",
+          "evaluatedAt": "2026-09-22T12:22:01.579Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -22338,12 +21967,7 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Examples target RDKit 2026.03.x. Use conda-forge for the broadest binary support or PyPI package `rdkit` for supported platform wheels; `rdkit-pypi` is the legacy PyPI name.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -22417,7 +22041,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:10.218Z",
+        "evaluatedAt": "2026-09-22T12:22:01.609Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -22490,7 +22114,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:10.224Z",
+          "evaluatedAt": "2026-09-22T12:22:01.609Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -22508,7 +22132,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:10.225Z",
+          "evaluatedAt": "2026-09-22T12:22:01.609Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -22520,12 +22144,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python >=3.10 with numpy, pandas, and scipy; statsmodels >=0.14 for forecasting and matplotlib for figures. Tested with numpy 2.5, pandas 3.0, scipy 1.18, statsmodels 0.14.6. No network access needed.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -22599,7 +22218,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:10.248Z",
+        "evaluatedAt": "2026-09-22T12:22:01.609Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -22672,7 +22291,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:10.265Z",
+          "evaluatedAt": "2026-09-22T12:22:01.609Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -22690,7 +22309,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:10.265Z",
+          "evaluatedAt": "2026-09-22T12:22:01.609Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -22702,12 +22321,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Works in Agent Skills-compatible hosts. Grant-writing guidance needs no network; optional figures via the scientific-schematics skill require OPENROUTER_API_KEY and outbound API access.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -22781,7 +22395,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:10.333Z",
+        "evaluatedAt": "2026-09-22T12:22:01.632Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -22854,7 +22468,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:10.336Z",
+          "evaluatedAt": "2026-09-22T12:22:01.632Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -22872,7 +22486,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:10.336Z",
+          "evaluatedAt": "2026-09-22T12:22:01.632Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -22958,7 +22572,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:10.867Z",
+        "evaluatedAt": "2026-09-22T12:22:01.652Z",
         "evaluatedVersion": "1.5"
       },
       "evalSummaries": {
@@ -23031,7 +22645,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:10.868Z",
+          "evaluatedAt": "2026-09-22T12:22:01.652Z",
           "evaluatedVersion": "1.5"
         },
         "skill-best-practice": {
@@ -23049,7 +22663,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:10.869Z",
+          "evaluatedAt": "2026-09-22T12:22:01.652Z",
           "evaluatedVersion": "1.5"
         }
       }
@@ -23135,7 +22749,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:11.098Z",
+        "evaluatedAt": "2026-09-22T12:22:01.670Z",
         "evaluatedVersion": "1.5"
       },
       "evalSummaries": {
@@ -23208,7 +22822,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:11.109Z",
+          "evaluatedAt": "2026-09-22T12:22:01.670Z",
           "evaluatedVersion": "1.5"
         },
         "skill-best-practice": {
@@ -23226,7 +22840,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:11.111Z",
+          "evaluatedAt": "2026-09-22T12:22:01.670Z",
           "evaluatedVersion": "1.5"
         }
       }
@@ -23312,7 +22926,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:11.281Z",
+        "evaluatedAt": "2026-09-22T12:22:01.694Z",
         "evaluatedVersion": "1.6"
       },
       "evalSummaries": {
@@ -23385,7 +22999,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:11.283Z",
+          "evaluatedAt": "2026-09-22T12:22:01.694Z",
           "evaluatedVersion": "1.6"
         },
         "skill-best-practice": {
@@ -23403,7 +23017,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:11.290Z",
+          "evaluatedAt": "2026-09-22T12:22:01.694Z",
           "evaluatedVersion": "1.6"
         }
       }
@@ -23415,13 +23029,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.11+ for optional bundled standard-library CLIs. All tooling is local JSON/CSV processing with no network, credentials, external models, or subprocesses.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Bash",
-        "Glob",
-        "Python"
-      ],
+      "allowedTools": ["Read", "Write", "Bash", "Glob", "Python"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -23495,7 +23103,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:11.449Z",
+        "evaluatedAt": "2026-09-22T12:22:01.723Z",
         "evaluatedVersion": "2.2"
       },
       "evalSummaries": {
@@ -23568,7 +23176,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:11.452Z",
+          "evaluatedAt": "2026-09-22T12:22:01.723Z",
           "evaluatedVersion": "2.2"
         },
         "skill-best-practice": {
@@ -23586,7 +23194,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:11.452Z",
+          "evaluatedAt": "2026-09-22T12:22:01.723Z",
           "evaluatedVersion": "2.2"
         }
       }
@@ -23672,7 +23280,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:12.283Z",
+        "evaluatedAt": "2026-09-22T12:22:01.779Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -23745,7 +23353,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:12.287Z",
+          "evaluatedAt": "2026-09-22T12:22:01.779Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -23763,7 +23371,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:12.287Z",
+          "evaluatedAt": "2026-09-22T12:22:01.779Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -23775,11 +23383,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Analytical guidance needs no network. Optional figures via the scientific-schematics skill require OPENROUTER_API_KEY and outbound API access to OpenRouter.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit"
-      ],
+      "allowedTools": ["Read", "Write", "Edit"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -23853,7 +23457,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:12.502Z",
+        "evaluatedAt": "2026-09-22T12:22:01.783Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -23926,7 +23530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:12.505Z",
+          "evaluatedAt": "2026-09-22T12:22:01.783Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -23944,7 +23548,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:12.505Z",
+          "evaluatedAt": "2026-09-22T12:22:01.783Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -23956,12 +23560,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -24035,7 +23634,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:12.504Z",
+        "evaluatedAt": "2026-09-22T12:22:01.794Z",
         "evaluatedVersion": "1.7"
       },
       "evalSummaries": {
@@ -24108,7 +23707,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:12.505Z",
+          "evaluatedAt": "2026-09-22T12:22:01.794Z",
           "evaluatedVersion": "1.7"
         },
         "skill-best-practice": {
@@ -24126,7 +23725,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:12.505Z",
+          "evaluatedAt": "2026-09-22T12:22:01.794Z",
           "evaluatedVersion": "1.7"
         }
       }
@@ -24138,12 +23737,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -24217,7 +23811,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:12.678Z",
+        "evaluatedAt": "2026-09-22T12:22:01.811Z",
         "evaluatedVersion": "1.8"
       },
       "evalSummaries": {
@@ -24290,7 +23884,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:12.681Z",
+          "evaluatedAt": "2026-09-22T12:22:01.811Z",
           "evaluatedVersion": "1.8"
         },
         "skill-best-practice": {
@@ -24308,7 +23902,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:12.681Z",
+          "evaluatedAt": "2026-09-22T12:22:01.811Z",
           "evaluatedVersion": "1.8"
         }
       }
@@ -24320,14 +23914,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.11+ and uv for pinned examples. Bundled CLIs are network-free and load Matplotlib, Pillow, or pypdf only when needed. Plotly static export with Kaleido v1 requires a compatible Chrome/Chromium installation.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Glob",
-        "Grep"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -24401,7 +23988,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:13.089Z",
+        "evaluatedAt": "2026-09-22T12:22:01.897Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -24474,7 +24061,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:13.094Z",
+          "evaluatedAt": "2026-09-22T12:22:01.897Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -24492,7 +24079,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:13.095Z",
+          "evaluatedAt": "2026-09-22T12:22:01.897Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -24578,7 +24165,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:13.974Z",
+        "evaluatedAt": "2026-09-22T12:22:02.008Z",
         "evaluatedVersion": "2.1"
       },
       "evalSummaries": {
@@ -24651,7 +24238,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:13.977Z",
+          "evaluatedAt": "2026-09-22T12:22:02.008Z",
           "evaluatedVersion": "2.1"
         },
         "skill-best-practice": {
@@ -24669,7 +24256,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:13.977Z",
+          "evaluatedAt": "2026-09-22T12:22:02.008Z",
           "evaluatedVersion": "2.1"
         }
       }
@@ -24681,12 +24268,7 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ and scikit-bio 0.7+ (uv pip install scikit-bio). NumPy 2.0+ is required. Optional matplotlib/seaborn/plotly for plotting; biom-format for BIOM tables; polars/anndata for table interoperability.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -24760,7 +24342,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:14.442Z",
+        "evaluatedAt": "2026-09-22T12:22:02.050Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -24833,7 +24415,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:14.447Z",
+          "evaluatedAt": "2026-09-22T12:22:02.050Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -24851,7 +24433,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:14.447Z",
+          "evaluatedAt": "2026-09-22T12:22:02.050Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -24863,12 +24445,7 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.11+ and scikit-learn 1.7+. NumPy and SciPy are required dependencies. Optional matplotlib/seaborn for bundled example scripts that save plots.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -24942,7 +24519,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:14.644Z",
+        "evaluatedAt": "2026-09-22T12:22:02.053Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -25015,7 +24592,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:14.644Z",
+          "evaluatedAt": "2026-09-22T12:22:02.053Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -25033,7 +24610,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:14.645Z",
+          "evaluatedAt": "2026-09-22T12:22:02.053Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -25045,12 +24622,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.11+, uv, and the pinned scikit-survival 0.28.0 stack for executable examples. Bundled CLIs are local and network-free by default.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -25124,7 +24696,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:15.247Z",
+        "evaluatedAt": "2026-09-22T12:22:02.060Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -25197,7 +24769,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:15.247Z",
+          "evaluatedAt": "2026-09-22T12:22:02.060Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -25215,7 +24787,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:15.247Z",
+          "evaluatedAt": "2026-09-22T12:22:02.060Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -25301,7 +24873,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:16.575Z",
+        "evaluatedAt": "2026-09-22T12:22:02.201Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -25374,7 +24946,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:16.575Z",
+          "evaluatedAt": "2026-09-22T12:22:02.201Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -25392,7 +24964,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:16.575Z",
+          "evaluatedAt": "2026-09-22T12:22:02.201Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -25478,7 +25050,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:16.685Z",
+        "evaluatedAt": "2026-09-22T12:22:02.250Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -25551,7 +25123,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:16.686Z",
+          "evaluatedAt": "2026-09-22T12:22:02.250Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -25569,7 +25141,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:16.686Z",
+          "evaluatedAt": "2026-09-22T12:22:02.250Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -25581,12 +25153,7 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.8+ and seaborn 0.13.2-compatible dependencies. Install with uv pip install seaborn==0.13.2; use seaborn[stats]==0.13.2 when advanced regression or clustering examples need scipy/statsmodels.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -25660,7 +25227,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:16.970Z",
+        "evaluatedAt": "2026-09-22T12:22:02.261Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -25733,7 +25300,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:16.970Z",
+          "evaluatedAt": "2026-09-22T12:22:02.261Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -25751,7 +25318,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:16.971Z",
+          "evaluatedAt": "2026-09-22T12:22:02.261Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -25763,10 +25330,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.12+ and uv for SHAP 0.52.0; model-specific libraries are optional.",
-      "allowedTools": [
-        "Read",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -25840,7 +25404,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:17.039Z",
+        "evaluatedAt": "2026-09-22T12:22:02.265Z",
         "evaluatedVersion": "2.1"
       },
       "evalSummaries": {
@@ -25913,7 +25477,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:17.040Z",
+          "evaluatedAt": "2026-09-22T12:22:02.265Z",
           "evaluatedVersion": "2.1"
         },
         "skill-best-practice": {
@@ -25931,7 +25495,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:17.040Z",
+          "evaluatedAt": "2026-09-22T12:22:02.265Z",
           "evaluatedVersion": "2.1"
         }
       }
@@ -25943,13 +25507,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Upstream SimPy 4.1.2 supports Python 3.8+; bundled CLIs require Python 3.10+, uv, and SimPy 4.1.2. They use only SimPy and the standard library, operate on local bounded inputs, and make no network calls.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Glob"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Glob"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -26023,7 +25581,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:17.823Z",
+        "evaluatedAt": "2026-09-22T12:22:02.287Z",
         "evaluatedVersion": "1.4"
       },
       "evalSummaries": {
@@ -26096,7 +25654,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:17.827Z",
+          "evaluatedAt": "2026-09-22T12:22:02.289Z",
           "evaluatedVersion": "1.4"
         },
         "skill-best-practice": {
@@ -26114,7 +25672,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:17.827Z",
+          "evaluatedAt": "2026-09-22T12:22:02.289Z",
           "evaluatedVersion": "1.4"
         }
       }
@@ -26126,12 +25684,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python 3.10+, PyTorch >= 2.3, and stable-baselines3 2.8+. Gymnasium environments; optional extras for TensorBoard and Atari (ale-py).",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -26205,7 +25758,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:17.839Z",
+        "evaluatedAt": "2026-09-22T12:22:02.296Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -26278,7 +25831,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:17.880Z",
+          "evaluatedAt": "2026-09-22T12:22:02.296Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -26296,7 +25849,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:17.880Z",
+          "evaluatedAt": "2026-09-22T12:22:02.296Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -26382,7 +25935,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:17.961Z",
+        "evaluatedAt": "2026-09-22T12:22:02.333Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -26455,7 +26008,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:17.973Z",
+          "evaluatedAt": "2026-09-22T12:22:02.333Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -26473,7 +26026,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:17.976Z",
+          "evaluatedAt": "2026-09-22T12:22:02.333Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -26485,12 +26038,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python >=3.10. Examples target statsmodels >=0.14.6, scipy >=1.11, pingouin >=0.6, numpy >=1.26, and matplotlib. Optional extras are statsmodels mixed models and lifelines for simulation-based power.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -26564,7 +26112,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:18.242Z",
+        "evaluatedAt": "2026-09-22T12:22:02.342Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -26637,7 +26185,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:18.248Z",
+          "evaluatedAt": "2026-09-22T12:22:02.344Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -26655,7 +26203,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:18.248Z",
+          "evaluatedAt": "2026-09-22T12:22:02.344Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -26667,12 +26215,7 @@
       "license": "BSD-3-Clause license",
       "creator": "",
       "compatibility": "Requires Python 3.9+ and statsmodels 0.14.6-compatible dependencies. Use `uv pip install statsmodels==0.14.6`; optional predictive-metric examples also need scikit-learn.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -26746,7 +26289,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:18.723Z",
+        "evaluatedAt": "2026-09-22T12:22:02.399Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -26819,7 +26362,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:18.751Z",
+          "evaluatedAt": "2026-09-22T12:22:02.399Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -26837,7 +26380,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:18.751Z",
+          "evaluatedAt": "2026-09-22T12:22:02.399Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -26849,12 +26392,7 @@
       "license": "https://github.com/sympy/sympy/blob/master/LICENSE",
       "creator": "",
       "compatibility": "Requires Python 3.9+ and SymPy 1.14+. Optional NumPy/SciPy/Matplotlib for lambdify examples; C/Fortran compiler for autowrap/codegen.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -26928,7 +26466,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:18.927Z",
+        "evaluatedAt": "2026-09-22T12:22:02.433Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -27001,7 +26539,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:18.933Z",
+          "evaluatedAt": "2026-09-22T12:22:02.433Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -27019,7 +26557,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:18.933Z",
+          "evaluatedAt": "2026-09-22T12:22:02.433Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -27105,7 +26643,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:18.994Z",
+        "evaluatedAt": "2026-09-22T12:22:02.448Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -27178,7 +26716,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.002Z",
+          "evaluatedAt": "2026-09-22T12:22:02.448Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -27196,7 +26734,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.002Z",
+          "evaluatedAt": "2026-09-22T12:22:02.448Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -27282,7 +26820,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:19.090Z",
+        "evaluatedAt": "2026-09-22T12:22:02.452Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -27355,7 +26893,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.118Z",
+          "evaluatedAt": "2026-09-22T12:22:02.454Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -27373,7 +26911,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.118Z",
+          "evaluatedAt": "2026-09-22T12:22:02.454Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -27385,12 +26923,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -27464,7 +26997,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:19.192Z",
+        "evaluatedAt": "2026-09-22T12:22:02.460Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -27537,7 +27070,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.194Z",
+          "evaluatedAt": "2026-09-22T12:22:02.460Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -27555,7 +27088,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.194Z",
+          "evaluatedAt": "2026-09-22T12:22:02.461Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -27641,7 +27174,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:19.287Z",
+        "evaluatedAt": "2026-09-22T12:22:02.464Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -27714,7 +27247,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.291Z",
+          "evaluatedAt": "2026-09-22T12:22:02.464Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -27732,7 +27265,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.291Z",
+          "evaluatedAt": "2026-09-22T12:22:02.464Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -27744,12 +27277,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "TorchDrug 0.2.1 requires Python 3.7-3.10 and supports PyTorch 1.8-2.0. Apple Silicon is CPU-only; MPS is unsupported.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -27823,7 +27351,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:19.348Z",
+        "evaluatedAt": "2026-09-22T12:22:02.465Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -27896,7 +27424,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.405Z",
+          "evaluatedAt": "2026-09-22T12:22:02.469Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
@@ -27914,7 +27442,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.406Z",
+          "evaluatedAt": "2026-09-22T12:22:02.469Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -27926,12 +27454,7 @@
       "license": "Apache-2.0 license",
       "creator": "",
       "compatibility": "Requires Python 3.10+, PyTorch 2.4+, and transformers 5.x. Gated or private Hub models need an HF token (`hf auth login` or `HF_TOKEN`).",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -28005,7 +27528,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:19.432Z",
+        "evaluatedAt": "2026-09-22T12:22:02.470Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -28078,7 +27601,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.432Z",
+          "evaluatedAt": "2026-09-22T12:22:02.471Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -28096,7 +27619,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.432Z",
+          "evaluatedAt": "2026-09-22T12:22:02.471Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -28182,7 +27705,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:19.510Z",
+        "evaluatedAt": "2026-09-22T12:22:02.480Z",
         "evaluatedVersion": "2.2"
       },
       "evalSummaries": {
@@ -28255,7 +27778,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.511Z",
+          "evaluatedAt": "2026-09-22T12:22:02.481Z",
           "evaluatedVersion": "2.2"
         },
         "skill-best-practice": {
@@ -28273,7 +27796,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.512Z",
+          "evaluatedAt": "2026-09-22T12:22:02.481Z",
           "evaluatedVersion": "2.2"
         }
       }
@@ -28359,7 +27882,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:19.524Z",
+        "evaluatedAt": "2026-09-22T12:22:02.481Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -28432,7 +27955,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.528Z",
+          "evaluatedAt": "2026-09-22T12:22:02.481Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -28450,7 +27973,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.529Z",
+          "evaluatedAt": "2026-09-22T12:22:02.481Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -28462,12 +27985,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires Python 3.12+. The numeric CLIs need pint, uncertainties, NumPy, and SciPy; the static auditor is standard-library only. All bundled tooling runs locally with no network access.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -28541,7 +28059,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:19.668Z",
+        "evaluatedAt": "2026-09-22T12:22:02.486Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -28614,7 +28132,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.669Z",
+          "evaluatedAt": "2026-09-22T12:22:02.486Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -28632,7 +28150,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.669Z",
+          "evaluatedAt": "2026-09-22T12:22:02.486Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -28644,12 +28162,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -28723,7 +28236,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:19.701Z",
+        "evaluatedAt": "2026-09-22T12:22:02.489Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -28796,7 +28309,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.789Z",
+          "evaluatedAt": "2026-09-22T12:22:02.492Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -28814,7 +28327,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.789Z",
+          "evaluatedAt": "2026-09-22T12:22:02.492Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -28826,14 +28339,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python 3.10+ (3.12+ recommended with vaex 4.19.0). Install with uv pip install vaex. Optional s3fs/gcsfs/adlfs for cloud I/O.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Grep",
-        "Glob"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Grep", "Glob"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -28907,7 +28413,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:19.837Z",
+        "evaluatedAt": "2026-09-22T12:22:02.495Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -28980,7 +28486,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.900Z",
+          "evaluatedAt": "2026-09-22T12:22:02.495Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -28998,7 +28504,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.900Z",
+          "evaluatedAt": "2026-09-22T12:22:02.495Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -29084,7 +28590,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:19.901Z",
+        "evaluatedAt": "2026-09-22T12:22:02.515Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -29157,7 +28663,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.908Z",
+          "evaluatedAt": "2026-09-22T12:22:02.515Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -29175,7 +28681,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:19.909Z",
+          "evaluatedAt": "2026-09-22T12:22:02.515Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -29261,7 +28767,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:20.383Z",
+        "evaluatedAt": "2026-09-22T12:22:02.517Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -29334,7 +28840,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:20.399Z",
+          "evaluatedAt": "2026-09-22T12:22:02.517Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -29352,7 +28858,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:20.400Z",
+          "evaluatedAt": "2026-09-22T12:22:02.517Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -29438,7 +28944,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:20.406Z",
+        "evaluatedAt": "2026-09-22T12:22:02.565Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -29511,7 +29017,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:20.432Z",
+          "evaluatedAt": "2026-09-22T12:22:02.566Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
@@ -29529,7 +29035,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:20.433Z",
+          "evaluatedAt": "2026-09-22T12:22:02.566Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -29541,14 +29047,7 @@
       "license": "Proprietary. LICENSE.txt has complete terms",
       "creator": "",
       "compatibility": "Requires Python 3.8+, LibreOffice (soffice on PATH), and gcc only when Unix sockets are restricted",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash",
-        "Grep",
-        "Glob"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash", "Grep", "Glob"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -29622,7 +29121,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:20.937Z",
+        "evaluatedAt": "2026-09-22T12:22:02.572Z",
         "evaluatedVersion": "2.2"
       },
       "evalSummaries": {
@@ -29695,7 +29194,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:20.943Z",
+          "evaluatedAt": "2026-09-22T12:22:02.572Z",
           "evaluatedVersion": "2.2"
         },
         "skill-best-practice": {
@@ -29713,7 +29212,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:20.944Z",
+          "evaluatedAt": "2026-09-22T12:22:02.572Z",
           "evaluatedVersion": "2.2"
         }
       }
@@ -29725,12 +29224,7 @@
       "license": "MIT license",
       "creator": "",
       "compatibility": "Requires Python 3.12+ and zarr 3.x. Cloud I/O needs zarr[remote] plus pinned s3fs or gcsfs. Legacy Zarr v2 workflows need exact 2.x pins on older Python.",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Bash"
-      ],
+      "allowedTools": ["Read", "Write", "Edit", "Bash"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -29804,7 +29298,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:22.197Z",
+        "evaluatedAt": "2026-09-22T12:22:02.647Z",
         "evaluatedVersion": "1.3"
       },
       "evalSummaries": {
@@ -29877,7 +29371,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:22.198Z",
+          "evaluatedAt": "2026-09-22T12:22:02.647Z",
           "evaluatedVersion": "1.3"
         },
         "skill-best-practice": {
@@ -29895,7 +29389,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:22.198Z",
+          "evaluatedAt": "2026-09-22T12:22:02.647Z",
           "evaluatedVersion": "1.3"
         }
       }
@@ -29907,7 +29401,7 @@
       "name": "k-dense-ai-claude-scientific-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from K-Dense-AI/claude-scientific-skills.",
       "author": "ASM (K-Dense-AI/claude-scientific-skills)",
-      "createdAt": "2026-09-19T14:49:24.301Z",
+      "createdAt": "2026-09-22T12:22:03.182Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -30411,7 +29905,7 @@
       "name": "k-dense-ai-claude-scientific-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from K-Dense-AI/claude-scientific-skills.",
       "author": "ASM (K-Dense-AI/claude-scientific-skills)",
-      "createdAt": "2026-09-19T14:49:24.301Z",
+      "createdAt": "2026-09-22T12:22:03.182Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -30915,7 +30409,7 @@
       "name": "k-dense-ai-claude-scientific-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from K-Dense-AI/claude-scientific-skills.",
       "author": "ASM (K-Dense-AI/claude-scientific-skills)",
-      "createdAt": "2026-09-19T14:49:24.301Z",
+      "createdAt": "2026-09-22T12:22:03.182Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -31419,7 +30913,7 @@
       "name": "k-dense-ai-claude-scientific-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from K-Dense-AI/claude-scientific-skills.",
       "author": "ASM (K-Dense-AI/claude-scientific-skills)",
-      "createdAt": "2026-09-19T14:49:24.301Z",
+      "createdAt": "2026-09-22T12:22:03.182Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -31923,7 +31417,7 @@
       "name": "k-dense-ai-claude-scientific-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from K-Dense-AI/claude-scientific-skills.",
       "author": "ASM (K-Dense-AI/claude-scientific-skills)",
-      "createdAt": "2026-09-19T14:49:24.301Z",
+      "createdAt": "2026-09-22T12:22:03.182Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -32133,7 +31627,7 @@
       "name": "k-dense-ai-claude-scientific-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from K-Dense-AI/claude-scientific-skills.",
       "author": "ASM (K-Dense-AI/claude-scientific-skills)",
-      "createdAt": "2026-09-19T14:49:24.301Z",
+      "createdAt": "2026-09-22T12:22:03.182Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -32247,7 +31741,7 @@
       "name": "k-dense-ai-claude-scientific-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from K-Dense-AI/claude-scientific-skills.",
       "author": "ASM (K-Dense-AI/claude-scientific-skills)",
-      "createdAt": "2026-09-19T14:49:24.301Z",
+      "createdAt": "2026-09-22T12:22:03.182Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -32751,7 +32245,7 @@
       "name": "k-dense-ai-claude-scientific-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from K-Dense-AI/claude-scientific-skills.",
       "author": "ASM (K-Dense-AI/claude-scientific-skills)",
-      "createdAt": "2026-09-19T14:49:24.301Z",
+      "createdAt": "2026-09-22T12:22:03.182Z",
       "tags": [
         "repo-derived",
         "inferred",

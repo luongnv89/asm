@@ -2,9 +2,186 @@
   "repoUrl": "https://github.com/heygen-com/hyperframes.git",
   "owner": "heygen-com",
   "repo": "hyperframes",
-  "updatedAt": "2026-09-19T14:50:00.299Z",
-  "skillCount": 27,
+  "updatedAt": "2026-09-22T12:22:58.627Z",
+  "skillCount": 34,
   "skills": [
+    {
+      "name": "canopy-part-title",
+      "description": "Leaves sweep through the frame and part to reveal the headline. HyperFrames block, 1920×1080, 12s, 11 variables.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:heygen-com/hyperframes:registry/blocks/canopy-part-title",
+      "relPath": "registry/blocks/canopy-part-title",
+      "verified": true,
+      "tokenCount": 1256,
+      "evalSummary": {
+        "overallScore": 61,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-22T12:22:57.977Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 59,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-22T12:22:57.977Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-22T12:22:57.977Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
     {
       "name": "captions-overlay",
       "description": "Overlay doctrine for the embedded-captions workflow — the caption MODEL (drop / rail / embed) and the rule that captions are an OVERLAY composited on top of the film, never a reserved bottom band you shift content up to avoid. Load when adding captions/subtitles to a talking-head or launch video, when deciding whether a phrase should be dropped, ride the verbatim rail, or be promoted to a scarce embedded climax, when laying out a composition that will carry captions (do NOT reserve a keep-out band), or when centering a composition on the true frame center under captions. Quotes the rail+embed model from embedded-captions and constraint #13 (captions overlay, keep-out band retired) from the product-launch-video scene agent. Applies ON TOP of embedded-captions.",
@@ -86,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.546Z",
+        "evaluatedAt": "2026-09-22T12:22:57.977Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -159,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.548Z",
+          "evaluatedAt": "2026-09-22T12:22:57.977Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -177,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.548Z",
+          "evaluatedAt": "2026-09-22T12:22:57.977Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -263,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.547Z",
+        "evaluatedAt": "2026-09-22T12:22:57.977Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -336,7 +513,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.548Z",
+          "evaluatedAt": "2026-09-22T12:22:57.977Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -354,7 +531,361 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.548Z",
+          "evaluatedAt": "2026-09-22T12:22:57.977Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "code-slice-hero",
+      "description": "A tiled headline surface flips cell by cell under a sweeping depth field to reveal the rear headline. HyperFrames block, 1920×1080, 8s, 18 variables.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:heygen-com/hyperframes:registry/blocks/code-slice-hero",
+      "relPath": "registry/blocks/code-slice-hero",
+      "verified": true,
+      "tokenCount": 1723,
+      "evalSummary": {
+        "overallScore": 60,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-22T12:22:57.977Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 58,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-22T12:22:57.977Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-22T12:22:57.977Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "cuboid-carousel",
+      "description": "A chain of bevelled cuboids rides a travelling wave as a content carousel. HyperFrames block, 1920×1080, 6.666666666666667s, 40 variables.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:heygen-com/hyperframes:registry/blocks/cuboid-carousel",
+      "relPath": "registry/blocks/cuboid-carousel",
+      "verified": true,
+      "tokenCount": 2945,
+      "evalSummary": {
+        "overallScore": 61,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-22T12:22:57.977Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 57,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-22T12:22:57.977Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-22T12:22:57.977Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -440,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.547Z",
+        "evaluatedAt": "2026-09-22T12:22:57.977Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -513,7 +1044,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.548Z",
+          "evaluatedAt": "2026-09-22T12:22:57.977Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -531,7 +1062,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.548Z",
+          "evaluatedAt": "2026-09-22T12:22:57.977Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -617,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.547Z",
+        "evaluatedAt": "2026-09-22T12:22:57.977Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -690,7 +1221,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.548Z",
+          "evaluatedAt": "2026-09-22T12:22:57.977Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -708,7 +1239,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.548Z",
+          "evaluatedAt": "2026-09-22T12:22:57.977Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -794,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.547Z",
+        "evaluatedAt": "2026-09-22T12:22:57.979Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -867,7 +1398,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.548Z",
+          "evaluatedAt": "2026-09-22T12:22:57.979Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -885,7 +1416,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.548Z",
+          "evaluatedAt": "2026-09-22T12:22:57.979Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -971,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.547Z",
+        "evaluatedAt": "2026-09-22T12:22:57.990Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1044,7 +1575,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.548Z",
+          "evaluatedAt": "2026-09-22T12:22:57.990Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1062,7 +1593,184 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.548Z",
+          "evaluatedAt": "2026-09-22T12:22:57.990Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "frost-sequence-camera-orbit",
+      "description": "An orbiting camera follows an ice logo as it breaks apart, reforms into two text moments, and fades. HyperFrames block, 1920×1080, 22.5s, 216 variables.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:heygen-com/hyperframes:registry/blocks/frost-sequence-camera-orbit",
+      "relPath": "registry/blocks/frost-sequence-camera-orbit",
+      "verified": true,
+      "tokenCount": 24759,
+      "evalSummary": {
+        "overallScore": 58,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-22T12:22:57.997Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 54,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-22T12:22:57.997Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-22T12:22:57.997Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1148,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.548Z",
+        "evaluatedAt": "2026-09-22T12:22:58.004Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1221,7 +1929,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.548Z",
+          "evaluatedAt": "2026-09-22T12:22:58.006Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1239,7 +1947,184 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.548Z",
+          "evaluatedAt": "2026-09-22T12:22:58.006Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "glass-shard-title",
+      "description": "Glass shards fly in through fog and tile themselves into the headline. HyperFrames block, 1920×1080, 12.16s, 19 variables.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:heygen-com/hyperframes:registry/blocks/glass-shard-title",
+      "relPath": "registry/blocks/glass-shard-title",
+      "verified": true,
+      "tokenCount": 2003,
+      "evalSummary": {
+        "overallScore": 61,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-22T12:22:58.007Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 59,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-22T12:22:58.007Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-22T12:22:58.007Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1259,7 +2144,7 @@
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
       "relPath": "skills/hyperframes",
       "verified": true,
-      "tokenCount": 7057,
+      "tokenCount": 7062,
       "evalSummary": {
         "overallScore": 66,
         "grade": "C",
@@ -1325,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.548Z",
+        "evaluatedAt": "2026-09-22T12:22:58.014Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1398,7 +2283,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.548Z",
+          "evaluatedAt": "2026-09-22T12:22:58.014Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1416,7 +2301,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.548Z",
+          "evaluatedAt": "2026-09-22T12:22:58.014Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1502,7 +2387,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.574Z",
+        "evaluatedAt": "2026-09-22T12:22:58.015Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1575,7 +2460,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.575Z",
+          "evaluatedAt": "2026-09-22T12:22:58.028Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1593,7 +2478,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.575Z",
+          "evaluatedAt": "2026-09-22T12:22:58.028Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1613,7 +2498,7 @@
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-audio",
       "relPath": "skills/hyperframes-audio",
       "verified": true,
-      "tokenCount": 8384,
+      "tokenCount": 8395,
       "evalSummary": {
         "overallScore": 61,
         "grade": "D",
@@ -1679,7 +2564,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.580Z",
+        "evaluatedAt": "2026-09-22T12:22:58.034Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1752,7 +2637,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.580Z",
+          "evaluatedAt": "2026-09-22T12:22:58.034Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1770,7 +2655,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.580Z",
+          "evaluatedAt": "2026-09-22T12:22:58.034Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1790,7 +2675,7 @@
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-cli",
       "relPath": "skills/hyperframes-cli",
       "verified": true,
-      "tokenCount": 6129,
+      "tokenCount": 6191,
       "evalSummary": {
         "overallScore": 72,
         "grade": "C",
@@ -1856,7 +2741,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.587Z",
+        "evaluatedAt": "2026-09-22T12:22:58.036Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1929,7 +2814,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.588Z",
+          "evaluatedAt": "2026-09-22T12:22:58.036Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1947,7 +2832,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.588Z",
+          "evaluatedAt": "2026-09-22T12:22:58.036Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2033,7 +2918,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.609Z",
+        "evaluatedAt": "2026-09-22T12:22:58.089Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2106,7 +2991,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.613Z",
+          "evaluatedAt": "2026-09-22T12:22:58.089Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2124,7 +3009,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.613Z",
+          "evaluatedAt": "2026-09-22T12:22:58.089Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2210,7 +3095,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.643Z",
+        "evaluatedAt": "2026-09-22T12:22:58.090Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2283,7 +3168,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.644Z",
+          "evaluatedAt": "2026-09-22T12:22:58.091Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2301,7 +3186,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.644Z",
+          "evaluatedAt": "2026-09-22T12:22:58.091Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2321,7 +3206,7 @@
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-keyframes",
       "relPath": "skills/hyperframes-keyframes",
       "verified": true,
-      "tokenCount": 5845,
+      "tokenCount": 5829,
       "evalSummary": {
         "overallScore": 65,
         "grade": "C",
@@ -2387,7 +3272,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.644Z",
+        "evaluatedAt": "2026-09-22T12:22:58.097Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2460,7 +3345,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.645Z",
+          "evaluatedAt": "2026-09-22T12:22:58.097Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2478,7 +3363,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.645Z",
+          "evaluatedAt": "2026-09-22T12:22:58.097Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2564,7 +3449,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.655Z",
+        "evaluatedAt": "2026-09-22T12:22:58.107Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2637,7 +3522,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.658Z",
+          "evaluatedAt": "2026-09-22T12:22:58.107Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2655,7 +3540,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.658Z",
+          "evaluatedAt": "2026-09-22T12:22:58.107Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2741,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.668Z",
+        "evaluatedAt": "2026-09-22T12:22:58.110Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2814,7 +3699,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.668Z",
+          "evaluatedAt": "2026-09-22T12:22:58.110Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2832,7 +3717,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.668Z",
+          "evaluatedAt": "2026-09-22T12:22:58.110Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2852,7 +3737,7 @@
       "installUrl": "github:heygen-com/hyperframes:skills/media-use",
       "relPath": "skills/media-use",
       "verified": true,
-      "tokenCount": 2962,
+      "tokenCount": 2970,
       "evalSummary": {
         "overallScore": 65,
         "grade": "C",
@@ -2918,7 +3803,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.673Z",
+        "evaluatedAt": "2026-09-22T12:22:58.114Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2991,7 +3876,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.673Z",
+          "evaluatedAt": "2026-09-22T12:22:58.115Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3009,7 +3894,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.673Z",
+          "evaluatedAt": "2026-09-22T12:22:58.115Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3095,7 +3980,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.673Z",
+        "evaluatedAt": "2026-09-22T12:22:58.116Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3168,7 +4053,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.674Z",
+          "evaluatedAt": "2026-09-22T12:22:58.116Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3186,7 +4071,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.674Z",
+          "evaluatedAt": "2026-09-22T12:22:58.116Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3272,7 +4157,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.691Z",
+        "evaluatedAt": "2026-09-22T12:22:58.125Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3345,7 +4230,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.692Z",
+          "evaluatedAt": "2026-09-22T12:22:58.125Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3363,7 +4248,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.693Z",
+          "evaluatedAt": "2026-09-22T12:22:58.125Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3449,7 +4334,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.726Z",
+        "evaluatedAt": "2026-09-22T12:22:58.133Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3522,7 +4407,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.727Z",
+          "evaluatedAt": "2026-09-22T12:22:58.133Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3540,7 +4425,184 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.727Z",
+          "evaluatedAt": "2026-09-22T12:22:58.133Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "orbit-card",
+      "description": "A single feature card orbits a dot sphere on approved Blender camera motion. HyperFrames block, 1920×1080, 10s, 4 variables.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:heygen-com/hyperframes:registry/blocks/orbit-card",
+      "relPath": "registry/blocks/orbit-card",
+      "verified": true,
+      "tokenCount": 1106,
+      "evalSummary": {
+        "overallScore": 62,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-22T12:22:58.159Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 58,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-22T12:22:58.159Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-22T12:22:58.159Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3626,7 +4688,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.746Z",
+        "evaluatedAt": "2026-09-22T12:22:58.210Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3699,7 +4761,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.747Z",
+          "evaluatedAt": "2026-09-22T12:22:58.210Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3717,7 +4779,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.747Z",
+          "evaluatedAt": "2026-09-22T12:22:58.210Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3803,7 +4865,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.753Z",
+        "evaluatedAt": "2026-09-22T12:22:58.225Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3876,7 +4938,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.754Z",
+          "evaluatedAt": "2026-09-22T12:22:58.226Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3894,7 +4956,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.754Z",
+          "evaluatedAt": "2026-09-22T12:22:58.227Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3980,7 +5042,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.778Z",
+        "evaluatedAt": "2026-09-22T12:22:58.257Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4053,7 +5115,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.779Z",
+          "evaluatedAt": "2026-09-22T12:22:58.258Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4071,7 +5133,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.779Z",
+          "evaluatedAt": "2026-09-22T12:22:58.258Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4157,7 +5219,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.914Z",
+        "evaluatedAt": "2026-09-22T12:22:58.269Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4230,7 +5292,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.915Z",
+          "evaluatedAt": "2026-09-22T12:22:58.269Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4248,7 +5310,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.915Z",
+          "evaluatedAt": "2026-09-22T12:22:58.269Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4334,7 +5396,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.933Z",
+        "evaluatedAt": "2026-09-22T12:22:58.276Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4407,7 +5469,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.936Z",
+          "evaluatedAt": "2026-09-22T12:22:58.276Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4425,7 +5487,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.936Z",
+          "evaluatedAt": "2026-09-22T12:22:58.276Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4511,7 +5573,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:58.984Z",
+        "evaluatedAt": "2026-09-22T12:22:58.285Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4584,7 +5646,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.985Z",
+          "evaluatedAt": "2026-09-22T12:22:58.286Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4602,7 +5664,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:58.985Z",
+          "evaluatedAt": "2026-09-22T12:22:58.286Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4688,7 +5750,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:49:59.016Z",
+        "evaluatedAt": "2026-09-22T12:22:58.285Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4761,7 +5823,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:59.016Z",
+          "evaluatedAt": "2026-09-22T12:22:58.286Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4779,7 +5841,184 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:49:59.016Z",
+          "evaluatedAt": "2026-09-22T12:22:58.286Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "wireframe-portal-title",
+      "description": "A wireframe portal bursts open, the title comes through, then its letters swap into a second phrase. HyperFrames block, 1920×1080, 8s, 9 variables.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:heygen-com/hyperframes:registry/blocks/wireframe-portal-title",
+      "relPath": "registry/blocks/wireframe-portal-title",
+      "verified": true,
+      "tokenCount": 1374,
+      "evalSummary": {
+        "overallScore": 61,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-22T12:22:58.297Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 59,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-22T12:22:58.297Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-22T12:22:58.297Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4791,7 +6030,7 @@
       "name": "heygen-com-hyperframes-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-09-19T14:50:00.299Z",
+      "createdAt": "2026-09-22T12:22:58.627Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4812,6 +6051,12 @@
           "name": "changelog-video",
           "installUrl": "github:heygen-com/hyperframes:.claude/skills/changelog-video",
           "description": "Turn a weekly changelog .md into a finished branded changelog video (square 1080, ~45-60s, Annie VO, animated brand background, mock-UI visualizations, lowkey captions). Use when the user provides a changelog/digest markdown and wants the weekly video, or says \"changelog video\". Self-contained — fonts, background, lexicon, and scripts ship in this skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "cuboid-carousel",
+          "installUrl": "github:heygen-com/hyperframes:registry/blocks/cuboid-carousel",
+          "description": "A chain of bevelled cuboids rides a travelling wave as a content carousel. HyperFrames block, 1920×1080, 6.666666666666667s, 40 variables.",
           "version": "0.0.0"
         },
         {
@@ -4935,7 +6180,7 @@
       "name": "heygen-com-hyperframes-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-09-19T14:50:00.299Z",
+      "createdAt": "2026-09-22T12:22:58.627Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5067,7 +6312,7 @@
       "name": "heygen-com-hyperframes-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-09-19T14:50:00.299Z",
+      "createdAt": "2026-09-22T12:22:58.627Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5082,6 +6327,12 @@
           "name": "captions-overlay",
           "installUrl": "github:heygen-com/hyperframes:.claude/skills/captions-overlay",
           "description": "Overlay doctrine for the embedded-captions workflow — the caption MODEL (drop / rail / embed) and the rule that captions are an OVERLAY composited on top of the film, never a reserved bottom band you shift content up to avoid. Load when adding captions/subtitles to a talking-head or launch video, when deciding whether a phrase should be dropped, ride the verbatim rail, or be promoted to a scarce embedded climax, when laying out a composition that will carry captions (do NOT reserve a keep-out band), or when centering a composition on the true frame center under captions. Quotes the rail+embed model from embedded-captions and constraint #13 (captions overlay, keep-out band retired) from the product-launch-video scene agent. Applies ON TOP of embedded-captions.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "code-slice-hero",
+          "installUrl": "github:heygen-com/hyperframes:registry/blocks/code-slice-hero",
+          "description": "A tiled headline surface flips cell by cell under a sweeping depth field to reveal the rear headline. HyperFrames block, 1920×1080, 8s, 18 variables.",
           "version": "0.0.0"
         },
         {
@@ -5193,7 +6444,7 @@
       "name": "heygen-com-hyperframes-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-09-19T14:50:00.299Z",
+      "createdAt": "2026-09-22T12:22:58.627Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5232,6 +6483,12 @@
           "name": "figma",
           "installUrl": "github:heygen-com/hyperframes:skills/figma",
           "description": "Import Figma content into a HyperFrames composition — rendered assets, brand tokens, components, storyboard sections → reconstructed motion (frames read as states, not slides) (REST/CLI), connector-assisted motion when available, and shaders from a connector or native export. Use when the user pastes a figma.com link or asks to bring a Figma design, frame, logo, brand, or animation into a video/composition.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "frost-sequence-camera-orbit",
+          "installUrl": "github:heygen-com/hyperframes:registry/blocks/frost-sequence-camera-orbit",
+          "description": "An orbiting camera follows an ice logo as it breaks apart, reforms into two text moments, and fades. HyperFrames block, 1920×1080, 22.5s, 216 variables.",
           "version": "0.0.0"
         },
         {
@@ -5361,7 +6618,7 @@
       "name": "heygen-com-hyperframes-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-09-19T14:50:00.299Z",
+      "createdAt": "2026-09-22T12:22:58.627Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5457,7 +6714,7 @@
       "name": "heygen-com-hyperframes-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-09-19T14:50:00.299Z",
+      "createdAt": "2026-09-22T12:22:58.627Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5523,7 +6780,7 @@
       "name": "heygen-com-hyperframes-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-09-19T14:50:00.299Z",
+      "createdAt": "2026-09-22T12:22:58.627Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5565,7 +6822,7 @@
       "name": "heygen-com-hyperframes-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-09-19T14:50:00.299Z",
+      "createdAt": "2026-09-22T12:22:58.627Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5580,6 +6837,12 @@
           "name": "captions-overlay",
           "installUrl": "github:heygen-com/hyperframes:.claude/skills/captions-overlay",
           "description": "Overlay doctrine for the embedded-captions workflow — the caption MODEL (drop / rail / embed) and the rule that captions are an OVERLAY composited on top of the film, never a reserved bottom band you shift content up to avoid. Load when adding captions/subtitles to a talking-head or launch video, when deciding whether a phrase should be dropped, ride the verbatim rail, or be promoted to a scarce embedded climax, when laying out a composition that will carry captions (do NOT reserve a keep-out band), or when centering a composition on the true frame center under captions. Quotes the rail+embed model from embedded-captions and constraint #13 (captions overlay, keep-out band retired) from the product-launch-video scene agent. Applies ON TOP of embedded-captions.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "cuboid-carousel",
+          "installUrl": "github:heygen-com/hyperframes:registry/blocks/cuboid-carousel",
+          "description": "A chain of bevelled cuboids rides a travelling wave as a content carousel. HyperFrames block, 1920×1080, 6.666666666666667s, 40 variables.",
           "version": "0.0.0"
         },
         {

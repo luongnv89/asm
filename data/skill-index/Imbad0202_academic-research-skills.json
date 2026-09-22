@@ -2,12 +2,12 @@
   "repoUrl": "https://github.com/Imbad0202/academic-research-skills.git",
   "owner": "Imbad0202",
   "repo": "academic-research-skills",
-  "updatedAt": "2026-09-12T21:41:21.148Z",
+  "updatedAt": "2026-09-22T12:22:23.138Z",
   "skillCount": 4,
   "skills": [
     {
       "name": "academic-paper",
-      "description": "12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, I got reviewer comments, revision roadmap, should we push back, conference rebuttal, grant panel response, audit my rebuttal, check my response draft, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見, 我收到審查意見, 修訂路線圖, 評估回覆, 논문 작성, 초록 작성, 논문 수정, 논문 계획을 도와줘, 심사 의견을 받았어, 심사 의견 반영, 답변서 점검, AI 사용 고지.",
+      "description": "12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, I got reviewer comments, revision roadmap, should we push back, conference rebuttal, grant panel response, audit my rebuttal, check my response draft, AI disclosure, check citations, citation check, check my references, verify references, look over the refs, 寫論文, 學術論文, 引導我寫論文, 審查意見, 我收到審查意見, 修訂路線圖, 評估回覆, 檢查引用, 引用檢查, 檢查參考文獻, 核對文獻, 논문 작성, 초록 작성, 논문 수정, 논문 계획을 도와줘, 심사 의견을 받았어, 심사 의견 반영, 답변서 점검, AI 사용 고지, 인용 확인, 인용 형식 검사, enmendar mi artículo, redactar artículo, guía mi artículo, analizar reseñas, auditar mi respuesta, verificar borrador de respuesta, verificar citas, divulgación de IA.",
       "version": "3.3.1",
       "license": "",
       "creator": "",
@@ -20,7 +20,7 @@
       "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper",
       "relPath": "skills/academic-paper",
       "verified": true,
-      "tokenCount": 12292,
+      "tokenCount": 12860,
       "evalSummary": {
         "overallScore": 66,
         "grade": "C",
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-12T21:41:21.101Z",
+        "evaluatedAt": "2026-09-22T12:22:23.090Z",
         "evaluatedVersion": "3.3.1"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-12T21:41:21.101Z",
+          "evaluatedAt": "2026-09-22T12:22:23.091Z",
           "evaluatedVersion": "3.3.1"
         },
         "skill-best-practice": {
@@ -177,14 +177,14 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-12T21:41:21.101Z",
+          "evaluatedAt": "2026-09-22T12:22:23.091Z",
           "evaluatedVersion": "3.3.1"
         }
       }
     },
     {
       "name": "academic-paper-reviewer",
-      "description": "Multi-perspective academic paper review with dynamic reviewer personas. Runs a 5-seat, role-separated review panel (Journal-Fit Reviewer + 3 peer-review roles + Devil's Advocate) with field-specific expertise; role separation is not a claim of independent error processes. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy, 審查論文, 論文審查, 模擬審查, 同儕審查, 幫我審這篇, 以審查人角度評估, 審查者校準, 논문 심사, 동료 심사, 모의 심사, 심사자 관점에서 평가, 심사자 보정.",
+      "description": "Multi-perspective academic paper review with dynamic reviewer personas. Runs a 5-seat, role-separated review panel (Journal-Fit Reviewer + 3 peer-review roles + Devil's Advocate) with field-specific expertise; role separation is not a claim of independent error processes. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy, 審查論文, 論文審查, 模擬審查, 同儕審查, 幫我審這篇, 以審查人角度評估, 審查者校準, 논문 심사, 동료 심사, 모의 심사, 심사자 관점에서 평가, 심사자 보정, revisar artículo, revisión entre pares, revisión de manuscrito, informe de árbitro, revisa mi artículo, criticar artículo, simular revisión, revisión editorial, calibrar revisor.",
       "version": "1.11.1",
       "license": "",
       "creator": "",
@@ -197,7 +197,7 @@
       "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper-reviewer",
       "relPath": "skills/academic-paper-reviewer",
       "verified": true,
-      "tokenCount": 10075,
+      "tokenCount": 10170,
       "evalSummary": {
         "overallScore": 63,
         "grade": "D",
@@ -263,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-12T21:41:21.101Z",
+        "evaluatedAt": "2026-09-22T12:22:23.090Z",
         "evaluatedVersion": "1.11.1"
       },
       "evalSummaries": {
@@ -336,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-12T21:41:21.101Z",
+          "evaluatedAt": "2026-09-22T12:22:23.091Z",
           "evaluatedVersion": "1.11.1"
         },
         "skill-best-practice": {
@@ -354,15 +354,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-12T21:41:21.101Z",
+          "evaluatedAt": "2026-09-22T12:22:23.091Z",
           "evaluatedVersion": "1.11.1"
         }
       }
     },
     {
       "name": "academic-pipeline",
-      "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory, coverage-bounded integrity checks, two-stage peer review, and auditable quality-assurance artifacts. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow, 연구부터 논문까지, 연구 주제 설정부터 논문 완성까지, 논문 전체 워크플로.",
-      "version": "3.21.2",
+      "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory, coverage-bounded integrity checks, two-stage peer review, and auditable quality-assurance artifacts. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow, 연구부터 논문까지, 연구 주제 설정부터 논문 완성까지, 논문 전체 워크플로, flujo de trabajo académico, investigación a artículo, flujo completo de artículo, pipeline de investigación completa, publicación de investigación, flujo de trabajo completo del artículo.",
+      "version": "3.22.0",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -374,7 +374,7 @@
       "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-pipeline",
       "relPath": "skills/academic-pipeline",
       "verified": true,
-      "tokenCount": 13661,
+      "tokenCount": 13754,
       "evalSummary": {
         "overallScore": 72,
         "grade": "C",
@@ -440,8 +440,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-12T21:41:21.101Z",
-        "evaluatedVersion": "3.21.2"
+        "evaluatedAt": "2026-09-22T12:22:23.091Z",
+        "evaluatedVersion": "3.22.0"
       },
       "evalSummaries": {
         "quality": {
@@ -513,8 +513,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-12T21:41:21.101Z",
-          "evaluatedVersion": "3.21.2"
+          "evaluatedAt": "2026-09-22T12:22:23.093Z",
+          "evaluatedVersion": "3.22.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -531,14 +531,14 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-12T21:41:21.101Z",
-          "evaluatedVersion": "3.21.2"
+          "evaluatedAt": "2026-09-22T12:22:23.093Z",
+          "evaluatedVersion": "3.22.0"
         }
       }
     },
     {
       "name": "deep-research",
-      "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 8 modes: full research, quick brief, paper review, lit-review, fact-check, three-way literature scan, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘.",
+      "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 8 modes: full research, quick brief, paper review, lit-review, fact-check, three-way literature scan, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘, revisión de literatura, metaanálisis",
       "version": "2.12.1",
       "license": "",
       "creator": "",
@@ -551,7 +551,7 @@
       "installUrl": "github:Imbad0202/academic-research-skills:skills/deep-research",
       "relPath": "skills/deep-research",
       "verified": true,
-      "tokenCount": 9808,
+      "tokenCount": 9891,
       "evalSummary": {
         "overallScore": 68,
         "grade": "C",
@@ -617,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-12T21:41:21.101Z",
+        "evaluatedAt": "2026-09-22T12:22:23.093Z",
         "evaluatedVersion": "2.12.1"
       },
       "evalSummaries": {
@@ -690,7 +690,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-12T21:41:21.101Z",
+          "evaluatedAt": "2026-09-22T12:22:23.093Z",
           "evaluatedVersion": "2.12.1"
         },
         "skill-best-practice": {
@@ -708,7 +708,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-12T21:41:21.101Z",
+          "evaluatedAt": "2026-09-22T12:22:23.093Z",
           "evaluatedVersion": "2.12.1"
         }
       }
@@ -720,7 +720,7 @@
       "name": "imbad0202-academic-research-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-09-12T21:41:21.148Z",
+      "createdAt": "2026-09-22T12:22:23.138Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -734,19 +734,19 @@
         {
           "name": "academic-paper",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper",
-          "description": "12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, I got reviewer comments, revision roadmap, should we push back, conference rebuttal, grant panel response, audit my rebuttal, check my response draft, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見, 我收到審查意見, 修訂路線圖, 評估回覆, 논문 작성, 초록 작성, 논문 수정, 논문 계획을 도와줘, 심사 의견을 받았어, 심사 의견 반영, 답변서 점검, AI 사용 고지.",
+          "description": "12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, I got reviewer comments, revision roadmap, should we push back, conference rebuttal, grant panel response, audit my rebuttal, check my response draft, AI disclosure, check citations, citation check, check my references, verify references, look over the refs, 寫論文, 學術論文, 引導我寫論文, 審查意見, 我收到審查意見, 修訂路線圖, 評估回覆, 檢查引用, 引用檢查, 檢查參考文獻, 核對文獻, 논문 작성, 초록 작성, 논문 수정, 논문 계획을 도와줘, 심사 의견을 받았어, 심사 의견 반영, 답변서 점검, AI 사용 고지, 인용 확인, 인용 형식 검사, enmendar mi artículo, redactar artículo, guía mi artículo, analizar reseñas, auditar mi respuesta, verificar borrador de respuesta, verificar citas, divulgación de IA.",
           "version": "3.3.1"
         },
         {
           "name": "academic-paper-reviewer",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper-reviewer",
-          "description": "Multi-perspective academic paper review with dynamic reviewer personas. Runs a 5-seat, role-separated review panel (Journal-Fit Reviewer + 3 peer-review roles + Devil's Advocate) with field-specific expertise; role separation is not a claim of independent error processes. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy, 審查論文, 論文審查, 模擬審查, 同儕審查, 幫我審這篇, 以審查人角度評估, 審查者校準, 논문 심사, 동료 심사, 모의 심사, 심사자 관점에서 평가, 심사자 보정.",
+          "description": "Multi-perspective academic paper review with dynamic reviewer personas. Runs a 5-seat, role-separated review panel (Journal-Fit Reviewer + 3 peer-review roles + Devil's Advocate) with field-specific expertise; role separation is not a claim of independent error processes. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy, 審查論文, 論文審查, 模擬審查, 同儕審查, 幫我審這篇, 以審查人角度評估, 審查者校準, 논문 심사, 동료 심사, 모의 심사, 심사자 관점에서 평가, 심사자 보정, revisar artículo, revisión entre pares, revisión de manuscrito, informe de árbitro, revisa mi artículo, criticar artículo, simular revisión, revisión editorial, calibrar revisor.",
           "version": "1.11.1"
         },
         {
           "name": "deep-research",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/deep-research",
-          "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 8 modes: full research, quick brief, paper review, lit-review, fact-check, three-way literature scan, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘.",
+          "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 8 modes: full research, quick brief, paper review, lit-review, fact-check, three-way literature scan, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘, revisión de literatura, metaanálisis",
           "version": "2.12.1"
         }
       ],
@@ -762,7 +762,7 @@
       "name": "imbad0202-academic-research-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-09-12T21:41:21.148Z",
+      "createdAt": "2026-09-22T12:22:23.138Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -776,25 +776,25 @@
         {
           "name": "academic-paper",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper",
-          "description": "12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, I got reviewer comments, revision roadmap, should we push back, conference rebuttal, grant panel response, audit my rebuttal, check my response draft, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見, 我收到審查意見, 修訂路線圖, 評估回覆, 논문 작성, 초록 작성, 논문 수정, 논문 계획을 도와줘, 심사 의견을 받았어, 심사 의견 반영, 답변서 점검, AI 사용 고지.",
+          "description": "12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, I got reviewer comments, revision roadmap, should we push back, conference rebuttal, grant panel response, audit my rebuttal, check my response draft, AI disclosure, check citations, citation check, check my references, verify references, look over the refs, 寫論文, 學術論文, 引導我寫論文, 審查意見, 我收到審查意見, 修訂路線圖, 評估回覆, 檢查引用, 引用檢查, 檢查參考文獻, 核對文獻, 논문 작성, 초록 작성, 논문 수정, 논문 계획을 도와줘, 심사 의견을 받았어, 심사 의견 반영, 답변서 점검, AI 사용 고지, 인용 확인, 인용 형식 검사, enmendar mi artículo, redactar artículo, guía mi artículo, analizar reseñas, auditar mi respuesta, verificar borrador de respuesta, verificar citas, divulgación de IA.",
           "version": "3.3.1"
         },
         {
           "name": "academic-paper-reviewer",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper-reviewer",
-          "description": "Multi-perspective academic paper review with dynamic reviewer personas. Runs a 5-seat, role-separated review panel (Journal-Fit Reviewer + 3 peer-review roles + Devil's Advocate) with field-specific expertise; role separation is not a claim of independent error processes. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy, 審查論文, 論文審查, 模擬審查, 同儕審查, 幫我審這篇, 以審查人角度評估, 審查者校準, 논문 심사, 동료 심사, 모의 심사, 심사자 관점에서 평가, 심사자 보정.",
+          "description": "Multi-perspective academic paper review with dynamic reviewer personas. Runs a 5-seat, role-separated review panel (Journal-Fit Reviewer + 3 peer-review roles + Devil's Advocate) with field-specific expertise; role separation is not a claim of independent error processes. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy, 審查論文, 論文審查, 模擬審查, 同儕審查, 幫我審這篇, 以審查人角度評估, 審查者校準, 논문 심사, 동료 심사, 모의 심사, 심사자 관점에서 평가, 심사자 보정, revisar artículo, revisión entre pares, revisión de manuscrito, informe de árbitro, revisa mi artículo, criticar artículo, simular revisión, revisión editorial, calibrar revisor.",
           "version": "1.11.1"
         },
         {
           "name": "academic-pipeline",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-pipeline",
-          "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory, coverage-bounded integrity checks, two-stage peer review, and auditable quality-assurance artifacts. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow, 연구부터 논문까지, 연구 주제 설정부터 논문 완성까지, 논문 전체 워크플로.",
-          "version": "3.21.2"
+          "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory, coverage-bounded integrity checks, two-stage peer review, and auditable quality-assurance artifacts. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow, 연구부터 논문까지, 연구 주제 설정부터 논문 완성까지, 논문 전체 워크플로, flujo de trabajo académico, investigación a artículo, flujo completo de artículo, pipeline de investigación completa, publicación de investigación, flujo de trabajo completo del artículo.",
+          "version": "3.22.0"
         },
         {
           "name": "deep-research",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/deep-research",
-          "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 8 modes: full research, quick brief, paper review, lit-review, fact-check, three-way literature scan, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘.",
+          "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 8 modes: full research, quick brief, paper review, lit-review, fact-check, three-way literature scan, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘, revisión de literatura, metaanálisis",
           "version": "2.12.1"
         }
       ],
@@ -810,7 +810,7 @@
       "name": "imbad0202-academic-research-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-09-12T21:41:21.148Z",
+      "createdAt": "2026-09-22T12:22:23.138Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -824,25 +824,25 @@
         {
           "name": "academic-paper",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper",
-          "description": "12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, I got reviewer comments, revision roadmap, should we push back, conference rebuttal, grant panel response, audit my rebuttal, check my response draft, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見, 我收到審查意見, 修訂路線圖, 評估回覆, 논문 작성, 초록 작성, 논문 수정, 논문 계획을 도와줘, 심사 의견을 받았어, 심사 의견 반영, 답변서 점검, AI 사용 고지.",
+          "description": "12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, I got reviewer comments, revision roadmap, should we push back, conference rebuttal, grant panel response, audit my rebuttal, check my response draft, AI disclosure, check citations, citation check, check my references, verify references, look over the refs, 寫論文, 學術論文, 引導我寫論文, 審查意見, 我收到審查意見, 修訂路線圖, 評估回覆, 檢查引用, 引用檢查, 檢查參考文獻, 核對文獻, 논문 작성, 초록 작성, 논문 수정, 논문 계획을 도와줘, 심사 의견을 받았어, 심사 의견 반영, 답변서 점검, AI 사용 고지, 인용 확인, 인용 형식 검사, enmendar mi artículo, redactar artículo, guía mi artículo, analizar reseñas, auditar mi respuesta, verificar borrador de respuesta, verificar citas, divulgación de IA.",
           "version": "3.3.1"
         },
         {
           "name": "academic-paper-reviewer",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper-reviewer",
-          "description": "Multi-perspective academic paper review with dynamic reviewer personas. Runs a 5-seat, role-separated review panel (Journal-Fit Reviewer + 3 peer-review roles + Devil's Advocate) with field-specific expertise; role separation is not a claim of independent error processes. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy, 審查論文, 論文審查, 模擬審查, 同儕審查, 幫我審這篇, 以審查人角度評估, 審查者校準, 논문 심사, 동료 심사, 모의 심사, 심사자 관점에서 평가, 심사자 보정.",
+          "description": "Multi-perspective academic paper review with dynamic reviewer personas. Runs a 5-seat, role-separated review panel (Journal-Fit Reviewer + 3 peer-review roles + Devil's Advocate) with field-specific expertise; role separation is not a claim of independent error processes. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy, 審查論文, 論文審查, 模擬審查, 同儕審查, 幫我審這篇, 以審查人角度評估, 審查者校準, 논문 심사, 동료 심사, 모의 심사, 심사자 관점에서 평가, 심사자 보정, revisar artículo, revisión entre pares, revisión de manuscrito, informe de árbitro, revisa mi artículo, criticar artículo, simular revisión, revisión editorial, calibrar revisor.",
           "version": "1.11.1"
         },
         {
           "name": "academic-pipeline",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-pipeline",
-          "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory, coverage-bounded integrity checks, two-stage peer review, and auditable quality-assurance artifacts. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow, 연구부터 논문까지, 연구 주제 설정부터 논문 완성까지, 논문 전체 워크플로.",
-          "version": "3.21.2"
+          "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory, coverage-bounded integrity checks, two-stage peer review, and auditable quality-assurance artifacts. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow, 연구부터 논문까지, 연구 주제 설정부터 논문 완성까지, 논문 전체 워크플로, flujo de trabajo académico, investigación a artículo, flujo completo de artículo, pipeline de investigación completa, publicación de investigación, flujo de trabajo completo del artículo.",
+          "version": "3.22.0"
         },
         {
           "name": "deep-research",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/deep-research",
-          "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 8 modes: full research, quick brief, paper review, lit-review, fact-check, three-way literature scan, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘.",
+          "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 8 modes: full research, quick brief, paper review, lit-review, fact-check, three-way literature scan, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘, revisión de literatura, metaanálisis",
           "version": "2.12.1"
         }
       ],
@@ -858,7 +858,7 @@
       "name": "imbad0202-academic-research-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-09-12T21:41:21.148Z",
+      "createdAt": "2026-09-22T12:22:23.138Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -872,19 +872,19 @@
         {
           "name": "academic-paper",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper",
-          "description": "12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, I got reviewer comments, revision roadmap, should we push back, conference rebuttal, grant panel response, audit my rebuttal, check my response draft, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見, 我收到審查意見, 修訂路線圖, 評估回覆, 논문 작성, 초록 작성, 논문 수정, 논문 계획을 도와줘, 심사 의견을 받았어, 심사 의견 반영, 답변서 점검, AI 사용 고지.",
+          "description": "12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, I got reviewer comments, revision roadmap, should we push back, conference rebuttal, grant panel response, audit my rebuttal, check my response draft, AI disclosure, check citations, citation check, check my references, verify references, look over the refs, 寫論文, 學術論文, 引導我寫論文, 審查意見, 我收到審查意見, 修訂路線圖, 評估回覆, 檢查引用, 引用檢查, 檢查參考文獻, 核對文獻, 논문 작성, 초록 작성, 논문 수정, 논문 계획을 도와줘, 심사 의견을 받았어, 심사 의견 반영, 답변서 점검, AI 사용 고지, 인용 확인, 인용 형식 검사, enmendar mi artículo, redactar artículo, guía mi artículo, analizar reseñas, auditar mi respuesta, verificar borrador de respuesta, verificar citas, divulgación de IA.",
           "version": "3.3.1"
         },
         {
           "name": "academic-paper-reviewer",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper-reviewer",
-          "description": "Multi-perspective academic paper review with dynamic reviewer personas. Runs a 5-seat, role-separated review panel (Journal-Fit Reviewer + 3 peer-review roles + Devil's Advocate) with field-specific expertise; role separation is not a claim of independent error processes. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy, 審查論文, 論文審查, 模擬審查, 同儕審查, 幫我審這篇, 以審查人角度評估, 審查者校準, 논문 심사, 동료 심사, 모의 심사, 심사자 관점에서 평가, 심사자 보정.",
+          "description": "Multi-perspective academic paper review with dynamic reviewer personas. Runs a 5-seat, role-separated review panel (Journal-Fit Reviewer + 3 peer-review roles + Devil's Advocate) with field-specific expertise; role separation is not a claim of independent error processes. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy, 審查論文, 論文審查, 模擬審查, 同儕審查, 幫我審這篇, 以審查人角度評估, 審查者校準, 논문 심사, 동료 심사, 모의 심사, 심사자 관점에서 평가, 심사자 보정, revisar artículo, revisión entre pares, revisión de manuscrito, informe de árbitro, revisa mi artículo, criticar artículo, simular revisión, revisión editorial, calibrar revisor.",
           "version": "1.11.1"
         },
         {
           "name": "deep-research",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/deep-research",
-          "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 8 modes: full research, quick brief, paper review, lit-review, fact-check, three-way literature scan, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘.",
+          "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 8 modes: full research, quick brief, paper review, lit-review, fact-check, three-way literature scan, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘, revisión de literatura, metaanálisis",
           "version": "2.12.1"
         }
       ],
@@ -900,7 +900,7 @@
       "name": "imbad0202-academic-research-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-09-12T21:41:21.148Z",
+      "createdAt": "2026-09-22T12:22:23.138Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -914,25 +914,25 @@
         {
           "name": "academic-paper",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper",
-          "description": "12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, I got reviewer comments, revision roadmap, should we push back, conference rebuttal, grant panel response, audit my rebuttal, check my response draft, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見, 我收到審查意見, 修訂路線圖, 評估回覆, 논문 작성, 초록 작성, 논문 수정, 논문 계획을 도와줘, 심사 의견을 받았어, 심사 의견 반영, 답변서 점검, AI 사용 고지.",
+          "description": "12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, I got reviewer comments, revision roadmap, should we push back, conference rebuttal, grant panel response, audit my rebuttal, check my response draft, AI disclosure, check citations, citation check, check my references, verify references, look over the refs, 寫論文, 學術論文, 引導我寫論文, 審查意見, 我收到審查意見, 修訂路線圖, 評估回覆, 檢查引用, 引用檢查, 檢查參考文獻, 核對文獻, 논문 작성, 초록 작성, 논문 수정, 논문 계획을 도와줘, 심사 의견을 받았어, 심사 의견 반영, 답변서 점검, AI 사용 고지, 인용 확인, 인용 형식 검사, enmendar mi artículo, redactar artículo, guía mi artículo, analizar reseñas, auditar mi respuesta, verificar borrador de respuesta, verificar citas, divulgación de IA.",
           "version": "3.3.1"
         },
         {
           "name": "academic-paper-reviewer",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper-reviewer",
-          "description": "Multi-perspective academic paper review with dynamic reviewer personas. Runs a 5-seat, role-separated review panel (Journal-Fit Reviewer + 3 peer-review roles + Devil's Advocate) with field-specific expertise; role separation is not a claim of independent error processes. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy, 審查論文, 論文審查, 模擬審查, 同儕審查, 幫我審這篇, 以審查人角度評估, 審查者校準, 논문 심사, 동료 심사, 모의 심사, 심사자 관점에서 평가, 심사자 보정.",
+          "description": "Multi-perspective academic paper review with dynamic reviewer personas. Runs a 5-seat, role-separated review panel (Journal-Fit Reviewer + 3 peer-review roles + Devil's Advocate) with field-specific expertise; role separation is not a claim of independent error processes. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy, 審查論文, 論文審查, 模擬審查, 同儕審查, 幫我審這篇, 以審查人角度評估, 審查者校準, 논문 심사, 동료 심사, 모의 심사, 심사자 관점에서 평가, 심사자 보정, revisar artículo, revisión entre pares, revisión de manuscrito, informe de árbitro, revisa mi artículo, criticar artículo, simular revisión, revisión editorial, calibrar revisor.",
           "version": "1.11.1"
         },
         {
           "name": "academic-pipeline",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-pipeline",
-          "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory, coverage-bounded integrity checks, two-stage peer review, and auditable quality-assurance artifacts. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow, 연구부터 논문까지, 연구 주제 설정부터 논문 완성까지, 논문 전체 워크플로.",
-          "version": "3.21.2"
+          "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory, coverage-bounded integrity checks, two-stage peer review, and auditable quality-assurance artifacts. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow, 연구부터 논문까지, 연구 주제 설정부터 논문 완성까지, 논문 전체 워크플로, flujo de trabajo académico, investigación a artículo, flujo completo de artículo, pipeline de investigación completa, publicación de investigación, flujo de trabajo completo del artículo.",
+          "version": "3.22.0"
         },
         {
           "name": "deep-research",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/deep-research",
-          "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 8 modes: full research, quick brief, paper review, lit-review, fact-check, three-way literature scan, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘.",
+          "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 8 modes: full research, quick brief, paper review, lit-review, fact-check, three-way literature scan, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘, revisión de literatura, metaanálisis",
           "version": "2.12.1"
         }
       ],
@@ -948,7 +948,7 @@
       "name": "imbad0202-academic-research-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from Imbad0202/academic-research-skills.",
       "author": "ASM (Imbad0202/academic-research-skills)",
-      "createdAt": "2026-09-12T21:41:21.148Z",
+      "createdAt": "2026-09-22T12:22:23.138Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -962,25 +962,25 @@
         {
           "name": "academic-paper",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper",
-          "description": "12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, I got reviewer comments, revision roadmap, should we push back, conference rebuttal, grant panel response, audit my rebuttal, check my response draft, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見, 我收到審查意見, 修訂路線圖, 評估回覆, 논문 작성, 초록 작성, 논문 수정, 논문 계획을 도와줘, 심사 의견을 받았어, 심사 의견 반영, 답변서 점검, AI 사용 고지.",
+          "description": "12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, I got reviewer comments, revision roadmap, should we push back, conference rebuttal, grant panel response, audit my rebuttal, check my response draft, AI disclosure, check citations, citation check, check my references, verify references, look over the refs, 寫論文, 學術論文, 引導我寫論文, 審查意見, 我收到審查意見, 修訂路線圖, 評估回覆, 檢查引用, 引用檢查, 檢查參考文獻, 核對文獻, 논문 작성, 초록 작성, 논문 수정, 논문 계획을 도와줘, 심사 의견을 받았어, 심사 의견 반영, 답변서 점검, AI 사용 고지, 인용 확인, 인용 형식 검사, enmendar mi artículo, redactar artículo, guía mi artículo, analizar reseñas, auditar mi respuesta, verificar borrador de respuesta, verificar citas, divulgación de IA.",
           "version": "3.3.1"
         },
         {
           "name": "academic-paper-reviewer",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-paper-reviewer",
-          "description": "Multi-perspective academic paper review with dynamic reviewer personas. Runs a 5-seat, role-separated review panel (Journal-Fit Reviewer + 3 peer-review roles + Devil's Advocate) with field-specific expertise; role separation is not a claim of independent error processes. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy, 審查論文, 論文審查, 模擬審查, 同儕審查, 幫我審這篇, 以審查人角度評估, 審查者校準, 논문 심사, 동료 심사, 모의 심사, 심사자 관점에서 평가, 심사자 보정.",
+          "description": "Multi-perspective academic paper review with dynamic reviewer personas. Runs a 5-seat, role-separated review panel (Journal-Fit Reviewer + 3 peer-review roles + Devil's Advocate) with field-specific expertise; role separation is not a claim of independent error processes. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy, 審查論文, 論文審查, 模擬審查, 同儕審查, 幫我審這篇, 以審查人角度評估, 審查者校準, 논문 심사, 동료 심사, 모의 심사, 심사자 관점에서 평가, 심사자 보정, revisar artículo, revisión entre pares, revisión de manuscrito, informe de árbitro, revisa mi artículo, criticar artículo, simular revisión, revisión editorial, calibrar revisor.",
           "version": "1.11.1"
         },
         {
           "name": "academic-pipeline",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/academic-pipeline",
-          "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory, coverage-bounded integrity checks, two-stage peer review, and auditable quality-assurance artifacts. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow, 연구부터 논문까지, 연구 주제 설정부터 논문 완성까지, 논문 전체 워크플로.",
-          "version": "3.21.2"
+          "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory, coverage-bounded integrity checks, two-stage peer review, and auditable quality-assurance artifacts. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow, 연구부터 논문까지, 연구 주제 설정부터 논문 완성까지, 논문 전체 워크플로, flujo de trabajo académico, investigación a artículo, flujo completo de artículo, pipeline de investigación completa, publicación de investigación, flujo de trabajo completo del artículo.",
+          "version": "3.22.0"
         },
         {
           "name": "deep-research",
           "installUrl": "github:Imbad0202/academic-research-skills:skills/deep-research",
-          "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 8 modes: full research, quick brief, paper review, lit-review, fact-check, three-way literature scan, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘.",
+          "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 8 modes: full research, quick brief, paper review, lit-review, fact-check, three-way literature scan, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘, revisión de literatura, metaanálisis",
           "version": "2.12.1"
         }
       ],

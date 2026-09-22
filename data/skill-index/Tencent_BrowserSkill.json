@@ -2,12 +2,12 @@
   "repoUrl": "https://github.com/Tencent/BrowserSkill.git",
   "owner": "Tencent",
   "repo": "BrowserSkill",
-  "updatedAt": "2026-09-19T14:51:18.392Z",
+  "updatedAt": "2026-09-22T12:23:48.852Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "browser-skill",
-      "description": "Use when the user asks to automate their logged-in Chromium browser: visit and read pages, fill forms, scrape data, click through flows, regression-test a PR's UI, validate a deployed page, or operate a tab they identify. Requires the bsk CLI and browser extension.",
+      "description": "Automate the user's logged-in Chromium browser: read pages, fill forms, scrape data, operate tabs, test a UI, or debug a website. Requires the bsk CLI and browser extension.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -20,9 +20,9 @@
       "installUrl": "github:Tencent/BrowserSkill:crates/bsk-cli/skill",
       "relPath": "crates/bsk-cli/skill",
       "verified": true,
-      "tokenCount": 4606,
+      "tokenCount": 1980,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -34,7 +34,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 4,
             "max": 10
           },
           {
@@ -46,19 +46,19 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 8,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 10,
+            "score": 7,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 7,
+            "score": 3,
             "max": 10
           },
           {
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-19T14:51:18.389Z",
+        "evaluatedAt": "2026-09-22T12:23:48.850Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -95,7 +95,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 76,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -107,7 +107,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 5,
+              "score": 4,
               "max": 10
             },
             {
@@ -119,19 +119,19 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 8,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 10,
+              "score": 7,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 7,
+              "score": 3,
               "max": 10
             },
             {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-19T14:51:18.389Z",
+          "evaluatedAt": "2026-09-22T12:23:48.850Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -167,17 +167,17 @@
           "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 54,
+          "overallScore": 62,
           "grade": "D",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 7,
+              "score": 8,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-19T14:51:18.389Z",
+          "evaluatedAt": "2026-09-22T12:23:48.850Z",
           "evaluatedVersion": "0.0.0"
         }
       }
