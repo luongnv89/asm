@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-17T11:27:38Z",
+  "updatedAt": "2026-09-24T12:31:45Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -710,6 +710,15 @@
       "repo": "BrowserSkill",
       "description": "Let AI agents use your real, logged-in browser without interrupting your work. CLI + extension for browser automation across any shell-capable AI agent.",
       "maintainer": "@Tencent",
+      "enabled": true
+    },
+    {
+      "source": "github:anthropics/financial-services",
+      "url": "https://github.com/anthropics/financial-services",
+      "owner": "anthropics",
+      "repo": "financial-services",
+      "description": "Reference agents, skills, and data connectors for financial-services workflows — investment banking, equity research, private equity, and wealth management",
+      "maintainer": "@anthropics",
       "enabled": true
     }
   ]
