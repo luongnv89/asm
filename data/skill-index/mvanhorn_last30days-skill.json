@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/mvanhorn/last30days-skill.git",
   "owner": "mvanhorn",
   "repo": "last30days-skill",
-  "updatedAt": "2026-09-22T12:21:29.163Z",
+  "updatedAt": "2026-09-26T06:51:43.224Z",
   "skillCount": 1,
   "skills": [
     {
@@ -12,7 +12,13 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Bash", "Read", "Write", "AskUserQuestion", "WebSearch"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "AskUserQuestion",
+        "WebSearch"
+      ],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -86,7 +92,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-22T12:21:24.005Z",
+        "evaluatedAt": "2026-09-26T06:51:34.519Z",
         "evaluatedVersion": "3.25.0"
       },
       "evalSummaries": {
@@ -159,7 +165,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-22T12:21:24.005Z",
+          "evaluatedAt": "2026-09-26T06:51:34.519Z",
           "evaluatedVersion": "3.25.0"
         },
         "skill-best-practice": {
@@ -177,7 +183,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-22T12:21:24.005Z",
+          "evaluatedAt": "2026-09-26T06:51:34.519Z",
           "evaluatedVersion": "3.25.0"
         }
       }

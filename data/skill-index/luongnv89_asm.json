@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/luongnv89/asm.git",
   "owner": "luongnv89",
   "repo": "asm",
-  "updatedAt": "2026-09-22T12:19:57.443Z",
+  "updatedAt": "2026-09-26T06:49:31.005Z",
   "skillCount": 11,
   "skills": [
     {
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-22T12:19:56.404Z",
+        "evaluatedAt": "2026-09-26T06:49:29.914Z",
         "evaluatedVersion": "1.2.1"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.404Z",
+          "evaluatedAt": "2026-09-26T06:49:29.915Z",
           "evaluatedVersion": "1.2.1"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.404Z",
+          "evaluatedAt": "2026-09-26T06:49:29.915Z",
           "evaluatedVersion": "1.2.1"
         }
       }
@@ -190,7 +190,10 @@
       "creator": "",
       "compatibility": "Claude Code",
       "allowedTools": [],
-      "tags": ["test", "demo"],
+      "tags": [
+        "test",
+        "demo"
+      ],
       "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
@@ -263,7 +266,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-22T12:19:56.398Z",
+        "evaluatedAt": "2026-09-26T06:49:29.905Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -336,7 +339,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.400Z",
+          "evaluatedAt": "2026-09-26T06:49:29.907Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -354,7 +357,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.400Z",
+          "evaluatedAt": "2026-09-26T06:49:29.907Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -440,7 +443,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-22T12:19:56.397Z",
+        "evaluatedAt": "2026-09-26T06:49:29.903Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -513,7 +516,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.399Z",
+          "evaluatedAt": "2026-09-26T06:49:29.906Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -531,7 +534,7 @@
               "max": 1
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.400Z",
+          "evaluatedAt": "2026-09-26T06:49:29.907Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -543,7 +546,14 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Claude Code",
-      "allowedTools": ["Bash", "Read", "Write", "Edit", "Grep", "Glob"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Edit",
+        "Grep",
+        "Glob"
+      ],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -617,7 +627,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-22T12:19:56.415Z",
+        "evaluatedAt": "2026-09-26T06:49:29.926Z",
         "evaluatedVersion": "1.1.0"
       },
       "evalSummaries": {
@@ -690,7 +700,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.415Z",
+          "evaluatedAt": "2026-09-26T06:49:29.926Z",
           "evaluatedVersion": "1.1.0"
         },
         "skill-best-practice": {
@@ -708,7 +718,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.415Z",
+          "evaluatedAt": "2026-09-26T06:49:29.926Z",
           "evaluatedVersion": "1.1.0"
         }
       }
@@ -720,9 +730,18 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Claude Code; requires `asm` on PATH and Python 3 for skill-creator's quick_validate.py",
-      "allowedTools": ["Bash", "Read", "Write", "Edit", "Grep", "Glob"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Edit",
+        "Grep",
+        "Glob"
+      ],
       "tags": [],
-      "dependencies": ["skill-creator"],
+      "dependencies": [
+        "skill-creator"
+      ],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:luongnv89/asm:skills/skill-auto-improver",
@@ -794,7 +813,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-22T12:19:56.425Z",
+        "evaluatedAt": "2026-09-26T06:49:29.938Z",
         "evaluatedVersion": "2.2.0"
       },
       "evalSummaries": {
@@ -867,7 +886,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.425Z",
+          "evaluatedAt": "2026-09-26T06:49:29.938Z",
           "evaluatedVersion": "2.2.0"
         },
         "skill-best-practice": {
@@ -885,7 +904,7 @@
               "max": 16
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.425Z",
+          "evaluatedAt": "2026-09-26T06:49:29.938Z",
           "evaluatedVersion": "2.2.0"
         }
       }
@@ -971,7 +990,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-22T12:19:56.929Z",
+        "evaluatedAt": "2026-09-26T06:49:30.473Z",
         "evaluatedVersion": "1.17.0"
       },
       "evalSummaries": {
@@ -1044,7 +1063,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.929Z",
+          "evaluatedAt": "2026-09-26T06:49:30.473Z",
           "evaluatedVersion": "1.17.0"
         },
         "skill-best-practice": {
@@ -1062,7 +1081,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.929Z",
+          "evaluatedAt": "2026-09-26T06:49:30.473Z",
           "evaluatedVersion": "1.17.0"
         }
       }
@@ -1157,7 +1176,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-22T12:19:56.411Z",
+        "evaluatedAt": "2026-09-26T06:49:29.919Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1230,7 +1249,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.411Z",
+          "evaluatedAt": "2026-09-26T06:49:29.920Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -1248,7 +1267,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.411Z",
+          "evaluatedAt": "2026-09-26T06:49:29.920Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1260,7 +1279,14 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Claude Code; requires `asm` and `git` on PATH",
-      "allowedTools": ["Bash", "Read", "Write", "Edit", "Grep", "Glob"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Edit",
+        "Grep",
+        "Glob"
+      ],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -1334,7 +1360,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-22T12:19:56.410Z",
+        "evaluatedAt": "2026-09-26T06:49:29.920Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1407,7 +1433,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.411Z",
+          "evaluatedAt": "2026-09-26T06:49:29.920Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1425,7 +1451,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.411Z",
+          "evaluatedAt": "2026-09-26T06:49:29.920Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1437,7 +1463,14 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Claude Code; Python 3; skill-creator's quick_validate.py",
-      "allowedTools": ["Bash", "Read", "Write", "Edit", "Grep", "Glob"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Edit",
+        "Grep",
+        "Glob"
+      ],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -1511,7 +1544,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-22T12:19:56.562Z",
+        "evaluatedAt": "2026-09-26T06:49:30.078Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1584,7 +1617,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.562Z",
+          "evaluatedAt": "2026-09-26T06:49:30.078Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1602,7 +1635,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.562Z",
+          "evaluatedAt": "2026-09-26T06:49:30.078Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1614,7 +1647,14 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Claude Code",
-      "allowedTools": ["Bash", "Read", "Write", "Edit", "Grep", "Glob"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Edit",
+        "Grep",
+        "Glob"
+      ],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -1688,7 +1728,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-22T12:19:56.420Z",
+        "evaluatedAt": "2026-09-26T06:49:29.932Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1761,7 +1801,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.420Z",
+          "evaluatedAt": "2026-09-26T06:49:29.932Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1779,7 +1819,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.420Z",
+          "evaluatedAt": "2026-09-26T06:49:29.932Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1791,7 +1831,10 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Claude Code",
-      "allowedTools": ["Read", "Grep"],
+      "allowedTools": [
+        "Read",
+        "Grep"
+      ],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -1865,7 +1908,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-22T12:19:56.421Z",
+        "evaluatedAt": "2026-09-26T06:49:29.933Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1938,7 +1981,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.421Z",
+          "evaluatedAt": "2026-09-26T06:49:29.934Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1956,7 +1999,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-22T12:19:56.421Z",
+          "evaluatedAt": "2026-09-26T06:49:29.934Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1968,7 +2011,7 @@
       "name": "luongnv89-asm-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from luongnv89/asm.",
       "author": "ASM (luongnv89/asm)",
-      "createdAt": "2026-09-22T12:19:57.443Z",
+      "createdAt": "2026-09-26T06:49:31.005Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2004,7 +2047,7 @@
       "name": "luongnv89-asm-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from luongnv89/asm.",
       "author": "ASM (luongnv89/asm)",
-      "createdAt": "2026-09-22T12:19:57.443Z",
+      "createdAt": "2026-09-26T06:49:31.005Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2063,7 +2106,7 @@
       "name": "luongnv89-asm-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from luongnv89/asm.",
       "author": "ASM (luongnv89/asm)",
-      "createdAt": "2026-09-22T12:19:57.443Z",
+      "createdAt": "2026-09-26T06:49:31.005Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2105,7 +2148,7 @@
       "name": "luongnv89-asm-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from luongnv89/asm.",
       "author": "ASM (luongnv89/asm)",
-      "createdAt": "2026-09-22T12:19:57.443Z",
+      "createdAt": "2026-09-26T06:49:31.005Z",
       "tags": [
         "repo-derived",
         "inferred",
