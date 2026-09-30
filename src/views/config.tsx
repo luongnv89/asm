@@ -17,10 +17,16 @@ function providerRow(
 export interface ConfigProps {
   config: AppConfig;
   onClose: (updatedConfig: AppConfig) => void;
+  onDiscard: () => void;
   onOpenEditor: () => void;
 }
 
-export function ConfigView({ config, onClose, onOpenEditor }: ConfigProps) {
+export function ConfigView({
+  config,
+  onClose,
+  onDiscard,
+  onOpenEditor,
+}: ConfigProps) {
   const [editConfig, setEditConfig] = useState<AppConfig>(() =>
     JSON.parse(JSON.stringify(config)),
   );
@@ -60,6 +66,10 @@ export function ConfigView({ config, onClose, onOpenEditor }: ConfigProps) {
       onOpenEditor();
       return;
     }
+    if (_input === "q") {
+      onDiscard();
+      return;
+    }
     if (key.escape) {
       onClose(editConfig);
       return;
@@ -79,7 +89,7 @@ export function ConfigView({ config, onClose, onOpenEditor }: ConfigProps) {
       </Box>
       <Text color={theme.fgDim}>Config: {getConfigPath()}</Text>
       <Text color={theme.yellow}>
-        Tools (Enter to toggle, e to edit config file):
+        Tools (Enter to toggle, e to edit file &amp; exit):
       </Text>
       {editConfig.providers.map((p, i) => {
         const row = providerRow(p.label, p.global, p.enabled);
@@ -121,7 +131,10 @@ export function ConfigView({ config, onClose, onOpenEditor }: ConfigProps) {
           {editConfig.preferences.defaultSort}
         </Text>
       </Box>
-      <Text color={theme.fgDim}>Enter Toggle e Edit file Esc Save & close</Text>
+      <Text color={theme.fgDim}>
+        Enter Toggle e Edit file &amp; exit q Discard &amp; close Esc Save &amp;
+        close
+      </Text>
     </Box>
   );
 }

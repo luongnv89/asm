@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/twostraws/SwiftUI-Agent-Skill.git",
   "owner": "twostraws",
   "repo": "SwiftUI-Agent-Skill",
-  "updatedAt": "2026-08-21T09:19:47.337Z",
+  "updatedAt": "2026-09-26T06:50:50.616Z",
   "skillCount": 1,
   "skills": [
     {
@@ -13,6 +13,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:twostraws/SwiftUI-Agent-Skill:swiftui-pro",
@@ -84,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:47.334Z",
+        "evaluatedAt": "2026-09-26T06:50:50.578Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -157,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:47.334Z",
+          "evaluatedAt": "2026-09-26T06:50:50.578Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 86,
@@ -175,7 +177,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:47.334Z",
+          "evaluatedAt": "2026-09-26T06:50:50.578Z",
           "evaluatedVersion": "1.1"
         }
       }

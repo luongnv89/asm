@@ -19,7 +19,7 @@ describe("registerBuiltins", () => {
     expect(ids).toEqual(["quality", "skill-best-practice"]);
     const byId = Object.fromEntries(providers.map((p) => [p.id, p]));
     expect(byId.quality?.version).toBe("1.0.0");
-    expect(byId["skill-best-practice"]?.version).toBe("1.1.0");
+    expect(byId["skill-best-practice"]?.version).toBe("1.2.0");
     for (const p of providers) {
       expect(p.schemaVersion).toBe(1);
     }
@@ -36,7 +36,7 @@ describe("registerBuiltins", () => {
     registerBuiltins();
     const provider = resolve("skill-best-practice", "^1.0.0");
     expect(provider.id).toBe("skill-best-practice");
-    expect(provider.version).toBe("1.1.0");
+    expect(provider.version).toBe("1.2.0");
   });
 
   it("does not throw when invoked", () => {

@@ -14,6 +14,7 @@ import type { RegistryManifest } from "./registry";
 import type { SecurityVerdict, SecurityAuditReport } from "./utils/types";
 import type { PublishResult } from "./utils/types";
 import { debug } from "./logger";
+import { toPortableRelativePath } from "./utils/fs";
 import { runCommand } from "./utils/spawn";
 
 // ─── Sanitization ──────────────────────────────────────────────────────────
@@ -300,6 +301,7 @@ interface FallbackOptions {
   metadata: SkillMetadata;
   commit: string;
   repository: string;
+  skillPath?: string;
   registryVerdict: "pass" | "warning" | "dangerous";
   securityReport: SecurityAuditReport;
   fallbackReason: string;
@@ -315,6 +317,7 @@ function buildFallbackResult(opts: FallbackOptions): PublishResult {
     author: opts.metadata.creator || "unknown",
     commit: opts.commit,
     repository: opts.repository,
+    skillPath: opts.skillPath,
     securityVerdict: opts.registryVerdict,
   });
 
@@ -423,7 +426,7 @@ export async function publishSkill(
   // Only set skill_path when the skill is in a subdirectory (not the repo root)
   const skillPath =
     relativeSkillPath && relativeSkillPath !== "."
-      ? relativeSkillPath
+      ? toPortableRelativePath(relativeSkillPath)
       : undefined;
 
   // Step 6: Detect author via gh CLI
@@ -438,6 +441,7 @@ export async function publishSkill(
       metadata,
       commit,
       repository,
+      skillPath,
       registryVerdict,
       securityReport,
       fallbackReason,

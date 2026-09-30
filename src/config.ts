@@ -24,7 +24,14 @@ export function getConfigDir(): string {
 }
 
 const DEFAULT_PROVIDERS: ProviderConfig[] = [
-  // ── Priority providers (ordered by user preference) ──
+  // ── Priority providers (ordered by user preference, #617) ──
+  {
+    name: "agents",
+    label: "Agents",
+    global: "~/.agents/skills",
+    project: ".agents/skills",
+    enabled: true,
+  },
   {
     name: "claude",
     label: "Claude Code",
@@ -33,10 +40,10 @@ const DEFAULT_PROVIDERS: ProviderConfig[] = [
     enabled: true,
   },
   {
-    name: "codex",
-    label: "Codex",
-    global: "~/.codex/skills",
-    project: ".codex/skills",
+    name: "pi",
+    label: "Pi",
+    global: "~/.pi/skills",
+    project: ".pi/skills",
     enabled: true,
   },
   {
@@ -47,12 +54,27 @@ const DEFAULT_PROVIDERS: ProviderConfig[] = [
     enabled: true,
   },
   {
-    name: "pi",
-    label: "Pi",
-    global: "~/.pi/skills",
-    project: ".pi/skills",
+    name: "codex",
+    label: "Codex",
+    global: "~/.codex/skills",
+    project: ".codex/skills",
     enabled: true,
   },
+  {
+    name: "omp",
+    label: "Oh My Pi",
+    global: "~/.omp/agent/skills",
+    project: ".omp/skills",
+    enabled: true,
+  },
+  {
+    name: "grok",
+    label: "Grok CLI",
+    global: "~/.grok/skills",
+    project: ".grok/skills",
+    enabled: true,
+  },
+  // ── Additional providers ──
   {
     name: "hermes",
     label: "Hermes",
@@ -65,14 +87,6 @@ const DEFAULT_PROVIDERS: ProviderConfig[] = [
     label: "OpenClaw",
     global: "~/.openclaw/skills",
     project: ".openclaw/skills",
-    enabled: true,
-  },
-  // ── Additional providers ──
-  {
-    name: "agents",
-    label: "Agents",
-    global: "~/.agents/skills",
-    project: ".agents/skills",
     enabled: true,
   },
   {
@@ -190,6 +204,11 @@ export function getSkillStatePath(): string {
   return join(getConfigDir(), "skill-state.json");
 }
 
+/** Local tag additions/removals for installed skills. */
+export function getSkillTagsPath(): string {
+  return join(getConfigDir(), "skill-tags.json");
+}
+
 export function getIndexDir(): string {
   return join(getConfigDir(), "skill-index");
 }
@@ -204,6 +223,15 @@ export function getLibrarySkillsDir(): string {
 
 export function getLibraryLockPath(): string {
   return join(getLibraryDir(), "library-lock.json");
+}
+
+export function getDependencyLeasesDir(): string {
+  return join(getConfigDir(), "dependency-leases");
+}
+
+/** Durable `get --path` copies, isolated from caller-session dependency leases. */
+export function getGetBorrowsDir(): string {
+  return join(getConfigDir(), "get-borrows");
 }
 
 export function getBundledIndexDir(): string {
@@ -259,6 +287,28 @@ function mergeWithDefaults(config: Partial<AppConfig>): AppConfig {
     existingNames.add(defaultProvider.name);
   }
 
+  // Canonicalize order so DEFAULT_PROVIDERS ordering wins for built-ins (#617).
+  // Reordering the defaults must reach users who already have a saved config,
+  // not just fresh installs. A user-added provider sorts just after the
+  // built-in that preceded it at this point, which is after the new defaults
+  // the insertion loop above already slotted in ahead of it.
+  const defaultRank = new Map(
+    defaults.providers.map((p, i) => [p.name, i] as const),
+  );
+  const sortKey = new Map<ProviderConfig, number>();
+  let lastRank = -1;
+  for (const p of providers) {
+    const rank = defaultRank.get(p.name);
+    if (rank === undefined) {
+      sortKey.set(p, lastRank + 0.5);
+    } else {
+      lastRank = rank;
+      sortKey.set(p, rank);
+    }
+  }
+  // Stable sort keeps consecutive user-added providers in their saved order.
+  providers.sort((a, b) => sortKey.get(a)! - sortKey.get(b)!);
+
   return {
     version: config.version ?? defaults.version,
     providers,
@@ -280,8 +330,8 @@ export async function loadConfig(): Promise<AppConfig> {
   let raw: string;
   try {
     raw = await readFile(configPath, "utf-8");
-  } catch (err: any) {
-    if (err?.code === "ENOENT") {
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException | null)?.code === "ENOENT") {
       // Config doesn't exist — silently use defaults
       debug("config: using defaults (file not found)");
       const config = getDefaultConfig();

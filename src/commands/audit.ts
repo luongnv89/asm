@@ -2,7 +2,7 @@ import { loadConfig, getLibrarySkillsDir } from "../config";
 import { scanAllSkills } from "../scanner";
 import { realpath as fsRealpath } from "fs/promises";
 import { buildRemovalPlan, executeRemoval } from "../uninstaller";
-import { formatJSON, ansi } from "../formatter";
+import { formatJSON, ansi, shortenPath } from "../formatter";
 import {
   parseSource,
   assertNoParentSegments,
@@ -17,6 +17,8 @@ import { computeResidencyAudit, formatResidencyReport } from "../residency";
 import {
   detectDuplicates,
   sortInstancesForKeep,
+  skillContentFingerprint,
+  ensureSkillMdContent,
   formatAuditReport,
   formatAuditReportJSON,
 } from "../auditor";
@@ -30,6 +32,12 @@ import {
   formatMachineError,
   ErrorCodes,
 } from "../utils/machine";
+import {
+  detectSemanticOverlaps,
+  formatOverlapReport,
+  formatOverlapReportJSON,
+} from "../installed-overlap";
+import { errorMessage } from "../utils/errors";
 
 import { formatAuditMachineData, error } from "./shared";
 import type { ParsedArgs } from "../cli";
@@ -41,6 +49,7 @@ Detect duplicate skills or run security audits on installed/remote skills.
 
 ${ansi.bold("Subcommands:")}
   duplicates             Find duplicate skills (default)
+  overlap                Find installed skills that do the same job under different names
   security <name|source> Run security audit on an installed skill or GitHub source
   residency              Rank installed skills that do not earn their resident context
 
@@ -48,6 +57,7 @@ ${ansi.bold("Options:")}
   --json             Output as JSON
   --machine          Output in stable machine-readable v1 envelope format
   -y, --yes          Auto-remove duplicates, keeping one instance per group
+  -f, --force        With -y: remove even diverged (content-differing) copies
   -s, --scope <s>    Filter: global, project, or both (default: both)
   --no-color         Disable ANSI colors
   -V, --verbose      Show debug output
@@ -56,6 +66,8 @@ ${ansi.bold("Examples:")}
   asm audit                                    ${ansi.dim("Find duplicates")}
   asm audit -y                                 ${ansi.dim("Auto-remove duplicates")}
   asm audit --json                             ${ansi.dim("Output as JSON")}
+  asm audit overlap                            ${ansi.dim("Find same-job skills under different names")}
+  asm audit overlap --json                     ${ansi.dim("Overlap report as JSON")}
   asm audit residency                          ${ansi.dim("Rank demotion candidates")}
   asm audit residency --json                   ${ansi.dim("Residency report as JSON")}
   asm audit security code-review               ${ansi.dim("Audit an installed skill")}
@@ -86,9 +98,14 @@ export async function cmdAudit(args: ParsedArgs) {
     return;
   }
 
+  if (sub === "overlap") {
+    await cmdAuditOverlap(args, startTime);
+    return;
+  }
+
   if (sub !== "duplicates") {
     error(
-      `Unknown audit subcommand: "${sub}". Use: duplicates, security, residency`,
+      `Unknown audit subcommand: "${sub}". Use: duplicates, overlap, security, residency`,
     );
     process.exit(2);
   }
@@ -96,12 +113,17 @@ export async function cmdAudit(args: ParsedArgs) {
   const config = await loadConfig();
   // Always scan all providers regardless of --scope
   const allSkills = await scanAllSkills(config, "both");
+  // Fingerprinting (#562) needs SKILL.md content; the scanner usually caches
+  // it, but reconstructed rows (e.g. disabled skills) may lack it.
+  await Promise.all(allSkills.map(ensureSkillMdContent));
   const report = detectDuplicates(allSkills);
 
   if (args.flags.machine) {
     const data = {
       duplicate_groups: report.duplicateGroups.map((g) => ({
         name: g.key,
+        reason: g.reason,
+        ...(g.contentClass ? { contentClass: g.contentClass } : {}),
         count: g.instances.length,
         instances: g.instances.map((i) => ({
           path: i.path,
@@ -110,6 +132,7 @@ export async function cmdAudit(args: ParsedArgs) {
         })),
       })),
       total_duplicates: report.duplicateGroups.length,
+      totalDuplicateInstances: report.totalDuplicateInstances,
     };
     console.log(formatMachineOutput("audit duplicates", data, startTime));
     return;
@@ -123,22 +146,59 @@ export async function cmdAudit(args: ParsedArgs) {
   console.log(formatAuditReport(report));
 
   if (args.flags.yes && report.duplicateGroups.length > 0) {
-    // Auto-remove all but the first (recommended keep) instance per group
+    // Auto-remove all but the first (recommended keep) instance per group.
+    // Safety guard (#563): an instance is only removed when its content
+    // fingerprint matches the kept copy; diverged or unverifiable copies
+    // are skipped unless --force is given.
     console.error(ansi.bold("\nAuto-removing duplicates..."));
+    let removed = 0;
+    let skipped = 0;
     for (const group of report.duplicateGroups) {
       const sorted = sortInstancesForKeep(group.instances);
-      const keptPath = sorted[0].path;
-      // Keep the first, remove the rest (replace with symlinks)
+      const kept = sorted[0];
+      const keptFingerprint = skillContentFingerprint(kept);
       for (let i = 1; i < sorted.length; i++) {
         const skill = sorted[i];
+        const fingerprint = skillContentFingerprint(skill);
+        const identical =
+          keptFingerprint !== null &&
+          fingerprint !== null &&
+          keptFingerprint === fingerprint;
+        if (!identical && !args.flags.force) {
+          skipped++;
+          const why =
+            keptFingerprint === null || fingerprint === null
+              ? "contents could not be verified"
+              : "contents differ from the kept copy";
+          console.error(
+            ansi.yellow(
+              `  Skipping ${shortenPath(skill.path)} — ${why}. ` +
+                `Kept ${shortenPath(kept.path)}. ` +
+                `Re-run with --force to remove it anyway.`,
+            ),
+          );
+          continue;
+        }
         const plan = buildRemovalPlan(skill, config);
-        const log = await executeRemoval(plan, keptPath);
+        const log = await executeRemoval(plan, kept.path);
         for (const entry of log) {
           console.error(entry);
         }
+        removed++;
       }
     }
-    console.error(ansi.green("\nDone."));
+    if (skipped > 0) {
+      console.error(
+        ansi.yellow(
+          `\n${skipped} duplicate cop${skipped === 1 ? "y" : "ies"} skipped (content differs or could not be verified).`,
+        ),
+      );
+    }
+    console.error(
+      ansi.green(
+        `\nDone. Removed ${removed} duplicate cop${removed === 1 ? "y" : "ies"}.`,
+      ),
+    );
   }
 }
 
@@ -179,6 +239,53 @@ export async function cmdAuditResidency(args: ParsedArgs, startTime: number) {
   }
 
   console.log(formatResidencyReport(report));
+}
+
+/**
+ * `asm audit overlap` — surface installed skills that do substantially the
+ * same job under different names (issue #566). The exact-match duplicate
+ * check above only catches identical names; this compares name+description
+ * with boilerplate down-weighted (offline token similarity) and ranks pairs,
+ * flagging high-confidence overlaps. Read-only: it reports and never removes.
+ */
+export async function cmdAuditOverlap(args: ParsedArgs, startTime: number) {
+  const config = await loadConfig();
+  const allSkills = await scanAllSkills(config, "both");
+  const report = detectSemanticOverlaps(allSkills);
+
+  if (args.flags.machine) {
+    const data = {
+      compared_skills: report.comparedSkills,
+      total_overlaps: report.pairs.length,
+      high_confidence_overlaps: report.highConfidenceCount,
+      pairs: report.pairs.map((p) => ({
+        score: Number(p.score.toFixed(4)),
+        high_confidence: p.highConfidence,
+        reason: p.reason,
+        a: {
+          name: p.a.name,
+          provider: p.a.provider,
+          scope: p.a.scope,
+          path: p.a.path,
+        },
+        b: {
+          name: p.b.name,
+          provider: p.b.provider,
+          scope: p.b.scope,
+          path: p.b.path,
+        },
+      })),
+    };
+    console.log(formatMachineOutput("audit overlap", data, startTime));
+    return;
+  }
+
+  if (args.flags.json) {
+    console.log(formatOverlapReportJSON(report));
+    return;
+  }
+
+  console.log(formatOverlapReport(report));
 }
 
 export async function cmdAuditSecurity(args: ParsedArgs, startTime: number) {
@@ -337,19 +444,20 @@ export async function cmdAuditSecuritySource(
     } else {
       console.log(formatSecurityReport(report));
     }
-  } catch (err: any) {
+  } catch (err) {
+    const message = errorMessage(err);
     if (args.flags.machine) {
       console.log(
         formatMachineError(
           "audit security",
           ErrorCodes.AUDIT_FAILED,
-          err.message,
+          message,
           startTime,
         ),
       );
       process.exit(1);
     }
-    error(err.message);
+    error(message);
     process.exit(1);
   } finally {
     if (tempDir) {

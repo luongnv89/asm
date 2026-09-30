@@ -9,6 +9,7 @@ import { getLibraryLockPath, getLibrarySkillsDir } from "./config";
 
 import { parseFrontmatter } from "./utils/frontmatter";
 import { withFileMutationLock } from "./utils/atomic-file";
+import { poolAll } from "./updater-core";
 import type { LibrarySkillEntry } from "./utils/types";
 import {
   type LibraryPaths,
@@ -299,25 +300,36 @@ export async function updateLibrarySkill(
   }
 }
 
+// Each update may shell out to git / hit the GitHub remote; a small cap keeps
+// `--all` under rate limits while avoiding a fully serial pass.
+const LIBRARY_UPDATE_CONCURRENCY = 4;
+
 export async function updateLibrarySkills(
   names: string[] | null,
   paths: LibraryPaths = {},
+  _overrides?: {
+    updateLibrarySkillFn?: typeof updateLibrarySkill;
+  },
 ): Promise<LibraryUpdateSummary> {
   const lockPath = paths.lockPath ?? getLibraryLockPath();
   const lock = await readLibraryLock(lockPath);
   const selectedNames = names === null ? Object.keys(lock.skills) : names;
   const warnings: string[] = [];
-  const results: LibraryUpdateResult[] = [];
+  const updateFn = _overrides?.updateLibrarySkillFn ?? updateLibrarySkill;
 
-  for (const selectedName of selectedNames) {
-    const result = await updateLibrarySkill(selectedName, paths);
+  const results = await poolAll(
+    selectedNames,
+    LIBRARY_UPDATE_CONCURRENCY,
+    (selectedName) => updateFn(selectedName, paths),
+  );
+
+  for (const result of results) {
     if (
       result.status === "failed" &&
       result.reason?.includes('Run "asm library list"')
     ) {
       warnings.push(result.reason);
     }
-    results.push(result);
   }
 
   return {

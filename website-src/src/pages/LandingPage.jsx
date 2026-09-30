@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Github } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { Github } from "../components/icons.jsx";
 import { useCatalog } from "../hooks/useCatalog.jsx";
 import CopyButton from "../components/CopyButton.jsx";
 import Reveal from "../components/Reveal.jsx";
@@ -10,7 +11,7 @@ import { prefersReducedMotion } from "../lib/motion.js";
 
 const REPO_URL = "https://github.com/luongnv89/asm";
 const NPM_CMD = "npm install -g agent-skill-manager";
-const PROVIDER_COUNT = 19;
+const PROVIDER_COUNT = 21;
 
 /**
  * Marketing landing page (route `/`). The catalog lives at `/skills`.
@@ -46,51 +47,52 @@ export default function LandingPage() {
   );
 }
 
-/* ─── What's New (v2.16) ───────────────────────────────────────────── */
+/* ─── What's New (v2.19) ───────────────────────────────────────────── */
 
 function WhatsNew() {
   const highlights = [
     {
       tag: "New",
-      head: "Semantic overlap detection",
-      body: "Find skills that do substantially the same job — even with different names — using token-based similarity. Surface redundancy for review.",
+      head: "Curated skill bundles, one click to install",
+      body: "Skill bundles put hand-picked collections together — marketing, software-dev, iOS, and game dev — and each one is one click away from your machine.",
     },
     {
       tag: "New",
-      head: "PII detection & script linting",
-      body: "The evaluator now flags sensitive data patterns and unsafe shell scripts in skill code, raising the security bar for indexed skills.",
+      head: "Tune a bundle before you download it",
+      body: "Interactive tool and scope pickers let you shape a bundle — which tools it targets, which scopes it covers — so what lands is exactly what you needed.",
     },
     {
       tag: "New",
-      head: "License verification",
-      body: "Indexed skills are checked for valid, compatible licenses — ensuring your agent skills respect upstream licensing.",
+      head: "A storefront redesign for the catalog",
+      body: "The catalog now sorts by popularity, gives every source repo a detail page, and tracks analytics — browsing thousands of skills feels like a real shop.",
     },
     {
       tag: "New",
-      head: "Zero-residency skill delivery",
-      body: "asm get <skill> resolves a skill through the installed / library / index / registry ladder and writes its SKILL.md body to stdout — no residency cost.",
+      head: "Static category pages for search engines",
+      body: "Every catalog category gets a fast, indexable static page — so people and AI agents can find your skills right from a search result.",
     },
   ];
   return (
     <Reveal
       as="section"
       className="flex flex-col gap-8"
-      aria-label="What's new in v2.16"
+      aria-label="What's new in v2.19"
     >
       <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div className="flex flex-col gap-3 max-w-[680px]">
           <span className="lp-kicker">
             <span className="dot" aria-hidden="true" />
-            what&apos;s new · v2.16
+            what&apos;s new · v2.19
           </span>
           <h2 className="lp-section-title">
-            Overlap detection, PII flags, license checks, zero-residency
-            delivery.
+            Skill bundles, a redesigned catalog storefront, and SEO category
+            pages.
           </h2>
           <p className="lp-lede">
-            v2.16 adds semantic overlap detection for indexed skills, PII and
-            script linting to the evaluator, license verification, and a new
-            zero-residency reference tier via `asm get`.
+            v2.19 ships curated skill bundles with one-click download and
+            interactive tool/scope pickers, a storefront rebuilt with popularity
+            sort, repo detail pages, and analytics, plus static, indexable
+            category pages.
           </p>
         </div>
         <Link
@@ -375,7 +377,7 @@ function Solution() {
     {
       icon: "05",
       head: "Works with every major agent",
-      body: "19 providers built in: Claude Code, Codex, Cursor, Windsurf, Cline, Roo, Continue, Copilot, Aider, Zed, Gemini CLI, and more. Add custom ones in seconds.",
+      body: "21 providers built in: Agents, Claude Code, Pi, OpenCode, Codex, Oh My Pi, Grok CLI, Cursor, Windsurf, Cline, Gemini CLI, and more. Add custom ones in seconds.",
     },
     {
       icon: "06",

@@ -6,6 +6,7 @@ import { getConfigDir } from "./config";
 import { readLock } from "./utils/lock";
 import { loadAllIndices } from "./skill-index";
 import { repoBundlesForIndex } from "./repo-bundles";
+import { errorMessage } from "./utils/errors";
 import type {
   BundleManifest,
   BundleSkillRef,
@@ -190,11 +191,11 @@ export async function readBundleFile(
   let raw: string;
   try {
     raw = await readFile(filePath, "utf-8");
-  } catch (err: any) {
-    if (err?.code === "ENOENT") {
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException | null)?.code === "ENOENT") {
       throw new Error(`Bundle file not found: ${filePath}`, { cause: err });
     }
-    throw new Error(`Failed to read bundle file: ${err.message}`, {
+    throw new Error(`Failed to read bundle file: ${errorMessage(err)}`, {
       cause: err,
     });
   }
@@ -236,14 +237,14 @@ export async function loadBundle(nameOrPath: string): Promise<BundleManifest> {
 
   try {
     return await readBundleFile(filePath);
-  } catch (err: any) {
+  } catch (err) {
     // If not found in user dir, fall back to predefined (shipped) bundles
-    if (err?.message?.includes("Bundle file not found")) {
+    if (errorMessage(err).includes("Bundle file not found")) {
       const predefinedPath = join(PREDEFINED_BUNDLE_DIR, filename);
       try {
         return await readBundleFile(predefinedPath);
-      } catch (predefinedErr: any) {
-        if (predefinedErr?.message?.includes("Bundle file not found")) {
+      } catch (predefinedErr) {
+        if (errorMessage(predefinedErr).includes("Bundle file not found")) {
           const repoBundle = await findRepoIndexBundle(nameOrPath);
           if (repoBundle) return repoBundle;
           throw new Error(`Bundle file not found: ${filePath}`, {
@@ -366,8 +367,8 @@ export async function removeBundle(name: string): Promise<boolean> {
     await rm(filePath);
     debug(`bundle: removed ${filePath}`);
     return true;
-  } catch (err: any) {
-    if (err?.code === "ENOENT") {
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException | null)?.code === "ENOENT") {
       return false;
     }
     throw err;

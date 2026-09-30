@@ -42,6 +42,9 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
       formatInvocability(skill.modelInvocable, skill.userInvocable),
     ),
   );
+  if (skill.tags?.length) {
+    lines.push(label("Tags", skill.tags.join(", ")));
+  }
   lines.push(label("Tool", skill.providerLabel));
   lines.push(label("Scope", skill.scope));
   lines.push(label("Location", skill.location));
@@ -207,6 +210,9 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
       formatInvocability(ref.modelInvocable, ref.userInvocable),
     ),
   );
+  if (ref.tags?.length) {
+    lines.push(label("  Tags", ref.tags.join(", ")));
+  }
 
   const fileCount = ref.fileCount ?? (await countFiles(ref.path));
   lines.push(label("  File Count", String(fileCount)));

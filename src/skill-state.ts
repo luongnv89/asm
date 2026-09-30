@@ -41,8 +41,8 @@ export async function loadSkillState(path?: string): Promise<SkillStateFile> {
   let raw: string;
   try {
     raw = await readFile(statePath, "utf-8");
-  } catch (err: any) {
-    if (err?.code === "ENOENT") {
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException | null)?.code === "ENOENT") {
       debug("skill-state: file not found, returning empty state");
       return emptyState();
     }

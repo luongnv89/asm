@@ -2,25 +2,27 @@
   "repoUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
   "owner": "nextlevelbuilder",
   "repo": "ui-ux-pro-max-skill",
-  "updatedAt": "2026-08-21T09:19:04.867Z",
+  "updatedAt": "2026-09-26T06:49:52.985Z",
   "skillCount": 7,
   "skills": [
     {
       "name": "banner-design",
-      "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+      "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with optional generated or supplied visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage.",
       "version": "1.0.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/banner-design",
       "relPath": ".claude/skills/banner-design",
       "verified": true,
-      "tokenCount": 2267,
+      "tokenCount": 2036,
       "evalSummary": {
-        "overallScore": 77,
+        "overallScore": 76,
         "grade": "C",
         "categories": [
           {
@@ -38,7 +40,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 9,
+            "score": 7,
             "max": 10
           },
           {
@@ -50,13 +52,13 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 9,
+            "score": 7,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 0,
+            "score": 3,
             "max": 10
           },
           {
@@ -84,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:03.930Z",
+        "evaluatedAt": "2026-09-26T06:49:51.427Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -93,7 +95,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 77,
+          "overallScore": 76,
           "grade": "C",
           "categories": [
             {
@@ -111,7 +113,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 9,
+              "score": 7,
               "max": 10
             },
             {
@@ -123,13 +125,13 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 9,
+              "score": 7,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 0,
+              "score": 3,
               "max": 10
             },
             {
@@ -157,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:03.930Z",
+          "evaluatedAt": "2026-09-26T06:49:51.428Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 79,
@@ -175,7 +177,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:03.930Z",
+          "evaluatedAt": "2026-09-26T06:49:51.428Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -188,14 +190,16 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/brand",
       "relPath": ".claude/skills/brand",
       "verified": true,
-      "tokenCount": 614,
+      "tokenCount": 898,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 67,
         "grade": "C",
         "categories": [
           {
@@ -225,7 +229,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 4,
+            "score": 2,
             "max": 10
           },
           {
@@ -259,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:03.930Z",
+        "evaluatedAt": "2026-09-26T06:49:51.427Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -268,7 +272,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 67,
           "grade": "C",
           "categories": [
             {
@@ -298,7 +302,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 4,
+              "score": 2,
               "max": 10
             },
             {
@@ -332,12 +336,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:03.930Z",
+          "evaluatedAt": "2026-09-26T06:49:51.428Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 86,
@@ -350,25 +354,27 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:03.930Z",
+          "evaluatedAt": "2026-09-26T06:49:51.428Z",
           "evaluatedVersion": "1.0.0"
         }
       }
     },
     {
       "name": "design",
-      "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
+      "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini, Atlas Cloud, or MuAPI AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
       "version": "2.1.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design",
       "relPath": ".claude/skills/design",
       "verified": true,
-      "tokenCount": 2867,
+      "tokenCount": 3485,
       "evalSummary": {
         "overallScore": 73,
         "grade": "C",
@@ -394,7 +400,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 10,
+            "score": 8,
             "max": 10
           },
           {
@@ -406,7 +412,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 1,
+            "score": 3,
             "max": 10
           },
           {
@@ -434,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:03.930Z",
+        "evaluatedAt": "2026-09-26T06:49:51.427Z",
         "evaluatedVersion": "2.1.0"
       },
       "evalSummaries": {
@@ -467,7 +473,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 10,
+              "score": 8,
               "max": 10
             },
             {
@@ -479,7 +485,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 1,
+              "score": 3,
               "max": 10
             },
             {
@@ -507,12 +513,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:03.930Z",
+          "evaluatedAt": "2026-09-26T06:49:51.428Z",
           "evaluatedVersion": "2.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 79,
@@ -525,7 +531,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:03.930Z",
+          "evaluatedAt": "2026-09-26T06:49:51.428Z",
           "evaluatedVersion": "2.1.0"
         }
       }
@@ -538,12 +544,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design-system",
       "relPath": ".claude/skills/design-system",
       "verified": true,
-      "tokenCount": 1648,
+      "tokenCount": 1818,
       "evalSummary": {
         "overallScore": 79,
         "grade": "C",
@@ -609,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:03.930Z",
+        "evaluatedAt": "2026-09-26T06:49:51.428Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -682,12 +690,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:03.930Z",
+          "evaluatedAt": "2026-09-26T06:49:51.428Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 79,
@@ -700,7 +708,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:03.930Z",
+          "evaluatedAt": "2026-09-26T06:49:51.428Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -713,14 +721,16 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/slides",
       "relPath": ".claude/skills/slides",
       "verified": true,
-      "tokenCount": 246,
+      "tokenCount": 416,
       "evalSummary": {
-        "overallScore": 59,
+        "overallScore": 61,
         "grade": "D",
         "categories": [
           {
@@ -744,7 +754,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
@@ -784,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:03.930Z",
+        "evaluatedAt": "2026-09-26T06:49:51.427Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -793,7 +803,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 59,
+          "overallScore": 61,
           "grade": "D",
           "categories": [
             {
@@ -817,7 +827,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
@@ -857,12 +867,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:03.930Z",
+          "evaluatedAt": "2026-09-26T06:49:51.428Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 86,
@@ -875,7 +885,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:03.930Z",
+          "evaluatedAt": "2026-09-26T06:49:51.428Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -888,12 +898,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/ui-styling",
       "relPath": ".claude/skills/ui-styling",
       "verified": true,
-      "tokenCount": 2372,
+      "tokenCount": 2619,
       "evalSummary": {
         "overallScore": 84,
         "grade": "B",
@@ -925,13 +937,13 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 5,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 1,
+            "score": 3,
             "max": 10
           },
           {
@@ -959,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:03.930Z",
+        "evaluatedAt": "2026-09-26T06:49:51.427Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -998,13 +1010,13 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 5,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 1,
+              "score": 3,
               "max": 10
             },
             {
@@ -1032,12 +1044,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:03.930Z",
+          "evaluatedAt": "2026-09-26T06:49:51.428Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 79,
@@ -1050,7 +1062,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:03.930Z",
+          "evaluatedAt": "2026-09-26T06:49:51.428Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1063,6 +1075,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/ui-ux-pro-max",
@@ -1134,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:03.930Z",
+        "evaluatedAt": "2026-09-26T06:49:51.428Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1207,12 +1221,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:03.930Z",
+          "evaluatedAt": "2026-09-26T06:49:51.428Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1225,7 +1239,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:03.930Z",
+          "evaluatedAt": "2026-09-26T06:49:51.428Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1237,7 +1251,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-08-21T09:19:04.867Z",
+      "createdAt": "2026-09-26T06:49:52.985Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1251,7 +1265,7 @@
         {
           "name": "banner-design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/banner-design",
-          "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+          "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with optional generated or supplied visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage.",
           "version": "1.0.0"
         },
         {
@@ -1263,7 +1277,7 @@
         {
           "name": "design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design",
-          "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
+          "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini, Atlas Cloud, or MuAPI AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
           "version": "2.1.0"
         },
         {
@@ -1303,7 +1317,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-08-21T09:19:04.867Z",
+      "createdAt": "2026-09-26T06:49:52.985Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1317,13 +1331,13 @@
         {
           "name": "banner-design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/banner-design",
-          "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+          "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with optional generated or supplied visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage.",
           "version": "1.0.0"
         },
         {
           "name": "design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design",
-          "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
+          "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini, Atlas Cloud, or MuAPI AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
           "version": "2.1.0"
         },
         {
@@ -1351,7 +1365,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-08-21T09:19:04.867Z",
+      "createdAt": "2026-09-26T06:49:52.985Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1365,7 +1379,7 @@
         {
           "name": "banner-design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/banner-design",
-          "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+          "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with optional generated or supplied visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage.",
           "version": "1.0.0"
         },
         {
@@ -1377,7 +1391,7 @@
         {
           "name": "design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design",
-          "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
+          "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini, Atlas Cloud, or MuAPI AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
           "version": "2.1.0"
         },
         {
@@ -1417,7 +1431,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-08-21T09:19:04.867Z",
+      "createdAt": "2026-09-26T06:49:52.985Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1431,7 +1445,7 @@
         {
           "name": "banner-design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/banner-design",
-          "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+          "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with optional generated or supplied visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage.",
           "version": "1.0.0"
         },
         {
@@ -1443,7 +1457,7 @@
         {
           "name": "design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design",
-          "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
+          "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini, Atlas Cloud, or MuAPI AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
           "version": "2.1.0"
         },
         {
@@ -1483,7 +1497,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-08-21T09:19:04.867Z",
+      "createdAt": "2026-09-26T06:49:52.985Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1497,7 +1511,7 @@
         {
           "name": "banner-design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/banner-design",
-          "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+          "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with optional generated or supplied visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage.",
           "version": "1.0.0"
         },
         {
@@ -1509,7 +1523,7 @@
         {
           "name": "design",
           "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design",
-          "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
+          "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini, Atlas Cloud, or MuAPI AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
           "version": "2.1.0"
         },
         {
@@ -1549,7 +1563,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-08-21T09:19:04.867Z",
+      "createdAt": "2026-09-26T06:49:52.985Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1585,7 +1599,7 @@
       "name": "nextlevelbuilder-ui-ux-pro-max-skill-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from nextlevelbuilder/ui-ux-pro-max-skill.",
       "author": "ASM (nextlevelbuilder/ui-ux-pro-max-skill)",
-      "createdAt": "2026-08-21T09:19:04.867Z",
+      "createdAt": "2026-09-26T06:49:52.985Z",
       "tags": [
         "repo-derived",
         "inferred",

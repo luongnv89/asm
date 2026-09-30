@@ -30,6 +30,8 @@ export interface ParsedArgs {
     name: string | null;
     force: boolean;
     path: string | null;
+    /** `asm get --path` borrows a full directory; install/init retain string path. */
+    getPath: boolean;
     all: boolean;
     library: boolean;
     verbose: boolean;
@@ -42,6 +44,8 @@ export interface ParsedArgs {
     missing: string[];
     modelInvocable: boolean;
     userInvocable: boolean;
+    /** Repeatable/comma-separated tag filters for list and search. */
+    tagFilters: string[];
     dryRun: boolean;
     /** `asm import --diff` — show unified diffs for conflicts. */
     diff: boolean;
@@ -95,6 +99,10 @@ export interface ParsedArgs {
     audit: boolean;
     /** `asm index overlap --threshold <N>` — minimum similarity score (0..1). */
     threshold: number | null;
+    /** Caller-owned identity for temporary dependency lease operations. */
+    session: string | null;
+    /** Explicit ISO-8601 cutoff for dependency stale-session recovery. */
+    staleBefore: string | null;
   };
 }
 
@@ -117,6 +125,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       name: null,
       force: false,
       path: null,
+      getPath: false,
       all: false,
       library: false,
       verbose: false,
@@ -129,6 +138,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       missing: [],
       modelInvocable: false,
       userInvocable: false,
+      tagFilters: [],
       dryRun: false,
       diff: false,
       machine: false,
@@ -149,6 +159,8 @@ export function parseArgs(argv: string[]): ParsedArgs {
       predefined: false,
       audit: false,
       threshold: null,
+      session: null,
+      staleBefore: null,
     },
   };
 
@@ -203,8 +215,12 @@ export function parseArgs(argv: string[]): ParsedArgs {
     } else if (arg === "--force" || arg === "-f") {
       result.flags.force = true;
     } else if (arg === "--path") {
-      i++;
-      result.flags.path = args[i] || null;
+      if (result.command === "get") {
+        result.flags.getPath = true;
+      } else {
+        i++;
+        result.flags.path = args[i] || null;
+      }
     } else if (arg === "--all") {
       result.flags.all = true;
     } else if (arg === "--library") {
@@ -296,6 +312,13 @@ export function parseArgs(argv: string[]): ParsedArgs {
       result.flags.modelInvocable = true;
     } else if (arg === "--user-invocable") {
       result.flags.userInvocable = true;
+    } else if (arg === "--tag") {
+      i++;
+      if (!args[i]) {
+        error('Missing value for "--tag".');
+        process.exit(2);
+      }
+      result.flags.tagFilters.push(args[i]);
     } else if (arg === "--add") {
       i++;
       result.flags.add = args[i] || null;
@@ -327,6 +350,12 @@ export function parseArgs(argv: string[]): ParsedArgs {
         );
         process.exit(2);
       }
+    } else if (arg === "--session") {
+      i++;
+      result.flags.session = args[i] || null;
+    } else if (arg === "--stale-before") {
+      i++;
+      result.flags.staleBefore = args[i] || null;
     } else if (arg.startsWith("-")) {
       error(`Unknown option: ${arg}`);
       console.error(`Run "asm --help" for usage.`);
@@ -368,8 +397,11 @@ ${ansi.bold("Usage:")}
 ${ansi.bold("Commands:")}
   list                   List all discovered skills
   search <query>         Search skills by name/description/tool
+  tag add|remove         Edit local tags for an installed skill
   inspect <skill-name>   Show detailed info for a skill
-  get <skill>            Print a skill's SKILL.md body (installs nothing)
+  get <skill>            Print a skill body, or borrow its directory with --path
+  cleanup <path>         Remove an exact directory borrowed by get --path
+  deps                   Manage caller-owned temporary dependency leases
   uninstall <skill-name> Remove a skill (with confirmation)
   disable <target>       Disable skill(s) without uninstalling
   enable <target>        Re-enable disabled skill(s)
@@ -407,6 +439,7 @@ ${ansi.bold("Global Options:")}
   --machine              Stable machine-readable JSON envelope (v1)
   -s, --scope <scope>    Filter: global, project, or both (default: both)
   -p, --tool <name>      Filter by tool (list, search)
+  --tag <tag[,tag]>      Filter by all tags; repeatable (list, search)
   --no-color             Disable ANSI colors
   --sort <field>         Sort by: name, version, or location (default: name)
   --flat                 Show one row per tool instance (list, search)
@@ -417,8 +450,11 @@ ${ansi.bold("Global Options:")}
 // ─── Command handlers ──────────────────────────────────────────────────────
 import { cmdList } from "./commands/list";
 import { cmdSearch } from "./commands/search";
+import { cmdTag } from "./commands/tag";
 import { cmdInspect } from "./commands/inspect";
 import { cmdGet } from "./commands/get";
+import { cmdCleanup } from "./commands/cleanup";
+import { cmdDeps } from "./commands/deps";
 import { cmdUninstall } from "./commands/uninstall";
 import { cmdDisable, cmdEnable } from "./commands/toggle";
 import { cmdAudit } from "./commands/audit";
@@ -518,11 +554,20 @@ export async function runCLI(argv: string[]): Promise<void> {
     case "search":
       await cmdSearch(args);
       break;
+    case "tag":
+      await cmdTag(args);
+      break;
     case "inspect":
       await cmdInspect(args);
       break;
     case "get":
       await cmdGet(args);
+      break;
+    case "cleanup":
+      await cmdCleanup(args);
+      break;
+    case "deps":
+      await cmdDeps(args);
       break;
     case "uninstall":
       await cmdUninstall(args);
@@ -607,8 +652,11 @@ export function isCLIMode(argv: string[]): boolean {
   const commands = [
     "list",
     "search",
+    "tag",
     "inspect",
     "get",
+    "cleanup",
+    "deps",
     "uninstall",
     "audit",
     "config",

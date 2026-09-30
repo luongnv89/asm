@@ -1,20 +1,27 @@
 ---
 name: refresh-index
-description: "Re-ingest every already-enabled repo in data/skill-index-resources.json: sync the working tree, run preindex, rebuild the catalog for verification, summarize updated/unchanged/failed/skipped, then gate commit + PR behind explicit confirmation. Use when asked to refresh the index, re-ingest indexed repos, or batch-maintain already-indexed skill sources. Don't use for adding new repos (use skill-index-updater), improving a single skill (use skill-auto-improver), or installing/updating skills on the local machine (use asm install or asm update)."
+description: "Sync every enabled repo in the curated skill index and open a confirmation-gated PR. Use when refreshing already-indexed sources. Don't use for adding new repos, improving a single skill, or installing skills locally."
 license: MIT
-compatibility: Claude Code
+compatibility: "Claude Code"
 allowed-tools: Bash Read Write Edit Grep Glob
 effort: high
 metadata:
-  version: 1.0.0
+  version: 1.1.0
   author: luongnv89
 ---
 
 # Refresh Index
 
-You are refreshing every enabled repository in the ASM curated skill index. The goal is to re-ingest each source so `data/skill-index/{owner}_{repo}.json` reflects the latest upstream state, classify each repo as **updated / unchanged / failed / skipped**, verify the catalog still rebuilds cleanly, and open a single PR that ships only the data changes — with explicit user confirmation before any commit or push.
+Re-ingest every enabled repository in `data/skill-index-resources.json` so `data/skill-index/{owner}_{repo}.json` matches upstream. Classify each repo as **updated / unchanged / failed / skipped**, verify the catalog rebuilds, then open one data-only PR after explicit confirmation.
 
-This is the inverse of `skill-index-updater`. That skill **adds new repos** from URLs the user supplies. This skill **refreshes the repos that are already enabled** in `data/skill-index-resources.json`.
+This is the inverse of `skill-index-updater` (that skill **adds** repos). Keep SKILL.md as the spine and load step detail from `references/` so the agent's context budget stays small.
+
+## When to Use
+
+- User asks to "refresh the index", "update the indexed skills", "sync the catalog", "re-ingest all repos", or "batch-maintain the skill index"
+- A scheduled refresh is due, or a release needs current upstream skill metadata
+
+Do **not** trigger for: adding a new repository (`skill-index-updater`), authoring or improving a single skill (`skill-creator`, `skill-auto-improver`), opening an upstream PR (`skill-upstream-pr`), or installing/updating skills on the local machine (`asm install`, `asm update`).
 
 ## Repo Sync Before Edits (mandatory)
 
@@ -43,7 +50,8 @@ If `origin` is missing or rebase conflicts occur, **stop and ask the user** befo
 
 Verify each before any ingest. Stop and tell the user if any fails.
 
-- `node` and `npm` on PATH (`command -v node`, `command -v npm`) — required by `npm run preindex`
+- `node` on PATH (`command -v node`) — Node >= 22 per `package.json` engines
+- `npm` on PATH (`command -v npm`) — required by `npm run preindex`
 - `asm` on PATH (`command -v asm`) — invoked transitively by the ingester for `asm eval`
 - `gh` on PATH and authenticated (`gh auth status`) — required for PR creation
 - `git` on PATH and inside the ASM repo working tree (`git rev-parse --show-toplevel`)
@@ -51,63 +59,33 @@ Verify each before any ingest. Stop and tell the user if any fails.
 
 ## Pipeline
 
-Follow these steps in order. Each step has a verification check — do not proceed if the check fails.
+Follow these steps in order. Each step has a verification check — do not proceed if the check fails. Long scripts and templates live in `references/`; read the linked file when you reach that step.
 
 ### Step 1: Enumerate the index
 
-Read `data/skill-index-resources.json` and split entries into two lists:
+Read `data/skill-index-resources.json` and split entries, keyed on the `source` string (`github:owner/repo`) because that is the identifier `preindex` echoes:
 
 ```bash
 ROOT="$(git rev-parse --show-toplevel)"
 RES="$ROOT/data/skill-index-resources.json"
-```
-
-Use `jq` (or your equivalent JSON reader) to build two lists, keyed on the `source` string (`github:owner/repo`) because that is the identifier `preindex` echoes in its log lines:
-
-- `enabled[]` — every repo with `"enabled": true`. These will be refreshed.
-- `disabled[]` — every repo with `"enabled": false`. These land in the **skipped** bucket up front with reason `"disabled in skill-index-resources.json"`.
-
-```bash
-jq -r '.repos[] | select(.enabled == true)  | .source' "$RES"   # e.g. github:anthropics/skills
+jq -r '.repos[] | select(.enabled == true)  | .source' "$RES"
 jq -r '.repos[] | select(.enabled == false) | .source' "$RES"
-```
-
-Also derive the on-disk file key (`{owner}_{repo}`) for each enabled repo — this is what `data/skill-index/{owner}_{repo}.json` is named:
-
-```bash
 jq -r '.repos[] | select(.enabled == true) | "\(.source)\t\(.owner)_\(.repo)"' "$RES"
-```
-
-Verification: both lists are non-empty (the index always contains at least one enabled repo and one disabled self-reference). Also validate the existing per-repo JSON is parseable before re-ingesting — a pre-existing corruption otherwise gets masked by the refresh:
-
-```bash
 jq empty data/skill-index/*.json   # exits non-zero if any file is invalid
 ```
 
-If `enabled[]` is empty or pre-validation fails, stop — there is nothing safe to refresh.
+- `enabled[]` — `"enabled": true`. These will be refreshed.
+- `disabled[]` — `"enabled": false`. These land in **skipped** with reason `"disabled in skill-index-resources.json"`.
+
+Verification: both lists are non-empty (the index always contains at least one enabled repo and one disabled self-reference) and existing per-repo JSON is parseable. If `enabled[]` is empty or pre-validation fails, stop.
 
 ### Step 2: Snapshot pre-run skill counts
 
-Before re-ingesting, record the current `skillCount` for each enabled repo. This lets Step 7 report skill-count deltas.
-
-```bash
-mkdir -p /tmp/refresh-index
-SNAPSHOT="/tmp/refresh-index/pre-snapshot.json"
-echo "{}" > "$SNAPSHOT"
-for entry in $(jq -r '.repos[] | select(.enabled == true) | "\(.owner)_\(.repo)"' "$RES"); do
-  file="$ROOT/data/skill-index/${entry}.json"
-  if [ -f "$file" ]; then
-    count=$(jq -r '.skillCount // 0' "$file")
-    jq --arg k "$entry" --argjson v "$count" '. + {($k): $v}' "$SNAPSHOT" > "$SNAPSHOT.tmp" && mv "$SNAPSHOT.tmp" "$SNAPSHOT"
-  fi
-done
-```
-
-If a repo is enabled but has no existing index file, treat the pre-count as `0`. The repo will then show up in **updated** with a positive delta in Step 7.
+Record current `skillCount` for each enabled repo so Step 7 can report deltas. Run the loop in `references/snapshot.md`. Missing index file → pre-count `0`.
 
 ### Step 3: Run `npm run preindex`
 
-Re-ingest every enabled repo via the project's preindex script. Capture both stdout and the exit code — `preindex` exits 1 if any repo fails, but **do not abort the run**. We still want partial results so the summary can show what succeeded.
+Re-ingest every enabled repo. Capture stdout and the exit code — `preindex` exits 1 if any repo fails, but **do not abort**. Partial results still classify.
 
 ```bash
 LOG="/tmp/refresh-index/preindex.log"
@@ -118,43 +96,27 @@ PREINDEX_EXIT=$?
 set -e
 ```
 
-Verification: the log file exists and contains one line per enabled repo formatted as either `  {source} ... {N} skills` (success) or `  {source} ... FAILED: {error}` (failure), where `{source}` matches the `github:owner/repo` strings from Step 1. If the log is empty or no line matches, stop and surface the error.
+Verification: the log exists and contains one line per enabled repo: `  {source} ... {N} skills` or `  {source} ... FAILED: {error}`. If the log is empty or no line matches, stop — that is environmental, not a per-repo failure.
 
 ### Step 4: Classify each repo
 
-Build per-repo status from three signals — the preindex log, `git diff` on `data/skill-index/`, and the `disabled[]` list from Step 1.
-
-```bash
-DIFF_FILES=$(git diff --name-only -- data/skill-index/ | sort -u)
-```
-
-For each enabled repo, match the preindex log line by its `{source}` string (`github:owner/repo`) and look up the on-disk file by `{owner}_{repo}`:
-
-| Signal in `preindex.log` (per `{source}` line) | `data/skill-index/{owner}_{repo}.json` in `git diff` | Bucket                                              |
-| ---------------------------------------------- | ---------------------------------------------------- | --------------------------------------------------- |
-| `  {source} ... N skills`                      | yes                                                  | **updated**                                         |
-| `  {source} ... N skills`                      | no                                                   | **unchanged**                                       |
-| `  {source} ... FAILED: ...`                   | (either)                                             | **failed** (capture error message)                  |
-| (no line for this `{source}`)                  | (either)                                             | **failed** (capture as `"no output from preindex"`) |
-
-For each `disabled[]` repo: **skipped** with the disabled reason.
-
-Capture each repo's post-run `skillCount` by reading the (possibly updated) `data/skill-index/{owner}_{repo}.json`. For **failed** repos, post-count = pre-count (no change on disk).
+Match each `{source}` log line to `data/skill-index/{owner}_{repo}.json` in `git diff`. Read `references/classify.md` for the four-row signal table. Capture post-run `skillCount`; failed repos keep the pre-count.
 
 ### Step 5: Rebuild the website catalog (verification only)
 
-Run the catalog build to confirm the refreshed index is structurally valid. **`website/catalog.json` is gitignored — never stage it.** A failure here means the data files are internally inconsistent and the PR must not land.
+Confirm the refreshed index is structurally valid. **`website/catalog.json` is gitignored — never stage it.**
 
 ```bash
 cd "$ROOT"
 npx tsx scripts/build-catalog.ts
+jq empty website/catalog.json
 ```
 
-Verification: the script exits 0 and `website/catalog.json` is valid JSON (`jq empty website/catalog.json`). If it fails, stop the pipeline — investigate the data issue before committing anything.
+Verification: both commands exit 0. If either fails, stop — the data files are internally inconsistent and the PR must not land.
 
 ### Step 6: Detect unexpected diff scope
 
-Confirm the only files that changed are the ones we expect — per-repo data under `data/skill-index/` and, only if the user explicitly bumped the top-level `updatedAt`, `data/skill-index-resources.json`:
+Confirm the only files that changed are under `data/skill-index/` (and `data/skill-index-resources.json` only if the user explicitly bumped `updatedAt`):
 
 ```bash
 UNEXPECTED=$(git diff --name-only \
@@ -164,133 +126,93 @@ UNEXPECTED=$(git diff --name-only \
 if [ -n "$UNEXPECTED" ]; then
   echo "⚠ Unexpected files in diff:"
   printf '%s\n' "$UNEXPECTED"
-  # stop and surface to user
 fi
 ```
 
-Note: `npm run preindex` does **not** modify `data/skill-index-resources.json` — it only writes per-repo files under `data/skill-index/`. The resources file should only appear in the diff if the user is also refreshing the top-level `updatedAt` timestamp (optional — leave it alone unless asked).
-
-If unexpected files appear (e.g. someone left edits in `src/` or `skills/`), stop and tell the user. Do not commit a mixed change.
+`npm run preindex` does **not** modify `data/skill-index-resources.json`. If unexpected files appear, stop. Do not commit a mixed change.
 
 ### Step 7: Print the four-bucket summary
 
-Render a markdown table grouped by bucket, with skill-count deltas. This is what the user reads to decide whether to confirm the PR.
+Render the markdown in `references/summary-template.md`. If `X + Y + Z + W` does not equal `len(enabled) + len(disabled)`, stop and re-check Step 4.
+
+### Step 8: Confirmation gate, commit, and PR
+
+**Do not proceed without explicit user confirmation** (`yes` only). Read `references/commit-and-pr.md` for the diff-stat prompt, conventional-commit message, and `gh pr create` body. Stage **only** `data/skill-index/` (plus the resources file if intentionally modified). Never stage `website/catalog.json`.
+
+Verification: `gh pr view --json url` returns the new PR URL. Print it back to the user.
+
+## Step Completion Reports
+
+Emit a compact status block after each step:
 
 ```
-## Refresh summary — N repos processed
+◆ Step N — [step name]
+··································································
+  [check 1]:         √ pass
+  [check 2]:         × fail — [reason]
+  Result:            PASS | FAIL | PARTIAL
+```
 
-### ✓ Updated (X)
+Use `√` for pass, `×` for fail, `—` for context. Checks per step:
+
+- **Repo sync** — `branch up to date`, `stash restored (if dirty)`
+- **Step 1** — `enabled[] non-empty`, `disabled[] non-empty`, `per-repo JSON parseable`
+- **Step 2** — `snapshot written`
+- **Step 3** — `log exists`, `one line per enabled source`
+- **Step 4** — `every repo in exactly one bucket`, `totals add up`
+- **Step 5** — `build-catalog exit 0`, `catalog.json valid JSON`
+- **Step 6** — `diff scope contained`
+- **Step 7** — `summary printed`, `X+Y+Z+W matches list sizes`
+- **Step 8** — `user confirmed yes`, `PR URL returned` (skip this block if the user declined)
+
+## Expected Output
+
+On a successful run, verify all of the following:
+
+1. **Repo synced** — branch is up to date with `origin`; any local edits were stashed and restored cleanly.
+2. **`npm run preindex` completed** — exit code captured; per-repo lines visible in the log.
+3. **All four buckets populated** — every enabled repo lands in exactly one of updated / unchanged / failed, and every disabled repo lands in skipped. Totals add up.
+4. **`npx tsx scripts/build-catalog.ts` succeeded** — `website/catalog.json` rebuilt and is valid JSON. **Not staged.**
+5. **Diff scope contained** — only `data/skill-index/*.json` (and optionally `data/skill-index-resources.json` if explicitly refreshed) appear in `git diff`.
+6. **User confirmed** — explicit `yes` recorded before commit + push.
+7. **PR opened** — conventional-commit title (`chore(index): refresh indexed skill sources`), body filled from the Step 8 template, URL returned to the user.
+
+If any of items 1–5 fails, do **not** proceed to Steps 6–7 of this list.
+
+## Acceptance Criteria
+
+- Exactly the files under `data/skill-index/` (and optionally `data/skill-index-resources.json`) are staged
+- `website/catalog.json` was rebuilt as a check and was **not** staged
+- Four-bucket totals equal `len(enabled) + len(disabled)`
+- Commit message matches the template in `references/commit-and-pr.md`
+- `gh pr view --json url` returns a URL
+
+## Example
+
+Given 2 enabled repos (one gained a skill) and 1 disabled self-reference, the expected output summary looks like:
+
+```
+## Refresh summary — 3 repos processed
+
+### ✓ Updated (1)
 | Repo | Before | After | Δ |
 |------|--------|-------|---|
 | anthropics/skills | 14 | 15 | +1 |
-| obra/superpowers  | 22 | 22 |  0 |
 
-### · Unchanged (Y)
+### · Unchanged (1)
 | Repo | Skills |
 |------|--------|
-| owner1/repo1 | 7 |
+| obra/superpowers | 22 |
 
-### ✗ Failed (Z)
-| Repo | Error |
-|------|-------|
-| owner2/repo2 | clone failed: 404 Not Found |
-
-### ○ Skipped (W)
+### ○ Skipped (1)
 | Repo | Reason |
 |------|--------|
 | luongnv89/asm | disabled in skill-index-resources.json |
 ```
 
-If `X + Y + Z + W` does not equal `len(enabled) + len(disabled)`, the classification is inconsistent — stop and re-check Step 4 before moving on.
+## Edge Cases
 
-### Step 8: Confirmation gate, commit, and PR
-
-**Do not proceed without explicit user confirmation.** Print the diff stat and ask:
-
-```bash
-git diff --stat -- data/skill-index/ data/skill-index-resources.json
-echo
-echo "Ready to commit the files above and open a PR."
-echo "Type 'yes' to continue, anything else to abort."
-```
-
-On `yes` (and only `yes`), stage **only** the index data files — never `website/catalog.json`, never anything outside `data/skill-index/` — commit with the conventional-commit message below, push, and open the PR:
-
-```bash
-git add data/skill-index/
-# Only add the resources file if it was intentionally modified (e.g., updatedAt bump):
-if git diff --name-only | grep -q '^data/skill-index-resources\.json$'; then
-  git add data/skill-index-resources.json
-fi
-
-git commit -m "$(cat <<'EOF'
-chore(index): refresh indexed skill sources
-
-Re-ingested all enabled repos in data/skill-index-resources.json.
-
-Updated: <X> repo(s)
-Unchanged: <Y> repo(s)
-Failed: <Z> repo(s)
-Skipped: <W> repo(s)
-EOF
-)"
-
-branch="$(git rev-parse --abbrev-ref HEAD)"
-git push -u origin "$branch"
-
-gh pr create --title "chore(index): refresh indexed skill sources" --body "$(cat <<'EOF'
-## Summary
-Re-ingested all enabled repos in `data/skill-index-resources.json` to bring the catalog up to date with upstream.
-
-## Results
-- **Updated:** <X> repo(s)
-- **Unchanged:** <Y> repo(s)
-- **Failed:** <Z> repo(s) (see body for details)
-- **Skipped:** <W> repo(s) (disabled in resources file)
-
-### Updated repos
-| Repo | Before | After | Δ |
-|------|--------|-------|---|
-| ... | ... | ... | ... |
-
-### Failed repos
-| Repo | Error |
-|------|-------|
-| ... | ... |
-
-## Test Plan
-- [ ] `data/skill-index/*.json` files are valid JSON
-- [ ] `npx tsx scripts/build-catalog.ts` rebuilds `website/catalog.json` without errors
-- [ ] No files outside `data/skill-index/` and `data/skill-index-resources.json` are staged
-- [ ] CI passes
-EOF
-)"
-```
-
-Fill the `<X>` / `<Y>` / `<Z>` / `<W>` placeholders and the per-bucket tables with the actual numbers from Step 7 before running `gh pr create`.
-
-Verification: `gh pr view --json url` returns the new PR URL. Print it back to the user.
-
-## Edge Cases & Error Handling
-
-Each row names a condition, the step that owns it, and the required response. When two rows touch the same guardrail (never stage `website/catalog.json`; `yes`-only gate), honor it at every point of action — the cost of forgetting mid-run is a bad push.
-
-| Condition                                                               | Response                                                                                                                         |
-| ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| **No enabled repos** (`enabled[]` empty)                                | Stop in Step 1 — nothing to refresh.                                                                                             |
-| **Pre-existing corrupt `data/skill-index/*.json`**                      | Step 1 `jq empty` catches it — stop before the refresh masks it.                                                                 |
-| **Existing local edits to `data/skill-index/`**                         | The mandatory pre-edit stash captures them; if the post-run pop conflicts, follow the recovery hint in the stash block and stop. |
-| **A single upstream repo unreachable** (404, network blip)              | `preindex` marks it `FAILED` and continues; it lands in **failed**. The PR still ships the rest.                                 |
-| **All upstream repos fail** (no network, outage)                        | Every repo lands in **failed**; the diff is empty; stop before Step 8 — nothing to commit.                                       |
-| **Ingest produces zero `skillCount`** (upstream removed every SKILL.md) | Treat as **updated** with a negative delta — a real change worth shipping.                                                       |
-| **`preindex` errors before any log line**                               | Stop in Step 3 — environmental, not per-repo. Prompt `npm install` and retry.                                                    |
-| **`preindex` exits 1 with a partial log**                               | Continue to Step 4 — partial results are still useful.                                                                           |
-| **`build-catalog` fails after preindex**                                | Stop in Step 5 — the index is internally inconsistent. Investigate before committing.                                            |
-| **`website/catalog.json` in `git status`**                              | It is gitignored; if `.gitignore` broke, fix it. **Never `git add website/catalog.json`.**                                       |
-| **Unexpected files in the diff** (WIP in `src/`, `skills/`)             | Stop in Step 6 — do not commit a mixed change. Ask the user to revert or run on a clean branch.                                  |
-| **User declines the Step 8 gate**                                       | Stop cleanly. Leave the refreshed files in the working tree for inspection. Do not `git checkout --` anything.                   |
-| **`gh` not authenticated**                                              | Prompt `gh auth login` before retrying Step 8.                                                                                   |
-| **`gh pr create` fails** (auth, network, missing remote)                | Print the committed SHA so the user can push and open the PR manually.                                                           |
+Read `references/edge-cases.md` for the full list (empty enabled set, unreachable upstream, empty ingest, catalog rebuild failure, declined confirmation, unauthenticated `gh`). Handle those without crashing; never `git checkout --` files the user did not stage.
 
 ## Cleanup
 
@@ -301,3 +223,11 @@ rm -rf /tmp/refresh-index
 ```
 
 Leave the working tree as the user left it. Do not `git checkout` anything they did not stage.
+
+## References
+
+- `references/snapshot.md` — Step 2 skill-count snapshot loop
+- `references/classify.md` — Step 4 signal table (updated / unchanged / failed / skipped)
+- `references/summary-template.md` — Step 7 four-bucket markdown
+- `references/commit-and-pr.md` — Step 8 confirmation, commit, and PR commands
+- `references/edge-cases.md` — edge cases and error handling

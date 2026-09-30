@@ -8,6 +8,7 @@ import {
 } from "../utils/machine";
 
 import { error } from "./shared";
+import { errorMessage } from "../utils/errors";
 import type { ParsedArgs } from "../cli";
 
 function printPublishHelp() {
@@ -116,17 +117,19 @@ export async function cmdPublish(args: ParsedArgs) {
       process.exit(1);
     }
 
+    // Dry run
+    // Keep this branch ahead of the fallback renderer: previewing a manifest
+    // must remain machine-consumable even when gh is unavailable.
+    if (args.flags.dryRun) {
+      console.error(ansi.dim("Dry run — no PR created.\n"));
+      console.log(JSON.stringify(result.manifest, null, 2));
+      return;
+    }
+
     // Fallback path: no gh CLI
     if (result.fallback) {
       console.log(ansi.yellow("Manifest generated (gh CLI unavailable):"));
       console.log(formatFallbackInstructions(result));
-      return;
-    }
-
-    // Dry run
-    if (args.flags.dryRun) {
-      console.error(ansi.dim("Dry run — no PR created.\n"));
-      console.log(JSON.stringify(result.manifest, null, 2));
       return;
     }
 
@@ -144,14 +147,15 @@ export async function cmdPublish(args: ParsedArgs) {
         ansi.dim("The registry maintainers will review your submission."),
       );
     }
-  } catch (err: any) {
+  } catch (err) {
+    const message = errorMessage(err);
     if (args.flags.machine) {
       restoreConsole?.();
       console.log(
         formatMachineError(
           "publish",
           ErrorCodes.PUBLISH_FAILED,
-          err.message,
+          message,
           startTime,
         ),
       );
@@ -164,7 +168,7 @@ export async function cmdPublish(args: ParsedArgs) {
             success: false,
             manifest: null,
             pr_url: null,
-            error: err.message,
+            error: message,
             security_verdict: null,
           },
           null,
@@ -173,7 +177,7 @@ export async function cmdPublish(args: ParsedArgs) {
       );
       process.exit(1);
     }
-    error(err.message);
+    error(message);
     process.exit(1);
   }
 }

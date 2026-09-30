@@ -6,19 +6,19 @@ The upstream rule source is `~/.claude/skills/skill-creator/references/frontmatt
 
 ## Mandatory checks (every audit)
 
-| #   | Check                   | Pass criteria                                                                                 |
-| --- | ----------------------- | --------------------------------------------------------------------------------------------- |
-| 1   | Required fields         | `name` and `description` exist, non-empty strings                                             |
-| 2   | Name matches directory  | `name:` value === parent directory basename                                                   |
-| 3   | Name format             | 1–64 chars, lowercase letters/digits/hyphens, no leading/trailing/consecutive hyphens         |
-| 4   | Description single-line | No `\n` or `\r`; no `<` or `>`; ≤1024 chars hard, ≤250 target                                 |
-| 5   | Negative-trigger clause | Description names 2–3 adjacent domains as "Don't use for ..."                                 |
-| 6   | Allowed top-level keys  | Only `name`, `description`, `license`, `allowed-tools`, `metadata`, `compatibility`, `effort` |
-| 7   | `metadata.version`      | Present, follows `MAJOR.MINOR.PATCH`                                                          |
-| 8   | `metadata.author`       | Present (normalize `creator` / `owner` / `maintainer` to `author`)                            |
-| 9   | `effort` (if set)       | One of `low`, `medium`, `high`, `xhigh`, or `max`                                             |
-| 10  | YAML safety             | Every string with special chars is double-quoted                                              |
-| 11  | README consistency      | If `docs/README.md` exists, its title/tagline/author match the frontmatter                    |
+| #   | Check                   | Pass criteria                                                                                                 |
+| --- | ----------------------- | ------------------------------------------------------------------------------------------------------------- |
+| 1   | Required fields         | `name` and `description` exist, non-empty strings                                                             |
+| 2   | Name matches directory  | `name:` value === parent directory basename                                                                   |
+| 3   | Name format             | 1–64 chars, lowercase letters/digits/hyphens, no leading/trailing/consecutive hyphens                         |
+| 4   | Description single-line | No `\n` or `\r`; no `<` or `>`; ≤1024 chars hard, ≤250 target                                                 |
+| 5   | Negative-trigger clause | Description names 2–3 adjacent domains as "Don't use for ..."                                                 |
+| 6   | Allowed top-level keys  | Only `name`, `description`, `license`, `allowed-tools`, `metadata`, `compatibility`, `effort`, `dependencies` |
+| 7   | `metadata.version`      | Present, follows `MAJOR.MINOR.PATCH`                                                                          |
+| 8   | `metadata.author`       | Present (normalize `creator` / `owner` / `maintainer` to `author`)                                            |
+| 9   | `effort` (if set)       | One of `low`, `medium`, `high`, `xhigh`, or `max`                                                             |
+| 10  | YAML safety             | Every string with special chars is double-quoted                                                              |
+| 11  | README consistency      | If `docs/README.md` exists, its title/tagline/author match the frontmatter                                    |
 
 Run `python ~/.claude/skills/skill-creator/scripts/quick_validate.py "$SKILL_PATH"` first — it catches checks 1, 3, 4, 6, 9 mechanically and warns on 5. The remaining checks need a human / agent read.
 
@@ -94,13 +94,15 @@ metadata:
 
 1. **`author` → `metadata.author`.** Value carries over verbatim. This is the primary case for skills processed by the current `--fix`. If a legacy top-level `creator:` is present instead (older fixer output), apply the same migration — both resolve to `metadata.author`. If `metadata.author` already exists, prefer the non-empty value; if both have values, prefer the top-level one (that's what `--fix` just wrote) and drop the duplicate.
 2. **`version` → `metadata.version`.** Same value-carryover rule. If `metadata.version` already exists with a different semver, prefer the higher one (the auto-improver bumped it).
-3. **Other unexpected top-level keys.** Drop anything outside the allowed set (`name`, `description`, `license`, `allowed-tools`, `metadata`, `compatibility`, `effort`). The current `--fix` does not write `tags:`, but legacy skills sometimes carry it — surface non-trivial drops to the user before deleting.
+3. **Other unexpected top-level keys.** Drop anything outside the allowed set (`name`, `description`, `license`, `allowed-tools`, `metadata`, `compatibility`, `effort`, `dependencies`). The current `--fix` does not write `tags:`, but legacy skills sometimes carry it — surface non-trivial drops to the user before deleting.
 4. **Quote any value** with the special characters listed above.
 5. **Re-run `quick_validate.py`** after migration to confirm clean.
 
 ## Allowed-key drift
 
-Sometimes a published skill carries fields invented by older tooling: `architecture`, `model`, `category`, `dependencies`. None are in the allowed set. Two options:
+`dependencies` is an allowed top-level key. When present, it must be a non-empty YAML sequence of skill names or explicit source references.
+
+Sometimes a published skill carries fields invented by older tooling, such as `architecture`, `model`, or `category`. Those fields are not in the allowed set. Two options:
 
 - If the field encodes information used at runtime (rare), move it under `metadata:` (any nested keys are accepted)
 - Otherwise, drop it and surface to the user as a finding

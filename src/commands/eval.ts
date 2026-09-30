@@ -41,6 +41,7 @@ import {
   ErrorCodes,
   redirectConsoleToStderr,
 } from "../utils/machine";
+import { errorMessage } from "../utils/errors";
 import { join as joinPath } from "path";
 import type { TransportMode } from "../utils/types";
 
@@ -216,8 +217,8 @@ async function runSingleEval(target: EvalTarget): Promise<{
       },
       error: null,
     };
-  } catch (err: any) {
-    return { report: null, error: err?.message ?? String(err) };
+  } catch (err) {
+    return { report: null, error: errorMessage(err) };
   }
 }
 
@@ -321,20 +322,20 @@ export async function cmdEval(args: ParsedArgs) {
       console.log("");
       console.log(formatFixPreview(fix));
       return;
-    } catch (err: any) {
+    } catch (err) {
       if (args.flags.machine) {
         restoreConsole?.();
         console.log(
           formatMachineError(
             "eval",
             ErrorCodes.SKILL_NOT_FOUND,
-            err?.message ?? String(err),
+            errorMessage(err),
             startTime,
           ),
         );
         process.exit(1);
       }
-      error(err?.message ?? String(err));
+      error(errorMessage(err));
       process.exit(1);
     }
     return;
@@ -348,20 +349,20 @@ export async function cmdEval(args: ParsedArgs) {
       fetchRemote: (input: string) =>
         fetchRemoteSkillDir(input, args.flags.transport, args.flags.keep),
     });
-  } catch (err: any) {
+  } catch (err) {
     if (args.flags.machine) {
       restoreConsole?.();
       console.log(
         formatMachineError(
           "eval",
           ErrorCodes.SKILL_NOT_FOUND,
-          err?.message ?? String(err),
+          errorMessage(err),
           startTime,
         ),
       );
       process.exit(1);
     }
-    error(err?.message ?? String(err));
+    error(errorMessage(err));
     process.exit(1);
   }
 
@@ -502,20 +503,20 @@ export async function cmdEval(args: ParsedArgs) {
       // formatBatchSummary already prints provenance for remote inputs, so
       // we deliberately skip the extra print here to avoid duplication.
     }
-  } catch (err: any) {
+  } catch (err) {
     if (args.flags.machine) {
       restoreConsole?.();
       console.log(
         formatMachineError(
           "eval",
           ErrorCodes.SKILL_NOT_FOUND,
-          err?.message ?? String(err),
+          errorMessage(err),
           startTime,
         ),
       );
       process.exit(1);
     }
-    error(err?.message ?? String(err));
+    error(errorMessage(err));
     process.exit(1);
   } finally {
     if (resolved) {

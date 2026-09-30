@@ -1,3 +1,188 @@
+## v2.20.1 — 2026-09-13
+
+### Bug Fixes
+
+- Correct four CLI defects found in the v2.20.0 end-to-end verification pass: `asm tag remove` now reports the applied delta (`Removed tags from x: a — now: b`) via a new `applied` field on `TagUpdateResult`, `asm activate`/`deactivate` resolve scope like install/link (explicit `--scope` wins, non-TTY/`-y` defaults to `global`, TTY shows the picker), bare `asm` on non-TTY exits 1 with a friendly message before any escape codes are emitted instead of dumping ink's raw-mode error, and `asm inspect` applies local `asm tag` edits with a `Tags:` line in both detail formatters ([#706](https://github.com/luongnv89/asm/issues/706)) ([#705](https://github.com/luongnv89/asm/pull/705)) — @luongnv89
+
+### Chores
+
+- Refresh indexed skill sources — re-ingested all enabled repos in `data/skill-index-resources.json` (77 updated, 0 unchanged, 0 failed, 0 skipped) ([#707](https://github.com/luongnv89/asm/pull/707)) — @luongnv89
+
+**Full Changelog**: https://github.com/luongnv89/asm/compare/v2.20.0...v2.20.1
+
+## v2.20.0 — 2026-09-12
+
+### Features
+
+- TUI message honesty: filtered-empty lists name the search query, the `?` help view gains a legend for `~`, `→link`/`dir`, and `Invoke` glyphs, `q` in the config view discards changes instead of saving, and the editor key is honestly labeled `Edit file & exit` ([#679](https://github.com/luongnv89/asm/issues/679)) ([#701](https://github.com/luongnv89/asm/pull/701)) — @luongnv89
+- Borrow full skill directories with `asm get --path` — supporting scripts, templates, references, and binary assets come along via a dedicated get-borrows lease — plus `asm cleanup <borrowed-path>` for explicit, ASM-owned-only cleanup ([#654](https://github.com/luongnv89/asm/issues/654)) ([#655](https://github.com/luongnv89/asm/pull/655)) — @luongnv89
+
+### Bug Fixes
+
+- Add a `patch-ts6.cjs --check` tripwire after each CI patch step so silent TypeScript 6 symlink failure fails loudly, with removal tracked in [#699](https://github.com/luongnv89/asm/issues/699) ([#676](https://github.com/luongnv89/asm/issues/676)) ([#700](https://github.com/luongnv89/asm/pull/700)) — @luongnv89
+- Verify security-workflow tool downloads: gitleaks and trivy tarballs pass a pinned SHA256 gate before extraction, and semgrep is pinned to `==1.177.0` under a Renovate customManager ([#665](https://github.com/luongnv89/asm/issues/665)) ([#689](https://github.com/luongnv89/asm/pull/689)) — @luongnv89
+- Parse shellcheck's `--format=json1` report from stdout instead of stderr so structured lint findings surface instead of collapsing into a generic "Linter exited with code" warning ([#663](https://github.com/luongnv89/asm/issues/663)) ([#688](https://github.com/luongnv89/asm/pull/688)) — @luongnv89
+
+### Performance Improvements
+
+- Make auditor realPath dedupe O(1) via an index map instead of O(n²) `indexOf` scans, and run `asm library update --all` through a 4-wide worker pool ([#680](https://github.com/luongnv89/asm/issues/680)) ([#704](https://github.com/luongnv89/asm/pull/704)) — @luongnv89
+
+### Refactoring
+
+- Split the six >900-line modules — `formatter-core`, `stats`, `security-auditor`, `evaluator-core`, `dependency-leases` — into focused siblings behind facade re-exports; `commands/install-run.ts` stays whole with a documented cohesion rationale ([#677](https://github.com/luongnv89/asm/issues/677)) ([#703](https://github.com/luongnv89/asm/pull/703)) — @luongnv89
+- Eliminate every `any` in `src/` product source — 53 sites across 26 files — via a shared `errorMessage(err: unknown)` helper and explicit narrowing ([#675](https://github.com/luongnv89/asm/issues/675)) ([#698](https://github.com/luongnv89/asm/pull/698)) — @luongnv89
+
+### Testing
+
+- Split the 7,567-line `cli.test.ts` into 15 per-command `cli-<group>.test.ts` files mirroring `src/commands/`, with the shared in-process harness extracted to `cli-test-harness.ts` ([#678](https://github.com/luongnv89/asm/issues/678)) ([#702](https://github.com/luongnv89/asm/pull/702)) — @luongnv89
+- Cover `evaluator-batch`, `evaluator-fix`, and `formatter-detail` failure paths with 86 new tests, bringing all three modules to 100% statement coverage ([#674](https://github.com/luongnv89/asm/issues/674)) ([#697](https://github.com/luongnv89/asm/pull/697)) — @luongnv89
+- Convert CLI command dispatch from tsx subprocesses to in-process `runCLI()` calls, lifting `src/commands/` coverage from 10.53% to 63.74% and re-baselining `CLAUDE.md` ([#673](https://github.com/luongnv89/asm/issues/673)) ([#695](https://github.com/luongnv89/asm/pull/695)) — @luongnv89
+- Run the orphaned `registry-e2e`, `tui-smoke`, and `tui-integration` files in the `e2e-node` CI leg so every e2e file runs in CI ([#660](https://github.com/luongnv89/asm/issues/660)) ([#684](https://github.com/luongnv89/asm/pull/684)) — @luongnv89
+
+### Documentation
+
+- Document the moderate-advisory policy — Renovate `osvVulnerabilityAlerts` owns moderate/low advisories while CI gates on high/critical — in the audit script header and `docs/security/moderate-advisory-policy.md` ([#661](https://github.com/luongnv89/asm/issues/661)) ([#686](https://github.com/luongnv89/asm/pull/686)) — @luongnv89
+- Align `ARCHITECTURE.md` with the `src/commands/` dispatcher layout and reconcile stale claims across `docs/` ([#681](https://github.com/luongnv89/asm/issues/681)) ([#685](https://github.com/luongnv89/asm/pull/685)) — @luongnv89
+- Correct stale `cli.ts` and `engines` claims in `CLAUDE.md` and repoint `AGENTS.md`'s cli-surface-reviewer at `src/commands/` ([#658](https://github.com/luongnv89/asm/issues/658)) ([#659](https://github.com/luongnv89/asm/issues/659)) ([#683](https://github.com/luongnv89/asm/pull/683)) — @luongnv89
+- Refresh recorded environment facts — node `>=22 <27`, npm `>=9` — in `CLAUDE.md` and `docs/AGENT_ENVIRONMENT.md` ([#657](https://github.com/luongnv89/asm/issues/657)) ([#682](https://github.com/luongnv89/asm/pull/682)) — @luongnv89
+
+### Chores
+
+- Bump `lucide-react` 0.468 → 1.41 (brand icons were dropped, so the `Github` icon moves to a local `icons.jsx`) and `jsdom` 25 → 30 ([#671](https://github.com/luongnv89/asm/issues/671)) ([#672](https://github.com/luongnv89/asm/issues/672)) ([#696](https://github.com/luongnv89/asm/pull/696)) — @luongnv89
+- Bump `globals` 15 → 17 and `tailwind-merge` 2 → 3 ([#667](https://github.com/luongnv89/asm/issues/667)) ([#668](https://github.com/luongnv89/asm/issues/668)) ([#694](https://github.com/luongnv89/asm/pull/694)) — @luongnv89
+- Bump `vitest`, `@vitest/coverage-v8`, and `@vitest/ui` 4 → 5 — await newly-failing unawaited async assertions and drop the dead `esbuild.jsx` config block ([#670](https://github.com/luongnv89/asm/issues/670)) ([#693](https://github.com/luongnv89/asm/pull/693)) — @luongnv89
+- Bump `@vitejs/plugin-react` 4 → 6 ([#669](https://github.com/luongnv89/asm/issues/669)) ([#692](https://github.com/luongnv89/asm/pull/692)) — @luongnv89
+- Add Node 26 to the `unit-tests`, `e2e-node`, and `e2e-npm-install` CI matrices so CI covers the full `engines` range ([#666](https://github.com/luongnv89/asm/issues/666)) ([#691](https://github.com/luongnv89/asm/pull/691)) — @luongnv89
+- Bump 8 devDependencies to their latest in-major versions — `@testing-library/react`, `@types/node`, `@types/react-dom`, `eslint`, `react-router-dom`, `tsx`, `typescript-eslint`, `vite` ([#664](https://github.com/luongnv89/asm/issues/664)) ([#690](https://github.com/luongnv89/asm/pull/690)) — @luongnv89
+- Bump the vitest group to 4.1.11 to clear the GHSA-82fw-gwwq-j7x9 advisory ([#662](https://github.com/luongnv89/asm/issues/662)) ([#687](https://github.com/luongnv89/asm/pull/687)) — @luongnv89
+
+**Full Changelog**: https://github.com/luongnv89/asm/compare/v2.19.0...v2.20.0
+
+## v2.19.0 — 2026-09-09
+
+### Features
+
+- Install skill dependencies just-in-time instead of requiring them up front ([#621](https://github.com/luongnv89/asm/issues/621)) ([#651](https://github.com/luongnv89/asm/pull/651)) — @luongnv89
+- Add `openai/skills` and `affaan-m/ECC` to the curated skill index ([#648](https://github.com/luongnv89/asm/issues/648)) ([#649](https://github.com/luongnv89/asm/issues/649)) ([#650](https://github.com/luongnv89/asm/pull/650)) — @luongnv89
+- Track SPA page views and add GoatCounter to the website ([#645](https://github.com/luongnv89/asm/issues/645)) ([#647](https://github.com/luongnv89/asm/pull/647)) — @luongnv89
+- Add Google Analytics tracking to the website ([#645](https://github.com/luongnv89/asm/issues/645)) ([#646](https://github.com/luongnv89/asm/pull/646)) — @luongnv89
+- Add a marketing skill bundle ([#634](https://github.com/luongnv89/asm/issues/634)) ([#640](https://github.com/luongnv89/asm/pull/640)) — @luongnv89
+- Add a software development skill bundle ([#633](https://github.com/luongnv89/asm/issues/633)) ([#639](https://github.com/luongnv89/asm/pull/639)) — @luongnv89
+- Repair the iOS-release bundle skill path and extend bundle matching ([#631](https://github.com/luongnv89/asm/issues/631)) ([#637](https://github.com/luongnv89/asm/pull/637)) — @luongnv89
+- Add a game development skill bundle ([#630](https://github.com/luongnv89/asm/issues/630)) ([#636](https://github.com/luongnv89/asm/pull/636)) — @luongnv89
+- Add one-click bundle download with defaults to the catalog ([#626](https://github.com/luongnv89/asm/issues/626)) ([#628](https://github.com/luongnv89/asm/pull/628)) — @luongnv89
+- Add a repo detail page with skills list to the website ([#623](https://github.com/luongnv89/asm/issues/623)) ([#624](https://github.com/luongnv89/asm/pull/624)) — @luongnv89
+- Add `majidmanzarpour/threejs-game-skills` to the skill index ([#619](https://github.com/luongnv89/asm/issues/619)) ([#620](https://github.com/luongnv89/asm/pull/620)) — @luongnv89
+- Reorder the install provider picker and add Oh My Pi and Grok CLI ([#617](https://github.com/luongnv89/asm/issues/617)) ([#618](https://github.com/luongnv89/asm/pull/618)) — @luongnv89
+- Make static category pages indexable with sitemap and llms.txt wiring ([#615](https://github.com/luongnv89/asm/pull/615)) — @luongnv89
+- Add interactive tool and scope pickers to bundle install ([#612](https://github.com/luongnv89/asm/issues/612)) ([#613](https://github.com/luongnv89/asm/pull/613)) — @luongnv89
+- Add `DietrichGebert/ponytail` to the curated skill index ([#606](https://github.com/luongnv89/asm/pull/606)) — @luongnv89
+- Sort the catalog by popularity and lead cards with score and stars ([#599](https://github.com/luongnv89/asm/pull/599)) — @luongnv89
+- Redesign the skills and bundles catalog as a storefront ([#596](https://github.com/luongnv89/asm/pull/596)) — @luongnv89
+- Refresh the `tt-a1i/archify` skill index ([#589](https://github.com/luongnv89/asm/pull/589)) — @luongnv89
+- Add skill-shortener for progressive-disclosure shrinking of oversized skills ([#586](https://github.com/luongnv89/asm/pull/586)) — @luongnv89
+
+### Bug Fixes
+
+- Make bundle install tool and scope pickers discoverable ([#629](https://github.com/luongnv89/asm/issues/629)) ([#641](https://github.com/luongnv89/asm/pull/641)) — @luongnv89
+- Repair frontend-dev bundle skill references ([#632](https://github.com/luongnv89/asm/issues/632)) ([#638](https://github.com/luongnv89/asm/pull/638)) — @luongnv89
+- Time-box the npm audit and move it out of unit-tests ([#608](https://github.com/luongnv89/asm/issues/608)) ([#610](https://github.com/luongnv89/asm/pull/610)) — @luongnv89
+- Skip the retired npm audit endpoint in unit-tests ([#604](https://github.com/luongnv89/asm/issues/604)) ([#605](https://github.com/luongnv89/asm/pull/605)) — @luongnv89
+- Resolve the provider before the bundle install confirmation ([#602](https://github.com/luongnv89/asm/issues/602)) ([#603](https://github.com/luongnv89/asm/pull/603)) — @luongnv89
+- Stop publishing 0 GitHub stars when catalog fetches fail ([#598](https://github.com/luongnv89/asm/issues/598)) ([#601](https://github.com/luongnv89/asm/pull/601)) — @luongnv89
+
+### Refactoring
+
+- Diversify the popularity sort across catalog repos ([#622](https://github.com/luongnv89/asm/issues/622)) ([#627](https://github.com/luongnv89/asm/pull/627)) — @luongnv89
+- Bring refresh-index to the skill size floor ([#591](https://github.com/luongnv89/asm/issues/591)) ([#592](https://github.com/luongnv89/asm/pull/592)) — @luongnv89
+
+### Testing
+
+- Pin the tool picker heading with a characterization test ([#629](https://github.com/luongnv89/asm/issues/629)) ([#642](https://github.com/luongnv89/asm/pull/642)) — @luongnv89
+
+### Documentation
+
+- Refresh catalog docs with current CLI and in-page navigation
+
+### Other Changes
+
+- Refresh indexed skill sources ([#652](https://github.com/luongnv89/asm/pull/652)) ([#594](https://github.com/luongnv89/asm/pull/594)) ([#593](https://github.com/luongnv89/asm/pull/593)) — @luongnv89
+- Fix prettier and eslint drift ([#609](https://github.com/luongnv89/asm/issues/609)) ([#611](https://github.com/luongnv89/asm/pull/611)) — @luongnv89
+- Refresh indexed skill sources and add gitissue configuration
+
+**Full Changelog**: https://github.com/luongnv89/asm/compare/v2.18.0...v2.19.0
+
+## v2.18.0 — 2026-08-28
+
+### Features
+
+- Add skill tag assignment and catalog tag filtering: frontmatter `tags` plus a local overlay, `asm tag add|remove`, `--tag` on list/search, and an AND-semantics tag facet on the catalog website ([#584](https://github.com/luongnv89/asm/issues/584)) ([#585](https://github.com/luongnv89/asm/pull/585)) — @luongnv89
+- Index 11 anti-slop skills from Charlie Hills' ranking and carry `anti-slop` in related skill descriptions ([#583](https://github.com/luongnv89/asm/pull/583)) — @luongnv89
+- Add four new skill sources (ComposioHQ, caveman, Karpathy, ADHD) and refresh six existing indexed repos ([#578](https://github.com/luongnv89/asm/pull/578)) — @luongnv89
+- Adopt per-step context delegation in skill-creator and skill-auto-improver so agents load only the current step's reference slice ([#574](https://github.com/luongnv89/asm/issues/574)) ([#575](https://github.com/luongnv89/asm/pull/575)) — @luongnv89
+- Gate skill dependencies before create/improve runs and require run-stats reporting on successful paths ([#571](https://github.com/luongnv89/asm/issues/571)) ([#573](https://github.com/luongnv89/asm/pull/573)) — @luongnv89
+
+### Bug Fixes
+
+- Deflake App container view-transition assertions by polling for the expected frame instead of a fixed sleep
+- Quote find-me-skills `metadata.author` so YAML frontmatter with `<`, `>`, and `@` parses safely
+
+### Refactoring
+
+- Split skill-creator into reference files so it fits under its own size cap (1.16.2) ([#581](https://github.com/luongnv89/asm/pull/581)) — @luongnv89
+- Finish the skill-auto-improver reference split so the body stays under the 3000-word gate ([#580](https://github.com/luongnv89/asm/pull/580)) — @luongnv89
+
+### Testing
+
+- Cover the split core modules and install-inspect, and repair stats.test.ts types so typecheck passes ([#576](https://github.com/luongnv89/asm/issues/576)) ([#577](https://github.com/luongnv89/asm/pull/577)) — @luongnv89
+
+**Full Changelog**: https://github.com/luongnv89/asm/compare/v2.17.0...v2.18.0
+
+## v2.17.0 — 2026-08-25
+
+### Features
+
+- Extend semantic overlap detection to installed skills, surfacing near-duplicate skills across agents that exact hashing misses ([#570](https://github.com/luongnv89/asm/pull/570)) — @luongnv89
+- Detect duplicate installed skills via content fingerprints, with guarded auto-remove support ([#569](https://github.com/luongnv89/asm/pull/569)) — @luongnv89
+- Add `antithesishq/antithesis-skills` to the curated skill index ([#560](https://github.com/luongnv89/asm/pull/560)) — @luongnv89
+
+### Bug Fixes
+
+- Resolve all Phase 2 bug fixes from website epic [#516](https://github.com/luongnv89/asm/issues/516) ([#550](https://github.com/luongnv89/asm/pull/550)) — @luongnv89
+- Resolve all Phase 1 blockers from website epic [#516](https://github.com/luongnv89/asm/issues/516) ([#549](https://github.com/luongnv89/asm/pull/549)) — @luongnv89
+- Improve the doctor PATH-shadowing recommendation to name the specific shadowed binaries ([#515](https://github.com/luongnv89/asm/pull/515)) — @luongnv89
+- Exclude documentation files from the security scan ([#513](https://github.com/luongnv89/asm/pull/513)) — @luongnv89
+- Use `evaluateSkillContentSync` in enrich-index.ts so index enrichment runs correctly ([#512](https://github.com/luongnv89/asm/pull/512)) — @luongnv89
+
+### Performance Improvements
+
+- Land Phase 3 performance optimizations ([#527](https://github.com/luongnv89/asm/issues/527)–[#532](https://github.com/luongnv89/asm/issues/532)) ([#551](https://github.com/luongnv89/asm/pull/551)) — @luongnv89
+
+### Improvements
+
+- Phase 5 accessibility and code quality improvements ([#538](https://github.com/luongnv89/asm/issues/538)–[#543](https://github.com/luongnv89/asm/issues/543)) ([#553](https://github.com/luongnv89/asm/pull/553)) — @luongnv89
+- Phase 4 UX polish across the interface ([#533](https://github.com/luongnv89/asm/issues/533)–[#537](https://github.com/luongnv89/asm/issues/537)) ([#552](https://github.com/luongnv89/asm/pull/552)) — @luongnv89
+
+### Refactoring
+
+- Normalize duplicate groups in audit output and surface version divergence flags ([#568](https://github.com/luongnv89/asm/pull/568)) — @luongnv89
+- Land Phase 6 architecture improvements ([#544](https://github.com/luongnv89/asm/issues/544)–[#548](https://github.com/luongnv89/asm/issues/548)) ([#554](https://github.com/luongnv89/asm/pull/554)) — @luongnv89
+- List top authors when the stats command encounters an unknown author ([#514](https://github.com/luongnv89/asm/pull/514)) — @luongnv89
+
+### Documentation
+
+- Update epic 516 status — all phases complete ([#555](https://github.com/luongnv89/asm/pull/555)) — @luongnv89
+
+### Testing
+
+- Update the e2e test for the SkillDetail cache refactor — @luongnv89
+
+### Chores
+
+- Refresh indexed skill sources (multiple refreshes across the release) ([#507](https://github.com/luongnv89/asm/pull/507)) — @luongnv89
+
+**Full Changelog**: https://github.com/luongnv89/asm/compare/v2.16.0...v2.17.0
+
 ## v2.16.0 — 2026-08-01
 
 ### Features
@@ -75,6 +260,7 @@
 - @matheussilva421 (Matheus Firmino da Silva) made their first contribution in [#396](https://github.com/luongnv89/asm/pull/396) and [#397](https://github.com/luongnv89/asm/pull/397)
 
 **Full Changelog**: https://github.com/luongnv89/asm/compare/v2.15.0...v2.16.0
+
 # Changelog
 
 ## Unreleased

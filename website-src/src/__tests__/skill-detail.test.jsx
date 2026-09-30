@@ -171,3 +171,15 @@ describe("SkillDetail — author stats link (issue #351)", () => {
     expect(link.getAttribute("href")).toBe("#/profile/custom-author");
   });
 });
+
+describe("SkillDetail — repo detail link (issue #623)", () => {
+  afterEach(() => cleanup());
+
+  it("links the repo row to the repo detail page alongside GitHub", () => {
+    renderDetail();
+    const internal = screen.getByRole("link", { name: "(view all skills)" });
+    expect(internal.getAttribute("href")).toBe("#/repos/test/repo");
+    const external = screen.getByRole("link", { name: "test/repo" });
+    expect(external.getAttribute("href")).toBe("https://github.com/test/repo");
+  });
+});

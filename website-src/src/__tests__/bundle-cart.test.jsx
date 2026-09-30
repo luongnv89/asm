@@ -158,7 +158,7 @@ describe("Bundle cart flow", () => {
 
     // Find the compact add-to-bundle button on the hello-world row
     const helloAddBtn = screen.getByRole("button", {
-      name: /Add hello-world to bundle/i,
+      name: /Add hello-world to cart/i,
     });
     expect(helloAddBtn).toBeTruthy();
 
@@ -179,7 +179,7 @@ describe("Bundle cart flow", () => {
 
     // Click again to toggle off
     const helloRemoveBtn = screen.getByRole("button", {
-      name: /Remove hello-world from bundle/i,
+      name: /Remove hello-world from cart/i,
     });
     await act(async () => {
       fireEvent.click(helloRemoveBtn);
@@ -205,24 +205,24 @@ describe("Bundle cart flow", () => {
     // Add one skill
     await act(async () => {
       fireEvent.click(
-        screen.getByRole("button", { name: /Add hello-world to bundle/i }),
+        screen.getByRole("button", { name: /Add hello-world to cart/i }),
       );
     });
 
-    // Open the builder via the header cart button
+    // Open the cart drawer via the header cart button
     const cartBtn = screen.getByRole("button", {
-      name: /Open bundle builder/i,
+      name: /Open cart/i,
     });
     await act(async () => {
       fireEvent.click(cartBtn);
     });
 
-    // The dialog renders with the skill visible (labelled by the h2)
+    // The drawer renders with the skill visible (labelled by the h2)
     const dialog = await screen.findByRole("dialog", {
-      name: /Build a bundle/i,
+      name: /Your cart/i,
     });
     expect(dialog).toBeTruthy();
-    expect(screen.getByText(/skills? in this bundle/i)).toBeTruthy();
+    expect(screen.getByText(/skills? in your cart/i)).toBeTruthy();
     // The skill name should appear in the dialog item list
     const withinDialog = dialog.querySelectorAll("li");
     expect(withinDialog.length).toBe(1);
@@ -234,27 +234,46 @@ describe("Bundle cart flow", () => {
     expect(skillLink?.className).toContain("min-h-11");
     expect(skillLink?.className).toContain("min-w-11");
 
-    // Export button is enabled (there's ≥1 skill) but the name is blank,
-    // so clicking should show a validation error message
+    // Export works with zero input (#626): the checkout form starts
+    // pre-filled with defaults, and clearing every field still exports
+    // a valid bundle built from those defaults.
     const exportBtn = screen.getByRole("button", { name: /Export \.json/i });
     expect(exportBtn.disabled).toBe(false);
-    await act(async () => {
-      fireEvent.click(exportBtn);
-    });
-    await waitFor(() => {
-      expect(screen.getByText(/Bundle name is required/i)).toBeTruthy();
-    });
-
-    // Fill a valid name + description + author (all three required —
-    // mirrors the CLI's validateBundle) and publish. Opens a new tab
-    // so we stub window.open.
-    const openSpy = vi.spyOn(window, "open").mockImplementation(() => null);
     const nameInput = container.querySelector("#bundle-name");
     const descInput = container.querySelector("#bundle-description");
     const authorInput = container.querySelector("#bundle-author");
     expect(nameInput).toBeTruthy();
     expect(descInput).toBeTruthy();
     expect(authorInput).toBeTruthy();
+    // Form starts pre-filled with the export defaults.
+    expect(nameInput.value).toBe("my-bundle");
+    await act(async () => {
+      fireEvent.change(nameInput, { target: { value: "" } });
+      fireEvent.change(descInput, { target: { value: "" } });
+      fireEvent.change(authorInput, { target: { value: "" } });
+    });
+    const createSpy = vi
+      .spyOn(window.URL, "createObjectURL")
+      .mockImplementation(() => "blob:mock");
+    const revokeSpy = vi
+      .spyOn(window.URL, "revokeObjectURL")
+      .mockImplementation(() => {});
+    const clickSpy = vi
+      .spyOn(HTMLAnchorElement.prototype, "click")
+      .mockImplementation(() => {});
+    await act(async () => {
+      fireEvent.click(exportBtn);
+    });
+    await waitFor(() => expect(createSpy).toHaveBeenCalledOnce());
+    expect(clickSpy).toHaveBeenCalledOnce();
+    expect(screen.queryByText(/Bundle name is required/i)).toBeNull();
+    createSpy.mockRestore();
+    revokeSpy.mockRestore();
+    clickSpy.mockRestore();
+
+    // Fill a valid name + description + author and publish. Opens a new
+    // tab so we stub window.open.
+    const openSpy = vi.spyOn(window, "open").mockImplementation(() => null);
     await act(async () => {
       fireEvent.change(nameInput, { target: { value: "my-test-pack" } });
       fireEvent.change(descInput, { target: { value: "A test pack." } });
@@ -282,7 +301,7 @@ describe("Bundle cart flow", () => {
     await waitFor(() => expect(screen.getByText("hello-world")).toBeTruthy());
     await act(async () => {
       fireEvent.click(
-        screen.getByRole("button", { name: /Add hello-world to bundle/i }),
+        screen.getByRole("button", { name: /Add hello-world to cart/i }),
       );
     });
     await waitFor(() => {

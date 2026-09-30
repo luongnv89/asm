@@ -171,6 +171,11 @@ export function App({ initialConfig }: AppProps) {
     // config identity, so no manual rescan is required here.
   }, []);
 
+  const handleConfigDiscard = useCallback(() => {
+    // q in the config view: drop in-session toggles — nothing is persisted.
+    setView("dashboard");
+  }, []);
+
   const handleConfigEditor = useCallback(async () => {
     // Exit the ink app to hand the terminal to $EDITOR, then let the process
     // die so the user re-runs asm with the updated config.
@@ -382,6 +387,7 @@ export function App({ initialConfig }: AppProps) {
             visibleCount={visibleListRows}
             termWidth={termWidth}
             hasScanned={hasScanned}
+            searchQuery={searchQuery}
           />
           <DashboardFooter
             refreshFeedback={refreshFeedback}
@@ -405,6 +411,7 @@ export function App({ initialConfig }: AppProps) {
         <ConfigView
           config={config}
           onClose={handleConfigClose}
+          onDiscard={handleConfigDiscard}
           onOpenEditor={handleConfigEditor}
         />
       )}
@@ -421,6 +428,14 @@ export function App({ initialConfig }: AppProps) {
 
 export async function main() {
   const config = await loadConfig();
+
+  if (!process.stdin.isTTY) {
+    console.error(
+      'asm: the interactive TUI requires a terminal (stdin is not a TTY). Run "asm --help" for CLI usage.',
+    );
+    process.exitCode = 1;
+    return;
+  }
 
   // Match the opentui `useAlternateScreen: true` behavior — draw the TUI in
   // the alternate screen buffer so the dashboard doesn't pollute the user's

@@ -1,5 +1,5 @@
 import React from "react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { act } from "react";
 import { render } from "ink-testing-library";
 import type { SkillInfo, AppConfig, AuditReport } from "./utils/types";
@@ -156,6 +156,27 @@ const { App } = await import("./index");
 const { CONFIG } = mocks;
 const tick = () => new Promise<void>((r) => setTimeout(r, 60));
 
+// A fixed sleep is a wall-clock race: under full-suite parallelism the timer
+// can fire before ink has re-rendered the frame the assertion is looking for,
+// which made the post-keystroke view-transition assertions flaky. Poll on a
+// short interval until the expected text appears instead of guessing a delay.
+const expectFrame = async (
+  lastFrame: () => string | undefined,
+  text: string,
+  timeoutMs = 2000,
+): Promise<string> => {
+  const deadline = Date.now() + timeoutMs;
+  let frame = lastFrame() ?? "";
+  while (!frame.includes(text) && Date.now() < deadline) {
+    await act(async () => {
+      await new Promise<void>((r) => setTimeout(r, 10));
+    });
+    frame = lastFrame() ?? "";
+  }
+  expect(frame).toContain(text);
+  return frame;
+};
+
 describe("App container", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -196,11 +217,9 @@ describe("App container", () => {
     );
     await tick();
     stdin.write("?");
-    await tick();
-    expect(lastFrame()).toContain("Keyboard Shortcuts");
+    await expectFrame(lastFrame, "Keyboard Shortcuts");
     stdin.write("\u001b"); // Esc
-    await tick();
-    expect(lastFrame()).toContain("Navigate");
+    await expectFrame(lastFrame, "Navigate");
     unmount();
   });
 
@@ -210,13 +229,10 @@ describe("App container", () => {
     );
     await tick();
     stdin.write("c");
-    await tick();
-    const configFrame = lastFrame() ?? "";
-    expect(configFrame).toContain("Configuration");
+    await expectFrame(lastFrame, "Configuration");
     // Config owns its Esc handling; closing it calls onClose → saveConfig + dashboard.
     stdin.write("\u001b"); // Esc
-    await tick();
-    expect(lastFrame()).toContain("Navigate");
+    await expectFrame(lastFrame, "Navigate");
     unmount();
   });
 
@@ -226,13 +242,13 @@ describe("App container", () => {
     );
     await tick();
     stdin.write("a");
-    await tick();
+    // Settle on the Duplicates panel first: asserting the negative against a
+    // frame that has not transitioned yet would read the dashboard instead.
+    const auditFrame = await expectFrame(lastFrame, "Audit: Duplicates");
     // The audit (Duplicates) view renders its own panel, not the search prompt.
-    const auditFrame = lastFrame() ?? "";
     expect(auditFrame).not.toContain("press / to search...");
     stdin.write("\u001b"); // Esc — DuplicatesView onClose → dashboard
-    await tick();
-    expect(lastFrame()).toContain("Navigate");
+    await expectFrame(lastFrame, "Navigate");
     unmount();
   });
 
@@ -245,10 +261,8 @@ describe("App container", () => {
     stdin.write("j");
     await tick();
     stdin.write("\r"); // Enter → detail
-    await tick();
-    const detailFrame = lastFrame() ?? "";
+    const detailFrame = await expectFrame(lastFrame, "Esc Back d Uninstall");
     expect(detailFrame).toContain("skill-two");
-    expect(detailFrame).toContain("Esc Back d Uninstall");
     unmount();
   });
 
@@ -258,11 +272,9 @@ describe("App container", () => {
     );
     await tick();
     stdin.write("/");
-    await tick();
-    expect(lastFrame()).toContain("type to search...");
+    await expectFrame(lastFrame, "type to search...");
     stdin.write("\u001b"); // Esc → leave search mode
-    await tick();
-    expect(lastFrame()).toContain("press / to search...");
+    await expectFrame(lastFrame, "press / to search...");
     unmount();
   });
 
@@ -324,11 +336,9 @@ describe("App container", () => {
     );
     await tick();
     stdin.write("\r"); // Enter → detail
-    await tick();
-    expect(lastFrame()).toContain("Esc Back d Uninstall");
+    await expectFrame(lastFrame, "Esc Back d Uninstall");
     stdin.write("\u001b"); // Esc → dashboard
-    await tick();
-    expect(lastFrame()).toContain("Navigate");
+    await expectFrame(lastFrame, "Navigate");
     unmount();
   });
 
@@ -484,6 +494,48 @@ describe("App container", () => {
 // waitUntilExit resolves immediately, exercising the bootstrap + restore path
 // without spawning a real interactive terminal.
 describe("main()", () => {
+  // main() refuses to start the TUI when stdin is not a TTY; vitest workers
+  // have no TTY, so the bootstrap tests must stub it.
+  const origStdinTTY = process.stdin.isTTY;
+  beforeEach(() => {
+    Object.defineProperty(process.stdin, "isTTY", {
+      value: true,
+      configurable: true,
+    });
+  });
+  afterEach(() => {
+    Object.defineProperty(process.stdin, "isTTY", {
+      value: origStdinTTY,
+      configurable: true,
+    });
+  });
+
+  it("refuses to start the TUI when stdin is not a TTY", async () => {
+    Object.defineProperty(process.stdin, "isTTY", {
+      value: false,
+      configurable: true,
+    });
+    const { main } = await import("./index");
+    const writeSpy = vi
+      .spyOn(process.stdout, "write")
+      .mockImplementation(() => true);
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const prevExitCode = process.exitCode;
+    process.exitCode = undefined;
+
+    await main();
+
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("requires a terminal"),
+    );
+    expect(writeSpy).not.toHaveBeenCalledWith("\u001b[?1049h");
+    expect(process.exitCode).toBe(1);
+
+    process.exitCode = prevExitCode;
+    writeSpy.mockRestore();
+    errorSpy.mockRestore();
+  });
+
   it("loads config, renders the app, and restores the alt-screen buffer on exit", async () => {
     const { main } = await import("./index");
     const writeSpy = vi

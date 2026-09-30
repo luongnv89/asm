@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/Affitor/affiliate-skills.git",
   "owner": "Affitor",
   "repo": "affiliate-skills",
-  "updatedAt": "2026-08-21T09:19:38.762Z",
+  "updatedAt": "2026-09-26T06:50:37.153Z",
   "skillCount": 54,
   "skills": [
     {
@@ -13,6 +13,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "analytics",
+        "optimization",
+        "tracking",
+        "ab-testing",
+        "experiments"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/analytics/ab-test-generator",
@@ -84,7 +93,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.612Z",
+        "evaluatedAt": "2026-09-26T06:50:36.700Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -157,12 +166,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.612Z",
+          "evaluatedAt": "2026-09-26T06:50:36.703Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -175,7 +184,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.612Z",
+          "evaluatedAt": "2026-09-26T06:50:36.703Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -188,6 +197,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "blogging",
+        "seo",
+        "content-writing",
+        "blog",
+        "wordpress"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/blog/affiliate-blog-builder",
@@ -259,7 +277,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.612Z",
+        "evaluatedAt": "2026-09-26T06:50:36.701Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -332,12 +350,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.612Z",
+          "evaluatedAt": "2026-09-26T06:50:36.703Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -350,7 +368,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.612Z",
+          "evaluatedAt": "2026-09-26T06:50:36.703Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -362,7 +380,12 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [],
+      "allowedTools": [
+        "Bash",
+        "Read"
+      ],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills",
@@ -434,7 +457,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.612Z",
+        "evaluatedAt": "2026-09-26T06:50:36.705Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -507,12 +530,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.612Z",
+          "evaluatedAt": "2026-09-26T06:50:36.705Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 46,
@@ -525,7 +548,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.612Z",
+          "evaluatedAt": "2026-09-26T06:50:36.705Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -538,6 +561,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "research",
+        "niche-analysis",
+        "program-discovery",
+        "saas",
+        "commission"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/research/affiliate-program-search",
@@ -609,7 +641,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.612Z",
+        "evaluatedAt": "2026-09-26T06:50:36.703Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -682,12 +714,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.612Z",
+          "evaluatedAt": "2026-09-26T06:50:36.704Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -700,7 +732,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.612Z",
+          "evaluatedAt": "2026-09-26T06:50:36.704Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -713,6 +745,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "distribution",
+        "deployment",
+        "email-marketing",
+        "bio-link",
+        "linktree"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/distribution/bio-link-deployer",
@@ -784,7 +825,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.612Z",
+        "evaluatedAt": "2026-09-26T06:50:36.701Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -857,12 +898,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.612Z",
+          "evaluatedAt": "2026-09-26T06:50:36.703Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -875,7 +916,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.612Z",
+          "evaluatedAt": "2026-09-26T06:50:36.703Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -888,6 +929,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "landing-pages",
+        "conversion",
+        "offers",
+        "bonuses",
+        "hormozi"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/landing/bonus-stack-builder",
@@ -959,7 +1009,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.612Z",
+        "evaluatedAt": "2026-09-26T06:50:36.701Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -1032,12 +1082,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.612Z",
+          "evaluatedAt": "2026-09-26T06:50:36.704Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -1050,7 +1100,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.612Z",
+          "evaluatedAt": "2026-09-26T06:50:36.704Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -1063,6 +1113,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "meta",
+        "planning",
+        "compliance",
+        "category-design",
+        "positioning"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/meta/category-designer",
@@ -1134,7 +1193,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.612Z",
+        "evaluatedAt": "2026-09-26T06:50:36.701Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -1207,12 +1266,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.612Z",
+          "evaluatedAt": "2026-09-26T06:50:36.704Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -1225,7 +1284,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.612Z",
+          "evaluatedAt": "2026-09-26T06:50:36.704Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -1238,6 +1297,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "research",
+        "niche-analysis",
+        "program-discovery",
+        "commission",
+        "revenue"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/research/commission-calculator",
@@ -1309,7 +1377,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.612Z",
+        "evaluatedAt": "2026-09-26T06:50:36.701Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -1382,12 +1450,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.612Z",
+          "evaluatedAt": "2026-09-26T06:50:36.704Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -1400,7 +1468,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.612Z",
+          "evaluatedAt": "2026-09-26T06:50:36.704Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -1413,6 +1481,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "blogging",
+        "seo",
+        "content-writing",
+        "comparison",
+        "versus"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/blog/comparison-post-writer",
@@ -1484,7 +1561,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.622Z",
+        "evaluatedAt": "2026-09-26T06:50:36.721Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -1557,12 +1634,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.622Z",
+          "evaluatedAt": "2026-09-26T06:50:36.722Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -1575,7 +1652,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.622Z",
+          "evaluatedAt": "2026-09-26T06:50:36.722Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -1588,6 +1665,14 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "research",
+        "niche-analysis",
+        "program-discovery",
+        "competitive-analysis"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/research/competitor-spy",
@@ -1659,7 +1744,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.622Z",
+        "evaluatedAt": "2026-09-26T06:50:36.722Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -1732,12 +1817,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.622Z",
+          "evaluatedAt": "2026-09-26T06:50:36.722Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -1750,7 +1835,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.622Z",
+          "evaluatedAt": "2026-09-26T06:50:36.722Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -1763,6 +1848,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "meta",
+        "planning",
+        "compliance",
+        "ftc",
+        "disclosure"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/meta/compliance-checker",
@@ -1834,7 +1928,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.624Z",
+        "evaluatedAt": "2026-09-26T06:50:36.723Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -1907,12 +2001,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.625Z",
+          "evaluatedAt": "2026-09-26T06:50:36.725Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -1925,7 +2019,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.625Z",
+          "evaluatedAt": "2026-09-26T06:50:36.725Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -1938,6 +2032,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "research",
+        "content-creation",
+        "data-driven",
+        "ranking",
+        "angle-selection"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/research/content-angle-ranker",
@@ -2009,7 +2112,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.625Z",
+        "evaluatedAt": "2026-09-26T06:50:36.725Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2082,12 +2185,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.625Z",
+          "evaluatedAt": "2026-09-26T06:50:36.726Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -2100,7 +2203,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.625Z",
+          "evaluatedAt": "2026-09-26T06:50:36.726Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -2113,6 +2216,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "blogging",
+        "seo",
+        "content-writing",
+        "content-audit",
+        "decay"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/blog/content-decay-detector",
@@ -2184,7 +2296,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.634Z",
+        "evaluatedAt": "2026-09-26T06:50:36.744Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2257,12 +2369,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.634Z",
+          "evaluatedAt": "2026-09-26T06:50:36.745Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -2275,7 +2387,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.634Z",
+          "evaluatedAt": "2026-09-26T06:50:36.745Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -2288,6 +2400,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "blogging",
+        "seo",
+        "content-writing",
+        "content-moat",
+        "authority"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/blog/content-moat-calculator",
@@ -2359,7 +2480,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.634Z",
+        "evaluatedAt": "2026-09-26T06:50:36.744Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2432,12 +2553,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.634Z",
+          "evaluatedAt": "2026-09-26T06:50:36.746Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -2450,7 +2571,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.634Z",
+          "evaluatedAt": "2026-09-26T06:50:36.746Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -2463,6 +2584,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "content-creation",
+        "social-media",
+        "copywriting",
+        "content-strategy",
+        "repurposing"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/content/content-pillar-atomizer",
@@ -2534,7 +2664,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.634Z",
+        "evaluatedAt": "2026-09-26T06:50:36.746Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2607,12 +2737,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.635Z",
+          "evaluatedAt": "2026-09-26T06:50:36.747Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -2625,7 +2755,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.635Z",
+          "evaluatedAt": "2026-09-26T06:50:36.747Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -2638,6 +2768,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "automation",
+        "scaling",
+        "workflow",
+        "repurposing",
+        "multi-format"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/automation/content-repurposer",
@@ -2709,7 +2848,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.635Z",
+        "evaluatedAt": "2026-09-26T06:50:36.746Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2782,12 +2921,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.636Z",
+          "evaluatedAt": "2026-09-26T06:50:36.747Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -2800,7 +2939,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.636Z",
+          "evaluatedAt": "2026-09-26T06:50:36.747Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -2813,6 +2952,14 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "content-creation",
+        "research",
+        "content-brief",
+        "source-collection"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/content/content-research-brief",
@@ -2884,7 +3031,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.637Z",
+        "evaluatedAt": "2026-09-26T06:50:36.748Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2957,12 +3104,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.638Z",
+          "evaluatedAt": "2026-09-26T06:50:36.749Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -2975,7 +3122,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.638Z",
+          "evaluatedAt": "2026-09-26T06:50:36.749Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -2988,6 +3135,14 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "analytics",
+        "optimization",
+        "tracking",
+        "conversion"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/analytics/conversion-tracker",
@@ -3059,7 +3214,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.637Z",
+        "evaluatedAt": "2026-09-26T06:50:36.750Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -3132,12 +3287,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.638Z",
+          "evaluatedAt": "2026-09-26T06:50:36.752Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -3150,7 +3305,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.638Z",
+          "evaluatedAt": "2026-09-26T06:50:36.752Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -3163,6 +3318,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "meta",
+        "skill-writing",
+        "directory",
+        "publishing",
+        "workflow",
+        "prompt-engineering"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/meta/create-skill",
@@ -3234,7 +3398,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.645Z",
+        "evaluatedAt": "2026-09-26T06:50:36.760Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -3307,12 +3471,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.646Z",
+          "evaluatedAt": "2026-09-26T06:50:36.760Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -3325,7 +3489,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.646Z",
+          "evaluatedAt": "2026-09-26T06:50:36.760Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -3338,6 +3502,14 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "automation",
+        "scaling",
+        "workflow",
+        "email"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/automation/email-automation-builder",
@@ -3409,7 +3581,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.650Z",
+        "evaluatedAt": "2026-09-26T06:50:36.770Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -3482,12 +3654,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.650Z",
+          "evaluatedAt": "2026-09-26T06:50:36.770Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -3500,7 +3672,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.650Z",
+          "evaluatedAt": "2026-09-26T06:50:36.770Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -3513,6 +3685,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "distribution",
+        "deployment",
+        "email-marketing",
+        "email",
+        "drip-campaign"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/distribution/email-drip-sequence",
@@ -3584,7 +3765,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.650Z",
+        "evaluatedAt": "2026-09-26T06:50:36.770Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -3657,12 +3838,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.651Z",
+          "evaluatedAt": "2026-09-26T06:50:36.771Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -3675,7 +3856,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.651Z",
+          "evaluatedAt": "2026-09-26T06:50:36.771Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -3688,6 +3869,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "meta",
+        "planning",
+        "compliance",
+        "funnel",
+        "strategy"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/meta/funnel-planner",
@@ -3759,7 +3949,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.650Z",
+        "evaluatedAt": "2026-09-26T06:50:36.772Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -3832,12 +4022,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.651Z",
+          "evaluatedAt": "2026-09-26T06:50:36.773Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -3850,7 +4040,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.651Z",
+          "evaluatedAt": "2026-09-26T06:50:36.773Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -3863,6 +4053,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "distribution",
+        "deployment",
+        "email-marketing",
+        "github-pages",
+        "static-site"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/distribution/github-pages-deployer",
@@ -3934,7 +4133,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.652Z",
+        "evaluatedAt": "2026-09-26T06:50:36.787Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -4007,12 +4206,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.652Z",
+          "evaluatedAt": "2026-09-26T06:50:36.789Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -4025,7 +4224,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.652Z",
+          "evaluatedAt": "2026-09-26T06:50:36.789Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -4038,6 +4237,14 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "landing-pages",
+        "conversion",
+        "offers",
+        "hormozi"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/landing/grand-slam-offer",
@@ -4109,7 +4316,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.658Z",
+        "evaluatedAt": "2026-09-26T06:50:36.788Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -4182,12 +4389,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.660Z",
+          "evaluatedAt": "2026-09-26T06:50:36.790Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -4200,7 +4407,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.660Z",
+          "evaluatedAt": "2026-09-26T06:50:36.790Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -4213,6 +4420,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "landing-pages",
+        "conversion",
+        "offers",
+        "guarantees",
+        "risk-reversal"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/landing/guarantee-generator",
@@ -4284,7 +4500,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.666Z",
+        "evaluatedAt": "2026-09-26T06:50:36.793Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -4357,12 +4573,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.667Z",
+          "evaluatedAt": "2026-09-26T06:50:36.795Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -4375,7 +4591,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.667Z",
+          "evaluatedAt": "2026-09-26T06:50:36.796Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -4388,6 +4604,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "blogging",
+        "seo",
+        "content-writing",
+        "tutorial",
+        "how-to"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/blog/how-to-tutorial-writer",
@@ -4459,7 +4684,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.675Z",
+        "evaluatedAt": "2026-09-26T06:50:36.824Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -4532,12 +4757,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.676Z",
+          "evaluatedAt": "2026-09-26T06:50:36.826Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -4550,7 +4775,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.676Z",
+          "evaluatedAt": "2026-09-26T06:50:36.826Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -4563,6 +4788,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "content-creation",
+        "infographic",
+        "visual",
+        "design",
+        "branded"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/content/infographic-generator",
@@ -4634,7 +4868,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.675Z",
+        "evaluatedAt": "2026-09-26T06:50:36.825Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -4707,12 +4941,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.676Z",
+          "evaluatedAt": "2026-09-26T06:50:36.827Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -4725,7 +4959,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.676Z",
+          "evaluatedAt": "2026-09-26T06:50:36.827Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -4738,6 +4972,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "analytics",
+        "optimization",
+        "tracking",
+        "internal-links",
+        "site-structure"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/analytics/internal-linking-optimizer",
@@ -4809,7 +5052,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.676Z",
+        "evaluatedAt": "2026-09-26T06:50:36.827Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -4882,12 +5125,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.677Z",
+          "evaluatedAt": "2026-09-26T06:50:36.828Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -4900,7 +5143,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.677Z",
+          "evaluatedAt": "2026-09-26T06:50:36.828Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -4913,6 +5156,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "blogging",
+        "seo",
+        "content-writing",
+        "keywords",
+        "clustering"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/blog/keyword-cluster-architect",
@@ -4984,7 +5236,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.676Z",
+        "evaluatedAt": "2026-09-26T06:50:36.827Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -5057,12 +5309,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.677Z",
+          "evaluatedAt": "2026-09-26T06:50:36.828Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -5075,7 +5327,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.677Z",
+          "evaluatedAt": "2026-09-26T06:50:36.828Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -5088,6 +5340,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "landing-pages",
+        "conversion",
+        "offers",
+        "html",
+        "tailwind"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/landing/landing-page-creator",
@@ -5159,7 +5420,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.677Z",
+        "evaluatedAt": "2026-09-26T06:50:36.828Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -5232,12 +5493,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.678Z",
+          "evaluatedAt": "2026-09-26T06:50:36.829Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -5250,7 +5511,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.678Z",
+          "evaluatedAt": "2026-09-26T06:50:36.829Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -5263,6 +5524,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "blogging",
+        "seo",
+        "content-writing",
+        "listicle",
+        "top-lists"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/blog/listicle-generator",
@@ -5334,7 +5604,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.678Z",
+        "evaluatedAt": "2026-09-26T06:50:36.831Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -5407,12 +5677,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.679Z",
+          "evaluatedAt": "2026-09-26T06:50:36.834Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -5425,7 +5695,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.679Z",
+          "evaluatedAt": "2026-09-26T06:50:36.834Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -5438,6 +5708,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "research",
+        "niche-analysis",
+        "program-discovery",
+        "monopoly",
+        "blue-ocean"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/research/monopoly-niche-finder",
@@ -5509,7 +5788,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.679Z",
+        "evaluatedAt": "2026-09-26T06:50:36.834Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -5582,12 +5861,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.681Z",
+          "evaluatedAt": "2026-09-26T06:50:36.837Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -5600,7 +5879,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.681Z",
+          "evaluatedAt": "2026-09-26T06:50:36.837Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -5613,6 +5892,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "automation",
+        "scaling",
+        "workflow",
+        "portfolio",
+        "multi-program"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/automation/multi-program-manager",
@@ -5684,7 +5972,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.690Z",
+        "evaluatedAt": "2026-09-26T06:50:36.868Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -5757,12 +6045,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.690Z",
+          "evaluatedAt": "2026-09-26T06:50:36.868Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -5775,7 +6063,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.690Z",
+          "evaluatedAt": "2026-09-26T06:50:36.868Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -5788,6 +6076,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "research",
+        "niche-analysis",
+        "program-discovery",
+        "niche",
+        "opportunity"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/research/niche-opportunity-finder",
@@ -5859,7 +6156,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.690Z",
+        "evaluatedAt": "2026-09-26T06:50:36.868Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -5932,12 +6229,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.690Z",
+          "evaluatedAt": "2026-09-26T06:50:36.868Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -5950,7 +6247,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.690Z",
+          "evaluatedAt": "2026-09-26T06:50:36.868Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -5963,6 +6260,16 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "automation",
+        "scaling",
+        "workflow",
+        "ads",
+        "ppc",
+        "copywriting"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/automation/paid-ad-copy-writer",
@@ -6034,7 +6341,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.690Z",
+        "evaluatedAt": "2026-09-26T06:50:36.868Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -6107,12 +6414,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.690Z",
+          "evaluatedAt": "2026-09-26T06:50:36.869Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -6125,7 +6432,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.690Z",
+          "evaluatedAt": "2026-09-26T06:50:36.869Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -6138,6 +6445,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "analytics",
+        "optimization",
+        "tracking",
+        "reporting",
+        "kpi"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/analytics/performance-report",
@@ -6209,7 +6525,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.691Z",
+        "evaluatedAt": "2026-09-26T06:50:36.870Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -6282,12 +6598,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.693Z",
+          "evaluatedAt": "2026-09-26T06:50:36.870Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -6300,7 +6616,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.693Z",
+          "evaluatedAt": "2026-09-26T06:50:36.870Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -6313,6 +6629,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "landing-pages",
+        "conversion",
+        "offers",
+        "showcase",
+        "product-page"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/landing/product-showcase-page",
@@ -6384,7 +6709,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.693Z",
+        "evaluatedAt": "2026-09-26T06:50:36.872Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -6457,12 +6782,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.693Z",
+          "evaluatedAt": "2026-09-26T06:50:36.873Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -6475,7 +6800,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.693Z",
+          "evaluatedAt": "2026-09-26T06:50:36.873Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -6488,6 +6813,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "automation",
+        "scaling",
+        "workflow",
+        "data",
+        "original-research"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/automation/proprietary-data-generator",
@@ -6559,7 +6893,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.696Z",
+        "evaluatedAt": "2026-09-26T06:50:36.880Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -6632,12 +6966,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.696Z",
+          "evaluatedAt": "2026-09-26T06:50:36.881Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -6650,7 +6984,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.696Z",
+          "evaluatedAt": "2026-09-26T06:50:36.881Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -6663,6 +6997,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "research",
+        "niche-analysis",
+        "program-discovery",
+        "differentiation",
+        "positioning"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/research/purple-cow-audit",
@@ -6734,7 +7077,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.704Z",
+        "evaluatedAt": "2026-09-26T06:50:36.911Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -6807,12 +7150,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.704Z",
+          "evaluatedAt": "2026-09-26T06:50:36.912Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -6825,7 +7168,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.704Z",
+          "evaluatedAt": "2026-09-26T06:50:36.912Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -6838,6 +7181,14 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "content-creation",
+        "social-media",
+        "copywriting",
+        "reddit"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/content/reddit-post-writer",
@@ -6909,7 +7260,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.704Z",
+        "evaluatedAt": "2026-09-26T06:50:36.911Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -6982,12 +7333,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.704Z",
+          "evaluatedAt": "2026-09-26T06:50:36.912Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -7000,7 +7351,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.704Z",
+          "evaluatedAt": "2026-09-26T06:50:36.912Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -7013,6 +7364,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "meta",
+        "planning",
+        "compliance",
+        "improvement",
+        "feedback"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/meta/self-improver",
@@ -7084,7 +7444,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.704Z",
+        "evaluatedAt": "2026-09-26T06:50:36.912Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -7157,12 +7517,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.704Z",
+          "evaluatedAt": "2026-09-26T06:50:36.913Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -7175,7 +7535,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.704Z",
+          "evaluatedAt": "2026-09-26T06:50:36.913Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -7188,6 +7548,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "analytics",
+        "optimization",
+        "tracking",
+        "seo",
+        "technical-seo"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/analytics/seo-audit",
@@ -7259,7 +7628,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.705Z",
+        "evaluatedAt": "2026-09-26T06:50:36.915Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -7332,12 +7701,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.705Z",
+          "evaluatedAt": "2026-09-26T06:50:36.916Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -7350,7 +7719,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.705Z",
+          "evaluatedAt": "2026-09-26T06:50:36.916Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -7363,6 +7732,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "meta",
+        "planning",
+        "compliance",
+        "discovery",
+        "skill-search"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/meta/skill-finder",
@@ -7434,7 +7812,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.709Z",
+        "evaluatedAt": "2026-09-26T06:50:36.919Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -7507,12 +7885,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.709Z",
+          "evaluatedAt": "2026-09-26T06:50:36.919Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -7525,7 +7903,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.709Z",
+          "evaluatedAt": "2026-09-26T06:50:36.919Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -7538,6 +7916,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "distribution",
+        "deployment",
+        "email-marketing",
+        "scheduling",
+        "content-calendar"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/distribution/social-media-scheduler",
@@ -7609,7 +7996,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.711Z",
+        "evaluatedAt": "2026-09-26T06:50:36.927Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -7682,12 +8069,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.711Z",
+          "evaluatedAt": "2026-09-26T06:50:36.932Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -7700,7 +8087,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.711Z",
+          "evaluatedAt": "2026-09-26T06:50:36.932Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -7713,6 +8100,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "landing-pages",
+        "conversion",
+        "offers",
+        "lead-generation",
+        "squeeze-page"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/landing/squeeze-page-builder",
@@ -7784,7 +8180,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.715Z",
+        "evaluatedAt": "2026-09-26T06:50:36.934Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -7857,12 +8253,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.715Z",
+          "evaluatedAt": "2026-09-26T06:50:36.935Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -7875,7 +8271,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.715Z",
+          "evaluatedAt": "2026-09-26T06:50:36.935Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -7888,6 +8284,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "research",
+        "listing",
+        "directory",
+        "commission",
+        "program-profile"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/research/submit-program",
@@ -7959,7 +8364,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.715Z",
+        "evaluatedAt": "2026-09-26T06:50:36.935Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -8032,12 +8437,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.715Z",
+          "evaluatedAt": "2026-09-26T06:50:36.935Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -8050,7 +8455,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.715Z",
+          "evaluatedAt": "2026-09-26T06:50:36.935Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -8063,6 +8468,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "content-creation",
+        "social-media",
+        "copywriting",
+        "tiktok",
+        "video"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/content/tiktok-script-writer",
@@ -8134,7 +8548,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.719Z",
+        "evaluatedAt": "2026-09-26T06:50:36.945Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -8207,12 +8621,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.719Z",
+          "evaluatedAt": "2026-09-26T06:50:36.949Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -8225,7 +8639,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.719Z",
+          "evaluatedAt": "2026-09-26T06:50:36.949Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -8238,6 +8652,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "research",
+        "traffic",
+        "analytics",
+        "competitor-analysis",
+        "advertiser-evaluation"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/research/traffic-analyzer",
@@ -8309,7 +8732,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.719Z",
+        "evaluatedAt": "2026-09-26T06:50:36.949Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -8382,12 +8805,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.719Z",
+          "evaluatedAt": "2026-09-26T06:50:36.950Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -8400,7 +8823,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.719Z",
+          "evaluatedAt": "2026-09-26T06:50:36.950Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -8413,6 +8836,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "research",
+        "social-data",
+        "engagement",
+        "trending",
+        "content-intelligence"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/research/trending-content-scout",
@@ -8484,7 +8916,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.723Z",
+        "evaluatedAt": "2026-09-26T06:50:36.955Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -8557,12 +8989,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.723Z",
+          "evaluatedAt": "2026-09-26T06:50:36.956Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -8575,7 +9007,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.723Z",
+          "evaluatedAt": "2026-09-26T06:50:36.956Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -8588,6 +9020,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "content-creation",
+        "social-media",
+        "copywriting",
+        "twitter",
+        "threads"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/content/twitter-thread-writer",
@@ -8659,7 +9100,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.730Z",
+        "evaluatedAt": "2026-09-26T06:50:36.966Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -8732,12 +9173,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.730Z",
+          "evaluatedAt": "2026-09-26T06:50:36.966Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -8750,7 +9191,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.730Z",
+          "evaluatedAt": "2026-09-26T06:50:36.966Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -8763,6 +9204,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "landing-pages",
+        "conversion",
+        "offers",
+        "value-ladder",
+        "pricing"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/landing/value-ladder-architect",
@@ -8834,7 +9284,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.730Z",
+        "evaluatedAt": "2026-09-26T06:50:36.966Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -8907,12 +9357,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.730Z",
+          "evaluatedAt": "2026-09-26T06:50:36.966Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -8925,7 +9375,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.730Z",
+          "evaluatedAt": "2026-09-26T06:50:36.966Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -8938,6 +9388,14 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "content-creation",
+        "social-media",
+        "copywriting",
+        "viral"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/content/viral-post-writer",
@@ -9009,7 +9467,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.732Z",
+        "evaluatedAt": "2026-09-26T06:50:36.966Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -9082,12 +9540,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.732Z",
+          "evaluatedAt": "2026-09-26T06:50:36.966Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -9100,7 +9558,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.732Z",
+          "evaluatedAt": "2026-09-26T06:50:36.966Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -9113,6 +9571,15 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing",
+        "landing-pages",
+        "conversion",
+        "offers",
+        "webinar",
+        "registration"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/landing/webinar-registration-page",
@@ -9184,7 +9651,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.734Z",
+        "evaluatedAt": "2026-09-26T06:50:36.969Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -9257,12 +9724,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.735Z",
+          "evaluatedAt": "2026-09-26T06:50:36.970Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -9275,7 +9742,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.735Z",
+          "evaluatedAt": "2026-09-26T06:50:36.970Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -9288,6 +9755,10 @@
       "creator": "",
       "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
       "allowedTools": [],
+      "tags": [
+        "affiliate-marketing"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:template",
@@ -9359,7 +9830,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:38.737Z",
+        "evaluatedAt": "2026-09-26T06:50:36.974Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -9432,12 +9903,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.738Z",
+          "evaluatedAt": "2026-09-26T06:50:36.974Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 73,
@@ -9450,7 +9921,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:38.738Z",
+          "evaluatedAt": "2026-09-26T06:50:36.974Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -9462,7 +9933,7 @@
       "name": "affitor-affiliate-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Affitor/affiliate-skills.",
       "author": "ASM (Affitor/affiliate-skills)",
-      "createdAt": "2026-08-21T09:19:38.762Z",
+      "createdAt": "2026-09-26T06:50:37.153Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -9684,7 +10155,7 @@
       "name": "affitor-affiliate-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Affitor/affiliate-skills.",
       "author": "ASM (Affitor/affiliate-skills)",
-      "createdAt": "2026-08-21T09:19:38.762Z",
+      "createdAt": "2026-09-26T06:50:37.153Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -9798,7 +10269,7 @@
       "name": "affitor-affiliate-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from Affitor/affiliate-skills.",
       "author": "ASM (Affitor/affiliate-skills)",
-      "createdAt": "2026-08-21T09:19:38.762Z",
+      "createdAt": "2026-09-26T06:50:37.153Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -9984,7 +10455,7 @@
       "name": "affitor-affiliate-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Affitor/affiliate-skills.",
       "author": "ASM (Affitor/affiliate-skills)",
-      "createdAt": "2026-08-21T09:19:38.762Z",
+      "createdAt": "2026-09-26T06:50:37.153Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -10152,7 +10623,7 @@
       "name": "affitor-affiliate-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from Affitor/affiliate-skills.",
       "author": "ASM (Affitor/affiliate-skills)",
-      "createdAt": "2026-08-21T09:19:38.762Z",
+      "createdAt": "2026-09-26T06:50:37.153Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -10500,7 +10971,7 @@
       "name": "affitor-affiliate-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from Affitor/affiliate-skills.",
       "author": "ASM (Affitor/affiliate-skills)",
-      "createdAt": "2026-08-21T09:19:38.762Z",
+      "createdAt": "2026-09-26T06:50:37.153Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -10710,7 +11181,7 @@
       "name": "affitor-affiliate-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from Affitor/affiliate-skills.",
       "author": "ASM (Affitor/affiliate-skills)",
-      "createdAt": "2026-08-21T09:19:38.762Z",
+      "createdAt": "2026-09-26T06:50:37.153Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -10878,7 +11349,7 @@
       "name": "affitor-affiliate-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from Affitor/affiliate-skills.",
       "author": "ASM (Affitor/affiliate-skills)",
-      "createdAt": "2026-08-21T09:19:38.762Z",
+      "createdAt": "2026-09-26T06:50:37.153Z",
       "tags": [
         "repo-derived",
         "inferred",

@@ -23,7 +23,7 @@ import {
   vi,
 } from "vitest";
 import { join, resolve, dirname } from "path";
-import { mkdtemp, rm, writeFile, mkdir, readFile, access } from "fs/promises";
+import { mkdtemp, rm, writeFile, mkdir, access } from "fs/promises";
 import { tmpdir } from "os";
 import { spawnCollect } from "../../src/utils/test-spawn";
 
@@ -136,15 +136,13 @@ beforeAll(async () => {
 
 describe("publish: skill at repo root", () => {
   let repoDir: string;
-  let headSha: string;
 
   beforeEach(async () => {
     repoDir = await mkdtemp(join(tmpdir(), "asm-e2e-publish-root-"));
-    headSha = await makeGitRepo(repoDir);
+    await makeGitRepo(repoDir);
     await writeFile(join(repoDir, "SKILL.md"), VALID_SKILL_MD);
     await git(["add", "SKILL.md"], repoDir);
     await git(["commit", "-m", "add skill"], repoDir);
-    headSha = await git(["rev-parse", "HEAD"], repoDir);
   });
 
   afterEach(async () => {
@@ -165,6 +163,30 @@ describe("publish: skill at repo root", () => {
     expect(json.repository).toMatch(/^https:\/\/github\.com\//);
     expect(json.commit).toMatch(/^[0-9a-f]{40}$/);
     expect(json.security_verdict).toBe("pass");
+  });
+
+  test("--dry-run remains JSON when gh is unavailable", async () => {
+    const ghConfigDir = await mkdtemp(join(tmpdir(), "asm-e2e-gh-config-"));
+    try {
+      const { stdout, stderr, exitCode } = await runAsm(
+        ["publish", "--dry-run", repoDir],
+        {
+          env: {
+            GH_CONFIG_DIR: ghConfigDir,
+            GH_TOKEN: "",
+            GITHUB_TOKEN: "",
+            GH_ENTERPRISE_TOKEN: "",
+            GH_PROMPT_DISABLED: "1",
+          },
+        },
+      );
+      expect(exitCode).toBe(0);
+      expect(stderr).toContain("Dry run");
+      expect(stdout).not.toContain("Manifest generated");
+      expect(JSON.parse(stdout).name).toBe("test-skill");
+    } finally {
+      await rm(ghConfigDir, { recursive: true, force: true });
+    }
   });
 
   test("--dry-run: skill at root has no skill_path", async () => {
@@ -262,22 +284,14 @@ describe("publish: error paths", () => {
   });
 
   test("non-git directory exits with error", async () => {
-    const { stdout, stderr, exitCode } = await runAsm([
-      "publish",
-      "--dry-run",
-      tmpDir,
-    ]);
+    const { stdout, stderr } = await runAsm(["publish", "--dry-run", tmpDir]);
     // exits 0 but outputs error (publisher returns result, not throws)
     expect(stdout + stderr).toMatch(/git|Error/i);
   });
 
   test("missing SKILL.md exits with error", async () => {
     await makeGitRepo(tmpDir);
-    const { stdout, stderr, exitCode } = await runAsm([
-      "publish",
-      "--dry-run",
-      tmpDir,
-    ]);
+    const { stdout, stderr } = await runAsm(["publish", "--dry-run", tmpDir]);
     expect(stdout + stderr).toMatch(/SKILL\.md/i);
   });
 
@@ -378,7 +392,7 @@ describe("install: resolve from registry cache", () => {
   }
 
   test("bare name resolves from registry cache", async () => {
-    const { stdout, stderr, exitCode } = await runAsm(
+    const { stdout, stderr } = await runAsm(
       [
         "install",
         "hello-world",
@@ -430,7 +444,7 @@ describe("install: resolve from registry cache", () => {
   });
 
   test("nonexistent bare name falls back gracefully", async () => {
-    const { stdout, stderr, exitCode } = await runAsm(
+    const { exitCode } = await runAsm(
       [
         "install",
         "nonexistent-skill-xyz",
@@ -468,7 +482,7 @@ describe("install: resolve from registry cache", () => {
     // With --no-cache, fetching will fail (since ASM_REGISTRY_URL is not set
     // to a real server in this test). The fallback is that resolution falls
     // through to existing source handling, not that it throws.
-    const { stdout, stderr, exitCode } = await runAsm(
+    const { exitCode } = await runAsm(
       [
         "install",
         "hello-world",
@@ -499,7 +513,7 @@ describe("install: resolve from registry cache", () => {
     ]);
     await writeFile(registryCachePath, JSON.stringify(cache, null, 2));
 
-    const { stdout, stderr, exitCode } = await runAsm(
+    const { stdout, stderr } = await runAsm(
       // Non-TTY: should error on ambiguity (cannot prompt)
       [
         "install",

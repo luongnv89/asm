@@ -215,11 +215,11 @@ describe("catalog: preserves all distinct install targets (issue #201)", () => {
 const WEBSITE_SRC_DIR = resolve(ROOT, "website-src", "src");
 
 describe("website: token count + eval surfaces", () => {
-  // Sidebar list item replaced the legacy SkillCard in #228, so tokens +
-  // eval badges now live on SkillListItem. The reusable detail view was
-  // extracted from SkillDetailPage into components/SkillDetail.jsx.
-  const listItemSrc = readFileSync(
-    join(WEBSITE_SRC_DIR, "components", "SkillListItem.jsx"),
+  // Storefront redesign: tokens + eval badges now live on SkillCard
+  // (the eval-score sticker + tokens badge). The reusable detail view
+  // was extracted from SkillDetailPage into components/SkillDetail.jsx.
+  const cardSrc = readFileSync(
+    join(WEBSITE_SRC_DIR, "components", "SkillCard.jsx"),
     "utf-8",
   );
   const detailSrc = readFileSync(
@@ -231,15 +231,16 @@ describe("website: token count + eval surfaces", () => {
     "utf-8",
   );
 
-  test("SkillListItem reads tokenCount and renders a tokens badge", () => {
-    expect(listItemSrc).toContain("formatTokens");
-    expect(listItemSrc).toContain('tone="tokens"');
-    expect(listItemSrc).toContain("skill.tokenCount");
+  test("SkillCard reads tokenCount and renders a tokens badge", () => {
+    expect(cardSrc).toContain("formatTokens");
+    expect(cardSrc).toContain('tone="tokens"');
+    expect(cardSrc).toContain("skill.tokenCount");
   });
 
-  test("SkillListItem reads evalSummary and renders an eval badge", () => {
-    expect(listItemSrc).toContain("skill.evalSummary");
-    expect(listItemSrc).toContain("evalScoreClass");
+  test("SkillCard reads evalSummary and renders an eval sticker", () => {
+    expect(cardSrc).toContain("skill.evalSummary");
+    expect(cardSrc).toContain("asm eval score");
+    expect(cardSrc).toContain("data-grade");
   });
 
   test("SkillDetail renders an eval section with empty-state fallback", () => {
@@ -250,8 +251,8 @@ describe("website: token count + eval surfaces", () => {
     expect(detailSrc).toContain("is available");
   });
 
-  test("SkillDetail exposes Est. Tokens row when tokenCount is present", () => {
-    expect(detailSrc).toContain("Est. Tokens");
+  test("SkillDetail exposes Est. tokens row when tokenCount is present", () => {
+    expect(detailSrc).toContain("Est. tokens");
   });
 
   test("formatTokens always prefixes its output with `~` (approximation)", () => {
@@ -551,5 +552,235 @@ describe("website: loader uses split artifacts (issue #214)", () => {
     expect(detailSrc).toContain("slim.detailPath");
     // Cache-aware: uses `path` variable derived from slim.detailPath
     expect(detailSrc).toMatch(/detailCache|fetch\(path\)/);
+  });
+});
+
+// ─── GitHub star counts never publish 0-on-failure (issue #598) ────────────
+// Unauthenticated star fetches were rate-limited (60 req/hour for ~73 repos)
+// and every failure path returned 0, sinking popular repos in the default
+// "Most popular" sort. Guards: token in workflows, null-on-failure plus
+// header-aware retries in the build, and a committed baseline fallback.
+
+describe("catalog: star counts degrade honestly (issue #598)", () => {
+  const buildSrc = readFileSync(
+    join(ROOT, "scripts", "build-catalog.ts"),
+    "utf-8",
+  );
+  // The fetch itself lives in src/repo-stars.ts (unit-tested); the build
+  // script only wires it in.
+  const starsSrc = readFileSync(join(ROOT, "src", "repo-stars.ts"), "utf-8");
+
+  test("build resolves star failures to null, never 0", () => {
+    expect(buildSrc).toContain("STAR_BASELINE_PATH");
+    expect(starsSrc).toContain("Promise<number | null>");
+    expect(starsSrc).not.toMatch(/return 0/);
+  });
+
+  test("build honours retry-after / x-ratelimit-reset", () => {
+    expect(starsSrc).toContain("retry-after");
+    expect(starsSrc).toContain("x-ratelimit-reset");
+  });
+
+  test("build falls back to the committed baseline and fails loudly", () => {
+    expect(buildSrc).toContain("STAR_BASELINE_PATH");
+    expect(buildSrc).toContain("process.exit(1)");
+  });
+
+  test("committed baseline covers a majority of indexed repos", () => {
+    const baseline = JSON.parse(
+      readFileSync(join(ROOT, "data", "repo-stars.json"), "utf-8"),
+    );
+    const indexFiles = readdirSync(DATA_DIR).filter((f) => f.endsWith(".json"));
+    const repos = new Set<string>();
+    for (const file of indexFiles) {
+      const data = JSON.parse(readFileSync(join(DATA_DIR, file), "utf-8"));
+      if (data.skills?.length) repos.add(`${data.owner}/${data.repo}`);
+    }
+    const covered = [...repos].filter((k) => baseline.stars[k] > 0);
+    expect(covered.length / repos.size).toBeGreaterThan(0.5);
+  });
+
+  test("workflows pass GITHUB_TOKEN to the catalog build", () => {
+    for (const wf of ["deploy-website.yml", "ci.yml"]) {
+      const src = readFileSync(join(ROOT, ".github", "workflows", wf), "utf-8");
+      expect(src).toContain("GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}");
+    }
+  });
+});
+
+// ─── Category pages SEO ─────────────────────────────────────────────────────
+// The catalog's ?cat= filter views are HashRouter state — invisible to
+// crawlers. `scripts/category-seo.ts` generates one indexable static page
+// per category; the sitemap/llms.txt templates enumerate them; the SPA
+// canonicalizes single-category views to them and links badges at them.
+
+import {
+  CATEGORY_META,
+  SITE_BASE,
+  categoryMeta,
+  categoryPageUrl,
+  renderCategoryPage,
+  renderLlmsCategoryLines,
+  renderSitemapCategoryUrls,
+} from "../../scripts/category-seo";
+
+describe("category SEO: helpers", () => {
+  test("every known category has a label and description", () => {
+    expect(Object.keys(CATEGORY_META).length).toBeGreaterThanOrEqual(16);
+    for (const meta of Object.values(CATEGORY_META)) {
+      expect(meta.label.length).toBeGreaterThan(0);
+      expect(meta.description.length).toBeGreaterThan(0);
+    }
+  });
+
+  test("unknown slugs fall back to a title-case label", () => {
+    expect(categoryMeta("brand-new-cat").label).toBe("Brand New Cat");
+    expect(categoryMeta("devops")).toEqual(CATEGORY_META["devops"]);
+  });
+
+  test("category URLs are real pages, not hash fragments", () => {
+    expect(categoryPageUrl("devops")).toBe(
+      `${SITE_BASE}/categories/devops.html`,
+    );
+    expect(categoryPageUrl("devops")).not.toContain("#");
+  });
+
+  test("rendered page carries unique title, canonical, H1 and JSON-LD", () => {
+    const html = renderCategoryPage({
+      slug: "testing",
+      skills: [
+        {
+          id: "o/r::s",
+          name: "s",
+          description: "d",
+          owner: "o",
+          repo: "r",
+          overallScore: 90,
+          grade: "A",
+        },
+      ],
+      totalRepos: 35,
+      lastmod: "2026-09-05",
+    });
+    expect(html).toContain("<title>Testing Skills (1)");
+    expect(html).toContain(
+      `<link rel="canonical" href="${SITE_BASE}/categories/testing.html" />`,
+    );
+    expect(html).toContain("<h1>Testing Skills</h1>");
+    expect(html).toContain('property="og:image"');
+    expect(html).toContain('"@type": "CollectionPage"');
+    expect(html).toContain('"@type": "ItemList"');
+    expect(html).toContain('"@type": "BreadcrumbList"');
+    expect(html).toContain("o/r");
+    // Visible list and ItemList describe the same skill.
+    expect(html).toContain(`${SITE_BASE}/#/skills/o%2Fr%3A%3As`);
+  });
+
+  test("descriptions are HTML-escaped", () => {
+    const html = renderCategoryPage({
+      slug: "testing",
+      skills: [
+        {
+          id: "a",
+          name: "<b>n</b>",
+          description: 'x "y"',
+          owner: "o",
+          repo: "r",
+        },
+      ],
+      totalRepos: 1,
+      lastmod: "2026-09-05",
+    });
+    // Visible HTML is escaped; JSON-LD escapes `<` so `</script>` can
+    // never break out of the block (skill names are untrusted input).
+    expect(html).toContain("&lt;b&gt;n&lt;/b&gt;");
+    expect(html).toContain(
+      `"name": ${JSON.stringify("<b>n</b>").replace(/</g, "\\u003c")}`,
+    );
+    expect(html).not.toContain("</script></script>");
+  });
+
+  test("skill names cannot break out of the JSON-LD script block", () => {
+    const html = renderCategoryPage({
+      slug: "testing",
+      skills: [
+        {
+          id: "a",
+          name: '</script><script>alert("xss")</script>',
+          description: "d",
+          owner: "o",
+          repo: "r",
+        },
+      ],
+      totalRepos: 1,
+      lastmod: "2026-09-05",
+    });
+    const blocks = html.match(
+      /<script type="application\/ld\+json">[\s\S]*?<\/script>/g,
+    );
+    expect(blocks).not.toBeNull();
+    for (const block of blocks ?? []) {
+      expect(block.slice(0, block.lastIndexOf("</script>"))).not.toContain(
+        "</script>",
+      );
+    }
+    expect(html).toContain("\\u003c/script>");
+  });
+
+  test("sitemap snippet lists real URLs with no fragments", () => {
+    const urls = renderSitemapCategoryUrls(["devops", "git"], "2026-09-05");
+    expect(urls).toContain(`${SITE_BASE}/categories/devops.html`);
+    expect(urls).toContain(`${SITE_BASE}/categories/git.html`);
+    expect(urls).not.toContain("#");
+  });
+
+  test("llms lines link every category to its page", () => {
+    const lines = renderLlmsCategoryLines(["devops"]);
+    expect(lines).toContain(`- [DevOps](${SITE_BASE}/categories/devops.html):`);
+  });
+});
+
+describe("category SEO: wiring", () => {
+  const SRC = join(ROOT, "website-src");
+
+  test("sitemap template lists categories, not hash routes", () => {
+    const sitemap = readFileSync(join(SRC, "sitemap.xml"), "utf-8");
+    expect(sitemap).toContain("{{CATEGORY_URLS}}");
+    expect(sitemap).not.toContain("#/");
+  });
+
+  test("llms.txt template renders category links from the catalog", () => {
+    const llms = readFileSync(join(SRC, "llms.txt"), "utf-8");
+    expect(llms).toContain("{{CATEGORY_LINKS}}");
+  });
+
+  test("build renders category tokens and static pages", () => {
+    const buildSrc = readFileSync(
+      join(ROOT, "scripts", "build-catalog.ts"),
+      "utf-8",
+    );
+    expect(buildSrc).toContain("{{CATEGORY_URLS}}");
+    expect(buildSrc).toContain("{{CATEGORY_LINKS}}");
+    expect(buildSrc).toContain("categories");
+    expect(buildSrc).toContain("renderCategoryPage");
+  });
+
+  test("CatalogPage sets per-category title and canonical", () => {
+    const src = readFileSync(
+      join(SRC, "src", "pages", "CatalogPage.jsx"),
+      "utf-8",
+    );
+    expect(src).toContain("categoryPageUrl");
+    expect(src).toContain("document.title");
+    expect(src).toContain('link[rel="canonical"]');
+  });
+
+  test("SkillCard badges link to static category pages", () => {
+    const src = readFileSync(
+      join(SRC, "src", "components", "SkillCard.jsx"),
+      "utf-8",
+    );
+    expect(src).toContain("categoryPageUrl");
+    expect(src).toContain("<a");
   });
 });

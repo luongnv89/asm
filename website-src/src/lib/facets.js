@@ -46,6 +46,7 @@ export function emptyFacetState() {
     source: new Set(),
     usesTools: new Set(),
     author: new Set(),
+    tags: new Set(),
   };
 }
 
@@ -56,6 +57,7 @@ export function computeFacetCounts(skills) {
     source: {},
     usesTools: { yes: 0, no: 0 },
     author: {},
+    tags: {},
   };
   for (const s of skills) {
     const lb = licenseBucket(s.license);
@@ -72,6 +74,15 @@ export function computeFacetCounts(skills) {
     // Author facet — bucket by owner
     if (s.owner) {
       out.author[s.owner] = (out.author[s.owner] || 0) + 1;
+    }
+    const skillTags = new Set(
+      (Array.isArray(s.tags) ? s.tags : [])
+        .filter((tag) => typeof tag === "string")
+        .map((tag) => tag.trim().toLowerCase())
+        .filter(Boolean),
+    );
+    for (const tag of skillTags) {
+      out.tags[tag] = (out.tags[tag] || 0) + 1;
     }
   }
   return out;

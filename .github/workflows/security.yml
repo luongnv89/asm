@@ -27,15 +27,21 @@ jobs:
       - name: Install gitleaks
         run: |
           GITLEAKS_VERSION=8.30.1
-          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
-            | sudo tar -xz -C /usr/local/bin gitleaks
+          # SHA256 of gitleaks_8.30.1_linux_x64.tar.gz (from gitleaks_8.30.1_checksums.txt)
+          GITLEAKS_SHA256=551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
+          curl -sSL -o /tmp/gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  /tmp/gitleaks.tar.gz" | sha256sum -c -
+          sudo tar -xz -C /usr/local/bin -f /tmp/gitleaks.tar.gz gitleaks
           gitleaks version
 
       - name: Install trivy
         run: |
           TRIVY_VERSION=0.70.0
-          curl -sSL "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" \
-            | sudo tar -xz -C /usr/local/bin trivy
+          # SHA256 of trivy_0.70.0_Linux-64bit.tar.gz (from trivy_0.70.0_checksums.txt)
+          TRIVY_SHA256=8b4376d5d6befe5c24d503f10ff136d9e0c49f9127a4279fd110b727929a5aa9
+          curl -sSL -o /tmp/trivy.tar.gz "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"
+          echo "${TRIVY_SHA256}  /tmp/trivy.tar.gz" | sha256sum -c -
+          sudo tar -xz -C /usr/local/bin -f /tmp/trivy.tar.gz trivy
           trivy --version
 
       - name: Compute trivy cache week stamp
@@ -56,7 +62,8 @@ jobs:
       - name: Install semgrep
         run: |
           python -m pip install --upgrade pip
-          python -m pip install semgrep
+          # renovate: datasource=pypi depName=semgrep
+          python -m pip install "semgrep==1.177.0"
           semgrep --version
 
       - name: Run local security checks

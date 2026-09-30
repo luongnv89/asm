@@ -21,6 +21,7 @@ import { readLock } from "./utils/lock";
 import { REGISTRY_INDEX_URL } from "./registry";
 import { buildShadowingReport } from "./utils/path-shadowing";
 import type { AppConfig, LockFile } from "./utils/types";
+import { errorMessage } from "./utils/errors";
 
 const execFileAsync = promisify(execFile);
 
@@ -153,9 +154,10 @@ export async function checkGhAuthenticated(
       status: "pass",
       message: user,
     };
-  } catch (err: any) {
+  } catch (err) {
     // gh auth status outputs to stderr on failure
-    const stderr = err?.stderr ?? "";
+    const rawStderr = (err as { stderr?: unknown } | null)?.stderr;
+    const stderr = typeof rawStderr === "string" ? rawStderr : "";
     const userMatch = stderr.match(/Logged in to .+ account (\S+)/);
     if (userMatch) {
       return {
@@ -291,8 +293,8 @@ export async function checkConfigValid(): Promise<CheckResult> {
       status: "pass",
       message: "OK",
     };
-  } catch (err: any) {
-    if (err?.code === "ENOENT") {
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException | null)?.code === "ENOENT") {
       return {
         name: "Config file valid",
         status: "pass",
@@ -356,8 +358,8 @@ export async function checkLockFileIntegrity(): Promise<CheckResult> {
       status: "pass",
       message: `${entries.length} skills tracked`,
     };
-  } catch (err: any) {
-    if (err?.code === "ENOENT") {
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException | null)?.code === "ENOENT") {
       return {
         name: "Lock file integrity",
         status: "pass",
@@ -591,11 +593,11 @@ export async function checkNoPathShadowing(): Promise<CheckResult> {
       message: `resolved ${resolved.path}, shadowed ${firstShadow}${extra}`,
       fix: `Remove the shadowed install at ${firstShadow} (e.g. \`npm uninstall -g agent-skill-manager\`) and keep ${resolved.path}.`,
     };
-  } catch (err: any) {
+  } catch (err) {
     return {
       name: "No PATH shadowing",
       status: "warn",
-      message: `Could not scan PATH: ${err?.message ?? err}`,
+      message: `Could not scan PATH: ${errorMessage(err)}`,
     };
   }
 }

@@ -19,12 +19,14 @@ import { cn } from "../lib/cn.js";
  *   - onClose: () => void — close handler for the scrim/Esc
  *   - children: the sidebar content (search, filters, list)
  *   - ariaLabel: accessible label for the drawer on mobile
+ *   - className: extra classes for the desktop column (width, borders)
  */
 export default function SidebarDrawer({
   open,
   onClose,
   children,
   ariaLabel = "Sidebar",
+  className,
 }) {
   useEffect(() => {
     const onKey = (e) => {
@@ -64,11 +66,15 @@ export default function SidebarDrawer({
           "bg-[var(--bg)] border-r border-[var(--border)] shadow-xl",
           "transition-transform duration-200 ease-out",
           open ? "translate-x-0" : "-translate-x-full",
+          // Hidden from sight + tab order / a11y tree on mobile when
+          // closed; desktop rail stays visible via lg:visible.
+          open ? "visible" : "invisible lg:visible",
           // Desktop: static column, no transform, part of flex layout
           "lg:static lg:translate-x-0 lg:z-auto lg:shadow-none",
           "lg:w-[340px] xl:w-[380px] lg:shrink-0",
           "lg:border-r lg:bg-transparent",
           "lg:max-h-[calc(100vh-var(--header-offset,5rem))]",
+          className,
         )}
       >
         <div className="p-3 lg:p-0 lg:pr-4 h-full">{children}</div>

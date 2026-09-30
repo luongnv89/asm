@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach } from "vitest";
-import { mkdtemp, rm, writeFile } from "fs/promises";
+import { mkdir, mkdtemp, rm, writeFile } from "fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
 import {
@@ -752,6 +752,37 @@ describe("publishSkill", () => {
     expect(result.success).toBe(true);
     expect(result.manifest).not.toBeNull();
     expect(result.error).toBeNull();
+  });
+
+  test("fallback path preserves skill_path for nested skills", async () => {
+    const skillDir = join(gitDir, "skills", "test-skill");
+    await mkdir(skillDir, { recursive: true });
+    await writeFile(
+      join(skillDir, "SKILL.md"),
+      makeSkillMd({
+        name: "test-skill",
+        description: "A nested test skill",
+        version: "1.0.0",
+        license: "MIT",
+        creator: "testuser",
+      }),
+    );
+    spawnSyncArgv(["git", "add", "."], { cwd: gitDir });
+    spawnSyncArgv(["git", "commit", "-m", "add nested skill"], {
+      cwd: gitDir,
+    });
+
+    const result = await publishSkill({
+      path: skillDir,
+      dryRun: true,
+      force: false,
+      yes: true,
+      _auditFn: fakeAudit(),
+      _checkGhCliFn: fakeGhCli({ available: false, authenticated: false }),
+    });
+
+    expect(result.success).toBe(true);
+    expect(result.manifest?.skill_path).toBe("skills/test-skill");
   });
 
   test("validateManifest failure when name contains uppercase/special chars", async () => {

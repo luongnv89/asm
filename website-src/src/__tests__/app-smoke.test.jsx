@@ -28,10 +28,11 @@ import { encodeSkillId } from "../lib/utils.js";
 /**
  * End-to-end smoke tests for the React app.
  *
- * Updated for #228: the catalog renders as a two-pane layout (sidebar
- * list + detail pane). These tests assert that the list is visible,
- * selecting a skill in the sidebar updates the URL and renders the
- * detail pane, and filter state survives selection.
+ * Updated for the storefront redesign: the catalog renders as a filter
+ * rail beside a grid of product cards, and `/skills/:id` swaps the grid
+ * for a product page. These tests assert that the grid is visible,
+ * selecting a card updates the URL and renders the product page, and
+ * filter state survives selection.
  *
  * Updated for the landing page: `/` now renders the marketing landing
  * page and the catalog moved to `/skills`, so the catalog tests below
@@ -57,6 +58,7 @@ const catalog = {
       license: "MIT",
       version: "1.0.0",
       verified: true,
+      tags: ["cli", "testing"],
       hasTools: false,
       tokenCount: 300,
     },
@@ -72,6 +74,7 @@ const catalog = {
       license: "MIT",
       version: "0.1.0",
       verified: false,
+      tags: ["docs"],
       hasTools: false,
       tokenCount: 500,
     },
@@ -108,6 +111,7 @@ const SKILL_DETAIL = {
   version: "1.0.0",
   verified: true,
   allowedTools: [],
+  tags: ["cli", "testing"],
   tokenCount: 300,
   skillUrl: "https://github.com/owner/repo/blob/main/SKILL.md",
 };
@@ -136,6 +140,7 @@ const FETCH_MAP = {
   "search.idx.json": () => new Response(buildIndexJson()),
   "bundles.json": () => new Response(JSON.stringify(BUNDLES)),
   "skills/hello.json": () => new Response(JSON.stringify(SKILL_DETAIL)),
+  "repo-stats.json": () => new Response(JSON.stringify({ stats: [] })),
 };
 
 function mockFetch() {
@@ -183,8 +188,36 @@ describe("App smoke", () => {
       expect(screen.getByText("hello-world")).toBeTruthy();
     });
     expect(screen.getByText("readme-generator")).toBeTruthy();
-    // The empty-state prompt should render in the detail pane.
-    expect(screen.getByText(/Select a skill/i)).toBeTruthy();
+    // The storefront header and the result count should render.
+    expect(
+      screen.getByRole("heading", { name: "Skills", level: 1 }),
+    ).toBeTruthy();
+    expect(screen.getByText(/Showing 1–2 of 2 skills/)).toBeTruthy();
+  });
+
+  it("filters by multiple tags with URL-persisted AND semantics", async () => {
+    window.history.replaceState(null, "", "/#/skills");
+    render(
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
+        <App />
+      </HashRouter>,
+    );
+    await waitFor(() => expect(screen.getByText("hello-world")).toBeTruthy());
+
+    fireEvent.click(screen.getByRole("button", { name: "cli" }));
+    expect(screen.getByText("hello-world")).toBeTruthy();
+    expect(screen.queryByText("readme-generator")).toBeNull();
+
+    fireEvent.click(screen.getByRole("button", { name: "testing" }));
+    await waitFor(() => {
+      const query = window.location.hash.split("?")[1] || "";
+      expect(new URLSearchParams(query).get("tag")).toBe("cli,testing");
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: "docs" }));
+    expect(screen.getByText("No skills match your filters")).toBeTruthy();
   });
 
   it("parses the search index once and preserves search results", async () => {
@@ -255,9 +288,7 @@ describe("App smoke", () => {
     await waitFor(() => {
       expect(screen.getByText("Catalog failed to load")).toBeTruthy();
       expect(
-        screen.getByText(
-          /Catalog and search index are from different builds/i,
-        ),
+        screen.getByText(/Catalog and search index are from different builds/i),
       ).toBeTruthy();
     });
   });
@@ -274,7 +305,9 @@ describe("App smoke", () => {
     await waitFor(() => expect(screen.getByText("hello-world")).toBeTruthy());
 
     // Sidebar rows expose the skill name via an `aria-current` link.
-    const rows = container.querySelectorAll("aside a[href*='/skills/']");
+    const rows = container.querySelectorAll(
+      "[aria-label='Skill results'] a[href*='/skills/']",
+    );
     expect(rows.length).toBeGreaterThan(0);
     const helloLink = Array.from(rows).find((a) =>
       a.textContent.includes("hello-world"),
@@ -293,10 +326,13 @@ describe("App smoke", () => {
     await waitFor(() => {
       expect(screen.getByText(/View SKILL.md on GitHub/i)).toBeTruthy();
     });
-    // And the sidebar row is marked active.
-    const active = container.querySelector("aside a[aria-current='true']");
-    expect(active).toBeTruthy();
-    expect(active.textContent).toContain("hello-world");
+    // The product page replaces the grid and offers a way back to it.
+    expect(screen.getByRole("link", { name: /Back to results/i })).toBeTruthy();
+    expect(container.querySelector("[aria-label='Skill results']")).toBeNull();
+    // The buy box carries the add-to-cart CTA.
+    expect(
+      screen.getByRole("button", { name: /Add hello-world to cart/i }),
+    ).toBeTruthy();
   });
 
   it("preserves filter query params across selection", async () => {
@@ -314,7 +350,9 @@ describe("App smoke", () => {
     await waitFor(() => expect(screen.getByText("hello-world")).toBeTruthy());
 
     const helloLink = Array.from(
-      container.querySelectorAll("aside a[href*='/skills/']"),
+      container.querySelectorAll(
+        "[aria-label='Skill results'] a[href*='/skills/']",
+      ),
     ).find((a) => a.textContent.includes("hello-world"));
     expect(helloLink).toBeTruthy();
     // The link must carry the current search so the filter survives.
@@ -352,7 +390,7 @@ describe("App smoke", () => {
     });
   });
 
-  it("bundles page renders a sidebar list and detail empty state", async () => {
+  it("bundles page renders a card grid and a bundle product page", async () => {
     window.history.replaceState(null, "", "/#/bundles");
     const { container } = render(
       <HashRouter
@@ -362,11 +400,13 @@ describe("App smoke", () => {
       </HashRouter>,
     );
     await waitFor(() => expect(screen.getByText("starter")).toBeTruthy());
-    // Empty state in detail pane.
-    expect(screen.getByText(/Pre-defined Bundles/i)).toBeTruthy();
+    // Storefront header kicker.
+    expect(screen.getByText(/Pre-defined bundles/i)).toBeTruthy();
 
     const starterLink = Array.from(
-      container.querySelectorAll("aside a[href*='/bundles/']"),
+      container.querySelectorAll(
+        "[aria-label='Bundle results'] a[href*='/bundles/']",
+      ),
     ).find((a) => a.textContent.includes("starter"));
     expect(starterLink).toBeTruthy();
     await act(async () => {
@@ -385,6 +425,35 @@ describe("App smoke", () => {
     );
     expect(skillLink.className).toContain("min-h-11");
     expect(skillLink.className).toContain("min-w-11");
+    // Bundle buy box offers "add all" and each row its own add button.
+    expect(
+      screen.getByRole("button", { name: /Add all 1 skills from starter/i }),
+    ).toBeTruthy();
+    expect(
+      screen.getByRole("button", { name: /Add hello-world to cart/i }),
+    ).toBeTruthy();
+  });
+
+  it("repo route renders the repo detail page with its skills", async () => {
+    window.history.replaceState(null, "", "/#/repos/owner/repo");
+    render(
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
+        <App />
+      </HashRouter>,
+    );
+    // Header from catalog.repos plus both skills in the repo grid.
+    await waitFor(() => {
+      expect(screen.getByRole("heading", { name: "owner/repo" })).toBeTruthy();
+    });
+    expect(screen.getByText("hello-world")).toBeTruthy();
+    expect(screen.getByText("readme-generator")).toBeTruthy();
+    // Skill titles link to the product page.
+    const helloLink = screen.getByRole("link", { name: "hello-world" });
+    expect(helloLink.getAttribute("href")).toContain(
+      `/skills/${encodeSkillId("owner/repo::a::hello-world")}`,
+    );
   });
 
   it("root path renders the marketing landing page, not the catalog", async () => {
@@ -403,6 +472,27 @@ describe("App smoke", () => {
     const catalogCta = container.querySelector("a[href$='/skills']");
     expect(catalogCta).toBeTruthy();
     // The catalog sidebar list must NOT be present on the landing page.
-    expect(container.querySelector("aside a[href*='/skills/']")).toBeNull();
+    expect(
+      container.querySelector(
+        "[aria-label='Skill results'] a[href*='/skills/']",
+      ),
+    ).toBeNull();
+  });
+
+  it("docs route renders the CLI documentation", async () => {
+    window.history.replaceState(null, "", "/#/docs");
+    render(
+      <HashRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
+        <App />
+      </HashRouter>,
+    );
+    await waitFor(() => {
+      expect(
+        screen.getByRole("heading", { name: "Documentation" }),
+      ).toBeTruthy();
+    });
+    expect(screen.getByText("asm get <skill>")).toBeTruthy();
   });
 });

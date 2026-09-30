@@ -129,9 +129,20 @@ describe("checkNoPathShadowing", () => {
   });
 
   test("fix message names the shadowed and resolved binaries when shadowing", async () => {
-    const resolved = { path: "/opt/real/bin/asm", realPath: "/opt/real/bin/asm" };
-    const shadowed = [{ path: "/home/user/.local/share/mise/shims/asm", realPath: "/home/user/.local/share/mise/shims/asm" }];
-    vi.spyOn(pathShadowing, "buildShadowingReport").mockResolvedValue({ resolved, shadowed });
+    const resolved = {
+      path: "/opt/real/bin/asm",
+      realPath: "/opt/real/bin/asm",
+    };
+    const shadowed = [
+      {
+        path: "/home/user/.local/share/mise/shims/asm",
+        realPath: "/home/user/.local/share/mise/shims/asm",
+      },
+    ];
+    vi.spyOn(pathShadowing, "buildShadowingReport").mockResolvedValue({
+      resolved,
+      shadowed,
+    });
     const result = await checkNoPathShadowing();
     expect(result.status).toBe("warn");
     expect(result.message).toContain("/opt/real/bin/asm");

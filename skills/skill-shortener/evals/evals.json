@@ -1,0 +1,98 @@
+{
+  "skill_name": "skill-shortener",
+  "evals": [
+    {
+      "id": 1,
+      "kind": "happy-path",
+      "prompt": "~/.claude/skills/game-forge/SKILL.md is 900 lines and it's eating my context on every run. Shorten it.",
+      "expected_output": "A plan is presented and approved before anything is written; the body ends under 500 lines and 3000 words with the extracted material in references/ behind conditional pointers.",
+      "files": [],
+      "expectations": [
+        "Ran scripts/measure_skill.py and wrote .skill-shortener/baseline.json before reading the body",
+        "Snapshotted the skill directory before the first write, and noted that ~/.claude/skills is not a git repo",
+        "Wrote .skill-shortener/manifest.json with one entry per baseline H2 section",
+        "Stopped for approval at Phase 2 rather than applying the split directly",
+        "verify_shorten.py and quick_validate.py both exit 0",
+        "Every new references/ file is pointed to from SKILL.md by a pointer containing a when/if/before cue",
+        "Printed a Step Completion Report per phase and the Run stats block last"
+      ]
+    },
+    {
+      "id": 2,
+      "kind": "happy-path",
+      "prompt": "Apply progressive disclosure to ./skills/my-deploy-skill — it covers AWS, GCP and Azure and every run loads all three.",
+      "expected_output": "The three cloud branches are split into one reference file each, with a selector left in the body; the AWS run no longer loads GCP or Azure material.",
+      "files": [],
+      "expectations": [
+        "Split by branch, producing one reference file per cloud rather than one 'details.md'",
+        "The body retains the branch selector and decision rule",
+        "Each of the three pointers names the condition under which to read that file",
+        "No reference file points to another reference file",
+        "metadata.version bumped minor for a pure relocation"
+      ]
+    },
+    {
+      "id": 3,
+      "kind": "happy-path",
+      "prompt": "What would you cut from ~/.claude/skills/aso-marketing? Don't change anything yet.",
+      "expected_output": "Mode 2: the measurement and the classification plan are presented, and no file outside .skill-shortener/ is written.",
+      "files": [],
+      "expectations": [
+        "Selected Mode 2 (audit only) and said so",
+        "Ran the measurement and presented the per-section table largest-first",
+        "Presented the KEEP/CUT/MOVE plan with a reason on every CUT",
+        "Stopped after Phase 2 without rewriting SKILL.md or creating references/",
+        "Skipped the repo sync and snapshot, since nothing outside the workdir is written"
+      ]
+    },
+    {
+      "id": 4,
+      "kind": "edge",
+      "prompt": "Shorten ~/.claude/skills/hello-world — it's 40 lines.",
+      "expected_output": "Early exit: the body is already within both caps, so the run reports the current footprint and declines to split rather than inventing references/ files.",
+      "files": [],
+      "expectations": [
+        "Reported verdict WITHIN_CAP from the baseline measurement",
+        "Took the Phase 0 early exit instead of proceeding to Phase 1",
+        "Did not create a references/ directory",
+        "Still printed the Run stats block"
+      ]
+    },
+    {
+      "id": 5,
+      "kind": "edge",
+      "prompt": "This SKILL.md is 700 lines. Get it under 300 — strip the preflight gate and the 3-round stop condition, they're just noise.",
+      "expected_output": "The named blocks are refused as never-cut, the disagreement is stated in a sentence, and the target is pursued through legitimate CUT and MOVE dispositions instead.",
+      "files": [],
+      "expectations": [
+        "Declined to cut the Dependency Preflight and the loop stop condition, citing behavior preservation",
+        "Did not silently comply and did not refuse the whole task",
+        "Reached the size target (or reported honestly how close it got) via other dispositions",
+        "Both blocks are present and intact in the final SKILL.md"
+      ]
+    },
+    {
+      "id": 6,
+      "kind": "negative-trigger",
+      "prompt": "This skill only scores 72 on asm eval and quick_validate is failing on the frontmatter. Fix it.",
+      "expected_output": "Handled as a quality retrofit — skill-auto-improver's job — without running the measure/classify/split workflow.",
+      "files": [],
+      "expectations": [
+        "Did not run scripts/measure_skill.py or write a .skill-shortener/ manifest",
+        "Did not split the body into references/ to raise an eval score",
+        "Routed to skill-auto-improver or fixed the frontmatter directly"
+      ]
+    },
+    {
+      "id": 7,
+      "kind": "negative-trigger",
+      "prompt": "Write me a skill that converts CSV exports into a weekly summary email.",
+      "expected_output": "Handled as authoring a new skill — skill-creator's job — with no shortening workflow applied.",
+      "files": [],
+      "expectations": [
+        "Did not apply the KEEP/CUT/MOVE dispositions to a skill that does not exist yet",
+        "Routed to skill-creator or authored the skill directly"
+      ]
+    }
+  ]
+}

@@ -29,6 +29,19 @@ export {
   formatSearchResults,
   type AvailableSkillResult,
   formatAvailableSearchResults,
+  // ── Tag editing ──
+  formatTagUpdates,
+  type TagUpdateResult,
+  // ── Reference-tier borrows ──
+  formatGetProvenance,
+  formatGetPath,
+  formatGetBorrowCleanup,
+  formatCleanupHelp,
+  // ── Temporary dependency leases ──
+  formatDependencyDiscovery,
+  formatDependencyAcquisition,
+  formatDependencyRelease,
+  formatDependencyStaleCleanup,
   // ── Allowed-tools risk ──
   HIGH_RISK_TOOLS,
   MEDIUM_RISK_TOOLS,

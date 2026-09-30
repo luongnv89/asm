@@ -18,6 +18,12 @@ import {
   redirectConsoleToStderr,
 } from "../utils/machine";
 import { searchSkills as searchIndexSkills } from "../skill-index";
+import {
+  applySkillTagState,
+  loadSkillTagState,
+  matchesAllTags,
+  parseTagInputs,
+} from "../skill-tags";
 
 import { error } from "./shared";
 import type { ParsedArgs } from "../cli";
@@ -36,6 +42,7 @@ ${ansi.bold("Options:")}
   --available          Show only available (not installed) skills
   --model-invocable    Only skills the model can invoke
   --user-invocable     Only skills the user can invoke (slash command)
+  --tag <tag[,tag]>    Require every tag; repeatable
   --flat               Show one row per tool instance (ungrouped)
   --json               Output as JSON array
   --machine            Output in stable machine-readable v1 envelope format
@@ -47,6 +54,7 @@ ${ansi.bold("Examples:")}
   asm search review -p claude       ${ansi.dim("Search within Claude Code only")}
   asm search "test" --installed     ${ansi.dim("Search installed skills only")}
   asm search "test" --available     ${ansi.dim("Search available skills only")}
+  asm search code --tag cli,testing  ${ansi.dim("Require both tags")}
   asm search openspec --json        ${ansi.dim("Output matches as JSON")}
   asm search openspec --machine     ${ansi.dim("Machine-readable v1 envelope output")}`);
 }
@@ -81,6 +89,16 @@ export async function cmdSearch(args: ParsedArgs) {
     process.exit(2);
   }
 
+  const parsedTags = parseTagInputs(args.flags.tagFilters);
+  if (parsedTags.invalid.length > 0) {
+    restoreConsole?.();
+    error(
+      `Invalid tag value(s): ${parsedTags.invalid.map((tag) => JSON.stringify(tag)).join(", ")}.`,
+    );
+    process.exitCode = 2;
+    return;
+  }
+
   const showInstalled = !args.flags.available;
   const showAvailable = !args.flags.installed;
 
@@ -89,6 +107,12 @@ export async function cmdSearch(args: ParsedArgs) {
   if (showInstalled) {
     const config = await loadConfig();
     let allSkills = await scanAllSkills(config, args.flags.scope);
+    applySkillTagState(allSkills, await loadSkillTagState());
+    if (parsedTags.tags.length > 0) {
+      allSkills = allSkills.filter((skill) =>
+        matchesAllTags(skill.tags, parsedTags.tags),
+      );
+    }
     if (args.flags.provider) {
       allSkills = allSkills.filter((s) => s.provider === args.flags.provider);
     }
@@ -107,16 +131,12 @@ export async function cmdSearch(args: ParsedArgs) {
   // --- Available (index) skills ---
   let indexResults: Awaited<ReturnType<typeof searchIndexSkills>> = [];
   if (showAvailable) {
-    indexResults = await searchIndexSkills(
-      query,
-      20,
-      args.flags.modelInvocable || args.flags.userInvocable
-        ? {
-            modelInvocable: args.flags.modelInvocable || undefined,
-            userInvocable: args.flags.userInvocable || undefined,
-          }
-        : undefined,
-    );
+    const filters = {
+      modelInvocable: args.flags.modelInvocable || undefined,
+      userInvocable: args.flags.userInvocable || undefined,
+      tags: parsedTags.tags.length > 0 ? parsedTags.tags : undefined,
+    };
+    indexResults = await searchIndexSkills(query, 20, filters);
     // Deduplicate: remove index results that match an installed skill by name
     if (installedResults.length > 0) {
       const installedNames = new Set(
@@ -136,6 +156,7 @@ export async function cmdSearch(args: ParsedArgs) {
       description: s.description,
       source: "installed" as const,
       url: null,
+      tags: s.tags || [],
       match_count: 1,
     }));
     const available = indexResults.map((r) => ({
@@ -143,6 +164,7 @@ export async function cmdSearch(args: ParsedArgs) {
       description: r.skill.description,
       source: "index" as const,
       url: r.skill.installUrl,
+      tags: r.skill.tags || [],
       match_count: 1,
     }));
     console.log(
@@ -158,6 +180,7 @@ export async function cmdSearch(args: ParsedArgs) {
       version: s.version,
       scope: s.scope,
       provider: s.provider,
+      tags: s.tags || [],
       status: "installed" as const,
     }));
     const available = indexResults.map((r) => ({
@@ -166,6 +189,7 @@ export async function cmdSearch(args: ParsedArgs) {
       version: r.skill.version,
       repo: `${r.repo.owner}/${r.repo.repo}`,
       installCommand: `asm install ${r.skill.installUrl}`,
+      tags: r.skill.tags || [],
       status: "available" as const,
     }));
     console.log(formatJSON([...installed, ...available]));

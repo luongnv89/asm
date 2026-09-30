@@ -74,6 +74,7 @@ import {
   updateLibrarySkill,
   updateLibrarySkills,
   writeLibraryLock,
+  type LibraryUpdateResult,
 } from "./library";
 
 function deferred<T = void>() {
@@ -1930,5 +1931,47 @@ describe("updateLibrarySkill", () => {
     ).resolves.toContain("# Old Source");
     const lock = await readLibraryLock(lockPath);
     expect(lock.skills.brainstorming.version).toBe("1.0.0");
+  });
+
+  test("update --all caps concurrency at 4 and preserves result order", async () => {
+    const names = Array.from({ length: 10 }, (_, i) => `lib-skill-${i}`);
+    let inFlight = 0;
+    let maxInFlight = 0;
+    const releaseQueue: Array<() => void> = [];
+    const stub = vi.fn(async (name: string): Promise<LibraryUpdateResult> => {
+      inFlight++;
+      maxInFlight = Math.max(maxInFlight, inFlight);
+      // Park the first wave until the test has observed it; later waves
+      // resolve immediately so the summary can settle.
+      if (releaseQueue.length < 4) {
+        const gate = deferred<void>();
+        releaseQueue.push(() => gate.resolve());
+        await gate.promise;
+      }
+      inFlight--;
+      return name === "lib-skill-3"
+        ? { name, status: "failed", reason: "boom" }
+        : { name, status: "skipped" };
+    });
+
+    const pending = updateLibrarySkills(
+      names,
+      { skillsDir, lockPath },
+      {
+        updateLibrarySkillFn: stub,
+      },
+    );
+    while (releaseQueue.length < 4) {
+      await new Promise((r) => setImmediate(r));
+    }
+    expect(maxInFlight).toBe(4);
+    releaseQueue.forEach((release) => release());
+    const summary = await pending;
+
+    expect(stub).toHaveBeenCalledTimes(10);
+    expect(maxInFlight).toBe(4);
+    expect(summary.results.map((r) => r.name)).toEqual(names);
+    expect(summary.failedCount).toBe(1);
+    expect(summary.skippedCount).toBe(9);
   });
 });

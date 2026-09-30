@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach, afterEach } from "vitest";
-import { readdir } from "fs/promises";
+import { mkdir, readdir, rm, writeFile } from "fs/promises";
 import { join } from "path";
 import {
   searchSkills,
@@ -240,6 +240,63 @@ describe("getMissingMetadataFields", () => {
   });
 });
 
+describe("searchSkills with tag filters", () => {
+  const fixturePath = join(getIndexDir(), "issue-584_tag-fixture.json");
+
+  beforeEach(async () => {
+    await mkdir(getIndexDir(), { recursive: true });
+    await writeFile(
+      fixturePath,
+      JSON.stringify({
+        repoUrl: "https://github.com/issue-584/tag-fixture",
+        owner: "issue-584",
+        repo: "tag-fixture",
+        updatedAt: "2026-01-01T00:00:00.000Z",
+        skillCount: 3,
+        skills: [
+          { ...fixtureSkill("tagged-cli", "cli"), tags: ["CLI", "Testing"] },
+          { ...fixtureSkill("tagged-web", "web"), tags: ["frontend"] },
+          fixtureSkill("legacy-untagged", "legacy"),
+        ],
+      }),
+      "utf-8",
+    );
+    _resetMemo();
+  });
+
+  afterEach(async () => {
+    await rm(fixturePath, { force: true });
+    _resetMemo();
+  });
+
+  it("normalizes loaded tags and backfills legacy records", async () => {
+    const fixture = (await loadAllIndices()).find(
+      (index) => index.owner === "issue-584",
+    );
+    expect(fixture?.skills.map((skill) => skill.tags)).toEqual([
+      ["cli", "testing"],
+      ["frontend"],
+      [],
+    ]);
+  });
+
+  it("uses AND semantics for one or more tag filters", async () => {
+    expect(
+      (await searchSkills("tagged", 20, { tags: ["CLI"] })).map(
+        (result) => result.skill.name,
+      ),
+    ).toEqual(["tagged-cli"]);
+    expect(
+      (await searchSkills("tagged", 20, { tags: ["cli", "testing"] })).map(
+        (result) => result.skill.name,
+      ),
+    ).toEqual(["tagged-cli"]);
+    expect(
+      await searchSkills("tagged", 20, { tags: ["cli", "frontend"] }),
+    ).toEqual([]);
+  });
+});
+
 describe("searchSkills with filters", () => {
   it("filter-only search with --missing returns results", async () => {
     // Many bundled skills have empty license/creator, others do not — this verifies the filter works
@@ -324,7 +381,7 @@ describe("Index resource integrity", () => {
       (idx) => idx.owner === "emilkowalski" && idx.repo === "skills",
     );
     expect(emil).toBeDefined();
-    expect(emil!.skillCount).toBe(11);
+    expect(emil!.skillCount).toBe(13);
     const names = new Set(emil!.skills.map((s) => s.name));
     expect(names).toEqual(
       new Set([
@@ -339,6 +396,8 @@ describe("Index resource integrity", () => {
         "animate",
         "animate-expo",
         "ask-sonner",
+        "write-swift",
+        "mobile-native",
       ]),
     );
     for (const skill of emil!.skills) {

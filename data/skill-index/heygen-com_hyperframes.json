@@ -2,9 +2,186 @@
   "repoUrl": "https://github.com/heygen-com/hyperframes.git",
   "owner": "heygen-com",
   "repo": "hyperframes",
-  "updatedAt": "2026-08-21T09:21:13.272Z",
-  "skillCount": 26,
+  "updatedAt": "2026-09-26T06:53:16.492Z",
+  "skillCount": 34,
   "skills": [
+    {
+      "name": "canopy-part-title",
+      "description": "Leaves sweep through the frame and part to reveal the headline. HyperFrames block, 1920×1080, 12s, 11 variables.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:heygen-com/hyperframes:registry/blocks/canopy-part-title",
+      "relPath": "registry/blocks/canopy-part-title",
+      "verified": true,
+      "tokenCount": 1256,
+      "evalSummary": {
+        "overallScore": 61,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-26T06:53:15.837Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 59,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:15.842Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:15.842Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
     {
       "name": "captions-overlay",
       "description": "Overlay doctrine for the embedded-captions workflow — the caption MODEL (drop / rail / embed) and the rule that captions are an OVERLAY composited on top of the film, never a reserved bottom band you shift content up to avoid. Load when adding captions/subtitles to a talking-head or launch video, when deciding whether a phrase should be dropped, ride the verbatim rail, or be promoted to a scarce embedded climax, when laying out a composition that will carry captions (do NOT reserve a keep-out band), or when centering a composition on the true frame center under captions. Quotes the rail+embed model from embedded-captions and constraint #13 (captions overlay, keep-out band retired) from the product-launch-video scene agent. Applies ON TOP of embedded-captions.",
@@ -13,12 +190,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:.claude/skills/captions-overlay",
       "relPath": ".claude/skills/captions-overlay",
       "verified": true,
-      "tokenCount": 2190,
+      "tokenCount": 2196,
       "evalSummary": {
         "overallScore": 52,
         "grade": "D",
@@ -84,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.951Z",
+        "evaluatedAt": "2026-09-26T06:53:15.837Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -157,12 +336,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-09-26T06:53:15.842Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -175,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-09-26T06:53:15.842Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -188,12 +367,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:.claude/skills/changelog-video",
       "relPath": ".claude/skills/changelog-video",
       "verified": true,
-      "tokenCount": 5039,
+      "tokenCount": 5059,
       "evalSummary": {
         "overallScore": 68,
         "grade": "C",
@@ -259,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.951Z",
+        "evaluatedAt": "2026-09-26T06:53:15.840Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -332,12 +513,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-09-26T06:53:15.842Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -350,7 +531,361 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-09-26T06:53:15.842Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "code-slice-hero",
+      "description": "A tiled headline surface flips cell by cell under a sweeping depth field to reveal the rear headline. HyperFrames block, 1920×1080, 8s, 18 variables.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:heygen-com/hyperframes:registry/blocks/code-slice-hero",
+      "relPath": "registry/blocks/code-slice-hero",
+      "verified": true,
+      "tokenCount": 1723,
+      "evalSummary": {
+        "overallScore": 60,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-26T06:53:15.842Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 58,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:15.842Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:15.842Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "cuboid-carousel",
+      "description": "A chain of bevelled cuboids rides a travelling wave as a content carousel. HyperFrames block, 1920×1080, 6.666666666666667s, 40 variables.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:heygen-com/hyperframes:registry/blocks/cuboid-carousel",
+      "relPath": "registry/blocks/cuboid-carousel",
+      "verified": true,
+      "tokenCount": 2945,
+      "evalSummary": {
+        "overallScore": 61,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-26T06:53:15.842Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 57,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:15.842Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:15.842Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -363,12 +898,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:.claude/skills/cut-the-curve",
       "relPath": ".claude/skills/cut-the-curve",
       "verified": true,
-      "tokenCount": 8253,
+      "tokenCount": 8259,
       "evalSummary": {
         "overallScore": 54,
         "grade": "D",
@@ -434,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.951Z",
+        "evaluatedAt": "2026-09-26T06:53:15.842Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -507,12 +1044,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-09-26T06:53:15.842Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -525,7 +1062,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-09-26T06:53:15.842Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -538,14 +1075,16 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/embedded-captions",
       "relPath": "skills/embedded-captions",
       "verified": true,
-      "tokenCount": 10681,
+      "tokenCount": 10878,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -563,7 +1102,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 6,
+            "score": 8,
             "max": 10
           },
           {
@@ -609,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.951Z",
+        "evaluatedAt": "2026-09-26T06:53:15.842Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -618,7 +1157,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -636,7 +1175,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 6,
+              "score": 8,
               "max": 10
             },
             {
@@ -678,16 +1217,16 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 7,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-09-26T06:53:15.842Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -700,7 +1239,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-09-26T06:53:15.842Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -713,12 +1252,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/faceless-explainer",
       "relPath": "skills/faceless-explainer",
       "verified": true,
-      "tokenCount": 9081,
+      "tokenCount": 9388,
       "evalSummary": {
         "overallScore": 69,
         "grade": "C",
@@ -784,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.951Z",
+        "evaluatedAt": "2026-09-26T06:53:15.842Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -857,12 +1398,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-09-26T06:53:15.842Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -875,7 +1416,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-09-26T06:53:15.842Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -888,6 +1429,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/figma",
@@ -959,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.951Z",
+        "evaluatedAt": "2026-09-26T06:53:15.856Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1032,12 +1575,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-09-26T06:53:15.856Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1050,7 +1593,184 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-09-26T06:53:15.856Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "frost-sequence-camera-orbit",
+      "description": "An orbiting camera follows an ice logo as it breaks apart, reforms into two text moments, and fades. HyperFrames block, 1920×1080, 22.5s, 216 variables.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:heygen-com/hyperframes:registry/blocks/frost-sequence-camera-orbit",
+      "relPath": "registry/blocks/frost-sequence-camera-orbit",
+      "verified": true,
+      "tokenCount": 24759,
+      "evalSummary": {
+        "overallScore": 58,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-26T06:53:15.863Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 54,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:15.864Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:15.864Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1063,12 +1783,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/general-video",
       "relPath": "skills/general-video",
       "verified": true,
-      "tokenCount": 7215,
+      "tokenCount": 7519,
       "evalSummary": {
         "overallScore": 68,
         "grade": "C",
@@ -1134,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.951Z",
+        "evaluatedAt": "2026-09-26T06:53:15.868Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1207,12 +1929,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-09-26T06:53:15.871Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1225,7 +1947,184 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.951Z",
+          "evaluatedAt": "2026-09-26T06:53:15.871Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "glass-shard-title",
+      "description": "Glass shards fly in through fog and tile themselves into the headline. HyperFrames block, 1920×1080, 12.16s, 19 variables.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:heygen-com/hyperframes:registry/blocks/glass-shard-title",
+      "relPath": "registry/blocks/glass-shard-title",
+      "verified": true,
+      "tokenCount": 2003,
+      "evalSummary": {
+        "overallScore": 61,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-26T06:53:15.875Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 59,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:15.876Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:15.876Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1238,15 +2137,17 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
       "relPath": "skills/hyperframes",
       "verified": true,
-      "tokenCount": 6506,
+      "tokenCount": 7125,
       "evalSummary": {
-        "overallScore": 66,
-        "grade": "C",
+        "overallScore": 64,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -1275,7 +2176,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 9,
+            "score": 7,
             "max": 10
           },
           {
@@ -1309,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.951Z",
+        "evaluatedAt": "2026-09-26T06:53:15.899Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1318,8 +2219,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 66,
-          "grade": "C",
+          "overallScore": 64,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -1348,7 +2249,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 9,
+              "score": 7,
               "max": 10
             },
             {
@@ -1382,12 +2283,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.952Z",
+          "evaluatedAt": "2026-09-26T06:53:15.899Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1400,7 +2301,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.952Z",
+          "evaluatedAt": "2026-09-26T06:53:15.900Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1413,12 +2314,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-animation",
       "relPath": "skills/hyperframes-animation",
       "verified": true,
-      "tokenCount": 2881,
+      "tokenCount": 3024,
       "evalSummary": {
         "overallScore": 60,
         "grade": "D",
@@ -1484,7 +2387,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.968Z",
+        "evaluatedAt": "2026-09-26T06:53:15.903Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1557,12 +2460,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.968Z",
+          "evaluatedAt": "2026-09-26T06:53:15.904Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1575,27 +2478,29 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.969Z",
+          "evaluatedAt": "2026-09-26T06:53:15.904Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "hyperframes-audio",
-      "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), or automation envelopes drawn on a track's volume or any effect parameter. Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
+      "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), automation envelopes drawn on a track's volume or any effect parameter, or one submix bus carrying a chain, a fader and an automation clock for several tracks at once (`<hf-audio-group>`). Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-audio",
       "relPath": "skills/hyperframes-audio",
       "verified": true,
-      "tokenCount": 6180,
+      "tokenCount": 8395,
       "evalSummary": {
-        "overallScore": 59,
+        "overallScore": 61,
         "grade": "D",
         "categories": [
           {
@@ -1613,19 +2518,19 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 2,
+            "score": 3,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 5,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 10,
             "max": 10
           },
           {
@@ -1659,7 +2564,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.971Z",
+        "evaluatedAt": "2026-09-26T06:53:15.903Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1668,7 +2573,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 57,
+          "overallScore": 59,
           "grade": "D",
           "categories": [
             {
@@ -1686,19 +2591,19 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 2,
+              "score": 3,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 5,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 10,
               "max": 10
             },
             {
@@ -1732,43 +2637,45 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.971Z",
+          "evaluatedAt": "2026-09-26T06:53:15.917Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 77,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 10,
+              "score": 9,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.971Z",
+          "evaluatedAt": "2026-09-26T06:53:15.917Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "hyperframes-cli",
-      "description": "Use the HyperFrames CLI development loop: init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, present, beats, keyframes, single or batch render, publish, cloud, cloudrun, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, docs, benchmark, telemetry, transcribe, auth, tts, and remove-background. Also use when diagnosing build or render failures. validate, inspect, and layout are deprecated aliases; use check. Covers local, HeyGen-hosted cloud, AWS Lambda, and Google Cloud Run rendering.",
+      "description": "Use the HyperFrames CLI development loop: init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, present, beats, keyframes, single or batch render, publish, cloud, cloudrun, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, timeline, history, docs, benchmark, telemetry, transcribe, auth, tts, and remove-background. Also use when diagnosing build or render failures. validate, inspect, and layout are deprecated aliases; use check. Covers local, HeyGen-hosted cloud, AWS Lambda, and Google Cloud Run rendering.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-cli",
       "relPath": "skills/hyperframes-cli",
       "verified": true,
-      "tokenCount": 5888,
+      "tokenCount": 6580,
       "evalSummary": {
         "overallScore": 72,
         "grade": "C",
@@ -1834,7 +2741,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.974Z",
+        "evaluatedAt": "2026-09-26T06:53:15.933Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1907,12 +2814,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.975Z",
+          "evaluatedAt": "2026-09-26T06:53:15.933Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1925,27 +2832,29 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.975Z",
+          "evaluatedAt": "2026-09-26T06:53:15.934Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "hyperframes-core",
-      "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Also covers Tailwind projects and the STORYBOARD.md / SCRIPT.md plan formats. Read before writing composition HTML.",
+      "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Read before writing composition HTML.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-core",
       "relPath": "skills/hyperframes-core",
       "verified": true,
-      "tokenCount": 4099,
+      "tokenCount": 3949,
       "evalSummary": {
-        "overallScore": 67,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -1957,13 +2866,13 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 7,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 6,
+            "score": 5,
             "max": 10
           },
           {
@@ -1981,7 +2890,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 3,
+            "score": 5,
             "max": 10
           },
           {
@@ -2009,7 +2918,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.981Z",
+        "evaluatedAt": "2026-09-26T06:53:15.944Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2018,7 +2927,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -2030,13 +2939,13 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 5,
+              "score": 7,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 6,
+              "score": 5,
               "max": 10
             },
             {
@@ -2054,7 +2963,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 3,
+              "score": 5,
               "max": 10
             },
             {
@@ -2082,12 +2991,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.981Z",
+          "evaluatedAt": "2026-09-26T06:53:15.944Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2100,7 +3009,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.981Z",
+          "evaluatedAt": "2026-09-26T06:53:15.944Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2113,6 +3022,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-creative",
@@ -2184,7 +3095,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.992Z",
+        "evaluatedAt": "2026-09-26T06:53:15.970Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2257,12 +3168,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.993Z",
+          "evaluatedAt": "2026-09-26T06:53:15.970Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2275,7 +3186,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.993Z",
+          "evaluatedAt": "2026-09-26T06:53:15.970Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2288,12 +3199,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-keyframes",
       "relPath": "skills/hyperframes-keyframes",
       "verified": true,
-      "tokenCount": 5845,
+      "tokenCount": 5829,
       "evalSummary": {
         "overallScore": 65,
         "grade": "C",
@@ -2359,7 +3272,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.993Z",
+        "evaluatedAt": "2026-09-26T06:53:15.975Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2432,12 +3345,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.994Z",
+          "evaluatedAt": "2026-09-26T06:53:15.976Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -2450,25 +3363,27 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.994Z",
+          "evaluatedAt": "2026-09-26T06:53:15.976Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "hyperframes-registry",
-      "description": "Install, discover, and wire registry blocks and components into HyperFrames compositions. Use when running hyperframes add or hyperframes catalog, installing one item or every block matching a tag, wiring an installed item into index.html, or working with hyperframes.json. Covers discovery, install locations, block sub-composition wiring, component snippet merging, and authoring a new block or component to contribute upstream (idea → scaffold → validate → PR).",
+      "description": "Search, install, and wire registry blocks and components into HyperFrames compositions. Use BEFORE hand-building any named visual — whenever a brief, a user, or a storyboard names a look, effect, treatment, or transition such as CRT scanlines, glitch, chromatic aberration, film grain, a shimmer sweep, a chart, a code or terminal window, a map, or a confetti burst — because roughly 400 hosted items already cover many of them and the search ranks all of them with nothing installed, no project, and no account. Also use when running hyperframes add or hyperframes catalog, installing one item or every block matching a tag, wiring an installed item into index.html, or working with hyperframes.json. Covers discovery, install locations, block sub-composition wiring, component snippet merging, and authoring a new block or component to contribute upstream (idea → scaffold → validate → PR).",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-registry",
       "relPath": "skills/hyperframes-registry",
       "verified": true,
-      "tokenCount": 2629,
+      "tokenCount": 2777,
       "evalSummary": {
         "overallScore": 70,
         "grade": "C",
@@ -2534,7 +3449,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:12.999Z",
+        "evaluatedAt": "2026-09-26T06:53:15.987Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2607,12 +3522,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.999Z",
+          "evaluatedAt": "2026-09-26T06:53:15.988Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2625,7 +3540,184 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:12.999Z",
+          "evaluatedAt": "2026-09-26T06:53:15.988Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "hyperframes-studio",
+      "description": "Use when building or editing a HyperFrames project that people open in Studio: how the timeline should be laid out so it reads well (one caption track, one element kind per track, every scene a sub-composition) and where captions and key content may sit (safe zones). Don't use for how to perform an individual edit (split, trim, retime, volume, copy, swap): that is `creator-editing-recipes.md` in `/hyperframes-core`.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-studio",
+      "relPath": "skills/hyperframes-studio",
+      "verified": true,
+      "tokenCount": 1269,
+      "evalSummary": {
+        "overallScore": 56,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-26T06:53:15.991Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 56,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:15.991Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:15.991Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2638,12 +3730,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/media-use",
       "relPath": "skills/media-use",
       "verified": true,
-      "tokenCount": 2962,
+      "tokenCount": 2952,
       "evalSummary": {
         "overallScore": 65,
         "grade": "C",
@@ -2709,7 +3803,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.006Z",
+        "evaluatedAt": "2026-09-26T06:53:15.994Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2782,12 +3876,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.006Z",
+          "evaluatedAt": "2026-09-26T06:53:15.994Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2800,7 +3894,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.006Z",
+          "evaluatedAt": "2026-09-26T06:53:15.994Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2813,12 +3907,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:.claude/skills/motion-doctrine",
       "relPath": ".claude/skills/motion-doctrine",
       "verified": true,
-      "tokenCount": 4653,
+      "tokenCount": 4659,
       "evalSummary": {
         "overallScore": 65,
         "grade": "C",
@@ -2884,7 +3980,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.009Z",
+        "evaluatedAt": "2026-09-26T06:53:15.998Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2957,12 +4053,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.009Z",
+          "evaluatedAt": "2026-09-26T06:53:15.998Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2975,7 +4071,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.009Z",
+          "evaluatedAt": "2026-09-26T06:53:15.998Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2988,6 +4084,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/motion-graphics",
@@ -3059,7 +4157,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.012Z",
+        "evaluatedAt": "2026-09-26T06:53:16.008Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3132,12 +4230,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.013Z",
+          "evaluatedAt": "2026-09-26T06:53:16.008Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -3150,7 +4248,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.013Z",
+          "evaluatedAt": "2026-09-26T06:53:16.008Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3163,12 +4261,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/music-to-video",
       "relPath": "skills/music-to-video",
       "verified": true,
-      "tokenCount": 5329,
+      "tokenCount": 5588,
       "evalSummary": {
         "overallScore": 67,
         "grade": "C",
@@ -3234,7 +4334,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.023Z",
+        "evaluatedAt": "2026-09-26T06:53:16.014Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3307,12 +4407,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.023Z",
+          "evaluatedAt": "2026-09-26T06:53:16.015Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -3325,7 +4425,184 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.023Z",
+          "evaluatedAt": "2026-09-26T06:53:16.015Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "orbit-card",
+      "description": "A single feature card orbits a dot sphere on approved Blender camera motion. HyperFrames block, 1920×1080, 10s, 4 variables.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:heygen-com/hyperframes:registry/blocks/orbit-card",
+      "relPath": "registry/blocks/orbit-card",
+      "verified": true,
+      "tokenCount": 1106,
+      "evalSummary": {
+        "overallScore": 62,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-26T06:53:16.026Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 58,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:16.027Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:16.027Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3338,12 +4615,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:.claude/skills/oversized-cursor",
       "relPath": ".claude/skills/oversized-cursor",
       "verified": true,
-      "tokenCount": 1987,
+      "tokenCount": 1993,
       "evalSummary": {
         "overallScore": 54,
         "grade": "D",
@@ -3409,7 +4688,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.034Z",
+        "evaluatedAt": "2026-09-26T06:53:16.108Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3482,12 +4761,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.034Z",
+          "evaluatedAt": "2026-09-26T06:53:16.108Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -3500,7 +4779,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.034Z",
+          "evaluatedAt": "2026-09-26T06:53:16.108Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3513,12 +4792,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/pr-to-video",
       "relPath": "skills/pr-to-video",
       "verified": true,
-      "tokenCount": 9886,
+      "tokenCount": 10141,
       "evalSummary": {
         "overallScore": 67,
         "grade": "C",
@@ -3584,7 +4865,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.039Z",
+        "evaluatedAt": "2026-09-26T06:53:16.116Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3657,12 +4938,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.040Z",
+          "evaluatedAt": "2026-09-26T06:53:16.117Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -3675,7 +4956,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.040Z",
+          "evaluatedAt": "2026-09-26T06:53:16.117Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3688,12 +4969,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/product-launch-video",
       "relPath": "skills/product-launch-video",
       "verified": true,
-      "tokenCount": 10009,
+      "tokenCount": 10284,
       "evalSummary": {
         "overallScore": 68,
         "grade": "C",
@@ -3759,7 +5042,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.048Z",
+        "evaluatedAt": "2026-09-26T06:53:16.137Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3832,12 +5115,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.049Z",
+          "evaluatedAt": "2026-09-26T06:53:16.138Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -3850,7 +5133,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.049Z",
+          "evaluatedAt": "2026-09-26T06:53:16.138Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3863,12 +5146,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/remotion-to-hyperframes",
       "relPath": "skills/remotion-to-hyperframes",
       "verified": true,
-      "tokenCount": 2754,
+      "tokenCount": 3094,
       "evalSummary": {
         "overallScore": 75,
         "grade": "C",
@@ -3934,7 +5219,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.118Z",
+        "evaluatedAt": "2026-09-26T06:53:16.151Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3943,7 +5228,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -4003,16 +5288,16 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 4,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.121Z",
+          "evaluatedAt": "2026-09-26T06:53:16.151Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -4025,7 +5310,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.121Z",
+          "evaluatedAt": "2026-09-26T06:53:16.151Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4038,12 +5323,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:.claude/skills/seam-craft",
       "relPath": ".claude/skills/seam-craft",
       "verified": true,
-      "tokenCount": 1572,
+      "tokenCount": 1578,
       "evalSummary": {
         "overallScore": 61,
         "grade": "D",
@@ -4109,7 +5396,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.125Z",
+        "evaluatedAt": "2026-09-26T06:53:16.160Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4182,12 +5469,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.125Z",
+          "evaluatedAt": "2026-09-26T06:53:16.160Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -4200,7 +5487,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.125Z",
+          "evaluatedAt": "2026-09-26T06:53:16.160Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4213,14 +5500,16 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/slideshow",
       "relPath": "skills/slideshow",
       "verified": true,
-      "tokenCount": 10549,
+      "tokenCount": 10786,
       "evalSummary": {
-        "overallScore": 68,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -4250,7 +5539,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -4284,7 +5573,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.140Z",
+        "evaluatedAt": "2026-09-26T06:53:16.169Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4293,7 +5582,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 68,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -4323,7 +5612,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 9,
+              "score": 10,
               "max": 10
             },
             {
@@ -4357,12 +5646,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.142Z",
+          "evaluatedAt": "2026-09-26T06:53:16.169Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -4375,7 +5664,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.142Z",
+          "evaluatedAt": "2026-09-26T06:53:16.169Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4388,12 +5677,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:heygen-com/hyperframes:skills/talking-head-recut",
       "relPath": "skills/talking-head-recut",
       "verified": true,
-      "tokenCount": 24249,
+      "tokenCount": 24417,
       "evalSummary": {
         "overallScore": 64,
         "grade": "D",
@@ -4459,7 +5750,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:13.148Z",
+        "evaluatedAt": "2026-09-26T06:53:16.179Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4532,12 +5823,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.148Z",
+          "evaluatedAt": "2026-09-26T06:53:16.182Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -4550,7 +5841,184 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:13.148Z",
+          "evaluatedAt": "2026-09-26T06:53:16.182Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "wireframe-portal-title",
+      "description": "A wireframe portal bursts open, the title comes through, then its letters swap into a second phrase. HyperFrames block, 1920×1080, 8s, 9 variables.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:heygen-com/hyperframes:registry/blocks/wireframe-portal-title",
+      "relPath": "registry/blocks/wireframe-portal-title",
+      "verified": true,
+      "tokenCount": 1374,
+      "evalSummary": {
+        "overallScore": 61,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-26T06:53:16.186Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 59,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:16.187Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:16.187Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4562,7 +6030,7 @@
       "name": "heygen-com-hyperframes-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-08-21T09:21:13.272Z",
+      "createdAt": "2026-09-26T06:53:16.492Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4583,6 +6051,12 @@
           "name": "changelog-video",
           "installUrl": "github:heygen-com/hyperframes:.claude/skills/changelog-video",
           "description": "Turn a weekly changelog .md into a finished branded changelog video (square 1080, ~45-60s, Annie VO, animated brand background, mock-UI visualizations, lowkey captions). Use when the user provides a changelog/digest markdown and wants the weekly video, or says \"changelog video\". Self-contained — fonts, background, lexicon, and scripts ship in this skill.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "cuboid-carousel",
+          "installUrl": "github:heygen-com/hyperframes:registry/blocks/cuboid-carousel",
+          "description": "A chain of bevelled cuboids rides a travelling wave as a content carousel. HyperFrames block, 1920×1080, 6.666666666666667s, 40 variables.",
           "version": "0.0.0"
         },
         {
@@ -4618,25 +6092,37 @@
         {
           "name": "hyperframes-audio",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-audio",
-          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), or automation envelopes drawn on a track's volume or any effect parameter. Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
+          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), automation envelopes drawn on a track's volume or any effect parameter, or one submix bus carrying a chain, a fader and an automation clock for several tracks at once (`<hf-audio-group>`). Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
           "version": "0.0.0"
         },
         {
           "name": "hyperframes-cli",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-cli",
-          "description": "Use the HyperFrames CLI development loop: init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, present, beats, keyframes, single or batch render, publish, cloud, cloudrun, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, docs, benchmark, telemetry, transcribe, auth, tts, and remove-background. Also use when diagnosing build or render failures. validate, inspect, and layout are deprecated aliases; use check. Covers local, HeyGen-hosted cloud, AWS Lambda, and Google Cloud Run rendering.",
+          "description": "Use the HyperFrames CLI development loop: init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, present, beats, keyframes, single or batch render, publish, cloud, cloudrun, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, timeline, history, docs, benchmark, telemetry, transcribe, auth, tts, and remove-background. Also use when diagnosing build or render failures. validate, inspect, and layout are deprecated aliases; use check. Covers local, HeyGen-hosted cloud, AWS Lambda, and Google Cloud Run rendering.",
           "version": "0.0.0"
         },
         {
           "name": "hyperframes-core",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-core",
-          "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Also covers Tailwind projects and the STORYBOARD.md / SCRIPT.md plan formats. Read before writing composition HTML.",
+          "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Read before writing composition HTML.",
           "version": "0.0.0"
         },
         {
           "name": "hyperframes-keyframes",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-keyframes",
           "description": "Use when a HyperFrames composition needs a punch-in, punch-out, zoom, reframe, Ken Burns treatment, camera move, visual match/whip handoff, or other seek-safe 2D/3D keyframes; also for GSAP, CSS keyframes, Anime.js, WAAPI, FLIP, paths, masks, SVG morph/draw, text trails, 3D depth, or `hyperframes keyframes` diagnostics. Don't use for broad scene strategy, brand design, media sourcing, captions, or general video planning.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes-registry",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-registry",
+          "description": "Search, install, and wire registry blocks and components into HyperFrames compositions. Use BEFORE hand-building any named visual — whenever a brief, a user, or a storyboard names a look, effect, treatment, or transition such as CRT scanlines, glitch, chromatic aberration, film grain, a shimmer sweep, a chart, a code or terminal window, a map, or a confetti burst — because roughly 400 hosted items already cover many of them and the search ranks all of them with nothing installed, no project, and no account. Also use when running hyperframes add or hyperframes catalog, installing one item or every block matching a tag, wiring an installed item into index.html, or working with hyperframes.json. Covers discovery, install locations, block sub-composition wiring, component snippet merging, and authoring a new block or component to contribute upstream (idea → scaffold → validate → PR).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes-studio",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-studio",
+          "description": "Use when building or editing a HyperFrames project that people open in Studio: how the timeline should be laid out so it reads well (one caption track, one element kind per track, every scene a sub-composition) and where captions and key content may sit (safe zones). Don't use for how to perform an individual edit (split, trim, retime, volume, copy, swap): that is `creator-editing-recipes.md` in `/hyperframes-core`.",
           "version": "0.0.0"
         },
         {
@@ -4694,7 +6180,7 @@
       "name": "heygen-com-hyperframes-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-08-21T09:21:13.272Z",
+      "createdAt": "2026-09-26T06:53:16.492Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4744,13 +6230,13 @@
         {
           "name": "hyperframes-audio",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-audio",
-          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), or automation envelopes drawn on a track's volume or any effect parameter. Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
+          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), automation envelopes drawn on a track's volume or any effect parameter, or one submix bus carrying a chain, a fader and an automation clock for several tracks at once (`<hf-audio-group>`). Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
           "version": "0.0.0"
         },
         {
           "name": "hyperframes-cli",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-cli",
-          "description": "Use the HyperFrames CLI development loop: init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, present, beats, keyframes, single or batch render, publish, cloud, cloudrun, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, docs, benchmark, telemetry, transcribe, auth, tts, and remove-background. Also use when diagnosing build or render failures. validate, inspect, and layout are deprecated aliases; use check. Covers local, HeyGen-hosted cloud, AWS Lambda, and Google Cloud Run rendering.",
+          "description": "Use the HyperFrames CLI development loop: init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, present, beats, keyframes, single or batch render, publish, cloud, cloudrun, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, timeline, history, docs, benchmark, telemetry, transcribe, auth, tts, and remove-background. Also use when diagnosing build or render failures. validate, inspect, and layout are deprecated aliases; use check. Covers local, HeyGen-hosted cloud, AWS Lambda, and Google Cloud Run rendering.",
           "version": "0.0.0"
         },
         {
@@ -4763,6 +6249,12 @@
           "name": "hyperframes-keyframes",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-keyframes",
           "description": "Use when a HyperFrames composition needs a punch-in, punch-out, zoom, reframe, Ken Burns treatment, camera move, visual match/whip handoff, or other seek-safe 2D/3D keyframes; also for GSAP, CSS keyframes, Anime.js, WAAPI, FLIP, paths, masks, SVG morph/draw, text trails, 3D depth, or `hyperframes keyframes` diagnostics. Don't use for broad scene strategy, brand design, media sourcing, captions, or general video planning.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes-studio",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-studio",
+          "description": "Use when building or editing a HyperFrames project that people open in Studio: how the timeline should be laid out so it reads well (one caption track, one element kind per track, every scene a sub-composition) and where captions and key content may sit (safe zones). Don't use for how to perform an individual edit (split, trim, retime, volume, copy, swap): that is `creator-editing-recipes.md` in `/hyperframes-core`.",
           "version": "0.0.0"
         },
         {
@@ -4820,7 +6312,7 @@
       "name": "heygen-com-hyperframes-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-08-21T09:21:13.272Z",
+      "createdAt": "2026-09-26T06:53:16.492Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4835,6 +6327,12 @@
           "name": "captions-overlay",
           "installUrl": "github:heygen-com/hyperframes:.claude/skills/captions-overlay",
           "description": "Overlay doctrine for the embedded-captions workflow — the caption MODEL (drop / rail / embed) and the rule that captions are an OVERLAY composited on top of the film, never a reserved bottom band you shift content up to avoid. Load when adding captions/subtitles to a talking-head or launch video, when deciding whether a phrase should be dropped, ride the verbatim rail, or be promoted to a scarce embedded climax, when laying out a composition that will carry captions (do NOT reserve a keep-out band), or when centering a composition on the true frame center under captions. Quotes the rail+embed model from embedded-captions and constraint #13 (captions overlay, keep-out band retired) from the product-launch-video scene agent. Applies ON TOP of embedded-captions.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "code-slice-hero",
+          "installUrl": "github:heygen-com/hyperframes:registry/blocks/code-slice-hero",
+          "description": "A tiled headline surface flips cell by cell under a sweeping depth field to reveal the rear headline. HyperFrames block, 1920×1080, 8s, 18 variables.",
           "version": "0.0.0"
         },
         {
@@ -4864,25 +6362,37 @@
         {
           "name": "hyperframes-audio",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-audio",
-          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), or automation envelopes drawn on a track's volume or any effect parameter. Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
+          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), automation envelopes drawn on a track's volume or any effect parameter, or one submix bus carrying a chain, a fader and an automation clock for several tracks at once (`<hf-audio-group>`). Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
           "version": "0.0.0"
         },
         {
           "name": "hyperframes-cli",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-cli",
-          "description": "Use the HyperFrames CLI development loop: init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, present, beats, keyframes, single or batch render, publish, cloud, cloudrun, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, docs, benchmark, telemetry, transcribe, auth, tts, and remove-background. Also use when diagnosing build or render failures. validate, inspect, and layout are deprecated aliases; use check. Covers local, HeyGen-hosted cloud, AWS Lambda, and Google Cloud Run rendering.",
+          "description": "Use the HyperFrames CLI development loop: init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, present, beats, keyframes, single or batch render, publish, cloud, cloudrun, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, timeline, history, docs, benchmark, telemetry, transcribe, auth, tts, and remove-background. Also use when diagnosing build or render failures. validate, inspect, and layout are deprecated aliases; use check. Covers local, HeyGen-hosted cloud, AWS Lambda, and Google Cloud Run rendering.",
           "version": "0.0.0"
         },
         {
           "name": "hyperframes-core",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-core",
-          "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Also covers Tailwind projects and the STORYBOARD.md / SCRIPT.md plan formats. Read before writing composition HTML.",
+          "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Read before writing composition HTML.",
           "version": "0.0.0"
         },
         {
           "name": "hyperframes-keyframes",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-keyframes",
           "description": "Use when a HyperFrames composition needs a punch-in, punch-out, zoom, reframe, Ken Burns treatment, camera move, visual match/whip handoff, or other seek-safe 2D/3D keyframes; also for GSAP, CSS keyframes, Anime.js, WAAPI, FLIP, paths, masks, SVG morph/draw, text trails, 3D depth, or `hyperframes keyframes` diagnostics. Don't use for broad scene strategy, brand design, media sourcing, captions, or general video planning.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes-registry",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-registry",
+          "description": "Search, install, and wire registry blocks and components into HyperFrames compositions. Use BEFORE hand-building any named visual — whenever a brief, a user, or a storyboard names a look, effect, treatment, or transition such as CRT scanlines, glitch, chromatic aberration, film grain, a shimmer sweep, a chart, a code or terminal window, a map, or a confetti burst — because roughly 400 hosted items already cover many of them and the search ranks all of them with nothing installed, no project, and no account. Also use when running hyperframes add or hyperframes catalog, installing one item or every block matching a tag, wiring an installed item into index.html, or working with hyperframes.json. Covers discovery, install locations, block sub-composition wiring, component snippet merging, and authoring a new block or component to contribute upstream (idea → scaffold → validate → PR).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes-studio",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-studio",
+          "description": "Use when building or editing a HyperFrames project that people open in Studio: how the timeline should be laid out so it reads well (one caption track, one element kind per track, every scene a sub-composition) and where captions and key content may sit (safe zones). Don't use for how to perform an individual edit (split, trim, retime, volume, copy, swap): that is `creator-editing-recipes.md` in `/hyperframes-core`.",
           "version": "0.0.0"
         },
         {
@@ -4934,7 +6444,7 @@
       "name": "heygen-com-hyperframes-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-08-21T09:21:13.272Z",
+      "createdAt": "2026-09-26T06:53:16.492Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4976,6 +6486,12 @@
           "version": "0.0.0"
         },
         {
+          "name": "frost-sequence-camera-orbit",
+          "installUrl": "github:heygen-com/hyperframes:registry/blocks/frost-sequence-camera-orbit",
+          "description": "An orbiting camera follows an ice logo as it breaks apart, reforms into two text moments, and fades. HyperFrames block, 1920×1080, 22.5s, 216 variables.",
+          "version": "0.0.0"
+        },
+        {
           "name": "general-video",
           "installUrl": "github:heygen-com/hyperframes:skills/general-video",
           "description": "Author or edit a custom HyperFrames composition when no specialized workflow fits, or when BRIEF.md sets flow: companion. Use for longer or multi-scene pieces, brand and sizzle reels, montages, static loops, static title cards, footage remixes, and freeform builds. Use motion-graphics instead for a short unnarrated motion-first unit, including an animated title. Route fresh creation through hyperframes before using this skill.",
@@ -4996,19 +6512,19 @@
         {
           "name": "hyperframes-audio",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-audio",
-          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), or automation envelopes drawn on a track's volume or any effect parameter. Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
+          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), automation envelopes drawn on a track's volume or any effect parameter, or one submix bus carrying a chain, a fader and an automation clock for several tracks at once (`<hf-audio-group>`). Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
           "version": "0.0.0"
         },
         {
           "name": "hyperframes-cli",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-cli",
-          "description": "Use the HyperFrames CLI development loop: init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, present, beats, keyframes, single or batch render, publish, cloud, cloudrun, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, docs, benchmark, telemetry, transcribe, auth, tts, and remove-background. Also use when diagnosing build or render failures. validate, inspect, and layout are deprecated aliases; use check. Covers local, HeyGen-hosted cloud, AWS Lambda, and Google Cloud Run rendering.",
+          "description": "Use the HyperFrames CLI development loop: init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, present, beats, keyframes, single or batch render, publish, cloud, cloudrun, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, timeline, history, docs, benchmark, telemetry, transcribe, auth, tts, and remove-background. Also use when diagnosing build or render failures. validate, inspect, and layout are deprecated aliases; use check. Covers local, HeyGen-hosted cloud, AWS Lambda, and Google Cloud Run rendering.",
           "version": "0.0.0"
         },
         {
           "name": "hyperframes-core",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-core",
-          "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Also covers Tailwind projects and the STORYBOARD.md / SCRIPT.md plan formats. Read before writing composition HTML.",
+          "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Read before writing composition HTML.",
           "version": "0.0.0"
         },
         {
@@ -5026,7 +6542,13 @@
         {
           "name": "hyperframes-registry",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-registry",
-          "description": "Install, discover, and wire registry blocks and components into HyperFrames compositions. Use when running hyperframes add or hyperframes catalog, installing one item or every block matching a tag, wiring an installed item into index.html, or working with hyperframes.json. Covers discovery, install locations, block sub-composition wiring, component snippet merging, and authoring a new block or component to contribute upstream (idea → scaffold → validate → PR).",
+          "description": "Search, install, and wire registry blocks and components into HyperFrames compositions. Use BEFORE hand-building any named visual — whenever a brief, a user, or a storyboard names a look, effect, treatment, or transition such as CRT scanlines, glitch, chromatic aberration, film grain, a shimmer sweep, a chart, a code or terminal window, a map, or a confetti burst — because roughly 400 hosted items already cover many of them and the search ranks all of them with nothing installed, no project, and no account. Also use when running hyperframes add or hyperframes catalog, installing one item or every block matching a tag, wiring an installed item into index.html, or working with hyperframes.json. Covers discovery, install locations, block sub-composition wiring, component snippet merging, and authoring a new block or component to contribute upstream (idea → scaffold → validate → PR).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes-studio",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-studio",
+          "description": "Use when building or editing a HyperFrames project that people open in Studio: how the timeline should be laid out so it reads well (one caption track, one element kind per track, every scene a sub-composition) and where captions and key content may sit (safe zones). Don't use for how to perform an individual edit (split, trim, retime, volume, copy, swap): that is `creator-editing-recipes.md` in `/hyperframes-core`.",
           "version": "0.0.0"
         },
         {
@@ -5096,7 +6618,7 @@
       "name": "heygen-com-hyperframes-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-08-21T09:21:13.272Z",
+      "createdAt": "2026-09-26T06:53:16.492Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5128,7 +6650,7 @@
         {
           "name": "hyperframes-audio",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-audio",
-          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), or automation envelopes drawn on a track's volume or any effect parameter. Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
+          "description": "Use when audio already placed in a HyperFrames composition needs to be mixed: fade-in/fade-out, crossfade, track gain or volume, volume automation, ducking, a music bed that fights a voiceover (voiceover carve), effects on a track (EQ, compressor, limiter, gate, saturation, delay, reverb, chorus, phaser, bitcrush), automation envelopes drawn on a track's volume or any effect parameter, or one submix bus carrying a chain, a fader and an automation clock for several tracks at once (`<hf-audio-group>`). Don't use for sourcing or generating audio — finding BGM, SFX, or making a voiceover is `/media-use`. Don't use for clip timing or track layout, which is `/hyperframes-core`.",
           "version": "0.0.0"
         },
         {
@@ -5141,6 +6663,12 @@
           "name": "hyperframes-keyframes",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-keyframes",
           "description": "Use when a HyperFrames composition needs a punch-in, punch-out, zoom, reframe, Ken Burns treatment, camera move, visual match/whip handoff, or other seek-safe 2D/3D keyframes; also for GSAP, CSS keyframes, Anime.js, WAAPI, FLIP, paths, masks, SVG morph/draw, text trails, 3D depth, or `hyperframes keyframes` diagnostics. Don't use for broad scene strategy, brand design, media sourcing, captions, or general video planning.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes-studio",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-studio",
+          "description": "Use when building or editing a HyperFrames project that people open in Studio: how the timeline should be laid out so it reads well (one caption track, one element kind per track, every scene a sub-composition) and where captions and key content may sit (safe zones). Don't use for how to perform an individual edit (split, trim, retime, volume, copy, swap): that is `creator-editing-recipes.md` in `/hyperframes-core`.",
           "version": "0.0.0"
         },
         {
@@ -5186,7 +6714,7 @@
       "name": "heygen-com-hyperframes-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-08-21T09:21:13.272Z",
+      "createdAt": "2026-09-26T06:53:16.492Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5252,7 +6780,7 @@
       "name": "heygen-com-hyperframes-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-08-21T09:21:13.272Z",
+      "createdAt": "2026-09-26T06:53:16.492Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5272,7 +6800,7 @@
         {
           "name": "hyperframes-cli",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-cli",
-          "description": "Use the HyperFrames CLI development loop: init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, present, beats, keyframes, single or batch render, publish, cloud, cloudrun, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, docs, benchmark, telemetry, transcribe, auth, tts, and remove-background. Also use when diagnosing build or render failures. validate, inspect, and layout are deprecated aliases; use check. Covers local, HeyGen-hosted cloud, AWS Lambda, and Google Cloud Run rendering.",
+          "description": "Use the HyperFrames CLI development loop: init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, present, beats, keyframes, single or batch render, publish, cloud, cloudrun, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, timeline, history, docs, benchmark, telemetry, transcribe, auth, tts, and remove-background. Also use when diagnosing build or render failures. validate, inspect, and layout are deprecated aliases; use check. Covers local, HeyGen-hosted cloud, AWS Lambda, and Google Cloud Run rendering.",
           "version": "0.0.0"
         },
         {
@@ -5294,7 +6822,7 @@
       "name": "heygen-com-hyperframes-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from heygen-com/hyperframes.",
       "author": "ASM (heygen-com/hyperframes)",
-      "createdAt": "2026-08-21T09:21:13.272Z",
+      "createdAt": "2026-09-26T06:53:16.492Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -5312,6 +6840,12 @@
           "version": "0.0.0"
         },
         {
+          "name": "cuboid-carousel",
+          "installUrl": "github:heygen-com/hyperframes:registry/blocks/cuboid-carousel",
+          "description": "A chain of bevelled cuboids rides a travelling wave as a content carousel. HyperFrames block, 1920×1080, 6.666666666666667s, 40 variables.",
+          "version": "0.0.0"
+        },
+        {
           "name": "faceless-explainer",
           "installUrl": "github:heygen-com/hyperframes:skills/faceless-explainer",
           "description": "Turn arbitrary text — an article, notes, a topic, a brief — into a faceless explainer video: there is no site or footage to capture, so the visuals are invented per scene (typography, abstract graphics, diagrams, data-viz). Use for topic explainers, concept breakdowns, how-tos, listicles. Not a video built from a website (/product-launch-video — promo or tour). Unclear → /hyperframes.",
@@ -5326,13 +6860,19 @@
         {
           "name": "hyperframes-cli",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-cli",
-          "description": "Use the HyperFrames CLI development loop: init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, present, beats, keyframes, single or batch render, publish, cloud, cloudrun, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, docs, benchmark, telemetry, transcribe, auth, tts, and remove-background. Also use when diagnosing build or render failures. validate, inspect, and layout are deprecated aliases; use check. Covers local, HeyGen-hosted cloud, AWS Lambda, and Google Cloud Run rendering.",
+          "description": "Use the HyperFrames CLI development loop: init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, present, beats, keyframes, single or batch render, publish, cloud, cloudrun, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, timeline, history, docs, benchmark, telemetry, transcribe, auth, tts, and remove-background. Also use when diagnosing build or render failures. validate, inspect, and layout are deprecated aliases; use check. Covers local, HeyGen-hosted cloud, AWS Lambda, and Google Cloud Run rendering.",
           "version": "0.0.0"
         },
         {
           "name": "hyperframes-core",
           "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-core",
-          "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Also covers Tailwind projects and the STORYBOARD.md / SCRIPT.md plan formats. Read before writing composition HTML.",
+          "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Read before writing composition HTML.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "hyperframes-studio",
+          "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-studio",
+          "description": "Use when building or editing a HyperFrames project that people open in Studio: how the timeline should be laid out so it reads well (one caption track, one element kind per track, every scene a sub-composition) and where captions and key content may sit (safe zones). Don't use for how to perform an individual edit (split, trim, retime, volume, copy, swap): that is `creator-editing-recipes.md` in `/hyperframes-core`.",
           "version": "0.0.0"
         },
         {

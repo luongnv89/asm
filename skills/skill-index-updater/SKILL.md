@@ -6,7 +6,7 @@ compatibility: Claude Code
 allowed-tools: Bash Read Write Edit Grep Glob WebFetch Agent
 effort: high
 metadata:
-  version: 1.3.0
+  version: 2.0.0
   author: luongnv89
 ---
 
@@ -53,6 +53,10 @@ Normalize all inputs to extract `owner` and `repo`.
 
 Follow these steps in order. Each step has a verification check — do not proceed to the next step if verification fails.
 
+You are the **orchestrator**. Steps 2 and 3 are the heavy ones, and you delegate both: each names the slice of `references/` its worker needs and hands that slice over as the worker's `Input`. In those two steps you never clone a repo, read a `SKILL.md`, or run `asm eval` yourself, and you never open the two contract files — the workers do. (Step 7's manual-generation fallback is the one place you may call `asm eval` directly.)
+
+**No Agent tool?** Degrade gracefully: read `references/discovery-contract.md` and `references/audit-eval-contract.md` yourself, run Steps 2 and 3 inline, in order, and say so in the Step 9 summary. The pipeline is identical; only the context cost changes.
+
 ### Step 1: Parse and Validate Input URLs
 
 For each URL provided:
@@ -73,62 +77,29 @@ Output a summary table:
 
 If ALL repos are invalid, stop and tell the user.
 
-### Step 2: Discover Skills in Each Repository
+### Step 2: Discover Skills in Each Repository (workers, one per repo)
 
-For each valid repository, clone it to a temp directory and scan for SKILL.md files (up to 5 levels deep). This is what the ASM tool does internally, and we replicate the logic here:
+Spawn one discovery worker per valid repo, **in the same turn** so they run concurrently. Each worker's contract:
 
-```bash
-# Clone to temp
-TEMP_DIR=$(mktemp -d)
-git clone --depth 1 "https://github.com/{owner}/{repo}.git" "$TEMP_DIR/{repo}"
+- Input: `references/discovery-contract.md`, plus that repo's `owner` and `repo`
+- Output: the fixed JSON in that contract — `{owner, repo, tempRoot, clonePath, status, error, skills[]}`, one object per repo
+- You do NOT read `references/discovery-contract.md` yourself; the worker does
 
-# Find SKILL.md files (max 5 levels deep, matching ASM's discoverSkills)
-find "$TEMP_DIR/{repo}" -maxdepth 5 -name "SKILL.md" -type f
-```
+Keep every worker's `tempRoot` and `clonePath`: Step 3 runs against the clone, Cleanup deletes the `tempRoot`. There is no shared `$TEMP_DIR` in your shell — the clones were made in the workers'.
 
-`discoverSkills` (used by `asm index ingest` and preindex) indexes a **root** `SKILL.md` when present **and** continues scanning subdirectories for additional skills. A repo with both root and nested skills should list every skill in the index entry — not only the root.
+Report how many skills were found per repo. A repo that comes back `status: "no-skills"` gets flagged — ask the user whether to include it anyway (it might have skills added later). A repo that comes back `status: "clone-failed"` is skipped with its `error` reported; the other repos continue.
 
-For each discovered SKILL.md, parse the YAML frontmatter to extract:
+### Step 3: Audit and Evaluate Discovered Skills (workers, one per batch)
 
-- `name` (required)
-- `description` (required)
-- `version` (defaults to "0.0.0")
-- `license`
-- `creator`
-- `compatibility`
-- `allowed-tools` / `allowedTools`
+Spawn one audit worker per repo — or per batch of ~20 skills for a large repo — again in the same turn. Each worker's contract:
 
-Report how many skills were found per repo. If a repo has **zero** SKILL.md files, flag it and ask the user whether to still include it (it might have skills added later).
-
-### Step 3: Audit and Evaluate Discovered Skills
-
-For each discovered skill, perform two checks — a lightweight audit **and** a quality evaluation using `asm eval`. Both run against the temp clone from Step 2; do not re-clone.
-
-#### 3a. Lightweight audit
-
-1. **Frontmatter completeness**: Does it have at minimum `name` and `description`?
-2. **Content check**: Does the SKILL.md have meaningful instruction content (not just frontmatter)?
-3. **Security scan**: Check for suspicious patterns in the skill files:
-   - Shell execution (`exec`, `spawn`, `child_process`, `bash -c`)
-   - Network access (`curl`, `wget`, `fetch(`, `axios`)
-   - Credential patterns (`API_KEY=`, `SECRET_KEY=`, `PASSWORD=`)
-   - Obfuscation (`atob(`, base64 encoded strings, hex escape sequences)
-
-This is a lightweight check — the full security audit runs when users install individual skills via `asm install`. The goal here is to catch obvious red flags before adding a repo to the curated index.
-
-#### 3b. Quality evaluation with `asm eval`
-
-Run `asm eval` on each discovered skill directory and capture the JSON report. This gives reviewers a quality signal (structure, description, prompt engineering, safety, testability, naming) **before** the repo lands in the index, so they can spot obvious quality issues early:
-
-```bash
-asm eval "$TEMP_DIR/{repo}/{relPath}" --json
-```
-
-The JSON report contains `overallScore` (0-100), a letter `grade` (A/B/C/D/F), and a `categories[]` array with per-category scores. You do not need to re-run eval during indexing — `npm run preindex` (Step 7) invokes the evaluator via the ingester and writes `evalSummary` + `tokenCount` into `data/skill-index/{owner}_{repo}.json` automatically. The explicit run here is for **pre-commit visibility** only.
+- Input: `references/audit-eval-contract.md`, that repo's `clonePath` from Step 2, and the `relPath` list for its batch
+- Output: the fixed JSON array in that contract — one object per skill, `{relPath, name, auditStatus, notes[], overallScore, grade}`
+- You do NOT read `references/audit-eval-contract.md` yourself, and no worker re-clones: they run against the Step 2 clones
 
 #### Combined report
 
-Merge both checks into a single table so the user can see quality and safety at a glance:
+Merge the workers' JSON — no re-reading of any skill file — into one table so the user sees quality and safety at a glance:
 
 ```
 Repo: owner/repo (N skills discovered)
@@ -237,7 +208,7 @@ If `npm run preindex` fails or takes too long, generate the index file manually 
 
 The `installUrl` format matters — it's how `asm install` locates skills. For single-skill repos (SKILL.md at root), omit the path portion. For multi-skill repos, include the relative path to the skill directory.
 
-If you fall back to manual generation, you can populate `tokenCount` and `evalSummary` by calling `asm eval <path> --json` on each skill directory and lifting the `overallScore`, `grade`, `categories`, `evaluatedAt` fields into the skill entry. When `preindex` succeeds, the ingester handles this for you automatically.
+If you fall back to manual generation, you can populate `tokenCount` and `evalSummary` by calling `asm eval <clonePath>/<relPath> --json` on each skill directory — both values come from that repo's Step 2 worker result, and a root-level skill has an empty `relPath`, so its path is just `clonePath` — and lifting the `overallScore`, `grade`, `categories`, `evaluatedAt` fields into the skill entry. When `preindex` succeeds, the ingester handles this for you automatically.
 
 ### Step 8: Rebuild Website Catalog
 
@@ -325,25 +296,32 @@ EOF
 
 Each row names a condition, the step that owns it, and the required response. When in doubt, surface the issue to the user rather than silently dropping a repo — the reviewer policy is **permissive** but **transparent**.
 
-| Condition                                                           | Response                                                                                          |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| **Repo URL is a 404 / private repo**                                | Mark `INVALID` in the Step 1 table and skip; don't abort if other URLs are valid.                 |
-| **Git clone fails**                                                 | Skip that repo, report the error, continue with the others.                                       |
-| **Repo has zero SKILL.md files**                                    | Flag it in Step 2 and ask whether to include anyway (some repos seed empty and add skills later). |
-| **Repo has 50+ SKILL.md files**                                     | Keep going, but warn about runtime — `asm eval` over many skills is slow.                         |
-| **Repo already in index, unchanged**                                | Report `EXISTS, no diff` and skip index regeneration for that repo.                               |
-| **Repo already in index, breaking changes** (skill removed/renamed) | Show a diff in Step 4 and require explicit user confirmation before overwriting.                  |
-| **`npm run preindex` missing or fails**                             | Fall back to manual generation per Step 7; do not block the PR.                                   |
-| **`npx tsx scripts/build-catalog.ts` fails**                        | Stop in Step 8 — structural; a PR with a broken catalog must not land.                            |
-| **`gh` not authenticated**                                          | Prompt `gh auth login`; do not attempt to push without auth.                                      |
-| **`gh pr create` fails** (auth, network, missing remote)            | Print the committed SHA so the user can push and open the PR manually.                            |
-| **Non-GitHub URL** (GitLab, Bitbucket)                              | Reject in Step 1 — this skill only indexes github.com.                                            |
-| **URL to a single skill subdirectory** (`.../tree/main/skills/foo`) | Treat as the parent repo URL; let Step 2's discoverer pick up just that skill.                    |
+| Condition                                                           | Response                                                                                                                               |
+| ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| **Repo URL is a 404 / private repo**                                | Mark `INVALID` in the Step 1 table and skip; don't abort if other URLs are valid.                                                      |
+| **Git clone fails**                                                 | The Step 2 worker returns `status: clone-failed`; skip that repo, report its `error`, continue with the others.                        |
+| **Repo has zero SKILL.md files**                                    | The Step 2 worker returns `status: no-skills`; flag it and ask whether to include anyway (some repos seed empty and add skills later). |
+| **Repo has 50+ SKILL.md files**                                     | Keep going, but warn about runtime — `asm eval` over many skills is slow.                                                              |
+| **Repo already in index, unchanged**                                | Report `EXISTS, no diff` and skip index regeneration for that repo.                                                                    |
+| **Repo already in index, breaking changes** (skill removed/renamed) | Show a diff in Step 4 and require explicit user confirmation before overwriting.                                                       |
+| **`npm run preindex` missing or fails**                             | Fall back to manual generation per Step 7; do not block the PR.                                                                        |
+| **`npx tsx scripts/build-catalog.ts` fails**                        | Stop in Step 8 — structural; a PR with a broken catalog must not land.                                                                 |
+| **`gh` not authenticated**                                          | Prompt `gh auth login`; do not attempt to push without auth.                                                                           |
+| **`gh pr create` fails** (auth, network, missing remote)            | Print the committed SHA so the user can push and open the PR manually.                                                                 |
+| **Non-GitHub URL** (GitLab, Bitbucket)                              | Reject in Step 1 — this skill only indexes github.com.                                                                                 |
+| **URL to a single skill subdirectory** (`.../tree/main/skills/foo`) | Treat as the parent repo URL; let the Step 2 worker pick up just that skill.                                                           |
+| **Agent tool unavailable**                                          | Read both contract files yourself, run Steps 2 and 3 inline, and say so in the Step 9 summary.                                         |
 
 ## Cleanup
 
-After completion, remove any temp directories used for cloning:
+After completion, delete every temp directory Step 2 made. When Step 2 was delegated, use the `tempRoot` each worker returned verbatim — the clones live in the workers' temp directories, so there is no `$TEMP_DIR` in your shell to remove. If you ran Step 2 inline because the Agent tool was unavailable, the `mktemp -d` directory is your own: remove that one instead. Either way, never derive the target from `clonePath`:
 
 ```bash
-rm -rf "$TEMP_DIR"
+# one per repo, the tempRoot from that repo's Step 2 result
+rm -rf "<tempRoot>"
 ```
+
+## References
+
+- `references/discovery-contract.md` — the Step 2 worker's slice: clone, discover, and report every SKILL.md as fixed JSON (including the `tempRoot` Cleanup deletes)
+- `references/audit-eval-contract.md` — the Step 3 worker's slice: lightweight audit + `asm eval`, returned as fixed JSON rows

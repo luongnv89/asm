@@ -112,7 +112,19 @@ function mockFetch() {
       return { ok: true, text: async () => buildIndexJson() };
     }
     if (path.endsWith("repo-stats.json")) {
-      return { ok: true, json: async () => ({ stats: [] }) };
+      return {
+        ok: true,
+        json: async () => ({
+          stats: [
+            {
+              owner: "alice",
+              repo: "repo",
+              repoUrl: "https://github.com/alice/repo",
+              skillCount: 2,
+            },
+          ],
+        }),
+      };
     }
     if (path.endsWith("author-stats.json")) {
       return { ok: true, json: async () => authorStats };
@@ -173,6 +185,20 @@ describe("StatsPage — author view and pie chart (issue #351)", () => {
     expect(screen.getAllByText("dev").length).toBeGreaterThan(0);
     expect(screen.getByText("docs")).toBeTruthy();
     expect(screen.getByText("testing")).toBeTruthy();
+  });
+
+  it("links Top Repositories rows to the repo detail page (issue #623)", async () => {
+    renderStatsPage();
+    await waitFor(() => {
+      expect(screen.getByText("Top Repositories")).toBeTruthy();
+    });
+
+    const internal = screen.getByRole("link", { name: "alice/repo" });
+    expect(internal.getAttribute("href")).toBe("#/repos/alice/repo");
+    // GitHub stays as a secondary external link.
+    const external = screen.getByRole("link", { name: "GitHub" });
+    expect(external.getAttribute("href")).toBe("https://github.com/alice/repo");
+    expect(external.getAttribute("target")).toBe("_blank");
   });
 
   it("renders at most ten ranked skills in artifact order with detail links", async () => {

@@ -2,6 +2,16 @@
  * `asm install` command body.
  * Split from commands/install.ts (issue #455); helpers live in
  * `install-inspect.ts`.
+ *
+ * Note (#677): this file stays above the ~700-line guideline on purpose.
+ * `cmdInstall` is a single sequential pipeline — registry resolution,
+ * source parsing, provider/scope selection, clone/discovery, and install —
+ * whose steps share mutable locals (`scanBaseDir`, `effectivePath`,
+ * `cleanup`, `stepHeader`, …). Extracting step bodies would require
+ * threading that state through new signatures — a behaviour-risking
+ * restructure, not a mechanical extraction. All reusable helpers already
+ * live in `install-inspect.ts` / `install-prompts.ts`; the remainder here
+ * is one cohesive flow and is intentionally left unsplit.
  */
 
 import { loadConfig, getLibrarySkillsDir } from "../config";
@@ -46,8 +56,10 @@ import {
 } from "../utils/machine";
 import { relative as relativePath } from "path";
 import { toPortableRelativePath } from "../utils/fs";
+import { errorMessage } from "../utils/errors";
 import { error, readLine } from "./shared";
 import type { ParsedArgs } from "../cli";
+import { promptInstallScope } from "./install-prompts";
 import type { SkillInspection } from "./install-inspect";
 import {
   printInstallHelp,
@@ -231,8 +243,8 @@ export async function cmdInstall(args: ParsedArgs) {
         if (!stats.isDirectory()) {
           throw new Error(`Path is not a directory: ${localPath}`);
         }
-      } catch (err: any) {
-        if (err.code === "ENOENT") {
+      } catch (err) {
+        if ((err as NodeJS.ErrnoException | null)?.code === "ENOENT") {
           throw new Error(`Path does not exist: ${localPath}`, { cause: err });
         }
         throw err;
@@ -306,46 +318,15 @@ export async function cmdInstall(args: ParsedArgs) {
       provider = resolved.provider;
       allProviders = resolved.allProviders;
 
-      // Step 3: Select scope (global or project)
+      // Step 3: Select scope (global or project) — shared preamble (#612)
       console.info(stepHeader("Selecting scope"));
-
-      if (args.flags.scope === "global" || args.flags.scope === "project") {
-        // Explicit --scope flag provided
-        installScope = args.flags.scope;
-        console.info(
-          `  ${ansi.dim(`scope: ${installScope}`)}${installScope === "global" ? ` (${provider.global})` : ` (${provider.project})`}`,
-        );
-      } else if (!process.stdin.isTTY || args.flags.yes) {
-        // Non-interactive mode: default to global
-        installScope = "global";
-        console.info(
-          `  ${ansi.dim(`scope: global (default)`)} (${provider.global})`,
-        );
-      } else {
-        // Interactive: prompt user to choose
-        const scopeItems = [
-          {
-            label: `Global (${provider.global})`,
-            hint: "Available in all projects",
-            checked: true,
-          },
-          {
-            label: `Project (${provider.project})`,
-            hint: "Available only in this project",
-            checked: false,
-          },
-        ];
-        console.info(""); // blank line before picker
-        const scopeIndices = await checkboxPicker({ items: scopeItems });
-        if (scopeIndices.length === 0) {
-          throw new Error("No scope selected. Aborting.");
-        }
-        // Use the first selected scope (single-select behavior)
-        installScope = scopeIndices[0] === 0 ? "global" : "project";
-        console.info(
-          `  Selected: ${ansi.bold(installScope)} ${ansi.dim(`(${installScope === "global" ? provider.global : provider.project})`)}`,
-        );
-      }
+      installScope = await promptInstallScope({
+        scopeFlag: args.flags.scope,
+        provider,
+        isTTY: !!process.stdin.isTTY,
+        yes: !!args.flags.yes,
+        log: (message: string) => console.info(message),
+      });
     }
 
     // Step 4: Clone repository (or read local source)
@@ -433,8 +414,8 @@ export async function cmdInstall(args: ParsedArgs) {
               `No SKILL.md found at path "${effectivePath}" in the repository.`,
             );
           }
-        } catch (statErr: any) {
-          if (statErr && statErr.code === "ENOENT") {
+        } catch (statErr) {
+          if ((statErr as NodeJS.ErrnoException | null)?.code === "ENOENT") {
             throw new Error(
               `No SKILL.md found at path "${effectivePath}" in the repository.`,
               { cause: statErr },
@@ -826,13 +807,14 @@ export async function cmdInstall(args: ParsedArgs) {
           } catch {
             // Lock write failure is non-fatal
           }
-        } catch (linkErr: any) {
+        } catch (linkErr) {
+          const linkMessage = errorMessage(linkErr);
           failures.push({
             name: inspection.metadata.name,
-            error: linkErr.message,
+            error: linkMessage,
           });
           console.error(
-            `${progress}${ansi.red("✗")} ${ansi.bold(inspection.metadata.name)} — ${ansi.red(linkErr.message)}`,
+            `${progress}${ansi.red("✗")} ${ansi.bold(inspection.metadata.name)} — ${ansi.red(linkMessage)}`,
           );
         }
         continue;
@@ -892,13 +874,14 @@ export async function cmdInstall(args: ParsedArgs) {
             // Lock write failure is non-fatal
           }
         }
-      } catch (installErr: any) {
+      } catch (installErr) {
+        const installMessage = errorMessage(installErr);
         failures.push({
           name: inspection.metadata.name,
-          error: installErr.message,
+          error: installMessage,
         });
         console.error(
-          `${progress}${ansi.red("✗")} ${ansi.bold(inspection.metadata.name)} — ${ansi.red(installErr.message)}`,
+          `${progress}${ansi.red("✗")} ${ansi.bold(inspection.metadata.name)} — ${ansi.red(installMessage)}`,
         );
       }
     }
@@ -956,10 +939,13 @@ export async function cmdInstall(args: ParsedArgs) {
         `\n${ansi.green(`Done! Installed ${results.length} skill(s) successfully.`)}`,
       );
     }
-  } catch (err: any) {
+  } catch (err) {
     // Remove signal handlers
     process.removeListener("SIGINT", cleanup);
     process.removeListener("SIGTERM", cleanup);
+
+    const message = errorMessage(err);
+    const duplicates = (err as { duplicates?: unknown } | null)?.duplicates;
 
     if (args.flags.machine) {
       restoreConsole?.();
@@ -967,22 +953,22 @@ export async function cmdInstall(args: ParsedArgs) {
         formatMachineError(
           "install",
           ErrorCodes.INSTALL_FAILED,
-          err.message,
+          message,
           startTime,
-          err?.duplicates ? { duplicates: err.duplicates } : undefined,
+          duplicates ? { duplicates } : undefined,
         ),
       );
     } else if (args.flags.json) {
       const payload: Record<string, unknown> = {
         success: false,
-        error: err.message,
+        error: message,
       };
-      if (err?.duplicates) {
-        payload.duplicates = err.duplicates;
+      if (duplicates) {
+        payload.duplicates = duplicates;
       }
       console.log(JSON.stringify(payload, null, 2));
     } else {
-      error(err.message);
+      error(message);
     }
     process.exit(1);
   } finally {

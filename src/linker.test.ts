@@ -39,7 +39,7 @@ Body content.
 
   it("throws for non-existent path", async () => {
     const nonExistent = join(tempDir, "nope");
-    expect(validateLinkSource(nonExistent)).rejects.toThrow(
+    await expect(validateLinkSource(nonExistent)).rejects.toThrow(
       "Path does not exist",
     );
   });
@@ -47,7 +47,7 @@ Body content.
   it("throws for path that is not a directory", async () => {
     const filePath = join(tempDir, "file.txt");
     await writeFile(filePath, "hello");
-    expect(validateLinkSource(filePath)).rejects.toThrow(
+    await expect(validateLinkSource(filePath)).rejects.toThrow(
       "Path is not a directory",
     );
   });
@@ -55,7 +55,9 @@ Body content.
   it("throws when no SKILL.md found", async () => {
     const emptyDir = join(tempDir, "empty");
     await mkdir(emptyDir);
-    expect(validateLinkSource(emptyDir)).rejects.toThrow("No SKILL.md found");
+    await expect(validateLinkSource(emptyDir)).rejects.toThrow(
+      "No SKILL.md found",
+    );
   });
 
   it("throws when SKILL.md has no name in frontmatter", async () => {
@@ -69,7 +71,7 @@ version: 1.0.0
 Body content.
 `,
     );
-    expect(validateLinkSource(skillDir)).rejects.toThrow("missing");
+    await expect(validateLinkSource(skillDir)).rejects.toThrow("missing");
   });
 
   it("defaults version to 0.0.0 when missing", async () => {
@@ -140,9 +142,9 @@ describe("createLink", () => {
     await mkdir(targetDir);
     await mkdir(existing);
 
-    expect(createLink(source, targetDir, "my-skill", false)).rejects.toThrow(
-      "Target already exists",
-    );
+    await expect(
+      createLink(source, targetDir, "my-skill", false),
+    ).rejects.toThrow("Target already exists");
   });
 
   it("overwrites when force is true", async () => {
@@ -250,7 +252,7 @@ describe("discoverLinkableSkills", () => {
 
   it("throws for non-existent path", async () => {
     const nonExistent = join(tempDir, "nope");
-    expect(discoverLinkableSkills(nonExistent)).rejects.toThrow(
+    await expect(discoverLinkableSkills(nonExistent)).rejects.toThrow(
       "Path does not exist",
     );
   });
@@ -258,7 +260,7 @@ describe("discoverLinkableSkills", () => {
   it("throws for path that is not a directory", async () => {
     const filePath = join(tempDir, "file.txt");
     await writeFile(filePath, "hello");
-    expect(discoverLinkableSkills(filePath)).rejects.toThrow(
+    await expect(discoverLinkableSkills(filePath)).rejects.toThrow(
       "Path is not a directory",
     );
   });

@@ -46,6 +46,25 @@ describe("HelpView", () => {
     expect(frame).toContain("Quit");
   });
 
+  it("renders the glyph/column legend", () => {
+    const { lastFrame } = render(<HelpView />);
+    const frame = lastFrame() ?? "";
+
+    expect(frame).toContain("Legend");
+    // `~` name prefix marks a symlinked install.
+    expect(frame).toContain("~");
+    expect(frame).toContain("symlinked skill");
+    // Type column values.
+    expect(frame).toContain("→link");
+    expect(frame).toContain("dir");
+    // Invoke column values.
+    expect(frame).toContain("Invoke");
+    expect(frame).toContain("both");
+    expect(frame).toContain("model");
+    expect(frame).toContain("user");
+    expect(frame).toContain("none");
+  });
+
   it("renders the version string from the version module", () => {
     const { lastFrame } = render(<HelpView />);
     expect(lastFrame()).toBeTruthy();

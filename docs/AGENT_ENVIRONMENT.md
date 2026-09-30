@@ -24,12 +24,11 @@ That is the authoritative range: Node **>= 22 and < 27**, npm **>= 9**. Note the
 **upper bound** — Node 27+ is outside the declared range.
 
 - CI (`.github/workflows/ci.yml`) runs unit tests and both e2e jobs on a Node
-  `22, 24` matrix; the `build` job pins Node `22`.
-- `docs/DEVELOPMENT.md` says "Node.js >= 18.0.0" with no upper bound. It is
-  out of step with `engines`; treat `engines` as correct.
-- **The measurements below were taken on Node `v26.7.0` / npm `11.19.0`** — above
-  the supported ceiling. They all passed, but any disagreement between these
-  numbers and a supported-Node run should be attributed to that first.
+  `22, 24, 26` matrix; the `build` job pins Node `22`.
+- `docs/DEVELOPMENT.md` and `CONTRIBUTING.md` state the same bounded range.
+  If they ever diverge from `engines`, treat `engines` as correct.
+- **The measurements below were taken on Node `v26.7.0` / npm `11.19.0`** —
+  inside the declared range.
 
 ## Install
 
@@ -44,7 +43,7 @@ npm install     # or `npm ci` for a lockfile-exact install (what CI uses)
 
 | Command             | Observed result                                                                                          | Wall time |
 | ------------------- | -------------------------------------------------------------------------------------------------------- | --------- |
-| `npm run build`     | **PASS** (exit 0) — `Built agent-skill-manager v2.16.0 (release-commit-hash)`, `11 output(s) in dist/`  | ~1 s      |
+| `npm run build`     | **PASS** (exit 0) — `Built agent-skill-manager v2.16.0 (release-commit-hash)`, `11 output(s) in dist/`   | ~1 s      |
 | `CI=true npm test`  | **PASS** (exit 0) — Test Files `60 passed (60)`, Tests **`2100 passed (2100)`**, vitest Duration 90.72 s | ~91 s     |
 | `npm run typecheck` | **PASS** (exit 0) — `tsc --noEmit`, no output                                                            | ~2 s      |
 | `npm run lint:site` | **PASS** (exit 0) — eslint over `website-src/src/**/*.{js,jsx}`, no findings                             | ~1 s      |
@@ -101,7 +100,7 @@ build steps, and they overwrite files that are committed:
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `npm run preindex`             | the per-repo JSONs under `data/skill-index/` — up to **56 of the 57 tracked files**: it iterates only repos marked `enabled` in `data/skill-index-resources.json` (`scripts/preindex.ts:24-28`), and `github:luongnv89/asm` is disabled, so `luongnv89_asm.json` is never rewritten. **Also rewrites your real `~/.config/agent-skill-manager/skill-index/`**: `ingestRepo()` writes there first and `preindex` copies the result into `data/` (`scripts/preindex.ts:42-54`). That mutation shows in no git diff — see Trap 2 |
 | `npm run refresh:repo-bundles` | the same directory: it walks **every** `*.json` in `data/skill-index/`, recomputes the `bundles` field, and writes back only the files whose serialization changed (`scripts/refresh-repo-bundles.ts:18-45`)                                                                                                                                                                                                                                                                                                                  |
-| `npm run build:website`        | `scripts/build-catalog.ts` + `vite build`. Tracked outputs: `website/repo-stats.json`, `website/author-stats.json`, `website/index-stats.json` (all three carry a `generatedAt` timestamp, so every run produces a diff), and `website/robots.txt`                                                                                                                                                                                                                                                                            |
+| `npm run build:website`        | `scripts/build-catalog.ts` + `vite build`. Tracked outputs: `website/repo-stats.json`, `website/author-stats.json`, `website/index-stats.json` (all three carry a `generatedAt` timestamp, so every run produces a diff), `website/robots.txt`, and `data/repo-stars.json` (last-known star counts, refreshed only when fetches succeed — commit it deliberately to keep the #598 fallback current)                                                                                                                           |
 
 Everything else `build:website` emits — `catalog.json`, `skills.min.json`,
 `search.idx.json`, `skills/*.json`, `bundles.json`, `llms.txt`, `sitemap.xml`,

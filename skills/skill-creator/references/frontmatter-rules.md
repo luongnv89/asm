@@ -64,7 +64,8 @@ Whenever this skill is used to **review, evaluate, improve, or iterate on an exi
 - **`name` format**: 1–64 chars, lowercase letters/digits/hyphens only, no leading/trailing or consecutive hyphens.
 - **`description` is a single line** (no newlines), with no angle brackets. Target **≤250 characters** to stay within the runtime context budget; **1024 is a hard ceiling** but only the spec-level limit.
 - **Negative-trigger clause**: description names adjacent domains that should _not_ trigger the skill (e.g., "Don't use for …"). `quick_validate.py` emits a warning when it's missing — treat that as a review finding, not noise.
-- **Only allowed top-level keys** appear: `name`, `description`, `license`, `allowed-tools`, `metadata`, `compatibility`, `effort`. Anything else is a typo or stale field.
+- **Only allowed top-level keys** appear: `name`, `description`, `license`, `allowed-tools`, `metadata`, `compatibility`, `effort`, `dependencies`. Anything else is a typo or stale field.
+- **`dependencies`** (if present) is a non-empty YAML list of optional skill references accepted by `asm get`; it declares discovery metadata and never causes eager installation.
 - **`metadata.version`** is present and follows `MAJOR.MINOR.PATCH`. If missing, flag it and propose `1.0.0`.
 - **`metadata.author`** is present when the skill is published/shared. Normalize alternate keys (`creator`, `owner`, `maintainer`) to `author` under `metadata:`.
 - **`effort`** (if set) is one of `low | medium | high | xhigh | max`.

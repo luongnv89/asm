@@ -2,6 +2,7 @@ import { readFile } from "fs/promises";
 import { join } from "path";
 import { parse as parseYaml } from "yaml";
 import type { SkillInfo, SkillWarning } from "./utils/types";
+import { errorMessage } from "./utils/errors";
 
 const HIGH_FILE_COUNT_THRESHOLD = 500;
 
@@ -48,8 +49,8 @@ function validateYamlFrontmatter(content: string): string | null {
   try {
     parseYaml(raw);
     return null;
-  } catch (err: any) {
-    return err.message || "invalid YAML";
+  } catch (err) {
+    return errorMessage(err) || "invalid YAML";
   }
 }
 

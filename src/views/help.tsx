@@ -19,6 +19,13 @@ const KEYBINDINGS: Array<[string, string]> = [
   ["q", "Quit"],
 ];
 
+const LEGEND: Array<[string, string]> = [
+  ["~", "symlinked skill"],
+  ["→link", "Type col: symlinked"],
+  ["dir", "Type col: real directory"],
+  ["Invoke", "both · model · user · none"],
+];
+
 export function HelpView() {
   return (
     <Box
@@ -38,6 +45,17 @@ export function HelpView() {
             <Text color={theme.cyan}>{key}</Text>
           </Box>
           <Text color={theme.fg}>{action}</Text>
+        </Box>
+      ))}
+      <Box marginTop={1} justifyContent="center">
+        <Text color={theme.accent}> Legend </Text>
+      </Box>
+      {LEGEND.map(([glyph, meaning]) => (
+        <Box key={glyph} flexDirection="row">
+          <Box width={14}>
+            <Text color={theme.cyan}>{glyph}</Text>
+          </Box>
+          <Text color={theme.fg}>{meaning}</Text>
         </Box>
       ))}
       <Box marginTop={1}>

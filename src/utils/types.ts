@@ -13,6 +13,10 @@ export interface SkillInfo {
   license: string;
   compatibility: string;
   allowedTools: string[];
+  /** Free-form tags assigned to the skill. */
+  tags?: string[];
+  /** Optional skills resolved and acquired by callers at first use. */
+  dependencies?: string[];
   /** Agent Skills model invocation. Default true when omitted. */
   modelInvocable?: boolean;
   /** Agent Skills user/slash invocation. Default true when omitted. */
@@ -81,6 +85,20 @@ export interface SkillStateFile {
   disabled: Record<
     string,
     Record<string, Partial<Record<"global" | "project", true>>>
+  >;
+}
+
+/** Local tag edits keyed by the skill's canonical on-disk directory. */
+export interface SkillTagStateFile {
+  version: 1;
+  skills: Record<
+    string,
+    {
+      /** Tags added locally beyond authoritative SKILL.md frontmatter. */
+      added: string[];
+      /** Frontmatter tags hidden locally without mutating SKILL.md. */
+      removed: string[];
+    }
   >;
 }
 
@@ -399,6 +417,46 @@ export interface ResidencyReport {
   signals: ResidencySignal[];
 }
 
+/** One side of an installed-skill overlap pair (issue #566). */
+export interface OverlapSide {
+  name: string;
+  dirName: string;
+  provider: string;
+  providerLabel: string;
+  scope: "global" | "project";
+  path: string;
+}
+
+/**
+ * A pair of installed skills that do substantially the same job despite
+ * different names (issue #566). Reported read-only — `asm audit overlap`
+ * never removes or disables anything.
+ */
+export interface InstalledOverlapPair {
+  a: OverlapSide;
+  b: OverlapSide;
+  /** Combined name+description similarity, 0..1; higher means more similar. */
+  score: number;
+  /** True when `score` reaches the high-confidence threshold. */
+  highConfidence: boolean;
+  /** One-line human explanation of the overlap. */
+  reason: string;
+}
+
+/** Result of the semantic overlap check over installed skills (issue #566). */
+export interface InstalledOverlapReport {
+  scannedAt: string;
+  totalSkills: number;
+  /**
+   * Distinct skills actually compared: multi-provider copies of one install
+   * (same real path) collapse to a single comparison unit.
+   */
+  comparedSkills: number;
+  /** Ranked most-similar first. */
+  pairs: InstalledOverlapPair[];
+  highConfidenceCount: number;
+}
+
 export interface RemovalPlan {
   directories: Array<{ path: string; isSymlink: boolean }>;
   ruleFiles: string[];
@@ -434,8 +492,34 @@ export interface RelocationInfo {
 
 export interface DuplicateGroup {
   key: string;
-  reason: "same-dirName" | "same-frontmatterName";
+  /**
+   * Why the group was formed: shared directory name (`same-dirName`),
+   * shared frontmatter name across different directories
+   * (`same-frontmatterName`), or byte-identical SKILL.md bodies under
+   * different names (`same-content`, issue #562).
+   */
+  reason: "same-dirName" | "same-frontmatterName" | "same-content";
   instances: SkillInfo[];
+  /**
+   * Content classification from the group's SKILL.md body fingerprints
+   * (issue #562): `identical` when every instance hashes the same,
+   * `diverged` when any two differ. Absent when any instance's content is
+   * unavailable, so an unknown state is never reported as either class.
+   */
+  contentClass?: "identical" | "diverged";
+  /**
+   * True when the group's instances carry two or more distinct non-empty
+   * `version` strings — likely a shadowed upgrade rather than identical
+   * copies (issue #567). Absent/false when all versions match.
+   */
+  versionDivergence?: boolean;
+  /**
+   * The original dirName / frontmatter-name spellings found among the
+   * group's instances, when normalization (#564) folded case or separator
+   * variants into one group. Absent when every instance spells its name
+   * identically.
+   */
+  variants?: string[];
 }
 
 export interface AuditReport {
@@ -534,6 +618,8 @@ export interface DiscoveredSkill {
   creator: string;
   compatibility: string;
   allowedTools: string[];
+  tags?: string[];
+  dependencies?: string[];
   modelInvocable?: boolean;
   userInvocable?: boolean;
   /**
@@ -569,6 +655,8 @@ export interface IndexedSkill {
   creator: string;
   compatibility: string;
   allowedTools: string[];
+  tags?: string[];
+  dependencies?: string[];
   modelInvocable?: boolean;
   userInvocable?: boolean;
   installUrl: string;
@@ -755,7 +843,7 @@ export type GetTier =
 /**
  * Security verdict attached to a remotely fetched body. This is the same scan
  * `asm install` runs before writing anything (`scanForWarnings`), reported
- * rather than enforced — `asm get` only prints text, it installs nothing.
+ * rather than enforced — `asm get` never installs or executes the skill.
  */
 export interface GetSecurityVerdict {
   /** `high` | `medium` | `safe` — same mapping the install preview uses. */
@@ -775,6 +863,8 @@ export interface GetSecurityVerdict {
 export interface GetResult {
   name: string;
   description: string;
+  /** Optional dependency references declared by this skill. */
+  dependencies: string[];
   /** Which rung of the ladder answered. */
   tier: GetTier;
   /** Provenance: an absolute path for local tiers, a `github:` ref for remote. */
@@ -787,4 +877,75 @@ export interface GetResult {
   security: GetSecurityVerdict | null;
   /** The exact SKILL.md text. */
   content: string;
+}
+
+/** Full-directory reference; the default GetResult/body contract is unchanged. */
+export interface GetPathResult extends Omit<GetResult, "content"> {
+  /** Absolute, canonical ASM-owned copy, usable after `get` exits. */
+  path: string;
+  /** Sorted relative file paths using `/`, excluding ownership metadata/.git. */
+  files: string[];
+  /** Explicit cleanup instruction as argv (no shell interpolation required). */
+  cleanup: { command: "asm"; args: ["cleanup", string] };
+}
+
+export interface GetBorrowCleanupResult {
+  path: string;
+  status: "removed" | "missing" | "not-found" | "refused";
+  errors: string[];
+}
+
+// ─── Temporary Dependency Lease Types (issue #621) ───────────────────────
+
+export interface DependencyLeaseAcquisition {
+  /** Caller-provided reference used to resolve this skill. */
+  request: string;
+  name: string;
+  /** Canonical directory containing the immediately usable SKILL.md. */
+  path: string;
+  skillMdPath: string;
+  tier: GetTier;
+  source: string;
+  commit: string | null;
+  /** Pending is persisted before copying so hard-interruption recovery is safe. */
+  status: "pending" | "ready";
+  /**
+   * True only when ASM copied this artifact specifically for this lease.
+   * False means the target pre-dated the lease and must be preserved.
+   */
+  owned: boolean;
+  /** Random ownership proof for an ASM-owned artifact; null when pre-existing. */
+  artifactId: string | null;
+  acquiredAt: string;
+}
+
+export interface DependencyLeaseSession {
+  version: 1;
+  sessionId: string;
+  createdAt: string;
+  updatedAt: string;
+  acquisitions: Record<string, DependencyLeaseAcquisition>;
+}
+
+export interface DependencyAcquireResult extends DependencyLeaseAcquisition {
+  sessionId: string;
+  reused: boolean;
+}
+
+export interface DependencyReleaseResult {
+  sessionId: string;
+  alreadyReleased: boolean;
+  removed: string[];
+  preserved: string[];
+  missing: string[];
+  errors: string[];
+}
+
+export interface DependencyStaleCleanupResult {
+  staleBefore: string;
+  dryRun: boolean;
+  stale: string[];
+  active: string[];
+  cleaned: string[];
+  errors: Array<{ sessionId: string; message: string }>;
 }

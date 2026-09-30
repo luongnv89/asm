@@ -32,6 +32,9 @@ jobs:
       - name: Patch TS 6 for typescript-eslint
         run: node scripts/patch-ts6.cjs
 
+      - name: Verify TS 6 patch applied
+        run: node scripts/patch-ts6.cjs --check
+
       - name: Lint src/
         run: npm run lint
 
@@ -39,9 +42,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
+      fail-fast: false
       matrix:
         # Node 18/20 are EOL; floor is >=22 (see package.json engines / #444).
-        node-version: [22, 24]
+        node-version: [22, 24, 26]
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
 
@@ -57,14 +61,43 @@ jobs:
       - name: Patch TS 6 for typescript-eslint
         run: node scripts/patch-ts6.cjs
 
-      - name: Audit production dependencies
-        run: npm audit --audit-level=high --omit=dev
-
-      - name: Audit all dependencies
-        run: npx tsx scripts/ci-npm-audit.ts
+      - name: Verify TS 6 patch applied
+        run: node scripts/patch-ts6.cjs --check
 
       - name: Run unit tests
         run: npx vitest run src/
+
+  # Dependency audit runs outside the 10-minute unit-tests job so a hung
+  # retired npm audit endpoint (#608) can never cancel unit tests. Single
+  # Node version — audit is registry-dependent, not runtime-dependent.
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Patch TS 6 for typescript-eslint
+        run: node scripts/patch-ts6.cjs
+
+      - name: Verify TS 6 patch applied
+        run: node scripts/patch-ts6.cjs --check
+
+      - name: Audit production dependencies
+        timeout-minutes: 3
+        run: npx tsx scripts/ci-npm-audit.ts --omit=dev
+
+      - name: Audit all dependencies
+        timeout-minutes: 3
+        run: npx tsx scripts/ci-npm-audit.ts
 
   build:
     runs-on: ubuntu-latest
@@ -83,6 +116,9 @@ jobs:
 
       - name: Patch TS 6 for typescript-eslint
         run: node scripts/patch-ts6.cjs
+
+      - name: Verify TS 6 patch applied
+        run: node scripts/patch-ts6.cjs --check
 
       - name: Build
         run: npm run build
@@ -117,7 +153,7 @@ jobs:
     strategy:
       matrix:
         # Node 18/20 are EOL; floor is >=22 (see package.json engines / #444).
-        node-version: [22, 24]
+        node-version: [22, 24, 26]
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
 
@@ -141,9 +177,15 @@ jobs:
 
       - name: Build catalog (required by build-verification tests)
         run: npm run build:website
+        # Same authenticated star fetch as deploy-website.yml (issue #598).
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Node.js E2E tests
-        run: npx vitest run tests/e2e/node-e2e.test.ts tests/e2e/build-verification.test.ts
+        # registry-e2e resolves via an injected ASM_REGISTRY_CACHE (no network
+        # needed for resolution); the tui-* files render via ink-testing-library
+        # on virtual stdin/stdout, so no TTY is required (#660).
+        run: npx vitest run tests/e2e/node-e2e.test.ts tests/e2e/build-verification.test.ts tests/e2e/registry-e2e.test.ts tests/e2e/tui-smoke.test.tsx tests/e2e/tui-integration.test.tsx
 
   e2e-npm-install:
     needs: build
@@ -152,7 +194,7 @@ jobs:
     strategy:
       matrix:
         # Node 18/20 are EOL; floor is >=22 (see package.json engines / #444).
-        node-version: [22, 24]
+        node-version: [22, 24, 26]
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
 

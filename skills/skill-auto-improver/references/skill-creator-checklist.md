@@ -15,6 +15,7 @@ Use only these top-level keys. Anything else is rejected by `quick_validate.py`:
 - `metadata` (required when shipping; nest `version`, `author` here)
 - `compatibility` (optional, ≤500 chars)
 - `effort` (optional; one of `low | medium | high | xhigh | max`)
+- `dependencies` (optional; a non-empty YAML sequence of non-empty skill references)
 
 `metadata:` must contain at minimum `version: MAJOR.MINOR.PATCH` and `author: <name>`. If a published skill has neither, add both — start version at `1.0.0` if there was none.
 
@@ -119,7 +120,50 @@ Every iteration that edits the SKILL.md body or frontmatter must bump `metadata.
 
 Bump once per loop iteration, not once per individual edit — otherwise the version churns ahead of meaningful change.
 
-## 8. Final mechanical check
+## 8. Dependency preflight (conditional)
+
+Applies only to a target that **invokes another skill** — it calls `/other-skill`, delegates a phase to a named skill, or reads a path under `~/.claude/skills/`, `~/.agents/skills/`, or `~/.codex/skills/`. Scan the target for those three signals before deciding.
+
+- **Invokes no other skill** → nothing is required and nothing is added. An absent preflight section is **not** a finding here, and adding an empty one is itself a defect.
+- **Invokes another skill** → the target must declare a non-empty frontmatter `dependencies` list and carry a `## Dependency Preflight (mandatory)` section above its first mutating step. Missing either is a Gate 1 finding.
+
+Per dependency the gate names four things:
+
+| Element                   | Requirement                                                                           |
+| ------------------------- | ------------------------------------------------------------------------------------- |
+| **Discovery**             | the dependency is exposed by `asm deps discover <parent> --json`                      |
+| **First-use acquisition** | only a reached branch runs `asm deps acquire ... --session <caller-session-id>`       |
+| **Direct use**            | the workflow reads the returned canonical path immediately                            |
+| **Cleanup**               | caller-owned `finally`/shutdown handling runs idempotent `asm deps release --session` |
+
+Retrofit template — one entry per dependency:
+
+````markdown
+## Dependency Preflight (mandatory)
+
+This skill optionally invokes `<skill-name>`, declared in frontmatter
+`dependencies`. Verify `asm` exists before the first mutation, but do not
+acquire the dependency until its branch is reached.
+
+```bash
+command -v asm >/dev/null || { echo "Install asm: npm install -g agent-skill-manager" >&2; exit 1; }
+asm deps discover <parent-skill> --json
+# At first use:
+asm deps acquire <skill-name> --session <caller-session-id> --json
+# In the main agent's finally:
+asm deps release --session <caller-session-id> --json
+```
+
+Use the acquired `skillMdPath` directly; do not assume a foreign provider
+rescans mid-session.
+````
+
+Abrupt uncatchable termination is not observable by ASM. The preflight must
+state that later stale recovery uses an explicit conservative cutoff and a
+`--dry-run` classification first. Upstream source of the rule:
+`~/.claude/skills/skill-creator/references/dependency-preflight.md`.
+
+## 9. Final mechanical check
 
 Before declaring Gate 1 cleared, run:
 

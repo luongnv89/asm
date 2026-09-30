@@ -197,6 +197,69 @@ describe("repo-derived bundle inference", () => {
     }
   });
 
+  it("infers a game bundle from game development skills", () => {
+    const bundles = inferRepoBundles(
+      repo([
+        skill({
+          name: "threejs-game-director",
+          description: "Entrypoint for building Three.js browser games",
+          installUrl: "github:owner/repo:skills/threejs-game-director",
+          relPath: "skills/threejs-game-director",
+        }),
+        skill({
+          name: "threejs-gameplay-systems",
+          description: "Build playable game systems and levels",
+          installUrl: "github:owner/repo:skills/threejs-gameplay-systems",
+          relPath: "skills/threejs-gameplay-systems",
+        }),
+      ]),
+    );
+
+    const game = bundles.find((bundle) => bundle.name === "owner-repo-game");
+    expect(game).toBeDefined();
+    expect(game!.inferred).toBe(true);
+    expect(game!.skills.map((s) => s.name)).toEqual([
+      "threejs-game-director",
+      "threejs-gameplay-systems",
+    ]);
+  });
+
+  it("infers a mobile bundle from iOS skills without studios/scenarios noise", () => {
+    const bundles = inferRepoBundles(
+      repo([
+        skill({
+          name: "swiftui-expert-skill",
+          description: "Expert SwiftUI guidance for iOS apps",
+          installUrl: "github:owner/repo:skills/swiftui-expert-skill",
+          relPath: "skills/swiftui-expert-skill",
+        }),
+        skill({
+          name: "xcode-build-orchestrator",
+          description: "Coordinate Xcode build optimization",
+          installUrl: "github:owner/repo:skills/xcode-build-orchestrator",
+          relPath: "skills/xcode-build-orchestrator",
+        }),
+        skill({
+          name: "scenario-tester",
+          description: "Test usage scenarios and aspect ratios",
+          installUrl: "github:owner/repo:skills/scenario-tester",
+          relPath: "skills/scenario-tester",
+        }),
+      ]),
+    );
+
+    const mobile = bundles.find(
+      (bundle) => bundle.name === "owner-repo-mobile",
+    );
+    expect(mobile).toBeDefined();
+    expect(mobile!.inferred).toBe(true);
+    // "scenarios"/"ratios" must not match the mobile group ("ios" guard)
+    expect(mobile!.skills.map((s) => s.name)).toEqual([
+      "swiftui-expert-skill",
+      "xcode-build-orchestrator",
+    ]);
+  });
+
   it("dedupes bundles by name", () => {
     const merged = mergeRepoBundles([
       {

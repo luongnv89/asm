@@ -211,8 +211,17 @@ export async function resolveProvider(
 
   const pickerItems = config.providers.map((p) => ({
     label: `${p.label} (${p.name})`,
-    hint: p.global,
-    checked: savedSet ? savedSet.has(p.name) : p.name === "agents",
+    // The Claude Code exception leads so it survives hint truncation on
+    // narrow terminals (#617) — a 15–25 col hint still names the exception.
+    hint:
+      p.name === "agents"
+        ? `except Claude Code; most harnesses — ${p.global}`
+        : p.global,
+    // First-time setup pre-checks Agents + Claude Code (#617), but never a
+    // provider the user has disabled — a pre-checked row installs on Enter.
+    checked: savedSet
+      ? savedSet.has(p.name)
+      : p.enabled && (p.name === "agents" || p.name === "claude"),
   }));
 
   const selectedIndices = await checkboxPicker({ items: pickerItems });
@@ -236,6 +245,54 @@ export async function resolveProvider(
   const primary =
     selectedProviders.find((p) => p.name === "agents") || selectedProviders[0];
   return { provider: primary, allProviders: selectedProviders };
+}
+
+// ─── Scope Selection ─────────────────────────────────────────────────────────
+
+/**
+ * Shared scope decision for the install preamble (issue #612).
+ *
+ * An explicit `--scope global|project` flag always wins. Otherwise
+ * non-interactive runs (`!isTTY`) and `--yes` default to `"global"`, and
+ * TTY runs offer an interactive single-select picker. Callers own the
+ * step-header/logging output; this helper only decides and prompts.
+ *
+ * Throws when the interactive picker is dismissed with nothing selected.
+ */
+export async function resolveInstallScope(opts: {
+  scopeFlag: string | null;
+  provider: ProviderConfig;
+  isTTY: boolean;
+  yes: boolean;
+}): Promise<"global" | "project"> {
+  const { scopeFlag, provider, isTTY, yes } = opts;
+
+  if (scopeFlag === "global" || scopeFlag === "project") {
+    return scopeFlag;
+  }
+
+  if (!isTTY || yes) {
+    return "global";
+  }
+
+  const scopeItems = [
+    {
+      label: `Global (${provider.global})`,
+      hint: "Available in all projects",
+      checked: true,
+    },
+    {
+      label: `Project (${provider.project})`,
+      hint: "Available only in this project",
+      checked: false,
+    },
+  ];
+  const scopeIndices = await checkboxPicker({ items: scopeItems });
+  if (scopeIndices.length === 0) {
+    throw new Error("No scope selected. Aborting.");
+  }
+  // Single-select behavior: the first checked entry wins.
+  return scopeIndices[0] === 0 ? "global" : "project";
 }
 
 export function buildInstallPlan(

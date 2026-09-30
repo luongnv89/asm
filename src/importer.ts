@@ -15,6 +15,7 @@ import { scanAllSkills } from "./scanner";
 import { unifiedDiff } from "./evaluator";
 import { BINARY_EXTENSIONS, MAX_FILE_SIZE, createDirSymlink } from "./utils/fs";
 import { debug } from "./logger";
+import { errorMessage } from "./utils/errors";
 import type {
   ExportManifest,
   ExportedSkill,
@@ -91,11 +92,11 @@ export async function readManifestFile(
   let raw: string;
   try {
     raw = await readFile(filePath, "utf-8");
-  } catch (err: any) {
-    if (err?.code === "ENOENT") {
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException | null)?.code === "ENOENT") {
       throw new Error(`Manifest file not found: ${filePath}`, { cause: err });
     }
-    throw new Error(`Failed to read manifest file: ${err.message}`, {
+    throw new Error(`Failed to read manifest file: ${errorMessage(err)}`, {
       cause: err,
     });
   }
@@ -554,13 +555,13 @@ export async function importSkills(
             path: targetDir,
             conflict,
           });
-        } catch (err: any) {
+        } catch (err) {
           results.push({
             skillName: skill.name,
             provider: skill.provider,
             scope: skill.scope,
             status: "failed",
-            reason: `Copy failed: ${err.message}`,
+            reason: `Copy failed: ${errorMessage(err)}`,
             conflict,
           });
         }
@@ -684,13 +685,13 @@ export async function importSkills(
         status: "installed",
         path: targetDir,
       });
-    } catch (err: any) {
+    } catch (err) {
       results.push({
         skillName: skill.name,
         provider: skill.provider,
         scope: skill.scope,
         status: "failed",
-        reason: `Copy failed: ${err.message}`,
+        reason: `Copy failed: ${errorMessage(err)}`,
       });
     }
   }

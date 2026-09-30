@@ -2,26 +2,28 @@
   "repoUrl": "https://github.com/oliver-zehentleitner/keep-the-why.git",
   "owner": "oliver-zehentleitner",
   "repo": "keep-the-why",
-  "updatedAt": "2026-08-21T09:21:26.229Z",
+  "updatedAt": "2026-09-26T06:53:34.064Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "keep-the-why",
-      "description": "Preserves or recovers the reasoning behind a codebase - architectural decisions, rejected alternatives, workarounds, incident learnings, operational constraints, and historical context the code itself cannot explain. Use when implementing or reviewing a non-trivial change involving a design decision, workaround, incident fix, operational constraint, rejected alternative, or changed assumption; when documenting an existing or legacy codebase; during onboarding or a maintainer handover; or when interviewing a developer before their knowledge is lost (e.g. before they leave or retire); or when the user expresses frustration with, or reports a problem with, this skill itself. Identifies what the code cannot explain, asks focused questions instead of generic ones, and maintains concise, topic-based, version-controlled documentation readable by both humans and AI agents.",
-      "version": "0.9.0",
+      "description": "Extract and preserve the reasoning code cannot explain - decisions, rejected alternatives, workarounds, incidents, constraints - plus project setup and maintainer interviews. Not for what changed (see Keep a Changelog) - only why. Also the place for complaints, feedback and settings changes about this skill itself.",
+      "version": "0.17.1",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:oliver-zehentleitner/keep-the-why:skills/keep-the-why",
       "relPath": "skills/keep-the-why",
       "verified": true,
-      "tokenCount": 7181,
+      "tokenCount": 9480,
       "evalSummary": {
-        "overallScore": 75,
-        "grade": "C",
+        "overallScore": 92,
+        "grade": "A",
         "categories": [
           {
             "id": "structure",
@@ -32,13 +34,13 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 3,
+            "score": 8,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
@@ -56,13 +58,13 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 10,
             "max": 10
           },
           {
             "id": "license",
             "name": "License verification",
-            "score": 5,
+            "score": 10,
             "max": 10
           },
           {
@@ -84,8 +86,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:26.224Z",
-        "evaluatedVersion": "0.9.0"
+        "evaluatedAt": "2026-09-26T06:53:34.055Z",
+        "evaluatedVersion": "0.17.1"
       },
       "evalSummaries": {
         "quality": {
@@ -93,8 +95,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
-          "grade": "C",
+          "overallScore": 90,
+          "grade": "A",
           "categories": [
             {
               "id": "structure",
@@ -105,13 +107,13 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 3,
+              "score": 8,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
@@ -129,13 +131,13 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 10,
               "max": 10
             },
             {
               "id": "license",
               "name": "License verification",
-              "score": 5,
+              "score": 10,
               "max": 10
             },
             {
@@ -157,26 +159,26 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:26.224Z",
-          "evaluatedVersion": "0.9.0"
+          "evaluatedAt": "2026-09-26T06:53:34.055Z",
+          "evaluatedVersion": "0.17.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 86,
-          "grade": "B",
+          "overallScore": 93,
+          "grade": "A",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 12,
+              "score": 13,
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:26.224Z",
-          "evaluatedVersion": "0.9.0"
+          "evaluatedAt": "2026-09-26T06:53:34.055Z",
+          "evaluatedVersion": "0.17.1"
         }
       }
     }

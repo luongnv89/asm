@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "name": "marketing",
+  "description": "Marketing and growth workflow: ASO, SEO audits, brand checks, landing pages, blog content, and social distribution.",
+  "author": "ASM",
+  "createdAt": "2026-09-06T00:00:00.000Z",
+  "tags": ["marketing", "growth", "seo", "aso", "content"],
+  "skills": [
+    {
+      "name": "aso-marketing",
+      "installUrl": "github:luongnv89/skills:skills/aso-marketing",
+      "description": "Optimize App Store and Google Play listings for search visibility"
+    },
+    {
+      "name": "seo-audit",
+      "installUrl": "github:Affitor/affiliate-skills:skills/analytics/seo-audit",
+      "description": "Audit blog posts and landing pages for SEO issues"
+    },
+    {
+      "name": "brand-name-checker",
+      "installUrl": "github:luongnv89/skills:skills/brand-name-checker",
+      "description": "Check product and brand names for trademark, domain, and handle conflicts"
+    },
+    {
+      "name": "landing-page-generator",
+      "installUrl": "github:luongnv89/skills:skills/landing-page-generator",
+      "description": "Generate landing pages with PAS, AIDA, or StoryBrand frameworks"
+    },
+    {
+      "name": "affiliate-blog-builder",
+      "installUrl": "github:Affitor/affiliate-skills:skills/blog/affiliate-blog-builder",
+      "description": "Write SEO-optimized blog articles, reviews, and comparison posts"
+    },
+    {
+      "name": "content-pillar-atomizer",
+      "installUrl": "github:Affitor/affiliate-skills:skills/content/content-pillar-atomizer",
+      "description": "Turn one blog post into platform-native micro-content pieces"
+    }
+  ]
+}

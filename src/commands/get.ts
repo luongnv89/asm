@@ -1,8 +1,17 @@
 import { loadConfig } from "../config";
 import { scanAllSkills } from "../scanner";
-import { parseFrontmatter } from "../utils/frontmatter";
+import {
+  parseFrontmatter,
+  resolveSkillDependencies,
+} from "../utils/frontmatter";
 import { readFile as fsReadFile } from "fs/promises";
-import { formatJSON, ansi } from "../formatter";
+import {
+  formatJSON,
+  ansi,
+  formatGetPath,
+  formatGetProvenance,
+} from "../formatter";
+import { borrowGetSkill } from "../get-borrows";
 import {
   parseSource,
   isLocalPath,
@@ -23,10 +32,11 @@ import {
   redirectConsoleToStderr,
 } from "../utils/machine";
 import { resolveIndexedSkillByName } from "../skill-index";
-import { estimateTokenCount, formatTokenCount } from "../utils/token-count";
+import { estimateTokenCount } from "../utils/token-count";
 import { findLibrarySkill, listLibrarySkills } from "../library";
 import { join as joinPath } from "path";
 import type { GetResult, GetSecurityVerdict, GetTier } from "../utils/types";
+import { errorMessage } from "../utils/errors";
 
 import { error } from "./shared";
 import type { ParsedArgs } from "../cli";
@@ -52,9 +62,16 @@ Index, registry and remote sources are fetched into a temp clone, scanned with
 the same pre-install security scan \`asm install\` runs, and deleted. The body
 goes to stdout; provenance and the security verdict go to stderr.
 
+With --path, copy the full selected directory (scripts, templates, assets, etc.)
+into an ASM-owned borrow and print its absolute path instead. The copy survives
+process exit. Later run asm cleanup <borrowed-path>; originals are never removed.
+No --keep is needed. Use asm install for permanent provider/library installation.
+
 ${ansi.bold("Options:")}
+  --path             Borrow the full skill directory, not just its body
   --json             Output {name, description, tier, source, commit,
-                     tokenCount, security, content} as a JSON object
+                     tokenCount, security, content} as a JSON object;
+                     --path returns path, sorted files and cleanup argv instead of content
   --machine          Stable machine-readable v1 envelope
   --audit            Also print the full security audit report (stderr),
                      for any resolved skill, not only fetched ones
@@ -69,41 +86,9 @@ ${ansi.bold("Examples:")}
   asm get code-review > SKILL.md           ${ansi.dim("Save it without installing")}
   asm get github:owner/repo:skills/review  ${ansi.dim("Fetch a remote skill")}
   asm get owner/review --audit             ${ansi.dim("Show the full security audit")}
-  asm get code-review --json               ${ansi.dim("Structured output")}`);
-}
-
-function getRiskLabel(risk: "high" | "medium" | "safe"): string {
-  if (risk === "high") return ansi.red("[!] High Risk");
-  if (risk === "medium") return ansi.yellow("[~] Medium Risk");
-  return ansi.green("[ok] Safe");
-}
-
-/**
- * Provenance block for the plain (non-JSON) path. Always stderr: stdout
- * carries the body and nothing else, so `asm get x > SKILL.md` and
- * `asm get x | agent` both stay clean.
- */
-
-function writeGetProvenance(result: GetResult): void {
-  const lines: string[] = [
-    `  ${ansi.bold(result.name)}  ${ansi.dim(formatTokenCount(result.tokenCount))}`,
-    `  ${ansi.dim("source:")} ${result.source}${
-      result.commit ? ` @ ${result.commit.slice(0, 7)}` : ""
-    } ${ansi.dim(`(${result.tier})`)}`,
-  ];
-  if (result.security) {
-    const { risk, warnings, categories } = result.security;
-    const detail = warnings
-      ? ansi.dim(
-          ` (${warnings} warning${warnings === 1 ? "" : "s"}: ${categories.join(", ")})`,
-        )
-      : "";
-    lines.push(`  ${ansi.dim("security:")} ${getRiskLabel(risk)}${detail}`);
-  }
-  lines.push(
-    `  ${ansi.dim("residency:")} ${ansi.dim("none — nothing was installed")}`,
-  );
-  process.stderr.write(lines.join("\n") + "\n\n");
+  asm get code-review --json               ${ansi.dim("Structured output")}
+  asm get --path code-review               ${ansi.dim("Borrow the full directory")}
+  asm cleanup /absolute/borrowed-path     ${ansi.dim("Remove only that borrow")}`);
 }
 
 /**
@@ -136,8 +121,8 @@ async function validateSkillForGet(
 /**
  * Clone a remote source into a temp dir, read its body, and run the same
  * pre-install security scan `asm install` runs. The verdict is *reported*, not
- * enforced — `asm get` writes nothing, so there is no install to block; the
- * user sees the risk before they feed the text to an agent.
+ * enforced — neither body output nor a borrowed copy installs the skill. The
+ * caller sees the risk before using the text or files; no skill code is run.
  */
 
 async function fetchGetFromRemote(
@@ -170,6 +155,7 @@ async function fetchGetFromRemote(
       joinPath(remote.rootDir, "SKILL.md"),
       "utf-8",
     );
+    const dependencies = resolveSkillDependencies(parseFrontmatter(content));
 
     const warnings = await scanForWarnings(remote.rootDir);
     const security: GetSecurityVerdict = {
@@ -182,6 +168,7 @@ async function fetchGetFromRemote(
       result: {
         name,
         description,
+        dependencies,
         tier,
         source: remote.sourceRef,
         commit: remote.commitSha,
@@ -219,6 +206,7 @@ function localGetResult(
     description:
       overrides.description ??
       (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
+    dependencies: resolveSkillDependencies(fm),
     tier,
     source,
     commit: overrides.commit ?? null,
@@ -234,7 +222,7 @@ function localGetResult(
  * whichever rung answered is reported as the `tier` so provenance is visible.
  */
 
-async function resolveGetTarget(
+export async function resolveGetTarget(
   args: ParsedArgs,
   target: string,
 ): Promise<GetResolution> {
@@ -387,19 +375,25 @@ export async function cmdGet(args: ParsedArgs) {
       process.stderr.write(formatSecurityReport(report) + "\n");
     }
 
+    const output = args.flags.getPath
+      ? await borrowGetSkill(target, resolution.dir, result)
+      : result;
     if (args.flags.machine) {
       process.stdout.write(
-        formatMachineOutput("get", result, startTime) + "\n",
+        formatMachineOutput("get", output, startTime) + "\n",
       );
     } else if (args.flags.json) {
-      process.stdout.write(formatJSON(result) + "\n");
+      process.stdout.write(formatJSON(output) + "\n");
+    } else if ("path" in output) {
+      process.stderr.write(formatGetProvenance(output));
+      process.stdout.write(formatGetPath(output));
     } else {
-      writeGetProvenance(result);
+      process.stderr.write(formatGetProvenance(result));
       process.stdout.write(result.content);
       if (!result.content.endsWith("\n")) process.stdout.write("\n");
     }
-  } catch (err: any) {
-    const message = err?.message || String(err);
+  } catch (err) {
+    const message = errorMessage(err) || String(err);
     const candidates =
       err instanceof AmbiguousGetError ? err.candidates : undefined;
     if (args.flags.machine) {

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/MiniMax-AI/skills.git",
   "owner": "MiniMax-AI",
   "repo": "skills",
-  "updatedAt": "2026-08-21T09:19:44.252Z",
+  "updatedAt": "2026-09-26T06:50:45.656Z",
   "skillCount": 23,
   "skills": [
     {
@@ -13,6 +13,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/android-native-dev",
@@ -84,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.542Z",
+        "evaluatedAt": "2026-09-26T06:50:43.877Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -157,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.543Z",
+          "evaluatedAt": "2026-09-26T06:50:43.879Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": true,
           "overallScore": 86,
@@ -175,7 +177,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.543Z",
+          "evaluatedAt": "2026-09-26T06:50:43.879Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -188,6 +190,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/buddy-sings",
@@ -259,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.542Z",
+        "evaluatedAt": "2026-09-26T06:50:43.876Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -332,12 +336,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.543Z",
+          "evaluatedAt": "2026-09-26T06:50:43.877Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 71,
@@ -350,7 +354,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.543Z",
+          "evaluatedAt": "2026-09-26T06:50:43.877Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -363,6 +367,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:plugins/pptx-plugin/skills/color-font-skill",
@@ -434,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.542Z",
+        "evaluatedAt": "2026-09-26T06:50:43.871Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -507,12 +513,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.543Z",
+          "evaluatedAt": "2026-09-26T06:50:43.876Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -525,7 +531,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.543Z",
+          "evaluatedAt": "2026-09-26T06:50:43.876Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -538,6 +544,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:plugins/pptx-plugin/skills/design-style-skill",
@@ -609,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.542Z",
+        "evaluatedAt": "2026-09-26T06:50:43.869Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -682,12 +690,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.543Z",
+          "evaluatedAt": "2026-09-26T06:50:43.871Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -700,7 +708,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.543Z",
+          "evaluatedAt": "2026-09-26T06:50:43.871Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -713,6 +721,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/flutter-dev",
@@ -784,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.543Z",
+        "evaluatedAt": "2026-09-26T06:50:43.869Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -857,12 +867,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.543Z",
+          "evaluatedAt": "2026-09-26T06:50:43.871Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 71,
@@ -875,7 +885,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.543Z",
+          "evaluatedAt": "2026-09-26T06:50:43.871Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -888,6 +898,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/frontend-dev",
@@ -959,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.543Z",
+        "evaluatedAt": "2026-09-26T06:50:43.870Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1032,12 +1044,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.543Z",
+          "evaluatedAt": "2026-09-26T06:50:43.875Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 71,
@@ -1050,7 +1062,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.543Z",
+          "evaluatedAt": "2026-09-26T06:50:43.875Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1063,6 +1075,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/fullstack-dev",
@@ -1134,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.543Z",
+        "evaluatedAt": "2026-09-26T06:50:43.870Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1207,12 +1221,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.543Z",
+          "evaluatedAt": "2026-09-26T06:50:43.875Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 71,
@@ -1225,7 +1239,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.543Z",
+          "evaluatedAt": "2026-09-26T06:50:43.875Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1238,6 +1252,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/gif-sticker-maker",
@@ -1309,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.543Z",
+        "evaluatedAt": "2026-09-26T06:50:43.876Z",
         "evaluatedVersion": "1.2"
       },
       "evalSummaries": {
@@ -1382,12 +1398,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.543Z",
+          "evaluatedAt": "2026-09-26T06:50:43.877Z",
           "evaluatedVersion": "1.2"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 64,
@@ -1400,7 +1416,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.543Z",
+          "evaluatedAt": "2026-09-26T06:50:43.877Z",
           "evaluatedVersion": "1.2"
         }
       }
@@ -1413,6 +1429,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/ios-application-dev",
@@ -1484,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.556Z",
+        "evaluatedAt": "2026-09-26T06:50:43.921Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1557,12 +1575,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.557Z",
+          "evaluatedAt": "2026-09-26T06:50:43.928Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 79,
@@ -1575,7 +1593,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.557Z",
+          "evaluatedAt": "2026-09-26T06:50:43.928Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1588,6 +1606,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/minimax-docx",
@@ -1659,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.556Z",
+        "evaluatedAt": "2026-09-26T06:50:43.929Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1668,8 +1688,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 78,
-          "grade": "C",
+          "overallScore": 80,
+          "grade": "B",
           "categories": [
             {
               "id": "structure",
@@ -1728,16 +1748,16 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 6,
+              "score": 8,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.557Z",
+          "evaluatedAt": "2026-09-26T06:50:43.929Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 79,
@@ -1750,7 +1770,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.557Z",
+          "evaluatedAt": "2026-09-26T06:50:43.929Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1763,6 +1783,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/minimax-music-gen",
@@ -1834,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.556Z",
+        "evaluatedAt": "2026-09-26T06:50:43.929Z",
         "evaluatedVersion": "1.1"
       },
       "evalSummaries": {
@@ -1907,12 +1929,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.559Z",
+          "evaluatedAt": "2026-09-26T06:50:43.955Z",
           "evaluatedVersion": "1.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 71,
@@ -1925,7 +1947,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.559Z",
+          "evaluatedAt": "2026-09-26T06:50:43.955Z",
           "evaluatedVersion": "1.1"
         }
       }
@@ -1938,6 +1960,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/minimax-music-playlist",
@@ -2009,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.567Z",
+        "evaluatedAt": "2026-09-26T06:50:43.983Z",
         "evaluatedVersion": "2.0"
       },
       "evalSummaries": {
@@ -2082,12 +2106,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.567Z",
+          "evaluatedAt": "2026-09-26T06:50:43.983Z",
           "evaluatedVersion": "2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 71,
@@ -2100,7 +2124,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.567Z",
+          "evaluatedAt": "2026-09-26T06:50:43.983Z",
           "evaluatedVersion": "2.0"
         }
       }
@@ -2113,6 +2137,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/minimax-pdf",
@@ -2184,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.571Z",
+        "evaluatedAt": "2026-09-26T06:50:44.000Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2193,8 +2219,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 64,
-          "grade": "D",
+          "overallScore": 65,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -2253,16 +2279,16 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 9,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.571Z",
+          "evaluatedAt": "2026-09-26T06:50:44.000Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 71,
@@ -2275,7 +2301,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.571Z",
+          "evaluatedAt": "2026-09-26T06:50:44.000Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -2288,6 +2314,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/minimax-xlsx",
@@ -2359,7 +2387,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.573Z",
+        "evaluatedAt": "2026-09-26T06:50:44.015Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2432,12 +2460,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.576Z",
+          "evaluatedAt": "2026-09-26T06:50:44.024Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 71,
@@ -2450,7 +2478,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.576Z",
+          "evaluatedAt": "2026-09-26T06:50:44.024Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -2463,6 +2491,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/minimax-multimodal-toolkit",
@@ -2534,7 +2564,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.708Z",
+        "evaluatedAt": "2026-09-26T06:50:44.413Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2607,12 +2637,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.709Z",
+          "evaluatedAt": "2026-09-26T06:50:44.419Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2625,7 +2655,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.709Z",
+          "evaluatedAt": "2026-09-26T06:50:44.419Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2638,6 +2668,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:plugins/pptx-plugin/skills/ppt-editing-skill",
@@ -2709,7 +2741,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.709Z",
+        "evaluatedAt": "2026-09-26T06:50:44.421Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2782,12 +2814,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.709Z",
+          "evaluatedAt": "2026-09-26T06:50:44.422Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2800,7 +2832,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.709Z",
+          "evaluatedAt": "2026-09-26T06:50:44.422Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2813,6 +2845,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:plugins/pptx-plugin/skills/ppt-orchestra-skill",
@@ -2884,7 +2918,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.711Z",
+        "evaluatedAt": "2026-09-26T06:50:44.423Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2957,12 +2991,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.711Z",
+          "evaluatedAt": "2026-09-26T06:50:44.425Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -2975,7 +3009,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.711Z",
+          "evaluatedAt": "2026-09-26T06:50:44.426Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2988,6 +3022,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/pptx-generator",
@@ -3059,7 +3095,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.724Z",
+        "evaluatedAt": "2026-09-26T06:50:44.579Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -3132,12 +3168,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.724Z",
+          "evaluatedAt": "2026-09-26T06:50:44.579Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 71,
@@ -3150,7 +3186,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.724Z",
+          "evaluatedAt": "2026-09-26T06:50:44.579Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -3163,6 +3199,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:.claude/skills/pr-review",
@@ -3234,7 +3272,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.724Z",
+        "evaluatedAt": "2026-09-26T06:50:44.579Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -3307,12 +3345,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.724Z",
+          "evaluatedAt": "2026-09-26T06:50:44.580Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 71,
@@ -3325,7 +3363,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.724Z",
+          "evaluatedAt": "2026-09-26T06:50:44.580Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -3338,6 +3376,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/react-native-dev",
@@ -3409,7 +3449,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.726Z",
+        "evaluatedAt": "2026-09-26T06:50:44.614Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3482,12 +3522,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.726Z",
+          "evaluatedAt": "2026-09-26T06:50:44.615Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 71,
@@ -3500,7 +3540,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.726Z",
+          "evaluatedAt": "2026-09-26T06:50:44.615Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3513,6 +3553,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/shader-dev",
@@ -3584,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.756Z",
+        "evaluatedAt": "2026-09-26T06:50:44.688Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -3657,12 +3699,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.756Z",
+          "evaluatedAt": "2026-09-26T06:50:44.689Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 79,
@@ -3675,7 +3717,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.756Z",
+          "evaluatedAt": "2026-09-26T06:50:44.689Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -3688,6 +3730,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:plugins/pptx-plugin/skills/slide-making-skill",
@@ -3759,7 +3803,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.766Z",
+        "evaluatedAt": "2026-09-26T06:50:44.893Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3832,12 +3876,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.766Z",
+          "evaluatedAt": "2026-09-26T06:50:44.894Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -3850,7 +3894,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.766Z",
+          "evaluatedAt": "2026-09-26T06:50:44.894Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3863,6 +3907,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:MiniMax-AI/skills:skills/vision-analysis",
@@ -3934,7 +3980,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:43.778Z",
+        "evaluatedAt": "2026-09-26T06:50:44.895Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -4007,12 +4053,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.778Z",
+          "evaluatedAt": "2026-09-26T06:50:44.895Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 71,
@@ -4025,7 +4071,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:43.778Z",
+          "evaluatedAt": "2026-09-26T06:50:44.895Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -4037,7 +4083,7 @@
       "name": "minimax-ai-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from MiniMax-AI/skills.",
       "author": "ASM (MiniMax-AI/skills)",
-      "createdAt": "2026-08-21T09:19:44.252Z",
+      "createdAt": "2026-09-26T06:50:45.656Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4199,7 +4245,7 @@
       "name": "minimax-ai-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from MiniMax-AI/skills.",
       "author": "ASM (MiniMax-AI/skills)",
-      "createdAt": "2026-08-21T09:19:44.252Z",
+      "createdAt": "2026-09-26T06:50:45.656Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4289,7 +4335,7 @@
       "name": "minimax-ai-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from MiniMax-AI/skills.",
       "author": "ASM (MiniMax-AI/skills)",
-      "createdAt": "2026-08-21T09:19:44.252Z",
+      "createdAt": "2026-09-26T06:50:45.656Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4391,7 +4437,7 @@
       "name": "minimax-ai-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from MiniMax-AI/skills.",
       "author": "ASM (MiniMax-AI/skills)",
-      "createdAt": "2026-08-21T09:19:44.252Z",
+      "createdAt": "2026-09-26T06:50:45.656Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4529,7 +4575,7 @@
       "name": "minimax-ai-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from MiniMax-AI/skills.",
       "author": "ASM (MiniMax-AI/skills)",
-      "createdAt": "2026-08-21T09:19:44.252Z",
+      "createdAt": "2026-09-26T06:50:45.656Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4568,10 +4614,46 @@
     },
     {
       "version": 1,
+      "name": "minimax-ai-skills-mobile",
+      "description": "iOS, Swift, SwiftUI, Xcode, macOS, and App Store skills. Derived from MiniMax-AI/skills.",
+      "author": "ASM (MiniMax-AI/skills)",
+      "createdAt": "2026-09-26T06:50:45.656Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "mobile",
+        "ios",
+        "swift",
+        "minimax-ai",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "ios-application-dev",
+          "installUrl": "github:MiniMax-AI/skills:skills/ios-application-dev",
+          "description": "iOS application development guide covering UIKit, SnapKit, and SwiftUI. Includes touch targets, safe areas, navigation patterns, Dynamic Type, Dark Mode, accessibility, collection views, common UI components, and SwiftUI design guidelines. For detailed references on specific topics, see the reference files. Use when: developing iOS apps, implementing UI, reviewing iOS code, working with UIKit/SnapKit/SwiftUI layouts, building iPhone interfaces, Swift mobile development, Apple HIG compliance, iOS accessibility implementation.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "react-native-dev",
+          "installUrl": "github:MiniMax-AI/skills:skills/react-native-dev",
+          "description": "React Native and Expo development guide covering components, styling, animations, navigation, state management, forms, networking, performance optimization, testing, native capabilities, and engineering (project structure, deployment, SDK upgrades, CI/CD). Use when: building React Native or Expo apps, implementing animations or native UI, managing state, fetching data, writing tests, optimizing performance, deploying to App Store/Play Store, setting up CI/CD, upgrading Expo SDK, or configuring Tailwind/NativeWind.",
+          "version": "1.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "MiniMax-AI",
+        "repo": "skills",
+        "repoUrl": "https://github.com/MiniMax-AI/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
       "name": "minimax-ai-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from MiniMax-AI/skills.",
       "author": "ASM (MiniMax-AI/skills)",
-      "createdAt": "2026-08-21T09:19:44.252Z",
+      "createdAt": "2026-09-26T06:50:45.656Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4619,7 +4701,7 @@
       "name": "minimax-ai-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from MiniMax-AI/skills.",
       "author": "ASM (MiniMax-AI/skills)",
-      "createdAt": "2026-08-21T09:19:44.252Z",
+      "createdAt": "2026-09-26T06:50:45.656Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4667,7 +4749,7 @@
       "name": "minimax-ai-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from MiniMax-AI/skills.",
       "author": "ASM (MiniMax-AI/skills)",
-      "createdAt": "2026-08-21T09:19:44.252Z",
+      "createdAt": "2026-09-26T06:50:45.656Z",
       "tags": [
         "repo-derived",
         "inferred",

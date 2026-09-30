@@ -11,8 +11,9 @@ A guide for designing skills that use the Agent tool to delegate work to subagen
 5. [Writing Subagent Prompts](#writing-subagent-prompts)
 6. [Subagent Prompt Files](#subagent-prompt-files)
 7. [Data Flow Between Main Agent and Subagents](#data-flow-between-main-agent-and-subagents)
-8. [Error Handling and Graceful Degradation](#error-handling-and-graceful-degradation)
-9. [Examples from Real Skills](#examples-from-real-skills)
+8. [Per-Step Context Delegation](#per-step-context-delegation)
+9. [Error Handling and Graceful Degradation](#error-handling-and-graceful-degradation)
+10. [Examples from Real Skills](#examples-from-real-skills)
 
 ---
 
@@ -361,6 +362,91 @@ workspace/
 ```
 
 The SKILL.md tells the main agent to create the workspace, pass the relevant stage directory to each subagent, and read results between stages.
+
+## Per-Step Context Delegation
+
+A skill's `references/` tree gets loaded whole only because nothing told the main
+agent otherwise. Most steps need one file out of it. **Per-step context delegation**
+is the discipline of writing each step so it _declares the slice_ of the skill's own
+material that step needs — and handing that slice, and only that slice, to the
+subagent that runs it.
+
+This is not a second mechanism. It is the six-field prompt contract from
+[Writing Subagent Prompts](#writing-subagent-prompts) with the **Input** field used
+deliberately: the slice _is_ the Input. Same Agent tool, same `agents/` prompt files,
+same degradation clause — only the discipline about what the main agent reads changes.
+
+### How a step declares its slice
+
+Write the step so three things are visible to the main agent **without reading any of
+them**:
+
+| Element    | What it names                                                                                                              |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **Slice**  | The exact `references/`, `agents/`, or `templates/` paths this step's worker needs — by path, never "the relevant docs"    |
+| **Input**  | The slice plus the runtime values the worker cannot derive (clone paths, prior worker output, user choices)                |
+| **Output** | The fixed shape the worker returns, so the merge step stays dumb and never re-reads the slice to interpret a prose summary |
+
+The main agent reads the step, passes the named paths as the worker's **Input**, and
+keeps only the worker's **Output**. It never opens the slice itself — that is the
+whole saving.
+
+**Skill instructions pattern:**
+
+```markdown
+## Step 3 — Audit each batch (workers, parallel)
+
+Spawn one worker per batch. Each worker's contract:
+
+- Input: `references/audit-eval-contract.md`, the clone path from Step 2, the
+  batch's relPaths
+- Output: the fixed JSON in that contract — one object per skill, never prose
+- You do NOT read `references/audit-eval-contract.md` yourself; the worker does.
+```
+
+### Deriving the slice
+
+1. **List what the step touches** — reference files, templates, agent prompts, and
+   any fixed procedure currently inlined in SKILL.md.
+2. **Move the inlined procedure out.** A step whose procedure sits in SKILL.md has no
+   slice to hand over: the main agent already paid for it. Extract it to
+   `references/<topic>.md` and leave a one-line pointer. This is progressive
+   disclosure one level deeper — file-level disclosure decides what the main agent
+   loads at all, step-level slicing decides _who_ loads it.
+3. **Name the paths in the step**, so the main agent can dispatch without opening them.
+4. **Pin the return shape**, so results merge without a second read.
+
+Chain the slices when steps depend on each other: a worker that returns a path (a
+temp clone, a workspace directory) is what makes the _next_ step's Input resolvable.
+A step whose Input silently relies on a shell variable set inside an earlier step's
+inline bash breaks the moment that step becomes a worker — the variable lives in a
+shell the main agent no longer owns.
+
+### When the slice isn't worth it
+
+Everything in [When NOT to Use Subagents](#when-not-to-use-subagents) applies first —
+naming a slice does not make a step delegable that those tests already rule out. On
+top of them, skip the slice when:
+
+- **There is no tree to withhold** — a skill with no `references/`, or one file every
+  run needs anyway. The handoff costs more than it saves.
+- **The step is a single decision** — choosing a version bump or a branch name is
+  cheaper inline than as a spawn.
+- **Consecutive steps share one slice** — two workers reading the same file is one
+  worker with two tasks.
+- **The step talks to the user mid-way** — a worker cannot ask a question, however
+  heavy its slice is.
+
+A skill can be perfectly predictable with zero delegable steps. This is a
+context-budget optimization, not a structural requirement; do not restructure a small
+skill to earn it.
+
+### Degradation
+
+A step written this way degrades on its own: without the Agent tool the main agent
+reads the named slice itself, runs the step inline, in order, and says so — the same
+fallback the [Graceful degradation pattern](#graceful-degradation-pattern) below
+describes. Declaring the slice costs nothing on a run that never delegates it.
 
 ## Error Handling and Graceful Degradation
 

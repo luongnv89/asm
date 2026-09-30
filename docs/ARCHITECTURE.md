@@ -8,7 +8,7 @@ agent-skill-manager is a dual-interface application (interactive TUI + non-inter
 graph TD
     A[bin/agent-skill-manager.ts] --> B{CLI mode?}
     B -->|Yes| C[cli.ts - Command Dispatcher]
-    B -->|No| D[index.ts - TUI Bootstrap]
+    B -->|No| D[index.tsx - TUI Bootstrap]
     C --> E[Core Modules]
     D --> E
     E --> F[config.ts]
@@ -24,17 +24,28 @@ graph TD
 **`bin/agent-skill-manager.ts`** — Determines the execution mode:
 
 - If CLI arguments are present (commands or flags), delegates to `cli.ts`
-- If no arguments, launches the interactive TUI via `index.ts`
+- If no arguments, launches the interactive TUI via `index.tsx`
 
 ## CLI Mode (`src/cli.ts`)
 
-Parses arguments and dispatches to command handlers:
+`cli.ts` is a thin argv dispatcher — parsing and routing only, no command
+logic:
 
-Dispatches to ~47 command handlers (`cmd*` functions) covering discovery
-(`list`, `search`, `inspect`), lifecycle (`install`, `uninstall`,
-`disable`/`enable`, `update`, `outdated`), authoring (`init`, `link`, `eval`,
-`publish`), and organization (`audit`, `bundle`, `library`, `stats`,
-`doctor`, `config`, `import`/`export`, `index`). See
+- `parseArgs()` (`src/cli.ts:109`) normalizes argv into a `ParsedArgs` struct
+  (command, subcommand, positionals, flags).
+- `isCLIMode()` (`src/cli.ts:647`) decides whether the invocation runs the
+  CLI or falls through to the TUI.
+- `runCLI()` (`src/cli.ts:482`) switches on the parsed command and delegates
+  to the matching `cmd*` handler.
+
+The handlers live one-per-command under `src/commands/` — `cmdList` in
+`commands/list.ts`, `cmdInstall` in `commands/install.ts`, and so on — with
+shared helpers in `src/commands/shared.ts`. They cover discovery (`list`,
+`search`, `inspect`, `tag`, `get`, `cleanup`), lifecycle (`install`,
+`uninstall`, `disable`/`enable`, `activate`/`deactivate`, `update`,
+`outdated`), authoring (`init`, `link`, `eval`/`eval-providers`, `publish`),
+and organization (`audit`, `bundle`, `deps`, `library`, `stats`, `doctor`,
+`config`, `import`/`export`, `index`). See
 [README § CLI Commands](../README.md#cli-commands) for the full, current
 reference with flags and examples.
 
@@ -77,46 +88,51 @@ Each view is an ink/React component:
 
 ## Core Modules
 
-| Module              | File                                 | Responsibility                                                                    |
-| ------------------- | ------------------------------------ | --------------------------------------------------------------------------------- |
-| Config              | `config.ts`                          | Load/save config from `~/.config/agent-skill-manager/config.json`                 |
-| Scanner             | `scanner.ts`                         | Walk provider directories, parse SKILL.md frontmatter, filter & sort              |
-| Auditor             | `auditor.ts`                         | Detect duplicate skills, rank instances for keeping, format reports               |
-| Uninstaller         | `uninstaller.ts`                     | Build removal plans and execute safe deletions                                    |
-| Formatter           | `formatter.ts`                       | ASCII table, detail view, and JSON output formatting                              |
-| Eval                | `eval/`                              | Pluggable skill evaluation framework (see below)                                  |
-| Initializer         | `initializer.ts`                     | Scaffold a new skill directory (`asm init`)                                       |
-| Linker              | `linker.ts`                          | Symlink-based live-reload installs (`asm link`)                                   |
-| Installer           | `installer.ts`                       | Resolve + fetch + place skills from GitHub/registry/local sources (`asm install`) |
-| Registry            | `registry.ts`                        | ASM Registry manifest resolution and commit pinning                               |
-| Publisher           | `publisher.ts`                       | `asm publish` — dry-run manifest + PR flow to the registry                        |
-| Skill Index         | `skill-index.ts` / `ingester.ts`     | Catalog ingestion, search, and `asm index` subcommands                            |
-| Repo Bundles        | `repo-bundles.ts`                    | Bundle inference/records derived from indexed repos                               |
-| Library             | `library.ts`                         | Local library lifecycle (`install --library`, `activate`, `deactivate`)           |
-| Skill State         | `skill-state.ts`                     | Disable/enable state persisted to `skill-state.json`                              |
-| Importer / Exporter | `importer.ts` / `exporter.ts`        | `asm import` / `asm export`                                                       |
-| Updater             | `updater.ts`                         | `asm update` / `asm outdated`                                                     |
-| Doctor              | `doctor.ts`                          | `asm doctor` environment/PATH-shadowing diagnostics                               |
-| Health              | `health.ts`                          | Skill health checks surfaced in `list`/`inspect`                                  |
-| Skill Dedupe        | `skill-dedupe.ts`                    | Shared dedup logic used by `auditor.ts` and index ingestion                       |
-| Stats               | `stats.ts`                           | `asm stats` / `stats repo` / `stats author` / `stats index`                       |
-| Verifier            | `verifier.ts`                        | Catalog skill verification badge criteria                                         |
-| Security Auditor    | `security-auditor.ts`                | `asm audit security` — pre-install risk scanning                                  |
-| Logger              | `logger.ts`                          | Shared structured logging                                                         |
-| Acknowledgements    | `website/data/acknowledgements.json` | Contributors/dependencies data for README/website                                 |
+| Module              | File                                 | Responsibility                                                                                                         |
+| ------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| Config              | `config.ts`                          | Load/save config from `~/.config/agent-skill-manager/config.json`                                                      |
+| Scanner             | `scanner.ts`                         | Walk provider directories, parse SKILL.md frontmatter, filter & sort                                                   |
+| Auditor             | `auditor.ts`                         | Detect duplicate skills, rank instances for keeping, format reports                                                    |
+| Overlap Detector    | `installed-overlap.ts`               | `asm audit overlap` — different-name skills doing the same job (offline)                                               |
+| Uninstaller         | `uninstaller.ts`                     | Build removal plans and execute safe deletions                                                                         |
+| Formatter           | `formatter.ts` + `formatter-core.ts` | CLI output formatting; core splits into `formatter-colors.ts`, `formatter-table.ts`, `formatter-search.ts`             |
+| Eval                | `eval/`                              | Pluggable skill evaluation framework (see below)                                                                       |
+| Initializer         | `initializer.ts`                     | Scaffold a new skill directory (`asm init`)                                                                            |
+| Linker              | `linker.ts`                          | Symlink-based live-reload installs (`asm link`)                                                                        |
+| Installer           | `installer.ts`                       | Resolve + fetch + place skills from GitHub/registry/local sources (`asm install`)                                      |
+| Registry            | `registry.ts`                        | ASM Registry manifest resolution and commit pinning                                                                    |
+| Publisher           | `publisher.ts`                       | `asm publish` — dry-run manifest + PR flow to the registry                                                             |
+| Skill Index         | `skill-index.ts` / `ingester.ts`     | Catalog ingestion, search, and `asm index` subcommands                                                                 |
+| Repo Bundles        | `repo-bundles.ts`                    | Bundle inference/records derived from indexed repos                                                                    |
+| Library             | `library.ts`                         | Local library lifecycle (`install --library`, `activate`, `deactivate`)                                                |
+| Skill State         | `skill-state.ts`                     | Disable/enable state persisted to `skill-state.json`                                                                   |
+| Skill Tags          | `skill-tags.ts`                      | Local tag overlays (`asm tag add\|remove`) and `--tag` AND filters                                                     |
+| Importer / Exporter | `importer.ts` / `exporter.ts`        | `asm import` / `asm export`                                                                                            |
+| Updater             | `updater.ts`                         | `asm update` / `asm outdated`                                                                                          |
+| Doctor              | `doctor.ts`                          | `asm doctor` environment/PATH-shadowing diagnostics                                                                    |
+| Health              | `health.ts`                          | Skill health checks surfaced in `list`/`inspect`                                                                       |
+| Skill Dedupe        | `skill-dedupe.ts`                    | Shared dedup logic used by `auditor.ts` and index ingestion                                                            |
+| Stats               | `stats.ts`                           | `asm stats` / `stats repo` / `stats author` / `stats index`; splits into `stats-tokens.ts`, `stats-index.ts`           |
+| Verifier            | `verifier.ts`                        | Catalog skill verification badge criteria                                                                              |
+| Security Auditor    | `security-auditor.ts`                | `asm audit security` — pre-install risk scanning; splits into `security-auditor-scan.ts`, `security-auditor-report.ts` |
+| Dependency Leases   | `dependency-leases.ts`               | Cross-session dependency borrow/lease ops; lock+session store in `dependency-leases-store.ts`                          |
+| Logger              | `logger.ts`                          | Shared structured logging                                                                                              |
+| Acknowledgements    | `website/data/acknowledgements.json` | Contributors/dependencies data for README/website                                                                      |
 
 ## Evaluation Framework (`src/eval/`)
 
 `asm eval` evaluates a skill and produces a scored report. Internally it is a **provider framework** — individual evaluators plug into a common `EvalResult` shape through the `EvalProvider` contract, so static linters, runtime LLM-judge tools, and future domain-specific evaluators all flow through the same CLI surface.
 
-| File                         | Responsibility                                                           |
-| ---------------------------- | ------------------------------------------------------------------------ |
-| `eval/types.ts`              | Contract types: `EvalProvider`, `EvalResult`, `SkillContext`, `EvalOpts` |
-| `eval/registry.ts`           | `register()`, `resolve(id, semverRange)`, `list()`; minimal semver impl  |
-| `eval/runner.ts`             | Timing, error normalization, timeout enforcement around `provider.run()` |
-| `eval/config.ts`             | Reads the `eval` section of `~/.asm/config.yml` with typed defaults      |
-| `eval/providers/index.ts`    | Calls `register()` for every built-in provider                           |
-| `eval/providers/quality/v1/` | Static SKILL.md linter — adapter over `src/evaluator.ts`                 |
+| File                                     | Responsibility                                                                                                                               |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `eval/types.ts`                          | Contract types: `EvalProvider`, `EvalResult`, `SkillContext`, `EvalOpts`                                                                     |
+| `eval/registry.ts`                       | `register()`, `resolve(id, semverRange)`, `list()`; minimal semver impl                                                                      |
+| `eval/runner.ts`                         | Timing, error normalization, timeout enforcement around `provider.run()`                                                                     |
+| `eval/summary.ts`                        | Score→grade mapping and per-provider report shaping                                                                                          |
+| `eval/builtins.ts`                       | `ensureEvalBuiltins()` + registry accessors consumed by `commands/eval.ts`                                                                   |
+| `eval/providers/index.ts`                | `registerBuiltins()` calls `register()` for every built-in provider                                                                          |
+| `eval/providers/quality/v1/`             | Static SKILL.md linter — adapter over `src/evaluator.ts` (scorers split into `src/evaluator-scorers*.ts`, types in `src/evaluator-types.ts`) |
+| `eval/providers/skill-best-practice/v1/` | Frontmatter best-practice checks (allowed properties, effort values, …)                                                                      |
 
 ### Provider contract
 
@@ -140,7 +156,7 @@ See [`docs/eval-providers.md`](./eval-providers.md) for the user-facing workflow
 | File             | Purpose                                                                |
 | ---------------- | ---------------------------------------------------------------------- |
 | `types.ts`       | Shared TypeScript interfaces (`SkillInfo`, `AppConfig`, `Scope`, etc.) |
-| `colors.ts`      | Neon green color palette for the TUI                                   |
+| `colors.ts`      | `theme` color-token palette for the TUI                                |
 | `version.ts`     | Version constant used across CLI and TUI                               |
 | `frontmatter.ts` | YAML-like frontmatter parser for SKILL.md files                        |
 
@@ -163,13 +179,16 @@ flowchart LR
 
 ## State Management
 
-Application state is held in module-level variables in `src/index.ts`:
+Application state lives in React hooks inside the root component in
+`src/index.tsx` (`useState`, with `filteredSkills` derived via `useMemo`):
 
 - `allSkills` / `filteredSkills` — current skill data
-- `currentScope` / `currentSort` / `searchQuery` — filter state
-- `viewState` — which overlay is active (`dashboard`, `detail`, `confirm`, `config`, `help`, `duplicates`)
+- `scope` / `sort` / `searchQuery` — filter state
+- `view` — the active overlay (`ViewState`: `dashboard`, `detail`, `confirm`,
+  `help`, `config`, `audit`; the `audit` state renders `duplicates.tsx`)
 
-State transitions are driven by keyboard events and propagated to views via update functions.
+State transitions are driven by keyboard events (`useInput`) and propagated to
+views via props and callback setters.
 
 ## Duplicate Detection (`src/auditor.ts`)
 

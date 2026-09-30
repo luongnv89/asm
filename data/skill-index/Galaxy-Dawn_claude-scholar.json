@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/Galaxy-Dawn/claude-scholar.git",
   "owner": "Galaxy-Dawn",
   "repo": "claude-scholar",
-  "updatedAt": "2026-08-21T09:20:15.917Z",
+  "updatedAt": "2026-09-26T06:51:47.199Z",
   "skillCount": 45,
   "skills": [
     {
@@ -13,6 +13,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/agent-identifier",
@@ -84,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.066Z",
+        "evaluatedAt": "2026-09-26T06:51:45.509Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -93,8 +95,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 79,
-          "grade": "C",
+          "overallScore": 80,
+          "grade": "B",
           "categories": [
             {
               "id": "structure",
@@ -153,16 +155,16 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 9,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.067Z",
+          "evaluatedAt": "2026-09-26T06:51:45.510Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -175,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.067Z",
+          "evaluatedAt": "2026-09-26T06:51:45.510Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -188,6 +190,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/architecture-design",
@@ -259,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.067Z",
+        "evaluatedAt": "2026-09-26T06:51:45.509Z",
         "evaluatedVersion": "1.2.0"
       },
       "evalSummaries": {
@@ -268,7 +272,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -328,16 +332,16 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 9,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.067Z",
+          "evaluatedAt": "2026-09-26T06:51:45.510Z",
           "evaluatedVersion": "1.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -350,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.067Z",
+          "evaluatedAt": "2026-09-26T06:51:45.510Z",
           "evaluatedVersion": "1.2.0"
         }
       }
@@ -363,6 +367,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/bug-detective",
@@ -434,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.066Z",
+        "evaluatedAt": "2026-09-26T06:51:45.509Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -443,7 +449,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 77,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -503,16 +509,16 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 9,
+              "score": 4,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.067Z",
+          "evaluatedAt": "2026-09-26T06:51:45.510Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -525,7 +531,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.067Z",
+          "evaluatedAt": "2026-09-26T06:51:45.510Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -538,6 +544,13 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [
+        "research",
+        "academic",
+        "citation",
+        "reference"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/citation-verification",
@@ -609,7 +622,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.067Z",
+        "evaluatedAt": "2026-09-26T06:51:45.509Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -682,12 +695,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.067Z",
+          "evaluatedAt": "2026-09-26T06:51:45.510Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -700,7 +713,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.067Z",
+          "evaluatedAt": "2026-09-26T06:51:45.510Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -713,6 +726,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/code-review-excellence",
@@ -784,7 +799,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.067Z",
+        "evaluatedAt": "2026-09-26T06:51:45.511Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -857,12 +872,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.067Z",
+          "evaluatedAt": "2026-09-26T06:51:45.511Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -875,7 +890,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.067Z",
+          "evaluatedAt": "2026-09-26T06:51:45.511Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -888,6 +903,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/command-development",
@@ -959,7 +976,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.067Z",
+        "evaluatedAt": "2026-09-26T06:51:45.509Z",
         "evaluatedVersion": "0.2.0"
       },
       "evalSummaries": {
@@ -1032,12 +1049,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.067Z",
+          "evaluatedAt": "2026-09-26T06:51:45.510Z",
           "evaluatedVersion": "0.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -1050,7 +1067,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.068Z",
+          "evaluatedAt": "2026-09-26T06:51:45.510Z",
           "evaluatedVersion": "0.2.0"
         }
       }
@@ -1063,6 +1080,12 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [
+        "coding",
+        "daily",
+        "checklist"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/daily-coding",
@@ -1134,7 +1157,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.067Z",
+        "evaluatedAt": "2026-09-26T06:51:45.509Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1207,12 +1230,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.067Z",
+          "evaluatedAt": "2026-09-26T06:51:45.510Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1225,7 +1248,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.067Z",
+          "evaluatedAt": "2026-09-26T06:51:45.510Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1238,6 +1261,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/daily-paper-generator",
@@ -1309,7 +1334,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.067Z",
+        "evaluatedAt": "2026-09-26T06:51:45.510Z",
         "evaluatedVersion": "0.5.1"
       },
       "evalSummaries": {
@@ -1382,12 +1407,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.068Z",
+          "evaluatedAt": "2026-09-26T06:51:45.511Z",
           "evaluatedVersion": "0.5.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1400,7 +1425,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.068Z",
+          "evaluatedAt": "2026-09-26T06:51:45.511Z",
           "evaluatedVersion": "0.5.1"
         }
       }
@@ -1413,6 +1438,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/defuddle",
@@ -1484,7 +1511,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.084Z",
+        "evaluatedAt": "2026-09-26T06:51:45.545Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1557,12 +1584,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.088Z",
+          "evaluatedAt": "2026-09-26T06:51:45.546Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -1575,7 +1602,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.088Z",
+          "evaluatedAt": "2026-09-26T06:51:45.546Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1588,6 +1615,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/doc-coauthoring",
@@ -1659,7 +1688,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.107Z",
+        "evaluatedAt": "2026-09-26T06:51:45.704Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -1732,12 +1761,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.107Z",
+          "evaluatedAt": "2026-09-26T06:51:45.705Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1750,7 +1779,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.107Z",
+          "evaluatedAt": "2026-09-26T06:51:45.705Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -1763,6 +1792,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/expression-skill",
@@ -1834,7 +1865,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.115Z",
+        "evaluatedAt": "2026-09-26T06:51:45.711Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1907,12 +1938,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.115Z",
+          "evaluatedAt": "2026-09-26T06:51:45.712Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1925,7 +1956,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.115Z",
+          "evaluatedAt": "2026-09-26T06:51:45.712Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1938,6 +1969,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/frontend-design",
@@ -2009,7 +2042,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.125Z",
+        "evaluatedAt": "2026-09-26T06:51:45.717Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -2082,12 +2115,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.126Z",
+          "evaluatedAt": "2026-09-26T06:51:45.717Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -2100,7 +2133,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.126Z",
+          "evaluatedAt": "2026-09-26T06:51:45.717Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -2113,6 +2146,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/git-workflow",
@@ -2184,7 +2219,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.125Z",
+        "evaluatedAt": "2026-09-26T06:51:45.744Z",
         "evaluatedVersion": "1.2.0"
       },
       "evalSummaries": {
@@ -2193,8 +2228,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
-          "grade": "C",
+          "overallScore": 62,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -2253,16 +2288,16 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 9,
+              "score": 0,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.125Z",
+          "evaluatedAt": "2026-09-26T06:51:45.744Z",
           "evaluatedVersion": "1.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -2275,7 +2310,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.125Z",
+          "evaluatedAt": "2026-09-26T06:51:45.744Z",
           "evaluatedVersion": "1.2.0"
         }
       }
@@ -2288,6 +2323,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/hook-development",
@@ -2359,7 +2396,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.142Z",
+        "evaluatedAt": "2026-09-26T06:51:45.757Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -2368,8 +2405,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 66,
-          "grade": "C",
+          "overallScore": 62,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -2428,16 +2465,16 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 4,
+              "score": 0,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.142Z",
+          "evaluatedAt": "2026-09-26T06:51:45.762Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -2450,7 +2487,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.142Z",
+          "evaluatedAt": "2026-09-26T06:51:45.762Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -2463,6 +2500,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/kaggle-learner",
@@ -2534,7 +2573,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.169Z",
+        "evaluatedAt": "2026-09-26T06:51:45.757Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -2607,12 +2646,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.177Z",
+          "evaluatedAt": "2026-09-26T06:51:45.762Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -2625,7 +2664,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.177Z",
+          "evaluatedAt": "2026-09-26T06:51:45.762Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -2638,6 +2677,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/latex-conference-template-organizer",
@@ -2709,7 +2750,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.188Z",
+        "evaluatedAt": "2026-09-26T06:51:45.769Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -2782,12 +2823,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.190Z",
+          "evaluatedAt": "2026-09-26T06:51:45.774Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -2800,7 +2841,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.190Z",
+          "evaluatedAt": "2026-09-26T06:51:45.774Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -2813,6 +2854,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/mcp-integration",
@@ -2884,7 +2927,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.192Z",
+        "evaluatedAt": "2026-09-26T06:51:45.804Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -2957,12 +3000,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.193Z",
+          "evaluatedAt": "2026-09-26T06:51:45.807Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -2975,7 +3018,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.193Z",
+          "evaluatedAt": "2026-09-26T06:51:45.807Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -2988,12 +3031,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [
+        "academic",
+        "writing",
+        "neurips",
+        "icml",
+        "iclr",
+        "acl",
+        "aaai",
+        "colm",
+        "latex",
+        "paper",
+        "citations",
+        "research"
+      ],
+      "dependencies": [
+        "semanticscholar",
+        "arxiv",
+        "habanero",
+        "requests"
+      ],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/ml-paper-writing",
       "relPath": "skills/ml-paper-writing",
       "verified": true,
-      "tokenCount": 11615,
+      "tokenCount": 11650,
       "evalSummary": {
         "overallScore": 86,
         "grade": "B",
@@ -3059,7 +3122,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.212Z",
+        "evaluatedAt": "2026-09-26T06:51:45.809Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3132,25 +3195,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.212Z",
+          "evaluatedAt": "2026-09-26T06:51:45.812Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 62,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
+              "score": 9,
+              "max": 14
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.212Z",
+          "evaluatedAt": "2026-09-26T06:51:45.812Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3163,12 +3226,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-data",
       "relPath": "skills/nature-data",
       "verified": true,
-      "tokenCount": 1555,
+      "tokenCount": 1645,
       "evalSummary": {
         "overallScore": 73,
         "grade": "C",
@@ -3234,7 +3299,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.224Z",
+        "evaluatedAt": "2026-09-26T06:51:45.870Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3307,12 +3372,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.225Z",
+          "evaluatedAt": "2026-09-26T06:51:45.870Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -3325,7 +3390,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.225Z",
+          "evaluatedAt": "2026-09-26T06:51:45.870Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3338,14 +3403,16 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-polishing",
       "relPath": "skills/nature-polishing",
       "verified": true,
-      "tokenCount": 3890,
+      "tokenCount": 4016,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -3363,7 +3430,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 6,
+            "score": 8,
             "max": 10
           },
           {
@@ -3409,7 +3476,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.240Z",
+        "evaluatedAt": "2026-09-26T06:51:45.885Z",
         "evaluatedVersion": "5.0.2"
       },
       "evalSummaries": {
@@ -3418,7 +3485,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -3436,7 +3503,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 6,
+              "score": 8,
               "max": 10
             },
             {
@@ -3482,12 +3549,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.241Z",
+          "evaluatedAt": "2026-09-26T06:51:45.892Z",
           "evaluatedVersion": "5.0.2"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -3500,7 +3567,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.241Z",
+          "evaluatedAt": "2026-09-26T06:51:45.892Z",
           "evaluatedVersion": "5.0.2"
         }
       }
@@ -3513,12 +3580,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-response",
       "relPath": "skills/nature-response",
       "verified": true,
-      "tokenCount": 1606,
+      "tokenCount": 1723,
       "evalSummary": {
         "overallScore": 70,
         "grade": "C",
@@ -3584,7 +3653,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.248Z",
+        "evaluatedAt": "2026-09-26T06:51:45.894Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -3657,12 +3726,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.249Z",
+          "evaluatedAt": "2026-09-26T06:51:45.898Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -3675,7 +3744,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.249Z",
+          "evaluatedAt": "2026-09-26T06:51:45.898Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -3688,14 +3757,16 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/nature-writing",
       "relPath": "skills/nature-writing",
       "verified": true,
-      "tokenCount": 1692,
+      "tokenCount": 1832,
       "evalSummary": {
-        "overallScore": 66,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -3725,7 +3796,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 2,
+            "score": 5,
             "max": 10
           },
           {
@@ -3759,7 +3830,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.267Z",
+        "evaluatedAt": "2026-09-26T06:51:45.915Z",
         "evaluatedVersion": "0.2.0"
       },
       "evalSummaries": {
@@ -3768,7 +3839,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 66,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -3798,7 +3869,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 2,
+              "score": 5,
               "max": 10
             },
             {
@@ -3832,12 +3903,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.268Z",
+          "evaluatedAt": "2026-09-26T06:51:45.916Z",
           "evaluatedVersion": "0.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -3850,7 +3921,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.268Z",
+          "evaluatedAt": "2026-09-26T06:51:45.916Z",
           "evaluatedVersion": "0.2.0"
         }
       }
@@ -3863,6 +3934,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-kb-artifacts",
@@ -3934,7 +4007,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.276Z",
+        "evaluatedAt": "2026-09-26T06:51:45.941Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4007,12 +4080,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.277Z",
+          "evaluatedAt": "2026-09-26T06:51:45.942Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -4025,7 +4098,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.277Z",
+          "evaluatedAt": "2026-09-26T06:51:45.942Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4038,6 +4111,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-literature-workflow",
@@ -4109,7 +4184,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.281Z",
+        "evaluatedAt": "2026-09-26T06:51:45.974Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -4182,12 +4257,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.281Z",
+          "evaluatedAt": "2026-09-26T06:51:45.974Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -4200,7 +4275,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.281Z",
+          "evaluatedAt": "2026-09-26T06:51:45.974Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -4213,6 +4288,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-project-kb-core",
@@ -4284,7 +4361,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.281Z",
+        "evaluatedAt": "2026-09-26T06:51:45.974Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4357,12 +4434,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.281Z",
+          "evaluatedAt": "2026-09-26T06:51:45.975Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -4375,7 +4452,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.281Z",
+          "evaluatedAt": "2026-09-26T06:51:45.975Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4388,6 +4465,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-source-ingestion",
@@ -4459,7 +4538,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.297Z",
+        "evaluatedAt": "2026-09-26T06:51:46.005Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4532,12 +4611,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.298Z",
+          "evaluatedAt": "2026-09-26T06:51:46.007Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -4550,7 +4629,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.298Z",
+          "evaluatedAt": "2026-09-26T06:51:46.007Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4563,6 +4642,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/paper-self-review",
@@ -4634,7 +4715,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.298Z",
+        "evaluatedAt": "2026-09-26T06:51:46.102Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -4707,12 +4788,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.298Z",
+          "evaluatedAt": "2026-09-26T06:51:46.104Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -4725,7 +4806,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.298Z",
+          "evaluatedAt": "2026-09-26T06:51:46.104Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -4738,6 +4819,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/planning-with-files",
@@ -4809,7 +4892,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.310Z",
+        "evaluatedAt": "2026-09-26T06:51:46.197Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -4882,12 +4965,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.311Z",
+          "evaluatedAt": "2026-09-26T06:51:46.204Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -4900,7 +4983,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.311Z",
+          "evaluatedAt": "2026-09-26T06:51:46.204Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -4913,6 +4996,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/plugin-structure",
@@ -4984,7 +5069,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.314Z",
+        "evaluatedAt": "2026-09-26T06:51:46.227Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -5057,12 +5142,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.315Z",
+          "evaluatedAt": "2026-09-26T06:51:46.230Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -5075,7 +5160,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.315Z",
+          "evaluatedAt": "2026-09-26T06:51:46.230Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -5088,14 +5173,16 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/post-acceptance",
       "relPath": "skills/post-acceptance",
       "verified": true,
-      "tokenCount": 1295,
+      "tokenCount": 1596,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -5131,7 +5218,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 1,
+            "score": 3,
             "max": 10
           },
           {
@@ -5159,7 +5246,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.316Z",
+        "evaluatedAt": "2026-09-26T06:51:46.267Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -5168,7 +5255,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -5204,7 +5291,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 1,
+              "score": 3,
               "max": 10
             },
             {
@@ -5232,12 +5319,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.316Z",
+          "evaluatedAt": "2026-09-26T06:51:46.268Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -5250,7 +5337,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.316Z",
+          "evaluatedAt": "2026-09-26T06:51:46.268Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -5263,6 +5350,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/publication-chart-skill",
@@ -5334,7 +5423,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.323Z",
+        "evaluatedAt": "2026-09-26T06:51:46.268Z",
         "evaluatedVersion": "0.2.0"
       },
       "evalSummaries": {
@@ -5407,12 +5496,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.323Z",
+          "evaluatedAt": "2026-09-26T06:51:46.268Z",
           "evaluatedVersion": "0.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -5425,7 +5514,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.323Z",
+          "evaluatedAt": "2026-09-26T06:51:46.268Z",
           "evaluatedVersion": "0.2.0"
         }
       }
@@ -5438,6 +5527,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/research-ideation",
@@ -5509,7 +5600,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.327Z",
+        "evaluatedAt": "2026-09-26T06:51:46.270Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -5582,12 +5673,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.328Z",
+          "evaluatedAt": "2026-09-26T06:51:46.271Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -5600,7 +5691,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.328Z",
+          "evaluatedAt": "2026-09-26T06:51:46.271Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -5613,6 +5704,15 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [
+        "research",
+        "analysis",
+        "statistics",
+        "visualization",
+        "scientific",
+        "reporting"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/results-analysis",
@@ -5684,7 +5784,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.329Z",
+        "evaluatedAt": "2026-09-26T06:51:46.345Z",
         "evaluatedVersion": "0.2.0"
       },
       "evalSummaries": {
@@ -5757,12 +5857,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.330Z",
+          "evaluatedAt": "2026-09-26T06:51:46.345Z",
           "evaluatedVersion": "0.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -5775,7 +5875,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.330Z",
+          "evaluatedAt": "2026-09-26T06:51:46.345Z",
           "evaluatedVersion": "0.2.0"
         }
       }
@@ -5788,6 +5888,13 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [
+        "research",
+        "reporting",
+        "experiments",
+        "obsidian"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/results-report",
@@ -5859,7 +5966,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.336Z",
+        "evaluatedAt": "2026-09-26T06:51:46.346Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -5932,12 +6039,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.336Z",
+          "evaluatedAt": "2026-09-26T06:51:46.347Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -5950,7 +6057,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.336Z",
+          "evaluatedAt": "2026-09-26T06:51:46.347Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -5963,6 +6070,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [
+        "research",
+        "academic",
+        "rebuttal",
+        "paper",
+        "writing"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/review-response",
@@ -6034,7 +6149,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.339Z",
+        "evaluatedAt": "2026-09-26T06:51:46.355Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -6107,12 +6222,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.342Z",
+          "evaluatedAt": "2026-09-26T06:51:46.358Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -6125,7 +6240,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.342Z",
+          "evaluatedAt": "2026-09-26T06:51:46.358Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -6138,6 +6253,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/skill-development",
@@ -6209,7 +6326,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.352Z",
+        "evaluatedAt": "2026-09-26T06:51:46.404Z",
         "evaluatedVersion": "0.2.0"
       },
       "evalSummaries": {
@@ -6282,12 +6399,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.354Z",
+          "evaluatedAt": "2026-09-26T06:51:46.404Z",
           "evaluatedVersion": "0.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -6300,7 +6417,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.354Z",
+          "evaluatedAt": "2026-09-26T06:51:46.404Z",
           "evaluatedVersion": "0.2.0"
         }
       }
@@ -6313,6 +6430,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/skill-improver",
@@ -6384,7 +6503,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.354Z",
+        "evaluatedAt": "2026-09-26T06:51:46.407Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -6393,7 +6512,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 71,
           "grade": "C",
           "categories": [
             {
@@ -6453,16 +6572,16 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 8,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.355Z",
+          "evaluatedAt": "2026-09-26T06:51:46.407Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -6475,7 +6594,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.355Z",
+          "evaluatedAt": "2026-09-26T06:51:46.407Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -6488,6 +6607,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/skill-quality-reviewer",
@@ -6559,7 +6680,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.354Z",
+        "evaluatedAt": "2026-09-26T06:51:46.412Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -6568,7 +6689,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -6628,16 +6749,16 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 9,
+              "score": 10,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.355Z",
+          "evaluatedAt": "2026-09-26T06:51:46.413Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -6650,7 +6771,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.355Z",
+          "evaluatedAt": "2026-09-26T06:51:46.413Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -6663,6 +6784,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/ui-ux-pro-max",
@@ -6734,7 +6857,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.355Z",
+        "evaluatedAt": "2026-09-26T06:51:46.420Z",
         "evaluatedVersion": "0.2.0"
       },
       "evalSummaries": {
@@ -6807,12 +6930,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.355Z",
+          "evaluatedAt": "2026-09-26T06:51:46.426Z",
           "evaluatedVersion": "0.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -6825,7 +6948,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.356Z",
+          "evaluatedAt": "2026-09-26T06:51:46.426Z",
           "evaluatedVersion": "0.2.0"
         }
       }
@@ -6838,6 +6961,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/uv-package-manager",
@@ -6909,7 +7034,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.365Z",
+        "evaluatedAt": "2026-09-26T06:51:46.467Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -6982,12 +7107,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.365Z",
+          "evaluatedAt": "2026-09-26T06:51:46.467Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -7000,7 +7125,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.365Z",
+          "evaluatedAt": "2026-09-26T06:51:46.467Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -7013,6 +7138,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/verification-loop",
@@ -7084,7 +7211,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.408Z",
+        "evaluatedAt": "2026-09-26T06:51:46.467Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -7157,12 +7284,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.409Z",
+          "evaluatedAt": "2026-09-26T06:51:46.467Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -7175,7 +7302,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.409Z",
+          "evaluatedAt": "2026-09-26T06:51:46.467Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -7188,6 +7315,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/web-design-reviewer",
@@ -7259,7 +7388,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.408Z",
+        "evaluatedAt": "2026-09-26T06:51:46.620Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -7332,12 +7461,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.409Z",
+          "evaluatedAt": "2026-09-26T06:51:46.621Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -7350,7 +7479,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.409Z",
+          "evaluatedAt": "2026-09-26T06:51:46.621Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -7363,6 +7492,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/webapp-testing",
@@ -7434,7 +7565,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.421Z",
+        "evaluatedAt": "2026-09-26T06:51:46.622Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -7507,12 +7638,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.423Z",
+          "evaluatedAt": "2026-09-26T06:51:46.626Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -7525,7 +7656,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.423Z",
+          "evaluatedAt": "2026-09-26T06:51:46.626Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -7538,12 +7669,19 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [
+        "writing",
+        "ai",
+        "anti-ai",
+        "humanizer"
+      ],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/writing-anti-ai",
       "relPath": "skills/writing-anti-ai",
       "verified": true,
-      "tokenCount": 2195,
+      "tokenCount": 2295,
       "evalSummary": {
         "overallScore": 70,
         "grade": "C",
@@ -7609,7 +7747,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.423Z",
+        "evaluatedAt": "2026-09-26T06:51:46.648Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -7682,12 +7820,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.423Z",
+          "evaluatedAt": "2026-09-26T06:51:46.651Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -7700,7 +7838,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.423Z",
+          "evaluatedAt": "2026-09-26T06:51:46.651Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -7713,6 +7851,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/zotero-obsidian-bridge",
@@ -7784,7 +7924,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:20:15.425Z",
+        "evaluatedAt": "2026-09-26T06:51:46.673Z",
         "evaluatedVersion": "0.3.0"
       },
       "evalSummaries": {
@@ -7857,12 +7997,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.426Z",
+          "evaluatedAt": "2026-09-26T06:51:46.673Z",
           "evaluatedVersion": "0.3.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -7875,7 +8015,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:20:15.426Z",
+          "evaluatedAt": "2026-09-26T06:51:46.673Z",
           "evaluatedVersion": "0.3.0"
         }
       }
@@ -7887,7 +8027,7 @@
       "name": "galaxy-dawn-claude-scholar-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Galaxy-Dawn/claude-scholar.",
       "author": "ASM (Galaxy-Dawn/claude-scholar)",
-      "createdAt": "2026-08-21T09:20:15.917Z",
+      "createdAt": "2026-09-26T06:51:47.199Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8181,7 +8321,7 @@
       "name": "galaxy-dawn-claude-scholar-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Galaxy-Dawn/claude-scholar.",
       "author": "ASM (Galaxy-Dawn/claude-scholar)",
-      "createdAt": "2026-08-21T09:20:15.917Z",
+      "createdAt": "2026-09-26T06:51:47.199Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8325,7 +8465,7 @@
       "name": "galaxy-dawn-claude-scholar-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from Galaxy-Dawn/claude-scholar.",
       "author": "ASM (Galaxy-Dawn/claude-scholar)",
-      "createdAt": "2026-08-21T09:20:15.917Z",
+      "createdAt": "2026-09-26T06:51:47.199Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8511,7 +8651,7 @@
       "name": "galaxy-dawn-claude-scholar-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Galaxy-Dawn/claude-scholar.",
       "author": "ASM (Galaxy-Dawn/claude-scholar)",
-      "createdAt": "2026-08-21T09:20:15.917Z",
+      "createdAt": "2026-09-26T06:51:47.199Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8643,7 +8783,7 @@
       "name": "galaxy-dawn-claude-scholar-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from Galaxy-Dawn/claude-scholar.",
       "author": "ASM (Galaxy-Dawn/claude-scholar)",
-      "createdAt": "2026-08-21T09:20:15.917Z",
+      "createdAt": "2026-09-26T06:51:47.199Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8679,7 +8819,7 @@
       "name": "galaxy-dawn-claude-scholar-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from Galaxy-Dawn/claude-scholar.",
       "author": "ASM (Galaxy-Dawn/claude-scholar)",
-      "createdAt": "2026-08-21T09:20:15.917Z",
+      "createdAt": "2026-09-26T06:51:47.199Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8733,7 +8873,7 @@
       "name": "galaxy-dawn-claude-scholar-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from Galaxy-Dawn/claude-scholar.",
       "author": "ASM (Galaxy-Dawn/claude-scholar)",
-      "createdAt": "2026-08-21T09:20:15.917Z",
+      "createdAt": "2026-09-26T06:51:47.199Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -9027,7 +9167,7 @@
       "name": "galaxy-dawn-claude-scholar-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from Galaxy-Dawn/claude-scholar.",
       "author": "ASM (Galaxy-Dawn/claude-scholar)",
-      "createdAt": "2026-08-21T09:20:15.917Z",
+      "createdAt": "2026-09-26T06:51:47.199Z",
       "tags": [
         "repo-derived",
         "inferred",

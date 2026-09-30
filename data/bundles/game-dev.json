@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "name": "game-dev",
+  "description": "Build Three.js browser games end to end: game direction, gameplay systems, 3D/image/audio asset generation, game UI, debugging, and release QA.",
+  "author": "ASM",
+  "createdAt": "2026-09-06T00:00:00.000Z",
+  "tags": ["game", "gamedev", "threejs", "browser-games"],
+  "skills": [
+    {
+      "name": "threejs-game-director",
+      "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-game-director",
+      "description": "Entrypoint for building, upgrading, and finishing Three.js browser games"
+    },
+    {
+      "name": "threejs-gameplay-systems",
+      "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-gameplay-systems",
+      "description": "Build and iterate playable Three.js game systems: core loops, levels, entities, physics, and game feel"
+    },
+    {
+      "name": "threejs-fundamentals",
+      "installUrl": "github:cloudai-x/threejs-skills:skills/threejs-fundamentals",
+      "description": "Three.js scene setup, cameras, renderer, Object3D hierarchy, coordinate systems"
+    },
+    {
+      "name": "threejs-3d-generator",
+      "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-3d-generator",
+      "description": "Generate, texture, rig, and animate 3D assets for Three.js games"
+    },
+    {
+      "name": "threejs-image-generator",
+      "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-image-generator",
+      "description": "Generate and edit 2D image assets for Three.js games"
+    },
+    {
+      "name": "threejs-audio-generator",
+      "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-audio-generator",
+      "description": "Generate, convert, clean, and integrate audio for Three.js browser games"
+    },
+    {
+      "name": "threejs-game-ui-designer",
+      "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-game-ui-designer",
+      "description": "Design premium Three.js game UI: HUDs, menus, overlays, and touch UI"
+    },
+    {
+      "name": "threejs-aaa-graphics-builder",
+      "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-aaa-graphics-builder",
+      "description": "Upgrade Three.js games from prototype visuals to premium browser graphics"
+    },
+    {
+      "name": "threejs-debug-profiler",
+      "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-debug-profiler",
+      "description": "Debug and profile Three.js browser games: render bugs, draw calls, memory, and bundle size"
+    },
+    {
+      "name": "threejs-qa-release",
+      "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-qa-release",
+      "description": "Verify and release Three.js browser games: playtest QA, mobile checks, and release risk reports"
+    }
+  ]
+}

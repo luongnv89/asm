@@ -17,15 +17,15 @@
 
 # CLI to install and manage agent skills
 
-**agent-skill-manager** (`asm`) is a scriptable CLI built for AI agents and automation — install, search, audit, and organize skills across Claude Code, Codex, Cursor, and 16 more tools. Every command supports `--json` and `--yes` for non-interactive use. An optional TUI (`asm`) is available for local browsing.
+**agent-skill-manager** (`asm`) is a scriptable CLI built for AI agents and automation — install, search, audit, and organize skills across Claude Code, Codex, Cursor, and 18 more tools. Every command supports `--json` and `--yes` for non-interactive use. An optional TUI (`asm`) is available for local browsing.
 
-[**Get Started**](#getting-started) · [**Browse 4,300+ skills**](https://luongnv.com/asm/#/skills) · [**Full docs**](#documentation)
+[**Get Started**](#getting-started) · [**Browse 6,000+ skills**](https://luongnv.com/asm/#/skills) · [**Full docs**](#documentation)
 
 ## Problems `asm` solves
 
 | Pain                      | Without `asm`                                                                                                           | With `asm`                                                                 |
 | ------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| Scattered installs        | Same skill copied into `~/.claude/skills/`, `~/.codex/skills/`, `~/.cursor/rules/` — different versions, no single view | One `asm list` across all 19 providers and scopes                          |
+| Scattered installs        | Same skill copied into `~/.claude/skills/`, `~/.codex/skills/`, `~/.cursor/rules/` — different versions, no single view | One `asm list` across all 21 providers and scopes                          |
 | No inventory              | `ls` through hidden dirs; no idea what is installed, duplicated, or outdated                                            | `asm search`, `asm inspect`, `asm stats`, `asm audit`                      |
 | Invisible context cost    | Every installed skill's description is resident in the agent's prompt on every message, whether or not it ever fires    | `asm stats --tokens`, `asm audit residency`                                |
 | Install just to read once | Installing is the only way to get a skill in front of an agent — and it stays resident forever afterwards               | `asm get <skill>` prints the body and installs nothing                     |
@@ -37,8 +37,8 @@
 
 |                     |                                                                                |
 | ------------------- | ------------------------------------------------------------------------------ |
-| **Catalog**         | 4,672 skills from 58 repos — [browse online](https://luongnv.com/asm/#/skills) |
-| **Providers**       | 19 agents (Claude, Codex, Cursor, Windsurf, Copilot, …)                        |
+| **Catalog**         | 6,082 skills from 77 repos — [browse online](https://luongnv.com/asm/#/skills) |
+| **Providers**       | 21 providers (Agents, Claude Code, Pi, OpenCode, Codex, …)                     |
 | **Agent-ready CLI** | `--json`, `--yes`, `--machine` on list, search, install, audit, eval           |
 | **Security**        | Pre-install scan for shell exec, network access, credential exposure           |
 | **License**         | MIT — no accounts, no telemetry                                                |
@@ -72,9 +72,11 @@ graph LR
 | Feature                  | What you get                                                         |
 | ------------------------ | -------------------------------------------------------------------- |
 | Cross-provider inventory | `asm list --json` — every skill, every agent, one response           |
+| Local skill tags         | `asm tag add\|remove`; `asm list --tag` / `asm search --tag` (AND)   |
 | One-command install      | `asm install github:user/repo` or `asm install skill-name`           |
 | Agent-parseable output   | `--json` on list, search, inspect, install, audit                    |
 | Duplicate audit          | `asm audit --yes` removes redundant skills non-interactively         |
+| Semantic overlap audit   | `asm audit overlap` finds different-name skills doing the same job   |
 | Attention budget         | `asm stats --tokens` shows resident vs body token cost per tool      |
 | Residency audit          | `asm audit residency` ranks skills to demote out of resident context |
 | Reference tier           | `asm get <skill>` delivers a body once, at zero residency            |
@@ -122,6 +124,7 @@ Node.js 22+ required. Optional TUI: run `asm` with no arguments.
 | Skill metadata for agents     | `asm inspect my-skill --json`                    |
 | Non-interactive install       | `asm install code-review -p claude --yes --json` |
 | Remove duplicates             | `asm audit --yes`                                |
+| Find same-job near-duplicates | `asm audit overlap`                              |
 | See your context cost         | `asm stats --tokens`                             |
 | Find skills to demote         | `asm audit residency`                            |
 | Use a skill without residency | `asm get code-review`                            |
@@ -130,8 +133,10 @@ Node.js 22+ required. Optional TUI: run `asm` with no arguments.
 | Live dev via symlink          | `asm link ./my-skill -p claude`                  |
 | Publish to registry           | `asm publish ./my-skill --yes`                   |
 | Install a bundle              | `asm bundle install frontend-dev --yes`          |
+| Tag an installed skill        | `asm tag add code-review testing`                |
+| Filter inventory by tags      | `asm list --tag cli,testing`                     |
 
-Full command reference, flags, and examples: [CLI Commands](#cli-commands). Catalog UI and bundles: [luongnv.com/asm](https://luongnv.com/asm/).
+Full command reference, flags, and examples: [CLI Commands](#cli-commands). Catalog UI and bundles: [luongnv.com/asm](https://luongnv.com/asm/) (use **Tags** / `TagFilter`, AND match, `?tag=`).
 
 ## Attention budget
 
@@ -195,12 +200,12 @@ asm audit residency --json
 
 The advice assumes this demotion ladder:
 
-| Tier                      | `asm` mechanism                           | Residency                    |
-| ------------------------- | ----------------------------------------- | ---------------------------- |
-| Installed (auto-triggers) | provider directory / `asm activate`       | description resident, always |
-| Saved (adapt, no trigger) | `asm install --library`, `asm deactivate` | none until `asm activate`    |
-| Disabled (kept on disk)   | `asm disable` (reverse with `asm enable`) | none                         |
-| Reference (read on use)   | `asm get` — nothing on disk at all        | none                         |
+| Tier                      | `asm` mechanism                            | Residency                    |
+| ------------------------- | ------------------------------------------ | ---------------------------- |
+| Installed (auto-triggers) | provider directory / `asm activate`        | description resident, always |
+| Saved (adapt, no trigger) | `asm install --library`, `asm deactivate`  | none until `asm activate`    |
+| Disabled (kept on disk)   | `asm disable` (reverse with `asm enable`)  | none                         |
+| Reference (read on use)   | default `asm get` — no retained skill copy | none                         |
 
 Which command a candidate gets depends on how it is installed. `asm deactivate`
 only works on a live symlink into the `asm` library, so it is suggested only
@@ -224,14 +229,14 @@ entirely against your local filesystem.
 
 Demoting a skill does not mean losing it. `asm get <skill>` resolves a skill and
 writes its `SKILL.md` body to **stdout** — no provider directory, no library
-entry, no residency. The skill is paid for once, at the point of use, and costs
-nothing afterwards.
+entry, no residency. Default `get` retains no skill copy. With `--path`, it
+instead borrows a full directory on disk until you explicitly clean it up.
 
 ```bash
 asm get code-review                       # body to stdout
 asm get code-review > /tmp/SKILL.md       # save it without installing
 asm get github:owner/repo:skills/review   # any `asm install` shorthand
-asm get code-review --json                # name, description, tier, source, tokenCount, security, content
+asm get code-review --json                # includes optional dependencies and exact content
 ```
 
 That makes `asm` usable as delivery infrastructure, not only as an installer.
@@ -260,12 +265,88 @@ The catalog stores metadata, not bodies, so an `index`, `registry` or remote
 `asm get` costs a shallow clone into a temp directory, which is deleted before
 the command returns. Those fetches run the **same pre-install security scan
 `asm install` runs**; the verdict goes to stderr and into `--json` under
-`security`. It reports rather than blocks — `asm get` writes nothing — and
+`security`. It reports rather than blocks — `asm get` never installs or executes the skill — and
 `--audit` prints the full `asm audit security` report for the fetched skill.
 
 Output discipline: stdout carries the body (or, with `--json`, a single JSON
 object) and nothing else, so piping and redirecting are safe. Provenance,
 progress, and the security verdict go to stderr.
+
+#### Borrow the full skill directory
+
+When a skill needs supporting scripts, templates, references or binary assets:
+
+```bash
+borrowed_path="$(asm get --path code-review)"  # also: asm get code-review --path
+# Read "$borrowed_path/SKILL.md" and its supporting files after get exits.
+asm cleanup "$borrowed_path"                 # caller cleans up when finished
+```
+
+Every source tier is **copied**, including local paths, installed skills and
+library entries. The original is never changed or deleted. The copy lives under
+ASM's config directory in `get-borrows/`, independently of dependency sessions;
+the remote staging clone is still deleted before `get` returns. There is no
+exit-triggered borrow deletion and no `--keep` requirement. `asm install` remains
+the permanent installation workflow.
+
+Plain `--path` stdout is one absolute directory path plus a newline; provenance,
+security and cleanup guidance stay on stderr. `--path --json` (or `--machine`)
+returns `path`, sorted relative `files`, existing provenance/security fields,
+and `cleanup: {command: "asm", args: ["cleanup", path]}` instead of `content`.
+Git internals and ASM ownership metadata are omitted from the file list; `.git`
+is not copied. Executable modes and binary files are preserved. Installed root
+symlinks are resolved before copying; nested symlinks are refused.
+
+`asm cleanup <borrowed-path>` accepts only an exact registered borrow root, not
+an original source, parent, child, or symlink alias. Unknown and repeated cleanup
+are safe no-ops. Missing or mismatched ownership proof refuses deletion and may
+quarantine suspicious replacement content for inspection. Cleanup also supports
+`--json` and `--machine`.
+
+### Just-in-time optional dependencies
+
+A skill can declare optional skill dependencies without installing them:
+
+```yaml
+dependencies:
+  - code-review
+  - github:owner/repo:skills/helper
+```
+
+Installing the parent does not install this list. The calling agent owns the
+run lifecycle: discover the list, acquire only a dependency that the current
+branch actually reaches, use the returned `skillMdPath` immediately, and
+release the caller-supplied session in its own `finally` or shutdown handler.
+
+```bash
+asm deps discover parent-skill --json
+asm deps acquire code-review --session run-123 --json
+# Read the returned skillMdPath now; no provider catalog rescan is required.
+asm deps release --session run-123 --json
+```
+
+Acquisition records whether the resolved target existed before the run. Remote
+temporary copies live under ASM's config directory and are lease-owned;
+installed, library, and explicit local targets are recorded as pre-existing.
+Release is idempotent, removes only artifacts with matching ASM ownership
+proof, and preserves every pre-existing target.
+
+ASM is a support tool, not a process supervisor: it does not launch the agent,
+run its task, or detect arbitrary caller failure. Normal cleanup therefore
+belongs in the caller's `finally`/shutdown handling. An uncatchable termination
+(for example, power loss or `SIGKILL`) can leave persistent lease state. On a
+later invocation, the caller may classify and recover leases older than an
+explicit, conservatively chosen cutoff:
+
+```bash
+asm deps cleanup --stale-before 2026-09-08T00:00:00Z --dry-run --json
+asm deps cleanup --stale-before 2026-09-08T00:00:00Z --json
+```
+
+Age is a caller-selected recovery policy, not proof that an agent failed. Pick
+a cutoff older than the longest expected live run and inspect `--dry-run`
+output first. ASM returns a neutral canonical path and does not promise that a
+foreign provider will rescan its skill catalog in the middle of a session.
 
 ## FAQ
 
@@ -276,7 +357,7 @@ MIT licensed. No accounts or paywalls.
 Yes. Commands return structured JSON (`--json`), accept non-interactive flags (`--yes`, `--machine`), and map to discrete actions an agent can chain — list inventory, search catalog, install, audit, uninstall.
 
 **Which agents are supported?**
-19 providers: Claude Code, Codex, OpenClaw, Cursor, Windsurf, Cline, Roo Code, Continue, GitHub Copilot, Aider, OpenCode, Zed, Augment, Amp, Gemini CLI, Google Antigravity, Pi, Hermes, and a generic Agents provider. Disable any via `asm config edit`.
+21 providers: a generic Agents provider (supported by most harnesses except Claude Code), Claude Code, Pi, OpenCode, Codex, Oh My Pi, Grok CLI, Hermes, OpenClaw, Cursor, GitHub Copilot, Windsurf, Google Antigravity, Gemini CLI, Cline, Roo Code, Continue, Aider, Zed, Augment, and Amp. Disable any via `asm config edit`.
 
 **What about the TUI?**
 Run `asm` with no args for an optional local browser. The CLI is the primary interface for scripts, CI, and agent tool calls.
@@ -509,29 +590,31 @@ asm install github:anthropics/skills --all
 <details>
 <summary><strong>Supported agent tools</strong></summary>
 
-19 built-in providers, all enabled by default. Disable via `asm config edit`.
+21 built-in providers, all enabled by default. Disable via `asm config edit`.
 
-| Tool               | Global Path                       | Project Path            |
-| ------------------ | --------------------------------- | ----------------------- |
-| Claude Code        | `~/.claude/skills/`               | `.claude/skills/`       |
-| Codex              | `~/.codex/skills/`                | `.codex/skills/`        |
-| OpenClaw           | `~/.openclaw/skills/`             | `.openclaw/skills/`     |
-| Agents (generic)   | `~/.agents/skills/`               | `.agents/skills/`       |
-| Cursor             | `~/.cursor/rules/`                | `.cursor/rules/`        |
-| Windsurf           | `~/.windsurf/rules/`              | `.windsurf/rules/`      |
-| Cline              | `~/Documents/Cline/Rules/`        | `.clinerules/`          |
-| Roo Code           | `~/.roo/rules/`                   | `.roo/rules/`           |
-| Continue           | `~/.continue/rules/`              | `.continue/rules/`      |
-| GitHub Copilot     | `~/.github/instructions/`         | `.github/instructions/` |
-| Aider              | `~/.aider/skills/`                | `.aider/skills/`        |
-| OpenCode           | `~/.config/opencode/skills/`      | `.opencode/skills/`     |
-| Zed                | `~/.config/zed/prompt_overrides/` | `.zed/rules/`           |
-| Augment            | `~/.augment/rules/`               | `.augment/rules/`       |
-| Amp                | `~/.amp/skills/`                  | `.amp/skills/`          |
-| Gemini CLI         | `~/.gemini/skills/`               | `.gemini/skills/`       |
-| Google Antigravity | `~/.antigravity/skills/`          | `.antigravity/skills/`  |
-| Pi                 | `~/.pi/skills/`                   | `.pi/skills/`           |
-| Hermes             | `~/.hermes/skills/`               | `.hermes/skills/`       |
+| Tool                                       | Global Path                       | Project Path            |
+| ------------------------------------------ | --------------------------------- | ----------------------- |
+| Agents (most harnesses except Claude Code) | `~/.agents/skills/`               | `.agents/skills/`       |
+| Claude Code                                | `~/.claude/skills/`               | `.claude/skills/`       |
+| Pi                                         | `~/.pi/skills/`                   | `.pi/skills/`           |
+| OpenCode                                   | `~/.config/opencode/skills/`      | `.opencode/skills/`     |
+| Codex                                      | `~/.codex/skills/`                | `.codex/skills/`        |
+| Oh My Pi                                   | `~/.omp/agent/skills/`            | `.omp/skills/`          |
+| Grok CLI                                   | `~/.grok/skills/`                 | `.grok/skills/`         |
+| Hermes                                     | `~/.hermes/skills/`               | `.hermes/skills/`       |
+| OpenClaw                                   | `~/.openclaw/skills/`             | `.openclaw/skills/`     |
+| Cursor                                     | `~/.cursor/rules/`                | `.cursor/rules/`        |
+| GitHub Copilot                             | `~/.github/instructions/`         | `.github/instructions/` |
+| Windsurf                                   | `~/.windsurf/rules/`              | `.windsurf/rules/`      |
+| Google Antigravity                         | `~/.antigravity/skills/`          | `.antigravity/skills/`  |
+| Gemini CLI                                 | `~/.gemini/skills/`               | `.gemini/skills/`       |
+| Cline                                      | `~/Documents/Cline/Rules/`        | `.clinerules/`          |
+| Roo Code                                   | `~/.roo/rules/`                   | `.roo/rules/`           |
+| Continue                                   | `~/.continue/rules/`              | `.continue/rules/`      |
+| Aider                                      | `~/.aider/skills/`                | `.aider/skills/`        |
+| Zed                                        | `~/.config/zed/prompt_overrides/` | `.zed/rules/`           |
+| Augment                                    | `~/.augment/rules/`               | `.augment/rules/`       |
+| Amp                                        | `~/.amp/skills/`                  | `.amp/skills/`          |
 
 Add custom providers in config.
 
@@ -557,8 +640,11 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | ------------------------------- | ----------------------------------------- | ----------------------------------------- |
 | `asm list` | List all discovered skills |
 | `asm search <query>` | Search by name/description/provider |
+| `asm tag add\|remove` | Edit local tags on an installed skill |
 | `asm inspect <skill-name>` | Show detailed info for a skill |
-| `asm get <skill>` | Print a skill's body, install nothing |
+| `asm get <skill>` | Print a skill's body, install nothing — `--path` borrows the full directory |
+| `asm cleanup <path>` | Remove a directory borrowed by `asm get --path` |
+| `asm deps discover\|acquire\|release\|cleanup` | Manage caller-owned temporary dependency leases |
 | `asm install <source>` | Install from GitHub or registry |
 | `asm publish [path]` | Publish to ASM Registry |
 | `asm uninstall <skill-name>` | Remove a skill |
@@ -612,6 +698,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 --machine              Stable machine-readable JSON envelope (v1)
 -s, --scope <scope>    global, project, or both
 -p, --tool <name>      Filter by tool (list, search)
+--tag <tag[,tag]>      Filter by all tags; repeatable (list, search)
 --sort <field>         name, version, or location
 --flat                 Show one row per tool instance (list, search)
 --model-invocable      Only skills the model can invoke
@@ -640,6 +727,15 @@ asm list --model-invocable --user-invocable
 ```
 
 Listings and `asm inspect` show invocability as `model`, `user`, or `both` (never collapsed). `--model-invocable` and `--user-invocable` are independent; both flags keep skills that match both (typically `both`).
+
+```bash
+asm tag add code-review testing cli
+asm tag remove code-review automation
+asm list --tag cli --tag testing
+asm search code --tag cli,testing
+```
+
+Tags are local overlays (not written into `SKILL.md`). `--tag` requires every listed tag (AND). The catalog UI `TagFilter` uses the same AND matching and stores selections in `?tag=`.
 
 ```bash
 asm search "code review" --json
@@ -703,12 +799,25 @@ asm bundle install frontend-dev
 asm bundle install ./my-bundle.json
 ```
 
+In a terminal, `asm bundle install` prompts for the tool(s), then which bundle
+skills to install, then the install scope; Esc on any picker aborts. Pass a
+prompt's own flag to skip it — `-p/--tool` for the tool picker,
+`-s/--scope global|project` for the scope picker, `-y` for the skill and scope
+pickers. Outside a terminal there are no pickers, and `-p/--tool` is required
+unless exactly one tool is enabled:
+
+```bash
+asm bundle install frontend-dev --tool claude --scope project --yes
+```
+
 ```bash
 asm bundle create my-workflow
 asm bundle export my-workflow ./my-workflow.json
 ```
 
 **iOS/Swift catalog:** ASM indexes public Swift/Apple skill repos. Use `asm bundle install ios-release` or search for `swift`, `swiftui`, `swift testing`, `uikit`, `swiftdata`, `app store connect`.
+
+Pre-defined bundles: `frontend-dev`, `devops`, `content-writing`, `ios-release`, `marketing`, `software-dev`, `game-dev` — full list via `asm bundle list --predefined`.
 
 </details>
 
@@ -953,7 +1062,7 @@ On first run, config is created at `~/.config/agent-skill-manager/config.json`:
 }
 ```
 
-- All 19 providers are enabled by default
+- All 21 providers are enabled by default
 - Set `"enabled": false` to skip a provider you don't use
 - Add arbitrary directories via `customPaths`
 - Manage via `asm config show|path|reset|edit` or press `c` in the TUI
@@ -1076,7 +1185,7 @@ asm/
 | [Security](SECURITY.md)                  | Vulnerability reporting     |
 | [Code of Conduct](CODE_OF_CONDUCT.md)    | Community guidelines        |
 
-**Landing page:** [luongnv.com/asm](https://luongnv.com/asm/) — catalog, bundles, author/repo stats, filtered search.
+**Landing page:** [luongnv.com/asm](https://luongnv.com/asm/) — catalog, bundles, author/repo stats, filtered search, and catalog `TagFilter` (AND, `?tag=`).
 
 </details>
 

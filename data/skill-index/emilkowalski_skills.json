@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/emilkowalski/skills.git",
   "owner": "emilkowalski",
   "repo": "skills",
-  "updatedAt": "2026-08-21T09:21:23.657Z",
-  "skillCount": 11,
+  "updatedAt": "2026-09-26T06:53:31.184Z",
+  "skillCount": 13,
   "skills": [
     {
       "name": "animate",
@@ -13,12 +13,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:emilkowalski/skills:skills/animate",
       "relPath": "skills/animate",
       "verified": true,
-      "tokenCount": 3535,
+      "tokenCount": 3621,
       "evalSummary": {
         "overallScore": 71,
         "grade": "C",
@@ -84,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:23.643Z",
+        "evaluatedAt": "2026-09-26T06:53:31.153Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -157,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.643Z",
+          "evaluatedAt": "2026-09-26T06:53:31.156Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -175,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.643Z",
+          "evaluatedAt": "2026-09-26T06:53:31.156Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -188,14 +190,16 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:emilkowalski/skills:skills/animate-expo",
       "relPath": "skills/animate-expo",
       "verified": true,
-      "tokenCount": 5400,
+      "tokenCount": 5504,
       "evalSummary": {
-        "overallScore": 67,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -243,7 +247,7 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
@@ -259,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:23.643Z",
+        "evaluatedAt": "2026-09-26T06:53:31.156Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -268,7 +272,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -316,7 +320,7 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 8,
+              "score": 10,
               "max": 10
             },
             {
@@ -332,12 +336,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.643Z",
+          "evaluatedAt": "2026-09-26T06:53:31.156Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -350,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.643Z",
+          "evaluatedAt": "2026-09-26T06:53:31.156Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -363,14 +367,16 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:emilkowalski/skills:skills/animation-vocabulary",
       "relPath": "skills/animation-vocabulary",
       "verified": true,
-      "tokenCount": 4172,
+      "tokenCount": 4266,
       "evalSummary": {
-        "overallScore": 61,
+        "overallScore": 62,
         "grade": "D",
         "categories": [
           {
@@ -388,7 +394,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 8,
+            "score": 9,
             "max": 10
           },
           {
@@ -434,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:23.643Z",
+        "evaluatedAt": "2026-09-26T06:53:31.156Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -443,7 +449,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 61,
+          "overallScore": 62,
           "grade": "D",
           "categories": [
             {
@@ -461,7 +467,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 8,
+              "score": 9,
               "max": 10
             },
             {
@@ -507,12 +513,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.643Z",
+          "evaluatedAt": "2026-09-26T06:53:31.156Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -525,7 +531,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.643Z",
+          "evaluatedAt": "2026-09-26T06:53:31.156Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -538,12 +544,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:emilkowalski/skills:skills/apple-design",
       "relPath": "skills/apple-design",
       "verified": true,
-      "tokenCount": 6695,
+      "tokenCount": 6797,
       "evalSummary": {
         "overallScore": 68,
         "grade": "C",
@@ -609,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:23.643Z",
+        "evaluatedAt": "2026-09-26T06:53:31.156Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -682,12 +690,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.643Z",
+          "evaluatedAt": "2026-09-26T06:53:31.156Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -700,7 +708,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.643Z",
+          "evaluatedAt": "2026-09-26T06:53:31.156Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -713,14 +721,16 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:emilkowalski/skills:skills/ask-sonner",
       "relPath": "skills/ask-sonner",
       "verified": true,
-      "tokenCount": 2110,
+      "tokenCount": 2202,
       "evalSummary": {
-        "overallScore": 59,
+        "overallScore": 60,
         "grade": "D",
         "categories": [
           {
@@ -738,7 +748,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 4,
+            "score": 5,
             "max": 10
           },
           {
@@ -784,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:23.643Z",
+        "evaluatedAt": "2026-09-26T06:53:31.156Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -793,7 +803,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 59,
+          "overallScore": 60,
           "grade": "D",
           "categories": [
             {
@@ -811,7 +821,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 4,
+              "score": 5,
               "max": 10
             },
             {
@@ -857,12 +867,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.643Z",
+          "evaluatedAt": "2026-09-26T06:53:31.156Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -875,7 +885,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.643Z",
+          "evaluatedAt": "2026-09-26T06:53:31.156Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -888,12 +898,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:emilkowalski/skills:skills/emil-design-eng",
       "relPath": "skills/emil-design-eng",
       "verified": true,
-      "tokenCount": 8135,
+      "tokenCount": 8111,
       "evalSummary": {
         "overallScore": 66,
         "grade": "C",
@@ -959,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:23.643Z",
+        "evaluatedAt": "2026-09-26T06:53:31.156Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1032,12 +1044,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.643Z",
+          "evaluatedAt": "2026-09-26T06:53:31.156Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 77,
@@ -1050,7 +1062,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.643Z",
+          "evaluatedAt": "2026-09-26T06:53:31.156Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1063,14 +1075,16 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:emilkowalski/skills:skills/find-animation-opportunities",
       "relPath": "skills/find-animation-opportunities",
       "verified": true,
-      "tokenCount": 2774,
+      "tokenCount": 2870,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -1088,7 +1102,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 6,
+            "score": 7,
             "max": 10
           },
           {
@@ -1134,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:23.643Z",
+        "evaluatedAt": "2026-09-26T06:53:31.156Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1143,7 +1157,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -1161,7 +1175,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 6,
+              "score": 7,
               "max": 10
             },
             {
@@ -1207,12 +1221,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.643Z",
+          "evaluatedAt": "2026-09-26T06:53:31.156Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1225,7 +1239,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.643Z",
+          "evaluatedAt": "2026-09-26T06:53:31.156Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1238,12 +1252,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:emilkowalski/skills:skills/improve-animations",
       "relPath": "skills/improve-animations",
       "verified": true,
-      "tokenCount": 2346,
+      "tokenCount": 2436,
       "evalSummary": {
         "overallScore": 67,
         "grade": "C",
@@ -1309,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:23.643Z",
+        "evaluatedAt": "2026-09-26T06:53:31.156Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1382,12 +1398,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.643Z",
+          "evaluatedAt": "2026-09-26T06:53:31.156Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1400,7 +1416,184 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.643Z",
+          "evaluatedAt": "2026-09-26T06:53:31.156Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mobile-native",
+      "description": "Make a web app feel native on a phone — the small CSS and meta-tag fixes that separate \"a website in a browser\" from something that feels installed. Covers sticky hover states, tap highlight flashes, the 100vh bug, inputs that zoom the page, laggy taps, pull-to-refresh hijacking scroll, content under the notch, long-press selecting button text, carousels that scroll the wrong way, mismatched status bars, and the rule that you test on real hardware. Use when a web app is being built for or reviewed on mobile, when something \"works in Chrome but feels wrong on my phone\", when building a PWA, a bottom sheet, a carousel, a full-screen layout, or any touch interaction. For motion itself use animate; for React Native use animate-expo.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:emilkowalski/skills:skills/mobile-native",
+      "relPath": "skills/mobile-native",
+      "verified": true,
+      "tokenCount": 5227,
+      "evalSummary": {
+        "overallScore": 61,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-26T06:53:31.171Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 61,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:31.172Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:31.172Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1413,14 +1606,16 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:emilkowalski/skills:skills/pick-ui-library",
       "relPath": "skills/pick-ui-library",
       "verified": true,
-      "tokenCount": 1259,
+      "tokenCount": 1349,
       "evalSummary": {
-        "overallScore": 57,
+        "overallScore": 58,
         "grade": "D",
         "categories": [
           {
@@ -1438,7 +1633,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 3,
+            "score": 4,
             "max": 10
           },
           {
@@ -1484,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:23.654Z",
+        "evaluatedAt": "2026-09-26T06:53:31.172Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1493,7 +1688,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 57,
+          "overallScore": 58,
           "grade": "D",
           "categories": [
             {
@@ -1511,7 +1706,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 3,
+              "score": 4,
               "max": 10
             },
             {
@@ -1557,12 +1752,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.655Z",
+          "evaluatedAt": "2026-09-26T06:53:31.173Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 62,
@@ -1575,7 +1770,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.655Z",
+          "evaluatedAt": "2026-09-26T06:53:31.173Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1588,12 +1783,14 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:emilkowalski/skills:skills/prototype",
       "relPath": "skills/prototype",
       "verified": true,
-      "tokenCount": 2384,
+      "tokenCount": 2492,
       "evalSummary": {
         "overallScore": 71,
         "grade": "C",
@@ -1659,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:23.655Z",
+        "evaluatedAt": "2026-09-26T06:53:31.173Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1732,12 +1929,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.655Z",
+          "evaluatedAt": "2026-09-26T06:53:31.173Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1750,7 +1947,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.655Z",
+          "evaluatedAt": "2026-09-26T06:53:31.173Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1763,14 +1960,16 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:emilkowalski/skills:skills/review-animations",
       "relPath": "skills/review-animations",
       "verified": true,
-      "tokenCount": 2165,
+      "tokenCount": 2257,
       "evalSummary": {
-        "overallScore": 63,
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -1788,7 +1987,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 3,
+            "score": 4,
             "max": 10
           },
           {
@@ -1834,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:21:23.655Z",
+        "evaluatedAt": "2026-09-26T06:53:31.173Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1843,7 +2042,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 63,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -1861,7 +2060,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 3,
+              "score": 4,
               "max": 10
             },
             {
@@ -1907,12 +2106,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.655Z",
+          "evaluatedAt": "2026-09-26T06:53:31.176Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -1925,7 +2124,184 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:21:23.655Z",
+          "evaluatedAt": "2026-09-26T06:53:31.176Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "write-swift",
+      "description": "How to write modern Swift well — modeling with value types, Swift 6 data-race safety and approachable concurrency (@concurrent, main-actor-by-default, actors, task groups), protocols and generics (some vs any), API design, performance and ARC, Swift Testing, macros, and the modern language features agents don't know about yet. Use when writing, reviewing, or migrating Swift, or when a concurrency error, a hang, a data race, a retain cycle, or a performance problem needs fixing.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:emilkowalski/skills:skills/write-swift",
+      "relPath": "skills/write-swift",
+      "verified": true,
+      "tokenCount": 14662,
+      "evalSummary": {
+        "overallScore": 63,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-26T06:53:31.176Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 63,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:31.176Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-26T06:53:31.176Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1937,7 +2313,7 @@
       "name": "emilkowalski-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from emilkowalski/skills.",
       "author": "ASM (emilkowalski/skills)",
-      "createdAt": "2026-08-21T09:21:23.657Z",
+      "createdAt": "2026-09-26T06:53:31.184Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1983,6 +2359,12 @@
           "installUrl": "github:emilkowalski/skills:skills/review-animations",
           "description": "Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.",
           "version": "0.0.0"
+        },
+        {
+          "name": "write-swift",
+          "installUrl": "github:emilkowalski/skills:skills/write-swift",
+          "description": "How to write modern Swift well — modeling with value types, Swift 6 data-race safety and approachable concurrency (@concurrent, main-actor-by-default, actors, task groups), protocols and generics (some vs any), API design, performance and ARC, Swift Testing, macros, and the modern language features agents don't know about yet. Use when writing, reviewing, or migrating Swift, or when a concurrency error, a hang, a data race, a retain cycle, or a performance problem needs fixing.",
+          "version": "0.0.0"
         }
       ],
       "sourceRepo": {
@@ -1997,7 +2379,7 @@
       "name": "emilkowalski-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from emilkowalski/skills.",
       "author": "ASM (emilkowalski/skills)",
-      "createdAt": "2026-08-21T09:21:23.657Z",
+      "createdAt": "2026-09-26T06:53:31.184Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2051,7 +2433,7 @@
       "name": "emilkowalski-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from emilkowalski/skills.",
       "author": "ASM (emilkowalski/skills)",
-      "createdAt": "2026-08-21T09:21:23.657Z",
+      "createdAt": "2026-09-26T06:53:31.184Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2105,6 +2487,12 @@
           "version": "0.0.0"
         },
         {
+          "name": "mobile-native",
+          "installUrl": "github:emilkowalski/skills:skills/mobile-native",
+          "description": "Make a web app feel native on a phone — the small CSS and meta-tag fixes that separate \"a website in a browser\" from something that feels installed. Covers sticky hover states, tap highlight flashes, the 100vh bug, inputs that zoom the page, laggy taps, pull-to-refresh hijacking scroll, content under the notch, long-press selecting button text, carousels that scroll the wrong way, mismatched status bars, and the rule that you test on real hardware. Use when a web app is being built for or reviewed on mobile, when something \"works in Chrome but feels wrong on my phone\", when building a PWA, a bottom sheet, a carousel, a full-screen layout, or any touch interaction. For motion itself use animate; for React Native use animate-expo.",
+          "version": "0.0.0"
+        },
+        {
           "name": "prototype",
           "installUrl": "github:emilkowalski/skills:skills/prototype",
           "description": "Build multiple genuinely different versions of a UI piece you describe, rendered behind a visual picker so you can flip through them live and promote the one that feels right. Only runs when explicitly invoked; it does not trigger on its own.",
@@ -2114,6 +2502,12 @@
           "name": "review-animations",
           "installUrl": "github:emilkowalski/skills:skills/review-animations",
           "description": "Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "write-swift",
+          "installUrl": "github:emilkowalski/skills:skills/write-swift",
+          "description": "How to write modern Swift well — modeling with value types, Swift 6 data-race safety and approachable concurrency (@concurrent, main-actor-by-default, actors, task groups), protocols and generics (some vs any), API design, performance and ARC, Swift Testing, macros, and the modern language features agents don't know about yet. Use when writing, reviewing, or migrating Swift, or when a concurrency error, a hang, a data race, a retain cycle, or a performance problem needs fixing.",
           "version": "0.0.0"
         }
       ],
@@ -2129,7 +2523,7 @@
       "name": "emilkowalski-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from emilkowalski/skills.",
       "author": "ASM (emilkowalski/skills)",
-      "createdAt": "2026-08-21T09:21:23.657Z",
+      "createdAt": "2026-09-26T06:53:31.184Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2183,6 +2577,12 @@
           "version": "0.0.0"
         },
         {
+          "name": "mobile-native",
+          "installUrl": "github:emilkowalski/skills:skills/mobile-native",
+          "description": "Make a web app feel native on a phone — the small CSS and meta-tag fixes that separate \"a website in a browser\" from something that feels installed. Covers sticky hover states, tap highlight flashes, the 100vh bug, inputs that zoom the page, laggy taps, pull-to-refresh hijacking scroll, content under the notch, long-press selecting button text, carousels that scroll the wrong way, mismatched status bars, and the rule that you test on real hardware. Use when a web app is being built for or reviewed on mobile, when something \"works in Chrome but feels wrong on my phone\", when building a PWA, a bottom sheet, a carousel, a full-screen layout, or any touch interaction. For motion itself use animate; for React Native use animate-expo.",
+          "version": "0.0.0"
+        },
+        {
           "name": "pick-ui-library",
           "installUrl": "github:emilkowalski/skills:skills/pick-ui-library",
           "description": "Pick the right library for a given frontend task from a curated, opinionated list — numbers, OTP inputs, charts, command menus, virtualization, drag and drop, toasts, state, styling, and more. Only runs when explicitly invoked; it does not trigger on its own.",
@@ -2199,6 +2599,96 @@
           "installUrl": "github:emilkowalski/skills:skills/review-animations",
           "description": "Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.",
           "version": "0.0.0"
+        },
+        {
+          "name": "write-swift",
+          "installUrl": "github:emilkowalski/skills:skills/write-swift",
+          "description": "How to write modern Swift well — modeling with value types, Swift 6 data-race safety and approachable concurrency (@concurrent, main-actor-by-default, actors, task groups), protocols and generics (some vs any), API design, performance and ARC, Swift Testing, macros, and the modern language features agents don't know about yet. Use when writing, reviewing, or migrating Swift, or when a concurrency error, a hang, a data race, a retain cycle, or a performance problem needs fixing.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "emilkowalski",
+        "repo": "skills",
+        "repoUrl": "https://github.com/emilkowalski/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "emilkowalski-skills-marketing",
+      "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from emilkowalski/skills.",
+      "author": "ASM (emilkowalski/skills)",
+      "createdAt": "2026-09-26T06:53:31.184Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "marketing",
+        "growth",
+        "seo",
+        "emilkowalski",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "animation-vocabulary",
+          "installUrl": "github:emilkowalski/skills:skills/animation-vocabulary",
+          "description": "Reverse-lookup glossary that turns a vague description of a web animation or motion effect into its exact term (\"the bouncy thing when a popover opens\" → Pop in; \"the iOS rubber-band scroll\" → Rubber-banding). Use when the user asks \"what's it called when…\", or describes a motion effect without knowing its name and wants the right word to prompt an AI or designer with. For naming an effect, not designing or building one.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mobile-native",
+          "installUrl": "github:emilkowalski/skills:skills/mobile-native",
+          "description": "Make a web app feel native on a phone — the small CSS and meta-tag fixes that separate \"a website in a browser\" from something that feels installed. Covers sticky hover states, tap highlight flashes, the 100vh bug, inputs that zoom the page, laggy taps, pull-to-refresh hijacking scroll, content under the notch, long-press selecting button text, carousels that scroll the wrong way, mismatched status bars, and the rule that you test on real hardware. Use when a web app is being built for or reviewed on mobile, when something \"works in Chrome but feels wrong on my phone\", when building a PWA, a bottom sheet, a carousel, a full-screen layout, or any touch interaction. For motion itself use animate; for React Native use animate-expo.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "write-swift",
+          "installUrl": "github:emilkowalski/skills:skills/write-swift",
+          "description": "How to write modern Swift well — modeling with value types, Swift 6 data-race safety and approachable concurrency (@concurrent, main-actor-by-default, actors, task groups), protocols and generics (some vs any), API design, performance and ARC, Swift Testing, macros, and the modern language features agents don't know about yet. Use when writing, reviewing, or migrating Swift, or when a concurrency error, a hang, a data race, a retain cycle, or a performance problem needs fixing.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "emilkowalski",
+        "repo": "skills",
+        "repoUrl": "https://github.com/emilkowalski/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "emilkowalski-skills-mobile",
+      "description": "iOS, Swift, SwiftUI, Xcode, macOS, and App Store skills. Derived from emilkowalski/skills.",
+      "author": "ASM (emilkowalski/skills)",
+      "createdAt": "2026-09-26T06:53:31.184Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "mobile",
+        "ios",
+        "swift",
+        "emilkowalski",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "apple-design",
+          "installUrl": "github:emilkowalski/skills:skills/apple-design",
+          "description": "Apple's approach to interface design and fluid, physical motion, translated for the web. Use when building or reviewing gesture-driven UI, spring animations, drag/swipe/sheet interactions, momentum and interruptible transitions, translucent materials and depth, typography (optical sizing, tracking, leading), reduced-motion, or the design foundations (feedback, spatial consistency, restraint) behind Apple-style interfaces.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mobile-native",
+          "installUrl": "github:emilkowalski/skills:skills/mobile-native",
+          "description": "Make a web app feel native on a phone — the small CSS and meta-tag fixes that separate \"a website in a browser\" from something that feels installed. Covers sticky hover states, tap highlight flashes, the 100vh bug, inputs that zoom the page, laggy taps, pull-to-refresh hijacking scroll, content under the notch, long-press selecting button text, carousels that scroll the wrong way, mismatched status bars, and the rule that you test on real hardware. Use when a web app is being built for or reviewed on mobile, when something \"works in Chrome but feels wrong on my phone\", when building a PWA, a bottom sheet, a carousel, a full-screen layout, or any touch interaction. For motion itself use animate; for React Native use animate-expo.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "write-swift",
+          "installUrl": "github:emilkowalski/skills:skills/write-swift",
+          "description": "How to write modern Swift well — modeling with value types, Swift 6 data-race safety and approachable concurrency (@concurrent, main-actor-by-default, actors, task groups), protocols and generics (some vs any), API design, performance and ARC, Swift Testing, macros, and the modern language features agents don't know about yet. Use when writing, reviewing, or migrating Swift, or when a concurrency error, a hang, a data race, a retain cycle, or a performance problem needs fixing.",
+          "version": "0.0.0"
         }
       ],
       "sourceRepo": {
@@ -2213,7 +2703,7 @@
       "name": "emilkowalski-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from emilkowalski/skills.",
       "author": "ASM (emilkowalski/skills)",
-      "createdAt": "2026-08-21T09:21:23.657Z",
+      "createdAt": "2026-09-26T06:53:31.184Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2249,9 +2739,21 @@
           "version": "0.0.0"
         },
         {
+          "name": "mobile-native",
+          "installUrl": "github:emilkowalski/skills:skills/mobile-native",
+          "description": "Make a web app feel native on a phone — the small CSS and meta-tag fixes that separate \"a website in a browser\" from something that feels installed. Covers sticky hover states, tap highlight flashes, the 100vh bug, inputs that zoom the page, laggy taps, pull-to-refresh hijacking scroll, content under the notch, long-press selecting button text, carousels that scroll the wrong way, mismatched status bars, and the rule that you test on real hardware. Use when a web app is being built for or reviewed on mobile, when something \"works in Chrome but feels wrong on my phone\", when building a PWA, a bottom sheet, a carousel, a full-screen layout, or any touch interaction. For motion itself use animate; for React Native use animate-expo.",
+          "version": "0.0.0"
+        },
+        {
           "name": "review-animations",
           "installUrl": "github:emilkowalski/skills:skills/review-animations",
           "description": "Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "write-swift",
+          "installUrl": "github:emilkowalski/skills:skills/write-swift",
+          "description": "How to write modern Swift well — modeling with value types, Swift 6 data-race safety and approachable concurrency (@concurrent, main-actor-by-default, actors, task groups), protocols and generics (some vs any), API design, performance and ARC, Swift Testing, macros, and the modern language features agents don't know about yet. Use when writing, reviewing, or migrating Swift, or when a concurrency error, a hang, a data race, a retain cycle, or a performance problem needs fixing.",
           "version": "0.0.0"
         }
       ],
@@ -2267,7 +2769,7 @@
       "name": "emilkowalski-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from emilkowalski/skills.",
       "author": "ASM (emilkowalski/skills)",
-      "createdAt": "2026-08-21T09:21:23.657Z",
+      "createdAt": "2026-09-26T06:53:31.184Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2288,6 +2790,18 @@
           "name": "animate-expo",
           "installUrl": "github:emilkowalski/skills:skills/animate-expo",
           "description": "Build animations in React Native and Expo, making the decisions in the order that determines whether they feel right — should it animate, which thread it runs on, which properties, spring or timing, how the gesture hands off, how it degrades. Writes the implementation with Reanimated, Gesture Handler, Expo Router and expo-haptics. Use when animating anything in an Expo app, adding gestures, sheets, screen transitions, press feedback or haptics, or fixing motion that stutters on device. For web animation use `animate`.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mobile-native",
+          "installUrl": "github:emilkowalski/skills:skills/mobile-native",
+          "description": "Make a web app feel native on a phone — the small CSS and meta-tag fixes that separate \"a website in a browser\" from something that feels installed. Covers sticky hover states, tap highlight flashes, the 100vh bug, inputs that zoom the page, laggy taps, pull-to-refresh hijacking scroll, content under the notch, long-press selecting button text, carousels that scroll the wrong way, mismatched status bars, and the rule that you test on real hardware. Use when a web app is being built for or reviewed on mobile, when something \"works in Chrome but feels wrong on my phone\", when building a PWA, a bottom sheet, a carousel, a full-screen layout, or any touch interaction. For motion itself use animate; for React Native use animate-expo.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "write-swift",
+          "installUrl": "github:emilkowalski/skills:skills/write-swift",
+          "description": "How to write modern Swift well — modeling with value types, Swift 6 data-race safety and approachable concurrency (@concurrent, main-actor-by-default, actors, task groups), protocols and generics (some vs any), API design, performance and ARC, Swift Testing, macros, and the modern language features agents don't know about yet. Use when writing, reviewing, or migrating Swift, or when a concurrency error, a hang, a data race, a retain cycle, or a performance problem needs fixing.",
           "version": "0.0.0"
         }
       ],

@@ -1,6 +1,7 @@
 import { loadConfig } from "../config";
 import { scanAllSkills } from "../scanner";
 import { formatSkillInspect, formatJSON, ansi } from "../formatter";
+import { applySkillTagState, loadSkillTagState } from "../skill-tags";
 import type { GetResult } from "../utils/types";
 
 import { error, enrichWithHealth } from "./shared";
@@ -52,6 +53,7 @@ export async function cmdInspect(args: ParsedArgs) {
   }
 
   await enrichWithHealth(matches);
+  applySkillTagState(matches, await loadSkillTagState());
 
   if (args.flags.json) {
     console.log(formatJSON(matches.length === 1 ? matches[0] : matches));

@@ -1,6 +1,14 @@
 import { createDirSymlink } from "./utils/fs";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
-import { mkdtemp, writeFile, mkdir, rm, readlink, lstat } from "fs/promises";
+import {
+  access,
+  mkdtemp,
+  writeFile,
+  mkdir,
+  rm,
+  readlink,
+  lstat,
+} from "fs/promises";
 import { existsSync } from "fs";
 import { join, relative, resolve, isAbsolute, basename, dirname } from "path";
 import { tmpdir } from "os";
@@ -19,6 +27,7 @@ import {
   scanForWarnings,
   classifyWarningRisk,
   resolveProvider,
+  resolveInstallScope,
   executeInstall,
   executeInstallAllProviders,
   buildInstallPlan,
@@ -605,7 +614,7 @@ describe("discoverSkills", () => {
     await mkdir(join(tempDir, "child"), { recursive: true });
     await writeFile(
       join(tempDir, "SKILL.md"),
-      "---\nname: root-skill\nversion: 1.0.0\ndescription: Root skill\n---\n# Root\n",
+      "---\nname: root-skill\nversion: 1.0.0\ndescription: Root skill\ntags: [CLI, testing]\n---\n# Root\n",
     );
     await writeFile(
       join(tempDir, "child", "SKILL.md"),
@@ -617,7 +626,9 @@ describe("discoverSkills", () => {
     const root = discovered.find((s) => s.relPath === "");
     const child = discovered.find((s) => s.relPath === "child");
     expect(root?.name).toBe("root-skill");
+    expect(root?.tags).toEqual(["cli", "testing"]);
     expect(child?.name).toBe("child-skill");
+    expect(child?.tags).toEqual([]);
   });
 
   test("discovers skills in subdirectories", async () => {
@@ -937,7 +948,7 @@ describe("resolveProvider", () => {
     );
   });
 
-  test("interactive picker: no saved tools defaults agents to checked", async () => {
+  test("interactive picker: no saved tools defaults agents + claude to checked", async () => {
     const agents: ProviderConfig = {
       name: "agents",
       label: "Agents",
@@ -958,9 +969,18 @@ describe("resolveProvider", () => {
     await resolveProvider(config, null, true);
 
     expect(capturedItems).toHaveLength(3);
-    expect((capturedItems[0] as { checked: boolean }).checked).toBe(false);
+    // claude + agents pre-checked on first-time setup (#617); codex is not.
+    expect((capturedItems[0] as { checked: boolean }).checked).toBe(true);
     expect((capturedItems[1] as { checked: boolean }).checked).toBe(true);
     expect((capturedItems[2] as { checked: boolean }).checked).toBe(false);
+    // The agents row leads with the Claude Code exception so it survives
+    // hint truncation on a narrow terminal (#617).
+    expect((capturedItems[1] as { hint: string }).hint).toBe(
+      "except Claude Code; most harnesses — ~/.agents/skills",
+    );
+    expect((capturedItems[0] as { hint: string }).hint).toBe(
+      "~/.claude/skills",
+    );
   });
 
   test("interactive picker: saved tools override default checked state", async () => {
@@ -1023,7 +1043,7 @@ describe("resolveProvider", () => {
     expect(savedNames).toEqual(["claude", "agents"]);
   });
 
-  test("interactive picker: empty saved tools array falls back to agents default", async () => {
+  test("interactive picker: empty saved tools array falls back to agents + claude default", async () => {
     let capturedItems: unknown[] = [];
     const agents: ProviderConfig = {
       name: "agents",
@@ -1047,19 +1067,19 @@ describe("resolveProvider", () => {
       preferences: {
         defaultScope: "both",
         defaultSort: "name",
-        selectedTools: [], // empty array — should fall back to agents default
+        selectedTools: [], // empty array — falls back to the first-run default
       },
     };
     await resolveProvider(config, null, true);
 
     expect(capturedItems).toHaveLength(3);
-    // Falls back to agents default
-    expect((capturedItems[0] as { checked: boolean }).checked).toBe(false);
+    // Falls back to the agents + claude first-run default (#617)
+    expect((capturedItems[0] as { checked: boolean }).checked).toBe(true);
     expect((capturedItems[1] as { checked: boolean }).checked).toBe(true);
     expect((capturedItems[2] as { checked: boolean }).checked).toBe(false);
   });
 
-  test("interactive picker: all items default to deselected when no agents and no saved", async () => {
+  test("interactive picker: only claude is pre-checked when no agents and no saved", async () => {
     let capturedItems: unknown[] = [];
     const pickerFn = vi.fn((opts: { items: unknown[] }) => {
       capturedItems = opts.items;
@@ -1073,7 +1093,8 @@ describe("resolveProvider", () => {
     await resolveProvider(config, null, true);
 
     expect(capturedItems).toHaveLength(3);
-    expect((capturedItems[0] as { checked: boolean }).checked).toBe(false);
+    // No agents provider present, so only claude is pre-checked (#617).
+    expect((capturedItems[0] as { checked: boolean }).checked).toBe(true);
     expect((capturedItems[1] as { checked: boolean }).checked).toBe(false);
     expect((capturedItems[2] as { checked: boolean }).checked).toBe(false);
   });
@@ -1096,6 +1117,8 @@ describe("resolveProvider", () => {
     const result = await resolveProvider(config, null, true);
     expect(result.provider.name).toBe("claude");
     expect(capturedItems).toHaveLength(2);
+    // Disabled providers still show, but the first-run pre-check never
+    // ticks one the user turned off (#617).
     expect((capturedItems[0] as { checked: boolean }).checked).toBe(false);
     expect((capturedItems[1] as { checked: boolean }).checked).toBe(false);
   });
@@ -1115,6 +1138,100 @@ describe("resolveProvider", () => {
     const result = await resolveProvider(config, "claude", false);
     expect(result.provider.name).toBe("claude");
     expect(result.allProviders).toBeNull();
+  });
+});
+
+// ─── resolveInstallScope tests (issue #612) ──────────────────────────────────
+
+describe("resolveInstallScope", () => {
+  beforeEach(() => {
+    mocks.checkboxPicker.mockReset();
+  });
+
+  const claude: ProviderConfig = {
+    name: "claude",
+    label: "Claude Code",
+    global: "~/.claude/skills",
+    project: ".claude/skills",
+    enabled: true,
+  };
+
+  test("explicit global flag wins without prompting", async () => {
+    const scope = await resolveInstallScope({
+      scopeFlag: "global",
+      provider: claude,
+      isTTY: true,
+      yes: false,
+    });
+    expect(scope).toBe("global");
+    expect(mocks.checkboxPicker).not.toHaveBeenCalled();
+  });
+
+  test("explicit project flag wins without prompting", async () => {
+    const scope = await resolveInstallScope({
+      scopeFlag: "project",
+      provider: claude,
+      isTTY: true,
+      yes: false,
+    });
+    expect(scope).toBe("project");
+    expect(mocks.checkboxPicker).not.toHaveBeenCalled();
+  });
+
+  test("non-TTY defaults to global", async () => {
+    const scope = await resolveInstallScope({
+      scopeFlag: "both",
+      provider: claude,
+      isTTY: false,
+      yes: false,
+    });
+    expect(scope).toBe("global");
+    expect(mocks.checkboxPicker).not.toHaveBeenCalled();
+  });
+
+  test("--yes defaults to global", async () => {
+    const scope = await resolveInstallScope({
+      scopeFlag: null,
+      provider: claude,
+      isTTY: true,
+      yes: true,
+    });
+    expect(scope).toBe("global");
+    expect(mocks.checkboxPicker).not.toHaveBeenCalled();
+  });
+
+  test("TTY picker maps first entry to global", async () => {
+    mocks.checkboxPicker.mockResolvedValueOnce([0]);
+    const scope = await resolveInstallScope({
+      scopeFlag: null,
+      provider: claude,
+      isTTY: true,
+      yes: false,
+    });
+    expect(scope).toBe("global");
+  });
+
+  test("TTY picker maps second entry to project", async () => {
+    mocks.checkboxPicker.mockResolvedValueOnce([1]);
+    const scope = await resolveInstallScope({
+      scopeFlag: null,
+      provider: claude,
+      isTTY: true,
+      yes: false,
+    });
+    expect(scope).toBe("project");
+  });
+
+  test("dismissed picker throws", async () => {
+    mocks.checkboxPicker.mockResolvedValueOnce([]);
+    await expect(
+      resolveInstallScope({
+        scopeFlag: null,
+        provider: claude,
+        isTTY: true,
+        yes: false,
+      }),
+    ).rejects.toThrow("No scope selected");
   });
 });
 
@@ -1852,7 +1969,7 @@ describe("executeInstall", () => {
     await mkdir(sourceDir, { recursive: true });
     await writeFile(
       join(sourceDir, "SKILL.md"),
-      "---\nname: root-skill\nversion: 1.0.0\n---\n# Root\n",
+      "---\nname: root-skill\nversion: 1.0.0\ndependencies:\n  - optional-helper\n---\n# Root\n",
     );
 
     const result = await executeInstall({
@@ -1876,6 +1993,9 @@ describe("executeInstall", () => {
 
     expect(result.success).toBe(true);
     expect(result.name).toBe("root-skill");
+    await expect(
+      access(join(tempDir, "target", "optional-helper", "SKILL.md")),
+    ).rejects.toMatchObject({ code: "ENOENT" });
   });
 });
 

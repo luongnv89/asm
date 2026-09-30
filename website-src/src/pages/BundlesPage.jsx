@@ -1,20 +1,20 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
-import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
-import { Menu, X } from "lucide-react";
-import BundleListItem from "../components/BundleListItem.jsx";
+import {
+  Link,
+  useLocation,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
+import { ArrowLeft, Search, X } from "lucide-react";
+import BundleCard from "../components/BundleCard.jsx";
 import BundleDetail from "../components/BundleDetail.jsx";
-import SidebarDrawer from "../components/SidebarDrawer.jsx";
 import { Input } from "../components/ui/input.jsx";
 import { Button } from "../components/ui/button.jsx";
 
 /**
- * Two-pane bundles view (#228). Sidebar lists bundles (filterable by
- * a simple name/description/tag search); main pane renders the
- * selected bundle's detail.
- *
- * Both `/bundles` and `/bundles/:name` render this component; the
- * presence of `:name` via `useParams` decides whether the empty
- * state or the detail panel is shown.
+ * Bundles storefront. `/bundles` renders a searchable grid of curated
+ * bundle cards ("collections" in shop terms); `/bundles/:name` renders
+ * the bundle's product page with a breadcrumb back to the grid.
  *
  * Data contract: reads `bundles.json` identically to the legacy
  * `renderBundlesPage()`. No new fields are required.
@@ -36,7 +36,6 @@ export default function BundlesPage() {
 
   // Sync search query to URL params so it survives page refresh
   const [query, setQuery] = useState(() => searchParams.get("q") || "");
-  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const updateQuery = useCallback(
     (next) => {
@@ -95,13 +94,16 @@ export default function BundlesPage() {
     return state.bundles.find((b) => b.name === decodedName) || null;
   }, [state.bundles, decodedName]);
 
+  const totalSkills = useMemo(
+    () => state.bundles.reduce((n, b) => n + (b.skills || []).length, 0),
+    [state.bundles],
+  );
+
   if (state.error) {
     return (
-      <div>
-        <h1 className="text-2xl font-semibold text-[var(--fg)] mb-2">
-          Pre-defined Bundles
-        </h1>
-        <p className="text-sm text-[var(--warn)]">
+      <div className="shop">
+        <h1 className="shop-title">Bundles</h1>
+        <p className="text-sm text-[var(--warn)] mt-3">
           ⚠ Could not load bundles: {state.error}
         </p>
       </div>
@@ -110,151 +112,127 @@ export default function BundlesPage() {
 
   if (state.loading) {
     return (
-      <div>
-        <h1 className="text-2xl font-semibold text-[var(--fg)] mb-2">
-          Pre-defined Bundles
-        </h1>
-        <p className="text-sm text-[var(--fg-dim)]">Loading bundles…</p>
+      <div className="shop flex flex-col gap-5">
+        <div className="h-10 w-40 rounded bg-[var(--bg-input)] animate-pulse" />
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4"
+          role="status"
+          aria-label="Loading"
+        >
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div
+              key={i}
+              className="h-56 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] animate-pulse"
+            />
+          ))}
+          <span className="sr-only">Loading bundles…</span>
+        </div>
       </div>
     );
   }
 
-  const sidebarContent = (
-    <div className="flex flex-col gap-3 h-full">
-      <div className="flex items-center justify-between gap-2 lg:hidden">
-        <span className="text-sm font-semibold text-[var(--fg)]">
-          Filter bundles
-        </span>
-        <Button
-          type="button"
-          variant="ghost"
-          size="icon"
-          onClick={() => setDrawerOpen(false)}
-          aria-label="Close sidebar"
-        >
-          <X className="h-4 w-4" aria-hidden="true" />
-        </Button>
+  /* ── Product page ─────────────────────────────────────────────── */
+  if (decodedName) {
+    const backTo = { pathname: "/bundles", search: location.search };
+    return (
+      <div className="shop flex flex-col gap-8">
+        <nav className="shop-crumb" aria-label="Breadcrumb">
+          <Link to={backTo}>Bundles</Link>
+          <span aria-hidden="true">/</span>
+          <span className="text-[var(--fg)]" aria-current="page">
+            {decodedName}
+          </span>
+          <Link to={backTo} className="ml-auto inline-flex items-center gap-1">
+            <ArrowLeft className="h-3 w-3" aria-hidden="true" />
+            Back to bundles
+          </Link>
+        </nav>
+        {selected ? (
+          <BundleDetail key={selected.name} bundle={selected} />
+        ) : (
+          <div className="flex flex-col items-center justify-center text-center px-6 py-16 gap-3">
+            <h1 className="shop-title !text-[32px]">Bundle not found</h1>
+            <p className="text-sm text-[var(--fg-dim)] max-w-md">
+              No bundle named &quot;{decodedName}&quot; exists.
+            </p>
+          </div>
+        )}
       </div>
-      <div>
-        <h2 className="text-xs uppercase tracking-wide text-[var(--fg-muted)] mb-1.5">
-          Bundles
-        </h2>
-        <Input
-          type="search"
-          value={query}
-          placeholder="Search bundles…"
-          onChange={(e) => updateQuery(e.target.value)}
-          aria-label="Search bundles"
-          className="h-9"
-        />
-      </div>
-      <div
-        className="flex items-center justify-between text-[11px] text-[var(--fg-muted)] px-1"
-        aria-live="polite"
-      >
-        <span>
+    );
+  }
+
+  /* ── Shop floor ───────────────────────────────────────────────── */
+  return (
+    <div className="shop flex flex-col gap-6">
+      <header className="flex flex-col gap-3 border-b border-[var(--border)] pb-6">
+        <div className="shop-kicker">
+          <span className="dot" aria-hidden="true" />
+          Pre-defined bundles · {state.bundles.length} sets ·{" "}
+          {totalSkills.toLocaleString()} skills
+        </div>
+        <h1 className="shop-title">Bundles</h1>
+        <p className="shop-lede">
+          Curated sets of skills that install together with one command. Open a
+          bundle to see what is inside, or add all of its skills to your cart
+          and mix them with your own picks.
+        </p>
+      </header>
+
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="relative w-full sm:max-w-sm">
+          <Search
+            aria-hidden="true"
+            className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--fg-muted)]"
+          />
+          <Input
+            type="search"
+            value={query}
+            placeholder="Search bundles…"
+            onChange={(e) => updateQuery(e.target.value)}
+            aria-label="Search bundles"
+            className="h-10 pl-10 pr-10"
+          />
+          {query && (
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              aria-label="Clear search"
+              onClick={() => updateQuery("")}
+              className="absolute right-1 top-1/2 -translate-y-1/2"
+            >
+              <X className="h-4 w-4" aria-hidden="true" />
+            </Button>
+          )}
+        </div>
+        <p className="shop-meta" aria-live="polite">
           {query
             ? `${filtered.length} of ${state.bundles.length} bundles`
             : `${state.bundles.length} bundles`}
-        </span>
+        </p>
       </div>
-      <div
-        className="flex-1 min-h-0 overflow-y-auto flex flex-col gap-1.5 pr-1 -mr-1"
-        role="list"
-        aria-label="Bundle results"
-      >
+
+      <section className="flex flex-col gap-4" aria-label="Bundle results">
         {filtered.length === 0 ? (
-          <p className="py-8 text-center text-sm text-[var(--fg-dim)]">
-            No bundles match your search.
-          </p>
+          <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-[var(--border)] px-6 py-16 text-center">
+            <p className="text-sm text-[var(--fg-dim)]">
+              No bundles match your search.
+            </p>
+            <p className="shop-meta">Try a shorter or different word.</p>
+          </div>
         ) : (
-          filtered.map((b) => (
-            <BundleListItem
-              key={b.name}
-              bundle={b}
-              active={b.name === decodedName}
-              locationSearch={location.search}
-            />
-          ))
-        )}
-      </div>
-    </div>
-  );
-
-  return (
-    <div className="flex flex-col lg:flex-row lg:items-stretch gap-4 lg:gap-6 min-h-[calc(100vh-9rem)]">
-      <div className="flex items-center justify-between gap-2 lg:hidden">
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={() => setDrawerOpen(true)}
-          className="gap-1.5"
-          aria-label="Open bundle list"
-        >
-          <Menu className="h-4 w-4" aria-hidden="true" />
-          Bundles
-          <span className="text-[10px] text-[var(--fg-muted)]">
-            ({filtered.length})
-          </span>
-        </Button>
-        {decodedName && (
-          <Link
-            to={{ pathname: "/bundles", search: location.search }}
-            className="text-xs text-[var(--fg-dim)] hover:text-[var(--brand)]"
-          >
-            ← Clear selection
-          </Link>
-        )}
-      </div>
-
-      <SidebarDrawer
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-        ariaLabel="Bundle list"
-      >
-        {sidebarContent}
-      </SidebarDrawer>
-
-      <section className="flex-1 min-w-0" aria-label="Bundle detail">
-        {selected ? (
-          <BundleDetail key={selected.name} bundle={selected} />
-        ) : decodedName ? (
-          <BundlesEmptyState
-            title="Bundle not found"
-            body={`No bundle named "${decodedName}" exists.`}
-          />
-        ) : (
-          <BundlesEmptyState
-            title="Pre-defined Bundles"
-            body={
-              state.bundles.length > 0
-                ? "Pick a bundle from the sidebar to see its included skills and the install command."
-                : "No bundles are available."
-            }
-            hint={
-              <p className="text-sm text-[var(--fg-dim)]">
-                Install a bundle:{" "}
-                <code className="px-1.5 py-0.5 rounded bg-[var(--bg-input)] text-[var(--brand)]">
-                  asm bundle install &lt;name&gt;
-                </code>
-              </p>
-            }
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+            {filtered.map((b, i) => (
+              <BundleCard
+                key={b.name}
+                bundle={b}
+                index={i}
+                locationSearch={location.search}
+              />
+            ))}
+          </div>
         )}
       </section>
-    </div>
-  );
-}
-
-function BundlesEmptyState({ title, body, hint }) {
-  return (
-    <div className="h-full flex flex-col items-center justify-center text-center px-6 py-16 gap-3">
-      <h1 className="text-2xl sm:text-3xl font-semibold text-[var(--fg)]">
-        {title}
-      </h1>
-      <p className="text-sm text-[var(--fg-dim)] max-w-md">{body}</p>
-      {hint}
     </div>
   );
 }

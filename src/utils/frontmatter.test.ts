@@ -3,11 +3,45 @@ import {
   parseFrontmatter,
   resolveVersion,
   resolveAllowedTools,
+  resolveSkillDependencies,
+  resolveTags,
+  normalizeTag,
+  normalizeTags,
   resolveModelInvocable,
   resolveUserInvocable,
   formatInvocability,
   matchesInvocabilityFilters,
 } from "./frontmatter";
+
+describe("tag normalization", () => {
+  it("parses comma-separated, whitespace-separated, and inline-array tags", () => {
+    expect(resolveTags({ tags: "CLI, Testing cli" })).toEqual([
+      "cli",
+      "testing",
+    ]);
+    expect(resolveTags({ tags: "['frontend', \"accessibility\"]" })).toEqual([
+      "frontend",
+      "accessibility",
+    ]);
+  });
+
+  it("normalizes valid tags and rejects invalid values", () => {
+    expect(normalizeTag(" TypeScript ")).toBe("typescript");
+    expect(normalizeTag("c")).toBe("c");
+    expect(normalizeTag("bad tag")).toBeNull();
+    expect(normalizeTag("!bad")).toBeNull();
+    expect(normalizeTag("x".repeat(33))).toBeNull();
+    expect(normalizeTags(["CLI", "cli", "test_tools", ""])).toEqual([
+      "cli",
+      "test_tools",
+    ]);
+  });
+
+  it("returns an empty list when tags are missing or invalid", () => {
+    expect(resolveTags({})).toEqual([]);
+    expect(resolveTags({ tags: "[!, @]" })).toEqual([]);
+  });
+});
 
 describe("parseFrontmatter", () => {
   it("parses simple key-value pairs", () => {
@@ -283,6 +317,62 @@ metadata:
     expect(result["metadata.version"]).toBeUndefined();
     expect(result["metadata.creator"]).toBe("Someone");
   });
+
+  it("parses a YAML block list without consuming the following key", () => {
+    const input = `---
+name: parent
+dependencies:
+  - code-review
+  - "github:owner/repo:skills/helper"
+version: 1.0.0
+---`;
+    const result = parseFrontmatter(input);
+    expect(result.dependencies).toBe(
+      '["code-review","github:owner/repo:skills/helper"]',
+    );
+    expect(result.version).toBe("1.0.0");
+  });
+
+  it("preserves quoted dependency items and removes inline comments", () => {
+    const input = `---
+dependencies:
+  - "github:owner/repo:skills/path with spaces" # optional helper
+  - './local helper'
+---`;
+    expect(resolveSkillDependencies(parseFrontmatter(input))).toEqual([
+      "github:owner/repo:skills/path with spaces",
+      "./local helper",
+    ]);
+  });
+
+  it("ignores full-line comments throughout dependency sequences", () => {
+    const input = `---
+dependencies:
+  # before
+  - code-review
+    # between
+  - "github:owner/repo:skills/helper"
+  # after
+metadata:
+  version: 1.0.0
+---`;
+    const result = parseFrontmatter(input);
+    expect(resolveSkillDependencies(result)).toEqual([
+      "code-review",
+      "github:owner/repo:skills/helper",
+    ]);
+    expect(result["metadata.version"]).toBe("1.0.0");
+  });
+
+  it("rejects unsupported dependency mappings clearly", () => {
+    const input = `---
+dependencies:
+  helper: github:owner/repo
+---`;
+    expect(() => parseFrontmatter(input)).toThrow(
+      "use a sequence of scalar strings",
+    );
+  });
 });
 
 describe("resolveVersion", () => {
@@ -387,6 +477,50 @@ describe("resolveAllowedTools", () => {
     expect(
       resolveAllowedTools({ "allowed-tools": "Bash, Read, Grep" }),
     ).toEqual(["Bash", "Read", "Grep"]);
+  });
+});
+
+describe("resolveSkillDependencies", () => {
+  it("normalizes block and inline list forms and removes duplicates", () => {
+    expect(
+      resolveSkillDependencies({
+        dependencies:
+          "code-review\ngithub:owner/repo:skills/helper\ncode-review",
+      }),
+    ).toEqual(["code-review", "github:owner/repo:skills/helper"]);
+    expect(
+      resolveSkillDependencies({
+        dependencies: "['skill-creator', \"test-coverage\"]",
+      }),
+    ).toEqual(["skill-creator", "test-coverage"]);
+  });
+
+  it("preserves quoted spaces, commas, and inline comments", () => {
+    expect(
+      resolveSkillDependencies({
+        dependencies:
+          '["./path with spaces", "github:owner/repo:skills/a,b"] # comment',
+      }),
+    ).toEqual(["./path with spaces", "github:owner/repo:skills/a,b"]);
+    expect(
+      resolveSkillDependencies({
+        dependencies:
+          "\"./path with spaces\" # first\n'github:owner/repo:skills/other path' # second",
+      }),
+    ).toEqual(["./path with spaces", "github:owner/repo:skills/other path"]);
+  });
+
+  it("rejects non-string and nested dependency values", () => {
+    expect(() =>
+      resolveSkillDependencies({ dependencies: "[skill, { nested: value }]" }),
+    ).toThrow("only non-empty strings");
+    expect(() =>
+      resolveSkillDependencies({ dependencies: '"unterminated' }),
+    ).toThrow("unterminated quoted string");
+  });
+
+  it("returns an empty list when dependencies are omitted", () => {
+    expect(resolveSkillDependencies({})).toEqual([]);
   });
 });
 

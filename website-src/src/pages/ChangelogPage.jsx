@@ -27,6 +27,343 @@ function issue(n) {
 
 const ENTRIES = [
   {
+    version: "2.20.1",
+    date: "2026-09-13",
+    sections: [
+      {
+        tag: "fixed",
+        items: [
+          <>
+            <code>asm tag remove</code> reports the applied delta — the{" "}
+            <code>Removed tags from</code> message printed the post-state tag
+            list, which looked like the wrong tag was removed; it now reads{" "}
+            <code>Removed tags from x: a — now: b</code>, and{" "}
+            <code>TagUpdateResult</code> gains an <code>applied</code> field for{" "}
+            <code>--json</code>/<code>--machine</code> output ({issue(706)},{" "}
+            {pr(705)})
+          </>,
+          <>
+            <code>asm activate</code>/<code>deactivate</code> no longer
+            hard-require <code>--scope</code> — scope now resolves like{" "}
+            <code>install</code>/<code>link</code>: an explicit flag wins,
+            non-TTY or <code>-y</code> defaults to <code>global</code>, and a
+            TTY shows the picker ({issue(706)}, {pr(705)})
+          </>,
+          <>
+            Bare <code>asm</code> on a non-TTY exits 1 with a friendly message
+            before any escape codes are emitted — no more raw ink error dumped
+            after entering the alternate screen ({issue(706)}, {pr(705)})
+          </>,
+          <>
+            <code>asm inspect</code> honors local <code>asm tag</code> edits
+            like list/search do, and both detail formatters now render tags (
+            {issue(706)}, {pr(705)})
+          </>,
+        ],
+      },
+      {
+        tag: "changed",
+        items: [
+          <>
+            Refresh indexed skill sources — re-ingested all enabled repos in{" "}
+            <code>data/skill-index-resources.json</code> (77 updated, 0
+            unchanged, 0 failed, 0 skipped) ({pr(707)})
+          </>,
+        ],
+      },
+    ],
+  },
+  {
+    version: "2.20.0",
+    date: "2026-09-12",
+    sections: [
+      {
+        tag: "added",
+        items: [
+          <>
+            Persistent full-directory borrowing on <code>asm get --path</code> —
+            ephemeral callers now receive the whole skill directory (supporting
+            scripts, templates, references, and binary assets) instead of just
+            the SKILL.md body, with explicit cleanup via the new{" "}
+            <code>asm cleanup &lt;borrowed-path&gt;</code> command that only
+            removes ASM-owned borrows ({issue(654)}, {pr(655)})
+          </>,
+          <>
+            TUI message-honesty pass — a search-emptied list now says{" "}
+            <code>no matches for &quot;&lt;query&gt;&quot;</code> instead of the
+            misleading <code>(no skills found)</code>, the <code>?</code> help
+            panel gains a legend explaining the <code>~</code> /{" "}
+            <code>→link</code> / <code>dir</code> and invoke glyphs,{" "}
+            <code>q</code> in the config view now discards unsaved toggles (
+            <code>Esc</code> still saves and closes), and the editor key is
+            labeled honestly as <code>Edit file & exit</code> ({issue(679)},{" "}
+            {pr(701)})
+          </>,
+        ],
+      },
+      {
+        tag: "performance",
+        items: [
+          <>
+            O(1) realPath dedupe in the auditor and four-way concurrent{" "}
+            <code>asm library update --all</code> ({issue(680)}, {pr(704)})
+          </>,
+        ],
+      },
+      {
+        tag: "fixed",
+        items: [
+          <>
+            Parse shellcheck&apos;s <code>json1</code> report from stdout in the
+            evaluator — findings were read from stderr, so every shell-script
+            lint result collapsed into a generic exit-code warning and
+            file/line/severity never surfaced ({issue(663)}, {pr(688)})
+          </>,
+          <>
+            Verify security-workflow tool downloads — gitleaks and trivy
+            tarballs now pass a pinned SHA256 check before extraction and
+            semgrep is pinned with a Renovate bump path ({issue(665)}, {pr(689)}
+            )
+          </>,
+          <>
+            Turn the load-bearing <code>patch-ts6.cjs</code> workaround&apos;s
+            silent skip into a loud failure via a new <code>--check</code>{" "}
+            tripwire across all CI call sites — its eventual removal is tracked
+            in {issue(699)} ({issue(676)}, {pr(700)})
+          </>,
+          <>
+            Run the three orphaned e2e files — registry plus both TUI suites —
+            in the <code>e2e-node</code> CI leg so they no longer only run
+            locally ({issue(660)}, {pr(684)})
+          </>,
+        ],
+      },
+      {
+        tag: "changed",
+        items: [
+          <>
+            Eliminate every <code>any</code> from product source — 53 sites
+            across 26 files, mostly <code>catch</code> bindings now narrowed
+            through a shared <code>errorMessage(err: unknown)</code> helper (
+            {issue(675)}, {pr(698)})
+          </>,
+          <>
+            Split the six &gt;900-line modules into focused units behind
+            behavior-preserving facades, and split the 7,567-line{" "}
+            <code>cli.test.ts</code> into per-command groups ({issue(677)},{" "}
+            {pr(703)}, {issue(678)}, {pr(702)})
+          </>,
+          <>
+            Make the CLI commands layer coverage-visible and re-baseline, and
+            cover evaluator batch-fix and detail-failure paths ({issue(673)},{" "}
+            {pr(695)}, {issue(674)}, {pr(697)})
+          </>,
+          <>
+            Add Node 26 to all CI test matrices and bump dependencies — vitest
+            4→5 (clearing GHSA-82fw-gwwq-j7x9), @vitejs/plugin-react 4→6,
+            globals v17, lucide-react v1, jsdom v30, tailwind-merge v3 (
+            {issue(666)}, {pr(691)}, {issue(662)}, {pr(687)}, {issue(664)},{" "}
+            {pr(690)})
+          </>,
+        ],
+      },
+      {
+        tag: "docs",
+        items: [
+          <>
+            Sync docs with shipped code — ARCHITECTURE.md aligned to the{" "}
+            <code>commands/</code> layout, stale agent-docs and recorded
+            environment facts corrected, CI moderate-advisory policy documented
+            ({pr(682)}, {pr(683)}, {pr(685)}, {pr(686)})
+          </>,
+        ],
+      },
+    ],
+  },
+  {
+    version: "2.19.0",
+    date: "2026-09-09",
+    sections: [
+      {
+        tag: "added",
+        items: [
+          <>
+            Catalog storefront redesign — skills and bundles list as a browsable
+            shop with card-led layout ({pr(596)}), popularity sort diversified
+            across repos ({pr(599)}, {pr(627)}), and a per-repo detail page
+            listing every indexed skill ({pr(624)})
+          </>,
+          <>
+            Site analytics — Google Analytics ({pr(646)}) and GoatCounter (
+            {pr(647)}) page-view tracking
+          </>,
+          <>
+            SEO — indexable static category pages wired into sitemap and{" "}
+            <code>llms.txt</code> ({pr(615)})
+          </>,
+          <>
+            One-click bundle download with defaults from the catalog ({pr(628)})
+          </>,
+          <>
+            Three new predefined bundles: <code>marketing</code> ({pr(640)}),{" "}
+            <code>software-dev</code> ({pr(639)}), and <code>game-dev</code> (
+            {pr(636)}), plus expanded iOS-release bundle matching and a repaired{" "}
+            <code>frontend-dev</code> bundle path ({pr(637)}, {pr(638)})
+          </>,
+          <>
+            Interactive tool and scope pickers on{" "}
+            <code>asm bundle install</code> ({pr(613)})
+          </>,
+          <>
+            Just-in-time skill dependency install —{" "}
+            <code>asm deps discover|acquire|release|cleanup</code> ( {pr(651)})
+          </>,
+          <>
+            Reordered install provider picker with two new providers: Oh My Pi
+            and Grok CLI ({pr(618)})
+          </>,
+          <>
+            Index additions: <code>openai/skills</code> and{" "}
+            <code>affaan-m/ECC</code> ({pr(650)}),{" "}
+            <code>majidmanzarpour/threejs-game-skills</code> ({pr(620)}),{" "}
+            <code>DietrichGebert/ponytail</code> ({pr(606)})
+          </>,
+        ],
+      },
+      {
+        tag: "fixed",
+        items: [
+          <>
+            Resolve the target provider before <code>asm bundle install</code>{" "}
+            confirmation ({pr(603)})
+          </>,
+          <>
+            Stop publishing <code>0</code> GitHub stars when star fetch fails (
+            {pr(601)})
+          </>,
+          <>Make bundle install tool/scope pickers discoverable ( {pr(641)})</>,
+        ],
+      },
+    ],
+  },
+  {
+    version: "2.18.0",
+    date: "2026-08-28",
+    sections: [
+      {
+        tag: "added",
+        items: [
+          <>
+            Skill tag assignment and catalog tag filtering —{" "}
+            <code>asm tag add|remove</code>, <code>--tag</code> on list/search,
+            and an AND-match <code>TagFilter</code> on the catalog ({issue(584)}
+            , {pr(585)})
+          </>,
+          <>
+            Eleven anti-slop skills from the Charlie Hills rank, with tag
+            descriptions in the index ({pr(583)})
+          </>,
+          <>
+            Four curated sources: <code>ComposioHQ/awesome-claude-skills</code>,{" "}
+            <code>JuliusBrussee/caveman</code>,{" "}
+            <code>multica-ai/andrej-karpathy-skills</code>,{" "}
+            <code>ayghri/i-have-adhd</code> ({pr(578)})
+          </>,
+          <>
+            Per-step context delegation in <code>skill-creator</code> and{" "}
+            <code>skill-auto-improver</code> ({issue(574)}, {pr(575)})
+          </>,
+          <>
+            Skill-dependency gating and run-stats output on create/improve paths
+            ({issue(571)}, {pr(573)})
+          </>,
+        ],
+      },
+      {
+        tag: "fixed",
+        items: [
+          <>
+            Quote find-me-skills <code>metadata.author</code> so YAML
+            frontmatter stays valid
+          </>,
+          <>Deflake App container view-transition assertions in tests</>,
+        ],
+      },
+    ],
+  },
+  {
+    version: "2.17.0",
+    date: "2026-08-25",
+    sections: [
+      {
+        tag: "added",
+        items: [
+          <>
+            Semantic overlap detection for installed skills — extend token-based
+            similarity matching to skills already installed across agents (
+            {pr(570)})
+          </>,
+          <>
+            Content fingerprints and guarded auto-remove in{" "}
+            <code>asm audit</code> — detect unchanged duplicates reliably and
+            clean them up safely ({pr(569)})
+          </>,
+          <>
+            Add <code>antithesishq/antithesis-skills</code> to the curated skill
+            index ({pr(560)})
+          </>,
+        ],
+      },
+      {
+        tag: "fixed",
+        items: [
+          <>
+            Resolve all Phase 1 and Phase 2 blockers from the website epic (
+            {pr(549)}, {pr(550)})
+          </>,
+          <>
+            Doctor PATH-shadowing recommendation now names the specific shadowed
+            binaries ({pr(515)})
+          </>,
+          <>Exclude documentation files from the security scan ({pr(513)})</>,
+          <>
+            Use <code>evaluateSkillContentSync</code> in enrich-index so index
+            enrichment runs correctly ({pr(512)})
+          </>,
+        ],
+      },
+      {
+        tag: "performance",
+        items: [
+          <>
+            Phase 3 performance optimizations ({issue(527)}–{issue(532)},{" "}
+            {pr(551)})
+          </>,
+        ],
+      },
+      {
+        tag: "changed",
+        items: [
+          <>
+            Phase 6 architecture improvements and duplicate-group normalization
+            in audit output with version-divergence flags ({pr(554)}, {pr(568)})
+          </>,
+          <>
+            Phase 4 UX polish and Phase 5 accessibility & code quality (
+            {pr(552)}, {pr(553)})
+          </>,
+          <>
+            List top authors when stats encounters an unknown author ({pr(514)})
+          </>,
+        ],
+      },
+      {
+        tag: "docs",
+        items: [<>Update epic 516 status — all phases complete ({pr(555)})</>],
+      },
+    ],
+  },
+  {
     version: "2.16.0",
     date: "2026-08-21",
     sections: [

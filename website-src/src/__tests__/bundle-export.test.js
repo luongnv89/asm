@@ -2,7 +2,9 @@ import { describe, expect, it } from "vitest";
 import {
   buildBundleJson,
   buildIssueUrl,
+  DEFAULT_BUNDLE_META,
   validateBundleForm,
+  withBundleDefaults,
 } from "../lib/bundle-export.js";
 
 const NOW = new Date("2026-04-24T12:00:00.000Z");
@@ -71,29 +73,25 @@ describe("buildBundleJson", () => {
 });
 
 describe("validateBundleForm", () => {
-  it("requires name, description, author, and ≥1 skill", () => {
+  it("requires ≥1 skill but no metadata fields", () => {
     const errors = validateBundleForm({ name: "" }, []);
-    const fields = errors.map((e) => e.field);
-    expect(fields).toContain("name");
-    expect(fields).toContain("description");
-    expect(fields).toContain("author");
-    expect(fields).toContain("skills");
+    expect(errors.map((e) => e.field)).toEqual(["skills"]);
   });
 
-  it("flags an empty description even when name and skills are valid", () => {
+  it("accepts blank description (falls back to the default)", () => {
     const errors = validateBundleForm(
       { name: "ok-name", description: "  ", author: "alice" },
       SKILLS,
     );
-    expect(errors.map((e) => e.field)).toEqual(["description"]);
+    expect(errors).toEqual([]);
   });
 
-  it("flags an empty author even when name and skills are valid", () => {
+  it("accepts a blank author (falls back to the default)", () => {
     const errors = validateBundleForm(
       { name: "ok-name", description: "has one", author: "" },
       SKILLS,
     );
-    expect(errors.map((e) => e.field)).toEqual(["author"]);
+    expect(errors).toEqual([]);
   });
 
   it("rejects invalid name characters", () => {
@@ -117,7 +115,46 @@ describe("validateBundleForm", () => {
   });
 });
 
+describe("withBundleDefaults", () => {
+  it("fills blank fields with the defaults and keeps provided values", () => {
+    expect(withBundleDefaults({})).toMatchObject(DEFAULT_BUNDLE_META);
+    expect(
+      withBundleDefaults({ name: "  ", description: "", author: "" }),
+    ).toMatchObject(DEFAULT_BUNDLE_META);
+    const out = withBundleDefaults({
+      name: "custom",
+      description: "d",
+      author: "a",
+      tags: "x",
+    });
+    expect(out).toMatchObject({
+      name: "custom",
+      description: "d",
+      author: "a",
+      tags: "x",
+    });
+  });
+
+  it("zero-input download produces a CLI-valid bundle", () => {
+    // Mirrors the non-empty checks in src/bundler.ts validateBundle().
+    const bundle = buildBundleJson(SKILLS, {}, NOW);
+    expect(bundle.name).toBeTruthy();
+    expect(bundle.description).toBeTruthy();
+    expect(bundle.author).toBeTruthy();
+    expect(bundle.createdAt).toBe(NOW.toISOString());
+    expect(bundle.skills.length).toBeGreaterThan(0);
+  });
+});
+
 describe("buildIssueUrl", () => {
+  it("falls back to the default bundle name in the issue title", () => {
+    const url = buildIssueUrl(SKILLS, {});
+    const qs = new URLSearchParams(url.split("?")[1]);
+    expect(qs.get("title")).toBe(
+      `[FEATURE] Bundle: ${DEFAULT_BUNDLE_META.name}`,
+    );
+  });
+
   it("produces a github issues URL with title/body/labels", () => {
     const url = buildIssueUrl(SKILLS, {
       name: "my-pack",

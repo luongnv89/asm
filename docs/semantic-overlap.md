@@ -17,12 +17,12 @@ names — by comparing descriptions and SKILL.md bodies using token-based simila
 
 ## Relationship to existing dedupe
 
-| Feature | `skill-dedupe.ts` | `semantic-overlap.ts` |
-|---------|-------------------|----------------------|
+| Feature         | `skill-dedupe.ts`                  | `semantic-overlap.ts`                 |
+| --------------- | ---------------------------------- | ------------------------------------- |
 | What it detects | Same name in different directories | Different names, similar descriptions |
-| Scope | Within a single repo | Across the entire index |
-| Method | Name equality | Token-based similarity |
-| Purpose | Resolve install conflicts | Surface redundancy for review |
+| Scope           | Within a single repo               | Across the entire index               |
+| Method          | Name equality                      | Token-based similarity                |
+| Purpose         | Resolve install conflicts          | Surface redundancy for review         |
 
 They are complementary, not competing: dedupe handles exact-name collisions,
 semantic overlap handles near-duplicates with different names.

@@ -4,8 +4,9 @@ import {
   anyFilterActive,
   buildNameCollisionKeys,
   defaultSort,
+  diversifyByRepo,
 } from "../lib/filter-sort.js";
-import { emptyFacetState } from "../lib/facets.js";
+import { computeFacetCounts, emptyFacetState } from "../lib/facets.js";
 
 const mk = (p) => ({
   id: p.id,
@@ -18,9 +19,11 @@ const mk = (p) => ({
   verified: !!p.verified,
   hasTools: !!p.hasTools,
   tokenCount: p.tokenCount,
+  stars: p.stars,
   evalSummary: p.evalSummary,
   featured: !!p.featured,
   allowedTools: p.allowedTools,
+  tags: p.tags,
 });
 
 const base = () => ({
@@ -32,12 +35,48 @@ const base = () => ({
 });
 
 describe("applyFilters", () => {
-  it("returns all when no filters active and sorts by name", () => {
+  it("returns all when no filters active and sorts by stars (most popular)", () => {
     const skills = [
-      mk({ id: "b", name: "beta" }),
-      mk({ id: "a", name: "alpha" }),
+      mk({ id: "b", name: "beta", stars: 10 }),
+      mk({ id: "a", name: "alpha", stars: 5 }),
+      mk({ id: "c", name: "charlie", stars: 500 }),
     ];
     const out = applyFilters(skills, base());
+    expect(out.map((s) => s.id)).toEqual(["c", "b", "a"]);
+  });
+
+  it("sort: stars — ties break by score desc, then name; missing stars sink", () => {
+    const skills = [
+      mk({ id: "nostars", name: "aaa" }),
+      mk({
+        id: "low",
+        name: "zzz",
+        stars: 100,
+        evalSummary: { overallScore: 60, grade: "C" },
+      }),
+      mk({
+        id: "high",
+        name: "yyy",
+        stars: 100,
+        evalSummary: { overallScore: 95, grade: "A" },
+      }),
+      mk({
+        id: "same",
+        name: "bbb",
+        stars: 100,
+        evalSummary: { overallScore: 95, grade: "A" },
+      }),
+    ];
+    const out = applyFilters(skills, { ...base(), sort: "stars" });
+    expect(out.map((s) => s.id)).toEqual(["same", "high", "low", "nostars"]);
+  });
+
+  it("sort: name — alphabetical regardless of stars", () => {
+    const skills = [
+      mk({ id: "b", name: "beta", stars: 500 }),
+      mk({ id: "a", name: "alpha", stars: 5 }),
+    ];
+    const out = applyFilters(skills, { ...base(), sort: "name" });
     expect(out.map((s) => s.id)).toEqual(["a", "b"]);
   });
 
@@ -111,6 +150,27 @@ describe("applyFilters", () => {
     expect(applyFilters(skills, state).map((s) => s.id)).toEqual(["y"]);
   });
 
+  it("filters by one or more tags with AND semantics", () => {
+    const skills = [
+      mk({ id: "both", tags: ["cli", "testing"] }),
+      mk({ id: "cli", tags: ["cli"] }),
+      mk({ id: "legacy" }),
+    ];
+    const oneTag = base();
+    oneTag.activeFacets.tags.add("cli");
+    expect(applyFilters(skills, oneTag).map((skill) => skill.id)).toEqual([
+      "both",
+      "cli",
+    ]);
+
+    const twoTags = base();
+    twoTags.activeFacets.tags.add("CLI");
+    twoTags.activeFacets.tags.add("testing");
+    expect(applyFilters(skills, twoTags).map((skill) => skill.id)).toEqual([
+      "both",
+    ]);
+  });
+
   it("sort: grade — best grade first, tiebreak by score desc then name", () => {
     const skills = [
       mk({ id: "b", name: "b", evalSummary: { grade: "B", overallScore: 81 } }),
@@ -147,6 +207,82 @@ describe("applyFilters", () => {
     ]);
     const out = applyFilters(skills, state, { scoreById });
     expect(out.map((s) => s.id)).toEqual(["gamma", "beta"]);
+  });
+
+  it("sort: stars — diversifies top across repos, keeps all discoverable (#622)", () => {
+    const skills = [
+      mk({
+        id: "s1",
+        owner: "obra",
+        repo: "superpowers",
+        stars: 10000,
+        evalSummary: { overallScore: 90, grade: "A" },
+      }),
+      mk({
+        id: "s2",
+        owner: "obra",
+        repo: "superpowers",
+        stars: 10000,
+        evalSummary: { overallScore: 85, grade: "A" },
+      }),
+      mk({
+        id: "s3",
+        owner: "obra",
+        repo: "superpowers",
+        stars: 10000,
+        evalSummary: { overallScore: 80, grade: "A" },
+      }),
+      mk({
+        id: "s4",
+        owner: "obra",
+        repo: "superpowers",
+        stars: 10000,
+        evalSummary: { overallScore: 75, grade: "A" },
+      }),
+      mk({
+        id: "o1",
+        owner: "other",
+        repo: "repo-a",
+        stars: 9000,
+        evalSummary: { overallScore: 95, grade: "A" },
+      }),
+      mk({
+        id: "o2",
+        owner: "third",
+        repo: "repo-b",
+        stars: 8000,
+        evalSummary: { overallScore: 95, grade: "A" },
+      }),
+    ];
+    const out = applyFilters(skills, { ...base(), sort: "stars" });
+    // Same set, only reordered — nothing hidden.
+    expect(out.map((s) => s.id).sort()).toEqual(
+      ["s1", "s2", "s3", "s4", "o1", "o2"].sort(),
+    );
+    // Top 3 mix repos instead of one repo filling the top.
+    const top3Repos = new Set(
+      out.slice(0, 3).map((s) => s.owner + "/" + s.repo),
+    );
+    expect(top3Repos.size).toBe(3);
+  });
+
+  it("diversifyByRepo keeps featured pinned and is a pure reorder", () => {
+    const feat = mk({ id: "f", stars: 1, featured: true });
+    const pop = mk({ id: "p", owner: "a", repo: "ra", stars: 9999 });
+    expect(diversifyByRepo([feat, pop]).map((s) => s.id)).toEqual(["f", "p"]);
+    const single = [mk({ id: "a" }), mk({ id: "b" })];
+    expect(diversifyByRepo(single).map((s) => s.id)).toEqual(["a", "b"]);
+  });
+});
+
+describe("computeFacetCounts", () => {
+  it("counts normalized tags once per skill and tolerates missing tags", () => {
+    const counts = computeFacetCounts([
+      mk({ id: "one", tags: ["CLI", "cli", "testing"] }),
+      mk({ id: "two", tags: ["cli"] }),
+      mk({ id: "legacy" }),
+    ]);
+    expect(counts.tags).toEqual({ cli: 2, testing: 1 });
   });
 });
 
@@ -223,8 +359,11 @@ describe("anyFilterActive", () => {
   it("returns true when sort='grade' with no search (non-default)", () => {
     expect(anyFilterActive({ ...base(), sort: "grade" })).toBe(true);
   });
-  it("returns false when sort='name' with no search (matches default)", () => {
-    expect(anyFilterActive({ ...base(), sort: "name" })).toBe(false);
+  it("returns false when sort='stars' with no search (matches default)", () => {
+    expect(anyFilterActive({ ...base(), sort: "stars" })).toBe(false);
+  });
+  it("returns true when sort='name' with no search (non-default)", () => {
+    expect(anyFilterActive({ ...base(), sort: "name" })).toBe(true);
   });
   it("returns true when sort='relevance' with no search (non-default)", () => {
     expect(anyFilterActive({ ...base(), sort: "relevance" })).toBe(true);
@@ -237,8 +376,8 @@ describe("anyFilterActive", () => {
 });
 
 describe("defaultSort", () => {
-  it("is relevance when search active, name otherwise", () => {
-    expect(defaultSort("")).toBe("name");
+  it("is relevance when search active, stars otherwise", () => {
+    expect(defaultSort("")).toBe("stars");
     expect(defaultSort("foo")).toBe("relevance");
   });
 });

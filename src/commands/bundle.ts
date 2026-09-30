@@ -10,6 +10,7 @@ import {
   cloneToTemp,
   validateSkill,
   executeInstall,
+  executeInstallAllProviders,
   cleanupTemp,
   resolveProvider,
   buildInstallPlan,
@@ -26,9 +27,11 @@ import {
   removeBundle,
 } from "../bundler";
 import type { BundleSkillRef } from "../utils/types";
+import { errorMessage } from "../utils/errors";
 import { join as joinPath } from "path";
 
 import { error, readLine } from "./shared";
+import { promptInstallScope, selectBundleSkills } from "./install-prompts";
 import type { ParsedArgs } from "../cli";
 
 function printBundleHelp() {
@@ -48,12 +51,22 @@ ${ansi.bold("Subcommands:")}
   export <name> [file]   Export a bundle to a JSON file
 
 ${ansi.bold("Options:")}
-  -s, --scope <s>      Filter: global, project, or both (default: both)
-  -y, --yes            Skip confirmation prompts
+  -p, --tool <name>    install: target tool (claude, codex, openclaw, agents, all)
+  -s, --scope <s>      install: install scope, global or project (default: global)
+                       create/list: filter by global, project, or both (default: both)
+  -y, --yes            Skip confirmation prompts and the skill/scope pickers
   --json               Output as JSON
   --predefined         Show pre-defined bundles shipped with ASM (for list)
   --no-color           Disable ANSI colors
   -V, --verbose        Show debug output
+
+${ansi.bold("Interactive install:")}
+  ${ansi.dim("`asm bundle install` in a terminal prompts for the tool(s), then which")}
+  ${ansi.dim("bundle skills to install, then the install scope. Any picker can be")}
+  ${ansi.dim("dismissed with Esc to abort. Passing a prompt's own flag skips it:")}
+  ${ansi.dim("-p/--tool for the tool picker, -s/--scope for the scope picker, -y")}
+  ${ansi.dim("for the skill and scope pickers. Outside a terminal there are no")}
+  ${ansi.dim("pickers, and -p/--tool is required unless exactly one tool is enabled.")}
 
 ${ansi.bold("Examples:")}
   asm bundle create my-workflow                ${ansi.dim("Create from installed skills")}
@@ -209,8 +222,8 @@ export async function cmdBundle(args: ParsedArgs) {
       let bundle;
       try {
         bundle = await loadBundle(nameOrPath);
-      } catch (err: any) {
-        error(err.message);
+      } catch (err) {
+        error(errorMessage(err));
         process.exit(1);
       }
 
@@ -230,11 +243,65 @@ export async function cmdBundle(args: ParsedArgs) {
         );
       }
 
+      const config = await loadConfig();
+
+      // Interactive skill selection (issue #612): mirror `asm install` —
+      // TTY runs pick which bundle entries to install, --yes installs all.
+      // The tool picker joins them inside the try (#629) so dismissing any of
+      // the three pickers aborts with a friendly message, not a stack trace.
+      let skillsToInstall = bundle.skills;
+      let installScope!: "global" | "project";
+      let provider!: Awaited<ReturnType<typeof resolveProvider>>["provider"];
+      let allProviders!: Awaited<
+        ReturnType<typeof resolveProvider>
+      >["allProviders"];
+      try {
+        // The tool picker used to render straight after the skill listing with
+        // no heading, reading as a second skill list (#629).
+        if (
+          process.stdin.isTTY &&
+          !args.flags.provider &&
+          config.providers.filter((p) => p.enabled).length > 1
+        ) {
+          console.error(ansi.bold("\nSelect tool(s) to install into:\n"));
+        }
+        ({ provider, allProviders } = await resolveProvider(
+          config,
+          args.flags.provider,
+          !!process.stdin.isTTY,
+        ));
+
+        if (
+          process.stdin.isTTY &&
+          !args.flags.yes &&
+          bundle.skills.length > 1
+        ) {
+          skillsToInstall = await selectBundleSkills(bundle.skills, {
+            isTTY: true,
+            yes: false,
+          });
+        }
+
+        // Interactive scope selection (issue #612): explicit --scope wins,
+        // otherwise TTY runs are offered global/project, rest default global.
+        installScope = await promptInstallScope({
+          scopeFlag: args.flags.scope,
+          provider,
+          isTTY: !!process.stdin.isTTY,
+          yes: !!args.flags.yes,
+        });
+      } catch (err) {
+        error(errorMessage(err));
+        process.exit(1);
+      }
+
       // Confirm
       if (!args.flags.yes && process.stdin.isTTY) {
-        process.stderr.write(
-          `\n${ansi.bold("Install all skills from this bundle?")} [y/N] `,
-        );
+        const countLabel =
+          skillsToInstall.length === bundle.skills.length
+            ? "all skills from this bundle"
+            : `${skillsToInstall.length} selected skill(s) from this bundle`;
+        process.stderr.write(`\n${ansi.bold(`Install ${countLabel}?`)} [y/N] `);
         const answer = await readLine();
         if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
           console.error("Aborted.");
@@ -242,26 +309,14 @@ export async function cmdBundle(args: ParsedArgs) {
         }
       }
 
-      // Install each skill
+      // Install each selected skill
       const results: Array<{
         name: string;
         status: "installed" | "skipped" | "failed";
         reason?: string;
       }> = [];
 
-      const config = await loadConfig();
-      const { provider } = await resolveProvider(
-        config,
-        args.flags.provider,
-        false, // non-interactive for batch
-      );
-
-      const installScope: "global" | "project" =
-        args.flags.scope === "global" || args.flags.scope === "project"
-          ? args.flags.scope
-          : "global";
-
-      for (const skill of bundle.skills) {
+      for (const skill of skillsToInstall) {
         console.error(`\n  Installing ${ansi.bold(skill.name)}...`);
         try {
           // Check if git is available for remote installs
@@ -318,8 +373,8 @@ export async function cmdBundle(args: ParsedArgs) {
             // Check if skill already exists; skip unless --force
             try {
               await checkConflict(plan.targetDir, plan.force);
-            } catch (conflictErr: any) {
-              if (conflictErr.message?.includes("--force")) {
+            } catch (conflictErr) {
+              if (errorMessage(conflictErr).includes("--force")) {
                 results.push({
                   name: skill.name,
                   status: "skipped",
@@ -333,7 +388,11 @@ export async function cmdBundle(args: ParsedArgs) {
               throw conflictErr;
             }
 
-            await executeInstall(plan);
+            if (allProviders) {
+              await executeInstallAllProviders(plan, allProviders);
+            } else {
+              await executeInstall(plan);
+            }
             results.push({ name: skill.name, status: "installed" });
             console.error(`    ${ansi.green("+++")} ${skill.name} installed`);
           } finally {
@@ -341,13 +400,14 @@ export async function cmdBundle(args: ParsedArgs) {
               await cleanupTemp(tempDir);
             }
           }
-        } catch (err: any) {
+        } catch (err) {
+          const reason = errorMessage(err);
           results.push({
             name: skill.name,
             status: "failed",
-            reason: err.message,
+            reason,
           });
-          console.error(`    ${ansi.red("!!!")} ${skill.name}: ${err.message}`);
+          console.error(`    ${ansi.red("!!!")} ${skill.name}: ${reason}`);
         }
       }
 
@@ -365,6 +425,7 @@ export async function cmdBundle(args: ParsedArgs) {
               installed,
               skipped,
               failed,
+              scope: installScope,
               results,
             },
             null,
@@ -478,8 +539,8 @@ export async function cmdBundle(args: ParsedArgs) {
       let bundle;
       try {
         bundle = await loadBundle(nameOrPath);
-      } catch (err: any) {
-        error(err.message);
+      } catch (err) {
+        error(errorMessage(err));
         process.exit(1);
       }
 
@@ -534,8 +595,8 @@ export async function cmdBundle(args: ParsedArgs) {
       let removed: boolean;
       try {
         removed = await removeBundle(bundleName);
-      } catch (err: any) {
-        error(err.message);
+      } catch (err) {
+        error(errorMessage(err));
         process.exit(1);
       }
 
@@ -561,8 +622,8 @@ export async function cmdBundle(args: ParsedArgs) {
       let bundle: import("../utils/types").BundleManifest;
       try {
         bundle = await loadBundle(bundleName);
-      } catch (err: any) {
-        error(err.message);
+      } catch (err) {
+        error(errorMessage(err));
         process.exit(1);
       }
 
@@ -713,8 +774,8 @@ export async function cmdBundle(args: ParsedArgs) {
       let bundle: import("../utils/types").BundleManifest;
       try {
         bundle = await loadBundle(bundleName);
-      } catch (err: any) {
-        error(err.message);
+      } catch (err) {
+        error(errorMessage(err));
         process.exit(1);
       }
 

@@ -5,8 +5,8 @@ license: MIT
 compatibility: "Claude Code with the `asm` CLI on PATH"
 effort: medium
 metadata:
-  version: 1.2.0
-  author: Luong NGUYEN <luongnv89@gmail.com>
+  version: 1.2.1
+  author: "Luong NGUYEN <luongnv89@gmail.com>"
 ---
 
 # Find Me Skills

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/AvdLee/Core-Data-Agent-Skill.git",
   "owner": "AvdLee",
   "repo": "Core-Data-Agent-Skill",
-  "updatedAt": "2026-08-21T09:19:52.811Z",
+  "updatedAt": "2026-09-26T06:50:59.303Z",
   "skillCount": 1,
   "skills": [
     {
@@ -13,6 +13,8 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:AvdLee/Core-Data-Agent-Skill:core-data-expert",
@@ -84,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-08-21T09:19:52.805Z",
+        "evaluatedAt": "2026-09-26T06:50:59.298Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -157,12 +159,12 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:52.806Z",
+          "evaluatedAt": "2026-09-26T06:50:59.298Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.1.0",
+          "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
           "overallScore": 69,
@@ -175,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-08-21T09:19:52.806Z",
+          "evaluatedAt": "2026-09-26T06:50:59.298Z",
           "evaluatedVersion": "0.0.0"
         }
       }

@@ -10,18 +10,50 @@ const REPO_OWNER = "luongnv89";
 const REPO_NAME = "asm";
 
 /**
+ * Defaults applied when the user exports without filling in the
+ * checkout form (#626). Every field the CLI's `validateBundle()` in
+ * `src/bundler.ts` requires (non-empty `name`, `description`,
+ * `author`) gets a sensible value, so a zero-input download is still
+ * a valid, installable bundle. `name` is JSON-filename-safe per the
+ * form's name check below.
+ */
+export const DEFAULT_BUNDLE_META = {
+  name: "my-bundle",
+  description: "Skill bundle exported from the ASM catalog.",
+  author: "anonymous",
+};
+
+/**
+ * Return a copy of `meta` with blank fields replaced by
+ * `DEFAULT_BUNDLE_META`. Whitespace-only counts as blank.
+ */
+export function withBundleDefaults(meta = {}) {
+  const pick = (key) => {
+    const v = (meta[key] ?? "").toString().trim();
+    return v ? v : DEFAULT_BUNDLE_META[key];
+  };
+  return {
+    ...meta,
+    name: pick("name"),
+    description: pick("description"),
+    author: pick("author"),
+  };
+}
+
+/**
  * Build a `BundleManifest` (matching `src/utils/types.ts`) from the
  * in-memory cart + the metadata form values. `createdAt` is set here
  * — not when the cart row is added — so the timestamp reflects when
  * the user exported, not when they started shopping.
  */
 export function buildBundleJson(skills, meta, now = new Date()) {
-  const tags = splitTags(meta.tags);
+  const effective = withBundleDefaults(meta);
+  const tags = splitTags(effective.tags);
   const manifest = {
     version: 1,
-    name: (meta.name || "").trim(),
-    description: (meta.description || "").trim(),
-    author: (meta.author || "").trim(),
+    name: effective.name,
+    description: effective.description,
+    author: effective.author,
     createdAt: now.toISOString(),
     skills: skills.map((s) => {
       const ref = {
@@ -38,33 +70,22 @@ export function buildBundleJson(skills, meta, now = new Date()) {
 }
 
 /**
- * Validate the fields the CLI's `validateBundle()` in `src/bundler.ts`
- * enforces server-side (non-empty `name`, `description`, `author`, and
- * ≥ 1 skill), plus a JSON-filename-safe name check. Mirroring these
- * here prevents users from exporting a `.json` that `asm bundle
- * install` would then reject. Returns an array of { field, message }
- * — empty means valid.
+ * Validate the fields the user can influence in the builder form.
+ * Only ≥ 1 skill is required: blank `name`/`description`/`author`
+ * fall back to `DEFAULT_BUNDLE_META` at build time (#626), so the
+ * form never blocks a download. A non-blank name must still be
+ * JSON-filename-safe. Returns an array of { field, message } —
+ * empty means valid.
  */
 export function validateBundleForm(meta, skills) {
   const errors = [];
   const name = (meta.name || "").trim();
-  if (!name) {
-    errors.push({ field: "name", message: "Bundle name is required." });
-  } else if (!/^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$/.test(name)) {
+  if (name && !/^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$/.test(name)) {
     errors.push({
       field: "name",
       message:
         "Name must start with a letter or digit and use only letters, digits, '.', '_', or '-' (max 64 chars).",
     });
-  }
-  if (!(meta.description || "").trim()) {
-    errors.push({
-      field: "description",
-      message: "Description is required.",
-    });
-  }
-  if (!(meta.author || "").trim()) {
-    errors.push({ field: "author", message: "Author is required." });
   }
   if (!Array.isArray(skills) || skills.length === 0) {
     errors.push({
@@ -117,8 +138,9 @@ export function buildIssueUrl(skills, meta, opts = {}) {
   const catalogBaseUrl = opts.catalogBaseUrl || "https://luongnv.com/asm/";
   const maxBytes = opts.maxBodyBytes || 7000;
 
-  const title = `[FEATURE] Bundle: ${(meta.name || "untitled").trim()}`;
-  const body = buildIssueBody(skills, meta, { catalogBaseUrl, maxBytes });
+  const effective = withBundleDefaults(meta);
+  const title = `[FEATURE] Bundle: ${effective.name}`;
+  const body = buildIssueBody(skills, effective, { catalogBaseUrl, maxBytes });
 
   const params = new URLSearchParams({
     title,
