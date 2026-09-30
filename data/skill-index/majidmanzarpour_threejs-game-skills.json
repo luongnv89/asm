@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/majidmanzarpour/threejs-game-skills.git",
   "owner": "majidmanzarpour",
   "repo": "threejs-game-skills",
-  "updatedAt": "2026-09-26T06:54:00.638Z",
+  "updatedAt": "2026-09-30T20:50:26.762Z",
   "skillCount": 9,
   "skills": [
     {
@@ -20,7 +20,7 @@
       "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-3d-generator",
       "relPath": "skills/threejs-3d-generator",
       "verified": true,
-      "tokenCount": 2562,
+      "tokenCount": 2578,
       "evalSummary": {
         "overallScore": 69,
         "grade": "C",
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:54:00.492Z",
+        "evaluatedAt": "2026-09-30T20:50:26.674Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.493Z",
+          "evaluatedAt": "2026-09-30T20:50:26.674Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.493Z",
+          "evaluatedAt": "2026-09-30T20:50:26.674Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -197,9 +197,9 @@
       "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-aaa-graphics-builder",
       "relPath": "skills/threejs-aaa-graphics-builder",
       "verified": true,
-      "tokenCount": 1280,
+      "tokenCount": 1214,
       "evalSummary": {
-        "overallScore": 67,
+        "overallScore": 66,
         "grade": "C",
         "categories": [
           {
@@ -217,7 +217,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 5,
+            "score": 4,
             "max": 10
           },
           {
@@ -263,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:54:00.492Z",
+        "evaluatedAt": "2026-09-30T20:50:26.674Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -272,7 +272,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
+          "overallScore": 66,
           "grade": "C",
           "categories": [
             {
@@ -290,7 +290,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 5,
+              "score": 4,
               "max": 10
             },
             {
@@ -336,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.493Z",
+          "evaluatedAt": "2026-09-30T20:50:26.674Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -354,14 +354,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.493Z",
+          "evaluatedAt": "2026-09-30T20:50:26.674Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "threejs-audio-generator",
-      "description": "Generate, convert, clean, and integrate audio for Three.js browser games with ElevenLabs: sound effects, looping ambience, UI sounds, impact/weapon/vehicle audio, creature and boss stingers, announcer and dialogue TTS, voice conversion from a scratch performance, voice cleanup, audio manifests, and Web Audio integration.",
+      "description": "Generate, convert, clean, and integrate audio for Three.js browser games with ElevenLabs: sound effects, looping ambience, music tracks and loops (menu, gameplay, boss, victory/defeat stingers), UI sounds, impact/weapon/vehicle audio, creature and boss stingers, announcer and dialogue TTS, voice conversion from a scratch performance, voice cleanup, audio manifests, and Web Audio integration.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -374,7 +374,7 @@
       "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-audio-generator",
       "relPath": "skills/threejs-audio-generator",
       "verified": true,
-      "tokenCount": 1287,
+      "tokenCount": 1485,
       "evalSummary": {
         "overallScore": 74,
         "grade": "C",
@@ -440,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:54:00.492Z",
+        "evaluatedAt": "2026-09-30T20:50:26.674Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -513,7 +513,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.493Z",
+          "evaluatedAt": "2026-09-30T20:50:26.674Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -531,7 +531,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.493Z",
+          "evaluatedAt": "2026-09-30T20:50:26.674Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -551,9 +551,9 @@
       "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-debug-profiler",
       "relPath": "skills/threejs-debug-profiler",
       "verified": true,
-      "tokenCount": 676,
+      "tokenCount": 575,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 65,
         "grade": "C",
         "categories": [
           {
@@ -571,7 +571,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 5,
+            "score": 1,
             "max": 10
           },
           {
@@ -617,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:54:00.493Z",
+        "evaluatedAt": "2026-09-30T20:50:26.674Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -626,7 +626,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 65,
           "grade": "C",
           "categories": [
             {
@@ -644,7 +644,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 5,
+              "score": 1,
               "max": 10
             },
             {
@@ -690,7 +690,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.493Z",
+          "evaluatedAt": "2026-09-30T20:50:26.675Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -708,14 +708,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.493Z",
+          "evaluatedAt": "2026-09-30T20:50:26.675Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "threejs-game-director",
-      "description": "Entrypoint for building, upgrading, and finishing Three.js browser games. Routes work across the sibling threejs-* skills for gameplay, graphics, UI, 3D/image/audio asset generation, debugging, and release. Use for build-a-game, upgrade, polish, premium, AAA, high-fidelity, showcase, from-scratch, endless runner, arcade, action, and release-ready requests.",
+      "description": "Entrypoint for building, upgrading, and finishing Three.js browser games. Routes work across the sibling threejs-* skills for gameplay, graphics, UI, 3D/image/audio asset generation, debugging, and release. Use for any request to build, upgrade, polish, or ship a Three.js game as a whole, at any scope from a small arcade prototype to a premium release.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -728,9 +728,9 @@
       "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-game-director",
       "relPath": "skills/threejs-game-director",
       "verified": true,
-      "tokenCount": 2380,
+      "tokenCount": 2416,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 71,
         "grade": "C",
         "categories": [
           {
@@ -760,7 +760,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 9,
+            "score": 7,
             "max": 10
           },
           {
@@ -794,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:54:00.493Z",
+        "evaluatedAt": "2026-09-30T20:50:26.674Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -803,7 +803,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 71,
           "grade": "C",
           "categories": [
             {
@@ -833,7 +833,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 9,
+              "score": 7,
               "max": 10
             },
             {
@@ -867,7 +867,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.493Z",
+          "evaluatedAt": "2026-09-30T20:50:26.675Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -885,7 +885,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.493Z",
+          "evaluatedAt": "2026-09-30T20:50:26.675Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -971,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:54:00.493Z",
+        "evaluatedAt": "2026-09-30T20:50:26.675Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1044,7 +1044,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.493Z",
+          "evaluatedAt": "2026-09-30T20:50:26.676Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1062,7 +1062,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.493Z",
+          "evaluatedAt": "2026-09-30T20:50:26.676Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1082,7 +1082,7 @@
       "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-gameplay-systems",
       "relPath": "skills/threejs-gameplay-systems",
       "verified": true,
-      "tokenCount": 1513,
+      "tokenCount": 1541,
       "evalSummary": {
         "overallScore": 68,
         "grade": "C",
@@ -1148,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:54:00.493Z",
+        "evaluatedAt": "2026-09-30T20:50:26.675Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1221,7 +1221,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.493Z",
+          "evaluatedAt": "2026-09-30T20:50:26.675Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1239,7 +1239,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.493Z",
+          "evaluatedAt": "2026-09-30T20:50:26.675Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1325,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:54:00.493Z",
+        "evaluatedAt": "2026-09-30T20:50:26.675Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1398,7 +1398,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.493Z",
+          "evaluatedAt": "2026-09-30T20:50:26.675Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1416,7 +1416,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.493Z",
+          "evaluatedAt": "2026-09-30T20:50:26.675Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1436,7 +1436,7 @@
       "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-qa-release",
       "relPath": "skills/threejs-qa-release",
       "verified": true,
-      "tokenCount": 1351,
+      "tokenCount": 1268,
       "evalSummary": {
         "overallScore": 75,
         "grade": "C",
@@ -1502,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:54:00.510Z",
+        "evaluatedAt": "2026-09-30T20:50:26.690Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1575,7 +1575,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.510Z",
+          "evaluatedAt": "2026-09-30T20:50:26.690Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1593,7 +1593,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:54:00.510Z",
+          "evaluatedAt": "2026-09-30T20:50:26.690Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1605,7 +1605,7 @@
       "name": "majidmanzarpour-threejs-game-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from majidmanzarpour/threejs-game-skills.",
       "author": "ASM (majidmanzarpour/threejs-game-skills)",
-      "createdAt": "2026-09-26T06:54:00.638Z",
+      "createdAt": "2026-09-30T20:50:26.762Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1647,7 +1647,7 @@
       "name": "majidmanzarpour-threejs-game-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from majidmanzarpour/threejs-game-skills.",
       "author": "ASM (majidmanzarpour/threejs-game-skills)",
-      "createdAt": "2026-09-26T06:54:00.638Z",
+      "createdAt": "2026-09-30T20:50:26.762Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1667,7 +1667,7 @@
         {
           "name": "threejs-game-director",
           "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-game-director",
-          "description": "Entrypoint for building, upgrading, and finishing Three.js browser games. Routes work across the sibling threejs-* skills for gameplay, graphics, UI, 3D/image/audio asset generation, debugging, and release. Use for build-a-game, upgrade, polish, premium, AAA, high-fidelity, showcase, from-scratch, endless runner, arcade, action, and release-ready requests.",
+          "description": "Entrypoint for building, upgrading, and finishing Three.js browser games. Routes work across the sibling threejs-* skills for gameplay, graphics, UI, 3D/image/audio asset generation, debugging, and release. Use for any request to build, upgrade, polish, or ship a Three.js game as a whole, at any scope from a small arcade prototype to a premium release.",
           "version": "0.0.0"
         },
         {
@@ -1689,7 +1689,7 @@
       "name": "majidmanzarpour-threejs-game-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from majidmanzarpour/threejs-game-skills.",
       "author": "ASM (majidmanzarpour/threejs-game-skills)",
-      "createdAt": "2026-09-26T06:54:00.638Z",
+      "createdAt": "2026-09-30T20:50:26.762Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1721,7 +1721,7 @@
         {
           "name": "threejs-game-director",
           "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-game-director",
-          "description": "Entrypoint for building, upgrading, and finishing Three.js browser games. Routes work across the sibling threejs-* skills for gameplay, graphics, UI, 3D/image/audio asset generation, debugging, and release. Use for build-a-game, upgrade, polish, premium, AAA, high-fidelity, showcase, from-scratch, endless runner, arcade, action, and release-ready requests.",
+          "description": "Entrypoint for building, upgrading, and finishing Three.js browser games. Routes work across the sibling threejs-* skills for gameplay, graphics, UI, 3D/image/audio asset generation, debugging, and release. Use for any request to build, upgrade, polish, or ship a Three.js game as a whole, at any scope from a small arcade prototype to a premium release.",
           "version": "0.0.0"
         },
         {
@@ -1755,7 +1755,7 @@
       "name": "majidmanzarpour-threejs-game-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from majidmanzarpour/threejs-game-skills.",
       "author": "ASM (majidmanzarpour/threejs-game-skills)",
-      "createdAt": "2026-09-26T06:54:00.638Z",
+      "createdAt": "2026-09-30T20:50:26.762Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1781,13 +1781,13 @@
         {
           "name": "threejs-audio-generator",
           "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-audio-generator",
-          "description": "Generate, convert, clean, and integrate audio for Three.js browser games with ElevenLabs: sound effects, looping ambience, UI sounds, impact/weapon/vehicle audio, creature and boss stingers, announcer and dialogue TTS, voice conversion from a scratch performance, voice cleanup, audio manifests, and Web Audio integration.",
+          "description": "Generate, convert, clean, and integrate audio for Three.js browser games with ElevenLabs: sound effects, looping ambience, music tracks and loops (menu, gameplay, boss, victory/defeat stingers), UI sounds, impact/weapon/vehicle audio, creature and boss stingers, announcer and dialogue TTS, voice conversion from a scratch performance, voice cleanup, audio manifests, and Web Audio integration.",
           "version": "0.0.0"
         },
         {
           "name": "threejs-game-director",
           "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-game-director",
-          "description": "Entrypoint for building, upgrading, and finishing Three.js browser games. Routes work across the sibling threejs-* skills for gameplay, graphics, UI, 3D/image/audio asset generation, debugging, and release. Use for build-a-game, upgrade, polish, premium, AAA, high-fidelity, showcase, from-scratch, endless runner, arcade, action, and release-ready requests.",
+          "description": "Entrypoint for building, upgrading, and finishing Three.js browser games. Routes work across the sibling threejs-* skills for gameplay, graphics, UI, 3D/image/audio asset generation, debugging, and release. Use for any request to build, upgrade, polish, or ship a Three.js game as a whole, at any scope from a small arcade prototype to a premium release.",
           "version": "0.0.0"
         },
         {
@@ -1827,7 +1827,7 @@
       "name": "majidmanzarpour-threejs-game-skills-game",
       "description": "Game development, gameplay systems, game UI, 3D assets, and Three.js skills. Derived from majidmanzarpour/threejs-game-skills.",
       "author": "ASM (majidmanzarpour/threejs-game-skills)",
-      "createdAt": "2026-09-26T06:54:00.638Z",
+      "createdAt": "2026-09-30T20:50:26.762Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1853,7 +1853,7 @@
         {
           "name": "threejs-audio-generator",
           "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-audio-generator",
-          "description": "Generate, convert, clean, and integrate audio for Three.js browser games with ElevenLabs: sound effects, looping ambience, UI sounds, impact/weapon/vehicle audio, creature and boss stingers, announcer and dialogue TTS, voice conversion from a scratch performance, voice cleanup, audio manifests, and Web Audio integration.",
+          "description": "Generate, convert, clean, and integrate audio for Three.js browser games with ElevenLabs: sound effects, looping ambience, music tracks and loops (menu, gameplay, boss, victory/defeat stingers), UI sounds, impact/weapon/vehicle audio, creature and boss stingers, announcer and dialogue TTS, voice conversion from a scratch performance, voice cleanup, audio manifests, and Web Audio integration.",
           "version": "0.0.0"
         },
         {
@@ -1865,7 +1865,7 @@
         {
           "name": "threejs-game-director",
           "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-game-director",
-          "description": "Entrypoint for building, upgrading, and finishing Three.js browser games. Routes work across the sibling threejs-* skills for gameplay, graphics, UI, 3D/image/audio asset generation, debugging, and release. Use for build-a-game, upgrade, polish, premium, AAA, high-fidelity, showcase, from-scratch, endless runner, arcade, action, and release-ready requests.",
+          "description": "Entrypoint for building, upgrading, and finishing Three.js browser games. Routes work across the sibling threejs-* skills for gameplay, graphics, UI, 3D/image/audio asset generation, debugging, and release. Use for any request to build, upgrade, polish, or ship a Three.js game as a whole, at any scope from a small arcade prototype to a premium release.",
           "version": "0.0.0"
         },
         {
@@ -1905,7 +1905,7 @@
       "name": "majidmanzarpour-threejs-game-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from majidmanzarpour/threejs-game-skills.",
       "author": "ASM (majidmanzarpour/threejs-game-skills)",
-      "createdAt": "2026-09-26T06:54:00.638Z",
+      "createdAt": "2026-09-30T20:50:26.762Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1925,13 +1925,13 @@
         {
           "name": "threejs-audio-generator",
           "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-audio-generator",
-          "description": "Generate, convert, clean, and integrate audio for Three.js browser games with ElevenLabs: sound effects, looping ambience, UI sounds, impact/weapon/vehicle audio, creature and boss stingers, announcer and dialogue TTS, voice conversion from a scratch performance, voice cleanup, audio manifests, and Web Audio integration.",
+          "description": "Generate, convert, clean, and integrate audio for Three.js browser games with ElevenLabs: sound effects, looping ambience, music tracks and loops (menu, gameplay, boss, victory/defeat stingers), UI sounds, impact/weapon/vehicle audio, creature and boss stingers, announcer and dialogue TTS, voice conversion from a scratch performance, voice cleanup, audio manifests, and Web Audio integration.",
           "version": "0.0.0"
         },
         {
           "name": "threejs-game-director",
           "installUrl": "github:majidmanzarpour/threejs-game-skills:skills/threejs-game-director",
-          "description": "Entrypoint for building, upgrading, and finishing Three.js browser games. Routes work across the sibling threejs-* skills for gameplay, graphics, UI, 3D/image/audio asset generation, debugging, and release. Use for build-a-game, upgrade, polish, premium, AAA, high-fidelity, showcase, from-scratch, endless runner, arcade, action, and release-ready requests.",
+          "description": "Entrypoint for building, upgrading, and finishing Three.js browser games. Routes work across the sibling threejs-* skills for gameplay, graphics, UI, 3D/image/audio asset generation, debugging, and release. Use for any request to build, upgrade, polish, or ship a Three.js game as a whole, at any scope from a small arcade prototype to a premium release.",
           "version": "0.0.0"
         },
         {
@@ -1953,7 +1953,7 @@
       "name": "majidmanzarpour-threejs-game-skills-mobile",
       "description": "iOS, Swift, SwiftUI, Xcode, macOS, and App Store skills. Derived from majidmanzarpour/threejs-game-skills.",
       "author": "ASM (majidmanzarpour/threejs-game-skills)",
-      "createdAt": "2026-09-26T06:54:00.638Z",
+      "createdAt": "2026-09-30T20:50:26.762Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1989,7 +1989,7 @@
       "name": "majidmanzarpour-threejs-game-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from majidmanzarpour/threejs-game-skills.",
       "author": "ASM (majidmanzarpour/threejs-game-skills)",
-      "createdAt": "2026-09-26T06:54:00.638Z",
+      "createdAt": "2026-09-30T20:50:26.762Z",
       "tags": [
         "repo-derived",
         "inferred",

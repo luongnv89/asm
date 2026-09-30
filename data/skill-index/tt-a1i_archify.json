@@ -2,13 +2,13 @@
   "repoUrl": "https://github.com/tt-a1i/archify.git",
   "owner": "tt-a1i",
   "repo": "archify",
-  "updatedAt": "2026-09-26T06:53:57.341Z",
+  "updatedAt": "2026-09-30T20:50:23.321Z",
   "skillCount": 2,
   "skills": [
     {
       "name": "archify",
       "description": "Create polished, validated architecture, workflow, sequence, data-flow, and lifecycle/state diagrams as explorable standalone HTML with inline SVG, dark/light themes, optional trace motion, and PNG/JPEG/WebP/SVG/WebM export. Accept plain-language requirements or pasted Mermaid flowchart, sequenceDiagram, and stateDiagram input; inspect repository evidence when the diagram must reflect real code. Use when the user asks to visualize system architecture, infrastructure, cloud/security/network topology, technical workflows, API call sequences, request lifecycles, data pipelines, ETL/ELT, data lineage, state machines, or to convert/beautify Mermaid.",
-      "version": "2.17",
+      "version": "3.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -20,9 +20,9 @@
       "installUrl": "github:tt-a1i/archify:archify",
       "relPath": "archify",
       "verified": true,
-      "tokenCount": 4448,
+      "tokenCount": 2657,
       "evalSummary": {
-        "overallScore": 83,
+        "overallScore": 89,
         "grade": "B",
         "categories": [
           {
@@ -40,19 +40,19 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
@@ -86,8 +86,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:57.223Z",
-        "evaluatedVersion": "2.17"
+        "evaluatedAt": "2026-09-30T20:50:23.215Z",
+        "evaluatedVersion": "3.0"
       },
       "evalSummaries": {
         "quality": {
@@ -95,7 +95,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 83,
+          "overallScore": 89,
           "grade": "B",
           "categories": [
             {
@@ -113,19 +113,19 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 8,
+              "score": 10,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
@@ -159,8 +159,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:57.224Z",
-          "evaluatedVersion": "2.17"
+          "evaluatedAt": "2026-09-30T20:50:23.215Z",
+          "evaluatedVersion": "3.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -177,8 +177,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:57.224Z",
-          "evaluatedVersion": "2.17"
+          "evaluatedAt": "2026-09-30T20:50:23.215Z",
+          "evaluatedVersion": "3.0"
         }
       }
     },
@@ -263,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:57.223Z",
+        "evaluatedAt": "2026-09-30T20:50:23.215Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -336,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:57.224Z",
+          "evaluatedAt": "2026-09-30T20:50:23.215Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -354,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:57.224Z",
+          "evaluatedAt": "2026-09-30T20:50:23.215Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -366,7 +366,7 @@
       "name": "tt-a1i-archify-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from tt-a1i/archify.",
       "author": "ASM (tt-a1i/archify)",
-      "createdAt": "2026-09-26T06:53:57.341Z",
+      "createdAt": "2026-09-30T20:50:23.321Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -381,7 +381,7 @@
           "name": "archify",
           "installUrl": "github:tt-a1i/archify:archify",
           "description": "Create polished, validated architecture, workflow, sequence, data-flow, and lifecycle/state diagrams as explorable standalone HTML with inline SVG, dark/light themes, optional trace motion, and PNG/JPEG/WebP/SVG/WebM export. Accept plain-language requirements or pasted Mermaid flowchart, sequenceDiagram, and stateDiagram input; inspect repository evidence when the diagram must reflect real code. Use when the user asks to visualize system architecture, infrastructure, cloud/security/network topology, technical workflows, API call sequences, request lifecycles, data pipelines, ETL/ELT, data lineage, state machines, or to convert/beautify Mermaid.",
-          "version": "2.17"
+          "version": "3.0"
         },
         {
           "name": "archify-review",
@@ -402,7 +402,7 @@
       "name": "tt-a1i-archify-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from tt-a1i/archify.",
       "author": "ASM (tt-a1i/archify)",
-      "createdAt": "2026-09-26T06:53:57.341Z",
+      "createdAt": "2026-09-30T20:50:23.321Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -417,7 +417,7 @@
           "name": "archify",
           "installUrl": "github:tt-a1i/archify:archify",
           "description": "Create polished, validated architecture, workflow, sequence, data-flow, and lifecycle/state diagrams as explorable standalone HTML with inline SVG, dark/light themes, optional trace motion, and PNG/JPEG/WebP/SVG/WebM export. Accept plain-language requirements or pasted Mermaid flowchart, sequenceDiagram, and stateDiagram input; inspect repository evidence when the diagram must reflect real code. Use when the user asks to visualize system architecture, infrastructure, cloud/security/network topology, technical workflows, API call sequences, request lifecycles, data pipelines, ETL/ELT, data lineage, state machines, or to convert/beautify Mermaid.",
-          "version": "2.17"
+          "version": "3.0"
         },
         {
           "name": "archify-review",
@@ -438,7 +438,7 @@
       "name": "tt-a1i-archify-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from tt-a1i/archify.",
       "author": "ASM (tt-a1i/archify)",
-      "createdAt": "2026-09-26T06:53:57.341Z",
+      "createdAt": "2026-09-30T20:50:23.321Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -453,7 +453,7 @@
           "name": "archify",
           "installUrl": "github:tt-a1i/archify:archify",
           "description": "Create polished, validated architecture, workflow, sequence, data-flow, and lifecycle/state diagrams as explorable standalone HTML with inline SVG, dark/light themes, optional trace motion, and PNG/JPEG/WebP/SVG/WebM export. Accept plain-language requirements or pasted Mermaid flowchart, sequenceDiagram, and stateDiagram input; inspect repository evidence when the diagram must reflect real code. Use when the user asks to visualize system architecture, infrastructure, cloud/security/network topology, technical workflows, API call sequences, request lifecycles, data pipelines, ETL/ELT, data lineage, state machines, or to convert/beautify Mermaid.",
-          "version": "2.17"
+          "version": "3.0"
         },
         {
           "name": "archify-review",

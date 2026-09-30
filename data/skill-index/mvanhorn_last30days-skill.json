@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/mvanhorn/last30days-skill.git",
   "owner": "mvanhorn",
   "repo": "last30days-skill",
-  "updatedAt": "2026-09-26T06:51:43.224Z",
+  "updatedAt": "2026-09-30T20:48:34.136Z",
   "skillCount": 1,
   "skills": [
     {
@@ -12,13 +12,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Write",
-        "AskUserQuestion",
-        "WebSearch"
-      ],
+      "allowedTools": ["Bash", "Read", "Write", "AskUserQuestion", "WebSearch"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -26,7 +20,7 @@
       "installUrl": "github:mvanhorn/last30days-skill:skills/last30days",
       "relPath": "skills/last30days",
       "verified": true,
-      "tokenCount": 75579,
+      "tokenCount": 75850,
       "evalSummary": {
         "overallScore": 82,
         "grade": "B",
@@ -92,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:34.519Z",
+        "evaluatedAt": "2026-09-30T20:48:28.981Z",
         "evaluatedVersion": "3.25.0"
       },
       "evalSummaries": {
@@ -165,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:34.519Z",
+          "evaluatedAt": "2026-09-30T20:48:28.981Z",
           "evaluatedVersion": "3.25.0"
         },
         "skill-best-practice": {
@@ -183,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:34.519Z",
+          "evaluatedAt": "2026-09-30T20:48:28.981Z",
           "evaluatedVersion": "3.25.0"
         }
       }

@@ -2,13 +2,13 @@
   "repoUrl": "https://github.com/blader/humanizer.git",
   "owner": "blader",
   "repo": "humanizer",
-  "updatedAt": "2026-09-26T06:53:45.742Z",
+  "updatedAt": "2026-09-30T20:50:13.619Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "humanizer",
       "description": "Rewrite AI-sounding text so it reads like the writer without changing what it says. Use when editing or reviewing prose for AI tells: not-X-but-Y contrasts, one-line closers, staged openers, forced triads, dashes everywhere, inflated claims, sales language, stock AI words, bold labels, or filler. Based on Wikipedia's \"Signs of AI writing.\"",
-      "version": "3.0.0",
+      "version": "3.1.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -20,9 +20,9 @@
       "installUrl": "github:blader/humanizer",
       "relPath": "",
       "verified": true,
-      "tokenCount": 8905,
+      "tokenCount": 10138,
       "evalSummary": {
-        "overallScore": 72,
+        "overallScore": 76,
         "grade": "C",
         "categories": [
           {
@@ -40,7 +40,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 5,
+            "score": 6,
             "max": 10
           },
           {
@@ -52,7 +52,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 10,
             "max": 10
           },
           {
@@ -86,8 +86,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:45.691Z",
-        "evaluatedVersion": "3.0.0"
+        "evaluatedAt": "2026-09-30T20:50:13.566Z",
+        "evaluatedVersion": "3.1.0"
       },
       "evalSummaries": {
         "quality": {
@@ -95,7 +95,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -113,7 +113,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 5,
+              "score": 6,
               "max": 10
             },
             {
@@ -125,7 +125,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 10,
               "max": 10
             },
             {
@@ -159,8 +159,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:45.691Z",
-          "evaluatedVersion": "3.0.0"
+          "evaluatedAt": "2026-09-30T20:50:13.566Z",
+          "evaluatedVersion": "3.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -177,8 +177,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:45.691Z",
-          "evaluatedVersion": "3.0.0"
+          "evaluatedAt": "2026-09-30T20:50:13.566Z",
+          "evaluatedVersion": "3.1.0"
         }
       }
     }

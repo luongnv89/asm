@@ -2,12 +2,12 @@
   "repoUrl": "https://github.com/davidondrej/skills.git",
   "owner": "davidondrej",
   "repo": "skills",
-  "updatedAt": "2026-09-26T06:53:30.331Z",
-  "skillCount": 59,
+  "updatedAt": "2026-09-30T20:49:57.604Z",
+  "skillCount": 56,
   "skills": [
     {
       "name": "adr-verbatim",
-      "description": "Write a new ADR whose body is the user''s exact words, nothing added. Use when the user says \"adr-verbatim\", \"document that as an ADR\", \"new ADR\", \"record this decision\", or gives wording for an ADR. Differentiator: agent adds only title, number and status line; it never drafts, rewrites, or expands the body.",
+      "description": "Record concise ADRs that preserve the user''s decisions without conversational noise. Use for \"adr-verbatim\", \"new ADR\", \"document that as an ADR\", \"record this decision\", or supplied ADR wording.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -20,10 +20,10 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/adr-verbatim",
       "relPath": "skills/thinking-and-docs/adr-verbatim",
       "verified": true,
-      "tokenCount": 408,
+      "tokenCount": 502,
       "evalSummary": {
-        "overallScore": 61,
-        "grade": "D",
+        "overallScore": 67,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -34,31 +34,31 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 8,
+            "score": 7,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 6,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 2,
+            "score": 5,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 1,
+            "score": 0,
             "max": 10
           },
           {
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.050Z",
+        "evaluatedAt": "2026-09-30T20:49:57.405Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -95,8 +95,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 61,
-          "grade": "D",
+          "overallScore": 67,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -107,31 +107,31 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 8,
+              "score": 7,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 6,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 2,
+              "score": 5,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 1,
+              "score": 0,
               "max": 10
             },
             {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.050Z",
+          "evaluatedAt": "2026-09-30T20:49:57.405Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -167,24 +167,24 @@
           "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 69,
+          "overallScore": 77,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
+              "score": 10,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.050Z",
+          "evaluatedAt": "2026-09-30T20:49:57.405Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "anti-sleep",
-      "description": "Keep the user's Mac awake reliably with macOS caffeinate for a set duration or while a process runs. Use for \"don't let my Mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", overnight work, or long builds. Unlike a normal background job, it survives temporary agent-shell cleanup.",
+      "description": "Keep a Mac awake for a set duration or while a process runs. Use only when the user explicitly invokes /anti-sleep.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -192,14 +192,14 @@
       "allowedTools": [],
       "tags": [],
       "dependencies": [],
-      "modelInvocable": true,
+      "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:davidondrej/skills:skills/ops-and-setup/anti-sleep",
       "relPath": "skills/ops-and-setup/anti-sleep",
       "verified": true,
-      "tokenCount": 751,
+      "tokenCount": 704,
       "evalSummary": {
-        "overallScore": 68,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -211,7 +211,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 7,
             "max": 10
           },
           {
@@ -263,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.050Z",
+        "evaluatedAt": "2026-09-30T20:49:57.405Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -272,7 +272,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 67,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -284,7 +284,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 5,
+              "score": 7,
               "max": 10
             },
             {
@@ -336,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.050Z",
+          "evaluatedAt": "2026-09-30T20:49:57.405Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -354,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.050Z",
+          "evaluatedAt": "2026-09-30T20:49:57.405Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -440,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.050Z",
+        "evaluatedAt": "2026-09-30T20:49:57.405Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -513,7 +513,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.050Z",
+          "evaluatedAt": "2026-09-30T20:49:57.406Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -531,14 +531,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.050Z",
+          "evaluatedAt": "2026-09-30T20:49:57.406Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "bb-cli",
-      "description": "Use this when controlling bb. The bb CLI lets you inspect, create, and orchestrate bb threads, automations, projects, providers, and environments.",
+      "description": "Use this when controlling bb. The bb CLI inspects and manages threads, environments, projects, machines, providers, skills, plugins, settings, terminals, and other BB services.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -551,9 +551,9 @@
       "installUrl": "github:davidondrej/skills:skills/agent-orchestration/bb-cli",
       "relPath": "skills/agent-orchestration/bb-cli",
       "verified": true,
-      "tokenCount": 17433,
+      "tokenCount": 901,
       "evalSummary": {
-        "overallScore": 75,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -571,25 +571,25 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 8,
+            "score": 9,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 6,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 10,
+            "score": 7,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 7,
+            "score": 0,
             "max": 10
           },
           {
@@ -617,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.050Z",
+        "evaluatedAt": "2026-09-30T20:49:57.405Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -626,7 +626,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 75,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -644,25 +644,25 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 8,
+              "score": 9,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 6,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 10,
+              "score": 7,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 7,
+              "score": 0,
               "max": 10
             },
             {
@@ -690,7 +690,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.052Z",
+          "evaluatedAt": "2026-09-30T20:49:57.406Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -708,7 +708,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.052Z",
+          "evaluatedAt": "2026-09-30T20:49:57.406Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -794,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.050Z",
+        "evaluatedAt": "2026-09-30T20:49:57.405Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -867,7 +867,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.052Z",
+          "evaluatedAt": "2026-09-30T20:49:57.406Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -885,7 +885,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.052Z",
+          "evaluatedAt": "2026-09-30T20:49:57.405Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -905,7 +905,7 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/before-building",
       "relPath": "skills/thinking-and-docs/before-building",
       "verified": true,
-      "tokenCount": 211,
+      "tokenCount": 216,
       "evalSummary": {
         "overallScore": 48,
         "grade": "F",
@@ -971,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.050Z",
+        "evaluatedAt": "2026-09-30T20:49:57.407Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1044,7 +1044,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.052Z",
+          "evaluatedAt": "2026-09-30T20:49:57.407Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1062,14 +1062,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.052Z",
+          "evaluatedAt": "2026-09-30T20:49:57.407Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
-      "name": "box-ascii",
-      "description": "Operate Box by Ascii cloud VMs through its REST API, CLI, and SSH. Use for Box provisioning, environments, secrets, templates, snapshots, stop/resume/fork, or running BB and coding agents on box.ascii.dev. This is for Ascii's compute service, not Box.com file storage.",
+      "name": "boat",
+      "description": "Manage Boat (boat.dev, formerly Box by Ascii) cloud sandboxes via API, CLI, and SSH. Use for provisioning, environments, secrets, templates, snapshots, stop/resume/fork, or running BB and coding agents on Boat.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -1079,12 +1079,12 @@
       "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
-      "installUrl": "github:davidondrej/skills:skills/ops-and-setup/box-ascii",
-      "relPath": "skills/ops-and-setup/box-ascii",
+      "installUrl": "github:davidondrej/skills:skills/ops-and-setup/boat",
+      "relPath": "skills/ops-and-setup/boat",
       "verified": true,
-      "tokenCount": 2246,
+      "tokenCount": 2059,
       "evalSummary": {
-        "overallScore": 77,
+        "overallScore": 79,
         "grade": "C",
         "categories": [
           {
@@ -1096,7 +1096,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 10,
             "max": 10
           },
           {
@@ -1108,7 +1108,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1120,7 +1120,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 7,
+            "score": 5,
             "max": 10
           },
           {
@@ -1148,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.052Z",
+        "evaluatedAt": "2026-09-30T20:49:57.407Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1157,7 +1157,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 77,
+          "overallScore": 79,
           "grade": "C",
           "categories": [
             {
@@ -1169,7 +1169,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 10,
               "max": 10
             },
             {
@@ -1181,7 +1181,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 9,
+              "score": 10,
               "max": 10
             },
             {
@@ -1193,7 +1193,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 7,
+              "score": 5,
               "max": 10
             },
             {
@@ -1221,7 +1221,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.052Z",
+          "evaluatedAt": "2026-09-30T20:49:57.407Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1229,17 +1229,17 @@
           "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 69,
+          "overallScore": 77,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
+              "score": 10,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.052Z",
+          "evaluatedAt": "2026-09-30T20:49:57.407Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1325,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.052Z",
+        "evaluatedAt": "2026-09-30T20:49:57.407Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1398,7 +1398,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.052Z",
+          "evaluatedAt": "2026-09-30T20:49:57.407Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1416,7 +1416,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.052Z",
+          "evaluatedAt": "2026-09-30T20:49:57.407Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1502,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.071Z",
+        "evaluatedAt": "2026-09-30T20:49:57.415Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1575,7 +1575,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.071Z",
+          "evaluatedAt": "2026-09-30T20:49:57.415Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1593,7 +1593,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.071Z",
+          "evaluatedAt": "2026-09-30T20:49:57.415Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1679,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.071Z",
+        "evaluatedAt": "2026-09-30T20:49:57.415Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1752,7 +1752,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.071Z",
+          "evaluatedAt": "2026-09-30T20:49:57.415Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1770,14 +1770,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.071Z",
+          "evaluatedAt": "2026-09-30T20:49:57.415Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "codex-subagent",
-      "description": "Launch OpenAI Codex CLI as a subagent (ChatGPT sign-in, no API key). Use when delegating a self-contained coding task to Codex from another agent — parallel implementation work, a second opinion, or an independent verification pass.",
+      "description": "Launch OpenAI Codex CLI as a subagent (ChatGPT subscription auth, no API key). Use when delegating a self-contained coding task to Codex from another agent — parallel implementation work, a second opinion, or an independent verification pass.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -1790,7 +1790,7 @@
       "installUrl": "github:davidondrej/skills:skills/agent-orchestration/codex-subagent",
       "relPath": "skills/agent-orchestration/codex-subagent",
       "verified": true,
-      "tokenCount": 1238,
+      "tokenCount": 1253,
       "evalSummary": {
         "overallScore": 68,
         "grade": "C",
@@ -1856,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.071Z",
+        "evaluatedAt": "2026-09-30T20:49:57.415Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1929,7 +1929,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.071Z",
+          "evaluatedAt": "2026-09-30T20:49:57.415Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1947,184 +1947,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.071Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "computer-use",
-      "description": "Use only when the user explicitly invokes this skill for human-style UI QA or click-heavy setup, such as testing components and user flows or configuring Google Cloud Console. Delegate the manual clicking and back-and-forth to Codex Computer Use.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "tags": [],
-      "dependencies": [],
-      "modelInvocable": false,
-      "userInvocable": true,
-      "installUrl": "github:davidondrej/skills:skills/ops-and-setup/computer-use",
-      "relPath": "skills/ops-and-setup/computer-use",
-      "verified": true,
-      "tokenCount": 543,
-      "evalSummary": {
-        "overallScore": 67,
-        "grade": "C",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 4,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 6,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "license",
-            "name": "License verification",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "pii",
-            "name": "PII detection",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "script-lint",
-            "name": "Script linting",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-09-26T06:53:30.089Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 67,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 4,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 6,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "license",
-              "name": "License verification",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "pii",
-              "name": "PII detection",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "script-lint",
-              "name": "Script linting",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-09-26T06:53:30.092Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.2.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 69,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 9,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-09-26T06:53:30.092Z",
+          "evaluatedAt": "2026-09-30T20:49:57.415Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2210,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.095Z",
+        "evaluatedAt": "2026-09-30T20:49:57.419Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2283,7 +2106,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.096Z",
+          "evaluatedAt": "2026-09-30T20:49:57.419Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2301,7 +2124,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.096Z",
+          "evaluatedAt": "2026-09-30T20:49:57.419Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2387,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.096Z",
+        "evaluatedAt": "2026-09-30T20:49:57.419Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2460,7 +2283,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.096Z",
+          "evaluatedAt": "2026-09-30T20:49:57.419Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2478,7 +2301,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.096Z",
+          "evaluatedAt": "2026-09-30T20:49:57.419Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2498,7 +2321,7 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/decisions",
       "relPath": "skills/thinking-and-docs/decisions",
       "verified": true,
-      "tokenCount": 209,
+      "tokenCount": 214,
       "evalSummary": {
         "overallScore": 47,
         "grade": "F",
@@ -2564,7 +2387,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.096Z",
+        "evaluatedAt": "2026-09-30T20:49:57.419Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2637,7 +2460,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.097Z",
+          "evaluatedAt": "2026-09-30T20:49:57.419Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2655,7 +2478,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.097Z",
+          "evaluatedAt": "2026-09-30T20:49:57.419Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2741,7 +2564,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.110Z",
+        "evaluatedAt": "2026-09-30T20:49:57.421Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2814,7 +2637,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.110Z",
+          "evaluatedAt": "2026-09-30T20:49:57.422Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2832,7 +2655,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.110Z",
+          "evaluatedAt": "2026-09-30T20:49:57.422Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2918,7 +2741,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.115Z",
+        "evaluatedAt": "2026-09-30T20:49:57.422Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2991,7 +2814,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.116Z",
+          "evaluatedAt": "2026-09-30T20:49:57.422Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3009,7 +2832,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.116Z",
+          "evaluatedAt": "2026-09-30T20:49:57.422Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3095,7 +2918,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.119Z",
+        "evaluatedAt": "2026-09-30T20:49:57.424Z",
         "evaluatedVersion": "0da3c1fcc437"
       },
       "evalSummaries": {
@@ -3168,7 +2991,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.123Z",
+          "evaluatedAt": "2026-09-30T20:49:57.424Z",
           "evaluatedVersion": "0da3c1fcc437"
         },
         "skill-best-practice": {
@@ -3186,7 +3009,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.123Z",
+          "evaluatedAt": "2026-09-30T20:49:57.424Z",
           "evaluatedVersion": "0da3c1fcc437"
         }
       }
@@ -3272,7 +3095,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.124Z",
+        "evaluatedAt": "2026-09-30T20:49:57.426Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3345,7 +3168,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.125Z",
+          "evaluatedAt": "2026-09-30T20:49:57.426Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3363,14 +3186,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.125Z",
+          "evaluatedAt": "2026-09-30T20:49:57.426Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "domain-checker",
-      "description": "Check domain registration in batches through public registry RDAP APIs, without API keys or login. Use for domain availability checks, checking candidate domains, or keyless domain lookup from a CLI. Screens registration status, not brand conflicts, trademark clearance, or guaranteed purchase availability.",
+      "description": "Check domain registration in batches using public RDAP APIs, without keys or login. Use only when the user explicitly invokes /domain-checker.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -3378,14 +3201,14 @@
       "allowedTools": [],
       "tags": [],
       "dependencies": [],
-      "modelInvocable": true,
+      "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:davidondrej/skills:skills/research-and-web/domain-checker",
       "relPath": "skills/research-and-web/domain-checker",
       "verified": true,
-      "tokenCount": 699,
+      "tokenCount": 585,
       "evalSummary": {
-        "overallScore": 66,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -3397,13 +3220,13 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 6,
+            "score": 7,
             "max": 10
           },
           {
@@ -3449,7 +3272,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.125Z",
+        "evaluatedAt": "2026-09-30T20:49:57.426Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3458,7 +3281,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 66,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -3470,13 +3293,13 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 8,
+              "score": 10,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 6,
+              "score": 7,
               "max": 10
             },
             {
@@ -3522,7 +3345,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.127Z",
+          "evaluatedAt": "2026-09-30T20:49:57.426Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3540,7 +3363,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.127Z",
+          "evaluatedAt": "2026-09-30T20:49:57.426Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3560,9 +3383,9 @@
       "installUrl": "github:davidondrej/skills:skills/skill-authoring/effective-agent-skills",
       "relPath": "skills/skill-authoring/effective-agent-skills",
       "verified": true,
-      "tokenCount": 3687,
+      "tokenCount": 3674,
       "evalSummary": {
-        "overallScore": 83,
+        "overallScore": 80,
         "grade": "B",
         "categories": [
           {
@@ -3598,7 +3421,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 10,
+            "score": 7,
             "max": 10
           },
           {
@@ -3626,7 +3449,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.128Z",
+        "evaluatedAt": "2026-09-30T20:49:57.428Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3635,7 +3458,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 83,
+          "overallScore": 80,
           "grade": "B",
           "categories": [
             {
@@ -3671,7 +3494,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 10,
+              "score": 7,
               "max": 10
             },
             {
@@ -3699,7 +3522,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.128Z",
+          "evaluatedAt": "2026-09-30T20:49:57.428Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3717,14 +3540,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.128Z",
+          "evaluatedAt": "2026-09-30T20:49:57.428Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "fable-review",
-      "description": "Launch a Fable 5.1 Extra High code reviewer and return its findings verbatim. Use only when the user explicitly invokes /fable-review.",
+      "description": "Launch an independent Fable code review and return it verbatim. Use only when the user explicitly invokes /fable-review.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -3737,9 +3560,9 @@
       "installUrl": "github:davidondrej/skills:skills/agent-orchestration/fable-review",
       "relPath": "skills/agent-orchestration/fable-review",
       "verified": true,
-      "tokenCount": 687,
+      "tokenCount": 410,
       "evalSummary": {
-        "overallScore": 55,
+        "overallScore": 63,
         "grade": "D",
         "categories": [
           {
@@ -3757,25 +3580,25 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 1,
+            "score": 3,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 6,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 2,
+            "score": 7,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 1,
+            "score": 3,
             "max": 10
           },
           {
@@ -3803,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.131Z",
+        "evaluatedAt": "2026-09-30T20:49:57.429Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3812,7 +3635,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 55,
+          "overallScore": 63,
           "grade": "D",
           "categories": [
             {
@@ -3830,25 +3653,25 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 1,
+              "score": 3,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 6,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 2,
+              "score": 7,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 1,
+              "score": 3,
               "max": 10
             },
             {
@@ -3876,7 +3699,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.135Z",
+          "evaluatedAt": "2026-09-30T20:49:57.429Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3894,7 +3717,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.135Z",
+          "evaluatedAt": "2026-09-30T20:49:57.429Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3980,7 +3803,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.138Z",
+        "evaluatedAt": "2026-09-30T20:49:57.429Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4053,7 +3876,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.139Z",
+          "evaluatedAt": "2026-09-30T20:49:57.429Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4071,7 +3894,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.139Z",
+          "evaluatedAt": "2026-09-30T20:49:57.429Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4091,7 +3914,7 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/file-tree",
       "relPath": "skills/thinking-and-docs/file-tree",
       "verified": true,
-      "tokenCount": 143,
+      "tokenCount": 148,
       "evalSummary": {
         "overallScore": 44,
         "grade": "F",
@@ -4157,7 +3980,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.142Z",
+        "evaluatedAt": "2026-09-30T20:49:57.430Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4230,7 +4053,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.142Z",
+          "evaluatedAt": "2026-09-30T20:49:57.430Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4248,7 +4071,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.142Z",
+          "evaluatedAt": "2026-09-30T20:49:57.431Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4334,7 +4157,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.143Z",
+        "evaluatedAt": "2026-09-30T20:49:57.434Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4407,7 +4230,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.143Z",
+          "evaluatedAt": "2026-09-30T20:49:57.434Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4425,184 +4248,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.143Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "folder-specific-claude-and-agents-md",
-      "description": "Create a specialized CLAUDE.md (+ AGENTS.md symlink) inside a specific folder to give future agents folder-scoped context. Use when the user asks to create a CLAUDE.md for a folder, write folder instructions, or add agent context to a directory.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "tags": [],
-      "dependencies": [],
-      "modelInvocable": true,
-      "userInvocable": true,
-      "installUrl": "github:davidondrej/skills:skills/skill-authoring/folder-specific-claude-and-agents-md",
-      "relPath": "skills/skill-authoring/folder-specific-claude-and-agents-md",
-      "verified": true,
-      "tokenCount": 1574,
-      "evalSummary": {
-        "overallScore": 77,
-        "grade": "C",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "license",
-            "name": "License verification",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "pii",
-            "name": "PII detection",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "script-lint",
-            "name": "Script linting",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-09-26T06:53:30.144Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 77,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "license",
-              "name": "License verification",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "pii",
-              "name": "PII detection",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "script-lint",
-              "name": "Script linting",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-09-26T06:53:30.144Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.2.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 69,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 9,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-09-26T06:53:30.144Z",
+          "evaluatedAt": "2026-09-30T20:49:57.434Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4622,7 +4268,7 @@
       "installUrl": "github:davidondrej/skills:skills/agent-orchestration/git-worktree",
       "relPath": "skills/agent-orchestration/git-worktree",
       "verified": true,
-      "tokenCount": 1281,
+      "tokenCount": 1286,
       "evalSummary": {
         "overallScore": 66,
         "grade": "C",
@@ -4688,7 +4334,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.148Z",
+        "evaluatedAt": "2026-09-30T20:49:57.435Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4761,7 +4407,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.148Z",
+          "evaluatedAt": "2026-09-30T20:49:57.435Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4779,14 +4425,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.148Z",
+          "evaluatedAt": "2026-09-30T20:49:57.435Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "github-outside-sandbox",
-      "description": "Run Git and GitHub CLI commands through the host context when sandboxing blocks Keychain authentication, network access, or .git writes. Use for gh auth, repository or PR operations, and git index.lock or permission failures. Handles execution context only, not GitHub workflow design.",
+      "description": "Run Git and GitHub CLI commands on the host when sandboxing blocks Keychain auth, network access, or .git writes. Use for gh auth, repo/PR operations, index.lock, or permission errors; covers execution context only.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -4799,9 +4445,9 @@
       "installUrl": "github:davidondrej/skills:skills/ops-and-setup/github-outside-sandbox",
       "relPath": "skills/ops-and-setup/github-outside-sandbox",
       "verified": true,
-      "tokenCount": 404,
+      "tokenCount": 386,
       "evalSummary": {
-        "overallScore": 68,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -4813,7 +4459,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
@@ -4865,7 +4511,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.148Z",
+        "evaluatedAt": "2026-09-30T20:49:57.436Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4874,7 +4520,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 68,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -4886,7 +4532,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 8,
+              "score": 10,
               "max": 10
             },
             {
@@ -4938,7 +4584,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.148Z",
+          "evaluatedAt": "2026-09-30T20:49:57.437Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4946,17 +4592,17 @@
           "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 69,
+          "overallScore": 77,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
+              "score": 10,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.148Z",
+          "evaluatedAt": "2026-09-30T20:49:57.437Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4976,9 +4622,9 @@
       "installUrl": "github:davidondrej/skills:skills/ops-and-setup/global-agent-guardrails",
       "relPath": "skills/ops-and-setup/global-agent-guardrails",
       "verified": true,
-      "tokenCount": 1615,
+      "tokenCount": 1677,
       "evalSummary": {
-        "overallScore": 79,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -5002,13 +4648,13 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 10,
+            "score": 7,
             "max": 10
           },
           {
@@ -5042,7 +4688,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.150Z",
+        "evaluatedAt": "2026-09-30T20:49:57.438Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5051,7 +4697,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 79,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -5075,13 +4721,13 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 10,
+              "score": 7,
               "max": 10
             },
             {
@@ -5115,7 +4761,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.150Z",
+          "evaluatedAt": "2026-09-30T20:49:57.438Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5133,7 +4779,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.150Z",
+          "evaluatedAt": "2026-09-30T20:49:57.438Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5219,7 +4865,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.151Z",
+        "evaluatedAt": "2026-09-30T20:49:57.438Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5292,7 +4938,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.151Z",
+          "evaluatedAt": "2026-09-30T20:49:57.438Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5310,14 +4956,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.151Z",
+          "evaluatedAt": "2026-09-30T20:49:57.438Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "gpt-review",
-      "description": "Launch a GPT 5.6 Sol Max code reviewer and return its findings verbatim. Use only when the user explicitly invokes /gpt-review.",
+      "description": "Launch an independent GPT code review and return it verbatim. Use only when the user explicitly invokes /gpt-review.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -5330,9 +4976,9 @@
       "installUrl": "github:davidondrej/skills:skills/agent-orchestration/gpt-review",
       "relPath": "skills/agent-orchestration/gpt-review",
       "verified": true,
-      "tokenCount": 668,
+      "tokenCount": 414,
       "evalSummary": {
-        "overallScore": 53,
+        "overallScore": 64,
         "grade": "D",
         "categories": [
           {
@@ -5350,25 +4996,25 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 1,
+            "score": 4,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 6,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 2,
+            "score": 7,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 1,
+            "score": 3,
             "max": 10
           },
           {
@@ -5380,7 +5026,7 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 8,
+            "score": 10,
             "max": 10
           },
           {
@@ -5396,7 +5042,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.151Z",
+        "evaluatedAt": "2026-09-30T20:49:57.440Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5405,7 +5051,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 53,
+          "overallScore": 64,
           "grade": "D",
           "categories": [
             {
@@ -5423,25 +5069,25 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 1,
+              "score": 4,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 6,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 2,
+              "score": 7,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 1,
+              "score": 3,
               "max": 10
             },
             {
@@ -5453,7 +5099,7 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 8,
+              "score": 10,
               "max": 10
             },
             {
@@ -5469,7 +5115,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.151Z",
+          "evaluatedAt": "2026-09-30T20:49:57.440Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5487,14 +5133,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.151Z",
+          "evaluatedAt": "2026-09-30T20:49:57.440Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "handoff",
-      "description": "Compact the current conversation into a single, detailed handoff message — everything that happened, why it happened, and what's left — output in a code block so it can be copy-pasted into a fresh agent session. Use when hitting context limits, switching focus, ending a work session, or partitioning a task across fresh contexts.",
+      "description": "Capture session context for a fresh agent. Use for handoffs, context limits, switching focus, ending sessions, or splitting work across sessions.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -5507,9 +5153,9 @@
       "installUrl": "github:davidondrej/skills:skills/agent-orchestration/handoff",
       "relPath": "skills/agent-orchestration/handoff",
       "verified": true,
-      "tokenCount": 1789,
+      "tokenCount": 1218,
       "evalSummary": {
-        "overallScore": 69,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -5521,7 +5167,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 7,
             "max": 10
           },
           {
@@ -5539,13 +5185,13 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 7,
             "max": 10
           },
           {
@@ -5573,7 +5219,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.156Z",
+        "evaluatedAt": "2026-09-30T20:49:57.442Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5582,7 +5228,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -5594,7 +5240,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 5,
+              "score": 7,
               "max": 10
             },
             {
@@ -5612,13 +5258,13 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 7,
               "max": 10
             },
             {
@@ -5646,7 +5292,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.156Z",
+          "evaluatedAt": "2026-09-30T20:49:57.442Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5654,24 +5300,24 @@
           "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 62,
-          "grade": "D",
+          "overallScore": 69,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
+              "score": 9,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.156Z",
+          "evaluatedAt": "2026-09-30T20:49:57.442Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "herdr",
-      "description": "Operate and coordinate AI agents running inside Herdr in Ghostty. Use when the user says \"Use the Herdr skill,\" mentions Herdr, or asks to inspect, message, wait for, or coordinate agents in a Herdr workspace. Herdr-specific; do not use for cmux or ordinary terminal sessions.",
+      "description": "Operate and coordinate AI agents in Herdr workspaces in Ghostty. Use when the user mentions Herdr or asks to inspect, message, wait for, or coordinate its agents. Excludes cmux and ordinary terminal sessions.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -5684,9 +5330,9 @@
       "installUrl": "github:davidondrej/skills:skills/agent-orchestration/herdr",
       "relPath": "skills/agent-orchestration/herdr",
       "verified": true,
-      "tokenCount": 2865,
+      "tokenCount": 2330,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -5698,7 +5344,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 7,
             "max": 10
           },
           {
@@ -5716,7 +5362,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 8,
+            "score": 5,
             "max": 10
           },
           {
@@ -5750,7 +5396,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.157Z",
+        "evaluatedAt": "2026-09-30T20:49:57.443Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -5759,7 +5405,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -5771,7 +5417,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 5,
+              "score": 7,
               "max": 10
             },
             {
@@ -5789,7 +5435,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 8,
+              "score": 5,
               "max": 10
             },
             {
@@ -5823,7 +5469,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.157Z",
+          "evaluatedAt": "2026-09-30T20:49:57.443Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -5831,17 +5477,17 @@
           "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 69,
+          "overallScore": 77,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
+              "score": 10,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.157Z",
+          "evaluatedAt": "2026-09-30T20:49:57.443Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -5927,7 +5573,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.157Z",
+        "evaluatedAt": "2026-09-30T20:49:57.443Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6000,7 +5646,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.157Z",
+          "evaluatedAt": "2026-09-30T20:49:57.443Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6018,7 +5664,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.157Z",
+          "evaluatedAt": "2026-09-30T20:49:57.443Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6038,9 +5684,9 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/keep-track",
       "relPath": "skills/thinking-and-docs/keep-track",
       "verified": true,
-      "tokenCount": 122,
+      "tokenCount": 165,
       "evalSummary": {
-        "overallScore": 44,
+        "overallScore": 42,
         "grade": "F",
         "categories": [
           {
@@ -6070,7 +5716,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 2,
+            "score": 0,
             "max": 10
           },
           {
@@ -6104,7 +5750,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.157Z",
+        "evaluatedAt": "2026-09-30T20:49:57.445Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6113,7 +5759,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 44,
+          "overallScore": 42,
           "grade": "F",
           "categories": [
             {
@@ -6143,7 +5789,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 2,
+              "score": 0,
               "max": 10
             },
             {
@@ -6177,7 +5823,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.157Z",
+          "evaluatedAt": "2026-09-30T20:49:57.445Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6195,7 +5841,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.157Z",
+          "evaluatedAt": "2026-09-30T20:49:57.445Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6281,7 +5927,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.158Z",
+        "evaluatedAt": "2026-09-30T20:49:57.445Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6354,7 +6000,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.159Z",
+          "evaluatedAt": "2026-09-30T20:49:57.445Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6372,7 +6018,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.159Z",
+          "evaluatedAt": "2026-09-30T20:49:57.445Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6458,7 +6104,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.161Z",
+        "evaluatedAt": "2026-09-30T20:49:57.447Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6531,7 +6177,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.161Z",
+          "evaluatedAt": "2026-09-30T20:49:57.447Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6549,7 +6195,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.161Z",
+          "evaluatedAt": "2026-09-30T20:49:57.447Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6635,7 +6281,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.167Z",
+        "evaluatedAt": "2026-09-30T20:49:57.448Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6708,7 +6354,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.167Z",
+          "evaluatedAt": "2026-09-30T20:49:57.450Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6726,7 +6372,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.167Z",
+          "evaluatedAt": "2026-09-30T20:49:57.450Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6746,7 +6392,7 @@
       "installUrl": "github:davidondrej/skills:skills/ops-and-setup/openrouter",
       "relPath": "skills/ops-and-setup/openrouter",
       "verified": true,
-      "tokenCount": 1346,
+      "tokenCount": 1356,
       "evalSummary": {
         "overallScore": 75,
         "grade": "C",
@@ -6812,7 +6458,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.168Z",
+        "evaluatedAt": "2026-09-30T20:49:57.448Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -6885,7 +6531,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.169Z",
+          "evaluatedAt": "2026-09-30T20:49:57.451Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -6903,7 +6549,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.169Z",
+          "evaluatedAt": "2026-09-30T20:49:57.451Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -6989,7 +6635,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.168Z",
+        "evaluatedAt": "2026-09-30T20:49:57.451Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7062,7 +6708,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.169Z",
+          "evaluatedAt": "2026-09-30T20:49:57.451Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7080,7 +6726,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.169Z",
+          "evaluatedAt": "2026-09-30T20:49:57.451Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7166,7 +6812,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.168Z",
+        "evaluatedAt": "2026-09-30T20:49:57.451Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7239,7 +6885,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.169Z",
+          "evaluatedAt": "2026-09-30T20:49:57.451Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7257,14 +6903,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.169Z",
+          "evaluatedAt": "2026-09-30T20:49:57.451Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "push-skills",
-      "description": "Commit and push changes to a skills repo, including global AGENTS.md. Use after editing skills, or when the user says \"push the skill\", \"push skills to github\", \"update the skills repo\", or \"publish code/AGENTS.md\". Covers private commits and public mirror verification; use publish-skill for skill allowlisting.",
+      "description": "Push skills and global AGENTS.md to the private repo and verify the public mirror. Use only when the user explicitly invokes /push-skills.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -7272,14 +6918,14 @@
       "allowedTools": [],
       "tags": [],
       "dependencies": [],
-      "modelInvocable": true,
+      "modelInvocable": false,
       "userInvocable": true,
       "installUrl": "github:davidondrej/skills:skills/skill-authoring/push-skills",
       "relPath": "skills/skill-authoring/push-skills",
       "verified": true,
-      "tokenCount": 1675,
+      "tokenCount": 1416,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -7291,7 +6937,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 7,
             "max": 10
           },
           {
@@ -7315,7 +6961,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 8,
+            "score": 5,
             "max": 10
           },
           {
@@ -7343,7 +6989,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.175Z",
+        "evaluatedAt": "2026-09-30T20:49:57.456Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7352,7 +6998,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -7364,7 +7010,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 5,
+              "score": 7,
               "max": 10
             },
             {
@@ -7388,7 +7034,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 8,
+              "score": 5,
               "max": 10
             },
             {
@@ -7416,7 +7062,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.176Z",
+          "evaluatedAt": "2026-09-30T20:49:57.457Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7434,7 +7080,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.176Z",
+          "evaluatedAt": "2026-09-30T20:49:57.457Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7454,7 +7100,7 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/read-all-adrs",
       "relPath": "skills/thinking-and-docs/read-all-adrs",
       "verified": true,
-      "tokenCount": 138,
+      "tokenCount": 143,
       "evalSummary": {
         "overallScore": 46,
         "grade": "F",
@@ -7520,7 +7166,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.176Z",
+        "evaluatedAt": "2026-09-30T20:49:57.457Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7593,7 +7239,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.176Z",
+          "evaluatedAt": "2026-09-30T20:49:57.457Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7611,7 +7257,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.176Z",
+          "evaluatedAt": "2026-09-30T20:49:57.457Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7631,7 +7277,7 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/remind",
       "relPath": "skills/thinking-and-docs/remind",
       "verified": true,
-      "tokenCount": 326,
+      "tokenCount": 329,
       "evalSummary": {
         "overallScore": 46,
         "grade": "F",
@@ -7697,7 +7343,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.178Z",
+        "evaluatedAt": "2026-09-30T20:49:57.458Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7770,7 +7416,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.178Z",
+          "evaluatedAt": "2026-09-30T20:49:57.458Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7788,7 +7434,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.178Z",
+          "evaluatedAt": "2026-09-30T20:49:57.458Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -7874,7 +7520,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.179Z",
+        "evaluatedAt": "2026-09-30T20:49:57.460Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -7947,7 +7593,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.179Z",
+          "evaluatedAt": "2026-09-30T20:49:57.460Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -7965,7 +7611,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.179Z",
+          "evaluatedAt": "2026-09-30T20:49:57.460Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -8051,7 +7697,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.181Z",
+        "evaluatedAt": "2026-09-30T20:49:57.460Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -8124,7 +7770,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.181Z",
+          "evaluatedAt": "2026-09-30T20:49:57.460Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -8142,7 +7788,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.181Z",
+          "evaluatedAt": "2026-09-30T20:49:57.460Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -8228,7 +7874,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.182Z",
+        "evaluatedAt": "2026-09-30T20:49:57.461Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -8301,7 +7947,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.183Z",
+          "evaluatedAt": "2026-09-30T20:49:57.461Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -8319,7 +7965,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.183Z",
+          "evaluatedAt": "2026-09-30T20:49:57.461Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -8405,7 +8051,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.184Z",
+        "evaluatedAt": "2026-09-30T20:49:57.462Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -8478,7 +8124,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.185Z",
+          "evaluatedAt": "2026-09-30T20:49:57.462Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -8496,7 +8142,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.185Z",
+          "evaluatedAt": "2026-09-30T20:49:57.462Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -8582,7 +8228,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.185Z",
+        "evaluatedAt": "2026-09-30T20:49:57.463Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -8655,7 +8301,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.185Z",
+          "evaluatedAt": "2026-09-30T20:49:57.463Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -8673,7 +8319,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.185Z",
+          "evaluatedAt": "2026-09-30T20:49:57.463Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -8759,7 +8405,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.190Z",
+        "evaluatedAt": "2026-09-30T20:49:57.467Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -8832,7 +8478,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.192Z",
+          "evaluatedAt": "2026-09-30T20:49:57.467Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -8850,7 +8496,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.192Z",
+          "evaluatedAt": "2026-09-30T20:49:57.467Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -8936,7 +8582,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.192Z",
+        "evaluatedAt": "2026-09-30T20:49:57.467Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -9009,7 +8655,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.192Z",
+          "evaluatedAt": "2026-09-30T20:49:57.467Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -9027,14 +8673,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.192Z",
+          "evaluatedAt": "2026-09-30T20:49:57.467Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "setup-help",
-      "description": "Walk the user through setting up anything step by step. Use when the user asks for help setting up, configuring, installing, or getting something working — \"help me set up X\", \"walk me through this\", \"setup-help\". Differentiator: gives one current step at a time, then always lists every remaining setup step after each response.",
+      "description": "Guide setup one step at a time and show what remains. Use only when the user explicitly invokes /setup-help.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -9047,9 +8693,9 @@
       "installUrl": "github:davidondrej/skills:skills/ops-and-setup/setup-help",
       "relPath": "skills/ops-and-setup/setup-help",
       "verified": true,
-      "tokenCount": 778,
+      "tokenCount": 708,
       "evalSummary": {
-        "overallScore": 60,
+        "overallScore": 62,
         "grade": "D",
         "categories": [
           {
@@ -9061,7 +8707,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 7,
             "max": 10
           },
           {
@@ -9113,7 +8759,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.193Z",
+        "evaluatedAt": "2026-09-30T20:49:57.467Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -9122,7 +8768,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 60,
+          "overallScore": 62,
           "grade": "D",
           "categories": [
             {
@@ -9134,7 +8780,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 5,
+              "score": 7,
               "max": 10
             },
             {
@@ -9186,7 +8832,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.193Z",
+          "evaluatedAt": "2026-09-30T20:49:57.467Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -9194,194 +8840,17 @@
           "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 62,
-          "grade": "D",
+          "overallScore": 69,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
+              "score": 9,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.193Z",
-          "evaluatedVersion": "0.0.0"
-        }
-      }
-    },
-    {
-      "name": "short",
-      "description": "Manually-invoked skill that forces the agent to compress its current answer — strip filler, simplify wording, and cut length while keeping the substance. Use when the user says \"short\", \"shorter\", \"simpler\", \"too long\", \"tl;dr\", or wants a more concise version of the previous response.",
-      "version": "0.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "tags": [],
-      "dependencies": [],
-      "modelInvocable": false,
-      "userInvocable": true,
-      "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/short",
-      "relPath": "skills/thinking-and-docs/short",
-      "verified": true,
-      "tokenCount": 124,
-      "evalSummary": {
-        "overallScore": 42,
-        "grade": "F",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 6,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 2,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 2,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "license",
-            "name": "License verification",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "pii",
-            "name": "PII detection",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "script-lint",
-            "name": "Script linting",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-09-26T06:53:30.193Z",
-        "evaluatedVersion": "0.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 42,
-          "grade": "F",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 6,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 2,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 2,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "license",
-              "name": "License verification",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "pii",
-              "name": "PII detection",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "script-lint",
-              "name": "Script linting",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-09-26T06:53:30.193Z",
-          "evaluatedVersion": "0.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.2.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 62,
-          "grade": "D",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 8,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-09-26T06:53:30.194Z",
+          "evaluatedAt": "2026-09-30T20:49:57.467Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -9401,10 +8870,10 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/signal-from-expert",
       "relPath": "skills/thinking-and-docs/signal-from-expert",
       "verified": true,
-      "tokenCount": 899,
+      "tokenCount": 891,
       "evalSummary": {
-        "overallScore": 66,
-        "grade": "C",
+        "overallScore": 64,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -9421,7 +8890,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 9,
+            "score": 7,
             "max": 10
           },
           {
@@ -9467,7 +8936,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.195Z",
+        "evaluatedAt": "2026-09-30T20:49:57.470Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -9476,8 +8945,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 66,
-          "grade": "C",
+          "overallScore": 64,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -9494,7 +8963,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 9,
+              "score": 7,
               "max": 10
             },
             {
@@ -9540,7 +9009,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.195Z",
+          "evaluatedAt": "2026-09-30T20:49:57.470Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -9558,7 +9027,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.195Z",
+          "evaluatedAt": "2026-09-30T20:49:57.470Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -9578,7 +9047,7 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/stop-overthinking",
       "relPath": "skills/thinking-and-docs/stop-overthinking",
       "verified": true,
-      "tokenCount": 138,
+      "tokenCount": 143,
       "evalSummary": {
         "overallScore": 45,
         "grade": "F",
@@ -9644,7 +9113,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.197Z",
+        "evaluatedAt": "2026-09-30T20:49:57.470Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -9717,7 +9186,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.198Z",
+          "evaluatedAt": "2026-09-30T20:49:57.470Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -9735,7 +9204,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.198Z",
+          "evaluatedAt": "2026-09-30T20:49:57.470Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -9755,7 +9224,7 @@
       "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/teach",
       "relPath": "skills/thinking-and-docs/teach",
       "verified": true,
-      "tokenCount": 2939,
+      "tokenCount": 2944,
       "evalSummary": {
         "overallScore": 65,
         "grade": "C",
@@ -9821,7 +9290,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.198Z",
+        "evaluatedAt": "2026-09-30T20:49:57.471Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -9894,7 +9363,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.198Z",
+          "evaluatedAt": "2026-09-30T20:49:57.472Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -9912,7 +9381,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.198Z",
+          "evaluatedAt": "2026-09-30T20:49:57.471Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -9998,7 +9467,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.203Z",
+        "evaluatedAt": "2026-09-30T20:49:57.473Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -10071,7 +9540,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.204Z",
+          "evaluatedAt": "2026-09-30T20:49:57.475Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -10089,7 +9558,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.204Z",
+          "evaluatedAt": "2026-09-30T20:49:57.475Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -10175,7 +9644,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.204Z",
+        "evaluatedAt": "2026-09-30T20:49:57.476Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -10248,7 +9717,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.204Z",
+          "evaluatedAt": "2026-09-30T20:49:57.476Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -10266,7 +9735,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.204Z",
+          "evaluatedAt": "2026-09-30T20:49:57.476Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -10286,7 +9755,7 @@
       "installUrl": "github:davidondrej/skills:skills/research-and-web/who-is-this",
       "relPath": "skills/research-and-web/who-is-this",
       "verified": true,
-      "tokenCount": 806,
+      "tokenCount": 811,
       "evalSummary": {
         "overallScore": 67,
         "grade": "C",
@@ -10352,7 +9821,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:53:30.208Z",
+        "evaluatedAt": "2026-09-30T20:49:57.478Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -10425,7 +9894,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.208Z",
+          "evaluatedAt": "2026-09-30T20:49:57.478Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -10443,7 +9912,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:53:30.208Z",
+          "evaluatedAt": "2026-09-30T20:49:57.478Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -10455,7 +9924,7 @@
       "name": "davidondrej-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-09-26T06:53:30.331Z",
+      "createdAt": "2026-09-30T20:49:57.604Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -10467,18 +9936,6 @@
       ],
       "skills": [
         {
-          "name": "adr-verbatim",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/adr-verbatim",
-          "description": "Write a new ADR whose body is the user''s exact words, nothing added. Use when the user says \"adr-verbatim\", \"document that as an ADR\", \"new ADR\", \"record this decision\", or gives wording for an ADR. Differentiator: agent adds only title, number and status line; it never drafts, rewrites, or expands the body.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "anti-sleep",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/anti-sleep",
-          "description": "Keep the user's Mac awake reliably with macOS caffeinate for a set duration or while a process runs. Use for \"don't let my Mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", overnight work, or long builds. Unlike a normal background job, it survives temporary agent-shell cleanup.",
-          "version": "0.0.0"
-        },
-        {
           "name": "ask-then-build",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/ask-then-build",
           "description": "Clarify a feature, change, or refactor through questions, then write a build prompt for another agent. Use for /ask-then-build or requests to ask questions before producing an implementation prompt.",
@@ -10487,7 +9944,7 @@
         {
           "name": "bb-cli",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/bb-cli",
-          "description": "Use this when controlling bb. The bb CLI lets you inspect, create, and orchestrate bb threads, automations, projects, providers, and environments.",
+          "description": "Use this when controlling bb. The bb CLI inspects and manages threads, environments, projects, machines, providers, skills, plugins, settings, terminals, and other BB services.",
           "version": "0.0.0"
         },
         {
@@ -10497,9 +9954,9 @@
           "version": "0.0.0"
         },
         {
-          "name": "box-ascii",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/box-ascii",
-          "description": "Operate Box by Ascii cloud VMs through its REST API, CLI, and SSH. Use for Box provisioning, environments, secrets, templates, snapshots, stop/resume/fork, or running BB and coding agents on box.ascii.dev. This is for Ascii's compute service, not Box.com file storage.",
+          "name": "boat",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/boat",
+          "description": "Manage Boat (boat.dev, formerly Box by Ascii) cloud sandboxes via API, CLI, and SSH. Use for provisioning, environments, secrets, templates, snapshots, stop/resume/fork, or running BB and coding agents on Boat.",
           "version": "0.0.0"
         },
         {
@@ -10517,7 +9974,7 @@
         {
           "name": "codex-subagent",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/codex-subagent",
-          "description": "Launch OpenAI Codex CLI as a subagent (ChatGPT sign-in, no API key). Use when delegating a self-contained coding task to Codex from another agent — parallel implementation work, a second opinion, or an independent verification pass.",
+          "description": "Launch OpenAI Codex CLI as a subagent (ChatGPT subscription auth, no API key). Use when delegating a self-contained coding task to Codex from another agent — parallel implementation work, a second opinion, or an independent verification pass.",
           "version": "0.0.0"
         },
         {
@@ -10553,7 +10010,7 @@
         {
           "name": "domain-checker",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/domain-checker",
-          "description": "Check domain registration in batches through public registry RDAP APIs, without API keys or login. Use for domain availability checks, checking candidate domains, or keyless domain lookup from a CLI. Screens registration status, not brand conflicts, trademark clearance, or guaranteed purchase availability.",
+          "description": "Check domain registration in batches using public RDAP APIs, without keys or login. Use only when the user explicitly invokes /domain-checker.",
           "version": "0.0.0"
         },
         {
@@ -10565,7 +10022,7 @@
         {
           "name": "fable-review",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/fable-review",
-          "description": "Launch a Fable 5.1 Extra High code reviewer and return its findings verbatim. Use only when the user explicitly invokes /fable-review.",
+          "description": "Launch an independent Fable code review and return it verbatim. Use only when the user explicitly invokes /fable-review.",
           "version": "0.0.0"
         },
         {
@@ -10581,12 +10038,6 @@
           "version": "0.0.0"
         },
         {
-          "name": "folder-specific-claude-and-agents-md",
-          "installUrl": "github:davidondrej/skills:skills/skill-authoring/folder-specific-claude-and-agents-md",
-          "description": "Create a specialized CLAUDE.md (+ AGENTS.md symlink) inside a specific folder to give future agents folder-scoped context. Use when the user asks to create a CLAUDE.md for a folder, write folder instructions, or add agent context to a directory.",
-          "version": "0.0.0"
-        },
-        {
           "name": "git-worktree",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/git-worktree",
           "description": "Use Git worktrees to isolate parallel coding tasks. Use when setting up a task checkout, working in a shared repo, or managing existing worktrees.",
@@ -10595,7 +10046,7 @@
         {
           "name": "github-outside-sandbox",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/github-outside-sandbox",
-          "description": "Run Git and GitHub CLI commands through the host context when sandboxing blocks Keychain authentication, network access, or .git writes. Use for gh auth, repository or PR operations, and git index.lock or permission failures. Handles execution context only, not GitHub workflow design.",
+          "description": "Run Git and GitHub CLI commands on the host when sandboxing blocks Keychain auth, network access, or .git writes. Use for gh auth, repo/PR operations, index.lock, or permission errors; covers execution context only.",
           "version": "0.0.0"
         },
         {
@@ -10613,19 +10064,19 @@
         {
           "name": "gpt-review",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/gpt-review",
-          "description": "Launch a GPT 5.6 Sol Max code reviewer and return its findings verbatim. Use only when the user explicitly invokes /gpt-review.",
+          "description": "Launch an independent GPT code review and return it verbatim. Use only when the user explicitly invokes /gpt-review.",
           "version": "0.0.0"
         },
         {
           "name": "handoff",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/handoff",
-          "description": "Compact the current conversation into a single, detailed handoff message — everything that happened, why it happened, and what's left — output in a code block so it can be copy-pasted into a fresh agent session. Use when hitting context limits, switching focus, ending a work session, or partitioning a task across fresh contexts.",
+          "description": "Capture session context for a fresh agent. Use for handoffs, context limits, switching focus, ending sessions, or splitting work across sessions.",
           "version": "0.0.0"
         },
         {
           "name": "herdr",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/herdr",
-          "description": "Operate and coordinate AI agents running inside Herdr in Ghostty. Use when the user says \"Use the Herdr skill,\" mentions Herdr, or asks to inspect, message, wait for, or coordinate agents in a Herdr workspace. Herdr-specific; do not use for cmux or ordinary terminal sessions.",
+          "description": "Operate and coordinate AI agents in Herdr workspaces in Ghostty. Use when the user mentions Herdr or asks to inspect, message, wait for, or coordinate its agents. Excludes cmux and ordinary terminal sessions.",
           "version": "0.0.0"
         },
         {
@@ -10673,7 +10124,7 @@
         {
           "name": "push-skills",
           "installUrl": "github:davidondrej/skills:skills/skill-authoring/push-skills",
-          "description": "Commit and push changes to a skills repo, including global AGENTS.md. Use after editing skills, or when the user says \"push the skill\", \"push skills to github\", \"update the skills repo\", or \"publish code/AGENTS.md\". Covers private commits and public mirror verification; use publish-skill for skill allowlisting.",
+          "description": "Push skills and global AGENTS.md to the private repo and verify the public mirror. Use only when the user explicitly invokes /push-skills.",
           "version": "0.0.0"
         },
         {
@@ -10703,13 +10154,7 @@
         {
           "name": "setup-help",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/setup-help",
-          "description": "Walk the user through setting up anything step by step. Use when the user asks for help setting up, configuring, installing, or getting something working — \"help me set up X\", \"walk me through this\", \"setup-help\". Differentiator: gives one current step at a time, then always lists every remaining setup step after each response.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "short",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/short",
-          "description": "Manually-invoked skill that forces the agent to compress its current answer — strip filler, simplify wording, and cut length while keeping the substance. Use when the user says \"short\", \"shorter\", \"simpler\", \"too long\", \"tl;dr\", or wants a more concise version of the previous response.",
+          "description": "Guide setup one step at a time and show what remains. Use only when the user explicitly invokes /setup-help.",
           "version": "0.0.0"
         },
         {
@@ -10731,7 +10176,7 @@
       "name": "davidondrej-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-09-26T06:53:30.331Z",
+      "createdAt": "2026-09-30T20:49:57.604Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -10745,7 +10190,13 @@
         {
           "name": "adr-verbatim",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/adr-verbatim",
-          "description": "Write a new ADR whose body is the user''s exact words, nothing added. Use when the user says \"adr-verbatim\", \"document that as an ADR\", \"new ADR\", \"record this decision\", or gives wording for an ADR. Differentiator: agent adds only title, number and status line; it never drafts, rewrites, or expands the body.",
+          "description": "Record concise ADRs that preserve the user''s decisions without conversational noise. Use for \"adr-verbatim\", \"new ADR\", \"document that as an ADR\", \"record this decision\", or supplied ADR wording.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "anti-sleep",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/anti-sleep",
+          "description": "Keep a Mac awake for a set duration or while a process runs. Use only when the user explicitly invokes /anti-sleep.",
           "version": "0.0.0"
         },
         {
@@ -10755,9 +10206,9 @@
           "version": "0.0.0"
         },
         {
-          "name": "box-ascii",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/box-ascii",
-          "description": "Operate Box by Ascii cloud VMs through its REST API, CLI, and SSH. Use for Box provisioning, environments, secrets, templates, snapshots, stop/resume/fork, or running BB and coding agents on box.ascii.dev. This is for Ascii's compute service, not Box.com file storage.",
+          "name": "boat",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/boat",
+          "description": "Manage Boat (boat.dev, formerly Box by Ascii) cloud sandboxes via API, CLI, and SSH. Use for provisioning, environments, secrets, templates, snapshots, stop/resume/fork, or running BB and coding agents on Boat.",
           "version": "0.0.0"
         },
         {
@@ -10779,12 +10230,6 @@
           "version": "0.0.0"
         },
         {
-          "name": "computer-use",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/computer-use",
-          "description": "Use only when the user explicitly invokes this skill for human-style UI QA or click-heavy setup, such as testing components and user flows or configuring Google Cloud Console. Delegate the manual clicking and back-and-forth to Codex Computer Use.",
-          "version": "0.0.0"
-        },
-        {
           "name": "create-readonly-db-role",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/create-readonly-db-role",
           "description": "Set up read-only PostgreSQL access for agents. Use only when the user explicitly invokes /create-readonly-db-role.",
@@ -10803,9 +10248,15 @@
           "version": "0.0.0"
         },
         {
+          "name": "domain-checker",
+          "installUrl": "github:davidondrej/skills:skills/research-and-web/domain-checker",
+          "description": "Check domain registration in batches using public RDAP APIs, without keys or login. Use only when the user explicitly invokes /domain-checker.",
+          "version": "0.0.0"
+        },
+        {
           "name": "fable-review",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/fable-review",
-          "description": "Launch a Fable 5.1 Extra High code reviewer and return its findings verbatim. Use only when the user explicitly invokes /fable-review.",
+          "description": "Launch an independent Fable code review and return it verbatim. Use only when the user explicitly invokes /fable-review.",
           "version": "0.0.0"
         },
         {
@@ -10821,27 +10272,9 @@
           "version": "0.0.0"
         },
         {
-          "name": "folder-specific-claude-and-agents-md",
-          "installUrl": "github:davidondrej/skills:skills/skill-authoring/folder-specific-claude-and-agents-md",
-          "description": "Create a specialized CLAUDE.md (+ AGENTS.md symlink) inside a specific folder to give future agents folder-scoped context. Use when the user asks to create a CLAUDE.md for a folder, write folder instructions, or add agent context to a directory.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "github-outside-sandbox",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/github-outside-sandbox",
-          "description": "Run Git and GitHub CLI commands through the host context when sandboxing blocks Keychain authentication, network access, or .git writes. Use for gh auth, repository or PR operations, and git index.lock or permission failures. Handles execution context only, not GitHub workflow design.",
-          "version": "0.0.0"
-        },
-        {
           "name": "gpt-review",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/gpt-review",
-          "description": "Launch a GPT 5.6 Sol Max code reviewer and return its findings verbatim. Use only when the user explicitly invokes /gpt-review.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "herdr",
-          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/herdr",
-          "description": "Operate and coordinate AI agents running inside Herdr in Ghostty. Use when the user says \"Use the Herdr skill,\" mentions Herdr, or asks to inspect, message, wait for, or coordinate agents in a Herdr workspace. Herdr-specific; do not use for cmux or ordinary terminal sessions.",
+          "description": "Launch an independent GPT code review and return it verbatim. Use only when the user explicitly invokes /gpt-review.",
           "version": "0.0.0"
         },
         {
@@ -10860,6 +10293,12 @@
           "name": "prompt-for-others",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/prompt-for-others",
           "description": "Write a prompt teammates can give their AI agents to apply a fix, upgrade, or setup change. Use only when the user explicitly invokes /prompt-for-others.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "push-skills",
+          "installUrl": "github:davidondrej/skills:skills/skill-authoring/push-skills",
+          "description": "Push skills and global AGENTS.md to the private repo and verify the public mirror. Use only when the user explicitly invokes /push-skills.",
           "version": "0.0.0"
         },
         {
@@ -10893,9 +10332,9 @@
           "version": "0.0.0"
         },
         {
-          "name": "short",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/short",
-          "description": "Manually-invoked skill that forces the agent to compress its current answer — strip filler, simplify wording, and cut length while keeping the substance. Use when the user says \"short\", \"shorter\", \"simpler\", \"too long\", \"tl;dr\", or wants a more concise version of the previous response.",
+          "name": "setup-help",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/setup-help",
+          "description": "Guide setup one step at a time and show what remains. Use only when the user explicitly invokes /setup-help.",
           "version": "0.0.0"
         },
         {
@@ -10941,7 +10380,7 @@
       "name": "davidondrej-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-09-26T06:53:30.331Z",
+      "createdAt": "2026-09-30T20:49:57.604Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -10953,12 +10392,6 @@
       ],
       "skills": [
         {
-          "name": "anti-sleep",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/anti-sleep",
-          "description": "Keep the user's Mac awake reliably with macOS caffeinate for a set duration or while a process runs. Use for \"don't let my Mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", overnight work, or long builds. Unlike a normal background job, it survives temporary agent-shell cleanup.",
-          "version": "0.0.0"
-        },
-        {
           "name": "ask-then-build",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/ask-then-build",
           "description": "Clarify a feature, change, or refactor through questions, then write a build prompt for another agent. Use for /ask-then-build or requests to ask questions before producing an implementation prompt.",
@@ -10967,7 +10400,7 @@
         {
           "name": "bb-cli",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/bb-cli",
-          "description": "Use this when controlling bb. The bb CLI lets you inspect, create, and orchestrate bb threads, automations, projects, providers, and environments.",
+          "description": "Use this when controlling bb. The bb CLI inspects and manages threads, environments, projects, machines, providers, skills, plugins, settings, terminals, and other BB services.",
           "version": "0.0.0"
         },
         {
@@ -10983,9 +10416,9 @@
           "version": "0.0.0"
         },
         {
-          "name": "box-ascii",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/box-ascii",
-          "description": "Operate Box by Ascii cloud VMs through its REST API, CLI, and SSH. Use for Box provisioning, environments, secrets, templates, snapshots, stop/resume/fork, or running BB and coding agents on box.ascii.dev. This is for Ascii's compute service, not Box.com file storage.",
+          "name": "boat",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/boat",
+          "description": "Manage Boat (boat.dev, formerly Box by Ascii) cloud sandboxes via API, CLI, and SSH. Use for provisioning, environments, secrets, templates, snapshots, stop/resume/fork, or running BB and coding agents on Boat.",
           "version": "0.0.0"
         },
         {
@@ -11003,13 +10436,7 @@
         {
           "name": "codex-subagent",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/codex-subagent",
-          "description": "Launch OpenAI Codex CLI as a subagent (ChatGPT sign-in, no API key). Use when delegating a self-contained coding task to Codex from another agent — parallel implementation work, a second opinion, or an independent verification pass.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "computer-use",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/computer-use",
-          "description": "Use only when the user explicitly invokes this skill for human-style UI QA or click-heavy setup, such as testing components and user flows or configuring Google Cloud Console. Delegate the manual clicking and back-and-forth to Codex Computer Use.",
+          "description": "Launch OpenAI Codex CLI as a subagent (ChatGPT subscription auth, no API key). Use when delegating a self-contained coding task to Codex from another agent — parallel implementation work, a second opinion, or an independent verification pass.",
           "version": "0.0.0"
         },
         {
@@ -11045,7 +10472,7 @@
         {
           "name": "domain-checker",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/domain-checker",
-          "description": "Check domain registration in batches through public registry RDAP APIs, without API keys or login. Use for domain availability checks, checking candidate domains, or keyless domain lookup from a CLI. Screens registration status, not brand conflicts, trademark clearance, or guaranteed purchase availability.",
+          "description": "Check domain registration in batches using public RDAP APIs, without keys or login. Use only when the user explicitly invokes /domain-checker.",
           "version": "0.0.0"
         },
         {
@@ -11057,7 +10484,7 @@
         {
           "name": "fable-review",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/fable-review",
-          "description": "Launch a Fable 5.1 Extra High code reviewer and return its findings verbatim. Use only when the user explicitly invokes /fable-review.",
+          "description": "Launch an independent Fable code review and return it verbatim. Use only when the user explicitly invokes /fable-review.",
           "version": "0.0.0"
         },
         {
@@ -11075,19 +10502,13 @@
         {
           "name": "github-outside-sandbox",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/github-outside-sandbox",
-          "description": "Run Git and GitHub CLI commands through the host context when sandboxing blocks Keychain authentication, network access, or .git writes. Use for gh auth, repository or PR operations, and git index.lock or permission failures. Handles execution context only, not GitHub workflow design.",
+          "description": "Run Git and GitHub CLI commands on the host when sandboxing blocks Keychain auth, network access, or .git writes. Use for gh auth, repo/PR operations, index.lock, or permission errors; covers execution context only.",
           "version": "0.0.0"
         },
         {
           "name": "gpt-review",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/gpt-review",
-          "description": "Launch a GPT 5.6 Sol Max code reviewer and return its findings verbatim. Use only when the user explicitly invokes /gpt-review.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "handoff",
-          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/handoff",
-          "description": "Compact the current conversation into a single, detailed handoff message — everything that happened, why it happened, and what's left — output in a code block so it can be copy-pasted into a fresh agent session. Use when hitting context limits, switching focus, ending a work session, or partitioning a task across fresh contexts.",
+          "description": "Launch an independent GPT code review and return it verbatim. Use only when the user explicitly invokes /gpt-review.",
           "version": "0.0.0"
         },
         {
@@ -11106,12 +10527,6 @@
           "name": "persistent-localhost",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/persistent-localhost",
           "description": "Manage persistent dev servers, APIs, and other local processes on a port using macOS LaunchAgents. Use when starting, stopping, restarting, inspecting, or troubleshooting local servers that should survive shell exit and restart after crashes.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "push-skills",
-          "installUrl": "github:davidondrej/skills:skills/skill-authoring/push-skills",
-          "description": "Commit and push changes to a skills repo, including global AGENTS.md. Use after editing skills, or when the user says \"push the skill\", \"push skills to github\", \"update the skills repo\", or \"publish code/AGENTS.md\". Covers private commits and public mirror verification; use publish-skill for skill allowlisting.",
           "version": "0.0.0"
         },
         {
@@ -11151,7 +10566,7 @@
       "name": "davidondrej-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-09-26T06:53:30.331Z",
+      "createdAt": "2026-09-30T20:49:57.604Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -11162,12 +10577,6 @@
         "skills"
       ],
       "skills": [
-        {
-          "name": "anti-sleep",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/anti-sleep",
-          "description": "Keep the user's Mac awake reliably with macOS caffeinate for a set duration or while a process runs. Use for \"don't let my Mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", overnight work, or long builds. Unlike a normal background job, it survives temporary agent-shell cleanup.",
-          "version": "0.0.0"
-        },
         {
           "name": "ask-then-build",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/ask-then-build",
@@ -11193,12 +10602,6 @@
           "version": "0.0.0"
         },
         {
-          "name": "computer-use",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/computer-use",
-          "description": "Use only when the user explicitly invokes this skill for human-style UI QA or click-heavy setup, such as testing components and user flows or configuring Google Cloud Console. Delegate the manual clicking and back-and-forth to Codex Computer Use.",
-          "version": "0.0.0"
-        },
-        {
           "name": "cua-driver",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/cua-driver",
           "description": "Use Cua Driver for desktop or browser tasks that are awkward or unavailable through Bash/APIs, or when the user explicitly wants GUI interaction: app testing, visual bug reproduction, form filling, calendar entry, screenshots, and demo recording. Also covers Cua setup; not OpenAI Codex Computer Use or web research.",
@@ -11217,21 +10620,9 @@
           "version": "0da3c1fcc437"
         },
         {
-          "name": "domain-checker",
-          "installUrl": "github:davidondrej/skills:skills/research-and-web/domain-checker",
-          "description": "Check domain registration in batches through public registry RDAP APIs, without API keys or login. Use for domain availability checks, checking candidate domains, or keyless domain lookup from a CLI. Screens registration status, not brand conflicts, trademark clearance, or guaranteed purchase availability.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "github-outside-sandbox",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/github-outside-sandbox",
-          "description": "Run Git and GitHub CLI commands through the host context when sandboxing blocks Keychain authentication, network access, or .git writes. Use for gh auth, repository or PR operations, and git index.lock or permission failures. Handles execution context only, not GitHub workflow design.",
-          "version": "0.0.0"
-        },
-        {
           "name": "herdr",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/herdr",
-          "description": "Operate and coordinate AI agents running inside Herdr in Ghostty. Use when the user says \"Use the Herdr skill,\" mentions Herdr, or asks to inspect, message, wait for, or coordinate agents in a Herdr workspace. Herdr-specific; do not use for cmux or ordinary terminal sessions.",
+          "description": "Operate and coordinate AI agents in Herdr workspaces in Ghostty. Use when the user mentions Herdr or asks to inspect, message, wait for, or coordinate its agents. Excludes cmux and ordinary terminal sessions.",
           "version": "0.0.0"
         },
         {
@@ -11251,6 +10642,12 @@
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/openrouter",
           "description": "Design, build, debug, and optimize OpenRouter API integrations. Use for any OpenRouter API work, including models, reasoning, routing, media, tools, structured output, cost, or performance.",
           "version": "0.0.0"
+        },
+        {
+          "name": "setup-help",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/setup-help",
+          "description": "Guide setup one step at a time and show what remains. Use only when the user explicitly invokes /setup-help.",
+          "version": "0.0.0"
         }
       ],
       "sourceRepo": {
@@ -11265,7 +10662,7 @@
       "name": "davidondrej-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-09-26T06:53:30.331Z",
+      "createdAt": "2026-09-30T20:49:57.604Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -11289,15 +10686,9 @@
           "version": "0.0.0"
         },
         {
-          "name": "domain-checker",
-          "installUrl": "github:davidondrej/skills:skills/research-and-web/domain-checker",
-          "description": "Check domain registration in batches through public registry RDAP APIs, without API keys or login. Use for domain availability checks, checking candidate domains, or keyless domain lookup from a CLI. Screens registration status, not brand conflicts, trademark clearance, or guaranteed purchase availability.",
-          "version": "0.0.0"
-        },
-        {
           "name": "handoff",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/handoff",
-          "description": "Compact the current conversation into a single, detailed handoff message — everything that happened, why it happened, and what's left — output in a code block so it can be copy-pasted into a fresh agent session. Use when hitting context limits, switching focus, ending a work session, or partitioning a task across fresh contexts.",
+          "description": "Capture session context for a fresh agent. Use for handoffs, context limits, switching focus, ending sessions, or splitting work across sessions.",
           "version": "0.0.0"
         },
         {
@@ -11325,7 +10716,7 @@
       "name": "davidondrej-skills-mobile",
       "description": "iOS, Swift, SwiftUI, Xcode, macOS, and App Store skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-09-26T06:53:30.331Z",
+      "createdAt": "2026-09-30T20:49:57.604Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -11336,12 +10727,6 @@
         "skills"
       ],
       "skills": [
-        {
-          "name": "anti-sleep",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/anti-sleep",
-          "description": "Keep the user's Mac awake reliably with macOS caffeinate for a set duration or while a process runs. Use for \"don't let my Mac sleep\", \"keep the screen on\", \"anti-sleep\", \"caffeinate\", overnight work, or long builds. Unlike a normal background job, it survives temporary agent-shell cleanup.",
-          "version": "0.0.0"
-        },
         {
           "name": "cmux",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/cmux",
@@ -11373,7 +10758,7 @@
       "name": "davidondrej-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-09-26T06:53:30.331Z",
+      "createdAt": "2026-09-30T20:49:57.604Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -11385,9 +10770,9 @@
       ],
       "skills": [
         {
-          "name": "box-ascii",
-          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/box-ascii",
-          "description": "Operate Box by Ascii cloud VMs through its REST API, CLI, and SSH. Use for Box provisioning, environments, secrets, templates, snapshots, stop/resume/fork, or running BB and coding agents on box.ascii.dev. This is for Ascii's compute service, not Box.com file storage.",
+          "name": "boat",
+          "installUrl": "github:davidondrej/skills:skills/ops-and-setup/boat",
+          "description": "Manage Boat (boat.dev, formerly Box by Ascii) cloud sandboxes via API, CLI, and SSH. Use for provisioning, environments, secrets, templates, snapshots, stop/resume/fork, or running BB and coding agents on Boat.",
           "version": "0.0.0"
         },
         {
@@ -11421,7 +10806,7 @@
       "name": "davidondrej-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-09-26T06:53:30.331Z",
+      "createdAt": "2026-09-30T20:49:57.604Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -11471,7 +10856,7 @@
         {
           "name": "domain-checker",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/domain-checker",
-          "description": "Check domain registration in batches through public registry RDAP APIs, without API keys or login. Use for domain availability checks, checking candidate domains, or keyless domain lookup from a CLI. Screens registration status, not brand conflicts, trademark clearance, or guaranteed purchase availability.",
+          "description": "Check domain registration in batches using public RDAP APIs, without keys or login. Use only when the user explicitly invokes /domain-checker.",
           "version": "0.0.0"
         },
         {
@@ -11483,7 +10868,7 @@
         {
           "name": "fable-review",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/fable-review",
-          "description": "Launch a Fable 5.1 Extra High code reviewer and return its findings verbatim. Use only when the user explicitly invokes /fable-review.",
+          "description": "Launch an independent Fable code review and return it verbatim. Use only when the user explicitly invokes /fable-review.",
           "version": "0.0.0"
         },
         {
@@ -11495,13 +10880,19 @@
         {
           "name": "gpt-review",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/gpt-review",
-          "description": "Launch a GPT 5.6 Sol Max code reviewer and return its findings verbatim. Use only when the user explicitly invokes /gpt-review.",
+          "description": "Launch an independent GPT code review and return it verbatim. Use only when the user explicitly invokes /gpt-review.",
           "version": "0.0.0"
         },
         {
           "name": "online-shopping",
           "installUrl": "github:davidondrej/skills:skills/research-and-web/online-shopping",
           "description": "Research online purchases, prices, and shop trust. Use for buying advice, subscriptions, or shopping photos, links, and checkout screens.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "push-skills",
+          "installUrl": "github:davidondrej/skills:skills/skill-authoring/push-skills",
+          "description": "Push skills and global AGENTS.md to the private repo and verify the public mirror. Use only when the user explicitly invokes /push-skills.",
           "version": "0.0.0"
         },
         {
@@ -11541,7 +10932,7 @@
       "name": "davidondrej-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from davidondrej/skills.",
       "author": "ASM (davidondrej/skills)",
-      "createdAt": "2026-09-26T06:53:30.331Z",
+      "createdAt": "2026-09-30T20:49:57.604Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -11555,7 +10946,7 @@
         {
           "name": "adr-verbatim",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/adr-verbatim",
-          "description": "Write a new ADR whose body is the user''s exact words, nothing added. Use when the user says \"adr-verbatim\", \"document that as an ADR\", \"new ADR\", \"record this decision\", or gives wording for an ADR. Differentiator: agent adds only title, number and status line; it never drafts, rewrites, or expands the body.",
+          "description": "Record concise ADRs that preserve the user''s decisions without conversational noise. Use for \"adr-verbatim\", \"new ADR\", \"document that as an ADR\", \"record this decision\", or supplied ADR wording.",
           "version": "0.0.0"
         },
         {
@@ -11595,27 +10986,15 @@
           "version": "0.0.0"
         },
         {
-          "name": "folder-specific-claude-and-agents-md",
-          "installUrl": "github:davidondrej/skills:skills/skill-authoring/folder-specific-claude-and-agents-md",
-          "description": "Create a specialized CLAUDE.md (+ AGENTS.md symlink) inside a specific folder to give future agents folder-scoped context. Use when the user asks to create a CLAUDE.md for a folder, write folder instructions, or add agent context to a directory.",
-          "version": "0.0.0"
-        },
-        {
           "name": "github-outside-sandbox",
           "installUrl": "github:davidondrej/skills:skills/ops-and-setup/github-outside-sandbox",
-          "description": "Run Git and GitHub CLI commands through the host context when sandboxing blocks Keychain authentication, network access, or .git writes. Use for gh auth, repository or PR operations, and git index.lock or permission failures. Handles execution context only, not GitHub workflow design.",
+          "description": "Run Git and GitHub CLI commands on the host when sandboxing blocks Keychain auth, network access, or .git writes. Use for gh auth, repo/PR operations, index.lock, or permission errors; covers execution context only.",
           "version": "0.0.0"
         },
         {
           "name": "goal-loop",
           "installUrl": "github:davidondrej/skills:skills/agent-orchestration/goal-loop",
           "description": "Draft /goal prompts and explain persistent agent loops. Use for goal or Ralph loops, autonomous run setup, monitoring, and troubleshooting.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "handoff",
-          "installUrl": "github:davidondrej/skills:skills/agent-orchestration/handoff",
-          "description": "Compact the current conversation into a single, detailed handoff message — everything that happened, why it happened, and what's left — output in a code block so it can be copy-pasted into a fresh agent session. Use when hitting context limits, switching focus, ending a work session, or partitioning a task across fresh contexts.",
           "version": "0.0.0"
         },
         {
@@ -11658,12 +11037,6 @@
           "name": "save-idea",
           "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/save-idea",
           "description": "Save ideas, observations, content topics, projects, and convictions in the ideas repo. Use when the user asks to capture an idea or insight. Adds to idea backlogs, not reminders or tasks.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "short",
-          "installUrl": "github:davidondrej/skills:skills/thinking-and-docs/short",
-          "description": "Manually-invoked skill that forces the agent to compress its current answer — strip filler, simplify wording, and cut length while keeping the substance. Use when the user says \"short\", \"shorter\", \"simpler\", \"too long\", \"tl;dr\", or wants a more concise version of the previous response.",
           "version": "0.0.0"
         },
         {

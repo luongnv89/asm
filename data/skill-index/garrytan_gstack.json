@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/garrytan/gstack.git",
   "owner": "garrytan",
   "repo": "gstack",
-  "updatedAt": "2026-09-26T06:51:25.139Z",
-  "skillCount": 62,
+  "updatedAt": "2026-09-30T20:48:21.137Z",
+  "skillCount": 63,
   "skills": [
     {
       "name": "alpha",
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.155Z",
+        "evaluatedAt": "2026-09-30T20:48:18.701Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.155Z",
+          "evaluatedAt": "2026-09-30T20:48:18.704Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.155Z",
+          "evaluatedAt": "2026-09-30T20:48:18.704Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -206,9 +206,9 @@
       "installUrl": "github:garrytan/gstack:autoplan",
       "relPath": "autoplan",
       "verified": true,
-      "tokenCount": 17555,
+      "tokenCount": 17354,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
@@ -232,7 +232,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 6,
+            "score": 5,
             "max": 10
           },
           {
@@ -272,7 +272,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.155Z",
+        "evaluatedAt": "2026-09-30T20:48:18.703Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -281,7 +281,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 73,
           "grade": "C",
           "categories": [
             {
@@ -305,7 +305,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 6,
+              "score": 5,
               "max": 10
             },
             {
@@ -345,7 +345,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.155Z",
+          "evaluatedAt": "2026-09-30T20:48:18.704Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -363,7 +363,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.155Z",
+          "evaluatedAt": "2026-09-30T20:48:18.704Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -375,13 +375,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Write",
-        "Glob",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "Write", "Glob", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -389,7 +383,7 @@
       "installUrl": "github:garrytan/gstack:benchmark",
       "relPath": "benchmark",
       "verified": true,
-      "tokenCount": 8538,
+      "tokenCount": 8489,
       "evalSummary": {
         "overallScore": 66,
         "grade": "C",
@@ -455,7 +449,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.155Z",
+        "evaluatedAt": "2026-09-30T20:48:18.706Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -528,7 +522,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.156Z",
+          "evaluatedAt": "2026-09-30T20:48:18.706Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -546,7 +540,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.156Z",
+          "evaluatedAt": "2026-09-30T20:48:18.706Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -558,11 +552,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -570,7 +560,7 @@
       "installUrl": "github:garrytan/gstack:benchmark-models",
       "relPath": "benchmark-models",
       "verified": true,
-      "tokenCount": 4070,
+      "tokenCount": 4078,
       "evalSummary": {
         "overallScore": 73,
         "grade": "C",
@@ -636,7 +626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.155Z",
+        "evaluatedAt": "2026-09-30T20:48:18.701Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -709,7 +699,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.156Z",
+          "evaluatedAt": "2026-09-30T20:48:18.704Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -727,7 +717,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.156Z",
+          "evaluatedAt": "2026-09-30T20:48:18.704Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -813,7 +803,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.155Z",
+        "evaluatedAt": "2026-09-30T20:48:18.704Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -886,7 +876,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.156Z",
+          "evaluatedAt": "2026-09-30T20:48:18.706Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -904,7 +894,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.156Z",
+          "evaluatedAt": "2026-09-30T20:48:18.706Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -916,11 +906,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -928,7 +914,7 @@
       "installUrl": "github:garrytan/gstack:browse",
       "relPath": "browse",
       "verified": true,
-      "tokenCount": 8716,
+      "tokenCount": 8667,
       "evalSummary": {
         "overallScore": 74,
         "grade": "C",
@@ -994,7 +980,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.155Z",
+        "evaluatedAt": "2026-09-30T20:48:18.704Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -1067,7 +1053,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.156Z",
+          "evaluatedAt": "2026-09-30T20:48:18.706Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -1085,7 +1071,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.156Z",
+          "evaluatedAt": "2026-09-30T20:48:18.706Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -1097,13 +1083,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Write",
-        "Glob",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "Write", "Glob", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -1111,7 +1091,7 @@
       "installUrl": "github:garrytan/gstack:canary",
       "relPath": "canary",
       "verified": true,
-      "tokenCount": 14391,
+      "tokenCount": 14342,
       "evalSummary": {
         "overallScore": 70,
         "grade": "C",
@@ -1177,7 +1157,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.155Z",
+        "evaluatedAt": "2026-09-30T20:48:18.704Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1250,7 +1230,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.156Z",
+          "evaluatedAt": "2026-09-30T20:48:18.706Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1268,7 +1248,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.156Z",
+          "evaluatedAt": "2026-09-30T20:48:18.706Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1280,10 +1260,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read"
-      ],
+      "allowedTools": ["Bash", "Read"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -1357,7 +1334,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.155Z",
+        "evaluatedAt": "2026-09-30T20:48:18.706Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -1430,7 +1407,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.156Z",
+          "evaluatedAt": "2026-09-30T20:48:18.706Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -1448,7 +1425,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.156Z",
+          "evaluatedAt": "2026-09-30T20:48:18.706Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -1541,7 +1518,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.259Z",
+        "evaluatedAt": "2026-09-30T20:48:18.734Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1614,7 +1591,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.272Z",
+          "evaluatedAt": "2026-09-30T20:48:18.736Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1632,7 +1609,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.272Z",
+          "evaluatedAt": "2026-09-30T20:48:18.736Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1644,13 +1621,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Glob",
-        "Grep",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "Glob", "Grep", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -1724,7 +1695,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.259Z",
+        "evaluatedAt": "2026-09-30T20:48:18.737Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1797,7 +1768,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.272Z",
+          "evaluatedAt": "2026-09-30T20:48:18.740Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1815,7 +1786,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.272Z",
+          "evaluatedAt": "2026-09-30T20:48:18.740Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1908,7 +1879,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.272Z",
+        "evaluatedAt": "2026-09-30T20:48:18.742Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1981,7 +1952,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.277Z",
+          "evaluatedAt": "2026-09-30T20:48:18.743Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1999,7 +1970,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.277Z",
+          "evaluatedAt": "2026-09-30T20:48:18.743Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2090,7 +2061,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.280Z",
+        "evaluatedAt": "2026-09-30T20:48:18.743Z",
         "evaluatedVersion": "3.0.0"
       },
       "evalSummaries": {
@@ -2163,7 +2134,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.285Z",
+          "evaluatedAt": "2026-09-30T20:48:18.744Z",
           "evaluatedVersion": "3.0.0"
         },
         "skill-best-practice": {
@@ -2181,7 +2152,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.285Z",
+          "evaluatedAt": "2026-09-30T20:48:18.744Z",
           "evaluatedVersion": "3.0.0"
         }
       }
@@ -2210,7 +2181,7 @@
       "installUrl": "github:garrytan/gstack:design-consultation",
       "relPath": "design-consultation",
       "verified": true,
-      "tokenCount": 16903,
+      "tokenCount": 16413,
       "evalSummary": {
         "overallScore": 74,
         "grade": "C",
@@ -2276,7 +2247,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.332Z",
+        "evaluatedAt": "2026-09-30T20:48:18.763Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2349,7 +2320,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.332Z",
+          "evaluatedAt": "2026-09-30T20:48:18.763Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2367,7 +2338,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.332Z",
+          "evaluatedAt": "2026-09-30T20:48:18.763Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2462,7 +2433,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.367Z",
+        "evaluatedAt": "2026-09-30T20:48:18.770Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2535,7 +2506,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.422Z",
+          "evaluatedAt": "2026-09-30T20:48:18.772Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2553,7 +2524,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.422Z",
+          "evaluatedAt": "2026-09-30T20:48:18.776Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2582,7 +2553,7 @@
       "installUrl": "github:garrytan/gstack:design-review",
       "relPath": "design-review",
       "verified": true,
-      "tokenCount": 36632,
+      "tokenCount": 36583,
       "evalSummary": {
         "overallScore": 74,
         "grade": "C",
@@ -2648,7 +2619,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.422Z",
+        "evaluatedAt": "2026-09-30T20:48:18.783Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -2721,7 +2692,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.423Z",
+          "evaluatedAt": "2026-09-30T20:48:18.783Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -2739,7 +2710,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.423Z",
+          "evaluatedAt": "2026-09-30T20:48:18.783Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -2766,7 +2737,7 @@
       "installUrl": "github:garrytan/gstack:design-shotgun",
       "relPath": "design-shotgun",
       "verified": true,
-      "tokenCount": 14131,
+      "tokenCount": 14151,
       "evalSummary": {
         "overallScore": 73,
         "grade": "C",
@@ -2832,7 +2803,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.460Z",
+        "evaluatedAt": "2026-09-30T20:48:18.802Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -2905,7 +2876,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.461Z",
+          "evaluatedAt": "2026-09-30T20:48:18.804Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -2923,7 +2894,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.461Z",
+          "evaluatedAt": "2026-09-30T20:48:18.804Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -2935,12 +2906,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Glob",
-        "Grep"
-      ],
+      "allowedTools": ["Bash", "Read", "Glob", "Grep"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -3014,7 +2980,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.461Z",
+        "evaluatedAt": "2026-09-30T20:48:18.809Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3087,7 +3053,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.473Z",
+          "evaluatedAt": "2026-09-30T20:48:18.809Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3105,7 +3071,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.473Z",
+          "evaluatedAt": "2026-09-30T20:48:18.809Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3133,7 +3099,7 @@
       "installUrl": "github:garrytan/gstack:devex-review",
       "relPath": "devex-review",
       "verified": true,
-      "tokenCount": 21620,
+      "tokenCount": 21308,
       "evalSummary": {
         "overallScore": 72,
         "grade": "C",
@@ -3199,7 +3165,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.480Z",
+        "evaluatedAt": "2026-09-30T20:48:18.809Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3272,7 +3238,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.483Z",
+          "evaluatedAt": "2026-09-30T20:48:18.809Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3290,7 +3256,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.483Z",
+          "evaluatedAt": "2026-09-30T20:48:18.809Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3302,12 +3268,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Write",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "Write", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -3381,7 +3342,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.487Z",
+        "evaluatedAt": "2026-09-30T20:48:18.812Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3454,7 +3415,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.494Z",
+          "evaluatedAt": "2026-09-30T20:48:18.816Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3472,7 +3433,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.494Z",
+          "evaluatedAt": "2026-09-30T20:48:18.816Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3566,7 +3527,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.494Z",
+        "evaluatedAt": "2026-09-30T20:48:18.819Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3639,7 +3600,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.498Z",
+          "evaluatedAt": "2026-09-30T20:48:18.820Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3657,14 +3618,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.498Z",
+          "evaluatedAt": "2026-09-30T20:48:18.820Z",
           "evaluatedVersion": "1.0.0"
         }
       }
     },
     {
       "name": "document-release",
-      "description": "Post-ship documentation update. (gstack)",
+      "description": "Release documentation audit. (gstack)",
       "version": "1.0.0",
       "license": "",
       "creator": "",
@@ -3685,7 +3646,7 @@
       "installUrl": "github:garrytan/gstack:document-release",
       "relPath": "document-release",
       "verified": true,
-      "tokenCount": 11131,
+      "tokenCount": 11095,
       "evalSummary": {
         "overallScore": 69,
         "grade": "C",
@@ -3751,7 +3712,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.498Z",
+        "evaluatedAt": "2026-09-30T20:48:18.836Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -3824,7 +3785,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.503Z",
+          "evaluatedAt": "2026-09-30T20:48:18.836Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -3842,7 +3803,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.503Z",
+          "evaluatedAt": "2026-09-30T20:48:18.836Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -3854,11 +3815,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -3866,7 +3823,7 @@
       "installUrl": "github:garrytan/gstack:freeze",
       "relPath": "freeze",
       "verified": true,
-      "tokenCount": 1051,
+      "tokenCount": 1096,
       "evalSummary": {
         "overallScore": 63,
         "grade": "D",
@@ -3932,7 +3889,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.519Z",
+        "evaluatedAt": "2026-09-30T20:48:18.836Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -4005,7 +3962,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.520Z",
+          "evaluatedAt": "2026-09-30T20:48:18.837Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -4023,7 +3980,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.520Z",
+          "evaluatedAt": "2026-09-30T20:48:18.837Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -4035,11 +3992,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -4047,7 +4000,7 @@
       "installUrl": "github:garrytan/gstack",
       "relPath": "",
       "verified": true,
-      "tokenCount": 4305,
+      "tokenCount": 4445,
       "evalSummary": {
         "overallScore": 77,
         "grade": "C",
@@ -4113,7 +4066,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.521Z",
+        "evaluatedAt": "2026-09-30T20:48:18.838Z",
         "evaluatedVersion": "1.2.0"
       },
       "evalSummaries": {
@@ -4186,7 +4139,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.522Z",
+          "evaluatedAt": "2026-09-30T20:48:18.838Z",
           "evaluatedVersion": "1.2.0"
         },
         "skill-best-practice": {
@@ -4204,7 +4157,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.522Z",
+          "evaluatedAt": "2026-09-30T20:48:18.838Z",
           "evaluatedVersion": "1.2.0"
         }
       }
@@ -4290,7 +4243,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.529Z",
+        "evaluatedAt": "2026-09-30T20:48:18.840Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4363,7 +4316,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.533Z",
+          "evaluatedAt": "2026-09-30T20:48:18.841Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4381,7 +4334,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.533Z",
+          "evaluatedAt": "2026-09-30T20:48:18.841Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4467,7 +4420,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.535Z",
+        "evaluatedAt": "2026-09-30T20:48:18.843Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4540,7 +4493,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.544Z",
+          "evaluatedAt": "2026-09-30T20:48:18.843Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4558,7 +4511,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.544Z",
+          "evaluatedAt": "2026-09-30T20:48:18.843Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4644,7 +4597,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.546Z",
+        "evaluatedAt": "2026-09-30T20:48:18.846Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4717,7 +4670,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.547Z",
+          "evaluatedAt": "2026-09-30T20:48:18.846Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4735,7 +4688,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.547Z",
+          "evaluatedAt": "2026-09-30T20:48:18.846Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4821,7 +4774,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.781Z",
+        "evaluatedAt": "2026-09-30T20:48:18.854Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -4894,7 +4847,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.783Z",
+          "evaluatedAt": "2026-09-30T20:48:18.856Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -4912,7 +4865,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.783Z",
+          "evaluatedAt": "2026-09-30T20:48:18.856Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -4924,12 +4877,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Write",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "Write", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -5003,7 +4951,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.804Z",
+        "evaluatedAt": "2026-09-30T20:48:18.858Z",
         "evaluatedVersion": "1.1.0"
       },
       "evalSummaries": {
@@ -5076,7 +5024,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.805Z",
+          "evaluatedAt": "2026-09-30T20:48:18.858Z",
           "evaluatedVersion": "1.1.0"
         },
         "skill-best-practice": {
@@ -5094,7 +5042,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.805Z",
+          "evaluatedAt": "2026-09-30T20:48:18.858Z",
           "evaluatedVersion": "1.1.0"
         }
       }
@@ -5106,11 +5054,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -5118,9 +5062,9 @@
       "installUrl": "github:garrytan/gstack:guard",
       "relPath": "guard",
       "verified": true,
-      "tokenCount": 903,
+      "tokenCount": 942,
       "evalSummary": {
-        "overallScore": 61,
+        "overallScore": 63,
         "grade": "D",
         "categories": [
           {
@@ -5150,7 +5094,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 5,
+            "score": 7,
             "max": 10
           },
           {
@@ -5184,7 +5128,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.810Z",
+        "evaluatedAt": "2026-09-30T20:48:18.858Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -5193,7 +5137,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 61,
+          "overallScore": 63,
           "grade": "D",
           "categories": [
             {
@@ -5223,7 +5167,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 5,
+              "score": 7,
               "max": 10
             },
             {
@@ -5257,7 +5201,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.810Z",
+          "evaluatedAt": "2026-09-30T20:48:18.859Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -5275,7 +5219,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.810Z",
+          "evaluatedAt": "2026-09-30T20:48:18.859Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -5361,7 +5305,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.811Z",
+        "evaluatedAt": "2026-09-30T20:48:18.865Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -5434,7 +5378,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.813Z",
+          "evaluatedAt": "2026-09-30T20:48:18.866Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -5452,7 +5396,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.813Z",
+          "evaluatedAt": "2026-09-30T20:48:18.866Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -5546,7 +5490,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.818Z",
+        "evaluatedAt": "2026-09-30T20:48:18.872Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -5619,7 +5563,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.821Z",
+          "evaluatedAt": "2026-09-30T20:48:18.884Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -5637,7 +5581,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.821Z",
+          "evaluatedAt": "2026-09-30T20:48:18.884Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -5666,9 +5610,9 @@
       "installUrl": "github:garrytan/gstack:investigate",
       "relPath": "investigate",
       "verified": true,
-      "tokenCount": 12788,
+      "tokenCount": 13222,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -5692,7 +5636,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 5,
+            "score": 6,
             "max": 10
           },
           {
@@ -5732,7 +5676,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.825Z",
+        "evaluatedAt": "2026-09-30T20:48:18.892Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -5741,7 +5685,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 75,
           "grade": "C",
           "categories": [
             {
@@ -5765,7 +5709,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 5,
+              "score": 6,
               "max": 10
             },
             {
@@ -5805,7 +5749,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.826Z",
+          "evaluatedAt": "2026-09-30T20:48:18.892Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -5823,7 +5767,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.826Z",
+          "evaluatedAt": "2026-09-30T20:48:18.892Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -5916,7 +5860,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.961Z",
+        "evaluatedAt": "2026-09-30T20:48:18.903Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -5989,7 +5933,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.970Z",
+          "evaluatedAt": "2026-09-30T20:48:18.903Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -6007,7 +5951,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.970Z",
+          "evaluatedAt": "2026-09-30T20:48:18.903Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -6019,13 +5963,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Glob",
-        "Grep",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "Glob", "Grep", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -6099,7 +6037,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.976Z",
+        "evaluatedAt": "2026-09-30T20:48:18.909Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -6172,7 +6110,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.978Z",
+          "evaluatedAt": "2026-09-30T20:48:18.909Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -6190,7 +6128,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.978Z",
+          "evaluatedAt": "2026-09-30T20:48:18.909Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -6284,7 +6222,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.978Z",
+        "evaluatedAt": "2026-09-30T20:48:18.912Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -6357,7 +6295,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.979Z",
+          "evaluatedAt": "2026-09-30T20:48:18.913Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -6375,7 +6313,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.979Z",
+          "evaluatedAt": "2026-09-30T20:48:18.913Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -6469,7 +6407,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:10.985Z",
+        "evaluatedAt": "2026-09-30T20:48:18.919Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -6542,7 +6480,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.985Z",
+          "evaluatedAt": "2026-09-30T20:48:18.919Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -6560,7 +6498,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:10.985Z",
+          "evaluatedAt": "2026-09-30T20:48:18.919Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -6654,7 +6592,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:11.007Z",
+        "evaluatedAt": "2026-09-30T20:48:18.923Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -6727,7 +6665,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.046Z",
+          "evaluatedAt": "2026-09-30T20:48:18.923Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -6745,7 +6683,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.046Z",
+          "evaluatedAt": "2026-09-30T20:48:18.923Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -6757,13 +6695,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Write",
-        "Glob",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "Write", "Glob", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -6771,7 +6703,7 @@
       "installUrl": "github:garrytan/gstack:land-and-deploy",
       "relPath": "land-and-deploy",
       "verified": true,
-      "tokenCount": 20290,
+      "tokenCount": 20286,
       "evalSummary": {
         "overallScore": 72,
         "grade": "C",
@@ -6837,7 +6769,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:11.052Z",
+        "evaluatedAt": "2026-09-30T20:48:18.941Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -6910,7 +6842,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.056Z",
+          "evaluatedAt": "2026-09-30T20:48:18.941Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -6928,7 +6860,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.056Z",
+          "evaluatedAt": "2026-09-30T20:48:18.941Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -6940,10 +6872,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read"
-      ],
+      "allowedTools": ["Bash", "Read"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -7017,7 +6946,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:11.056Z",
+        "evaluatedAt": "2026-09-30T20:48:18.945Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -7090,7 +7019,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.059Z",
+          "evaluatedAt": "2026-09-30T20:48:18.946Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -7108,7 +7037,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.059Z",
+          "evaluatedAt": "2026-09-30T20:48:18.946Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -7202,7 +7131,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:11.059Z",
+        "evaluatedAt": "2026-09-30T20:48:18.958Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -7275,7 +7204,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.059Z",
+          "evaluatedAt": "2026-09-30T20:48:18.958Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -7293,7 +7222,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.059Z",
+          "evaluatedAt": "2026-09-30T20:48:18.958Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -7305,11 +7234,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -7383,7 +7308,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:11.250Z",
+        "evaluatedAt": "2026-09-30T20:48:18.967Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -7456,7 +7381,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.250Z",
+          "evaluatedAt": "2026-09-30T20:48:18.968Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -7474,7 +7399,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.250Z",
+          "evaluatedAt": "2026-09-30T20:48:18.968Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -7503,7 +7428,7 @@
       "installUrl": "github:garrytan/gstack:office-hours",
       "relPath": "office-hours",
       "verified": true,
-      "tokenCount": 23167,
+      "tokenCount": 23199,
       "evalSummary": {
         "overallScore": 71,
         "grade": "C",
@@ -7569,7 +7494,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:11.268Z",
+        "evaluatedAt": "2026-09-30T20:48:18.976Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -7642,7 +7567,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.272Z",
+          "evaluatedAt": "2026-09-30T20:48:18.976Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -7660,7 +7585,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.272Z",
+          "evaluatedAt": "2026-09-30T20:48:18.976Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -7672,11 +7597,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -7684,7 +7605,7 @@
       "installUrl": "github:garrytan/gstack:connect-chrome",
       "relPath": "connect-chrome",
       "verified": true,
-      "tokenCount": 4967,
+      "tokenCount": 4971,
       "evalSummary": {
         "overallScore": 73,
         "grade": "C",
@@ -7750,7 +7671,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:11.260Z",
+        "evaluatedAt": "2026-09-30T20:48:18.979Z",
         "evaluatedVersion": "0.2.0"
       },
       "evalSummaries": {
@@ -7823,7 +7744,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.271Z",
+          "evaluatedAt": "2026-09-30T20:48:18.979Z",
           "evaluatedVersion": "0.2.0"
         },
         "skill-best-practice": {
@@ -7841,7 +7762,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.272Z",
+          "evaluatedAt": "2026-09-30T20:48:18.979Z",
           "evaluatedVersion": "0.2.0"
         }
       }
@@ -7853,11 +7774,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -7865,7 +7782,7 @@
       "installUrl": "github:garrytan/gstack:pair-agent",
       "relPath": "pair-agent",
       "verified": true,
-      "tokenCount": 12326,
+      "tokenCount": 12330,
       "evalSummary": {
         "overallScore": 74,
         "grade": "C",
@@ -7931,7 +7848,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:11.462Z",
+        "evaluatedAt": "2026-09-30T20:48:18.989Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -8004,7 +7921,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.467Z",
+          "evaluatedAt": "2026-09-30T20:48:18.990Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -8022,7 +7939,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.467Z",
+          "evaluatedAt": "2026-09-30T20:48:18.990Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -8049,7 +7966,7 @@
       "installUrl": "github:garrytan/gstack:plan-ceo-review",
       "relPath": "plan-ceo-review",
       "verified": true,
-      "tokenCount": 22034,
+      "tokenCount": 22315,
       "evalSummary": {
         "overallScore": 69,
         "grade": "C",
@@ -8115,7 +8032,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:11.481Z",
+        "evaluatedAt": "2026-09-30T20:48:19.000Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -8188,7 +8105,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.481Z",
+          "evaluatedAt": "2026-09-30T20:48:19.000Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -8206,7 +8123,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.481Z",
+          "evaluatedAt": "2026-09-30T20:48:19.000Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -8299,7 +8216,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:11.652Z",
+        "evaluatedAt": "2026-09-30T20:48:19.011Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -8372,7 +8289,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.652Z",
+          "evaluatedAt": "2026-09-30T20:48:19.012Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -8390,7 +8307,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.652Z",
+          "evaluatedAt": "2026-09-30T20:48:19.012Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -8418,7 +8335,7 @@
       "installUrl": "github:garrytan/gstack:plan-devex-review",
       "relPath": "plan-devex-review",
       "verified": true,
-      "tokenCount": 19108,
+      "tokenCount": 19232,
       "evalSummary": {
         "overallScore": 71,
         "grade": "C",
@@ -8484,7 +8401,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:11.659Z",
+        "evaluatedAt": "2026-09-30T20:48:19.024Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -8557,7 +8474,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.665Z",
+          "evaluatedAt": "2026-09-30T20:48:19.026Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -8575,7 +8492,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.665Z",
+          "evaluatedAt": "2026-09-30T20:48:19.026Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -8603,7 +8520,7 @@
       "installUrl": "github:garrytan/gstack:plan-eng-review",
       "relPath": "plan-eng-review",
       "verified": true,
-      "tokenCount": 14253,
+      "tokenCount": 14270,
       "evalSummary": {
         "overallScore": 72,
         "grade": "C",
@@ -8669,7 +8586,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:11.689Z",
+        "evaluatedAt": "2026-09-30T20:48:19.037Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -8742,7 +8659,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.689Z",
+          "evaluatedAt": "2026-09-30T20:48:19.037Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -8760,7 +8677,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.689Z",
+          "evaluatedAt": "2026-09-30T20:48:19.037Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -8854,7 +8771,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:11.733Z",
+        "evaluatedAt": "2026-09-30T20:48:19.047Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -8927,7 +8844,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.968Z",
+          "evaluatedAt": "2026-09-30T20:48:19.048Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -8945,14 +8862,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:11.968Z",
+          "evaluatedAt": "2026-09-30T20:48:19.048Z",
           "evaluatedVersion": "1.0.0"
         }
       }
     },
     {
       "name": "qa",
-      "description": "Systematically QA test a web application and fix bugs found. (gstack)",
+      "description": "Fix browser/API/CLI/job/worker/webhook bugs. (gstack)",
       "version": "2.0.0",
       "license": "",
       "creator": "",
@@ -8974,9 +8891,9 @@
       "installUrl": "github:garrytan/gstack:qa",
       "relPath": "qa",
       "verified": true,
-      "tokenCount": 16803,
+      "tokenCount": 13926,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 72,
         "grade": "C",
         "categories": [
           {
@@ -8988,7 +8905,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 4,
+            "score": 3,
             "max": 10
           },
           {
@@ -9000,7 +8917,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 6,
+            "score": 5,
             "max": 10
           },
           {
@@ -9040,191 +8957,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:12.035Z",
+        "evaluatedAt": "2026-09-30T20:48:19.060Z",
         "evaluatedVersion": "2.0.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 74,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 4,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 6,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 7,
-              "max": 10
-            },
-            {
-              "id": "license",
-              "name": "License verification",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "pii",
-              "name": "PII detection",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "script-lint",
-              "name": "Script linting",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-09-26T06:51:12.078Z",
-          "evaluatedVersion": "2.0.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.2.0",
-          "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 69,
-          "grade": "C",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 9,
-              "max": 13
-            }
-          ],
-          "evaluatedAt": "2026-09-26T06:51:12.078Z",
-          "evaluatedVersion": "2.0.0"
-        }
-      }
-    },
-    {
-      "name": "qa-only",
-      "description": "Report-only QA testing. (gstack)",
-      "version": "1.0.0",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Write",
-        "AskUserQuestion",
-        "WebSearch"
-      ],
-      "tags": [],
-      "dependencies": [],
-      "modelInvocable": true,
-      "userInvocable": true,
-      "installUrl": "github:garrytan/gstack:qa-only",
-      "relPath": "qa-only",
-      "verified": true,
-      "tokenCount": 18233,
-      "evalSummary": {
-        "overallScore": 70,
-        "grade": "C",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 6,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 7,
-            "max": 10
-          },
-          {
-            "id": "license",
-            "name": "License verification",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "pii",
-            "name": "PII detection",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "script-lint",
-            "name": "Script linting",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-09-26T06:51:12.095Z",
-        "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
         "quality": {
@@ -9244,7 +8978,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 0,
+              "score": 3,
               "max": 10
             },
             {
@@ -9256,7 +8990,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 6,
+              "score": 5,
               "max": 10
             },
             {
@@ -9286,6 +9020,183 @@
             {
               "id": "pii",
               "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-30T20:48:19.061Z",
+          "evaluatedVersion": "2.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-30T20:48:19.061Z",
+          "evaluatedVersion": "2.0.0"
+        }
+      }
+    },
+    {
+      "name": "qa-only",
+      "description": "Report browser/API/CLI/job/worker/webhook bugs. (gstack)",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": ["Bash", "Read", "Write", "AskUserQuestion", "WebSearch"],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:garrytan/gstack:qa-only",
+      "relPath": "qa-only",
+      "verified": true,
+      "tokenCount": 12189,
+      "evalSummary": {
+        "overallScore": 75,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-30T20:48:19.063Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 75,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
               "score": 10,
               "max": 10
             },
@@ -9296,7 +9207,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.095Z",
+          "evaluatedAt": "2026-09-30T20:48:19.066Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -9314,7 +9225,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.095Z",
+          "evaluatedAt": "2026-09-30T20:48:19.066Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -9326,13 +9237,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Write",
-        "Glob",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "Write", "Glob", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -9406,7 +9311,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:12.131Z",
+        "evaluatedAt": "2026-09-30T20:48:19.071Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -9479,7 +9384,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.194Z",
+          "evaluatedAt": "2026-09-30T20:48:19.072Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -9497,7 +9402,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.194Z",
+          "evaluatedAt": "2026-09-30T20:48:19.072Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -9527,7 +9432,7 @@
       "installUrl": "github:garrytan/gstack:review",
       "relPath": "review",
       "verified": true,
-      "tokenCount": 20116,
+      "tokenCount": 20258,
       "evalSummary": {
         "overallScore": 70,
         "grade": "C",
@@ -9593,7 +9498,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:12.249Z",
+        "evaluatedAt": "2026-09-30T20:48:19.099Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -9666,7 +9571,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.304Z",
+          "evaluatedAt": "2026-09-30T20:48:19.100Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -9684,7 +9589,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.309Z",
+          "evaluatedAt": "2026-09-30T20:48:19.100Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -9696,11 +9601,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -9708,7 +9609,7 @@
       "installUrl": "github:garrytan/gstack:scrape",
       "relPath": "scrape",
       "verified": true,
-      "tokenCount": 7587,
+      "tokenCount": 7538,
       "evalSummary": {
         "overallScore": 71,
         "grade": "C",
@@ -9774,7 +9675,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:12.458Z",
+        "evaluatedAt": "2026-09-30T20:48:19.100Z",
         "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
@@ -9847,7 +9748,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.459Z",
+          "evaluatedAt": "2026-09-30T20:48:19.100Z",
           "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
@@ -9865,7 +9766,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.459Z",
+          "evaluatedAt": "2026-09-30T20:48:19.100Z",
           "evaluatedVersion": "2.0.0"
         }
       }
@@ -9877,11 +9778,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -9889,7 +9786,7 @@
       "installUrl": "github:garrytan/gstack:setup-browser-cookies",
       "relPath": "setup-browser-cookies",
       "verified": true,
-      "tokenCount": 3613,
+      "tokenCount": 3617,
       "evalSummary": {
         "overallScore": 74,
         "grade": "C",
@@ -9955,7 +9852,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:12.467Z",
+        "evaluatedAt": "2026-09-30T20:48:19.101Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -10028,7 +9925,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.467Z",
+          "evaluatedAt": "2026-09-30T20:48:19.101Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -10046,7 +9943,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.467Z",
+          "evaluatedAt": "2026-09-30T20:48:19.101Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -10074,7 +9971,7 @@
       "installUrl": "github:garrytan/gstack:setup-deploy",
       "relPath": "setup-deploy",
       "verified": true,
-      "tokenCount": 12302,
+      "tokenCount": 12347,
       "evalSummary": {
         "overallScore": 77,
         "grade": "C",
@@ -10140,7 +10037,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:12.467Z",
+        "evaluatedAt": "2026-09-30T20:48:19.120Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -10213,7 +10110,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.472Z",
+          "evaluatedAt": "2026-09-30T20:48:19.121Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -10231,7 +10128,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.472Z",
+          "evaluatedAt": "2026-09-30T20:48:19.121Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -10325,7 +10222,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:12.498Z",
+        "evaluatedAt": "2026-09-30T20:48:19.120Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -10398,7 +10295,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.522Z",
+          "evaluatedAt": "2026-09-30T20:48:19.121Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -10416,7 +10313,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.522Z",
+          "evaluatedAt": "2026-09-30T20:48:19.121Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -10446,9 +10343,9 @@
       "installUrl": "github:garrytan/gstack:ship",
       "relPath": "ship",
       "verified": true,
-      "tokenCount": 20698,
+      "tokenCount": 21819,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 74,
         "grade": "C",
         "categories": [
           {
@@ -10472,7 +10369,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 5,
+            "score": 6,
             "max": 10
           },
           {
@@ -10512,7 +10409,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:12.581Z",
+        "evaluatedAt": "2026-09-30T20:48:19.138Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -10521,7 +10418,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 74,
           "grade": "C",
           "categories": [
             {
@@ -10545,7 +10442,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 5,
+              "score": 6,
               "max": 10
             },
             {
@@ -10585,7 +10482,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.581Z",
+          "evaluatedAt": "2026-09-30T20:48:19.138Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -10603,7 +10500,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.581Z",
+          "evaluatedAt": "2026-09-30T20:48:19.138Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -10615,12 +10512,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Write",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "Write", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -10694,7 +10586,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:12.581Z",
+        "evaluatedAt": "2026-09-30T20:48:19.147Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -10767,7 +10659,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.581Z",
+          "evaluatedAt": "2026-09-30T20:48:19.147Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -10785,7 +10677,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.581Z",
+          "evaluatedAt": "2026-09-30T20:48:19.147Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -10797,13 +10689,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Grep",
-        "Glob",
-        "AskUserQuestion"
-      ],
+      "allowedTools": ["Bash", "Read", "Grep", "Glob", "AskUserQuestion"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -10811,7 +10697,7 @@
       "installUrl": "github:garrytan/gstack:spec",
       "relPath": "spec",
       "verified": true,
-      "tokenCount": 16531,
+      "tokenCount": 16576,
       "evalSummary": {
         "overallScore": 73,
         "grade": "C",
@@ -10877,7 +10763,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:12.677Z",
+        "evaluatedAt": "2026-09-30T20:48:19.157Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -10950,7 +10836,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.677Z",
+          "evaluatedAt": "2026-09-30T20:48:19.157Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -10968,7 +10854,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.677Z",
+          "evaluatedAt": "2026-09-30T20:48:19.157Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -10996,7 +10882,7 @@
       "installUrl": "github:garrytan/gstack:sync-gbrain",
       "relPath": "sync-gbrain",
       "verified": true,
-      "tokenCount": 14721,
+      "tokenCount": 14931,
       "evalSummary": {
         "overallScore": 73,
         "grade": "C",
@@ -11062,7 +10948,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:12.730Z",
+        "evaluatedAt": "2026-09-30T20:48:19.174Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -11135,7 +11021,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.733Z",
+          "evaluatedAt": "2026-09-30T20:48:19.174Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -11153,7 +11039,192 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.733Z",
+          "evaluatedAt": "2026-09-30T20:48:19.174Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "test-audit",
+      "description": "Find low-value or duplicate tests and the test-only code they keep alive. (gstack)",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "Edit",
+        "Glob",
+        "Grep",
+        "AskUserQuestion"
+      ],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:garrytan/gstack:test-audit",
+      "relPath": "test-audit",
+      "verified": true,
+      "tokenCount": 10891,
+      "evalSummary": {
+        "overallScore": 77,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-09-30T20:48:19.179Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-09-30T20:48:19.180Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-09-30T20:48:19.180Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -11165,10 +11236,7 @@
       "license": "",
       "creator": "",
       "compatibility": "",
-      "allowedTools": [
-        "Bash",
-        "Read"
-      ],
+      "allowedTools": ["Bash", "Read"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -11176,7 +11244,7 @@
       "installUrl": "github:garrytan/gstack:unfreeze",
       "relPath": "unfreeze",
       "verified": true,
-      "tokenCount": 370,
+      "tokenCount": 389,
       "evalSummary": {
         "overallScore": 53,
         "grade": "D",
@@ -11208,13 +11276,13 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 0,
+            "score": 1,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 1,
+            "score": 0,
             "max": 10
           },
           {
@@ -11242,7 +11310,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-26T06:51:12.735Z",
+        "evaluatedAt": "2026-09-30T20:48:19.190Z",
         "evaluatedVersion": "0.1.0"
       },
       "evalSummaries": {
@@ -11281,13 +11349,13 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 0,
+              "score": 1,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 1,
+              "score": 0,
               "max": 10
             },
             {
@@ -11315,7 +11383,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.736Z",
+          "evaluatedAt": "2026-09-30T20:48:19.190Z",
           "evaluatedVersion": "0.1.0"
         },
         "skill-best-practice": {
@@ -11333,7 +11401,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-26T06:51:12.736Z",
+          "evaluatedAt": "2026-09-30T20:48:19.190Z",
           "evaluatedVersion": "0.1.0"
         }
       }
@@ -11345,7 +11413,7 @@
       "name": "garrytan-gstack-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from garrytan/gstack.",
       "author": "ASM (garrytan/gstack)",
-      "createdAt": "2026-09-26T06:51:25.139Z",
+      "createdAt": "2026-09-30T20:48:21.137Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -11471,7 +11539,7 @@
       "name": "garrytan-gstack-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from garrytan/gstack.",
       "author": "ASM (garrytan/gstack)",
-      "createdAt": "2026-09-26T06:51:25.139Z",
+      "createdAt": "2026-09-30T20:48:21.137Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -11509,7 +11577,7 @@
         {
           "name": "document-release",
           "installUrl": "github:garrytan/gstack:document-release",
-          "description": "Post-ship documentation update. (gstack)",
+          "description": "Release documentation audit. (gstack)",
           "version": "1.0.0"
         },
         {
@@ -11561,7 +11629,7 @@
       "name": "garrytan-gstack-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from garrytan/gstack.",
       "author": "ASM (garrytan/gstack)",
-      "createdAt": "2026-09-26T06:51:25.139Z",
+      "createdAt": "2026-09-30T20:48:21.137Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -11713,13 +11781,13 @@
         {
           "name": "qa",
           "installUrl": "github:garrytan/gstack:qa",
-          "description": "Systematically QA test a web application and fix bugs found. (gstack)",
+          "description": "Fix browser/API/CLI/job/worker/webhook bugs. (gstack)",
           "version": "2.0.0"
         },
         {
           "name": "qa-only",
           "installUrl": "github:garrytan/gstack:qa-only",
-          "description": "Report-only QA testing. (gstack)",
+          "description": "Report browser/API/CLI/job/worker/webhook bugs. (gstack)",
           "version": "1.0.0"
         },
         {
@@ -11745,6 +11813,12 @@
           "installUrl": "github:garrytan/gstack:sync-gbrain",
           "description": "Keep gbrain current with this repo's code and refresh agent search guidance in CLAUDE.md. (gstack)",
           "version": "1.0.0"
+        },
+        {
+          "name": "test-audit",
+          "installUrl": "github:garrytan/gstack:test-audit",
+          "description": "Find low-value or duplicate tests and the test-only code they keep alive. (gstack)",
+          "version": "1.0.0"
         }
       ],
       "sourceRepo": {
@@ -11759,7 +11833,7 @@
       "name": "garrytan-gstack-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from garrytan/gstack.",
       "author": "ASM (garrytan/gstack)",
-      "createdAt": "2026-09-26T06:51:25.139Z",
+      "createdAt": "2026-09-30T20:48:21.137Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -11861,7 +11935,7 @@
       "name": "garrytan-gstack-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from garrytan/gstack.",
       "author": "ASM (garrytan/gstack)",
-      "createdAt": "2026-09-26T06:51:25.139Z",
+      "createdAt": "2026-09-30T20:48:21.137Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -11897,7 +11971,7 @@
       "name": "garrytan-gstack-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from garrytan/gstack.",
       "author": "ASM (garrytan/gstack)",
-      "createdAt": "2026-09-26T06:51:25.139Z",
+      "createdAt": "2026-09-30T20:48:21.137Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -11945,7 +12019,7 @@
       "name": "garrytan-gstack-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from garrytan/gstack.",
       "author": "ASM (garrytan/gstack)",
-      "createdAt": "2026-09-26T06:51:25.139Z",
+      "createdAt": "2026-09-30T20:48:21.137Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -12053,7 +12127,7 @@
       "name": "garrytan-gstack-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from garrytan/gstack.",
       "author": "ASM (garrytan/gstack)",
-      "createdAt": "2026-09-26T06:51:25.139Z",
+      "createdAt": "2026-09-30T20:48:21.137Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -12073,7 +12147,7 @@
         {
           "name": "document-release",
           "installUrl": "github:garrytan/gstack:document-release",
-          "description": "Post-ship documentation update. (gstack)",
+          "description": "Release documentation audit. (gstack)",
           "version": "1.0.0"
         },
         {
