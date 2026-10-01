@@ -1,0 +1,4400 @@
+{
+  "repoUrl": "https://github.com/google/mantis.git",
+  "owner": "google",
+  "repo": "mantis",
+  "updatedAt": "2026-10-01T07:12:37.848Z",
+  "skillCount": 21,
+  "skills": [
+    {
+      "name": "mantis-advise",
+      "description": "Proactive security advisor and architectural remediation assistant for secure code development. Use to query threat models, historical vulnerability lineages, verified patch patterns, triaged false positives, and learned trajectory invariants before code edits or to generate architectural remediation plans for confirmed findings. Don't use for automated multi-pass red-team exploitation or fuzzing.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-advise",
+      "relPath": "mantis-advise",
+      "verified": true,
+      "tokenCount": 2133,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.778Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.779Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.779Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-architecture",
+      "description": "Synthesizes raw learnings and codebase analysis into an interlinked Markdown Knowledge Base (KB). Use at the beginning of a loop to build or update architecture.md, entities, and vulnerabilities. Don't use for generating threat models or formulating execution plans.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-architecture",
+      "relPath": "mantis-architecture",
+      "verified": true,
+      "tokenCount": 6363,
+      "evalSummary": {
+        "overallScore": 76,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.779Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.779Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.779Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-calibrate",
+      "description": "Calculates the final risk score based on empirical evidence and architectural impact. Use when findings have been fully processed by previous stages and you need to append final risk scores to the finding files. Don't use for discovering new vulnerabilities or writing patches.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-calibrate",
+      "relPath": "mantis-calibrate",
+      "verified": true,
+      "tokenCount": 13412,
+      "evalSummary": {
+        "overallScore": 69,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.779Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.779Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.779Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-chain",
+      "description": "Analyzes individual security findings to identify and construct complex exploit chains. Use after validation stages to see if multiple low-severity bugs can be combined into a higher impact vulnerability. Don't use for initial codebase auditing or writing patch code.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-chain",
+      "relPath": "mantis-chain",
+      "verified": true,
+      "tokenCount": 7425,
+      "evalSummary": {
+        "overallScore": 72,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.779Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 72,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.779Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.779Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-configure",
+      "description": "Configures and validates Mantis pipeline environments, sandbox mechanisms, and AI models. Use to set up workflow.json, auto-detect host capabilities, switch between sandboxes (static-only, gvisor, microsandbox, gce), select AI models, and run fast 1-2s preflight tests. Don't use for scanning source code or running attack campaigns.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:reference/skills/mantis-configure",
+      "relPath": "reference/skills/mantis-configure",
+      "verified": true,
+      "tokenCount": 1868,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.779Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.779Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.779Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-critic",
+      "description": "Assesses the production viability of findings, filtering out debug-only features and assertion traps. Use when findings have been validated and you need to confirm they are triggerable in production release builds (with assertions disabled). Don't use for writing reproduction scripts or patches.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-critic",
+      "relPath": "mantis-critic",
+      "verified": true,
+      "tokenCount": 5219,
+      "evalSummary": {
+        "overallScore": 75,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.779Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 75,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.779Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.779Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-dedupe",
+      "description": "Consolidates raw security findings to eliminate redundant reports. Use when raw findings have been generated by the researcher and need consolidation before review. Don't use for initial code auditing or patch generation.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-dedupe",
+      "relPath": "mantis-dedupe",
+      "verified": true,
+      "tokenCount": 6421,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.779Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.779Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 85,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.779Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-history",
+      "description": "Analyzes the repository's version control system (VCS) history to extract past vulnerabilities, security fixes, and vulnerability patterns. Use as an initial pre-processing step to build a historical vulnerabilities database (workspace/historical_learnings.jsonl) that informs subsequent stages about past issues and fixes. Don't use for code reviews, writing test scripts, or patching code.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-history",
+      "relPath": "mantis-history",
+      "verified": true,
+      "tokenCount": 3789,
+      "evalSummary": {
+        "overallScore": 70,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.779Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 70,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.779Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.779Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-launch",
+      "description": "Launches automated vulnerability review campaigns on target files or repositories. Use to initiate Mantis vulnerability review pipelines with automated preflight checks, environment auto-configuration, and runtime overrides (sandboxes, models, endpoints). Don't use for configuring settings without scanning or for manual single-stage reviews.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:reference/skills/mantis-launch",
+      "relPath": "reference/skills/mantis-launch",
+      "verified": true,
+      "tokenCount": 1186,
+      "evalSummary": {
+        "overallScore": 68,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.799Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 68,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.806Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.806Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-meta-agent",
+      "description": "Acts as the persistent supervisor, launching and monitoring the automated review campaign. Use when running a long-running, continuous security review campaign that needs autonomous coordination. Don't use for executing individual review stages directly.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-meta-agent",
+      "relPath": "mantis-meta-agent",
+      "verified": true,
+      "tokenCount": 12787,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.806Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.806Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.806Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-patch",
+      "description": "Generates minimal security fixes using transactional isolation (shadow directories or file backups), applies patches, and verifies them. Use when security findings are successfully reproduced and need patches applied and verified. Don't use for initial vulnerability research or reproduction payload generation.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-patch",
+      "relPath": "mantis-patch",
+      "verified": true,
+      "tokenCount": 14972,
+      "evalSummary": {
+        "overallScore": 76,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.806Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.806Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.806Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-pipeline-adapter",
+      "description": "Interactively guides the design and implementation of custom deterministic orchestrator harnesses. Use when a user wants to build their own pipeline to wrap and run Mantis skills reliably. Don't use for executing the default pipeline directly.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-pipeline-adapter",
+      "relPath": "mantis-pipeline-adapter",
+      "verified": true,
+      "tokenCount": 19548,
+      "evalSummary": {
+        "overallScore": 68,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.806Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 68,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.806Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 85,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.806Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-plan",
+      "description": "Formulates a targeted defensive security reviewing plan based on the active threat model and historical learnings. Use when starting a security review campaign to map the codebase boundaries and generate a roadmap (workspace/plan.json). Don't use for executing code reviews, writing test scripts, or patching code.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-plan",
+      "relPath": "mantis-plan",
+      "verified": true,
+      "tokenCount": 10782,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.806Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.806Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.806Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-reflect",
+      "description": "Extracts learnings from execution trajectories at the end of a Mantis loop. Use to parse agent conversations, extract successes, failures, and false assumptions, and append them to workspace/learnings.jsonl. Don't use for analyzing source code or writing patches.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-reflect",
+      "relPath": "mantis-reflect",
+      "verified": true,
+      "tokenCount": 3116,
+      "evalSummary": {
+        "overallScore": 72,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.806Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 72,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.806Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.806Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-report",
+      "description": "Generates a human-readable security review packet compiled from confirmed findings and exploit chains. Use at the end of a review cycle to produce stakeholder-facing documentation. Don't use for auditing code or verifying patches directly.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-report",
+      "relPath": "mantis-report",
+      "verified": true,
+      "tokenCount": 8160,
+      "evalSummary": {
+        "overallScore": 72,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.806Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 72,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.806Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 85,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.806Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-reproduce",
+      "description": "Generates and runs crash reproducers to verify security flaws. Use when viable findings exist and you need to write and execute a script or payload to verify the crash. Don't use for code auditing or patching.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-reproduce",
+      "relPath": "mantis-reproduce",
+      "verified": true,
+      "tokenCount": 13892,
+      "evalSummary": {
+        "overallScore": 77,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.819Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.824Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 85,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.824Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-researcher",
+      "description": "Audits production source code files based on the strategy in workspace/plan.json. Use when a review plan exists and you need to perform static analysis and deep-dive reviews of targeted files. Don't use for planning, deduplicating, or writing patches.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-researcher",
+      "relPath": "mantis-researcher",
+      "verified": true,
+      "tokenCount": 7871,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.837Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.838Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.838Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-review",
+      "description": "Independently reviews findings and filters out false positives. Use when consolidated findings need validation against the actual source code. Don't use for reproducing crashes or patching code.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-review",
+      "relPath": "mantis-review",
+      "verified": true,
+      "tokenCount": 7943,
+      "evalSummary": {
+        "overallScore": 72,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.838Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 72,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.838Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 85,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.838Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-structural-index",
+      "description": "Builds a content-addressed semantic-unit index from source code for structural context. Use when a pinned or live codebase is available and structural cross-reference data would improve research quality. Don't use for findings analysis, patching, or reporting.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-structural-index",
+      "relPath": "mantis-structural-index",
+      "verified": true,
+      "tokenCount": 10676,
+      "evalSummary": {
+        "overallScore": 68,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.838Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 68,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.838Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.838Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-summarize",
+      "description": "Pre-processes the repository by generating security-focused summaries (mantis-summary.md) for each directory to make planning and research more efficient. Use when starting a review campaign to map the codebase before threat modeling and planning. Don't use for executing code reviews, writing test scripts, or patching code.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-summarize",
+      "relPath": "mantis-summarize",
+      "verified": true,
+      "tokenCount": 2712,
+      "evalSummary": {
+        "overallScore": 68,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.838Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 68,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.838Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.838Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "mantis-threat-model",
+      "description": "Synthesizes trust boundaries, attack surfaces, and attacker profiles into a living threat model. Use as Stage B of the Knowledge Base generation process, reading architecture and entity definitions from the KB. Don't use for analyzing source code or extracting raw learnings from JSONL files.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:google/mantis:mantis-threat-model",
+      "relPath": "mantis-threat-model",
+      "verified": true,
+      "tokenCount": 3912,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-01T07:12:37.838Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 67,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.839Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-01T07:12:37.839Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "google-mantis-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from google/mantis.",
+      "author": "ASM (google/mantis)",
+      "createdAt": "2026-10-01T07:12:37.848Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "google",
+        "mantis"
+      ],
+      "skills": [
+        {
+          "name": "mantis-advise",
+          "installUrl": "github:google/mantis:mantis-advise",
+          "description": "Proactive security advisor and architectural remediation assistant for secure code development. Use to query threat models, historical vulnerability lineages, verified patch patterns, triaged false positives, and learned trajectory invariants before code edits or to generate architectural remediation plans for confirmed findings. Don't use for automated multi-pass red-team exploitation or fuzzing.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-architecture",
+          "installUrl": "github:google/mantis:mantis-architecture",
+          "description": "Synthesizes raw learnings and codebase analysis into an interlinked Markdown Knowledge Base (KB). Use at the beginning of a loop to build or update architecture.md, entities, and vulnerabilities. Don't use for generating threat models or formulating execution plans.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-chain",
+          "installUrl": "github:google/mantis:mantis-chain",
+          "description": "Analyzes individual security findings to identify and construct complex exploit chains. Use after validation stages to see if multiple low-severity bugs can be combined into a higher impact vulnerability. Don't use for initial codebase auditing or writing patch code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-configure",
+          "installUrl": "github:google/mantis:reference/skills/mantis-configure",
+          "description": "Configures and validates Mantis pipeline environments, sandbox mechanisms, and AI models. Use to set up workflow.json, auto-detect host capabilities, switch between sandboxes (static-only, gvisor, microsandbox, gce), select AI models, and run fast 1-2s preflight tests. Don't use for scanning source code or running attack campaigns.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-history",
+          "installUrl": "github:google/mantis:mantis-history",
+          "description": "Analyzes the repository's version control system (VCS) history to extract past vulnerabilities, security fixes, and vulnerability patterns. Use as an initial pre-processing step to build a historical vulnerabilities database (workspace/historical_learnings.jsonl) that informs subsequent stages about past issues and fixes. Don't use for code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-launch",
+          "installUrl": "github:google/mantis:reference/skills/mantis-launch",
+          "description": "Launches automated vulnerability review campaigns on target files or repositories. Use to initiate Mantis vulnerability review pipelines with automated preflight checks, environment auto-configuration, and runtime overrides (sandboxes, models, endpoints). Don't use for configuring settings without scanning or for manual single-stage reviews.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-meta-agent",
+          "installUrl": "github:google/mantis:mantis-meta-agent",
+          "description": "Acts as the persistent supervisor, launching and monitoring the automated review campaign. Use when running a long-running, continuous security review campaign that needs autonomous coordination. Don't use for executing individual review stages directly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-plan",
+          "installUrl": "github:google/mantis:mantis-plan",
+          "description": "Formulates a targeted defensive security reviewing plan based on the active threat model and historical learnings. Use when starting a security review campaign to map the codebase boundaries and generate a roadmap (workspace/plan.json). Don't use for executing code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-reflect",
+          "installUrl": "github:google/mantis:mantis-reflect",
+          "description": "Extracts learnings from execution trajectories at the end of a Mantis loop. Use to parse agent conversations, extract successes, failures, and false assumptions, and append them to workspace/learnings.jsonl. Don't use for analyzing source code or writing patches.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-report",
+          "installUrl": "github:google/mantis:mantis-report",
+          "description": "Generates a human-readable security review packet compiled from confirmed findings and exploit chains. Use at the end of a review cycle to produce stakeholder-facing documentation. Don't use for auditing code or verifying patches directly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-researcher",
+          "installUrl": "github:google/mantis:mantis-researcher",
+          "description": "Audits production source code files based on the strategy in workspace/plan.json. Use when a review plan exists and you need to perform static analysis and deep-dive reviews of targeted files. Don't use for planning, deduplicating, or writing patches.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-review",
+          "installUrl": "github:google/mantis:mantis-review",
+          "description": "Independently reviews findings and filters out false positives. Use when consolidated findings need validation against the actual source code. Don't use for reproducing crashes or patching code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-structural-index",
+          "installUrl": "github:google/mantis:mantis-structural-index",
+          "description": "Builds a content-addressed semantic-unit index from source code for structural context. Use when a pinned or live codebase is available and structural cross-reference data would improve research quality. Don't use for findings analysis, patching, or reporting.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-summarize",
+          "installUrl": "github:google/mantis:mantis-summarize",
+          "description": "Pre-processes the repository by generating security-focused summaries (mantis-summary.md) for each directory to make planning and research more efficient. Use when starting a review campaign to map the codebase before threat modeling and planning. Don't use for executing code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-threat-model",
+          "installUrl": "github:google/mantis:mantis-threat-model",
+          "description": "Synthesizes trust boundaries, attack surfaces, and attacker profiles into a living threat model. Use as Stage B of the Knowledge Base generation process, reading architecture and entity definitions from the KB. Don't use for analyzing source code or extracting raw learnings from JSONL files.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "mantis",
+        "repoUrl": "https://github.com/google/mantis.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-mantis-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from google/mantis.",
+      "author": "ASM (google/mantis)",
+      "createdAt": "2026-10-01T07:12:37.848Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "google",
+        "mantis"
+      ],
+      "skills": [
+        {
+          "name": "mantis-configure",
+          "installUrl": "github:google/mantis:reference/skills/mantis-configure",
+          "description": "Configures and validates Mantis pipeline environments, sandbox mechanisms, and AI models. Use to set up workflow.json, auto-detect host capabilities, switch between sandboxes (static-only, gvisor, microsandbox, gce), select AI models, and run fast 1-2s preflight tests. Don't use for scanning source code or running attack campaigns.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-critic",
+          "installUrl": "github:google/mantis:mantis-critic",
+          "description": "Assesses the production viability of findings, filtering out debug-only features and assertion traps. Use when findings have been validated and you need to confirm they are triggerable in production release builds (with assertions disabled). Don't use for writing reproduction scripts or patches.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-launch",
+          "installUrl": "github:google/mantis:reference/skills/mantis-launch",
+          "description": "Launches automated vulnerability review campaigns on target files or repositories. Use to initiate Mantis vulnerability review pipelines with automated preflight checks, environment auto-configuration, and runtime overrides (sandboxes, models, endpoints). Don't use for configuring settings without scanning or for manual single-stage reviews.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-pipeline-adapter",
+          "installUrl": "github:google/mantis:mantis-pipeline-adapter",
+          "description": "Interactively guides the design and implementation of custom deterministic orchestrator harnesses. Use when a user wants to build their own pipeline to wrap and run Mantis skills reliably. Don't use for executing the default pipeline directly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-report",
+          "installUrl": "github:google/mantis:mantis-report",
+          "description": "Generates a human-readable security review packet compiled from confirmed findings and exploit chains. Use at the end of a review cycle to produce stakeholder-facing documentation. Don't use for auditing code or verifying patches directly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-review",
+          "installUrl": "github:google/mantis:mantis-review",
+          "description": "Independently reviews findings and filters out false positives. Use when consolidated findings need validation against the actual source code. Don't use for reproducing crashes or patching code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-summarize",
+          "installUrl": "github:google/mantis:mantis-summarize",
+          "description": "Pre-processes the repository by generating security-focused summaries (mantis-summary.md) for each directory to make planning and research more efficient. Use when starting a review campaign to map the codebase before threat modeling and planning. Don't use for executing code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "mantis",
+        "repoUrl": "https://github.com/google/mantis.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-mantis-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from google/mantis.",
+      "author": "ASM (google/mantis)",
+      "createdAt": "2026-10-01T07:12:37.848Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "google",
+        "mantis"
+      ],
+      "skills": [
+        {
+          "name": "mantis-advise",
+          "installUrl": "github:google/mantis:mantis-advise",
+          "description": "Proactive security advisor and architectural remediation assistant for secure code development. Use to query threat models, historical vulnerability lineages, verified patch patterns, triaged false positives, and learned trajectory invariants before code edits or to generate architectural remediation plans for confirmed findings. Don't use for automated multi-pass red-team exploitation or fuzzing.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-architecture",
+          "installUrl": "github:google/mantis:mantis-architecture",
+          "description": "Synthesizes raw learnings and codebase analysis into an interlinked Markdown Knowledge Base (KB). Use at the beginning of a loop to build or update architecture.md, entities, and vulnerabilities. Don't use for generating threat models or formulating execution plans.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-chain",
+          "installUrl": "github:google/mantis:mantis-chain",
+          "description": "Analyzes individual security findings to identify and construct complex exploit chains. Use after validation stages to see if multiple low-severity bugs can be combined into a higher impact vulnerability. Don't use for initial codebase auditing or writing patch code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-configure",
+          "installUrl": "github:google/mantis:reference/skills/mantis-configure",
+          "description": "Configures and validates Mantis pipeline environments, sandbox mechanisms, and AI models. Use to set up workflow.json, auto-detect host capabilities, switch between sandboxes (static-only, gvisor, microsandbox, gce), select AI models, and run fast 1-2s preflight tests. Don't use for scanning source code or running attack campaigns.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-critic",
+          "installUrl": "github:google/mantis:mantis-critic",
+          "description": "Assesses the production viability of findings, filtering out debug-only features and assertion traps. Use when findings have been validated and you need to confirm they are triggerable in production release builds (with assertions disabled). Don't use for writing reproduction scripts or patches.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-dedupe",
+          "installUrl": "github:google/mantis:mantis-dedupe",
+          "description": "Consolidates raw security findings to eliminate redundant reports. Use when raw findings have been generated by the researcher and need consolidation before review. Don't use for initial code auditing or patch generation.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-history",
+          "installUrl": "github:google/mantis:mantis-history",
+          "description": "Analyzes the repository's version control system (VCS) history to extract past vulnerabilities, security fixes, and vulnerability patterns. Use as an initial pre-processing step to build a historical vulnerabilities database (workspace/historical_learnings.jsonl) that informs subsequent stages about past issues and fixes. Don't use for code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-launch",
+          "installUrl": "github:google/mantis:reference/skills/mantis-launch",
+          "description": "Launches automated vulnerability review campaigns on target files or repositories. Use to initiate Mantis vulnerability review pipelines with automated preflight checks, environment auto-configuration, and runtime overrides (sandboxes, models, endpoints). Don't use for configuring settings without scanning or for manual single-stage reviews.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-meta-agent",
+          "installUrl": "github:google/mantis:mantis-meta-agent",
+          "description": "Acts as the persistent supervisor, launching and monitoring the automated review campaign. Use when running a long-running, continuous security review campaign that needs autonomous coordination. Don't use for executing individual review stages directly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-pipeline-adapter",
+          "installUrl": "github:google/mantis:mantis-pipeline-adapter",
+          "description": "Interactively guides the design and implementation of custom deterministic orchestrator harnesses. Use when a user wants to build their own pipeline to wrap and run Mantis skills reliably. Don't use for executing the default pipeline directly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-plan",
+          "installUrl": "github:google/mantis:mantis-plan",
+          "description": "Formulates a targeted defensive security reviewing plan based on the active threat model and historical learnings. Use when starting a security review campaign to map the codebase boundaries and generate a roadmap (workspace/plan.json). Don't use for executing code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-reflect",
+          "installUrl": "github:google/mantis:mantis-reflect",
+          "description": "Extracts learnings from execution trajectories at the end of a Mantis loop. Use to parse agent conversations, extract successes, failures, and false assumptions, and append them to workspace/learnings.jsonl. Don't use for analyzing source code or writing patches.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-report",
+          "installUrl": "github:google/mantis:mantis-report",
+          "description": "Generates a human-readable security review packet compiled from confirmed findings and exploit chains. Use at the end of a review cycle to produce stakeholder-facing documentation. Don't use for auditing code or verifying patches directly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-reproduce",
+          "installUrl": "github:google/mantis:mantis-reproduce",
+          "description": "Generates and runs crash reproducers to verify security flaws. Use when viable findings exist and you need to write and execute a script or payload to verify the crash. Don't use for code auditing or patching.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-researcher",
+          "installUrl": "github:google/mantis:mantis-researcher",
+          "description": "Audits production source code files based on the strategy in workspace/plan.json. Use when a review plan exists and you need to perform static analysis and deep-dive reviews of targeted files. Don't use for planning, deduplicating, or writing patches.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-review",
+          "installUrl": "github:google/mantis:mantis-review",
+          "description": "Independently reviews findings and filters out false positives. Use when consolidated findings need validation against the actual source code. Don't use for reproducing crashes or patching code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-structural-index",
+          "installUrl": "github:google/mantis:mantis-structural-index",
+          "description": "Builds a content-addressed semantic-unit index from source code for structural context. Use when a pinned or live codebase is available and structural cross-reference data would improve research quality. Don't use for findings analysis, patching, or reporting.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-summarize",
+          "installUrl": "github:google/mantis:mantis-summarize",
+          "description": "Pre-processes the repository by generating security-focused summaries (mantis-summary.md) for each directory to make planning and research more efficient. Use when starting a review campaign to map the codebase before threat modeling and planning. Don't use for executing code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-threat-model",
+          "installUrl": "github:google/mantis:mantis-threat-model",
+          "description": "Synthesizes trust boundaries, attack surfaces, and attacker profiles into a living threat model. Use as Stage B of the Knowledge Base generation process, reading architecture and entity definitions from the KB. Don't use for analyzing source code or extracting raw learnings from JSONL files.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "mantis",
+        "repoUrl": "https://github.com/google/mantis.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-mantis-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from google/mantis.",
+      "author": "ASM (google/mantis)",
+      "createdAt": "2026-10-01T07:12:37.848Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "google",
+        "mantis"
+      ],
+      "skills": [
+        {
+          "name": "mantis-architecture",
+          "installUrl": "github:google/mantis:mantis-architecture",
+          "description": "Synthesizes raw learnings and codebase analysis into an interlinked Markdown Knowledge Base (KB). Use at the beginning of a loop to build or update architecture.md, entities, and vulnerabilities. Don't use for generating threat models or formulating execution plans.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-critic",
+          "installUrl": "github:google/mantis:mantis-critic",
+          "description": "Assesses the production viability of findings, filtering out debug-only features and assertion traps. Use when findings have been validated and you need to confirm they are triggerable in production release builds (with assertions disabled). Don't use for writing reproduction scripts or patches.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-history",
+          "installUrl": "github:google/mantis:mantis-history",
+          "description": "Analyzes the repository's version control system (VCS) history to extract past vulnerabilities, security fixes, and vulnerability patterns. Use as an initial pre-processing step to build a historical vulnerabilities database (workspace/historical_learnings.jsonl) that informs subsequent stages about past issues and fixes. Don't use for code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-pipeline-adapter",
+          "installUrl": "github:google/mantis:mantis-pipeline-adapter",
+          "description": "Interactively guides the design and implementation of custom deterministic orchestrator harnesses. Use when a user wants to build their own pipeline to wrap and run Mantis skills reliably. Don't use for executing the default pipeline directly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-structural-index",
+          "installUrl": "github:google/mantis:mantis-structural-index",
+          "description": "Builds a content-addressed semantic-unit index from source code for structural context. Use when a pinned or live codebase is available and structural cross-reference data would improve research quality. Don't use for findings analysis, patching, or reporting.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "mantis",
+        "repoUrl": "https://github.com/google/mantis.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-mantis-marketing",
+      "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from google/mantis.",
+      "author": "ASM (google/mantis)",
+      "createdAt": "2026-10-01T07:12:37.848Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "marketing",
+        "growth",
+        "seo",
+        "google",
+        "mantis"
+      ],
+      "skills": [
+        {
+          "name": "mantis-configure",
+          "installUrl": "github:google/mantis:reference/skills/mantis-configure",
+          "description": "Configures and validates Mantis pipeline environments, sandbox mechanisms, and AI models. Use to set up workflow.json, auto-detect host capabilities, switch between sandboxes (static-only, gvisor, microsandbox, gce), select AI models, and run fast 1-2s preflight tests. Don't use for scanning source code or running attack campaigns.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-launch",
+          "installUrl": "github:google/mantis:reference/skills/mantis-launch",
+          "description": "Launches automated vulnerability review campaigns on target files or repositories. Use to initiate Mantis vulnerability review pipelines with automated preflight checks, environment auto-configuration, and runtime overrides (sandboxes, models, endpoints). Don't use for configuring settings without scanning or for manual single-stage reviews.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-meta-agent",
+          "installUrl": "github:google/mantis:mantis-meta-agent",
+          "description": "Acts as the persistent supervisor, launching and monitoring the automated review campaign. Use when running a long-running, continuous security review campaign that needs autonomous coordination. Don't use for executing individual review stages directly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-plan",
+          "installUrl": "github:google/mantis:mantis-plan",
+          "description": "Formulates a targeted defensive security reviewing plan based on the active threat model and historical learnings. Use when starting a security review campaign to map the codebase boundaries and generate a roadmap (workspace/plan.json). Don't use for executing code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-structural-index",
+          "installUrl": "github:google/mantis:mantis-structural-index",
+          "description": "Builds a content-addressed semantic-unit index from source code for structural context. Use when a pinned or live codebase is available and structural cross-reference data would improve research quality. Don't use for findings analysis, patching, or reporting.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-summarize",
+          "installUrl": "github:google/mantis:mantis-summarize",
+          "description": "Pre-processes the repository by generating security-focused summaries (mantis-summary.md) for each directory to make planning and research more efficient. Use when starting a review campaign to map the codebase before threat modeling and planning. Don't use for executing code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "mantis",
+        "repoUrl": "https://github.com/google/mantis.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-mantis-product-business",
+      "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from google/mantis.",
+      "author": "ASM (google/mantis)",
+      "createdAt": "2026-10-01T07:12:37.848Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "product",
+        "business",
+        "planning",
+        "google",
+        "mantis"
+      ],
+      "skills": [
+        {
+          "name": "mantis-critic",
+          "installUrl": "github:google/mantis:mantis-critic",
+          "description": "Assesses the production viability of findings, filtering out debug-only features and assertion traps. Use when findings have been validated and you need to confirm they are triggerable in production release builds (with assertions disabled). Don't use for writing reproduction scripts or patches.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-patch",
+          "installUrl": "github:google/mantis:mantis-patch",
+          "description": "Generates minimal security fixes using transactional isolation (shadow directories or file backups), applies patches, and verifies them. Use when security findings are successfully reproduced and need patches applied and verified. Don't use for initial vulnerability research or reproduction payload generation.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-researcher",
+          "installUrl": "github:google/mantis:mantis-researcher",
+          "description": "Audits production source code files based on the strategy in workspace/plan.json. Use when a review plan exists and you need to perform static analysis and deep-dive reviews of targeted files. Don't use for planning, deduplicating, or writing patches.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-summarize",
+          "installUrl": "github:google/mantis:mantis-summarize",
+          "description": "Pre-processes the repository by generating security-focused summaries (mantis-summary.md) for each directory to make planning and research more efficient. Use when starting a review campaign to map the codebase before threat modeling and planning. Don't use for executing code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "mantis",
+        "repoUrl": "https://github.com/google/mantis.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-mantis-research",
+      "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from google/mantis.",
+      "author": "ASM (google/mantis)",
+      "createdAt": "2026-10-01T07:12:37.848Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "research",
+        "academic",
+        "analysis",
+        "google",
+        "mantis"
+      ],
+      "skills": [
+        {
+          "name": "mantis-architecture",
+          "installUrl": "github:google/mantis:mantis-architecture",
+          "description": "Synthesizes raw learnings and codebase analysis into an interlinked Markdown Knowledge Base (KB). Use at the beginning of a loop to build or update architecture.md, entities, and vulnerabilities. Don't use for generating threat models or formulating execution plans.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-dedupe",
+          "installUrl": "github:google/mantis:mantis-dedupe",
+          "description": "Consolidates raw security findings to eliminate redundant reports. Use when raw findings have been generated by the researcher and need consolidation before review. Don't use for initial code auditing or patch generation.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-history",
+          "installUrl": "github:google/mantis:mantis-history",
+          "description": "Analyzes the repository's version control system (VCS) history to extract past vulnerabilities, security fixes, and vulnerability patterns. Use as an initial pre-processing step to build a historical vulnerabilities database (workspace/historical_learnings.jsonl) that informs subsequent stages about past issues and fixes. Don't use for code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-launch",
+          "installUrl": "github:google/mantis:reference/skills/mantis-launch",
+          "description": "Launches automated vulnerability review campaigns on target files or repositories. Use to initiate Mantis vulnerability review pipelines with automated preflight checks, environment auto-configuration, and runtime overrides (sandboxes, models, endpoints). Don't use for configuring settings without scanning or for manual single-stage reviews.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-meta-agent",
+          "installUrl": "github:google/mantis:mantis-meta-agent",
+          "description": "Acts as the persistent supervisor, launching and monitoring the automated review campaign. Use when running a long-running, continuous security review campaign that needs autonomous coordination. Don't use for executing individual review stages directly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-patch",
+          "installUrl": "github:google/mantis:mantis-patch",
+          "description": "Generates minimal security fixes using transactional isolation (shadow directories or file backups), applies patches, and verifies them. Use when security findings are successfully reproduced and need patches applied and verified. Don't use for initial vulnerability research or reproduction payload generation.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-plan",
+          "installUrl": "github:google/mantis:mantis-plan",
+          "description": "Formulates a targeted defensive security reviewing plan based on the active threat model and historical learnings. Use when starting a security review campaign to map the codebase boundaries and generate a roadmap (workspace/plan.json). Don't use for executing code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-report",
+          "installUrl": "github:google/mantis:mantis-report",
+          "description": "Generates a human-readable security review packet compiled from confirmed findings and exploit chains. Use at the end of a review cycle to produce stakeholder-facing documentation. Don't use for auditing code or verifying patches directly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-reproduce",
+          "installUrl": "github:google/mantis:mantis-reproduce",
+          "description": "Generates and runs crash reproducers to verify security flaws. Use when viable findings exist and you need to write and execute a script or payload to verify the crash. Don't use for code auditing or patching.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-researcher",
+          "installUrl": "github:google/mantis:mantis-researcher",
+          "description": "Audits production source code files based on the strategy in workspace/plan.json. Use when a review plan exists and you need to perform static analysis and deep-dive reviews of targeted files. Don't use for planning, deduplicating, or writing patches.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-review",
+          "installUrl": "github:google/mantis:mantis-review",
+          "description": "Independently reviews findings and filters out false positives. Use when consolidated findings need validation against the actual source code. Don't use for reproducing crashes or patching code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-structural-index",
+          "installUrl": "github:google/mantis:mantis-structural-index",
+          "description": "Builds a content-addressed semantic-unit index from source code for structural context. Use when a pinned or live codebase is available and structural cross-reference data would improve research quality. Don't use for findings analysis, patching, or reporting.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-summarize",
+          "installUrl": "github:google/mantis:mantis-summarize",
+          "description": "Pre-processes the repository by generating security-focused summaries (mantis-summary.md) for each directory to make planning and research more efficient. Use when starting a review campaign to map the codebase before threat modeling and planning. Don't use for executing code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "mantis",
+        "repoUrl": "https://github.com/google/mantis.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "google-mantis-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from google/mantis.",
+      "author": "ASM (google/mantis)",
+      "createdAt": "2026-10-01T07:12:37.848Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "google",
+        "mantis"
+      ],
+      "skills": [
+        {
+          "name": "mantis-calibrate",
+          "installUrl": "github:google/mantis:mantis-calibrate",
+          "description": "Calculates the final risk score based on empirical evidence and architectural impact. Use when findings have been fully processed by previous stages and you need to append final risk scores to the finding files. Don't use for discovering new vulnerabilities or writing patches.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-chain",
+          "installUrl": "github:google/mantis:mantis-chain",
+          "description": "Analyzes individual security findings to identify and construct complex exploit chains. Use after validation stages to see if multiple low-severity bugs can be combined into a higher impact vulnerability. Don't use for initial codebase auditing or writing patch code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-critic",
+          "installUrl": "github:google/mantis:mantis-critic",
+          "description": "Assesses the production viability of findings, filtering out debug-only features and assertion traps. Use when findings have been validated and you need to confirm they are triggerable in production release builds (with assertions disabled). Don't use for writing reproduction scripts or patches.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-history",
+          "installUrl": "github:google/mantis:mantis-history",
+          "description": "Analyzes the repository's version control system (VCS) history to extract past vulnerabilities, security fixes, and vulnerability patterns. Use as an initial pre-processing step to build a historical vulnerabilities database (workspace/historical_learnings.jsonl) that informs subsequent stages about past issues and fixes. Don't use for code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-plan",
+          "installUrl": "github:google/mantis:mantis-plan",
+          "description": "Formulates a targeted defensive security reviewing plan based on the active threat model and historical learnings. Use when starting a security review campaign to map the codebase boundaries and generate a roadmap (workspace/plan.json). Don't use for executing code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-reflect",
+          "installUrl": "github:google/mantis:mantis-reflect",
+          "description": "Extracts learnings from execution trajectories at the end of a Mantis loop. Use to parse agent conversations, extract successes, failures, and false assumptions, and append them to workspace/learnings.jsonl. Don't use for analyzing source code or writing patches.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-report",
+          "installUrl": "github:google/mantis:mantis-report",
+          "description": "Generates a human-readable security review packet compiled from confirmed findings and exploit chains. Use at the end of a review cycle to produce stakeholder-facing documentation. Don't use for auditing code or verifying patches directly.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-reproduce",
+          "installUrl": "github:google/mantis:mantis-reproduce",
+          "description": "Generates and runs crash reproducers to verify security flaws. Use when viable findings exist and you need to write and execute a script or payload to verify the crash. Don't use for code auditing or patching.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-researcher",
+          "installUrl": "github:google/mantis:mantis-researcher",
+          "description": "Audits production source code files based on the strategy in workspace/plan.json. Use when a review plan exists and you need to perform static analysis and deep-dive reviews of targeted files. Don't use for planning, deduplicating, or writing patches.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-structural-index",
+          "installUrl": "github:google/mantis:mantis-structural-index",
+          "description": "Builds a content-addressed semantic-unit index from source code for structural context. Use when a pinned or live codebase is available and structural cross-reference data would improve research quality. Don't use for findings analysis, patching, or reporting.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "mantis-summarize",
+          "installUrl": "github:google/mantis:mantis-summarize",
+          "description": "Pre-processes the repository by generating security-focused summaries (mantis-summary.md) for each directory to make planning and research more efficient. Use when starting a review campaign to map the codebase before threat modeling and planning. Don't use for executing code reviews, writing test scripts, or patching code.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "google",
+        "repo": "mantis",
+        "repoUrl": "https://github.com/google/mantis.git"
+      },
+      "inferred": true
+    }
+  ]
+}

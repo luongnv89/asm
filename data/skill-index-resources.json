@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T12:31:45Z",
+  "updatedAt": "2026-10-01T07:09:41Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -719,6 +719,15 @@
       "repo": "financial-services",
       "description": "Reference agents, skills, and data connectors for financial-services workflows — investment banking, equity research, private equity, and wealth management",
       "maintainer": "@anthropics",
+      "enabled": true
+    },
+    {
+      "source": "github:google/mantis",
+      "url": "https://github.com/google/mantis",
+      "owner": "google",
+      "repo": "mantis",
+      "description": "A modular, stack-agnostic toolkit for AI coding agents to autonomously find, reproduce, and patch vulnerabilities.",
+      "maintainer": "@google",
       "enabled": true
     }
   ]
