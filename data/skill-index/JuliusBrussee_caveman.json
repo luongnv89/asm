@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/JuliusBrussee/caveman.git",
   "owner": "JuliusBrussee",
   "repo": "caveman",
-  "updatedAt": "2026-09-30T20:50:06.210Z",
-  "skillCount": 20,
+  "updatedAt": "2026-10-04T21:03:06.973Z",
+  "skillCount": 22,
   "skills": [
     {
       "name": "cavecrew",
@@ -20,7 +20,7 @@
       "installUrl": "github:JuliusBrussee/caveman:skills/cavecrew",
       "relPath": "skills/cavecrew",
       "verified": true,
-      "tokenCount": 992,
+      "tokenCount": 1036,
       "evalSummary": {
         "overallScore": 64,
         "grade": "D",
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.901Z",
+        "evaluatedAt": "2026-10-04T21:03:06.584Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.901Z",
+          "evaluatedAt": "2026-10-04T21:03:06.584Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -177,14 +177,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.901Z",
+          "evaluatedAt": "2026-10-04T21:03:06.584Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "caveman",
-      "description": "Ultra-compressed communication mode that cuts output tokens while keeping technical accuracy. Levels: lite, full, ultra and the wenyan variants. Use for /caveman, \"caveman mode\", \"talk like caveman\", \"be brief\" or \"less tokens\".",
+      "description": "Terse caveman voice: answer first, fluff gone, every technical fact kept. Use for /caveman, \"caveman mode\", \"talk like caveman\", \"be brief\", \"less tokens\". Stays on until \"stop caveman\" or \"normal mode\".",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -197,10 +197,10 @@
       "installUrl": "github:JuliusBrussee/caveman:skills/caveman",
       "relPath": "skills/caveman",
       "verified": true,
-      "tokenCount": 1911,
+      "tokenCount": 1208,
       "evalSummary": {
-        "overallScore": 71,
-        "grade": "C",
+        "overallScore": 63,
+        "grade": "D",
         "categories": [
           {
             "id": "structure",
@@ -217,13 +217,13 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 7,
+            "score": 4,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 10,
+            "score": 7,
             "max": 10
           },
           {
@@ -247,7 +247,7 @@
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 10,
+            "score": 8,
             "max": 10
           },
           {
@@ -263,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.901Z",
+        "evaluatedAt": "2026-10-04T21:03:06.584Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -272,8 +272,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
-          "grade": "C",
+          "overallScore": 63,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -290,13 +290,13 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 7,
+              "score": 4,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 10,
+              "score": 7,
               "max": 10
             },
             {
@@ -320,7 +320,7 @@
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 10,
+              "score": 8,
               "max": 10
             },
             {
@@ -336,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.901Z",
+          "evaluatedAt": "2026-10-04T21:03:06.584Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -354,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.901Z",
+          "evaluatedAt": "2026-10-04T21:03:06.584Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -440,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.901Z",
+        "evaluatedAt": "2026-10-04T21:03:06.584Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -513,7 +513,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.901Z",
+          "evaluatedAt": "2026-10-04T21:03:06.584Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -531,7 +531,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.901Z",
+          "evaluatedAt": "2026-10-04T21:03:06.584Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -617,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.900Z",
+        "evaluatedAt": "2026-10-04T21:03:06.584Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -690,7 +690,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.901Z",
+          "evaluatedAt": "2026-10-04T21:03:06.584Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -708,7 +708,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.901Z",
+          "evaluatedAt": "2026-10-04T21:03:06.584Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -794,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.901Z",
+        "evaluatedAt": "2026-10-04T21:03:06.584Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -867,7 +867,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.901Z",
+          "evaluatedAt": "2026-10-04T21:03:06.584Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -885,7 +885,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.901Z",
+          "evaluatedAt": "2026-10-04T21:03:06.584Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -971,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.901Z",
+        "evaluatedAt": "2026-10-04T21:03:06.584Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1044,7 +1044,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.901Z",
+          "evaluatedAt": "2026-10-04T21:03:06.584Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1062,7 +1062,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.901Z",
+          "evaluatedAt": "2026-10-04T21:03:06.584Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1148,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.901Z",
+        "evaluatedAt": "2026-10-04T21:03:06.584Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1221,7 +1221,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.901Z",
+          "evaluatedAt": "2026-10-04T21:03:06.584Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1239,14 +1239,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.901Z",
+          "evaluatedAt": "2026-10-04T21:03:06.584Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "caveman-help",
-      "description": "Quick-reference card for caveman modes, skills and commands. Trigger: /caveman-help or \"caveman help\".",
+      "description": "Quick-reference card for the three caveman skills and their commands. Trigger: /caveman-help or \"caveman help\".",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -1259,9 +1259,9 @@
       "installUrl": "github:JuliusBrussee/caveman:skills/caveman-help",
       "relPath": "skills/caveman-help",
       "verified": true,
-      "tokenCount": 599,
+      "tokenCount": 734,
       "evalSummary": {
-        "overallScore": 58,
+        "overallScore": 59,
         "grade": "D",
         "categories": [
           {
@@ -1285,13 +1285,13 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 1,
+            "score": 3,
             "max": 10
           },
           {
@@ -1325,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.901Z",
+        "evaluatedAt": "2026-10-04T21:03:06.584Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1334,7 +1334,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 58,
+          "overallScore": 59,
           "grade": "D",
           "categories": [
             {
@@ -1358,13 +1358,13 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 1,
+              "score": 3,
               "max": 10
             },
             {
@@ -1398,7 +1398,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.901Z",
+          "evaluatedAt": "2026-10-04T21:03:06.584Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1416,7 +1416,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.901Z",
+          "evaluatedAt": "2026-10-04T21:03:06.584Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1502,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.908Z",
+        "evaluatedAt": "2026-10-04T21:03:06.593Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1575,7 +1575,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.909Z",
+          "evaluatedAt": "2026-10-04T21:03:06.593Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1593,7 +1593,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.909Z",
+          "evaluatedAt": "2026-10-04T21:03:06.594Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1679,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.909Z",
+        "evaluatedAt": "2026-10-04T21:03:06.593Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1752,7 +1752,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.909Z",
+          "evaluatedAt": "2026-10-04T21:03:06.594Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1770,7 +1770,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.909Z",
+          "evaluatedAt": "2026-10-04T21:03:06.594Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1856,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.910Z",
+        "evaluatedAt": "2026-10-04T21:03:06.595Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1929,7 +1929,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.911Z",
+          "evaluatedAt": "2026-10-04T21:03:06.595Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1947,7 +1947,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.911Z",
+          "evaluatedAt": "2026-10-04T21:03:06.596Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2033,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.911Z",
+        "evaluatedAt": "2026-10-04T21:03:06.595Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2106,7 +2106,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.912Z",
+          "evaluatedAt": "2026-10-04T21:03:06.596Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2124,7 +2124,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.912Z",
+          "evaluatedAt": "2026-10-04T21:03:06.596Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2210,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.912Z",
+        "evaluatedAt": "2026-10-04T21:03:06.596Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2283,7 +2283,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.912Z",
+          "evaluatedAt": "2026-10-04T21:03:06.596Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2301,7 +2301,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.912Z",
+          "evaluatedAt": "2026-10-04T21:03:06.596Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2387,7 +2387,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.912Z",
+        "evaluatedAt": "2026-10-04T21:03:06.596Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2460,7 +2460,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.912Z",
+          "evaluatedAt": "2026-10-04T21:03:06.596Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2478,7 +2478,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.912Z",
+          "evaluatedAt": "2026-10-04T21:03:06.596Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2564,7 +2564,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.912Z",
+        "evaluatedAt": "2026-10-04T21:03:06.598Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2637,7 +2637,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.912Z",
+          "evaluatedAt": "2026-10-04T21:03:06.598Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2655,7 +2655,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.912Z",
+          "evaluatedAt": "2026-10-04T21:03:06.598Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2741,7 +2741,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.916Z",
+        "evaluatedAt": "2026-10-04T21:03:06.602Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2814,7 +2814,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.916Z",
+          "evaluatedAt": "2026-10-04T21:03:06.602Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2832,7 +2832,184 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.916Z",
+          "evaluatedAt": "2026-10-04T21:03:06.602Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "megacave",
+      "description": "Caveman in Classical Chinese: 文言文 register, far fewer characters, technical terms verbatim. Invoke only with /megacave or /caveman wenyan. Stays on until \"stop caveman\" or \"normal mode\".",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": false,
+      "userInvocable": true,
+      "installUrl": "github:JuliusBrussee/caveman:skills/megacave",
+      "relPath": "skills/megacave",
+      "verified": true,
+      "tokenCount": 609,
+      "evalSummary": {
+        "overallScore": 56,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-04T21:03:06.602Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 56,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-04T21:03:06.603Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-04T21:03:06.603Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2918,7 +3095,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.916Z",
+        "evaluatedAt": "2026-10-04T21:03:06.603Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2991,7 +3168,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.916Z",
+          "evaluatedAt": "2026-10-04T21:03:06.603Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3009,7 +3186,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.916Z",
+          "evaluatedAt": "2026-10-04T21:03:06.603Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3095,7 +3272,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.916Z",
+        "evaluatedAt": "2026-10-04T21:03:06.604Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3168,7 +3345,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.916Z",
+          "evaluatedAt": "2026-10-04T21:03:06.604Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3186,7 +3363,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.916Z",
+          "evaluatedAt": "2026-10-04T21:03:06.605Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3272,7 +3449,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.917Z",
+        "evaluatedAt": "2026-10-04T21:03:06.604Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3345,7 +3522,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.917Z",
+          "evaluatedAt": "2026-10-04T21:03:06.605Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3363,7 +3540,184 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.917Z",
+          "evaluatedAt": "2026-10-04T21:03:06.605Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "ultracave",
+      "description": "Caveman at maximum compression: fragments, one word when one word is enough, each fact once. Invoke only with /ultracave or /caveman ultra. Stays on until \"stop caveman\" or \"normal mode\".",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": false,
+      "userInvocable": true,
+      "installUrl": "github:JuliusBrussee/caveman:skills/ultracave",
+      "relPath": "skills/ultracave",
+      "verified": true,
+      "tokenCount": 649,
+      "evalSummary": {
+        "overallScore": 59,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-04T21:03:06.606Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 59,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-04T21:03:06.606Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-04T21:03:06.606Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3449,7 +3803,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:50:05.917Z",
+        "evaluatedAt": "2026-10-04T21:03:06.607Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3522,7 +3876,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.918Z",
+          "evaluatedAt": "2026-10-04T21:03:06.607Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3540,7 +3894,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:50:05.918Z",
+          "evaluatedAt": "2026-10-04T21:03:06.607Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3552,7 +3906,7 @@
       "name": "juliusbrussee-caveman-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from JuliusBrussee/caveman.",
       "author": "ASM (JuliusBrussee/caveman)",
-      "createdAt": "2026-09-30T20:50:06.210Z",
+      "createdAt": "2026-10-04T21:03:06.973Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3642,7 +3996,7 @@
       "name": "juliusbrussee-caveman-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from JuliusBrussee/caveman.",
       "author": "ASM (JuliusBrussee/caveman)",
-      "createdAt": "2026-09-30T20:50:06.210Z",
+      "createdAt": "2026-10-04T21:03:06.973Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3708,7 +4062,7 @@
       "name": "juliusbrussee-caveman-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from JuliusBrussee/caveman.",
       "author": "ASM (JuliusBrussee/caveman)",
-      "createdAt": "2026-09-30T20:50:06.210Z",
+      "createdAt": "2026-10-04T21:03:06.973Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3786,7 +4140,7 @@
       "name": "juliusbrussee-caveman-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from JuliusBrussee/caveman.",
       "author": "ASM (JuliusBrussee/caveman)",
-      "createdAt": "2026-09-30T20:50:06.210Z",
+      "createdAt": "2026-10-04T21:03:06.973Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3806,7 +4160,7 @@
         {
           "name": "caveman-help",
           "installUrl": "github:JuliusBrussee/caveman:skills/caveman-help",
-          "description": "Quick-reference card for caveman modes, skills and commands. Trigger: /caveman-help or \"caveman help\".",
+          "description": "Quick-reference card for the three caveman skills and their commands. Trigger: /caveman-help or \"caveman help\".",
           "version": "0.0.0"
         },
         {
@@ -3834,7 +4188,7 @@
       "name": "juliusbrussee-caveman-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from JuliusBrussee/caveman.",
       "author": "ASM (JuliusBrussee/caveman)",
-      "createdAt": "2026-09-30T20:50:06.210Z",
+      "createdAt": "2026-10-04T21:03:06.973Z",
       "tags": [
         "repo-derived",
         "inferred",

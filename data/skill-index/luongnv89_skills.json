@@ -2,13 +2,13 @@
   "repoUrl": "https://github.com/luongnv89/skills.git",
   "owner": "luongnv89",
   "repo": "skills",
-  "updatedAt": "2026-09-30T20:47:55.806Z",
-  "skillCount": 40,
+  "updatedAt": "2026-10-04T21:00:36.780Z",
+  "skillCount": 34,
   "skills": [
     {
       "name": "agent-config",
-      "description": "Create or update CLAUDE.md and AGENTS.md files following official best practices. Use when asked to create, audit, or improve agent config files (CLAUDE.md, AGENTS.md). Don't use for README/contributor docs or non-Claude IDE plugins.",
-      "version": "1.4.3",
+      "description": "Create, update, or audit AGENTS.md (default) or CLAUDE.md agent instructions: set up, prune, add a rule, or merge CLAUDE.md or .cursorrules into one file Claude Code, Codex, and Cursor all read. Don't use for READMEs, skills, or subagents.",
+      "version": "2.0.2",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -20,9 +20,9 @@
       "installUrl": "github:luongnv89/skills:skills/agent-config",
       "relPath": "skills/agent-config",
       "verified": true,
-      "tokenCount": 4057,
+      "tokenCount": 4487,
       "evalSummary": {
-        "overallScore": 93,
+        "overallScore": 92,
         "grade": "A",
         "categories": [
           {
@@ -40,7 +40,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
@@ -86,8 +86,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:54.984Z",
-        "evaluatedVersion": "1.4.3"
+        "evaluatedAt": "2026-10-04T21:00:35.723Z",
+        "evaluatedVersion": "2.0.2"
       },
       "evalSummaries": {
         "quality": {
@@ -95,7 +95,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 93,
+          "overallScore": 92,
           "grade": "A",
           "categories": [
             {
@@ -113,7 +113,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
@@ -159,8 +159,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:54.984Z",
-          "evaluatedVersion": "1.4.3"
+          "evaluatedAt": "2026-10-04T21:00:35.723Z",
+          "evaluatedVersion": "2.0.2"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -177,8 +177,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:54.984Z",
-          "evaluatedVersion": "1.4.3"
+          "evaluatedAt": "2026-10-04T21:00:35.723Z",
+          "evaluatedVersion": "2.0.2"
         }
       }
     },
@@ -263,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:54.984Z",
+        "evaluatedAt": "2026-10-04T21:00:35.723Z",
         "evaluatedVersion": "1.3.0"
       },
       "evalSummaries": {
@@ -336,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:54.984Z",
+          "evaluatedAt": "2026-10-04T21:00:35.723Z",
           "evaluatedVersion": "1.3.0"
         },
         "skill-best-practice": {
@@ -354,7 +354,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:54.984Z",
+          "evaluatedAt": "2026-10-04T21:00:35.723Z",
           "evaluatedVersion": "1.3.0"
         }
       }
@@ -440,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:54.986Z",
+        "evaluatedAt": "2026-10-04T21:00:35.723Z",
         "evaluatedVersion": "1.3.1"
       },
       "evalSummaries": {
@@ -513,7 +513,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:54.986Z",
+          "evaluatedAt": "2026-10-04T21:00:35.723Z",
           "evaluatedVersion": "1.3.1"
         },
         "skill-best-practice": {
@@ -531,7 +531,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:54.986Z",
+          "evaluatedAt": "2026-10-04T21:00:35.723Z",
           "evaluatedVersion": "1.3.1"
         }
       }
@@ -617,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:54.984Z",
+        "evaluatedAt": "2026-10-04T21:00:35.723Z",
         "evaluatedVersion": "1.0.5"
       },
       "evalSummaries": {
@@ -690,7 +690,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:54.984Z",
+          "evaluatedAt": "2026-10-04T21:00:35.723Z",
           "evaluatedVersion": "1.0.5"
         },
         "skill-best-practice": {
@@ -708,7 +708,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:54.984Z",
+          "evaluatedAt": "2026-10-04T21:00:35.723Z",
           "evaluatedVersion": "1.0.5"
         }
       }
@@ -794,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:54.984Z",
+        "evaluatedAt": "2026-10-04T21:00:35.723Z",
         "evaluatedVersion": "1.4.2"
       },
       "evalSummaries": {
@@ -867,7 +867,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:54.984Z",
+          "evaluatedAt": "2026-10-04T21:00:35.723Z",
           "evaluatedVersion": "1.4.2"
         },
         "skill-best-practice": {
@@ -885,7 +885,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:54.984Z",
+          "evaluatedAt": "2026-10-04T21:00:35.723Z",
           "evaluatedVersion": "1.4.2"
         }
       }
@@ -971,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:54.984Z",
+        "evaluatedAt": "2026-10-04T21:00:35.723Z",
         "evaluatedVersion": "1.1.0"
       },
       "evalSummaries": {
@@ -1044,7 +1044,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:54.986Z",
+          "evaluatedAt": "2026-10-04T21:00:35.723Z",
           "evaluatedVersion": "1.1.0"
         },
         "skill-best-practice": {
@@ -1062,7 +1062,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:54.986Z",
+          "evaluatedAt": "2026-10-04T21:00:35.723Z",
           "evaluatedVersion": "1.1.0"
         }
       }
@@ -1148,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:54.986Z",
+        "evaluatedAt": "2026-10-04T21:00:35.723Z",
         "evaluatedVersion": "2.1.3"
       },
       "evalSummaries": {
@@ -1221,7 +1221,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:54.986Z",
+          "evaluatedAt": "2026-10-04T21:00:35.723Z",
           "evaluatedVersion": "2.1.3"
         },
         "skill-best-practice": {
@@ -1239,7 +1239,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:54.986Z",
+          "evaluatedAt": "2026-10-04T21:00:35.723Z",
           "evaluatedVersion": "2.1.3"
         }
       }
@@ -1247,7 +1247,7 @@
     {
       "name": "codebase-modernizer",
       "description": "Audit a stale, inherited, or messy codebase — deps, bugs, security, tests, CI, docs, UI/UX — then emit a phased, testable modernization plan. Read-only: plans upgrades, never applies them. Not for single-PR review, PRD-to-tasks, or UX-only audits.",
-      "version": "1.3.2",
+      "version": "1.3.3",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -1259,7 +1259,7 @@
       "installUrl": "github:luongnv89/skills:skills/codebase-modernizer",
       "relPath": "skills/codebase-modernizer",
       "verified": true,
-      "tokenCount": 5970,
+      "tokenCount": 5978,
       "evalSummary": {
         "overallScore": 91,
         "grade": "A",
@@ -1325,8 +1325,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:54.986Z",
-        "evaluatedVersion": "1.3.2"
+        "evaluatedAt": "2026-10-04T21:00:35.723Z",
+        "evaluatedVersion": "1.3.3"
       },
       "evalSummaries": {
         "quality": {
@@ -1398,8 +1398,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:54.986Z",
-          "evaluatedVersion": "1.3.2"
+          "evaluatedAt": "2026-10-04T21:00:35.723Z",
+          "evaluatedVersion": "1.3.3"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -1416,185 +1416,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:54.986Z",
-          "evaluatedVersion": "1.3.2"
-        }
-      }
-    },
-    {
-      "name": "convert-documents-to-markdown",
-      "description": "Convert Word, PowerPoint, Excel, OpenDocument, RTF, EPUB, CSV, and PDF files to GitHub-Flavored Markdown when you cannot read the document directly. Don't use for text or Markdown files you can already read, or for creating or editing documents.",
-      "version": "1.1.0",
-      "license": "MIT",
-      "creator": "",
-      "compatibility": "Requires Node.js 20+ (runs via npx, no install). Optional FIRECRAWL_API_KEY raises hosted-OCR limits.",
-      "allowedTools": [],
-      "tags": [],
-      "dependencies": [],
-      "modelInvocable": true,
-      "userInvocable": true,
-      "installUrl": "github:luongnv89/skills:skills/convert-documents-to-markdown",
-      "relPath": "skills/convert-documents-to-markdown",
-      "verified": true,
-      "tokenCount": 1233,
-      "evalSummary": {
-        "overallScore": 95,
-        "grade": "A",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "license",
-            "name": "License verification",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "pii",
-            "name": "PII detection",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "script-lint",
-            "name": "Script linting",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-09-30T20:47:54.999Z",
-        "evaluatedVersion": "1.1.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 95,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "license",
-              "name": "License verification",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "pii",
-              "name": "PII detection",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "script-lint",
-              "name": "Script linting",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-09-30T20:47:55.000Z",
-          "evaluatedVersion": "1.1.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.2.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 100,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 15,
-              "max": 15
-            }
-          ],
-          "evaluatedAt": "2026-09-30T20:47:55.000Z",
-          "evaluatedVersion": "1.1.0"
+          "evaluatedAt": "2026-10-04T21:00:35.723Z",
+          "evaluatedVersion": "1.3.3"
         }
       }
     },
@@ -1679,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.004Z",
+        "evaluatedAt": "2026-10-04T21:00:35.742Z",
         "evaluatedVersion": "0.9.3"
       },
       "evalSummaries": {
@@ -1752,7 +1575,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.004Z",
+          "evaluatedAt": "2026-10-04T21:00:35.742Z",
           "evaluatedVersion": "0.9.3"
         },
         "skill-best-practice": {
@@ -1770,7 +1593,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.004Z",
+          "evaluatedAt": "2026-10-04T21:00:35.742Z",
           "evaluatedVersion": "0.9.3"
         }
       }
@@ -1856,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.008Z",
+        "evaluatedAt": "2026-10-04T21:00:35.753Z",
         "evaluatedVersion": "2.2.2"
       },
       "evalSummaries": {
@@ -1929,7 +1752,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.008Z",
+          "evaluatedAt": "2026-10-04T21:00:35.754Z",
           "evaluatedVersion": "2.2.2"
         },
         "skill-best-practice": {
@@ -1947,7 +1770,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.008Z",
+          "evaluatedAt": "2026-10-04T21:00:35.754Z",
           "evaluatedVersion": "2.2.2"
         }
       }
@@ -2033,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.013Z",
+        "evaluatedAt": "2026-10-04T21:00:35.788Z",
         "evaluatedVersion": "1.3.0"
       },
       "evalSummaries": {
@@ -2106,7 +1929,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.014Z",
+          "evaluatedAt": "2026-10-04T21:00:35.789Z",
           "evaluatedVersion": "1.3.0"
         },
         "skill-best-practice": {
@@ -2124,7 +1947,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.014Z",
+          "evaluatedAt": "2026-10-04T21:00:35.789Z",
           "evaluatedVersion": "1.3.0"
         }
       }
@@ -2210,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.015Z",
+        "evaluatedAt": "2026-10-04T21:00:35.789Z",
         "evaluatedVersion": "2.0.4"
       },
       "evalSummaries": {
@@ -2283,7 +2106,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.015Z",
+          "evaluatedAt": "2026-10-04T21:00:35.789Z",
           "evaluatedVersion": "2.0.4"
         },
         "skill-best-practice": {
@@ -2301,7 +2124,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.015Z",
+          "evaluatedAt": "2026-10-04T21:00:35.789Z",
           "evaluatedVersion": "2.0.4"
         }
       }
@@ -2387,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.020Z",
+        "evaluatedAt": "2026-10-04T21:00:35.795Z",
         "evaluatedVersion": "1.4.3"
       },
       "evalSummaries": {
@@ -2460,7 +2283,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.021Z",
+          "evaluatedAt": "2026-10-04T21:00:35.796Z",
           "evaluatedVersion": "1.4.3"
         },
         "skill-best-practice": {
@@ -2478,185 +2301,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.021Z",
+          "evaluatedAt": "2026-10-04T21:00:35.796Z",
           "evaluatedVersion": "1.4.3"
-        }
-      }
-    },
-    {
-      "name": "fork-upstream-sync",
-      "description": "Sync a GitHub fork with upstream while keeping unmerged feature branches and open PRs mergeable. Use for rebase on upstream, PR conflicts, integration main. Don't use for git init, releases, or non-fork repos.",
-      "version": "1.3.4",
-      "license": "MIT",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "tags": [],
-      "dependencies": [],
-      "modelInvocable": true,
-      "userInvocable": true,
-      "installUrl": "github:luongnv89/skills:skills/fork-upstream-sync",
-      "relPath": "skills/fork-upstream-sync",
-      "verified": true,
-      "tokenCount": 1896,
-      "evalSummary": {
-        "overallScore": 93,
-        "grade": "A",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "license",
-            "name": "License verification",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "pii",
-            "name": "PII detection",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "script-lint",
-            "name": "Script linting",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-09-30T20:47:55.021Z",
-        "evaluatedVersion": "1.3.4"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 91,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "license",
-              "name": "License verification",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "pii",
-              "name": "PII detection",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "script-lint",
-              "name": "Script linting",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-09-30T20:47:55.021Z",
-          "evaluatedVersion": "1.3.4"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.2.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 100,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 14,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-09-30T20:47:55.021Z",
-          "evaluatedVersion": "1.3.4"
         }
       }
     },
@@ -2741,7 +2387,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.026Z",
+        "evaluatedAt": "2026-10-04T21:00:35.803Z",
         "evaluatedVersion": "1.2.7"
       },
       "evalSummaries": {
@@ -2814,7 +2460,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.026Z",
+          "evaluatedAt": "2026-10-04T21:00:35.803Z",
           "evaluatedVersion": "1.2.7"
         },
         "skill-best-practice": {
@@ -2832,7 +2478,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.026Z",
+          "evaluatedAt": "2026-10-04T21:00:35.803Z",
           "evaluatedVersion": "1.2.7"
         }
       }
@@ -2918,7 +2564,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.033Z",
+        "evaluatedAt": "2026-10-04T21:00:35.816Z",
         "evaluatedVersion": "3.1.4"
       },
       "evalSummaries": {
@@ -2991,7 +2637,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.034Z",
+          "evaluatedAt": "2026-10-04T21:00:35.816Z",
           "evaluatedVersion": "3.1.4"
         },
         "skill-best-practice": {
@@ -3009,7 +2655,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.034Z",
+          "evaluatedAt": "2026-10-04T21:00:35.816Z",
           "evaluatedVersion": "3.1.4"
         }
       }
@@ -3095,7 +2741,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.034Z",
+        "evaluatedAt": "2026-10-04T21:00:35.824Z",
         "evaluatedVersion": "1.5.1"
       },
       "evalSummaries": {
@@ -3168,7 +2814,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.035Z",
+          "evaluatedAt": "2026-10-04T21:00:35.825Z",
           "evaluatedVersion": "1.5.1"
         },
         "skill-best-practice": {
@@ -3186,7 +2832,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.035Z",
+          "evaluatedAt": "2026-10-04T21:00:35.825Z",
           "evaluatedVersion": "1.5.1"
         }
       }
@@ -3272,7 +2918,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.038Z",
+        "evaluatedAt": "2026-10-04T21:00:35.825Z",
         "evaluatedVersion": "2.2.4"
       },
       "evalSummaries": {
@@ -3345,7 +2991,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.039Z",
+          "evaluatedAt": "2026-10-04T21:00:35.826Z",
           "evaluatedVersion": "2.2.4"
         },
         "skill-best-practice": {
@@ -3363,7 +3009,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.039Z",
+          "evaluatedAt": "2026-10-04T21:00:35.826Z",
           "evaluatedVersion": "2.2.4"
         }
       }
@@ -3449,7 +3095,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.048Z",
+        "evaluatedAt": "2026-10-04T21:00:35.829Z",
         "evaluatedVersion": "1.5.3"
       },
       "evalSummaries": {
@@ -3522,7 +3168,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.048Z",
+          "evaluatedAt": "2026-10-04T21:00:35.829Z",
           "evaluatedVersion": "1.5.3"
         },
         "skill-best-practice": {
@@ -3540,7 +3186,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.048Z",
+          "evaluatedAt": "2026-10-04T21:00:35.829Z",
           "evaluatedVersion": "1.5.3"
         }
       }
@@ -3626,7 +3272,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.049Z",
+        "evaluatedAt": "2026-10-04T21:00:35.858Z",
         "evaluatedVersion": "1.3.0"
       },
       "evalSummaries": {
@@ -3699,7 +3345,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.050Z",
+          "evaluatedAt": "2026-10-04T21:00:35.859Z",
           "evaluatedVersion": "1.3.0"
         },
         "skill-best-practice": {
@@ -3717,7 +3363,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.049Z",
+          "evaluatedAt": "2026-10-04T21:00:35.859Z",
           "evaluatedVersion": "1.3.0"
         }
       }
@@ -3803,7 +3449,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.060Z",
+        "evaluatedAt": "2026-10-04T21:00:35.859Z",
         "evaluatedVersion": "1.2.5"
       },
       "evalSummaries": {
@@ -3876,7 +3522,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.060Z",
+          "evaluatedAt": "2026-10-04T21:00:35.859Z",
           "evaluatedVersion": "1.2.5"
         },
         "skill-best-practice": {
@@ -3894,7 +3540,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.060Z",
+          "evaluatedAt": "2026-10-04T21:00:35.859Z",
           "evaluatedVersion": "1.2.5"
         }
       }
@@ -3980,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.065Z",
+        "evaluatedAt": "2026-10-04T21:00:35.874Z",
         "evaluatedVersion": "1.2.1"
       },
       "evalSummaries": {
@@ -4053,7 +3699,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.065Z",
+          "evaluatedAt": "2026-10-04T21:00:35.874Z",
           "evaluatedVersion": "1.2.1"
         },
         "skill-best-practice": {
@@ -4071,185 +3717,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.065Z",
+          "evaluatedAt": "2026-10-04T21:00:35.874Z",
           "evaluatedVersion": "1.2.1"
-        }
-      }
-    },
-    {
-      "name": "opencode-handoff",
-      "description": "Migrate a limit-blocked OpenCode session to a fresh sandbox: same project and agent setup, no host OpenCode config/token/key, attached in a tmux panel. Don't use for one-shot sandbox tasks (opencode-sandbox), opencode.ai (opencode-runner), or Herdr.",
-      "version": "1.1.1",
-      "license": "MIT",
-      "creator": "",
-      "compatibility": "Requires Docker on PATH and running, plus the opencode-sandbox skill at v2.1.0 or newer. The tmux panel additionally needs `tmux`; without it the skill prints the attach command instead.",
-      "allowedTools": [],
-      "tags": [],
-      "dependencies": [],
-      "modelInvocable": true,
-      "userInvocable": true,
-      "installUrl": "github:luongnv89/skills:skills/opencode-handoff",
-      "relPath": "skills/opencode-handoff",
-      "verified": true,
-      "tokenCount": 3021,
-      "evalSummary": {
-        "overallScore": 94,
-        "grade": "A",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "license",
-            "name": "License verification",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "pii",
-            "name": "PII detection",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "script-lint",
-            "name": "Script linting",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-09-30T20:47:55.067Z",
-        "evaluatedVersion": "1.1.1"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 92,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "license",
-              "name": "License verification",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "pii",
-              "name": "PII detection",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "script-lint",
-              "name": "Script linting",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-09-30T20:47:55.067Z",
-          "evaluatedVersion": "1.1.1"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.2.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 100,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 15,
-              "max": 15
-            }
-          ],
-          "evaluatedAt": "2026-09-30T20:47:55.067Z",
-          "evaluatedVersion": "1.1.1"
         }
       }
     },
@@ -4334,7 +3803,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.082Z",
+        "evaluatedAt": "2026-10-04T21:00:35.876Z",
         "evaluatedVersion": "1.5.1"
       },
       "evalSummaries": {
@@ -4407,7 +3876,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.082Z",
+          "evaluatedAt": "2026-10-04T21:00:35.876Z",
           "evaluatedVersion": "1.5.1"
         },
         "skill-best-practice": {
@@ -4425,185 +3894,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.082Z",
+          "evaluatedAt": "2026-10-04T21:00:35.876Z",
           "evaluatedVersion": "1.5.1"
-        }
-      }
-    },
-    {
-      "name": "opencode-sandbox",
-      "description": "Run OpenCode in a docker-dev sandbox (SSH/gh on by default; --no-ssh/--no-github to isolate). Prints docker exec attach; kept until you confirm rm. Don't use for opencode.ai (opencode-runner), Herdr, or the app.",
-      "version": "3.1.0",
-      "license": "MIT",
-      "creator": "",
-      "compatibility": "Requires Docker (Desktop or Engine) on PATH and running. Interactive mode additionally needs `cdev` (auto-installable from luongnv89/docker-dev) plus a pane-management skill (herdr-agent or tmux-agent-comms).",
-      "allowedTools": [],
-      "tags": [],
-      "dependencies": [],
-      "modelInvocable": true,
-      "userInvocable": true,
-      "installUrl": "github:luongnv89/skills:skills/opencode-sandbox",
-      "relPath": "skills/opencode-sandbox",
-      "verified": true,
-      "tokenCount": 4652,
-      "evalSummary": {
-        "overallScore": 93,
-        "grade": "A",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "license",
-            "name": "License verification",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "pii",
-            "name": "PII detection",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "script-lint",
-            "name": "Script linting",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-09-30T20:47:55.087Z",
-        "evaluatedVersion": "3.1.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 93,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "license",
-              "name": "License verification",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "pii",
-              "name": "PII detection",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "script-lint",
-              "name": "Script linting",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-09-30T20:47:55.087Z",
-          "evaluatedVersion": "3.1.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.2.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 100,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 15,
-              "max": 15
-            }
-          ],
-          "evaluatedAt": "2026-09-30T20:47:55.087Z",
-          "evaluatedVersion": "3.1.0"
         }
       }
     },
@@ -4688,7 +3980,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.101Z",
+        "evaluatedAt": "2026-10-04T21:00:35.878Z",
         "evaluatedVersion": "1.3.1"
       },
       "evalSummaries": {
@@ -4761,7 +4053,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.101Z",
+          "evaluatedAt": "2026-10-04T21:00:35.878Z",
           "evaluatedVersion": "1.3.1"
         },
         "skill-best-practice": {
@@ -4779,7 +4071,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.101Z",
+          "evaluatedAt": "2026-10-04T21:00:35.878Z",
           "evaluatedVersion": "1.3.1"
         }
       }
@@ -4787,7 +4079,7 @@
     {
       "name": "plan-to-issues",
       "description": "Convert any phased plan file, or a conversation about what to build, into labelled GitHub issues under one tracking epic mapping each issue to its source task. No plan file required. Don't use for writing plans, resolving issues, or triage.",
-      "version": "2.1.1",
+      "version": "2.2.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires git, GitHub CLI (gh) authenticated (`gh auth status`), and the issue-creator skill installed.",
@@ -4799,7 +4091,7 @@
       "installUrl": "github:luongnv89/skills:skills/plan-to-issues",
       "relPath": "skills/plan-to-issues",
       "verified": true,
-      "tokenCount": 6022,
+      "tokenCount": 6024,
       "evalSummary": {
         "overallScore": 91,
         "grade": "A",
@@ -4865,8 +4157,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.109Z",
-        "evaluatedVersion": "2.1.1"
+        "evaluatedAt": "2026-10-04T21:00:35.884Z",
+        "evaluatedVersion": "2.2.0"
       },
       "evalSummaries": {
         "quality": {
@@ -4938,8 +4230,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.109Z",
-          "evaluatedVersion": "2.1.1"
+          "evaluatedAt": "2026-10-04T21:00:35.885Z",
+          "evaluatedVersion": "2.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -4956,8 +4248,8 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.109Z",
-          "evaluatedVersion": "2.1.1"
+          "evaluatedAt": "2026-10-04T21:00:35.885Z",
+          "evaluatedVersion": "2.2.0"
         }
       }
     },
@@ -5042,7 +4334,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.167Z",
+        "evaluatedAt": "2026-10-04T21:00:35.905Z",
         "evaluatedVersion": "1.4.3"
       },
       "evalSummaries": {
@@ -5115,7 +4407,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.167Z",
+          "evaluatedAt": "2026-10-04T21:00:35.905Z",
           "evaluatedVersion": "1.4.3"
         },
         "skill-best-practice": {
@@ -5133,7 +4425,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.167Z",
+          "evaluatedAt": "2026-10-04T21:00:35.905Z",
           "evaluatedVersion": "1.4.3"
         }
       }
@@ -5219,7 +4511,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.171Z",
+        "evaluatedAt": "2026-10-04T21:00:35.908Z",
         "evaluatedVersion": "2.6.4"
       },
       "evalSummaries": {
@@ -5292,7 +4584,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.171Z",
+          "evaluatedAt": "2026-10-04T21:00:35.912Z",
           "evaluatedVersion": "2.6.4"
         },
         "skill-best-practice": {
@@ -5310,7 +4602,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.171Z",
+          "evaluatedAt": "2026-10-04T21:00:35.912Z",
           "evaluatedVersion": "2.6.4"
         }
       }
@@ -5396,7 +4688,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.175Z",
+        "evaluatedAt": "2026-10-04T21:00:35.932Z",
         "evaluatedVersion": "1.4.2"
       },
       "evalSummaries": {
@@ -5469,7 +4761,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.175Z",
+          "evaluatedAt": "2026-10-04T21:00:35.934Z",
           "evaluatedVersion": "1.4.2"
         },
         "skill-best-practice": {
@@ -5487,7 +4779,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.175Z",
+          "evaluatedAt": "2026-10-04T21:00:35.934Z",
           "evaluatedVersion": "1.4.2"
         }
       }
@@ -5573,7 +4865,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.180Z",
+        "evaluatedAt": "2026-10-04T21:00:35.946Z",
         "evaluatedVersion": "1.3.3"
       },
       "evalSummaries": {
@@ -5646,7 +4938,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.180Z",
+          "evaluatedAt": "2026-10-04T21:00:35.946Z",
           "evaluatedVersion": "1.3.3"
         },
         "skill-best-practice": {
@@ -5664,185 +4956,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.180Z",
+          "evaluatedAt": "2026-10-04T21:00:35.946Z",
           "evaluatedVersion": "1.3.3"
-        }
-      }
-    },
-    {
-      "name": "subagent-creator",
-      "description": "Create, evaluate, or improve Claude Code subagent files (.claude/agents/*.md) — the frontmatter + system prompt defining a delegatable specialist. Don't use for skills (skill-creator), CLAUDE.md/AGENTS.md (agent-config), or running an agent.",
-      "version": "1.1.4",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "tags": [],
-      "dependencies": [],
-      "modelInvocable": true,
-      "userInvocable": true,
-      "installUrl": "github:luongnv89/skills:skills/subagent-creator",
-      "relPath": "skills/subagent-creator",
-      "verified": true,
-      "tokenCount": 3004,
-      "evalSummary": {
-        "overallScore": 87,
-        "grade": "B",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "license",
-            "name": "License verification",
-            "score": 0,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "pii",
-            "name": "PII detection",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "script-lint",
-            "name": "Script linting",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-09-30T20:47:55.185Z",
-        "evaluatedVersion": "1.1.4"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 87,
-          "grade": "B",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "license",
-              "name": "License verification",
-              "score": 0,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "pii",
-              "name": "PII detection",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "script-lint",
-              "name": "Script linting",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-09-30T20:47:55.185Z",
-          "evaluatedVersion": "1.1.4"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.2.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 100,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 14,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-09-30T20:47:55.185Z",
-          "evaluatedVersion": "1.1.4"
         }
       }
     },
@@ -5927,7 +5042,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.186Z",
+        "evaluatedAt": "2026-10-04T21:00:35.949Z",
         "evaluatedVersion": "1.5.1"
       },
       "evalSummaries": {
@@ -6000,7 +5115,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.186Z",
+          "evaluatedAt": "2026-10-04T21:00:35.949Z",
           "evaluatedVersion": "1.5.1"
         },
         "skill-best-practice": {
@@ -6018,7 +5133,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.186Z",
+          "evaluatedAt": "2026-10-04T21:00:35.949Z",
           "evaluatedVersion": "1.5.1"
         }
       }
@@ -6104,7 +5219,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.195Z",
+        "evaluatedAt": "2026-10-04T21:00:35.978Z",
         "evaluatedVersion": "1.4.1"
       },
       "evalSummaries": {
@@ -6177,7 +5292,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.195Z",
+          "evaluatedAt": "2026-10-04T21:00:35.979Z",
           "evaluatedVersion": "1.4.1"
         },
         "skill-best-practice": {
@@ -6195,7 +5310,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.195Z",
+          "evaluatedAt": "2026-10-04T21:00:35.979Z",
           "evaluatedVersion": "1.4.1"
         }
       }
@@ -6281,7 +5396,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.197Z",
+        "evaluatedAt": "2026-10-04T21:00:35.993Z",
         "evaluatedVersion": "1.3.2"
       },
       "evalSummaries": {
@@ -6354,7 +5469,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.197Z",
+          "evaluatedAt": "2026-10-04T21:00:35.993Z",
           "evaluatedVersion": "1.3.2"
         },
         "skill-best-practice": {
@@ -6372,7 +5487,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.197Z",
+          "evaluatedAt": "2026-10-04T21:00:35.993Z",
           "evaluatedVersion": "1.3.2"
         }
       }
@@ -6458,7 +5573,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.200Z",
+        "evaluatedAt": "2026-10-04T21:00:36.007Z",
         "evaluatedVersion": "2.3.2"
       },
       "evalSummaries": {
@@ -6531,7 +5646,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.200Z",
+          "evaluatedAt": "2026-10-04T21:00:36.007Z",
           "evaluatedVersion": "2.3.2"
         },
         "skill-best-practice": {
@@ -6549,7 +5664,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.200Z",
+          "evaluatedAt": "2026-10-04T21:00:36.007Z",
           "evaluatedVersion": "2.3.2"
         }
       }
@@ -6635,7 +5750,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.205Z",
+        "evaluatedAt": "2026-10-04T21:00:36.018Z",
         "evaluatedVersion": "1.5.0"
       },
       "evalSummaries": {
@@ -6708,7 +5823,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.205Z",
+          "evaluatedAt": "2026-10-04T21:00:36.019Z",
           "evaluatedVersion": "1.5.0"
         },
         "skill-best-practice": {
@@ -6726,7 +5841,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.205Z",
+          "evaluatedAt": "2026-10-04T21:00:36.019Z",
           "evaluatedVersion": "1.5.0"
         }
       }
@@ -6812,7 +5927,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:47:55.236Z",
+        "evaluatedAt": "2026-10-04T21:00:36.022Z",
         "evaluatedVersion": "1.2.5"
       },
       "evalSummaries": {
@@ -6885,7 +6000,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.236Z",
+          "evaluatedAt": "2026-10-04T21:00:36.023Z",
           "evaluatedVersion": "1.2.5"
         },
         "skill-best-practice": {
@@ -6903,185 +6018,8 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-09-30T20:47:55.236Z",
+          "evaluatedAt": "2026-10-04T21:00:36.023Z",
           "evaluatedVersion": "1.2.5"
-        }
-      }
-    },
-    {
-      "name": "website-cloner",
-      "description": "Build an improved website clone from a URL via 6-phase gated workflow (Vite/React/shadcn/Tailwind + GitHub Pages). Use for end-to-end site rebuilds. Don't use for single-phase work.",
-      "version": "1.3.0",
-      "license": "MIT",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "tags": [],
-      "dependencies": [],
-      "modelInvocable": true,
-      "userInvocable": true,
-      "installUrl": "github:luongnv89/skills:skills/website-cloner",
-      "relPath": "skills/website-cloner",
-      "verified": true,
-      "tokenCount": 4014,
-      "evalSummary": {
-        "overallScore": 91,
-        "grade": "A",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "license",
-            "name": "License verification",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "pii",
-            "name": "PII detection",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "script-lint",
-            "name": "Script linting",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-09-30T20:47:55.243Z",
-        "evaluatedVersion": "1.3.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 91,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "license",
-              "name": "License verification",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "pii",
-              "name": "PII detection",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "script-lint",
-              "name": "Script linting",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-09-30T20:47:55.243Z",
-          "evaluatedVersion": "1.3.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.2.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 100,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 14,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-09-30T20:47:55.244Z",
-          "evaluatedVersion": "1.3.0"
         }
       }
     }
@@ -7092,7 +6030,7 @@
       "name": "luongnv89-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-09-30T20:47:55.806Z",
+      "createdAt": "2026-10-04T21:00:36.780Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7106,8 +6044,8 @@
         {
           "name": "agent-config",
           "installUrl": "github:luongnv89/skills:skills/agent-config",
-          "description": "Create or update CLAUDE.md and AGENTS.md files following official best practices. Use when asked to create, audit, or improve agent config files (CLAUDE.md, AGENTS.md). Don't use for README/contributor docs or non-Claude IDE plugins.",
-          "version": "1.4.3"
+          "description": "Create, update, or audit AGENTS.md (default) or CLAUDE.md agent instructions: set up, prune, add a rule, or merge CLAUDE.md or .cursorrules into one file Claude Code, Codex, and Cursor all read. Don't use for READMEs, skills, or subagents.",
+          "version": "2.0.2"
         },
         {
           "name": "appstore-review-checker",
@@ -7138,12 +6076,6 @@
           "installUrl": "github:luongnv89/skills:skills/doc-manager",
           "description": "Generate or update docs to match the code, citing each claim to path:line and asking on ambiguity; runbook docs also get a check-only validation script. Don't use for API-reference autogen (JSDoc/Sphinx), landing pages, or CLAUDE.md/AGENTS.md.",
           "version": "2.0.4"
-        },
-        {
-          "name": "fork-upstream-sync",
-          "installUrl": "github:luongnv89/skills:skills/fork-upstream-sync",
-          "description": "Sync a GitHub fork with upstream while keeping unmerged feature branches and open PRs mergeable. Use for rebase on upstream, PR conflicts, integration main. Don't use for git init, releases, or non-fork repos.",
-          "version": "1.3.4"
         },
         {
           "name": "herdr-agent",
@@ -7176,22 +6108,10 @@
           "version": "1.2.1"
         },
         {
-          "name": "opencode-handoff",
-          "installUrl": "github:luongnv89/skills:skills/opencode-handoff",
-          "description": "Migrate a limit-blocked OpenCode session to a fresh sandbox: same project and agent setup, no host OpenCode config/token/key, attached in a tmux panel. Don't use for one-shot sandbox tasks (opencode-sandbox), opencode.ai (opencode-runner), or Herdr.",
-          "version": "1.1.1"
-        },
-        {
           "name": "opencode-runner",
           "installUrl": "github:luongnv89/skills:skills/opencode-runner",
           "description": "Run coding tasks via opencode using free cloud models. Use when asked to offload work to opencode.ai or run a free model. Don't use for local models (Ollama, LM Studio), Claude/OpenAI calls, or when Claude should do the work itself.",
           "version": "1.5.1"
-        },
-        {
-          "name": "opencode-sandbox",
-          "installUrl": "github:luongnv89/skills:skills/opencode-sandbox",
-          "description": "Run OpenCode in a docker-dev sandbox (SSH/gh on by default; --no-ssh/--no-github to isolate). Prints docker exec attach; kept until you confirm rm. Don't use for opencode.ai (opencode-runner), Herdr, or the app.",
-          "version": "3.1.0"
         },
         {
           "name": "security-setup",
@@ -7204,12 +6124,6 @@
           "installUrl": "github:luongnv89/skills:skills/seo-ai-optimizer",
           "description": "Audit and optimize websites for technical SEO, content SEO, and AI bot accessibility. Fixes meta tags, sitemaps, robots.txt, structured data, llms.txt, and GPTBot/ClaudeBot directives. Not for App Store ASO, paid search, or blog writing.",
           "version": "1.3.3"
-        },
-        {
-          "name": "subagent-creator",
-          "installUrl": "github:luongnv89/skills:skills/subagent-creator",
-          "description": "Create, evaluate, or improve Claude Code subagent files (.claude/agents/*.md) — the frontmatter + system prompt defining a delegatable specialist. Don't use for skills (skill-creator), CLAUDE.md/AGENTS.md (agent-config), or running an agent.",
-          "version": "1.1.4"
         },
         {
           "name": "tmux-agent-comms",
@@ -7228,12 +6142,6 @@
           "installUrl": "github:luongnv89/skills:skills/website-agent-readiness",
           "description": "Scan a site for agent readiness via isitagentready.com — 'make this site agent-ready' or 'scan this site', incl. localhost/private URLs and robots.txt checks. Triage the 0-5 score, write agent-ready-plan.md, file issues via /plan-to-issues. Not for llms.txt/SEO fixes (seo-ai-optimizer) or app-store ASO.",
           "version": "1.2.5"
-        },
-        {
-          "name": "website-cloner",
-          "installUrl": "github:luongnv89/skills:skills/website-cloner",
-          "description": "Build an improved website clone from a URL via 6-phase gated workflow (Vite/React/shadcn/Tailwind + GitHub Pages). Use for end-to-end site rebuilds. Don't use for single-phase work.",
-          "version": "1.3.0"
         }
       ],
       "sourceRepo": {
@@ -7248,7 +6156,7 @@
       "name": "luongnv89-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-09-30T20:47:55.806Z",
+      "createdAt": "2026-10-04T21:00:36.780Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7259,12 +6167,6 @@
         "skills"
       ],
       "skills": [
-        {
-          "name": "agent-config",
-          "installUrl": "github:luongnv89/skills:skills/agent-config",
-          "description": "Create or update CLAUDE.md and AGENTS.md files following official best practices. Use when asked to create, audit, or improve agent config files (CLAUDE.md, AGENTS.md). Don't use for README/contributor docs or non-Claude IDE plugins.",
-          "version": "1.4.3"
-        },
         {
           "name": "aso-marketing",
           "installUrl": "github:luongnv89/skills:skills/aso-marketing",
@@ -7293,7 +6195,7 @@
           "name": "codebase-modernizer",
           "installUrl": "github:luongnv89/skills:skills/codebase-modernizer",
           "description": "Audit a stale, inherited, or messy codebase — deps, bugs, security, tests, CI, docs, UI/UX — then emit a phased, testable modernization plan. Read-only: plans upgrades, never applies them. Not for single-PR review, PRD-to-tasks, or UX-only audits.",
-          "version": "1.3.2"
+          "version": "1.3.3"
         },
         {
           "name": "dev-machine-setup",
@@ -7326,12 +6228,6 @@
           "version": "1.4.3"
         },
         {
-          "name": "fork-upstream-sync",
-          "installUrl": "github:luongnv89/skills:skills/fork-upstream-sync",
-          "description": "Sync a GitHub fork with upstream while keeping unmerged feature branches and open PRs mergeable. Use for rebase on upstream, PR conflicts, integration main. Don't use for git init, releases, or non-fork repos.",
-          "version": "1.3.4"
-        },
-        {
           "name": "idea-validator",
           "installUrl": "github:luongnv89/skills:skills/idea-validator",
           "description": "Validate app/startup ideas with market, feasibility, commercial, and open-source competitor analysis. Use when asked to evaluate, validate, or score a product idea. Don't use for PRDs, go-to-market plans, or investor decks.",
@@ -7350,12 +6246,6 @@
           "version": "1.5.1"
         },
         {
-          "name": "opencode-sandbox",
-          "installUrl": "github:luongnv89/skills:skills/opencode-sandbox",
-          "description": "Run OpenCode in a docker-dev sandbox (SSH/gh on by default; --no-ssh/--no-github to isolate). Prints docker exec attach; kept until you confirm rm. Don't use for opencode.ai (opencode-runner), Herdr, or the app.",
-          "version": "3.1.0"
-        },
-        {
           "name": "release-manager",
           "installUrl": "github:luongnv89/skills:skills/release-manager",
           "description": "Manage software releases end-to-end: bump version, generate changelog, tag, push, GitHub release, publish to PyPI/npm. Use when asked to ship, cut a release, or tag a version. Don't use for routine commits or marketplace publishing.",
@@ -7368,12 +6258,6 @@
           "version": "1.4.2"
         },
         {
-          "name": "subagent-creator",
-          "installUrl": "github:luongnv89/skills:skills/subagent-creator",
-          "description": "Create, evaluate, or improve Claude Code subagent files (.claude/agents/*.md) — the frontmatter + system prompt defining a delegatable specialist. Don't use for skills (skill-creator), CLAUDE.md/AGENTS.md (agent-config), or running an agent.",
-          "version": "1.1.4"
-        },
-        {
           "name": "test-coverage",
           "installUrl": "github:luongnv89/skills:skills/test-coverage",
           "description": "Generate unit tests for untested branches and edge cases. Use when coverage is low, CI flags gaps, or a release needs hardening. Not for integration/E2E suites, framework migrations, or fixing production bugs.",
@@ -7384,12 +6268,6 @@
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
           "version": "1.5.0"
-        },
-        {
-          "name": "website-cloner",
-          "installUrl": "github:luongnv89/skills:skills/website-cloner",
-          "description": "Build an improved website clone from a URL via 6-phase gated workflow (Vite/React/shadcn/Tailwind + GitHub Pages). Use for end-to-end site rebuilds. Don't use for single-phase work.",
-          "version": "1.3.0"
         }
       ],
       "sourceRepo": {
@@ -7404,7 +6282,7 @@
       "name": "luongnv89-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-09-30T20:47:55.806Z",
+      "createdAt": "2026-10-04T21:00:36.780Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7415,6 +6293,12 @@
         "skills"
       ],
       "skills": [
+        {
+          "name": "agent-config",
+          "installUrl": "github:luongnv89/skills:skills/agent-config",
+          "description": "Create, update, or audit AGENTS.md (default) or CLAUDE.md agent instructions: set up, prune, add a rule, or merge CLAUDE.md or .cursorrules into one file Claude Code, Codex, and Cursor all read. Don't use for READMEs, skills, or subagents.",
+          "version": "2.0.2"
+        },
         {
           "name": "appstore-review-checker",
           "installUrl": "github:luongnv89/skills:skills/appstore-review-checker",
@@ -7443,7 +6327,7 @@
           "name": "codebase-modernizer",
           "installUrl": "github:luongnv89/skills:skills/codebase-modernizer",
           "description": "Audit a stale, inherited, or messy codebase — deps, bugs, security, tests, CI, docs, UI/UX — then emit a phased, testable modernization plan. Read-only: plans upgrades, never applies them. Not for single-PR review, PRD-to-tasks, or UX-only audits.",
-          "version": "1.3.2"
+          "version": "1.3.3"
         },
         {
           "name": "devops-pipeline",
@@ -7500,22 +6384,10 @@
           "version": "1.2.1"
         },
         {
-          "name": "opencode-handoff",
-          "installUrl": "github:luongnv89/skills:skills/opencode-handoff",
-          "description": "Migrate a limit-blocked OpenCode session to a fresh sandbox: same project and agent setup, no host OpenCode config/token/key, attached in a tmux panel. Don't use for one-shot sandbox tasks (opencode-sandbox), opencode.ai (opencode-runner), or Herdr.",
-          "version": "1.1.1"
-        },
-        {
           "name": "opencode-runner",
           "installUrl": "github:luongnv89/skills:skills/opencode-runner",
           "description": "Run coding tasks via opencode using free cloud models. Use when asked to offload work to opencode.ai or run a free model. Don't use for local models (Ollama, LM Studio), Claude/OpenAI calls, or when Claude should do the work itself.",
           "version": "1.5.1"
-        },
-        {
-          "name": "opencode-sandbox",
-          "installUrl": "github:luongnv89/skills:skills/opencode-sandbox",
-          "description": "Run OpenCode in a docker-dev sandbox (SSH/gh on by default; --no-ssh/--no-github to isolate). Prints docker exec attach; kept until you confirm rm. Don't use for opencode.ai (opencode-runner), Herdr, or the app.",
-          "version": "3.1.0"
         },
         {
           "name": "oss-ready",
@@ -7527,19 +6399,13 @@
           "name": "plan-to-issues",
           "installUrl": "github:luongnv89/skills:skills/plan-to-issues",
           "description": "Convert any phased plan file, or a conversation about what to build, into labelled GitHub issues under one tracking epic mapping each issue to its source task. No plan file required. Don't use for writing plans, resolving issues, or triage.",
-          "version": "2.1.1"
+          "version": "2.2.0"
         },
         {
           "name": "security-setup",
           "installUrl": "github:luongnv89/skills:skills/security-setup",
           "description": "Install local-first security hardening: pre-commit secret detection, offline dependency scans, static analysis, reports, and gated free CI. Use when hardening repos or adding security hooks. Don't use for incident response or cloud security reviews.",
           "version": "1.4.2"
-        },
-        {
-          "name": "subagent-creator",
-          "installUrl": "github:luongnv89/skills:skills/subagent-creator",
-          "description": "Create, evaluate, or improve Claude Code subagent files (.claude/agents/*.md) — the frontmatter + system prompt defining a delegatable specialist. Don't use for skills (skill-creator), CLAUDE.md/AGENTS.md (agent-config), or running an agent.",
-          "version": "1.1.4"
         },
         {
           "name": "tad-generator",
@@ -7564,12 +6430,6 @@
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
           "version": "1.5.0"
-        },
-        {
-          "name": "website-cloner",
-          "installUrl": "github:luongnv89/skills:skills/website-cloner",
-          "description": "Build an improved website clone from a URL via 6-phase gated workflow (Vite/React/shadcn/Tailwind + GitHub Pages). Use for end-to-end site rebuilds. Don't use for single-phase work.",
-          "version": "1.3.0"
         }
       ],
       "sourceRepo": {
@@ -7584,7 +6444,7 @@
       "name": "luongnv89-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-09-30T20:47:55.806Z",
+      "createdAt": "2026-10-04T21:00:36.780Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7617,7 +6477,7 @@
           "name": "codebase-modernizer",
           "installUrl": "github:luongnv89/skills:skills/codebase-modernizer",
           "description": "Audit a stale, inherited, or messy codebase — deps, bugs, security, tests, CI, docs, UI/UX — then emit a phased, testable modernization plan. Read-only: plans upgrades, never applies them. Not for single-PR review, PRD-to-tasks, or UX-only audits.",
-          "version": "1.3.2"
+          "version": "1.3.3"
         },
         {
           "name": "dev-machine-setup",
@@ -7662,12 +6522,6 @@
           "version": "1.2.5"
         },
         {
-          "name": "opencode-handoff",
-          "installUrl": "github:luongnv89/skills:skills/opencode-handoff",
-          "description": "Migrate a limit-blocked OpenCode session to a fresh sandbox: same project and agent setup, no host OpenCode config/token/key, attached in a tmux panel. Don't use for one-shot sandbox tasks (opencode-sandbox), opencode.ai (opencode-runner), or Herdr.",
-          "version": "1.1.1"
-        },
-        {
           "name": "oss-ready",
           "installUrl": "github:luongnv89/skills:skills/oss-ready",
           "description": "Transform a project into a professional open-source repository by adding LICENSE, README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, and GitHub issue/PR templates. Don't use for documentation overhauls, landing-page generation, or registry publishing.",
@@ -7677,7 +6531,7 @@
           "name": "plan-to-issues",
           "installUrl": "github:luongnv89/skills:skills/plan-to-issues",
           "description": "Convert any phased plan file, or a conversation about what to build, into labelled GitHub issues under one tracking epic mapping each issue to its source task. No plan file required. Don't use for writing plans, resolving issues, or triage.",
-          "version": "2.1.1"
+          "version": "2.2.0"
         },
         {
           "name": "prd-generator",
@@ -7714,12 +6568,6 @@
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
           "version": "1.5.0"
-        },
-        {
-          "name": "website-cloner",
-          "installUrl": "github:luongnv89/skills:skills/website-cloner",
-          "description": "Build an improved website clone from a URL via 6-phase gated workflow (Vite/React/shadcn/Tailwind + GitHub Pages). Use for end-to-end site rebuilds. Don't use for single-phase work.",
-          "version": "1.3.0"
         }
       ],
       "sourceRepo": {
@@ -7734,7 +6582,7 @@
       "name": "luongnv89-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-09-30T20:47:55.806Z",
+      "createdAt": "2026-10-04T21:00:36.780Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7812,7 +6660,7 @@
       "name": "luongnv89-skills-mobile",
       "description": "iOS, Swift, SwiftUI, Xcode, macOS, and App Store skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-09-30T20:47:55.806Z",
+      "createdAt": "2026-10-04T21:00:36.780Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7860,7 +6708,7 @@
       "name": "luongnv89-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-09-30T20:47:55.806Z",
+      "createdAt": "2026-10-04T21:00:36.780Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -7893,7 +6741,7 @@
           "name": "codebase-modernizer",
           "installUrl": "github:luongnv89/skills:skills/codebase-modernizer",
           "description": "Audit a stale, inherited, or messy codebase — deps, bugs, security, tests, CI, docs, UI/UX — then emit a phased, testable modernization plan. Read-only: plans upgrades, never applies them. Not for single-PR review, PRD-to-tasks, or UX-only audits.",
-          "version": "1.3.2"
+          "version": "1.3.3"
         },
         {
           "name": "frontend-design",
@@ -7968,7 +6816,7 @@
       "name": "luongnv89-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-09-30T20:47:55.806Z",
+      "createdAt": "2026-10-04T21:00:36.780Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8001,7 +6849,7 @@
           "name": "codebase-modernizer",
           "installUrl": "github:luongnv89/skills:skills/codebase-modernizer",
           "description": "Audit a stale, inherited, or messy codebase — deps, bugs, security, tests, CI, docs, UI/UX — then emit a phased, testable modernization plan. Read-only: plans upgrades, never applies them. Not for single-PR review, PRD-to-tasks, or UX-only audits.",
-          "version": "1.3.2"
+          "version": "1.3.3"
         },
         {
           "name": "dont-make-me-think",
@@ -8028,12 +6876,6 @@
           "version": "1.4.2"
         },
         {
-          "name": "subagent-creator",
-          "installUrl": "github:luongnv89/skills:skills/subagent-creator",
-          "description": "Create, evaluate, or improve Claude Code subagent files (.claude/agents/*.md) — the frontmatter + system prompt defining a delegatable specialist. Don't use for skills (skill-creator), CLAUDE.md/AGENTS.md (agent-config), or running an agent.",
-          "version": "1.1.4"
-        },
-        {
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
@@ -8052,7 +6894,7 @@
       "name": "luongnv89-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-09-30T20:47:55.806Z",
+      "createdAt": "2026-10-04T21:00:36.780Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -8066,8 +6908,8 @@
         {
           "name": "agent-config",
           "installUrl": "github:luongnv89/skills:skills/agent-config",
-          "description": "Create or update CLAUDE.md and AGENTS.md files following official best practices. Use when asked to create, audit, or improve agent config files (CLAUDE.md, AGENTS.md). Don't use for README/contributor docs or non-Claude IDE plugins.",
-          "version": "1.4.3"
+          "description": "Create, update, or audit AGENTS.md (default) or CLAUDE.md agent instructions: set up, prune, add a rule, or merge CLAUDE.md or .cursorrules into one file Claude Code, Codex, and Cursor all read. Don't use for READMEs, skills, or subagents.",
+          "version": "2.0.2"
         },
         {
           "name": "code-review",
@@ -8079,7 +6921,7 @@
           "name": "codebase-modernizer",
           "installUrl": "github:luongnv89/skills:skills/codebase-modernizer",
           "description": "Audit a stale, inherited, or messy codebase — deps, bugs, security, tests, CI, docs, UI/UX — then emit a phased, testable modernization plan. Read-only: plans upgrades, never applies them. Not for single-PR review, PRD-to-tasks, or UX-only audits.",
-          "version": "1.3.2"
+          "version": "1.3.3"
         },
         {
           "name": "doc-manager",
@@ -8103,7 +6945,7 @@
           "name": "plan-to-issues",
           "installUrl": "github:luongnv89/skills:skills/plan-to-issues",
           "description": "Convert any phased plan file, or a conversation about what to build, into labelled GitHub issues under one tracking epic mapping each issue to its source task. No plan file required. Don't use for writing plans, resolving issues, or triage.",
-          "version": "2.1.1"
+          "version": "2.2.0"
         },
         {
           "name": "seo-ai-optimizer",

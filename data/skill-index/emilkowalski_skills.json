@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/emilkowalski/skills.git",
   "owner": "emilkowalski",
   "repo": "skills",
-  "updatedAt": "2026-09-30T20:49:58.469Z",
-  "skillCount": 13,
+  "updatedAt": "2026-10-04T21:03:00.085Z",
+  "skillCount": 14,
   "skills": [
     {
       "name": "animate",
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:49:58.440Z",
+        "evaluatedAt": "2026-10-04T21:03:00.052Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.442Z",
+          "evaluatedAt": "2026-10-04T21:03:00.055Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.442Z",
+          "evaluatedAt": "2026-10-04T21:03:00.055Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -263,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:49:58.441Z",
+        "evaluatedAt": "2026-10-04T21:03:00.052Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -336,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.442Z",
+          "evaluatedAt": "2026-10-04T21:03:00.055Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -354,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.442Z",
+          "evaluatedAt": "2026-10-04T21:03:00.055Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -440,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:49:58.441Z",
+        "evaluatedAt": "2026-10-04T21:03:00.052Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -513,7 +513,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.442Z",
+          "evaluatedAt": "2026-10-04T21:03:00.055Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -531,7 +531,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.442Z",
+          "evaluatedAt": "2026-10-04T21:03:00.055Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -617,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:49:58.444Z",
+        "evaluatedAt": "2026-10-04T21:03:00.053Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -690,7 +690,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.444Z",
+          "evaluatedAt": "2026-10-04T21:03:00.056Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -708,7 +708,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.444Z",
+          "evaluatedAt": "2026-10-04T21:03:00.056Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -794,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:49:58.442Z",
+        "evaluatedAt": "2026-10-04T21:03:00.055Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -867,7 +867,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.444Z",
+          "evaluatedAt": "2026-10-04T21:03:00.056Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -885,7 +885,184 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.444Z",
+          "evaluatedAt": "2026-10-04T21:03:00.056Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "break-ui",
+      "description": "Try to break a piece of UI by feeding it worst-case data — long names, unbreakable emails, one-letter names, missing fields, huge counts, zero items, long labels, non-Latin text, emoji, extreme numbers — then render it behind a \"Demo data / Worst case\" toggle and report everything that broke, with the fix for each. Use when the user asks to stress-test, break, or find edge cases in a component or screen, or to \"try the worst case\". For visual design critique use emil-design-eng; for motion use review-animations.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:emilkowalski/skills:skills/break-ui",
+      "relPath": "skills/break-ui",
+      "verified": true,
+      "tokenCount": 4789,
+      "evalSummary": {
+        "overallScore": 69,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-04T21:03:00.055Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 67,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-04T21:03:00.056Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-04T21:03:00.056Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -971,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:49:58.442Z",
+        "evaluatedAt": "2026-10-04T21:03:00.056Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1044,7 +1221,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.444Z",
+          "evaluatedAt": "2026-10-04T21:03:00.056Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1062,7 +1239,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.444Z",
+          "evaluatedAt": "2026-10-04T21:03:00.056Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1148,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:49:58.442Z",
+        "evaluatedAt": "2026-10-04T21:03:00.056Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1221,7 +1398,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.444Z",
+          "evaluatedAt": "2026-10-04T21:03:00.056Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1239,7 +1416,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.444Z",
+          "evaluatedAt": "2026-10-04T21:03:00.056Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1325,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:49:58.444Z",
+        "evaluatedAt": "2026-10-04T21:03:00.071Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1398,7 +1575,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.444Z",
+          "evaluatedAt": "2026-10-04T21:03:00.072Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1416,7 +1593,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.444Z",
+          "evaluatedAt": "2026-10-04T21:03:00.072Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1502,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:49:58.458Z",
+        "evaluatedAt": "2026-10-04T21:03:00.071Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1575,7 +1752,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.458Z",
+          "evaluatedAt": "2026-10-04T21:03:00.072Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1593,7 +1770,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.458Z",
+          "evaluatedAt": "2026-10-04T21:03:00.072Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1679,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:49:58.458Z",
+        "evaluatedAt": "2026-10-04T21:03:00.073Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1752,7 +1929,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.458Z",
+          "evaluatedAt": "2026-10-04T21:03:00.073Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1770,7 +1947,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.458Z",
+          "evaluatedAt": "2026-10-04T21:03:00.073Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1856,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:49:58.458Z",
+        "evaluatedAt": "2026-10-04T21:03:00.073Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1929,7 +2106,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.459Z",
+          "evaluatedAt": "2026-10-04T21:03:00.076Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1947,7 +2124,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.459Z",
+          "evaluatedAt": "2026-10-04T21:03:00.076Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2033,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:49:58.462Z",
+        "evaluatedAt": "2026-10-04T21:03:00.076Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2106,7 +2283,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.462Z",
+          "evaluatedAt": "2026-10-04T21:03:00.076Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2124,7 +2301,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.462Z",
+          "evaluatedAt": "2026-10-04T21:03:00.076Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2210,7 +2387,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-09-30T20:49:58.462Z",
+        "evaluatedAt": "2026-10-04T21:03:00.076Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2283,7 +2460,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.462Z",
+          "evaluatedAt": "2026-10-04T21:03:00.077Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2301,7 +2478,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-09-30T20:49:58.462Z",
+          "evaluatedAt": "2026-10-04T21:03:00.077Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2313,7 +2490,7 @@
       "name": "emilkowalski-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from emilkowalski/skills.",
       "author": "ASM (emilkowalski/skills)",
-      "createdAt": "2026-09-30T20:49:58.469Z",
+      "createdAt": "2026-10-04T21:03:00.085Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2340,6 +2517,12 @@
           "name": "ask-sonner",
           "installUrl": "github:emilkowalski/skills:skills/ask-sonner",
           "description": "Guide to Sonner, the React toast library — install and wire up the Toaster, pick the right toast() call, promise and loading toasts, updating, dismissing and persisting toasts, styling, theming and icons, positioning and multiple toasters. Use when working with Sonner or troubleshooting it — toasts that don't appear, appear twice, lose their styles, ignore Tailwind classes, sit behind a modal, or don't follow dark mode.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "break-ui",
+          "installUrl": "github:emilkowalski/skills:skills/break-ui",
+          "description": "Try to break a piece of UI by feeding it worst-case data — long names, unbreakable emails, one-letter names, missing fields, huge counts, zero items, long labels, non-Latin text, emoji, extreme numbers — then render it behind a \"Demo data / Worst case\" toggle and report everything that broke, with the fix for each. Use when the user asks to stress-test, break, or find edge cases in a component or screen, or to \"try the worst case\". For visual design critique use emil-design-eng; for motion use review-animations.",
           "version": "0.0.0"
         },
         {
@@ -2379,7 +2562,7 @@
       "name": "emilkowalski-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from emilkowalski/skills.",
       "author": "ASM (emilkowalski/skills)",
-      "createdAt": "2026-09-30T20:49:58.469Z",
+      "createdAt": "2026-10-04T21:03:00.085Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2433,7 +2616,7 @@
       "name": "emilkowalski-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from emilkowalski/skills.",
       "author": "ASM (emilkowalski/skills)",
-      "createdAt": "2026-09-30T20:49:58.469Z",
+      "createdAt": "2026-10-04T21:03:00.085Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2466,6 +2649,12 @@
           "name": "apple-design",
           "installUrl": "github:emilkowalski/skills:skills/apple-design",
           "description": "Apple's approach to interface design and fluid, physical motion, translated for the web. Use when building or reviewing gesture-driven UI, spring animations, drag/swipe/sheet interactions, momentum and interruptible transitions, translucent materials and depth, typography (optical sizing, tracking, leading), reduced-motion, or the design foundations (feedback, spatial consistency, restraint) behind Apple-style interfaces.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "break-ui",
+          "installUrl": "github:emilkowalski/skills:skills/break-ui",
+          "description": "Try to break a piece of UI by feeding it worst-case data — long names, unbreakable emails, one-letter names, missing fields, huge counts, zero items, long labels, non-Latin text, emoji, extreme numbers — then render it behind a \"Demo data / Worst case\" toggle and report everything that broke, with the fix for each. Use when the user asks to stress-test, break, or find edge cases in a component or screen, or to \"try the worst case\". For visual design critique use emil-design-eng; for motion use review-animations.",
           "version": "0.0.0"
         },
         {
@@ -2523,7 +2712,7 @@
       "name": "emilkowalski-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from emilkowalski/skills.",
       "author": "ASM (emilkowalski/skills)",
-      "createdAt": "2026-09-30T20:49:58.469Z",
+      "createdAt": "2026-10-04T21:03:00.085Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2562,6 +2751,12 @@
           "name": "ask-sonner",
           "installUrl": "github:emilkowalski/skills:skills/ask-sonner",
           "description": "Guide to Sonner, the React toast library — install and wire up the Toaster, pick the right toast() call, promise and loading toasts, updating, dismissing and persisting toasts, styling, theming and icons, positioning and multiple toasters. Use when working with Sonner or troubleshooting it — toasts that don't appear, appear twice, lose their styles, ignore Tailwind classes, sit behind a modal, or don't follow dark mode.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "break-ui",
+          "installUrl": "github:emilkowalski/skills:skills/break-ui",
+          "description": "Try to break a piece of UI by feeding it worst-case data — long names, unbreakable emails, one-letter names, missing fields, huge counts, zero items, long labels, non-Latin text, emoji, extreme numbers — then render it behind a \"Demo data / Worst case\" toggle and report everything that broke, with the fix for each. Use when the user asks to stress-test, break, or find edge cases in a component or screen, or to \"try the worst case\". For visual design critique use emil-design-eng; for motion use review-animations.",
           "version": "0.0.0"
         },
         {
@@ -2619,7 +2814,7 @@
       "name": "emilkowalski-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from emilkowalski/skills.",
       "author": "ASM (emilkowalski/skills)",
-      "createdAt": "2026-09-30T20:49:58.469Z",
+      "createdAt": "2026-10-04T21:03:00.085Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2661,7 +2856,7 @@
       "name": "emilkowalski-skills-mobile",
       "description": "iOS, Swift, SwiftUI, Xcode, macOS, and App Store skills. Derived from emilkowalski/skills.",
       "author": "ASM (emilkowalski/skills)",
-      "createdAt": "2026-09-30T20:49:58.469Z",
+      "createdAt": "2026-10-04T21:03:00.085Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2703,7 +2898,7 @@
       "name": "emilkowalski-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from emilkowalski/skills.",
       "author": "ASM (emilkowalski/skills)",
-      "createdAt": "2026-09-30T20:49:58.469Z",
+      "createdAt": "2026-10-04T21:03:00.085Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2724,6 +2919,12 @@
           "name": "apple-design",
           "installUrl": "github:emilkowalski/skills:skills/apple-design",
           "description": "Apple's approach to interface design and fluid, physical motion, translated for the web. Use when building or reviewing gesture-driven UI, spring animations, drag/swipe/sheet interactions, momentum and interruptible transitions, translucent materials and depth, typography (optical sizing, tracking, leading), reduced-motion, or the design foundations (feedback, spatial consistency, restraint) behind Apple-style interfaces.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "break-ui",
+          "installUrl": "github:emilkowalski/skills:skills/break-ui",
+          "description": "Try to break a piece of UI by feeding it worst-case data — long names, unbreakable emails, one-letter names, missing fields, huge counts, zero items, long labels, non-Latin text, emoji, extreme numbers — then render it behind a \"Demo data / Worst case\" toggle and report everything that broke, with the fix for each. Use when the user asks to stress-test, break, or find edge cases in a component or screen, or to \"try the worst case\". For visual design critique use emil-design-eng; for motion use review-animations.",
           "version": "0.0.0"
         },
         {
@@ -2769,7 +2970,7 @@
       "name": "emilkowalski-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from emilkowalski/skills.",
       "author": "ASM (emilkowalski/skills)",
-      "createdAt": "2026-09-30T20:49:58.469Z",
+      "createdAt": "2026-10-04T21:03:00.085Z",
       "tags": [
         "repo-derived",
         "inferred",
