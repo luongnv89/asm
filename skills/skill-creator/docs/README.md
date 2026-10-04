@@ -12,6 +12,10 @@
 ## Highlights
 
 - Iterative skill loop: draft, test prompts, evaluate, refine
+- Controlled instructions: one action at a time, consistent terms, explicit conditions, and observable checks
+- Human-review output contract: result, evidence, uncertainty, and required approval decisions
+- Format selection by review task, including diagrams and interactive reports when they make inspection easier
+- Understanding checks alongside correctness: find the result, separate assumptions, trace evidence, and identify the next decision
 - Subagent architecture guidance: design skills that delegate heavy work to subagents, keeping the main agent lean
 - Quantitative + qualitative eval workflow with baseline comparison
 - Benchmark aggregation, variance analysis, and report tooling

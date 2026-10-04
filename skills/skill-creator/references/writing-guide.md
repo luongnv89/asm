@@ -61,6 +61,30 @@ Skills must not contain malware, exploit code, or any content that could comprom
 
 Prefer the imperative form in instructions.
 
+### Controlled instructions
+
+Use a practical, softened approach inspired by ASD-STE100 controlled language. Formal compliance is not required. These rules help the executing agent and the human reviewer interpret the same instruction:
+
+- Write one action per instruction. Put a dependent action in the next instruction.
+- Choose one name for each concept. Reuse that name throughout the skill.
+- State the condition before a conditional action. State each exception and the action to take when it applies.
+- Replace vague adjectives with observable checks. Name the input, expected result, and failure response when a step validates an outcome.
+
+Weak: “Ensure the deployment is secure and working.”
+
+Better:
+
+1. Request the protected API without credentials.
+2. Check that the response status is HTTP 401 or 403. If it is neither, report an access-control failure.
+3. Request the dashboard.
+4. Check that the response status is HTTP 200. If it differs, report a dashboard availability failure.
+
+These checks establish only the stated HTTP behavior. They do not establish that the entire deployment is secure or that every dashboard feature works.
+
+### Output patterns
+
+Before choosing a template, apply `human-review.md`: define the result, evidence, uncertainty, and decision the user needs to inspect. Select the simplest format that supports that review task.
+
 **Defining output formats** — match strictness to requirements. For strict formats (API responses, data files), pin the template:
 
 ```markdown

@@ -1,26 +1,26 @@
 ---
-name: skill-auto-improver
-description: "Improve an external, legacy, or drifted SKILL.md to the skill-creator standard — hard validation gates plus an advisory predictability audit. Don't use for authoring from scratch (skill-creator output is already standard), bulk eval, or prose edits."
+name: "skill-auto-improver"
+description: "Audit and improve an existing skill's instructions, review outputs, and evaluation criteria. Use when fixing a skill or applying the skill-creator standard. Don't use for authoring from scratch, bulk evaluation, or standalone prose edits."
 license: MIT
 compatibility: "Claude Code; requires `asm` on PATH and Python 3 for skill-creator's quick_validate.py"
 allowed-tools: Bash Read Write Edit Grep Glob
 effort: high
 dependencies:
-  - skill-creator
+  - "skill-creator"
 metadata:
-  version: 2.2.0
+  version: 2.4.0
   author: luongnv89
 ---
 
 # Skill Auto-Improver
 
-You run an eval-driven loop that **retrofits an existing SKILL.md to the current skill-creator standard**. It is the remediation tool for skills that did **not** go through skill-creator — external, legacy, manually-authored, or drifted. Fresh skill-creator output is publish-ready by construction and should not normally need it.
+Audit and edit the **target skill's instructions, templates, references, and evaluation criteria** to meet the current skill-creator standard. Apply the five writing and human-review improvements to any existing skill, including skill-creator output when requested. Updating only this improver's report does not satisfy the task.
 
-The target clears **two hard gates**, then gets one **advisory** audit:
+The target clears **two hard gates**, plus an advisory predictability audit:
 
-1. **Gate 1 — skill-creator standard (must-pass floor)** — `quick_validate` clean, Frontmatter Audit passes, within the size caps.
+1. **Gate 1 — skill-creator standard** — validator, frontmatter, size caps, and the five target-writing and human-review checks pass.
 2. **Gate 2 — asm-eval floor (supplementary)** — `overallScore > 85` AND every category `>= 8`.
-3. **Advisory — predictability audit (Phase 2b)** — judgment-based findings against skill-creator's rubric, reported separately, **never** blocking.
+3. **Advisory — predictability (Phase 2b)** — broader process findings are reported separately and never block the verdict.
 
 A skill that scores 92 but fails `quick_validate.py` is not done; one that passes it but scores 70 is not done either. **Both gates must clear, or the loop reports a blocker** — open predictability findings alone never make one.
 
@@ -62,14 +62,14 @@ If the tree is dirty, `git stash`, sync, `git stash pop`. If `origin` is missing
 
 ## When to Use
 
-Reach for this on an **existing, external, legacy, manually-authored, or drifted** skill:
+Reach for this on **any existing skill**:
 
 - The user asks to "improve", "level up", "fix", "polish", or "bring up to standard" an existing skill
 - A skill was authored outside skill-creator — hand-written, imported, inherited — and must meet the current bar
 - A skill has **drifted**: it predates the standard, or edits left it failing `quick_validate.py` or below the 85/8 floor
 - You are preparing such a skill for `asm publish` or a catalog
 
-**Not** for fresh skill-creator output (author with `/skill-creator`), and not for a report only (`asm eval` plus `quick_validate.py`, run directly). Assumes a SKILL.md exists.
+For authoring from scratch, use `/skill-creator`. For a numeric report only, run `asm eval` and `quick_validate.py` directly. This workflow requires an existing SKILL.md.
 
 ## Prerequisites
 
@@ -89,7 +89,7 @@ For a GitHub input, ask the user to clone locally first. This skill edits **loca
 
 ## The Gates
 
-**Hard gates** (Gate 1, Gate 2) are mechanical and pass/fail — they alone decide PASS vs BLOCKER. **Predictability findings** (Phase 2b) are judgment-based and advisory: both gates green with open findings is still a PASS. Green gates do not guarantee the skill drives the same _process_ each run — that is what Phase 2b catches, and `references/predictability-audit.md` holds its checklist and finding classes.
+Both hard gates decide PASS vs BLOCKER. Gate 1 combines automated validation with manual inspection of the target's instructions; Gate 2 measures asm scores. Phase 2b's broader predictability findings stay advisory. Scores alone cannot establish that the target meets the five writing and human-review requirements.
 
 ### Gate 1 — Skill-creator standard (must-pass floor)
 
@@ -103,8 +103,9 @@ A skill passes when **all** of these hold:
 - A `docs/README.md`, if present, opens with the AI-skip HTML comment
 - Any bundled script under `scripts/` prints a descriptive error on stderr before exiting
 - **If the target skill invokes another skill**, it declares frontmatter `dependencies` and carries a caller-owned first-use acquire/release lifecycle (`references/skill-creator-checklist.md` → _Dependency preflight_). A target that invokes none needs neither — never add an empty list or section
+- The five checks in `references/human-review-audit.md` pass in the target's instructions and supporting files. Only the interactive-report check may be not applicable, with a recorded reason.
 
-This gate is **non-negotiable**: `asm publish` and the catalog rely on it.
+This workflow requires the full gate. `quick_validate.py` does not perform the manual target-instruction checks.
 
 ### Gate 2 — asm-eval 85/8 quality floor (supplementary)
 
@@ -116,7 +117,7 @@ Stricter than overall alone — 86 with a 5 in `testability` still fails — so 
 
 ## Workflow
 
-Do these phases in order; never skip one or reorder them. **Phase 4 is a continuous sidebar running throughout Phase 3, not a standalone step**, which is why it has no Step Completion Report of its own.
+Follow these phases in order, except for Phase 0's fully compliant early exit. **Phase 4 is a sidebar during Phase 3**, with no separate Step Completion Report.
 
 ### Phase 0 — Capture baseline against both gates
 
@@ -132,7 +133,7 @@ Then run the **Frontmatter Audit** from `references/frontmatter-audit.md`, savin
 
 Read the JSON and note `overallScore`, `grade`, all 7 `categories[].score`, and `topSuggestions`. Each category's `findings` carry the measured numbers behind its score — body word count among them. Use those; never approximate by hand.
 
-If the baseline passes **both** gates, stop: print a one-line summary and skip to the final report. A delegability finding is not a reason to keep going in Mode 1 — offer Mode 2 instead.
+Before deciding Gate 1, inspect the target using `references/human-review-audit.md`. Save the five checks to `.asm-improver/baseline-human-review.md`. If both full gates pass, run Phase 2b without edits, then report. Otherwise continue to Phase 1, even if numeric scores pass.
 
 ### Phase 1 — Apply deterministic fixes, then normalize frontmatter
 
@@ -164,11 +165,13 @@ One check has no complete mechanical validator behind it, so look for it deliber
 
 Re-run `python "$QV" "$SKILL_PATH"` after every Gate 1 edit. Do not enter Phase 2b until Gate 1 is clean.
 
-### Phase 2b — Audit against the predictability rubric (advisory)
+Fix each failed target-writing and human-review check using `references/human-review-audit.md`. Save the re-check to `.asm-improver/human-review-audit.md`. Fixes belong in the target skill, not just the improvement report.
+
+### Phase 2b — Audit predictability (advisory)
 
 With Gate 1 clean, audit against skill-creator's rubric **before** Phase 3, so findings can steer your category edits. Advisory — never gates, never blocks.
 
-1. Confirm `$RUBRIC` resolved (_Dependency Preflight (mandatory)_). If missing, **skip fail-soft**: log `⚠ predictability audit skipped (rubric unavailable)` and go to Phase 3.
+1. Confirm `$RUBRIC` resolved (_Dependency Preflight (mandatory)_). If missing, log `⚠ predictability audit skipped (rubric unavailable)` and skip item 2 only.
 2. Walk `references/predictability-audit.md`, marking each of its 7 items `pass` or `advisory` with a specific note, and save the walk to `.asm-improver/predictability-audit.md`. Item #4's **delegability sub-check** names which step is not delegable and why; its remediation is Mode 2, never a Mode 1 edit.
 
 Act on a finding only when the fix is _targeted_ — one often lifts an asm-eval category too. Never bloat to satisfy one; that rule is in the same reference.
@@ -201,7 +204,7 @@ A target with no `metadata.version` gets one, starting at `1.0.0`.
 
 ### Phase 6 — Loop with a cap
 
-Re-run **both** checks after every iteration. The loop stops when any of these is true:
+Re-check both full gates after every iteration, including the five target checks. Record the remaining failed checks in each gate summary. The loop stops when any of these is true:
 
 | Stop condition                                               | Outcome                  |
 | ------------------------------------------------------------ | ------------------------ |
@@ -216,13 +219,9 @@ Save every iteration to `.asm-improver/iter-N.json`, with a one-line gate summar
 
 ### Phase 7 — Write the final report
 
-Write `.asm-improver/report.md` (layout: `references/report-template.md`) with **three visually distinct sections**:
+Write `.asm-improver/report.md` using `references/report-template.md`. Keep hard-gate status, advisory audits, and unresolved blockers distinct. Select the review format using `references/human-review-audit.md`; the Markdown file can be a compact audit record linking to a diagram or HTML report.
 
-1. **Gate status** — baseline vs final for both hard gates: `quick_validate.py`, Frontmatter Audit, `overallScore`, `grade`, per-category before/after. This decides PASS vs BLOCKER.
-2. **Predictability findings** (advisory) — Phase 2b per item, each open one with a one-line note; say so if it was skipped fail-soft. Never a gate failure.
-3. **Unresolved blockers** — BLOCKER only, each naming the failed **hard gate**, the specific check, and what was unresolvable. Predictability findings are never promoted here.
-
-Add the skill path, `metadata.version` baseline → final, files changed, iterations (N of 8), and key fixes. Never pretend a blocker is a pass. Close the report — and the printed summary — with the **Run stats** block below.
+Lead with the result. Cite checks actually performed. Name uncertainty and any required approval decision. Include the skill path, version change, files changed, iterations, and fixes. Close the report and printed summary with Run stats.
 
 ## Run stats (mandatory)
 
@@ -266,10 +265,10 @@ The bars that decide the outcome. The full run checklist — every artifact and 
 
 - Baselines captured to `.asm-improver/` **before any edits**, and every iteration re-evaluated against **both** gates and saved there
 - Each Gate 1 check addressed before any Gate 2 work; each category below 8 addressed at least once
-- Phase 2b run once Gate 1 is clean, or its fail-soft skip logged — findings never gate the loop
-- `metadata.version` bumped once per iteration that produced edits; the loop stopped on one of Phase 6's 4 conditions
+- All five target checks resolved under Gate 1; a missing upstream rubric skips only advisory predictability
+- `metadata.version` bumped once per edited iteration; the loop stopped under Phase 6 or Phase 0's fully compliant early exit
 - `.asm-improver/report.md` exists on exit either way, and the summary closes with the Run stats block
-- On PASS: `python "$QV" "$SKILL_PATH"` exits 0 AND `overallScore > 85` AND `min(categories[*].score) >= 8`
+- On PASS: all Gate 1 checks, including the target-writing and human-review audit, pass AND `overallScore > 85` AND `min(categories[*].score) >= 8`
 - On BLOCKER: the report names every failing Gate 1 check and every category still below 8 with a one-line reason each
 
 ### Expected output
@@ -289,6 +288,7 @@ Two rules the phases above do not carry. Every other edge case — no frontmatte
 - `references/frontmatter-audit.md` — audit checklist and the `asm eval --fix` normalization migration
 - `references/category-playbook.md` — per-category fix patterns for Gate 2
 - `references/predictability-audit.md` — Phase 2b advisory checklist
+- `references/human-review-audit.md` — controlled instructions, output contracts, formats, interactive reports, and understanding checks
 - `references/cross-gate-tradeoffs.md` — Phase 4 sidebar: body length and the link-out rule
 - `references/delegation-conversion.md` — the Mode 2 procedure
 - `references/report-template.md` — PASS, BLOCKER, and Mode 2 report layouts

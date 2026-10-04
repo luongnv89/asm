@@ -20,6 +20,9 @@
 - Saves every iteration JSON and gate-summary line to `.asm-improver/` for auditability.
 - Reports a skill that invokes another skill without dependency metadata and a caller-owned first-use acquire/release lifecycle — and retrofits both.
 - Writes a final before/after report on pass or blocker.
+- Checks and repairs each target skill's controlled instructions, result/evidence/uncertainty/decision contract, format selection, applicable interactive-report requirements, and understanding criteria.
+- These five target requirements are part of Gate 1. Passing numeric scores cannot skip them; unresolved requirements prevent PASS.
+- Uses concise text, diagrams, or interactive HTML according to the review task. Human understanding remains unconfirmed without responsive feedback.
 - Closes every run with a run-stats block: elapsed time, agents, skills, tool calls, plus tokens and cost where the host reports them.
 
 ## When to Use
@@ -45,8 +48,8 @@ Or paste a skill path and the skill triggers automatically. GitHub shorthand inp
 
 ```mermaid
 graph TD
-    A["Phase 0: baseline both gates<br/>asm eval --json + quick_validate.py"] --> B{"Already passes<br/>both gates?"}
-    B -- yes --> R["Write PASS report, exit"]
+    A["Phase 0: validators + scores<br/>inspect five target requirements"] --> B{"Both full gates pass?"}
+    B -- yes --> R["Predictability audit<br/>write report, exit"]
     B -- no --> C["Phase 1: asm eval --fix<br/>+ frontmatter normalize"]
     C --> D["Phase 2: clear Gate 1<br/>(skill-creator standard)"]
     D --> E["Phase 3: lowest asm-eval category"]
@@ -70,6 +73,7 @@ graph TD
 - SKILL.md body under 500 lines
 - `docs/README.md` (if present) carries the AI-skip notice
 - Bundled scripts print descriptive errors before exiting
+- Five target checks pass: controlled instructions, output contract, format selection, applicable interactive-report requirements, and understanding criteria
 
 ### Gate 2 — asm-eval 85/8 quality floor
 
@@ -88,6 +92,8 @@ Stricter than overall score alone — a skill at 86 with a 5 in `testability` st
 | `.asm-improver/baseline-frontmatter-audit.md` | Frontmatter audit findings before any edits                                                    |
 | `.asm-improver/iter-N.json`                   | asm-eval result after iteration N                                                              |
 | `.asm-improver/iter-N-gates.txt`              | One-line summary of both gates after iteration N                                               |
+| `.asm-improver/baseline-human-review.md`      | Five target requirements inspected before edits                                                |
+| `.asm-improver/human-review-audit.md`         | Five target checks, before/after locations, repairs, and re-check results                      |
 | `.asm-improver/report.md`                     | Before/after summary with per-gate diff, files changed, version bump, and pass/blocker verdict |
 | `SKILL.md.bak`                                | Backup written by `asm eval --fix` (left in place until you clean up)                          |
 
@@ -104,13 +110,14 @@ The loop stops on any of:
 
 ## Resources
 
-| Path                                                                              | Description                                                           |
-| --------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| [SKILL.md](../SKILL.md)                                                           | The agent workflow                                                    |
-| [references/skill-creator-checklist.md](../references/skill-creator-checklist.md) | Gate 1 retrofit playbook (frontmatter, README, scripts, body length)  |
-| [references/frontmatter-audit.md](../references/frontmatter-audit.md)             | Full audit checklist + `asm eval --fix` normalization migration       |
-| [references/category-playbook.md](../references/category-playbook.md)             | Per-category fix patterns for Gate 2                                  |
-| [references/delegation-conversion.md](../references/delegation-conversion.md)     | Mode 2: converting an existing skill onto per-step context delegation |
-| [references/report-template.md](../references/report-template.md)                 | PASS, BLOCKER, and Mode 2 conversion report layouts                   |
-| `asm eval --help`                                                                 | Evaluator flag reference                                              |
-| `~/.claude/skills/skill-creator/`                                                 | Upstream source of the Gate 1 standard                                |
+| Path                                                                              | Description                                                                  |
+| --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| [SKILL.md](../SKILL.md)                                                           | The agent workflow                                                           |
+| [references/skill-creator-checklist.md](../references/skill-creator-checklist.md) | Gate 1 retrofit playbook (frontmatter, README, scripts, body length)         |
+| [references/frontmatter-audit.md](../references/frontmatter-audit.md)             | Full audit checklist + `asm eval --fix` normalization migration              |
+| [references/category-playbook.md](../references/category-playbook.md)             | Per-category fix patterns for Gate 2                                         |
+| [references/delegation-conversion.md](../references/delegation-conversion.md)     | Mode 2: converting an existing skill onto per-step context delegation        |
+| [references/report-template.md](../references/report-template.md)                 | PASS, BLOCKER, and Mode 2 conversion report layouts                          |
+| [references/human-review-audit.md](../references/human-review-audit.md)           | Controlled instructions, output contracts, formats, and understanding checks |
+| `asm eval --help`                                                                 | Evaluator flag reference                                                     |
+| `~/.claude/skills/skill-creator/`                                                 | Upstream source of the Gate 1 standard                                       |

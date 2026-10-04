@@ -16,6 +16,8 @@ Use this when the user says "update this skill to match the standard," "fix this
    - "Dependency Preflight" section if the skill invokes another skill — and none if it invokes none (`dependency-preflight.md`).
    - Bundled scripts print descriptive errors before exiting.
    - Progressive disclosure used appropriately; references one level deep.
+   - Controlled instructions per `writing-guide.md`: one action per instruction, consistent terms, explicit conditions and exceptions, observable checks.
+   - Human-review output contract and format selection per `human-review.md`; when evals run, include its understanding criteria.
 5. Decide fix vs. review-only mode. If fixing, apply edits and **bump `metadata.version`** — patch for frontmatter-only fixes, minor for new sections, major for restructuring. If reviewing only, surface findings as before/after suggestions and don't silently edit.
 6. Re-run `quick_validate.py` to confirm clean. Output a Step Completion Report with a `Frontmatter valid` check.
 7. Optional: offer description optimization (`description-optimization.md`). Don't run it automatically — it costs eval tokens.

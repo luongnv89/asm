@@ -62,6 +62,7 @@ All scoring rules below mirror `src/evaluator.ts` in the ASM repo. Numbers chang
 - No lists: convert prose paragraphs to bulleted or numbered steps
 - No examples: add `## Example` section with a fenced code block (`bash ... ` or similar)
 - Passive voice: rewrite to imperative. "The user might want to run..." becomes "Run..."
+- Apply `human-review-audit.md` → _Write controlled instructions_ when rewriting: one action, stable terms, explicit conditions, and observable checks.
 - Body too short (<80 words): expand — underspecified skills give the agent too much freedom
 - Body too long (>3000 words): split into `references/*.md` files and link
 
@@ -110,6 +111,7 @@ All scoring rules below mirror `src/evaluator.ts` in the ASM repo. Numbers chang
 - Include an `Expected output:` code block under the main example
 - Add `## Edge Cases` listing inputs the skill rejects or handles specially
 - Use "verify" / "assert" / "check" in the instructions
+- Add the four understanding criteria from `human-review-audit.md` to evaluation guidance. Distinguish instruction inspection from executed tests and actual human feedback; asm keyword scores do not measure understanding.
 
 **Anti-pattern to avoid:** do not pad the body with "acceptance criteria" filler just to hit the keyword. Write real, testable statements — "produces a JSON report with `overallScore`", "exits 0 on success", "creates `.asm-improver/report.md`".
 
@@ -148,7 +150,7 @@ When in doubt, prefer **linking to `references/*.md`** over inlining. The evalua
 
 After every edit, check **both gates**:
 
-1. Run `python "$QV" "$SKILL_PATH"` — Gate 1 mechanical check, must exit 0 with no warnings
+1. Run `python "$QV" "$SKILL_PATH"` — must exit 0 with no warnings. Re-check the manual Gate 1 requirements, including the five target checks in `human-review-audit.md`; the script alone cannot clear Gate 1
 2. Run `asm eval "$SKILL_PATH" --json | jq '.overallScore, [.categories[].score] | add, [.categories[] | {id, score}]'` (or read the full JSON) — Gate 2 scoring
 3. Compare each category against the previous iteration
 4. If anything regressed in either gate, revert that specific edit and try a different pattern from this playbook

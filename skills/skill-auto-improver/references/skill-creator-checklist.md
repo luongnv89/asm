@@ -171,4 +171,8 @@ Before declaring Gate 1 cleared, run:
 python ~/.claude/skills/skill-creator/scripts/quick_validate.py "$SKILL_PATH"
 ```
 
-Exit code 0 with no WARNING lines on stderr = Gate 1 clean. WARNING lines (e.g., missing negative-trigger, description over 250 chars) are findings that must be cleared before exit.
+Exit code 0 with no WARNING lines on stderr clears the validator portion of Gate 1; the other checklist items still need inspection. WARNING lines (e.g., missing negative-trigger, description over 250 chars) are findings that must be cleared before exit.
+
+## 10. Target writing and human-review requirements (mandatory)
+
+Apply `human-review-audit.md` as part of Gate 1. Inspect and repair the target's controlled instructions, output contract, format selection, applicable interactive-report requirements, and understanding criteria. Record before/after target locations for each check. Validator success and asm scores cannot substitute for this inspection. Any unresolved applicable requirement fails Gate 1.

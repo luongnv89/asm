@@ -47,6 +47,8 @@ Include at least one **process assertion** per happy-path eval — one that chec
 
 Update the `eval_metadata.json` files and `evals/evals.json` with the assertions once drafted. Also explain to the user what they'll see in the viewer — both the qualitative outputs and the quantitative benchmark.
 
+Apply `human-review.md` → _Evaluate understanding alongside correctness_ when drafting assertions for runs that apply the skill. Include its four review criteria alongside correctness and process checks. Retain the existing assertion schema. Include interaction checks when the output is an interactive report.
+
 ## Step 3: As runs complete, capture timing data
 
 When each subagent task completes, you receive a notification containing `total_tokens` and `duration_ms`. Save this data immediately to `timing.json` in the run directory:
@@ -97,7 +99,7 @@ Once all runs are done:
 
 Note: please use generate_review.py to create the viewer; there's no need to write custom HTML.
 
-5. **Tell the user** something like: "I've opened the results in your browser. There are two tabs — 'Outputs' lets you click through each test case and leave feedback, 'Benchmark' shows the quantitative comparison. When you're done, come back here and let me know."
+5. **Tell the user** something like: "I've opened the results in your browser. There are two tabs — 'Outputs' lets you click through each test case and leave feedback, 'Benchmark' shows the quantitative comparison. In your feedback, say whether you could find the main result, distinguish verified facts from assumptions, trace claims to evidence, and identify the next required decision. When you're done, come back here and let me know."
 
 ## What the user sees in the viewer
 
@@ -115,6 +117,8 @@ The "Benchmark" tab shows the stats summary: pass rates, timing, and token usage
 Navigation is via prev/next buttons or arrow keys. When done, they click "Submit All Reviews" which saves all feedback to `feedback.json`.
 
 ## Step 5: Read the feedback
+
+Ask the reviewer the four understanding questions from `human-review.md` through the existing feedback workflow. Record missing human review as unconfirmed understanding; automated assertion results alone do not establish that the user understood the output.
 
 When the user tells you they're done, read `feedback.json`:
 
@@ -137,7 +141,7 @@ When the user tells you they're done, read `feedback.json`:
 }
 ```
 
-Empty feedback means the user thought it was fine. Focus your improvements on the test cases where the user had specific complaints.
+Empty feedback records no requested changes; it does not confirm understanding. If feedback does not address an understanding criterion, leave that criterion unconfirmed by the human reviewer. Focus revisions on specific complaints and reported review difficulties.
 
 Kill the viewer server when you're done with it:
 

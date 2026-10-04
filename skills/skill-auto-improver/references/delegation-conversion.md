@@ -95,9 +95,13 @@ deliberate pass, with its gates checked once at the end:
 - **Take the baseline first.** Mode 2 is selected _before_ Phase 0, so no earlier run
   has captured one. Before the first edit, run `python "$QV" "$SKILL_PATH"`,
   `asm eval "$SKILL_PATH" --json`, and a SKILL.md body line count, and record all
-  three as the conversion report's **Before** column. That same run is how
-  precondition #1 (_clears Gate 1 already_) is verified.
-- Re-run `python "$QV" "$SKILL_PATH"` and `asm eval "$SKILL_PATH" --json`.
+  three as the conversion report's **Before** column. Inspect all other Gate 1
+  requirements, including `human-review-audit.md`, before confirming precondition
+  #1. A validator exit alone cannot establish that the target clears Gate 1.
+  Save the five checks to `.asm-improver/baseline-human-review.md` before edits.
+  If an applicable check fails, route the target to Mode 1 before conversion.
+- Apply `human-review-audit.md` after conversion. Repair failed target requirements before the final gate checks. Record their Gate 1 status and use the output contract in the conversion report.
+- Re-run `python "$QV" "$SKILL_PATH"` and `asm eval "$SKILL_PATH" --json` after all conversion and audit edits.
 - **Both gates must be no worse than before the conversion.** If either regressed and
   a targeted fix does not recover it, **revert the conversion** and report the
   delegability finding as advisory — the same outcome as never converting.

@@ -1,10 +1,10 @@
 ---
-name: skill-creator
+name: "skill-creator"
 description: "Create, improve, evaluate, benchmark skills. Use when authoring a new skill, updating an existing one, running evals, or optimizing a skill's description for triggering. Don't use for invoking skills, writing prose, or scaffolding Python projects."
 license: MIT
 effort: max
 metadata:
-  version: 1.17.0
+  version: 1.18.0
   author: "Luong NGUYEN <luongnv89@gmail.com>"
 ---
 
@@ -149,6 +149,12 @@ Read `references/description-guide.md` for the full guide: the pushy + negative-
 
 Read `references/writing-guide.md` for the full guide. It covers anatomy (where `agents/`, `references/`, `scripts/`, `assets/`, `docs/` go), progressive disclosure and the 500-line SKILL.md cap, the Principle of Lack of Surprise, writing and workflow patterns, bundled-script error messages, Step Completion Reports, writing style, `docs/README.md` generation (`references/readme-template.md`), the 5-prompt test-case floor saved to `evals/evals.json` (`references/schemas.md`), and the pre-eval LLM validation phases (`references/validation-prompts.md`).
 
+### Write for execution and human review
+
+Apply the controlled-language rules in `references/writing-guide.md` → _Controlled instructions_ when drafting or revising instructions. Define a human-review output contract for every skill using `references/human-review.md`. Read that reference when choosing the output format or evaluating whether the user can understand the result. Apply these standards on both creation and improvement paths.
+
+For skill-creator's own final response, state the skill changes, checks actually run, untested behavior, and any decision requiring approval. If no approval is needed, say so. Keep this concise; retain the Step Completion Reports and final Run stats block.
+
 ### Make it predictable (publish-ready by construction)
 
 The goal of creating a skill here is a **predictable process** — the agent follows the same reliable path every run — and a skill that ships **publish-ready** without later needing a `skill-auto-improver` cleanup pass. Read `references/predictability-rubric.md` for the full standard and its checkable pass/fail bar. The hooks you apply _while writing_:
@@ -219,6 +225,7 @@ If you're on Claude.ai (no subagents) or in Cowork (subagents but no browser), s
 | `description-guide.md`        | Pushy + negative-trigger description pattern, one trigger per branch, length budget           |
 | `exemplars.md`                | Three annotated exemplar skills (workflow, knowledge, orchestrator) to imitate                |
 | `writing-guide.md`            | Anatomy, progressive disclosure, writing and workflow patterns, error messages, test cases    |
+| `human-review.md`             | Output contract, format selection, interactive reports, and understanding checks              |
 | `schemas.md`                  | JSON structures for `evals.json`, `misfires.jsonl`, `grading.json`, etc.                      |
 | `subagent-patterns.md`        | When and how to use the Agent tool, including per-step context delegation and when to skip it |
 | `validation-prompts.md`       | The 4 validation phases; 1–3 script the mandatory adversarial review                          |

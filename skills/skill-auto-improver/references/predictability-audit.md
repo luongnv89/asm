@@ -12,7 +12,7 @@ The rubric this audit scores against lives in skill-creator, not here:
 
 Read that file for the full _why_ and pass/fail bar of each item. This file is the **operational checklist** the auto-improver walks; it deliberately does not restate the rubric's prose (duplication is one of the things the rubric tells you to prune). If the two ever diverge, the rubric upstream wins.
 
-**Fail-soft.** A locally-installed skill-creator may predate the rubric (it shipped in a later repo revision). If `$RUBRIC` does not resolve, **skip this phase**: log `⚠ predictability audit skipped (rubric unavailable)`, note the skip in the report's advisory section, and proceed to Phase 3. The hard gates (Gate 1, Gate 2) are unaffected — they never depend on this file.
+**Fail-soft.** If `$RUBRIC` does not resolve, skip this predictability checklist: log `⚠ predictability audit skipped (rubric unavailable)` and record the skip. Gate 1's local `human-review-audit.md` remains mandatory and does not depend on that file.
 
 ## Root virtue
 
@@ -38,6 +38,8 @@ Walk these in order. For each, record `pass` or `advisory` with a one-line, _spe
 - **Never bloat to satisfy a finding.** Do not inline long material or rewrite a skill wholesale to close a finding — that regresses `context-efficiency` and contradicts check #4. If a fix would grow SKILL.md past the 500-line cap, link out instead, or leave the finding open and advisory.
 - **A delegability finding routes to Mode 2, never a Mode 1 edit.** Restructuring a skill's steps onto per-step context delegation is the wholesale rewrite the no-bloat rule above forbids inside this loop. Report it advisory, name the steps, and offer `references/delegation-conversion.md` (Mode 2) as the follow-up the user opts into.
 - **Open findings stay advisory.** A finding you choose not to act on goes into the report's **Predictability findings** section as advisory. It does **not** block PASS and is **not** a blocker entry.
+
+If a finding also fails one of the five target checks in `human-review-audit.md`, record that failure under Gate 1. Its presence in this broader rubric does not make the required target repair optional.
 
 ## Output
 

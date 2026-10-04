@@ -20,7 +20,7 @@ If it fails any of these, recommend against creating it. A one-off is better ser
 
 1. What should this skill enable Claude to do?
 2. When should this skill trigger? (what user phrases/contexts)
-3. What's the expected output format?
+3. What must the user understand or decide from the output? Derive the output contract and simplest suitable format using `human-review.md`. Ask about format only where the conversation leaves a material choice unresolved.
 4. **Should we set up test cases to verify the skill works?** Skills with objectively verifiable outputs (file transforms, data extraction, code generation, fixed workflow steps) benefit from test cases. Skills with subjective outputs (writing style, art) often don't. Suggest the appropriate default based on the skill type, but let the user decide.
 5. **Should this skill use subagents?** Read `subagent-patterns.md` for the full guide. Key signals:
    - Will the skill read many files or scan large codebases? → Explorer subagent

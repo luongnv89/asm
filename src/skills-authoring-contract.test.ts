@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
+import { parse as parseYaml } from "yaml";
 
 function readRepoFile(relPath: string): string {
   return readFileSync(
@@ -92,7 +93,8 @@ describe("dependency preflight rule (#571)", () => {
 
   it("skill-auto-improver carries the gate it enforces, for its own skill-creator dependency", () => {
     expect(improverSkill).toContain("## Dependency Preflight (mandatory)");
-    expect(improverSkill).toMatch(/dependencies:\s*\n\s+- skill-creator/);
+    const frontmatter = parseYaml(improverSkill.split("---", 3)[1]);
+    expect(frontmatter.dependencies).toContain("skill-creator");
     expect(improverSkill).toContain("asm deps acquire skill-creator");
     expect(improverSkill).toContain("asm deps release --session");
     expect(improverSkill).toContain("does not supervise");
