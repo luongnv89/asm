@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/luongnv89/asm.git",
   "owner": "luongnv89",
   "repo": "asm",
-  "updatedAt": "2026-10-04T20:59:35.686Z",
-  "skillCount": 11,
+  "updatedAt": "2026-10-05T14:34:23.529Z",
+  "skillCount": 10,
   "skills": [
     {
       "name": "find-me-skills",
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T20:59:34.462Z",
+        "evaluatedAt": "2026-10-05T14:34:22.400Z",
         "evaluatedVersion": "1.2.1"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.462Z",
+          "evaluatedAt": "2026-10-05T14:34:22.401Z",
           "evaluatedVersion": "1.2.1"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.462Z",
+          "evaluatedAt": "2026-10-05T14:34:22.401Z",
           "evaluatedVersion": "1.2.1"
         }
       }
@@ -263,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T20:59:34.454Z",
+        "evaluatedAt": "2026-10-05T14:34:22.389Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -336,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.456Z",
+          "evaluatedAt": "2026-10-05T14:34:22.390Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -354,7 +354,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.457Z",
+          "evaluatedAt": "2026-10-05T14:34:22.390Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -440,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T20:59:34.455Z",
+        "evaluatedAt": "2026-10-05T14:34:22.386Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -513,7 +513,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.457Z",
+          "evaluatedAt": "2026-10-05T14:34:22.389Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -531,7 +531,7 @@
               "max": 1
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.457Z",
+          "evaluatedAt": "2026-10-05T14:34:22.390Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -539,7 +539,7 @@
     {
       "name": "refresh-index",
       "description": "Sync every enabled repo in the curated skill index and open a confirmation-gated PR. Use when refreshing already-indexed sources. Don't use for adding new repos, improving a single skill, or installing skills locally.",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "license": "MIT",
       "creator": "",
       "compatibility": "Claude Code",
@@ -551,7 +551,7 @@
       "installUrl": "github:luongnv89/asm:skills/refresh-index",
       "relPath": "skills/refresh-index",
       "verified": true,
-      "tokenCount": 2885,
+      "tokenCount": 2883,
       "evalSummary": {
         "overallScore": 95,
         "grade": "A",
@@ -617,8 +617,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T20:59:34.476Z",
-        "evaluatedVersion": "1.1.0"
+        "evaluatedAt": "2026-10-05T14:34:22.413Z",
+        "evaluatedVersion": "1.1.1"
       },
       "evalSummaries": {
         "quality": {
@@ -690,8 +690,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.476Z",
-          "evaluatedVersion": "1.1.0"
+          "evaluatedAt": "2026-10-05T14:34:22.413Z",
+          "evaluatedVersion": "1.1.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -708,195 +708,18 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.476Z",
-          "evaluatedVersion": "1.1.0"
-        }
-      }
-    },
-    {
-      "name": "skill-auto-improver",
-      "description": "Improve an external, legacy, or drifted SKILL.md to the skill-creator standard — hard validation gates plus an advisory predictability audit. Don't use for authoring from scratch (skill-creator output is already standard), bulk eval, or prose edits.",
-      "version": "2.2.0",
-      "license": "MIT",
-      "creator": "",
-      "compatibility": "Claude Code; requires `asm` on PATH and Python 3 for skill-creator's quick_validate.py",
-      "allowedTools": ["Bash", "Read", "Write", "Edit", "Grep", "Glob"],
-      "tags": [],
-      "dependencies": ["skill-creator"],
-      "modelInvocable": true,
-      "userInvocable": true,
-      "installUrl": "github:luongnv89/asm:skills/skill-auto-improver",
-      "relPath": "skills/skill-auto-improver",
-      "verified": true,
-      "tokenCount": 5965,
-      "evalSummary": {
-        "overallScore": 92,
-        "grade": "A",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "license",
-            "name": "License verification",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "pii",
-            "name": "PII detection",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "script-lint",
-            "name": "Script linting",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-10-04T20:59:34.494Z",
-        "evaluatedVersion": "2.2.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 92,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "license",
-              "name": "License verification",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "pii",
-              "name": "PII detection",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "script-lint",
-              "name": "Script linting",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-10-04T20:59:34.494Z",
-          "evaluatedVersion": "2.2.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.2.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 100,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 16,
-              "max": 16
-            }
-          ],
-          "evaluatedAt": "2026-10-04T20:59:34.494Z",
-          "evaluatedVersion": "2.2.0"
+          "evaluatedAt": "2026-10-05T14:34:22.413Z",
+          "evaluatedVersion": "1.1.1"
         }
       }
     },
     {
       "name": "skill-creator",
-      "description": "Create, improve, evaluate, benchmark skills. Use when authoring a new skill, updating an existing one, running evals, or optimizing a skill's description for triggering. Don't use for invoking skills, writing prose, or scaffolding Python projects.",
-      "version": "1.17.0",
+      "description": "Create a skill or bring an existing one up to the same standard (validate + asm eval fix loop); run evals, tune triggering. Use when authoring, fixing, or retrofitting a skill. Don't use for invoking skills, writing prose, or Python scaffolds.",
+      "version": "2.0.0",
       "license": "MIT",
       "creator": "",
-      "compatibility": "",
+      "compatibility": "Python 3 for scripts/quick_validate.py; `asm` on PATH for the Gate 2 score check",
       "allowedTools": [],
       "tags": [],
       "dependencies": [],
@@ -905,9 +728,9 @@
       "installUrl": "github:luongnv89/asm:skills/skill-creator",
       "relPath": "skills/skill-creator",
       "verified": true,
-      "tokenCount": 6458,
+      "tokenCount": 6663,
       "evalSummary": {
-        "overallScore": 96,
+        "overallScore": 94,
         "grade": "A",
         "categories": [
           {
@@ -919,7 +742,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 10,
+            "score": 8,
             "max": 10
           },
           {
@@ -971,8 +794,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T20:59:35.069Z",
-        "evaluatedVersion": "1.17.0"
+        "evaluatedAt": "2026-10-05T14:34:22.949Z",
+        "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
         "quality": {
@@ -980,7 +803,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 96,
+          "overallScore": 94,
           "grade": "A",
           "categories": [
             {
@@ -992,7 +815,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 10,
+              "score": 8,
               "max": 10
             },
             {
@@ -1044,8 +867,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:35.070Z",
-          "evaluatedVersion": "1.17.0"
+          "evaluatedAt": "2026-10-05T14:34:22.949Z",
+          "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -1058,19 +881,19 @@
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 14,
-              "max": 14
+              "score": 15,
+              "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:35.069Z",
-          "evaluatedVersion": "1.17.0"
+          "evaluatedAt": "2026-10-05T14:34:22.949Z",
+          "evaluatedVersion": "2.0.0"
         }
       }
     },
     {
       "name": "skill-index-updater",
-      "description": "Add GitHub skill repos to the ASM index: clone, audit, eval, regenerate index, rebuild catalog, open PR. Use when given GitHub URLs to onboard. Don't use for authoring (skill-creator), improving (skill-auto-improver), or install (asm install).",
-      "version": "2.0.0",
+      "description": "Add GitHub skill repos to the ASM index: clone, audit, eval, regenerate index, rebuild catalog, open PR. Use when given GitHub URLs to onboard. Don't use for authoring or improving skills (skill-creator), or install (asm install).",
+      "version": "2.0.1",
       "license": "MIT",
       "creator": "",
       "compatibility": "Claude Code",
@@ -1091,7 +914,7 @@
       "installUrl": "github:luongnv89/asm:skills/skill-index-updater",
       "relPath": "skills/skill-index-updater",
       "verified": true,
-      "tokenCount": 5633,
+      "tokenCount": 5635,
       "evalSummary": {
         "overallScore": 88,
         "grade": "B",
@@ -1157,8 +980,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T20:59:34.471Z",
-        "evaluatedVersion": "2.0.0"
+        "evaluatedAt": "2026-10-05T14:34:22.406Z",
+        "evaluatedVersion": "2.0.1"
       },
       "evalSummaries": {
         "quality": {
@@ -1230,8 +1053,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.472Z",
-          "evaluatedVersion": "2.0.0"
+          "evaluatedAt": "2026-10-05T14:34:22.407Z",
+          "evaluatedVersion": "2.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -1248,15 +1071,15 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.472Z",
-          "evaluatedVersion": "2.0.0"
+          "evaluatedAt": "2026-10-05T14:34:22.407Z",
+          "evaluatedVersion": "2.0.1"
         }
       }
     },
     {
       "name": "skill-install-improved",
-      "description": "Install an improved variant of one named skill: resolve it by local path, repo, or name, run skill-auto-improver on a throwaway copy, then install the improved result. Don't use for improving in place, upstream PRs, or plain asm install.",
-      "version": "1.0.0",
+      "description": "Install an improved variant of one named skill: resolve it by local path, repo, or name, run skill-creator's retrofit on a throwaway copy, then install the improved result. Don't use for improving in place, upstream PRs, or plain asm install.",
+      "version": "1.1.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "Claude Code; requires `asm` and `git` on PATH",
@@ -1268,7 +1091,7 @@
       "installUrl": "github:luongnv89/asm:skills/skill-install-improved",
       "relPath": "skills/skill-install-improved",
       "verified": true,
-      "tokenCount": 4181,
+      "tokenCount": 4227,
       "evalSummary": {
         "overallScore": 92,
         "grade": "A",
@@ -1334,8 +1157,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T20:59:34.471Z",
-        "evaluatedVersion": "1.0.0"
+        "evaluatedAt": "2026-10-05T14:34:22.407Z",
+        "evaluatedVersion": "1.1.0"
       },
       "evalSummaries": {
         "quality": {
@@ -1407,8 +1230,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.472Z",
-          "evaluatedVersion": "1.0.0"
+          "evaluatedAt": "2026-10-05T14:34:22.408Z",
+          "evaluatedVersion": "1.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -1425,15 +1248,15 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.472Z",
-          "evaluatedVersion": "1.0.0"
+          "evaluatedAt": "2026-10-05T14:34:22.408Z",
+          "evaluatedVersion": "1.1.0"
         }
       }
     },
     {
       "name": "skill-shortener",
       "description": "Refactor a too-long SKILL.md by progressive disclosure: measure token cost, classify every section KEEP/CUT/MOVE, shorten the body into references/ and scripts/, verify nothing was lost. Don't use for authoring new skills, eval retrofits, or prose.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "license": "MIT",
       "creator": "",
       "compatibility": "Claude Code; Python 3; skill-creator's quick_validate.py",
@@ -1511,8 +1334,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T20:59:34.654Z",
-        "evaluatedVersion": "1.0.0"
+        "evaluatedAt": "2026-10-05T14:34:22.552Z",
+        "evaluatedVersion": "1.0.1"
       },
       "evalSummaries": {
         "quality": {
@@ -1584,8 +1407,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.654Z",
-          "evaluatedVersion": "1.0.0"
+          "evaluatedAt": "2026-10-05T14:34:22.554Z",
+          "evaluatedVersion": "1.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -1602,15 +1425,15 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.654Z",
-          "evaluatedVersion": "1.0.0"
+          "evaluatedAt": "2026-10-05T14:34:22.554Z",
+          "evaluatedVersion": "1.0.1"
         }
       }
     },
     {
       "name": "skill-upstream-pr",
-      "description": "Improve an open-source GitHub skill and open a friendly suggestion PR upstream: fork, run skill-auto-improver, attach asm eval before/after metrics. Don't use for local-only skills, authoring from scratch, bulk repos, or registry publish.",
-      "version": "1.0.0",
+      "description": "Improve an open-source GitHub skill and open a friendly suggestion PR upstream: fork, run skill-creator's retrofit, attach asm eval before/after metrics. Don't use for local-only skills, authoring from scratch, bulk repos, or registry publish.",
+      "version": "1.1.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "Claude Code",
@@ -1622,7 +1445,7 @@
       "installUrl": "github:luongnv89/asm:skills/skill-upstream-pr",
       "relPath": "skills/skill-upstream-pr",
       "verified": true,
-      "tokenCount": 2962,
+      "tokenCount": 3017,
       "evalSummary": {
         "overallScore": 93,
         "grade": "A",
@@ -1688,8 +1511,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T20:59:34.487Z",
-        "evaluatedVersion": "1.0.0"
+        "evaluatedAt": "2026-10-05T14:34:22.417Z",
+        "evaluatedVersion": "1.1.0"
       },
       "evalSummaries": {
         "quality": {
@@ -1761,8 +1584,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.487Z",
-          "evaluatedVersion": "1.0.0"
+          "evaluatedAt": "2026-10-05T14:34:22.417Z",
+          "evaluatedVersion": "1.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -1779,8 +1602,8 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.487Z",
-          "evaluatedVersion": "1.0.0"
+          "evaluatedAt": "2026-10-05T14:34:22.417Z",
+          "evaluatedVersion": "1.1.0"
         }
       }
     },
@@ -1865,7 +1688,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T20:59:34.489Z",
+        "evaluatedAt": "2026-10-05T14:34:22.408Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1938,7 +1761,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.489Z",
+          "evaluatedAt": "2026-10-05T14:34:22.409Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1956,7 +1779,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T20:59:34.489Z",
+          "evaluatedAt": "2026-10-05T14:34:22.409Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1968,7 +1791,7 @@
       "name": "luongnv89-asm-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from luongnv89/asm.",
       "author": "ASM (luongnv89/asm)",
-      "createdAt": "2026-10-04T20:59:35.686Z",
+      "createdAt": "2026-10-05T14:34:23.529Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1988,8 +1811,8 @@
         {
           "name": "skill-install-improved",
           "installUrl": "github:luongnv89/asm:skills/skill-install-improved",
-          "description": "Install an improved variant of one named skill: resolve it by local path, repo, or name, run skill-auto-improver on a throwaway copy, then install the improved result. Don't use for improving in place, upstream PRs, or plain asm install.",
-          "version": "1.0.0"
+          "description": "Install an improved variant of one named skill: resolve it by local path, repo, or name, run skill-creator's retrofit on a throwaway copy, then install the improved result. Don't use for improving in place, upstream PRs, or plain asm install.",
+          "version": "1.1.0"
         }
       ],
       "sourceRepo": {
@@ -2004,7 +1827,7 @@
       "name": "luongnv89-asm-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from luongnv89/asm.",
       "author": "ASM (luongnv89/asm)",
-      "createdAt": "2026-10-04T20:59:35.686Z",
+      "createdAt": "2026-10-05T14:34:23.529Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2015,6 +1838,12 @@
         "asm"
       ],
       "skills": [
+        {
+          "name": "find-me-skills",
+          "installUrl": "github:luongnv89/asm:skills/find-me-skills",
+          "description": "Find Agent Skills for a goal the user cannot name yet, then export an installable bundle. Use when they ask which skills fit a project. Don't use for installing named skills, authoring skills, or catalog maintenance.",
+          "version": "1.2.1"
+        },
         {
           "name": "hello-world",
           "installUrl": "github:luongnv89/asm:skills/hello-world",
@@ -2027,22 +1856,40 @@
           "version": "0.0.0"
         },
         {
+          "name": "refresh-index",
+          "installUrl": "github:luongnv89/asm:skills/refresh-index",
+          "description": "Sync every enabled repo in the curated skill index and open a confirmation-gated PR. Use when refreshing already-indexed sources. Don't use for adding new repos, improving a single skill, or installing skills locally.",
+          "version": "1.1.1"
+        },
+        {
           "name": "skill-creator",
           "installUrl": "github:luongnv89/asm:skills/skill-creator",
-          "description": "Create, improve, evaluate, benchmark skills. Use when authoring a new skill, updating an existing one, running evals, or optimizing a skill's description for triggering. Don't use for invoking skills, writing prose, or scaffolding Python projects.",
-          "version": "1.17.0"
+          "description": "Create a skill or bring an existing one up to the same standard (validate + asm eval fix loop); run evals, tune triggering. Use when authoring, fixing, or retrofitting a skill. Don't use for invoking skills, writing prose, or Python scaffolds.",
+          "version": "2.0.0"
         },
         {
           "name": "skill-index-updater",
           "installUrl": "github:luongnv89/asm:skills/skill-index-updater",
-          "description": "Add GitHub skill repos to the ASM index: clone, audit, eval, regenerate index, rebuild catalog, open PR. Use when given GitHub URLs to onboard. Don't use for authoring (skill-creator), improving (skill-auto-improver), or install (asm install).",
-          "version": "2.0.0"
+          "description": "Add GitHub skill repos to the ASM index: clone, audit, eval, regenerate index, rebuild catalog, open PR. Use when given GitHub URLs to onboard. Don't use for authoring or improving skills (skill-creator), or install (asm install).",
+          "version": "2.0.1"
+        },
+        {
+          "name": "skill-install-improved",
+          "installUrl": "github:luongnv89/asm:skills/skill-install-improved",
+          "description": "Install an improved variant of one named skill: resolve it by local path, repo, or name, run skill-creator's retrofit on a throwaway copy, then install the improved result. Don't use for improving in place, upstream PRs, or plain asm install.",
+          "version": "1.1.0"
         },
         {
           "name": "skill-shortener",
           "installUrl": "github:luongnv89/asm:skills/skill-shortener",
           "description": "Refactor a too-long SKILL.md by progressive disclosure: measure token cost, classify every section KEEP/CUT/MOVE, shorten the body into references/ and scripts/, verify nothing was lost. Don't use for authoring new skills, eval retrofits, or prose.",
-          "version": "1.0.0"
+          "version": "1.0.1"
+        },
+        {
+          "name": "skill-upstream-pr",
+          "installUrl": "github:luongnv89/asm:skills/skill-upstream-pr",
+          "description": "Improve an open-source GitHub skill and open a friendly suggestion PR upstream: fork, run skill-creator's retrofit, attach asm eval before/after metrics. Don't use for local-only skills, authoring from scratch, bulk repos, or registry publish.",
+          "version": "1.1.0"
         },
         {
           "name": "well-formed",
@@ -2063,7 +1910,7 @@
       "name": "luongnv89-asm-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from luongnv89/asm.",
       "author": "ASM (luongnv89/asm)",
-      "createdAt": "2026-10-04T20:59:35.686Z",
+      "createdAt": "2026-10-05T14:34:23.529Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2075,16 +1922,10 @@
       ],
       "skills": [
         {
-          "name": "skill-creator",
-          "installUrl": "github:luongnv89/asm:skills/skill-creator",
-          "description": "Create, improve, evaluate, benchmark skills. Use when authoring a new skill, updating an existing one, running evals, or optimizing a skill's description for triggering. Don't use for invoking skills, writing prose, or scaffolding Python projects.",
-          "version": "1.17.0"
-        },
-        {
           "name": "skill-shortener",
           "installUrl": "github:luongnv89/asm:skills/skill-shortener",
           "description": "Refactor a too-long SKILL.md by progressive disclosure: measure token cost, classify every section KEEP/CUT/MOVE, shorten the body into references/ and scripts/, verify nothing was lost. Don't use for authoring new skills, eval retrofits, or prose.",
-          "version": "1.0.0"
+          "version": "1.0.1"
         },
         {
           "name": "well-formed",
@@ -2105,7 +1946,7 @@
       "name": "luongnv89-asm-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from luongnv89/asm.",
       "author": "ASM (luongnv89/asm)",
-      "createdAt": "2026-10-04T20:59:35.686Z",
+      "createdAt": "2026-10-05T14:34:23.529Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2119,14 +1960,14 @@
         {
           "name": "skill-creator",
           "installUrl": "github:luongnv89/asm:skills/skill-creator",
-          "description": "Create, improve, evaluate, benchmark skills. Use when authoring a new skill, updating an existing one, running evals, or optimizing a skill's description for triggering. Don't use for invoking skills, writing prose, or scaffolding Python projects.",
-          "version": "1.17.0"
+          "description": "Create a skill or bring an existing one up to the same standard (validate + asm eval fix loop); run evals, tune triggering. Use when authoring, fixing, or retrofitting a skill. Don't use for invoking skills, writing prose, or Python scaffolds.",
+          "version": "2.0.0"
         },
         {
           "name": "skill-install-improved",
           "installUrl": "github:luongnv89/asm:skills/skill-install-improved",
-          "description": "Install an improved variant of one named skill: resolve it by local path, repo, or name, run skill-auto-improver on a throwaway copy, then install the improved result. Don't use for improving in place, upstream PRs, or plain asm install.",
-          "version": "1.0.0"
+          "description": "Install an improved variant of one named skill: resolve it by local path, repo, or name, run skill-creator's retrofit on a throwaway copy, then install the improved result. Don't use for improving in place, upstream PRs, or plain asm install.",
+          "version": "1.1.0"
         }
       ],
       "sourceRepo": {
