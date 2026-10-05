@@ -249,6 +249,18 @@ describe("per-step context delegation (#574)", () => {
     expect(creatorConversion).toMatch(/outside the Phase 6 loop/i);
   });
 
+  it("the conversion runs the loop's validator resolution and repo sync before editing", () => {
+    // Subpath B3 runs outside the retrofit loop, so it must still borrow the
+    // loop's $QV resolution and mandatory repo sync by their exact headings.
+    for (const heading of [
+      "Resolve the validator",
+      "Repo Sync Before Edits (mandatory)",
+    ]) {
+      expect(creatorRetrofit).toContain(`## ${heading}`);
+      expect(creatorConversion).toContain(heading);
+    }
+  });
+
   it.each([
     ["skill-creator patterns", creatorPatterns],
     ["skill-creator conversion", creatorConversion],

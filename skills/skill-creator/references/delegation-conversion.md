@@ -93,7 +93,9 @@ loop would revert the conversion halfway through. Subpath B3 therefore runs as a
 deliberate pass, with its gates checked once at the end:
 
 - **Take the baseline first.** Subpath B3 is selected _before_ Phase 0, so no earlier run
-  has captured one. Before the first edit, run `python "$QV" "$SKILL_PATH"`,
+  has captured one, and nothing has synced the repo or set `$QV`. Before the first edit,
+  run `retrofit-loop.md` → _Inputs_, _Resolve the validator_, and
+  _Repo Sync Before Edits (mandatory)_. Then run `python "$QV" "$SKILL_PATH"`,
   `asm eval "$SKILL_PATH" --json`, and a SKILL.md body line count, and record all
   three as the conversion report's **Before** column. Inspect all other Gate 1
   requirements, including `human-review-audit.md`, before confirming precondition

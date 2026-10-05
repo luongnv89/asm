@@ -21,7 +21,7 @@ Use this when the user has eval results (or wants to run evals) and wants the sk
 3. Run the **Frontmatter Audit** alongside content revision — a polished body on top of broken frontmatter still fails validation.
 4. Bump `metadata.version` per Version Management — minor for new capabilities or expanded triggers, patch for wording fixes.
 5. Re-run evals into a new `iteration-<N+1>/` directory and let the user compare.
-6. Close with the skill standard: run `retrofit-loop.md` Phase 0 on the revised skill, as Path A does (`skill-standard.md` → _How each path applies the standard_).
+6. Close with the skill standard as Path A does (`skill-standard.md` → _How each path applies the standard_): skip `retrofit-loop.md`'s prerequisite list and repo sync, but set `$SKILL_PATH` to the revised skill, resolve `$QV`, and check `command -v asm` — missing `asm` means Gate 2 not measured, never PASS (`skill-standard.md` → _Without `asm`_). Then run `retrofit-loop.md` Phase 0 (`retrofit-loop.md` → _Prerequisites_, closing paragraph).
 
 `iteration.md` also documents the optional blind A/B comparison system.
 

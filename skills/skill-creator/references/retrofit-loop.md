@@ -26,7 +26,7 @@ Verify all of these before touching any file. Stop and tell the user if any fail
 - The working tree has no unrelated uncommitted edits — dirty files get mixed into diffs
 - You have write access to the skill directory
 
-On Subpath B1 the prerequisite check is the run's first command, so it carries the epoch capture from SKILL.md → _Run stats (mandatory)_: `command -v asm; ec=$?; date +%s >&2; exit "$ec"`. On Path A the epoch was captured when the create run started — never re-stamp it, and start at Phase 0.
+On Subpath B1 the prerequisite check is the run's first command, so it carries the epoch capture from SKILL.md → _Run stats (mandatory)_: `command -v asm; ec=$?; date +%s >&2; exit "$ec"`. On Path A and the Subpath B2 close, the epoch was captured when the run started — never re-stamp it. Skip this prerequisite list and the repo sync, but still set `$SKILL_PATH` to the skill (_Inputs_), resolve `$QV` (_Resolve the validator_), and run `command -v asm`; if `asm` is missing, follow `skill-standard.md` → _Without `asm`_ (Gate 2 not measured, never PASS). Then start at Phase 0.
 
 ## Inputs
 
@@ -57,7 +57,7 @@ git pull --rebase origin "$branch"
 
 If the tree is dirty, `git stash`, sync, `git stash pop`. If `origin` is missing or the pull conflicts, **stop and ask the user** — never skip or force the sync.
 
-**One exception — a throwaway copy.** When the target is a temporary copy with no `origin` and no history (for example the `mktemp -d` copy `skill-install-improved` hands over), the sync is inapplicable: log `— repo sync skipped (throwaway copy, no origin)` and continue. A real checkout that lacks `origin` still stops and asks.
+**One exception — a caller's throwaway copy.** When a calling skill hands over a temporary (`mktemp -d`) copy or clone and declares the sync inapplicable, log the skip and continue — never fetch or pull there. `skill-install-improved` does this for every input form, including `git clone --depth 1` checkouts that do have `origin` and may sit on a detached `--ref`, where a pull could move the target off the requested ref. The exception is keyed on the caller, not on the remote: the user's own checkout never qualifies, and one that lacks `origin` or conflicts still stops and asks.
 
 ## Workflow
 
