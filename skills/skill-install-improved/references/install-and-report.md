@@ -4,7 +4,7 @@ Phases 2–4 in detail: what to harvest, how to install, and what the user must 
 
 ## Harvest before cleanup
 
-`skill-auto-improver` writes `.asm-improver/` **relative to the current working directory**, so the loop must run with cwd inside `$SKILL_PATH`. Everything below lives in a temp directory and is gone the moment `$WORK` is removed — read it first.
+skill-creator's retrofit loop writes `.asm-improver/` **relative to the current working directory**, so the loop must run with cwd inside `$SKILL_PATH`. Everything below lives in a temp directory and is gone the moment `$WORK` is removed — read it first.
 
 | File                                    | What to take from it                                |
 | --------------------------------------- | --------------------------------------------------- |
@@ -46,7 +46,7 @@ asm install "$SKILL_PATH" -p "$TOOL" --scope "$SCOPE" --json -y
 
 ## Collision policy
 
-`skill-auto-improver` never renames a skill, so the improved variant keeps the original frontmatter `name`. If the original is already installed, the names collide.
+skill-creator's retrofit loop never renames a skill, so the improved variant keeps the original frontmatter `name`. If the original is already installed, the names collide.
 
 **`asm install` never refuses on a collision.** When a skill with the same frontmatter `name` is already installed for the selected tool, it plans a force overwrite on the very first invocation: the existing target directory is removed and replaced. With `-y` there is no prompt, no error, and no `Skill already exists` message — that failure only comes from the bundle/import path, never from `asm install`. So the safety gate has to run _before_ the command, not after it.
 
@@ -99,15 +99,15 @@ Print this to the user at the end of Phase 4, before removing `$WORK`.
 
 ### When no improvement was needed
 
-If the baseline already cleared both gates, `skill-auto-improver` stops without editing and the original is installed unchanged. Say that plainly rather than printing a zero delta:
+If the baseline already cleared both gates, skill-creator's retrofit loop stops without editing and the original is installed unchanged. Say that plainly rather than printing a zero delta:
 
 ```
 ◆ Installed `<skill-name>` unchanged — no improvement needed
 ··································································
   Baseline already clears both gates: <score> (<grade>), min category <n>.
-  skill-auto-improver made no edits. The published skill was installed as-is.
+  skill-creator's retrofit loop made no edits. The published skill was installed as-is.
 ```
 
-### When the improver ended in BLOCKER
+### When the retrofit loop ended in BLOCKER
 
 Show the blocker list from `.asm-improver/report.md` and the partial before → after numbers, then **ask** whether to install the partially-improved variant or abort. Never install a blocker result silently, and never describe it as improved-to-standard when it is not.

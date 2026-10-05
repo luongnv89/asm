@@ -7,12 +7,12 @@
 
 # Skill Upstream PR
 
-> Contribute improvements to an open-source skill on GitHub: evaluate it, lift its scores via `skill-auto-improver`, and open a friendly suggestion PR back to the upstream author with a before/after metrics table.
+> Contribute improvements to an open-source skill on GitHub: evaluate it, lift its scores via skill-creator's retrofit loop, and open a friendly suggestion PR back to the upstream author with a before/after metrics table.
 
 ## Highlights
 
 - Forks the target repo via `gh`, never pushes to upstream
-- Delegates the improvement loop to `skill-auto-improver` — no logic duplication
+- Delegates the improvement loop to skill-creator's retrofit loop — no logic duplication
 - Builds a PR body from a template with the full `asm eval` before/after table
 - Enforces a "preview and confirm" step before any public action
 - Friendly, suggestion-style tone — maintainers can close without guilt
@@ -25,14 +25,14 @@
 | "Contribute to this upstream skill"                       | Same flow with preview before any push                  |
 | "Suggest improvements to github:owner/repo"               | Runs eval → improves → drafts suggestion PR             |
 
-Don't use for: local skills you own (use `skill-auto-improver` directly), authoring new skills (use `skill-creator`), or publishing to the ASM registry (use `asm publish`).
+Don't use for: local skills you own (use `skill-creator` directly), authoring new skills (use `skill-creator`), or publishing to the ASM registry (use `asm publish`).
 
 ## How It Works
 
 ```mermaid
 graph TD
     A["Fork & clone via gh"] --> B["Locate target SKILL.md"]
-    B --> C["Run skill-auto-improver loop"]
+    B --> C["Run skill-creator retrofit loop"]
     C --> D["Harvest before/after metrics"]
     D --> E["Build PR body from template"]
     E --> F["Preview & wait for user OK"]

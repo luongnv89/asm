@@ -6,7 +6,7 @@ compatibility: "Claude Code"
 allowed-tools: Bash Read Write Edit Grep Glob
 effort: high
 metadata:
-  version: 1.1.0
+  version: 1.1.1
   author: luongnv89
 ---
 
@@ -21,7 +21,7 @@ This is the inverse of `skill-index-updater` (that skill **adds** repos). Keep S
 - User asks to "refresh the index", "update the indexed skills", "sync the catalog", "re-ingest all repos", or "batch-maintain the skill index"
 - A scheduled refresh is due, or a release needs current upstream skill metadata
 
-Do **not** trigger for: adding a new repository (`skill-index-updater`), authoring or improving a single skill (`skill-creator`, `skill-auto-improver`), opening an upstream PR (`skill-upstream-pr`), or installing/updating skills on the local machine (`asm install`, `asm update`).
+Do **not** trigger for: adding a new repository (`skill-index-updater`), authoring or improving a single skill (`skill-creator`), opening an upstream PR (`skill-upstream-pr`), or installing/updating skills on the local machine (`asm install`, `asm update`).
 
 ## Repo Sync Before Edits (mandatory)
 

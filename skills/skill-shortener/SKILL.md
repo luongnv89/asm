@@ -6,7 +6,7 @@ compatibility: "Claude Code; Python 3; skill-creator's quick_validate.py"
 allowed-tools: Bash Read Write Edit Grep Glob
 effort: high
 metadata:
-  version: 1.0.0
+  version: 1.0.1
   author: luongnv89
 ---
 

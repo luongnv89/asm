@@ -197,6 +197,36 @@ Good error messages say three things: **what went wrong, which input caused it, 
 
 Every skill must produce a structured status report after each major phase — compact monospace block with checkmark rows and a summary result line, so pass/fail is immediately scannable. Tailor the check names to what each step actually validates (e.g., a code review skill might use `Correctness`, `Test coverage`, `Security`, `Edge cases`; a deploy skill might use `Build`, `Tests`, `Lint`, `CI status`).
 
+### The format skill-creator itself emits
+
+After each major step of a create or update run, skill-creator prints:
+
+```
+◆ [Step Name] ([step N of M] — [context])
+··································································
+  [Check 1]:          √ pass
+  [Check 2]:          √ pass (note if relevant)
+  [Check 3]:          × fail — [reason]
+  [Check 4]:          √ pass
+  [Criteria]:         √ N/M met
+  ____________________________
+  Result:             PASS | FAIL | PARTIAL
+```
+
+Adapt the check names to what the step actually validates. Use `√` for pass, `×` for fail, and `—` to add brief context. The "Criteria" line summarizes how many acceptance criteria were met; the "Result" line gives the overall verdict.
+
+Per-phase checks:
+
+| Phase          | Checks                                                                                                                            |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Intent Capture | `Worth building`, `Goal defined`, `Triggers identified`, `Output format agreed`                                                   |
+| Skill Writing  | `SKILL.md written`, `README generated`, `Subagents designed`, `Dependency preflight`, `Predictability pass`, `Adversarial review` |
+| Testing        | `Evals created`, `Runs completed`, `Viewer launched`                                                                              |
+| Iteration      | `Feedback incorporated`, `Benchmarks improved`, `Description optimized`                                                           |
+| Closing check  | `Gate 1`, `Gate 2`, `Verdict` (PASS, BLOCKER, or Gate 2 not measured)                                                             |
+
+`Dependency preflight` is `√` when the skill has no skill dependencies, or has them and ships a gate for each; `×` when a dependency is invoked without one. `Predictability pass` walks the 7 rubric items from SKILL.md → _Make it predictable_ — `√` per item satisfied, `×` naming the gap. `Adversarial review` is `√` once fresh-subagent findings are addressed. The retrofit loop's own per-phase block is in `retrofit-loop.md` → _Step Completion Reports_.
+
 ## Writing Style
 
 Explain to the model _why_ things are important in lieu of heavy-handed musty MUSTs. Use theory of mind and try to make the skill general and not super-narrow to specific examples. Start with a draft, then look at it with fresh eyes and improve it.

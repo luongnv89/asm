@@ -7,7 +7,7 @@
 
 # Skill Install Improved
 
-> Installs an **improved** variant of one skill instead of the published one. Resolves the target by local path, repo, or skill name; runs `skill-auto-improver` on a throwaway copy; installs the improved result; and reports what was installed and what it was improved from.
+> Installs an **improved** variant of one skill instead of the published one. Resolves the target by local path, repo, or skill name; runs skill-creator's retrofit loop on a throwaway copy; installs the improved result; and reports what was installed and what it was improved from.
 
 ## Highlights
 
@@ -26,7 +26,7 @@
 | "Install code-review but improve it first"         | Resolve by name, improve on a copy, install the improved variant |
 | "Install an improved version of this repo's skill" | Clone, improve, install                                          |
 | "Install skills/foo, but level it up"              | Copy the local dir, improve the copy, install                    |
-| "Improve skills/foo"                               | **Not this skill** — use `/skill-auto-improver`                  |
+| "Improve skills/foo"                               | **Not this skill** — use `/skill-creator`                        |
 | "Send the improvement upstream as a PR"            | **Not this skill** — use `/skill-upstream-pr`                    |
 | "Install code-review"                              | **Not this skill** — just run `asm install code-review`          |
 
@@ -42,7 +42,7 @@
 
 ```mermaid
 graph TD
-    A["Phase 0: resolve target<br/>path | repo | name → mktemp copy"] --> B["Phase 1: delegate to<br/>skill-auto-improver"]
+    A["Phase 0: resolve target<br/>path | repo | name → mktemp copy"] --> B["Phase 1: delegate to<br/>skill-creator retrofit"]
     B --> C{"Baseline already<br/>passes 85/8?"}
     C -- yes --> D["No edits needed —<br/>keep SKILL.md as published"]
     C -- no --> E["Phase 2: harvest .asm-improver/<br/>baseline + iter-N + report.md"]
@@ -80,5 +80,5 @@ graph TD
 | [SKILL.md](../SKILL.md)                                                 | The agent workflow                                        |
 | [references/target-resolution.md](../references/target-resolution.md)   | The three input forms normalized to one local directory   |
 | [references/install-and-report.md](../references/install-and-report.md) | Install flags, collision policy, harvest fields, template |
-| `skills/skill-auto-improver/`                                           | The improvement loop this skill delegates to              |
+| `skills/skill-creator/references/retrofit-loop.md`                      | The improvement loop this skill delegates to              |
 | `skills/skill-upstream-pr/`                                             | The sibling path for sending improvements upstream        |

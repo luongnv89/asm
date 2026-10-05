@@ -6,7 +6,7 @@ The principles to hold in mind throughout Phase 3 category fixes. This is **not*
 
 - `asm eval`'s `prompt-engineering` rewards bodies up to ~3000 words
 - `asm eval`'s `context-efficiency` rewards bodies under ~1500 words (and penalizes bodies over ~3000)
-- Gate 1 caps SKILL.md at **500 lines** (the hard skill-creator rule, ~a few thousand words)
+- Gate 1 caps SKILL.md at **500 lines** and 3000 words (the skill standard, `skill-standard.md`)
 
 A fix that lifts one category can sink another: expanding the body for `testability` can tank `context-efficiency` or push SKILL.md over the 500-line cap (failing Gate 1). This is why Phase 3 works one category at a time, re-evals after each change, and reverts any edit that regresses either gate.
 

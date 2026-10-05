@@ -75,12 +75,12 @@
       "id": 6,
       "kind": "negative-trigger",
       "prompt": "This skill only scores 72 on asm eval and quick_validate is failing on the frontmatter. Fix it.",
-      "expected_output": "Handled as a quality retrofit — skill-auto-improver's job — without running the measure/classify/split workflow.",
+      "expected_output": "Handled as a quality retrofit — skill-creator's Subpath B1 job — without running the measure/classify/split workflow.",
       "files": [],
       "expectations": [
         "Did not run scripts/measure_skill.py or write a .skill-shortener/ manifest",
         "Did not split the body into references/ to raise an eval score",
-        "Routed to skill-auto-improver or fixed the frontmatter directly"
+        "Routed to skill-creator's retrofit (Subpath B1) or fixed the frontmatter directly"
       ]
     },
     {

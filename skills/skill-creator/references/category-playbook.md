@@ -1,8 +1,8 @@
 # Category Playbook (Gate 2)
 
-Per-category fix patterns for the asm-eval scoring used in **Gate 2** of the `skill-auto-improver` workflow. Each section lists what the evaluator rewards, common failure modes, and concrete edits that move the score up.
+Per-category fix patterns for the asm-eval scoring used in **Gate 2 of the skill standard** (`skill-standard.md`), worked in `retrofit-loop.md` Phase 3. Each section lists what the evaluator rewards, common failure modes, and concrete edits that move the score up.
 
-For Gate 1 (the skill-creator standard — `quick_validate.py`, frontmatter audit, ≤500-line body, AI-skip README, etc.), see `skill-creator-checklist.md`. **Always clear Gate 1 before working on Gate 2** — a Gate 1 failure blocks publish regardless of asm-eval score.
+For Gate 1 (`quick_validate.py`, frontmatter audit, ≤500-line body, AI-skip README, etc.), see `skill-standard.md`. **Always clear Gate 1 before working on Gate 2** — a Gate 1 failure blocks publish regardless of asm-eval score.
 
 All scoring rules below mirror `src/evaluator.ts` in the ASM repo. Numbers change when the evaluator evolves — re-read that file if scores behave unexpectedly.
 

@@ -1,10 +1,10 @@
 # Controlled instructions and human-review audit
 
-Apply this audit to every target as part of Gate 1: inspect before edits in Phase 0, fix in Phase 2, and re-check after each iteration or Mode 2 conversion. This local checklist works even when the acquired skill-creator predates its human-review guidance.
+Apply this audit to every target as part of Gate 1: inspect before edits in Phase 0, fix in Phase 2, and re-check after each iteration or Subpath B3 conversion. This is the operational detect/repair/re-check checklist; `human-review.md` is the authoring guide it applies.
 
 Record five rows: check, target evidence (`path:line`), status (`pass`, `fail`, or `not applicable`), edit made, and re-check evidence. Save the baseline to `.asm-improver/baseline-human-review.md` and the latest state to `.asm-improver/human-review-audit.md`. On a no-edit exit, copy the baseline as the latest state. A missing or uninspected requirement cannot pass. Only check 4 may be not applicable, with a reason tied to the target's output.
 
-These are required **target instruction checks**, not optional recommendations or a third gate. Repair every failure in the target's SKILL.md, references, templates, or eval guidance. Keep the target self-contained: do not point it at this improver's installed files. If a repair needs missing information or unauthorized scope, record a Gate 1 blocker with the specific decision needed. Do not claim full completion while an applicable check remains failed.
+These are required **target instruction checks**, not optional recommendations or a third gate. Repair every failure in the target's SKILL.md, references, templates, or eval guidance. Keep the target self-contained: do not point it at skill-creator's installed files. If a repair needs missing information or unauthorized scope, record a Gate 1 blocker with the specific decision needed. Do not claim full completion while an applicable check remains failed.
 
 ## Detect, repair, and re-check the target
 
@@ -51,7 +51,7 @@ Require the target's final output to communicate these four items. Use compact t
 
 Preserve existing authorization. Do not invent approval gates. Match claims to the scope of their evidence: in a Paperclip invite workflow, a valid API response establishes “invite generated,” not “owner access confirmed.” The latter needs observed acceptance and expected owner permissions. Mark those checks untested when they were not performed.
 
-For the auto-improver's own report, a validator exit and asm score establish only those checks. They do not prove the target workflow succeeds or that its users understand the output.
+For the retrofit loop's own report, a validator exit and asm score establish only those checks. They do not prove the target workflow succeeds or that its users understand the output.
 
 ## 3. Select the format by the review task
 

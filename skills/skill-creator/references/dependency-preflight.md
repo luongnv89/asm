@@ -7,8 +7,8 @@ surfaces halfway through someone else's work, after the run has already made
 edits.
 
 This file is the single home of the rule. `skill-creator` applies it while
-authoring; `skill-auto-improver` audits for it
-(`references/skill-creator-checklist.md` → _Dependency preflight_).
+authoring; the skill standard's Gate 1 (`references/skill-standard.md`) checks
+it on both paths.
 
 ## When the rule applies
 

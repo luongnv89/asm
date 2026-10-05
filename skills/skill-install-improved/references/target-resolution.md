@@ -4,7 +4,7 @@ The contract for Phase 0: turn whatever the user typed into exactly one local di
 
 Two invariants hold for every input form:
 
-1. **`$SKILL_PATH` is a directory, never a file.** `skill-auto-improver` takes a directory (`skills/skill-auto-improver/SKILL.md` — "Inputs"). A `SKILL.md` file path folds to its parent.
+1. **`$SKILL_PATH` is a directory, never a file.** the retrofit loop takes a directory (`skills/skill-creator/references/retrofit-loop.md` — "Inputs"). A `SKILL.md` file path folds to its parent.
 2. **`$SKILL_PATH` lives under `$(mktemp -d)`.** Including local-path targets. See SKILL.md → Prerequisites for why, and for the trade-off.
 
 ```bash
@@ -37,7 +37,7 @@ SKILL_PATH="$WORK/$(basename "$SRC")"
 
 `asm install` names the installed directory after `$SKILL_PATH`'s basename, so a generic temp name like `$WORK/target` would install as `target`. Preserve the source directory name for every form.
 
-The copy has no `origin` remote and no history. `skill-auto-improver`'s mandatory repo sync is inapplicable — log the skip and continue.
+The copy has no `origin` remote and no history. the retrofit loop's mandatory repo sync is inapplicable — log the skip and continue.
 
 Provenance to record: the literal path the user supplied; `installUrl` = `n/a (local path)`; upstream SHA = `n/a` unless the source directory happened to sit in a git repo, in which case record `git -C "$SRC" rev-parse HEAD` for traceability.
 

@@ -1,6 +1,6 @@
 # Predictability Rubric
 
-The standard a skill must meet **by construction** when authored through skill-creator — so it ships publish-ready and does not need a later `skill-auto-improver` cleanup pass to become standard-compliant. Apply it during creation (the "Creating a skill" path in `SKILL.md`), not as an afterthought.
+The standard a skill must meet **by construction** when authored through skill-creator — so it ships publish-ready and clears `skill-standard.md` on creation. Apply it during creation (the "Creating a skill" path in `SKILL.md`), not as an afterthought.
 
 **Root virtue: predictability.** A good skill makes the agent follow the _same reliable process_ every run. Identical _outputs_ are not the goal — a predictable _process_ is. Everything below serves that.
 
@@ -38,7 +38,7 @@ Why first: branches drive both structure _and_ progressive disclosure. Once you 
 
 Each ordered step ends with a completion bar the agent can _check_, not vibe. "Done when the report prints PASS and `quick_validate.py` is clean" beats "done when it looks good." Strong criteria are what make the process repeatable — they stop the agent from declaring success early.
 
-Use the Step Completion Reports format (`SKILL.md` → _Step Completion Reports_) for step-based workflows: explicit `√/×` checks plus a `Result: PASS | FAIL | PARTIAL` line. Make the checks _demanding_ — tie them to commands, file states, or counts, not impressions. Where it matters, make the criterion _exhaustive_ ("every modified file accounted for", not "produce a change list") — a vague bar invites **premature completion**, the agent ending a step before it is genuinely done because its attention slipped to _being done_.
+Use the Step Completion Reports format (`writing-guide.md` → _Step Completion Reports_) for step-based workflows: explicit `√/×` checks plus a `Result: PASS | FAIL | PARTIAL` line. Make the checks _demanding_ — tie them to commands, file states, or counts, not impressions. Where it matters, make the criterion _exhaustive_ ("every modified file accounted for", not "produce a change list") — a vague bar invites **premature completion**, the agent ending a step before it is genuinely done because its attention slipped to _being done_.
 
 **Defence against premature completion, in order:** sharpen the completion criterion first (cheap, local). Only if the criterion is irreducibly fuzzy _and_ you observe the agent rushing, split the run by **sequence** — move the still-ahead steps out of view (into a later phase or reference) so the agent can't see the finish line and does more legwork on the step in front of it.
 
@@ -64,7 +64,7 @@ Use **leading words** — short, load-bearing terms that steer behavior and coll
 
 ## 6. Pruning pass (run before finishing)
 
-Before the skill is done, do one explicit pass to remove what the rubric above is meant to prevent. This is the step that most often separates a skill-creator-authored skill from one that still needs `skill-auto-improver`.
+Before the skill is done, do one explicit pass to remove what the rubric above is meant to prevent. This is the step that most often separates a skill that clears the standard first time from one that loops in the retrofit.
 
 Cut, in this order:
 
@@ -75,13 +75,11 @@ Cut, in this order:
 
 **Checkable:** a reviewer reading the finished skill finds no instruction stated twice, no reference to something that no longer exists, and no line that fails to change what the agent does.
 
-## 7. Publish-ready — no auto-improver dependency
+## 7. Publish-ready — clears the skill standard on creation
 
-The output of skill-creator is a **publish-ready** skill. A skill authored through this path should clear the skill-creator standard on its own — `quick_validate.py` clean, Frontmatter Audit passing, SKILL.md under 500 lines, description with a negative-trigger clause, the items above satisfied — **without** a follow-up `skill-auto-improver` run as a normal cleanup step.
+The output of skill-creator is a **publish-ready** skill. A created skill must pass the same skill standard (`skill-standard.md`) that Subpath B1 enforces on existing skills — `quick_validate.py` clean, Frontmatter Audit passing, SKILL.md under 500 lines and 3000 words, a negative-trigger clause, the asm-eval 85/8 floor, the items above satisfied. Path A closes by running `retrofit-loop.md` Phase 0 on it.
 
-`skill-auto-improver` still has a job: bringing _externally authored_ or _legacy_ skills up to standard. It is the remediation tool for skills that did **not** go through this rubric — not a required second stage for ones that did.
-
-**Checkable:** running `skill-auto-improver` immediately after creation would find nothing structural to fix.
+**Checkable:** that Phase 0 run exits early with both gates passing.
 
 ---
 

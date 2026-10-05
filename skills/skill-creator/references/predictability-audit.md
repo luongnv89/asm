@@ -1,18 +1,16 @@
 # Predictability audit (Phase 2b — advisory)
 
-The checklist for the advisory predictability audit. It applies skill-creator's predictability rubric to the **target** skill so the auto-improver can spot process-reliability gaps that the two hard gates miss. Findings here are **judgment-based and never pass/fail** — they inform targeted Phase 3 edits and a distinct report section, but they do not gate the loop.
+The checklist for the advisory predictability audit. It applies skill-creator's predictability rubric to the **target** skill so the retrofit loop (`retrofit-loop.md` Phase 2b) can spot process-reliability gaps that the two hard gates miss. Findings here are **judgment-based and never pass/fail** — they inform targeted Phase 3 edits and a distinct report section, but they do not gate the loop.
 
 ## Source of truth (link, do not copy)
 
-The rubric this audit scores against lives in skill-creator, not here:
+The rubric this audit scores against lives beside this file, not here:
 
 ```
-~/.claude/skills/skill-creator/references/predictability-rubric.md
+predictability-rubric.md
 ```
 
-Read that file for the full _why_ and pass/fail bar of each item. This file is the **operational checklist** the auto-improver walks; it deliberately does not restate the rubric's prose (duplication is one of the things the rubric tells you to prune). If the two ever diverge, the rubric upstream wins.
-
-**Fail-soft.** If `$RUBRIC` does not resolve, skip this predictability checklist: log `⚠ predictability audit skipped (rubric unavailable)` and record the skip. Gate 1's local `human-review-audit.md` remains mandatory and does not depend on that file.
+Read that file for the full _why_ and pass/fail bar of each item. This file is the **operational checklist** the retrofit loop walks; it deliberately does not restate the rubric's prose (duplication is one of the things the rubric tells you to prune). If the two ever diverge, the rubric wins.
 
 ## Root virtue
 
@@ -30,17 +28,17 @@ Walk these in order. For each, record `pass` or `advisory` with a one-line, _spe
 | 4   | **Progressive disclosure + delegability**             | Long, branch-specific, or rarely-needed content is inlined in SKILL.md instead of a one-line pointer to `references/`; SKILL.md drifts toward the 500-line cap; or a concept's definition, rules, and caveats are scattered across the file rather than co-located under one heading (the seed of drift and duplication). **Delegability sub-check:** a step heavy enough to hand off names no slice of `references/` for its worker — record it as `step N is not delegable because <reason>` (needs the user mid-step, depends on the previous step's exact text, or its slice is what every run reads anyway). A skill with nothing to slice passes. |
 | 5   | **Leading words**                                     | A recurring concept is re-explained in full at each use instead of named once (e.g. "atomic commit", "fail-soft", "publish-ready") and referred to by that name.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | 6   | **No duplication / stale sediment / sprawl / no-ops** | The same instruction appears in two places; a reference points to a file that no longer exists; a section grew past its value; a line says "be careful" / "use good judgment" without changing what the agent does.                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| 7   | **Publish-ready — no auto-improver dependency**       | (Mostly informational here — this _is_ the auto-improver.) Note structural debt that would make the skill fail the rubric if re-created through skill-creator.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| 7   | **Publish-ready — clears the skill standard**         | (Mostly informational here — this loop _is_ the standard check.) Note structural debt that would make the skill fail the rubric if re-created through skill-creator.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 
 ## Turning findings into action
 
 - **Targeted only.** Act on a finding when the fix is small and preserves the skill's intent. A good predictability fix often _also_ lifts an asm-eval category — adding a checkable completion bar (#3) helps `testability`; collapsing a re-explained concept into a leading word (#5) helps `context-efficiency`.
 - **Never bloat to satisfy a finding.** Do not inline long material or rewrite a skill wholesale to close a finding — that regresses `context-efficiency` and contradicts check #4. If a fix would grow SKILL.md past the 500-line cap, link out instead, or leave the finding open and advisory.
-- **A delegability finding routes to Mode 2, never a Mode 1 edit.** Restructuring a skill's steps onto per-step context delegation is the wholesale rewrite the no-bloat rule above forbids inside this loop. Report it advisory, name the steps, and offer `references/delegation-conversion.md` (Mode 2) as the follow-up the user opts into.
+- **A delegability finding routes to Subpath B3, never a Subpath B1 edit.** Restructuring a skill's steps onto per-step context delegation is the wholesale rewrite the no-bloat rule above forbids inside this loop. Report it advisory, name the steps, and offer `delegation-conversion.md` (Subpath B3) as the follow-up the user opts into.
 - **Open findings stay advisory.** A finding you choose not to act on goes into the report's **Predictability findings** section as advisory. It does **not** block PASS and is **not** a blocker entry.
 
 If a finding also fails one of the five target checks in `human-review-audit.md`, record that failure under Gate 1. Its presence in this broader rubric does not make the required target repair optional.
 
 ## Output
 
-Save the walk to `.asm-improver/predictability-audit.md` as a 7-row table (item → `pass`/`advisory` → note). The report's advisory section (see `references/report-template.md`) lifts from this file.
+Save the walk to `.asm-improver/predictability-audit.md` as a 7-row table (item → `pass`/`advisory` → note). The report's advisory section (see `report-template.md`) lifts from this file.

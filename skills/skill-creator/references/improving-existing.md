@@ -1,28 +1,16 @@
-# Improving an existing skill — the two subpaths
+# Improving an existing skill — the three subpaths
 
-Path B from the entry-paths block in SKILL.md. Pick the subpath from what the user is asking for; they do not share an opening move.
+Path B from the entry-paths block in SKILL.md. Pick the subpath from what the user is asking for, **before** Phase 0 of the retrofit loop runs; the subpaths do not share an opening move. Every subpath ends at the same bar as Path A: `skill-standard.md`.
 
-## Subpath B1 — Retrofit an existing skill to the standard
+## Subpath B1 — Retrofit to the standard (default)
 
-Use this when the user says "update this skill to match the standard," "fix this skill," "review and improve," or invokes `/skill-creator` on a published skill that hasn't been touched in a while. The goal is mechanical conformance, not behavioral redesign. **Do not interview the user about purpose, triggers, or output format** — those are encoded in the existing SKILL.md.
+Use this when the user says "update this skill to match the standard," "fix this skill," "improve," "level up," "review and improve," or invokes `/skill-creator` on a skill that hasn't been touched in a while. Any ambiguous improvement request is B1. The goal is conformance, not behavioral redesign. **Do not interview the user about purpose, triggers, or output format** — those are encoded in the existing SKILL.md.
 
-1. Read the existing SKILL.md and surrounding directory. Note current frontmatter, body length, references, scripts, version. Skim `docs/README.md` for human-facing claims.
-2. Run `python scripts/quick_validate.py <skill-path>`. Validates allowed keys, name format, description length, missing negative trigger, broken YAML.
-3. Run the **Frontmatter Audit** described in `frontmatter-rules.md`. Cover every checklist item, not just what `quick_validate.py` flagged.
-4. Inspect the body against the standards in this skill:
-   - SKILL.md under 500 lines and under ~3000 words (split to `references/` if not).
-   - Step Completion Reports section present.
-   - "Repo Sync Before Edits" section if the skill mutates a git repo.
-   - "Dependency Preflight" section if the skill invokes another skill — and none if it invokes none (`dependency-preflight.md`).
-   - Bundled scripts print descriptive errors before exiting.
-   - Progressive disclosure used appropriately; references one level deep.
-   - Controlled instructions per `writing-guide.md`: one action per instruction, consistent terms, explicit conditions and exceptions, observable checks.
-   - Human-review output contract and format selection per `human-review.md`; when evals run, include its understanding criteria.
-5. Decide fix vs. review-only mode. If fixing, apply edits and **bump `metadata.version`** — patch for frontmatter-only fixes, minor for new sections, major for restructuring. If reviewing only, surface findings as before/after suggestions and don't silently edit.
-6. Re-run `quick_validate.py` to confirm clean. Output a Step Completion Report with a `Frontmatter valid` check.
-7. Optional: offer description optimization (`description-optimization.md`). Don't run it automatically — it costs eval tokens.
+Follow `retrofit-loop.md` end to end: prerequisites, repo sync, Phases 0–7, the 8-iteration / 3-no-move / 2-regression caps, and the `.asm-improver/` artifacts (`baseline.json`, `iter-N.json`, `report.md`).
 
-This subpath does **not** require running evals. Move to Subpath B2 only if body changes are substantive enough that the user wants verification.
+**Review-only** request ("just review this skill"): run Phase 0 and report the findings as before/after suggestions. Make no edits.
+
+This subpath does **not** require running evals. Move to Subpath B2 only if body changes are substantive enough that the user wants behavioral verification. Optionally offer description optimization (`description-optimization.md`) afterwards — never run it automatically; it costs eval tokens.
 
 ## Subpath B2 — Iterate on a skill based on eval feedback
 
@@ -33,5 +21,10 @@ Use this when the user has eval results (or wants to run evals) and wants the sk
 3. Run the **Frontmatter Audit** alongside content revision — a polished body on top of broken frontmatter still fails validation.
 4. Bump `metadata.version` per Version Management — minor for new capabilities or expanded triggers, patch for wording fixes.
 5. Re-run evals into a new `iteration-<N+1>/` directory and let the user compare.
+6. Close with the skill standard: run `retrofit-loop.md` Phase 0 on the revised skill, as Path A does (`skill-standard.md` → _How each path applies the standard_).
 
 `iteration.md` also documents the optional blind A/B comparison system.
+
+## Subpath B3 — Delegation conversion (opt-in)
+
+Restructure the target's steps onto **per-step context delegation**: each heavy step names the slice of its own `references/` tree its worker needs and hands it over as that worker's `Input`. Runs **outside** the Phase 6 loop, only on a target that already clears Gate 1, and only once the user confirms. A Phase 2b delegability finding routes here but never starts a conversion by itself. Procedure: `delegation-conversion.md`.

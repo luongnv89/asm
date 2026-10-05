@@ -1,25 +1,25 @@
-# Delegation conversion (Mode 2)
+# Delegation conversion (Subpath B3)
 
 The procedure for converting an **already-written** skill onto **per-step context
 delegation** — each heavy step naming the slice of the skill's own `references/`
 tree its worker needs, handed over as the worker's `Input`.
 
-This is Mode 2 from SKILL.md → _Two modes_. It is not part of the Phase 0–7
-retrofit loop, and it never runs on its own: a Phase 2b delegability finding
+This is Subpath B3 from SKILL.md → _Improving an existing skill_. It is not part of
+the Phase 0–7 retrofit loop (`retrofit-loop.md`), and it never runs on its own: a Phase 2b delegability finding
 _reports_ the gap, the user _opts into_ the conversion.
 
-The pattern itself has one home, upstream in skill-creator:
+The pattern itself has one home, beside this file:
 
 ```
-~/.claude/skills/skill-creator/references/subagent-patterns.md → Per-Step Context Delegation
+subagent-patterns.md → Per-Step Context Delegation
 ```
 
 Read that for the _why_ and the pass bar. This file is the operational recipe for
 applying it to a skill that already exists.
 
-## When Mode 2 applies
+## When Subpath B3 applies
 
-All four must hold. Any miss and the answer is Mode 1, or nothing:
+All four must hold. Any miss and the answer is Subpath B1, or nothing:
 
 1. The target **clears Gate 1** already. A conversion on top of an unpublishable
    skill compounds two problems; retrofit first.
@@ -77,7 +77,7 @@ Per converted step:
    main agent does not read the slice itself.
 3. Add or extend the **graceful-degradation** clause: with no Agent tool, the main
    agent reads the named slices itself and runs the steps inline, in order, and says
-   so (skill-creator's `subagent-patterns.md` → _Graceful degradation pattern_).
+   so (`subagent-patterns.md` → _Graceful degradation pattern_).
 4. Confirm `Agent` is in the target's `allowed-tools`; add it if not.
 5. Re-point `docs/README.md` at the new reference files.
 
@@ -89,17 +89,17 @@ it has documented the delegation on top of the procedure it was meant to replace
 Phase 6 stops on _2 consecutive iterations with regression on either gate_. A
 restructure moves a large block of body text in one edit; the intermediate state can
 regress `context-efficiency` or a Gate 1 check before the extraction lands, and the
-loop would revert the conversion halfway through. Mode 2 therefore runs as a single
+loop would revert the conversion halfway through. Subpath B3 therefore runs as a single
 deliberate pass, with its gates checked once at the end:
 
-- **Take the baseline first.** Mode 2 is selected _before_ Phase 0, so no earlier run
+- **Take the baseline first.** Subpath B3 is selected _before_ Phase 0, so no earlier run
   has captured one. Before the first edit, run `python "$QV" "$SKILL_PATH"`,
   `asm eval "$SKILL_PATH" --json`, and a SKILL.md body line count, and record all
   three as the conversion report's **Before** column. Inspect all other Gate 1
   requirements, including `human-review-audit.md`, before confirming precondition
   #1. A validator exit alone cannot establish that the target clears Gate 1.
   Save the five checks to `.asm-improver/baseline-human-review.md` before edits.
-  If an applicable check fails, route the target to Mode 1 before conversion.
+  If an applicable check fails, route the target to Subpath B1 before conversion.
 - Apply `human-review-audit.md` after conversion. Repair failed target requirements before the final gate checks. Record their Gate 1 status and use the output contract in the conversion report.
 - Re-run `python "$QV" "$SKILL_PATH"` and `asm eval "$SKILL_PATH" --json` after all conversion and audit edits.
 - **Both gates must be no worse than before the conversion.** If either regressed and
@@ -109,9 +109,9 @@ deliberate pass, with its gates checked once at the end:
 ## Version bump
 
 A conversion is a **MAJOR** bump on the target (`X.0.0`) — restructured workflow, per
-SKILL.md → _Phase 5_. Bump once for the whole conversion, not per converted step, and
+`retrofit-loop.md` → _Phase 5_. Bump once for the whole conversion, not per converted step, and
 record baseline → final in the conversion report (`references/report-template.md` →
-_Mode 2 — conversion report_).
+_Subpath B3 — conversion report_).
 
 ## When conversion does not pay for itself
 
@@ -124,4 +124,4 @@ Say so and stop — an unconverted skill is a fine outcome:
 - **The skill is a knowledge skill.** Its body _is_ the material; there is no step to
   delegate.
 - **The user declines the restructure.** The finding stays advisory. It is never
-  promoted to a blocker, and Mode 1 never converts a skill quietly.
+  promoted to a blocker, and Subpath B1 never converts a skill quietly.

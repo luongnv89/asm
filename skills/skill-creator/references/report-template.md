@@ -1,15 +1,15 @@
 # Report template
 
-The final `.asm-improver/report.md` produced by this skill. PASS layout first, BLOCKER layout second. These examples define the information to preserve, not a minimum report length. Use compact text for quick operations, a diagram for relationships, or interactive HTML for repeated filtering and evidence inspection, following `human-review-audit.md`. Keep report.md as the audit record linking to any additional artifact.
+The final `.asm-improver/report.md` written by `retrofit-loop.md` Phase 7 — on Subpath B1 and on the Path A closing check. PASS layout first, BLOCKER layout second. These examples define the information to preserve, not a minimum report length. Use compact text for quick operations, a diagram for relationships, or interactive HTML for repeated filtering and evidence inspection, following `human-review-audit.md`. Keep report.md as the audit record linking to any additional artifact.
 
 Keep these sections visually distinct:
 
-1. **Gate status** — the two hard gates (Gate 1 = skill-creator standard, Gate 2 = asm-eval 85/8). These decide PASS vs BLOCKER.
+1. **Gate status** — the two hard gates of `skill-standard.md` (Gate 1 = must-pass floor, Gate 2 = asm-eval 85/8). These decide PASS vs BLOCKER.
 2. **Predictability findings** — the advisory Phase 2b audit. Listed in rubric order (items 1–7), never pass/fail; an open finding here is _not_ a gate failure.
 3. **Target writing and human-review checks (Gate 1)** — five checks with before/after target locations, applied edits, and re-check results. An unresolved applicable requirement fails Gate 1. Report behavioral testing and human feedback separately from instruction compliance.
 4. **Unresolved blockers** — present only on BLOCKER, and only ever a failed **hard gate**.
 
-For PASS, BLOCKER, Mode 2, and early exits, lead with **Result**, **Evidence**, **Uncertainty**, and **Decision**. Link material claims to the saved checks or source locations. State “No approval needed” when applicable; list any remaining user action separately. Never infer confirmed understanding from a numeric score or blank feedback. Keep blockers and material uncertainty visible in the initial view of an interactive report.
+For PASS, BLOCKER, Subpath B3, and early exits, lead with **Result**, **Evidence**, **Uncertainty**, and **Decision**. Link material claims to the saved checks or source locations. State “No approval needed” when applicable; list any remaining user action separately. Never infer confirmed understanding from a numeric score or blank feedback. Keep blockers and material uncertainty visible in the initial view of an interactive report.
 
 ## PASS example
 
@@ -17,19 +17,20 @@ For PASS, BLOCKER, Mode 2, and early exits, lead with **Result**, **Evidence**, 
 # Skill improvement report
 
 Skill: skills/my-skill
+Path: B1   (A (closing check) | B1)
 Verdict: PASS
 Result: Added the target's output contract and clarified its validation steps.
 Evidence: baseline-quickvalidate.txt and iter-3-gates.txt record the validator results; baseline.json and iter-3.json record the scores.
 Uncertainty: Target behavior was not executed. Human understanding is unconfirmed.
 Decision: No approval needed.
-Gate 1 (skill-creator standard): √ pass
+Gate 1 (skill standard): √ pass
 Target requirements: 4 pass, interactive-report check not applicable (quick operation)
 Gate 2 (asm-eval): overallScore 91, min category 8
 Predictability audit: 6/7 pass, 1 advisory (non-blocking)
 Iterations: 3 of 8
 Target version: 0.2.0 → 1.0.0
 
-## Gate 1 — skill-creator standard
+## Gate 1 — skill standard
 
 | Check                                | Baseline    | Final |
 |--------------------------------------|-------------|-------|
@@ -71,8 +72,6 @@ Source: Phase 2b audit against skill-creator's predictability rubric. None of th
 | 6 | No duplication / sprawl / no-ops     | advisory | repeated workflow background could be shortened; required instruction checks pass |
 | 7 | Publish-ready                        | pass     | would clear the rubric if re-created |
 
-(If Phase 2b was skipped fail-soft because the rubric was unavailable, this section reads: `Predictability audit skipped — rubric not found at $RUBRIC (hard gates unaffected).`)
-
 ## Target writing and human-review checks (Gate 1)
 
 | Target check | Before | Edit / after evidence | Status |
@@ -101,15 +100,15 @@ The `Dependency preflight` row always appears; its label is **conditional**. A t
 
 The **Run stats** block closes the report and the printed summary at every terminal outcome — PASS, BLOCKER, the Phase 0 early exit, and a failed prerequisite. `elapsed`, `agents`, `skills`, and `tool calls` always print (`n/a` when undetermined); `tokens` and `cost` print only where the host reported a figure and are left out entirely otherwise, never invented and never suppressing the rest of the block. Field definitions live in SKILL.md → _Run stats (mandatory)_.
 
-## Mode 2 — conversion report
+## Subpath B3 — conversion report
 
-A **delegation conversion** (SKILL.md → _Two modes_) writes its own report instead of a gate diff — none of the loop's iteration bookkeeping applies to it:
+A **delegation conversion** (Subpath B3, `delegation-conversion.md`) writes its own report instead of a gate diff — none of the loop's iteration bookkeeping applies to it:
 
 ```
 # Delegation conversion report
 
 Skill: skills/my-skill
-Mode: 2 — delegation conversion (user-confirmed)
+Path: B3 — delegation conversion (user-confirmed)
 Target version: 1.3.0 → 2.0.0   (MAJOR — restructured workflow)
 Result: Converted the listed steps to context delegation.
 Evidence: The step contracts and saved before/after gate checks support this result.
@@ -129,7 +128,7 @@ Decision: No further approval needed for the authorized conversion.
 
 | Gate                            | Before     | After      |
 |---------------------------------|------------|------------|
-| Gate 1 (skill-creator standard) | √ pass     | √ pass     |
+| Gate 1 (skill standard)         | √ pass     | √ pass     |
 | Gate 2 (asm-eval)               | 89 / min 8 | 90 / min 8 |
 | SKILL.md body lines             | 349        | 305        |
 ```
@@ -155,9 +154,11 @@ The verdict line on a blocker reads:
 
 ```
 Verdict: BLOCKER
-Gate 1 (skill-creator standard): × failing 1 check
+Gate 1 (skill standard): × failing 1 check
 Gate 2 (asm-eval): overallScore 86, min category 6 (below floor)
 Predictability audit: 4/7 pass, 3 advisory (non-blocking)
 ```
 
 Both gate states are reported even when only one is failing — so a reviewer can see at a glance which gate is the holdup. The predictability line is informational: it never changes the verdict.
+
+Without `asm` on PATH, the Gate 2 line reads `Gate 2 (asm-eval): not measured — asm not on PATH`, and the verdict is never PASS (`skill-standard.md` → _Without `asm`_).

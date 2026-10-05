@@ -1,13 +1,32 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { parse as parseYaml } from "yaml";
 
+function repoPath(relPath: string): string {
+  return fileURLToPath(new URL(`../${relPath}`, import.meta.url));
+}
+
 function readRepoFile(relPath: string): string {
-  return readFileSync(
-    fileURLToPath(new URL(`../${relPath}`, import.meta.url)),
-    "utf8",
-  );
+  return readFileSync(repoPath(relPath), "utf8");
+}
+
+function frontmatterOf(doc: string): Record<string, unknown> {
+  const match = doc.match(/^---\n([\s\S]*?)\n---\n/);
+  expect(match).not.toBeNull();
+  return parseYaml(match![1]);
+}
+
+// Body after the leading frontmatter block only — the body itself contains
+// `---` horizontal rules, so splitting on `---` would measure a fragment.
+function bodyOf(doc: string): string {
+  return doc.replace(/^---\n[\s\S]*?\n---\n/, "");
+}
+
+function section(doc: string, start: string, end: string): string {
+  expect(doc).toContain(start);
+  expect(doc).toContain(end);
+  return doc.slice(doc.indexOf(start), doc.indexOf(end));
 }
 
 const creatorSkill = readRepoFile("skills/skill-creator/SKILL.md");
@@ -17,12 +36,14 @@ const creatorPreflight = readRepoFile(
 const creatorValidator = readRepoFile(
   "skills/skill-creator/scripts/quick_validate.py",
 );
-const improverSkill = readRepoFile("skills/skill-auto-improver/SKILL.md");
-const improverChecklist = readRepoFile(
-  "skills/skill-auto-improver/references/skill-creator-checklist.md",
+const creatorStandard = readRepoFile(
+  "skills/skill-creator/references/skill-standard.md",
 );
-const improverReport = readRepoFile(
-  "skills/skill-auto-improver/references/report-template.md",
+const creatorRetrofit = readRepoFile(
+  "skills/skill-creator/references/retrofit-loop.md",
+);
+const creatorReport = readRepoFile(
+  "skills/skill-creator/references/report-template.md",
 );
 const creatorPatterns = readRepoFile(
   "skills/skill-creator/references/subagent-patterns.md",
@@ -30,11 +51,11 @@ const creatorPatterns = readRepoFile(
 const creatorRubric = readRepoFile(
   "skills/skill-creator/references/predictability-rubric.md",
 );
-const improverAudit = readRepoFile(
-  "skills/skill-auto-improver/references/predictability-audit.md",
+const creatorAudit = readRepoFile(
+  "skills/skill-creator/references/predictability-audit.md",
 );
-const improverConversion = readRepoFile(
-  "skills/skill-auto-improver/references/delegation-conversion.md",
+const creatorConversion = readRepoFile(
+  "skills/skill-creator/references/delegation-conversion.md",
 );
 // Not an authoring skill: kept out of `authoringSkills` so the 500-line and
 // run-stats assertions below do not bind it.
@@ -48,7 +69,6 @@ const auditContract = readRepoFile(
 
 const authoringSkills: Array<[string, string]> = [
   ["skill-creator", creatorSkill],
-  ["skill-auto-improver", improverSkill],
 ];
 
 describe("dependency preflight rule (#571)", () => {
@@ -60,22 +80,26 @@ describe("dependency preflight rule (#571)", () => {
     expect(creatorSkill).toContain("references/dependency-preflight.md");
   });
 
-  it.each([
-    ["skill-creator reference", creatorPreflight],
-    ["skill-auto-improver checklist", improverChecklist],
-  ])("%s documents all four preflight elements", (_name, doc) => {
-    expect(doc).toContain("## Dependency Preflight (mandatory)");
-    expect(doc).toContain("dependencies");
-    expect(doc).toContain("asm deps discover");
-    expect(doc).toContain("asm deps acquire");
-    expect(doc).toContain("asm deps release");
+  it.each([["skill-creator reference", creatorPreflight]])(
+    "%s documents all four preflight elements",
+    (_name, doc) => {
+      expect(doc).toContain("## Dependency Preflight (mandatory)");
+      expect(doc).toContain("dependencies");
+      expect(doc).toContain("asm deps discover");
+      expect(doc).toContain("asm deps acquire");
+      expect(doc).toContain("asm deps release");
+    },
+  );
+
+  it("the skill standard points at the preflight rule's single home", () => {
+    expect(creatorStandard).toContain("references/dependency-preflight.md");
   });
 
-  it("skill-auto-improver reports a missing gate as a Gate 1 finding", () => {
-    expect(improverSkill).toMatch(
+  it("the skill standard reports a missing gate as a Gate 1 finding", () => {
+    expect(creatorStandard).toMatch(
       /If the target skill invokes another skill\*\*, it declares frontmatter `dependencies`/,
     );
-    expect(improverSkill).toContain(
+    expect(creatorStandard).toContain(
       "Skill invokes another skill without dependency metadata and a first-use lease lifecycle",
     );
   });
@@ -83,21 +107,22 @@ describe("dependency preflight rule (#571)", () => {
   it.each([
     ["skill-creator", creatorSkill],
     ["skill-creator reference", creatorPreflight],
-    ["skill-auto-improver", improverSkill],
-    ["skill-auto-improver checklist", improverChecklist],
+    ["skill-creator standard", creatorStandard],
   ])("%s leaves a skill with no dependencies untouched", (_name, doc) => {
     expect(doc).toMatch(
       /empty\s+(preflight|dependency list)|empty list|no such section|nothing is added|add nothing/i,
     );
   });
 
-  it("skill-auto-improver carries the gate it enforces, for its own skill-creator dependency", () => {
-    expect(improverSkill).toContain("## Dependency Preflight (mandatory)");
-    const frontmatter = parseYaml(improverSkill.split("---", 3)[1]);
-    expect(frontmatter.dependencies).toContain("skill-creator");
-    expect(improverSkill).toContain("asm deps acquire skill-creator");
-    expect(improverSkill).toContain("asm deps release --session");
-    expect(improverSkill).toContain("does not supervise");
+  it("skill-creator does not depend on itself, and the merged improver is gone", () => {
+    const frontmatter = frontmatterOf(creatorSkill);
+    const deps = frontmatter.dependencies as string[] | undefined;
+    if (deps !== undefined) {
+      expect(deps).not.toContain("skill-creator");
+    }
+    expect(creatorSkill).not.toContain("asm deps acquire skill-creator");
+    expect(creatorRetrofit).not.toContain("asm deps acquire skill-creator");
+    expect(existsSync(repoPath("skills/skill-auto-improver"))).toBe(false);
   });
 
   it("skill-creator validation accepts non-empty dependency lists", () => {
@@ -108,8 +133,8 @@ describe("dependency preflight rule (#571)", () => {
   });
 
   it("the report template marks the preflight row conditional", () => {
-    expect(improverReport).toContain("Dependency preflight");
-    expect(improverReport).toMatch(/conditional/i);
+    expect(creatorReport).toContain("Dependency preflight");
+    expect(creatorReport).toMatch(/conditional/i);
   });
 });
 
@@ -147,17 +172,12 @@ describe("run stats block (#572)", () => {
     },
   );
 
-  it("skill-creator prints run stats on every create/update path", () => {
+  it("skill-creator prints run stats on every path and at every terminal outcome", () => {
+    expect(creatorSkill).toContain("## Run stats (mandatory)");
     const block = creatorSkill.slice(
       creatorSkill.indexOf("## Run stats (mandatory)"),
     );
-    expect(block).toContain("Path A, Subpath B1, and Subpath B2");
-  });
-
-  it("skill-auto-improver prints run stats at every terminal outcome", () => {
-    const block = improverSkill.slice(
-      improverSkill.indexOf("## Run stats (mandatory)"),
-    );
+    expect(block).toContain("Path A, Subpath B1, Subpath B2, and Subpath B3");
     expect(block).toMatch(/every\*\* terminal outcome/);
     expect(block).toContain("BLOCKER");
   });
@@ -185,45 +205,53 @@ describe("per-step context delegation (#574)", () => {
     expect(creatorRubric.match(/^## \d+\. /gm)).toHaveLength(7);
   });
 
-  it("the audit row demands a reason and routes remediation to Mode 2", () => {
-    expect(improverAudit).toContain("**Delegability sub-check:**");
-    expect(improverAudit).toContain("step N is not delegable because");
-    expect(improverAudit).toContain(
-      "**A delegability finding routes to Mode 2, never a Mode 1 edit.**",
+  it("the rubric points at the skill standard, not a separate improver", () => {
+    expect(creatorRubric).not.toContain("skill-auto-improver");
+    expect(creatorRubric).toContain("skill-standard.md");
+  });
+
+  it("the audit row demands a reason and routes remediation to Subpath B3", () => {
+    expect(creatorAudit).toContain("**Delegability sub-check:**");
+    expect(creatorAudit).toContain("step N is not delegable because");
+    expect(creatorAudit).toContain(
+      "**A delegability finding routes to Subpath B3, never a Subpath B1 edit.**",
     );
   });
 
   it("the audit checklist table still has exactly 7 rows", () => {
-    expect(improverAudit.match(/^\| \d+ +\|/gm)).toHaveLength(7);
+    expect(creatorAudit.match(/^\| \d+ +\|/gm)).toHaveLength(7);
   });
 
-  it("skill-auto-improver offers Mode 2 as an opt-in selector, not a gate", () => {
-    expect(improverSkill).toContain("## Two modes");
-    expect(improverSkill).toContain("**Mode 1 — retrofit (default).**");
-    expect(improverSkill).toContain(
-      "**Mode 2 — delegation conversion (opt-in).**",
+  it("skill-creator offers Subpath B3 as an opt-in selector, not a gate", () => {
+    expect(creatorSkill).toContain(
+      "**Subpath B1 — retrofit to the standard (default).**",
     );
-    expect(improverSkill).toContain("references/delegation-conversion.md");
+    expect(creatorSkill).toContain(
+      "**Subpath B3 — delegation conversion (opt-in).**",
+    );
+    expect(creatorSkill).toContain("references/delegation-conversion.md");
     // The selector must precede Phase 0, whose early exit would otherwise
-    // swallow a gate-passing Mode 2 candidate.
-    expect(improverSkill.indexOf("## Two modes")).toBeLessThan(
-      improverSkill.indexOf("### Phase 0"),
+    // swallow a gate-passing Subpath B3 candidate.
+    expect(creatorRetrofit).toContain("Subpath B3");
+    expect(creatorRetrofit).toContain("### Phase 0");
+    expect(creatorRetrofit.indexOf("Subpath B3")).toBeLessThan(
+      creatorRetrofit.indexOf("### Phase 0"),
     );
   });
 
   it("the conversion reference bumps the target MAJOR and says when to skip it", () => {
-    expect(improverConversion).toContain("## Version bump");
-    expect(improverConversion).toMatch(/\*\*MAJOR\*\* bump on the target/);
-    expect(improverConversion).toContain(
+    expect(creatorConversion).toContain("## Version bump");
+    expect(creatorConversion).toMatch(/\*\*MAJOR\*\* bump on the target/);
+    expect(creatorConversion).toContain(
       "## When conversion does not pay for itself",
     );
-    expect(improverConversion).toMatch(/user has confirmed the restructure/i);
-    expect(improverConversion).toMatch(/outside the Phase 6 loop/i);
+    expect(creatorConversion).toMatch(/user has confirmed the restructure/i);
+    expect(creatorConversion).toMatch(/outside the Phase 6 loop/i);
   });
 
   it.each([
-    ["skill-creator", creatorPatterns],
-    ["skill-auto-improver", improverConversion],
+    ["skill-creator patterns", creatorPatterns],
+    ["skill-creator conversion", creatorConversion],
   ])("%s says when the pattern is not worth applying", (_name, doc) => {
     expect(doc).toMatch(/single decision/);
     expect(doc).toMatch(/mid-step|mid-way/);
@@ -286,8 +314,40 @@ describe("per-step context delegation (#574)", () => {
   });
 });
 
+describe("one skill standard for create and update (#721)", () => {
+  it("both entry paths end at the skill standard", () => {
+    const creating = section(
+      creatorSkill,
+      "## Creating a skill",
+      "## Running and evaluating test cases",
+    );
+    const improving = section(
+      creatorSkill,
+      "## Improving an existing skill",
+      "## Description Optimization",
+    );
+    for (const slice of [creating, improving]) {
+      expect(slice).toMatch(/skill-standard\.md|retrofit-loop\.md/);
+    }
+    expect(creatorRetrofit).toContain("skill-standard.md");
+  });
+
+  it("the standard defines the 85/8 floor and never passes without asm", () => {
+    expect(creatorStandard).toContain("> 85");
+    expect(creatorStandard).toContain(">= 8");
+    expect(creatorStandard).toContain("not measured");
+    expect(creatorStandard).toContain("never reports PASS");
+  });
+});
+
 describe("authoring skills stay within the skill-creator standard", () => {
   it.each(authoringSkills)("%s body is under 500 lines", (_name, doc) => {
     expect(doc.split("\n").length).toBeLessThan(500);
+  });
+
+  it.each(authoringSkills)("%s body is under 3000 words", (_name, doc) => {
+    const body = bodyOf(doc);
+    expect(body.length).toBeLessThan(doc.length);
+    expect(body.split(/\s+/).filter(Boolean).length).toBeLessThan(3000);
   });
 });

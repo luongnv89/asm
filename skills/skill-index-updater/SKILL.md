@@ -1,12 +1,12 @@
 ---
 name: skill-index-updater
-description: "Add GitHub skill repos to the ASM index: clone, audit, eval, regenerate index, rebuild catalog, open PR. Use when given GitHub URLs to onboard. Don't use for authoring (skill-creator), improving (skill-auto-improver), or install (asm install)."
+description: "Add GitHub skill repos to the ASM index: clone, audit, eval, regenerate index, rebuild catalog, open PR. Use when given GitHub URLs to onboard. Don't use for authoring or improving skills (skill-creator), or install (asm install)."
 license: MIT
 compatibility: Claude Code
 allowed-tools: Bash Read Write Edit Grep Glob WebFetch Agent
 effort: high
 metadata:
-  version: 2.0.0
+  version: 2.0.1
   author: luongnv89
 ---
 

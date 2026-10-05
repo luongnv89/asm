@@ -81,3 +81,35 @@ Whenever this skill is used to **review, evaluate, improve, or iterate on an exi
 3. Include the frontmatter audit in the step-completion report under a check named `Frontmatter valid` (pass/fail with a brief note on what was fixed or suggested).
 
 This audit is cheap and catches real regressions, so run it on every review pass — not just on the first one.
+
+## Normalizing `asm eval --fix` output
+
+`asm eval --fix` (retrofit-loop Phase 1) only writes top-level keys when authorship or version is missing entirely:
+
+- **No authorship anywhere** (no `author`, `metadata.author`, `creator`, or `metadata.creator`) → `--fix` appends top-level `author: <git user.name>`.
+- **No version anywhere** (no `metadata.version` or top-level `version`) → `--fix` appends top-level `version: 0.1.0`.
+
+`quick_validate.py` rejects both as unexpected keys. Migrate them under `metadata:`:
+
+```yaml
+# Before (post-`--fix`, fails Gate 1)
+author: alice # written by --fix when no authorship existed
+version: 0.1.0 # written by --fix when no version existed
+
+# After (passes Gate 1)
+metadata:
+  version: 0.1.0
+  author: alice
+```
+
+Migration rules:
+
+1. **`author` → `metadata.author`.** The value carries over verbatim. A legacy top-level `creator:` (older fixer output) migrates the same way. If `metadata.author` already exists, prefer the non-empty value; if both have values, prefer the top-level one (that's what `--fix` just wrote) and drop the duplicate.
+2. **`version` → `metadata.version`.** Same carryover rule. If `metadata.version` already exists with a different semver, prefer the higher one (the retrofit loop bumped it).
+3. **Other unexpected top-level keys.** Drop anything outside the allowed set. The current `--fix` does not write `tags:`, but legacy skills sometimes carry it — surface non-trivial drops to the user before deleting.
+4. **Quote any value** containing the YAML special characters listed above.
+5. **Re-run `quick_validate.py`** after migration to confirm clean.
+
+### Allowed-key drift
+
+Published skills sometimes carry fields invented by older tooling, such as `architecture`, `model`, or `category`. They are not in the allowed set. If the field encodes information used at runtime (rare), move it under `metadata:` — any nested key is accepted. Otherwise drop it and surface the drop as a finding. Never silently delete a non-trivial field.
