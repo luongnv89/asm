@@ -118,7 +118,7 @@ function FeaturedSkills({ skills }) {
                 </span>
                 {score ? (
                   <span
-                    className="text-[11px] font-[var(--lp-mono)] text-[var(--fg-muted)]"
+                    className="text-[11px] font-[var(--lp-mono)] text-[var(--fg-dim)]"
                     title="asm eval score from the latest catalog build"
                   >
                     asm eval {score.overallScore} · {score.grade}
