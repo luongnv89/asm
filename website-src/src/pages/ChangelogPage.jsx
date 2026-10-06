@@ -27,6 +27,75 @@ function issue(n) {
 
 const ENTRIES = [
   {
+    version: "2.21.0",
+    date: "2026-10-06",
+    sections: [
+      {
+        tag: "added",
+        items: [
+          <>
+            The landing page features the bundled <code>find-me-skills</code>{" "}
+            and <code>skill-creator</code> skills, each with a copyable{" "}
+            <code>asm install</code> command, a catalog link, and its live{" "}
+            <code>asm eval</code> score ({issue(733)}, {pr(732)})
+          </>,
+          <>
+            The <code>skill-creator</code> eval viewer records the four human
+            understanding checks per run in <code>feedback.json</code>, and the
+            grader checks understanding assertions instead of surface compliance
+            ({issue(724)}, {pr(723)})
+          </>,
+          <>
+            <code>skill-creator</code> requires clear instructions and
+            reviewable outputs: result, evidence, uncertainty, and decision
+            contracts ({pr(720)})
+          </>,
+          <>
+            Four new curated sources: <code>google/mantis</code> (21 skills),{" "}
+            <code>anthropics/financial-services</code> (64 skills),{" "}
+            <code>Tencent/BrowserSkill</code>, and{" "}
+            <code>typesafe-ai/skills</code> ({pr(718)}, {pr(714)}, {pr(709)},{" "}
+            {pr(708)})
+          </>,
+        ],
+      },
+      {
+        tag: "fixed",
+        items: [
+          <>
+            <code>refresh-index</code>, <code>skill-index-updater</code>,{" "}
+            <code>skill-install-improved</code>, and <code>find-me-skills</code>{" "}
+            meet the skill standard, and <code>refresh-index</code> no longer
+            stops on a missing disabled repo and runs <code>preindex</code>{" "}
+            under a sandboxed <code>ASM_CONFIG_DIR</code> ({issue(725)},{" "}
+            {pr(726)})
+          </>,
+        ],
+      },
+      {
+        tag: "refactored",
+        items: [
+          <>
+            <code>skill-auto-improver</code> is merged into{" "}
+            <code>skill-creator</code> 2.0.0, so created and updated skills
+            clear one standard; <code>skills/skill-auto-improver/</code> is
+            removed ({issue(721)}, {pr(722)})
+          </>,
+        ],
+      },
+      {
+        tag: "changed",
+        items: [
+          <>
+            Six index refreshes grow the catalog from 77 repos / 6,115 skills to
+            81 repos / 6,790 skills ({pr(711)}, {pr(712)}, {pr(715)}, {pr(716)},{" "}
+            {pr(719)}, {pr(730)})
+          </>,
+        ],
+      },
+    ],
+  },
+  {
     version: "2.20.1",
     date: "2026-09-13",
     sections: [

@@ -1,3 +1,33 @@
+## v2.21.0 — 2026-10-06
+
+### Features
+
+- Feature the bundled `find-me-skills` and `skill-creator` skills on the landing page — one card each with a copyable `asm install` command, a catalog link, and the live `asm eval` score — and refresh the stale "What's new" content ([#733](https://github.com/luongnv89/asm/issues/733)) ([#732](https://github.com/luongnv89/asm/pull/732)) — @luongnv89
+- Record human understanding checks in the `skill-creator` eval viewer and grader: each run gets Yes / No / N/A / Not answered selectors for the four understanding criteria, saved to `feedback.json`, and the grader checks understanding assertions instead of surface compliance (`skill-creator` 2.1.0) ([#724](https://github.com/luongnv89/asm/issues/724)) ([#723](https://github.com/luongnv89/asm/pull/723)) — @luongnv89
+- Require clear instructions and reviewable outputs in `skill-creator`: result, evidence, uncertainty, and decision contracts, with instruction compliance kept separate from executed tests and confirmed human understanding ([#720](https://github.com/luongnv89/asm/pull/720)) — @luongnv89
+- Add `google/mantis` (21 skills) to the curated skill index ([#718](https://github.com/luongnv89/asm/pull/718)) — @luongnv89
+- Add `anthropics/financial-services` (64 skills) to the curated skill index ([#714](https://github.com/luongnv89/asm/pull/714)) — @luongnv89
+- Add `Tencent/BrowserSkill` to the curated skill index ([#710](https://github.com/luongnv89/asm/issues/710)) ([#709](https://github.com/luongnv89/asm/pull/709)) — @luongnv89
+- Add `typesafe-ai/skills` to the curated skill index ([#708](https://github.com/luongnv89/asm/pull/708)) — @luongnv89
+
+### Bug Fixes
+
+- Retrofit `refresh-index`, `skill-index-updater`, `skill-install-improved`, and `find-me-skills` to the skill standard — ship `LICENSE.txt`, lead outputs with the result, add understanding checks and `evals/evals.json` — and fix workflow bugs found in review, including `refresh-index` no longer stopping on a missing disabled repo and running `preindex` under a sandboxed `ASM_CONFIG_DIR` ([#725](https://github.com/luongnv89/asm/issues/725)) ([#726](https://github.com/luongnv89/asm/pull/726)) — @luongnv89
+
+### Refactoring
+
+- Merge `skill-auto-improver` into `skill-creator` 2.0.0 so created and updated skills clear one standard (`references/skill-standard.md`, Gate 1 authoring checks plus Gate 2 `asm eval` > 85 with every category >= 8); `skills/skill-auto-improver/` is removed and dependent skills point at `skill-creator` ([#721](https://github.com/luongnv89/asm/issues/721)) ([#722](https://github.com/luongnv89/asm/pull/722)) — @luongnv89
+
+### Documentation
+
+- Sync the website docs page with v2.20.1 CLI behavior — @luongnv89
+
+### Chores
+
+- Refresh indexed skill sources six times; with the four new repos the catalog grows from 77 repos / 6,115 skills to 81 repos / 6,790 skills ([#711](https://github.com/luongnv89/asm/pull/711)) ([#713](https://github.com/luongnv89/asm/issues/713)) ([#712](https://github.com/luongnv89/asm/pull/712)) ([#715](https://github.com/luongnv89/asm/pull/715)) ([#717](https://github.com/luongnv89/asm/issues/717)) ([#716](https://github.com/luongnv89/asm/pull/716)) ([#719](https://github.com/luongnv89/asm/pull/719)) ([#731](https://github.com/luongnv89/asm/issues/731)) ([#730](https://github.com/luongnv89/asm/pull/730)) — @luongnv89
+
+**Full Changelog**: https://github.com/luongnv89/asm/compare/v2.20.1...v2.21.0
+
 ## v2.20.1 — 2026-09-13
 
 ### Bug Fixes

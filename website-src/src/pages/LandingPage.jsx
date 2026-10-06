@@ -171,51 +171,50 @@ function FeaturedSkills({ skills }) {
   );
 }
 
-/* ─── What's New (v2.20) ───────────────────────────────────────────── */
+/* ─── What's New (v2.21) ───────────────────────────────────────────── */
 
 function WhatsNew() {
   const highlights = [
     {
       tag: "New",
-      head: "Borrow a skill with everything it needs",
-      body: "asm get --path copies the whole skill directory, including scripts, templates, references, and binary assets. asm cleanup removes only what asm borrowed.",
+      head: "One standard for creating and improving skills",
+      body: "skill-creator 2 absorbs skill-auto-improver, so a new skill and an updated skill clear the same authoring checks and the same asm eval bar.",
     },
     {
       tag: "Improved",
-      head: "A TUI that tells you what happened",
-      body: "Empty filtered lists name your search, the ? help view explains every glyph, and q in the config view discards your changes instead of saving them.",
+      head: "Reviews that confirm understanding",
+      body: "The skill-creator eval viewer asks the four understanding questions for every run and saves the answers, and the grader checks them instead of surface compliance.",
     },
     {
-      tag: "Faster",
-      head: "Quicker audits and bulk updates",
-      body: "Duplicate detection no longer rescans the full list for every skill, and asm library update --all now updates four skills at a time.",
+      tag: "Growing",
+      head: "675 more skills in the catalog",
+      body: "google/mantis, anthropics/financial-services, Tencent/BrowserSkill, and typesafe-ai/skills join the index, which now lists 6,790 skills from 81 repos.",
     },
     {
       tag: "Fixed",
-      head: "Four CLI fixes in v2.20.1",
-      body: "asm tag remove reports what changed, activate and deactivate choose scope the same way install does, inspect shows your local tags, and bare asm in a non-interactive shell exits with a clear message.",
+      head: "Bundled skills meet the standard",
+      body: "refresh-index, skill-index-updater, skill-install-improved, and find-me-skills now lead with the result, ship evals, and fix workflow bugs found in review.",
     },
   ];
   return (
     <Reveal
       as="section"
       className="flex flex-col gap-8"
-      aria-label="What's new in v2.20"
+      aria-label="What's new in v2.21"
     >
       <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div className="flex flex-col gap-3 max-w-[680px]">
           <span className="lp-kicker">
             <span className="dot" aria-hidden="true" />
-            what&apos;s new · v2.20
+            what&apos;s new · v2.21
           </span>
           <h2 className="lp-section-title">
-            Full-directory borrowing, a clearer TUI, and faster bulk updates.
+            One skill standard, reviewable outputs, and a bigger catalog.
           </h2>
           <p className="lp-lede">
-            v2.20 lets asm get --path bring a skill&apos;s supporting files
-            along, makes the TUI say what it is doing, and speeds up audits and
-            library updates. v2.20.1 fixes four CLI defects found in end-to-end
-            testing.
+            v2.21 merges skill-auto-improver into skill-creator, records human
+            understanding checks during skill reviews, and adds four new sources
+            to the curated index.
           </p>
         </div>
         <Link
