@@ -15,12 +15,33 @@ createRoot(rootEl).render(
   </StrictMode>,
 );
 
-// Register service worker for offline support (production only)
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
+  if (import.meta.env.PROD) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker
+        .register("/service-worker.js")
+        .catch((err) => console.error("SW registration failed", err));
+    });
+  } else {
+    // A service worker is scoped to the origin (localhost:5173), not to this
+    // app. One left over from an earlier dev session would keep serving the
+    // cached site here and to any other app later run on the same port, so
+    // dev mode tears down whatever is registered.
     navigator.serviceWorker
-      .register("/service-worker.js")
-      .then((reg) => console.log("SW registered", reg.scope))
-      .catch((err) => console.error("SW registration failed", err));
-  });
+      .getRegistrations()
+      .then((regs) => Promise.all(regs.map((r) => r.unregister())))
+      .catch(() => {});
+    if ("caches" in window) {
+      caches
+        .keys()
+        .then((keys) =>
+          Promise.all(
+            keys
+              .filter((k) => k.startsWith("asm-catalog-"))
+              .map((k) => caches.delete(k)),
+          ),
+        )
+        .catch(() => {});
+    }
+  }
 }
