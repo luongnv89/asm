@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/luongnv89/skills.git",
   "owner": "luongnv89",
   "repo": "skills",
-  "updatedAt": "2026-10-04T21:00:36.780Z",
-  "skillCount": 34,
+  "updatedAt": "2026-10-06T11:23:06.290Z",
+  "skillCount": 39,
   "skills": [
     {
       "name": "agent-config",
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.723Z",
+        "evaluatedAt": "2026-10-06T11:23:05.155Z",
         "evaluatedVersion": "2.0.2"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.723Z",
+          "evaluatedAt": "2026-10-06T11:23:05.155Z",
           "evaluatedVersion": "2.0.2"
         },
         "skill-best-practice": {
@@ -177,8 +177,185 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.723Z",
+          "evaluatedAt": "2026-10-06T11:23:05.155Z",
           "evaluatedVersion": "2.0.2"
+        }
+      }
+    },
+    {
+      "name": "ai-job-scout",
+      "description": "Find open AI engineering jobs that fit a candidate, verify location and apply links, and assess each employer's product. Use for one-off shortlists or a job alert's research step. Don't use for résumé writing, job applications, or company news.",
+      "version": "1.1.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:luongnv89/skills:skills/ai-job-scout",
+      "relPath": "skills/ai-job-scout",
+      "verified": true,
+      "tokenCount": 3037,
+      "evalSummary": {
+        "overallScore": 94,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-06T11:23:05.152Z",
+        "evaluatedVersion": "1.1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 94,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-06T11:23:05.155Z",
+          "evaluatedVersion": "1.1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 100,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 14,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-06T11:23:05.155Z",
+          "evaluatedVersion": "1.1.0"
         }
       }
     },
@@ -263,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.723Z",
+        "evaluatedAt": "2026-10-06T11:23:05.155Z",
         "evaluatedVersion": "1.3.0"
       },
       "evalSummaries": {
@@ -336,7 +513,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.723Z",
+          "evaluatedAt": "2026-10-06T11:23:05.155Z",
           "evaluatedVersion": "1.3.0"
         },
         "skill-best-practice": {
@@ -354,7 +531,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.723Z",
+          "evaluatedAt": "2026-10-06T11:23:05.155Z",
           "evaluatedVersion": "1.3.0"
         }
       }
@@ -440,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.723Z",
+        "evaluatedAt": "2026-10-06T11:23:05.155Z",
         "evaluatedVersion": "1.3.1"
       },
       "evalSummaries": {
@@ -513,7 +690,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.723Z",
+          "evaluatedAt": "2026-10-06T11:23:05.155Z",
           "evaluatedVersion": "1.3.1"
         },
         "skill-best-practice": {
@@ -531,7 +708,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.723Z",
+          "evaluatedAt": "2026-10-06T11:23:05.155Z",
           "evaluatedVersion": "1.3.1"
         }
       }
@@ -539,7 +716,7 @@
     {
       "name": "auto-push",
       "description": "Generate a commit message, stage all changes, and push to remote after scanning for secrets, large files, and protected-branch risks. Skip for opening PRs, code review, or cutting releases/tags.",
-      "version": "1.0.5",
+      "version": "1.1.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -551,7 +728,7 @@
       "installUrl": "github:luongnv89/skills:skills/auto-push",
       "relPath": "skills/auto-push",
       "verified": true,
-      "tokenCount": 1599,
+      "tokenCount": 2476,
       "evalSummary": {
         "overallScore": 95,
         "grade": "A",
@@ -617,8 +794,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.723Z",
-        "evaluatedVersion": "1.0.5"
+        "evaluatedAt": "2026-10-06T11:23:05.155Z",
+        "evaluatedVersion": "1.1.0"
       },
       "evalSummaries": {
         "quality": {
@@ -690,8 +867,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.723Z",
-          "evaluatedVersion": "1.0.5"
+          "evaluatedAt": "2026-10-06T11:23:05.155Z",
+          "evaluatedVersion": "1.1.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -708,8 +885,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.723Z",
-          "evaluatedVersion": "1.0.5"
+          "evaluatedAt": "2026-10-06T11:23:05.155Z",
+          "evaluatedVersion": "1.1.0"
         }
       }
     },
@@ -794,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.723Z",
+        "evaluatedAt": "2026-10-06T11:23:05.155Z",
         "evaluatedVersion": "1.4.2"
       },
       "evalSummaries": {
@@ -867,7 +1044,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.723Z",
+          "evaluatedAt": "2026-10-06T11:23:05.155Z",
           "evaluatedVersion": "1.4.2"
         },
         "skill-best-practice": {
@@ -885,8 +1062,185 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.723Z",
+          "evaluatedAt": "2026-10-06T11:23:05.155Z",
           "evaluatedVersion": "1.4.2"
+        }
+      }
+    },
+    {
+      "name": "cleanup-project",
+      "description": "Prepare a git repo before new work: review uncommitted changes, fix .gitignore, delete merged branches, end on clean main, or inspect one branch before deciding. Don't use for dead code, commit-and-push, releases, LICENSE files, or git how-tos.",
+      "version": "1.0.1",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:luongnv89/skills:skills/cleanup-project",
+      "relPath": "skills/cleanup-project",
+      "verified": true,
+      "tokenCount": 5917,
+      "evalSummary": {
+        "overallScore": 93,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-06T11:23:05.155Z",
+        "evaluatedVersion": "1.0.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 93,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-06T11:23:05.155Z",
+          "evaluatedVersion": "1.0.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 100,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 14,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-06T11:23:05.155Z",
+          "evaluatedVersion": "1.0.1"
         }
       }
     },
@@ -971,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.723Z",
+        "evaluatedAt": "2026-10-06T11:23:05.155Z",
         "evaluatedVersion": "1.1.0"
       },
       "evalSummaries": {
@@ -1044,7 +1398,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.723Z",
+          "evaluatedAt": "2026-10-06T11:23:05.155Z",
           "evaluatedVersion": "1.1.0"
         },
         "skill-best-practice": {
@@ -1062,7 +1416,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.723Z",
+          "evaluatedAt": "2026-10-06T11:23:05.155Z",
           "evaluatedVersion": "1.1.0"
         }
       }
@@ -1070,7 +1424,7 @@
     {
       "name": "code-review",
       "description": "Review or improve code — one skill, four modes: bug/security review (default), performance, clean-code audit, slop cleanup. Pass mode:review|perf|clean|cleanup or infer. Don't use for writing features or generating tests (use test-coverage).",
-      "version": "2.1.3",
+      "version": "2.2.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -1082,7 +1436,7 @@
       "installUrl": "github:luongnv89/skills:skills/code-review",
       "relPath": "skills/code-review",
       "verified": true,
-      "tokenCount": 2107,
+      "tokenCount": 2646,
       "evalSummary": {
         "overallScore": 95,
         "grade": "A",
@@ -1148,8 +1502,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.723Z",
-        "evaluatedVersion": "2.1.3"
+        "evaluatedAt": "2026-10-06T11:23:05.186Z",
+        "evaluatedVersion": "2.2.0"
       },
       "evalSummaries": {
         "quality": {
@@ -1221,8 +1575,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.723Z",
-          "evaluatedVersion": "2.1.3"
+          "evaluatedAt": "2026-10-06T11:23:05.187Z",
+          "evaluatedVersion": "2.2.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -1239,8 +1593,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.723Z",
-          "evaluatedVersion": "2.1.3"
+          "evaluatedAt": "2026-10-06T11:23:05.187Z",
+          "evaluatedVersion": "2.2.0"
         }
       }
     },
@@ -1325,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.723Z",
+        "evaluatedAt": "2026-10-06T11:23:05.190Z",
         "evaluatedVersion": "1.3.3"
       },
       "evalSummaries": {
@@ -1398,7 +1752,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.723Z",
+          "evaluatedAt": "2026-10-06T11:23:05.190Z",
           "evaluatedVersion": "1.3.3"
         },
         "skill-best-practice": {
@@ -1416,8 +1770,185 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.723Z",
+          "evaluatedAt": "2026-10-06T11:23:05.190Z",
           "evaluatedVersion": "1.3.3"
+        }
+      }
+    },
+    {
+      "name": "design-optimizer",
+      "description": "Optimize a website or app design in one run: capture the page once, audit usability, UX/AX, virality and agent readiness, merge overlaps into one prioritized report, apply fixes on opt-in. Don't use for one lens (dont-make-me-think, ux-ax-review).",
+      "version": "1.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:luongnv89/skills:skills/design-optimizer",
+      "relPath": "skills/design-optimizer",
+      "verified": true,
+      "tokenCount": 2980,
+      "evalSummary": {
+        "overallScore": 94,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-06T11:23:05.192Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 94,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-06T11:23:05.192Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 100,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 14,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-06T11:23:05.192Z",
+          "evaluatedVersion": "1.0.0"
         }
       }
     },
@@ -1502,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.742Z",
+        "evaluatedAt": "2026-10-06T11:23:05.201Z",
         "evaluatedVersion": "0.9.3"
       },
       "evalSummaries": {
@@ -1575,7 +2106,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.742Z",
+          "evaluatedAt": "2026-10-06T11:23:05.201Z",
           "evaluatedVersion": "0.9.3"
         },
         "skill-best-practice": {
@@ -1593,7 +2124,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.742Z",
+          "evaluatedAt": "2026-10-06T11:23:05.201Z",
           "evaluatedVersion": "0.9.3"
         }
       }
@@ -1679,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.753Z",
+        "evaluatedAt": "2026-10-06T11:23:05.208Z",
         "evaluatedVersion": "2.2.2"
       },
       "evalSummaries": {
@@ -1752,7 +2283,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.754Z",
+          "evaluatedAt": "2026-10-06T11:23:05.208Z",
           "evaluatedVersion": "2.2.2"
         },
         "skill-best-practice": {
@@ -1770,7 +2301,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.754Z",
+          "evaluatedAt": "2026-10-06T11:23:05.208Z",
           "evaluatedVersion": "2.2.2"
         }
       }
@@ -1856,7 +2387,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.788Z",
+        "evaluatedAt": "2026-10-06T11:23:05.216Z",
         "evaluatedVersion": "1.3.0"
       },
       "evalSummaries": {
@@ -1929,7 +2460,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.789Z",
+          "evaluatedAt": "2026-10-06T11:23:05.216Z",
           "evaluatedVersion": "1.3.0"
         },
         "skill-best-practice": {
@@ -1947,7 +2478,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.789Z",
+          "evaluatedAt": "2026-10-06T11:23:05.217Z",
           "evaluatedVersion": "1.3.0"
         }
       }
@@ -2033,7 +2564,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.789Z",
+        "evaluatedAt": "2026-10-06T11:23:05.219Z",
         "evaluatedVersion": "2.0.4"
       },
       "evalSummaries": {
@@ -2106,7 +2637,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.789Z",
+          "evaluatedAt": "2026-10-06T11:23:05.219Z",
           "evaluatedVersion": "2.0.4"
         },
         "skill-best-practice": {
@@ -2124,7 +2655,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.789Z",
+          "evaluatedAt": "2026-10-06T11:23:05.219Z",
           "evaluatedVersion": "2.0.4"
         }
       }
@@ -2132,7 +2663,7 @@
     {
       "name": "dont-make-me-think",
       "description": "Review UI usability using Steve Krug's principles and produce a scannable report. Use for UX audits of screenshots, URLs, or code. Don't use for brand critique, WCAG audits, or backend/API review.",
-      "version": "1.4.3",
+      "version": "1.5.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -2144,7 +2675,7 @@
       "installUrl": "github:luongnv89/skills:skills/dont-make-me-think",
       "relPath": "skills/dont-make-me-think",
       "verified": true,
-      "tokenCount": 4120,
+      "tokenCount": 4223,
       "evalSummary": {
         "overallScore": 93,
         "grade": "A",
@@ -2210,8 +2741,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.795Z",
-        "evaluatedVersion": "1.4.3"
+        "evaluatedAt": "2026-10-06T11:23:05.240Z",
+        "evaluatedVersion": "1.5.0"
       },
       "evalSummaries": {
         "quality": {
@@ -2283,8 +2814,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.796Z",
-          "evaluatedVersion": "1.4.3"
+          "evaluatedAt": "2026-10-06T11:23:05.240Z",
+          "evaluatedVersion": "1.5.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -2301,15 +2832,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.796Z",
-          "evaluatedVersion": "1.4.3"
+          "evaluatedAt": "2026-10-06T11:23:05.240Z",
+          "evaluatedVersion": "1.5.0"
         }
       }
     },
     {
       "name": "frontend-design",
       "description": "Build production-grade frontend interfaces with distinctive aesthetics and working code. Use for UI components, pages, or frontend features. Don't use for backend/API work or usability-only audits.",
-      "version": "1.2.7",
+      "version": "1.3.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -2321,7 +2852,7 @@
       "installUrl": "github:luongnv89/skills:skills/frontend-design",
       "relPath": "skills/frontend-design",
       "verified": true,
-      "tokenCount": 3489,
+      "tokenCount": 3704,
       "evalSummary": {
         "overallScore": 92,
         "grade": "A",
@@ -2387,8 +2918,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.803Z",
-        "evaluatedVersion": "1.2.7"
+        "evaluatedAt": "2026-10-06T11:23:05.240Z",
+        "evaluatedVersion": "1.3.0"
       },
       "evalSummaries": {
         "quality": {
@@ -2460,8 +2991,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.803Z",
-          "evaluatedVersion": "1.2.7"
+          "evaluatedAt": "2026-10-06T11:23:05.240Z",
+          "evaluatedVersion": "1.3.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -2478,8 +3009,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.803Z",
-          "evaluatedVersion": "1.2.7"
+          "evaluatedAt": "2026-10-06T11:23:05.240Z",
+          "evaluatedVersion": "1.3.0"
         }
       }
     },
@@ -2564,7 +3095,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.816Z",
+        "evaluatedAt": "2026-10-06T11:23:05.245Z",
         "evaluatedVersion": "3.1.4"
       },
       "evalSummaries": {
@@ -2637,7 +3168,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.816Z",
+          "evaluatedAt": "2026-10-06T11:23:05.245Z",
           "evaluatedVersion": "3.1.4"
         },
         "skill-best-practice": {
@@ -2655,7 +3186,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.816Z",
+          "evaluatedAt": "2026-10-06T11:23:05.245Z",
           "evaluatedVersion": "3.1.4"
         }
       }
@@ -2741,7 +3272,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.824Z",
+        "evaluatedAt": "2026-10-06T11:23:05.248Z",
         "evaluatedVersion": "1.5.1"
       },
       "evalSummaries": {
@@ -2814,7 +3345,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.825Z",
+          "evaluatedAt": "2026-10-06T11:23:05.248Z",
           "evaluatedVersion": "1.5.1"
         },
         "skill-best-practice": {
@@ -2832,7 +3363,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.825Z",
+          "evaluatedAt": "2026-10-06T11:23:05.248Z",
           "evaluatedVersion": "1.5.1"
         }
       }
@@ -2918,7 +3449,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.825Z",
+        "evaluatedAt": "2026-10-06T11:23:05.271Z",
         "evaluatedVersion": "2.2.4"
       },
       "evalSummaries": {
@@ -2991,7 +3522,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.826Z",
+          "evaluatedAt": "2026-10-06T11:23:05.271Z",
           "evaluatedVersion": "2.2.4"
         },
         "skill-best-practice": {
@@ -3009,7 +3540,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.826Z",
+          "evaluatedAt": "2026-10-06T11:23:05.271Z",
           "evaluatedVersion": "2.2.4"
         }
       }
@@ -3095,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.829Z",
+        "evaluatedAt": "2026-10-06T11:23:05.277Z",
         "evaluatedVersion": "1.5.3"
       },
       "evalSummaries": {
@@ -3168,7 +3699,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.829Z",
+          "evaluatedAt": "2026-10-06T11:23:05.277Z",
           "evaluatedVersion": "1.5.3"
         },
         "skill-best-practice": {
@@ -3186,7 +3717,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.829Z",
+          "evaluatedAt": "2026-10-06T11:23:05.277Z",
           "evaluatedVersion": "1.5.3"
         }
       }
@@ -3194,7 +3725,7 @@
     {
       "name": "landing-page-generator",
       "description": "Generate landing pages with PAS, AIDA, or StoryBrand from a product brief or existing README. Use for sales copy, hero sections, CTAs, or README rewrites. Don't use for blog posts, UX audits, or HTML builds.",
-      "version": "1.3.0",
+      "version": "1.4.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -3206,7 +3737,7 @@
       "installUrl": "github:luongnv89/skills:skills/landing-page-generator",
       "relPath": "skills/landing-page-generator",
       "verified": true,
-      "tokenCount": 2446,
+      "tokenCount": 2694,
       "evalSummary": {
         "overallScore": 94,
         "grade": "A",
@@ -3272,7 +3803,184 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.858Z",
+        "evaluatedAt": "2026-10-06T11:23:05.279Z",
+        "evaluatedVersion": "1.4.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 94,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-06T11:23:05.280Z",
+          "evaluatedVersion": "1.4.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 100,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 14,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-06T11:23:05.280Z",
+          "evaluatedVersion": "1.4.0"
+        }
+      }
+    },
+    {
+      "name": "logo-designer",
+      "description": "Generate professional SVG logos from project context: 7 brand variants plus a showcase HTML page. Use for product marks, wordmarks, icons, and favicons. Don't use for raster-only logos, illustrations, or full brand guidelines.",
+      "version": "1.3.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:luongnv89/skills:skills/logo-designer",
+      "relPath": "skills/logo-designer",
+      "verified": true,
+      "tokenCount": 3076,
+      "evalSummary": {
+        "overallScore": 94,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-06T11:23:05.298Z",
         "evaluatedVersion": "1.3.0"
       },
       "evalSummaries": {
@@ -3299,183 +4007,6 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 9,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "license",
-              "name": "License verification",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "pii",
-              "name": "PII detection",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "script-lint",
-              "name": "Script linting",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-10-04T21:00:35.859Z",
-          "evaluatedVersion": "1.3.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.2.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 100,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 14,
-              "max": 14
-            }
-          ],
-          "evaluatedAt": "2026-10-04T21:00:35.859Z",
-          "evaluatedVersion": "1.3.0"
-        }
-      }
-    },
-    {
-      "name": "logo-designer",
-      "description": "Generate professional SVG logos from project context: 7 brand variants plus a showcase HTML page. Use for product marks, wordmarks, icons, and favicons. Don't use for raster-only logos, illustrations, or full brand guidelines.",
-      "version": "1.2.5",
-      "license": "MIT",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "tags": [],
-      "dependencies": [],
-      "modelInvocable": true,
-      "userInvocable": true,
-      "installUrl": "github:luongnv89/skills:skills/logo-designer",
-      "relPath": "skills/logo-designer",
-      "verified": true,
-      "tokenCount": 2919,
-      "evalSummary": {
-        "overallScore": 94,
-        "grade": "A",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 9,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "license",
-            "name": "License verification",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "pii",
-            "name": "PII detection",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "script-lint",
-            "name": "Script linting",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-10-04T21:00:35.859Z",
-        "evaluatedVersion": "1.2.5"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 94,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
               "score": 9,
               "max": 10
             },
@@ -3522,8 +4053,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.859Z",
-          "evaluatedVersion": "1.2.5"
+          "evaluatedAt": "2026-10-06T11:23:05.298Z",
+          "evaluatedVersion": "1.3.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -3540,8 +4071,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.859Z",
-          "evaluatedVersion": "1.2.5"
+          "evaluatedAt": "2026-10-06T11:23:05.298Z",
+          "evaluatedVersion": "1.3.0"
         }
       }
     },
@@ -3626,7 +4157,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.874Z",
+        "evaluatedAt": "2026-10-06T11:23:05.335Z",
         "evaluatedVersion": "1.2.1"
       },
       "evalSummaries": {
@@ -3699,7 +4230,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.874Z",
+          "evaluatedAt": "2026-10-06T11:23:05.340Z",
           "evaluatedVersion": "1.2.1"
         },
         "skill-best-practice": {
@@ -3717,7 +4248,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.874Z",
+          "evaluatedAt": "2026-10-06T11:23:05.340Z",
           "evaluatedVersion": "1.2.1"
         }
       }
@@ -3803,7 +4334,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.876Z",
+        "evaluatedAt": "2026-10-06T11:23:05.372Z",
         "evaluatedVersion": "1.5.1"
       },
       "evalSummaries": {
@@ -3876,7 +4407,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.876Z",
+          "evaluatedAt": "2026-10-06T11:23:05.373Z",
           "evaluatedVersion": "1.5.1"
         },
         "skill-best-practice": {
@@ -3894,7 +4425,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.876Z",
+          "evaluatedAt": "2026-10-06T11:23:05.373Z",
           "evaluatedVersion": "1.5.1"
         }
       }
@@ -3980,7 +4511,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.878Z",
+        "evaluatedAt": "2026-10-06T11:23:05.374Z",
         "evaluatedVersion": "1.3.1"
       },
       "evalSummaries": {
@@ -4053,7 +4584,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.878Z",
+          "evaluatedAt": "2026-10-06T11:23:05.374Z",
           "evaluatedVersion": "1.3.1"
         },
         "skill-best-practice": {
@@ -4071,185 +4602,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.878Z",
+          "evaluatedAt": "2026-10-06T11:23:05.374Z",
           "evaluatedVersion": "1.3.1"
-        }
-      }
-    },
-    {
-      "name": "plan-to-issues",
-      "description": "Convert any phased plan file, or a conversation about what to build, into labelled GitHub issues under one tracking epic mapping each issue to its source task. No plan file required. Don't use for writing plans, resolving issues, or triage.",
-      "version": "2.2.0",
-      "license": "MIT",
-      "creator": "",
-      "compatibility": "Requires git, GitHub CLI (gh) authenticated (`gh auth status`), and the issue-creator skill installed.",
-      "allowedTools": [],
-      "tags": [],
-      "dependencies": [],
-      "modelInvocable": true,
-      "userInvocable": true,
-      "installUrl": "github:luongnv89/skills:skills/plan-to-issues",
-      "relPath": "skills/plan-to-issues",
-      "verified": true,
-      "tokenCount": 6024,
-      "evalSummary": {
-        "overallScore": 91,
-        "grade": "A",
-        "categories": [
-          {
-            "id": "structure",
-            "name": "Structure & completeness",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "description",
-            "name": "Description quality",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "prompt-engineering",
-            "name": "Prompt engineering",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "context-efficiency",
-            "name": "Context efficiency",
-            "score": 8,
-            "max": 10
-          },
-          {
-            "id": "safety",
-            "name": "Safety & guardrails",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "testability",
-            "name": "Testability",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "license",
-            "name": "License verification",
-            "score": 5,
-            "max": 10
-          },
-          {
-            "id": "naming",
-            "name": "Naming & conventions",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "pii",
-            "name": "PII detection",
-            "score": 10,
-            "max": 10
-          },
-          {
-            "id": "script-lint",
-            "name": "Script linting",
-            "score": 10,
-            "max": 10
-          }
-        ],
-        "evaluatedAt": "2026-10-04T21:00:35.884Z",
-        "evaluatedVersion": "2.2.0"
-      },
-      "evalSummaries": {
-        "quality": {
-          "providerId": "quality",
-          "providerVersion": "1.0.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 91,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "structure",
-              "name": "Structure & completeness",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "description",
-              "name": "Description quality",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "prompt-engineering",
-              "name": "Prompt engineering",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "context-efficiency",
-              "name": "Context efficiency",
-              "score": 8,
-              "max": 10
-            },
-            {
-              "id": "safety",
-              "name": "Safety & guardrails",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "testability",
-              "name": "Testability",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "license",
-              "name": "License verification",
-              "score": 5,
-              "max": 10
-            },
-            {
-              "id": "naming",
-              "name": "Naming & conventions",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "pii",
-              "name": "PII detection",
-              "score": 10,
-              "max": 10
-            },
-            {
-              "id": "script-lint",
-              "name": "Script linting",
-              "score": 10,
-              "max": 10
-            }
-          ],
-          "evaluatedAt": "2026-10-04T21:00:35.885Z",
-          "evaluatedVersion": "2.2.0"
-        },
-        "skill-best-practice": {
-          "providerId": "skill-best-practice",
-          "providerVersion": "1.2.0",
-          "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 100,
-          "grade": "A",
-          "categories": [
-            {
-              "id": "validation",
-              "name": "Deterministic validation",
-              "score": 15,
-              "max": 15
-            }
-          ],
-          "evaluatedAt": "2026-10-04T21:00:35.885Z",
-          "evaluatedVersion": "2.2.0"
         }
       }
     },
@@ -4334,7 +4688,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.905Z",
+        "evaluatedAt": "2026-10-06T11:23:05.398Z",
         "evaluatedVersion": "1.4.3"
       },
       "evalSummaries": {
@@ -4407,7 +4761,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.905Z",
+          "evaluatedAt": "2026-10-06T11:23:05.398Z",
           "evaluatedVersion": "1.4.3"
         },
         "skill-best-practice": {
@@ -4425,8 +4779,185 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.905Z",
+          "evaluatedAt": "2026-10-06T11:23:05.398Z",
           "evaluatedVersion": "1.4.3"
+        }
+      }
+    },
+    {
+      "name": "product-planner",
+      "description": "Plan a product from idea to sprint tasks in one run: idea-validator, prd-generator, tad-generator, tasks-generator, resuming from existing files. Don't use for one document alone (PRD, TAD, tasks) or only validating an idea.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:luongnv89/skills:skills/product-planner",
+      "relPath": "skills/product-planner",
+      "verified": true,
+      "tokenCount": 3199,
+      "evalSummary": {
+        "overallScore": 93,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-06T11:23:05.400Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 93,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-06T11:23:05.400Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 100,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 14,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-06T11:23:05.400Z",
+          "evaluatedVersion": "1.0.0"
         }
       }
     },
@@ -4511,7 +5042,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.908Z",
+        "evaluatedAt": "2026-10-06T11:23:05.413Z",
         "evaluatedVersion": "2.6.4"
       },
       "evalSummaries": {
@@ -4584,7 +5115,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.912Z",
+          "evaluatedAt": "2026-10-06T11:23:05.414Z",
           "evaluatedVersion": "2.6.4"
         },
         "skill-best-practice": {
@@ -4602,8 +5133,185 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.912Z",
+          "evaluatedAt": "2026-10-06T11:23:05.414Z",
           "evaluatedVersion": "2.6.4"
+        }
+      }
+    },
+    {
+      "name": "search-optimizer",
+      "description": "Optimize a site or app for SEO, AI-bot search and app-store search in one run: detect web vs store, run each audit once, merge one prioritized report; fixes only via member gates. Don't use for one fix (seo-ai-optimizer, aso-marketing).",
+      "version": "1.0.1",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:luongnv89/skills:skills/search-optimizer",
+      "relPath": "skills/search-optimizer",
+      "verified": true,
+      "tokenCount": 2855,
+      "evalSummary": {
+        "overallScore": 95,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-06T11:23:05.421Z",
+        "evaluatedVersion": "1.0.1"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 95,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-06T11:23:05.421Z",
+          "evaluatedVersion": "1.0.1"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 100,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 14,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-06T11:23:05.421Z",
+          "evaluatedVersion": "1.0.1"
         }
       }
     },
@@ -4688,7 +5396,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.932Z",
+        "evaluatedAt": "2026-10-06T11:23:05.431Z",
         "evaluatedVersion": "1.4.2"
       },
       "evalSummaries": {
@@ -4761,7 +5469,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.934Z",
+          "evaluatedAt": "2026-10-06T11:23:05.431Z",
           "evaluatedVersion": "1.4.2"
         },
         "skill-best-practice": {
@@ -4779,7 +5487,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.934Z",
+          "evaluatedAt": "2026-10-06T11:23:05.431Z",
           "evaluatedVersion": "1.4.2"
         }
       }
@@ -4787,7 +5495,7 @@
     {
       "name": "seo-ai-optimizer",
       "description": "Audit and optimize websites for technical SEO, content SEO, and AI bot accessibility. Fixes meta tags, sitemaps, robots.txt, structured data, llms.txt, and GPTBot/ClaudeBot directives. Not for App Store ASO, paid search, or blog writing.",
-      "version": "1.3.3",
+      "version": "1.5.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -4799,9 +5507,9 @@
       "installUrl": "github:luongnv89/skills:skills/seo-ai-optimizer",
       "relPath": "skills/seo-ai-optimizer",
       "verified": true,
-      "tokenCount": 2237,
+      "tokenCount": 2828,
       "evalSummary": {
-        "overallScore": 91,
+        "overallScore": 92,
         "grade": "A",
         "categories": [
           {
@@ -4831,7 +5539,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -4865,8 +5573,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.946Z",
-        "evaluatedVersion": "1.3.3"
+        "evaluatedAt": "2026-10-06T11:23:05.452Z",
+        "evaluatedVersion": "1.5.0"
       },
       "evalSummaries": {
         "quality": {
@@ -4874,7 +5582,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 91,
+          "overallScore": 92,
           "grade": "A",
           "categories": [
             {
@@ -4904,7 +5612,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 9,
+              "score": 10,
               "max": 10
             },
             {
@@ -4938,8 +5646,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.946Z",
-          "evaluatedVersion": "1.3.3"
+          "evaluatedAt": "2026-10-06T11:23:05.459Z",
+          "evaluatedVersion": "1.5.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -4956,8 +5664,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.946Z",
-          "evaluatedVersion": "1.3.3"
+          "evaluatedAt": "2026-10-06T11:23:05.459Z",
+          "evaluatedVersion": "1.5.0"
         }
       }
     },
@@ -5042,7 +5750,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.949Z",
+        "evaluatedAt": "2026-10-06T11:23:05.462Z",
         "evaluatedVersion": "1.5.1"
       },
       "evalSummaries": {
@@ -5115,7 +5823,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.949Z",
+          "evaluatedAt": "2026-10-06T11:23:05.463Z",
           "evaluatedVersion": "1.5.1"
         },
         "skill-best-practice": {
@@ -5133,7 +5841,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.949Z",
+          "evaluatedAt": "2026-10-06T11:23:05.463Z",
           "evaluatedVersion": "1.5.1"
         }
       }
@@ -5219,7 +5927,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.978Z",
+        "evaluatedAt": "2026-10-06T11:23:05.466Z",
         "evaluatedVersion": "1.4.1"
       },
       "evalSummaries": {
@@ -5292,7 +6000,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.979Z",
+          "evaluatedAt": "2026-10-06T11:23:05.467Z",
           "evaluatedVersion": "1.4.1"
         },
         "skill-best-practice": {
@@ -5310,7 +6018,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.979Z",
+          "evaluatedAt": "2026-10-06T11:23:05.467Z",
           "evaluatedVersion": "1.4.1"
         }
       }
@@ -5396,7 +6104,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:35.993Z",
+        "evaluatedAt": "2026-10-06T11:23:05.477Z",
         "evaluatedVersion": "1.3.2"
       },
       "evalSummaries": {
@@ -5469,7 +6177,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.993Z",
+          "evaluatedAt": "2026-10-06T11:23:05.477Z",
           "evaluatedVersion": "1.3.2"
         },
         "skill-best-practice": {
@@ -5487,7 +6195,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:35.993Z",
+          "evaluatedAt": "2026-10-06T11:23:05.477Z",
           "evaluatedVersion": "1.3.2"
         }
       }
@@ -5573,7 +6281,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:36.007Z",
+        "evaluatedAt": "2026-10-06T11:23:05.524Z",
         "evaluatedVersion": "2.3.2"
       },
       "evalSummaries": {
@@ -5646,7 +6354,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:36.007Z",
+          "evaluatedAt": "2026-10-06T11:23:05.525Z",
           "evaluatedVersion": "2.3.2"
         },
         "skill-best-practice": {
@@ -5664,15 +6372,192 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:36.007Z",
+          "evaluatedAt": "2026-10-06T11:23:05.525Z",
           "evaluatedVersion": "2.3.2"
+        }
+      }
+    },
+    {
+      "name": "ux-ax-review",
+      "description": "Review website/app UX for humans and AX for AI/search; produce an evidence-backed audit and improvement plan across usability, brand, access, speed, conversion and discoverability. Don't use for UI builds, SEO-only edits, or legal certification.",
+      "version": "1.1.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:luongnv89/skills:skills/ux-ax-review",
+      "relPath": "skills/ux-ax-review",
+      "verified": true,
+      "tokenCount": 2919,
+      "evalSummary": {
+        "overallScore": 92,
+        "grade": "A",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-06T11:23:05.525Z",
+        "evaluatedVersion": "1.1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 92,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-06T11:23:05.525Z",
+          "evaluatedVersion": "1.1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 100,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 14,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-06T11:23:05.525Z",
+          "evaluatedVersion": "1.1.0"
         }
       }
     },
     {
       "name": "viral-product-evaluator",
       "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-      "version": "1.5.0",
+      "version": "1.6.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -5684,7 +6569,7 @@
       "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
       "relPath": "skills/viral-product-evaluator",
       "verified": true,
-      "tokenCount": 2945,
+      "tokenCount": 3038,
       "evalSummary": {
         "overallScore": 93,
         "grade": "A",
@@ -5750,8 +6635,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:36.018Z",
-        "evaluatedVersion": "1.5.0"
+        "evaluatedAt": "2026-10-06T11:23:05.530Z",
+        "evaluatedVersion": "1.6.0"
       },
       "evalSummaries": {
         "quality": {
@@ -5823,8 +6708,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:36.019Z",
-          "evaluatedVersion": "1.5.0"
+          "evaluatedAt": "2026-10-06T11:23:05.531Z",
+          "evaluatedVersion": "1.6.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -5841,15 +6726,15 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:36.019Z",
-          "evaluatedVersion": "1.5.0"
+          "evaluatedAt": "2026-10-06T11:23:05.531Z",
+          "evaluatedVersion": "1.6.0"
         }
       }
     },
     {
       "name": "website-agent-readiness",
       "description": "Scan a site for agent readiness via isitagentready.com — 'make this site agent-ready' or 'scan this site', incl. localhost/private URLs and robots.txt checks. Triage the 0-5 score, write agent-ready-plan.md, file issues via /plan-to-issues. Not for llms.txt/SEO fixes (seo-ai-optimizer) or app-store ASO.",
-      "version": "1.2.5",
+      "version": "1.3.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "Requires curl and python3. Phase 4 additionally requires git, an authenticated GitHub CLI (`gh auth status`), and the plan-to-issues skill.",
@@ -5861,7 +6746,7 @@
       "installUrl": "github:luongnv89/skills:skills/website-agent-readiness",
       "relPath": "skills/website-agent-readiness",
       "verified": true,
-      "tokenCount": 4962,
+      "tokenCount": 5327,
       "evalSummary": {
         "overallScore": 90,
         "grade": "A",
@@ -5927,8 +6812,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:00:36.022Z",
-        "evaluatedVersion": "1.2.5"
+        "evaluatedAt": "2026-10-06T11:23:05.551Z",
+        "evaluatedVersion": "1.3.0"
       },
       "evalSummaries": {
         "quality": {
@@ -6000,8 +6885,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:36.023Z",
-          "evaluatedVersion": "1.2.5"
+          "evaluatedAt": "2026-10-06T11:23:05.552Z",
+          "evaluatedVersion": "1.3.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -6018,8 +6903,8 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-04T21:00:36.023Z",
-          "evaluatedVersion": "1.2.5"
+          "evaluatedAt": "2026-10-06T11:23:05.552Z",
+          "evaluatedVersion": "1.3.0"
         }
       }
     }
@@ -6030,7 +6915,7 @@
       "name": "luongnv89-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-10-04T21:00:36.780Z",
+      "createdAt": "2026-10-06T11:23:06.290Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6046,6 +6931,12 @@
           "installUrl": "github:luongnv89/skills:skills/agent-config",
           "description": "Create, update, or audit AGENTS.md (default) or CLAUDE.md agent instructions: set up, prune, add a rule, or merge CLAUDE.md or .cursorrules into one file Claude Code, Codex, and Cursor all read. Don't use for READMEs, skills, or subagents.",
           "version": "2.0.2"
+        },
+        {
+          "name": "ai-job-scout",
+          "installUrl": "github:luongnv89/skills:skills/ai-job-scout",
+          "description": "Find open AI engineering jobs that fit a candidate, verify location and apply links, and assess each employer's product. Use for one-off shortlists or a job alert's research step. Don't use for résumé writing, job applications, or company news.",
+          "version": "1.1.0"
         },
         {
           "name": "appstore-review-checker",
@@ -6064,6 +6955,18 @@
           "installUrl": "github:luongnv89/skills:skills/brand-name-checker",
           "description": "Check product and brand names for conflicts across trademarks, domains, social handles, and package registries. Returns a risk level and Proceed/Modify/Abandon recommendation. Skip for name brainstorming, logo design, or trademark filings.",
           "version": "1.4.2"
+        },
+        {
+          "name": "cleanup-project",
+          "installUrl": "github:luongnv89/skills:skills/cleanup-project",
+          "description": "Prepare a git repo before new work: review uncommitted changes, fix .gitignore, delete merged branches, end on clean main, or inspect one branch before deciding. Don't use for dead code, commit-and-push, releases, LICENSE files, or git how-tos.",
+          "version": "1.0.1"
+        },
+        {
+          "name": "design-optimizer",
+          "installUrl": "github:luongnv89/skills:skills/design-optimizer",
+          "description": "Optimize a website or app design in one run: capture the page once, audit usability, UX/AX, virality and agent readiness, merge overlaps into one prioritized report, apply fixes on opt-in. Don't use for one lens (dont-make-me-think, ux-ax-review).",
+          "version": "1.0.0"
         },
         {
           "name": "diagram-generator",
@@ -6099,7 +7002,7 @@
           "name": "landing-page-generator",
           "installUrl": "github:luongnv89/skills:skills/landing-page-generator",
           "description": "Generate landing pages with PAS, AIDA, or StoryBrand from a product brief or existing README. Use for sales copy, hero sections, CTAs, or README rewrites. Don't use for blog posts, UX audits, or HTML builds.",
-          "version": "1.3.0"
+          "version": "1.4.0"
         },
         {
           "name": "ollama-optimizer",
@@ -6114,6 +7017,12 @@
           "version": "1.5.1"
         },
         {
+          "name": "search-optimizer",
+          "installUrl": "github:luongnv89/skills:skills/search-optimizer",
+          "description": "Optimize a site or app for SEO, AI-bot search and app-store search in one run: detect web vs store, run each audit once, merge one prioritized report; fixes only via member gates. Don't use for one fix (seo-ai-optimizer, aso-marketing).",
+          "version": "1.0.1"
+        },
+        {
           "name": "security-setup",
           "installUrl": "github:luongnv89/skills:skills/security-setup",
           "description": "Install local-first security hardening: pre-commit secret detection, offline dependency scans, static analysis, reports, and gated free CI. Use when hardening repos or adding security hooks. Don't use for incident response or cloud security reviews.",
@@ -6123,7 +7032,7 @@
           "name": "seo-ai-optimizer",
           "installUrl": "github:luongnv89/skills:skills/seo-ai-optimizer",
           "description": "Audit and optimize websites for technical SEO, content SEO, and AI bot accessibility. Fixes meta tags, sitemaps, robots.txt, structured data, llms.txt, and GPTBot/ClaudeBot directives. Not for App Store ASO, paid search, or blog writing.",
-          "version": "1.3.3"
+          "version": "1.5.0"
         },
         {
           "name": "tmux-agent-comms",
@@ -6132,16 +7041,22 @@
           "version": "2.3.2"
         },
         {
+          "name": "ux-ax-review",
+          "installUrl": "github:luongnv89/skills:skills/ux-ax-review",
+          "description": "Review website/app UX for humans and AX for AI/search; produce an evidence-backed audit and improvement plan across usability, brand, access, speed, conversion and discoverability. Don't use for UI builds, SEO-only edits, or legal certification.",
+          "version": "1.1.0"
+        },
+        {
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-          "version": "1.5.0"
+          "version": "1.6.0"
         },
         {
           "name": "website-agent-readiness",
           "installUrl": "github:luongnv89/skills:skills/website-agent-readiness",
           "description": "Scan a site for agent readiness via isitagentready.com — 'make this site agent-ready' or 'scan this site', incl. localhost/private URLs and robots.txt checks. Triage the 0-5 score, write agent-ready-plan.md, file issues via /plan-to-issues. Not for llms.txt/SEO fixes (seo-ai-optimizer) or app-store ASO.",
-          "version": "1.2.5"
+          "version": "1.3.0"
         }
       ],
       "sourceRepo": {
@@ -6156,7 +7071,7 @@
       "name": "luongnv89-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-10-04T21:00:36.780Z",
+      "createdAt": "2026-10-06T11:23:06.290Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6177,13 +7092,19 @@
           "name": "auto-push",
           "installUrl": "github:luongnv89/skills:skills/auto-push",
           "description": "Generate a commit message, stage all changes, and push to remote after scanning for secrets, large files, and protected-branch risks. Skip for opening PRs, code review, or cutting releases/tags.",
-          "version": "1.0.5"
+          "version": "1.1.0"
         },
         {
           "name": "brand-name-checker",
           "installUrl": "github:luongnv89/skills:skills/brand-name-checker",
           "description": "Check product and brand names for conflicts across trademarks, domains, social handles, and package registries. Returns a risk level and Proceed/Modify/Abandon recommendation. Skip for name brainstorming, logo design, or trademark filings.",
           "version": "1.4.2"
+        },
+        {
+          "name": "cleanup-project",
+          "installUrl": "github:luongnv89/skills:skills/cleanup-project",
+          "description": "Prepare a git repo before new work: review uncommitted changes, fix .gitignore, delete merged branches, end on clean main, or inspect one branch before deciding. Don't use for dead code, commit-and-push, releases, LICENSE files, or git how-tos.",
+          "version": "1.0.1"
         },
         {
           "name": "cli-builder",
@@ -6225,7 +7146,7 @@
           "name": "dont-make-me-think",
           "installUrl": "github:luongnv89/skills:skills/dont-make-me-think",
           "description": "Review UI usability using Steve Krug's principles and produce a scannable report. Use for UX audits of screenshots, URLs, or code. Don't use for brand critique, WCAG audits, or backend/API review.",
-          "version": "1.4.3"
+          "version": "1.5.0"
         },
         {
           "name": "idea-validator",
@@ -6267,7 +7188,7 @@
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-          "version": "1.5.0"
+          "version": "1.6.0"
         }
       ],
       "sourceRepo": {
@@ -6282,7 +7203,7 @@
       "name": "luongnv89-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-10-04T21:00:36.780Z",
+      "createdAt": "2026-10-06T11:23:06.290Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6309,7 +7230,13 @@
           "name": "auto-push",
           "installUrl": "github:luongnv89/skills:skills/auto-push",
           "description": "Generate a commit message, stage all changes, and push to remote after scanning for secrets, large files, and protected-branch risks. Skip for opening PRs, code review, or cutting releases/tags.",
-          "version": "1.0.5"
+          "version": "1.1.0"
+        },
+        {
+          "name": "cleanup-project",
+          "installUrl": "github:luongnv89/skills:skills/cleanup-project",
+          "description": "Prepare a git repo before new work: review uncommitted changes, fix .gitignore, delete merged branches, end on clean main, or inspect one branch before deciding. Don't use for dead code, commit-and-push, releases, LICENSE files, or git how-tos.",
+          "version": "1.0.1"
         },
         {
           "name": "cli-builder",
@@ -6321,13 +7248,19 @@
           "name": "code-review",
           "installUrl": "github:luongnv89/skills:skills/code-review",
           "description": "Review or improve code — one skill, four modes: bug/security review (default), performance, clean-code audit, slop cleanup. Pass mode:review|perf|clean|cleanup or infer. Don't use for writing features or generating tests (use test-coverage).",
-          "version": "2.1.3"
+          "version": "2.2.0"
         },
         {
           "name": "codebase-modernizer",
           "installUrl": "github:luongnv89/skills:skills/codebase-modernizer",
           "description": "Audit a stale, inherited, or messy codebase — deps, bugs, security, tests, CI, docs, UI/UX — then emit a phased, testable modernization plan. Read-only: plans upgrades, never applies them. Not for single-PR review, PRD-to-tasks, or UX-only audits.",
           "version": "1.3.3"
+        },
+        {
+          "name": "design-optimizer",
+          "installUrl": "github:luongnv89/skills:skills/design-optimizer",
+          "description": "Optimize a website or app design in one run: capture the page once, audit usability, UX/AX, virality and agent readiness, merge overlaps into one prioritized report, apply fixes on opt-in. Don't use for one lens (dont-make-me-think, ux-ax-review).",
+          "version": "1.0.0"
         },
         {
           "name": "devops-pipeline",
@@ -6351,13 +7284,13 @@
           "name": "dont-make-me-think",
           "installUrl": "github:luongnv89/skills:skills/dont-make-me-think",
           "description": "Review UI usability using Steve Krug's principles and produce a scannable report. Use for UX audits of screenshots, URLs, or code. Don't use for brand critique, WCAG audits, or backend/API review.",
-          "version": "1.4.3"
+          "version": "1.5.0"
         },
         {
           "name": "frontend-design",
           "installUrl": "github:luongnv89/skills:skills/frontend-design",
           "description": "Build production-grade frontend interfaces with distinctive aesthetics and working code. Use for UI components, pages, or frontend features. Don't use for backend/API work or usability-only audits.",
-          "version": "1.2.7"
+          "version": "1.3.0"
         },
         {
           "name": "herdr-agent",
@@ -6375,7 +7308,7 @@
           "name": "landing-page-generator",
           "installUrl": "github:luongnv89/skills:skills/landing-page-generator",
           "description": "Generate landing pages with PAS, AIDA, or StoryBrand from a product brief or existing README. Use for sales copy, hero sections, CTAs, or README rewrites. Don't use for blog posts, UX audits, or HTML builds.",
-          "version": "1.3.0"
+          "version": "1.4.0"
         },
         {
           "name": "ollama-optimizer",
@@ -6394,12 +7327,6 @@
           "installUrl": "github:luongnv89/skills:skills/oss-ready",
           "description": "Transform a project into a professional open-source repository by adding LICENSE, README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, and GitHub issue/PR templates. Don't use for documentation overhauls, landing-page generation, or registry publishing.",
           "version": "1.3.1"
-        },
-        {
-          "name": "plan-to-issues",
-          "installUrl": "github:luongnv89/skills:skills/plan-to-issues",
-          "description": "Convert any phased plan file, or a conversation about what to build, into labelled GitHub issues under one tracking epic mapping each issue to its source task. No plan file required. Don't use for writing plans, resolving issues, or triage.",
-          "version": "2.2.0"
         },
         {
           "name": "security-setup",
@@ -6426,10 +7353,16 @@
           "version": "2.3.2"
         },
         {
+          "name": "ux-ax-review",
+          "installUrl": "github:luongnv89/skills:skills/ux-ax-review",
+          "description": "Review website/app UX for humans and AX for AI/search; produce an evidence-backed audit and improvement plan across usability, brand, access, speed, conversion and discoverability. Don't use for UI builds, SEO-only edits, or legal certification.",
+          "version": "1.1.0"
+        },
+        {
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-          "version": "1.5.0"
+          "version": "1.6.0"
         }
       ],
       "sourceRepo": {
@@ -6444,7 +7377,7 @@
       "name": "luongnv89-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-10-04T21:00:36.780Z",
+      "createdAt": "2026-10-06T11:23:06.290Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6480,6 +7413,12 @@
           "version": "1.3.3"
         },
         {
+          "name": "design-optimizer",
+          "installUrl": "github:luongnv89/skills:skills/design-optimizer",
+          "description": "Optimize a website or app design in one run: capture the page once, audit usability, UX/AX, virality and agent readiness, merge overlaps into one prioritized report, apply fixes on opt-in. Don't use for one lens (dont-make-me-think, ux-ax-review).",
+          "version": "1.0.0"
+        },
+        {
           "name": "dev-machine-setup",
           "installUrl": "github:luongnv89/skills:skills/dev-machine-setup",
           "description": "Set up or tune any dev machine, fresh or drifted, on macOS, Linux, or Windows: report what's missing, install only that, then fix PATH, duplicate runtimes, and shell config. Don't use for Dockerfiles, CI images, or single package installs.",
@@ -6495,13 +7434,13 @@
           "name": "dont-make-me-think",
           "installUrl": "github:luongnv89/skills:skills/dont-make-me-think",
           "description": "Review UI usability using Steve Krug's principles and produce a scannable report. Use for UX audits of screenshots, URLs, or code. Don't use for brand critique, WCAG audits, or backend/API review.",
-          "version": "1.4.3"
+          "version": "1.5.0"
         },
         {
           "name": "frontend-design",
           "installUrl": "github:luongnv89/skills:skills/frontend-design",
           "description": "Build production-grade frontend interfaces with distinctive aesthetics and working code. Use for UI components, pages, or frontend features. Don't use for backend/API work or usability-only audits.",
-          "version": "1.2.7"
+          "version": "1.3.0"
         },
         {
           "name": "herdr-agent",
@@ -6513,25 +7452,19 @@
           "name": "landing-page-generator",
           "installUrl": "github:luongnv89/skills:skills/landing-page-generator",
           "description": "Generate landing pages with PAS, AIDA, or StoryBrand from a product brief or existing README. Use for sales copy, hero sections, CTAs, or README rewrites. Don't use for blog posts, UX audits, or HTML builds.",
-          "version": "1.3.0"
+          "version": "1.4.0"
         },
         {
           "name": "logo-designer",
           "installUrl": "github:luongnv89/skills:skills/logo-designer",
           "description": "Generate professional SVG logos from project context: 7 brand variants plus a showcase HTML page. Use for product marks, wordmarks, icons, and favicons. Don't use for raster-only logos, illustrations, or full brand guidelines.",
-          "version": "1.2.5"
+          "version": "1.3.0"
         },
         {
           "name": "oss-ready",
           "installUrl": "github:luongnv89/skills:skills/oss-ready",
           "description": "Transform a project into a professional open-source repository by adding LICENSE, README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, and GitHub issue/PR templates. Don't use for documentation overhauls, landing-page generation, or registry publishing.",
           "version": "1.3.1"
-        },
-        {
-          "name": "plan-to-issues",
-          "installUrl": "github:luongnv89/skills:skills/plan-to-issues",
-          "description": "Convert any phased plan file, or a conversation about what to build, into labelled GitHub issues under one tracking epic mapping each issue to its source task. No plan file required. Don't use for writing plans, resolving issues, or triage.",
-          "version": "2.2.0"
         },
         {
           "name": "prd-generator",
@@ -6564,10 +7497,16 @@
           "version": "2.3.2"
         },
         {
+          "name": "ux-ax-review",
+          "installUrl": "github:luongnv89/skills:skills/ux-ax-review",
+          "description": "Review website/app UX for humans and AX for AI/search; produce an evidence-backed audit and improvement plan across usability, brand, access, speed, conversion and discoverability. Don't use for UI builds, SEO-only edits, or legal certification.",
+          "version": "1.1.0"
+        },
+        {
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-          "version": "1.5.0"
+          "version": "1.6.0"
         }
       ],
       "sourceRepo": {
@@ -6582,7 +7521,7 @@
       "name": "luongnv89-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-10-04T21:00:36.780Z",
+      "createdAt": "2026-10-06T11:23:06.290Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6609,7 +7548,7 @@
           "name": "dont-make-me-think",
           "installUrl": "github:luongnv89/skills:skills/dont-make-me-think",
           "description": "Review UI usability using Steve Krug's principles and produce a scannable report. Use for UX audits of screenshots, URLs, or code. Don't use for brand critique, WCAG audits, or backend/API review.",
-          "version": "1.4.3"
+          "version": "1.5.0"
         },
         {
           "name": "install-script-generator",
@@ -6621,31 +7560,43 @@
           "name": "landing-page-generator",
           "installUrl": "github:luongnv89/skills:skills/landing-page-generator",
           "description": "Generate landing pages with PAS, AIDA, or StoryBrand from a product brief or existing README. Use for sales copy, hero sections, CTAs, or README rewrites. Don't use for blog posts, UX audits, or HTML builds.",
-          "version": "1.3.0"
+          "version": "1.4.0"
         },
         {
           "name": "logo-designer",
           "installUrl": "github:luongnv89/skills:skills/logo-designer",
           "description": "Generate professional SVG logos from project context: 7 brand variants plus a showcase HTML page. Use for product marks, wordmarks, icons, and favicons. Don't use for raster-only logos, illustrations, or full brand guidelines.",
-          "version": "1.2.5"
+          "version": "1.3.0"
+        },
+        {
+          "name": "search-optimizer",
+          "installUrl": "github:luongnv89/skills:skills/search-optimizer",
+          "description": "Optimize a site or app for SEO, AI-bot search and app-store search in one run: detect web vs store, run each audit once, merge one prioritized report; fixes only via member gates. Don't use for one fix (seo-ai-optimizer, aso-marketing).",
+          "version": "1.0.1"
         },
         {
           "name": "seo-ai-optimizer",
           "installUrl": "github:luongnv89/skills:skills/seo-ai-optimizer",
           "description": "Audit and optimize websites for technical SEO, content SEO, and AI bot accessibility. Fixes meta tags, sitemaps, robots.txt, structured data, llms.txt, and GPTBot/ClaudeBot directives. Not for App Store ASO, paid search, or blog writing.",
-          "version": "1.3.3"
+          "version": "1.5.0"
+        },
+        {
+          "name": "ux-ax-review",
+          "installUrl": "github:luongnv89/skills:skills/ux-ax-review",
+          "description": "Review website/app UX for humans and AX for AI/search; produce an evidence-backed audit and improvement plan across usability, brand, access, speed, conversion and discoverability. Don't use for UI builds, SEO-only edits, or legal certification.",
+          "version": "1.1.0"
         },
         {
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-          "version": "1.5.0"
+          "version": "1.6.0"
         },
         {
           "name": "website-agent-readiness",
           "installUrl": "github:luongnv89/skills:skills/website-agent-readiness",
           "description": "Scan a site for agent readiness via isitagentready.com — 'make this site agent-ready' or 'scan this site', incl. localhost/private URLs and robots.txt checks. Triage the 0-5 score, write agent-ready-plan.md, file issues via /plan-to-issues. Not for llms.txt/SEO fixes (seo-ai-optimizer) or app-store ASO.",
-          "version": "1.2.5"
+          "version": "1.3.0"
         }
       ],
       "sourceRepo": {
@@ -6660,7 +7611,7 @@
       "name": "luongnv89-skills-mobile",
       "description": "iOS, Swift, SwiftUI, Xcode, macOS, and App Store skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-10-04T21:00:36.780Z",
+      "createdAt": "2026-10-06T11:23:06.290Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6693,7 +7644,7 @@
           "name": "seo-ai-optimizer",
           "installUrl": "github:luongnv89/skills:skills/seo-ai-optimizer",
           "description": "Audit and optimize websites for technical SEO, content SEO, and AI bot accessibility. Fixes meta tags, sitemaps, robots.txt, structured data, llms.txt, and GPTBot/ClaudeBot directives. Not for App Store ASO, paid search, or blog writing.",
-          "version": "1.3.3"
+          "version": "1.5.0"
         }
       ],
       "sourceRepo": {
@@ -6708,7 +7659,7 @@
       "name": "luongnv89-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-10-04T21:00:36.780Z",
+      "createdAt": "2026-10-06T11:23:06.290Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6719,6 +7670,12 @@
         "skills"
       ],
       "skills": [
+        {
+          "name": "ai-job-scout",
+          "installUrl": "github:luongnv89/skills:skills/ai-job-scout",
+          "description": "Find open AI engineering jobs that fit a candidate, verify location and apply links, and assess each employer's product. Use for one-off shortlists or a job alert's research step. Don't use for résumé writing, job applications, or company news.",
+          "version": "1.1.0"
+        },
         {
           "name": "aso-marketing",
           "installUrl": "github:luongnv89/skills:skills/aso-marketing",
@@ -6747,7 +7704,7 @@
           "name": "frontend-design",
           "installUrl": "github:luongnv89/skills:skills/frontend-design",
           "description": "Build production-grade frontend interfaces with distinctive aesthetics and working code. Use for UI components, pages, or frontend features. Don't use for backend/API work or usability-only audits.",
-          "version": "1.2.7"
+          "version": "1.3.0"
         },
         {
           "name": "idea-validator",
@@ -6759,13 +7716,13 @@
           "name": "landing-page-generator",
           "installUrl": "github:luongnv89/skills:skills/landing-page-generator",
           "description": "Generate landing pages with PAS, AIDA, or StoryBrand from a product brief or existing README. Use for sales copy, hero sections, CTAs, or README rewrites. Don't use for blog posts, UX audits, or HTML builds.",
-          "version": "1.3.0"
+          "version": "1.4.0"
         },
         {
           "name": "logo-designer",
           "installUrl": "github:luongnv89/skills:skills/logo-designer",
           "description": "Generate professional SVG logos from project context: 7 brand variants plus a showcase HTML page. Use for product marks, wordmarks, icons, and favicons. Don't use for raster-only logos, illustrations, or full brand guidelines.",
-          "version": "1.2.5"
+          "version": "1.3.0"
         },
         {
           "name": "prd-generator",
@@ -6774,10 +7731,22 @@
           "version": "1.4.3"
         },
         {
+          "name": "product-planner",
+          "installUrl": "github:luongnv89/skills:skills/product-planner",
+          "description": "Plan a product from idea to sprint tasks in one run: idea-validator, prd-generator, tad-generator, tasks-generator, resuming from existing files. Don't use for one document alone (PRD, TAD, tasks) or only validating an idea.",
+          "version": "1.0.0"
+        },
+        {
           "name": "release-manager",
           "installUrl": "github:luongnv89/skills:skills/release-manager",
           "description": "Manage software releases end-to-end: bump version, generate changelog, tag, push, GitHub release, publish to PyPI/npm. Use when asked to ship, cut a release, or tag a version. Don't use for routine commits or marketplace publishing.",
           "version": "2.6.4"
+        },
+        {
+          "name": "search-optimizer",
+          "installUrl": "github:luongnv89/skills:skills/search-optimizer",
+          "description": "Optimize a site or app for SEO, AI-bot search and app-store search in one run: detect web vs store, run each audit once, merge one prioritized report; fixes only via member gates. Don't use for one fix (seo-ai-optimizer, aso-marketing).",
+          "version": "1.0.1"
         },
         {
           "name": "tad-generator",
@@ -6801,7 +7770,7 @@
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-          "version": "1.5.0"
+          "version": "1.6.0"
         }
       ],
       "sourceRepo": {
@@ -6816,7 +7785,7 @@
       "name": "luongnv89-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-10-04T21:00:36.780Z",
+      "createdAt": "2026-10-06T11:23:06.290Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6828,6 +7797,12 @@
       ],
       "skills": [
         {
+          "name": "ai-job-scout",
+          "installUrl": "github:luongnv89/skills:skills/ai-job-scout",
+          "description": "Find open AI engineering jobs that fit a candidate, verify location and apply links, and assess each employer's product. Use for one-off shortlists or a job alert's research step. Don't use for résumé writing, job applications, or company news.",
+          "version": "1.1.0"
+        },
+        {
           "name": "appstore-review-checker",
           "installUrl": "github:luongnv89/skills:skills/appstore-review-checker",
           "description": "Audit iOS/macOS apps against App Store Review Guidelines before submission, with evidence-backed verdicts and fixes. Don't use for Google Play, general code review, or rejection appeals.",
@@ -6837,13 +7812,19 @@
           "name": "auto-push",
           "installUrl": "github:luongnv89/skills:skills/auto-push",
           "description": "Generate a commit message, stage all changes, and push to remote after scanning for secrets, large files, and protected-branch risks. Skip for opening PRs, code review, or cutting releases/tags.",
-          "version": "1.0.5"
+          "version": "1.1.0"
+        },
+        {
+          "name": "cleanup-project",
+          "installUrl": "github:luongnv89/skills:skills/cleanup-project",
+          "description": "Prepare a git repo before new work: review uncommitted changes, fix .gitignore, delete merged branches, end on clean main, or inspect one branch before deciding. Don't use for dead code, commit-and-push, releases, LICENSE files, or git how-tos.",
+          "version": "1.0.1"
         },
         {
           "name": "code-review",
           "installUrl": "github:luongnv89/skills:skills/code-review",
           "description": "Review or improve code — one skill, four modes: bug/security review (default), performance, clean-code audit, slop cleanup. Pass mode:review|perf|clean|cleanup or infer. Don't use for writing features or generating tests (use test-coverage).",
-          "version": "2.1.3"
+          "version": "2.2.0"
         },
         {
           "name": "codebase-modernizer",
@@ -6852,10 +7833,16 @@
           "version": "1.3.3"
         },
         {
+          "name": "design-optimizer",
+          "installUrl": "github:luongnv89/skills:skills/design-optimizer",
+          "description": "Optimize a website or app design in one run: capture the page once, audit usability, UX/AX, virality and agent readiness, merge overlaps into one prioritized report, apply fixes on opt-in. Don't use for one lens (dont-make-me-think, ux-ax-review).",
+          "version": "1.0.0"
+        },
+        {
           "name": "dont-make-me-think",
           "installUrl": "github:luongnv89/skills:skills/dont-make-me-think",
           "description": "Review UI usability using Steve Krug's principles and produce a scannable report. Use for UX audits of screenshots, URLs, or code. Don't use for brand critique, WCAG audits, or backend/API review.",
-          "version": "1.4.3"
+          "version": "1.5.0"
         },
         {
           "name": "idea-validator",
@@ -6876,10 +7863,16 @@
           "version": "1.4.2"
         },
         {
+          "name": "ux-ax-review",
+          "installUrl": "github:luongnv89/skills:skills/ux-ax-review",
+          "description": "Review website/app UX for humans and AX for AI/search; produce an evidence-backed audit and improvement plan across usability, brand, access, speed, conversion and discoverability. Don't use for UI builds, SEO-only edits, or legal certification.",
+          "version": "1.1.0"
+        },
+        {
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-          "version": "1.5.0"
+          "version": "1.6.0"
         }
       ],
       "sourceRepo": {
@@ -6894,7 +7887,7 @@
       "name": "luongnv89-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from luongnv89/skills.",
       "author": "ASM (luongnv89/skills)",
-      "createdAt": "2026-10-04T21:00:36.780Z",
+      "createdAt": "2026-10-06T11:23:06.290Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -6912,10 +7905,16 @@
           "version": "2.0.2"
         },
         {
+          "name": "ai-job-scout",
+          "installUrl": "github:luongnv89/skills:skills/ai-job-scout",
+          "description": "Find open AI engineering jobs that fit a candidate, verify location and apply links, and assess each employer's product. Use for one-off shortlists or a job alert's research step. Don't use for résumé writing, job applications, or company news.",
+          "version": "1.1.0"
+        },
+        {
           "name": "code-review",
           "installUrl": "github:luongnv89/skills:skills/code-review",
           "description": "Review or improve code — one skill, four modes: bug/security review (default), performance, clean-code audit, slop cleanup. Pass mode:review|perf|clean|cleanup or infer. Don't use for writing features or generating tests (use test-coverage).",
-          "version": "2.1.3"
+          "version": "2.2.0"
         },
         {
           "name": "codebase-modernizer",
@@ -6933,7 +7932,7 @@
           "name": "landing-page-generator",
           "installUrl": "github:luongnv89/skills:skills/landing-page-generator",
           "description": "Generate landing pages with PAS, AIDA, or StoryBrand from a product brief or existing README. Use for sales copy, hero sections, CTAs, or README rewrites. Don't use for blog posts, UX audits, or HTML builds.",
-          "version": "1.3.0"
+          "version": "1.4.0"
         },
         {
           "name": "oss-ready",
@@ -6942,28 +7941,22 @@
           "version": "1.3.1"
         },
         {
-          "name": "plan-to-issues",
-          "installUrl": "github:luongnv89/skills:skills/plan-to-issues",
-          "description": "Convert any phased plan file, or a conversation about what to build, into labelled GitHub issues under one tracking epic mapping each issue to its source task. No plan file required. Don't use for writing plans, resolving issues, or triage.",
-          "version": "2.2.0"
-        },
-        {
           "name": "seo-ai-optimizer",
           "installUrl": "github:luongnv89/skills:skills/seo-ai-optimizer",
           "description": "Audit and optimize websites for technical SEO, content SEO, and AI bot accessibility. Fixes meta tags, sitemaps, robots.txt, structured data, llms.txt, and GPTBot/ClaudeBot directives. Not for App Store ASO, paid search, or blog writing.",
-          "version": "1.3.3"
+          "version": "1.5.0"
         },
         {
           "name": "viral-product-evaluator",
           "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
           "description": "Review a product codebase and landing page against 32 viral principles and produce a Virality Score plus ranked fixes. Use to audit virality or prioritize growth. Don't use for SEO, ASO, copywriting, or code review.",
-          "version": "1.5.0"
+          "version": "1.6.0"
         },
         {
           "name": "website-agent-readiness",
           "installUrl": "github:luongnv89/skills:skills/website-agent-readiness",
           "description": "Scan a site for agent readiness via isitagentready.com — 'make this site agent-ready' or 'scan this site', incl. localhost/private URLs and robots.txt checks. Triage the 0-5 score, write agent-ready-plan.md, file issues via /plan-to-issues. Not for llms.txt/SEO fixes (seo-ai-optimizer) or app-store ASO.",
-          "version": "1.2.5"
+          "version": "1.3.0"
         }
       ],
       "sourceRepo": {

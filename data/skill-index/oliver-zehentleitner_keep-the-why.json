@@ -2,13 +2,13 @@
   "repoUrl": "https://github.com/oliver-zehentleitner/keep-the-why.git",
   "owner": "oliver-zehentleitner",
   "repo": "keep-the-why",
-  "updatedAt": "2026-10-04T21:03:03.014Z",
+  "updatedAt": "2026-10-06T11:25:36.558Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "keep-the-why",
-      "description": "Extract and preserve the reasoning code cannot explain - decisions, rejected alternatives, workarounds, incidents, constraints - plus project setup and maintainer interviews. Not for what changed (see Keep a Changelog) - only why. Also the place for complaints, feedback and settings changes about this skill itself.",
-      "version": "0.19.0",
+      "description": "In a project with a .keep-the-why, or asked about it or to set one up (never offered or named otherwise) - extract and preserve the reasoning code cannot explain - decisions, rejected alternatives, workarounds, incidents, constraints - plus project setup and maintainer interviews. Not for what changed (see Keep a Changelog) - only why. Also the place for questions about how this skill works, complaints, feedback and settings changes about it.",
+      "version": "0.20.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -20,10 +20,10 @@
       "installUrl": "github:oliver-zehentleitner/keep-the-why:skills/keep-the-why",
       "relPath": "skills/keep-the-why",
       "verified": true,
-      "tokenCount": 11370,
+      "tokenCount": 11822,
       "evalSummary": {
-        "overallScore": 91,
-        "grade": "A",
+        "overallScore": 86,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
@@ -34,7 +34,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 8,
+            "score": 3,
             "max": 10
           },
           {
@@ -86,8 +86,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:03:03.005Z",
-        "evaluatedVersion": "0.19.0"
+        "evaluatedAt": "2026-10-06T11:25:36.547Z",
+        "evaluatedVersion": "0.20.0"
       },
       "evalSummaries": {
         "quality": {
@@ -95,7 +95,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 87,
+          "overallScore": 82,
           "grade": "B",
           "categories": [
             {
@@ -107,7 +107,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 8,
+              "score": 3,
               "max": 10
             },
             {
@@ -159,8 +159,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:03:03.006Z",
-          "evaluatedVersion": "0.19.0"
+          "evaluatedAt": "2026-10-06T11:25:36.547Z",
+          "evaluatedVersion": "0.20.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -177,8 +177,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-04T21:03:03.006Z",
-          "evaluatedVersion": "0.19.0"
+          "evaluatedAt": "2026-10-06T11:25:36.547Z",
+          "evaluatedVersion": "0.20.0"
         }
       }
     }
