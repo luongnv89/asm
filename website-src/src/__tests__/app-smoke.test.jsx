@@ -471,6 +471,14 @@ describe("App smoke", () => {
     });
     const catalogCta = container.querySelector("a[href$='/skills']");
     expect(catalogCta).toBeTruthy();
+    for (const name of ["find-me-skills", "skill-creator"]) {
+      expect(screen.getByRole("heading", { name })).toBeTruthy();
+      expect(
+        screen.getByText(`asm install github:luongnv89/asm:skills/${name}`),
+      ).toBeTruthy();
+      const id = encodeSkillId(`luongnv89/asm::skills/${name}::${name}`);
+      expect(container.querySelector(`a[href$='/skills/${id}']`)).toBeTruthy();
+    }
     // The catalog sidebar list must NOT be present on the landing page.
     expect(
       container.querySelector(

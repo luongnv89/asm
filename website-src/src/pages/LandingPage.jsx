@@ -7,6 +7,7 @@ import CopyButton from "../components/CopyButton.jsx";
 import Reveal from "../components/Reveal.jsx";
 import { useInViewReveal } from "../hooks/useInViewReveal.js";
 import { cn } from "../lib/cn.js";
+import { encodeSkillId } from "../lib/utils.js";
 import { prefersReducedMotion } from "../lib/motion.js";
 
 const REPO_URL = "https://github.com/luongnv89/asm";
@@ -37,6 +38,7 @@ export default function LandingPage() {
         categoryCount={categoryCount}
         providerCount={PROVIDER_COUNT}
       />
+      <FeaturedSkills skills={catalog?.skills} />
       <WhatsNew />
       <Problem />
       <Solution />
@@ -47,52 +49,173 @@ export default function LandingPage() {
   );
 }
 
-/* ─── What's New (v2.19) ───────────────────────────────────────────── */
+/* ─── Featured skills from the asm repo ────────────────────────────── */
+
+const FEATURED_SKILLS = [
+  {
+    name: "find-me-skills",
+    tag: "Discover",
+    tagline: "For when you know the goal but not the skill names.",
+    body: "Describe what you're building. find-me-skills confirms your goal, searches the live asm catalog, and turns the matches into a step-by-step plan. Approve the plan and it writes one bundle file you install in a single command.",
+    points: [
+      "Plays your goal back and waits for a yes before it searches",
+      "Recommends only skills it found in the catalog, never guessed names",
+      "Lists the input and output of each step, then skips what you already have",
+    ],
+  },
+  {
+    name: "skill-creator",
+    tag: "Author",
+    tagline: "For writing a new skill or fixing one you already have.",
+    body: "skill-creator interviews you, drafts the SKILL.md, and runs test prompts with and without the skill so you can compare results in a review viewer. For an existing skill, it loops validation and asm eval --fix until the skill clears the bar.",
+    points: [
+      "Benchmarks every draft against a no-skill baseline",
+      "Pass bar: asm eval above 85 overall, no category below 8",
+      "Tunes the description so the skill triggers when it should",
+    ],
+  },
+];
+
+function featuredSkillId(name) {
+  return `luongnv89/asm::skills/${name}::${name}`;
+}
+
+function FeaturedSkills({ skills }) {
+  const byId = new Map((skills ?? []).map((s) => [s.id, s]));
+  return (
+    <Reveal
+      as="section"
+      className="flex flex-col gap-8"
+      aria-label="Featured skills from asm"
+    >
+      <header className="flex flex-col gap-3 max-w-[680px]">
+        <span className="lp-kicker">
+          <span className="dot" aria-hidden="true" />
+          skills from the asm team
+        </span>
+        <h2 className="lp-section-title">
+          Find the skills you need. Write the ones that don&apos;t exist.
+        </h2>
+        <p className="lp-lede">
+          asm ships two skills of its own. find-me-skills turns a goal into an
+          installable bundle. skill-creator takes a skill from first draft to a
+          tested, scored release.
+        </p>
+      </header>
+      <Reveal stagger className="grid lg:grid-cols-2 gap-5">
+        {FEATURED_SKILLS.map((f) => {
+          const id = featuredSkillId(f.name);
+          const score = byId.get(id)?.evalSummary;
+          const installCmd = `asm install github:luongnv89/asm:skills/${f.name}`;
+          return (
+            <article
+              key={f.name}
+              className="lp-card flex flex-col gap-4 min-w-0"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-[10px] font-[var(--lp-mono)] uppercase tracking-wider text-[var(--brand)]">
+                  {f.tag}
+                </span>
+                {score ? (
+                  <span
+                    className="text-[11px] font-[var(--lp-mono)] text-[var(--fg-dim)]"
+                    title="asm eval score from the latest catalog build"
+                  >
+                    asm eval {score.overallScore} · {score.grade}
+                  </span>
+                ) : null}
+              </div>
+              <div className="flex flex-col gap-2">
+                <h3 className="font-[var(--lp-mono)]" style={{ margin: 0 }}>
+                  {f.name}
+                </h3>
+                <p className="text-[var(--fg)]">{f.tagline}</p>
+              </div>
+              <p>{f.body}</p>
+              <ul className="flex flex-col gap-2 text-sm text-[var(--fg-dim)]">
+                {f.points.map((pt) => (
+                  <li key={pt} className="flex gap-2">
+                    <span className="text-[var(--brand)]" aria-hidden="true">
+                      ✓
+                    </span>
+                    <span>{pt}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-auto flex flex-col gap-3 pt-2">
+                <div className="lp-cmd text-[13px]">
+                  <span className="prompt" aria-hidden="true">
+                    $
+                  </span>
+                  <span className="flex-1 min-w-0 overflow-x-auto whitespace-nowrap">
+                    {installCmd}
+                  </span>
+                  <CopyButton
+                    text={installCmd}
+                    size="sm"
+                    ariaLabel={`Copy install command for ${f.name}`}
+                  />
+                </div>
+                <Link
+                  to={`/skills/${encodeSkillId(id)}`}
+                  className="text-sm text-[var(--fg-dim)] hover:text-[var(--brand)] font-medium self-start"
+                >
+                  See {f.name} in the catalog →
+                </Link>
+              </div>
+            </article>
+          );
+        })}
+      </Reveal>
+    </Reveal>
+  );
+}
+
+/* ─── What's New (v2.20) ───────────────────────────────────────────── */
 
 function WhatsNew() {
   const highlights = [
     {
       tag: "New",
-      head: "Curated skill bundles, one click to install",
-      body: "Skill bundles put hand-picked collections together — marketing, software-dev, iOS, and game dev — and each one is one click away from your machine.",
+      head: "Borrow a skill with everything it needs",
+      body: "asm get --path copies the whole skill directory, including scripts, templates, references, and binary assets. asm cleanup removes only what asm borrowed.",
     },
     {
-      tag: "New",
-      head: "Tune a bundle before you download it",
-      body: "Interactive tool and scope pickers let you shape a bundle — which tools it targets, which scopes it covers — so what lands is exactly what you needed.",
+      tag: "Improved",
+      head: "A TUI that tells you what happened",
+      body: "Empty filtered lists name your search, the ? help view explains every glyph, and q in the config view discards your changes instead of saving them.",
     },
     {
-      tag: "New",
-      head: "A storefront redesign for the catalog",
-      body: "The catalog now sorts by popularity, gives every source repo a detail page, and tracks analytics — browsing thousands of skills feels like a real shop.",
+      tag: "Faster",
+      head: "Quicker audits and bulk updates",
+      body: "Duplicate detection no longer rescans the full list for every skill, and asm library update --all now updates four skills at a time.",
     },
     {
-      tag: "New",
-      head: "Static category pages for search engines",
-      body: "Every catalog category gets a fast, indexable static page — so people and AI agents can find your skills right from a search result.",
+      tag: "Fixed",
+      head: "Four CLI fixes in v2.20.1",
+      body: "asm tag remove reports what changed, activate and deactivate choose scope the same way install does, inspect shows your local tags, and bare asm in a non-interactive shell exits with a clear message.",
     },
   ];
   return (
     <Reveal
       as="section"
       className="flex flex-col gap-8"
-      aria-label="What's new in v2.19"
+      aria-label="What's new in v2.20"
     >
       <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div className="flex flex-col gap-3 max-w-[680px]">
           <span className="lp-kicker">
             <span className="dot" aria-hidden="true" />
-            what&apos;s new · v2.19
+            what&apos;s new · v2.20
           </span>
           <h2 className="lp-section-title">
-            Skill bundles, a redesigned catalog storefront, and SEO category
-            pages.
+            Full-directory borrowing, a clearer TUI, and faster bulk updates.
           </h2>
           <p className="lp-lede">
-            v2.19 ships curated skill bundles with one-click download and
-            interactive tool/scope pickers, a storefront rebuilt with popularity
-            sort, repo detail pages, and analytics, plus static, indexable
-            category pages.
+            v2.20 lets asm get --path bring a skill&apos;s supporting files
+            along, makes the TUI say what it is doing, and speeds up audits and
+            library updates. v2.20.1 fixes four CLI defects found in end-to-end
+            testing.
           </p>
         </div>
         <Link
@@ -167,8 +290,7 @@ function Hero({ skillsLabel, repoCount, providerCount }) {
             </a>
           </div>
           <p className="text-xs text-[var(--fg-muted)] font-[var(--lp-mono)]">
-            Free &amp; open source · MIT · Node.js ≥ 18 · No signup, no backend,
-            no tracking
+            Free &amp; open source · MIT · Node.js ≥ 22 · No signup, no account
           </p>
         </div>
       </Reveal>
@@ -372,7 +494,7 @@ function Solution() {
     {
       icon: "04",
       head: "Create, test, and publish",
-      body: "Scaffold with asm init, symlink for live reload with asm link, activate library skills into any provider, audit with the upgraded skill-creator v1.13 toolchain, then publish to the ASM Registry — one command each.",
+      body: "Scaffold with asm init, symlink for live reload with asm link, activate library skills into any provider, score with asm eval (or let skill-creator run the fix loop), then publish to the ASM Registry — one command each.",
     },
     {
       icon: "05",
@@ -423,7 +545,7 @@ function HowItWorks() {
     {
       n: "1",
       head: "Install asm",
-      body: "One command via npm or curl. Runs on Node.js ≥ 18 — no other runtime required.",
+      body: "One command via npm or curl. Runs on Node.js ≥ 22 — no other runtime required.",
     },
     {
       n: "2",
@@ -494,7 +616,8 @@ function Build() {
           toolkit for creating, developing, activating from your library,
           auditing, and testing them locally before you share. Scaffold, symlink
           for live reload, scan for risks, then publish to the registry with a
-          single command.
+          single command. Install skill-creator to have your agent draft, test,
+          and score the skill with you.
         </p>
         <div className="flex flex-wrap items-center gap-3">
           <a
