@@ -5,7 +5,7 @@ license: MIT
 compatibility: "Python 3 for scripts/quick_validate.py; `asm` on PATH for the Gate 2 score check"
 effort: max
 metadata:
-  version: 2.0.0
+  version: 2.1.0
   author: "Luong NGUYEN <luongnv89@gmail.com>"
 ---
 

@@ -268,6 +268,38 @@
         border-color: var(--accent);
         box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
       }
+      .understanding {
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 0.625rem 0.75rem;
+        margin: 0 0 0.75rem;
+      }
+      .understanding legend {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        padding: 0 0.25rem;
+      }
+      .understanding-hint {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin-bottom: 0.5rem;
+      }
+      .understanding-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding: 0.25rem 0;
+        font-size: 0.875rem;
+      }
+      .understanding-row select {
+        font-family: inherit;
+        font-size: 0.8125rem;
+        padding: 0.125rem 0.25rem;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        color: var(--text);
+      }
       .feedback-status {
         font-size: 0.75rem;
         color: var(--text-muted);
@@ -676,6 +708,50 @@
           <div class="section">
             <div class="section-header">Your Feedback</div>
             <div class="section-body">
+              <fieldset class="understanding" id="understanding">
+                <legend>Understanding check</legend>
+                <div class="understanding-hint">
+                  Answer from the output alone. Unanswered questions are
+                  recorded as unconfirmed. Use N/A for runs where the skill
+                  should not apply.
+                </div>
+                <label class="understanding-row">
+                  <span>Could you find the main result and its completion status immediately?</span>
+                  <select data-understanding="main_result">
+                    <option value="">Not answered</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                    <option value="n/a">N/A</option>
+                  </select>
+                </label>
+                <label class="understanding-row">
+                  <span>Could you tell verified facts apart from assumptions and untested behavior?</span>
+                  <select data-understanding="facts_vs_assumptions">
+                    <option value="">Not answered</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                    <option value="n/a">N/A</option>
+                  </select>
+                </label>
+                <label class="understanding-row">
+                  <span>Could you trace each material claim to its evidence?</span>
+                  <select data-understanding="claims_traceable">
+                    <option value="">Not answered</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                    <option value="n/a">N/A</option>
+                  </select>
+                </label>
+                <label class="understanding-row">
+                  <span>Is the next required decision (or &ldquo;no approval needed&rdquo;) clear?</span>
+                  <select data-understanding="next_decision">
+                    <option value="">Not answered</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                    <option value="n/a">N/A</option>
+                  </select>
+                </label>
+              </fieldset>
               <textarea
                 class="feedback-textarea"
                 id="feedback"
@@ -742,6 +818,13 @@
 
       // ---- State ----
       let feedbackMap = {}; // run_id -> feedback text
+      let understandingMap = {}; // run_id -> { criterion: "yes" | "no" | "n/a" }
+      const UNDERSTANDING_KEYS = [
+        "main_result",
+        "facts_vs_assumptions",
+        "claims_traceable",
+        "next_decision",
+      ];
       let currentIndex = 0;
       let visitedRuns = new Set();
 
@@ -759,7 +842,18 @@
             const resp = await fetch("/api/feedback");
             const data = await resp.json();
             if (data.reviews) {
-              for (const r of data.reviews) feedbackMap[r.run_id] = r.feedback;
+              for (const r of data.reviews) {
+                if (r.feedback) feedbackMap[r.run_id] = r.feedback;
+                const answered = {};
+                for (const k of UNDERSTANDING_KEYS) {
+                  if (r.understanding && r.understanding[k]) {
+                    answered[k] = r.understanding[k];
+                  }
+                }
+                if (Object.keys(answered).length) {
+                  understandingMap[r.run_id] = answered;
+                }
+              }
             }
           } catch {
             /* first run, no feedback yet */
@@ -778,6 +872,9 @@
           document.getElementById("feedback-status").textContent = "";
           saveTimeout = setTimeout(() => saveCurrentFeedback(), 800);
         });
+        for (const sel of document.querySelectorAll("[data-understanding]")) {
+          sel.addEventListener("change", () => saveCurrentFeedback());
+        }
       }
 
       // ---- Navigation ----
@@ -846,6 +943,10 @@
 
         // Feedback
         document.getElementById("feedback").value = feedbackMap[run.id] || "";
+        const answers = understandingMap[run.id] || {};
+        for (const sel of document.querySelectorAll("[data-understanding]")) {
+          sel.value = answers[sel.dataset.understanding] || "";
+        }
         document.getElementById("feedback-status").textContent = "";
 
         updateNavButtons();
@@ -1119,26 +1220,50 @@
       }
 
       // ---- Feedback (saved to server -> feedback.json) ----
-      function saveCurrentFeedback() {
+      // Store the visible textarea and understanding answers for the current run
+      function captureCurrentRun() {
         const run = EMBEDDED_DATA.runs[currentIndex];
         const text = document.getElementById("feedback").value;
-
         if (text.trim() === "") {
           delete feedbackMap[run.id];
         } else {
           feedbackMap[run.id] = text;
         }
+        const answers = {};
+        for (const sel of document.querySelectorAll("[data-understanding]")) {
+          if (sel.value) answers[sel.dataset.understanding] = sel.value;
+        }
+        if (Object.keys(answers).length) {
+          understandingMap[run.id] = answers;
+        } else {
+          delete understandingMap[run.id];
+        }
+      }
 
-        // Build reviews array from map
+      // Every criterion is present; null means the reviewer did not answer
+      function understandingFor(run_id) {
+        const answers = understandingMap[run_id] || {};
+        const out = {};
+        for (const k of UNDERSTANDING_KEYS) out[k] = answers[k] || null;
+        return out;
+      }
+
+      function saveCurrentFeedback() {
+        captureCurrentRun();
+
+        // Build reviews array from both maps
         const reviews = [];
-        for (const [run_id, feedback] of Object.entries(feedbackMap)) {
-          if (feedback.trim()) {
-            reviews.push({
-              run_id,
-              feedback,
-              timestamp: new Date().toISOString(),
-            });
-          }
+        const ids = new Set([
+          ...Object.keys(feedbackMap),
+          ...Object.keys(understandingMap),
+        ]);
+        for (const run_id of ids) {
+          reviews.push({
+            run_id,
+            feedback: feedbackMap[run_id] || "",
+            understanding: understandingFor(run_id),
+            timestamp: new Date().toISOString(),
+          });
         }
 
         fetch("/api/feedback", {
@@ -1159,14 +1284,8 @@
 
       // ---- Done ----
       function showDoneDialog() {
-        // Save current textarea to feedbackMap (but don't POST yet)
-        const run = EMBEDDED_DATA.runs[currentIndex];
-        const text = document.getElementById("feedback").value;
-        if (text.trim() === "") {
-          delete feedbackMap[run.id];
-        } else {
-          feedbackMap[run.id] = text;
-        }
+        // Save current textarea and answers to the maps (but don't POST yet)
+        captureCurrentRun();
 
         // POST once with status: complete — include ALL runs so the model
         // can distinguish "no feedback" (looks good) from "not reviewed"
@@ -1176,6 +1295,7 @@
           reviews.push({
             run_id: r.id,
             feedback: feedbackMap[r.id] || "",
+            understanding: understandingFor(r.id),
             timestamp: ts,
           });
         }
@@ -1221,8 +1341,9 @@
 
       // ---- Keyboard nav ----
       document.addEventListener("keydown", (e) => {
-        // Don't capture when typing in textarea
-        if (e.target.tagName === "TEXTAREA") return;
+        // Don't capture when typing in textarea or choosing an answer
+        if (e.target.tagName === "TEXTAREA" || e.target.tagName === "SELECT")
+          return;
 
         if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
           e.preventDefault();

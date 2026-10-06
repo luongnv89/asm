@@ -99,7 +99,7 @@ Once all runs are done:
 
 Note: please use generate_review.py to create the viewer; there's no need to write custom HTML.
 
-5. **Tell the user** something like: "I've opened the results in your browser. There are two tabs — 'Outputs' lets you click through each test case and leave feedback, 'Benchmark' shows the quantitative comparison. In your feedback, say whether you could find the main result, distinguish verified facts from assumptions, trace claims to evidence, and identify the next required decision. When you're done, come back here and let me know."
+5. **Tell the user** something like: "I've opened the results in your browser. There are two tabs — 'Outputs' lets you click through each test case and leave feedback, 'Benchmark' shows the quantitative comparison. For each output, answer the four Understanding check questions above the feedback box. Leave a question unanswered if you did not check it. When you're done, come back here and let me know."
 
 ## What the user sees in the viewer
 
@@ -109,6 +109,7 @@ The "Outputs" tab shows one test case at a time:
 - **Output**: the files the skill produced, rendered inline where possible
 - **Previous Output** (iteration 2+): collapsed section showing last iteration's output
 - **Formal Grades** (if grading was run): collapsed section showing assertion pass/fail
+- **Understanding check**: four Yes / No / N/A selectors for the criteria in `human-review.md` (main result findable, facts separated from assumptions, claims traceable, next decision clear). Each answer auto-saves.
 - **Feedback**: a textbox that auto-saves as they type
 - **Previous Feedback** (iteration 2+): their comments from last time, shown below the textbox
 
@@ -118,7 +119,7 @@ Navigation is via prev/next buttons or arrow keys. When done, they click "Submit
 
 ## Step 5: Read the feedback
 
-Ask the reviewer the four understanding questions from `human-review.md` through the existing feedback workflow. Record missing human review as unconfirmed understanding; automated assertion results alone do not establish that the user understood the output.
+The viewer asks the reviewer the four understanding questions from `human-review.md` for each run. Record missing human review as unconfirmed understanding; automated assertion results alone do not establish that the user understood the output.
 
 When the user tells you they're done, read `feedback.json`:
 
@@ -128,12 +129,23 @@ When the user tells you they're done, read `feedback.json`:
     {
       "run_id": "eval-0-with_skill",
       "feedback": "the chart is missing axis labels",
+      "understanding": {
+        "main_result": "yes",
+        "facts_vs_assumptions": "no",
+        "claims_traceable": "yes",
+        "next_decision": "yes"
+      },
       "timestamp": "..."
     },
-    { "run_id": "eval-1-with_skill", "feedback": "", "timestamp": "..." },
     {
-      "run_id": "eval-2-with_skill",
-      "feedback": "perfect, love this",
+      "run_id": "eval-1-with_skill",
+      "feedback": "",
+      "understanding": {
+        "main_result": null,
+        "facts_vs_assumptions": null,
+        "claims_traceable": null,
+        "next_decision": null
+      },
       "timestamp": "..."
     }
   ],
@@ -141,7 +153,14 @@ When the user tells you they're done, read `feedback.json`:
 }
 ```
 
-Empty feedback records no requested changes; it does not confirm understanding. If feedback does not address an understanding criterion, leave that criterion unconfirmed by the human reviewer. Focus revisions on specific complaints and reported review difficulties.
+Read each `understanding` value as follows:
+
+- `"yes"`: the human reviewer confirmed the criterion for that run.
+- `"no"`: the reviewer could not do it. Treat it as a review difficulty to fix in the skill's output contract or format, even when every assertion passed.
+- `"n/a"`: the criterion does not apply, for example in a negative-trigger run.
+- `null` or a missing `understanding` field (older viewer): the criterion is unconfirmed by the human reviewer.
+
+Empty feedback records no requested changes; it does not confirm understanding. Focus revisions on specific complaints and on criteria answered `"no"`.
 
 Kill the viewer server when you're done with it:
 

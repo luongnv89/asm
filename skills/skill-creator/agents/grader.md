@@ -40,6 +40,19 @@ For each expectation:
    - **FAIL**: No evidence, or evidence contradicts the expectation, or the evidence is superficial (e.g., correct filename but empty/wrong content)
 3. **Cite the evidence**: Quote the specific text or describe what you found
 
+### Step 3b: Grade Understanding Assertions Strictly
+
+Some expectations check whether a human can review the output, per `references/human-review.md`: the main result is findable, verified facts are separated from assumptions, claims are traceable to evidence, and the next decision is clear. Grade them against the final delivered output: the output files, or the final response in the transcript when the skill answers in chat. Do not grade them against intermediate steps.
+
+- A heading or label alone does not pass. "Evidence" over an empty or generic list fails "claims are traceable".
+- Main result findable: PASS only if the opening text or initial view states the result and its complete, partial, or blocked status.
+- Facts vs. assumptions: FAIL if an untested or inferred claim is stated as verified.
+- Traceable claims: FAIL if a material claim has no evidence, or if the evidence covers a narrower scope than the claim (for example, "invite generated" cited as proof of "owner access confirmed").
+- Next decision: PASS only if the output names the required approval or says that none is needed.
+- For interactive artifacts, PASS control assertions only when you exercised the filter, expansion, or reset control, or the link. If you could not exercise them, FAIL and say they are untested.
+
+These verdicts show that the output meets observable conditions. They do not confirm that a human understood it, so never report human understanding as confirmed. If understanding expectations are missing for a run where the skill applies, raise it in Step 6.
+
 ### Step 4: Extract and Verify Claims
 
 Beyond the predefined expectations, extract implicit claims from the outputs and verify them:
