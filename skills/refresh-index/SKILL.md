@@ -117,10 +117,10 @@ Confirm the refreshed index is structurally valid. **`website/catalog.json` is g
 cd "$ROOT"
 npx tsx scripts/build-catalog.ts
 jq empty website/catalog.json
-git restore -- website/
+git restore -- website/ data/repo-stars.json
 ```
 
-Verification: the first two commands exit 0. If either fails, stop — the data files are internally inconsistent and the PR must not land. `build-catalog` also rewrites tracked outputs (`website/*-stats.json`, `website/robots.txt`) with fresh timestamps; `git restore -- website/` reverts them. That is safe only because Step 1 confirmed `website/` was clean. It does not touch the gitignored `website/catalog.json`.
+Verification: the first two commands exit 0. If either fails, stop — the data files are internally inconsistent and the PR must not land. `build-catalog` also rewrites tracked outputs (`website/*-stats.json`, `website/robots.txt`, and `data/repo-stars.json` on any networked run) with fresh values; `git restore -- website/ data/repo-stars.json` reverts them. That is safe only because Step 1 confirmed `website/` and `data/` were clean. It does not touch the gitignored `website/catalog.json`.
 
 ### Step 6: Detect unexpected diff scope
 

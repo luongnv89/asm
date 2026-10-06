@@ -2,12 +2,12 @@
 
 Build per-repo status from three signals: the preindex log, the content change of `data/skill-index/{owner}_{repo}.json`, and the `disabled[]` list from Step 1.
 
-Every successful ingest rewrites `updatedAt`, each skill's `evalSummary.evaluatedAt`, and each inferred bundle's `createdAt`, so a plain `git diff` shows every repo as changed. Compare with those timestamps stripped:
+Every successful ingest rewrites `updatedAt`, each skill's `evalSummary.evaluatedAt` and per-provider `evalSummaries.<provider>.evaluatedAt`, and each inferred bundle's `createdAt`, so a plain `git diff` shows every repo as changed. Compare with those timestamps stripped:
 
 ```bash
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
-STRIP='del(.updatedAt, .bundles[]?.createdAt) | .skills |= map(del(.evalSummary.evaluatedAt))'
+STRIP='del(.updatedAt, .bundles[]?.createdAt) | .skills |= map(del(.evalSummary.evaluatedAt) | if .evalSummaries then .evalSummaries |= map_values(del(.evaluatedAt)) else . end)'
 changed() {   # $1 = data/skill-index/{owner}_{repo}.json
   git cat-file -e "HEAD:$1" 2>/dev/null || return 0   # new, untracked file → changed
   [ "$(git show "HEAD:$1" | jq -S "$STRIP")" != "$(jq -S "$STRIP" "$1")" ]
