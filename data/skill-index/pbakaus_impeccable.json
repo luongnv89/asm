@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/pbakaus/impeccable.git",
   "owner": "pbakaus",
   "repo": "impeccable",
-  "updatedAt": "2026-10-04T21:03:12.704Z",
+  "updatedAt": "2026-10-06T11:25:45.944Z",
   "skillCount": 1,
   "skills": [
     {
@@ -20,9 +20,9 @@
       "installUrl": "github:pbakaus/impeccable:.claude/skills/impeccable",
       "relPath": ".claude/skills/impeccable",
       "verified": true,
-      "tokenCount": 3151,
+      "tokenCount": 3278,
       "evalSummary": {
-        "overallScore": 77,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -46,7 +46,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 9,
+            "score": 7,
             "max": 10
           },
           {
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:03:12.662Z",
+        "evaluatedAt": "2026-10-06T11:25:45.902Z",
         "evaluatedVersion": "4.5.0"
       },
       "evalSummaries": {
@@ -95,7 +95,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 75,
+          "overallScore": 73,
           "grade": "C",
           "categories": [
             {
@@ -119,7 +119,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 9,
+              "score": 7,
               "max": 10
             },
             {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:03:12.662Z",
+          "evaluatedAt": "2026-10-06T11:25:45.902Z",
           "evaluatedVersion": "4.5.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-04T21:03:12.662Z",
+          "evaluatedAt": "2026-10-06T11:25:45.902Z",
           "evaluatedVersion": "4.5.0"
         }
       }

@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/DietrichGebert/ponytail.git",
   "owner": "DietrichGebert",
   "repo": "ponytail",
-  "updatedAt": "2026-10-04T21:03:23.773Z",
+  "updatedAt": "2026-10-06T11:25:57.043Z",
   "skillCount": 6,
   "skills": [
     {
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:03:23.769Z",
+        "evaluatedAt": "2026-10-06T11:25:57.040Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:03:23.769Z",
+          "evaluatedAt": "2026-10-06T11:25:57.041Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-04T21:03:23.770Z",
+          "evaluatedAt": "2026-10-06T11:25:57.041Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -197,7 +197,7 @@
       "installUrl": "github:DietrichGebert/ponytail:skills/ponytail-audit",
       "relPath": "skills/ponytail-audit",
       "verified": true,
-      "tokenCount": 529,
+      "tokenCount": 552,
       "evalSummary": {
         "overallScore": 60,
         "grade": "D",
@@ -263,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:03:23.769Z",
+        "evaluatedAt": "2026-10-06T11:25:57.041Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -336,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:03:23.770Z",
+          "evaluatedAt": "2026-10-06T11:25:57.041Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -354,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-04T21:03:23.770Z",
+          "evaluatedAt": "2026-10-06T11:25:57.041Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -440,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:03:23.769Z",
+        "evaluatedAt": "2026-10-06T11:25:57.041Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -513,7 +513,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:03:23.770Z",
+          "evaluatedAt": "2026-10-06T11:25:57.041Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -531,14 +531,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-04T21:03:23.770Z",
+          "evaluatedAt": "2026-10-06T11:25:57.041Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "ponytail-gain",
-      "description": "Show ponytail's measured impact as a compact scoreboard: less code, less cost, more speed, from the benchmark medians. One-shot display, not a persistent mode, and not a per-repo number. Trigger: /ponytail-gain, \"ponytail gain\", \"what does ponytail save\", \"show ponytail impact\", \"ponytail scoreboard\".",
+      "description": "Show ponytail's measured impact as a compact scoreboard: less code, less cost, more speed, from the agentic benchmark averages. One-shot display, not a persistent mode, and not a per-repo number. Trigger: /ponytail-gain, \"ponytail gain\", \"what does ponytail save\", \"show ponytail impact\", \"ponytail scoreboard\".",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -551,9 +551,9 @@
       "installUrl": "github:DietrichGebert/ponytail:skills/ponytail-gain",
       "relPath": "skills/ponytail-gain",
       "verified": true,
-      "tokenCount": 584,
+      "tokenCount": 637,
       "evalSummary": {
-        "overallScore": 55,
+        "overallScore": 57,
         "grade": "D",
         "categories": [
           {
@@ -583,7 +583,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 2,
+            "score": 4,
             "max": 10
           },
           {
@@ -617,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:03:23.769Z",
+        "evaluatedAt": "2026-10-06T11:25:57.041Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -626,7 +626,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 55,
+          "overallScore": 57,
           "grade": "D",
           "categories": [
             {
@@ -656,7 +656,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 2,
+              "score": 4,
               "max": 10
             },
             {
@@ -690,7 +690,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:03:23.770Z",
+          "evaluatedAt": "2026-10-06T11:25:57.041Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -708,7 +708,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-04T21:03:23.770Z",
+          "evaluatedAt": "2026-10-06T11:25:57.041Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -794,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:03:23.769Z",
+        "evaluatedAt": "2026-10-06T11:25:57.041Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -867,7 +867,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:03:23.770Z",
+          "evaluatedAt": "2026-10-06T11:25:57.041Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -885,7 +885,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-04T21:03:23.770Z",
+          "evaluatedAt": "2026-10-06T11:25:57.041Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -905,7 +905,7 @@
       "installUrl": "github:DietrichGebert/ponytail:skills/ponytail-review",
       "relPath": "skills/ponytail-review",
       "verified": true,
-      "tokenCount": 706,
+      "tokenCount": 757,
       "evalSummary": {
         "overallScore": 62,
         "grade": "D",
@@ -971,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-04T21:03:23.769Z",
+        "evaluatedAt": "2026-10-06T11:25:57.041Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1044,7 +1044,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-04T21:03:23.770Z",
+          "evaluatedAt": "2026-10-06T11:25:57.041Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1062,7 +1062,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-04T21:03:23.770Z",
+          "evaluatedAt": "2026-10-06T11:25:57.041Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1074,7 +1074,7 @@
       "name": "dietrichgebert-ponytail-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from DietrichGebert/ponytail.",
       "author": "ASM (DietrichGebert/ponytail)",
-      "createdAt": "2026-10-04T21:03:23.773Z",
+      "createdAt": "2026-10-06T11:25:57.043Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1106,7 +1106,7 @@
         {
           "name": "ponytail-gain",
           "installUrl": "github:DietrichGebert/ponytail:skills/ponytail-gain",
-          "description": "Show ponytail's measured impact as a compact scoreboard: less code, less cost, more speed, from the benchmark medians. One-shot display, not a persistent mode, and not a per-repo number. Trigger: /ponytail-gain, \"ponytail gain\", \"what does ponytail save\", \"show ponytail impact\", \"ponytail scoreboard\".",
+          "description": "Show ponytail's measured impact as a compact scoreboard: less code, less cost, more speed, from the agentic benchmark averages. One-shot display, not a persistent mode, and not a per-repo number. Trigger: /ponytail-gain, \"ponytail gain\", \"what does ponytail save\", \"show ponytail impact\", \"ponytail scoreboard\".",
           "version": "0.0.0"
         },
         {
@@ -1134,7 +1134,7 @@
       "name": "dietrichgebert-ponytail-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from DietrichGebert/ponytail.",
       "author": "ASM (DietrichGebert/ponytail)",
-      "createdAt": "2026-10-04T21:03:23.773Z",
+      "createdAt": "2026-10-06T11:25:57.043Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1170,7 +1170,7 @@
       "name": "dietrichgebert-ponytail-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from DietrichGebert/ponytail.",
       "author": "ASM (DietrichGebert/ponytail)",
-      "createdAt": "2026-10-04T21:03:23.773Z",
+      "createdAt": "2026-10-06T11:25:57.043Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1202,7 +1202,7 @@
         {
           "name": "ponytail-gain",
           "installUrl": "github:DietrichGebert/ponytail:skills/ponytail-gain",
-          "description": "Show ponytail's measured impact as a compact scoreboard: less code, less cost, more speed, from the benchmark medians. One-shot display, not a persistent mode, and not a per-repo number. Trigger: /ponytail-gain, \"ponytail gain\", \"what does ponytail save\", \"show ponytail impact\", \"ponytail scoreboard\".",
+          "description": "Show ponytail's measured impact as a compact scoreboard: less code, less cost, more speed, from the agentic benchmark averages. One-shot display, not a persistent mode, and not a per-repo number. Trigger: /ponytail-gain, \"ponytail gain\", \"what does ponytail save\", \"show ponytail impact\", \"ponytail scoreboard\".",
           "version": "0.0.0"
         },
         {
@@ -1224,7 +1224,7 @@
       "name": "dietrichgebert-ponytail-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from DietrichGebert/ponytail.",
       "author": "ASM (DietrichGebert/ponytail)",
-      "createdAt": "2026-10-04T21:03:23.773Z",
+      "createdAt": "2026-10-06T11:25:57.043Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1266,7 +1266,7 @@
       "name": "dietrichgebert-ponytail-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from DietrichGebert/ponytail.",
       "author": "ASM (DietrichGebert/ponytail)",
-      "createdAt": "2026-10-04T21:03:23.773Z",
+      "createdAt": "2026-10-06T11:25:57.043Z",
       "tags": [
         "repo-derived",
         "inferred",
