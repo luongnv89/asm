@@ -5,8 +5,10 @@ license: MIT
 compatibility: "Claude Code; requires `asm` and `git` on PATH"
 allowed-tools: Bash Read Write Edit Grep Glob
 effort: high
+dependencies:
+  - skill-creator
 metadata:
-  version: 1.1.0
+  version: 1.3.0
   author: luongnv89
 ---
 
@@ -24,26 +26,59 @@ Do **not** trigger for: improving without installing (`skill-creator`), contribu
 
 ## Prerequisites
 
-Verify each before resolving anything. Stop and tell the user if any fails.
+Verify each before resolving anything. If one fails, stop and tell the user which one.
 
-- `asm` and `git` on PATH
-- Python 3 and `~/.claude/skills/skill-creator/scripts/quick_validate.py` — skill-creator's retrofit loop requires it
+- `asm` and `git` on PATH, and Python 3 (skill-creator's validator needs it)
 - Network access to GitHub, for the repo and name forms
-- Write access to the install target — the directory for the chosen tool and scope (for `claude`: `~/.claude/skills/` global, `.claude/skills/` project). Other tools install elsewhere; take the real path from `asm list --json` or the install output.
+- Write access to the install target for the chosen tool and scope (see `asm list --json` for existing install paths)
 
 ### The user's own files are never modified (design decision)
 
-**Every input form is improved on a throwaway copy under `$(mktemp -d)` — local paths included.** Deliberate: an install that rewrites the user's working copy is a side effect they did not ask for, the retrofit loop mandates `git fetch` + `git pull --rebase` before any edit (against a local path that rebases their branch), and copying makes all forms behave identically.
+**Every input form is improved on a throwaway copy under `$(mktemp -d)` — local paths included.** An install that rewrites the user's working copy is a side effect they did not ask for, and the retrofit loop's `git pull --rebase` would rebase their branch.
 
-**Trade-off:** the improvement lands only in the installed copy, not the user's tree. The copy has no `origin` and no history, so the retrofit loop's mandatory repo sync is **inapplicable** and is skipped — nothing to clobber, nothing pushed. Say so out loud when you skip it. To persist the change, point them at `skill-creator` (their path) or `skill-upstream-pr` (the source repo).
+**Repo sync is skipped for every form.** A local-path copy has no `origin`. A repo or name clone does have `origin`, but it is a throwaway `--depth 1` checkout that may sit on a detached `--ref`, and a pull could move it off the requested ref. The retrofit loop allows this skip for a caller's throwaway copy. Say so when you skip it.
+
+**Trade-off:** the improvement lands only in the installed copy. To persist it, point the user at `skill-creator` (their own path) or `skill-upstream-pr` (the source repo).
+
+## Dependency Preflight (mandatory)
+
+This skill invokes `skill-creator`, declared in frontmatter `dependencies`. Before Phase 0, verify `asm` is available:
+
+```bash
+command -v asm >/dev/null || {
+  echo "Missing installer: npm install -g agent-skill-manager" >&2
+  exit 1
+}
+asm deps discover skill-install-improved --json
+```
+
+When execution reaches Phase 1, the main agent runs:
+
+```bash
+asm deps acquire skill-creator --session <caller-session-id> --json
+```
+
+`<caller-session-id>` is a unique id the main agent picks once per run, e.g. `skill-install-improved-<epoch-seconds>`; reuse it for the release.
+
+Set `SKILL_CREATOR_DIR` to the directory holding the returned `skillMdPath`, and use it immediately; do not wait for a provider catalog rescan. The retrofit loop is `$SKILL_CREATOR_DIR/references/retrofit-loop.md`; its validator is `$SKILL_CREATOR_DIR/scripts/quick_validate.py`. If the acquire fails, stop before Phase 1 and report the error — this skill cannot improve anything without it.
+
+The main agent releases the lease from its own `finally`/shutdown handling — after Phase 4, or at any earlier stop:
+
+```bash
+asm deps release --session <caller-session-id> --json
+```
+
+If Phase 0 stops before Phase 1, do not acquire.
 
 ## Inputs
 
 The user identifies **one** target skill, in any of four forms — a local path (`skills/foo`), a local `SKILL.md` file path, a repo (`https://github.com/owner/repo`, `owner/repo`), or a skill name (`code-review`). Phase 0 normalizes all of them to one local directory, `$SKILL_PATH`.
 
-Also needed before Phase 3: the install **scope** (`global` or `project`) and the target **tool** (`-p/--tool` — `claude`, `codex`, `agents`, …). Ask for either one the user did not state; never guess. `asm install` hard-fails without `--tool` in a non-interactive run, and `-y` does not cover it.
+Also needed before Phase 3: the install **scope** (`global` or `project`) and the target **tool** (`-p/--tool` — `claude`, `codex`, `agents`, …). If the user did not state one, ask; never guess. `asm install` hard-fails without `--tool` in a non-interactive run, and `-y` does not cover it.
 
 Optional: a `--name <alt>` intent.
+
+Before Phase 0, record the directory the user invoked you from as `CALLER_DIR` (`pwd`). Project-scope paths resolve from the current directory, so Phase 3 must run there, not inside `$WORK`.
 
 ## Workflow
 
@@ -57,66 +92,65 @@ Full contract in `references/target-resolution.md`. In short, with `WORK="$(mkte
 - **Repo** — plain `git clone` into `$WORK`. **Never `gh repo fork`** — this skill performs no public GitHub action.
 - **Skill name** — `asm search "<term>" --available --json`, then copy the string after `asm install ` from the chosen result's `installCommand` **verbatim**. Never hand-construct `github:owner/repo:path`. Clone what it names.
 
-Set `$SKILL_PATH` to the directory holding the chosen `SKILL.md`. If the checkout holds several and no subpath was given, enumerate them (`find "$WORK" -maxdepth 5 -name SKILL.md -type f`) and **ask which one. Never guess.**
+Set `$SKILL_PATH` to the directory holding the chosen `SKILL.md`. If the checkout holds several and no subpath was given, list them (`find "$WORK" -maxdepth 5 -name SKILL.md -type f`) and **ask which one. Never guess.**
 
 Record for the report: the supplied identifier, the resolved install or clone URL, and the upstream commit SHA.
 
 ### Phase 1 — Delegate to skill-creator's retrofit loop
 
-This skill does not reimplement the improvement loop. Follow `skills/skill-creator/references/retrofit-loop.md` (skill-creator Subpath B1) with `$SKILL_PATH` as the target: Phase 0 (baseline), Phase 1 (`asm eval --fix` plus frontmatter normalization), Phases 2–4 (Gate 1 fixes, then the category loop against the 85/8 floor), Phases 5–7 (version bump, the 8-iteration cap, `.asm-improver/report.md`).
+This skill does not reimplement the improvement loop, and it reads that loop only now, so the loop's references stay out of the context budget until Phase 1. Acquire `skill-creator` (Dependency Preflight), then follow `$SKILL_CREATOR_DIR/references/retrofit-loop.md` (Subpath B1) with `$SKILL_PATH` as the target, through its Phase 7 report.
 
 Two adaptations, because the target is a throwaway copy:
 
-- Its "Repo Sync Before Edits" step is **inapplicable**. Log `— repo sync skipped (throwaway copy, no origin)` and continue.
-- `.asm-improver/` is written **relative to the current working directory**, so run the loop with cwd inside `$SKILL_PATH`, or Phase 2 has nothing to harvest.
+- Skip its "Repo Sync Before Edits" step. Log `— repo sync skipped (throwaway copy)` and continue.
+- `.asm-improver/` is written **relative to the current working directory**. Run the loop with cwd inside `$SKILL_PATH`, or Phase 2 has nothing to harvest.
+- If the loop asks how to handle a target with no frontmatter, answer "abort" (see Edge Cases). If it offers a Subpath B3 delegation conversion, decline: this run installs, it does not restructure.
 
-If the baseline already clears both gates the retrofit loop stops without editing — a valid outcome, see Edge Cases.
+If the baseline already clears both gates, the retrofit loop stops without editing — a valid outcome, see Edge Cases.
 
 ### Phase 2 — Harvest artifacts, then clean up
 
-**Harvest before any cleanup.** Everything lives under `$SKILL_PATH/.asm-improver/` and dies with the temp dir. Read `baseline.json`, the highest-numbered `iter-N.json`, and `report.md`; extract the fields listed in `references/install-and-report.md`.
+**Harvest before any cleanup.** Read the files under `$SKILL_PATH/.asm-improver/` that `references/install-and-report.md` lists, and extract its fields. An early-exit baseline writes no `iter-N.json`; then the baseline is also the final state.
 
-Only once those values are captured, remove the two artifacts that must not ship — the `SKILL.md.bak` backup left by `asm eval --fix`, and `.asm-improver/`. `asm install` copies the source recursively, so leftovers land in the installed skill:
+Then confirm `$SKILL_PATH` is still inside `$WORK`, and remove the two artifacts that must not ship (`asm install` copies the source recursively):
 
 ```bash
 rm -f "$SKILL_PATH/SKILL.md.bak"
-rm -rf "$SKILL_PATH/.asm-improver"
+rm -rf "$SKILL_PATH/.asm-improver" "$SKILL_PATH/.git"
 ```
 
-Both deletions are confined to the `mktemp -d` copy — confirm `$SKILL_PATH` is still inside `$WORK` first. Never point either command at a user-supplied path.
+Never point either command at a user-supplied path.
 
 ### Phase 3 — Install the improved directory
 
-skill-creator's retrofit loop never renames, so the improved variant keeps the original frontmatter `name` and collides with any existing install of the original. **`asm install` never refuses on a collision** — it plans the force overwrite itself, and with `-y` it deletes and replaces the target directory with no prompt. `-f` changes nothing here. So probe **before** invoking it. Flags and the full policy are in `references/install-and-report.md`.
+The retrofit loop never renames, so the improved variant keeps the original frontmatter `name`. **`asm install` never refuses on a collision**: with `-y` it deletes and replaces the target directory without a prompt. So probe **before** invoking it:
+
+Run this phase from `CALLER_DIR`:
 
 ```bash
-asm list --json    # probe: is this skill already installed for $TOOL / $SCOPE?
+cd "$CALLER_DIR"
+asm list --json    # is this skill's name or directory already installed for $TOOL / $SCOPE?
 ```
 
-- **Neither name matches** — install; nothing is touched.
-- **Frontmatter `name` matches for `$TOOL`** — force is set, even if that entry sits in another scope. What gets deleted is the **target** directory (`$SKILL_PATH`'s basename, or `alt`, under the install base for `$TOOL`/`$SCOPE`), which need not be the matched entry's `path`. Name that target path and whatever the probe shows there, and get **explicit confirmation before running `asm install`**. There is no failure to fall back on once it is invoked.
-- **Only the directory name matches** — no delete, but the copy still **merges into** the existing directory: colliding files are overwritten and the previous occupant's other files survive inside the installed skill. Confirm this one too.
-- **Opt-out** — `--name <alt>` installs side by side, on request only. It does not suppress force, so anything already at `<base>/<alt>` is deleted and replaced; check `alt` against the probe. Warn first: both then share one frontmatter `name` and identical triggers, the duplicate-trigger hazard the ASM auditor flags.
+Read `references/install-and-report.md` → _Collision policy_ and take the path it gives for the probe result. The rule that never changes: if the probe shows any match — frontmatter `name` or directory name — name the target path and what occupies it, and get **explicit confirmation before running `asm install`**. Use `--name <alt>` only when the user asks for it, after the duplicate-trigger warning.
 
-Both names come out of the same probe: the frontmatter `name` plus `$TOOL` decides whether force is set, the target directory name decides what is destroyed.
-
-Only once the probe is read and any collision above is confirmed:
+Only after the probe is read and any collision is confirmed:
 
 ```bash
 asm install "$SKILL_PATH" -p "$TOOL" --scope "$SCOPE" --json -y
 ```
 
-Install `$SKILL_PATH`, never the original source — that would install the unimproved skill. Take the installed path from the install command's own `--json` output (`.path`); never assume `~/.claude/skills/`.
+Install `$SKILL_PATH`, never the original source. Take the installed path from the command's `--json` output (`.path`); never assume `~/.claude/skills/`.
 
 ### Phase 4 — Report, then clean up
 
-Fill in the template in `references/install-and-report.md`. The output must state that an **improved variant** was installed rather than the published skill, the provenance (supplied identifier, resolved URL, upstream SHA), the before → after numbers, the collision path taken and what it replaced, and the installed path.
+Fill in the report template in `references/install-and-report.md`. It covers the four items the user needs: the result, the evidence, what stays untested, and the next decision.
 
-Remove `$WORK` only after the report is complete.
+Remove `$WORK` only after the report is printed, then release the dependency lease.
 
 ## Step Completion Reports (mandatory)
 
-Emit a compact status block after each phase:
+After each phase, print a compact status block: `√` pass, `×` fail, `—` context.
 
 ```
 ◆ Phase N — [phase name] ([N of 5])
@@ -126,66 +160,49 @@ Emit a compact status block after each phase:
   Result:            PASS | FAIL | PARTIAL
 ```
 
-Use `√` for pass, `×` for fail, `—` for context. Checks per phase:
+Checks per phase:
 
 - **Phase 0** — `Form identified`, `Copied to temp`, `SKILL_PATH unambiguous`, `Provenance recorded`
-- **Phase 1** — `Baseline captured`, `Retrofit loop ran`, `Repo sync skipped`, `Gates cleared or stop reason known`
+- **Phase 1** — `skill-creator acquired`, `Baseline captured`, `Repo sync skipped`, `Gates cleared or stop reason known`
 - **Phase 2** — `Metrics harvested`, `.bak removed`, `.asm-improver removed`, `Deletions confined to temp`
 - **Phase 3** — `Collision probed before install`, `Overwrite confirmed (if any)`, `Tool and scope supplied`, `Install succeeded`
-- **Phase 4** — `Report printed`, `Provenance shown`, `Temp dir removed`
+- **Phase 4** — `Report printed`, `Temp dir removed`, `Lease released`
 
 ## Acceptance Criteria
 
-- Exactly one target resolved, from a local path, a repo, or a skill name
-- `$SKILL_PATH` is a directory containing `SKILL.md`, under a `mktemp -d` copy — the user's files unmodified
-- Name resolution copied `installCommand` verbatim; no hand-constructed `github:` URL
-- Repo resolution used plain `git clone`; no fork, no push, no public GitHub action
-- Several `SKILL.md` candidates and no supplied path → the user was asked, not guessed
-- skill-creator's retrofit loop ran on `$SKILL_PATH`; `baseline.json`, `iter-N.json`, and `report.md` read before cleanup
-- `SKILL.md.bak` and `.asm-improver/` removed before the install, both deletions confined to `$WORK`
-- `asm install` pointed at `$SKILL_PATH` — the improved directory — never the original source — with both `-p/--tool` and `--scope` supplied
-- A collision was probed for **before** `asm install` ran; on a match the run overwrote only after explicit confirmation, or used `--name <alt>` after warning; the report says which
-- The report names the installed path, says an improved variant was installed, and shows before → after plus provenance
-- `$WORK` removed only after the report is complete
+The expected output of a successful run, each item checkable:
 
-### Expected output
+- Exactly one target resolved; `$SKILL_PATH` is a directory with a `SKILL.md`, under `$WORK`; the user's files are unmodified
+- Name resolution copied `installCommand` verbatim; repo resolution used plain `git clone` — no fork, no push
+- The retrofit loop ran from the acquired `skill-creator`; `baseline.json`, `iter-N.json`, and `report.md` were read before cleanup
+- The installed skill contains no `.asm-improver/` and no `SKILL.md.bak`
+- `asm install` targeted `$SKILL_PATH` with both `-p/--tool` and `--scope`, after a collision probe; any overwrite was confirmed first
+- The report states the installed path, provenance, and before → after numbers
+- `$WORK` was removed after the report, and the dependency lease was released
 
-- One skill installed under the chosen scope, containing the improved `SKILL.md`
-- A report per `references/install-and-report.md`, leading with "installed an improved variant of `<name>`" and the before → after numbers
-- No `.asm-improver/` and no `SKILL.md.bak` inside the installed skill
-- No change to the user's own skill directories, and no remote GitHub state touched
+When reviewing a run's output (by eval or by a human), also check that a reader can:
 
-### Example
+- **Find the main result** — the first line says an improved variant was installed, the original was installed unchanged, or the run stopped.
+- **Separate facts from assumptions** — measured scores are distinct from the untested runtime behavior of the improved skill.
+- **Trace claims** — before → after numbers map to `baseline.json` and the last `iter-N.json`; the install path maps to install `--json` `.path`.
+- **See the next decision** — the report names any action left (restart the agent, persist the change upstream) or states that none is needed.
 
-"Install code-review, improved" on a skill that starts at 71 ends like this:
-
-```
-◆ Installed an improved variant of `code-review`
-  Installed to:    ~/.claude/skills/code-review   (read from install --json .path)
-  Install path:    confirmed overwrite of the previous install at that path
-  Tool / scope:    claude / global
-  Supplied as:     code-review
-  Resolved from:   github:owner/repo:skills/code-review @ a1b2c3d
-  Overall score:   71 (C) → 92 (A)   Min category: 5 → 8
-  Version:         1.0.0 → 1.3.0     Iterations: 3 of 8
-```
+An agent's own review cannot confirm human understanding. A reviewer who received no human feedback records understanding as unconfirmed.
 
 ## Edge Cases
 
-- **Baseline already passes both gates** — the retrofit loop stops without editing. Phase 2's cleanup and Phase 3's probe still run: Phase 0 of the retrofit loop writes `.asm-improver/` before it decides no edits are needed, so clean up first, then probe for a collision. Install the **original, unchanged**, and report plainly that no improvement was needed, naming the baseline score. Never imply a delta that did not happen.
-- **Retrofit loop ends in BLOCKER** (8 iterations, or stalled) — better than baseline but below the floor. Show the blocker list and ask whether to install the partial result or abort. Never install one silently.
-- **Local-path target** — improved on a copy, so the user's tree is untouched and the repo sync is skipped. Point them at `skill-creator` or `skill-upstream-pr` to persist the change.
-- **Several `SKILL.md` files in a clone** — enumerate and ask. Never batch, never guess.
+- **Baseline already passes both gates** — the retrofit loop stops without editing, but it has already written `.asm-improver/`. Still run Phase 2's cleanup and Phase 3's probe. Install the original, unchanged, and report that no improvement was needed, naming the baseline score. Never imply a delta that did not happen.
+- **Retrofit loop ends in BLOCKER** — show the blocker list and ask whether to install the partial result or abort. Never install one silently.
+- **`skill-creator` cannot be acquired** — stop before Phase 1, remove `$WORK`, and report the `asm deps acquire` error.
+- **Several `SKILL.md` files in a clone** — list them and ask. Never batch, never guess.
 - **`asm search` returns nothing, or several equally-plausible matches** — show the candidates and ask; never install the first hit.
-- **Target has no frontmatter** — `asm eval --fix` cannot add it. Report and stop; do not install an unimprovable skill as if it were improved.
-- **Collision is a same-named skill from another source** — the install would silently replace someone else's skill, with no error and no prompt. The probe is the only chance to catch it: name the target directory and whatever the probe shows there (`name`, `dirName`, `provider`, `scope`), confirm, and offer `--name <alt>` — all before `asm install` runs.
-- **Temp dir removed before harvesting** — the metrics are gone and the before/after criterion cannot be met. Harvest in Phase 2, always before cleanup.
+- **Target has no frontmatter** — `asm eval --fix` cannot add it, and this skill does not scaffold one. Answer "abort" to the retrofit loop, report, and stop; do not install an unimprovable skill as if it were improved.
+- **Collision with a same-named skill from another source** — the install would replace someone else's skill with no prompt. Name the target directory and what the probe shows there (`name`, `dirName`, `provider`, `scope`), confirm, and offer `--name <alt>` — all before `asm install` runs.
 - **Clone or disk failure mid-resolve** — stop, remove `$WORK`, report. Never install a partial checkout.
 
 ## References
 
-- `references/target-resolution.md` — the three input forms normalized to one local `$SKILL_PATH`
-- `references/install-and-report.md` — install flags, collision policy, harvested fields, report template
-- `skills/skill-creator/references/retrofit-loop.md` — the improvement loop this skill delegates to
-- `skills/skill-upstream-pr/SKILL.md` — the sibling path when the improvement should go back to the source repo
+- `references/target-resolution.md` — the input forms normalized to one local `$SKILL_PATH`
+- `references/install-and-report.md` — harvested fields, install flags, collision policy, report template
+- `$SKILL_CREATOR_DIR/references/retrofit-loop.md` — the improvement loop this skill delegates to (acquired at run time)
 - `asm install --help` and `asm search --help` — flag references

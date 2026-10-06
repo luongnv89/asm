@@ -30,10 +30,14 @@ TEMP_DIR=$(mktemp -d)
 git clone --depth 1 "https://github.com/<owner>/<repo>.git" "$TEMP_DIR/<repo>"
 ```
 
-2. Find every SKILL.md, at most 5 levels deep — matching ASM's `discoverSkills`:
+2. Find every SKILL.md, at most 5 levels deep — an approximation of ASM's
+   `discoverSkills`, which also skips `.git` and `node_modules`, does not look for
+   skills nested inside a skill directory, and drops duplicate names. Step 7's
+   ingested `skillCount` is the authoritative count:
 
 ```bash
-find "$TEMP_DIR/<repo>" -maxdepth 5 -name "SKILL.md" -type f
+find "$TEMP_DIR/<repo>" -maxdepth 5 -name "SKILL.md" -type f \
+  -not -path "*/.git/*" -not -path "*/node_modules/*"
 ```
 
 Each hit is the `SKILL.md` **file**; the skill is its **parent directory**.
@@ -99,8 +103,8 @@ name still prefixed — and `data/skill-index/{owner}_{repo}.json` ships a broke
 ## Constraints
 
 - Do NOT delete your temp directory — Step 3 still needs the clone.
-- Do NOT run `asm eval`, `npm run preindex`, or any catalog build; Steps 3 and 7
-  own those.
+- Do NOT run `asm eval`, `asm index ingest`, `npm run preindex`, or any catalog
+  build; Steps 3 and 7 own the eval and the ingest.
 - Do NOT modify anything in the ASM repo.
 - Do NOT ask questions. A clone failure is a `status`, not a stop; a repo with no
   SKILL.md is `status: "no-skills"` with an empty `skills` array, not an error.

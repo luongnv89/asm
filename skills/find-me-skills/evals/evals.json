@@ -1,0 +1,75 @@
+{
+  "skill_name": "find-me-skills",
+  "evals": [
+    {
+      "id": 1,
+      "kind": "happy-path",
+      "prompt": "I'm launching a SaaS next month and have no idea how to do marketing. Which skills should I use?",
+      "expected_output": "Goal confirmed, live catalog searched, sequenced plan approved, bundle file written and checked, install command given",
+      "files": [],
+      "expectations": [
+        "The goal was played back and confirmed before any asm search ran",
+        "Each search term ran asm search with --available --json",
+        "No bundle file was written before the user approved the plan",
+        "asm bundle show ran on the written bundle before the install command was given",
+        "The first line of the final output states the completion status",
+        "Untested behavior and assumptions are labeled separately from observed checks",
+        "Each material claim points to a command result, file, or URL that supports it",
+        "The output names the next user decision or states that no approval is needed"
+      ]
+    },
+    {
+      "id": 2,
+      "kind": "happy-path",
+      "prompt": "I need SEO, a landing page, and launch copy for my developer tool. Put together the skills for that.",
+      "expected_output": "Quick confirmation, 2-5 search terms, deduplicated plan with in/out per step, bundle exported on approval",
+      "files": [],
+      "expectations": [
+        "Every plan step names an input and an output",
+        "No skill name appears twice in the plan or the bundle",
+        "Every bundle installUrl matches an installCommand returned by asm search",
+        "The first line of the final output states the completion status",
+        "Untested behavior and assumptions are labeled separately from observed checks",
+        "Each material claim points to a command result, file, or URL that supports it",
+        "The output names the next user decision or states that no approval is needed"
+      ]
+    },
+    {
+      "id": 3,
+      "kind": "happy-path",
+      "prompt": "Help me figure out which agent skills would speed up code review for my team",
+      "expected_output": "Intent questions, confirmation, catalog discovery, installed skills listed in the plan but excluded from the bundle",
+      "files": [],
+      "expectations": [
+        "Installed matches were detected with asm search without --available",
+        "Installed skills are absent from the bundle",
+        "The first line of the final output states the completion status",
+        "Untested behavior and assumptions are labeled separately from observed checks",
+        "Each material claim points to a command result, file, or URL that supports it",
+        "The output names the next user decision or states that no approval is needed"
+      ]
+    },
+    {
+      "id": 4,
+      "kind": "edge",
+      "prompt": "Find skills for my project (asm is not installed on this machine)",
+      "expected_output": "Run stops at the prerequisite check with install guidance",
+      "files": [],
+      "expectations": [
+        "The run reported that asm is missing and pointed at npm install -g agent-skill-manager",
+        "No catalog search or bundle file was attempted",
+        "The first line reports a blocked status"
+      ]
+    },
+    {
+      "id": 5,
+      "kind": "negative-trigger",
+      "prompt": "Install the frontend-design skill for Claude Code",
+      "expected_output": "Handled as a plain named install without the discovery interview",
+      "files": [],
+      "expectations": [
+        "The run did not start the intent interview or write a bundle file"
+      ]
+    }
+  ]
+}

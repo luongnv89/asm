@@ -47,7 +47,7 @@ asm eval "<clonePath>/<relPath>" --json
 ```
 
 Lift `overallScore` (0-100) and the letter `grade` (A/B/C/D/F). This run is for
-**pre-commit visibility** only — Step 7's `npm run preindex` re-runs the evaluator
+**pre-commit visibility** only — Step 7's `index ingest` re-runs the evaluator
 through the ingester and writes `evalSummary` + `tokenCount` into the index file
 itself. Do not try to write those fields.
 

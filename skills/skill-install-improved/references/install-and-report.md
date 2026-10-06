@@ -6,15 +6,17 @@ Phases 2–4 in detail: what to harvest, how to install, and what the user must 
 
 skill-creator's retrofit loop writes `.asm-improver/` **relative to the current working directory**, so the loop must run with cwd inside `$SKILL_PATH`. Everything below lives in a temp directory and is gone the moment `$WORK` is removed — read it first.
 
-| File                                    | What to take from it                                |
-| --------------------------------------- | --------------------------------------------------- |
-| `.asm-improver/baseline.json`           | `overallScore`, `grade`, all 7 `categories[].score` |
-| `.asm-improver/iter-N.json` (highest N) | the same fields, after                              |
-| `.asm-improver/report.md`               | files changed, key fixes, blocker list if any       |
+| File                                                 | What to take from it                                                 |
+| ---------------------------------------------------- | -------------------------------------------------------------------- |
+| `.asm-improver/baseline.json`                        | `overallScore`, `grade`, every `categories[].score`                  |
+| `.asm-improver/iter-N.json` (highest N, if any)      | the same fields, after; absent on an early exit — reuse the baseline |
+| `.asm-improver/baseline-quickvalidate.txt`           | the validator verdict before                                         |
+| `.asm-improver/iter-N-gates.txt` (highest N, if any) | the gate summary after, including the validator result               |
+| `.asm-improver/report.md`                            | PASS or BLOCKER, files changed, key fixes, blocker list if any       |
 
 Derived fields:
 
-- `minCategory` before and after — the minimum of the 7 category scores
+- `minCategory` before and after — the minimum category score
 - `iterations` — N of 8
 - `versionBefore` → `versionAfter` — the target's frontmatter `metadata.version`
 
@@ -74,6 +76,8 @@ The report always states which of these paths was taken and what, if anything, w
 
 Print this to the user at the end of Phase 4, before removing `$WORK`.
 
+The first line is the result. The `Evidence`, `Untested`, and `Next` lines are required on every variant below, including the no-improvement and BLOCKER cases.
+
 ```
 ◆ Installed an improved variant of `<skill-name>`
 ··································································
@@ -93,6 +97,11 @@ Print this to the user at the end of Phase 4, before removing `$WORK`.
     Iterations:      <N> of 8
     Files changed:   <list>
 
+  Evidence:  asm eval before/after (baseline.json → iter-<N>.json) · quick_validate <verdict> · install --json success
+  Untested:  scores measure structure and conformance only; the improved skill was not run on a real task
+  Next:      <"No approval needed" | the action the user must take, e.g. restart the agent to load the skill>
+             To keep the change in the source: skill-creator on your copy, or skill-upstream-pr on the repo
+
   Note: the installed copy is the improved one. The original source
         was not modified.
 ```
@@ -106,8 +115,24 @@ If the baseline already cleared both gates, skill-creator's retrofit loop stops 
 ··································································
   Baseline already clears both gates: <score> (<grade>), min category <n>.
   skill-creator's retrofit loop made no edits. The published skill was installed as-is.
+  Installed to:  <.path>
+  Evidence:      baseline.json · install --json success
+  Untested:      the skill was not run on a real task
+  Next:          No approval needed
 ```
 
 ### When the retrofit loop ended in BLOCKER
 
-Show the blocker list from `.asm-improver/report.md` and the partial before → after numbers, then **ask** whether to install the partially-improved variant or abort. Never install a blocker result silently, and never describe it as improved-to-standard when it is not.
+Print this, then **ask** whether to install the partially-improved variant or abort:
+
+```
+◆ Stopped before install — retrofit of `<skill-name>` ended in BLOCKER
+··································································
+  Overall score:  <before> (<grade>) → <after> (<grade>)   Min category: <before> → <after>
+  Blockers:       <one line per failing check from report.md>
+  Evidence:       baseline.json → iter-<N>.json · report.md
+  Untested:       the skill was not run on a real task
+  Next:           install the partially improved copy, or abort — your call
+```
+
+If the user chooses to install, run Phase 3 and print the main template with the first line `◆ Installed a partially improved variant of <skill-name> (below the 85/8 floor)` and the `Blockers:` line kept. Never install a blocker result silently, and never describe it as improved-to-standard when it is not.

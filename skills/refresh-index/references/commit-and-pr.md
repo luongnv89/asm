@@ -3,6 +3,7 @@
 **Do not proceed without explicit user confirmation.** Print the diff stat and ask:
 
 ```bash
+git status --short -- data/skill-index/ data/skill-index-resources.json
 git diff --stat -- data/skill-index/ data/skill-index-resources.json
 echo
 echo "Ready to commit the files above and open a PR."
@@ -14,6 +15,9 @@ On `yes` (and only `yes`), stage **only** the index data files — never `websit
 `npm run preindex` does **not** modify `data/skill-index-resources.json`. Add that file only if the user explicitly bumped `updatedAt`.
 
 ```bash
+if [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ]; then
+  git checkout -b "chore/refresh-index-$(date +%Y%m%d)"
+fi
 git add data/skill-index/
 if git diff --name-only | grep -q '^data/skill-index-resources\.json$'; then
   git add data/skill-index-resources.json

@@ -1,0 +1,74 @@
+{
+  "skill_name": "skill-index-updater",
+  "evals": [
+    {
+      "id": 1,
+      "kind": "happy-path",
+      "prompt": "Add github.com/anthropics/skills to the index",
+      "expected_output": "Repo validated, discovery and audit delegated, single-repo sandboxed ingest, catalog rebuilt, PR opened",
+      "files": [],
+      "expectations": [
+        "Discovery and audit ran in workers given only their contract file",
+        "Step 7 used index ingest for this repo with ASM_CONFIG_DIR set, not npm run preindex",
+        "git diff --name-only listed only the resources file and this repo's index file",
+        "The PR audit summary matches the Step 3 OK/WARN/FLAG counts",
+        "The first line of the final output states the completion status",
+        "Untested behavior and assumptions are labeled separately from observed checks",
+        "Each material claim points to a command result, file, or URL that supports it",
+        "The output names the next user decision or states that no approval is needed"
+      ]
+    },
+    {
+      "id": 2,
+      "kind": "happy-path",
+      "prompt": "Index these skill repos: owner1/repo1, github:owner2/repo2",
+      "expected_output": "Both repos processed in parallel; one PR for the batch",
+      "files": [],
+      "expectations": [
+        "Each repo has its own index file staged by name",
+        "Each repo's catalog skill count equals its skillCount",
+        "The first line of the final output states the completion status",
+        "Untested behavior and assumptions are labeled separately from observed checks",
+        "Each material claim points to a command result, file, or URL that supports it",
+        "The output names the next user decision or states that no approval is needed"
+      ]
+    },
+    {
+      "id": 3,
+      "kind": "happy-path",
+      "prompt": "Re-index obra/superpowers, it already exists in the index",
+      "expected_output": "Marked EXISTS; Step 4 diff shown and confirmed before overwrite",
+      "files": [],
+      "expectations": [
+        "The run showed added, removed, and changed skills before asking to confirm",
+        "No index file was overwritten before confirmation",
+        "The first line of the final output states the completion status",
+        "Untested behavior and assumptions are labeled separately from observed checks",
+        "Each material claim points to a command result, file, or URL that supports it",
+        "The output names the next user decision or states that no approval is needed"
+      ]
+    },
+    {
+      "id": 4,
+      "kind": "edge",
+      "prompt": "Add gitlab.com/foo/bar and github.com/nope/missing to the index",
+      "expected_output": "GitLab URL rejected, 404 repo marked INVALID; run stops because no repo is valid",
+      "files": [],
+      "expectations": [
+        "Both URLs appear in the Step 1 table with a reason",
+        "No branch, file change, or PR was made",
+        "The first line reports a blocked status"
+      ]
+    },
+    {
+      "id": 5,
+      "kind": "negative-trigger",
+      "prompt": "Improve the find-me-skills skill so it scores higher",
+      "expected_output": "Handled as skill improvement, not index onboarding",
+      "files": [],
+      "expectations": [
+        "The run did not clone a repo for indexing or edit data/skill-index"
+      ]
+    }
+  ]
+}
