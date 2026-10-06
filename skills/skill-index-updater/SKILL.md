@@ -45,7 +45,7 @@ Check each before Step 1. If one fails, stop and name it.
 - `node` (>= 22), `jq`, and `git` on PATH; `npm install` done in the repo, so `npx tsx` resolves
 - `asm` on PATH — the Step 3 workers run `asm eval`
 - `gh auth status` succeeds — Step 10 opens the PR
-- `git status --porcelain -- website/ data/` prints nothing. Step 8 restores the tracked `website/` files `build-catalog` rewrites, which is safe only from a clean start.
+- `git status --porcelain -- website/ data/` prints nothing. Step 8 restores the tracked `website/` files and `data/repo-stars.json` that `build-catalog` rewrites, which is safe only from a clean start.
 
 ## Input
 
@@ -180,10 +180,10 @@ jq empty website/catalog.json
 jq --arg p "github:{owner}/{repo}" \
   '[.skills[] | select(.installUrl == $p or (.installUrl | startswith($p + ":")))] | length' \
   website/catalog.json
-git restore -- website/
+git restore -- website/ data/repo-stars.json
 ```
 
-Verification: `build-catalog` and `jq empty` exit 0, and the count for each repo equals its `skillCount`. If `build-catalog` fails, stop — a PR with a broken catalog must not land. `build-catalog` also rewrites tracked outputs (`website/*-stats.json`, `website/robots.txt`) with fresh timestamps; `git restore -- website/` reverts them (safe because the prerequisites required a clean `website/`). It leaves the gitignored `website/catalog.json` in place.
+Verification: `build-catalog` and `jq empty` exit 0, and the count for each repo equals its `skillCount`. If `build-catalog` fails, stop — a PR with a broken catalog must not land. `build-catalog` also rewrites tracked outputs (`website/*-stats.json`, `website/robots.txt`, and `data/repo-stars.json` on any networked run) with fresh values; `git restore -- website/ data/repo-stars.json` reverts them (safe because the prerequisites required a clean `website/` and `data/`). It leaves the gitignored `website/catalog.json` in place.
 
 ### Step 9: Verify Everything
 
