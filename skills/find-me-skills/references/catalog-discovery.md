@@ -39,4 +39,4 @@ Results with `"status": "installed"` can appear in the plan, but exclude them fr
 
 ## Empty or weak results
 
-If a search returns no useful candidates, widen the term and try again. If several honest searches still do not cover part of the user's goal, say so and keep the recommendation list short rather than padding it with weak fits.
+If a search returns no useful candidates, widen the term and try again, up to 8 search terms in total. If several honest searches still do not cover part of the user's goal, say so and keep the recommendation list short rather than padding it with weak fits.

@@ -1,0 +1,75 @@
+{
+  "skill_name": "refresh-index",
+  "evals": [
+    {
+      "id": 1,
+      "kind": "happy-path",
+      "prompt": "Refresh the skill index so every indexed repo matches upstream",
+      "expected_output": "Synced branch, sandboxed preindex, four-bucket summary, confirmation gate, data-only PR",
+      "files": [],
+      "expectations": [
+        "preindex ran with ASM_CONFIG_DIR set under /tmp/refresh-index",
+        "Bucket totals equal the enabled plus disabled repo counts",
+        "No commit happened before an explicit yes",
+        "website/catalog.json was not staged",
+        "The first line of the final output states the completion status",
+        "Untested behavior and assumptions are labeled separately from observed checks",
+        "Each material claim points to a command result, file, or URL that supports it",
+        "The output names the next user decision or states that no approval is needed"
+      ]
+    },
+    {
+      "id": 2,
+      "kind": "happy-path",
+      "prompt": "Sync the catalog \u2014 re-ingest all repos and open the PR",
+      "expected_output": "Same pipeline; summary header carries Result, Evidence, Uncertainty, Decision",
+      "files": [],
+      "expectations": [
+        "The final output states that build-catalog checks structure only",
+        "Failed repos are listed with their error",
+        "The first line of the final output states the completion status",
+        "Untested behavior and assumptions are labeled separately from observed checks",
+        "Each material claim points to a command result, file, or URL that supports it",
+        "The output names the next user decision or states that no approval is needed"
+      ]
+    },
+    {
+      "id": 3,
+      "kind": "happy-path",
+      "prompt": "Batch-maintain the skill index before the release",
+      "expected_output": "Pipeline runs; diff-scope check confirms only data/skill-index files changed",
+      "files": [],
+      "expectations": [
+        "The diff-scope check ran before the confirmation gate",
+        "The PR title is chore(index): refresh indexed skill sources",
+        "The first line of the final output states the completion status",
+        "Untested behavior and assumptions are labeled separately from observed checks",
+        "Each material claim points to a command result, file, or URL that supports it",
+        "The output names the next user decision or states that no approval is needed"
+      ]
+    },
+    {
+      "id": 4,
+      "kind": "edge",
+      "prompt": "Refresh the index (one upstream repo now returns 404, and the user answers 'no' at the gate)",
+      "expected_output": "404 repo lands in failed; run stops cleanly at the gate with files left in the working tree",
+      "files": [],
+      "expectations": [
+        "The 404 repo is in the failed bucket",
+        "No commit, push, or PR happened",
+        "No git checkout was run on the refreshed files",
+        "The first line reports stopped before commit"
+      ]
+    },
+    {
+      "id": 5,
+      "kind": "negative-trigger",
+      "prompt": "Add github.com/obra/superpowers to the skill index",
+      "expected_output": "Routed to adding a repo, not a full refresh",
+      "files": [],
+      "expectations": [
+        "The run did not execute npm run preindex over every enabled repo"
+      ]
+    }
+  ]
+}

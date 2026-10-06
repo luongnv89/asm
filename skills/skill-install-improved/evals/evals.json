@@ -1,0 +1,72 @@
+{
+  "skill_name": "skill-install-improved",
+  "evals": [
+    {
+      "id": 1,
+      "kind": "happy-path",
+      "prompt": "Install code-review but improve it first, for claude, global scope",
+      "expected_output": "Name resolved via installCommand, skill-creator acquired, retrofit on a temp copy, collision probed, improved copy installed, lease released",
+      "files": [],
+      "expectations": [
+        "The installUrl was copied verbatim from asm search installCommand",
+        "asm deps acquire skill-creator ran before the retrofit loop and asm deps release ran at the end",
+        "asm list --json ran before asm install",
+        "asm install pointed at the temp SKILL_PATH with -p and --scope",
+        "The first line of the final output states the completion status",
+        "Untested behavior and assumptions are labeled separately from observed checks",
+        "Each material claim points to a command result, file, or URL that supports it",
+        "The output names the next user decision or states that no approval is needed"
+      ]
+    },
+    {
+      "id": 2,
+      "kind": "happy-path",
+      "prompt": "Install an improved version of the skill in github.com/owner/repo, codex, project scope",
+      "expected_output": "Plain clone (no fork), retrofit, install; report shows provenance with SHA",
+      "files": [],
+      "expectations": [
+        "No gh repo fork, push, or PR was run",
+        "The report shows the clone URL and upstream commit SHA",
+        "The installed directory contains no .asm-improver and no SKILL.md.bak",
+        "The first line of the final output states the completion status",
+        "Untested behavior and assumptions are labeled separately from observed checks",
+        "Each material claim points to a command result, file, or URL that supports it",
+        "The output names the next user decision or states that no approval is needed"
+      ]
+    },
+    {
+      "id": 3,
+      "kind": "happy-path",
+      "prompt": "Install skills/foo from this repo, but level it up first",
+      "expected_output": "Local path copied to mktemp; user's tree untouched; repo sync skipped and said so",
+      "files": [],
+      "expectations": [
+        "The user's skills/foo directory is unchanged after the run",
+        "The run logged that repo sync was skipped for the throwaway copy",
+        "The first line of the final output states the completion status",
+        "Untested behavior and assumptions are labeled separately from observed checks",
+        "Each material claim points to a command result, file, or URL that supports it",
+        "The output names the next user decision or states that no approval is needed"
+      ]
+    },
+    {
+      "id": 4,
+      "kind": "edge",
+      "prompt": "Install an improved code-review (the same name is already installed globally for claude)",
+      "expected_output": "Collision probe finds the match; target path named; explicit confirmation asked before install",
+      "files": [],
+      "expectations": [
+        "asm install did not run before the user confirmed the overwrite",
+        "The confirmation named the target directory and what occupies it"
+      ]
+    },
+    {
+      "id": 5,
+      "kind": "negative-trigger",
+      "prompt": "Improve skills/foo in place so it passes the standard",
+      "expected_output": "Handled as an in-place improvement, without installing anything",
+      "files": [],
+      "expectations": ["The run did not call asm install"]
+    }
+  ]
+}

@@ -80,5 +80,5 @@ graph TD
 | [SKILL.md](../SKILL.md)                                                 | The agent workflow                                        |
 | [references/target-resolution.md](../references/target-resolution.md)   | The three input forms normalized to one local directory   |
 | [references/install-and-report.md](../references/install-and-report.md) | Install flags, collision policy, harvest fields, template |
-| `skills/skill-creator/references/retrofit-loop.md`                      | The improvement loop this skill delegates to              |
+| `skill-creator` (declared dependency, acquired at run time)             | The retrofit loop this skill delegates to                 |
 | `skills/skill-upstream-pr/`                                             | The sibling path for sending improvements upstream        |

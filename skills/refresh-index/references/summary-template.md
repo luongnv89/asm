@@ -4,6 +4,15 @@ Render this markdown table grouped by bucket, with skill-count deltas. This is w
 
 If `X + Y + Z + W` does not equal `len(enabled) + len(disabled)`, the classification is inconsistent — stop and re-check Step 4 before moving on.
 
+At the end of the run (after Step 8, or at any stop), prepend the header from SKILL.md → _Final output_:
+
+```
+Result:      PR opened | stopped before commit | blocked at Step N — <reason>
+Evidence:    preindex exit <code> · build-catalog exit <code> · diff scope <ok|unexpected files> · PR <url|none>
+Uncertainty: build-catalog checks structure only; <Z> failed repo(s) keep stale data; <inferred buckets, if any>
+Decision:    <review and merge the PR | fix <failure> and re-run>
+```
+
 ```
 ## Refresh summary — N repos processed
 
@@ -11,7 +20,6 @@ If `X + Y + Z + W` does not equal `len(enabled) + len(disabled)`, the classifica
 | Repo | Before | After | Δ |
 |------|--------|-------|---|
 | anthropics/skills | 14 | 15 | +1 |
-| obra/superpowers  | 22 | 22 |  0 |
 
 ### · Unchanged (Y)
 | Repo | Skills |
@@ -26,5 +34,5 @@ If `X + Y + Z + W` does not equal `len(enabled) + len(disabled)`, the classifica
 ### ○ Skipped (W)
 | Repo | Reason |
 |------|--------|
-| luongnv89/asm | disabled in skill-index-resources.json |
+| owner3/repo3 | disabled in skill-index-resources.json |
 ```

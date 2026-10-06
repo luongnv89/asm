@@ -6,7 +6,7 @@ compatibility: "Claude Code"
 allowed-tools: Bash Read Write Edit Grep Glob
 effort: high
 metadata:
-  version: 1.1.1
+  version: 1.3.0
   author: luongnv89
 ---
 
@@ -51,8 +51,7 @@ If `origin` is missing or rebase conflicts occur, **stop and ask the user** befo
 Verify each before any ingest. Stop and tell the user if any fails.
 
 - `node` on PATH (`command -v node`) — Node >= 22 per `package.json` engines
-- `npm` on PATH (`command -v npm`) — required by `npm run preindex`
-- `asm` on PATH (`command -v asm`) — invoked transitively by the ingester for `asm eval`
+- `npm` on PATH (`command -v npm`) — required by `npm run preindex`; the ingester evaluates skills in-process, so no `asm` binary is needed
 - `gh` on PATH and authenticated (`gh auth status`) — required for PR creation
 - `git` on PATH and inside the ASM repo working tree (`git rev-parse --show-toplevel`)
 - Network access to `github.com` (each ingest clones the upstream repo)
@@ -60,6 +59,8 @@ Verify each before any ingest. Stop and tell the user if any fails.
 ## Pipeline
 
 Follow these steps in order. Each step has a verification check — do not proceed if the check fails. Long scripts and templates live in `references/`; read the linked file when you reach that step.
+
+Many agent hosts start each command in a fresh shell. Start every code block with `ROOT="$(git rev-parse --show-toplevel)"; RES="$ROOT/data/skill-index-resources.json"` instead of relying on variables from an earlier step.
 
 ### Step 1: Enumerate the index
 
@@ -71,13 +72,14 @@ RES="$ROOT/data/skill-index-resources.json"
 jq -r '.repos[] | select(.enabled == true)  | .source' "$RES"
 jq -r '.repos[] | select(.enabled == false) | .source' "$RES"
 jq -r '.repos[] | select(.enabled == true) | "\(.source)\t\(.owner)_\(.repo)"' "$RES"
-jq empty data/skill-index/*.json   # exits non-zero if any file is invalid
+jq empty "$ROOT"/data/skill-index/*.json   # exits non-zero if any file is invalid
+git -C "$ROOT" status --porcelain -- website/ data/
 ```
 
 - `enabled[]` — `"enabled": true`. These will be refreshed.
-- `disabled[]` — `"enabled": false`. These land in **skipped** with reason `"disabled in skill-index-resources.json"`.
+- `disabled[]` — `"enabled": false`. These land in **skipped** with reason `"disabled in skill-index-resources.json"`. The list may be empty; then `W = 0`.
 
-Verification: both lists are non-empty (the index always contains at least one enabled repo and one disabled self-reference) and existing per-repo JSON is parseable. If `enabled[]` is empty or pre-validation fails, stop.
+Verification: `enabled[]` is non-empty, every per-repo JSON parses, and `git status --porcelain -- website/ data/` prints nothing. If any check fails, stop. A clean `website/` is what lets Step 5 restore the tracked files `build-catalog` rewrites.
 
 ### Step 2: Snapshot pre-run skill counts
 
@@ -87,20 +89,25 @@ Record current `skillCount` for each enabled repo so Step 7 can report deltas. R
 
 Re-ingest every enabled repo. Capture stdout and the exit code — `preindex` exits 1 if any repo fails, but **do not abort**. Partial results still classify.
 
+`preindex` writes each ingest to `getIndexDir()` before copying it into `data/skill-index/`. Without an override that is the user's real `~/.config/agent-skill-manager/skill-index/`, a change no git diff shows. Always set `ASM_CONFIG_DIR` to a scratch directory:
+
 ```bash
+ROOT="$(git rev-parse --show-toplevel)"
+mkdir -p /tmp/refresh-index/asm-config
 LOG="/tmp/refresh-index/preindex.log"
 cd "$ROOT"
-set +e
-npm run preindex 2>&1 | tee "$LOG"
+ASM_CONFIG_DIR=/tmp/refresh-index/asm-config npm run preindex > "$LOG" 2>&1
 PREINDEX_EXIT=$?
-set -e
+cat "$LOG"
 ```
+
+`preindex` clones every enabled repo in sequence and can run for many minutes. If the host's command timeout is shorter, run the command in the background and wait until the log ends with the `Done: N succeeded, M failed` line; then read the exit code.
 
 Verification: the log exists and contains one line per enabled repo: `  {source} ... {N} skills` or `  {source} ... FAILED: {error}`. If the log is empty or no line matches, stop — that is environmental, not a per-repo failure.
 
 ### Step 4: Classify each repo
 
-Match each `{source}` log line to `data/skill-index/{owner}_{repo}.json` in `git diff`. Read `references/classify.md` for the four-row signal table. Capture post-run `skillCount`; failed repos keep the pre-count.
+Match each `{source}` log line to `data/skill-index/{owner}_{repo}.json` in `git status --porcelain` (which also lists new, untracked index files). Every ingest rewrites timestamps, so "changed" means changed after the timestamps are stripped. Read `references/classify.md` for the comparison and the four-row signal table. Capture post-run `skillCount`; failed repos keep the pre-count.
 
 ### Step 5: Rebuild the website catalog (verification only)
 
@@ -110,16 +117,17 @@ Confirm the refreshed index is structurally valid. **`website/catalog.json` is g
 cd "$ROOT"
 npx tsx scripts/build-catalog.ts
 jq empty website/catalog.json
+git restore -- website/ data/repo-stars.json
 ```
 
-Verification: both commands exit 0. If either fails, stop — the data files are internally inconsistent and the PR must not land.
+Verification: the first two commands exit 0. If either fails, stop — the data files are internally inconsistent and the PR must not land. `build-catalog` also rewrites tracked outputs (`website/*-stats.json`, `website/robots.txt`, and `data/repo-stars.json` on any networked run) with fresh values; `git restore -- website/ data/repo-stars.json` reverts them. That is safe only because Step 1 confirmed `website/` and `data/` were clean. It does not touch the gitignored `website/catalog.json`.
 
 ### Step 6: Detect unexpected diff scope
 
 Confirm the only files that changed are under `data/skill-index/` (and `data/skill-index-resources.json` only if the user explicitly bumped `updatedAt`):
 
 ```bash
-UNEXPECTED=$(git diff --name-only \
+UNEXPECTED=$(git status --porcelain | cut -c4- \
   | grep -v -E '^data/skill-index/' \
   | grep -v -E '^data/skill-index-resources\.json$' \
   || true)
@@ -137,9 +145,18 @@ Render the markdown in `references/summary-template.md`. If `X + Y + Z + W` does
 
 ### Step 8: Confirmation gate, commit, and PR
 
-**Do not proceed without explicit user confirmation** (`yes` only). Read `references/commit-and-pr.md` for the diff-stat prompt, conventional-commit message, and `gh pr create` body. Stage **only** `data/skill-index/` (plus the resources file if intentionally modified). Never stage `website/catalog.json`.
+**Do not proceed without explicit user confirmation** (`yes` only). Never commit on `main`: if the current branch is `main`, create `chore/refresh-index-<YYYYMMDD>` first. Read `references/commit-and-pr.md` for the branch step, the diff-stat prompt, conventional-commit message, and `gh pr create` body. Stage **only** `data/skill-index/` (plus the resources file if intentionally modified). Never stage `website/catalog.json`.
 
 Verification: `gh pr view --json url` returns the new PR URL. Print it back to the user.
+
+## Final output
+
+End the run with the Step 7 summary, preceded by a short header the user can read without scrolling (template in `references/summary-template.md`):
+
+1. **Result** — first line: `PR opened`, `stopped before commit` (declined gate or empty diff), or `blocked at Step N` with the reason.
+2. **Evidence** — the checks that ran and their results: `preindex` exit code, `build-catalog` exit, diff-scope check, and the PR URL.
+3. **Uncertainty** — `build-catalog` proves the index is structurally valid, not that every upstream skill installs. Failed repos keep their old index data. Name any repo whose bucket was inferred from a missing log line.
+4. **Decision** — what the user must still do: review and merge the PR, or re-run after fixing the named failure. Approval to commit was the Step 8 `yes`; no other approval is needed.
 
 ## Step Completion Reports
 
@@ -156,7 +173,7 @@ Emit a compact status block after each step:
 Use `√` for pass, `×` for fail, `—` for context. Checks per step:
 
 - **Repo sync** — `branch up to date`, `stash restored (if dirty)`
-- **Step 1** — `enabled[] non-empty`, `disabled[] non-empty`, `per-repo JSON parseable`
+- **Step 1** — `enabled[] non-empty`, `per-repo JSON parseable`, `website/ and data/ clean`
 - **Step 2** — `snapshot written`
 - **Step 3** — `log exists`, `one line per enabled source`
 - **Step 4** — `every repo in exactly one bucket`, `totals add up`
@@ -171,25 +188,35 @@ On a successful run, verify all of the following:
 
 1. **Repo synced** — branch is up to date with `origin`; any local edits were stashed and restored cleanly.
 2. **`npm run preindex` completed** — exit code captured; per-repo lines visible in the log.
-3. **All four buckets populated** — every enabled repo lands in exactly one of updated / unchanged / failed, and every disabled repo lands in skipped. Totals add up.
+3. **Every repo bucketed** — every enabled repo lands in exactly one of updated / unchanged / failed, and every disabled repo (if any) lands in skipped. Totals add up.
 4. **`npx tsx scripts/build-catalog.ts` succeeded** — `website/catalog.json` rebuilt and is valid JSON. **Not staged.**
 5. **Diff scope contained** — only `data/skill-index/*.json` (and optionally `data/skill-index-resources.json` if explicitly refreshed) appear in `git diff`.
 6. **User confirmed** — explicit `yes` recorded before commit + push.
 7. **PR opened** — conventional-commit title (`chore(index): refresh indexed skill sources`), body filled from the Step 8 template, URL returned to the user.
 
-If any of items 1–5 fails, do **not** proceed to Steps 6–7 of this list.
+If any of items 1–5 fails, stop before the Step 8 confirmation gate: no commit, no push, no PR.
 
 ## Acceptance Criteria
 
 - Exactly the files under `data/skill-index/` (and optionally `data/skill-index-resources.json`) are staged
 - `website/catalog.json` was rebuilt as a check and was **not** staged
+- `preindex` ran with `ASM_CONFIG_DIR` pointing under `/tmp/refresh-index/`
 - Four-bucket totals equal `len(enabled) + len(disabled)`
 - Commit message matches the template in `references/commit-and-pr.md`
 - `gh pr view --json url` returns a URL
 
+When reviewing a run's output (by eval or by a human), also check that a reader can:
+
+- **Find the main result** — the first line states `PR opened`, `stopped before commit`, or `blocked`.
+- **Separate facts from assumptions** — observed exit codes and diffs are distinct from the stated limits of `build-catalog`.
+- **Trace claims** — each bucket entry maps to a `preindex.log` line or a `git diff` file; the PR claim maps to the returned URL.
+- **See the next decision** — review/merge, or the fix to apply before re-running.
+
+An agent's own review cannot confirm human understanding. A reviewer who received no human feedback records understanding as unconfirmed.
+
 ## Example
 
-Given 2 enabled repos (one gained a skill) and 1 disabled self-reference, the expected output summary looks like:
+Given 2 enabled repos (one gained a skill) and 1 disabled repo, the expected output summary looks like:
 
 ```
 ## Refresh summary — 3 repos processed
@@ -207,7 +234,7 @@ Given 2 enabled repos (one gained a skill) and 1 disabled self-reference, the ex
 ### ○ Skipped (1)
 | Repo | Reason |
 |------|--------|
-| luongnv89/asm | disabled in skill-index-resources.json |
+| owner3/repo3 | disabled in skill-index-resources.json |
 ```
 
 ## Edge Cases
