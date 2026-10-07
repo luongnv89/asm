@@ -63,6 +63,12 @@ export interface SkillInfo {
     enabled?: boolean;
   };
   /**
+   * True when this row is a Library ghost: the skill exists in the ASM
+   * library but is not installed in the listed scope. Ghosts are dimmed in
+   * the TUI list and can be activated in place with the `l` key.
+   */
+  isGhost?: boolean;
+  /**
    * True when this skill instance is currently disabled via `asm disable`
    * (its `SKILL.md` was renamed to `SKILL.md.disabled`, so the scanner can't
    * see it — `asm list` reconstructs the row from the skill-state file).
@@ -832,7 +838,13 @@ export interface PublishResult {
 export type Scope = "global" | "project" | "both";
 export type SortBy = "name" | "version" | "location";
 export type ViewState =
-  "dashboard" | "detail" | "confirm" | "help" | "config" | "audit";
+  | "dashboard"
+  | "detail"
+  | "confirm"
+  | "help"
+  | "config"
+  | "audit"
+  | "link";
 
 // ─── Reference Tier Types (issue #422) ─────────────────────────────────────
 

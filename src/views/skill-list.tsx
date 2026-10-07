@@ -29,7 +29,11 @@ function formatSkillRow(
   descWidth: number,
 ): string {
   const idx = String(index).padStart(3);
-  const prefix = skill.isSymlink ? "~ " : "  ";
+  const prefix = skill.isGhost
+    ? "· "
+    : skill.isSymlink
+      ? "~ "
+      : "  ";
   const nameMax = 24 - prefix.length;
   const rawName =
     skill.name.length > nameMax
@@ -119,7 +123,13 @@ export function SkillListView({
         return (
           <Text
             key={`${s.path}-${absoluteIndex}`}
-            color={isSelected ? theme.accent : theme.fg}
+            color={
+              isSelected
+                ? theme.accent
+                : s.isGhost
+                  ? theme.fgDim
+                  : theme.fg
+            }
             inverse={isSelected}
           >
             {prefix}

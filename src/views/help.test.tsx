@@ -17,6 +17,7 @@ describe("HelpView", () => {
       "↓ / j",
       "Enter",
       "d",
+      "l",
       "a",
       "/",
       "Esc",
@@ -36,6 +37,7 @@ describe("HelpView", () => {
     expect(frame).toContain("Move down");
     expect(frame).toContain("View skill details");
     expect(frame).toContain("Uninstall skill");
+    expect(frame).toContain("Link skill");
     expect(frame).toContain("Audit duplicates");
     expect(frame).toContain("Search / filter");
     expect(frame).toContain("Cycle scope");

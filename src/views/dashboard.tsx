@@ -140,6 +140,7 @@ export function DashboardFooter({
       {" · "}
       Enter <Text color={theme.accent}>View</Text>
       {" · "}d <Text color={theme.accent}>Uninstall</Text>
+      {" · "}l <Text color={theme.accent}>Link</Text>
       {" · "}a <Text color={theme.accent}>Audit</Text>
       {" · "}/ <Text color={theme.accent}>Filter</Text>
       {" · "}

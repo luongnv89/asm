@@ -8,6 +8,7 @@ const KEYBINDINGS: Array<[string, string]> = [
   ["↓ / j", "Move down"],
   ["Enter", "View skill details"],
   ["d", "Uninstall skill"],
+  ["l", "Link skill"],
   ["a", "Audit duplicates"],
   ["/", "Search / filter"],
   ["Esc", "Back / clear filter"],
@@ -21,6 +22,7 @@ const KEYBINDINGS: Array<[string, string]> = [
 
 const LEGEND: Array<[string, string]> = [
   ["~", "symlinked skill"],
+  ["·", "library ghost (link with l)"],
   ["→link", "Type col: symlinked"],
   ["dir", "Type col: real directory"],
   ["Invoke", "both · model · user · none"],
