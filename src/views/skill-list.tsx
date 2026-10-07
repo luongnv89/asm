@@ -10,6 +10,35 @@ function compactTokens(tokenCount: number | undefined): string {
   return formatTokenCount(tokenCount).replace(/ tokens$/, "");
 }
 
+// East Asian Wide / Fullwidth characters render two terminal cells while
+// counting as one code unit, so length/slice/padEnd mis-size CJK content and
+// rows overflow. Width helpers below measure cell width instead.
+const WIDE =
+  /[\u1100-\u115F\u2E80-\uA4CF\u3040-\u30FF\uAC00-\uD7A3\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFF60\uFFE0-\uFFE6]/;
+
+export function stringWidth(s: string): number {
+  let w = 0;
+  for (const ch of s) w += WIDE.test(ch) ? 2 : 1;
+  return w;
+}
+
+function truncateByWidth(s: string, max: number): string {
+  if (stringWidth(s) <= max) return s;
+  let w = 0;
+  let out = "";
+  for (const ch of s) {
+    const cw = WIDE.test(ch) ? 2 : 1;
+    if (w + cw > max) break;
+    w += cw;
+    out += ch;
+  }
+  return out;
+}
+
+function padEndByWidth(s: string, max: number): string {
+  return s + " ".repeat(Math.max(0, max - stringWidth(s)));
+}
+
 export function calcDescWidth(termWidth: number): number {
   // Fixed (non-description) row content, measured empirically from
   // formatSkillRow with descWidth=0: "{prefix}{idx} {name} {ver} {creator}
@@ -32,16 +61,18 @@ function formatSkillRow(
   const prefix = skill.isSymlink ? "~ " : "  ";
   const nameMax = 24 - prefix.length;
   const rawName =
-    skill.name.length > nameMax
-      ? skill.name.slice(0, nameMax - 3) + "..."
+    stringWidth(skill.name) > nameMax
+      ? truncateByWidth(skill.name, nameMax - 3) + "..."
       : skill.name;
   const name = prefix + rawName;
   const ver =
     skill.version.length > 7 ? skill.version.slice(0, 7) : skill.version;
   const creatorRaw = skill.creator || "—";
-  const creator = creatorRaw.length > 10 ? creatorRaw.slice(0, 10) : creatorRaw;
+  const creator =
+    stringWidth(creatorRaw) > 10 ? truncateByWidth(creatorRaw, 10) : creatorRaw;
   const effortRaw = skill.effort || "—";
-  const effort = effortRaw.length > 6 ? effortRaw.slice(0, 6) : effortRaw;
+  const effort =
+    stringWidth(effortRaw) > 6 ? truncateByWidth(effortRaw, 6) : effortRaw;
   const invoke = formatInvocability(skill.modelInvocable, skill.userInvocable);
   const tokensRaw = compactTokens(skill.tokenCount);
   const tokens = tokensRaw.length > 5 ? tokensRaw.slice(0, 5) : tokensRaw;
@@ -52,8 +83,10 @@ function formatSkillRow(
   const scope = skill.scope;
   const type = skill.isSymlink ? "→link" : " dir ";
   const desc =
-    descWidth > 0 ? " " + (skill.description || "").slice(0, descWidth) : "";
-  return `${idx} ${name.padEnd(24)} ${ver.padEnd(8)} ${creator.padEnd(11)} ${effort.padEnd(7)} ${invoke.padEnd(6)} ${tokens.padEnd(6)} ${prov.padEnd(12)} ${scope.padEnd(7)} ${type.padEnd(5)}${desc}`;
+    descWidth > 0
+      ? " " + truncateByWidth(skill.description || "", descWidth)
+      : "";
+  return `${idx} ${padEndByWidth(name, 24)} ${ver.padEnd(8)} ${padEndByWidth(creator, 11)} ${padEndByWidth(effort, 7)} ${invoke.padEnd(6)} ${tokens.padEnd(6)} ${padEndByWidth(prov, 12)} ${scope.padEnd(7)} ${type.padEnd(5)}${desc}`;
 }
 
 export interface SkillListProps {
