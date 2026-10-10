@@ -635,6 +635,7 @@ Multiple `asm` binaries on `PATH` can shadow a fresh upgrade.
 | ------------------------------- | ----------------------------------------- | ----------------------------------------- |
 | `asm list` | List all discovered skills |
 | `asm search <query>` | Search by name/description/provider |
+| `asm search <query> --fuzzy` | Fuzzy-find installed skills in global dirs; `--root <dir>` adds projects under `<dir>` |
 | `asm tag add\|remove` | Edit local tags on an installed skill |
 | `asm inspect <skill-name>` | Show detailed info for a skill |
 | `asm get <skill>` | Print a skill's body, install nothing — `--path` borrows the full directory |
@@ -735,6 +736,13 @@ Tags are local overlays (not written into `SKILL.md`). `--tag` requires every li
 ```bash
 asm search "code review" --json
 ```
+
+```bash
+asm search revew --fuzzy                         # misspelled name, global skill dirs
+asm search "review pull requests" --root ~/work  # also projects under ~/work
+```
+
+`--fuzzy` ranks installed skills in every tool's global skill dir by how closely the name or description matches, best match first, and shows each skill's tool and location. `--root <dir>` (implies `--fuzzy`) also searches project-local installs in projects up to 5 levels under `<dir>`. Only `<dir>` is walked.
 
 ```bash
 asm audit --yes

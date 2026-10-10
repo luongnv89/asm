@@ -358,6 +358,19 @@ asm list --json                   # Output as JSON`}</CodeBlock>
               ["--flat", "Show one row per tool instance"],
               ["--json", "Output as JSON array"],
               ["--machine", "Machine-readable v1 envelope output"],
+              [
+                "--fuzzy",
+                "Fuzzy-rank installed skills in every tool's global skill dir by name and description, best match first, with tool and location",
+              ],
+              [
+                "--root <dir>",
+                <>
+                  Implies <code>--fuzzy</code>; also search project-local
+                  installs in projects up to 5 levels under{" "}
+                  <code>&lt;dir&gt;</code>. Only <code>&lt;dir&gt;</code> is
+                  walked
+                </>,
+              ],
             ]}
           />
           <CodeBlock>{`asm search code                   # Search installed and available
@@ -365,7 +378,9 @@ asm search review -p claude       # Within Claude Code only
 asm search "test" --installed     # Installed skills only
 asm search "test" --available     # Available skills only
 asm search code --tag cli,testing # Require both tags
-asm search openspec --json        # Matches as JSON`}</CodeBlock>
+asm search openspec --json        # Matches as JSON
+asm search revew --fuzzy          # Fuzzy-find a global skill by a typo
+asm search "review pull requests" --root ~/work  # Also projects under ~/work`}</CodeBlock>
 
           <h3>
             <code>asm tag</code> — Edit local tags
