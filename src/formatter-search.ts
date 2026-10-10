@@ -1,6 +1,6 @@
 import type { SkillInfo } from "./utils/types";
 import { useColor, ansi, colorEffort, providerBadge } from "./formatter-colors";
-import { groupSkills } from "./formatter-table";
+import { groupSkills, shortenPath } from "./formatter-table";
 // Split from formatter-core.ts (issue #677).
 
 // ─── Search result formatter ────────────────────────────────────────────────
@@ -91,6 +91,51 @@ export function formatSearchResults(
     );
   }
 
+  return lines.join("\n");
+}
+
+// ─── Fuzzy (located) search result formatter ────────────────────────────────
+
+/** A fuzzy `asm search --fuzzy/--root` hit and where it is installed (#735). */
+export interface LocatedSearchResult {
+  skill: SkillInfo;
+  /** Project directory holding the skill; `null` for a global install. */
+  projectRoot: string | null;
+  score: number;
+}
+
+/**
+ * One flat row per install location, in the given (score) order. Unlike
+ * `formatSearchResults`, rows are never grouped by skill name: the same
+ * skill installed in two projects must show both locations.
+ */
+export function formatLocatedSearchResults(
+  results: LocatedSearchResult[],
+): string {
+  const rows = results.map((r) => [
+    r.skill.name,
+    String(r.score),
+    r.skill.providerLabel,
+    r.projectRoot ? shortenPath(r.projectRoot) : "global",
+    shortenPath(r.skill.path),
+  ]);
+  const headers = ["Name", "Score", "Tool", "Location", "Path"];
+  const widths = headers.map((h, col) =>
+    Math.max(h.length, ...rows.map((row) => row[col].length)),
+  );
+  const line = (cells: string[]) =>
+    cells
+      .map((cell, col) =>
+        col === cells.length - 1 ? cell : cell.padEnd(widths[col]),
+      )
+      .join("  ");
+
+  const header = line(headers);
+  const lines = [
+    useColor() ? ansi.bold(header) : header,
+    widths.map((w) => "-".repeat(w)).join("  "),
+    ...rows.map(line),
+  ];
   return lines.join("\n");
 }
 

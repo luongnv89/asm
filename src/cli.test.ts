@@ -1039,6 +1039,29 @@ describe("parseArgs: additional flags", () => {
   });
 });
 
+// ─── parseArgs: search --fuzzy / --root (issue #735) ─────────────────────────
+
+describe("parseArgs: search --fuzzy / --root (#735)", () => {
+  const parse = (...args: string[]) =>
+    parseArgs(["node", "script.ts", ...args]);
+
+  test("defaults fuzzy to false and root to null", () => {
+    const result = parse("search", "q");
+    expect(result.flags.fuzzy).toBe(false);
+    expect(result.flags.root).toBeNull();
+  });
+
+  test("parses --fuzzy", () => {
+    expect(parse("search", "q", "--fuzzy").flags.fuzzy).toBe(true);
+  });
+
+  test("parses --root <dir>", () => {
+    const result = parse("search", "q", "--root", "~/projects");
+    expect(result.flags.root).toBe("~/projects");
+    expect(result.subcommand).toBe("q");
+  });
+});
+
 // ─── parseArgs: large-list flags (issue #192) ───────────────────────────────
 
 describe("parseArgs: large-list flags (#192)", () => {

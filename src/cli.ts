@@ -46,6 +46,16 @@ export interface ParsedArgs {
     userInvocable: boolean;
     /** Repeatable/comma-separated tag filters for list and search. */
     tagFilters: string[];
+    /**
+     * `asm search --fuzzy` — fuzzy-ranked search of installed skills in every
+     * tool's global skill dir (issue #735).
+     */
+    fuzzy: boolean;
+    /**
+     * `asm search --root <dir>` — fuzzy search that also walks <dir> for
+     * project-local installs; implies `--fuzzy` (issue #735).
+     */
+    root: string | null;
     dryRun: boolean;
     /** `asm import --diff` — show unified diffs for conflicts. */
     diff: boolean;
@@ -139,6 +149,8 @@ export function parseArgs(argv: string[]): ParsedArgs {
       modelInvocable: false,
       userInvocable: false,
       tagFilters: [],
+      fuzzy: false,
+      root: null,
       dryRun: false,
       diff: false,
       machine: false,
@@ -319,6 +331,15 @@ export function parseArgs(argv: string[]): ParsedArgs {
         process.exit(2);
       }
       result.flags.tagFilters.push(args[i]);
+    } else if (arg === "--fuzzy") {
+      result.flags.fuzzy = true;
+    } else if (arg === "--root") {
+      i++;
+      if (!args[i]) {
+        error('Missing value for "--root".');
+        process.exit(2);
+      }
+      result.flags.root = args[i];
     } else if (arg === "--add") {
       i++;
       result.flags.add = args[i] || null;
@@ -397,6 +418,7 @@ ${ansi.bold("Usage:")}
 ${ansi.bold("Commands:")}
   list                   List all discovered skills
   search <query>         Search skills by name/description/tool
+  search <query> --fuzzy Fuzzy-find installed skills; --root <dir> adds projects
   tag add|remove         Edit local tags for an installed skill
   inspect <skill-name>   Show detailed info for a skill
   get <skill>            Print a skill body, or borrow its directory with --path
