@@ -44,7 +44,7 @@ const AGENTS_PLUGINS_MARKETPLACE_PATH = join(
   "marketplace.json",
 );
 
-interface ScanLocation {
+export interface ScanLocation {
   dir: string;
   location: string;
   scope: "global" | "project";
@@ -105,14 +105,14 @@ interface ScanEntryBatch {
   resolve: (skills: SkillInfo[]) => void;
 }
 
-interface ScanEntryScheduler {
+export interface ScanEntryScheduler {
   run(
     entries: string[],
     task: (entry: string, index: number) => Promise<SkillInfo | undefined>,
   ): Promise<SkillInfo[]>;
 }
 
-function createScanEntryScheduler(): ScanEntryScheduler {
+export function createScanEntryScheduler(): ScanEntryScheduler {
   const batches: ScanEntryBatch[] = [];
   let active = 0;
   let cursor = 0;
@@ -266,7 +266,7 @@ export function cacheSkillMdContent(skill: SkillInfo, content: string): void {
   });
 }
 
-async function scanDirectory(
+export async function scanDirectory(
   loc: ScanLocation,
   scheduler: ScanEntryScheduler,
 ): Promise<SkillInfo[]> {
