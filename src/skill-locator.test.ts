@@ -163,4 +163,15 @@ describe("locateSkills (issue #735)", () => {
     const p1 = results.find((r) => r.skill.name === "p1")!;
     expect(p1.projectRoot).toBe(join(home, "work", "projA"));
   });
+
+  test("a root that reaches HOME through a symlink does not duplicate global dirs", async () => {
+    await writeSkill(join(home, ".claude", "skills", "g1"), "g1");
+    const link = join(base, "home-link");
+    await createDirSymlink(home, link);
+
+    const results = await locateSkills(getDefaultConfig(), { root: link });
+
+    expect(names(results)).toEqual(["g1"]);
+    expect(results[0].skill.path).toBe(join(home, ".claude", "skills", "g1"));
+  });
 });
