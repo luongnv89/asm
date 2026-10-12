@@ -1,6 +1,12 @@
 /** @vitest-environment jsdom */
-import { afterEach, describe, expect, it } from "vitest";
-import { cleanup, render, screen } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+} from "@testing-library/react";
 import { HashRouter } from "react-router-dom";
 import SkillDetail from "../components/SkillDetail.jsx";
 
@@ -181,5 +187,129 @@ describe("SkillDetail — repo detail link (issue #623)", () => {
     expect(internal.getAttribute("href")).toBe("#/repos/test/repo");
     const external = screen.getByRole("link", { name: "test/repo" });
     expect(external.getAttribute("href")).toBe("https://github.com/test/repo");
+  });
+});
+
+describe("SkillDetail — full-details fetch resilience (issue #737)", () => {
+  // detailCache is module-level, so every test uses its own detailPath.
+  let seq = 0;
+  const nextSkill = () => ({
+    ...baseSkill,
+    detailPath: `skills/issue-737-${++seq}.json`,
+  });
+  const fullDetail = (slim) => ({
+    ...slim,
+    description: "Full description loaded from the detail file",
+  });
+  const okResponse = (body) => ({
+    ok: true,
+    status: 200,
+    json: async () => body,
+  });
+  const flush = (ms = 0) => act(() => vi.advanceTimersByTimeAsync(ms));
+
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    cleanup();
+    vi.useRealTimers();
+    vi.unstubAllGlobals();
+  });
+
+  it("retries a transient network failure and then shows the full details", async () => {
+    const slim = nextSkill();
+    const fetchMock = vi
+      .fn()
+      .mockRejectedValueOnce(new TypeError("Failed to fetch"))
+      .mockResolvedValueOnce(okResponse(fullDetail(slim)));
+    vi.stubGlobal("fetch", fetchMock);
+
+    renderDetail({ slim });
+    await flush(5000);
+
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(
+      screen.getByText("Full description loaded from the detail file"),
+    ).toBeTruthy();
+    expect(screen.queryByText(/Could not load full details/)).toBeNull();
+    expect(screen.queryByText(/Failed to fetch/)).toBeNull();
+  });
+
+  it("shows a clear message and a retry button when the network stays down", async () => {
+    const slim = nextSkill();
+    const fetchMock = vi
+      .fn()
+      .mockRejectedValue(new TypeError("Failed to fetch"));
+    vi.stubGlobal("fetch", fetchMock);
+
+    renderDetail({ slim });
+    await flush(10000);
+
+    const alert = screen.getByRole("alert");
+    expect(alert.textContent).toMatch(/Could not load full details/);
+    expect(alert.textContent).toMatch(/connection/i);
+    expect(alert.textContent).not.toMatch(/Failed to fetch/);
+    // Summary and install command stay usable.
+    expect(screen.getByText("A test skill for unit testing")).toBeTruthy();
+    expect(
+      screen.getByText("asm install github:test/repo:skills/test-skill"),
+    ).toBeTruthy();
+
+    const callsBefore = fetchMock.mock.calls.length;
+    fetchMock.mockResolvedValue(okResponse(fullDetail(slim)));
+    fireEvent.click(screen.getByRole("button", { name: /try again/i }));
+    await flush(5000);
+
+    expect(fetchMock.mock.calls.length).toBe(callsBefore + 1);
+    expect(screen.queryByRole("alert")).toBeNull();
+    expect(
+      screen.getByText("Full description loaded from the detail file"),
+    ).toBeTruthy();
+  });
+
+  it("does not retry a 404", async () => {
+    const slim = nextSkill();
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue({ ok: false, status: 404, json: async () => ({}) });
+    vi.stubGlobal("fetch", fetchMock);
+
+    renderDetail({ slim });
+    await flush(10000);
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole("alert").textContent).toMatch(/HTTP 404/);
+  });
+
+  it("retries a 503 before giving up", async () => {
+    const slim = nextSkill();
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce({ ok: false, status: 503, json: async () => ({}) })
+      .mockResolvedValueOnce(okResponse(fullDetail(slim)));
+    vi.stubGlobal("fetch", fetchMock);
+
+    renderDetail({ slim });
+    await flush(5000);
+
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(screen.queryByRole("alert")).toBeNull();
+  });
+
+  it("stops retrying once the component unmounts", async () => {
+    const slim = nextSkill();
+    const fetchMock = vi
+      .fn()
+      .mockRejectedValue(new TypeError("Failed to fetch"));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const { unmount } = renderDetail({ slim });
+    await flush(0);
+    unmount();
+    await flush(10000);
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 });

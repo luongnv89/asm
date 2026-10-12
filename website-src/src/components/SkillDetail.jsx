@@ -18,10 +18,46 @@ import { Card } from "./ui/card.jsx";
  * detailPath eliminates redundant fetches when navigating between
  * skills and back.
  *
+ * A network failure ("Failed to fetch") or a 5xx/408/429 response is
+ * retried with a short backoff before giving up (issue #737). If the
+ * details still cannot be loaded, a plain-language message with a
+ * "Try again" button is shown; the slim row keeps the summary and the
+ * install command usable either way.
+ *
  * Props:
  *   - slim: the slim row from catalog.skills (required)
  */
 const detailCache = new Map();
+
+/** Backoff before each automatic retry; its length is the retry count. */
+const RETRY_DELAYS_MS = [500, 1500];
+
+/** Error raised for a non-2xx response, flagged when worth retrying. */
+class DetailHttpError extends Error {
+  constructor(status) {
+    super("HTTP " + status);
+    this.retryable = status >= 500 || status === 408 || status === 429;
+  }
+}
+
+/**
+ * `fetch` rejects with a TypeError ("Failed to fetch" in Chromium) for
+ * any network-level failure: offline, DNS, reset connection, or a
+ * service worker answering with Response.error().
+ */
+function isRetryable(err) {
+  return err instanceof TypeError || err?.retryable === true;
+}
+
+function describeDetailError(err) {
+  if (err instanceof TypeError) {
+    return "The network request failed. Check your connection and try again.";
+  }
+  if (err instanceof DetailHttpError) {
+    return `The server responded with ${err.message}.`;
+  }
+  return "The details file could not be read.";
+}
 
 export default function SkillDetail({ slim }) {
   const [detail, setDetail] = useState({
@@ -29,6 +65,7 @@ export default function SkillDetail({ slim }) {
     loading: true,
     error: null,
   });
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     if (!slim?.detailPath) {
@@ -46,11 +83,13 @@ export default function SkillDetail({ slim }) {
     }
 
     let cancelled = false;
+    let retryTimer = null;
+    const controller = new AbortController();
     setDetail({ data: null, loading: true, error: null });
-    (async () => {
+    const load = async (attempt) => {
       try {
-        const res = await fetch(path);
-        if (!res.ok) throw new Error("HTTP " + res.status);
+        const res = await fetch(path, { signal: controller.signal });
+        if (!res.ok) throw new DetailHttpError(res.status);
         const data = await res.json();
         if (cancelled) return;
         // Store in cache
@@ -58,17 +97,27 @@ export default function SkillDetail({ slim }) {
         setDetail({ data, loading: false, error: null });
       } catch (err) {
         if (cancelled) return;
+        if (isRetryable(err) && attempt < RETRY_DELAYS_MS.length) {
+          retryTimer = setTimeout(
+            () => load(attempt + 1),
+            RETRY_DELAYS_MS[attempt],
+          );
+          return;
+        }
         setDetail({
           data: null,
           loading: false,
-          error: err instanceof Error ? err.message : String(err),
+          error: describeDetailError(err),
         });
       }
-    })();
+    };
+    load(0);
     return () => {
       cancelled = true;
+      clearTimeout(retryTimer);
+      controller.abort();
     };
-  }, [slim?.detailPath]);
+  }, [slim?.detailPath, reloadKey]);
 
   const skill = useMemo(() => detail.data || slim, [detail.data, slim]);
   if (!skill) return null;
@@ -224,9 +273,22 @@ export default function SkillDetail({ slim }) {
 
       {detail.loading && <p className="shop-meta">Loading details…</p>}
       {detail.error && (
-        <p className="text-xs text-[var(--warn)]">
-          ⚠ Could not load full details: {detail.error}
-        </p>
+        <div
+          role="alert"
+          className="flex flex-wrap items-center gap-2 text-xs text-[var(--warn)]"
+        >
+          <span>
+            ⚠ Could not load full details. {detail.error} The summary and
+            install command above still work.
+          </span>
+          <button
+            type="button"
+            className="underline underline-offset-2"
+            onClick={() => setReloadKey((k) => k + 1)}
+          >
+            Try again
+          </button>
+        </div>
       )}
     </div>
   );
