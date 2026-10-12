@@ -275,15 +275,18 @@ export default function SkillDetail({ slim }) {
       {detail.error && (
         <div
           role="alert"
-          className="flex flex-wrap items-center gap-2 text-xs text-[var(--warn)]"
+          className="flex flex-wrap items-center gap-x-2 rounded-md border border-[var(--warn)] bg-[var(--warn-bg)] px-3 py-1 text-xs text-[var(--fg)]"
         >
           <span>
-            ⚠ Could not load full details. {detail.error} The summary and
-            install command above still work.
+            <span className="text-[var(--warn)]" aria-hidden="true">
+              ⚠
+            </span>{" "}
+            Could not load full details. {detail.error} The summary and install
+            command above still work.
           </span>
           <button
             type="button"
-            className="underline underline-offset-2"
+            className="inline-flex min-h-11 items-center px-2 -mx-2 underline underline-offset-2 hover:text-[var(--brand)] transition-colors"
             onClick={() => setReloadKey((k) => k + 1)}
           >
             Try again
