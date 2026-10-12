@@ -1,0 +1,2240 @@
+{
+  "repoUrl": "https://github.com/elevenlabs/skills.git",
+  "owner": "elevenlabs",
+  "repo": "skills",
+  "updatedAt": "2026-10-12T21:02:58.312Z",
+  "skillCount": 11,
+  "skills": [
+    {
+      "name": "agents",
+      "description": "Build voice AI agents with ElevenLabs. Use when creating voice assistants, customer service bots, interactive voice characters, or any real-time voice conversation experience, and when configuring an agent's tools, workflows, or procedures, including creating, editing, and publishing free-form and structured procedure drafts on an agent branch over the SDKs or REST API.",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires internet access and an ElevenLabs API key (ELEVENLABS_API_KEY).",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:elevenlabs/skills:agents",
+      "relPath": "agents",
+      "verified": true,
+      "tokenCount": 6171,
+      "evalSummary": {
+        "overallScore": 84,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-12T21:02:58.288Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 84,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.288Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.288Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "dubbing",
+      "description": "Dub audio and video into other languages using the ElevenLabs Dubbing API (dubbing_v2), preserving the original speakers' voices. Use when translating videos, podcasts, or recordings into other languages, localizing media content, reviewing or correcting dubbing transcripts and translations, or regenerating a dub after edits.",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires internet access and an ElevenLabs API key (ELEVENLABS_API_KEY).",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:elevenlabs/skills:dubbing",
+      "relPath": "dubbing",
+      "verified": true,
+      "tokenCount": 3332,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-12T21:02:58.286Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.288Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.288Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "music",
+      "description": "Generate music using ElevenLabs Music API. Use when creating instrumental tracks, songs with lyrics, background music, jingles, or any AI-generated music composition. Supports prompt-based generation, composition plans for granular control, and detailed output with metadata.",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires internet access and an ElevenLabs API key (ELEVENLABS_API_KEY).",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:elevenlabs/skills:music",
+      "relPath": "music",
+      "verified": true,
+      "tokenCount": 3408,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-12T21:02:58.288Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.288Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.288Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "setup-api-key",
+      "description": "Guides users through setting up an ElevenLabs API key for REST API and SDK workflows. Use when the user needs to configure an ElevenLabs API key or when an API or SDK request fails because a key is missing. First checks whether ELEVENLABS_API_KEY is already configured and valid, and only runs full setup when needed.",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires internet access to elevenlabs.io and api.elevenlabs.io.",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:elevenlabs/skills:setup-api-key",
+      "relPath": "setup-api-key",
+      "verified": true,
+      "tokenCount": 1246,
+      "evalSummary": {
+        "overallScore": 74,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-12T21:02:58.288Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.288Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.288Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "sound-effects",
+      "description": "Generate sound effects from text descriptions using ElevenLabs. Use when creating sound effects, generating audio textures, producing ambient sounds, cinematic impacts, UI sounds, or any audio that isn't speech. Supports looping, duration control, and prompt influence tuning.",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires internet access and an ElevenLabs API key (ELEVENLABS_API_KEY).",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:elevenlabs/skills:sound-effects",
+      "relPath": "sound-effects",
+      "verified": true,
+      "tokenCount": 915,
+      "evalSummary": {
+        "overallScore": 77,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-12T21:02:58.288Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.288Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.288Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "speech-engine",
+      "description": "Add real-time voice conversations to a custom agent runtime with ElevenLabs Speech Engine. Use when building Speech Engine servers, WebSocket handlers, WebRTC browser clients, conversation token endpoints, interruption-aware streaming responses, or voice-enabled chat agents that connect developer-owned server logic to ElevenLabs speech-to-text and text-to-speech.",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires internet access and an ElevenLabs API key (ELEVENLABS_API_KEY).",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:elevenlabs/skills:speech-engine",
+      "relPath": "speech-engine",
+      "verified": true,
+      "tokenCount": 2430,
+      "evalSummary": {
+        "overallScore": 83,
+        "grade": "B",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-12T21:02:58.288Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 83,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.288Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.288Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "speech-to-text",
+      "description": "Transcribe audio to text using ElevenLabs Scribe v2. Use when converting audio/video to text, generating subtitles, transcribing meetings, or processing spoken content.",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires internet access and an ElevenLabs API key (ELEVENLABS_API_KEY).",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:elevenlabs/skills:speech-to-text",
+      "relPath": "speech-to-text",
+      "verified": true,
+      "tokenCount": 2360,
+      "evalSummary": {
+        "overallScore": 73,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-12T21:02:58.288Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.288Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.288Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "text-to-speech",
+      "description": "Convert text to speech using ElevenLabs voice AI. Use when generating audio from text, creating voiceovers, building voice apps, or synthesizing speech in 90+ languages.",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires internet access and an ElevenLabs API key (ELEVENLABS_API_KEY).",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:elevenlabs/skills:text-to-speech",
+      "relPath": "text-to-speech",
+      "verified": true,
+      "tokenCount": 2173,
+      "evalSummary": {
+        "overallScore": 75,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-12T21:02:58.288Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 75,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.288Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.288Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "update-skills-from-changelog",
+      "description": "Update ElevenLabs agent skills from a merged weekly changelog in elevenlabs-dx, then open a pull request in elevenlabs/skills. Trigger after a changelog merges to main on elevenlabs-dx, or when asked to update skills from changelog YYYY-MM-DD.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:elevenlabs/skills:.agents/skills/update-skills-from-changelog",
+      "relPath": ".agents/skills/update-skills-from-changelog",
+      "verified": true,
+      "tokenCount": 3677,
+      "evalSummary": {
+        "overallScore": 77,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-12T21:02:58.302Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.302Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.302Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "voice-changer",
+      "description": "Transform the voice in an audio recording into a different target voice while preserving emotion, timing, and delivery using the ElevenLabs Voice Changer (speech-to-speech) API. Use when converting one voice to another, changing the speaker/narrator of an existing recording, dubbing a voice-over in a different voice, creating character voices from a scratch performance, anonymizing a speaker, or any \"voice conversion / voice transfer / speech-to-speech\" task. Make sure to use this skill whenever the user mentions voice changing, voice conversion, speech-to-speech, swapping a voice in audio, re-voicing a clip, or applying a different voice to an existing recording — even if they don't explicitly say \"voice changer\". Do not use this skill to create or clone a new voice from a voice sample — that is voice cloning (IVC/PVC), a separate feature; this skill only converts an existing recording into an existing voice_id.",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires internet access and an ElevenLabs API key (ELEVENLABS_API_KEY).",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:elevenlabs/skills:voice-changer",
+      "relPath": "voice-changer",
+      "verified": true,
+      "tokenCount": 3084,
+      "evalSummary": {
+        "overallScore": 78,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-12T21:02:58.304Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.304Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.304Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "voice-isolator",
+      "description": "Remove background noise and isolate vocals/speech from audio using ElevenLabs Voice Isolator (audio isolation) API. Use when cleaning up noisy recordings, removing music or background ambience from dialogue, isolating speech from field recordings, preparing audio for transcription, extracting vocals, or any \"denoise / clean up / isolate voice\" task.",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires internet access and an ElevenLabs API key (ELEVENLABS_API_KEY).",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:elevenlabs/skills:voice-isolator",
+      "relPath": "voice-isolator",
+      "verified": true,
+      "tokenCount": 854,
+      "evalSummary": {
+        "overallScore": 78,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-12T21:02:58.306Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 78,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.306Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-12T21:02:58.306Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "elevenlabs-skills-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from elevenlabs/skills.",
+      "author": "ASM (elevenlabs/skills)",
+      "createdAt": "2026-10-12T21:02:58.312Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "elevenlabs",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "agents",
+          "installUrl": "github:elevenlabs/skills:agents",
+          "description": "Build voice AI agents with ElevenLabs. Use when creating voice assistants, customer service bots, interactive voice characters, or any real-time voice conversation experience, and when configuring an agent's tools, workflows, or procedures, including creating, editing, and publishing free-form and structured procedure drafts on an agent branch over the SDKs or REST API.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "music",
+          "installUrl": "github:elevenlabs/skills:music",
+          "description": "Generate music using ElevenLabs Music API. Use when creating instrumental tracks, songs with lyrics, background music, jingles, or any AI-generated music composition. Supports prompt-based generation, composition plans for granular control, and detailed output with metadata.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "setup-api-key",
+          "installUrl": "github:elevenlabs/skills:setup-api-key",
+          "description": "Guides users through setting up an ElevenLabs API key for REST API and SDK workflows. Use when the user needs to configure an ElevenLabs API key or when an API or SDK request fails because a key is missing. First checks whether ELEVENLABS_API_KEY is already configured and valid, and only runs full setup when needed.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "sound-effects",
+          "installUrl": "github:elevenlabs/skills:sound-effects",
+          "description": "Generate sound effects from text descriptions using ElevenLabs. Use when creating sound effects, generating audio textures, producing ambient sounds, cinematic impacts, UI sounds, or any audio that isn't speech. Supports looping, duration control, and prompt influence tuning.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "speech-engine",
+          "installUrl": "github:elevenlabs/skills:speech-engine",
+          "description": "Add real-time voice conversations to a custom agent runtime with ElevenLabs Speech Engine. Use when building Speech Engine servers, WebSocket handlers, WebRTC browser clients, conversation token endpoints, interruption-aware streaming responses, or voice-enabled chat agents that connect developer-owned server logic to ElevenLabs speech-to-text and text-to-speech.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "text-to-speech",
+          "installUrl": "github:elevenlabs/skills:text-to-speech",
+          "description": "Convert text to speech using ElevenLabs voice AI. Use when generating audio from text, creating voiceovers, building voice apps, or synthesizing speech in 90+ languages.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "update-skills-from-changelog",
+          "installUrl": "github:elevenlabs/skills:.agents/skills/update-skills-from-changelog",
+          "description": "Update ElevenLabs agent skills from a merged weekly changelog in elevenlabs-dx, then open a pull request in elevenlabs/skills. Trigger after a changelog merges to main on elevenlabs-dx, or when asked to update skills from changelog YYYY-MM-DD.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "elevenlabs",
+        "repo": "skills",
+        "repoUrl": "https://github.com/elevenlabs/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "elevenlabs-skills-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from elevenlabs/skills.",
+      "author": "ASM (elevenlabs/skills)",
+      "createdAt": "2026-10-12T21:02:58.312Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "elevenlabs",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "agents",
+          "installUrl": "github:elevenlabs/skills:agents",
+          "description": "Build voice AI agents with ElevenLabs. Use when creating voice assistants, customer service bots, interactive voice characters, or any real-time voice conversation experience, and when configuring an agent's tools, workflows, or procedures, including creating, editing, and publishing free-form and structured procedure drafts on an agent branch over the SDKs or REST API.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "setup-api-key",
+          "installUrl": "github:elevenlabs/skills:setup-api-key",
+          "description": "Guides users through setting up an ElevenLabs API key for REST API and SDK workflows. Use when the user needs to configure an ElevenLabs API key or when an API or SDK request fails because a key is missing. First checks whether ELEVENLABS_API_KEY is already configured and valid, and only runs full setup when needed.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "sound-effects",
+          "installUrl": "github:elevenlabs/skills:sound-effects",
+          "description": "Generate sound effects from text descriptions using ElevenLabs. Use when creating sound effects, generating audio textures, producing ambient sounds, cinematic impacts, UI sounds, or any audio that isn't speech. Supports looping, duration control, and prompt influence tuning.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "voice-changer",
+          "installUrl": "github:elevenlabs/skills:voice-changer",
+          "description": "Transform the voice in an audio recording into a different target voice while preserving emotion, timing, and delivery using the ElevenLabs Voice Changer (speech-to-speech) API. Use when converting one voice to another, changing the speaker/narrator of an existing recording, dubbing a voice-over in a different voice, creating character voices from a scratch performance, anonymizing a speaker, or any \"voice conversion / voice transfer / speech-to-speech\" task. Make sure to use this skill whenever the user mentions voice changing, voice conversion, speech-to-speech, swapping a voice in audio, re-voicing a clip, or applying a different voice to an existing recording — even if they don't explicitly say \"voice changer\". Do not use this skill to create or clone a new voice from a voice sample — that is voice cloning (IVC/PVC), a separate feature; this skill only converts an existing recording into an existing voice_id.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "elevenlabs",
+        "repo": "skills",
+        "repoUrl": "https://github.com/elevenlabs/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "elevenlabs-skills-engineering",
+      "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from elevenlabs/skills.",
+      "author": "ASM (elevenlabs/skills)",
+      "createdAt": "2026-10-12T21:02:58.312Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "engineering",
+        "coding",
+        "testing",
+        "elevenlabs",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "agents",
+          "installUrl": "github:elevenlabs/skills:agents",
+          "description": "Build voice AI agents with ElevenLabs. Use when creating voice assistants, customer service bots, interactive voice characters, or any real-time voice conversation experience, and when configuring an agent's tools, workflows, or procedures, including creating, editing, and publishing free-form and structured procedure drafts on an agent branch over the SDKs or REST API.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "dubbing",
+          "installUrl": "github:elevenlabs/skills:dubbing",
+          "description": "Dub audio and video into other languages using the ElevenLabs Dubbing API (dubbing_v2), preserving the original speakers' voices. Use when translating videos, podcasts, or recordings into other languages, localizing media content, reviewing or correcting dubbing transcripts and translations, or regenerating a dub after edits.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "music",
+          "installUrl": "github:elevenlabs/skills:music",
+          "description": "Generate music using ElevenLabs Music API. Use when creating instrumental tracks, songs with lyrics, background music, jingles, or any AI-generated music composition. Supports prompt-based generation, composition plans for granular control, and detailed output with metadata.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "setup-api-key",
+          "installUrl": "github:elevenlabs/skills:setup-api-key",
+          "description": "Guides users through setting up an ElevenLabs API key for REST API and SDK workflows. Use when the user needs to configure an ElevenLabs API key or when an API or SDK request fails because a key is missing. First checks whether ELEVENLABS_API_KEY is already configured and valid, and only runs full setup when needed.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "speech-engine",
+          "installUrl": "github:elevenlabs/skills:speech-engine",
+          "description": "Add real-time voice conversations to a custom agent runtime with ElevenLabs Speech Engine. Use when building Speech Engine servers, WebSocket handlers, WebRTC browser clients, conversation token endpoints, interruption-aware streaming responses, or voice-enabled chat agents that connect developer-owned server logic to ElevenLabs speech-to-text and text-to-speech.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "text-to-speech",
+          "installUrl": "github:elevenlabs/skills:text-to-speech",
+          "description": "Convert text to speech using ElevenLabs voice AI. Use when generating audio from text, creating voiceovers, building voice apps, or synthesizing speech in 90+ languages.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "voice-changer",
+          "installUrl": "github:elevenlabs/skills:voice-changer",
+          "description": "Transform the voice in an audio recording into a different target voice while preserving emotion, timing, and delivery using the ElevenLabs Voice Changer (speech-to-speech) API. Use when converting one voice to another, changing the speaker/narrator of an existing recording, dubbing a voice-over in a different voice, creating character voices from a scratch performance, anonymizing a speaker, or any \"voice conversion / voice transfer / speech-to-speech\" task. Make sure to use this skill whenever the user mentions voice changing, voice conversion, speech-to-speech, swapping a voice in audio, re-voicing a clip, or applying a different voice to an existing recording — even if they don't explicitly say \"voice changer\". Do not use this skill to create or clone a new voice from a voice sample — that is voice cloning (IVC/PVC), a separate feature; this skill only converts an existing recording into an existing voice_id.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "voice-isolator",
+          "installUrl": "github:elevenlabs/skills:voice-isolator",
+          "description": "Remove background noise and isolate vocals/speech from audio using ElevenLabs Voice Isolator (audio isolation) API. Use when cleaning up noisy recordings, removing music or background ambience from dialogue, isolating speech from field recordings, preparing audio for transcription, extracting vocals, or any \"denoise / clean up / isolate voice\" task.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "elevenlabs",
+        "repo": "skills",
+        "repoUrl": "https://github.com/elevenlabs/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "elevenlabs-skills-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from elevenlabs/skills.",
+      "author": "ASM (elevenlabs/skills)",
+      "createdAt": "2026-10-12T21:02:58.312Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "elevenlabs",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "agents",
+          "installUrl": "github:elevenlabs/skills:agents",
+          "description": "Build voice AI agents with ElevenLabs. Use when creating voice assistants, customer service bots, interactive voice characters, or any real-time voice conversation experience, and when configuring an agent's tools, workflows, or procedures, including creating, editing, and publishing free-form and structured procedure drafts on an agent branch over the SDKs or REST API.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "setup-api-key",
+          "installUrl": "github:elevenlabs/skills:setup-api-key",
+          "description": "Guides users through setting up an ElevenLabs API key for REST API and SDK workflows. Use when the user needs to configure an ElevenLabs API key or when an API or SDK request fails because a key is missing. First checks whether ELEVENLABS_API_KEY is already configured and valid, and only runs full setup when needed.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "sound-effects",
+          "installUrl": "github:elevenlabs/skills:sound-effects",
+          "description": "Generate sound effects from text descriptions using ElevenLabs. Use when creating sound effects, generating audio textures, producing ambient sounds, cinematic impacts, UI sounds, or any audio that isn't speech. Supports looping, duration control, and prompt influence tuning.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "speech-engine",
+          "installUrl": "github:elevenlabs/skills:speech-engine",
+          "description": "Add real-time voice conversations to a custom agent runtime with ElevenLabs Speech Engine. Use when building Speech Engine servers, WebSocket handlers, WebRTC browser clients, conversation token endpoints, interruption-aware streaming responses, or voice-enabled chat agents that connect developer-owned server logic to ElevenLabs speech-to-text and text-to-speech.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "text-to-speech",
+          "installUrl": "github:elevenlabs/skills:text-to-speech",
+          "description": "Convert text to speech using ElevenLabs voice AI. Use when generating audio from text, creating voiceovers, building voice apps, or synthesizing speech in 90+ languages.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "elevenlabs",
+        "repo": "skills",
+        "repoUrl": "https://github.com/elevenlabs/skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "elevenlabs-skills-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from elevenlabs/skills.",
+      "author": "ASM (elevenlabs/skills)",
+      "createdAt": "2026-10-12T21:02:58.312Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "elevenlabs",
+        "skills"
+      ],
+      "skills": [
+        {
+          "name": "agents",
+          "installUrl": "github:elevenlabs/skills:agents",
+          "description": "Build voice AI agents with ElevenLabs. Use when creating voice assistants, customer service bots, interactive voice characters, or any real-time voice conversation experience, and when configuring an agent's tools, workflows, or procedures, including creating, editing, and publishing free-form and structured procedure drafts on an agent branch over the SDKs or REST API.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "dubbing",
+          "installUrl": "github:elevenlabs/skills:dubbing",
+          "description": "Dub audio and video into other languages using the ElevenLabs Dubbing API (dubbing_v2), preserving the original speakers' voices. Use when translating videos, podcasts, or recordings into other languages, localizing media content, reviewing or correcting dubbing transcripts and translations, or regenerating a dub after edits.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "speech-to-text",
+          "installUrl": "github:elevenlabs/skills:speech-to-text",
+          "description": "Transcribe audio to text using ElevenLabs Scribe v2. Use when converting audio/video to text, generating subtitles, transcribing meetings, or processing spoken content.",
+          "version": "0.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "elevenlabs",
+        "repo": "skills",
+        "repoUrl": "https://github.com/elevenlabs/skills.git"
+      },
+      "inferred": true
+    }
+  ]
+}

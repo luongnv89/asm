@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "name": "content-team",
+  "description": "A content team in your agent: topic research, writing, visuals, video, sound, and publishing — you approve each step before anything is scheduled or posted.",
+  "author": "ASM",
+  "createdAt": "2026-10-12T00:00:00.000Z",
+  "tags": ["content", "marketing", "social", "video", "audio", "design"],
+  "skills": [
+    {
+      "name": "last30days",
+      "installUrl": "github:mvanhorn/last30days-skill:skills/last30days",
+      "description": "Topics: research what people are saying about any topic in the last 30 days"
+    },
+    {
+      "name": "content-strategy",
+      "installUrl": "github:coreyhaines31/marketingskills:skills/content-strategy",
+      "description": "Writing: plan a content strategy and decide what to create"
+    },
+    {
+      "name": "copywriting",
+      "installUrl": "github:coreyhaines31/marketingskills:skills/copywriting",
+      "description": "Writing: write or rewrite marketing copy for any page"
+    },
+    {
+      "name": "copy-editing",
+      "installUrl": "github:coreyhaines31/marketingskills:skills/copy-editing",
+      "description": "Writing: edit, review, and refresh existing copy"
+    },
+    {
+      "name": "social",
+      "installUrl": "github:coreyhaines31/marketingskills:skills/social",
+      "description": "Writing: create and optimize social media content"
+    },
+    {
+      "name": "humanizer",
+      "installUrl": "github:blader/humanizer",
+      "description": "Writing: rewrite AI-sounding text so it reads like the writer"
+    },
+    {
+      "name": "baoyu-cover-image",
+      "installUrl": "github:JimLiu/baoyu-skills:skills/baoyu-cover-image",
+      "description": "Visuals: generate article cover images"
+    },
+    {
+      "name": "baoyu-article-illustrator",
+      "installUrl": "github:JimLiu/baoyu-skills:skills/baoyu-article-illustrator",
+      "description": "Visuals: find where an article needs visuals and illustrate it"
+    },
+    {
+      "name": "baoyu-infographic",
+      "installUrl": "github:JimLiu/baoyu-skills:skills/baoyu-infographic",
+      "description": "Visuals: generate infographics from content"
+    },
+    {
+      "name": "baoyu-image-gen",
+      "installUrl": "github:JimLiu/baoyu-skills:skills/baoyu-image-gen",
+      "description": "Visuals: AI image generation across multiple providers"
+    },
+    {
+      "name": "frontend-slides",
+      "installUrl": "github:zarazhangrui/frontend-slides",
+      "description": "Visuals: build animation-rich HTML presentations"
+    },
+    {
+      "name": "hyperframes",
+      "installUrl": "github:heygen-com/hyperframes:skills/hyperframes",
+      "description": "Video: entry point for making or editing HyperFrames videos"
+    },
+    {
+      "name": "hyperframes-core",
+      "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-core",
+      "description": "Video: the HyperFrames composition contract"
+    },
+    {
+      "name": "hyperframes-cli",
+      "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-cli",
+      "description": "Video: HyperFrames CLI loop — init, lint, preview, render"
+    },
+    {
+      "name": "hyperframes-animation",
+      "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-animation",
+      "description": "Video: motion rules, scene blueprints, and transitions"
+    },
+    {
+      "name": "hyperframes-creative",
+      "installUrl": "github:heygen-com/hyperframes:skills/hyperframes-creative",
+      "description": "Video: design spec, palette, typography, and narration"
+    },
+    {
+      "name": "media-use",
+      "installUrl": "github:heygen-com/hyperframes:skills/media-use",
+      "description": "Video: source images, audio, captions, and media for a project"
+    },
+    {
+      "name": "video-use",
+      "installUrl": "github:browser-use/video-use",
+      "description": "Video: edit any video by conversation — cut, grade, subtitle"
+    },
+    {
+      "name": "text-to-speech",
+      "installUrl": "github:elevenlabs/skills:text-to-speech",
+      "description": "Sound: ElevenLabs voiceover (needs ELEVENLABS_API_KEY)"
+    },
+    {
+      "name": "sound-effects",
+      "installUrl": "github:elevenlabs/skills:sound-effects",
+      "description": "Sound: ElevenLabs sound effects (needs ELEVENLABS_API_KEY)"
+    },
+    {
+      "name": "music",
+      "installUrl": "github:elevenlabs/skills:music",
+      "description": "Sound: ElevenLabs music generation (needs ELEVENLABS_API_KEY)"
+    },
+    {
+      "name": "setup-api-key",
+      "installUrl": "github:elevenlabs/skills:setup-api-key",
+      "description": "Sound: set up the ElevenLabs API key"
+    },
+    {
+      "name": "postiz",
+      "installUrl": "github:gitroomhq/postiz-agent:skills/postiz",
+      "description": "Publishing: schedule posts to 28+ social channels via Postiz"
+    }
+  ]
+}

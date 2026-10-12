@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-01T07:09:41Z",
+  "updatedAt": "2026-10-12T21:00:00Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -728,6 +728,42 @@
       "repo": "mantis",
       "description": "A modular, stack-agnostic toolkit for AI coding agents to autonomously find, reproduce, and patch vulnerabilities.",
       "maintainer": "@google",
+      "enabled": true
+    },
+    {
+      "source": "github:JimLiu/baoyu-skills",
+      "url": "https://github.com/JimLiu/baoyu-skills",
+      "owner": "JimLiu",
+      "repo": "baoyu-skills",
+      "description": "Baoyu skill collection: article illustrations, cover images, infographics, slide decks, comics, translation, and social posting",
+      "maintainer": "@JimLiu",
+      "enabled": true
+    },
+    {
+      "source": "github:browser-use/video-use",
+      "url": "https://github.com/browser-use/video-use",
+      "owner": "browser-use",
+      "repo": "video-use",
+      "description": "Edit videos with coding agents",
+      "maintainer": "@browser-use",
+      "enabled": true
+    },
+    {
+      "source": "github:elevenlabs/skills",
+      "url": "https://github.com/elevenlabs/skills",
+      "owner": "elevenlabs",
+      "repo": "skills",
+      "description": "Collections of skills for building with ElevenLabs",
+      "maintainer": "@elevenlabs",
+      "enabled": true
+    },
+    {
+      "source": "github:gitroomhq/postiz-agent",
+      "url": "https://github.com/gitroomhq/postiz-agent",
+      "owner": "gitroomhq",
+      "repo": "postiz-agent",
+      "description": "Postiz Agents CLI - connect it to Claude / OpenClaw / etc, to schedule social media posts \ud83e\udd16",
+      "maintainer": "@gitroomhq",
       "enabled": true
     }
   ]
