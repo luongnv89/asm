@@ -1788,10 +1788,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
-      "dependencies": [
-        "code-review",
-        "dont-make-me-think"
-      ],
+      "dependencies": ["code-review", "dont-make-me-think"],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:luongnv89/skills:skills/codebase-modernizer",
@@ -2506,10 +2503,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
-      "dependencies": [
-        "drawio-generator",
-        "excalidraw-generator"
-      ],
+      "dependencies": ["drawio-generator", "excalidraw-generator"],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:luongnv89/skills:skills/diagram-generator",
@@ -2863,9 +2857,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
-      "dependencies": [
-        "browse"
-      ],
+      "dependencies": ["browse"],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:luongnv89/skills:skills/dont-make-me-think",
@@ -3219,9 +3211,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
-      "dependencies": [
-        "frontend-design"
-      ],
+      "dependencies": ["frontend-design"],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:luongnv89/skills:skills/github-pages-publish",
@@ -3929,11 +3919,7 @@
       "compatibility": "Requires herdr, git, gh auth and asm; herdr-agent and issue-pr-review in both modes, issue-resolver only in ISSUE mode.",
       "allowedTools": [],
       "tags": [],
-      "dependencies": [
-        "herdr-agent",
-        "issue-pr-review",
-        "issue-resolver"
-      ],
+      "dependencies": ["herdr-agent", "issue-pr-review", "issue-resolver"],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:luongnv89/skills:skills/issue-work-loop",
@@ -6953,9 +6939,7 @@
       "compatibility": "",
       "allowedTools": [],
       "tags": [],
-      "dependencies": [
-        "browse"
-      ],
+      "dependencies": ["browse"],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:luongnv89/skills:skills/viral-product-evaluator",
@@ -7132,9 +7116,7 @@
       "compatibility": "Requires curl and python3. Phase 4 additionally requires git, an authenticated GitHub CLI (`gh auth status`), and the plan-to-issues skill.",
       "allowedTools": [],
       "tags": [],
-      "dependencies": [
-        "plan-to-issues"
-      ],
+      "dependencies": ["plan-to-issues"],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:luongnv89/skills:skills/website-agent-readiness",

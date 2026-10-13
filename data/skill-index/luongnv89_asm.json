@@ -190,10 +190,7 @@
       "creator": "",
       "compatibility": "Claude Code",
       "allowedTools": [],
-      "tags": [
-        "test",
-        "demo"
-      ],
+      "tags": ["test", "demo"],
       "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
@@ -546,14 +543,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Claude Code",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Write",
-        "Edit",
-        "Grep",
-        "Glob"
-      ],
+      "allowedTools": ["Bash", "Read", "Write", "Edit", "Grep", "Glob"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -1093,18 +1083,9 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Claude Code; requires `asm` and `git` on PATH",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Write",
-        "Edit",
-        "Grep",
-        "Glob"
-      ],
+      "allowedTools": ["Bash", "Read", "Write", "Edit", "Grep", "Glob"],
       "tags": [],
-      "dependencies": [
-        "skill-creator"
-      ],
+      "dependencies": ["skill-creator"],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:luongnv89/asm:skills/skill-install-improved",
@@ -1279,14 +1260,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Claude Code; Python 3; skill-creator's quick_validate.py",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Write",
-        "Edit",
-        "Grep",
-        "Glob"
-      ],
+      "allowedTools": ["Bash", "Read", "Write", "Edit", "Grep", "Glob"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -1463,14 +1437,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Claude Code",
-      "allowedTools": [
-        "Bash",
-        "Read",
-        "Write",
-        "Edit",
-        "Grep",
-        "Glob"
-      ],
+      "allowedTools": ["Bash", "Read", "Write", "Edit", "Grep", "Glob"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -1647,10 +1614,7 @@
       "license": "MIT",
       "creator": "",
       "compatibility": "Claude Code",
-      "allowedTools": [
-        "Read",
-        "Grep"
-      ],
+      "allowedTools": ["Read", "Grep"],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
