@@ -2,13 +2,13 @@
   "repoUrl": "https://github.com/twostraws/SwiftUI-Agent-Skill.git",
   "owner": "twostraws",
   "repo": "SwiftUI-Agent-Skill",
-  "updatedAt": "2026-10-06T11:23:16.887Z",
+  "updatedAt": "2026-10-13T12:28:18.515Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "swiftui-pro",
       "description": "Comprehensively reviews SwiftUI code for best practices on modern APIs, maintainability, and performance. Use when reading, writing, or reviewing SwiftUI projects.",
-      "version": "1.1",
+      "version": "2.0.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -20,7 +20,7 @@
       "installUrl": "github:twostraws/SwiftUI-Agent-Skill:swiftui-pro",
       "relPath": "swiftui-pro",
       "verified": true,
-      "tokenCount": 1057,
+      "tokenCount": 1556,
       "evalSummary": {
         "overallScore": 79,
         "grade": "C",
@@ -86,8 +86,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-06T11:23:16.864Z",
-        "evaluatedVersion": "1.1"
+        "evaluatedAt": "2026-10-13T12:28:18.501Z",
+        "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
         "quality": {
@@ -159,26 +159,26 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-06T11:23:16.864Z",
-          "evaluatedVersion": "1.1"
+          "evaluatedAt": "2026-10-13T12:28:18.501Z",
+          "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
           "providerVersion": "1.2.0",
           "schemaVersion": 1,
-          "passed": false,
-          "overallScore": 86,
-          "grade": "B",
+          "passed": true,
+          "overallScore": 93,
+          "grade": "A",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 12,
+              "score": 13,
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-06T11:23:16.864Z",
-          "evaluatedVersion": "1.1"
+          "evaluatedAt": "2026-10-13T12:28:18.501Z",
+          "evaluatedVersion": "2.0.0"
         }
       }
     }

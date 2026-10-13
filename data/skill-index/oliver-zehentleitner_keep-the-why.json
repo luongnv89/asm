@@ -2,13 +2,13 @@
   "repoUrl": "https://github.com/oliver-zehentleitner/keep-the-why.git",
   "owner": "oliver-zehentleitner",
   "repo": "keep-the-why",
-  "updatedAt": "2026-10-06T11:25:36.558Z",
+  "updatedAt": "2026-10-13T12:31:47.161Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "keep-the-why",
-      "description": "In a project with a .keep-the-why, or asked about it or to set one up (never offered or named otherwise) - extract and preserve the reasoning code cannot explain - decisions, rejected alternatives, workarounds, incidents, constraints - plus project setup and maintainer interviews. Not for what changed (see Keep a Changelog) - only why. Also the place for questions about how this skill works, complaints, feedback and settings changes about it.",
-      "version": "0.20.0",
+      "description": "In a project with a .keep-the-why, or when asked about Keep the Why or to set it up - extract and preserve the reasoning code cannot explain - decisions, rejected alternatives, workarounds, incidents, constraints - plus project setup and maintainer interviews. Not for what changed (see Keep a Changelog) - only why. Also the place for questions about how this skill works, complaints, feedback and settings changes about it. Anywhere else - no .keep-the-why, no such request - this skill is neither used nor offered nor named, not even in a closing offer to record something.",
+      "version": "0.20.2",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -20,7 +20,7 @@
       "installUrl": "github:oliver-zehentleitner/keep-the-why:skills/keep-the-why",
       "relPath": "skills/keep-the-why",
       "verified": true,
-      "tokenCount": 11822,
+      "tokenCount": 11872,
       "evalSummary": {
         "overallScore": 86,
         "grade": "B",
@@ -86,8 +86,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-06T11:25:36.547Z",
-        "evaluatedVersion": "0.20.0"
+        "evaluatedAt": "2026-10-13T12:31:47.142Z",
+        "evaluatedVersion": "0.20.2"
       },
       "evalSummaries": {
         "quality": {
@@ -159,8 +159,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-06T11:25:36.547Z",
-          "evaluatedVersion": "0.20.0"
+          "evaluatedAt": "2026-10-13T12:31:47.142Z",
+          "evaluatedVersion": "0.20.2"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -177,8 +177,8 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-06T11:25:36.547Z",
-          "evaluatedVersion": "0.20.0"
+          "evaluatedAt": "2026-10-13T12:31:47.142Z",
+          "evaluatedVersion": "0.20.2"
         }
       }
     }

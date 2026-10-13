@@ -2,17 +2,23 @@
   "repoUrl": "https://github.com/mvanhorn/last30days-skill.git",
   "owner": "mvanhorn",
   "repo": "last30days-skill",
-  "updatedAt": "2026-10-06T11:23:57.658Z",
+  "updatedAt": "2026-10-13T12:28:53.739Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "last30days",
       "description": "Research what people actually say about any topic in the last 30 days. Pulls posts and engagement from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web. Includes a doctor health check to diagnose broken or missing sources.",
-      "version": "3.26.0",
+      "version": "3.28.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
-      "allowedTools": ["Bash", "Read", "Write", "AskUserQuestion", "WebSearch"],
+      "allowedTools": [
+        "Bash",
+        "Read",
+        "Write",
+        "AskUserQuestion",
+        "WebSearch"
+      ],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
@@ -20,10 +26,10 @@
       "installUrl": "github:mvanhorn/last30days-skill:skills/last30days",
       "relPath": "skills/last30days",
       "verified": true,
-      "tokenCount": 76134,
+      "tokenCount": 8901,
       "evalSummary": {
-        "overallScore": 82,
-        "grade": "B",
+        "overallScore": 76,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -40,25 +46,25 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 9,
+            "score": 8,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 4,
+            "score": 6,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 10,
+            "score": 7,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 7,
+            "score": 3,
             "max": 10
           },
           {
@@ -86,8 +92,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-06T11:23:50.489Z",
-        "evaluatedVersion": "3.26.0"
+        "evaluatedAt": "2026-10-13T12:28:46.384Z",
+        "evaluatedVersion": "3.28.0"
       },
       "evalSummaries": {
         "quality": {
@@ -95,8 +101,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 80,
-          "grade": "B",
+          "overallScore": 69,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -113,25 +119,25 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 9,
+              "score": 8,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 4,
+              "score": 6,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 10,
+              "score": 7,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 7,
+              "score": 3,
               "max": 10
             },
             {
@@ -155,12 +161,12 @@
             {
               "id": "script-lint",
               "name": "Script linting",
-              "score": 10,
+              "score": 5,
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-06T11:23:50.490Z",
-          "evaluatedVersion": "3.26.0"
+          "evaluatedAt": "2026-10-13T12:28:46.384Z",
+          "evaluatedVersion": "3.28.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -177,8 +183,8 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-06T11:23:50.490Z",
-          "evaluatedVersion": "3.26.0"
+          "evaluatedAt": "2026-10-13T12:28:46.384Z",
+          "evaluatedVersion": "3.28.0"
         }
       }
     }
