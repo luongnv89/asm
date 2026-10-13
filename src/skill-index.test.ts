@@ -381,7 +381,7 @@ describe("Index resource integrity", () => {
       (idx) => idx.owner === "emilkowalski" && idx.repo === "skills",
     );
     expect(emil).toBeDefined();
-    expect(emil!.skillCount).toBe(14);
+    expect(emil!.skillCount).toBe(15);
     const names = new Set(emil!.skills.map((s) => s.name));
     expect(names).toEqual(
       new Set([
@@ -399,6 +399,7 @@ describe("Index resource integrity", () => {
         "write-swift",
         "mobile-native",
         "break-ui",
+        "animation-performance",
       ]),
     );
     for (const skill of emil!.skills) {
