@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-12T21:00:00Z",
+  "updatedAt": "2026-10-14T00:00:00Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -764,6 +764,15 @@
       "repo": "postiz-agent",
       "description": "Postiz Agents CLI - connect it to Claude / OpenClaw / etc, to schedule social media posts \ud83e\udd16",
       "maintainer": "@gitroomhq",
+      "enabled": true
+    },
+    {
+      "source": "github:Illyism/seo-skills",
+      "url": "https://github.com/Illyism/seo-skills",
+      "owner": "Illyism",
+      "repo": "seo-skills",
+      "description": "SEO skills for Claude Code, Cursor and Codex: SEO autopilot, title tags, blog refreshes, backlinks, customer journeys, video transcripts and copywriting.",
+      "maintainer": "@Illyism",
       "enabled": true
     }
   ]

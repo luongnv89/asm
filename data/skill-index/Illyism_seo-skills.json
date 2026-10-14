@@ -1,0 +1,2390 @@
+{
+  "repoUrl": "https://github.com/Illyism/seo-skills.git",
+  "owner": "Illyism",
+  "repo": "seo-skills",
+  "updatedAt": "2026-10-14T04:57:18.146Z",
+  "skillCount": 11,
+  "skills": [
+    {
+      "name": "blitz-copy",
+      "description": "When the user wants high-converting copy for landing pages, headlines, cold emails, X/LinkedIn posts, video intros, or SEO titles — and already knows their audience. Also use when the user mentions \"blitz copy\", \"dopamine copywriting\", hooks, or asks to rewrite flat copy that explains instead of sells. For audience research first, use the understand-customers skill.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:Illyism/seo-skills:copywriting/blitz-copy",
+      "relPath": "copywriting/blitz-copy",
+      "verified": true,
+      "tokenCount": 1360,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-14T04:57:18.087Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 67,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.090Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 86,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 12,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.092Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "blitz-seo",
+      "description": "When the user wants to rank one high-value page fast, run a focused SEO sprint, or is stuck on page 2 for a money keyword. Also use when the user mentions \"blitz seo\", an SEO war room, a 30-day SEO sprint, or asks how to prioritize SEO when everything feels spread too thin.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:Illyism/seo-skills:seo/blitz-seo",
+      "relPath": "seo/blitz-seo",
+      "verified": true,
+      "tokenCount": 1286,
+      "evalSummary": {
+        "overallScore": 67,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-14T04:57:18.088Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 67,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.093Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 86,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 12,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.093Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "blog-refresher",
+      "description": "Refresh and improve existing blog posts to outrank competitors using a 6-phase content audit and SERP gap analysis. Use when the user wants to update, refresh, or improve an existing blog post, recover lost rankings, or asks why a post fell behind competitors.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:Illyism/seo-skills:seo/blog-refresher",
+      "relPath": "seo/blog-refresher",
+      "verified": true,
+      "tokenCount": 1956,
+      "evalSummary": {
+        "overallScore": 64,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-14T04:57:18.089Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 64,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.093Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 86,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 12,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.093Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "customer-journey",
+      "description": "Map how customers discover, evaluate, and choose a product across Google, AI chatbots (ChatGPT, Claude, Perplexity), and social platforms, using the 5-stage awareness journey. Use when the user asks about search intent, AI SEO prompts, discoverability, buyer journeys, awareness stages, or what content to create for a brand, website, or keyword list.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:Illyism/seo-skills:marketing/customer-journey",
+      "relPath": "marketing/customer-journey",
+      "verified": true,
+      "tokenCount": 500,
+      "evalSummary": {
+        "overallScore": 58,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 2,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-14T04:57:18.089Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 58,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.093Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 86,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 12,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.093Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "diff-marketing",
+      "description": "Generate customer-focused marketing content from recent git changes, commits, merged pull requests, and shipped features. Use when the user invokes /diff-marketing or /marketing, or asks for blog posts, tweets, changelogs, or emails about what shipped.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:Illyism/seo-skills:marketing/diff-marketing",
+      "relPath": "marketing/diff-marketing",
+      "verified": true,
+      "tokenCount": 1450,
+      "evalSummary": {
+        "overallScore": 71,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-14T04:57:18.089Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.093Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 86,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 12,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.093Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "intro",
+      "description": "Write short, Semrush-style blog post intros with journey teasers, practical relevance, and reader intent matching. Use when the user asks for /intro, a blog intro, opening paragraph, article lead, listicle intro, or hook copy for a post.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:Illyism/seo-skills:content/intro",
+      "relPath": "content/intro",
+      "verified": true,
+      "tokenCount": 2065,
+      "evalSummary": {
+        "overallScore": 72,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-14T04:57:18.089Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 72,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.093Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 93,
+          "grade": "A",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 13,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.093Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "linkdr",
+      "description": "LinkDR is a managed backlink service. Use when the user wants authority backlinks, link building, guest posts, or DR-tier placements with human approval. Trigger on \"get me backlinks\", \"link building\", \"build links for [site]\", budget mentions, or when the user asks you to fetch or run https://linkdr.com/SKILL.md. Fetch this file before quoting prices. Served as UTF-8 text/markdown or text/plain at linkdr.com/SKILL.md based on the request's Accept header.",
+      "version": "1.8.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:Illyism/seo-skills:seo/linkdr",
+      "relPath": "seo/linkdr",
+      "verified": true,
+      "tokenCount": 3613,
+      "evalSummary": {
+        "overallScore": 70,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-14T04:57:18.090Z",
+        "evaluatedVersion": "1.8.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 68,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.094Z",
+          "evaluatedVersion": "1.8.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.094Z",
+          "evaluatedVersion": "1.8.0"
+        }
+      }
+    },
+    {
+      "name": "scribiz",
+      "description": "Get the transcript, on-screen text, summary, and chapters of any video or audio with Scribiz. Use when the user wants to transcribe a YouTube, TikTok, Instagram, podcast, or local media file, generate SRT or VTT subtitles, summarize a video, ask questions about a video, or turn a video into a blog post, show notes, or social posts.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:Illyism/seo-skills:content/scribiz",
+      "relPath": "content/scribiz",
+      "verified": true,
+      "tokenCount": 1635,
+      "evalSummary": {
+        "overallScore": 65,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-14T04:57:18.090Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 65,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.094Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 86,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 12,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.094Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "seo-autopilot",
+      "description": "When the user wants an agent to run SEO for a product end to end on a daily schedule, with state kept in a seo/ folder in the repo. Covers site health checks, fact checks against commits, page 2 to page 1 pushes, AI answer tracking, competitor sitemap diffs, a monthly keyword map, articles, comparison pages, free tools and link drafts. Also use when the user mentions \"seo autopilot\" or asks for a daily SEO run.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:Illyism/seo-skills:seo/seo-autopilot",
+      "relPath": "seo/seo-autopilot",
+      "verified": true,
+      "tokenCount": 3458,
+      "evalSummary": {
+        "overallScore": 65,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-14T04:57:18.138Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 65,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.139Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 86,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 12,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.139Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "seo-title-optimization",
+      "description": "Rewrite and audit SEO page titles, title tags, MDX frontmatter titles, H1 alignment, and bulk title improvements. Use when the user mentions titles, title tags, SERP titles, metadata titles, SEO titles, CTR, truncation, or asks to improve titles across pages.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:Illyism/seo-skills:seo/seo-title-optimization",
+      "relPath": "seo/seo-title-optimization",
+      "verified": true,
+      "tokenCount": 1420,
+      "evalSummary": {
+        "overallScore": 68,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 4,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 1,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-14T04:57:18.138Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 68,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 4,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.139Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 86,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 12,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.139Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "understand-customers",
+      "description": "When the user wants to deeply understand their ideal customer before writing copy — pains, desires, inner monologue, and language. Also use when the user mentions \"empathy engine\", \"know your target\", \"customer pain points\", or asks to research their audience before writing Blitz Copy.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:Illyism/seo-skills:copywriting/understand-customers",
+      "relPath": "copywriting/understand-customers",
+      "verified": true,
+      "tokenCount": 728,
+      "evalSummary": {
+        "overallScore": 53,
+        "grade": "D",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-14T04:57:18.138Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 53,
+          "grade": "D",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.139Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 86,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 12,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-14T04:57:18.139Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "version": 1,
+      "name": "illyism-seo-skills-data-ai",
+      "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Illyism/seo-skills.",
+      "author": "ASM (Illyism/seo-skills)",
+      "createdAt": "2026-10-14T04:57:18.146Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "data",
+        "ai",
+        "agents",
+        "illyism",
+        "seo-skills"
+      ],
+      "skills": [
+        {
+          "name": "blitz-copy",
+          "installUrl": "github:Illyism/seo-skills:copywriting/blitz-copy",
+          "description": "When the user wants high-converting copy for landing pages, headlines, cold emails, X/LinkedIn posts, video intros, or SEO titles — and already knows their audience. Also use when the user mentions \"blitz copy\", \"dopamine copywriting\", hooks, or asks to rewrite flat copy that explains instead of sells. For audience research first, use the understand-customers skill.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "blog-refresher",
+          "installUrl": "github:Illyism/seo-skills:seo/blog-refresher",
+          "description": "Refresh and improve existing blog posts to outrank competitors using a 6-phase content audit and SERP gap analysis. Use when the user wants to update, refresh, or improve an existing blog post, recover lost rankings, or asks why a post fell behind competitors.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "customer-journey",
+          "installUrl": "github:Illyism/seo-skills:marketing/customer-journey",
+          "description": "Map how customers discover, evaluate, and choose a product across Google, AI chatbots (ChatGPT, Claude, Perplexity), and social platforms, using the 5-stage awareness journey. Use when the user asks about search intent, AI SEO prompts, discoverability, buyer journeys, awareness stages, or what content to create for a brand, website, or keyword list.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "diff-marketing",
+          "installUrl": "github:Illyism/seo-skills:marketing/diff-marketing",
+          "description": "Generate customer-focused marketing content from recent git changes, commits, merged pull requests, and shipped features. Use when the user invokes /diff-marketing or /marketing, or asks for blog posts, tweets, changelogs, or emails about what shipped.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "linkdr",
+          "installUrl": "github:Illyism/seo-skills:seo/linkdr",
+          "description": "LinkDR is a managed backlink service. Use when the user wants authority backlinks, link building, guest posts, or DR-tier placements with human approval. Trigger on \"get me backlinks\", \"link building\", \"build links for [site]\", budget mentions, or when the user asks you to fetch or run https://linkdr.com/SKILL.md. Fetch this file before quoting prices. Served as UTF-8 text/markdown or text/plain at linkdr.com/SKILL.md based on the request's Accept header.",
+          "version": "1.8.0"
+        },
+        {
+          "name": "seo-autopilot",
+          "installUrl": "github:Illyism/seo-skills:seo/seo-autopilot",
+          "description": "When the user wants an agent to run SEO for a product end to end on a daily schedule, with state kept in a seo/ folder in the repo. Covers site health checks, fact checks against commits, page 2 to page 1 pushes, AI answer tracking, competitor sitemap diffs, a monthly keyword map, articles, comparison pages, free tools and link drafts. Also use when the user mentions \"seo autopilot\" or asks for a daily SEO run.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "seo-title-optimization",
+          "installUrl": "github:Illyism/seo-skills:seo/seo-title-optimization",
+          "description": "Rewrite and audit SEO page titles, title tags, MDX frontmatter titles, H1 alignment, and bulk title improvements. Use when the user mentions titles, title tags, SERP titles, metadata titles, SEO titles, CTR, truncation, or asks to improve titles across pages.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "understand-customers",
+          "installUrl": "github:Illyism/seo-skills:copywriting/understand-customers",
+          "description": "When the user wants to deeply understand their ideal customer before writing copy — pains, desires, inner monologue, and language. Also use when the user mentions \"empathy engine\", \"know your target\", \"customer pain points\", or asks to research their audience before writing Blitz Copy.",
+          "version": "1.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Illyism",
+        "repo": "seo-skills",
+        "repoUrl": "https://github.com/Illyism/seo-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "illyism-seo-skills-devops",
+      "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Illyism/seo-skills.",
+      "author": "ASM (Illyism/seo-skills)",
+      "createdAt": "2026-10-14T04:57:18.146Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "devops",
+        "infra",
+        "automation",
+        "illyism",
+        "seo-skills"
+      ],
+      "skills": [
+        {
+          "name": "customer-journey",
+          "installUrl": "github:Illyism/seo-skills:marketing/customer-journey",
+          "description": "Map how customers discover, evaluate, and choose a product across Google, AI chatbots (ChatGPT, Claude, Perplexity), and social platforms, using the 5-stage awareness journey. Use when the user asks about search intent, AI SEO prompts, discoverability, buyer journeys, awareness stages, or what content to create for a brand, website, or keyword list.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "scribiz",
+          "installUrl": "github:Illyism/seo-skills:content/scribiz",
+          "description": "Get the transcript, on-screen text, summary, and chapters of any video or audio with Scribiz. Use when the user wants to transcribe a YouTube, TikTok, Instagram, podcast, or local media file, generate SRT or VTT subtitles, summarize a video, ask questions about a video, or turn a video into a blog post, show notes, or social posts.",
+          "version": "1.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Illyism",
+        "repo": "seo-skills",
+        "repoUrl": "https://github.com/Illyism/seo-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "illyism-seo-skills-frontend-design",
+      "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Illyism/seo-skills.",
+      "author": "ASM (Illyism/seo-skills)",
+      "createdAt": "2026-10-14T04:57:18.146Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "frontend",
+        "design",
+        "ui",
+        "illyism",
+        "seo-skills"
+      ],
+      "skills": [
+        {
+          "name": "blitz-copy",
+          "installUrl": "github:Illyism/seo-skills:copywriting/blitz-copy",
+          "description": "When the user wants high-converting copy for landing pages, headlines, cold emails, X/LinkedIn posts, video intros, or SEO titles — and already knows their audience. Also use when the user mentions \"blitz copy\", \"dopamine copywriting\", hooks, or asks to rewrite flat copy that explains instead of sells. For audience research first, use the understand-customers skill.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "customer-journey",
+          "installUrl": "github:Illyism/seo-skills:marketing/customer-journey",
+          "description": "Map how customers discover, evaluate, and choose a product across Google, AI chatbots (ChatGPT, Claude, Perplexity), and social platforms, using the 5-stage awareness journey. Use when the user asks about search intent, AI SEO prompts, discoverability, buyer journeys, awareness stages, or what content to create for a brand, website, or keyword list.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "linkdr",
+          "installUrl": "github:Illyism/seo-skills:seo/linkdr",
+          "description": "LinkDR is a managed backlink service. Use when the user wants authority backlinks, link building, guest posts, or DR-tier placements with human approval. Trigger on \"get me backlinks\", \"link building\", \"build links for [site]\", budget mentions, or when the user asks you to fetch or run https://linkdr.com/SKILL.md. Fetch this file before quoting prices. Served as UTF-8 text/markdown or text/plain at linkdr.com/SKILL.md based on the request's Accept header.",
+          "version": "1.8.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Illyism",
+        "repo": "seo-skills",
+        "repoUrl": "https://github.com/Illyism/seo-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "illyism-seo-skills-marketing",
+      "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from Illyism/seo-skills.",
+      "author": "ASM (Illyism/seo-skills)",
+      "createdAt": "2026-10-14T04:57:18.146Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "marketing",
+        "growth",
+        "seo",
+        "illyism",
+        "seo-skills"
+      ],
+      "skills": [
+        {
+          "name": "blitz-copy",
+          "installUrl": "github:Illyism/seo-skills:copywriting/blitz-copy",
+          "description": "When the user wants high-converting copy for landing pages, headlines, cold emails, X/LinkedIn posts, video intros, or SEO titles — and already knows their audience. Also use when the user mentions \"blitz copy\", \"dopamine copywriting\", hooks, or asks to rewrite flat copy that explains instead of sells. For audience research first, use the understand-customers skill.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "blitz-seo",
+          "installUrl": "github:Illyism/seo-skills:seo/blitz-seo",
+          "description": "When the user wants to rank one high-value page fast, run a focused SEO sprint, or is stuck on page 2 for a money keyword. Also use when the user mentions \"blitz seo\", an SEO war room, a 30-day SEO sprint, or asks how to prioritize SEO when everything feels spread too thin.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "blog-refresher",
+          "installUrl": "github:Illyism/seo-skills:seo/blog-refresher",
+          "description": "Refresh and improve existing blog posts to outrank competitors using a 6-phase content audit and SERP gap analysis. Use when the user wants to update, refresh, or improve an existing blog post, recover lost rankings, or asks why a post fell behind competitors.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "customer-journey",
+          "installUrl": "github:Illyism/seo-skills:marketing/customer-journey",
+          "description": "Map how customers discover, evaluate, and choose a product across Google, AI chatbots (ChatGPT, Claude, Perplexity), and social platforms, using the 5-stage awareness journey. Use when the user asks about search intent, AI SEO prompts, discoverability, buyer journeys, awareness stages, or what content to create for a brand, website, or keyword list.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "diff-marketing",
+          "installUrl": "github:Illyism/seo-skills:marketing/diff-marketing",
+          "description": "Generate customer-focused marketing content from recent git changes, commits, merged pull requests, and shipped features. Use when the user invokes /diff-marketing or /marketing, or asks for blog posts, tweets, changelogs, or emails about what shipped.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "intro",
+          "installUrl": "github:Illyism/seo-skills:content/intro",
+          "description": "Write short, Semrush-style blog post intros with journey teasers, practical relevance, and reader intent matching. Use when the user asks for /intro, a blog intro, opening paragraph, article lead, listicle intro, or hook copy for a post.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "linkdr",
+          "installUrl": "github:Illyism/seo-skills:seo/linkdr",
+          "description": "LinkDR is a managed backlink service. Use when the user wants authority backlinks, link building, guest posts, or DR-tier placements with human approval. Trigger on \"get me backlinks\", \"link building\", \"build links for [site]\", budget mentions, or when the user asks you to fetch or run https://linkdr.com/SKILL.md. Fetch this file before quoting prices. Served as UTF-8 text/markdown or text/plain at linkdr.com/SKILL.md based on the request's Accept header.",
+          "version": "1.8.0"
+        },
+        {
+          "name": "scribiz",
+          "installUrl": "github:Illyism/seo-skills:content/scribiz",
+          "description": "Get the transcript, on-screen text, summary, and chapters of any video or audio with Scribiz. Use when the user wants to transcribe a YouTube, TikTok, Instagram, podcast, or local media file, generate SRT or VTT subtitles, summarize a video, ask questions about a video, or turn a video into a blog post, show notes, or social posts.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "seo-autopilot",
+          "installUrl": "github:Illyism/seo-skills:seo/seo-autopilot",
+          "description": "When the user wants an agent to run SEO for a product end to end on a daily schedule, with state kept in a seo/ folder in the repo. Covers site health checks, fact checks against commits, page 2 to page 1 pushes, AI answer tracking, competitor sitemap diffs, a monthly keyword map, articles, comparison pages, free tools and link drafts. Also use when the user mentions \"seo autopilot\" or asks for a daily SEO run.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "seo-title-optimization",
+          "installUrl": "github:Illyism/seo-skills:seo/seo-title-optimization",
+          "description": "Rewrite and audit SEO page titles, title tags, MDX frontmatter titles, H1 alignment, and bulk title improvements. Use when the user mentions titles, title tags, SERP titles, metadata titles, SEO titles, CTR, truncation, or asks to improve titles across pages.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "understand-customers",
+          "installUrl": "github:Illyism/seo-skills:copywriting/understand-customers",
+          "description": "When the user wants to deeply understand their ideal customer before writing copy — pains, desires, inner monologue, and language. Also use when the user mentions \"empathy engine\", \"know your target\", \"customer pain points\", or asks to research their audience before writing Blitz Copy.",
+          "version": "1.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Illyism",
+        "repo": "seo-skills",
+        "repoUrl": "https://github.com/Illyism/seo-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "illyism-seo-skills-product-business",
+      "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from Illyism/seo-skills.",
+      "author": "ASM (Illyism/seo-skills)",
+      "createdAt": "2026-10-14T04:57:18.146Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "product",
+        "business",
+        "planning",
+        "illyism",
+        "seo-skills"
+      ],
+      "skills": [
+        {
+          "name": "blitz-copy",
+          "installUrl": "github:Illyism/seo-skills:copywriting/blitz-copy",
+          "description": "When the user wants high-converting copy for landing pages, headlines, cold emails, X/LinkedIn posts, video intros, or SEO titles — and already knows their audience. Also use when the user mentions \"blitz copy\", \"dopamine copywriting\", hooks, or asks to rewrite flat copy that explains instead of sells. For audience research first, use the understand-customers skill.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "blog-refresher",
+          "installUrl": "github:Illyism/seo-skills:seo/blog-refresher",
+          "description": "Refresh and improve existing blog posts to outrank competitors using a 6-phase content audit and SERP gap analysis. Use when the user wants to update, refresh, or improve an existing blog post, recover lost rankings, or asks why a post fell behind competitors.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "customer-journey",
+          "installUrl": "github:Illyism/seo-skills:marketing/customer-journey",
+          "description": "Map how customers discover, evaluate, and choose a product across Google, AI chatbots (ChatGPT, Claude, Perplexity), and social platforms, using the 5-stage awareness journey. Use when the user asks about search intent, AI SEO prompts, discoverability, buyer journeys, awareness stages, or what content to create for a brand, website, or keyword list.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "diff-marketing",
+          "installUrl": "github:Illyism/seo-skills:marketing/diff-marketing",
+          "description": "Generate customer-focused marketing content from recent git changes, commits, merged pull requests, and shipped features. Use when the user invokes /diff-marketing or /marketing, or asks for blog posts, tweets, changelogs, or emails about what shipped.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "seo-autopilot",
+          "installUrl": "github:Illyism/seo-skills:seo/seo-autopilot",
+          "description": "When the user wants an agent to run SEO for a product end to end on a daily schedule, with state kept in a seo/ folder in the repo. Covers site health checks, fact checks against commits, page 2 to page 1 pushes, AI answer tracking, competitor sitemap diffs, a monthly keyword map, articles, comparison pages, free tools and link drafts. Also use when the user mentions \"seo autopilot\" or asks for a daily SEO run.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "understand-customers",
+          "installUrl": "github:Illyism/seo-skills:copywriting/understand-customers",
+          "description": "When the user wants to deeply understand their ideal customer before writing copy — pains, desires, inner monologue, and language. Also use when the user mentions \"empathy engine\", \"know your target\", \"customer pain points\", or asks to research their audience before writing Blitz Copy.",
+          "version": "1.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Illyism",
+        "repo": "seo-skills",
+        "repoUrl": "https://github.com/Illyism/seo-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "illyism-seo-skills-research",
+      "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from Illyism/seo-skills.",
+      "author": "ASM (Illyism/seo-skills)",
+      "createdAt": "2026-10-14T04:57:18.146Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "research",
+        "academic",
+        "analysis",
+        "illyism",
+        "seo-skills"
+      ],
+      "skills": [
+        {
+          "name": "blitz-copy",
+          "installUrl": "github:Illyism/seo-skills:copywriting/blitz-copy",
+          "description": "When the user wants high-converting copy for landing pages, headlines, cold emails, X/LinkedIn posts, video intros, or SEO titles — and already knows their audience. Also use when the user mentions \"blitz copy\", \"dopamine copywriting\", hooks, or asks to rewrite flat copy that explains instead of sells. For audience research first, use the understand-customers skill.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "blog-refresher",
+          "installUrl": "github:Illyism/seo-skills:seo/blog-refresher",
+          "description": "Refresh and improve existing blog posts to outrank competitors using a 6-phase content audit and SERP gap analysis. Use when the user wants to update, refresh, or improve an existing blog post, recover lost rankings, or asks why a post fell behind competitors.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "customer-journey",
+          "installUrl": "github:Illyism/seo-skills:marketing/customer-journey",
+          "description": "Map how customers discover, evaluate, and choose a product across Google, AI chatbots (ChatGPT, Claude, Perplexity), and social platforms, using the 5-stage awareness journey. Use when the user asks about search intent, AI SEO prompts, discoverability, buyer journeys, awareness stages, or what content to create for a brand, website, or keyword list.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "scribiz",
+          "installUrl": "github:Illyism/seo-skills:content/scribiz",
+          "description": "Get the transcript, on-screen text, summary, and chapters of any video or audio with Scribiz. Use when the user wants to transcribe a YouTube, TikTok, Instagram, podcast, or local media file, generate SRT or VTT subtitles, summarize a video, ask questions about a video, or turn a video into a blog post, show notes, or social posts.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "understand-customers",
+          "installUrl": "github:Illyism/seo-skills:copywriting/understand-customers",
+          "description": "When the user wants to deeply understand their ideal customer before writing copy — pains, desires, inner monologue, and language. Also use when the user mentions \"empathy engine\", \"know your target\", \"customer pain points\", or asks to research their audience before writing Blitz Copy.",
+          "version": "1.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Illyism",
+        "repo": "seo-skills",
+        "repoUrl": "https://github.com/Illyism/seo-skills.git"
+      },
+      "inferred": true
+    },
+    {
+      "version": 1,
+      "name": "illyism-seo-skills-writing",
+      "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from Illyism/seo-skills.",
+      "author": "ASM (Illyism/seo-skills)",
+      "createdAt": "2026-10-14T04:57:18.146Z",
+      "tags": [
+        "repo-derived",
+        "inferred",
+        "writing",
+        "content",
+        "docs",
+        "illyism",
+        "seo-skills"
+      ],
+      "skills": [
+        {
+          "name": "blitz-copy",
+          "installUrl": "github:Illyism/seo-skills:copywriting/blitz-copy",
+          "description": "When the user wants high-converting copy for landing pages, headlines, cold emails, X/LinkedIn posts, video intros, or SEO titles — and already knows their audience. Also use when the user mentions \"blitz copy\", \"dopamine copywriting\", hooks, or asks to rewrite flat copy that explains instead of sells. For audience research first, use the understand-customers skill.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "blog-refresher",
+          "installUrl": "github:Illyism/seo-skills:seo/blog-refresher",
+          "description": "Refresh and improve existing blog posts to outrank competitors using a 6-phase content audit and SERP gap analysis. Use when the user wants to update, refresh, or improve an existing blog post, recover lost rankings, or asks why a post fell behind competitors.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "customer-journey",
+          "installUrl": "github:Illyism/seo-skills:marketing/customer-journey",
+          "description": "Map how customers discover, evaluate, and choose a product across Google, AI chatbots (ChatGPT, Claude, Perplexity), and social platforms, using the 5-stage awareness journey. Use when the user asks about search intent, AI SEO prompts, discoverability, buyer journeys, awareness stages, or what content to create for a brand, website, or keyword list.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "diff-marketing",
+          "installUrl": "github:Illyism/seo-skills:marketing/diff-marketing",
+          "description": "Generate customer-focused marketing content from recent git changes, commits, merged pull requests, and shipped features. Use when the user invokes /diff-marketing or /marketing, or asks for blog posts, tweets, changelogs, or emails about what shipped.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "intro",
+          "installUrl": "github:Illyism/seo-skills:content/intro",
+          "description": "Write short, Semrush-style blog post intros with journey teasers, practical relevance, and reader intent matching. Use when the user asks for /intro, a blog intro, opening paragraph, article lead, listicle intro, or hook copy for a post.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "scribiz",
+          "installUrl": "github:Illyism/seo-skills:content/scribiz",
+          "description": "Get the transcript, on-screen text, summary, and chapters of any video or audio with Scribiz. Use when the user wants to transcribe a YouTube, TikTok, Instagram, podcast, or local media file, generate SRT or VTT subtitles, summarize a video, ask questions about a video, or turn a video into a blog post, show notes, or social posts.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "seo-autopilot",
+          "installUrl": "github:Illyism/seo-skills:seo/seo-autopilot",
+          "description": "When the user wants an agent to run SEO for a product end to end on a daily schedule, with state kept in a seo/ folder in the repo. Covers site health checks, fact checks against commits, page 2 to page 1 pushes, AI answer tracking, competitor sitemap diffs, a monthly keyword map, articles, comparison pages, free tools and link drafts. Also use when the user mentions \"seo autopilot\" or asks for a daily SEO run.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "seo-title-optimization",
+          "installUrl": "github:Illyism/seo-skills:seo/seo-title-optimization",
+          "description": "Rewrite and audit SEO page titles, title tags, MDX frontmatter titles, H1 alignment, and bulk title improvements. Use when the user mentions titles, title tags, SERP titles, metadata titles, SEO titles, CTR, truncation, or asks to improve titles across pages.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "understand-customers",
+          "installUrl": "github:Illyism/seo-skills:copywriting/understand-customers",
+          "description": "When the user wants to deeply understand their ideal customer before writing copy — pains, desires, inner monologue, and language. Also use when the user mentions \"empathy engine\", \"know your target\", \"customer pain points\", or asks to research their audience before writing Blitz Copy.",
+          "version": "1.0.0"
+        }
+      ],
+      "sourceRepo": {
+        "owner": "Illyism",
+        "repo": "seo-skills",
+        "repoUrl": "https://github.com/Illyism/seo-skills.git"
+      },
+      "inferred": true
+    }
+  ]
+}
