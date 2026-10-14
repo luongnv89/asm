@@ -15,16 +15,19 @@ import { mkdirSync, readFileSync } from "fs";
 import { copyFile } from "fs/promises";
 import { ingestRepo } from "../src/ingester";
 import { getIndexDir } from "../src/config";
-import type { SkillIndexResources } from "../src/utils/types";
+import type {
+  SkillIndexResource,
+  SkillIndexResources,
+} from "../src/utils/types";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const outputDir = resolve(root, "data", "skill-index");
 const resourcesPath = resolve(root, "data", "skill-index-resources.json");
 
-function loadResources(): string[] {
+function loadResources(): SkillIndexResource[] {
   const raw = readFileSync(resourcesPath, "utf-8");
   const data: SkillIndexResources = JSON.parse(raw);
-  return data.repos.filter((r) => r.enabled).map((r) => r.source);
+  return data.repos.filter((r) => r.enabled);
 }
 
 async function main() {
@@ -38,9 +41,9 @@ async function main() {
   let succeeded = 0;
   let failed = 0;
 
-  for (const repo of repos) {
+  for (const { source: repo, excludeSkills } of repos) {
     process.stdout.write(`  ${repo} ... `);
-    const result = await ingestRepo(repo);
+    const result = await ingestRepo(repo, { excludeSkills });
 
     if (result.success && result.repoIndex) {
       // ingestRepo writes to ~/.config/..., we need to copy to data/

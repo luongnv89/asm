@@ -646,6 +646,8 @@ export interface SkillIndexResource {
   description: string;
   maintainer: string;
   enabled: boolean;
+  /** Skill names to leave out of this repo's curated index. */
+  excludeSkills?: string[];
 }
 
 export interface SkillIndexResources {

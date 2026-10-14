@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-14T00:00:00Z",
+  "updatedAt": "2026-10-14T12:00:00Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -773,7 +773,8 @@
       "repo": "seo-skills",
       "description": "SEO skills for Claude Code, Cursor and Codex: SEO autopilot, title tags, blog refreshes, backlinks, customer journeys, video transcripts and copywriting.",
       "maintainer": "@Illyism",
-      "enabled": true
+      "enabled": true,
+      "excludeSkills": ["linkdr"]
     }
   ]
 }

@@ -52,7 +52,15 @@ export function buildSkillInstallUrl(
   return `github:${source.owner}/${source.repo}${source.ref ? `#${source.ref}` : ""}${relPath ? `:${relPath}` : ""}`;
 }
 
-export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
+export interface IngestOptions {
+  /** Skill names to leave out of the index (curated-index `excludeSkills`). */
+  excludeSkills?: string[];
+}
+
+export async function ingestRepo(
+  sourceInput: string,
+  options: IngestOptions = {},
+): Promise<IngestResult> {
   await checkGitAvailable();
 
   let source: ParsedSource;
@@ -90,7 +98,7 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
     // Dedupe by directory priority before verification. Issue #265: a
     // higher-priority entry wins even if it would later fail verifySkill —
     // priority is the canonical signal of "the maintainer's intended copy."
-    const { kept: deduped, decisions } = dedupeSkillsByName(discovered);
+    const { kept, decisions } = dedupeSkillsByName(discovered);
     for (const decision of decisions) {
       const droppedPaths = decision.dropped.map((d) => d.relPath).join(", ");
       debug(
@@ -99,7 +107,16 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
     }
     if (decisions.length > 0) {
       debug(
-        `ingester: deduped ${discovered.length} -> ${deduped.length} skills (${decisions.length} name collision${decisions.length === 1 ? "" : "s"})`,
+        `ingester: deduped ${discovered.length} -> ${kept.length} skills (${decisions.length} name collision${decisions.length === 1 ? "" : "s"})`,
+      );
+    }
+
+    // Exclude before bundle inference so excluded skills never reach a bundle.
+    const excluded = new Set(options.excludeSkills ?? []);
+    const deduped = kept.filter((skill) => !excluded.has(skill.name));
+    if (deduped.length < kept.length) {
+      debug(
+        `ingester: excluded ${kept.length - deduped.length} skill(s): ${[...excluded].join(", ")}`,
       );
     }
 

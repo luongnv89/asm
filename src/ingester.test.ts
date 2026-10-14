@@ -485,6 +485,62 @@ describe("parallel skill ingestion (issue #372)", () => {
   });
 });
 
+describe("ingestRepo excludeSkills", () => {
+  let tempDir: string;
+  const repoName = "exclude-skills";
+
+  beforeEach(async () => {
+    sandboxIndexDir = await mkdtemp(join(tmpdir(), "asm-index-sandbox-"));
+    tempDir = await mkdtemp(join(tmpdir(), "asm-ingest-exclude-"));
+    ingestMocks.checkGitAvailable.mockReset();
+    ingestMocks.checkGitAvailable.mockResolvedValue(undefined);
+    ingestMocks.cloneToTemp.mockReset();
+    ingestMocks.cloneToTemp.mockResolvedValue(tempDir);
+    ingestMocks.cleanupTemp.mockReset();
+    ingestMocks.cleanupTemp.mockResolvedValue(undefined);
+    ingestMocks.getEvalProviders.mockReset();
+    ingestMocks.getEvalProviders.mockReturnValue([]);
+    for (const name of ["alpha", "beta", "gamma"]) {
+      await writeIngestSkill(tempDir, join("skills", name), name);
+    }
+  });
+
+  afterEach(async () => {
+    await removeRepoIndex("exclude-tests", repoName);
+    await rm(tempDir, { recursive: true, force: true });
+    if (sandboxIndexDir) {
+      await rm(sandboxIndexDir, { recursive: true, force: true });
+      sandboxIndexDir = null;
+    }
+  });
+
+  it("drops excluded skills from skills, skillCount, and bundles", async () => {
+    const result = await ingestRepo(`github:exclude-tests/${repoName}`, {
+      excludeSkills: ["beta"],
+    });
+
+    expect(result.success).toBe(true);
+    const index = result.repoIndex!;
+    expect(index.skills.map((s) => s.name)).toEqual(["alpha", "gamma"]);
+    expect(index.skillCount).toBe(2);
+    const bundled = (index.bundles ?? []).flatMap((b) =>
+      b.skills.map((s) => s.name),
+    );
+    expect(bundled).not.toContain("beta");
+  });
+
+  it("keeps every skill when no exclusions are given", async () => {
+    const result = await ingestRepo(`github:exclude-tests/${repoName}`);
+
+    expect(result.success).toBe(true);
+    expect(result.repoIndex!.skills.map((s) => s.name)).toEqual([
+      "alpha",
+      "beta",
+      "gamma",
+    ]);
+  });
+});
+
 describe("ingester verification path", () => {
   let tempDir: string;
 
