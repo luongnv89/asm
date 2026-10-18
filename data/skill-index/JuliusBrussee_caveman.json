@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/JuliusBrussee/caveman.git",
   "owner": "JuliusBrussee",
   "repo": "caveman",
-  "updatedAt": "2026-10-13T12:31:51.595Z",
+  "updatedAt": "2026-10-18T22:13:26.932Z",
   "skillCount": 22,
   "skills": [
     {
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.735Z",
+        "evaluatedAt": "2026-10-18T22:13:26.447Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.736Z",
+          "evaluatedAt": "2026-10-18T22:13:26.448Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.736Z",
+          "evaluatedAt": "2026-10-18T22:13:26.448Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -263,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.735Z",
+        "evaluatedAt": "2026-10-18T22:13:26.447Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -336,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.736Z",
+          "evaluatedAt": "2026-10-18T22:13:26.448Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -354,7 +354,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.736Z",
+          "evaluatedAt": "2026-10-18T22:13:26.448Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -440,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.735Z",
+        "evaluatedAt": "2026-10-18T22:13:26.447Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -513,7 +513,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.736Z",
+          "evaluatedAt": "2026-10-18T22:13:26.448Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -531,14 +531,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.736Z",
+          "evaluatedAt": "2026-10-18T22:13:26.448Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "caveman-compress",
-      "description": "Compress a memory file such as CLAUDE.md or a todo list into caveman format to save input tokens, keeping a readable backup. Trigger: /caveman-compress.",
+      "description": "Compress a memory file such as CLAUDE.md or a todo list into caveman format to save input tokens, keeping a readable backup. Sends the file's text to the configured model provider. Trigger: /caveman-compress.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -551,9 +551,9 @@
       "installUrl": "github:JuliusBrussee/caveman:skills/caveman-compress",
       "relPath": "skills/caveman-compress",
       "verified": true,
-      "tokenCount": 1327,
+      "tokenCount": 1604,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
@@ -583,7 +583,7 @@
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 10,
             "max": 10
           },
           {
@@ -617,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.735Z",
+        "evaluatedAt": "2026-10-18T22:13:26.447Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -626,7 +626,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 70,
+          "overallScore": 73,
           "grade": "C",
           "categories": [
             {
@@ -656,7 +656,7 @@
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 10,
               "max": 10
             },
             {
@@ -690,7 +690,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.736Z",
+          "evaluatedAt": "2026-10-18T22:13:26.448Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -708,7 +708,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.736Z",
+          "evaluatedAt": "2026-10-18T22:13:26.448Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -794,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.735Z",
+        "evaluatedAt": "2026-10-18T22:13:26.447Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -867,7 +867,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.736Z",
+          "evaluatedAt": "2026-10-18T22:13:26.448Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -885,7 +885,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.736Z",
+          "evaluatedAt": "2026-10-18T22:13:26.448Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -971,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.735Z",
+        "evaluatedAt": "2026-10-18T22:13:26.447Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1044,7 +1044,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.736Z",
+          "evaluatedAt": "2026-10-18T22:13:26.448Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1062,7 +1062,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.736Z",
+          "evaluatedAt": "2026-10-18T22:13:26.448Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1148,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.735Z",
+        "evaluatedAt": "2026-10-18T22:13:26.447Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1221,7 +1221,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.736Z",
+          "evaluatedAt": "2026-10-18T22:13:26.448Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1239,7 +1239,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.736Z",
+          "evaluatedAt": "2026-10-18T22:13:26.448Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1325,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.736Z",
+        "evaluatedAt": "2026-10-18T22:13:26.447Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1398,7 +1398,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.736Z",
+          "evaluatedAt": "2026-10-18T22:13:26.448Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1416,7 +1416,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.736Z",
+          "evaluatedAt": "2026-10-18T22:13:26.448Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1436,7 +1436,7 @@
       "installUrl": "github:JuliusBrussee/caveman:skills/caveman-learn",
       "relPath": "skills/caveman-learn",
       "verified": true,
-      "tokenCount": 3749,
+      "tokenCount": 3805,
       "evalSummary": {
         "overallScore": 62,
         "grade": "D",
@@ -1502,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.791Z",
+        "evaluatedAt": "2026-10-18T22:13:26.478Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1575,7 +1575,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.791Z",
+          "evaluatedAt": "2026-10-18T22:13:26.479Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1593,7 +1593,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.791Z",
+          "evaluatedAt": "2026-10-18T22:13:26.479Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1679,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.791Z",
+        "evaluatedAt": "2026-10-18T22:13:26.479Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1752,7 +1752,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.792Z",
+          "evaluatedAt": "2026-10-18T22:13:26.479Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1770,7 +1770,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.792Z",
+          "evaluatedAt": "2026-10-18T22:13:26.479Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1856,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.815Z",
+        "evaluatedAt": "2026-10-18T22:13:26.487Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1929,7 +1929,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.818Z",
+          "evaluatedAt": "2026-10-18T22:13:26.488Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1947,7 +1947,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.818Z",
+          "evaluatedAt": "2026-10-18T22:13:26.488Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2033,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.815Z",
+        "evaluatedAt": "2026-10-18T22:13:26.487Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2106,7 +2106,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.821Z",
+          "evaluatedAt": "2026-10-18T22:13:26.489Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2124,7 +2124,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.821Z",
+          "evaluatedAt": "2026-10-18T22:13:26.489Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2210,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.817Z",
+        "evaluatedAt": "2026-10-18T22:13:26.487Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2283,7 +2283,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.821Z",
+          "evaluatedAt": "2026-10-18T22:13:26.489Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2301,7 +2301,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.821Z",
+          "evaluatedAt": "2026-10-18T22:13:26.489Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2387,7 +2387,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.818Z",
+        "evaluatedAt": "2026-10-18T22:13:26.488Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2460,7 +2460,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.821Z",
+          "evaluatedAt": "2026-10-18T22:13:26.489Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2478,7 +2478,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.821Z",
+          "evaluatedAt": "2026-10-18T22:13:26.489Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2564,7 +2564,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.829Z",
+        "evaluatedAt": "2026-10-18T22:13:26.495Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2637,7 +2637,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.830Z",
+          "evaluatedAt": "2026-10-18T22:13:26.496Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2655,7 +2655,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.830Z",
+          "evaluatedAt": "2026-10-18T22:13:26.496Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2741,7 +2741,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.851Z",
+        "evaluatedAt": "2026-10-18T22:13:26.511Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2814,7 +2814,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.854Z",
+          "evaluatedAt": "2026-10-18T22:13:26.511Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2832,7 +2832,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.854Z",
+          "evaluatedAt": "2026-10-18T22:13:26.512Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2918,7 +2918,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.859Z",
+        "evaluatedAt": "2026-10-18T22:13:26.515Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2991,7 +2991,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.862Z",
+          "evaluatedAt": "2026-10-18T22:13:26.516Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3009,7 +3009,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.862Z",
+          "evaluatedAt": "2026-10-18T22:13:26.516Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3095,7 +3095,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.859Z",
+        "evaluatedAt": "2026-10-18T22:13:26.515Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3168,7 +3168,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.862Z",
+          "evaluatedAt": "2026-10-18T22:13:26.516Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3186,7 +3186,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.862Z",
+          "evaluatedAt": "2026-10-18T22:13:26.516Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3272,7 +3272,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.868Z",
+        "evaluatedAt": "2026-10-18T22:13:26.520Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3345,7 +3345,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.871Z",
+          "evaluatedAt": "2026-10-18T22:13:26.522Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3363,7 +3363,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.871Z",
+          "evaluatedAt": "2026-10-18T22:13:26.522Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3449,7 +3449,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.871Z",
+        "evaluatedAt": "2026-10-18T22:13:26.522Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3522,7 +3522,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.872Z",
+          "evaluatedAt": "2026-10-18T22:13:26.524Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3540,7 +3540,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.872Z",
+          "evaluatedAt": "2026-10-18T22:13:26.524Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3626,7 +3626,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.884Z",
+        "evaluatedAt": "2026-10-18T22:13:26.530Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3699,7 +3699,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.885Z",
+          "evaluatedAt": "2026-10-18T22:13:26.531Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3717,7 +3717,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.886Z",
+          "evaluatedAt": "2026-10-18T22:13:26.531Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3803,7 +3803,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:31:50.904Z",
+        "evaluatedAt": "2026-10-18T22:13:26.538Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -3876,7 +3876,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.907Z",
+          "evaluatedAt": "2026-10-18T22:13:26.538Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -3894,7 +3894,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:31:50.907Z",
+          "evaluatedAt": "2026-10-18T22:13:26.538Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -3906,7 +3906,7 @@
       "name": "juliusbrussee-caveman-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from JuliusBrussee/caveman.",
       "author": "ASM (JuliusBrussee/caveman)",
-      "createdAt": "2026-10-13T12:31:51.595Z",
+      "createdAt": "2026-10-18T22:13:26.932Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -3926,7 +3926,7 @@
         {
           "name": "caveman-compress",
           "installUrl": "github:JuliusBrussee/caveman:skills/caveman-compress",
-          "description": "Compress a memory file such as CLAUDE.md or a todo list into caveman format to save input tokens, keeping a readable backup. Trigger: /caveman-compress.",
+          "description": "Compress a memory file such as CLAUDE.md or a todo list into caveman format to save input tokens, keeping a readable backup. Sends the file's text to the configured model provider. Trigger: /caveman-compress.",
           "version": "0.0.0"
         },
         {
@@ -3996,7 +3996,7 @@
       "name": "juliusbrussee-caveman-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from JuliusBrussee/caveman.",
       "author": "ASM (JuliusBrussee/caveman)",
-      "createdAt": "2026-10-13T12:31:51.595Z",
+      "createdAt": "2026-10-18T22:13:26.932Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4062,7 +4062,7 @@
       "name": "juliusbrussee-caveman-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from JuliusBrussee/caveman.",
       "author": "ASM (JuliusBrussee/caveman)",
-      "createdAt": "2026-10-13T12:31:51.595Z",
+      "createdAt": "2026-10-18T22:13:26.932Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4140,7 +4140,7 @@
       "name": "juliusbrussee-caveman-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from JuliusBrussee/caveman.",
       "author": "ASM (JuliusBrussee/caveman)",
-      "createdAt": "2026-10-13T12:31:51.595Z",
+      "createdAt": "2026-10-18T22:13:26.932Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -4188,7 +4188,7 @@
       "name": "juliusbrussee-caveman-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from JuliusBrussee/caveman.",
       "author": "ASM (JuliusBrussee/caveman)",
-      "createdAt": "2026-10-13T12:31:51.595Z",
+      "createdAt": "2026-10-18T22:13:26.932Z",
       "tags": [
         "repo-derived",
         "inferred",

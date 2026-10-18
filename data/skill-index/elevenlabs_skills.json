@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/elevenlabs/skills.git",
   "owner": "elevenlabs",
   "repo": "skills",
-  "updatedAt": "2026-10-13T12:32:41.719Z",
-  "skillCount": 11,
+  "updatedAt": "2026-10-18T22:14:31.182Z",
+  "skillCount": 12,
   "skills": [
     {
       "name": "agents",
@@ -20,7 +20,7 @@
       "installUrl": "github:elevenlabs/skills:agents",
       "relPath": "agents",
       "verified": true,
-      "tokenCount": 6171,
+      "tokenCount": 6285,
       "evalSummary": {
         "overallScore": 84,
         "grade": "B",
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:32:41.664Z",
+        "evaluatedAt": "2026-10-18T22:14:31.083Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.667Z",
+          "evaluatedAt": "2026-10-18T22:14:31.085Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.667Z",
+          "evaluatedAt": "2026-10-18T22:14:31.085Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -197,7 +197,7 @@
       "installUrl": "github:elevenlabs/skills:dubbing",
       "relPath": "dubbing",
       "verified": true,
-      "tokenCount": 3332,
+      "tokenCount": 3426,
       "evalSummary": {
         "overallScore": 71,
         "grade": "C",
@@ -263,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:32:41.666Z",
+        "evaluatedAt": "2026-10-18T22:14:31.084Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -336,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.667Z",
+          "evaluatedAt": "2026-10-18T22:14:31.085Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -354,7 +354,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.667Z",
+          "evaluatedAt": "2026-10-18T22:14:31.085Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -374,7 +374,7 @@
       "installUrl": "github:elevenlabs/skills:music",
       "relPath": "music",
       "verified": true,
-      "tokenCount": 3408,
+      "tokenCount": 3502,
       "evalSummary": {
         "overallScore": 74,
         "grade": "C",
@@ -440,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:32:41.666Z",
+        "evaluatedAt": "2026-10-18T22:14:31.084Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -513,7 +513,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.667Z",
+          "evaluatedAt": "2026-10-18T22:14:31.085Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -531,29 +531,29 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.667Z",
+          "evaluatedAt": "2026-10-18T22:14:31.085Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
-      "name": "setup-api-key",
-      "description": "Guides users through setting up an ElevenLabs API key for REST API and SDK workflows. Use when the user needs to configure an ElevenLabs API key or when an API or SDK request fails because a key is missing. First checks whether ELEVENLABS_API_KEY is already configured and valid, and only runs full setup when needed.",
+      "name": "onboarding",
+      "description": "Add ElevenLabs to a project from scratch. Use when the user wants to start using ElevenLabs, add text to speech, speech to text, voice agents, real-time voice for their own agent runtime (Speech Engine), sound effects, music, voice changing, voice isolation, or dubbing to their app, or get set up with an ElevenLabs account or API key for the first time. Handles sign-in, API key creation, SDK install and a test request end to end; the user leaves the conversation once, to approve a browser page. Not for fixing a key that stopped working or placing one an administrator issued (use setup-api-key).",
       "version": "0.0.0",
       "license": "MIT",
       "creator": "",
-      "compatibility": "Requires internet access to elevenlabs.io and api.elevenlabs.io.",
+      "compatibility": "Requires internet access to elevenlabs.io and api.elevenlabs.io, and Node.js for npx (or the ElevenLabs CLI installed another way). Where no browser can reach the machine (SSH, containers, cloud agents), the user adds the key by hand and the flow continues.",
       "allowedTools": [],
       "tags": [],
       "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
-      "installUrl": "github:elevenlabs/skills:setup-api-key",
-      "relPath": "setup-api-key",
+      "installUrl": "github:elevenlabs/skills:onboarding",
+      "relPath": "onboarding",
       "verified": true,
-      "tokenCount": 1246,
+      "tokenCount": 1611,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 69,
         "grade": "C",
         "categories": [
           {
@@ -565,7 +565,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 5,
+            "score": 6,
             "max": 10
           },
           {
@@ -577,13 +577,13 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 9,
+            "score": 1,
             "max": 10
           },
           {
@@ -617,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:32:41.666Z",
+        "evaluatedAt": "2026-10-18T22:14:31.084Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -626,7 +626,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 74,
+          "overallScore": 69,
           "grade": "C",
           "categories": [
             {
@@ -638,7 +638,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 5,
+              "score": 6,
               "max": 10
             },
             {
@@ -650,13 +650,13 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 9,
+              "score": 1,
               "max": 10
             },
             {
@@ -690,7 +690,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.667Z",
+          "evaluatedAt": "2026-10-18T22:14:31.085Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -698,17 +698,194 @@
           "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 71,
+          "overallScore": 79,
           "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 10,
+              "score": 11,
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.667Z",
+          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "setup-api-key",
+      "description": "Fix or hand-configure an existing ElevenLabs API key. Use when a key stopped working (401 or invalid_api_key), when an administrator issued the key, when the user's role cannot create keys, or when the user already has a key and needs it in the right place. Checks whether ELEVENLABS_API_KEY is configured and valid, without reading it into the conversation. Not for first-time setup or adding ElevenLabs to a project (use onboarding).",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Requires internet access to elevenlabs.io and api.elevenlabs.io, and Node.js for npx (or the ElevenLabs CLI installed another way).",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:elevenlabs/skills:setup-api-key",
+      "relPath": "setup-api-key",
+      "verified": true,
+      "tokenCount": 1275,
+      "evalSummary": {
+        "overallScore": 69,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 6,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 7,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-18T22:14:31.084Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-18T22:14:31.085Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -728,7 +905,7 @@
       "installUrl": "github:elevenlabs/skills:sound-effects",
       "relPath": "sound-effects",
       "verified": true,
-      "tokenCount": 915,
+      "tokenCount": 1009,
       "evalSummary": {
         "overallScore": 77,
         "grade": "C",
@@ -794,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:32:41.666Z",
+        "evaluatedAt": "2026-10-18T22:14:31.084Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -867,7 +1044,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.667Z",
+          "evaluatedAt": "2026-10-18T22:14:31.085Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -885,7 +1062,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.667Z",
+          "evaluatedAt": "2026-10-18T22:14:31.085Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -905,9 +1082,9 @@
       "installUrl": "github:elevenlabs/skills:speech-engine",
       "relPath": "speech-engine",
       "verified": true,
-      "tokenCount": 2430,
+      "tokenCount": 2524,
       "evalSummary": {
-        "overallScore": 83,
+        "overallScore": 85,
         "grade": "B",
         "categories": [
           {
@@ -943,7 +1120,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 3,
+            "score": 5,
             "max": 10
           },
           {
@@ -971,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:32:41.666Z",
+        "evaluatedAt": "2026-10-18T22:14:31.084Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -980,7 +1157,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 83,
+          "overallScore": 85,
           "grade": "B",
           "categories": [
             {
@@ -1016,7 +1193,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 3,
+              "score": 5,
               "max": 10
             },
             {
@@ -1044,7 +1221,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.667Z",
+          "evaluatedAt": "2026-10-18T22:14:31.085Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1062,7 +1239,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.667Z",
+          "evaluatedAt": "2026-10-18T22:14:31.085Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1082,9 +1259,9 @@
       "installUrl": "github:elevenlabs/skills:speech-to-text",
       "relPath": "speech-to-text",
       "verified": true,
-      "tokenCount": 2360,
+      "tokenCount": 2454,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 75,
         "grade": "C",
         "categories": [
           {
@@ -1120,7 +1297,7 @@
           {
             "id": "testability",
             "name": "Testability",
-            "score": 1,
+            "score": 3,
             "max": 10
           },
           {
@@ -1148,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:32:41.666Z",
+        "evaluatedAt": "2026-10-18T22:14:31.085Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1157,7 +1334,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 71,
+          "overallScore": 73,
           "grade": "C",
           "categories": [
             {
@@ -1193,7 +1370,7 @@
             {
               "id": "testability",
               "name": "Testability",
-              "score": 1,
+              "score": 3,
               "max": 10
             },
             {
@@ -1221,7 +1398,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.667Z",
+          "evaluatedAt": "2026-10-18T22:14:31.085Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1239,7 +1416,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.667Z",
+          "evaluatedAt": "2026-10-18T22:14:31.085Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1259,7 +1436,7 @@
       "installUrl": "github:elevenlabs/skills:text-to-speech",
       "relPath": "text-to-speech",
       "verified": true,
-      "tokenCount": 2173,
+      "tokenCount": 2727,
       "evalSummary": {
         "overallScore": 75,
         "grade": "C",
@@ -1325,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:32:41.667Z",
+        "evaluatedAt": "2026-10-18T22:14:31.138Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1398,7 +1575,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.667Z",
+          "evaluatedAt": "2026-10-18T22:14:31.145Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1416,7 +1593,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.667Z",
+          "evaluatedAt": "2026-10-18T22:14:31.145Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1436,7 +1613,7 @@
       "installUrl": "github:elevenlabs/skills:.agents/skills/update-skills-from-changelog",
       "relPath": ".agents/skills/update-skills-from-changelog",
       "verified": true,
-      "tokenCount": 3677,
+      "tokenCount": 3723,
       "evalSummary": {
         "overallScore": 77,
         "grade": "C",
@@ -1502,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:32:41.695Z",
+        "evaluatedAt": "2026-10-18T22:14:31.138Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1575,7 +1752,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.696Z",
+          "evaluatedAt": "2026-10-18T22:14:31.145Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1593,7 +1770,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.696Z",
+          "evaluatedAt": "2026-10-18T22:14:31.145Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1613,7 +1790,7 @@
       "installUrl": "github:elevenlabs/skills:voice-changer",
       "relPath": "voice-changer",
       "verified": true,
-      "tokenCount": 3084,
+      "tokenCount": 3178,
       "evalSummary": {
         "overallScore": 78,
         "grade": "C",
@@ -1679,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:32:41.705Z",
+        "evaluatedAt": "2026-10-18T22:14:31.160Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1752,7 +1929,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.705Z",
+          "evaluatedAt": "2026-10-18T22:14:31.161Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1770,7 +1947,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.705Z",
+          "evaluatedAt": "2026-10-18T22:14:31.161Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1790,7 +1967,7 @@
       "installUrl": "github:elevenlabs/skills:voice-isolator",
       "relPath": "voice-isolator",
       "verified": true,
-      "tokenCount": 854,
+      "tokenCount": 948,
       "evalSummary": {
         "overallScore": 78,
         "grade": "C",
@@ -1856,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-13T12:32:41.708Z",
+        "evaluatedAt": "2026-10-18T22:14:31.164Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1929,7 +2106,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.709Z",
+          "evaluatedAt": "2026-10-18T22:14:31.166Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1947,7 +2124,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-13T12:32:41.709Z",
+          "evaluatedAt": "2026-10-18T22:14:31.166Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1959,7 +2136,7 @@
       "name": "elevenlabs-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from elevenlabs/skills.",
       "author": "ASM (elevenlabs/skills)",
-      "createdAt": "2026-10-13T12:32:41.719Z",
+      "createdAt": "2026-10-18T22:14:31.182Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1983,9 +2160,9 @@
           "version": "0.0.0"
         },
         {
-          "name": "setup-api-key",
-          "installUrl": "github:elevenlabs/skills:setup-api-key",
-          "description": "Guides users through setting up an ElevenLabs API key for REST API and SDK workflows. Use when the user needs to configure an ElevenLabs API key or when an API or SDK request fails because a key is missing. First checks whether ELEVENLABS_API_KEY is already configured and valid, and only runs full setup when needed.",
+          "name": "onboarding",
+          "installUrl": "github:elevenlabs/skills:onboarding",
+          "description": "Add ElevenLabs to a project from scratch. Use when the user wants to start using ElevenLabs, add text to speech, speech to text, voice agents, real-time voice for their own agent runtime (Speech Engine), sound effects, music, voice changing, voice isolation, or dubbing to their app, or get set up with an ElevenLabs account or API key for the first time. Handles sign-in, API key creation, SDK install and a test request end to end; the user leaves the conversation once, to approve a browser page. Not for fixing a key that stopped working or placing one an administrator issued (use setup-api-key).",
           "version": "0.0.0"
         },
         {
@@ -2025,7 +2202,7 @@
       "name": "elevenlabs-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from elevenlabs/skills.",
       "author": "ASM (elevenlabs/skills)",
-      "createdAt": "2026-10-13T12:32:41.719Z",
+      "createdAt": "2026-10-18T22:14:31.182Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2043,9 +2220,9 @@
           "version": "0.0.0"
         },
         {
-          "name": "setup-api-key",
-          "installUrl": "github:elevenlabs/skills:setup-api-key",
-          "description": "Guides users through setting up an ElevenLabs API key for REST API and SDK workflows. Use when the user needs to configure an ElevenLabs API key or when an API or SDK request fails because a key is missing. First checks whether ELEVENLABS_API_KEY is already configured and valid, and only runs full setup when needed.",
+          "name": "onboarding",
+          "installUrl": "github:elevenlabs/skills:onboarding",
+          "description": "Add ElevenLabs to a project from scratch. Use when the user wants to start using ElevenLabs, add text to speech, speech to text, voice agents, real-time voice for their own agent runtime (Speech Engine), sound effects, music, voice changing, voice isolation, or dubbing to their app, or get set up with an ElevenLabs account or API key for the first time. Handles sign-in, API key creation, SDK install and a test request end to end; the user leaves the conversation once, to approve a browser page. Not for fixing a key that stopped working or placing one an administrator issued (use setup-api-key).",
           "version": "0.0.0"
         },
         {
@@ -2073,7 +2250,7 @@
       "name": "elevenlabs-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from elevenlabs/skills.",
       "author": "ASM (elevenlabs/skills)",
-      "createdAt": "2026-10-13T12:32:41.719Z",
+      "createdAt": "2026-10-18T22:14:31.182Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2103,9 +2280,15 @@
           "version": "0.0.0"
         },
         {
+          "name": "onboarding",
+          "installUrl": "github:elevenlabs/skills:onboarding",
+          "description": "Add ElevenLabs to a project from scratch. Use when the user wants to start using ElevenLabs, add text to speech, speech to text, voice agents, real-time voice for their own agent runtime (Speech Engine), sound effects, music, voice changing, voice isolation, or dubbing to their app, or get set up with an ElevenLabs account or API key for the first time. Handles sign-in, API key creation, SDK install and a test request end to end; the user leaves the conversation once, to approve a browser page. Not for fixing a key that stopped working or placing one an administrator issued (use setup-api-key).",
+          "version": "0.0.0"
+        },
+        {
           "name": "setup-api-key",
           "installUrl": "github:elevenlabs/skills:setup-api-key",
-          "description": "Guides users through setting up an ElevenLabs API key for REST API and SDK workflows. Use when the user needs to configure an ElevenLabs API key or when an API or SDK request fails because a key is missing. First checks whether ELEVENLABS_API_KEY is already configured and valid, and only runs full setup when needed.",
+          "description": "Fix or hand-configure an existing ElevenLabs API key. Use when a key stopped working (401 or invalid_api_key), when an administrator issued the key, when the user's role cannot create keys, or when the user already has a key and needs it in the right place. Checks whether ELEVENLABS_API_KEY is configured and valid, without reading it into the conversation. Not for first-time setup or adding ElevenLabs to a project (use onboarding).",
           "version": "0.0.0"
         },
         {
@@ -2145,7 +2328,7 @@
       "name": "elevenlabs-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from elevenlabs/skills.",
       "author": "ASM (elevenlabs/skills)",
-      "createdAt": "2026-10-13T12:32:41.719Z",
+      "createdAt": "2026-10-18T22:14:31.182Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2160,12 +2343,6 @@
           "name": "agents",
           "installUrl": "github:elevenlabs/skills:agents",
           "description": "Build voice AI agents with ElevenLabs. Use when creating voice assistants, customer service bots, interactive voice characters, or any real-time voice conversation experience, and when configuring an agent's tools, workflows, or procedures, including creating, editing, and publishing free-form and structured procedure drafts on an agent branch over the SDKs or REST API.",
-          "version": "0.0.0"
-        },
-        {
-          "name": "setup-api-key",
-          "installUrl": "github:elevenlabs/skills:setup-api-key",
-          "description": "Guides users through setting up an ElevenLabs API key for REST API and SDK workflows. Use when the user needs to configure an ElevenLabs API key or when an API or SDK request fails because a key is missing. First checks whether ELEVENLABS_API_KEY is already configured and valid, and only runs full setup when needed.",
           "version": "0.0.0"
         },
         {
@@ -2199,7 +2376,7 @@
       "name": "elevenlabs-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from elevenlabs/skills.",
       "author": "ASM (elevenlabs/skills)",
-      "createdAt": "2026-10-13T12:32:41.719Z",
+      "createdAt": "2026-10-18T22:14:31.182Z",
       "tags": [
         "repo-derived",
         "inferred",
