@@ -171,50 +171,45 @@ function FeaturedSkills({ skills }) {
   );
 }
 
-/* ─── What's New (v2.23.0) ─────────────────────────────────────────── */
+/* ─── What's New (v2.24.0) ─────────────────────────────────────────── */
 
 function WhatsNew() {
   const highlights = [
     {
       tag: "New",
-      head: "Your whole library in the TUI",
-      body: "Run asm with no arguments: library skills you have not installed in the current scope show as dimmed rows in the Global and Project tabs. Press l on one to link it into the tool you choose.",
-    },
-    {
-      tag: "New",
-      head: "A content team in one bundle",
-      body: "asm bundle install content-team installs 23 skills for topic research, writing, visuals, video, sound, and social publishing. Set approval rules in your agent before you let it schedule or post.",
+      head: "SEO and marketing skills",
+      body: "A new catalog source adds 10 skills for running SEO on a daily schedule, ranking a key page fast, rewriting page titles, refreshing blog posts, writing sales copy, understanding your customers, and transcribing videos.",
     },
     {
       tag: "Growing",
-      head: "6,900+ skills from 85 repos",
-      body: "Four new sources add 36 skills for article illustrations, cover images, infographics, video editing, ElevenLabs speech, sound effects, music, and Postiz social scheduling. Every indexed source is refreshed.",
+      head: "Nearly 7,000 skills from 86 repos",
+      body: "The catalog now lists 6,962 skills, with the latest updates from every indexed source.",
     },
     {
       tag: "Fixed",
-      head: "Skill pages that recover on their own",
-      body: "Skill pages on the website retry automatically when their details fail to load. If loading still fails, they explain what went wrong and offer a Try again button.",
+      head: "Installs skip a skill's setup scripts",
+      body: "Installing a skill no longer runs the setup scripts that come with it, closing a way for an untrusted skill to run its own code the moment you install it. If a skill you trust needs a build step, run npm rebuild in its scripts folder.",
     },
   ];
   return (
     <Reveal
       as="section"
       className="flex flex-col gap-8"
-      aria-label="What's new in v2.23.0"
+      aria-label="What's new in v2.24.0"
     >
       <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div className="flex flex-col gap-3 max-w-[680px]">
           <span className="lp-kicker">
             <span className="dot" aria-hidden="true" />
-            what&apos;s new · v2.23.0
+            what&apos;s new · v2.24.0
           </span>
           <h2 className="lp-section-title">
-            Your library in the TUI. A content team in one bundle.
+            SEO skills in the catalog. Safer skill installs.
           </h2>
           <p className="lp-lede">
-            v2.23.0 shows uninstalled library skills in the TUI and links them
-            with one key, adds a content-team bundle and four new catalog
-            sources, and makes website skill pages retry when loading fails.
+            v2.24.0 adds 10 SEO and marketing skills from a new catalog source,
+            refreshes every indexed source, and stops installs from running the
+            setup scripts that come with a skill.
           </p>
         </div>
         <Link
@@ -488,7 +483,7 @@ function Solution() {
     {
       icon: "03",
       head: "Catch problems before they bite",
-      body: "Built-in security scanning flags shell execution, network calls, credential exposure, and obfuscation before you install. Duplicate audit cleans the rest.",
+      body: "Built-in security scanning flags shell execution, network calls, credential exposure, and obfuscation before you install, and installs never run a skill's setup scripts. Duplicate audit cleans the rest.",
     },
     {
       icon: "04",

@@ -1,3 +1,21 @@
+## v2.24.0 — 2026-10-20
+
+### Features
+
+- Add `Illyism/seo-skills` (10 skills) to the curated skill index — SEO and marketing skills for running SEO end to end on a daily schedule, ranking one high-value page fast, auditing and rewriting page titles, refreshing blog posts against competing search results, mapping customer journeys across Google, AI chatbots, and social platforms, researching customers before writing copy, writing blog intros and conversion copy, turning shipped changes into marketing content, and transcribing video and audio with Scribiz; the repo's 11th skill, `linkdr`, is excluded (see Bug Fixes) ([#744](https://github.com/luongnv89/asm/issues/744)) ([#743](https://github.com/luongnv89/asm/pull/743)) — @luongnv89
+
+### Bug Fixes
+
+- Stop `asm install` from running code shipped in a skill: dependencies in a skill's `scripts/package.json` are now installed with `npm install --ignore-scripts --git=git --allow-git=none --node-options= --global=false --location=user` and matching `npm_config_*` environment variables for nested npm processes, so neither the `preinstall`/`install`/`postinstall`/`prepare` scripts of that package and its dependencies nor a skill-supplied `scripts/.npmrc` that swaps npm's git binary, injects `node-options`, or makes the install global can run code at install time; git dependencies are now refused, so `asm install` copies the skill and then reports `Installed skill, but failed to install dependencies in scripts/ (git dependencies in scripts/package.json are not allowed)` (npm versions without `allow-git`, such as npm 10, ignore that flag, and the other settings still block code execution); dependencies that need a native build step are no longer compiled during install, so run `npm rebuild` in a trusted skill's `scripts/` directory to build them; hardening against symlinks shipped in `scripts/` is tracked in [#753](https://github.com/luongnv89/asm/issues/753) ([#751](https://github.com/luongnv89/asm/issues/751)) ([#752](https://github.com/luongnv89/asm/pull/752)) — @luongnv89
+- Keep flagged skills out of the curated index: entries in `data/skill-index-resources.json` accept an optional `excludeSkills` list, which the ingester applies after dedupe and before verification and bundle inference so excluded skills never appear in `skills`, `skillCount`, or inferred bundles, and `preindex` passes it through so exclusions survive index refreshes; `Illyism/seo-skills` excludes `linkdr`, which the onboarding audit flagged for telling the agent to fetch and follow a newer remote `SKILL.md` instead of the local copy and for steering users toward paid checkout links (11 → 10 skills); `asm index ingest`, which re-onboarding uses, does not read `excludeSkills` yet ([#745](https://github.com/luongnv89/asm/issues/745)) ([#746](https://github.com/luongnv89/asm/pull/746)) — @luongnv89
+
+### Chores
+
+- Prepare `asm` for Anthropic's opt-in OSS Scanner vulnerability-finding service: add `.oss-scanner/Dockerfile`, a `node:22-bookworm` image that runs `npm ci`, `npm run build`, `npm link`, and a non-fatal `npm test` so the offline scan has everything it needs at build time, and `.oss-scanner/threat_model.md`, covering untrusted inputs, security goals such as install and import never executing skill code, in- and out-of-scope paths, and a severity rubric; `SECURITY.md` adds an email security contact next to GitHub private advisories ([#749](https://github.com/luongnv89/asm/issues/749)) ([#750](https://github.com/luongnv89/asm/pull/750)) — @luongnv89
+- Refresh indexed skill sources — re-ingested all enabled repos in `data/skill-index-resources.json` (26 updated, 60 unchanged, 0 failed, 0 skipped); with `Illyism/seo-skills` the catalog grows from 85 repos / 6,905 skills to 86 repos / 6,962 skills, led by `sickn33/antigravity-awesome-skills` (+25), `google/skills` (+8), and `github/awesome-copilot` (+6), while `antithesishq/antithesis-skills` drops `antithesis-agent-browser` and `antithesis-query-logs` ([#748](https://github.com/luongnv89/asm/issues/748)) ([#747](https://github.com/luongnv89/asm/pull/747)) — @luongnv89
+
+**Full Changelog**: https://github.com/luongnv89/asm/compare/v2.23.0...v2.24.0
+
 ## v2.23.0 — 2026-10-13
 
 ### Features

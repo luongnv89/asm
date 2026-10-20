@@ -27,6 +27,45 @@ function issue(n) {
 
 const ENTRIES = [
   {
+    version: "2.24.0",
+    date: "2026-10-20",
+    sections: [
+      {
+        tag: "added",
+        items: [
+          <>
+            Browse 10 SEO and marketing skills from a new catalog source, for
+            running SEO on a daily schedule, ranking a key page fast, rewriting
+            page titles, refreshing blog posts, writing sales copy,
+            understanding your customers, and transcribing videos.
+          </>,
+        ],
+      },
+      {
+        tag: "changed",
+        items: [
+          <>
+            The skill catalog now lists nearly 7,000 skills from 86
+            repositories, with the latest updates from every indexed source.
+          </>,
+        ],
+      },
+      {
+        tag: "fixed",
+        items: [
+          <>
+            Installing a skill no longer runs the setup scripts that come with
+            it, closing a way for an untrusted skill to run its own code on your
+            computer the moment you install it. If a skill you trust has helper
+            packages that need a build step during setup, run{" "}
+            <code>npm rebuild</code> in that skill&apos;s <code>scripts</code>{" "}
+            folder after installing it.
+          </>,
+        ],
+      },
+    ],
+  },
+  {
     version: "2.23.0",
     date: "2026-10-13",
     sections: [

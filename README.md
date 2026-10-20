@@ -37,7 +37,7 @@
 
 |                     |                                                                                |
 | ------------------- | ------------------------------------------------------------------------------ |
-| **Catalog**         | 6,905 skills from 85 repos — [browse online](https://luongnv.com/asm/#/skills) |
+| **Catalog**         | 6,962 skills from 86 repos — [browse online](https://luongnv.com/asm/#/skills) |
 | **Providers**       | 21 providers (Agents, Claude Code, Pi, OpenCode, Codex, …)                     |
 | **Agent-ready CLI** | `--json`, `--yes`, `--machine` on list, search, install, audit, eval           |
 | **Security**        | Pre-install scan for shell exec, network access, credential exposure           |
@@ -889,6 +889,8 @@ asm install github:user/skills --method vercel --skill my-skill
 | `--json`                 | JSON output                    |
 
 Multi-skill repos: scans up to 5 levels deep. Root `SKILL.md` installs by default; use `--all` for every skill. Requires `git` on PATH.
+
+If a skill ships `scripts/package.json`, ASM installs its dependencies with `npm install --ignore-scripts`, so no install scripts from the skill or its dependencies run, and git dependencies are refused. Dependencies that need a native build step are not compiled; for a skill you trust, run `npm rebuild` in its `scripts/` directory after installing.
 
 </details>
 
