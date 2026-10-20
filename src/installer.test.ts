@@ -1925,10 +1925,14 @@ describe("installScriptDependencies", () => {
     await installScriptDependencies(tempDir, runner as any);
 
     expect(runner).toHaveBeenCalledTimes(1);
-    expect(runner).toHaveBeenCalledWith("npm", ["install", "--ignore-scripts"], {
-      cwd: scriptsDir,
-      timeout: 120_000,
-    });
+    expect(runner).toHaveBeenCalledWith(
+      "npm",
+      ["install", "--ignore-scripts"],
+      {
+        cwd: scriptsDir,
+        timeout: 120_000,
+      },
+    );
   });
 
   test("does not run lifecycle scripts from the skill's scripts/package.json", async () => {
