@@ -622,7 +622,12 @@ export async function installScriptDependencies(
 
   debug(`install: installing script dependencies in ${scriptsDir}`);
   try {
-    await runner("npm", ["install"], { cwd: scriptsDir, timeout: 120_000 });
+    // --ignore-scripts: skill content is untrusted, so installing it must not
+    // run lifecycle scripts from its package.json or its dependencies.
+    await runner("npm", ["install", "--ignore-scripts"], {
+      cwd: scriptsDir,
+      timeout: 120_000,
+    });
   } catch (err: unknown) {
     const execErr = err as ExecError;
     throw new Error(

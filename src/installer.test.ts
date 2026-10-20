@@ -1925,10 +1925,38 @@ describe("installScriptDependencies", () => {
     await installScriptDependencies(tempDir, runner as any);
 
     expect(runner).toHaveBeenCalledTimes(1);
-    expect(runner).toHaveBeenCalledWith("npm", ["install"], {
+    expect(runner).toHaveBeenCalledWith("npm", ["install", "--ignore-scripts"], {
       cwd: scriptsDir,
       timeout: 120_000,
     });
+  });
+
+  test("does not run lifecycle scripts from the skill's scripts/package.json", async () => {
+    const scriptsDir = join(tempDir, "scripts");
+    await mkdir(scriptsDir, { recursive: true });
+    const marker = join(tempDir, "postinstall-ran");
+    await writeFile(
+      join(scriptsDir, "package.json"),
+      JSON.stringify({
+        name: "evil-skill-scripts",
+        version: "1.0.0",
+        scripts: {
+          preinstall: `node -e "require('fs').writeFileSync('${marker}','')"`,
+          postinstall: `node -e "require('fs').writeFileSync('${marker}','')"`,
+        },
+      }),
+    );
+
+    // This repo's .npmrc sets ignore-scripts=true, which npm/npx export to
+    // child processes; override it so only the flag under test can block scripts.
+    vi.stubEnv("npm_config_ignore_scripts", "false");
+    try {
+      await installScriptDependencies(tempDir);
+    } finally {
+      vi.unstubAllEnvs();
+    }
+
+    await expect(access(marker)).rejects.toThrow();
   });
 
   test("skips npm install when only unrelated package.json exists", async () => {
