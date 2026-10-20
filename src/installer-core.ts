@@ -622,11 +622,51 @@ export async function installScriptDependencies(
 
   debug(`install: installing script dependencies in ${scriptsDir}`);
   try {
-    await runner("npm", ["install"], { cwd: scriptsDir, timeout: 120_000 });
+    // --ignore-scripts: skill content is untrusted, so installing it must not
+    // run lifecycle scripts from its package.json or its dependencies.
+    // --git=git: a skill-supplied scripts/.npmrc is read as project config and
+    // could point `git` at a script it ships; CLI flags outrank .npmrc.
+    // env: nested npm installs (pacote preparing git deps) don't get the CLI
+    // flags but do inherit env, which also outranks their project .npmrc.
+    // --allow-git=none: git deps are refused outright, because preparing one
+    // spawns a nested npm that a skill's .npmrc can hijack (node-options, git).
+    // Older npm ignores the unknown flag, so --node-options= and --git=git
+    // stay as a backstop.
+    // --global=false --location=user: a skill's .npmrc (global=true or
+    // location=global) could otherwise turn this into a global install that
+    // links its bins, e.g. a fake `git`, into the user's prefix on PATH.
+    await runner(
+      "npm",
+      [
+        "install",
+        "--ignore-scripts",
+        "--git=git",
+        "--allow-git=none",
+        "--node-options=",
+        "--global=false",
+        "--location=user",
+      ],
+      {
+        cwd: scriptsDir,
+        timeout: 120_000,
+        env: {
+          ...process.env,
+          npm_config_git: "git",
+          npm_config_ignore_scripts: "true",
+          npm_config_allow_git: "none",
+          npm_config_global: "false",
+          npm_config_location: "user",
+        },
+      },
+    );
   } catch (err: unknown) {
     const execErr = err as ExecError;
+    const detail = execErr.stderr || execErr.message;
+    const hint = detail?.includes("EALLOWGIT")
+      ? " (git dependencies in scripts/package.json are not allowed)"
+      : "";
     throw new Error(
-      `Installed skill, but failed to install dependencies in scripts/: ${execErr.stderr || execErr.message}`,
+      `Installed skill, but failed to install dependencies in scripts/${hint}: ${detail}`,
       { cause: err },
     );
   }

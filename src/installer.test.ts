@@ -8,8 +8,10 @@ import {
   rm,
   readlink,
   lstat,
+  chmod,
 } from "fs/promises";
 import { existsSync } from "fs";
+import { execFileSync } from "child_process";
 import { join, relative, resolve, isAbsolute, basename, dirname } from "path";
 import { tmpdir } from "os";
 import {
@@ -1925,11 +1927,279 @@ describe("installScriptDependencies", () => {
     await installScriptDependencies(tempDir, runner as any);
 
     expect(runner).toHaveBeenCalledTimes(1);
-    expect(runner).toHaveBeenCalledWith("npm", ["install"], {
-      cwd: scriptsDir,
-      timeout: 120_000,
-    });
+    expect(runner).toHaveBeenCalledWith(
+      "npm",
+      [
+        "install",
+        "--ignore-scripts",
+        "--git=git",
+        "--allow-git=none",
+        "--node-options=",
+        "--global=false",
+        "--location=user",
+      ],
+      {
+        cwd: scriptsDir,
+        timeout: 120_000,
+        env: expect.objectContaining({
+          npm_config_git: "git",
+          npm_config_ignore_scripts: "true",
+          npm_config_allow_git: "none",
+          npm_config_global: "false",
+          npm_config_location: "user",
+        }),
+      },
+    );
   });
+
+  test("does not run lifecycle scripts from the skill's scripts/package.json", async () => {
+    const scriptsDir = join(tempDir, "scripts");
+    await mkdir(scriptsDir, { recursive: true });
+    const marker = join(tempDir, "postinstall-ran");
+    // Write the marker from a file so no path is interpolated into a shell
+    // string (Windows backslashes would otherwise be mangled).
+    await writeFile(
+      join(scriptsDir, "mark.js"),
+      `require("fs").writeFileSync(${JSON.stringify(marker)}, "");\n`,
+    );
+    await writeFile(
+      join(scriptsDir, "package.json"),
+      JSON.stringify({
+        name: "evil-skill-scripts",
+        version: "1.0.0",
+        scripts: {
+          preinstall: "node mark.js",
+          postinstall: "node mark.js",
+        },
+      }),
+    );
+
+    // This repo's .npmrc sets ignore-scripts=true, which npm/npx export to
+    // child processes; override it so only the flag under test can block scripts.
+    vi.stubEnv("npm_config_ignore_scripts", "false");
+    try {
+      await installScriptDependencies(tempDir);
+    } finally {
+      vi.unstubAllEnvs();
+    }
+
+    await expect(access(marker)).rejects.toThrow();
+  });
+
+  test.skipIf(process.platform === "win32")(
+    "does not let a skill-supplied scripts/.npmrc swap npm's git binary",
+    async () => {
+      const scriptsDir = join(tempDir, "scripts");
+      await mkdir(scriptsDir, { recursive: true });
+      const marker = join(tempDir, "fake-git-ran");
+      const fakeGit = join(scriptsDir, "evil.sh");
+      await writeFile(
+        fakeGit,
+        `#!/bin/sh\ntouch ${JSON.stringify(marker)}\nexit 1\n`,
+      );
+      await chmod(fakeGit, 0o755);
+      await writeFile(join(scriptsDir, ".npmrc"), `git=${fakeGit}\n`);
+      await writeFile(
+        join(scriptsDir, "package.json"),
+        JSON.stringify({
+          name: "evil-skill-scripts",
+          version: "1.0.0",
+          dependencies: { x: "git+https://example.invalid/a/b.git" },
+        }),
+      );
+
+      // The git dependency cannot resolve, so the install itself fails.
+      await expect(installScriptDependencies(tempDir)).rejects.toThrow();
+
+      await expect(access(marker)).rejects.toThrow();
+    },
+  );
+
+  test.skipIf(process.platform === "win32")(
+    "does not let a nested git dependency's .npmrc swap npm's git binary",
+    async () => {
+      const marker = join(tempDir, "nested-fake-git-ran");
+      const fakeGit = join(tempDir, "evil.sh");
+      await writeFile(
+        fakeGit,
+        `#!/bin/sh\ntouch ${JSON.stringify(marker)}\nexit 1\n`,
+      );
+      await chmod(fakeGit, 0o755);
+
+      const commitRepo = async (dir: string, files: Record<string, string>) => {
+        await mkdir(dir, { recursive: true });
+        for (const [name, content] of Object.entries(files)) {
+          await writeFile(join(dir, name), content);
+        }
+        const git = (...args: string[]) =>
+          execFileSync(
+            "git",
+            ["-c", "user.name=t", "-c", "user.email=t@t", ...args],
+            { cwd: dir, stdio: "ignore" },
+          );
+        git("init", "-q");
+        git("add", ".");
+        git("commit", "-q", "--no-gpg-sign", "-m", "init");
+      };
+
+      // inner: a plain git dependency of outer.
+      const innerDir = join(tempDir, "inner");
+      await commitRepo(innerDir, {
+        "package.json": JSON.stringify({ name: "inner", version: "1.0.0" }),
+      });
+      // outer: has a prepare script, so pacote runs a nested `npm install`
+      // inside its clone, which reads outer's .npmrc as project config.
+      const outerDir = join(tempDir, "outer");
+      await commitRepo(outerDir, {
+        "package.json": JSON.stringify({
+          name: "outer",
+          version: "1.0.0",
+          scripts: { prepare: "node -e 0" },
+          dependencies: { inner: `git+file://${innerDir}` },
+        }),
+        ".npmrc": `git=${fakeGit}\n`,
+      });
+
+      const scriptsDir = join(tempDir, "skill", "scripts");
+      await mkdir(scriptsDir, { recursive: true });
+      await writeFile(
+        join(scriptsDir, "package.json"),
+        JSON.stringify({
+          name: "evil-skill-scripts",
+          version: "1.0.0",
+          dependencies: { outer: `git+file://${outerDir}` },
+        }),
+      );
+
+      // Mirror the lifecycle test: drop the repo's inherited ignore-scripts so
+      // only the env passed by installScriptDependencies can harden children.
+      vi.stubEnv("npm_config_ignore_scripts", "false");
+      try {
+        await installScriptDependencies(join(tempDir, "skill")).catch(() => {});
+      } finally {
+        vi.unstubAllEnvs();
+      }
+
+      await expect(access(marker)).rejects.toThrow();
+    },
+    30_000,
+  );
+
+  test.skipIf(process.platform === "win32")(
+    "does not let a skill's scripts/.npmrc inject node-options into a nested git dep install",
+    async () => {
+      const marker = join(tempDir, "node-options-ran");
+
+      // outer: a git dependency with a prepare script, so preparing it would
+      // spawn a nested `npm install` in its clone, where evil.js lives.
+      const outerDir = join(tempDir, "outer");
+      await mkdir(outerDir, { recursive: true });
+      await writeFile(
+        join(outerDir, "package.json"),
+        JSON.stringify({
+          name: "outer",
+          version: "1.0.0",
+          scripts: { prepare: "node -e 0" },
+        }),
+      );
+      await writeFile(
+        join(outerDir, "evil.js"),
+        `require("fs").writeFileSync(${JSON.stringify(marker)}, "");\n`,
+      );
+      const git = (...args: string[]) =>
+        execFileSync(
+          "git",
+          ["-c", "user.name=t", "-c", "user.email=t@t", ...args],
+          { cwd: outerDir, stdio: "ignore" },
+        );
+      git("init", "-q");
+      git("add", ".");
+      git("commit", "-q", "--no-gpg-sign", "-m", "init");
+
+      const scriptsDir = join(tempDir, "skill", "scripts");
+      await mkdir(scriptsDir, { recursive: true });
+      await writeFile(
+        join(scriptsDir, ".npmrc"),
+        "node-options=--require ./evil.js\n",
+      );
+      await writeFile(
+        join(scriptsDir, "package.json"),
+        JSON.stringify({
+          name: "evil-skill-scripts",
+          version: "1.0.0",
+          dependencies: { outer: `git+file://${outerDir}` },
+        }),
+      );
+
+      // npm without allow-git (e.g. npm 10 on Node 22) ignores the flag, so the git dep
+      // installs; there --node-options= alone must keep evil.js from running.
+      const allowGitSupported =
+        "allow-git" in
+        JSON.parse(
+          execFileSync("npm", ["config", "ls", "-l", "--json"], {
+            cwd: tempDir,
+            encoding: "utf8",
+          }),
+        );
+
+      vi.stubEnv("npm_config_ignore_scripts", "false");
+      try {
+        const install = installScriptDependencies(join(tempDir, "skill"));
+        if (allowGitSupported) {
+          await expect(install).rejects.toThrow(
+            "git dependencies in scripts/package.json",
+          );
+        } else {
+          await install;
+        }
+      } finally {
+        vi.unstubAllEnvs();
+      }
+
+      await expect(access(marker)).rejects.toThrow();
+    },
+    30_000,
+  );
+
+  test
+    .skipIf(process.platform === "win32")
+    .each(["global=true", "location=global"])(
+    "does not let a skill's scripts/.npmrc (%s) make the install global",
+    async (setting) => {
+      const scriptsDir = join(tempDir, "scripts");
+      await mkdir(scriptsDir, { recursive: true });
+      const prefix = join(tempDir, "prefix");
+      await writeFile(
+        join(scriptsDir, ".npmrc"),
+        `${setting}\nforce=true\nprefix=${prefix}\n`,
+      );
+      await writeFile(join(scriptsDir, "fake-git.sh"), "#!/bin/sh\n");
+      await writeFile(
+        join(scriptsDir, "package.json"),
+        JSON.stringify({
+          name: "evil-skill-scripts",
+          version: "1.0.0",
+          bin: { git: "fake-git.sh" },
+        }),
+      );
+
+      vi.stubEnv("npm_config_ignore_scripts", "false");
+      // npm ignores prefix from project config, so a global install would land
+      // in the real global prefix (npm/npx also export it as npm_config_prefix).
+      // Pin it to tempDir so a regression can only link into the sandbox.
+      vi.stubEnv("npm_config_prefix", prefix);
+      vi.stubEnv("npm_config_global_prefix", prefix);
+      try {
+        await installScriptDependencies(tempDir).catch(() => {});
+      } finally {
+        vi.unstubAllEnvs();
+      }
+
+      expect(existsSync(join(prefix, "bin", "git"))).toBe(false);
+      expect(existsSync(join(prefix, "lib", "node_modules"))).toBe(false);
+    },
+    30_000,
+  );
 
   test("skips npm install when only unrelated package.json exists", async () => {
     await writeFile(join(tempDir, "package.json"), '{"dependencies":{}}\n');
