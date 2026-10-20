@@ -632,6 +632,9 @@ export async function installScriptDependencies(
     // spawns a nested npm that a skill's .npmrc can hijack (node-options, git).
     // Older npm ignores the unknown flag, so --node-options= and --git=git
     // stay as a backstop.
+    // --global=false --location=user: a skill's .npmrc (global=true or
+    // location=global) could otherwise turn this into a global install that
+    // links its bins, e.g. a fake `git`, into the user's prefix on PATH.
     await runner(
       "npm",
       [
@@ -640,6 +643,8 @@ export async function installScriptDependencies(
         "--git=git",
         "--allow-git=none",
         "--node-options=",
+        "--global=false",
+        "--location=user",
       ],
       {
         cwd: scriptsDir,
@@ -649,6 +654,8 @@ export async function installScriptDependencies(
           npm_config_git: "git",
           npm_config_ignore_scripts: "true",
           npm_config_allow_git: "none",
+          npm_config_global: "false",
+          npm_config_location: "user",
         },
       },
     );

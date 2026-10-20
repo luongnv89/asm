@@ -1935,6 +1935,8 @@ describe("installScriptDependencies", () => {
         "--git=git",
         "--allow-git=none",
         "--node-options=",
+        "--global=false",
+        "--location=user",
       ],
       {
         cwd: scriptsDir,
@@ -1943,6 +1945,8 @@ describe("installScriptDependencies", () => {
           npm_config_git: "git",
           npm_config_ignore_scripts: "true",
           npm_config_allow_git: "none",
+          npm_config_global: "false",
+          npm_config_location: "user",
         }),
       },
     );
@@ -2127,16 +2131,72 @@ describe("installScriptDependencies", () => {
         }),
       );
 
+      // npm without allow-git (e.g. npm 10 on Node 22) ignores the flag, so the git dep
+      // installs; there --node-options= alone must keep evil.js from running.
+      const allowGitSupported =
+        "allow-git" in
+        JSON.parse(
+          execFileSync("npm", ["config", "ls", "-l", "--json"], {
+            cwd: tempDir,
+            encoding: "utf8",
+          }),
+        );
+
       vi.stubEnv("npm_config_ignore_scripts", "false");
       try {
-        await expect(
-          installScriptDependencies(join(tempDir, "skill")),
-        ).rejects.toThrow("git dependencies in scripts/package.json");
+        const install = installScriptDependencies(join(tempDir, "skill"));
+        if (allowGitSupported) {
+          await expect(install).rejects.toThrow(
+            "git dependencies in scripts/package.json",
+          );
+        } else {
+          await install;
+        }
       } finally {
         vi.unstubAllEnvs();
       }
 
       await expect(access(marker)).rejects.toThrow();
+    },
+    30_000,
+  );
+
+  test
+    .skipIf(process.platform === "win32")
+    .each(["global=true", "location=global"])(
+    "does not let a skill's scripts/.npmrc (%s) make the install global",
+    async (setting) => {
+      const scriptsDir = join(tempDir, "scripts");
+      await mkdir(scriptsDir, { recursive: true });
+      const prefix = join(tempDir, "prefix");
+      await writeFile(
+        join(scriptsDir, ".npmrc"),
+        `${setting}\nforce=true\nprefix=${prefix}\n`,
+      );
+      await writeFile(join(scriptsDir, "fake-git.sh"), "#!/bin/sh\n");
+      await writeFile(
+        join(scriptsDir, "package.json"),
+        JSON.stringify({
+          name: "evil-skill-scripts",
+          version: "1.0.0",
+          bin: { git: "fake-git.sh" },
+        }),
+      );
+
+      vi.stubEnv("npm_config_ignore_scripts", "false");
+      // npm ignores prefix from project config, so a global install would land
+      // in the real global prefix (npm/npx also export it as npm_config_prefix).
+      // Pin it to tempDir so a regression can only link into the sandbox.
+      vi.stubEnv("npm_config_prefix", prefix);
+      vi.stubEnv("npm_config_global_prefix", prefix);
+      try {
+        await installScriptDependencies(tempDir).catch(() => {});
+      } finally {
+        vi.unstubAllEnvs();
+      }
+
+      expect(existsSync(join(prefix, "bin", "git"))).toBe(false);
+      expect(existsSync(join(prefix, "lib", "node_modules"))).toBe(false);
     },
     30_000,
   );
