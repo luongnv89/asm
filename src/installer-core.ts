@@ -624,7 +624,9 @@ export async function installScriptDependencies(
   try {
     // --ignore-scripts: skill content is untrusted, so installing it must not
     // run lifecycle scripts from its package.json or its dependencies.
-    await runner("npm", ["install", "--ignore-scripts"], {
+    // --git=git: a skill-supplied scripts/.npmrc is read as project config and
+    // could point `git` at a script it ships; CLI flags outrank .npmrc.
+    await runner("npm", ["install", "--ignore-scripts", "--git=git"], {
       cwd: scriptsDir,
       timeout: 120_000,
     });
