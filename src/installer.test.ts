@@ -11,6 +11,7 @@ import {
   chmod,
 } from "fs/promises";
 import { existsSync } from "fs";
+import { execFileSync } from "child_process";
 import { join, relative, resolve, isAbsolute, basename, dirname } from "path";
 import { tmpdir } from "os";
 import {
@@ -1932,6 +1933,10 @@ describe("installScriptDependencies", () => {
       {
         cwd: scriptsDir,
         timeout: 120_000,
+        env: expect.objectContaining({
+          npm_config_git: "git",
+          npm_config_ignore_scripts: "true",
+        }),
       },
     );
   });
@@ -1997,6 +2002,78 @@ describe("installScriptDependencies", () => {
 
       await expect(access(marker)).rejects.toThrow();
     },
+  );
+
+  test.skipIf(process.platform === "win32")(
+    "does not let a nested git dependency's .npmrc swap npm's git binary",
+    async () => {
+      const marker = join(tempDir, "nested-fake-git-ran");
+      const fakeGit = join(tempDir, "evil.sh");
+      await writeFile(
+        fakeGit,
+        `#!/bin/sh\ntouch ${JSON.stringify(marker)}\nexit 1\n`,
+      );
+      await chmod(fakeGit, 0o755);
+
+      const commitRepo = async (dir: string, files: Record<string, string>) => {
+        await mkdir(dir, { recursive: true });
+        for (const [name, content] of Object.entries(files)) {
+          await writeFile(join(dir, name), content);
+        }
+        const git = (...args: string[]) =>
+          execFileSync(
+            "git",
+            ["-c", "user.name=t", "-c", "user.email=t@t", ...args],
+            { cwd: dir, stdio: "ignore" },
+          );
+        git("init", "-q");
+        git("add", ".");
+        git("commit", "-q", "--no-gpg-sign", "-m", "init");
+      };
+
+      // inner: a plain git dependency of outer.
+      const innerDir = join(tempDir, "inner");
+      await commitRepo(innerDir, {
+        "package.json": JSON.stringify({ name: "inner", version: "1.0.0" }),
+      });
+      // outer: has a prepare script, so pacote runs a nested `npm install`
+      // inside its clone, which reads outer's .npmrc as project config.
+      const outerDir = join(tempDir, "outer");
+      await commitRepo(outerDir, {
+        "package.json": JSON.stringify({
+          name: "outer",
+          version: "1.0.0",
+          scripts: { prepare: "node -e 0" },
+          dependencies: { inner: `git+file://${innerDir}` },
+        }),
+        ".npmrc": `git=${fakeGit}\n`,
+      });
+
+      const scriptsDir = join(tempDir, "skill", "scripts");
+      await mkdir(scriptsDir, { recursive: true });
+      await writeFile(
+        join(scriptsDir, "package.json"),
+        JSON.stringify({
+          name: "evil-skill-scripts",
+          version: "1.0.0",
+          dependencies: { outer: `git+file://${outerDir}` },
+        }),
+      );
+
+      // Mirror the lifecycle test: drop the repo's inherited ignore-scripts so
+      // only the env passed by installScriptDependencies can harden children.
+      vi.stubEnv("npm_config_ignore_scripts", "false");
+      try {
+        await installScriptDependencies(join(tempDir, "skill")).catch(
+          () => {},
+        );
+      } finally {
+        vi.unstubAllEnvs();
+      }
+
+      await expect(access(marker)).rejects.toThrow();
+    },
+    30_000,
   );
 
   test("skips npm install when only unrelated package.json exists", async () => {

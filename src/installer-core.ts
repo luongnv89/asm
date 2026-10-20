@@ -626,9 +626,16 @@ export async function installScriptDependencies(
     // run lifecycle scripts from its package.json or its dependencies.
     // --git=git: a skill-supplied scripts/.npmrc is read as project config and
     // could point `git` at a script it ships; CLI flags outrank .npmrc.
+    // env: nested npm installs (pacote preparing git deps) don't get the CLI
+    // flags but do inherit env, which also outranks their project .npmrc.
     await runner("npm", ["install", "--ignore-scripts", "--git=git"], {
       cwd: scriptsDir,
       timeout: 120_000,
+      env: {
+        ...process.env,
+        npm_config_git: "git",
+        npm_config_ignore_scripts: "true",
+      },
     });
   } catch (err: unknown) {
     const execErr = err as ExecError;
