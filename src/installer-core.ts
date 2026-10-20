@@ -628,19 +628,38 @@ export async function installScriptDependencies(
     // could point `git` at a script it ships; CLI flags outrank .npmrc.
     // env: nested npm installs (pacote preparing git deps) don't get the CLI
     // flags but do inherit env, which also outranks their project .npmrc.
-    await runner("npm", ["install", "--ignore-scripts", "--git=git"], {
-      cwd: scriptsDir,
-      timeout: 120_000,
-      env: {
-        ...process.env,
-        npm_config_git: "git",
-        npm_config_ignore_scripts: "true",
+    // --allow-git=none: git deps are refused outright, because preparing one
+    // spawns a nested npm that a skill's .npmrc can hijack (node-options, git).
+    // Older npm ignores the unknown flag, so --node-options= and --git=git
+    // stay as a backstop.
+    await runner(
+      "npm",
+      [
+        "install",
+        "--ignore-scripts",
+        "--git=git",
+        "--allow-git=none",
+        "--node-options=",
+      ],
+      {
+        cwd: scriptsDir,
+        timeout: 120_000,
+        env: {
+          ...process.env,
+          npm_config_git: "git",
+          npm_config_ignore_scripts: "true",
+          npm_config_allow_git: "none",
+        },
       },
-    });
+    );
   } catch (err: unknown) {
     const execErr = err as ExecError;
+    const detail = execErr.stderr || execErr.message;
+    const hint = detail?.includes("EALLOWGIT")
+      ? " (git dependencies in scripts/package.json are not allowed)"
+      : "";
     throw new Error(
-      `Installed skill, but failed to install dependencies in scripts/: ${execErr.stderr || execErr.message}`,
+      `Installed skill, but failed to install dependencies in scripts/${hint}: ${detail}`,
       { cause: err },
     );
   }

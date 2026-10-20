@@ -1929,13 +1929,20 @@ describe("installScriptDependencies", () => {
     expect(runner).toHaveBeenCalledTimes(1);
     expect(runner).toHaveBeenCalledWith(
       "npm",
-      ["install", "--ignore-scripts", "--git=git"],
+      [
+        "install",
+        "--ignore-scripts",
+        "--git=git",
+        "--allow-git=none",
+        "--node-options=",
+      ],
       {
         cwd: scriptsDir,
         timeout: 120_000,
         env: expect.objectContaining({
           npm_config_git: "git",
           npm_config_ignore_scripts: "true",
+          npm_config_allow_git: "none",
         }),
       },
     );
@@ -2064,9 +2071,67 @@ describe("installScriptDependencies", () => {
       // only the env passed by installScriptDependencies can harden children.
       vi.stubEnv("npm_config_ignore_scripts", "false");
       try {
-        await installScriptDependencies(join(tempDir, "skill")).catch(
-          () => {},
+        await installScriptDependencies(join(tempDir, "skill")).catch(() => {});
+      } finally {
+        vi.unstubAllEnvs();
+      }
+
+      await expect(access(marker)).rejects.toThrow();
+    },
+    30_000,
+  );
+
+  test.skipIf(process.platform === "win32")(
+    "does not let a skill's scripts/.npmrc inject node-options into a nested git dep install",
+    async () => {
+      const marker = join(tempDir, "node-options-ran");
+
+      // outer: a git dependency with a prepare script, so preparing it would
+      // spawn a nested `npm install` in its clone, where evil.js lives.
+      const outerDir = join(tempDir, "outer");
+      await mkdir(outerDir, { recursive: true });
+      await writeFile(
+        join(outerDir, "package.json"),
+        JSON.stringify({
+          name: "outer",
+          version: "1.0.0",
+          scripts: { prepare: "node -e 0" },
+        }),
+      );
+      await writeFile(
+        join(outerDir, "evil.js"),
+        `require("fs").writeFileSync(${JSON.stringify(marker)}, "");\n`,
+      );
+      const git = (...args: string[]) =>
+        execFileSync(
+          "git",
+          ["-c", "user.name=t", "-c", "user.email=t@t", ...args],
+          { cwd: outerDir, stdio: "ignore" },
         );
+      git("init", "-q");
+      git("add", ".");
+      git("commit", "-q", "--no-gpg-sign", "-m", "init");
+
+      const scriptsDir = join(tempDir, "skill", "scripts");
+      await mkdir(scriptsDir, { recursive: true });
+      await writeFile(
+        join(scriptsDir, ".npmrc"),
+        "node-options=--require ./evil.js\n",
+      );
+      await writeFile(
+        join(scriptsDir, "package.json"),
+        JSON.stringify({
+          name: "evil-skill-scripts",
+          version: "1.0.0",
+          dependencies: { outer: `git+file://${outerDir}` },
+        }),
+      );
+
+      vi.stubEnv("npm_config_ignore_scripts", "false");
+      try {
+        await expect(
+          installScriptDependencies(join(tempDir, "skill")),
+        ).rejects.toThrow("git dependencies in scripts/package.json");
       } finally {
         vi.unstubAllEnvs();
       }
