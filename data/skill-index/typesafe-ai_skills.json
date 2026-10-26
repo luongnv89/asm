@@ -2,12 +2,12 @@
   "repoUrl": "https://github.com/typesafe-ai/skills.git",
   "owner": "typesafe-ai",
   "repo": "skills",
-  "updatedAt": "2026-10-18T22:14:20.937Z",
+  "updatedAt": "2026-10-26T08:06:43.757Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "typesafe-ai",
-      "description": "Build AI-powered software with TypeSafe: small units of AI intelligence you can use like programming primitives. Its System One models, including Jev, turn natural language and application state into typed judgments and probabilities that code can combine. Use when a feature needs programmable common sense, when brainstorming what AI could make possible in an app, or when an LLM prompt-and-parse step could become a structured decision. Applications include routing, ranking, extraction, verification, and interactive experiences; these are starting points, not the limits. Read live docs and cookbooks to find useful patterns and discover new combinations.",
+      "description": "TypeSafe integration craft for System One models (sometimes called Decision Models) such as Jev, which answer typed questions about text, images, and application state with calibrated probabilities. Use when building, reviewing, or debugging code that calls TypeSafe; when writing its questions or state; when replacing an LLM prompt-and-parse step, keyword matching, or a brittle heuristic with a typed question; or when brainstorming where programmable common sense fits in an app.",
       "version": "0.0.0",
       "license": "MIT",
       "creator": "",
@@ -20,9 +20,9 @@
       "installUrl": "github:typesafe-ai/skills:skills/typesafe-ai",
       "relPath": "skills/typesafe-ai",
       "verified": true,
-      "tokenCount": 2521,
+      "tokenCount": 5515,
       "evalSummary": {
-        "overallScore": 86,
+        "overallScore": 80,
         "grade": "B",
         "categories": [
           {
@@ -34,7 +34,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 6,
+            "score": 3,
             "max": 10
           },
           {
@@ -46,19 +46,19 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 9,
+            "score": 8,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 9,
+            "score": 5,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 7,
             "max": 10
           },
           {
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:14:20.933Z",
+        "evaluatedAt": "2026-10-26T08:06:43.751Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -95,7 +95,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 86,
+          "overallScore": 80,
           "grade": "B",
           "categories": [
             {
@@ -107,7 +107,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 6,
+              "score": 3,
               "max": 10
             },
             {
@@ -119,19 +119,19 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 9,
+              "score": 8,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 9,
+              "score": 5,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 7,
               "max": 10
             },
             {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:20.934Z",
+          "evaluatedAt": "2026-10-26T08:06:43.751Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:20.934Z",
+          "evaluatedAt": "2026-10-26T08:06:43.751Z",
           "evaluatedVersion": "0.0.0"
         }
       }

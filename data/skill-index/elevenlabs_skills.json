@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/elevenlabs/skills.git",
   "owner": "elevenlabs",
   "repo": "skills",
-  "updatedAt": "2026-10-18T22:14:31.182Z",
-  "skillCount": 12,
+  "updatedAt": "2026-10-26T08:06:52.532Z",
+  "skillCount": 13,
   "skills": [
     {
       "name": "agents",
@@ -20,7 +20,7 @@
       "installUrl": "github:elevenlabs/skills:agents",
       "relPath": "agents",
       "verified": true,
-      "tokenCount": 6285,
+      "tokenCount": 6365,
       "evalSummary": {
         "overallScore": 84,
         "grade": "B",
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:14:31.083Z",
+        "evaluatedAt": "2026-10-26T08:06:52.438Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedAt": "2026-10-26T08:06:52.439Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedAt": "2026-10-26T08:06:52.439Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -263,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:14:31.084Z",
+        "evaluatedAt": "2026-10-26T08:06:52.438Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -336,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedAt": "2026-10-26T08:06:52.439Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -354,7 +354,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedAt": "2026-10-26T08:06:52.439Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -374,7 +374,7 @@
       "installUrl": "github:elevenlabs/skills:music",
       "relPath": "music",
       "verified": true,
-      "tokenCount": 3502,
+      "tokenCount": 3583,
       "evalSummary": {
         "overallScore": 74,
         "grade": "C",
@@ -440,7 +440,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:14:31.084Z",
+        "evaluatedAt": "2026-10-26T08:06:52.438Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -513,7 +513,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedAt": "2026-10-26T08:06:52.439Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -531,7 +531,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedAt": "2026-10-26T08:06:52.439Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -617,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:14:31.084Z",
+        "evaluatedAt": "2026-10-26T08:06:52.439Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -690,7 +690,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedAt": "2026-10-26T08:06:52.439Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -708,7 +708,184 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedAt": "2026-10-26T08:06:52.439Z",
+          "evaluatedVersion": "0.0.0"
+        }
+      }
+    },
+    {
+      "name": "realtime",
+      "description": "Use ElevenLabs Realtime models (`eleven_realtime_v1_mini`, `eleven_realtime_v1_max`), the low-latency models built for voice conversation. Use when the user wants to create an ElevenAgents agent on a Realtime model or switch an existing agent's Voice mode to Realtime, set `conversation_config.realtime_model`, choose between Realtime Mini and Max, or debug a Realtime agent that won't publish or transfer. Also use when migrating a voice app built on OpenAI's Realtime API and SDK (`@openai/agents-realtime`, `gpt-realtime`) to the OpenAI-compatible ElevenLabs Realtime API, including the `client_secrets` mint, the WebSocket transport, and audio after leaving WebRTC (closes with 4001/4003, no audio). Not for choosing an agent's LLM or TTS model in Custom mode, Scribe realtime speech-to-text, or migrating Chat Completions or Responses API text calls.",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:elevenlabs/skills:realtime",
+      "relPath": "realtime",
+      "verified": true,
+      "tokenCount": 8256,
+      "evalSummary": {
+        "overallScore": 79,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 5,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-26T08:06:52.439Z",
+        "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-26T08:06:52.439Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 10,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-10-26T08:06:52.439Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -794,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:14:31.084Z",
+        "evaluatedAt": "2026-10-26T08:06:52.439Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -867,7 +1044,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedAt": "2026-10-26T08:06:52.439Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -885,7 +1062,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedAt": "2026-10-26T08:06:52.439Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -905,7 +1082,7 @@
       "installUrl": "github:elevenlabs/skills:sound-effects",
       "relPath": "sound-effects",
       "verified": true,
-      "tokenCount": 1009,
+      "tokenCount": 1023,
       "evalSummary": {
         "overallScore": 77,
         "grade": "C",
@@ -971,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:14:31.084Z",
+        "evaluatedAt": "2026-10-26T08:06:52.439Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1044,7 +1221,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedAt": "2026-10-26T08:06:52.439Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1062,7 +1239,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedAt": "2026-10-26T08:06:52.439Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1148,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:14:31.084Z",
+        "evaluatedAt": "2026-10-26T08:06:52.439Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1221,7 +1398,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedAt": "2026-10-26T08:06:52.439Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1239,7 +1416,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedAt": "2026-10-26T08:06:52.439Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1259,9 +1436,9 @@
       "installUrl": "github:elevenlabs/skills:speech-to-text",
       "relPath": "speech-to-text",
       "verified": true,
-      "tokenCount": 2454,
+      "tokenCount": 2501,
       "evalSummary": {
-        "overallScore": 75,
+        "overallScore": 74,
         "grade": "C",
         "categories": [
           {
@@ -1279,7 +1456,7 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 8,
+            "score": 7,
             "max": 10
           },
           {
@@ -1325,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:14:31.085Z",
+        "evaluatedAt": "2026-10-26T08:06:52.466Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1334,7 +1511,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 73,
+          "overallScore": 72,
           "grade": "C",
           "categories": [
             {
@@ -1352,7 +1529,7 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 8,
+              "score": 7,
               "max": 10
             },
             {
@@ -1398,7 +1575,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedAt": "2026-10-26T08:06:52.468Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1416,7 +1593,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.085Z",
+          "evaluatedAt": "2026-10-26T08:06:52.468Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1502,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:14:31.138Z",
+        "evaluatedAt": "2026-10-26T08:06:52.466Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1575,7 +1752,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.145Z",
+          "evaluatedAt": "2026-10-26T08:06:52.468Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1593,7 +1770,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.145Z",
+          "evaluatedAt": "2026-10-26T08:06:52.468Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1613,7 +1790,7 @@
       "installUrl": "github:elevenlabs/skills:.agents/skills/update-skills-from-changelog",
       "relPath": ".agents/skills/update-skills-from-changelog",
       "verified": true,
-      "tokenCount": 3723,
+      "tokenCount": 3797,
       "evalSummary": {
         "overallScore": 77,
         "grade": "C",
@@ -1679,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:14:31.138Z",
+        "evaluatedAt": "2026-10-26T08:06:52.476Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1752,7 +1929,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.145Z",
+          "evaluatedAt": "2026-10-26T08:06:52.476Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1770,7 +1947,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.145Z",
+          "evaluatedAt": "2026-10-26T08:06:52.476Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1856,7 +2033,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:14:31.160Z",
+        "evaluatedAt": "2026-10-26T08:06:52.484Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1929,7 +2106,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.161Z",
+          "evaluatedAt": "2026-10-26T08:06:52.486Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1947,7 +2124,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.161Z",
+          "evaluatedAt": "2026-10-26T08:06:52.486Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2033,7 +2210,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:14:31.164Z",
+        "evaluatedAt": "2026-10-26T08:06:52.486Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -2106,7 +2283,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.166Z",
+          "evaluatedAt": "2026-10-26T08:06:52.488Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -2124,7 +2301,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-18T22:14:31.166Z",
+          "evaluatedAt": "2026-10-26T08:06:52.488Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -2136,7 +2313,7 @@
       "name": "elevenlabs-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from elevenlabs/skills.",
       "author": "ASM (elevenlabs/skills)",
-      "createdAt": "2026-10-18T22:14:31.182Z",
+      "createdAt": "2026-10-26T08:06:52.532Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2163,6 +2340,12 @@
           "name": "onboarding",
           "installUrl": "github:elevenlabs/skills:onboarding",
           "description": "Add ElevenLabs to a project from scratch. Use when the user wants to start using ElevenLabs, add text to speech, speech to text, voice agents, real-time voice for their own agent runtime (Speech Engine), sound effects, music, voice changing, voice isolation, or dubbing to their app, or get set up with an ElevenLabs account or API key for the first time. Handles sign-in, API key creation, SDK install and a test request end to end; the user leaves the conversation once, to approve a browser page. Not for fixing a key that stopped working or placing one an administrator issued (use setup-api-key).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "realtime",
+          "installUrl": "github:elevenlabs/skills:realtime",
+          "description": "Use ElevenLabs Realtime models (`eleven_realtime_v1_mini`, `eleven_realtime_v1_max`), the low-latency models built for voice conversation. Use when the user wants to create an ElevenAgents agent on a Realtime model or switch an existing agent's Voice mode to Realtime, set `conversation_config.realtime_model`, choose between Realtime Mini and Max, or debug a Realtime agent that won't publish or transfer. Also use when migrating a voice app built on OpenAI's Realtime API and SDK (`@openai/agents-realtime`, `gpt-realtime`) to the OpenAI-compatible ElevenLabs Realtime API, including the `client_secrets` mint, the WebSocket transport, and audio after leaving WebRTC (closes with 4001/4003, no audio). Not for choosing an agent's LLM or TTS model in Custom mode, Scribe realtime speech-to-text, or migrating Chat Completions or Responses API text calls.",
           "version": "0.0.0"
         },
         {
@@ -2202,7 +2385,7 @@
       "name": "elevenlabs-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from elevenlabs/skills.",
       "author": "ASM (elevenlabs/skills)",
-      "createdAt": "2026-10-18T22:14:31.182Z",
+      "createdAt": "2026-10-26T08:06:52.532Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2250,7 +2433,7 @@
       "name": "elevenlabs-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from elevenlabs/skills.",
       "author": "ASM (elevenlabs/skills)",
-      "createdAt": "2026-10-18T22:14:31.182Z",
+      "createdAt": "2026-10-26T08:06:52.532Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2283,6 +2466,12 @@
           "name": "onboarding",
           "installUrl": "github:elevenlabs/skills:onboarding",
           "description": "Add ElevenLabs to a project from scratch. Use when the user wants to start using ElevenLabs, add text to speech, speech to text, voice agents, real-time voice for their own agent runtime (Speech Engine), sound effects, music, voice changing, voice isolation, or dubbing to their app, or get set up with an ElevenLabs account or API key for the first time. Handles sign-in, API key creation, SDK install and a test request end to end; the user leaves the conversation once, to approve a browser page. Not for fixing a key that stopped working or placing one an administrator issued (use setup-api-key).",
+          "version": "0.0.0"
+        },
+        {
+          "name": "realtime",
+          "installUrl": "github:elevenlabs/skills:realtime",
+          "description": "Use ElevenLabs Realtime models (`eleven_realtime_v1_mini`, `eleven_realtime_v1_max`), the low-latency models built for voice conversation. Use when the user wants to create an ElevenAgents agent on a Realtime model or switch an existing agent's Voice mode to Realtime, set `conversation_config.realtime_model`, choose between Realtime Mini and Max, or debug a Realtime agent that won't publish or transfer. Also use when migrating a voice app built on OpenAI's Realtime API and SDK (`@openai/agents-realtime`, `gpt-realtime`) to the OpenAI-compatible ElevenLabs Realtime API, including the `client_secrets` mint, the WebSocket transport, and audio after leaving WebRTC (closes with 4001/4003, no audio). Not for choosing an agent's LLM or TTS model in Custom mode, Scribe realtime speech-to-text, or migrating Chat Completions or Responses API text calls.",
           "version": "0.0.0"
         },
         {
@@ -2328,7 +2517,7 @@
       "name": "elevenlabs-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from elevenlabs/skills.",
       "author": "ASM (elevenlabs/skills)",
-      "createdAt": "2026-10-18T22:14:31.182Z",
+      "createdAt": "2026-10-26T08:06:52.532Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2343,6 +2532,12 @@
           "name": "agents",
           "installUrl": "github:elevenlabs/skills:agents",
           "description": "Build voice AI agents with ElevenLabs. Use when creating voice assistants, customer service bots, interactive voice characters, or any real-time voice conversation experience, and when configuring an agent's tools, workflows, or procedures, including creating, editing, and publishing free-form and structured procedure drafts on an agent branch over the SDKs or REST API.",
+          "version": "0.0.0"
+        },
+        {
+          "name": "realtime",
+          "installUrl": "github:elevenlabs/skills:realtime",
+          "description": "Use ElevenLabs Realtime models (`eleven_realtime_v1_mini`, `eleven_realtime_v1_max`), the low-latency models built for voice conversation. Use when the user wants to create an ElevenAgents agent on a Realtime model or switch an existing agent's Voice mode to Realtime, set `conversation_config.realtime_model`, choose between Realtime Mini and Max, or debug a Realtime agent that won't publish or transfer. Also use when migrating a voice app built on OpenAI's Realtime API and SDK (`@openai/agents-realtime`, `gpt-realtime`) to the OpenAI-compatible ElevenLabs Realtime API, including the `client_secrets` mint, the WebSocket transport, and audio after leaving WebRTC (closes with 4001/4003, no audio). Not for choosing an agent's LLM or TTS model in Custom mode, Scribe realtime speech-to-text, or migrating Chat Completions or Responses API text calls.",
           "version": "0.0.0"
         },
         {
@@ -2376,7 +2571,7 @@
       "name": "elevenlabs-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from elevenlabs/skills.",
       "author": "ASM (elevenlabs/skills)",
-      "createdAt": "2026-10-18T22:14:31.182Z",
+      "createdAt": "2026-10-26T08:06:52.532Z",
       "tags": [
         "repo-derived",
         "inferred",

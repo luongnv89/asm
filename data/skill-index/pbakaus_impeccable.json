@@ -2,13 +2,13 @@
   "repoUrl": "https://github.com/pbakaus/impeccable.git",
   "owner": "pbakaus",
   "repo": "impeccable",
-  "updatedAt": "2026-10-18T22:13:37.302Z",
+  "updatedAt": "2026-10-26T08:06:12.127Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "impeccable",
       "description": "Use when the user wants to design, redesign, shape, critique, audit, polish, simplify, harden, animate, or otherwise improve a frontend interface: websites, landing pages, dashboards, product UI, components, forms, settings, onboarding, empty states, and native iOS or Android screens. Handles UX review, hierarchy, layout, typography, color, motion, UX copy, accessibility, responsive behavior, edge cases, and capturing or documenting design systems (DESIGN.md, tokens). Also for making bland UI bolder, loud UI quieter, or ambitious visual effects. Not for backend-only or non-UI tasks.",
-      "version": "4.6.0",
+      "version": "4.7.1",
       "license": "Apache 2.0",
       "creator": "",
       "compatibility": "",
@@ -20,7 +20,7 @@
       "installUrl": "github:pbakaus/impeccable:.claude/skills/impeccable",
       "relPath": ".claude/skills/impeccable",
       "verified": true,
-      "tokenCount": 3120,
+      "tokenCount": 3136,
       "evalSummary": {
         "overallScore": 74,
         "grade": "C",
@@ -86,8 +86,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:13:37.161Z",
-        "evaluatedVersion": "4.6.0"
+        "evaluatedAt": "2026-10-26T08:06:12.013Z",
+        "evaluatedVersion": "4.7.1"
       },
       "evalSummaries": {
         "quality": {
@@ -95,7 +95,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 72,
+          "overallScore": 70,
           "grade": "C",
           "categories": [
             {
@@ -149,7 +149,7 @@
             {
               "id": "pii",
               "name": "PII detection",
-              "score": 8,
+              "score": 6,
               "max": 10
             },
             {
@@ -159,8 +159,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:13:37.161Z",
-          "evaluatedVersion": "4.6.0"
+          "evaluatedAt": "2026-10-26T08:06:12.014Z",
+          "evaluatedVersion": "4.7.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -177,8 +177,8 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:13:37.161Z",
-          "evaluatedVersion": "4.6.0"
+          "evaluatedAt": "2026-10-26T08:06:12.014Z",
+          "evaluatedVersion": "4.7.1"
         }
       }
     }

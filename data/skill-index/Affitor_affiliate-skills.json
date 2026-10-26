@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/Affitor/affiliate-skills.git",
   "owner": "Affitor",
   "repo": "affiliate-skills",
-  "updatedAt": "2026-10-18T22:09:52.542Z",
+  "updatedAt": "2026-10-26T08:01:09.777Z",
   "skillCount": 55,
   "skills": [
     {
@@ -93,7 +93,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.096Z",
+        "evaluatedAt": "2026-10-26T08:01:09.306Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -166,7 +166,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.097Z",
+          "evaluatedAt": "2026-10-26T08:01:09.307Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -184,7 +184,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.097Z",
+          "evaluatedAt": "2026-10-26T08:01:09.307Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -277,7 +277,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.097Z",
+        "evaluatedAt": "2026-10-26T08:01:09.306Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -350,7 +350,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.097Z",
+          "evaluatedAt": "2026-10-26T08:01:09.307Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -368,7 +368,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.097Z",
+          "evaluatedAt": "2026-10-26T08:01:09.307Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -391,7 +391,7 @@
       "installUrl": "github:Affitor/affiliate-skills",
       "relPath": "",
       "verified": true,
-      "tokenCount": 966,
+      "tokenCount": 960,
       "evalSummary": {
         "overallScore": 67,
         "grade": "C",
@@ -457,7 +457,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.097Z",
+        "evaluatedAt": "2026-10-26T08:01:09.306Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -530,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.097Z",
+          "evaluatedAt": "2026-10-26T08:01:09.307Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -548,37 +548,30 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.097Z",
+          "evaluatedAt": "2026-10-26T08:01:09.307Z",
           "evaluatedVersion": "1.0.0"
         }
       }
     },
     {
       "name": "affiliate-program-search",
-      "description": "Research and evaluate affiliate programs to find the best ones to promote. Use this skill when the user asks anything about finding affiliate programs, comparing commission rates, evaluating affiliate opportunities, searching for products to promote, picking a niche, or mentions openaffiliate.dev. Also trigger for: \"which SaaS should I promote\", \"best affiliate programs for X\", \"high commission programs\", \"recurring commission affiliate\", \"compare these affiliate programs\", \"is X affiliate program worth it\", \"find me something to promote\", \"what pays the most\", \"affiliate programs with long cookie duration\".",
-      "version": "1.0",
+      "description": "Compatibility pointer for finding and comparing affiliate programs. Use find-and-verify-affiliate-program for the current MCP-first discovery and verification workflow.",
+      "version": "1.0.1",
       "license": "MIT",
       "creator": "",
-      "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
+      "compatibility": "",
       "allowedTools": [],
-      "tags": [
-        "affiliate-marketing",
-        "research",
-        "niche-analysis",
-        "program-discovery",
-        "saas",
-        "commission"
-      ],
+      "tags": [],
       "dependencies": [],
       "modelInvocable": true,
       "userInvocable": true,
       "installUrl": "github:Affitor/affiliate-skills:skills/research/affiliate-program-search",
       "relPath": "skills/research/affiliate-program-search",
       "verified": true,
-      "tokenCount": 2675,
+      "tokenCount": 205,
       "evalSummary": {
-        "overallScore": 87,
-        "grade": "B",
+        "overallScore": 66,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
@@ -589,31 +582,31 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 6,
+            "score": 7,
             "max": 10
           },
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 10,
+            "score": 2,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 9,
+            "score": 4,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 7,
+            "score": 2,
             "max": 10
           },
           {
             "id": "testability",
             "name": "Testability",
-            "score": 5,
+            "score": 1,
             "max": 10
           },
           {
@@ -641,8 +634,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.097Z",
-        "evaluatedVersion": "1.0"
+        "evaluatedAt": "2026-10-26T08:01:09.307Z",
+        "evaluatedVersion": "1.0.1"
       },
       "evalSummaries": {
         "quality": {
@@ -650,8 +643,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 87,
-          "grade": "B",
+          "overallScore": 66,
+          "grade": "C",
           "categories": [
             {
               "id": "structure",
@@ -662,31 +655,31 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 6,
+              "score": 7,
               "max": 10
             },
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 10,
+              "score": 2,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 9,
+              "score": 4,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 7,
+              "score": 2,
               "max": 10
             },
             {
               "id": "testability",
               "name": "Testability",
-              "score": 5,
+              "score": 1,
               "max": 10
             },
             {
@@ -714,26 +707,26 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.097Z",
-          "evaluatedVersion": "1.0"
+          "evaluatedAt": "2026-10-26T08:01:09.307Z",
+          "evaluatedVersion": "1.0.1"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
           "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 73,
-          "grade": "C",
+          "overallScore": 86,
+          "grade": "B",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 11,
-              "max": 15
+              "score": 12,
+              "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.097Z",
-          "evaluatedVersion": "1.0"
+          "evaluatedAt": "2026-10-26T08:01:09.307Z",
+          "evaluatedVersion": "1.0.1"
         }
       }
     },
@@ -825,7 +818,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.097Z",
+        "evaluatedAt": "2026-10-26T08:01:09.307Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -898,7 +891,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.097Z",
+          "evaluatedAt": "2026-10-26T08:01:09.307Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -916,7 +909,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.098Z",
+          "evaluatedAt": "2026-10-26T08:01:09.307Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -1009,7 +1002,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.097Z",
+        "evaluatedAt": "2026-10-26T08:01:09.307Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -1082,7 +1075,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.098Z",
+          "evaluatedAt": "2026-10-26T08:01:09.307Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -1100,7 +1093,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.098Z",
+          "evaluatedAt": "2026-10-26T08:01:09.307Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -1193,7 +1186,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.097Z",
+        "evaluatedAt": "2026-10-26T08:01:09.307Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -1266,7 +1259,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.098Z",
+          "evaluatedAt": "2026-10-26T08:01:09.308Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -1284,7 +1277,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.098Z",
+          "evaluatedAt": "2026-10-26T08:01:09.308Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -1377,7 +1370,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.097Z",
+        "evaluatedAt": "2026-10-26T08:01:09.307Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -1450,7 +1443,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.098Z",
+          "evaluatedAt": "2026-10-26T08:01:09.308Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -1468,7 +1461,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.098Z",
+          "evaluatedAt": "2026-10-26T08:01:09.308Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -1561,7 +1554,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.131Z",
+        "evaluatedAt": "2026-10-26T08:01:09.337Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -1634,7 +1627,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.131Z",
+          "evaluatedAt": "2026-10-26T08:01:09.337Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -1652,7 +1645,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.131Z",
+          "evaluatedAt": "2026-10-26T08:01:09.337Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -1744,7 +1737,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.131Z",
+        "evaluatedAt": "2026-10-26T08:01:09.337Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -1817,7 +1810,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.131Z",
+          "evaluatedAt": "2026-10-26T08:01:09.337Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -1835,7 +1828,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.132Z",
+          "evaluatedAt": "2026-10-26T08:01:09.337Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -1928,7 +1921,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.138Z",
+        "evaluatedAt": "2026-10-26T08:01:09.341Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2001,7 +1994,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.139Z",
+          "evaluatedAt": "2026-10-26T08:01:09.345Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -2019,7 +2012,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.139Z",
+          "evaluatedAt": "2026-10-26T08:01:09.345Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -2112,7 +2105,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.139Z",
+        "evaluatedAt": "2026-10-26T08:01:09.345Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2185,7 +2178,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.140Z",
+          "evaluatedAt": "2026-10-26T08:01:09.345Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -2203,7 +2196,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.140Z",
+          "evaluatedAt": "2026-10-26T08:01:09.345Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -2296,7 +2289,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.165Z",
+        "evaluatedAt": "2026-10-26T08:01:09.371Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2369,7 +2362,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.167Z",
+          "evaluatedAt": "2026-10-26T08:01:09.373Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -2387,7 +2380,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.167Z",
+          "evaluatedAt": "2026-10-26T08:01:09.373Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -2480,7 +2473,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.165Z",
+        "evaluatedAt": "2026-10-26T08:01:09.371Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2553,7 +2546,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.167Z",
+          "evaluatedAt": "2026-10-26T08:01:09.374Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -2571,7 +2564,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.167Z",
+          "evaluatedAt": "2026-10-26T08:01:09.374Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -2664,7 +2657,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.165Z",
+        "evaluatedAt": "2026-10-26T08:01:09.372Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2737,7 +2730,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.167Z",
+          "evaluatedAt": "2026-10-26T08:01:09.374Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -2755,7 +2748,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.167Z",
+          "evaluatedAt": "2026-10-26T08:01:09.374Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -2848,7 +2841,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.168Z",
+        "evaluatedAt": "2026-10-26T08:01:09.374Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -2921,7 +2914,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.169Z",
+          "evaluatedAt": "2026-10-26T08:01:09.375Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -2939,7 +2932,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.169Z",
+          "evaluatedAt": "2026-10-26T08:01:09.375Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -3031,7 +3024,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.174Z",
+        "evaluatedAt": "2026-10-26T08:01:09.384Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -3104,7 +3097,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.176Z",
+          "evaluatedAt": "2026-10-26T08:01:09.387Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -3122,7 +3115,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.176Z",
+          "evaluatedAt": "2026-10-26T08:01:09.387Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -3214,7 +3207,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.174Z",
+        "evaluatedAt": "2026-10-26T08:01:09.384Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -3287,7 +3280,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.176Z",
+          "evaluatedAt": "2026-10-26T08:01:09.387Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -3305,7 +3298,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.176Z",
+          "evaluatedAt": "2026-10-26T08:01:09.387Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -3398,7 +3391,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.190Z",
+        "evaluatedAt": "2026-10-26T08:01:09.401Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -3471,7 +3464,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.192Z",
+          "evaluatedAt": "2026-10-26T08:01:09.405Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -3489,7 +3482,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.192Z",
+          "evaluatedAt": "2026-10-26T08:01:09.405Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -3581,7 +3574,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.206Z",
+        "evaluatedAt": "2026-10-26T08:01:09.419Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -3654,7 +3647,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.207Z",
+          "evaluatedAt": "2026-10-26T08:01:09.420Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -3672,7 +3665,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.207Z",
+          "evaluatedAt": "2026-10-26T08:01:09.420Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -3765,7 +3758,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.207Z",
+        "evaluatedAt": "2026-10-26T08:01:09.419Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -3838,7 +3831,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.207Z",
+          "evaluatedAt": "2026-10-26T08:01:09.420Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -3856,7 +3849,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.207Z",
+          "evaluatedAt": "2026-10-26T08:01:09.420Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -3883,7 +3876,7 @@
       "installUrl": "github:Affitor/affiliate-skills:skills/research/find-and-verify-affiliate-program",
       "relPath": "skills/research/find-and-verify-affiliate-program",
       "verified": true,
-      "tokenCount": 4413,
+      "tokenCount": 4895,
       "evalSummary": {
         "overallScore": 85,
         "grade": "B",
@@ -3949,7 +3942,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.207Z",
+        "evaluatedAt": "2026-10-26T08:01:09.420Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -4022,7 +4015,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.207Z",
+          "evaluatedAt": "2026-10-26T08:01:09.420Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -4040,7 +4033,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.207Z",
+          "evaluatedAt": "2026-10-26T08:01:09.421Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -4133,7 +4126,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.211Z",
+        "evaluatedAt": "2026-10-26T08:01:09.432Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -4206,7 +4199,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.220Z",
+          "evaluatedAt": "2026-10-26T08:01:09.435Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -4224,7 +4217,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.220Z",
+          "evaluatedAt": "2026-10-26T08:01:09.435Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -4317,7 +4310,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.223Z",
+        "evaluatedAt": "2026-10-26T08:01:09.438Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -4390,7 +4383,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.236Z",
+          "evaluatedAt": "2026-10-26T08:01:09.453Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -4408,7 +4401,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.236Z",
+          "evaluatedAt": "2026-10-26T08:01:09.453Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -4500,7 +4493,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.242Z",
+        "evaluatedAt": "2026-10-26T08:01:09.458Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -4573,7 +4566,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.243Z",
+          "evaluatedAt": "2026-10-26T08:01:09.460Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -4591,7 +4584,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.243Z",
+          "evaluatedAt": "2026-10-26T08:01:09.460Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -4684,7 +4677,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.262Z",
+        "evaluatedAt": "2026-10-26T08:01:09.479Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -4757,7 +4750,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.263Z",
+          "evaluatedAt": "2026-10-26T08:01:09.481Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -4775,7 +4768,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.263Z",
+          "evaluatedAt": "2026-10-26T08:01:09.481Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -4868,7 +4861,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.262Z",
+        "evaluatedAt": "2026-10-26T08:01:09.479Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -4941,7 +4934,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.264Z",
+          "evaluatedAt": "2026-10-26T08:01:09.481Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -4959,7 +4952,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.264Z",
+          "evaluatedAt": "2026-10-26T08:01:09.481Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -5052,7 +5045,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.262Z",
+        "evaluatedAt": "2026-10-26T08:01:09.480Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -5125,7 +5118,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.264Z",
+          "evaluatedAt": "2026-10-26T08:01:09.481Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -5143,7 +5136,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.264Z",
+          "evaluatedAt": "2026-10-26T08:01:09.481Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -5236,7 +5229,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.263Z",
+        "evaluatedAt": "2026-10-26T08:01:09.480Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -5309,7 +5302,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.264Z",
+          "evaluatedAt": "2026-10-26T08:01:09.481Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -5327,7 +5320,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.264Z",
+          "evaluatedAt": "2026-10-26T08:01:09.481Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -5420,7 +5413,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.268Z",
+        "evaluatedAt": "2026-10-26T08:01:09.485Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -5493,7 +5486,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.273Z",
+          "evaluatedAt": "2026-10-26T08:01:09.490Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -5511,7 +5504,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.273Z",
+          "evaluatedAt": "2026-10-26T08:01:09.490Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -5604,7 +5597,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.278Z",
+        "evaluatedAt": "2026-10-26T08:01:09.492Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -5677,7 +5670,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.286Z",
+          "evaluatedAt": "2026-10-26T08:01:09.500Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -5695,7 +5688,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.286Z",
+          "evaluatedAt": "2026-10-26T08:01:09.500Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -5788,7 +5781,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.282Z",
+        "evaluatedAt": "2026-10-26T08:01:09.492Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -5861,7 +5854,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.286Z",
+          "evaluatedAt": "2026-10-26T08:01:09.500Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -5879,7 +5872,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.286Z",
+          "evaluatedAt": "2026-10-26T08:01:09.500Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -5972,7 +5965,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.306Z",
+        "evaluatedAt": "2026-10-26T08:01:09.519Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -6045,7 +6038,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.307Z",
+          "evaluatedAt": "2026-10-26T08:01:09.520Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -6063,7 +6056,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.307Z",
+          "evaluatedAt": "2026-10-26T08:01:09.520Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -6156,7 +6149,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.307Z",
+        "evaluatedAt": "2026-10-26T08:01:09.519Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -6229,7 +6222,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.307Z",
+          "evaluatedAt": "2026-10-26T08:01:09.520Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -6247,7 +6240,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.307Z",
+          "evaluatedAt": "2026-10-26T08:01:09.520Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -6340,7 +6333,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.307Z",
+        "evaluatedAt": "2026-10-26T08:01:09.519Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -6413,7 +6406,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.308Z",
+          "evaluatedAt": "2026-10-26T08:01:09.520Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -6431,7 +6424,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.308Z",
+          "evaluatedAt": "2026-10-26T08:01:09.520Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -6525,7 +6518,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.312Z",
+        "evaluatedAt": "2026-10-26T08:01:09.525Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -6598,7 +6591,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.314Z",
+          "evaluatedAt": "2026-10-26T08:01:09.528Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -6616,7 +6609,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.314Z",
+          "evaluatedAt": "2026-10-26T08:01:09.528Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -6709,7 +6702,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.314Z",
+        "evaluatedAt": "2026-10-26T08:01:09.526Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -6782,7 +6775,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.315Z",
+          "evaluatedAt": "2026-10-26T08:01:09.528Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -6800,7 +6793,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.315Z",
+          "evaluatedAt": "2026-10-26T08:01:09.528Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -6893,7 +6886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.328Z",
+        "evaluatedAt": "2026-10-26T08:01:09.540Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -6966,7 +6959,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.329Z",
+          "evaluatedAt": "2026-10-26T08:01:09.542Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -6984,7 +6977,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.329Z",
+          "evaluatedAt": "2026-10-26T08:01:09.542Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -7077,7 +7070,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.333Z",
+        "evaluatedAt": "2026-10-26T08:01:09.550Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -7150,7 +7143,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.336Z",
+          "evaluatedAt": "2026-10-26T08:01:09.551Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -7168,7 +7161,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.336Z",
+          "evaluatedAt": "2026-10-26T08:01:09.551Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -7261,7 +7254,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.343Z",
+        "evaluatedAt": "2026-10-26T08:01:09.559Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -7334,7 +7327,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.343Z",
+          "evaluatedAt": "2026-10-26T08:01:09.559Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -7352,7 +7345,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.343Z",
+          "evaluatedAt": "2026-10-26T08:01:09.559Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -7444,7 +7437,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.343Z",
+        "evaluatedAt": "2026-10-26T08:01:09.559Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -7517,7 +7510,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.345Z",
+          "evaluatedAt": "2026-10-26T08:01:09.559Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -7535,7 +7528,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.345Z",
+          "evaluatedAt": "2026-10-26T08:01:09.559Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -7628,7 +7621,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.355Z",
+        "evaluatedAt": "2026-10-26T08:01:09.565Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -7701,7 +7694,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.356Z",
+          "evaluatedAt": "2026-10-26T08:01:09.566Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -7719,7 +7712,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.356Z",
+          "evaluatedAt": "2026-10-26T08:01:09.566Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -7812,7 +7805,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.374Z",
+        "evaluatedAt": "2026-10-26T08:01:09.581Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -7885,7 +7878,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.375Z",
+          "evaluatedAt": "2026-10-26T08:01:09.581Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -7903,7 +7896,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.375Z",
+          "evaluatedAt": "2026-10-26T08:01:09.581Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -7996,7 +7989,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.374Z",
+        "evaluatedAt": "2026-10-26T08:01:09.581Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -8069,7 +8062,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.375Z",
+          "evaluatedAt": "2026-10-26T08:01:09.582Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -8087,7 +8080,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.375Z",
+          "evaluatedAt": "2026-10-26T08:01:09.582Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -8180,7 +8173,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.385Z",
+        "evaluatedAt": "2026-10-26T08:01:09.592Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -8253,7 +8246,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.386Z",
+          "evaluatedAt": "2026-10-26T08:01:09.594Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -8271,7 +8264,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.386Z",
+          "evaluatedAt": "2026-10-26T08:01:09.594Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -8364,7 +8357,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.385Z",
+        "evaluatedAt": "2026-10-26T08:01:09.594Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -8437,7 +8430,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.386Z",
+          "evaluatedAt": "2026-10-26T08:01:09.599Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -8455,7 +8448,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.386Z",
+          "evaluatedAt": "2026-10-26T08:01:09.599Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -8548,7 +8541,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.386Z",
+        "evaluatedAt": "2026-10-26T08:01:09.593Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -8621,7 +8614,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.386Z",
+          "evaluatedAt": "2026-10-26T08:01:09.596Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -8639,7 +8632,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.386Z",
+          "evaluatedAt": "2026-10-26T08:01:09.596Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -8732,7 +8725,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.395Z",
+        "evaluatedAt": "2026-10-26T08:01:09.606Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -8805,7 +8798,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.398Z",
+          "evaluatedAt": "2026-10-26T08:01:09.607Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -8823,7 +8816,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.398Z",
+          "evaluatedAt": "2026-10-26T08:01:09.607Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -8916,7 +8909,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.405Z",
+        "evaluatedAt": "2026-10-26T08:01:09.617Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -8989,7 +8982,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.406Z",
+          "evaluatedAt": "2026-10-26T08:01:09.618Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -9007,7 +9000,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.406Z",
+          "evaluatedAt": "2026-10-26T08:01:09.618Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -9100,7 +9093,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.421Z",
+        "evaluatedAt": "2026-10-26T08:01:09.633Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -9173,7 +9166,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.421Z",
+          "evaluatedAt": "2026-10-26T08:01:09.638Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -9191,7 +9184,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.421Z",
+          "evaluatedAt": "2026-10-26T08:01:09.638Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -9284,7 +9277,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.421Z",
+        "evaluatedAt": "2026-10-26T08:01:09.638Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -9357,7 +9350,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.422Z",
+          "evaluatedAt": "2026-10-26T08:01:09.639Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -9375,7 +9368,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.422Z",
+          "evaluatedAt": "2026-10-26T08:01:09.639Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -9468,7 +9461,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.426Z",
+        "evaluatedAt": "2026-10-26T08:01:09.649Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -9541,7 +9534,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.430Z",
+          "evaluatedAt": "2026-10-26T08:01:09.650Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -9559,7 +9552,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.430Z",
+          "evaluatedAt": "2026-10-26T08:01:09.650Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -9651,7 +9644,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.434Z",
+        "evaluatedAt": "2026-10-26T08:01:09.658Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -9724,7 +9717,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.436Z",
+          "evaluatedAt": "2026-10-26T08:01:09.662Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -9742,7 +9735,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.436Z",
+          "evaluatedAt": "2026-10-26T08:01:09.662Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -9835,7 +9828,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.439Z",
+        "evaluatedAt": "2026-10-26T08:01:09.670Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -9908,7 +9901,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.441Z",
+          "evaluatedAt": "2026-10-26T08:01:09.670Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -9926,7 +9919,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.441Z",
+          "evaluatedAt": "2026-10-26T08:01:09.670Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -10014,7 +10007,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:09:52.441Z",
+        "evaluatedAt": "2026-10-26T08:01:09.670Z",
         "evaluatedVersion": "1.0"
       },
       "evalSummaries": {
@@ -10087,7 +10080,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.443Z",
+          "evaluatedAt": "2026-10-26T08:01:09.670Z",
           "evaluatedVersion": "1.0"
         },
         "skill-best-practice": {
@@ -10105,7 +10098,7 @@
               "max": 15
             }
           ],
-          "evaluatedAt": "2026-10-18T22:09:52.443Z",
+          "evaluatedAt": "2026-10-26T08:01:09.670Z",
           "evaluatedVersion": "1.0"
         }
       }
@@ -10117,7 +10110,7 @@
       "name": "affitor-affiliate-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Affitor/affiliate-skills.",
       "author": "ASM (Affitor/affiliate-skills)",
-      "createdAt": "2026-10-18T22:09:52.542Z",
+      "createdAt": "2026-10-26T08:01:09.777Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -10339,7 +10332,7 @@
       "name": "affitor-affiliate-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Affitor/affiliate-skills.",
       "author": "ASM (Affitor/affiliate-skills)",
-      "createdAt": "2026-10-18T22:09:52.542Z",
+      "createdAt": "2026-10-26T08:01:09.777Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -10350,6 +10343,12 @@
         "affiliate-skills"
       ],
       "skills": [
+        {
+          "name": "affiliate-program-search",
+          "installUrl": "github:Affitor/affiliate-skills:skills/research/affiliate-program-search",
+          "description": "Compatibility pointer for finding and comparing affiliate programs. Use find-and-verify-affiliate-program for the current MCP-first discovery and verification workflow.",
+          "version": "1.0.1"
+        },
         {
           "name": "bio-link-deployer",
           "installUrl": "github:Affitor/affiliate-skills:skills/distribution/bio-link-deployer",
@@ -10453,7 +10452,7 @@
       "name": "affitor-affiliate-skills-engineering",
       "description": "Coding, debugging, testing, architecture, review, and software engineering skills. Derived from Affitor/affiliate-skills.",
       "author": "ASM (Affitor/affiliate-skills)",
-      "createdAt": "2026-10-18T22:09:52.542Z",
+      "createdAt": "2026-10-26T08:01:09.777Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -10645,7 +10644,7 @@
       "name": "affitor-affiliate-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Affitor/affiliate-skills.",
       "author": "ASM (Affitor/affiliate-skills)",
-      "createdAt": "2026-10-18T22:09:52.542Z",
+      "createdAt": "2026-10-26T08:01:09.777Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -10819,7 +10818,7 @@
       "name": "affitor-affiliate-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from Affitor/affiliate-skills.",
       "author": "ASM (Affitor/affiliate-skills)",
-      "createdAt": "2026-10-18T22:09:52.542Z",
+      "createdAt": "2026-10-26T08:01:09.777Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -10851,8 +10850,8 @@
         {
           "name": "affiliate-program-search",
           "installUrl": "github:Affitor/affiliate-skills:skills/research/affiliate-program-search",
-          "description": "Research and evaluate affiliate programs to find the best ones to promote. Use this skill when the user asks anything about finding affiliate programs, comparing commission rates, evaluating affiliate opportunities, searching for products to promote, picking a niche, or mentions openaffiliate.dev. Also trigger for: \"which SaaS should I promote\", \"best affiliate programs for X\", \"high commission programs\", \"recurring commission affiliate\", \"compare these affiliate programs\", \"is X affiliate program worth it\", \"find me something to promote\", \"what pays the most\", \"affiliate programs with long cookie duration\".",
-          "version": "1.0"
+          "description": "Compatibility pointer for finding and comparing affiliate programs. Use find-and-verify-affiliate-program for the current MCP-first discovery and verification workflow.",
+          "version": "1.0.1"
         },
         {
           "name": "bio-link-deployer",
@@ -11173,7 +11172,7 @@
       "name": "affitor-affiliate-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from Affitor/affiliate-skills.",
       "author": "ASM (Affitor/affiliate-skills)",
-      "createdAt": "2026-10-18T22:09:52.542Z",
+      "createdAt": "2026-10-26T08:01:09.777Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -11188,12 +11187,6 @@
           "name": "affiliate-blog-builder",
           "installUrl": "github:Affitor/affiliate-skills:skills/blog/affiliate-blog-builder",
           "description": "Write SEO-optimized affiliate blog articles, product reviews, comparison posts, listicles, and how-to guides. Triggers on: \"write a blog post about\", \"review of [product]\", \"best [category] article\", \"comparison blog\", \"affiliate blog\", \"SEO article\", \"write a review\", \"product roundup\", \"blog content for affiliate\", \"how to use [product] blog post\", \"listicle about [category]\", \"[product] vs [product] blog\", \"content for my affiliate site\".",
-          "version": "1.0"
-        },
-        {
-          "name": "affiliate-program-search",
-          "installUrl": "github:Affitor/affiliate-skills:skills/research/affiliate-program-search",
-          "description": "Research and evaluate affiliate programs to find the best ones to promote. Use this skill when the user asks anything about finding affiliate programs, comparing commission rates, evaluating affiliate opportunities, searching for products to promote, picking a niche, or mentions openaffiliate.dev. Also trigger for: \"which SaaS should I promote\", \"best affiliate programs for X\", \"high commission programs\", \"recurring commission affiliate\", \"compare these affiliate programs\", \"is X affiliate program worth it\", \"find me something to promote\", \"what pays the most\", \"affiliate programs with long cookie duration\".",
           "version": "1.0"
         },
         {
@@ -11383,7 +11376,7 @@
       "name": "affitor-affiliate-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from Affitor/affiliate-skills.",
       "author": "ASM (Affitor/affiliate-skills)",
-      "createdAt": "2026-10-18T22:09:52.542Z",
+      "createdAt": "2026-10-26T08:01:09.777Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -11409,8 +11402,8 @@
         {
           "name": "affiliate-program-search",
           "installUrl": "github:Affitor/affiliate-skills:skills/research/affiliate-program-search",
-          "description": "Research and evaluate affiliate programs to find the best ones to promote. Use this skill when the user asks anything about finding affiliate programs, comparing commission rates, evaluating affiliate opportunities, searching for products to promote, picking a niche, or mentions openaffiliate.dev. Also trigger for: \"which SaaS should I promote\", \"best affiliate programs for X\", \"high commission programs\", \"recurring commission affiliate\", \"compare these affiliate programs\", \"is X affiliate program worth it\", \"find me something to promote\", \"what pays the most\", \"affiliate programs with long cookie duration\".",
-          "version": "1.0"
+          "description": "Compatibility pointer for finding and comparing affiliate programs. Use find-and-verify-affiliate-program for the current MCP-first discovery and verification workflow.",
+          "version": "1.0.1"
         },
         {
           "name": "commission-calculator",
@@ -11557,7 +11550,7 @@
       "name": "affitor-affiliate-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from Affitor/affiliate-skills.",
       "author": "ASM (Affitor/affiliate-skills)",
-      "createdAt": "2026-10-18T22:09:52.542Z",
+      "createdAt": "2026-10-26T08:01:09.777Z",
       "tags": [
         "repo-derived",
         "inferred",
