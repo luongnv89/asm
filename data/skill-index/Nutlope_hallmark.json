@@ -2,13 +2,13 @@
   "repoUrl": "https://github.com/Nutlope/hallmark.git",
   "owner": "Nutlope",
   "repo": "hallmark",
-  "updatedAt": "2026-10-18T22:13:42.130Z",
+  "updatedAt": "2026-10-26T08:06:17.778Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "hallmark",
-      "description": "Anti-AI-slop design skill for greenfield pages, audits, redesigns, and design extraction from URLs or screenshots. Use when the user asks to build a new app or landing page, wants to redesign something, invokes Hallmark by name, or uses audit/redesign/study.",
-      "version": "1.1.0",
+      "description": "Design skill for websites and new pages that look designed, not generated. Use when the user asks to build or design something new, or names Hallmark. Never use it on an existing design unless the user names Hallmark, as in `/hallmark redesign <path>`.",
+      "version": "2.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
@@ -20,9 +20,9 @@
       "installUrl": "github:Nutlope/hallmark:skills/hallmark",
       "relPath": "skills/hallmark",
       "verified": true,
-      "tokenCount": 19675,
+      "tokenCount": 5675,
       "evalSummary": {
-        "overallScore": 75,
+        "overallScore": 70,
         "grade": "C",
         "categories": [
           {
@@ -34,7 +34,7 @@
           {
             "id": "description",
             "name": "Description quality",
-            "score": 7,
+            "score": 5,
             "max": 10
           },
           {
@@ -46,13 +46,13 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 6,
+            "score": 8,
             "max": 10
           },
           {
             "id": "safety",
             "name": "Safety & guardrails",
-            "score": 10,
+            "score": 5,
             "max": 10
           },
           {
@@ -64,13 +64,13 @@
           {
             "id": "license",
             "name": "License verification",
-            "score": 0,
+            "score": 2,
             "max": 10
           },
           {
             "id": "naming",
             "name": "Naming & conventions",
-            "score": 10,
+            "score": 8,
             "max": 10
           },
           {
@@ -86,8 +86,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-18T22:13:41.947Z",
-        "evaluatedVersion": "1.1.0"
+        "evaluatedAt": "2026-10-26T08:06:17.699Z",
+        "evaluatedVersion": "2.0.0"
       },
       "evalSummaries": {
         "quality": {
@@ -95,8 +95,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 75,
-          "grade": "C",
+          "overallScore": 62,
+          "grade": "D",
           "categories": [
             {
               "id": "structure",
@@ -107,7 +107,7 @@
             {
               "id": "description",
               "name": "Description quality",
-              "score": 7,
+              "score": 5,
               "max": 10
             },
             {
@@ -119,13 +119,13 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 6,
+              "score": 8,
               "max": 10
             },
             {
               "id": "safety",
               "name": "Safety & guardrails",
-              "score": 10,
+              "score": 5,
               "max": 10
             },
             {
@@ -137,19 +137,19 @@
             {
               "id": "license",
               "name": "License verification",
-              "score": 0,
+              "score": 2,
               "max": 10
             },
             {
               "id": "naming",
               "name": "Naming & conventions",
-              "score": 10,
+              "score": 8,
               "max": 10
             },
             {
               "id": "pii",
               "name": "PII detection",
-              "score": 10,
+              "score": 2,
               "max": 10
             },
             {
@@ -159,26 +159,26 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-18T22:13:41.949Z",
-          "evaluatedVersion": "1.1.0"
+          "evaluatedAt": "2026-10-26T08:06:17.699Z",
+          "evaluatedVersion": "2.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
           "providerVersion": "1.2.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 62,
+          "overallScore": 54,
           "grade": "D",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
+              "score": 7,
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-18T22:13:41.949Z",
-          "evaluatedVersion": "1.1.0"
+          "evaluatedAt": "2026-10-26T08:06:17.699Z",
+          "evaluatedVersion": "2.0.0"
         }
       }
     }
