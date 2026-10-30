@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/Illyism/seo-skills.git",
   "owner": "Illyism",
   "repo": "seo-skills",
-  "updatedAt": "2026-10-26T08:06:53.895Z",
-  "skillCount": 10,
+  "updatedAt": "2026-10-30T20:17:02.988Z",
+  "skillCount": 11,
   "skills": [
     {
       "name": "blitz-copy",
@@ -86,7 +86,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-26T08:06:53.873Z",
+        "evaluatedAt": "2026-10-30T20:17:02.953Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -159,7 +159,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.874Z",
+          "evaluatedAt": "2026-10-30T20:17:02.954Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -177,7 +177,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.874Z",
+          "evaluatedAt": "2026-10-30T20:17:02.954Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -263,7 +263,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-26T08:06:53.873Z",
+        "evaluatedAt": "2026-10-30T20:17:02.954Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -336,7 +336,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.874Z",
+          "evaluatedAt": "2026-10-30T20:17:02.954Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -354,7 +354,184 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.874Z",
+          "evaluatedAt": "2026-10-30T20:17:02.955Z",
+          "evaluatedVersion": "1.0.0"
+        }
+      }
+    },
+    {
+      "name": "block-ai-scrapers",
+      "description": "Block AI coding agents (Claude Code, Cursor, OpenCode, Grok, Codex, ChatGPT, Perplexity), WebFetch tools, CLI scrapers, and headless browsers from scraping your website or API while keeping verified Googlebot SEO indexing intact and redirecting every blocked scrape to your product URL. Use when the user wants to prevent scraping, block AI bots, protect dataset pages, add llms.txt or robots.txt rules, stop curl/Playwright harvesting, or protect API and database credits.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "tags": [],
+      "dependencies": [],
+      "modelInvocable": true,
+      "userInvocable": true,
+      "installUrl": "github:Illyism/seo-skills:seo/block-ai-scrapers",
+      "relPath": "seo/block-ai-scrapers",
+      "verified": true,
+      "tokenCount": 4332,
+      "evalSummary": {
+        "overallScore": 70,
+        "grade": "C",
+        "categories": [
+          {
+            "id": "structure",
+            "name": "Structure & completeness",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "description",
+            "name": "Description quality",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "prompt-engineering",
+            "name": "Prompt engineering",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "context-efficiency",
+            "name": "Context efficiency",
+            "score": 8,
+            "max": 10
+          },
+          {
+            "id": "safety",
+            "name": "Safety & guardrails",
+            "score": 9,
+            "max": 10
+          },
+          {
+            "id": "testability",
+            "name": "Testability",
+            "score": 3,
+            "max": 10
+          },
+          {
+            "id": "license",
+            "name": "License verification",
+            "score": 0,
+            "max": 10
+          },
+          {
+            "id": "naming",
+            "name": "Naming & conventions",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "pii",
+            "name": "PII detection",
+            "score": 10,
+            "max": 10
+          },
+          {
+            "id": "script-lint",
+            "name": "Script linting",
+            "score": 10,
+            "max": 10
+          }
+        ],
+        "evaluatedAt": "2026-10-30T20:17:02.954Z",
+        "evaluatedVersion": "1.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 70,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "license",
+              "name": "License verification",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "pii",
+              "name": "PII detection",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "script-lint",
+              "name": "Script linting",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-10-30T20:17:02.955Z",
+          "evaluatedVersion": "1.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.2.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 86,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 12,
+              "max": 14
+            }
+          ],
+          "evaluatedAt": "2026-10-30T20:17:02.955Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -440,7 +617,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-26T08:06:53.873Z",
+        "evaluatedAt": "2026-10-30T20:17:02.954Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -513,7 +690,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.874Z",
+          "evaluatedAt": "2026-10-30T20:17:02.955Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -531,7 +708,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.874Z",
+          "evaluatedAt": "2026-10-30T20:17:02.955Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -617,7 +794,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-26T08:06:53.874Z",
+        "evaluatedAt": "2026-10-30T20:17:02.954Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -690,7 +867,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.874Z",
+          "evaluatedAt": "2026-10-30T20:17:02.955Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -708,7 +885,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.874Z",
+          "evaluatedAt": "2026-10-30T20:17:02.955Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -794,7 +971,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-26T08:06:53.874Z",
+        "evaluatedAt": "2026-10-30T20:17:02.954Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -867,7 +1044,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.874Z",
+          "evaluatedAt": "2026-10-30T20:17:02.955Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -885,7 +1062,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.874Z",
+          "evaluatedAt": "2026-10-30T20:17:02.955Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -971,7 +1148,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-26T08:06:53.874Z",
+        "evaluatedAt": "2026-10-30T20:17:02.954Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1044,7 +1221,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.874Z",
+          "evaluatedAt": "2026-10-30T20:17:02.955Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1062,7 +1239,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.875Z",
+          "evaluatedAt": "2026-10-30T20:17:02.955Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1148,7 +1325,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-26T08:06:53.874Z",
+        "evaluatedAt": "2026-10-30T20:17:02.954Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1221,7 +1398,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.875Z",
+          "evaluatedAt": "2026-10-30T20:17:02.955Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1239,7 +1416,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.875Z",
+          "evaluatedAt": "2026-10-30T20:17:02.955Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1325,7 +1502,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-26T08:06:53.874Z",
+        "evaluatedAt": "2026-10-30T20:17:02.982Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1398,7 +1575,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.875Z",
+          "evaluatedAt": "2026-10-30T20:17:02.982Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1416,7 +1593,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.875Z",
+          "evaluatedAt": "2026-10-30T20:17:02.982Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1502,7 +1679,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-26T08:06:53.892Z",
+        "evaluatedAt": "2026-10-30T20:17:02.982Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1575,7 +1752,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.892Z",
+          "evaluatedAt": "2026-10-30T20:17:02.982Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1593,7 +1770,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.892Z",
+          "evaluatedAt": "2026-10-30T20:17:02.982Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1679,7 +1856,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-26T08:06:53.892Z",
+        "evaluatedAt": "2026-10-30T20:17:02.982Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -1752,7 +1929,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.892Z",
+          "evaluatedAt": "2026-10-30T20:17:02.982Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
@@ -1770,7 +1947,7 @@
               "max": 14
             }
           ],
-          "evaluatedAt": "2026-10-26T08:06:53.892Z",
+          "evaluatedAt": "2026-10-30T20:17:02.982Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1782,7 +1959,7 @@
       "name": "illyism-seo-skills-data-ai",
       "description": "Data, analytics, AI, model, prompt, agent, and automation skills. Derived from Illyism/seo-skills.",
       "author": "ASM (Illyism/seo-skills)",
-      "createdAt": "2026-10-26T08:06:53.895Z",
+      "createdAt": "2026-10-30T20:17:02.988Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1797,6 +1974,12 @@
           "name": "blitz-copy",
           "installUrl": "github:Illyism/seo-skills:copywriting/blitz-copy",
           "description": "When the user wants high-converting copy for landing pages, headlines, cold emails, X/LinkedIn posts, video intros, or SEO titles — and already knows their audience. Also use when the user mentions \"blitz copy\", \"dopamine copywriting\", hooks, or asks to rewrite flat copy that explains instead of sells. For audience research first, use the understand-customers skill.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "block-ai-scrapers",
+          "installUrl": "github:Illyism/seo-skills:seo/block-ai-scrapers",
+          "description": "Block AI coding agents (Claude Code, Cursor, OpenCode, Grok, Codex, ChatGPT, Perplexity), WebFetch tools, CLI scrapers, and headless browsers from scraping your website or API while keeping verified Googlebot SEO indexing intact and redirecting every blocked scrape to your product URL. Use when the user wants to prevent scraping, block AI bots, protect dataset pages, add llms.txt or robots.txt rules, stop curl/Playwright harvesting, or protect API and database credits.",
           "version": "1.0.0"
         },
         {
@@ -1848,7 +2031,7 @@
       "name": "illyism-seo-skills-devops",
       "description": "Deployment, CI/CD, infrastructure, cloud, Docker, Kubernetes, and automation skills. Derived from Illyism/seo-skills.",
       "author": "ASM (Illyism/seo-skills)",
-      "createdAt": "2026-10-26T08:06:53.895Z",
+      "createdAt": "2026-10-30T20:17:02.988Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1884,7 +2067,7 @@
       "name": "illyism-seo-skills-frontend-design",
       "description": "Frontend, UI, UX, visual design, component, theme, and landing-page skills. Derived from Illyism/seo-skills.",
       "author": "ASM (Illyism/seo-skills)",
-      "createdAt": "2026-10-26T08:06:53.895Z",
+      "createdAt": "2026-10-30T20:17:02.988Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1920,7 +2103,7 @@
       "name": "illyism-seo-skills-marketing",
       "description": "Marketing, growth, SEO, ASO, affiliate, sales, and conversion skills. Derived from Illyism/seo-skills.",
       "author": "ASM (Illyism/seo-skills)",
-      "createdAt": "2026-10-26T08:06:53.895Z",
+      "createdAt": "2026-10-30T20:17:02.988Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -1941,6 +2124,12 @@
           "name": "blitz-seo",
           "installUrl": "github:Illyism/seo-skills:seo/blitz-seo",
           "description": "When the user wants to rank one high-value page fast, run a focused SEO sprint, or is stuck on page 2 for a money keyword. Also use when the user mentions \"blitz seo\", an SEO war room, a 30-day SEO sprint, or asks how to prioritize SEO when everything feels spread too thin.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "block-ai-scrapers",
+          "installUrl": "github:Illyism/seo-skills:seo/block-ai-scrapers",
+          "description": "Block AI coding agents (Claude Code, Cursor, OpenCode, Grok, Codex, ChatGPT, Perplexity), WebFetch tools, CLI scrapers, and headless browsers from scraping your website or API while keeping verified Googlebot SEO indexing intact and redirecting every blocked scrape to your product URL. Use when the user wants to prevent scraping, block AI bots, protect dataset pages, add llms.txt or robots.txt rules, stop curl/Playwright harvesting, or protect API and database credits.",
           "version": "1.0.0"
         },
         {
@@ -2004,7 +2193,7 @@
       "name": "illyism-seo-skills-product-business",
       "description": "Product, strategy, PRD, planning, finance, resume, and business workflow skills. Derived from Illyism/seo-skills.",
       "author": "ASM (Illyism/seo-skills)",
-      "createdAt": "2026-10-26T08:06:53.895Z",
+      "createdAt": "2026-10-30T20:17:02.988Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2019,6 +2208,12 @@
           "name": "blitz-copy",
           "installUrl": "github:Illyism/seo-skills:copywriting/blitz-copy",
           "description": "When the user wants high-converting copy for landing pages, headlines, cold emails, X/LinkedIn posts, video intros, or SEO titles — and already knows their audience. Also use when the user mentions \"blitz copy\", \"dopamine copywriting\", hooks, or asks to rewrite flat copy that explains instead of sells. For audience research first, use the understand-customers skill.",
+          "version": "1.0.0"
+        },
+        {
+          "name": "block-ai-scrapers",
+          "installUrl": "github:Illyism/seo-skills:seo/block-ai-scrapers",
+          "description": "Block AI coding agents (Claude Code, Cursor, OpenCode, Grok, Codex, ChatGPT, Perplexity), WebFetch tools, CLI scrapers, and headless browsers from scraping your website or API while keeping verified Googlebot SEO indexing intact and redirecting every blocked scrape to your product URL. Use when the user wants to prevent scraping, block AI bots, protect dataset pages, add llms.txt or robots.txt rules, stop curl/Playwright harvesting, or protect API and database credits.",
           "version": "1.0.0"
         },
         {
@@ -2064,7 +2259,7 @@
       "name": "illyism-seo-skills-research",
       "description": "Research, academic, literature-review, citation, paper, and analysis skills. Derived from Illyism/seo-skills.",
       "author": "ASM (Illyism/seo-skills)",
-      "createdAt": "2026-10-26T08:06:53.895Z",
+      "createdAt": "2026-10-30T20:17:02.988Z",
       "tags": [
         "repo-derived",
         "inferred",
@@ -2118,7 +2313,7 @@
       "name": "illyism-seo-skills-writing",
       "description": "Writing, editing, documentation, publishing, and content-production skills. Derived from Illyism/seo-skills.",
       "author": "ASM (Illyism/seo-skills)",
-      "createdAt": "2026-10-26T08:06:53.895Z",
+      "createdAt": "2026-10-30T20:17:02.988Z",
       "tags": [
         "repo-derived",
         "inferred",

@@ -2,13 +2,13 @@
   "repoUrl": "https://github.com/mvanhorn/last30days-skill.git",
   "owner": "mvanhorn",
   "repo": "last30days-skill",
-  "updatedAt": "2026-10-26T08:02:12.313Z",
+  "updatedAt": "2026-10-30T20:12:40.228Z",
   "skillCount": 1,
   "skills": [
     {
       "name": "last30days",
       "description": "Research what people actually say about any topic in the last 30 days. Pulls posts and engagement from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web. Includes a doctor health check to diagnose broken or missing sources.",
-      "version": "3.30.0",
+      "version": "3.31.0",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
@@ -92,8 +92,8 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-10-26T08:02:03.769Z",
-        "evaluatedVersion": "3.30.0"
+        "evaluatedAt": "2026-10-30T20:12:30.534Z",
+        "evaluatedVersion": "3.31.0"
       },
       "evalSummaries": {
         "quality": {
@@ -101,7 +101,7 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 69,
+          "overallScore": 65,
           "grade": "C",
           "categories": [
             {
@@ -155,7 +155,7 @@
             {
               "id": "pii",
               "name": "PII detection",
-              "score": 8,
+              "score": 4,
               "max": 10
             },
             {
@@ -165,8 +165,8 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-10-26T08:02:03.770Z",
-          "evaluatedVersion": "3.30.0"
+          "evaluatedAt": "2026-10-30T20:12:30.534Z",
+          "evaluatedVersion": "3.31.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
@@ -183,8 +183,8 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-10-26T08:02:03.770Z",
-          "evaluatedVersion": "3.30.0"
+          "evaluatedAt": "2026-10-30T20:12:30.534Z",
+          "evaluatedVersion": "3.31.0"
         }
       }
     }
