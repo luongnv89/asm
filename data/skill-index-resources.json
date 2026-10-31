@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-14T12:00:00Z",
+  "updatedAt": "2026-10-25T19:44:18Z",
   "repos": [
     {
       "source": "github:luongnv89/asm",
@@ -775,6 +775,15 @@
       "maintainer": "@Illyism",
       "enabled": true,
       "excludeSkills": ["linkdr"]
+    },
+    {
+      "source": "github:vostride/agent-qa",
+      "url": "https://github.com/vostride/agent-qa",
+      "owner": "vostride",
+      "repo": "agent-qa",
+      "description": "Official agent-qa skills from vostride for natural-language web/mobile testing, advanced memidex memory, and self-improvement",
+      "maintainer": "@vostride",
+      "enabled": true
     }
   ]
 }
