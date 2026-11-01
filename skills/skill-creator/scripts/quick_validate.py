@@ -148,6 +148,24 @@ def validate_skill(skill_path):
         if len(compatibility) > 500:
             return False, f"Compatibility is too long ({len(compatibility)} characters). Maximum is 500 characters."
 
+    # Warn (non-fatal) if the body lacks a "## Self-Improve" section. Every skill
+    # skill-creator creates or updates carries one: an optional, propose-only
+    # closing check that adapts the skill to the user's style, environment, and
+    # behavior. Fenced code is ignored, so a heading quoted in an example does not count.
+    body = content[match.end():]
+    body_outside_fences = re.sub(
+        r'^(`{3,}|~{3,})[^\n]*\n.*?^\1[ \t]*$', '', body, flags=re.DOTALL | re.MULTILINE
+    )
+    if not re.search(r'^##[ \t]+Self-Improve\b', body_outside_fences, re.IGNORECASE | re.MULTILINE):
+        print(
+            f"WARNING: {skill_md} has no '## Self-Improve' section. Every skill "
+            "skill-creator creates or updates carries one: an optional, propose-only "
+            "closing check that adapts the skill to the user's style, environment, "
+            "and behavior. Copy the template from skill-creator "
+            "references/self-improve.md and place it after the skill's final step.",
+            file=sys.stderr,
+        )
+
     return True, "Skill is valid!"
 
 if __name__ == "__main__":

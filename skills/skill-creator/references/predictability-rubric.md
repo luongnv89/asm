@@ -77,7 +77,7 @@ Cut, in this order:
 
 ## 7. Publish-ready — clears the skill standard on creation
 
-The output of skill-creator is a **publish-ready** skill. A created skill must pass the same skill standard (`skill-standard.md`) that Subpath B1 enforces on existing skills — `quick_validate.py` clean, Frontmatter Audit passing, SKILL.md under 500 lines and 3000 words, a negative-trigger clause, the asm-eval 85/8 floor, the items above satisfied. Path A closes by running `retrofit-loop.md` Phase 0 on it.
+The output of skill-creator is a **publish-ready** skill. A created skill must pass the same skill standard (`skill-standard.md`) that Subpath B1 enforces on existing skills — `quick_validate.py` clean, Frontmatter Audit passing, SKILL.md under 500 lines and 3000 words, a negative-trigger clause, a `## Self-Improve` section, the asm-eval 85/8 floor, the items above satisfied. Path A closes by running `retrofit-loop.md` Phase 0 on it.
 
 **Checkable:** that Phase 0 run exits early with both gates passing.
 

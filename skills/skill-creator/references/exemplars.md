@@ -1,6 +1,6 @@
 # Annotated Exemplars
 
-Three compact, annotated exemplar skills — one per archetype. Imitation beats rules: before drafting, find the archetype closest to the skill you're building and pattern-match against it. Annotations (`> ✎`) explain _why_ each section earns its place; everything unannotated is deliberately ordinary.
+Three compact, annotated exemplar skills — one per archetype. Imitation beats rules: before drafting, find the archetype closest to the skill you're building and pattern-match against it. Annotations (`> ✎`) explain _why_ each section earns its place; everything unannotated is deliberately ordinary. Each exemplar leaves out the `## Self-Improve` section to stay compact; a real skill carries it after its final step (`self-improve.md`).
 
 Contents:
 

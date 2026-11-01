@@ -21,10 +21,13 @@ A skill passes Gate 1 when **all** of these hold. `$QV` is skill-creator's own `
 | 9   | Step Completion Reports after each major step; a `Repo Sync Before Edits (mandatory)` section when the skill mutates a git repo                            | `writing-guide.md` → _Step Completion Reports_; SKILL.md → _Mandatory Rule for Repo-Mutating Skills_     |
 | 10  | Dependency preflight (conditional) — see below                                                                                                             | `references/dependency-preflight.md`                                                                     |
 | 11  | The five target writing and human-review checks pass; only the interactive-report check may be not applicable, with a recorded reason                      | `human-review-audit.md` (authoring guide: `human-review.md`)                                             |
+| 12  | The body carries a `## Self-Improve` section after its final step — see _Self-Improve (item 12)_ below                                                     | `self-improve.md`                                                                                        |
 
 **Dependency preflight (item 10).** **If the target skill invokes another skill**, it declares frontmatter `dependencies` and carries a caller-owned first-use acquire/release lifecycle, as `references/dependency-preflight.md` specifies (four elements: discovery, first-use acquisition, direct use, cleanup). The finding reads: **Skill invokes another skill without dependency metadata and a first-use lease lifecycle**. No validator catches it, so look for it deliberately: scan for `/skill-name` invocations, reads under `~/.claude/skills/`, `~/.agents/skills/`, or `~/.codex/skills/`, and phases handed to a named skill. A skill that invokes none needs neither — add nothing: an absent preflight is not a finding, and an empty list or section is itself a defect.
 
-`quick_validate.py` covers only the mechanical part of items 1, 2, and 4. Items 3 and 5–11 need an inspection; a validator exit and an asm score cannot substitute for it.
+**Self-Improve (item 12).** The section is the `self-improve.md` template — signal bullets tailored, every other line intact — or the user's opt-out line `Off — the user opted out.` skill-creator's own section may be shorter and point to that file, which ships beside it. On an update, keep an existing section as found; restore only a template line that is missing or weakened, and never restore the template over an opt-out. `quick_validate.py` warns when the heading is missing.
+
+`quick_validate.py` covers only the mechanical part of items 1, 2, 4, and 12. Items 3 and 5–12 need an inspection; a validator exit and an asm score cannot substitute for it.
 
 ## Gate 2 — asm-eval quality floor
 
