@@ -16,6 +16,7 @@
 - **Plans before it applies** — you approve the exact split before a single file is rewritten
 - **Verifies mechanically** — 12 checks covering manifest exhaustiveness, dangling and orphaned pointers, reference chains, both size caps, and the version bump
 - **Snapshots first**, because `~/.claude/skills/` is usually not a git repo
+- **Adapts to you, with your approval** — at the end of a run it may propose one edit that fits the skill to your style, environment, and behavior; nothing changes unless you approve
 
 ## When to Use
 

@@ -18,6 +18,7 @@
 - **Before/after numbers.** Baseline vs final `overallScore` and grade, minimum category score, `metadata.version`, iterations taken, and files changed.
 - **Honest about no-ops.** If the skill already clears the 85/8 floor, it installs the original unchanged and says so instead of faking a delta.
 - **Collisions are caught before they happen.** `asm install` overwrites an existing same-named skill unconditionally and without a prompt, so the skill probes `asm list --json` first, names the path that would be replaced, and asks. `--name <alt>` is the documented opt-out, with a warning about duplicate triggers.
+- **Adapts to you, only with your approval.** At the end of a run the agent may propose one edit that fits the skill to your style, environment, and behavior. Nothing changes unless you approve it.
 
 ## When to Use
 
