@@ -44,6 +44,7 @@ Target version: 0.2.0 → 1.0.0
 | docs/README.md AI-skip notice        | √           | √     |
 | Bundled scripts have descriptive errors | n/a      | n/a   |
 | Dependency preflight (invokes 1 skill)  | ×        | √     |
+| Self-Improve section                 | × (warning) | √     |
 
 ## Gate 2 — asm-eval categories
 
