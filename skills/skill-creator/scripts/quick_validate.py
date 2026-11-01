@@ -9,6 +9,32 @@ import re
 import yaml
 from pathlib import Path
 
+def _strip_fenced_code(body):
+    """Drop fenced code blocks (opener through closer) from a markdown body.
+
+    A fence opens on a line that starts, after any indentation, with 3+
+    backticks or 3+ tildes; a backtick opener whose info string holds a
+    backtick is not a fence. It closes on a line holding only a run of the
+    same character at least as long as the opener. An unclosed fence runs to
+    the end of the body, as in CommonMark.
+    """
+    kept = []
+    fence = None  # (char, run length) of the open fence
+    for line in body.split('\n'):
+        stripped = line.lstrip(' \t')
+        if fence is None:
+            opener = re.match(r'(`{3,}|~{3,})(.*)$', stripped)
+            if opener and not (opener.group(1)[0] == '`' and '`' in opener.group(2)):
+                fence = (opener.group(1)[0], len(opener.group(1)))
+            else:
+                kept.append(line)
+            continue
+        char, length = fence
+        closer = re.match(r'(`+|~+)[ \t]*$', stripped)
+        if closer and closer.group(1)[0] == char and len(closer.group(1)) >= length:
+            fence = None
+    return '\n'.join(kept)
+
 def validate_skill(skill_path):
     """Basic validation of a skill"""
     skill_path = Path(skill_path)
@@ -153,9 +179,7 @@ def validate_skill(skill_path):
     # closing check that adapts the skill to the user's style, environment, and
     # behavior. Fenced code is ignored, so a heading quoted in an example does not count.
     body = content[match.end():]
-    body_outside_fences = re.sub(
-        r'^(`{3,}|~{3,})[^\n]*\n.*?^\1[ \t]*$', '', body, flags=re.DOTALL | re.MULTILINE
-    )
+    body_outside_fences = _strip_fenced_code(body)
     if not re.search(r'^##[ \t]+Self-Improve\b', body_outside_fences, re.IGNORECASE | re.MULTILINE):
         print(
             f"WARNING: {skill_md} has no '## Self-Improve' section. Every skill "
