@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { parse as parseYaml } from "yaml";
+import { scoreSafety } from "./evaluator-scorers-policy";
 
 function repoPath(relPath: string): string {
   return fileURLToPath(new URL(`../${relPath}`, import.meta.url));
@@ -410,7 +411,7 @@ describe("self-improve section in every created or updated skill", () => {
     expect(template).toContain("No approval → change nothing.");
     expect(template).toContain("Commit nothing unless the user asks.");
     expect(template).toContain(
-      "Never remove, skip, or auto-answer a safety step or confirmation gate",
+      "Never bypass, skip, or auto-answer a safety step or confirmation gate",
     );
     expect(template).toContain("Off — the user opted out.");
   });
@@ -419,6 +420,21 @@ describe("self-improve section in every created or updated skill", () => {
     const template = selfImproveTemplate();
     expect(template).not.toContain("skill-creator");
     expect(template).not.toMatch(/(^|[\s(`])\/[a-z]/m);
+  });
+
+  it("the template never lowers asm eval's Safety score for a read-only skill", () => {
+    // scoreSafety (src/evaluator-scorers-policy.ts) docks a body that names a
+    // destructive verb (remove, delete, drop, force, ...) without a confirm or
+    // dry-run cue. The template is mandatory and verbatim, so it must not
+    // introduce such a verb into skills that perform no destructive action.
+    const readOnlyBody =
+      "# Report\n\n## Prerequisites\n\nRequires git. Read the log and summarize it. On error, report the failure and stop.\n";
+    const before = scoreSafety({}, readOnlyBody).score;
+    const after = scoreSafety(
+      {},
+      `${readOnlyBody}\n${selfImproveTemplate()}\n`,
+    ).score;
+    expect(after).toBeGreaterThanOrEqual(before);
   });
 
   it("the scaffold ships the same template", () => {
