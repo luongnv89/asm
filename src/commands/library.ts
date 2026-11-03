@@ -106,6 +106,15 @@ export async function cmdLibrary(args: ParsedArgs) {
       return;
     }
 
+    if (rows.length === 0 && parsedTags.tags.length > 0) {
+      // A tag filter that matched nothing says nothing about whether the
+      // library itself is empty — do not claim the skills are not installed.
+      console.log(
+        ansi.dim(`No library skills match --tag ${parsedTags.tags.join(",")}.`),
+      );
+      return;
+    }
+
     printLibraryList(rows);
     return;
   }

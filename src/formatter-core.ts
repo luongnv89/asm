@@ -60,7 +60,13 @@ export function formatTagUpdates(
 export function formatTagList(inventory: TagInventory): string {
   const { tags, activatedOnly } = inventory;
   if (tags.length === 0) {
-    return ansi.dim("No tags yet. Add one with: asm tag add <skill> <tag>");
+    // In activated-only mode the other classes were never counted, so "no
+    // tags yet" would be wrong when library-only skills are in fact tagged.
+    return ansi.dim(
+      activatedOnly
+        ? "No tags on activated skills. Run `asm tag list` to include library-only skills."
+        : "No tags yet. Add one with: asm tag add <skill> <tag>",
+    );
   }
 
   const header = activatedOnly

@@ -36,7 +36,7 @@ function printTagHelp(): void {
        asm tag list [--activated] [options]
 
 Edit local tags for installed or library skills without changing their SKILL.md
-files. With no --scope/--tool filter, unactivated library skills are matched too.
+files. With no --scope/--tool flag, unactivated library skills are matched too.
 Tags are lowercase identifiers and may also be comma-separated.
 
 ${ansi.bold("tag list")} counts tagged skill directories across three classes:
@@ -76,6 +76,13 @@ ${ansi.bold("Examples:")}
  * scope or provider to filter on.
  */
 async function cmdTagList(args: ParsedArgs): Promise<void> {
+  if (args.flags.tagFilters.length > 0) {
+    error(
+      'tag list does not filter by --tag. Use "asm list --tag" or "asm library list --tag".',
+    );
+    process.exitCode = 2;
+    return;
+  }
   if (args.positional.length > 0) {
     error(
       `Unexpected argument(s): ${args.positional.join(" ")}. Usage: asm tag list [--activated]`,
@@ -200,8 +207,13 @@ async function pathExists(path: string): Promise<boolean> {
   try {
     await stat(path);
     return true;
-  } catch {
-    return false;
+  } catch (err) {
+    // Only a genuinely absent directory means the tag record is stale. Any
+    // other failure (EACCES, ELOOP, EMFILE) leaves the question open, and
+    // reporting MISSING for it would invent a stale record.
+    const code = (err as NodeJS.ErrnoException).code;
+    if (code === "ENOENT" || code === "ENOTDIR") return false;
+    return true;
   }
 }
 
@@ -250,14 +262,16 @@ export async function cmdTag(args: ParsedArgs): Promise<void> {
     // An explicit tool filter means "only what that tool can see"; library
     // skills have no provider activation and stay out of the match pool.
     skills = scanned.filter((skill) => skill.provider === args.flags.provider);
-  } else if (args.flags.scope === "both") {
-    // Library coverage: with the default both-scope and no tool filter, a
+  } else if (!args.flags.scopeExplicit) {
+    // Library coverage: with no explicit scope or tool filter, a
     // skill that only exists in the ASM library is taggable too. An activated
     // library skill is symlinked into a provider, so `scanAllSkills` already
     // returned it under the same canonical realPath as its library copy and
     // partitionLibrarySkills drops the library row — one group, one record.
     // That also keeps the scanned row as the group representative, which is
-    // what the pre-existing paths expect.
+    // what the pre-existing paths expect. An explicit `-s both` counts as a
+    // filter here, matching `tag list`: the user asked for a scope-filtered
+    // match, and a library skill is in no provider scope.
     const library = await loadLibrarySkills();
     const { libraryOnly } = partitionLibrarySkills(
       library,

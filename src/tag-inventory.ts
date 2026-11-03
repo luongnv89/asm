@@ -1,21 +1,20 @@
 /**
  * Pure tag aggregation for `asm tag list` (PR2).
  *
- * Design authority — plan Appendix C (`docs/asm-tag-list-upstream-plan.md`),
- * quoted here because it overrides the older §3 sketch where they conflict:
- *
- *   PR2：`asm tag list`
- *   - 计数单位：技能目录（按 realPath 去重）。
- *   - 分类优先级 `ACTIVATED > LIBRARY_ONLY > MISSING`：
- *     - `ACTIVATED` = `asm list` 能看到的技能（含 disabled；`deactivate` 后不算）；
- *     - `LIBRARY_ONLY` = 在库中、未激活；
- *     - `MISSING` = `skill-tags.json` 中目录已不存在的记录（术语沿用
- *       `library list` 的 missing），标签 = added − removed。
- *   - `ALL = ACTIVATED + LIBRARY_ONLY`，不含 MISSING。
- *   - 默认统计全部类别；`--activated` 或任意 `-s`/`-p` → 只统计 ACTIVATED，
- *     表格只剩 `TAG / ACTIVATED`。
- *   - 排序：ALL 降序 → MISSING 降序 → 标签名升序。
- *   - `tagCount` 含只出现在 missing 记录里的标签（= 表格行数）。
+ * Accounting rules for `asm tag list`:
+ *  - unit of counting: the skill DIRECTORY, deduplicated by `realPath`;
+ *  - classes with priority ACTIVATED > LIBRARY_ONLY > MISSING:
+ *      ACTIVATED    skills `asm list` can see (disabled included; a
+ *                   deactivated skill is no longer ACTIVATED);
+ *      LIBRARY_ONLY in the library, not activated into a provider;
+ *      MISSING      `skill-tags.json` records whose skill directory is gone
+ *                   (term borrowed from `library list`), tags = added − removed;
+ *  - ALL = ACTIVATED + LIBRARY_ONLY, and never includes MISSING;
+ *  - default counts every class; `--activated` or any `-s`/`-p` counts
+ *    ACTIVATED only and the table shrinks to TAG / ACTIVATED;
+ *  - sort: `all` desc, then `missing` desc, then tag name asc;
+ *  - `tagCount` includes tags that appear only on missing records (= table
+ *    row count).
  *
  * This module performs no IO. The caller has already:
  *   1. scanned `ACTIVATED` skills (`asm list` visibility, including disabled
@@ -202,7 +201,11 @@ export function buildTagInventory(input: TagInventoryInput): TagInventory {
     }))
     .sort(
       (a, b) =>
-        b.all - a.all || b.missing - a.missing || a.tag.localeCompare(b.tag),
+        b.all - a.all ||
+        b.missing - a.missing ||
+        // Bytewise, locale-independent ascending — `--json` consumers see the
+        // same order everywhere (ICU collation can reorder `-` vs `_`).
+        (a.tag < b.tag ? -1 : a.tag > b.tag ? 1 : 0),
     );
 
   const activatedTagged = countTagged(activated);

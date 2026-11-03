@@ -476,8 +476,8 @@ ${ansi.bold("Global Options:")}
   --json                 Output as JSON (list, search, inspect)
   --machine              Stable machine-readable JSON envelope (v1)
   -s, --scope <scope>    Filter: global, project, or both (default: both)
-  -p, --tool <name>      Filter by tool (list, search)
-  --tag <tag[,tag]>      Filter by all tags; repeatable (list, search)
+  -p, --tool <name>      Filter by tool (list, search, tag list)
+  --tag <tag[,tag]>      Filter by all tags; repeatable (list, search, library list)
   --no-color             Disable ANSI colors
   --sort <field>         Sort by: name, version, or location (default: name)
   --flat                 Show one row per tool instance (list, search)
