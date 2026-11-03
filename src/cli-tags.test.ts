@@ -373,3 +373,250 @@ describe("CLI integration: library skill tags", () => {
     expect((await readState()).skills).toEqual({});
   });
 });
+
+// ─── Tag inventory (asm-fwk.6) ───────────────────────────────────────────────
+//
+// `asm tag list` reports tagged skill DIRECTORIES split into ACTIVATED
+// (visible to `asm list`, disabled included), LIBRARY_ONLY (in the library but
+// not activated) and MISSING (skill-tags.json records whose directory is
+// gone). ALL is ACTIVATED + LIBRARY_ONLY; MISSING is never counted into ALL.
+
+describe("CLI integration: tag list", () => {
+  const skillsRoot = join(homedir(), ".claude", "skills");
+  const statePath = () => join(process.env.ASM_CONFIG_DIR!, "skill-tags.json");
+  const libraryRoot = () => getLibrarySkillsDir();
+
+  async function writeSkill(name: string, tags: string): Promise<string> {
+    const dir = join(skillsRoot, name);
+    await mkdir(dir, { recursive: true });
+    await writeFile(
+      join(dir, "SKILL.md"),
+      `---\nname: ${name}\ndescription: Tag list fixture\ntags: ${tags}\n---\nBody\n`,
+    );
+    return dir;
+  }
+
+  async function writeLibrarySkill(
+    dirName: string,
+    tags: string,
+  ): Promise<string> {
+    const dir = join(libraryRoot(), dirName);
+    await mkdir(dir, { recursive: true });
+    await writeFile(
+      join(dir, "SKILL.md"),
+      `---\nname: ${dirName}\ndescription: Tag list library fixture\ntags: ${tags}\n---\nBody\n`,
+    );
+    const lock: LibraryLockFile = {
+      version: 1,
+      skills: {
+        [dirName]: {
+          name: dirName,
+          version: "1.0.0",
+          source: "local",
+          sourceType: "local",
+          commitHash: "abc123",
+          ref: null,
+          skillPath: dir,
+          libraryPath: dir,
+          installedAt: "2026-01-01T00:00:00.000Z",
+        },
+      },
+    };
+    await mkdir(join(process.env.ASM_CONFIG_DIR!, "library"), {
+      recursive: true,
+    });
+    await writeFile(getLibraryLockPath(), `${JSON.stringify(lock, null, 2)}\n`);
+    return dir;
+  }
+
+  function tagRow(
+    data: { tags: Array<Record<string, number | string>> },
+    tag: string,
+  ): Record<string, number | string> | undefined {
+    return data.tags.find((row) => row.tag === tag);
+  }
+
+  beforeEach(async () => {
+    await rm(skillsRoot, { recursive: true, force: true });
+    await rm(libraryRoot(), { recursive: true, force: true });
+    await rm(getLibraryLockPath(), { force: true });
+    await rm(statePath(), { force: true });
+  });
+
+  afterEach(async () => {
+    await rm(skillsRoot, { recursive: true, force: true });
+    await rm(libraryRoot(), { recursive: true, force: true });
+    await rm(getLibraryLockPath(), { force: true });
+    await rm(statePath(), { force: true });
+  });
+
+  test("counts activated skills by frontmatter and overlay tags", async () => {
+    await writeSkill("asm-fwk6-basic", "[alpha, beta]");
+    await runCLI("tag", "add", "asm-fwk6-basic", "gamma", "--json");
+
+    const listed = await runCLI("tag", "list", "--json");
+    expect(listed.exitCode).toBe(0);
+    const data = JSON.parse(listed.stdout);
+
+    expect(data.tags).toHaveLength(3);
+    for (const tag of ["alpha", "beta", "gamma"]) {
+      expect(tagRow(data, tag)).toEqual({
+        tag,
+        all: 1,
+        activated: 1,
+        libraryOnly: 0,
+        missing: 0,
+      });
+    }
+    expect(data.tagCount).toBe(3);
+    expect(data.tagSkillPairCount).toBe(3);
+    expect(data.taggedSkillCount).toEqual({
+      all: 1,
+      activated: 1,
+      libraryOnly: 0,
+    });
+    expect(data.untaggedSkillCount.all).toBe(0);
+    expect(data.missingRecordCount).toBe(0);
+  });
+
+  test("human output shows the summary line and one row per tag", async () => {
+    await writeSkill("asm-fwk6-human", "[alpha]");
+    await runCLI("tag", "add", "asm-fwk6-human", "gamma", "--json");
+
+    const listed = await runCLI("tag", "list");
+    expect(listed.exitCode).toBe(0);
+    expect(listed.stdout).toContain("2 tags");
+    expect(listed.stdout).toContain("2 tag-skill pairs");
+    expect(listed.stdout).toContain("TAG");
+    expect(listed.stdout).toContain("ALL");
+    expect(listed.stdout).toContain("ACTIVATED");
+    expect(listed.stdout).toContain("LIBRARY_ONLY");
+    expect(listed.stdout).toContain("MISSING");
+    expect(listed.stdout).toMatch(/^alpha\s+1\s+1\s+0\s+0$/m);
+    // The MISSING footnote only appears when missing records exist.
+    expect(listed.stdout).not.toContain("MISSING counts tag records");
+  });
+
+  test("library-only skills count toward LIBRARY_ONLY, not ACTIVATED", async () => {
+    await writeLibrarySkill("asm-fwk6-lib", "[libonly]");
+
+    const all = JSON.parse((await runCLI("tag", "list", "--json")).stdout);
+    expect(tagRow(all, "libonly")).toEqual({
+      tag: "libonly",
+      all: 1,
+      activated: 0,
+      libraryOnly: 1,
+      missing: 0,
+    });
+
+    const activated = await runCLI("tag", "list", "--activated", "--json");
+    expect(activated.exitCode).toBe(0);
+    const narrowed = JSON.parse(activated.stdout);
+    expect(narrowed.activatedOnly).toBe(true);
+    expect(tagRow(narrowed, "libonly")).toBeUndefined();
+    expect(narrowed.tagCount).toBe(0);
+  });
+
+  test("missing records are reported but excluded from ALL", async () => {
+    // A tag record whose skill directory no longer exists.
+    await mkdir(join(process.env.ASM_CONFIG_DIR!, "library"), {
+      recursive: true,
+    });
+    await writeFile(
+      statePath(),
+      JSON.stringify({
+        version: 1,
+        skills: {
+          [join(homedir(), ".claude", "skills", "asm-fwk6-gone")]: {
+            added: ["ghost"],
+            removed: [],
+          },
+        },
+      }),
+    );
+
+    const listed = JSON.parse((await runCLI("tag", "list", "--json")).stdout);
+    expect(listed.missingRecordCount).toBe(1);
+    expect(tagRow(listed, "ghost")).toEqual({
+      tag: "ghost",
+      all: 0,
+      activated: 0,
+      libraryOnly: 0,
+      missing: 1,
+    });
+    expect(listed.tagCount).toBe(1);
+    expect(listed.tagSkillPairCount).toBe(0);
+    expect(listed.taggedSkillCount.all).toBe(0);
+
+    const human = await runCLI("tag", "list");
+    expect(human.stdout).toContain("MISSING counts tag records");
+  });
+
+  test("machine envelope wraps the same inventory data", async () => {
+    await writeSkill("asm-fwk6-machine", "[alpha]");
+
+    const res = await runCLI("tag", "list", "--machine");
+    expect(res.exitCode).toBe(0);
+    const envelope = JSON.parse(res.stdout);
+    expect(envelope.version).toBe(1);
+    expect(envelope.command).toBe("tag list");
+    expect(envelope.status).toBe("ok");
+    expect(Array.isArray(envelope.data.tags)).toBe(true);
+    expect(tagRow(envelope.data, "alpha")?.activated).toBe(1);
+  });
+
+  test("an explicit scope narrows the report to activated skills", async () => {
+    await writeLibrarySkill("asm-fwk6-lib-scope", "[libscope]");
+    await writeSkill("asm-fwk6-global", "[globalscope]");
+
+    const listed = JSON.parse(
+      (await runCLI("tag", "list", "-s", "global", "--json")).stdout,
+    );
+    expect(listed.activatedOnly).toBe(true);
+    expect(tagRow(listed, "globalscope")?.activated).toBe(1);
+    expect(tagRow(listed, "libscope")).toBeUndefined();
+  });
+
+  test("rejects positional arguments", async () => {
+    const res = await runCLI("tag", "list", "bogus");
+    expect(res.exitCode).toBe(2);
+    expect(res.stderr).toContain("Usage: asm tag list");
+  });
+
+  test("prints an actionable message when nothing is tagged", async () => {
+    const res = await runCLI("tag", "list");
+    expect(res.exitCode).toBe(0);
+    expect(res.stdout).toContain("No tags yet.");
+    expect(res.stdout).toContain("asm tag add <skill> <tag>");
+
+    // Structured output keeps the full shape even when empty.
+    const json = JSON.parse((await runCLI("tag", "list", "--json")).stdout);
+    expect(json).toMatchObject({
+      tagCount: 0,
+      tagSkillPairCount: 0,
+      tags: [],
+    });
+  });
+
+  test("--activated counts match `asm list --tag` deduped by realPath", async () => {
+    await writeSkill("asm-fwk6-invariant-a", "[inv]");
+    await writeSkill("asm-fwk6-invariant-b", "[inv]");
+    // A disabled skill is still visible to `asm list` and must be counted.
+    await runCLI("disable", "asm-fwk6-invariant-b", "--json");
+
+    const listed = JSON.parse(
+      (await runCLI("tag", "list", "--activated", "--json")).stdout,
+    );
+    const listedActivated = tagRow(listed, "inv")?.activated;
+
+    const asmList = JSON.parse(
+      (await runCLI("list", "--tag", "inv", "--json")).stdout,
+    );
+    const dedupedByRealPath = new Set(
+      asmList.map((skill: { realPath: string }) => skill.realPath),
+    ).size;
+
+    expect(listedActivated).toBe(dedupedByRealPath);
+    expect(listedActivated).toBe(2);
+  });
+});
